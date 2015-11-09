@@ -1,5 +1,7 @@
 # [Game Backup Monitor] (http://mikemaximus.github.io/gbm-web/)
 
+! [Screenshot] (http://mikemaximus.github.io/gbm-web/images/screens/gbm_ss8.jpg)
+
 Game Backup Monitor is a simple, but flexible application that detects games as you play them.  Once you finish playing a game, a backup of the saved games will be made automatically using 7-Zip compression.  GBM can be used on a single computer, or on multiple computers to effectively add cloud support to any Windows game or application.
 
 **License**: GNU General Public License version 3.0 (GPLv3)<br />
