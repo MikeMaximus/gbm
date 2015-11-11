@@ -9,6 +9,6 @@ Game Backup Monitor is a simple, but flexible application that detects games as 
 **Platform**: Windows Only (.NET 4)
 
 [Game Backup Monitor FAQ] (http://mikemaximus.github.io/gbm-web/faq.html) <br />
-[Game Backup Monitor Manual] (http://mikemaximus.github.io/gbm-web/manual.html)
-
+[Game Backup Monitor Manual] (http://mikemaximus.github.io/gbm-web/manual.html) <br />
+[List of Preconfigured Games] (http://mikemaximus.github.io/gbm-web/GBM_Official.xml) <br /> <br />
 Updates regarding this project are available via the [Game Backup Monitor web site] (http://mikemaximus.github.io/gbm-web/).
