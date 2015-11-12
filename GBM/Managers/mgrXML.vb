@@ -67,7 +67,7 @@ Public Class mgrXML
         Dim xFileWriter As XmlTextWriter
 
         Try
-            xFileWriter = New XmlTextWriter(sLocation, System.Text.Encoding.Unicode)
+            xFileWriter = New XmlTextWriter(sLocation, System.Text.Encoding.UTF8)
             xFileWriter.Formatting = Formatting.Indented
             xFileWriter.WriteStartDocument()
             xFileWriter.WriteComment("GBM Export: " & Date.Now)

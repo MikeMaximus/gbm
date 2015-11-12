@@ -8,9 +8,9 @@ Public Class mgrPath
     Private Shared sDBLocation As String = sSettingsRoot & "\gbm.s3db"
     Private Shared sIncludeFile As String = sSettingsRoot & "\gbm_include.txt"
     Private Shared sExcludeFile As String = sSettingsRoot & "\gbm_exclude.txt"
-    Private Shared sOfficialImportURL As String = "http://backupmonitor.sourceforge.net/GBM_Official.xml"
-    Private Shared sOfficialManualURL As String = "http://backupmonitor.sourceforge.net/manual.php"
-    Private Shared sOfficialUpdatesURL As String = "http://backupmonitor.sourceforge.net/"
+    Private Shared sOfficialImportURL As String = "http://mikemaximus.github.io/gbm-web/GBM_Official.xml"
+    Private Shared sOfficialManualURL As String = "http://mikemaximus.github.io/gbm-web/manual.html"
+    Private Shared sOfficialUpdatesURL As String = "https://github.com/MikeMaximus/gbm/releases"
     Private Shared sRemoteDatabaseLocation As String
     Private Shared hshCustomVariables As Hashtable
     Private Shared oReleaseType As ProcessorArchitecture = AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
