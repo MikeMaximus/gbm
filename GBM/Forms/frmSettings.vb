@@ -53,6 +53,7 @@
         oSettings.CreateSubFolder = chkCreateFolder.Checked
         oSettings.ShowOverwriteWarning = chkOverwriteWarning.Checked
         oSettings.RestoreOnLaunch = chkRestoreOnLaunch.Checked
+        oSettings.TimeTracking = chkTimeTracking.Checked
 
         'We need to clear all checksums its turned off
         If chkCheckSum.Checked = False And oSettings.CheckSum = True Then
@@ -102,6 +103,7 @@
         txtBackupFolder.Text = oSettings.BackupFolder
         chkSync.Checked = oSettings.Sync
         chkCheckSum.Checked = oSettings.CheckSum
+        chkTimeTracking.Checked = oSettings.TimeTracking
     End Sub
 
     Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click

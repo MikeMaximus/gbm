@@ -71,7 +71,7 @@ Public Class mgrSQLite
             'Add Tables (Settings)
             sSql = "CREATE TABLE settings (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, " & _
                    "DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, " & _
-                   "BackupFolder TEXT NOT NULL, Sync BOOLEAN NOT NULL, CheckSum BOOLEAN NOT NULL, StartWithWindows BOOLEAN NOT NULL);"
+                   "BackupFolder TEXT NOT NULL, Sync BOOLEAN NOT NULL, CheckSum BOOLEAN NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL);"
 
             'Add Tables (Monitor List)
             sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " & _
@@ -406,6 +406,28 @@ Public Class mgrSQLite
                 UpgradeToUnixTime("manifest", "DateUpdated", "ManifestID")
 
                 sSQL = "PRAGMA user_version=93"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '0.94 Upgrade
+        If GetDatabaseVersion() < 94 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v93")
+
+                'Add new setting
+                sSQL = "ALTER TABLE settings ADD COLUMN TimeTracking BOOLEAN NOT NULL DEFAULT 1;"
+                sSQL &= "PRAGMA user_version=94"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v93")
+
+                sSQL = "PRAGMA user_version=94"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If

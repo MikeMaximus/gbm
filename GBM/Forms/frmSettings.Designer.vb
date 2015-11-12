@@ -25,6 +25,7 @@ Partial Class frmSettings
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
         Me.chkBackupConfirm = New System.Windows.Forms.CheckBox()
         Me.grpGeneral = New System.Windows.Forms.GroupBox()
+        Me.chkTimeTracking = New System.Windows.Forms.CheckBox()
         Me.chkStartWindows = New System.Windows.Forms.CheckBox()
         Me.chkSync = New System.Windows.Forms.CheckBox()
         Me.chkShowDetectionTips = New System.Windows.Forms.CheckBox()
@@ -68,6 +69,7 @@ Partial Class frmSettings
         '
         'grpGeneral
         '
+        Me.grpGeneral.Controls.Add(Me.chkTimeTracking)
         Me.grpGeneral.Controls.Add(Me.chkStartWindows)
         Me.grpGeneral.Controls.Add(Me.chkSync)
         Me.grpGeneral.Controls.Add(Me.chkShowDetectionTips)
@@ -75,10 +77,20 @@ Partial Class frmSettings
         Me.grpGeneral.Controls.Add(Me.chkMonitorOnStartup)
         Me.grpGeneral.Location = New System.Drawing.Point(12, 12)
         Me.grpGeneral.Name = "grpGeneral"
-        Me.grpGeneral.Size = New System.Drawing.Size(360, 145)
+        Me.grpGeneral.Size = New System.Drawing.Size(360, 165)
         Me.grpGeneral.TabIndex = 0
         Me.grpGeneral.TabStop = False
         Me.grpGeneral.Text = "General"
+        '
+        'chkTimeTracking
+        '
+        Me.chkTimeTracking.AutoSize = True
+        Me.chkTimeTracking.Location = New System.Drawing.Point(6, 111)
+        Me.chkTimeTracking.Name = "chkTimeTracking"
+        Me.chkTimeTracking.Size = New System.Drawing.Size(122, 17)
+        Me.chkTimeTracking.TabIndex = 5
+        Me.chkTimeTracking.Text = "Enable time tracking"
+        Me.chkTimeTracking.UseVisualStyleBackColor = True
         '
         'chkStartWindows
         '
@@ -93,7 +105,7 @@ Partial Class frmSettings
         'chkSync
         '
         Me.chkSync.AutoSize = True
-        Me.chkSync.Location = New System.Drawing.Point(6, 111)
+        Me.chkSync.Location = New System.Drawing.Point(6, 134)
         Me.chkSync.Name = "chkSync"
         Me.chkSync.Size = New System.Drawing.Size(208, 17)
         Me.chkSync.TabIndex = 4
@@ -125,7 +137,7 @@ Partial Class frmSettings
         Me.grpPaths.Controls.Add(Me.btnBackupFolder)
         Me.grpPaths.Controls.Add(Me.lblBackupFolder)
         Me.grpPaths.Controls.Add(Me.txtBackupFolder)
-        Me.grpPaths.Location = New System.Drawing.Point(12, 311)
+        Me.grpPaths.Location = New System.Drawing.Point(12, 331)
         Me.grpPaths.Name = "grpPaths"
         Me.grpPaths.Size = New System.Drawing.Size(360, 60)
         Me.grpPaths.TabIndex = 2
@@ -160,7 +172,7 @@ Partial Class frmSettings
         'btnSave
         '
         Me.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnSave.Location = New System.Drawing.Point(216, 377)
+        Me.btnSave.Location = New System.Drawing.Point(216, 397)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
         Me.btnSave.TabIndex = 3
@@ -170,7 +182,7 @@ Partial Class frmSettings
         'btnCancel
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(297, 377)
+        Me.btnCancel.Location = New System.Drawing.Point(297, 397)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 4
@@ -184,7 +196,7 @@ Partial Class frmSettings
         Me.grpBackup.Controls.Add(Me.chkOverwriteWarning)
         Me.grpBackup.Controls.Add(Me.chkCreateFolder)
         Me.grpBackup.Controls.Add(Me.chkBackupConfirm)
-        Me.grpBackup.Location = New System.Drawing.Point(12, 163)
+        Me.grpBackup.Location = New System.Drawing.Point(12, 183)
         Me.grpBackup.Name = "grpBackup"
         Me.grpBackup.Size = New System.Drawing.Size(360, 142)
         Me.grpBackup.TabIndex = 1
@@ -235,7 +247,7 @@ Partial Class frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(384, 412)
+        Me.ClientSize = New System.Drawing.Size(384, 431)
         Me.Controls.Add(Me.grpBackup)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
@@ -277,4 +289,5 @@ Partial Class frmSettings
     Friend WithEvents chkSync As System.Windows.Forms.CheckBox
     Friend WithEvents chkCheckSum As System.Windows.Forms.CheckBox
     Friend WithEvents chkStartWindows As System.Windows.Forms.CheckBox
+    Friend WithEvents chkTimeTracking As System.Windows.Forms.CheckBox
 End Class

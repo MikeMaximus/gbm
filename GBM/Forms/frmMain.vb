@@ -367,8 +367,10 @@ Public Class frmMain
             lblGameTitle.Text = "Last Game: " & oProcess.GameInfo.CroppedName
             pbIcon.Image = oPriorImage
             txtGameInfo.Text = sPriorDetails
-            lblTimeTitle.Visible = True
-            lblTimeSpent.Visible = True
+            If oSettings.TimeTracking Then
+                lblTimeTitle.Visible = True
+                lblTimeSpent.Visible = True
+            End If
         Else
             pbIcon.Image = My.Resources.Searching
             lblGameTitle.Text = "No Game Detected"
@@ -451,7 +453,7 @@ Public Class frmMain
             End If
 
             'Do Time Update
-            UpdateTimeSpent(oProcess.GameInfo.Hours, 0)
+            If oSettings.TimeTracking Then UpdateTimeSpent(oProcess.GameInfo.Hours, 0)
 
             'Set Details
             If sFileName = String.Empty Then
@@ -701,6 +703,13 @@ Public Class frmMain
         'Check for utilities
         If Not oBackup.CheckForUtilities(mgrPath.Utility7zLocation) Then
             UpdateLog("The correct version of 7-Zip was not found! Please re-install GBM, you may experience an application crash if a backup or restore is performed.", True, ToolTipIcon.Error)
+        End If
+
+        'Verify the "Start with Windows" setting
+        If oSettings.StartWithWindows Then
+            If Not VerifyStartWithWindows() Then
+                UpdateLog("GBM is running from a new location, the Windows startup entry has been updated.", True, ToolTipIcon.Info)
+            End If
         End If
 
     End Sub
@@ -1047,6 +1056,27 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Function VerifyStartWithWindows() As Boolean   
+        Dim oKey As Microsoft.Win32.RegistryKey
+        Dim sAppName As String = Application.ProductName
+        Dim sAppPath As String = Application.ExecutablePath
+        Dim sRegPath As String
+
+        oKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True)
+        sRegPath = oKey.GetValue(sAppName, String.Empty).ToString.Replace("""", "")
+        oKey.Close()
+
+        If sAppPath.ToLower <> sRegPath.ToLower Then
+            oKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True)
+            oKey.SetValue(sAppName, """" & sAppPath & """")
+            oKey.Close()
+            Return False
+        Else
+            Return True
+        End If
+
+    End Function
+
     Private Sub CheckForSavedDuplicate()
         For Each o As clsGame In oProcess.DuplicateList
             If o.ProcessPath.ToLower = oProcess.GameInfo.ProcessPath.ToLower Then
@@ -1337,7 +1367,7 @@ Public Class frmMain
         If Not bCancelledByUser Then
             DoMultiGameCheck()
             UpdateLog(oProcess.GameInfo.Name & " has ended.", False)
-            HandleTimeSpent()
+            If oSettings.TimeTracking Then HandleTimeSpent()
             RunBackup()
         End If
         bCancelledByUser = False

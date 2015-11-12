@@ -11,6 +11,7 @@ Public Class mgrSettings
     Private bRestoreOnLaunch As Boolean = False
     Private bSync As Boolean = True
     Private bCheckSum As Boolean = True
+    Private bTimeTracking As Boolean = True
     Private sBackupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).TrimEnd(New Char() {"\", "/"})
 
     Property StartWithWindows As Boolean
@@ -103,6 +104,15 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Property TimeTracking As Boolean
+        Get
+            Return bTimeTracking
+        End Get
+        Set(value As Boolean)
+            bTimeTracking = value
+        End Set
+    End Property
+
     Property BackupFolder As String
         Get
             Return sBackupFolder
@@ -121,7 +131,7 @@ Public Class mgrSettings
         oDatabase.RunParamQuery(sSQL, New Hashtable)
 
         sSQL = "INSERT INTO settings VALUES (1, @MonitorOnStartup, @StartToTray, @ShowDetectionToolTips, @DisableConfirmation, "
-        sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @Sync, @CheckSum, @StartWithWindows)"
+        sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @Sync, @CheckSum, @StartWithWindows, @TimeTracking)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -134,6 +144,7 @@ Public Class mgrSettings
         hshParams.Add("Sync", Sync)
         hshParams.Add("CheckSum", CheckSum)
         hshParams.Add("StartWithWindows", StartWithWindows)
+        hshParams.Add("TimeTracking", TimeTracking)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -160,6 +171,7 @@ Public Class mgrSettings
             Sync = CBool(dr(9))
             CheckSum = CBool(dr(10))
             StartWithWindows = CBool(dr(11))
+            TimeTracking = CBool(dr(12))
         Next
 
         oDatabase.Disconnect()

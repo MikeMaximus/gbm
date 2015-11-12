@@ -29,8 +29,7 @@ Public Class mgrXML
                     oGame.AbsolutePath = xFileReader.ReadElementString("absolutepath")
                     oGame.Path = xFileReader.ReadElementString("savelocation")
                     oGame.FolderSave = xFileReader.ReadElementString("foldersave")
-                    oGame.FileType = xFileReader.ReadElementString("filetype")
-                    oGame.AppendTimeStamp = xFileReader.ReadElementString("appendtimestamp")
+                    oGame.FileType = xFileReader.ReadElementString("filetype")                    
                     oGame.ExcludeList = xFileReader.ReadElementString("excludelist")
 
                     If hshList.Contains(oGame.ProcessName) Or hshDupeList.Contains(oGame.ProcessName) Then
@@ -80,8 +79,7 @@ Public Class mgrXML
                 xFileWriter.WriteElementString("absolutepath", o.AbsolutePath)
                 xFileWriter.WriteElementString("savelocation", o.TruePath)
                 xFileWriter.WriteElementString("foldersave", o.FolderSave)
-                xFileWriter.WriteElementString("filetype", o.FileType)
-                xFileWriter.WriteElementString("appendtimestamp", o.AppendTimeStamp)
+                xFileWriter.WriteElementString("filetype", o.FileType)                
                 xFileWriter.WriteElementString("excludelist", o.ExcludeList)
                 xFileWriter.WriteEndElement()
             Next
