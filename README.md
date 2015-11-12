@@ -1,12 +1,14 @@
-# Game Backup Monitor
+# [Game Backup Monitor] (http://mikemaximus.github.io/gbm-web/)
 
-<b>Important Notice:</b>  This project is currently in the process of being transferred from Sourceforge.  Releases and documentation will be available soon,  for now the latest release and documentation for this project are available at http://backupmonitor.sourceforge.net.
+![Screenshot] (http://mikemaximus.github.io/gbm-web/images/gh_screenshot.jpg)
 
-Game Backup Monitor is a Windows system tray application that automatically detects games as you play them. When you're finished playing, a compressed backup of the save data will be automatically created in a location you've specified, such as a cloud folder, network folder or external drive.
+Game Backup Monitor is a simple, but flexible application that detects games as you play them.  Once you finish playing a game, a backup of the saved games will be made automatically using 7-Zip compression.  GBM can be used on a single computer, or on multiple computers to effectively add cloud support to any Windows game or application.
 
-If you use Game Backup Monitor on multiple computers and share the same backup folder, you can effectively add cloud support to any game or application. GBM can notify you of new files to be restored when you move to each computer.
+**License**: GNU General Public License version 3.0 (GPLv3)<br />
+**Language**: English Only<br />
+**Platform**: Windows Only (.NET 4)
 
-Game Backup Monitor was designed with classic DRM-free gaming in mind, but it can be used to monitor any application on your PC!
-
-Game Backup Monitor is currently only available in English.
-
+[Game Backup Monitor FAQ] (http://mikemaximus.github.io/gbm-web/faq.html) <br />
+[Game Backup Monitor Manual] (http://mikemaximus.github.io/gbm-web/manual.html) <br />
+[List of Preconfigured Games] (http://mikemaximus.github.io/gbm-web/GBM_Official.xml) <br /> <br />
+Updates regarding this project are available via the [Game Backup Monitor web site] (http://mikemaximus.github.io/gbm-web/).
