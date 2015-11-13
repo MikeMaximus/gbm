@@ -173,11 +173,11 @@ Public Class mgrBackup
                         prs7z.StartInfo.RedirectStandardOutput = True
                         prs7z.StartInfo.CreateNoWindow = True
                         prs7z.Start()
-                        RaiseEvent UpdateLog("Backup of " & sSavePath & " in progress...", True, ToolTipIcon.Info, True)
+                        RaiseEvent UpdateLog("Backup of " & sSavePath & " in progress...", False, ToolTipIcon.Info, True)
                         While Not prs7z.StandardOutput.EndOfStream
                             If CancelOperation Then
                                 prs7z.Kill()
-                                RaiseEvent UpdateLog("Backup Aborted by user.  The backup file for " & oGame.Name & " will be unusable.", False, ToolTipIcon.Error, True)
+                                RaiseEvent UpdateLog("Backup Aborted.  The backup file for " & oGame.Name & " will be unusable.", True, ToolTipIcon.Error, True)
                                 Exit While
                             End If
                             RaiseEvent UpdateLog(prs7z.StandardOutput.ReadLine, False, ToolTipIcon.Info, False)
@@ -188,13 +188,13 @@ Public Class mgrBackup
                                 RaiseEvent UpdateLog(oGame.Name & " backup completed.", False, ToolTipIcon.Info, True)
                                 bBackupCompleted = True
                             Else
-                                RaiseEvent UpdateLog(oGame.Name & " backup operation finished with warnings or errors.", False, ToolTipIcon.Error, True)
+                                RaiseEvent UpdateLog(oGame.Name & " backup finished with warnings or errors.", True, ToolTipIcon.Warning, True)
                                 bBackupCompleted = False
                             End If
                         End If
                         prs7z.Dispose()
                     Else
-                        RaiseEvent UpdateLog("Backup Aborted.  The path " & sSavePath & " for " & oGame.Name & " does not exist.", False, ToolTipIcon.Error, True)
+                        RaiseEvent UpdateLog("Backup Aborted.  The saved game path for " & oGame.Name & " does not exist.", True, ToolTipIcon.Error, True)
                         bBackupCompleted = False
                     End If
 
@@ -206,7 +206,7 @@ Public Class mgrBackup
                         End If
 
                         If Not DoManifestUpdate(oGame, sBackupFile, dTimeStamp, sHash) Then
-                            RaiseEvent UpdateLog("The manifest update for " & oGame.Name & " failed.", False, ToolTipIcon.Error, True)
+                            RaiseEvent UpdateLog("The manifest update for " & oGame.Name & " failed.", True, ToolTipIcon.Error, True)
                         End If
 
                         'Write the process path if we have it
@@ -215,7 +215,7 @@ Public Class mgrBackup
                         End If
                     End If
                 Catch ex As Exception
-                    RaiseEvent UpdateLog("An unexpected error occured during the backup process of " & oGame.Name & vbCrLf & ex.Message, False, ToolTipIcon.Error, True)
+                    RaiseEvent UpdateLog("An unexpected error occured during the backup of " & oGame.Name & vbCrLf & ex.Message, False, ToolTipIcon.Error, True)
                 End Try
             End If
 

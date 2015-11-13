@@ -208,11 +208,11 @@ Public Class mgrRestore
                         prs7z.StartInfo.RedirectStandardOutput = True
                         prs7z.StartInfo.CreateNoWindow = True
                         prs7z.Start()
-                        RaiseEvent UpdateLog("Restore to " & sExtractPath & " in progress...", True, ToolTipIcon.Info, True)
+                        RaiseEvent UpdateLog("Restore to " & sExtractPath & " in progress...", False, ToolTipIcon.Info, True)
                         While Not prs7z.StandardOutput.EndOfStream
                             If CancelOperation Then
                                 prs7z.Kill()
-                                RaiseEvent UpdateLog("Restored Aborted by user.  The save games for " & oBackupInfo.Name & " will be damaged or invalid.", False, ToolTipIcon.Error, True)
+                                RaiseEvent UpdateLog("Restored Aborted.  The saved games for " & oBackupInfo.Name & " may now be invalid.", True, ToolTipIcon.Error, True)
                                 Exit While
                             End If
                             RaiseEvent UpdateLog(prs7z.StandardOutput.ReadLine, False, ToolTipIcon.Info, False)
@@ -220,16 +220,16 @@ Public Class mgrRestore
                         prs7z.WaitForExit()
                         If Not CancelOperation Then
                             If prs7z.ExitCode = 0 Then
-                                RaiseEvent UpdateLog(oBackupInfo.Name & " backup restored.", True, ToolTipIcon.Info, True)
+                                RaiseEvent UpdateLog(oBackupInfo.Name & " backup restored.", False, ToolTipIcon.Info, True)
                                 bRestoreCompleted = True
                             Else
-                                RaiseEvent UpdateLog(oBackupInfo.Name & " restore operation finished with warnings or errors.", False, ToolTipIcon.Info, True)
+                                RaiseEvent UpdateLog(oBackupInfo.Name & " restore finished with warnings or errors.", True, ToolTipIcon.Warning, True)
                                 bRestoreCompleted = False
                             End If
                         End If
                         prs7z.Dispose()
                     Else
-                        RaiseEvent UpdateLog("Restore Aborted.  The backup file could not be found.  Ensure the backup location is available.", False, ToolTipIcon.Error, True)
+                        RaiseEvent UpdateLog("Restore Aborted.  The backup file could not be found.", True, ToolTipIcon.Error, True)
                     End If
 
                     If bRestoreCompleted Then

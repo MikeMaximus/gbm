@@ -599,7 +599,7 @@ Public Class frmMain
         frm.Settings = oSettings
         PauseScan()
         frm.ShowDialog()
-        LoadSettings()
+        LoadAndVerify()
         bFirstRun = False
         ResumeScan()
     End Sub
@@ -670,7 +670,14 @@ Public Class frmMain
         oRemoteDatabase.DatabaseUpgrade()
     End Sub
 
-    Private Sub LoadSettings()
+    Private Sub LoadAndVerify()
+
+        'The application cannot continue if this fails
+        If Not oBackup.CheckForUtilities(mgrPath.Utility7zLocation) Then
+            MsgBox("7-Zip was not found in the Game Backup Monitor utilities folder.  The application cannot continue.", MsgBoxStyle.Critical, "Game Backup Monitor")
+            bShutdown = True
+            Me.Close()
+        End If
 
         'Local Database Check
         VerifyDBVersion(mgrSQLite.Database.Local)
@@ -700,15 +707,10 @@ Public Class frmMain
         'Load Game Settings
         LoadGameSettings()
 
-        'Check for utilities
-        If Not oBackup.CheckForUtilities(mgrPath.Utility7zLocation) Then
-            UpdateLog("The correct version of 7-Zip was not found! Please re-install GBM, you may experience an application crash if a backup or restore is performed.", True, ToolTipIcon.Error)
-        End If
-
         'Verify the "Start with Windows" setting
         If oSettings.StartWithWindows Then
             If Not VerifyStartWithWindows() Then
-                UpdateLog("GBM is running from a new location, the Windows startup entry has been updated.", True, ToolTipIcon.Info)
+                UpdateLog("GBM is running from a new location, the Windows startup entry has been updated.", False, ToolTipIcon.Info)
             End If
         End If
 
@@ -1376,7 +1378,7 @@ Public Class frmMain
     Private Sub Main_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         SetForm()
         VerifyGameDataPath()
-        LoadSettings()
+        LoadAndVerify()
         VerifyCustomPathVariables()
 
         If oSettings.StartToTray Then
