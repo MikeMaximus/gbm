@@ -540,6 +540,11 @@ Public Class frmMain
                "See gpl-3.0.html in the program folder for details.", MsgBoxStyle.Information, "Game Backup Monitor")
     End Sub
 
+    Private Sub OpenTags()
+        Dim frm As New frmTags
+        frm.ShowDialog()
+    End Sub
+
     Private Sub OpenGameManager(Optional ByVal bPendingRestores As Boolean = False)
         Dim frm As New frmGameManager
         PauseScan()
@@ -1215,6 +1220,10 @@ Public Class frmMain
 
     Private Sub SetupCustomVariables_Click(sender As Object, e As EventArgs) Handles gMonSetupCustomVariables.Click, gMonTraySetupCustomVariables.Click
         OpenCustomVariables()
+    End Sub
+
+    Private Sub gMonSetupTags_Click(sender As Object, e As EventArgs) Handles gMonSetupTags.Click, gMonTraySetupTags.Click
+        OpenTags()
     End Sub
 
     Private Sub gMonHelpAbout_Click(sender As Object, e As EventArgs) Handles gMonHelpAbout.Click

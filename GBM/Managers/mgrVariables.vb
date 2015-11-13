@@ -1,6 +1,4 @@
-﻿Imports System.IO
-
-Public Class mgrVariables
+﻿Public Class mgrVariables
 
     Public Shared Sub DoPathUpdate(ByVal sOld As String, ByVal sNew As String)
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)

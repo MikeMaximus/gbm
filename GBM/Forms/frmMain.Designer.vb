@@ -80,6 +80,8 @@ Partial Class frmMain
         Me.lblTimeSpent = New System.Windows.Forms.Label()
         Me.txtGameInfo = New System.Windows.Forms.TextBox()
         Me.btnCancelOperation = New System.Windows.Forms.Button()
+        Me.gMonSetupTags = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTraySetupTags = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayMenu.SuspendLayout()
         Me.gMonStatusStrip.SuspendLayout()
         Me.gMonMainMenu.SuspendLayout()
@@ -126,7 +128,7 @@ Partial Class frmMain
         '
         'gMonTraySetup
         '
-        Me.gMonTraySetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTraySetupAddWizard, Me.gMonTraySetupGameManager, Me.gMonTraySetupCustomVariables})
+        Me.gMonTraySetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTraySetupAddWizard, Me.gMonTraySetupGameManager, Me.gMonTraySetupCustomVariables, Me.gMonTraySetupTags})
         Me.gMonTraySetup.Name = "gMonTraySetup"
         Me.gMonTraySetup.Size = New System.Drawing.Size(161, 22)
         Me.gMonTraySetup.Text = "&Setup"
@@ -309,7 +311,7 @@ Partial Class frmMain
         '
         'gMonSetup
         '
-        Me.gMonSetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonSetupGameManager, Me.gMonSetupAddWizard, Me.gMonSetupCustomVariables})
+        Me.gMonSetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonSetupGameManager, Me.gMonSetupAddWizard, Me.gMonSetupCustomVariables, Me.gMonSetupTags})
         Me.gMonSetup.Name = "gMonSetup"
         Me.gMonSetup.Size = New System.Drawing.Size(49, 20)
         Me.gMonSetup.Text = "&Setup"
@@ -489,6 +491,18 @@ Partial Class frmMain
         Me.btnCancelOperation.Text = "&Cancel"
         Me.btnCancelOperation.UseVisualStyleBackColor = True
         '
+        'gMonSetupTags
+        '
+        Me.gMonSetupTags.Name = "gMonSetupTags"
+        Me.gMonSetupTags.Size = New System.Drawing.Size(201, 22)
+        Me.gMonSetupTags.Text = "&Tags..."
+        '
+        'gMonTraySetupTags
+        '
+        Me.gMonTraySetupTags.Name = "gMonTraySetupTags"
+        Me.gMonTraySetupTags.Size = New System.Drawing.Size(201, 22)
+        Me.gMonTraySetupTags.Text = "&Tags"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -582,4 +596,6 @@ Partial Class frmMain
     Friend WithEvents gMonHelpCheckforUpdates As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents btnCancelOperation As System.Windows.Forms.Button
     Friend WithEvents gMonStripAdminButton As ToolStripSplitButton
+    Friend WithEvents gMonTraySetupTags As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents gMonSetupTags As System.Windows.Forms.ToolStripMenuItem
 End Class

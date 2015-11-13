@@ -113,9 +113,11 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\clsGameTag.vb" />
     <Compile Include="Classes\clsPathVariable.vb" />
     <Compile Include="Classes\clsBackup.vb" />
     <Compile Include="Classes\clsGame.vb" />
+    <Compile Include="Classes\clsTag.vb" />
     <Compile Include="Forms\frmAdvancedImport.Designer.vb">
       <DependentUpon>frmAdvancedImport.vb</DependentUpon>
     </Compile>
@@ -132,6 +134,12 @@
       <DependentUpon>frmFileFolderSearch.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmFileFolderSearch.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmGameTags.Designer.vb">
+      <DependentUpon>frmGameTags.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmGameTags.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmStartUpWizard.Designer.vb">
@@ -165,6 +173,12 @@
       <DependentUpon>frmMain.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmTags.Designer.vb">
+      <DependentUpon>frmTags.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmTags.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmVariableManager.Designer.vb">
       <DependentUpon>frmVariableManager.vb</DependentUpon>
     </Compile>
@@ -172,6 +186,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Managers\mgrCommon.vb" />
+    <Compile Include="Managers\mgrGameTags.vb" />
     <Compile Include="Managers\mgrHash.vb" />
     <Compile Include="Managers\mgrManifest.vb" />
     <Compile Include="Managers\mgrMonitorList.vb" />
@@ -180,6 +195,7 @@
     <Compile Include="Managers\mgrSettings.vb" />
     <Compile Include="Managers\mgrBackup.vb" />
     <Compile Include="Managers\mgrSQLite.vb" />
+    <Compile Include="Managers\mgrTags.vb" />
     <Compile Include="Managers\mgrVariables.vb" />
     <Compile Include="Managers\mgrXML.vb" />
     <Compile Include="Managers\mgrProcesses.vb" />
@@ -209,6 +225,9 @@
     <EmbeddedResource Include="Forms\frmFileFolderSearch.resx">
       <DependentUpon>frmFileFolderSearch.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmGameTags.resx">
+      <DependentUpon>frmGameTags.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmStartUpWizard.resx">
       <DependentUpon>frmStartUpWizard.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -225,6 +244,9 @@
     <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmTags.resx">
+      <DependentUpon>frmTags.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmVariableManager.resx">
       <DependentUpon>frmVariableManager.vb</DependentUpon>

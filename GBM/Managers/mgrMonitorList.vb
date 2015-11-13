@@ -403,8 +403,10 @@ Public Class mgrMonitorList
         Dim sSQL As String
         Dim hshParams As New Hashtable
 
-        sSQL = "DELETE FROM monitorlist "
-        sSQL &= "WHERE MonitorID = @MonitorID"
+        sSQL = "DELETE FROM gametags "
+        sSQL &= "WHERE MonitorID = @MonitorID;"
+        sSQL &= "DELETE FROM monitorlist "
+        sSQL &= "WHERE MonitorID = @MonitorID;"
 
         hshParams.Add("MonitorID", sMonitorID)
 
@@ -418,7 +420,7 @@ Public Class mgrMonitorList
         Dim hshParams As New Hashtable
         Dim iCounter As Integer
 
-        sSQL = "DELETE FROM monitorlist "
+        sSQL = "DELETE FROM gametags "
         sSQL &= "WHERE MonitorID IN ("
 
         For Each s As String In sMonitorIDs
@@ -428,7 +430,19 @@ Public Class mgrMonitorList
         Next
 
         sSQL = sSQL.TrimEnd(",")
-        sSQL &= ")"
+        sSQL &= ");"
+
+        sSQL &= "DELETE FROM monitorlist "
+        sSQL &= "WHERE MonitorID IN ("
+
+        For Each s As String In sMonitorIDs
+            sSQL &= "@MonitorID" & iCounter & ","
+            hshParams.Add("MonitorID" & iCounter, s)
+            iCounter += 1
+        Next
+
+        sSQL = sSQL.TrimEnd(",")
+        sSQL &= ");"
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub

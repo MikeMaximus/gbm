@@ -79,6 +79,12 @@ Public Class mgrSQLite
                    "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " & _
                    "PRIMARY KEY(Name, Process));"
 
+            'Add Tables (Tags)
+            sSql &= "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
+
+            'Add Tables (Game Tags)
+            sSql &= "CREATE TABLE gametags (TagID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(TagID, MonitorID)); "
+
             'Add Tables (Variables)
             sSql &= "CREATE TABLE variables (VariableID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
 
@@ -113,6 +119,12 @@ Public Class mgrSQLite
             'Add Tables (Remote Manifest)
             sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, " & _
                    "AbsolutePath BOOLEAN NOT NULL, DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+
+            'Add Tables (Remote Tags)
+            sSql &= "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
+
+            'Add Tables (Remote Game Tags)
+            sSql &= "CREATE TABLE gametags (TagID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(TagID, MonitorID)); "
 
             'Set Version
             sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
@@ -169,6 +181,32 @@ Public Class mgrSQLite
 
         Try    
             command.ExecuteNonQuery()
+            trans.Commit()
+        Catch e As Exception
+            trans.Rollback()
+            MsgBox("An error has occured attempting run the query." & vbCrLf & vbCrLf & sSQL & vbCrLf & vbCrLf & e.Message)
+            Return False
+        Finally
+            command.Dispose()
+            Disconnect()
+        End Try
+
+        Return True
+    End Function
+
+    Public Function RunMassParamQuery(ByVal sSQL As String, ByVal oParamList As List(Of Hashtable)) As Boolean
+        Dim trans As SQLiteTransaction
+        Dim command As SQLiteCommand
+
+        Connect()
+        command = New SQLiteCommand(sSQL, db)
+        trans = db.BeginTransaction()
+
+        Try
+            For Each hshParams In oParamList
+                BuildParams(command, hshParams)
+                command.ExecuteNonQuery()
+            Next
             trans.Commit()
         Catch e As Exception
             trans.Rollback()
@@ -417,8 +455,13 @@ Public Class mgrSQLite
                 'Backup DB before starting
                 BackupDB("v93")
 
+                'Add Tags Tables
+                sSQL = "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
+                sSQL &= "CREATE TABLE gametags (TagID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(TagID, MonitorID)); "
+
                 'Add new setting
-                sSQL = "ALTER TABLE settings ADD COLUMN TimeTracking BOOLEAN NOT NULL DEFAULT 1;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN TimeTracking BOOLEAN NOT NULL DEFAULT 1;"
+
                 sSQL &= "PRAGMA user_version=94"
 
                 RunParamQuery(sSQL, New Hashtable)
@@ -427,7 +470,11 @@ Public Class mgrSQLite
                 'Backup DB before starting
                 BackupDB("v93")
 
-                sSQL = "PRAGMA user_version=94"
+                'Add Tags Tables
+                sSQL = "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
+                sSQL &= "CREATE TABLE gametags (TagID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(TagID, MonitorID)); "
+
+                sSQL &= "PRAGMA user_version=94"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If

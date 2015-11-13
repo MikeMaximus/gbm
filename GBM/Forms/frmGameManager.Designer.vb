@@ -44,6 +44,8 @@ Partial Class frmGameManager
         Me.txtName = New System.Windows.Forms.TextBox()
         Me.chkMonitorOnly = New System.Windows.Forms.CheckBox()
         Me.grpExtra = New System.Windows.Forms.GroupBox()
+        Me.lblTags = New System.Windows.Forms.Label()
+        Me.btnTags = New System.Windows.Forms.Button()
         Me.btnIconBrowse = New System.Windows.Forms.Button()
         Me.txtIcon = New System.Windows.Forms.TextBox()
         Me.lblVersion = New System.Windows.Forms.Label()
@@ -90,7 +92,7 @@ Partial Class frmGameManager
         '
         Me.btnAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAdd.Location = New System.Drawing.Point(12, 528)
+        Me.btnAdd.Location = New System.Drawing.Point(12, 527)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(30, 23)
         Me.btnAdd.TabIndex = 2
@@ -101,7 +103,7 @@ Partial Class frmGameManager
         '
         Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnDelete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDelete.Location = New System.Drawing.Point(48, 528)
+        Me.btnDelete.Location = New System.Drawing.Point(48, 527)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(30, 23)
         Me.btnDelete.TabIndex = 3
@@ -111,7 +113,7 @@ Partial Class frmGameManager
         'btnBackup
         '
         Me.btnBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnBackup.Location = New System.Drawing.Point(616, 527)
+        Me.btnBackup.Location = New System.Drawing.Point(616, 526)
         Me.btnBackup.Name = "btnBackup"
         Me.btnBackup.Size = New System.Drawing.Size(75, 23)
         Me.btnBackup.TabIndex = 13
@@ -121,7 +123,7 @@ Partial Class frmGameManager
         'btnClose
         '
         Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnClose.Location = New System.Drawing.Point(697, 527)
+        Me.btnClose.Location = New System.Drawing.Point(697, 526)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
         Me.btnClose.TabIndex = 14
@@ -295,6 +297,7 @@ Partial Class frmGameManager
         'grpExtra
         '
         Me.grpExtra.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpExtra.Controls.Add(Me.lblTags)
         Me.grpExtra.Controls.Add(Me.btnIconBrowse)
         Me.grpExtra.Controls.Add(Me.txtIcon)
         Me.grpExtra.Controls.Add(Me.lblVersion)
@@ -313,7 +316,27 @@ Partial Class frmGameManager
         Me.grpExtra.Size = New System.Drawing.Size(534, 155)
         Me.grpExtra.TabIndex = 5
         Me.grpExtra.TabStop = False
-        Me.grpExtra.Text = "Extra Information"
+        Me.grpExtra.Text = "Game Information"
+        '
+        'lblTags
+        '
+        Me.lblTags.AutoEllipsis = True
+        Me.lblTags.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTags.Location = New System.Drawing.Point(163, 124)
+        Me.lblTags.Name = "lblTags"
+        Me.lblTags.Size = New System.Drawing.Size(311, 20)
+        Me.lblTags.TabIndex = 0
+        Me.lblTags.Text = "#Tags"
+        Me.lblTags.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'btnTags
+        '
+        Me.btnTags.Location = New System.Drawing.Point(535, 360)
+        Me.btnTags.Name = "btnTags"
+        Me.btnTags.Size = New System.Drawing.Size(75, 23)
+        Me.btnTags.TabIndex = 22
+        Me.btnTags.Text = "Tags..."
+        Me.btnTags.UseVisualStyleBackColor = True
         '
         'btnIconBrowse
         '
@@ -543,7 +566,7 @@ Partial Class frmGameManager
         'btnMarkAsRestored
         '
         Me.btnMarkAsRestored.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnMarkAsRestored.Location = New System.Drawing.Point(429, 527)
+        Me.btnMarkAsRestored.Location = New System.Drawing.Point(429, 526)
         Me.btnMarkAsRestored.Name = "btnMarkAsRestored"
         Me.btnMarkAsRestored.Size = New System.Drawing.Size(100, 23)
         Me.btnMarkAsRestored.TabIndex = 11
@@ -553,7 +576,7 @@ Partial Class frmGameManager
         'btnRestore
         '
         Me.btnRestore.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnRestore.Location = New System.Drawing.Point(535, 527)
+        Me.btnRestore.Location = New System.Drawing.Point(535, 526)
         Me.btnRestore.Name = "btnRestore"
         Me.btnRestore.Size = New System.Drawing.Size(75, 23)
         Me.btnRestore.TabIndex = 12
@@ -563,7 +586,7 @@ Partial Class frmGameManager
         'btnSave
         '
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSave.Location = New System.Drawing.Point(616, 361)
+        Me.btnSave.Location = New System.Drawing.Point(616, 360)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
         Me.btnSave.TabIndex = 8
@@ -583,7 +606,7 @@ Partial Class frmGameManager
         'btnCancel
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancel.Location = New System.Drawing.Point(697, 361)
+        Me.btnCancel.Location = New System.Drawing.Point(697, 360)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 9
@@ -649,8 +672,9 @@ Partial Class frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(784, 562)
+        Me.ClientSize = New System.Drawing.Size(784, 561)
         Me.Controls.Add(Me.grpFilter)
+        Me.Controls.Add(Me.btnTags)
         Me.Controls.Add(Me.chkEnabled)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.chkMonitorOnly)
@@ -742,4 +766,6 @@ Partial Class frmGameManager
     Friend WithEvents optAllGames As System.Windows.Forms.RadioButton
     Friend WithEvents optBackupData As System.Windows.Forms.RadioButton
     Friend WithEvents btnOpenRestorePath As System.Windows.Forms.Button
+    Friend WithEvents btnTags As System.Windows.Forms.Button
+    Friend WithEvents lblTags As System.Windows.Forms.Label
 End Class

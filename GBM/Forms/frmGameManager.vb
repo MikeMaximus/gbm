@@ -420,6 +420,22 @@ Public Class frmGameManager
 
     End Sub
 
+    Private Sub OpenTags()
+        Dim frm As New frmGameTags
+        Dim oApp As clsGame
+        Dim sMonitorIDs As New List(Of String)
+
+        For Each oData In lstGames.SelectedItems
+            oApp = DirectCast(AppData(oData.Key), clsGame)
+            sMonitorIDs.Add(oApp.ID)
+        Next
+
+        frm.IDList = sMonitorIDs
+        frm.GameName = CurrentGame.Name
+        frm.ShowDialog()
+        FillTags(CurrentGame.ID)
+    End Sub
+
     Private Sub GetBackupInfo(ByVal oApp As clsGame)
         Dim oBackupInfo As clsBackup
         Dim sFileName As String
@@ -550,6 +566,8 @@ Public Class frmGameManager
         txtVersion.Text = oApp.Version
         txtIcon.Text = oApp.Icon
 
+        FillTags(oData.Key)
+
         'Icon
         If IO.File.Exists(oApp.Icon) Then
             pbIcon.Image = Image.FromFile(oApp.Icon)
@@ -571,6 +589,22 @@ Public Class frmGameManager
         End If
 
         IsLoading = False
+    End Sub
+
+    Private Sub FillTags(ByVal sID As String)
+        Dim hshTags As Hashtable
+        Dim oTag As clsTag
+        Dim sTags As String = String.Empty
+        Dim cTrim() As Char = {",", " "}
+
+        hshTags = mgrGameTags.GetTagsByGame(sID)
+
+        For Each de As DictionaryEntry In hshTags
+            oTag = DirectCast(de.Value, clsTag)
+            sTags &= "#" & oTag.Name & ", "
+        Next
+
+        lblTags.Text = sTags.TrimEnd(cTrim)
     End Sub
 
     Private Sub DirtyCheck_ValueChanged(sender As Object, e As EventArgs)
@@ -639,6 +673,8 @@ Public Class frmGameManager
                 lblSync.Visible = False
                 chkEnabled.Checked = True
                 chkMonitorOnly.Checked = False
+                btnTags.Enabled = False
+                lblTags.Visible = False
             Case eModes.Edit
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
@@ -657,6 +693,8 @@ Public Class frmGameManager
                 btnDeleteBackup.Enabled = False
                 btnOpenBackupFile.Enabled = False
                 btnOpenRestorePath.Enabled = False
+                btnTags.Enabled = True
+                lblTags.Visible = True
             Case eModes.View
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -670,6 +708,8 @@ Public Class frmGameManager
                 btnAdd.Enabled = True
                 btnDelete.Enabled = True
                 btnBackup.Enabled = True
+                btnTags.Enabled = True
+                lblTags.Visible = True
             Case eModes.ViewTemp
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -683,6 +723,8 @@ Public Class frmGameManager
                 btnAdd.Enabled = True
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
+                btnTags.Enabled = False
+                lblTags.Visible = False
             Case eModes.Disabled
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -690,6 +732,7 @@ Public Class frmGameManager
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
                 pbIcon.Image = My.Resources.Unknown
+                lblTags.Text = String.Empty
                 lblSync.Visible = False
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
@@ -703,6 +746,7 @@ Public Class frmGameManager
                 btnBackup.Enabled = False
                 btnRestore.Enabled = False
                 btnMarkAsRestored.Enabled = False
+                btnTags.Enabled = False
             Case eModes.MultiSelect
                 lstGames.Enabled = True
                 WipeControls(grpConfig.Controls)
@@ -724,6 +768,7 @@ Public Class frmGameManager
                 btnBackup.Enabled = True
                 btnRestore.Enabled = True
                 btnMarkAsRestored.Enabled = True
+                btnTags.Enabled = True
         End Select
 
         IsLoading = False
@@ -1121,6 +1166,10 @@ Public Class frmGameManager
         OpenRestorePath()
     End Sub
 
+    Private Sub btnTags_Click(sender As Object, e As EventArgs) Handles btnTags.Click
+        OpenTags()
+    End Sub
+
     Private Sub btnDeleteBackup_Click(sender As Object, e As EventArgs) Handles btnDeleteBackup.Click
         DeleteBackup()
     End Sub
@@ -1139,5 +1188,6 @@ Public Class frmGameManager
         ModeChange()
         LoadData()
     End Sub
+
 
 End Class
