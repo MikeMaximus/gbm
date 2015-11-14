@@ -18,6 +18,7 @@
     Private bDuplicate As Boolean = False
     Private sDOSBoxProcess As String = String.Empty
     Private bTempGame As Boolean = False
+    Private oImportTags As New List(Of Tag)
 
     Property ID As String
         Set(value As String)
@@ -156,40 +157,40 @@
         End Set
     End Property
 
-    Property Enabled As Boolean
-        Set(value As Boolean)
-            bEnabled = value
-        End Set
+    Property Enabled As Boolean        
         Get
             Return bEnabled
         End Get
+        Set(value As Boolean)
+            bEnabled = value
+        End Set
     End Property
 
-    Property MonitorOnly As Boolean
-        Set(value As Boolean)
-            bMonitorOnly = value
-        End Set
+    Property MonitorOnly As Boolean        
         Get
             Return bMonitorOnly
         End Get
+        Set(value As Boolean)
+            bMonitorOnly = value
+        End Set
     End Property
 
     Property Duplicate As Boolean
-        Set(value As Boolean)
-            bDuplicate = value
-        End Set
         Get
             Return bDuplicate
         End Get
+        Set(value As Boolean)
+            bDuplicate = value
+        End Set
     End Property
 
-    Property DOSBoxProcess As String
-        Set(value As String)
-            sDOSBoxProcess = value
-        End Set
+    Property DOSBoxProcess As String        
         Get
             Return sDOSBoxProcess
         End Get
+        Set(value As String)
+            sDOSBoxProcess = value
+        End Set
     End Property
 
     ReadOnly Property TruePath As String
@@ -210,6 +211,15 @@
         End Get
         Set(value As Boolean)
             bTempGame = value
+        End Set
+    End Property
+
+    Property ImportTags As List(Of Tag)
+        Get
+            Return oImportTags
+        End Get
+        Set(value As List(Of Tag))
+            oImportTags = value
         End Set
     End Property
 

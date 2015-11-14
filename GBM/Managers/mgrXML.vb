@@ -1,11 +1,12 @@
-﻿Imports System.Xml
+﻿Imports System.Xml.Serialization
 Imports System.IO
-Imports System.Text
+Imports System.Net
+
 
 Public Class mgrXML
 
     Public Shared Function ReadMonitorList(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False) As Hashtable
-        Dim xFileReader As XmlTextReader
+        Dim oList As List(Of Game)
         Dim hshList As New Hashtable
         Dim hshDupeList As New Hashtable
         Dim oGame As clsGame
@@ -16,82 +17,78 @@ Public Class mgrXML
             Return hshList
         End If
 
-        Try
-            xFileReader = New XmlTextReader(sLocation)
-            xFileReader.WhitespaceHandling = WhitespaceHandling.None
+        oList = ImportandDeserialize(sLocation, bWebRead)
 
-            While (xFileReader.Read())
-                If xFileReader.Name = "app" Then
-                    oGame = New clsGame
-                    oGame.Name = xFileReader.GetAttribute("name")
-                    xFileReader.Read()
-                    oGame.ProcessName = xFileReader.ReadElementString("process")
-                    oGame.AbsolutePath = xFileReader.ReadElementString("absolutepath")
-                    oGame.Path = xFileReader.ReadElementString("savelocation")
-                    oGame.FolderSave = xFileReader.ReadElementString("foldersave")
-                    oGame.FileType = xFileReader.ReadElementString("filetype")                    
-                    oGame.ExcludeList = xFileReader.ReadElementString("excludelist")
+        For Each g As Game In oList
+            oGame = New clsGame
+            oGame.Name = g.Name
+            oGame.ProcessName = g.ProcessName
+            oGame.AbsolutePath = g.AbsolutePath
+            oGame.Path = g.Path
+            oGame.FolderSave = g.FolderSave
+            oGame.FileType = g.FileType
+            oGame.ExcludeList = g.ExcludeList
+            For Each t As Tag In g.Tags
+                oGame.ImportTags.Add(t)
+            Next
 
-                    If hshList.Contains(oGame.ProcessName) Or hshDupeList.Contains(oGame.ProcessName) Then
-                        oDupeGame = DirectCast(hshList.Item(oGame.ProcessName), clsGame)
-                        If Not hshDupeList.Contains(oGame.ProcessName) Then
-                            hshDupeList.Add(oGame.ProcessName, oDupeGame)
-                            hshList.Remove(oDupeGame.ProcessName)
-                            oDupeGame.Duplicate = True
-                            oDupeGame.ProcessName = oDupeGame.ProcessName & ":" & oDupeGame.Name
-                            hshList.Add(oDupeGame.ProcessName, oDupeGame)
-                        End If
-                        oGame.ProcessName = oGame.ProcessName & ":" & oGame.Name
-                        oGame.Duplicate = True
-                    End If
-
-                    hshList.Add(oGame.ProcessName, oGame)
+            If hshList.Contains(oGame.ProcessName) Or hshDupeList.Contains(oGame.ProcessName) Then
+                oDupeGame = DirectCast(hshList.Item(oGame.ProcessName), clsGame)
+                If Not hshDupeList.Contains(oGame.ProcessName) Then
+                    hshDupeList.Add(oGame.ProcessName, oDupeGame)
+                    hshList.Remove(oDupeGame.ProcessName)
+                    oDupeGame.Duplicate = True
+                    oDupeGame.ProcessName = oDupeGame.ProcessName & ":" & oDupeGame.Name
+                    hshList.Add(oDupeGame.ProcessName, oDupeGame)
                 End If
-            End While
+                oGame.ProcessName = oGame.ProcessName & ":" & oGame.Name
+                oGame.Duplicate = True
+            End If
 
-            xFileReader.Close()
-
-            'We need to trigger a manual garbage collection here to prevent issues with the reader freezing up with multiple uses.
-            'There's no way to properly dispose a xml text reader in .NET 4, that's only fixed in 4.5+.
-            GC.Collect()
-
-        Catch ex As Exception
-            MsgBox("An error occured reading the monitor list import file." & vbCrLf & ex.Message, MsgBoxStyle.Exclamation, "Game Backup Monitor")
-        End Try
+            hshList.Add(oGame.ProcessName, oGame)
+        Next
 
         Return hshList
     End Function
 
-    Public Shared Function ExportMonitorList(ByVal hshList As Hashtable, ByVal sLocation As String) As Boolean
-        Dim xFileWriter As XmlTextWriter
+    Public Shared Function ImportandDeserialize(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False) As List(Of Game)
+        Dim oReader As StreamReader
+        Dim oWebClient As WebClient
+        Dim oSerializer As XmlSerializer
+        Dim oList As New List(Of Game)
 
         Try
-            xFileWriter = New XmlTextWriter(sLocation, System.Text.Encoding.UTF8)
-            xFileWriter.Formatting = Formatting.Indented
-            xFileWriter.WriteStartDocument()
-            xFileWriter.WriteComment("GBM Export: " & Date.Now)
-            xFileWriter.WriteComment("Entries: " & hshList.Count)
-            xFileWriter.WriteStartElement("aMon")
-            For Each o As clsGame In hshList.Values
-                xFileWriter.WriteStartElement("app")
-                xFileWriter.WriteAttributeString("name", o.Name)
-                xFileWriter.WriteElementString("process", o.TrueProcess)
-                xFileWriter.WriteElementString("absolutepath", o.AbsolutePath)
-                xFileWriter.WriteElementString("savelocation", o.TruePath)
-                xFileWriter.WriteElementString("foldersave", o.FolderSave)
-                xFileWriter.WriteElementString("filetype", o.FileType)                
-                xFileWriter.WriteElementString("excludelist", o.ExcludeList)
-                xFileWriter.WriteEndElement()
-            Next
-            xFileWriter.WriteEndElement()
-            xFileWriter.WriteEndDocument()
-            xFileWriter.Flush()
-            xFileWriter.Close()
+            If bWebRead Then
+                oWebClient = New WebClient
+                oReader = New StreamReader(oWebClient.OpenRead(sLocation))
+            Else
+                oReader = New StreamReader(sLocation)
+            End If
+
+            oSerializer = New XmlSerializer(oList.GetType(), New XmlRootAttribute("gbm"))
+            oList = oSerializer.Deserialize(oReader)
+            oReader.Close()
+        Catch ex As Exception
+            MsgBox("The XML file cannot be read, it may be an invalid format or corrupted." & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Exclamation, "Game Backup Monitor")
+        End Try
+
+        Return oList
+    End Function
+
+    Public Shared Function SerializeAndExport(ByVal oList As List(Of Game), ByVal sLocation As String) As Boolean
+        Dim oSerializer As XmlSerializer
+        Dim oWriter As StreamWriter
+
+        Try
+            oSerializer = New XmlSerializer(oList.GetType(), New XmlRootAttribute("gbm"))
+            oWriter = New StreamWriter(sLocation)
+            oSerializer.Serialize(oWriter.BaseStream, oList)
             Return True
         Catch ex As Exception
-            MsgBox("An error occured exporting the monitor list.  " & ex.Message, MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            MsgBox("An error occured exporting the XML data." & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Exclamation, "Game Backup Monitor")
             Return False
         End Try
     End Function
+
 
 End Class

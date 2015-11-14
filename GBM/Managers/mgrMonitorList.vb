@@ -45,6 +45,8 @@ Public Class mgrMonitorList
         Dim hshSyncItems As Hashtable
         Dim oFromItem As clsGame
         Dim oToItem As clsGame
+        Dim oTag As clsTag
+        Dim oGameTag As clsGameTag
         Dim iItems As Integer = 0
 
         Cursor.Current = Cursors.WaitCursor
@@ -74,6 +76,20 @@ Public Class mgrMonitorList
                 For Each oGame As clsGame In frm.ImportData.Values
                     If Not DoDuplicateListCheck(oGame.Name, oGame.TrueProcess) Then
                         DoListAdd(oGame, mgrSQLite.Database.Local)
+                        'Handle Tag Import (TODO: This could use some optimization, way too many DB hits.)
+                        For Each t As Tag In oGame.ImportTags
+                            If mgrTags.DoCheckDuplicate(t.Name) Then
+                                oTag = mgrTags.DoTagGetbyName(t.Name)
+                            Else
+                                oTag = New clsTag
+                                oTag.Name = t.Name
+                                mgrTags.DoTagAdd(oTag)
+                            End If
+                            oGameTag = New clsGameTag
+                            oGameTag.MonitorID = oGame.ID
+                            oGameTag.TagID = oTag.ID
+                            mgrGameTags.DoGameTagAdd(oGameTag)
+                        Next
                         iItems += 1
                     End If
                 Next
@@ -88,12 +104,16 @@ Public Class mgrMonitorList
     End Sub
 
     Public Shared Sub ExportMonitorList(ByVal sLocation As String)
-        Dim hshList As Hashtable = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
+        'Dim hshList As Hashtable = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
+        'Dim bSuccess As Boolean
+        'bSuccess = mgrXML.ExportMonitorList(hshList, sLocation)
+
+        Dim oList As List(Of Game) = ReadListForExport()
         Dim bSuccess As Boolean
-        bSuccess = mgrXML.ExportMonitorList(hshList, sLocation)
+        bSuccess = mgrXML.SerializeAndExport(oList, sLocation)
 
         If bSuccess Then
-            MsgBox("Export Complete.  " & hshList.Count & " entries have been exported.", MsgBoxStyle.Information, "Game Backup Monitor")
+            MsgBox("Export Complete.  " & oList.Count & " entries have been exported.", MsgBoxStyle.Information, "Game Backup Monitor")
         End If
     End Sub
 
@@ -207,6 +227,7 @@ Public Class mgrMonitorList
                 Return False
             End If
         End If
+        Return True
     End Function
 
     Public Shared Function ReadList(ByVal eListType As eListTypes, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
@@ -270,6 +291,34 @@ Public Class mgrMonitorList
         Next
 
         Return hshList
+    End Function
+
+    Public Shared Function ReadListForExport(Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As List(Of Game)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim oData As DataSet
+        Dim sSQL As String
+        Dim sID As String
+        Dim oList As New List(Of Game)
+        Dim oGame As Game
+
+        sSQL = "SELECT * from monitorlist ORDER BY Name Asc"
+        oData = oDatabase.ReadParamData(sSQL, New Hashtable)
+
+        For Each dr As DataRow In oData.Tables(0).Rows
+            oGame = New Game
+            sID = CStr(dr(0))
+            oGame.Name = CStr(dr(1))
+            oGame.ProcessName = CStr(dr(2))
+            If Not IsDBNull(dr(3)) Then oGame.Path = CStr(dr(3))
+            oGame.AbsolutePath = CBool(dr(4))
+            oGame.FolderSave = CBool(dr(5))
+            If Not IsDBNull(dr(6)) Then oGame.FileType = CStr(dr(6))
+            If Not IsDBNull(dr(8)) Then oGame.ExcludeList = CStr(dr(8))
+            oGame.Tags = mgrGameTags.GetTagsByGameForExport(sID)
+            oList.Add(oGame)
+        Next
+
+        Return oList
     End Function
 
     Public Shared Sub DoListAdd(ByVal oGame As clsGame, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)

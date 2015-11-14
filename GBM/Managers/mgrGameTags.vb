@@ -100,6 +100,29 @@
         Return hshList
     End Function
 
+    Public Shared Function GetTagsByGameForExport(ByVal sMonitorID As String) As List(Of Tag)
+        Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
+        Dim oData As DataSet
+        Dim sSQL As String
+        Dim oList As New List(Of Tag)
+        Dim hshParams As New Hashtable
+        Dim oTag As Tag
+
+        sSQL = "SELECT TagID, tags.Name FROM gametags NATURAL JOIN tags WHERE MonitorID = @ID"
+
+        hshParams.Add("ID", sMonitorID)
+
+        oData = oDatabase.ReadParamData(sSQL, hshParams)
+
+        For Each dr As DataRow In oData.Tables(0).Rows
+            oTag = New Tag            
+            oTag.Name = CStr(dr(1))
+            oList.Add(oTag)
+        Next
+
+        Return oList
+    End Function
+
     Public Shared Function GetTagsByGameMulti(ByVal sMonitorIDs As List(Of String)) As Hashtable
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim oData As DataSet
@@ -116,7 +139,7 @@
             hshParams.Add("MonitorID" & iCounter, s)
             iCounter += 1
         Next
-        
+
         sSQL = sSQL.TrimEnd(",")
         sSQL &= ")"
 
