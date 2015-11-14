@@ -1,7 +1,7 @@
 ﻿Public Class mgrTags
 
-    Public Shared Sub DoTagAdd(ByVal oTag As clsTag)
-        Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
+    Public Shared Sub DoTagAdd(ByVal oTag As clsTag, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
         Dim hshParams As New Hashtable
 
@@ -11,8 +11,8 @@
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
-    Public Shared Sub DoTagUpdate(ByVal oTag As clsTag)
-        Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
+    Public Shared Sub DoTagUpdate(ByVal oTag As clsTag, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
         Dim hshParams As New Hashtable
 
@@ -59,7 +59,7 @@
         For Each dr As DataRow In oData.Tables(0).Rows
             oTag = New clsTag
             oTag.ID = CStr(dr(0))
-            oTag.Name = CStr(dr(1))            
+            oTag.Name = CStr(dr(1))
         Next
 
         Return oTag
@@ -88,8 +88,8 @@
         Return oTag
     End Function
 
-    Public Shared Function DoCheckDuplicate(ByVal sTagName As String, Optional ByVal sExcludeID As String = "") As Boolean
-        Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
+    Public Shared Function DoCheckDuplicate(ByVal sTagName As String, Optional ByVal sExcludeID As String = "", Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Boolean
+        Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
         Dim oData As DataSet
         Dim hshParams As New Hashtable
@@ -113,8 +113,8 @@
         End If
     End Function
 
-    Public Shared Function ReadTags() As Hashtable
-        Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
+    Public Shared Function ReadTags(Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
+        Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
         Dim sSQL As String
         Dim hshList As New Hashtable
@@ -126,11 +126,139 @@
         For Each dr As DataRow In oData.Tables(0).Rows
             oTag = New clsTag
             oTag.ID = CStr(dr(0))
-            oTag.Name = CStr(dr(1))            
+            oTag.Name = CStr(dr(1))
             hshList.Add(oTag.Name, oTag)
         Next
 
         Return hshList
+    End Function
+
+    Public Shared Sub DoTagAddImport(ByVal hshTags As Hashtable, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim sMonitorID As String
+        Dim oTag As clsTag
+        Dim hshParams As Hashtable
+        Dim oParamList As New List(Of Hashtable)
+
+        sSQL = "INSERT OR REPLACE INTO tags VALUES (COALESCE((SELECT TagID FROM tags WHERE Name = @Name), @ID), @Name); INSERT INTO gametags VALUES ((SELECT TagID from tags WHERE Name=@Name), @MonitorID);"        
+        For Each oGame As clsGame In hshTags.Values
+            sMonitorID = oGame.ID
+            For Each t As Tag In oGame.ImportTags
+                hshParams = New Hashtable
+                oTag = New clsTag
+                oTag.Name = t.Name
+                hshParams.Add("ID", oTag.ID)
+                hshParams.Add("Name", oTag.Name)                
+                hshParams.Add("MonitorID", sMonitorID)
+                oParamList.Add(hshParams)
+            Next
+        Next
+
+        oDatabase.RunMassParamQuery(sSQL, oParamList)
+    End Sub
+
+    Public Shared Sub DoTagAddUpdateSync(ByVal hshTags As Hashtable, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim hshParams As Hashtable
+        Dim oParamList As New List(Of Hashtable)
+
+        sSQL = "INSERT OR REPLACE INTO tags VALUES (COALESCE((SELECT TagID FROM tags WHERE Name = @Name), @ID), @Name);"
+
+        For Each oTag As clsTag In hshTags.Values
+            hshParams = New Hashtable
+            hshParams.Add("ID", oTag.ID)
+            hshParams.Add("Name", oTag.Name)
+            oParamList.Add(hshParams)
+        Next
+
+        oDatabase.RunMassParamQuery(sSQL, oParamList)
+    End Sub
+
+    Private Shared Sub DoTagDeleteSync(ByVal hshTags As Hashtable, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim hshParams As Hashtable
+        Dim oParamList As New List(Of Hashtable)
+
+        sSQL = "DELETE FROM gametags "
+        sSQL &= "WHERE TagID = @ID;"
+        sSQL = "DELETE FROM tags "
+        sSQL &= "WHERE TagID = @ID;"
+
+        For Each oTag As clsTag In hshTags.Values
+            hshParams = New Hashtable
+            hshParams.Add("ID", oTag.ID)
+            oParamList.Add(hshParams)
+        Next
+
+        oDatabase.RunMassParamQuery(sSQL, oParamList)
+
+    End Sub
+
+    Public Shared Function SyncTags(Optional ByVal bToRemote As Boolean = True) As Integer
+        Dim hshCompareFrom As Hashtable
+        Dim hshCompareTo As Hashtable
+        Dim hshSyncItems As Hashtable
+        Dim hshDeleteItems As Hashtable
+        Dim oFromItem As clsTag
+        Dim oToItem As clsTag        
+
+        'Delete Sync
+        If bToRemote Then
+            hshCompareFrom = ReadTags(mgrSQLite.Database.Local)
+            hshCompareTo = ReadTags(mgrSQLite.Database.Remote)
+        Else
+            hshCompareFrom = ReadTags(mgrSQLite.Database.Remote)
+            hshCompareTo = ReadTags(mgrSQLite.Database.Local)
+        End If
+
+        hshDeleteItems = hshCompareTo.Clone
+
+        For Each oToItem In hshCompareTo.Values
+            If hshCompareFrom.Contains(oToItem.Name) Then
+                oFromItem = DirectCast(hshCompareFrom(oToItem.Name), clsTag)
+                If oToItem.CoreEquals(oFromItem) Then
+                    hshDeleteItems.Remove(oToItem.Name)
+                End If
+            End If
+        Next
+
+        If bToRemote Then
+            DoTagDeleteSync(hshDeleteItems, mgrSQLite.Database.Remote)
+        Else
+            DoTagDeleteSync(hshDeleteItems, mgrSQLite.Database.Local)
+        End If
+
+        'Add / Update Sync
+        If bToRemote Then
+            hshCompareFrom = ReadTags(mgrSQLite.Database.Local)
+            hshCompareTo = ReadTags(mgrSQLite.Database.Remote)
+        Else
+            hshCompareFrom = ReadTags(mgrSQLite.Database.Remote)
+            hshCompareTo = ReadTags(mgrSQLite.Database.Local)
+        End If
+
+        hshSyncItems = hshCompareFrom.Clone
+
+        For Each oFromItem In hshCompareFrom.Values
+            If hshCompareTo.Contains(oFromItem.Name) Then
+                oToItem = DirectCast(hshCompareTo(oFromItem.Name), clsTag)
+                If oFromItem.CoreEquals(oToItem) Then
+                    hshSyncItems.Remove(oFromItem.Name)
+                End If
+            End If
+        Next
+
+        If bToRemote Then
+            DoTagAddUpdateSync(hshSyncItems, mgrSQLite.Database.Remote)
+        Else
+            DoTagAddUpdateSync(hshSyncItems, mgrSQLite.Database.Local)
+        End If
+
+        Return hshDeleteItems.Count + hshSyncItems.Count
+
     End Function
 
 End Class
