@@ -60,7 +60,7 @@ Public Class mgrMonitorList
         Dim oParamList As New List(Of Hashtable)
 
         sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, Hours, Enabled, MonitorOnly) "
-        sSQL &= "VALUES (COALESCE((SELECT MonitorID FROM monitorlist WHERE Name = @Name AND Process = @Process), @ID), @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, "
+        sSQL &= "VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, "
         sSQL &= "@TimeStamp, @ExcludeList, @Hours, @Enabled, @MonitorOnly);"
 
         For Each oGame As clsGame In hshGames.Values

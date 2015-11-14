@@ -228,6 +228,10 @@
         If oGame Is Nothing Then
             Return False
         Else
+            If ID <> oGame.ID Then
+                Return False
+            End If
+
             If Name <> oGame.Name Then
                 Return False
             End If
