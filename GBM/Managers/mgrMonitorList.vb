@@ -5,7 +5,6 @@ Public Class mgrMonitorList
     Public Enum eListTypes As Integer
         FullList = 1
         ScanList = 2
-        ListByKey = 3
     End Enum
 
     Public Shared Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
@@ -40,16 +39,17 @@ Public Class mgrMonitorList
     End Sub
 
     Public Shared Sub ExportMonitorList(ByVal sLocation As String)
-        'Dim hshList As Hashtable = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
-        'Dim bSuccess As Boolean
-        'bSuccess = mgrXML.ExportMonitorList(hshList, sLocation)
+        Dim frm As New frmFilter
+        Dim oList As List(Of Game)
+        Dim bSuccess As Boolean = False
 
-        Dim oList As List(Of Game) = ReadListForExport()
-        Dim bSuccess As Boolean
+        frm.ShowDialog()
+        oList = ReadListForExport(frm.Filters)
+
         bSuccess = mgrXML.SerializeAndExport(oList, sLocation)
-
+        
         If bSuccess Then
-            MsgBox("Export Complete.  " & oList.Count & " entries have been exported.", MsgBoxStyle.Information, "Game Backup Monitor")
+            MsgBox("Export Complete.  " & oList.Count & " item(s) have been exported.", MsgBoxStyle.Information, "Game Backup Monitor")
         End If
     End Sub
 
@@ -255,6 +255,59 @@ Public Class mgrMonitorList
         Return True
     End Function
 
+
+    Public Shared Function ReadFilteredList(ByVal oFilters As List(Of clsTag), Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim oData As DataSet
+        Dim sSQL As String
+        Dim hshList As New Hashtable
+        Dim oGame As clsGame
+        Dim hshParams As New Hashtable
+        Dim iCounter As Integer = 0
+
+        If oFilters.Count > 0 Then
+            sSQL = "SELECT DISTINCT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist "
+            sSQL &= "NATURAL JOIN gametags WHERE gametags.TagID IN ("
+
+            For Each oTag As clsTag In oFilters
+                sSQL &= "@TagID" & iCounter & ","
+                hshParams.Add("TagID" & iCounter, oTag.ID)
+                iCounter += 1
+            Next
+
+            sSQL = sSQL.TrimEnd(",")
+            sSQL &= ") ORDER BY Name Asc"
+        Else
+            sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist ORDER BY Name Asc"
+        End If
+
+        oData = oDatabase.ReadParamData(sSQL, hshParams)
+
+        For Each dr As DataRow In oData.Tables(0).Rows
+            oGame = New clsGame
+            oGame.ID = CStr(dr(0))
+            oGame.Name = CStr(dr(1))
+            oGame.ProcessName = CStr(dr(2))
+            If Not IsDBNull(dr(3)) Then oGame.Path = CStr(dr(3))
+            oGame.AbsolutePath = CBool(dr(4))
+            oGame.FolderSave = CBool(dr(5))
+            If Not IsDBNull(dr(6)) Then oGame.FileType = CStr(dr(6))
+            oGame.AppendTimeStamp = CBool(dr(7))
+            If Not IsDBNull(dr(8)) Then oGame.ExcludeList = CStr(dr(8))
+            If Not IsDBNull(dr(9)) Then oGame.ProcessPath = CStr(dr(9))
+            If Not IsDBNull(dr(10)) Then oGame.Icon = CStr(dr(10))
+            oGame.Hours = CDbl(dr(11))
+            If Not IsDBNull(dr(12)) Then oGame.Version = CStr(dr(12))
+            If Not IsDBNull(dr(13)) Then oGame.Company = CStr(dr(13))
+            oGame.Enabled = CBool(dr(14))
+            oGame.MonitorOnly = CBool(dr(15))
+
+            hshList.Add(oGame.ID, oGame)
+        Next
+
+        Return hshList
+    End Function
+
     Public Shared Function ReadList(ByVal eListType As eListTypes, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
@@ -310,24 +363,38 @@ Public Class mgrMonitorList
                     End If
 
                     If oGame.Enabled Then hshList.Add(oGame.ProcessName, oGame)
-                Case eListTypes.ListByKey
-                    hshList.Add(oGame.ID, oGame)
             End Select
         Next
 
         Return hshList
     End Function
 
-    Public Shared Function ReadListForExport(Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As List(Of Game)
+    Public Shared Function ReadListForExport(ByVal oFilters As List(Of clsTag), Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As List(Of Game)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
         Dim sSQL As String
         Dim sID As String
         Dim oList As New List(Of Game)
         Dim oGame As Game
+        Dim hshParams As New Hashtable
+        Dim iCounter As Integer = 0
 
-        sSQL = "SELECT * from monitorlist ORDER BY Name Asc"
-        oData = oDatabase.ReadParamData(sSQL, New Hashtable)
+        If oFilters.Count > 0 Then
+            sSQL = "SELECT DISTINCT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, ExcludeList FROM monitorlist NATURAL JOIN gametags WHERE gametags.TagID IN ("
+
+            For Each oTag As clsTag In oFilters
+                sSQL &= "@TagID" & iCounter & ","
+                hshParams.Add("TagID" & iCounter, oTag.ID)
+                iCounter += 1
+            Next
+
+            sSQL = sSQL.TrimEnd(",")
+            sSQL &= ") ORDER BY Name Asc"
+        Else
+            sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, ExcludeList from monitorlist ORDER BY Name Asc"
+        End If
+
+        oData = oDatabase.ReadParamData(sSQL, hshParams)
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oGame = New Game
@@ -338,7 +405,7 @@ Public Class mgrMonitorList
             oGame.AbsolutePath = CBool(dr(4))
             oGame.FolderSave = CBool(dr(5))
             If Not IsDBNull(dr(6)) Then oGame.FileType = CStr(dr(6))
-            If Not IsDBNull(dr(8)) Then oGame.ExcludeList = CStr(dr(8))
+            If Not IsDBNull(dr(7)) Then oGame.ExcludeList = CStr(dr(7))
             oGame.Tags = mgrGameTags.GetTagsByGameForExport(sID)
             oList.Add(oGame)
         Next

@@ -45,7 +45,6 @@ Partial Class frmGameManager
         Me.chkMonitorOnly = New System.Windows.Forms.CheckBox()
         Me.grpExtra = New System.Windows.Forms.GroupBox()
         Me.lblTags = New System.Windows.Forms.Label()
-        Me.btnTags = New System.Windows.Forms.Button()
         Me.btnIconBrowse = New System.Windows.Forms.Button()
         Me.txtIcon = New System.Windows.Forms.TextBox()
         Me.lblVersion = New System.Windows.Forms.Label()
@@ -59,6 +58,7 @@ Partial Class frmGameManager
         Me.txtAppPath = New System.Windows.Forms.TextBox()
         Me.nudHours = New System.Windows.Forms.NumericUpDown()
         Me.lblHours = New System.Windows.Forms.Label()
+        Me.btnTags = New System.Windows.Forms.Button()
         Me.grpStats = New System.Windows.Forms.GroupBox()
         Me.btnOpenRestorePath = New System.Windows.Forms.Button()
         Me.btnOpenBackupFile = New System.Windows.Forms.Button()
@@ -77,6 +77,7 @@ Partial Class frmGameManager
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.chkEnabled = New System.Windows.Forms.CheckBox()
         Me.grpFilter = New System.Windows.Forms.GroupBox()
+        Me.optTag = New System.Windows.Forms.RadioButton()
         Me.optBackupData = New System.Windows.Forms.RadioButton()
         Me.optPendingRestores = New System.Windows.Forms.RadioButton()
         Me.optAllGames = New System.Windows.Forms.RadioButton()
@@ -329,15 +330,6 @@ Partial Class frmGameManager
         Me.lblTags.Text = "#Tags"
         Me.lblTags.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'btnTags
-        '
-        Me.btnTags.Location = New System.Drawing.Point(535, 360)
-        Me.btnTags.Name = "btnTags"
-        Me.btnTags.Size = New System.Drawing.Size(75, 23)
-        Me.btnTags.TabIndex = 22
-        Me.btnTags.Text = "Tags..."
-        Me.btnTags.UseVisualStyleBackColor = True
-        '
         'btnIconBrowse
         '
         Me.btnIconBrowse.Location = New System.Drawing.Point(444, 96)
@@ -448,6 +440,15 @@ Partial Class frmGameManager
         Me.lblHours.Size = New System.Drawing.Size(38, 13)
         Me.lblHours.TabIndex = 0
         Me.lblHours.Text = "Hours:"
+        '
+        'btnTags
+        '
+        Me.btnTags.Location = New System.Drawing.Point(535, 360)
+        Me.btnTags.Name = "btnTags"
+        Me.btnTags.Size = New System.Drawing.Size(75, 23)
+        Me.btnTags.TabIndex = 22
+        Me.btnTags.Text = "Tags..."
+        Me.btnTags.UseVisualStyleBackColor = True
         '
         'grpStats
         '
@@ -596,10 +597,10 @@ Partial Class frmGameManager
         'lstGames
         '
         Me.lstGames.FormattingEnabled = True
-        Me.lstGames.Location = New System.Drawing.Point(12, 112)
+        Me.lstGames.Location = New System.Drawing.Point(12, 138)
         Me.lstGames.Name = "lstGames"
         Me.lstGames.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstGames.Size = New System.Drawing.Size(220, 407)
+        Me.lstGames.Size = New System.Drawing.Size(220, 381)
         Me.lstGames.Sorted = True
         Me.lstGames.TabIndex = 1
         '
@@ -625,15 +626,27 @@ Partial Class frmGameManager
         '
         'grpFilter
         '
+        Me.grpFilter.Controls.Add(Me.optTag)
         Me.grpFilter.Controls.Add(Me.optBackupData)
         Me.grpFilter.Controls.Add(Me.optPendingRestores)
         Me.grpFilter.Controls.Add(Me.optAllGames)
         Me.grpFilter.Location = New System.Drawing.Point(12, 12)
         Me.grpFilter.Name = "grpFilter"
-        Me.grpFilter.Size = New System.Drawing.Size(220, 91)
+        Me.grpFilter.Size = New System.Drawing.Size(220, 113)
         Me.grpFilter.TabIndex = 0
         Me.grpFilter.TabStop = False
         Me.grpFilter.Text = "Games Filter"
+        '
+        'optTag
+        '
+        Me.optTag.AutoSize = True
+        Me.optTag.Location = New System.Drawing.Point(6, 87)
+        Me.optTag.Name = "optTag"
+        Me.optTag.Size = New System.Drawing.Size(49, 17)
+        Me.optTag.TabIndex = 3
+        Me.optTag.TabStop = True
+        Me.optTag.Text = "Tags"
+        Me.optTag.UseVisualStyleBackColor = True
         '
         'optBackupData
         '
@@ -768,4 +781,5 @@ Partial Class frmGameManager
     Friend WithEvents btnOpenRestorePath As System.Windows.Forms.Button
     Friend WithEvents btnTags As System.Windows.Forms.Button
     Friend WithEvents lblTags As System.Windows.Forms.Label
+    Friend WithEvents optTag As System.Windows.Forms.RadioButton
 End Class

@@ -205,8 +205,16 @@ Public Class frmGameManager
         Dim oRestoreData As New SortedList
         Dim oGame As clsGame
         Dim oBackup As clsBackup
+        Dim frm As frmFilter
+        Dim oFilters As New List(Of clsTag)
 
-        AppData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.ListByKey)
+        If optTag.Checked Then
+            frm = New frmFilter
+            frm.ShowDialog()
+            oFilters = frm.Filters
+        End If
+
+        AppData = mgrMonitorList.ReadFilteredList(oFilters)
 
         If optPendingRestores.Checked Then
             oRestoreData = mgrRestore.CompareManifests
@@ -1182,7 +1190,7 @@ Public Class frmGameManager
         TriggerSelectedRestore()
     End Sub
 
-    Private Sub optGamesFilter_CheckedChanged(sender As Object, e As EventArgs) Handles optPendingRestores.CheckedChanged, optAllGames.CheckedChanged
+    Private Sub optGamesFilter_Click(sender As Object, e As EventArgs) Handles optPendingRestores.Click, optAllGames.Click, optBackupData.Click, optTag.Click
         lstGames.ClearSelected()
         eCurrentMode = eModes.Disabled
         ModeChange()

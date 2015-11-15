@@ -83,6 +83,8 @@ Public Class mgrXML
             oSerializer = New XmlSerializer(oList.GetType(), New XmlRootAttribute("gbm"))
             oWriter = New StreamWriter(sLocation)
             oSerializer.Serialize(oWriter.BaseStream, oList)
+            oWriter.Flush()
+            oWriter.Close()            
             Return True
         Catch ex As Exception
             MsgBox("An error occured exporting the XML data." & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Exclamation, "Game Backup Monitor")

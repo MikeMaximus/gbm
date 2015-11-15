@@ -164,7 +164,7 @@
         Dim hshParams As Hashtable
         Dim oParamList As New List(Of Hashtable)
 
-        sSQL = "INSERT OR REPLACE INTO tags VALUES (COALESCE((SELECT TagID FROM tags WHERE Name = @Name), @ID), @Name);"
+        sSQL = "INSERT OR REPLACE INTO tags VALUES (@ID, @Name);"
 
         For Each oTag As clsTag In hshTags.Values
             hshParams = New Hashtable

@@ -542,7 +542,10 @@ Public Class frmMain
 
     Private Sub OpenTags()
         Dim frm As New frmTags
+        PauseScan()
         frm.ShowDialog()
+        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
+        ResumeScan()
     End Sub
 
     Private Sub OpenGameManager(Optional ByVal bPendingRestores As Boolean = False)
@@ -555,7 +558,7 @@ Public Class frmMain
         If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
         ResumeScan()
 
-        'Handle manual backup trigger
+        'Handle backup trigger
         If frm.TriggerBackup Then
             RunManualBackup(frm.BackupList)
         End If
@@ -1128,7 +1131,7 @@ Public Class frmMain
 
             If slItems.Count > 0 Then
                 For Each oItem As clsBackup In slItems.Values
-                    UpdateLog("[Sync Notifier] " & oItem.Name & " entry removed from local manfiest.", False)
+                    UpdateLog(oItem.Name & " entry removed from local manfiest.", False)
                 Next
                 MsgBox(slItems.Count & " entries removed from the local manifest.")
             Else
