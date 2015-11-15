@@ -106,6 +106,7 @@ Partial Class frmFilter
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.lstFilter)
         Me.Controls.Add(Me.lstTags)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmFilter"
