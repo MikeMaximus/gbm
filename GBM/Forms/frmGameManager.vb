@@ -207,14 +207,16 @@ Public Class frmGameManager
         Dim oBackup As clsBackup
         Dim frm As frmFilter
         Dim oFilters As New List(Of clsTag)
+        Dim eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.Any
 
         If optTag.Checked Then
             frm = New frmFilter
             frm.ShowDialog()
             oFilters = frm.Filters
+            eCurrentFilter = frm.FilterType
         End If
 
-        AppData = mgrMonitorList.ReadFilteredList(oFilters)
+        AppData = mgrMonitorList.ReadFilteredList(oFilters, eCurrentFilter)
 
         If optPendingRestores.Checked Then
             oRestoreData = mgrRestore.CompareManifests

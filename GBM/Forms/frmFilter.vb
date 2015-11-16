@@ -1,16 +1,25 @@
 ﻿Public Class frmFilter
 
+    Public Enum eFilterType As Integer
+        Any = 1
+        All = 2
+    End Enum
+
     Dim oFilters As New List(Of clsTag)
+    Dim eCurrentFilterType As eFilterType = eFilterType.Any
     Dim hshTags As New Hashtable
     Dim bShutdown As Boolean = False
 
-    Public Property Filters As List(Of clsTag)
+    Public ReadOnly Property Filters As List(Of clsTag)
         Get
             Return oFilters
         End Get
-        Set(value As List(Of clsTag))
-            oFilters = value
-        End Set
+    End Property
+
+    Public ReadOnly Property FilterType As eFilterType
+        Get
+            Return eCurrentFilterType
+        End Get
     End Property
 
     Private Sub AddTag()
@@ -87,10 +96,19 @@
         Dim oData As KeyValuePair(Of String, String)
         Dim oTag As clsTag
 
+        'Set Tags
         For Each oData In lstFilter.Items
             oTag = DirectCast(hshTags(oData.Value), clsTag)
             Filters.Add(oTag)
         Next
+
+        'Set Filter Type
+        If optAll.Checked Then
+            eCurrentFilterType = eFilterType.All
+        Else
+            eCurrentFilterType = eFilterType.Any
+        End If
+
     End Sub
 
     Private Sub frmGameTags_Load(sender As Object, e As EventArgs) Handles MyBase.Load

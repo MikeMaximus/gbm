@@ -29,6 +29,10 @@ Partial Class frmFilter
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.lstFilter = New System.Windows.Forms.ListBox()
         Me.lstTags = New System.Windows.Forms.ListBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.optAll = New System.Windows.Forms.RadioButton()
+        Me.optAny = New System.Windows.Forms.RadioButton()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnOK
@@ -82,7 +86,7 @@ Partial Class frmFilter
         Me.lstFilter.Location = New System.Drawing.Point(222, 24)
         Me.lstFilter.Name = "lstFilter"
         Me.lstFilter.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstFilter.Size = New System.Drawing.Size(150, 199)
+        Me.lstFilter.Size = New System.Drawing.Size(150, 173)
         Me.lstFilter.TabIndex = 11
         '
         'lstTags
@@ -91,14 +95,49 @@ Partial Class frmFilter
         Me.lstTags.Location = New System.Drawing.Point(12, 24)
         Me.lstTags.Name = "lstTags"
         Me.lstTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstTags.Size = New System.Drawing.Size(150, 199)
+        Me.lstTags.Size = New System.Drawing.Size(150, 173)
         Me.lstTags.TabIndex = 8
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.optAll)
+        Me.GroupBox1.Controls.Add(Me.optAny)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 206)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(150, 46)
+        Me.GroupBox1.TabIndex = 14
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Matching Options"
+        '
+        'optAll
+        '
+        Me.optAll.AutoSize = True
+        Me.optAll.Location = New System.Drawing.Point(77, 19)
+        Me.optAll.Name = "optAll"
+        Me.optAll.Size = New System.Drawing.Size(63, 17)
+        Me.optAll.TabIndex = 0
+        Me.optAll.TabStop = True
+        Me.optAll.Text = "All Tags"
+        Me.optAll.UseVisualStyleBackColor = True
+        '
+        'optAny
+        '
+        Me.optAny.AutoSize = True
+        Me.optAny.Checked = True
+        Me.optAny.Location = New System.Drawing.Point(6, 19)
+        Me.optAny.Name = "optAny"
+        Me.optAny.Size = New System.Drawing.Size(65, 17)
+        Me.optAny.TabIndex = 1
+        Me.optAny.TabStop = True
+        Me.optAny.Text = "Any Tag"
+        Me.optAny.UseVisualStyleBackColor = True
         '
         'frmFilter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(384, 261)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.lblGameTags)
         Me.Controls.Add(Me.lblTags)
@@ -113,6 +152,8 @@ Partial Class frmFilter
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Filter by Tags"
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -124,4 +165,7 @@ Partial Class frmFilter
     Friend WithEvents btnAdd As System.Windows.Forms.Button
     Friend WithEvents lstFilter As System.Windows.Forms.ListBox
     Friend WithEvents lstTags As System.Windows.Forms.ListBox
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents optAll As RadioButton
+    Friend WithEvents optAny As RadioButton
 End Class
