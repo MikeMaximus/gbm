@@ -278,6 +278,18 @@
         End If
     End Function
 
+    Public Function MinimalEquals(obj As Object) As Boolean
+        Dim oGame As clsGame = TryCast(obj, clsGame)
+        If oGame Is Nothing Then
+            Return False
+        Else
+            If ID <> oGame.ID Then
+                Return False
+            End If
+            Return True
+        End If
+    End Function
+
     Public Function ShallowCopy() As clsGame
         Return DirectCast(Me.MemberwiseClone(), clsGame)
     End Function

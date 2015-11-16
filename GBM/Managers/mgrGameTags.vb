@@ -223,33 +223,6 @@
         Dim oToItem As clsGameTag
         Dim sCompoundKey As String
 
-        'Delete Sync
-        If bToRemote Then
-            hshCompareFrom = ReadGameTags(mgrSQLite.Database.Local)
-            hshCompareTo = ReadGameTags(mgrSQLite.Database.Remote)
-        Else
-            hshCompareFrom = ReadGameTags(mgrSQLite.Database.Remote)
-            hshCompareTo = ReadGameTags(mgrSQLite.Database.Local)
-        End If
-
-        hshDeleteItems = hshCompareTo.Clone
-
-        For Each oToItem In hshCompareTo.Values
-            sCompoundKey = oToItem.TagID & ":" & oToItem.MonitorID
-            If hshCompareFrom.Contains(sCompoundKey) Then
-                oFromItem = DirectCast(hshCompareFrom(sCompoundKey), clsGameTag)
-                If oToItem.CoreEquals(oFromItem) Then
-                    hshDeleteItems.Remove(sCompoundKey)
-                End If
-            End If
-        Next
-
-        If bToRemote Then
-            DoGameTagDeleteSync(hshDeleteItems, mgrSQLite.Database.Remote)
-        Else
-            DoGameTagDeleteSync(hshDeleteItems, mgrSQLite.Database.Local)
-        End If
-
         'Add / Update Sync
         If bToRemote Then
             hshCompareFrom = ReadGameTags(mgrSQLite.Database.Local)
@@ -275,6 +248,33 @@
             DoGameTagAddSync(hshSyncItems, mgrSQLite.Database.Remote)
         Else
             DoGameTagAddSync(hshSyncItems, mgrSQLite.Database.Local)
+        End If
+
+        'Delete Sync
+        If bToRemote Then
+            hshCompareFrom = ReadGameTags(mgrSQLite.Database.Local)
+            hshCompareTo = ReadGameTags(mgrSQLite.Database.Remote)
+        Else
+            hshCompareFrom = ReadGameTags(mgrSQLite.Database.Remote)
+            hshCompareTo = ReadGameTags(mgrSQLite.Database.Local)
+        End If
+
+        hshDeleteItems = hshCompareTo.Clone
+
+        For Each oToItem In hshCompareTo.Values
+            sCompoundKey = oToItem.TagID & ":" & oToItem.MonitorID
+            If hshCompareFrom.Contains(sCompoundKey) Then
+                oFromItem = DirectCast(hshCompareFrom(sCompoundKey), clsGameTag)
+                If oToItem.CoreEquals(oFromItem) Then
+                    hshDeleteItems.Remove(sCompoundKey)
+                End If
+            End If
+        Next
+
+        If bToRemote Then
+            DoGameTagDeleteSync(hshDeleteItems, mgrSQLite.Database.Remote)
+        Else
+            DoGameTagDeleteSync(hshDeleteItems, mgrSQLite.Database.Local)
         End If
 
         Return hshDeleteItems.Count + hshSyncItems.Count

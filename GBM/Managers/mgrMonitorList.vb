@@ -95,11 +95,14 @@ Public Class mgrMonitorList
         Dim hshParams As Hashtable
         Dim oParamList As New List(Of Hashtable)
 
-        sSQL = "DELETE FROM monitorlist "
+        sSQL = "DELETE FROM gametags "
+        sSQL &= "WHERE MonitorID = @MonitorID;"
+        sSQL &= "DELETE FROM monitorlist "
         sSQL &= "WHERE Name = @Name AND Process= @Process;"
 
         For Each oGame As clsGame In hshGames.Values
             hshParams = New Hashtable
+            hshParams.Add("MonitorID", oGame.ID)
             hshParams.Add("Name", oGame.Name)
             hshParams.Add("Process", oGame.TrueProcess)
             oParamList.Add(hshParams)
@@ -124,33 +127,6 @@ Public Class mgrMonitorList
         Else
             RaiseEvent UpdateLog("A sync from the master game list has been triggered.", False, ToolTipIcon.Info, True)
         End If
-
-        'Delete Sync
-        If bToRemote Then
-            hshCompareFrom = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
-            hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Remote)
-        Else
-            hshCompareFrom = ReadList(eListTypes.FullList, mgrSQLite.Database.Remote)
-            hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
-        End If
-
-        hshDeleteItems = hshCompareTo.Clone
-
-        For Each oToItem In hshCompareTo.Values
-            If hshCompareFrom.Contains(oToItem.ProcessName) Then
-                oFromItem = DirectCast(hshCompareFrom(oToItem.ProcessName), clsGame)
-                If oToItem.CoreEquals(oFromItem) Then
-                    hshDeleteItems.Remove(oToItem.ProcessName)
-                End If
-            End If
-        Next
-
-        If bToRemote Then
-            DoListDeleteSync(hshDeleteItems, mgrSQLite.Database.Remote)
-        Else
-            DoListDeleteSync(hshDeleteItems, mgrSQLite.Database.Local)
-        End If
-
 
         'Add / Update Sync
         If bToRemote Then
@@ -182,6 +158,32 @@ Public Class mgrMonitorList
         'Sync Tags
         iChanges = mgrTags.SyncTags(bToRemote)
         iChanges += mgrGameTags.SyncGameTags(bToRemote)
+
+        'Delete Sync
+        If bToRemote Then
+            hshCompareFrom = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
+            hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Remote)
+        Else
+            hshCompareFrom = ReadList(eListTypes.FullList, mgrSQLite.Database.Remote)
+            hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
+        End If
+
+        hshDeleteItems = hshCompareTo.Clone
+
+        For Each oToItem In hshCompareTo.Values
+            If hshCompareFrom.Contains(oToItem.ProcessName) Then
+                oFromItem = DirectCast(hshCompareFrom(oToItem.ProcessName), clsGame)
+                If oToItem.MinimalEquals(oFromItem) Then
+                    hshDeleteItems.Remove(oToItem.ProcessName)
+                End If
+            End If
+        Next
+
+        If bToRemote Then
+            DoListDeleteSync(hshDeleteItems, mgrSQLite.Database.Remote)
+        Else
+            DoListDeleteSync(hshDeleteItems, mgrSQLite.Database.Local)
+        End If
 
         RaiseEvent UpdateLog(hshDeleteItems.Count + hshSyncItems.Count + iChanges & " change(s) synced.", False, ToolTipIcon.Info, True)
         Cursor.Current = Cursors.Default

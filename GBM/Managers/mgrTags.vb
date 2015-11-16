@@ -203,33 +203,7 @@
         Dim hshSyncItems As Hashtable
         Dim hshDeleteItems As Hashtable
         Dim oFromItem As clsTag
-        Dim oToItem As clsTag        
-
-        'Delete Sync
-        If bToRemote Then
-            hshCompareFrom = ReadTags(mgrSQLite.Database.Local)
-            hshCompareTo = ReadTags(mgrSQLite.Database.Remote)
-        Else
-            hshCompareFrom = ReadTags(mgrSQLite.Database.Remote)
-            hshCompareTo = ReadTags(mgrSQLite.Database.Local)
-        End If
-
-        hshDeleteItems = hshCompareTo.Clone
-
-        For Each oToItem In hshCompareTo.Values
-            If hshCompareFrom.Contains(oToItem.Name) Then
-                oFromItem = DirectCast(hshCompareFrom(oToItem.Name), clsTag)
-                If oToItem.CoreEquals(oFromItem) Then
-                    hshDeleteItems.Remove(oToItem.Name)
-                End If
-            End If
-        Next
-
-        If bToRemote Then
-            DoTagDeleteSync(hshDeleteItems, mgrSQLite.Database.Remote)
-        Else
-            DoTagDeleteSync(hshDeleteItems, mgrSQLite.Database.Local)
-        End If
+        Dim oToItem As clsTag
 
         'Add / Update Sync
         If bToRemote Then
@@ -255,6 +229,32 @@
             DoTagAddUpdateSync(hshSyncItems, mgrSQLite.Database.Remote)
         Else
             DoTagAddUpdateSync(hshSyncItems, mgrSQLite.Database.Local)
+        End If
+
+        'Delete Sync
+        If bToRemote Then
+            hshCompareFrom = ReadTags(mgrSQLite.Database.Local)
+            hshCompareTo = ReadTags(mgrSQLite.Database.Remote)
+        Else
+            hshCompareFrom = ReadTags(mgrSQLite.Database.Remote)
+            hshCompareTo = ReadTags(mgrSQLite.Database.Local)
+        End If
+
+        hshDeleteItems = hshCompareTo.Clone
+
+        For Each oToItem In hshCompareTo.Values
+            If hshCompareFrom.Contains(oToItem.Name) Then
+                oFromItem = DirectCast(hshCompareFrom(oToItem.Name), clsTag)
+                If oToItem.MinimalEquals(oFromItem) Then
+                    hshDeleteItems.Remove(oToItem.Name)
+                End If
+            End If
+        Next
+
+        If bToRemote Then
+            DoTagDeleteSync(hshDeleteItems, mgrSQLite.Database.Remote)
+        Else
+            DoTagDeleteSync(hshDeleteItems, mgrSQLite.Database.Local)
         End If
 
         Return hshDeleteItems.Count + hshSyncItems.Count
