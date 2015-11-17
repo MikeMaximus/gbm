@@ -31,7 +31,7 @@
             sPath = value
         End Set
         Get
-            Return mgrPath.ReverseSpecialPaths(sPath)
+            Return sPath
         End Get
     End Property
 
