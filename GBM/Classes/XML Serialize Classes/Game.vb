@@ -28,10 +28,10 @@
 
     Property Path As String
         Set(value As String)
-            sPath = mgrPath.ReverseSpecialPaths(value)
+            sPath = value
         End Set
         Get
-            Return mgrPath.ReplaceSpecialPaths(sPath)
+            Return mgrPath.ReverseSpecialPaths(sPath)
         End Get
     End Property
 
