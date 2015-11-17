@@ -1,7 +1,7 @@
-Game Backup Monitor v0.93 Readme
-http://backupmonitor.sourceforge.net/
+Game Backup Monitor v0.94 Readme
+http://mikemaximus.github.io/gbm-web/
 
-October 13, 2015
+November 17, 2015
 
 Disclaimer:
 
@@ -13,26 +13,18 @@ This application is designed to run in the system tray and monitor for games you
 
 GBM has been designed with mostly classic gaming in mind, but it can be used for any application!
 
-Important Upgrade Information:
+New in 0.94
 
-1.  You may notice one or more backup dates are incorrect after upgrading to v0.93.  This is due to fallback behavior during the upgrade process when a date cannot be converted correctly.
-
-2.  Due to core changes to how GBM handles backups, some game configurations that exclude sub-folders may break in v0.93, including official configurations.
-
-If you have any issues with the following game backups after upgrading to v0.93, delete them from the Game Manager and re-import them from the official list.
-
-Call of Cthulhu - Dark Corners of The Earth
-Dead State
-Democracy 3
-Grand Theft Auto - San Andreas
-Kerbal Space Program
-POD Gold
-Simcity 4 Deluxe
-The Settlers: Rise of an Empire
-Tropico 4
-Victor Vran
-
-Please check the Game Manager section of the manual if you're having problems with your custom game entries.
+- Added the ability to organize your games with Tags.  Users can create and customize their own list of Tags.
+- Added the ability to filter by Tag in the Game Manager.
+- Added the ability to filter by Tag when doing an XML export.
+- Added the ability to disable Time Tracking.  Enabling or disabling this setting has no effect on data already recorded.
+- Added the ability to restart GBM as Administrator from the status bar.
+- Redesigned notifications, GBM is now silent unless a problem occurs.
+- Enhanced the sync logic and performance.
+- The backup "Timestamp" setting is no longer included in XML imports or exports.
+- Redesigned the XML import and export core.  Sorry, this invalidates all prior XML exports files, but it will ensure future backwards compatability.
+- Various bug fixes.
 
 New in 0.93
 

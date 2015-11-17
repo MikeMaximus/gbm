@@ -453,7 +453,12 @@ Public Class frmMain
             End If
 
             'Do Time Update
-            If oSettings.TimeTracking Then UpdateTimeSpent(oProcess.GameInfo.Hours, 0)
+            If oSettings.TimeTracking Then
+                UpdateTimeSpent(oProcess.GameInfo.Hours, 0)
+            Else
+                lblTimeTitle.Visible = False
+                lblTimeSpent.Visible = False
+            End If
 
             'Set Details
             If sFileName = String.Empty Then
@@ -923,7 +928,7 @@ Public Class frmMain
             txtLog.ScrollToCaret()
             gMonTray.BalloonTipText = sLogUpdate
             gMonTray.BalloonTipIcon = objIcon
-            If bTrayUpdate Then gMonTray.ShowBalloonTip(2000)
+            If bTrayUpdate Then gMonTray.ShowBalloonTip(5000)
         End If
         Application.DoEvents()
     End Sub
