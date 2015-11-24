@@ -433,14 +433,14 @@ Public Class mgrMonitorList
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oGame = New Game
-            sID = CStr(dr(0))
-            oGame.Name = CStr(dr(1))
-            oGame.ProcessName = CStr(dr(2))
-            If Not IsDBNull(dr(3)) Then oGame.Path = CStr(dr(3))
-            oGame.AbsolutePath = CBool(dr(4))
-            oGame.FolderSave = CBool(dr(5))
-            If Not IsDBNull(dr(6)) Then oGame.FileType = CStr(dr(6))
-            If Not IsDBNull(dr(7)) Then oGame.ExcludeList = CStr(dr(7))
+            sID = CStr(dr("MonitorID"))
+            oGame.Name = CStr(dr("Name"))
+            oGame.ProcessName = CStr(dr("Process"))
+            If Not IsDBNull(dr("Path")) Then oGame.Path = CStr(dr("Path"))
+            oGame.AbsolutePath = CBool(dr("AbsolutePath"))
+            oGame.FolderSave = CBool(dr("FolderSave"))
+            If Not IsDBNull(dr("FileType")) Then oGame.FileType = CStr(dr("FileType"))
+            If Not IsDBNull(dr("ExcludeList")) Then oGame.ExcludeList = CStr(dr("ExcludeList"))
             oGame.Tags = mgrGameTags.GetTagsByGameForExport(sID)
             oList.Add(oGame)
         Next
