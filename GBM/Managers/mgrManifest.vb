@@ -14,14 +14,14 @@ Public Class mgrManifest
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oBackupItem = New clsBackup
-            oBackupItem.ID = CStr(dr(0))
-            oBackupItem.Name = CStr(dr(1))
-            oBackupItem.FileName = CStr(dr(2))
-            oBackupItem.RestorePath = CStr(dr(3))
-            oBackupItem.AbsolutePath = CBool(dr(4))
-            oBackupItem.DateUpdated = mgrCommon.UnixToDate(dr(5))
-            oBackupItem.UpdatedBy = CStr(dr(6))
-            If Not IsDBNull(dr(7)) Then oBackupItem.CheckSum = CStr(dr(7))
+            oBackupItem.ID = CStr(dr("ManifestID"))
+            oBackupItem.Name = CStr(dr("Name"))
+            oBackupItem.FileName = CStr(dr("FileName"))
+            oBackupItem.RestorePath = CStr(dr("RestorePath"))
+            oBackupItem.AbsolutePath = CBool(dr("AbsolutePath"))
+            oBackupItem.DateUpdated = mgrCommon.UnixToDate(dr("DateUpdated"))
+            oBackupItem.UpdatedBy = CStr(dr("UpdatedBy"))
+            If Not IsDBNull(dr(7)) Then oBackupItem.CheckSum = CStr(dr("CheckSum"))
             slList.Add(oBackupItem.Name, oBackupItem)
         Next
 
@@ -66,14 +66,14 @@ Public Class mgrManifest
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oBackupItem = New clsBackup
-            oBackupItem.ID = CStr(dr(0))
-            oBackupItem.Name = CStr(dr(1))
-            oBackupItem.FileName = CStr(dr(2))
-            oBackupItem.RestorePath = CStr(dr(3))
-            oBackupItem.AbsolutePath = CBool(dr(4))
-            oBackupItem.DateUpdated = mgrCommon.UnixToDate(dr(5))
-            oBackupItem.UpdatedBy = CStr(dr(6))
-            If Not IsDBNull(dr(7)) Then oBackupItem.CheckSum = CStr(dr(7))
+            oBackupItem.ID = CStr(dr("ManifestID"))
+            oBackupItem.Name = CStr(dr("Name"))
+            oBackupItem.FileName = CStr(dr("FileName"))
+            oBackupItem.RestorePath = CStr(dr("RestorePath"))
+            oBackupItem.AbsolutePath = CBool(dr("AbsolutePath"))
+            oBackupItem.DateUpdated = mgrCommon.UnixToDate(dr("DateUpdated"))
+            oBackupItem.UpdatedBy = CStr(dr("UpdatedBy"))
+            If Not IsDBNull(dr(7)) Then oBackupItem.CheckSum = CStr(dr("CheckSum"))
         Next
 
         Return oBackupItem

@@ -92,8 +92,8 @@
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oTag = New clsTag
-            oTag.ID = CStr(dr(0))
-            oTag.Name = CStr(dr(1))
+            oTag.ID = CStr(dr("TagID"))
+            oTag.Name = CStr(dr("Name"))
             hshList.Add(oTag.Name, oTag)
         Next
 
@@ -116,7 +116,7 @@
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oTag = New Tag            
-            oTag.Name = CStr(dr(1))
+            oTag.Name = CStr(dr("Name"))
             oList.Add(oTag)
         Next
 
@@ -168,8 +168,8 @@
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oGameTag = New clsGameTag
-            oGameTag.TagID = CStr(dr(0))
-            oGameTag.MonitorID = CStr(dr(1))
+            oGameTag.TagID = CStr(dr("TagID"))
+            oGameTag.MonitorID = CStr(dr("MonitorID"))
             sCompoundKey = oGameTag.TagID & ":" & oGameTag.MonitorID
             hshList.Add(sCompoundKey, oGameTag)
         Next

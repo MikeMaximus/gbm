@@ -58,8 +58,8 @@
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oTag = New clsTag
-            oTag.ID = CStr(dr(0))
-            oTag.Name = CStr(dr(1))
+            oTag.ID = CStr(dr("TagID"))
+            oTag.Name = CStr(dr("Name"))
         Next
 
         Return oTag
@@ -81,8 +81,8 @@
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oTag = New clsTag
-            oTag.ID = CStr(dr(0))
-            oTag.Name = CStr(dr(1))            
+            oTag.ID = CStr(dr("TagID"))
+            oTag.Name = CStr(dr("Name"))
         Next
 
         Return oTag
@@ -125,8 +125,8 @@
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oTag = New clsTag
-            oTag.ID = CStr(dr(0))
-            oTag.Name = CStr(dr(1))
+            oTag.ID = CStr(dr("TagID"))
+            oTag.Name = CStr(dr("Name"))
             hshList.Add(oTag.Name, oTag)
         Next
 

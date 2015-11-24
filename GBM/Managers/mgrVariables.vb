@@ -70,9 +70,9 @@
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oCustomVariable = New clsPathVariable
-            oCustomVariable.ID = CStr(dr(0))
-            oCustomVariable.Name = CStr(dr(1))
-            oCustomVariable.Path = CStr(dr(2))
+            oCustomVariable.ID = CStr(dr("VariableID"))
+            oCustomVariable.Name = CStr(dr("Name"))
+            oCustomVariable.Path = CStr(dr("Path"))
         Next
 
         Return oCustomVariable
@@ -94,9 +94,9 @@
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oCustomVariable = New clsPathVariable
-            oCustomVariable.ID = CStr(dr(0))
-            oCustomVariable.Name = CStr(dr(1))
-            oCustomVariable.Path = CStr(dr(2))
+            oCustomVariable.ID = CStr(dr("VariableID"))
+            oCustomVariable.Name = CStr(dr("Name"))
+            oCustomVariable.Path = CStr(dr("Path"))
         Next
 
         Return oCustomVariable
@@ -139,9 +139,9 @@
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oCustomVariable = New clsPathVariable
-            oCustomVariable.ID = CStr(dr(0))
-            oCustomVariable.Name = CStr(dr(1))
-            oCustomVariable.Path = CStr(dr(2))
+            oCustomVariable.ID = CStr(dr("VariableID"))
+            oCustomVariable.Name = CStr(dr("Name"))
+            oCustomVariable.Path = CStr(dr("Path"))
             hshList.Add(oCustomVariable.Name, oCustomVariable)
         Next
 
