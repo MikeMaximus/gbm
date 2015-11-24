@@ -21,7 +21,7 @@ Public Class mgrManifest
             oBackupItem.AbsolutePath = CBool(dr("AbsolutePath"))
             oBackupItem.DateUpdated = mgrCommon.UnixToDate(dr("DateUpdated"))
             oBackupItem.UpdatedBy = CStr(dr("UpdatedBy"))
-            If Not IsDBNull(dr(7)) Then oBackupItem.CheckSum = CStr(dr("CheckSum"))
+            If Not IsDBNull(dr("CheckSum")) Then oBackupItem.CheckSum = CStr(dr("CheckSum"))
             slList.Add(oBackupItem.Name, oBackupItem)
         Next
 
@@ -73,7 +73,7 @@ Public Class mgrManifest
             oBackupItem.AbsolutePath = CBool(dr("AbsolutePath"))
             oBackupItem.DateUpdated = mgrCommon.UnixToDate(dr("DateUpdated"))
             oBackupItem.UpdatedBy = CStr(dr("UpdatedBy"))
-            If Not IsDBNull(dr(7)) Then oBackupItem.CheckSum = CStr(dr("CheckSum"))
+            If Not IsDBNull(dr("CheckSum")) Then oBackupItem.CheckSum = CStr(dr("CheckSum"))
         Next
 
         Return oBackupItem
