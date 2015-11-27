@@ -81,6 +81,7 @@ Partial Class frmGameManager
         Me.optBackupData = New System.Windows.Forms.RadioButton()
         Me.optPendingRestores = New System.Windows.Forms.RadioButton()
         Me.optAllGames = New System.Windows.Forms.RadioButton()
+        Me.btnInclude = New System.Windows.Forms.Button()
         Me.grpConfig.SuspendLayout()
         Me.grpExtra.SuspendLayout()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -134,6 +135,7 @@ Partial Class frmGameManager
         'grpConfig
         '
         Me.grpConfig.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpConfig.Controls.Add(Me.btnInclude)
         Me.grpConfig.Controls.Add(Me.txtID)
         Me.grpConfig.Controls.Add(Me.lblExclude)
         Me.grpConfig.Controls.Add(Me.lblFileType)
@@ -241,7 +243,7 @@ Partial Class frmGameManager
         '
         Me.txtFileType.Location = New System.Drawing.Point(69, 97)
         Me.txtFileType.Name = "txtFileType"
-        Me.txtFileType.Size = New System.Drawing.Size(459, 20)
+        Me.txtFileType.Size = New System.Drawing.Size(423, 20)
         Me.txtFileType.TabIndex = 11
         '
         'chkTimeStamp
@@ -681,6 +683,15 @@ Partial Class frmGameManager
         Me.optAllGames.Text = "All"
         Me.optAllGames.UseVisualStyleBackColor = True
         '
+        'btnInclude
+        '
+        Me.btnInclude.Location = New System.Drawing.Point(498, 97)
+        Me.btnInclude.Name = "btnInclude"
+        Me.btnInclude.Size = New System.Drawing.Size(30, 20)
+        Me.btnInclude.TabIndex = 15
+        Me.btnInclude.Text = "..."
+        Me.btnInclude.UseVisualStyleBackColor = True
+        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -782,4 +793,5 @@ Partial Class frmGameManager
     Friend WithEvents btnTags As System.Windows.Forms.Button
     Friend WithEvents lblTags As System.Windows.Forms.Label
     Friend WithEvents optTag As System.Windows.Forms.RadioButton
+    Friend WithEvents btnInclude As System.Windows.Forms.Button
 End Class

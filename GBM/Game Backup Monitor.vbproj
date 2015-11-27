@@ -150,6 +150,12 @@
     <Compile Include="Forms\frmGameTags.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmIncludeExclude.Designer.vb">
+      <DependentUpon>frmIncludeExclude.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmIncludeExclude.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmStartUpWizard.Designer.vb">
       <DependentUpon>frmStartUpWizard.vb</DependentUpon>
     </Compile>
@@ -239,6 +245,9 @@
     <EmbeddedResource Include="Forms\frmGameTags.resx">
       <DependentUpon>frmGameTags.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmIncludeExclude.resx">
+      <DependentUpon>frmIncludeExclude.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmStartUpWizard.resx">
       <DependentUpon>frmStartUpWizard.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -312,9 +321,12 @@
     <Content Include="References\System.Data.SQLite.dll" />
     <None Include="Resources\gbm.ico" />
     <Content Include="Resources\Admin.png" />
+    <Content Include="Resources\file.ico" />
+    <Content Include="Resources\folder.ico" />
     <Content Include="Resources\GBM_Tray_Detected.ico" />
     <Content Include="Resources\GBM_Tray_Ready.ico" />
     <Content Include="Resources\GBM_Tray_Stopped.ico" />
+    <Content Include="Resources\type.ico" />
     <Content Include="Resources\User.png" />
     <Content Include="Utilities\x64\7za.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

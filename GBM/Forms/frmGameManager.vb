@@ -386,6 +386,25 @@ Public Class frmGameManager
 
     End Sub
 
+    Private Sub OpenIncludeBuilder()
+        Dim frm As New frmIncludeExclude
+        frm.FormName = "Include Builder"
+
+        If Path.IsPathRooted(txtSavePath.Text) Then
+            If Directory.Exists(txtSavePath.Text) Then
+                frm.RootFolder = txtSavePath.Text
+            End If
+        Else
+            If txtAppPath.Text <> String.Empty Then
+                If Directory.Exists(txtAppPath.Text & "\" & txtSavePath.Text) Then
+                    frm.RootFolder = txtAppPath.Text & "\" & txtSavePath.Text
+                End If
+            End If
+        End If
+
+        frm.ShowDialog()
+    End Sub
+
     Private Function FindRestorePath() As Boolean
         Dim sProcess As String
         Dim sRestorePath As String
@@ -1199,5 +1218,7 @@ Public Class frmGameManager
         LoadData()
     End Sub
 
-
+    Private Sub btnInclude_Click(sender As Object, e As EventArgs) Handles btnInclude.Click
+        OpenIncludeBuilder()
+    End Sub
 End Class
