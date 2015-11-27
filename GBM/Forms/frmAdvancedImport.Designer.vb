@@ -96,6 +96,7 @@ Partial Class frmAdvancedImport
         Me.Controls.Add(Me.btnImport)
         Me.Controls.Add(Me.lstGames)
         Me.Controls.Add(Me.lblGames)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmAdvancedImport"
