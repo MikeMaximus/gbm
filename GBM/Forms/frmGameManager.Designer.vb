@@ -27,6 +27,7 @@ Partial Class frmGameManager
         Me.btnBackup = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.grpConfig = New System.Windows.Forms.GroupBox()
+        Me.btnInclude = New System.Windows.Forms.Button()
         Me.txtID = New System.Windows.Forms.TextBox()
         Me.lblExclude = New System.Windows.Forms.Label()
         Me.lblFileType = New System.Windows.Forms.Label()
@@ -81,7 +82,7 @@ Partial Class frmGameManager
         Me.optBackupData = New System.Windows.Forms.RadioButton()
         Me.optPendingRestores = New System.Windows.Forms.RadioButton()
         Me.optAllGames = New System.Windows.Forms.RadioButton()
-        Me.btnInclude = New System.Windows.Forms.Button()
+        Me.btnExclude = New System.Windows.Forms.Button()
         Me.grpConfig.SuspendLayout()
         Me.grpExtra.SuspendLayout()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -135,6 +136,7 @@ Partial Class frmGameManager
         'grpConfig
         '
         Me.grpConfig.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpConfig.Controls.Add(Me.btnExclude)
         Me.grpConfig.Controls.Add(Me.btnInclude)
         Me.grpConfig.Controls.Add(Me.txtID)
         Me.grpConfig.Controls.Add(Me.lblExclude)
@@ -158,6 +160,15 @@ Partial Class frmGameManager
         Me.grpConfig.TabIndex = 4
         Me.grpConfig.TabStop = False
         Me.grpConfig.Text = "Configuration"
+        '
+        'btnInclude
+        '
+        Me.btnInclude.Location = New System.Drawing.Point(498, 97)
+        Me.btnInclude.Name = "btnInclude"
+        Me.btnInclude.Size = New System.Drawing.Size(30, 20)
+        Me.btnInclude.TabIndex = 15
+        Me.btnInclude.Text = "..."
+        Me.btnInclude.UseVisualStyleBackColor = True
         '
         'txtID
         '
@@ -236,7 +247,7 @@ Partial Class frmGameManager
         '
         Me.txtExclude.Location = New System.Drawing.Point(69, 123)
         Me.txtExclude.Name = "txtExclude"
-        Me.txtExclude.Size = New System.Drawing.Size(459, 20)
+        Me.txtExclude.Size = New System.Drawing.Size(423, 20)
         Me.txtExclude.TabIndex = 12
         '
         'txtFileType
@@ -683,14 +694,14 @@ Partial Class frmGameManager
         Me.optAllGames.Text = "All"
         Me.optAllGames.UseVisualStyleBackColor = True
         '
-        'btnInclude
+        'btnExclude
         '
-        Me.btnInclude.Location = New System.Drawing.Point(498, 97)
-        Me.btnInclude.Name = "btnInclude"
-        Me.btnInclude.Size = New System.Drawing.Size(30, 20)
-        Me.btnInclude.TabIndex = 15
-        Me.btnInclude.Text = "..."
-        Me.btnInclude.UseVisualStyleBackColor = True
+        Me.btnExclude.Location = New System.Drawing.Point(498, 123)
+        Me.btnExclude.Name = "btnExclude"
+        Me.btnExclude.Size = New System.Drawing.Size(30, 20)
+        Me.btnExclude.TabIndex = 16
+        Me.btnExclude.Text = "..."
+        Me.btnExclude.UseVisualStyleBackColor = True
         '
         'frmGameManager
         '
@@ -794,4 +805,5 @@ Partial Class frmGameManager
     Friend WithEvents lblTags As System.Windows.Forms.Label
     Friend WithEvents optTag As System.Windows.Forms.RadioButton
     Friend WithEvents btnInclude As System.Windows.Forms.Button
+    Friend WithEvents btnExclude As System.Windows.Forms.Button
 End Class

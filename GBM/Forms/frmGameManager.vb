@@ -386,23 +386,32 @@ Public Class frmGameManager
 
     End Sub
 
-    Private Sub OpenIncludeBuilder()
-        Dim frm As New frmIncludeExclude
-        frm.FormName = "Include Builder"
+    Private Function GetBuilderRoot() As String
+        Dim sRoot As String = String.Empty
 
         If Path.IsPathRooted(txtSavePath.Text) Then
             If Directory.Exists(txtSavePath.Text) Then
-                frm.RootFolder = txtSavePath.Text
+                sRoot = txtSavePath.Text
             End If
         Else
             If txtAppPath.Text <> String.Empty Then
                 If Directory.Exists(txtAppPath.Text & "\" & txtSavePath.Text) Then
-                    frm.RootFolder = txtAppPath.Text & "\" & txtSavePath.Text
+                    sRoot = txtAppPath.Text & "\" & txtSavePath.Text
                 End If
             End If
         End If
 
+        Return sRoot
+    End Function
+
+    Private Sub OpenBuilder(ByVal sFormText As String, ByRef txtBox As TextBox)
+        Dim frm As New frmIncludeExclude
+        frm.FormName = sFormText
+        frm.BuilderString = txtBox.Text
+        frm.RootFolder = GetBuilderRoot()
+
         frm.ShowDialog()
+        txtBox.Text = frm.BuilderString
     End Sub
 
     Private Function FindRestorePath() As Boolean
@@ -1219,6 +1228,10 @@ Public Class frmGameManager
     End Sub
 
     Private Sub btnInclude_Click(sender As Object, e As EventArgs) Handles btnInclude.Click
-        OpenIncludeBuilder()
+        OpenBuilder("Include", txtFileType)
+    End Sub
+
+    Private Sub btnExclude_Click(sender As Object, e As EventArgs) Handles btnExclude.Click
+        OpenBuilder("Exclude", txtExclude)
     End Sub
 End Class

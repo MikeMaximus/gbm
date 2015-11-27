@@ -26,7 +26,6 @@ Partial Class frmIncludeExclude
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmIncludeExclude))
         Me.treFiles = New System.Windows.Forms.TreeView()
         Me.imgIcons = New System.Windows.Forms.ImageList(Me.components)
-        Me.bwLoader = New System.ComponentModel.BackgroundWorker()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.txtRootFolder = New System.Windows.Forms.TextBox()
@@ -34,16 +33,22 @@ Partial Class frmIncludeExclude
         Me.lstBuilder = New System.Windows.Forms.ListView()
         Me.btnRemove = New System.Windows.Forms.Button()
         Me.btnAdd = New System.Windows.Forms.Button()
+        Me.grpFileOptions = New System.Windows.Forms.GroupBox()
+        Me.optIndividualFiles = New System.Windows.Forms.RadioButton()
+        Me.optFileTypes = New System.Windows.Forms.RadioButton()
+        Me.lblItems = New System.Windows.Forms.Label()
+        Me.grpFileOptions.SuspendLayout()
         Me.SuspendLayout()
         '
         'treFiles
         '
+        Me.treFiles.CheckBoxes = True
         Me.treFiles.ImageIndex = 0
         Me.treFiles.ImageList = Me.imgIcons
         Me.treFiles.Location = New System.Drawing.Point(12, 38)
         Me.treFiles.Name = "treFiles"
         Me.treFiles.SelectedImageIndex = 0
-        Me.treFiles.Size = New System.Drawing.Size(230, 359)
+        Me.treFiles.Size = New System.Drawing.Size(250, 359)
         Me.treFiles.TabIndex = 0
         '
         'imgIcons
@@ -52,6 +57,7 @@ Partial Class frmIncludeExclude
         Me.imgIcons.TransparentColor = System.Drawing.Color.Transparent
         Me.imgIcons.Images.SetKeyName(0, "folder.ico")
         Me.imgIcons.Images.SetKeyName(1, "file.ico")
+        Me.imgIcons.Images.SetKeyName(2, "type.ico")
         '
         'btnSave
         '
@@ -81,7 +87,7 @@ Partial Class frmIncludeExclude
         '
         'btnBrowse
         '
-        Me.btnBrowse.Location = New System.Drawing.Point(212, 11)
+        Me.btnBrowse.Location = New System.Drawing.Point(212, 12)
         Me.btnBrowse.Name = "btnBrowse"
         Me.btnBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnBrowse.TabIndex = 9
@@ -90,11 +96,13 @@ Partial Class frmIncludeExclude
         '
         'lstBuilder
         '
-        Me.lstBuilder.Location = New System.Drawing.Point(342, 38)
+        Me.lstBuilder.Location = New System.Drawing.Point(322, 38)
         Me.lstBuilder.Name = "lstBuilder"
-        Me.lstBuilder.Size = New System.Drawing.Size(230, 359)
+        Me.lstBuilder.Size = New System.Drawing.Size(250, 359)
+        Me.lstBuilder.SmallImageList = Me.imgIcons
         Me.lstBuilder.TabIndex = 10
         Me.lstBuilder.UseCompatibleStateImageBehavior = False
+        Me.lstBuilder.View = System.Windows.Forms.View.List
         '
         'btnRemove
         '
@@ -114,11 +122,55 @@ Partial Class frmIncludeExclude
         Me.btnAdd.Text = "> >"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
+        'grpFileOptions
+        '
+        Me.grpFileOptions.Controls.Add(Me.optFileTypes)
+        Me.grpFileOptions.Controls.Add(Me.optIndividualFiles)
+        Me.grpFileOptions.Location = New System.Drawing.Point(12, 403)
+        Me.grpFileOptions.Name = "grpFileOptions"
+        Me.grpFileOptions.Size = New System.Drawing.Size(194, 46)
+        Me.grpFileOptions.TabIndex = 13
+        Me.grpFileOptions.TabStop = False
+        Me.grpFileOptions.Text = "File Options"
+        '
+        'optIndividualFiles
+        '
+        Me.optIndividualFiles.AutoSize = True
+        Me.optIndividualFiles.Location = New System.Drawing.Point(85, 19)
+        Me.optIndividualFiles.Name = "optIndividualFiles"
+        Me.optIndividualFiles.Size = New System.Drawing.Size(94, 17)
+        Me.optIndividualFiles.TabIndex = 14
+        Me.optIndividualFiles.TabStop = True
+        Me.optIndividualFiles.Text = "Individual Files"
+        Me.optIndividualFiles.UseVisualStyleBackColor = True
+        '
+        'optFileTypes
+        '
+        Me.optFileTypes.AutoSize = True
+        Me.optFileTypes.Location = New System.Drawing.Point(6, 19)
+        Me.optFileTypes.Name = "optFileTypes"
+        Me.optFileTypes.Size = New System.Drawing.Size(73, 17)
+        Me.optFileTypes.TabIndex = 15
+        Me.optFileTypes.TabStop = True
+        Me.optFileTypes.Text = "File Types"
+        Me.optFileTypes.UseVisualStyleBackColor = True
+        '
+        'lblItems
+        '
+        Me.lblItems.AutoSize = True
+        Me.lblItems.Location = New System.Drawing.Point(319, 16)
+        Me.lblItems.Name = "lblItems"
+        Me.lblItems.Size = New System.Drawing.Size(32, 13)
+        Me.lblItems.TabIndex = 14
+        Me.lblItems.Text = "Items"
+        '
         'frmIncludeExclude
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(584, 461)
+        Me.Controls.Add(Me.lblItems)
+        Me.Controls.Add(Me.grpFileOptions)
         Me.Controls.Add(Me.btnRemove)
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.lstBuilder)
@@ -133,14 +185,15 @@ Partial Class frmIncludeExclude
         Me.Name = "frmIncludeExclude"
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Include Exclude Builder"
+        Me.Text = "Include / Exclude Builder"
+        Me.grpFileOptions.ResumeLayout(False)
+        Me.grpFileOptions.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents treFiles As System.Windows.Forms.TreeView
     Friend WithEvents imgIcons As System.Windows.Forms.ImageList
-    Friend WithEvents bwLoader As System.ComponentModel.BackgroundWorker
     Friend WithEvents btnSave As System.Windows.Forms.Button
     Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents txtRootFolder As System.Windows.Forms.TextBox
@@ -148,4 +201,8 @@ Partial Class frmIncludeExclude
     Friend WithEvents lstBuilder As System.Windows.Forms.ListView
     Friend WithEvents btnRemove As System.Windows.Forms.Button
     Friend WithEvents btnAdd As System.Windows.Forms.Button
+    Friend WithEvents grpFileOptions As System.Windows.Forms.GroupBox
+    Friend WithEvents optFileTypes As System.Windows.Forms.RadioButton
+    Friend WithEvents optIndividualFiles As System.Windows.Forms.RadioButton
+    Friend WithEvents lblItems As System.Windows.Forms.Label
 End Class
