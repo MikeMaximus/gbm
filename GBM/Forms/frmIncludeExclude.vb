@@ -79,7 +79,7 @@ Public Class frmIncludeExclude
         Catch uaex As UnauthorizedAccessException
             'Do Nothing
         Catch ex As Exception
-            MsgBox("An unexcepted error occured while reading the file system: " & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Game Backup Monitor")
+            MsgBox("An unexpected error occured while reading the file system: " & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Game Backup Monitor")
         Finally
             treFiles.EndUpdate()
             Cursor.Current = Cursors.Default
@@ -87,7 +87,6 @@ Public Class frmIncludeExclude
     End Sub
 
     Private Sub BuildTrunk()
-        treFiles.Nodes.Clear()
         Dim oRootNode As TreeNode
         Dim bIsDriveRoot As Boolean
 
@@ -99,6 +98,7 @@ Public Class frmIncludeExclude
             bIsDriveRoot = False
         End If
 
+        treFiles.Nodes.Clear()
         oRootNode.Name = "Root"
         treFiles.Nodes.Add(oRootNode)
         BuildBranch(txtRootFolder.Text, oRootNode, bIsDriveRoot)

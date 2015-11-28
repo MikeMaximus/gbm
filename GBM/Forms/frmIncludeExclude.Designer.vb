@@ -34,8 +34,8 @@ Partial Class frmIncludeExclude
         Me.btnRemove = New System.Windows.Forms.Button()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.grpFileOptions = New System.Windows.Forms.GroupBox()
-        Me.optIndividualFiles = New System.Windows.Forms.RadioButton()
         Me.optFileTypes = New System.Windows.Forms.RadioButton()
+        Me.optIndividualFiles = New System.Windows.Forms.RadioButton()
         Me.lblItems = New System.Windows.Forms.Label()
         Me.grpFileOptions.SuspendLayout()
         Me.SuspendLayout()
@@ -49,7 +49,7 @@ Partial Class frmIncludeExclude
         Me.treFiles.Name = "treFiles"
         Me.treFiles.SelectedImageIndex = 0
         Me.treFiles.Size = New System.Drawing.Size(250, 359)
-        Me.treFiles.TabIndex = 0
+        Me.treFiles.TabIndex = 1
         '
         'imgIcons
         '
@@ -64,7 +64,7 @@ Partial Class frmIncludeExclude
         Me.btnSave.Location = New System.Drawing.Point(416, 426)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 1
+        Me.btnSave.TabIndex = 6
         Me.btnSave.Text = "Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
@@ -73,7 +73,7 @@ Partial Class frmIncludeExclude
         Me.btnCancel.Location = New System.Drawing.Point(497, 426)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 2
+        Me.btnCancel.TabIndex = 7
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
@@ -83,24 +83,26 @@ Partial Class frmIncludeExclude
         Me.txtRootFolder.Name = "txtRootFolder"
         Me.txtRootFolder.ReadOnly = True
         Me.txtRootFolder.Size = New System.Drawing.Size(194, 20)
-        Me.txtRootFolder.TabIndex = 3
+        Me.txtRootFolder.TabIndex = 0
+        Me.txtRootFolder.TabStop = False
         '
         'btnBrowse
         '
         Me.btnBrowse.Location = New System.Drawing.Point(212, 12)
         Me.btnBrowse.Name = "btnBrowse"
         Me.btnBrowse.Size = New System.Drawing.Size(30, 20)
-        Me.btnBrowse.TabIndex = 9
+        Me.btnBrowse.TabIndex = 0
         Me.btnBrowse.Text = "..."
         Me.btnBrowse.UseVisualStyleBackColor = True
         '
         'lstBuilder
         '
+        Me.lstBuilder.LabelEdit = True
         Me.lstBuilder.Location = New System.Drawing.Point(322, 38)
         Me.lstBuilder.Name = "lstBuilder"
         Me.lstBuilder.Size = New System.Drawing.Size(250, 359)
         Me.lstBuilder.SmallImageList = Me.imgIcons
-        Me.lstBuilder.TabIndex = 10
+        Me.lstBuilder.TabIndex = 5
         Me.lstBuilder.UseCompatibleStateImageBehavior = False
         Me.lstBuilder.View = System.Windows.Forms.View.List
         '
@@ -109,7 +111,7 @@ Partial Class frmIncludeExclude
         Me.btnRemove.Location = New System.Drawing.Point(268, 201)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(48, 23)
-        Me.btnRemove.TabIndex = 12
+        Me.btnRemove.TabIndex = 4
         Me.btnRemove.Text = "< <"
         Me.btnRemove.UseVisualStyleBackColor = True
         '
@@ -118,7 +120,7 @@ Partial Class frmIncludeExclude
         Me.btnAdd.Location = New System.Drawing.Point(268, 172)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(48, 23)
-        Me.btnAdd.TabIndex = 11
+        Me.btnAdd.TabIndex = 3
         Me.btnAdd.Text = "> >"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
@@ -129,20 +131,9 @@ Partial Class frmIncludeExclude
         Me.grpFileOptions.Location = New System.Drawing.Point(12, 403)
         Me.grpFileOptions.Name = "grpFileOptions"
         Me.grpFileOptions.Size = New System.Drawing.Size(194, 46)
-        Me.grpFileOptions.TabIndex = 13
+        Me.grpFileOptions.TabIndex = 2
         Me.grpFileOptions.TabStop = False
         Me.grpFileOptions.Text = "File Options"
-        '
-        'optIndividualFiles
-        '
-        Me.optIndividualFiles.AutoSize = True
-        Me.optIndividualFiles.Location = New System.Drawing.Point(85, 19)
-        Me.optIndividualFiles.Name = "optIndividualFiles"
-        Me.optIndividualFiles.Size = New System.Drawing.Size(94, 17)
-        Me.optIndividualFiles.TabIndex = 14
-        Me.optIndividualFiles.TabStop = True
-        Me.optIndividualFiles.Text = "Individual Files"
-        Me.optIndividualFiles.UseVisualStyleBackColor = True
         '
         'optFileTypes
         '
@@ -150,10 +141,21 @@ Partial Class frmIncludeExclude
         Me.optFileTypes.Location = New System.Drawing.Point(6, 19)
         Me.optFileTypes.Name = "optFileTypes"
         Me.optFileTypes.Size = New System.Drawing.Size(73, 17)
-        Me.optFileTypes.TabIndex = 15
+        Me.optFileTypes.TabIndex = 0
         Me.optFileTypes.TabStop = True
         Me.optFileTypes.Text = "File Types"
         Me.optFileTypes.UseVisualStyleBackColor = True
+        '
+        'optIndividualFiles
+        '
+        Me.optIndividualFiles.AutoSize = True
+        Me.optIndividualFiles.Location = New System.Drawing.Point(85, 19)
+        Me.optIndividualFiles.Name = "optIndividualFiles"
+        Me.optIndividualFiles.Size = New System.Drawing.Size(94, 17)
+        Me.optIndividualFiles.TabIndex = 1
+        Me.optIndividualFiles.TabStop = True
+        Me.optIndividualFiles.Text = "Individual Files"
+        Me.optIndividualFiles.UseVisualStyleBackColor = True
         '
         'lblItems
         '

@@ -42,7 +42,7 @@ Partial Class frmTags
         Me.grpTag.Location = New System.Drawing.Point(238, 12)
         Me.grpTag.Name = "grpTag"
         Me.grpTag.Size = New System.Drawing.Size(334, 50)
-        Me.grpTag.TabIndex = 11
+        Me.grpTag.TabIndex = 3
         Me.grpTag.TabStop = False
         Me.grpTag.Text = "Configuration"
         '
@@ -68,7 +68,7 @@ Partial Class frmTags
         Me.btnClose.Location = New System.Drawing.Point(497, 226)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 14
+        Me.btnClose.TabIndex = 7
         Me.btnClose.Text = "C&lose"
         Me.btnClose.UseVisualStyleBackColor = True
         '
@@ -79,7 +79,7 @@ Partial Class frmTags
         Me.btnDelete.Location = New System.Drawing.Point(48, 226)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(30, 23)
-        Me.btnDelete.TabIndex = 10
+        Me.btnDelete.TabIndex = 2
         Me.btnDelete.Text = "-"
         Me.btnDelete.UseVisualStyleBackColor = True
         '
@@ -90,7 +90,7 @@ Partial Class frmTags
         Me.btnAdd.Location = New System.Drawing.Point(12, 226)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(30, 23)
-        Me.btnAdd.TabIndex = 9
+        Me.btnAdd.TabIndex = 1
         Me.btnAdd.Text = "+"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
@@ -101,7 +101,7 @@ Partial Class frmTags
         Me.lstTags.Name = "lstTags"
         Me.lstTags.Size = New System.Drawing.Size(220, 212)
         Me.lstTags.Sorted = True
-        Me.lstTags.TabIndex = 7
+        Me.lstTags.TabIndex = 0
         '
         'txtID
         '
@@ -109,7 +109,7 @@ Partial Class frmTags
         Me.txtID.Location = New System.Drawing.Point(377, 67)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(33, 20)
-        Me.txtID.TabIndex = 8
+        Me.txtID.TabIndex = 4
         Me.txtID.TabStop = False
         Me.txtID.Visible = False
         '
@@ -119,7 +119,7 @@ Partial Class frmTags
         Me.btnCancel.Location = New System.Drawing.Point(497, 67)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 13
+        Me.btnCancel.TabIndex = 6
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
@@ -129,7 +129,7 @@ Partial Class frmTags
         Me.btnSave.Location = New System.Drawing.Point(416, 67)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 12
+        Me.btnSave.TabIndex = 5
         Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '

@@ -40,7 +40,7 @@ Partial Class frmFilter
         Me.btnOK.Location = New System.Drawing.Point(297, 229)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 23)
-        Me.btnOK.TabIndex = 13
+        Me.btnOK.TabIndex = 7
         Me.btnOK.Text = "&OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
@@ -50,7 +50,7 @@ Partial Class frmFilter
         Me.lblGameTags.Location = New System.Drawing.Point(263, 8)
         Me.lblGameTags.Name = "lblGameTags"
         Me.lblGameTags.Size = New System.Drawing.Size(66, 13)
-        Me.lblGameTags.TabIndex = 6
+        Me.lblGameTags.TabIndex = 5
         Me.lblGameTags.Text = "Current Filter"
         '
         'lblTags
@@ -59,7 +59,7 @@ Partial Class frmFilter
         Me.lblTags.Location = New System.Drawing.Point(49, 8)
         Me.lblTags.Name = "lblTags"
         Me.lblTags.Size = New System.Drawing.Size(77, 13)
-        Me.lblTags.TabIndex = 7
+        Me.lblTags.TabIndex = 0
         Me.lblTags.Text = "Available Tags"
         '
         'btnRemove
@@ -67,7 +67,7 @@ Partial Class frmFilter
         Me.btnRemove.Location = New System.Drawing.Point(168, 114)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(48, 23)
-        Me.btnRemove.TabIndex = 10
+        Me.btnRemove.TabIndex = 4
         Me.btnRemove.Text = "< <"
         Me.btnRemove.UseVisualStyleBackColor = True
         '
@@ -76,7 +76,7 @@ Partial Class frmFilter
         Me.btnAdd.Location = New System.Drawing.Point(168, 85)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(48, 23)
-        Me.btnAdd.TabIndex = 9
+        Me.btnAdd.TabIndex = 3
         Me.btnAdd.Text = "> >"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
@@ -87,7 +87,7 @@ Partial Class frmFilter
         Me.lstFilter.Name = "lstFilter"
         Me.lstFilter.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.lstFilter.Size = New System.Drawing.Size(150, 173)
-        Me.lstFilter.TabIndex = 11
+        Me.lstFilter.TabIndex = 6
         '
         'lstTags
         '
@@ -96,7 +96,7 @@ Partial Class frmFilter
         Me.lstTags.Name = "lstTags"
         Me.lstTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.lstTags.Size = New System.Drawing.Size(150, 173)
-        Me.lstTags.TabIndex = 8
+        Me.lstTags.TabIndex = 1
         '
         'GroupBox1
         '
@@ -105,7 +105,7 @@ Partial Class frmFilter
         Me.GroupBox1.Location = New System.Drawing.Point(12, 206)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(150, 46)
-        Me.GroupBox1.TabIndex = 14
+        Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Matching Options"
         '
