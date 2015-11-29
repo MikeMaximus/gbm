@@ -31,12 +31,17 @@ Partial Class frmIncludeExclude
         Me.txtRootFolder = New System.Windows.Forms.TextBox()
         Me.btnBrowse = New System.Windows.Forms.Button()
         Me.lstBuilder = New System.Windows.Forms.ListView()
+        Me.cmsItems = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmsEdit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsRemove = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsAdd = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnRemove = New System.Windows.Forms.Button()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.grpFileOptions = New System.Windows.Forms.GroupBox()
         Me.optFileTypes = New System.Windows.Forms.RadioButton()
         Me.optIndividualFiles = New System.Windows.Forms.RadioButton()
         Me.lblItems = New System.Windows.Forms.Label()
+        Me.cmsItems.SuspendLayout()
         Me.grpFileOptions.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -82,13 +87,13 @@ Partial Class frmIncludeExclude
         Me.txtRootFolder.Location = New System.Drawing.Point(12, 12)
         Me.txtRootFolder.Name = "txtRootFolder"
         Me.txtRootFolder.ReadOnly = True
-        Me.txtRootFolder.Size = New System.Drawing.Size(194, 20)
+        Me.txtRootFolder.Size = New System.Drawing.Size(214, 20)
         Me.txtRootFolder.TabIndex = 0
         Me.txtRootFolder.TabStop = False
         '
         'btnBrowse
         '
-        Me.btnBrowse.Location = New System.Drawing.Point(212, 12)
+        Me.btnBrowse.Location = New System.Drawing.Point(232, 12)
         Me.btnBrowse.Name = "btnBrowse"
         Me.btnBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnBrowse.TabIndex = 0
@@ -97,6 +102,7 @@ Partial Class frmIncludeExclude
         '
         'lstBuilder
         '
+        Me.lstBuilder.ContextMenuStrip = Me.cmsItems
         Me.lstBuilder.LabelEdit = True
         Me.lstBuilder.Location = New System.Drawing.Point(322, 38)
         Me.lstBuilder.Name = "lstBuilder"
@@ -106,13 +112,37 @@ Partial Class frmIncludeExclude
         Me.lstBuilder.UseCompatibleStateImageBehavior = False
         Me.lstBuilder.View = System.Windows.Forms.View.List
         '
+        'cmsItems
+        '
+        Me.cmsItems.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsEdit, Me.cmsRemove, Me.cmsAdd})
+        Me.cmsItems.Name = "cmsItems"
+        Me.cmsItems.Size = New System.Drawing.Size(169, 70)
+        '
+        'cmsEdit
+        '
+        Me.cmsEdit.Name = "cmsEdit"
+        Me.cmsEdit.Size = New System.Drawing.Size(168, 22)
+        Me.cmsEdit.Text = "Edit"
+        '
+        'cmsRemove
+        '
+        Me.cmsRemove.Name = "cmsRemove"
+        Me.cmsRemove.Size = New System.Drawing.Size(168, 22)
+        Me.cmsRemove.Text = "Remove"
+        '
+        'cmsAdd
+        '
+        Me.cmsAdd.Name = "cmsAdd"
+        Me.cmsAdd.Size = New System.Drawing.Size(168, 22)
+        Me.cmsAdd.Text = "Add Custom Item"
+        '
         'btnRemove
         '
         Me.btnRemove.Location = New System.Drawing.Point(268, 201)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(48, 23)
         Me.btnRemove.TabIndex = 4
-        Me.btnRemove.Text = "< <"
+        Me.btnRemove.Text = "<"
         Me.btnRemove.UseVisualStyleBackColor = True
         '
         'btnAdd
@@ -121,7 +151,7 @@ Partial Class frmIncludeExclude
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(48, 23)
         Me.btnAdd.TabIndex = 3
-        Me.btnAdd.Text = "> >"
+        Me.btnAdd.Text = ">"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
         'grpFileOptions
@@ -159,12 +189,12 @@ Partial Class frmIncludeExclude
         '
         'lblItems
         '
-        Me.lblItems.AutoSize = True
-        Me.lblItems.Location = New System.Drawing.Point(319, 16)
+        Me.lblItems.Location = New System.Drawing.Point(322, 16)
         Me.lblItems.Name = "lblItems"
-        Me.lblItems.Size = New System.Drawing.Size(32, 13)
+        Me.lblItems.Size = New System.Drawing.Size(250, 13)
         Me.lblItems.TabIndex = 14
         Me.lblItems.Text = "Items"
+        Me.lblItems.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'frmIncludeExclude
         '
@@ -188,6 +218,7 @@ Partial Class frmIncludeExclude
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Include / Exclude Builder"
+        Me.cmsItems.ResumeLayout(False)
         Me.grpFileOptions.ResumeLayout(False)
         Me.grpFileOptions.PerformLayout()
         Me.ResumeLayout(False)
@@ -207,4 +238,8 @@ Partial Class frmIncludeExclude
     Friend WithEvents optFileTypes As System.Windows.Forms.RadioButton
     Friend WithEvents optIndividualFiles As System.Windows.Forms.RadioButton
     Friend WithEvents lblItems As System.Windows.Forms.Label
+    Friend WithEvents cmsItems As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents cmsEdit As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmsRemove As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmsAdd As System.Windows.Forms.ToolStripMenuItem
 End Class

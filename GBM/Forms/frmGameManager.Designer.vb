@@ -163,7 +163,7 @@ Partial Class frmGameManager
         '
         'btnExclude
         '
-        Me.btnExclude.Location = New System.Drawing.Point(498, 123)
+        Me.btnExclude.Location = New System.Drawing.Point(69, 122)
         Me.btnExclude.Name = "btnExclude"
         Me.btnExclude.Size = New System.Drawing.Size(30, 20)
         Me.btnExclude.TabIndex = 13
@@ -172,7 +172,7 @@ Partial Class frmGameManager
         '
         'btnInclude
         '
-        Me.btnInclude.Location = New System.Drawing.Point(498, 97)
+        Me.btnInclude.Location = New System.Drawing.Point(69, 97)
         Me.btnInclude.Name = "btnInclude"
         Me.btnInclude.Size = New System.Drawing.Size(30, 20)
         Me.btnInclude.TabIndex = 11
@@ -254,17 +254,19 @@ Partial Class frmGameManager
         '
         'txtExclude
         '
-        Me.txtExclude.Location = New System.Drawing.Point(69, 123)
+        Me.txtExclude.Location = New System.Drawing.Point(105, 123)
         Me.txtExclude.Name = "txtExclude"
         Me.txtExclude.Size = New System.Drawing.Size(423, 20)
         Me.txtExclude.TabIndex = 12
+        Me.txtExclude.Visible = False
         '
         'txtFileType
         '
-        Me.txtFileType.Location = New System.Drawing.Point(69, 97)
+        Me.txtFileType.Location = New System.Drawing.Point(105, 97)
         Me.txtFileType.Name = "txtFileType"
         Me.txtFileType.Size = New System.Drawing.Size(423, 20)
         Me.txtFileType.TabIndex = 10
+        Me.txtFileType.Visible = False
         '
         'chkTimeStamp
         '

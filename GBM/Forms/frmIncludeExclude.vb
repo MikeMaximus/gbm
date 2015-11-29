@@ -33,7 +33,7 @@ Public Class frmIncludeExclude
         End Set
     End Property
 
-    Private Sub BuildBranch(ByVal sDirectory As String, ByVal oNode As TreeNode, ByVal bIsDriveRoot As Boolean)
+    Private Sub BuildBranch(ByVal sDirectory As String, ByVal oNode As TreeNode)
         Dim sFolders As String()
         Dim sFiles As String()
         Dim oChild As TreeNode
@@ -49,13 +49,9 @@ Public Class frmIncludeExclude
             sFiles = Directory.GetFiles(sDirectory)
 
             If sFolders.Length <> 0 Then
-                For Each sFolder As String In sFolders
-                    If bIsDriveRoot Then
-                        oChild = New TreeNode(sFolder.Replace(sDirectory, String.Empty), 0, 0)
-                    Else
-                        oChild = New TreeNode(sFolder.Replace(sDirectory & "\", String.Empty), 0, 0)
-                    End If
-                    oChild.Name = sFolder                    
+                For Each sFolder As String In sFolders                    
+                    oChild = New TreeNode(sFolder.Replace(sDirectory, String.Empty).TrimStart("\"), 0, 0)
+                    oChild.Name = sFolder
                     oChild.Tag = 0
                     oNode.Nodes.Add(oChild)
                     oPlaceHolder = New TreeNode("GBM_Tree_Placeholder")
@@ -65,12 +61,8 @@ Public Class frmIncludeExclude
             End If
 
             If sFiles.Length <> 0 Then
-                For Each sFile As String In sFiles
-                    If bIsDriveRoot Then
-                        oChild = New TreeNode(sFile.Replace(sDirectory, String.Empty), 1, 1)
-                    Else
-                        oChild = New TreeNode(sFile.Replace(sDirectory & "\", String.Empty), 1, 1)
-                    End If
+                For Each sFile As String In sFiles                    
+                    oChild = New TreeNode(sFile.Replace(sDirectory, String.Empty).TrimStart("\"), 1, 1)
                     oChild.Tag = 1
                     oNode.Nodes.Add(oChild)
                 Next
@@ -88,20 +80,17 @@ Public Class frmIncludeExclude
 
     Private Sub BuildTrunk()
         Dim oRootNode As TreeNode
-        Dim bIsDriveRoot As Boolean
 
         If Path.GetPathRoot(txtRootFolder.Text) = txtRootFolder.Text Then
             oRootNode = New TreeNode(txtRootFolder.Text, 0, 0)
-            bIsDriveRoot = True
         Else
             oRootNode = New TreeNode(Path.GetFileName(txtRootFolder.Text), 0, 0)
-            bIsDriveRoot = False
         End If
 
         treFiles.Nodes.Clear()
         oRootNode.Name = "Root"
         treFiles.Nodes.Add(oRootNode)
-        BuildBranch(txtRootFolder.Text, oRootNode, bIsDriveRoot)
+        BuildBranch(txtRootFolder.Text, oRootNode)
     End Sub
 
     Private Sub RootPathBrowse()
@@ -195,6 +184,24 @@ Public Class frmIncludeExclude
         Next
     End Sub
 
+    Private Sub IdentifyEntry(ByRef oListItem As ListViewItem, ByVal sNewLabel As String)
+        Dim iType As Integer = 1
+
+        If sNewLabel.Contains("*") Then
+            iType = 2
+        Else
+            If txtRootFolder.Text <> String.Empty Then
+                If Directory.Exists(txtRootFolder.Text & "\" & sNewLabel) Then
+                    iType = 0
+                Else
+                    iType = 1
+                End If
+            End If
+        End If
+
+        oListItem.ImageIndex = iType        
+    End Sub
+
     Private Sub CreateNewBuilderString()
         Dim sTempString As String = String.Empty
 
@@ -208,12 +215,12 @@ Public Class frmIncludeExclude
     End Sub
 
     Private Sub frmIncludeExclude_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Text = FormName & " Builder"        
+        Me.Text = FormName & " Builder"
         txtRootFolder.Text = RootFolder
         optFileTypes.Checked = True
         lblItems.Text = FormName & " Items"
         If BuilderString <> String.Empty Then ParseBuilderString()
-        If txtRootFolder.Text <> String.Empty Then BuildTrunk()        
+        If txtRootFolder.Text <> String.Empty Then BuildTrunk()
     End Sub
 
     Private Sub frmIncludeExclude_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
@@ -239,7 +246,7 @@ Public Class frmIncludeExclude
 
     Private Sub treFiles_BeforeExpand(sender As Object, e As TreeViewCancelEventArgs) Handles treFiles.BeforeExpand
         If Not e.Node.Name = "Root" Then
-            BuildBranch(e.Node.Name, e.Node, False)
+            BuildBranch(e.Node.Name, e.Node)
         End If
     End Sub
 
@@ -249,5 +256,40 @@ Public Class frmIncludeExclude
 
     Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
         RemoveItem()
+    End Sub
+
+    Private Sub cmsItems_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmsItems.Opening
+        If lstBuilder.SelectedItems.Count = 0 Then
+            cmsEdit.Visible = False
+            cmsRemove.Visible = False
+            cmsAdd.Visible = True
+        Else
+            cmsEdit.Visible = True
+            cmsRemove.Visible = True
+            cmsAdd.Visible = False
+        End If
+    End Sub
+
+    Private Sub cmsEdit_Click(sender As Object, e As EventArgs) Handles cmsEdit.Click
+        If lstBuilder.SelectedItems.Count > 0 Then
+            lstBuilder.SelectedItems(0).BeginEdit()
+        End If
+    End Sub
+
+    Private Sub cmsRemove_Click(sender As Object, e As EventArgs) Handles cmsRemove.Click
+        RemoveItem()
+    End Sub
+
+    Private Sub cmsAdd_Click(sender As Object, e As EventArgs) Handles cmsAdd.Click
+        Dim oNewItem As New ListViewItem("Custom Item", 1)
+        oNewItem.Selected = True
+        lstBuilder.Items.Add(oNewItem)        
+        lstBuilder.SelectedItems(0).BeginEdit()
+    End Sub
+
+    Private Sub lstBuilder_AfterLabelEdit(sender As Object, e As LabelEditEventArgs) Handles lstBuilder.AfterLabelEdit
+        If Not e.Label Is Nothing Then
+            IdentifyEntry(lstBuilder.Items(e.Item), e.Label)
+        End If
     End Sub
 End Class
