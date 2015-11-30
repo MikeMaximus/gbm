@@ -30,8 +30,6 @@ Partial Class frmGameManager
         Me.btnExclude = New System.Windows.Forms.Button()
         Me.btnInclude = New System.Windows.Forms.Button()
         Me.txtID = New System.Windows.Forms.TextBox()
-        Me.lblExclude = New System.Windows.Forms.Label()
-        Me.lblFileType = New System.Windows.Forms.Label()
         Me.btnSavePathBrowse = New System.Windows.Forms.Button()
         Me.btnProcessBrowse = New System.Windows.Forms.Button()
         Me.lblSavePath = New System.Windows.Forms.Label()
@@ -139,8 +137,6 @@ Partial Class frmGameManager
         Me.grpConfig.Controls.Add(Me.btnExclude)
         Me.grpConfig.Controls.Add(Me.btnInclude)
         Me.grpConfig.Controls.Add(Me.txtID)
-        Me.grpConfig.Controls.Add(Me.lblExclude)
-        Me.grpConfig.Controls.Add(Me.lblFileType)
         Me.grpConfig.Controls.Add(Me.btnSavePathBrowse)
         Me.grpConfig.Controls.Add(Me.btnProcessBrowse)
         Me.grpConfig.Controls.Add(Me.lblSavePath)
@@ -156,56 +152,38 @@ Partial Class frmGameManager
         Me.grpConfig.Enabled = False
         Me.grpConfig.Location = New System.Drawing.Point(238, 12)
         Me.grpConfig.Name = "grpConfig"
-        Me.grpConfig.Size = New System.Drawing.Size(534, 182)
+        Me.grpConfig.Size = New System.Drawing.Size(534, 157)
         Me.grpConfig.TabIndex = 4
         Me.grpConfig.TabStop = False
         Me.grpConfig.Text = "Configuration"
         '
         'btnExclude
         '
-        Me.btnExclude.Location = New System.Drawing.Point(69, 122)
+        Me.btnExclude.Location = New System.Drawing.Point(9, 125)
         Me.btnExclude.Name = "btnExclude"
-        Me.btnExclude.Size = New System.Drawing.Size(30, 20)
+        Me.btnExclude.Size = New System.Drawing.Size(176, 23)
         Me.btnExclude.TabIndex = 13
-        Me.btnExclude.Text = "..."
+        Me.btnExclude.Text = "E&xclude Items..."
         Me.btnExclude.UseVisualStyleBackColor = True
         '
         'btnInclude
         '
-        Me.btnInclude.Location = New System.Drawing.Point(69, 97)
+        Me.btnInclude.Location = New System.Drawing.Point(9, 97)
         Me.btnInclude.Name = "btnInclude"
-        Me.btnInclude.Size = New System.Drawing.Size(30, 20)
-        Me.btnInclude.TabIndex = 11
-        Me.btnInclude.Text = "..."
+        Me.btnInclude.Size = New System.Drawing.Size(176, 23)
+        Me.btnInclude.TabIndex = 10
+        Me.btnInclude.Text = "In&clude Items..."
         Me.btnInclude.UseVisualStyleBackColor = True
         '
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(495, 147)
+        Me.txtID.Location = New System.Drawing.Point(495, 19)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(33, 20)
         Me.txtID.TabIndex = 16
         Me.txtID.TabStop = False
         Me.txtID.Visible = False
-        '
-        'lblExclude
-        '
-        Me.lblExclude.AutoSize = True
-        Me.lblExclude.Location = New System.Drawing.Point(6, 126)
-        Me.lblExclude.Name = "lblExclude"
-        Me.lblExclude.Size = New System.Drawing.Size(48, 13)
-        Me.lblExclude.TabIndex = 4
-        Me.lblExclude.Text = "Exclude:"
-        '
-        'lblFileType
-        '
-        Me.lblFileType.AutoSize = True
-        Me.lblFileType.Location = New System.Drawing.Point(6, 100)
-        Me.lblFileType.Name = "lblFileType"
-        Me.lblFileType.Size = New System.Drawing.Size(45, 13)
-        Me.lblFileType.TabIndex = 3
-        Me.lblFileType.Text = "Include:"
         '
         'btnSavePathBrowse
         '
@@ -254,37 +232,39 @@ Partial Class frmGameManager
         '
         'txtExclude
         '
-        Me.txtExclude.Location = New System.Drawing.Point(105, 123)
+        Me.txtExclude.Location = New System.Drawing.Point(354, 127)
         Me.txtExclude.Name = "txtExclude"
-        Me.txtExclude.Size = New System.Drawing.Size(423, 20)
-        Me.txtExclude.TabIndex = 12
+        Me.txtExclude.Size = New System.Drawing.Size(174, 20)
+        Me.txtExclude.TabIndex = 0
+        Me.txtExclude.TabStop = False
         Me.txtExclude.Visible = False
         '
         'txtFileType
         '
-        Me.txtFileType.Location = New System.Drawing.Point(105, 97)
+        Me.txtFileType.Location = New System.Drawing.Point(354, 99)
         Me.txtFileType.Name = "txtFileType"
-        Me.txtFileType.Size = New System.Drawing.Size(423, 20)
-        Me.txtFileType.TabIndex = 10
+        Me.txtFileType.Size = New System.Drawing.Size(174, 20)
+        Me.txtFileType.TabIndex = 0
+        Me.txtFileType.TabStop = False
         Me.txtFileType.Visible = False
         '
         'chkTimeStamp
         '
         Me.chkTimeStamp.AutoSize = True
-        Me.chkTimeStamp.Location = New System.Drawing.Point(124, 149)
+        Me.chkTimeStamp.Location = New System.Drawing.Point(191, 129)
         Me.chkTimeStamp.Name = "chkTimeStamp"
         Me.chkTimeStamp.Size = New System.Drawing.Size(146, 17)
-        Me.chkTimeStamp.TabIndex = 15
+        Me.chkTimeStamp.TabIndex = 14
         Me.chkTimeStamp.Text = "Time stamp each backup"
         Me.chkTimeStamp.UseVisualStyleBackColor = True
         '
         'chkFolderSave
         '
         Me.chkFolderSave.AutoSize = True
-        Me.chkFolderSave.Location = New System.Drawing.Point(9, 149)
+        Me.chkFolderSave.Location = New System.Drawing.Point(191, 101)
         Me.chkFolderSave.Name = "chkFolderSave"
         Me.chkFolderSave.Size = New System.Drawing.Size(109, 17)
-        Me.chkFolderSave.TabIndex = 14
+        Me.chkFolderSave.TabIndex = 11
         Me.chkFolderSave.Text = "Save entire folder"
         Me.chkFolderSave.UseVisualStyleBackColor = True
         '
@@ -306,13 +286,13 @@ Partial Class frmGameManager
         '
         Me.txtName.Location = New System.Drawing.Point(69, 19)
         Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(459, 20)
+        Me.txtName.Size = New System.Drawing.Size(423, 20)
         Me.txtName.TabIndex = 5
         '
         'chkMonitorOnly
         '
         Me.chkMonitorOnly.AutoSize = True
-        Me.chkMonitorOnly.Location = New System.Drawing.Point(353, 365)
+        Me.chkMonitorOnly.Location = New System.Drawing.Point(353, 340)
         Me.chkMonitorOnly.Name = "chkMonitorOnly"
         Me.chkMonitorOnly.Size = New System.Drawing.Size(145, 17)
         Me.chkMonitorOnly.TabIndex = 7
@@ -336,7 +316,7 @@ Partial Class frmGameManager
         Me.grpExtra.Controls.Add(Me.txtAppPath)
         Me.grpExtra.Controls.Add(Me.nudHours)
         Me.grpExtra.Controls.Add(Me.lblHours)
-        Me.grpExtra.Location = New System.Drawing.Point(238, 200)
+        Me.grpExtra.Location = New System.Drawing.Point(238, 175)
         Me.grpExtra.Name = "grpExtra"
         Me.grpExtra.Size = New System.Drawing.Size(534, 155)
         Me.grpExtra.TabIndex = 5
@@ -467,7 +447,7 @@ Partial Class frmGameManager
         '
         'btnTags
         '
-        Me.btnTags.Location = New System.Drawing.Point(535, 360)
+        Me.btnTags.Location = New System.Drawing.Point(535, 336)
         Me.btnTags.Name = "btnTags"
         Me.btnTags.Size = New System.Drawing.Size(75, 23)
         Me.btnTags.TabIndex = 8
@@ -487,9 +467,9 @@ Partial Class frmGameManager
         Me.grpStats.Controls.Add(Me.lblCurrentBackup)
         Me.grpStats.Controls.Add(Me.txtLocalBackup)
         Me.grpStats.Controls.Add(Me.lblLastBackup)
-        Me.grpStats.Location = New System.Drawing.Point(238, 390)
+        Me.grpStats.Location = New System.Drawing.Point(238, 365)
         Me.grpStats.Name = "grpStats"
-        Me.grpStats.Size = New System.Drawing.Size(534, 129)
+        Me.grpStats.Size = New System.Drawing.Size(534, 154)
         Me.grpStats.TabIndex = 11
         Me.grpStats.TabStop = False
         Me.grpStats.Text = "Backup Information"
@@ -497,7 +477,7 @@ Partial Class frmGameManager
         'btnOpenRestorePath
         '
         Me.btnOpenRestorePath.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnOpenRestorePath.Location = New System.Drawing.Point(336, 100)
+        Me.btnOpenRestorePath.Location = New System.Drawing.Point(339, 105)
         Me.btnOpenRestorePath.Name = "btnOpenRestorePath"
         Me.btnOpenRestorePath.Size = New System.Drawing.Size(114, 23)
         Me.btnOpenRestorePath.TabIndex = 9
@@ -507,7 +487,7 @@ Partial Class frmGameManager
         'btnOpenBackupFile
         '
         Me.btnOpenBackupFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnOpenBackupFile.Location = New System.Drawing.Point(216, 100)
+        Me.btnOpenBackupFile.Location = New System.Drawing.Point(216, 105)
         Me.btnOpenBackupFile.Name = "btnOpenBackupFile"
         Me.btnOpenBackupFile.Size = New System.Drawing.Size(114, 23)
         Me.btnOpenBackupFile.TabIndex = 8
@@ -526,7 +506,7 @@ Partial Class frmGameManager
         'btnDeleteBackup
         '
         Me.btnDeleteBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDeleteBackup.Location = New System.Drawing.Point(96, 100)
+        Me.btnDeleteBackup.Location = New System.Drawing.Point(96, 105)
         Me.btnDeleteBackup.Name = "btnDeleteBackup"
         Me.btnDeleteBackup.Size = New System.Drawing.Size(114, 23)
         Me.btnDeleteBackup.TabIndex = 7
@@ -611,7 +591,7 @@ Partial Class frmGameManager
         'btnSave
         '
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSave.Location = New System.Drawing.Point(616, 360)
+        Me.btnSave.Location = New System.Drawing.Point(616, 336)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
         Me.btnSave.TabIndex = 9
@@ -631,7 +611,7 @@ Partial Class frmGameManager
         'btnCancel
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancel.Location = New System.Drawing.Point(697, 360)
+        Me.btnCancel.Location = New System.Drawing.Point(697, 336)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 10
@@ -641,7 +621,7 @@ Partial Class frmGameManager
         'chkEnabled
         '
         Me.chkEnabled.AutoSize = True
-        Me.chkEnabled.Location = New System.Drawing.Point(238, 365)
+        Me.chkEnabled.Location = New System.Drawing.Point(238, 340)
         Me.chkEnabled.Name = "chkEnabled"
         Me.chkEnabled.Size = New System.Drawing.Size(109, 17)
         Me.chkEnabled.TabIndex = 6
@@ -766,8 +746,6 @@ Partial Class frmGameManager
     Friend WithEvents txtFileType As System.Windows.Forms.TextBox
     Friend WithEvents btnSavePathBrowse As System.Windows.Forms.Button
     Friend WithEvents btnProcessBrowse As System.Windows.Forms.Button
-    Friend WithEvents lblExclude As System.Windows.Forms.Label
-    Friend WithEvents lblFileType As System.Windows.Forms.Label
     Friend WithEvents btnSave As System.Windows.Forms.Button
     Friend WithEvents btnAppPathBrowse As System.Windows.Forms.Button
     Friend WithEvents lblGamePath As System.Windows.Forms.Label

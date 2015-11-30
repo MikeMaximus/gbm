@@ -365,11 +365,15 @@ Public Class frmGameManager
         lstGames.ValueMember = "Key"
         lstGames.DisplayMember = "Value"
 
+        lstGames.BeginUpdate()
+
         For Each de As DictionaryEntry In AppData
             oApp = DirectCast(de.Value, clsGame)
             oData = New KeyValuePair(Of String, String)(oApp.ID, oApp.Name)
             lstGames.Items.Add(oData)
         Next
+
+        lstGames.EndUpdate()
 
         IsLoading = False
     End Sub
@@ -384,6 +388,22 @@ Public Class frmGameManager
             MsgBox("The backup file does not exist.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
         End If
 
+    End Sub
+
+    Private Sub UpdateBuilderButtonLabel(ByVal sBuilderString As String, ByVal sLabel As String, ByVal btn As Button, ByVal bDirty As Boolean)
+        Dim iCount As Integer = sBuilderString.Split(":").Length
+
+        If sBuilderString <> String.Empty And iCount > 0 Then
+            btn.Text = sLabel & " Items... (" & iCount & ")"
+        Else
+            btn.Text = sLabel & " Items..."
+        End If
+
+        If bDirty Then
+            btn.Font = New Font(FontFamily.GenericSansSerif, 8.25, FontStyle.Bold)
+        Else
+            btn.Font = New Font(FontFamily.GenericSansSerif, 8.25, FontStyle.Regular)
+        End If
     End Sub
 
     Private Function GetBuilderRoot() As String
@@ -411,6 +431,7 @@ Public Class frmGameManager
         frm.RootFolder = GetBuilderRoot()
 
         frm.ShowDialog()
+
         txtBox.Text = frm.BuilderString
     End Sub
 
@@ -597,6 +618,10 @@ Public Class frmGameManager
         chkTimeStamp.Checked = oApp.AppendTimeStamp
         chkEnabled.Checked = oApp.Enabled
         chkMonitorOnly.Checked = oApp.MonitorOnly
+
+        'Update Buttons
+        UpdateBuilderButtonLabel(oApp.FileType, "In&clude", btnInclude, False)
+        UpdateBuilderButtonLabel(oApp.ExcludeList, "E&xclude", btnExclude, False)
 
         'Extra
         txtAppPath.Text = oApp.ProcessPath
@@ -1229,9 +1254,19 @@ Public Class frmGameManager
 
     Private Sub btnInclude_Click(sender As Object, e As EventArgs) Handles btnInclude.Click
         OpenBuilder("Include", txtFileType)
+        UpdateBuilderButtonLabel(txtFileType.Text, "In&clude", btnInclude, (oCurrentGame.FileType <> txtFileType.Text))
     End Sub
 
     Private Sub btnExclude_Click(sender As Object, e As EventArgs) Handles btnExclude.Click
         OpenBuilder("Exclude", txtExclude)
+        UpdateBuilderButtonLabel(txtExclude.Text, "E&xclude", btnExclude, (oCurrentGame.ExcludeList <> txtExclude.Text))
+    End Sub
+
+    Private Sub chkFolderSave_CheckedChanged(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged
+        If chkFolderSave.Checked Then
+            btnInclude.Enabled = False
+        Else
+            btnInclude.Enabled = True
+        End If
     End Sub
 End Class

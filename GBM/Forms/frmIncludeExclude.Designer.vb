@@ -41,6 +41,9 @@ Partial Class frmIncludeExclude
         Me.optFileTypes = New System.Windows.Forms.RadioButton()
         Me.optIndividualFiles = New System.Windows.Forms.RadioButton()
         Me.lblItems = New System.Windows.Forms.Label()
+        Me.btnRawEdit = New System.Windows.Forms.Button()
+        Me.lblSaveFolder = New System.Windows.Forms.Label()
+        Me.ttWarning = New System.Windows.Forms.ToolTip(Me.components)
         Me.cmsItems.SuspendLayout()
         Me.grpFileOptions.SuspendLayout()
         Me.SuspendLayout()
@@ -50,10 +53,10 @@ Partial Class frmIncludeExclude
         Me.treFiles.CheckBoxes = True
         Me.treFiles.ImageIndex = 0
         Me.treFiles.ImageList = Me.imgIcons
-        Me.treFiles.Location = New System.Drawing.Point(12, 38)
+        Me.treFiles.Location = New System.Drawing.Point(12, 64)
         Me.treFiles.Name = "treFiles"
         Me.treFiles.SelectedImageIndex = 0
-        Me.treFiles.Size = New System.Drawing.Size(250, 359)
+        Me.treFiles.Size = New System.Drawing.Size(250, 333)
         Me.treFiles.TabIndex = 1
         '
         'imgIcons
@@ -69,8 +72,8 @@ Partial Class frmIncludeExclude
         Me.btnSave.Location = New System.Drawing.Point(416, 426)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 6
-        Me.btnSave.Text = "Save"
+        Me.btnSave.TabIndex = 7
+        Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'btnCancel
@@ -78,13 +81,13 @@ Partial Class frmIncludeExclude
         Me.btnCancel.Location = New System.Drawing.Point(497, 426)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 7
-        Me.btnCancel.Text = "Cancel"
+        Me.btnCancel.TabIndex = 8
+        Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'txtRootFolder
         '
-        Me.txtRootFolder.Location = New System.Drawing.Point(12, 12)
+        Me.txtRootFolder.Location = New System.Drawing.Point(12, 38)
         Me.txtRootFolder.Name = "txtRootFolder"
         Me.txtRootFolder.ReadOnly = True
         Me.txtRootFolder.Size = New System.Drawing.Size(214, 20)
@@ -93,7 +96,7 @@ Partial Class frmIncludeExclude
         '
         'btnBrowse
         '
-        Me.btnBrowse.Location = New System.Drawing.Point(232, 12)
+        Me.btnBrowse.Location = New System.Drawing.Point(232, 37)
         Me.btnBrowse.Name = "btnBrowse"
         Me.btnBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnBrowse.TabIndex = 0
@@ -196,11 +199,35 @@ Partial Class frmIncludeExclude
         Me.lblItems.Text = "Items"
         Me.lblItems.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'btnRawEdit
+        '
+        Me.btnRawEdit.Location = New System.Drawing.Point(335, 426)
+        Me.btnRawEdit.Name = "btnRawEdit"
+        Me.btnRawEdit.Size = New System.Drawing.Size(75, 23)
+        Me.btnRawEdit.TabIndex = 6
+        Me.btnRawEdit.Text = "Raw &Edit"
+        Me.btnRawEdit.UseVisualStyleBackColor = True
+        '
+        'lblSaveFolder
+        '
+        Me.lblSaveFolder.Location = New System.Drawing.Point(9, 16)
+        Me.lblSaveFolder.Name = "lblSaveFolder"
+        Me.lblSaveFolder.Size = New System.Drawing.Size(250, 13)
+        Me.lblSaveFolder.TabIndex = 15
+        Me.lblSaveFolder.Text = "Saved Game Folder"
+        Me.lblSaveFolder.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'ttWarning
+        '
+        Me.ttWarning.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning
+        '
         'frmIncludeExclude
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(584, 461)
+        Me.Controls.Add(Me.lblSaveFolder)
+        Me.Controls.Add(Me.btnRawEdit)
         Me.Controls.Add(Me.lblItems)
         Me.Controls.Add(Me.grpFileOptions)
         Me.Controls.Add(Me.btnRemove)
@@ -242,4 +269,7 @@ Partial Class frmIncludeExclude
     Friend WithEvents cmsEdit As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmsRemove As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmsAdd As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents btnRawEdit As Button
+    Friend WithEvents lblSaveFolder As Label
+    Friend WithEvents ttWarning As ToolTip
 End Class

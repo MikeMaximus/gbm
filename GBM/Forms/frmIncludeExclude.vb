@@ -39,43 +39,45 @@ Public Class frmIncludeExclude
         Dim oChild As TreeNode
         Dim oPlaceHolder As TreeNode
 
-        Try
-            Cursor.Current = Cursors.WaitCursor
-            treFiles.BeginUpdate()
+        If oNode.Nodes.ContainsKey("GBM_Tree_Placeholder") Then
+            Try
+                Cursor.Current = Cursors.WaitCursor
+                treFiles.BeginUpdate()
 
-            oNode.Nodes.RemoveByKey("GBM_Tree_Placeholder")
+                oNode.Nodes.RemoveByKey("GBM_Tree_Placeholder")
 
-            sFolders = Directory.GetDirectories(sDirectory)
-            sFiles = Directory.GetFiles(sDirectory)
+                sFolders = Directory.GetDirectories(sDirectory)
+                sFiles = Directory.GetFiles(sDirectory)
 
-            If sFolders.Length <> 0 Then
-                For Each sFolder As String In sFolders                    
-                    oChild = New TreeNode(sFolder.Replace(sDirectory, String.Empty).TrimStart("\"), 0, 0)
-                    oChild.Name = sFolder
-                    oChild.Tag = 0
-                    oNode.Nodes.Add(oChild)
-                    oPlaceHolder = New TreeNode("GBM_Tree_Placeholder")
-                    oPlaceHolder.Name = "GBM_Tree_Placeholder"
-                    oChild.Nodes.Add(oPlaceHolder)
-                Next
-            End If
+                If sFolders.Length <> 0 Then
+                    For Each sFolder As String In sFolders
+                        oChild = New TreeNode(sFolder.Replace(sDirectory, String.Empty).TrimStart("\"), 0, 0)
+                        oChild.Name = sFolder
+                        oChild.Tag = 0
+                        oNode.Nodes.Add(oChild)
+                        oPlaceHolder = New TreeNode("GBM_Tree_Placeholder")
+                        oPlaceHolder.Name = "GBM_Tree_Placeholder"
+                        oChild.Nodes.Add(oPlaceHolder)
+                    Next
+                End If
 
-            If sFiles.Length <> 0 Then
-                For Each sFile As String In sFiles                    
-                    oChild = New TreeNode(sFile.Replace(sDirectory, String.Empty).TrimStart("\"), 1, 1)
-                    oChild.Tag = 1
-                    oNode.Nodes.Add(oChild)
-                Next
-            End If
+                If sFiles.Length <> 0 Then
+                    For Each sFile As String In sFiles
+                        oChild = New TreeNode(sFile.Replace(sDirectory, String.Empty).TrimStart("\"), 1, 1)
+                        oChild.Tag = 1
+                        oNode.Nodes.Add(oChild)
+                    Next
+                End If
 
-        Catch uaex As UnauthorizedAccessException
-            'Do Nothing
-        Catch ex As Exception
-            MsgBox("An unexpected error occured while reading the file system: " & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Game Backup Monitor")
-        Finally
-            treFiles.EndUpdate()
-            Cursor.Current = Cursors.Default
-        End Try
+            Catch uaex As UnauthorizedAccessException
+                'Do Nothing
+            Catch ex As Exception
+                MsgBox("An unexpected error occured while reading the file system: " & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Game Backup Monitor")
+            Finally
+                treFiles.EndUpdate()
+                Cursor.Current = Cursors.Default
+            End Try
+        End If
     End Sub
 
     Private Sub BuildTrunk()
@@ -89,6 +91,7 @@ Public Class frmIncludeExclude
 
         treFiles.Nodes.Clear()
         oRootNode.Name = "Root"
+        oRootNode.Nodes.Add("GBM_Tree_Placeholder", "GBM_Tree_Placeholder")
         treFiles.Nodes.Add(oRootNode)
         BuildBranch(txtRootFolder.Text, oRootNode)
     End Sub
@@ -160,38 +163,40 @@ Public Class frmIncludeExclude
         Next
     End Sub
 
-    Private Sub ParseBuilderString()
+    Private Sub ParseBuilderString(ByVal sString As String)
         Dim iType As Integer = 1
         Dim oListViewItem As ListViewItem
-        Dim sItems As String() = BuilderString.Split(":")
+        Dim sItems As String() = sString.Split(":")
+
+        lstBuilder.BeginUpdate()
+        lstBuilder.Clear()
 
         For Each sItem As String In sItems
-            If sItem.Contains("*") Then
-                iType = 2
-            Else
-                If txtRootFolder.Text <> String.Empty Then
-                    If Directory.Exists(txtRootFolder.Text & "\" & sItem) Then
-                        iType = 0
-                    Else
-                        iType = 1
-                    End If
-                End If
-            End If
-
-            oListViewItem = New ListViewItem(sItem, iType)
+            oListViewItem = New ListViewItem(sItem)
             oListViewItem.Name = sItem
-            lstBuilder.Items.Add(oListViewItem)
+            IdentifyEntry(oListViewItem, sItem)
+            If Not lstBuilder.Items.ContainsKey(sItem) Then
+                lstBuilder.Items.Add(oListViewItem)
+            End If
         Next
+
+        lstBuilder.EndUpdate()
     End Sub
 
     Private Sub IdentifyEntry(ByRef oListItem As ListViewItem, ByVal sNewLabel As String)
         Dim iType As Integer = 1
+        Dim sFolderCheck As String
 
         If sNewLabel.Contains("*") Then
             iType = 2
         Else
             If txtRootFolder.Text <> String.Empty Then
-                If Directory.Exists(txtRootFolder.Text & "\" & sNewLabel) Then
+                If Path.GetFileName(txtRootFolder.Text) = sNewLabel Then
+                    sFolderCheck = txtRootFolder.Text
+                Else
+                    sFolderCheck = txtRootFolder.Text & "\" & sNewLabel
+                End If
+                If Directory.Exists(sFolderCheck) Then
                     iType = 0
                 Else
                     iType = 1
@@ -202,7 +207,7 @@ Public Class frmIncludeExclude
         oListItem.ImageIndex = iType        
     End Sub
 
-    Private Sub CreateNewBuilderString()
+    Private Function CreateNewBuilderString() As String
         Dim sTempString As String = String.Empty
 
         For Each oListViewItem As ListViewItem In lstBuilder.Items
@@ -211,7 +216,16 @@ Public Class frmIncludeExclude
 
         sTempString = sTempString.TrimEnd(":")
 
-        BuilderString = sTempString
+        Return sTempString
+    End Function
+
+    Private Sub OpenRawEdit()
+        Dim sCurrentString As String = CreateNewBuilderString()
+        Dim sNewString As String
+        sNewString = InputBox("Entries are semi-colon delimited.", FormName & " Raw Edit", sCurrentString)
+        If sNewString <> String.Empty Then
+            ParseBuilderString(sNewString)
+        End If
     End Sub
 
     Private Sub frmIncludeExclude_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -219,13 +233,18 @@ Public Class frmIncludeExclude
         txtRootFolder.Text = RootFolder
         optFileTypes.Checked = True
         lblItems.Text = FormName & " Items"
-        If BuilderString <> String.Empty Then ParseBuilderString()
+        grpFileOptions.Text = FormName & " Options"
+        If BuilderString <> String.Empty Then ParseBuilderString(BuilderString)
         If txtRootFolder.Text <> String.Empty Then BuildTrunk()
     End Sub
 
     Private Sub frmIncludeExclude_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         treFiles.Select()
         If Not treFiles.SelectedNode Is Nothing Then treFiles.SelectedNode.Expand()
+        If txtRootFolder.Text = String.Empty Then
+            ttWarning.ToolTipTitle = "Notice"
+            ttWarning.Show("The saved game folder could not be determined or does not exist.  Click here to manually set it.", btnBrowse, 10000)
+        End If
     End Sub
 
     Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowse.Click
@@ -236,7 +255,7 @@ Public Class frmIncludeExclude
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        CreateNewBuilderString()
+        BuilderString = CreateNewBuilderString()
         Me.Close()
     End Sub
 
@@ -289,7 +308,15 @@ Public Class frmIncludeExclude
 
     Private Sub lstBuilder_AfterLabelEdit(sender As Object, e As LabelEditEventArgs) Handles lstBuilder.AfterLabelEdit
         If Not e.Label Is Nothing Then
-            IdentifyEntry(lstBuilder.Items(e.Item), e.Label)
+            If lstBuilder.Items.ContainsKey(e.Label) Then
+                e.CancelEdit = True
+            Else
+                IdentifyEntry(lstBuilder.Items(e.Item), e.Label)
+            End If
         End If
+    End Sub
+
+    Private Sub btnRawEdit_Click(sender As Object, e As EventArgs) Handles btnRawEdit.Click
+        OpenRawEdit()
     End Sub
 End Class
