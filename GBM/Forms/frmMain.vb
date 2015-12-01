@@ -206,7 +206,7 @@ Public Class frmMain
 
             If oGame.AbsolutePath = False Then
                 If oGame.ProcessPath = String.Empty Then
-                    If oGame.Duplicate = True Or oGame.ProcessName.Contains("dosbox") Then bNoAuto = True
+                    If mgrCommon.IsProcessNotSearchable(oGame) Then bNoAuto = True
                     oGame.ProcessPath = mgrPath.ProcessPathSearch(oGame.Name, oGame.TrueProcess, oGame.Name & " uses a relative path and has never been detected on this computer.", bNoAuto)
                 End If
 

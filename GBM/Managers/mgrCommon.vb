@@ -91,6 +91,21 @@ Public Class mgrCommon
         Return String.Empty
     End Function
 
+    Public Shared Function IsProcessNotSearchable(ByVal oGame As clsGame) As Boolean
+        Dim sExemptList As String() = {"dosbox", "scummvm"}
+        Dim bFound As Boolean = False
+
+        For Each s As String In sExemptList
+            If oGame.ProcessName.ToLower.Contains(s) Then bFound = True
+        Next
+
+        If bFound Or oGame.Duplicate = True Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
     Public Shared Function IsElevated() As Boolean
         If My.User.IsInRole(ApplicationServices.BuiltInRole.Administrator) Then
             Return True

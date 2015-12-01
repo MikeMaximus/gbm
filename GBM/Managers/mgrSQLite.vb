@@ -326,6 +326,38 @@ Public Class mgrSQLite
 
     End Sub
 
+    Public Sub UpgradeDOSBox()
+        Dim sSQL As String
+        Dim sCurrentID As String
+        Dim sCurrentName As String
+        Dim sCurrentProcess As String
+        Dim sDosProcess As String
+        Dim sNewName As String
+        Dim oData As DataSet
+        Dim hshParams As Hashtable
+        Dim oParamList As New List(Of Hashtable)
+
+        sSQL = "SELECT MonitorID, Name, Process FROM monitorlist WHERE Process LIKE '%dosbox:%'"
+        oData = ReadParamData(sSQL, New Hashtable)
+
+        sSQL = "UPDATE monitorlist SET Name=@NewName, Process=@NewProcess WHERE MonitorID=@ID;"
+
+        For Each dr As DataRow In oData.Tables(0).Rows
+            hshParams = New Hashtable
+            sCurrentID = CStr(dr("MonitorID"))
+            sCurrentName = CStr(dr("Name"))
+            sCurrentProcess = CStr(dr("Process"))
+            sDosProcess = sCurrentProcess.Split(":")(1)
+            sNewName = sCurrentName & " (" & sDosProcess & ")"
+            hshParams.Add("NewName", sNewName)
+            hshParams.Add("NewProcess", "DOSBox")
+            hshParams.Add("ID", sCurrentID)
+            oParamList.Add(hshParams)
+        Next
+
+        RunMassParamQuery(sSQL, oParamList)
+    End Sub
+
     Public Sub DatabaseUpgrade()
         Dim sSQL As String
 
@@ -475,6 +507,30 @@ Public Class mgrSQLite
                 sSQL &= "CREATE TABLE gametags (TagID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(TagID, MonitorID)); "
 
                 sSQL &= "PRAGMA user_version=94"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '0.95 Upgrade
+        If GetDatabaseVersion() < 95 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v94")
+
+                UpgradeDOSBox()
+
+                sSQL = "PRAGMA user_version=95"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v94")
+
+                UpgradeDOSBox()
+
+                sSQL = "PRAGMA user_version=95"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If

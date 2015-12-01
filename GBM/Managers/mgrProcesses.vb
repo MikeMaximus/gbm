@@ -77,15 +77,7 @@ Public Class mgrProcesses
         bDuplicates = True
         oDuplicateGames.Clear()
         For Each o As clsGame In hshScanList.Values
-            If o.ProcessName.Contains("dosbox") Then
-                If o.ProcessName.Split(":").Length = 3 Then
-                    sProcess = o.ProcessName.Remove(o.ProcessName.LastIndexOf(":"))
-                Else
-                    sProcess = o.ProcessName
-                End If
-            Else
-                sProcess = o.ProcessName.Split(":")(0)
-            End If
+            sProcess = o.ProcessName.Split(":")(0)
 
             If o.Duplicate = True And sProcess = oGame.TrueProcess Then
                 oDuplicateGames.Add(o.ShallowCopy)
@@ -95,23 +87,10 @@ Public Class mgrProcesses
 
     Public Function SearchRunningProcesses(ByVal hshScanList As Hashtable, ByRef bNeedsPath As Boolean, ByRef iErrorCode As Integer) As Boolean
         Dim prsList() As Process = Process.GetProcesses
-        Dim sDBoxProcess As String()
         Dim sProcessCheck As String = String.Empty
 
         For Each prsCurrent As Process In prsList
-            'Handle DOSBox Processes
-            If prsCurrent.ProcessName.ToLower = "dosbox" Then
-                sDBoxProcess = prsCurrent.MainWindowTitle.Split(":")
-                'If the dosbox process title doesn't have 3 elements it's not ready yet.
-                If sDBoxProcess.Length = 3 Then
-                    sProcessCheck = "dosbox:" & sDBoxProcess(2).Trim
-                Else
-                    'Drop out for now
-                    Return False
-                End If
-            Else
-                sProcessCheck = prsCurrent.ProcessName
-            End If
+            sProcessCheck = prsCurrent.ProcessName
 
             If hshScanList.ContainsKey(sProcessCheck) Then
                 prsFoundProcess = prsCurrent

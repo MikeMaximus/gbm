@@ -37,7 +37,7 @@ Public Class mgrRestore
                 oRestoreInfo.RelativeRestorePath = oGame.ProcessPath & "\" & oRestoreInfo.RestorePath
             Else
                 sProcess = oGame.TrueProcess
-                If oGame.Duplicate = True Or oGame.ProcessName.Contains("dosbox") Then bNoAuto = True
+                If mgrCommon.IsProcessNotSearchable(oGame) Then bNoAuto = True
                 sRestorePath = mgrPath.ProcessPathSearch(oRestoreInfo.Name, sProcess, oRestoreInfo.Name & " uses a relative path and has never been detected on this computer.", bNoAuto)
 
                 If sRestorePath <> String.Empty Then

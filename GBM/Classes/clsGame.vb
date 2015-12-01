@@ -16,7 +16,6 @@
     Private bEnabled As Boolean = True
     Private bMonitorOnly As Boolean = False
     Private bDuplicate As Boolean = False
-    Private sDOSBoxProcess As String = String.Empty
     Private bTempGame As Boolean = False
     Private oImportTags As New List(Of Tag)
 
@@ -184,15 +183,6 @@
         End Set
     End Property
 
-    Property DOSBoxProcess As String        
-        Get
-            Return sDOSBoxProcess
-        End Get
-        Set(value As String)
-            sDOSBoxProcess = value
-        End Set
-    End Property
-
     ReadOnly Property TruePath As String
         Get
             Return sPath
@@ -300,15 +290,7 @@
         'Handle Duplicates
         sProcessName = Me.ProcessName
         If Me.Duplicate Then
-            If Me.ProcessName.Contains("dosbox") Then
-                If Me.ProcessName.Split(":").Length = 3 Then
-                    sProcessName = Me.ProcessName.Remove(Me.ProcessName.LastIndexOf(":"))
-                Else
-                    sProcessName = Me.ProcessName
-                End If
-            Else
-                sProcessName = Me.ProcessName.Split(":")(0)
-            End If
+            sProcessName = Me.ProcessName.Split(":")(0)
         End If
 
         Return sProcessName

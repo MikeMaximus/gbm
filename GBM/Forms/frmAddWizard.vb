@@ -5,7 +5,6 @@ Public Class frmAddWizard
     Private oGameData As Hashtable
     Private oGameToSave As clsGame
     Private bDisableAdminWarning As Boolean = False
-    Private bIsDOSBoxGame As Boolean
 
     Property GameData As Hashtable
         Get
@@ -28,13 +27,8 @@ Public Class frmAddWizard
     Private eCurrentStep As eSteps = eSteps.Step1
 
     Private Sub FormInit()
-        btndBoxBrowse.Visible = False
-        txtdBoxProcess.Visible = False
-        lbldBox.Visible = False
         chkFolderSave.Checked = True
         chkTimeStamp.Checked = False
-        optFileType.Checked = True
-        optExcludeFileType.Checked = True    
         StepHandler()
     End Sub
 
@@ -53,10 +47,6 @@ Public Class frmAddWizard
         Dim sProcessPath As String = Path.GetDirectoryName(sProcessFullPath)
         Dim sProcess As String = Path.GetFileNameWithoutExtension(sProcessFullPath)
         Dim sProcessSummaryText As String = Path.GetFileName(sProcessFullPath) & " (" & sProcessPath & ")"
-        Dim sdBoxProcessFullPath As String = String.Empty
-        Dim sdBoxProcessPath As String = String.Empty
-        Dim sdBoxProcess As String = String.Empty
-        Dim sdBoxProcessSummaryText As String = String.Empty
         Dim sSavePath As String = txtSavePath.Text
         Dim bIsAbsolute As Boolean = mgrPath.IsAbsolute(sSavePath)
         Dim bFolderBackup As Boolean = chkFolderSave.Checked
@@ -72,14 +62,6 @@ Public Class frmAddWizard
             sSavePath = mgrPath.DetermineRelativePath(sProcessPath, sSavePath)
         End If
 
-        If bIsDOSBoxGame Then
-            sdBoxProcessFullPath = txtdBoxProcess.Text
-            sdBoxProcessPath = Path.GetDirectoryName(sdBoxProcessFullPath)
-            sdBoxProcess = Path.GetFileNameWithoutExtension(sdBoxProcessFullPath)
-            sdBoxProcessSummaryText = Path.GetFileName(sdBoxProcessFullPath) & " (" & sdBoxProcessPath & ")"
-            sProcess = sProcess.ToLower & ":" & sdBoxProcess
-        End If
-
         'Build Summary Listview
         lstSummary.Clear()
         lstSummary.Columns.Add("Item")
@@ -87,8 +69,8 @@ Public Class frmAddWizard
         lstSummary.Columns(0).Width = 95
         lstSummary.Columns(1).Width = 210
 
-        sItems = {"Name", "Process", "DOS Process", "Absolute Path", "Save Path", "Folder Backup", "Specific Files", "Time Stamp", "Exclude List"}
-        sValues = {sName, sProcessSummaryText, StringEmptyText(sdBoxProcessSummaryText), mgrCommon.BooleanYesNo(bIsAbsolute), sSavePath, mgrCommon.BooleanYesNo(bFolderBackup), StringEmptyText(sFileType), mgrCommon.BooleanYesNo(bTimeStamp), StringEmptyText(sExcludeList)}
+        sItems = {"Name", "Process", "Absolute Path", "Save Path", "Folder Backup", "Specific Files", "Time Stamp", "Exclude List"}
+        sValues = {sName, sProcessSummaryText, mgrCommon.BooleanYesNo(bIsAbsolute), sSavePath, mgrCommon.BooleanYesNo(bFolderBackup), StringEmptyText(sFileType), mgrCommon.BooleanYesNo(bTimeStamp), StringEmptyText(sExcludeList)}
 
         For i = 0 To sItems.Length - 1
             sItem = {sItems(i), sValues(i)}
@@ -148,56 +130,6 @@ Public Class frmAddWizard
             txtName.Focus()
             Return False
         End If
-        Return True
-    End Function
-
-    Private Function CheckforDOSBox(ByVal strpath As String) As Boolean
-        If strpath.ToLower.Contains("dosbox.exe") Then
-            bIsDOSBoxGame = True
-            lbldBox.Visible = True
-            txtdBoxProcess.Visible = True
-            btndBoxBrowse.Visible = True
-            If txtdBoxProcess.Text = String.Empty Then
-                If MsgBox("You have selected a DOSBox executable, to monitor DOS programs you need to also select the actual DOS executable file." & vbCrLf & vbCrLf & "Would you like to do this now?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
-                    DOSProcessBrowse()
-                End If
-            End If
-            Return True
-        Else
-            bIsDOSBoxGame = False
-            lbldBox.Visible = False
-            txtdBoxProcess.Text = String.Empty
-            txtdBoxProcess.Visible = False
-            btndBoxBrowse.Visible = False
-            Return False
-        End If
-    End Function
-
-    Private Function ValidateDOSProcessPath(ByVal strPath As String, ByRef sErrorMessage As String) As Boolean
-        If strPath = String.Empty Then
-            sErrorMessage = "You must select the DOS game's executable file (.exe or .com) to continue."
-            txtProcessPath.Focus()
-            Return False
-        End If
-
-        If Path.GetExtension(strPath.ToLower) <> ".exe" And Path.GetExtension(strPath.ToLower) <> ".com" Then
-            sErrorMessage = "The DOS file you selected is not an executable file. (.exe or .com)"
-            txtProcessPath.Focus()
-            Return False
-        End If
-
-        If Not Path.IsPathRooted(strPath) Then
-            sErrorMessage = "The path to the DOS executable must be a full path."
-            txtProcessPath.Focus()
-            Return False
-        End If
-
-        If Not File.Exists(strPath) Then
-            sErrorMessage = "The selected DOS executable file does not exist."
-            txtProcessPath.Focus()
-            Return False
-        End If
-
         Return True
     End Function
 
@@ -324,21 +256,15 @@ Public Class frmAddWizard
 
             Case eSteps.Step2
                 If ValidateProcessPath(txtProcessPath.Text, sErrorMessage) Then
-                    If CheckforDOSBox(txtProcessPath.Text) Then
-                        If ValidateDOSProcessPath(txtdBoxProcess.Text, sErrorMessage) Then
-                            eCurrentStep = eSteps.Step3
-                        Else
-                            bError = True
-                        End If
-                    Else
-                        eCurrentStep = eSteps.Step3
-                    End If
+                    eCurrentStep = eSteps.Step3
                 Else
                     bError = True
                 End If
 
             Case eSteps.Step3
                 If ValidateSavePath(txtSavePath.Text, sErrorMessage) Then
+                    lblIncludePath.Text = txtSavePath.Text
+                    lblExcludePath.Text = txtSavePath.Text
                     If chkFolderSave.Checked = False Then
                         eCurrentStep = eSteps.Step3a
                     Else
@@ -416,24 +342,6 @@ Public Class frmAddWizard
         End If
     End Sub
 
-    Private Sub DOSProcessBrowse()
-        Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
-        Dim sCurrentPath As String
-        Dim sNewPath As String
-
-        If txtProcessPath.Text <> String.Empty Then
-            sCurrentPath = Path.GetDirectoryName(txtProcessPath.Text)
-            If Directory.Exists(sCurrentPath) Then
-                sDefaultFolder = sCurrentPath
-            End If
-        End If
-
-        sNewPath = mgrCommon.OpenFileBrowser("Choose DOS executable file that starts the game", "*", _
-                                          "", sDefaultFolder, False)
-
-        If sNewPath <> String.Empty Then txtdBoxProcess.Text = sNewPath
-    End Sub
-
     Private Sub ProcessBrowse()
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
         Dim sCurrentPath As String
@@ -468,112 +376,26 @@ Public Class frmAddWizard
         If sNewPath <> String.Empty Then txtSavePath.Text = sNewPath
     End Sub
 
-    Private Sub SaveTypeBrowse()
-        Dim sDefaultFolder As String = txtSavePath.Text
-        Dim sCurrentSaveType As String = txtFileTypes.Text
-        Dim sSaveType As String
-        Dim sTitle As String = String.Empty
-        Dim sSaveTypeList As String()
+    Private Sub UpdateBuilderLabel(ByVal sBuilderString As String, ByVal lbl As Label)
+        Dim iCount As Integer = sBuilderString.Split(":").Length
 
-        If optFileType.Checked Then
-            sTitle = "Choose the type of file to backup"
-        ElseIf optSpecificFile.Checked Then
-            sTitle = "Choose a specific file to backup"
+        If sBuilderString <> String.Empty And iCount > 0 Then
+            lbl.Text = iCount & " item(s) selected"
         Else
-            sTitle = "Choose a specific folder to backup"
+            lbl.Text = "0 Item(s) selected"
         End If
-
-        If optFileType.Checked Or optSpecificFile.Checked Then
-            sSaveType = mgrCommon.OpenFileBrowser(sTitle, "*", "All", sDefaultFolder, False)
-            If sSaveType <> String.Empty Then
-                sSaveTypeList = sSaveType.Split("|")
-                For Each s As String In sSaveTypeList
-                    If optFileType.Checked Then
-                        sSaveType = "*" & Path.GetExtension(s) & ":"
-                    Else
-                        sSaveType = Path.GetFileName(s) & ":"
-                    End If
-
-                    sSaveType = sSaveType.TrimEnd(":")
-
-                    If sCurrentSaveType <> String.Empty Then
-                        sCurrentSaveType &= ":" & sSaveType
-                    Else
-                        sCurrentSaveType = sSaveType
-                    End If
-                Next
-            End If
-        Else
-            sSaveType = mgrCommon.OpenFolderBrowser(sTitle, sDefaultFolder, False)
-            If sSaveType <> String.Empty Then
-                Dim sPath As String() = sSaveType.Split("\")
-
-                If sCurrentSaveType <> String.Empty Then
-                    sCurrentSaveType &= ":" & sPath(sPath.Length - 1)
-                Else
-                    sCurrentSaveType = sPath(sPath.Length - 1)
-                End If
-            End If
-        End If
-
-        txtFileTypes.Text = sCurrentSaveType
     End Sub
 
-    Private Sub ExcludeBrowse()
-        Dim sDefaultFolder As String = txtSavePath.Text
-        Dim sCurrentExclude As String = txtExcludeList.Text
-        Dim sExclude As String
-        Dim sExcludeList As String()
-        Dim sTitle As String = String.Empty
+    Private Sub OpenBuilder(ByVal sFormText As String, ByRef txtBox As TextBox)
+        Dim frm As New frmIncludeExclude
+        frm.FormName = sFormText
+        frm.BuilderString = txtBox.Text
+        frm.RootFolder = txtSavePath.Text
 
-        If optExcludeFileType.Checked Then
-            sTitle = "Choose the type of file(s) to exclude"
-        ElseIf optExcludeSpecificFile.Checked Then
-            sTitle = "Choose any file(s) to exclude"
-        Else
-            sTitle = "Choose a folder to exclude"
-        End If
+        frm.ShowDialog()
 
-        If optExcludeFileType.Checked Or optExcludeSpecificFile.Checked Then
-            sExclude = mgrCommon.OpenFileBrowser(sTitle, "*", "All", sDefaultFolder, True)
-            If sExclude <> String.Empty Then
-                sExcludeList = sExclude.Split("|")
-                For Each s As String In sExcludeList
-                    If optExcludeFileType.Checked Then
-                        sExclude = "*" & Path.GetExtension(s) & ":"
-                    Else
-                        sExclude = Path.GetFileName(s) & ":"
-                    End If
-
-                    sExclude = sExclude.TrimEnd(":")
-
-                    If sCurrentExclude <> String.Empty Then
-                        sCurrentExclude &= ":" & sExclude
-                    Else
-                        sCurrentExclude = sExclude
-                    End If
-                Next
-            End If
-        Else
-            sExclude = mgrCommon.OpenFolderBrowser(sTitle, sDefaultFolder, False)
-            If sExclude <> String.Empty Then
-                Dim sPath As String() = sExclude.Split("\")
-
-                If sCurrentExclude <> String.Empty Then
-                    sCurrentExclude &= ":" & sPath(sPath.Length - 1)
-                Else
-                    sCurrentExclude = sPath(sPath.Length - 1)
-                End If
-            End If
-        End If
-
-        If sCurrentExclude <> String.Empty Then
-            txtExcludeList.Text = sCurrentExclude
-        End If
-
+        txtBox.Text = frm.BuilderString
     End Sub
-
-    
 
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         ValidateBack()
@@ -604,10 +426,6 @@ Public Class frmAddWizard
         Next
     End Sub
 
-    Private Sub btndBoxBrowse_Click(sender As Object, e As EventArgs) Handles btndBoxBrowse.Click
-        DOSProcessBrowse()
-    End Sub
-
     Private Sub btnProcessBrowse_Click(sender As Object, e As EventArgs) Handles btnProcessBrowse.Click
         ProcessBrowse()
     End Sub
@@ -616,19 +434,11 @@ Public Class frmAddWizard
         SavePathBrowse()
     End Sub
 
-    Private Sub btnFileTypeBrowse_Click(sender As Object, e As EventArgs) Handles btnFileTypeBrowse.Click
-        SaveTypeBrowse()
-    End Sub
-
-    Private Sub btnExcludeBrowse_Click(sender As Object, e As EventArgs) Handles btnExcludeBrowse.Click
-        ExcludeBrowse()
-    End Sub
-
-    Private Sub btnStep4Clear_Click(sender As Object, e As EventArgs) Handles btnStep4Clear.Click
+    Private Sub btnStep4Clear_Click(sender As Object, e As EventArgs)
         txtExcludeList.Clear()
     End Sub
 
-    Private Sub btnStep3aClear_Click(sender As Object, e As EventArgs) Handles btnStep3aClear.Click
+    Private Sub btnStep3aClear_Click(sender As Object, e As EventArgs)
         txtFileTypes.Clear()
     End Sub
 
@@ -636,4 +446,13 @@ Public Class frmAddWizard
         txtFileTypes.Clear()
     End Sub
 
+    Private Sub btnInclude_Click(sender As Object, e As EventArgs) Handles btnInclude.Click
+        OpenBuilder("Include", txtFileTypes)
+        UpdateBuilderLabel(txtFileTypes.Text, lblFileTypes)
+    End Sub
+
+    Private Sub btnExclude_Click(sender As Object, e As EventArgs) Handles btnExclude.Click
+        OpenBuilder("Exclude", txtExcludeList)
+        UpdateBuilderLabel(txtExcludeList.Text, lblExclude)
+    End Sub
 End Class

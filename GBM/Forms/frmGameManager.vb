@@ -445,7 +445,7 @@ Public Class frmGameManager
                 CurrentBackupItem.RelativeRestorePath = CurrentGame.ProcessPath & "\" & CurrentBackupItem.RestorePath
             Else
                 sProcess = CurrentGame.TrueProcess
-                If CurrentGame.Duplicate = True Or CurrentGame.ProcessName.Contains("dosbox") Then bNoAuto = True
+                If mgrCommon.IsProcessNotSearchable(CurrentGame) Then bNoAuto = True
                 sRestorePath = mgrPath.ProcessPathSearch(CurrentBackupItem.Name, sProcess, CurrentBackupItem.Name & " uses a relative path and the game path has not been set.", bNoAuto)
 
                 If sRestorePath <> String.Empty Then

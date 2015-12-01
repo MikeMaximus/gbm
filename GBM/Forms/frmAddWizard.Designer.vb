@@ -31,9 +31,6 @@ Partial Class frmAddWizard
         Me.txtName = New System.Windows.Forms.TextBox()
         Me.lblStep1Intro = New System.Windows.Forms.Label()
         Me.tbPage2 = New System.Windows.Forms.TabPage()
-        Me.lbldBox = New System.Windows.Forms.Label()
-        Me.btndBoxBrowse = New System.Windows.Forms.Button()
-        Me.txtdBoxProcess = New System.Windows.Forms.TextBox()
         Me.lblStep2Title = New System.Windows.Forms.Label()
         Me.lblStep2Instructions = New System.Windows.Forms.Label()
         Me.lblDrag2 = New System.Windows.Forms.Label()
@@ -49,21 +46,10 @@ Partial Class frmAddWizard
         Me.txtSavePath = New System.Windows.Forms.TextBox()
         Me.lblStep3Intro = New System.Windows.Forms.Label()
         Me.tbPage3a = New System.Windows.Forms.TabPage()
-        Me.grpFileTypes = New System.Windows.Forms.GroupBox()
-        Me.optSpecificFile = New System.Windows.Forms.RadioButton()
-        Me.btnFileTypeBrowse = New System.Windows.Forms.Button()
-        Me.optFileType = New System.Windows.Forms.RadioButton()
-        Me.btnStep3aClear = New System.Windows.Forms.Button()
         Me.lblStep3aTitle = New System.Windows.Forms.Label()
         Me.lblStep3aInstructions = New System.Windows.Forms.Label()
         Me.txtFileTypes = New System.Windows.Forms.TextBox()
         Me.tbPage4 = New System.Windows.Forms.TabPage()
-        Me.grpExclude = New System.Windows.Forms.GroupBox()
-        Me.optExcludeSpecificFile = New System.Windows.Forms.RadioButton()
-        Me.btnExcludeBrowse = New System.Windows.Forms.Button()
-        Me.optExcludeFileType = New System.Windows.Forms.RadioButton()
-        Me.optExcludeFolder = New System.Windows.Forms.RadioButton()
-        Me.btnStep4Clear = New System.Windows.Forms.Button()
         Me.lblStep4Title = New System.Windows.Forms.Label()
         Me.lblStep4Instructions = New System.Windows.Forms.Label()
         Me.txtExcludeList = New System.Windows.Forms.TextBox()
@@ -74,15 +60,20 @@ Partial Class frmAddWizard
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnNext = New System.Windows.Forms.Button()
         Me.btnBack = New System.Windows.Forms.Button()
-        Me.optFileTypeFolder = New System.Windows.Forms.RadioButton()
+        Me.btnInclude = New System.Windows.Forms.Button()
+        Me.lblFileTypes = New System.Windows.Forms.Label()
+        Me.lblExclude = New System.Windows.Forms.Label()
+        Me.btnExclude = New System.Windows.Forms.Button()
+        Me.lblExcludePath = New System.Windows.Forms.Label()
+        Me.lblIncludePath = New System.Windows.Forms.Label()
+        Me.lblIncludePathTitle = New System.Windows.Forms.Label()
+        Me.lblExcludePathTitle = New System.Windows.Forms.Label()
         Me.tabWizard.SuspendLayout()
         Me.tbPage1.SuspendLayout()
         Me.tbPage2.SuspendLayout()
         Me.tbPage3.SuspendLayout()
         Me.tbPage3a.SuspendLayout()
-        Me.grpFileTypes.SuspendLayout()
         Me.tbPage4.SuspendLayout()
-        Me.grpExclude.SuspendLayout()
         Me.tbPage5.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -166,9 +157,6 @@ Partial Class frmAddWizard
         'tbPage2
         '
         Me.tbPage2.BackColor = System.Drawing.SystemColors.Control
-        Me.tbPage2.Controls.Add(Me.lbldBox)
-        Me.tbPage2.Controls.Add(Me.btndBoxBrowse)
-        Me.tbPage2.Controls.Add(Me.txtdBoxProcess)
         Me.tbPage2.Controls.Add(Me.lblStep2Title)
         Me.tbPage2.Controls.Add(Me.lblStep2Instructions)
         Me.tbPage2.Controls.Add(Me.lblDrag2)
@@ -181,32 +169,6 @@ Partial Class frmAddWizard
         Me.tbPage2.Size = New System.Drawing.Size(362, 194)
         Me.tbPage2.TabIndex = 1
         Me.tbPage2.Text = "TabPage2"
-        '
-        'lbldBox
-        '
-        Me.lbldBox.AutoSize = True
-        Me.lbldBox.Location = New System.Drawing.Point(184, 18)
-        Me.lbldBox.Name = "lbldBox"
-        Me.lbldBox.Size = New System.Drawing.Size(52, 13)
-        Me.lbldBox.TabIndex = 14
-        Me.lbldBox.Text = "DOS File:"
-        '
-        'btndBoxBrowse
-        '
-        Me.btndBoxBrowse.Location = New System.Drawing.Point(322, 14)
-        Me.btndBoxBrowse.Name = "btndBoxBrowse"
-        Me.btndBoxBrowse.Size = New System.Drawing.Size(27, 20)
-        Me.btndBoxBrowse.TabIndex = 13
-        Me.btndBoxBrowse.Text = "..."
-        Me.btndBoxBrowse.UseVisualStyleBackColor = True
-        '
-        'txtdBoxProcess
-        '
-        Me.txtdBoxProcess.AllowDrop = True
-        Me.txtdBoxProcess.Location = New System.Drawing.Point(244, 14)
-        Me.txtdBoxProcess.Name = "txtdBoxProcess"
-        Me.txtdBoxProcess.Size = New System.Drawing.Size(72, 20)
-        Me.txtdBoxProcess.TabIndex = 12
         '
         'lblStep2Title
         '
@@ -347,8 +309,10 @@ Partial Class frmAddWizard
         'tbPage3a
         '
         Me.tbPage3a.BackColor = System.Drawing.SystemColors.Control
-        Me.tbPage3a.Controls.Add(Me.grpFileTypes)
-        Me.tbPage3a.Controls.Add(Me.btnStep3aClear)
+        Me.tbPage3a.Controls.Add(Me.lblIncludePathTitle)
+        Me.tbPage3a.Controls.Add(Me.lblIncludePath)
+        Me.tbPage3a.Controls.Add(Me.lblFileTypes)
+        Me.tbPage3a.Controls.Add(Me.btnInclude)
         Me.tbPage3a.Controls.Add(Me.lblStep3aTitle)
         Me.tbPage3a.Controls.Add(Me.lblStep3aInstructions)
         Me.tbPage3a.Controls.Add(Me.txtFileTypes)
@@ -358,59 +322,6 @@ Partial Class frmAddWizard
         Me.tbPage3a.TabIndex = 3
         Me.tbPage3a.Text = "TabPage4"
         '
-        'grpFileTypes
-        '
-        Me.grpFileTypes.Controls.Add(Me.optFileTypeFolder)
-        Me.grpFileTypes.Controls.Add(Me.optSpecificFile)
-        Me.grpFileTypes.Controls.Add(Me.btnFileTypeBrowse)
-        Me.grpFileTypes.Controls.Add(Me.optFileType)
-        Me.grpFileTypes.Location = New System.Drawing.Point(17, 43)
-        Me.grpFileTypes.Name = "grpFileTypes"
-        Me.grpFileTypes.Size = New System.Drawing.Size(310, 47)
-        Me.grpFileTypes.TabIndex = 0
-        Me.grpFileTypes.TabStop = False
-        Me.grpFileTypes.Text = "Choose any files or folders to include in the backup"
-        '
-        'optSpecificFile
-        '
-        Me.optSpecificFile.AutoSize = True
-        Me.optSpecificFile.Location = New System.Drawing.Point(80, 19)
-        Me.optSpecificFile.Name = "optSpecificFile"
-        Me.optSpecificFile.Size = New System.Drawing.Size(82, 17)
-        Me.optSpecificFile.TabIndex = 2
-        Me.optSpecificFile.TabStop = True
-        Me.optSpecificFile.Text = "Specific File"
-        Me.optSpecificFile.UseVisualStyleBackColor = True
-        '
-        'btnFileTypeBrowse
-        '
-        Me.btnFileTypeBrowse.Location = New System.Drawing.Point(229, 16)
-        Me.btnFileTypeBrowse.Name = "btnFileTypeBrowse"
-        Me.btnFileTypeBrowse.Size = New System.Drawing.Size(75, 23)
-        Me.btnFileTypeBrowse.TabIndex = 3
-        Me.btnFileTypeBrowse.Text = "Browse..."
-        Me.btnFileTypeBrowse.UseVisualStyleBackColor = True
-        '
-        'optFileType
-        '
-        Me.optFileType.AutoSize = True
-        Me.optFileType.Location = New System.Drawing.Point(6, 19)
-        Me.optFileType.Name = "optFileType"
-        Me.optFileType.Size = New System.Drawing.Size(68, 17)
-        Me.optFileType.TabIndex = 1
-        Me.optFileType.TabStop = True
-        Me.optFileType.Text = "File Type"
-        Me.optFileType.UseVisualStyleBackColor = True
-        '
-        'btnStep3aClear
-        '
-        Me.btnStep3aClear.Location = New System.Drawing.Point(253, 93)
-        Me.btnStep3aClear.Name = "btnStep3aClear"
-        Me.btnStep3aClear.Size = New System.Drawing.Size(75, 23)
-        Me.btnStep3aClear.TabIndex = 5
-        Me.btnStep3aClear.Text = "&Clear"
-        Me.btnStep3aClear.UseVisualStyleBackColor = True
-        '
         'lblStep3aTitle
         '
         Me.lblStep3aTitle.AutoSize = True
@@ -418,7 +329,7 @@ Partial Class frmAddWizard
         Me.lblStep3aTitle.Location = New System.Drawing.Point(13, 11)
         Me.lblStep3aTitle.Name = "lblStep3aTitle"
         Me.lblStep3aTitle.Size = New System.Drawing.Size(199, 20)
-        Me.lblStep3aTitle.TabIndex = 12
+        Me.lblStep3aTitle.TabIndex = 0
         Me.lblStep3aTitle.Text = "Choose Files to Backup"
         '
         'lblStep3aInstructions
@@ -426,25 +337,28 @@ Partial Class frmAddWizard
         Me.lblStep3aInstructions.Location = New System.Drawing.Point(14, 126)
         Me.lblStep3aInstructions.Name = "lblStep3aInstructions"
         Me.lblStep3aInstructions.Size = New System.Drawing.Size(303, 56)
-        Me.lblStep3aInstructions.TabIndex = 11
+        Me.lblStep3aInstructions.TabIndex = 5
         Me.lblStep3aInstructions.Text = "Choose any file types, specific files  or folders you wish to include in the back" &
     "up.  You may choose multiple items to include.  If you're unsure, go back a step" &
     " and choose to save the entire folder. "
         '
         'txtFileTypes
         '
-        Me.txtFileTypes.Location = New System.Drawing.Point(18, 95)
+        Me.txtFileTypes.Location = New System.Drawing.Point(218, 14)
         Me.txtFileTypes.Name = "txtFileTypes"
         Me.txtFileTypes.ReadOnly = True
-        Me.txtFileTypes.Size = New System.Drawing.Size(229, 20)
+        Me.txtFileTypes.Size = New System.Drawing.Size(131, 20)
         Me.txtFileTypes.TabIndex = 4
         Me.txtFileTypes.TabStop = False
+        Me.txtFileTypes.Visible = False
         '
         'tbPage4
         '
         Me.tbPage4.BackColor = System.Drawing.SystemColors.Control
-        Me.tbPage4.Controls.Add(Me.grpExclude)
-        Me.tbPage4.Controls.Add(Me.btnStep4Clear)
+        Me.tbPage4.Controls.Add(Me.lblExcludePathTitle)
+        Me.tbPage4.Controls.Add(Me.lblExcludePath)
+        Me.tbPage4.Controls.Add(Me.lblExclude)
+        Me.tbPage4.Controls.Add(Me.btnExclude)
         Me.tbPage4.Controls.Add(Me.lblStep4Title)
         Me.tbPage4.Controls.Add(Me.lblStep4Instructions)
         Me.tbPage4.Controls.Add(Me.txtExcludeList)
@@ -454,70 +368,6 @@ Partial Class frmAddWizard
         Me.tbPage4.TabIndex = 4
         Me.tbPage4.Text = "TabPage5"
         '
-        'grpExclude
-        '
-        Me.grpExclude.Controls.Add(Me.optExcludeSpecificFile)
-        Me.grpExclude.Controls.Add(Me.btnExcludeBrowse)
-        Me.grpExclude.Controls.Add(Me.optExcludeFileType)
-        Me.grpExclude.Controls.Add(Me.optExcludeFolder)
-        Me.grpExclude.Location = New System.Drawing.Point(17, 43)
-        Me.grpExclude.Name = "grpExclude"
-        Me.grpExclude.Size = New System.Drawing.Size(310, 47)
-        Me.grpExclude.TabIndex = 0
-        Me.grpExclude.TabStop = False
-        Me.grpExclude.Text = "Choose any files or folders to exclude from the backup:"
-        '
-        'optExcludeSpecificFile
-        '
-        Me.optExcludeSpecificFile.AutoSize = True
-        Me.optExcludeSpecificFile.Location = New System.Drawing.Point(80, 19)
-        Me.optExcludeSpecificFile.Name = "optExcludeSpecificFile"
-        Me.optExcludeSpecificFile.Size = New System.Drawing.Size(82, 17)
-        Me.optExcludeSpecificFile.TabIndex = 2
-        Me.optExcludeSpecificFile.TabStop = True
-        Me.optExcludeSpecificFile.Text = "Specific File"
-        Me.optExcludeSpecificFile.UseVisualStyleBackColor = True
-        '
-        'btnExcludeBrowse
-        '
-        Me.btnExcludeBrowse.Location = New System.Drawing.Point(229, 16)
-        Me.btnExcludeBrowse.Name = "btnExcludeBrowse"
-        Me.btnExcludeBrowse.Size = New System.Drawing.Size(75, 23)
-        Me.btnExcludeBrowse.TabIndex = 4
-        Me.btnExcludeBrowse.Text = "&Browse..."
-        Me.btnExcludeBrowse.UseVisualStyleBackColor = True
-        '
-        'optExcludeFileType
-        '
-        Me.optExcludeFileType.AutoSize = True
-        Me.optExcludeFileType.Location = New System.Drawing.Point(6, 19)
-        Me.optExcludeFileType.Name = "optExcludeFileType"
-        Me.optExcludeFileType.Size = New System.Drawing.Size(68, 17)
-        Me.optExcludeFileType.TabIndex = 1
-        Me.optExcludeFileType.TabStop = True
-        Me.optExcludeFileType.Text = "File Type"
-        Me.optExcludeFileType.UseVisualStyleBackColor = True
-        '
-        'optExcludeFolder
-        '
-        Me.optExcludeFolder.AutoSize = True
-        Me.optExcludeFolder.Location = New System.Drawing.Point(168, 19)
-        Me.optExcludeFolder.Name = "optExcludeFolder"
-        Me.optExcludeFolder.Size = New System.Drawing.Size(54, 17)
-        Me.optExcludeFolder.TabIndex = 3
-        Me.optExcludeFolder.TabStop = True
-        Me.optExcludeFolder.Text = "Folder"
-        Me.optExcludeFolder.UseVisualStyleBackColor = True
-        '
-        'btnStep4Clear
-        '
-        Me.btnStep4Clear.Location = New System.Drawing.Point(253, 93)
-        Me.btnStep4Clear.Name = "btnStep4Clear"
-        Me.btnStep4Clear.Size = New System.Drawing.Size(75, 23)
-        Me.btnStep4Clear.TabIndex = 6
-        Me.btnStep4Clear.Text = "&Clear"
-        Me.btnStep4Clear.UseVisualStyleBackColor = True
-        '
         'lblStep4Title
         '
         Me.lblStep4Title.AutoSize = True
@@ -525,7 +375,7 @@ Partial Class frmAddWizard
         Me.lblStep4Title.Location = New System.Drawing.Point(14, 11)
         Me.lblStep4Title.Name = "lblStep4Title"
         Me.lblStep4Title.Size = New System.Drawing.Size(201, 20)
-        Me.lblStep4Title.TabIndex = 16
+        Me.lblStep4Title.TabIndex = 0
         Me.lblStep4Title.Text = "Exclude Files or Folders"
         '
         'lblStep4Instructions
@@ -533,17 +383,18 @@ Partial Class frmAddWizard
         Me.lblStep4Instructions.Location = New System.Drawing.Point(14, 126)
         Me.lblStep4Instructions.Name = "lblStep4Instructions"
         Me.lblStep4Instructions.Size = New System.Drawing.Size(303, 59)
-        Me.lblStep4Instructions.TabIndex = 12
+        Me.lblStep4Instructions.TabIndex = 5
         Me.lblStep4Instructions.Text = resources.GetString("lblStep4Instructions.Text")
         '
         'txtExcludeList
         '
-        Me.txtExcludeList.Location = New System.Drawing.Point(18, 95)
+        Me.txtExcludeList.Location = New System.Drawing.Point(221, 13)
         Me.txtExcludeList.Name = "txtExcludeList"
         Me.txtExcludeList.ReadOnly = True
-        Me.txtExcludeList.Size = New System.Drawing.Size(229, 20)
-        Me.txtExcludeList.TabIndex = 5
+        Me.txtExcludeList.Size = New System.Drawing.Size(128, 20)
+        Me.txtExcludeList.TabIndex = 4
         Me.txtExcludeList.TabStop = False
+        Me.txtExcludeList.Visible = False
         '
         'tbPage5
         '
@@ -613,16 +464,79 @@ Partial Class frmAddWizard
         Me.btnBack.Text = "&Back"
         Me.btnBack.UseVisualStyleBackColor = True
         '
-        'optFileTypeFolder
+        'btnInclude
         '
-        Me.optFileTypeFolder.AutoSize = True
-        Me.optFileTypeFolder.Location = New System.Drawing.Point(168, 19)
-        Me.optFileTypeFolder.Name = "optFileTypeFolder"
-        Me.optFileTypeFolder.Size = New System.Drawing.Size(54, 17)
-        Me.optFileTypeFolder.TabIndex = 4
-        Me.optFileTypeFolder.TabStop = True
-        Me.optFileTypeFolder.Text = "Folder"
-        Me.optFileTypeFolder.UseVisualStyleBackColor = True
+        Me.btnInclude.Location = New System.Drawing.Point(17, 86)
+        Me.btnInclude.Name = "btnInclude"
+        Me.btnInclude.Size = New System.Drawing.Size(176, 23)
+        Me.btnInclude.TabIndex = 2
+        Me.btnInclude.Text = "Choose items to in&clude..."
+        Me.btnInclude.UseVisualStyleBackColor = True
+        '
+        'lblFileTypes
+        '
+        Me.lblFileTypes.AutoSize = True
+        Me.lblFileTypes.Location = New System.Drawing.Point(199, 91)
+        Me.lblFileTypes.Name = "lblFileTypes"
+        Me.lblFileTypes.Size = New System.Drawing.Size(89, 13)
+        Me.lblFileTypes.TabIndex = 3
+        Me.lblFileTypes.Text = "0 item(s) selected"
+        '
+        'lblExclude
+        '
+        Me.lblExclude.AutoSize = True
+        Me.lblExclude.Location = New System.Drawing.Point(199, 91)
+        Me.lblExclude.Name = "lblExclude"
+        Me.lblExclude.Size = New System.Drawing.Size(89, 13)
+        Me.lblExclude.TabIndex = 3
+        Me.lblExclude.Text = "0 item(s) selected"
+        '
+        'btnExclude
+        '
+        Me.btnExclude.Location = New System.Drawing.Point(17, 86)
+        Me.btnExclude.Name = "btnExclude"
+        Me.btnExclude.Size = New System.Drawing.Size(176, 23)
+        Me.btnExclude.TabIndex = 2
+        Me.btnExclude.Text = "Choose items to e&xclude..."
+        Me.btnExclude.UseVisualStyleBackColor = True
+        '
+        'lblExcludePath
+        '
+        Me.lblExcludePath.AutoEllipsis = True
+        Me.lblExcludePath.Location = New System.Drawing.Point(14, 60)
+        Me.lblExcludePath.Name = "lblExcludePath"
+        Me.lblExcludePath.Size = New System.Drawing.Size(334, 13)
+        Me.lblExcludePath.TabIndex = 1
+        Me.lblExcludePath.Text = "Save Path"
+        '
+        'lblIncludePath
+        '
+        Me.lblIncludePath.AutoEllipsis = True
+        Me.lblIncludePath.Location = New System.Drawing.Point(14, 60)
+        Me.lblIncludePath.Name = "lblIncludePath"
+        Me.lblIncludePath.Size = New System.Drawing.Size(324, 13)
+        Me.lblIncludePath.TabIndex = 1
+        Me.lblIncludePath.Text = "Save Path"
+        '
+        'lblIncludePathTitle
+        '
+        Me.lblIncludePathTitle.AutoSize = True
+        Me.lblIncludePathTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblIncludePathTitle.Location = New System.Drawing.Point(14, 45)
+        Me.lblIncludePathTitle.Name = "lblIncludePathTitle"
+        Me.lblIncludePathTitle.Size = New System.Drawing.Size(122, 13)
+        Me.lblIncludePathTitle.TabIndex = 6
+        Me.lblIncludePathTitle.Text = "Saved Game Folder:"
+        '
+        'lblExcludePathTitle
+        '
+        Me.lblExcludePathTitle.AutoSize = True
+        Me.lblExcludePathTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblExcludePathTitle.Location = New System.Drawing.Point(14, 45)
+        Me.lblExcludePathTitle.Name = "lblExcludePathTitle"
+        Me.lblExcludePathTitle.Size = New System.Drawing.Size(122, 13)
+        Me.lblExcludePathTitle.TabIndex = 7
+        Me.lblExcludePathTitle.Text = "Saved Game Folder:"
         '
         'frmAddWizard
         '
@@ -649,12 +563,8 @@ Partial Class frmAddWizard
         Me.tbPage3.PerformLayout()
         Me.tbPage3a.ResumeLayout(False)
         Me.tbPage3a.PerformLayout()
-        Me.grpFileTypes.ResumeLayout(False)
-        Me.grpFileTypes.PerformLayout()
         Me.tbPage4.ResumeLayout(False)
         Me.tbPage4.PerformLayout()
-        Me.grpExclude.ResumeLayout(False)
-        Me.grpExclude.PerformLayout()
         Me.tbPage5.ResumeLayout(False)
         Me.tbPage5.PerformLayout()
         Me.ResumeLayout(False)
@@ -684,17 +594,10 @@ Partial Class frmAddWizard
     Friend WithEvents btnSaveBrowse As System.Windows.Forms.Button
     Friend WithEvents txtSavePath As System.Windows.Forms.TextBox
     Friend WithEvents lblStep3Intro As System.Windows.Forms.Label
-    Friend WithEvents btnFileTypeBrowse As System.Windows.Forms.Button
     Friend WithEvents txtFileTypes As System.Windows.Forms.TextBox
-    Friend WithEvents btnExcludeBrowse As System.Windows.Forms.Button
     Friend WithEvents txtExcludeList As System.Windows.Forms.TextBox
-    Friend WithEvents optSpecificFile As System.Windows.Forms.RadioButton
-    Friend WithEvents optFileType As System.Windows.Forms.RadioButton
     Friend WithEvents lblStep3aInstructions As System.Windows.Forms.Label
-    Friend WithEvents optExcludeFolder As System.Windows.Forms.RadioButton
-    Friend WithEvents optExcludeFileType As System.Windows.Forms.RadioButton
     Friend WithEvents lblStep4Instructions As System.Windows.Forms.Label
-    Friend WithEvents optExcludeSpecificFile As System.Windows.Forms.RadioButton
     Friend WithEvents lblStep3Instructions As System.Windows.Forms.Label
     Friend WithEvents lstSummary As System.Windows.Forms.ListView
     Friend WithEvents lblStep1Title As System.Windows.Forms.Label
@@ -704,12 +607,12 @@ Partial Class frmAddWizard
     Friend WithEvents lblStep3aTitle As System.Windows.Forms.Label
     Friend WithEvents lblStep5Intro As System.Windows.Forms.Label
     Friend WithEvents lblStep5Title As System.Windows.Forms.Label
-    Friend WithEvents btnStep3aClear As System.Windows.Forms.Button
-    Friend WithEvents btnStep4Clear As System.Windows.Forms.Button
-    Friend WithEvents grpExclude As System.Windows.Forms.GroupBox
-    Friend WithEvents grpFileTypes As System.Windows.Forms.GroupBox
-    Friend WithEvents lbldBox As System.Windows.Forms.Label
-    Friend WithEvents btndBoxBrowse As System.Windows.Forms.Button
-    Friend WithEvents txtdBoxProcess As System.Windows.Forms.TextBox
-    Friend WithEvents optFileTypeFolder As RadioButton
+    Friend WithEvents lblFileTypes As Label
+    Friend WithEvents btnInclude As Button
+    Friend WithEvents lblExclude As Label
+    Friend WithEvents btnExclude As Button
+    Friend WithEvents lblIncludePath As Label
+    Friend WithEvents lblExcludePath As Label
+    Friend WithEvents lblIncludePathTitle As Label
+    Friend WithEvents lblExcludePathTitle As Label
 End Class

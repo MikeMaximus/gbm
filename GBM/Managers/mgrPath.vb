@@ -121,6 +121,7 @@ Public Class mgrPath
 
         Return sCheckString.Trim
     End Function
+
     Public Shared Function DetermineRelativePath(ByVal sProcessPath As String, ByVal sSavePath As String) As String
         Dim sPath1Array As String()
         Dim sPath2Array As String()
