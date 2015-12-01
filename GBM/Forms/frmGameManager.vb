@@ -365,11 +365,15 @@ Public Class frmGameManager
         lstGames.ValueMember = "Key"
         lstGames.DisplayMember = "Value"
 
+        lstGames.BeginUpdate()
+
         For Each de As DictionaryEntry In AppData
             oApp = DirectCast(de.Value, clsGame)
             oData = New KeyValuePair(Of String, String)(oApp.ID, oApp.Name)
             lstGames.Items.Add(oData)
         Next
+
+        lstGames.EndUpdate()
 
         IsLoading = False
     End Sub
@@ -384,6 +388,51 @@ Public Class frmGameManager
             MsgBox("The backup file does not exist.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
         End If
 
+    End Sub
+
+    Private Sub UpdateBuilderButtonLabel(ByVal sBuilderString As String, ByVal sLabel As String, ByVal btn As Button, ByVal bDirty As Boolean)
+        Dim iCount As Integer = sBuilderString.Split(":").Length
+
+        If sBuilderString <> String.Empty And iCount > 0 Then
+            btn.Text = sLabel & " Items... (" & iCount & ")"
+        Else
+            btn.Text = sLabel & " Items..."
+        End If
+
+        If bDirty Then
+            btn.Font = New Font(FontFamily.GenericSansSerif, 8.25, FontStyle.Bold)
+        Else
+            btn.Font = New Font(FontFamily.GenericSansSerif, 8.25, FontStyle.Regular)
+        End If
+    End Sub
+
+    Private Function GetBuilderRoot() As String
+        Dim sRoot As String = String.Empty
+
+        If Path.IsPathRooted(txtSavePath.Text) Then
+            If Directory.Exists(txtSavePath.Text) Then
+                sRoot = txtSavePath.Text
+            End If
+        Else
+            If txtAppPath.Text <> String.Empty Then
+                If Directory.Exists(txtAppPath.Text & "\" & txtSavePath.Text) Then
+                    sRoot = txtAppPath.Text & "\" & txtSavePath.Text
+                End If
+            End If
+        End If
+
+        Return sRoot
+    End Function
+
+    Private Sub OpenBuilder(ByVal sFormText As String, ByRef txtBox As TextBox)
+        Dim frm As New frmIncludeExclude
+        frm.FormName = sFormText
+        frm.BuilderString = txtBox.Text
+        frm.RootFolder = GetBuilderRoot()
+
+        frm.ShowDialog()
+
+        txtBox.Text = frm.BuilderString
     End Sub
 
     Private Function FindRestorePath() As Boolean
@@ -570,6 +619,10 @@ Public Class frmGameManager
         chkEnabled.Checked = oApp.Enabled
         chkMonitorOnly.Checked = oApp.MonitorOnly
 
+        'Update Buttons
+        UpdateBuilderButtonLabel(oApp.FileType, "In&clude", btnInclude, False)
+        UpdateBuilderButtonLabel(oApp.ExcludeList, "E&xclude", btnExclude, False)
+
         'Extra
         txtAppPath.Text = oApp.ProcessPath
         txtCompany.Text = oApp.Company
@@ -685,6 +738,8 @@ Public Class frmGameManager
                 chkMonitorOnly.Checked = False
                 btnTags.Enabled = False
                 lblTags.Visible = False
+                btnInclude.Text = "In&clude Items..."
+                btnExclude.Text = "E&xclude Items..."
             Case eModes.Edit
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
@@ -735,6 +790,8 @@ Public Class frmGameManager
                 btnBackup.Enabled = False
                 btnTags.Enabled = False
                 lblTags.Visible = False
+                btnInclude.Text = "In&clude Items..."
+                btnExclude.Text = "E&xclude Items..."
             Case eModes.Disabled
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -757,6 +814,8 @@ Public Class frmGameManager
                 btnRestore.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnTags.Enabled = False
+                btnInclude.Text = "In&clude Items..."
+                btnExclude.Text = "E&xclude Items..."
             Case eModes.MultiSelect
                 lstGames.Enabled = True
                 WipeControls(grpConfig.Controls)
@@ -1199,5 +1258,23 @@ Public Class frmGameManager
         LoadData()
     End Sub
 
+    Private Sub btnInclude_Click(sender As Object, e As EventArgs) Handles btnInclude.Click
+        Dim sInclude As String = txtFileType.Text
+        OpenBuilder("Include", txtFileType)
+        UpdateBuilderButtonLabel(txtFileType.Text, "In&clude", btnInclude, (sInclude <> txtFileType.Text))
+    End Sub
 
+    Private Sub btnExclude_Click(sender As Object, e As EventArgs) Handles btnExclude.Click
+        Dim sExclude As String = txtExclude.Text
+        OpenBuilder("Exclude", txtExclude)
+        UpdateBuilderButtonLabel(txtExclude.Text, "E&xclude", btnExclude, (sExclude <> txtExclude.Text))
+    End Sub
+
+    Private Sub chkFolderSave_CheckedChanged(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged
+        If chkFolderSave.Checked Then
+            btnInclude.Enabled = False
+        Else
+            btnInclude.Enabled = True
+        End If
+    End Sub
 End Class

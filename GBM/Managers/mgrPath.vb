@@ -108,12 +108,15 @@ Public Class mgrPath
         End Set
     End Property
 
-
-
     Public Shared Function ValidateForFileSystem(ByVal sCheckString As String) As String
-        Dim cInvalidCharacters As Char() = {"\", "/", ":", "*", "?", """", "<", ">", "|"}
+        Dim cInvalidFileCharacters As Char() = Path.GetInvalidFileNameChars
+        Dim cInvalidPathCharacters As Char() = Path.GetInvalidPathChars
 
-        For Each c As Char In cInvalidCharacters
+        For Each c As Char In cInvalidFileCharacters
+            sCheckString = sCheckString.Replace(c, "")
+        Next
+
+        For Each c As Char In cInvalidPathCharacters
             sCheckString = sCheckString.Replace(c, "")
         Next
 
@@ -121,7 +124,7 @@ Public Class mgrPath
             sCheckString = sCheckString.Substring(0, 257)
         End If
 
-        Return sCheckString
+        Return sCheckString.Trim
     End Function
     Public Shared Function DetermineRelativePath(ByVal sProcessPath As String, ByVal sSavePath As String) As String
         Dim sPath1Array As String()

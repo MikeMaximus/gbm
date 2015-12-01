@@ -34,6 +34,7 @@ Partial Class frmMain
         Me.gMonTraySetupAddWizard = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetupGameManager = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetupCustomVariables = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTraySetupTags = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayTools = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayToolsGameList = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayToolsGameImportOfficialList = New System.Windows.Forms.ToolStripMenuItem()
@@ -60,6 +61,7 @@ Partial Class frmMain
         Me.gMonSetupGameManager = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSetupAddWizard = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSetupCustomVariables = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonSetupTags = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTools = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonToolsGameList = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonToolsGameImportOfficialList = New System.Windows.Forms.ToolStripMenuItem()
@@ -78,10 +80,10 @@ Partial Class frmMain
         Me.lblLastActionTitle = New System.Windows.Forms.Label()
         Me.lblTimeTitle = New System.Windows.Forms.Label()
         Me.lblTimeSpent = New System.Windows.Forms.Label()
-        Me.txtGameInfo = New System.Windows.Forms.TextBox()
         Me.btnCancelOperation = New System.Windows.Forms.Button()
-        Me.gMonSetupTags = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonTraySetupTags = New System.Windows.Forms.ToolStripMenuItem()
+        Me.lblStatus1 = New System.Windows.Forms.Label()
+        Me.lblStatus2 = New System.Windows.Forms.Label()
+        Me.lblStatus3 = New System.Windows.Forms.Label()
         Me.gMonTrayMenu.SuspendLayout()
         Me.gMonStatusStrip.SuspendLayout()
         Me.gMonMainMenu.SuspendLayout()
@@ -150,6 +152,12 @@ Partial Class frmMain
         Me.gMonTraySetupCustomVariables.Name = "gMonTraySetupCustomVariables"
         Me.gMonTraySetupCustomVariables.Size = New System.Drawing.Size(201, 22)
         Me.gMonTraySetupCustomVariables.Text = "Custom &Path Variables..."
+        '
+        'gMonTraySetupTags
+        '
+        Me.gMonTraySetupTags.Name = "gMonTraySetupTags"
+        Me.gMonTraySetupTags.Size = New System.Drawing.Size(201, 22)
+        Me.gMonTraySetupTags.Text = "&Tags"
         '
         'gMonTrayTools
         '
@@ -334,6 +342,12 @@ Partial Class frmMain
         Me.gMonSetupCustomVariables.Size = New System.Drawing.Size(201, 22)
         Me.gMonSetupCustomVariables.Text = "Custom &Path Variables..."
         '
+        'gMonSetupTags
+        '
+        Me.gMonSetupTags.Name = "gMonSetupTags"
+        Me.gMonSetupTags.Size = New System.Drawing.Size(201, 22)
+        Me.gMonSetupTags.Text = "&Tags..."
+        '
         'gMonTools
         '
         Me.gMonTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonToolsGameList, Me.gMonToolsSyncMan, Me.gMonToolsCompact})
@@ -469,19 +483,6 @@ Partial Class frmMain
         Me.lblTimeSpent.TabIndex = 14
         Me.lblTimeSpent.Text = "0 Hours"
         '
-        'txtGameInfo
-        '
-        Me.txtGameInfo.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtGameInfo.Cursor = System.Windows.Forms.Cursors.Default
-        Me.txtGameInfo.Location = New System.Drawing.Point(69, 71)
-        Me.txtGameInfo.Multiline = True
-        Me.txtGameInfo.Name = "txtGameInfo"
-        Me.txtGameInfo.ReadOnly = True
-        Me.txtGameInfo.Size = New System.Drawing.Size(443, 52)
-        Me.txtGameInfo.TabIndex = 0
-        Me.txtGameInfo.TabStop = False
-        Me.txtGameInfo.WordWrap = False
-        '
         'btnCancelOperation
         '
         Me.btnCancelOperation.Location = New System.Drawing.Point(437, 103)
@@ -491,25 +492,39 @@ Partial Class frmMain
         Me.btnCancelOperation.Text = "&Cancel"
         Me.btnCancelOperation.UseVisualStyleBackColor = True
         '
-        'gMonSetupTags
+        'lblStatus1
         '
-        Me.gMonSetupTags.Name = "gMonSetupTags"
-        Me.gMonSetupTags.Size = New System.Drawing.Size(201, 22)
-        Me.gMonSetupTags.Text = "&Tags..."
+        Me.lblStatus1.AutoEllipsis = True
+        Me.lblStatus1.Location = New System.Drawing.Point(66, 71)
+        Me.lblStatus1.Name = "lblStatus1"
+        Me.lblStatus1.Size = New System.Drawing.Size(446, 13)
+        Me.lblStatus1.TabIndex = 15
         '
-        'gMonTraySetupTags
+        'lblStatus2
         '
-        Me.gMonTraySetupTags.Name = "gMonTraySetupTags"
-        Me.gMonTraySetupTags.Size = New System.Drawing.Size(201, 22)
-        Me.gMonTraySetupTags.Text = "&Tags"
+        Me.lblStatus2.AutoEllipsis = True
+        Me.lblStatus2.Location = New System.Drawing.Point(66, 87)
+        Me.lblStatus2.Name = "lblStatus2"
+        Me.lblStatus2.Size = New System.Drawing.Size(446, 13)
+        Me.lblStatus2.TabIndex = 16
+        '
+        'lblStatus3
+        '
+        Me.lblStatus3.AutoEllipsis = True
+        Me.lblStatus3.Location = New System.Drawing.Point(66, 103)
+        Me.lblStatus3.Name = "lblStatus3"
+        Me.lblStatus3.Size = New System.Drawing.Size(365, 13)
+        Me.lblStatus3.TabIndex = 17
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(524, 372)
+        Me.Controls.Add(Me.lblStatus3)
+        Me.Controls.Add(Me.lblStatus2)
+        Me.Controls.Add(Me.lblStatus1)
         Me.Controls.Add(Me.btnCancelOperation)
-        Me.Controls.Add(Me.txtGameInfo)
         Me.Controls.Add(Me.lblTimeSpent)
         Me.Controls.Add(Me.lblTimeTitle)
         Me.Controls.Add(Me.lblLastActionTitle)
@@ -579,7 +594,6 @@ Partial Class frmMain
     Friend WithEvents gMonTraySetupAddWizard As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lblTimeTitle As System.Windows.Forms.Label
     Friend WithEvents lblTimeSpent As System.Windows.Forms.Label
-    Friend WithEvents txtGameInfo As System.Windows.Forms.TextBox
     Friend WithEvents gMonToolsGameList As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonToolsGameImportOfficialList As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonToolsGameImportList As System.Windows.Forms.ToolStripMenuItem
@@ -598,4 +612,7 @@ Partial Class frmMain
     Friend WithEvents gMonStripAdminButton As ToolStripSplitButton
     Friend WithEvents gMonTraySetupTags As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonSetupTags As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents lblStatus1 As Label
+    Friend WithEvents lblStatus2 As Label
+    Friend WithEvents lblStatus3 As Label
 End Class
