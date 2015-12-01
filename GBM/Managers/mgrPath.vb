@@ -109,14 +109,9 @@ Public Class mgrPath
     End Property
 
     Public Shared Function ValidateForFileSystem(ByVal sCheckString As String) As String
-        Dim cInvalidFileCharacters As Char() = Path.GetInvalidFileNameChars
-        Dim cInvalidPathCharacters As Char() = Path.GetInvalidPathChars
+        Dim cInvalidCharacters As Char() = {"\", "/", ":", "*", "?", """", "<", ">", "|", "."}
 
-        For Each c As Char In cInvalidFileCharacters
-            sCheckString = sCheckString.Replace(c, "")
-        Next
-
-        For Each c As Char In cInvalidPathCharacters
+        For Each c As Char In cInvalidCharacters
             sCheckString = sCheckString.Replace(c, "")
         Next
 
