@@ -469,14 +469,13 @@ Partial Class frmGameManager
         Me.grpStats.Controls.Add(Me.lblLastBackup)
         Me.grpStats.Location = New System.Drawing.Point(238, 365)
         Me.grpStats.Name = "grpStats"
-        Me.grpStats.Size = New System.Drawing.Size(534, 154)
+        Me.grpStats.Size = New System.Drawing.Size(534, 137)
         Me.grpStats.TabIndex = 11
         Me.grpStats.TabStop = False
         Me.grpStats.Text = "Backup Information"
         '
         'btnOpenRestorePath
         '
-        Me.btnOpenRestorePath.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnOpenRestorePath.Location = New System.Drawing.Point(339, 105)
         Me.btnOpenRestorePath.Name = "btnOpenRestorePath"
         Me.btnOpenRestorePath.Size = New System.Drawing.Size(114, 23)
@@ -486,7 +485,6 @@ Partial Class frmGameManager
         '
         'btnOpenBackupFile
         '
-        Me.btnOpenBackupFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnOpenBackupFile.Location = New System.Drawing.Point(216, 105)
         Me.btnOpenBackupFile.Name = "btnOpenBackupFile"
         Me.btnOpenBackupFile.Size = New System.Drawing.Size(114, 23)
@@ -505,7 +503,6 @@ Partial Class frmGameManager
         '
         'btnDeleteBackup
         '
-        Me.btnDeleteBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDeleteBackup.Location = New System.Drawing.Point(96, 105)
         Me.btnDeleteBackup.Name = "btnDeleteBackup"
         Me.btnDeleteBackup.Size = New System.Drawing.Size(114, 23)

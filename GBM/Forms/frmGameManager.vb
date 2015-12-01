@@ -738,6 +738,8 @@ Public Class frmGameManager
                 chkMonitorOnly.Checked = False
                 btnTags.Enabled = False
                 lblTags.Visible = False
+                btnInclude.Text = "In&clude Items..."
+                btnExclude.Text = "E&xclude Items..."
             Case eModes.Edit
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
@@ -788,6 +790,8 @@ Public Class frmGameManager
                 btnBackup.Enabled = False
                 btnTags.Enabled = False
                 lblTags.Visible = False
+                btnInclude.Text = "In&clude Items..."
+                btnExclude.Text = "E&xclude Items..."
             Case eModes.Disabled
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -810,6 +814,8 @@ Public Class frmGameManager
                 btnRestore.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnTags.Enabled = False
+                btnInclude.Text = "In&clude Items..."
+                btnExclude.Text = "E&xclude Items..."
             Case eModes.MultiSelect
                 lstGames.Enabled = True
                 WipeControls(grpConfig.Controls)
@@ -1253,13 +1259,15 @@ Public Class frmGameManager
     End Sub
 
     Private Sub btnInclude_Click(sender As Object, e As EventArgs) Handles btnInclude.Click
+        Dim sInclude As String = txtFileType.Text
         OpenBuilder("Include", txtFileType)
-        UpdateBuilderButtonLabel(txtFileType.Text, "In&clude", btnInclude, (oCurrentGame.FileType <> txtFileType.Text))
+        UpdateBuilderButtonLabel(txtFileType.Text, "In&clude", btnInclude, (sInclude <> txtFileType.Text))
     End Sub
 
     Private Sub btnExclude_Click(sender As Object, e As EventArgs) Handles btnExclude.Click
+        Dim sExclude As String = txtExclude.Text
         OpenBuilder("Exclude", txtExclude)
-        UpdateBuilderButtonLabel(txtExclude.Text, "E&xclude", btnExclude, (oCurrentGame.ExcludeList <> txtExclude.Text))
+        UpdateBuilderButtonLabel(txtExclude.Text, "E&xclude", btnExclude, (sExclude <> txtExclude.Text))
     End Sub
 
     Private Sub chkFolderSave_CheckedChanged(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged

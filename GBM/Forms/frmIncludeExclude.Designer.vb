@@ -214,7 +214,7 @@ Partial Class frmIncludeExclude
         Me.lblSaveFolder.Name = "lblSaveFolder"
         Me.lblSaveFolder.Size = New System.Drawing.Size(250, 13)
         Me.lblSaveFolder.TabIndex = 15
-        Me.lblSaveFolder.Text = "Saved Game Folder"
+        Me.lblSaveFolder.Text = "Saved Game Explorer"
         Me.lblSaveFolder.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'ttWarning

@@ -35,7 +35,9 @@ Public Class frmMain
     Private bAllowIcon As Boolean = False
     Private bAllowDetails As Boolean = False
     Private oPriorImage As Image
-    Private sPriorDetails As String
+    Private sPriorPath As String
+    Private sPriorCompany As String
+    Private sPriorVersion As String
 
     WithEvents oFileWatcher As New System.IO.FileSystemWatcher
     WithEvents tmScanTimer As New Timer
@@ -47,7 +49,7 @@ Public Class frmMain
     Public oSettings As New mgrSettings
 
     Delegate Sub UpdateLogCallBack(ByVal sLogUpdate As String, ByVal bTrayUpdate As Boolean, ByVal objIcon As System.Windows.Forms.ToolTipIcon, ByVal bTimeStamp As Boolean)
-    Delegate Sub WorkingGameInfoCallBack(ByVal sTitle As String, ByVal sInfo As String)
+    Delegate Sub WorkingGameInfoCallBack(ByVal sTitle As String, ByVal sStatus1 As String, ByVal sStatus2 As String, ByVal sStatus3 As String)
     Delegate Sub UpdateStatusCallBack(ByVal sStatus As String)
     Delegate Sub SetLastActionCallBack(ByVal sString As String)
     Delegate Sub OperationEndedCallBack()
@@ -67,37 +69,38 @@ Public Class frmMain
     End Sub
 
     Private Sub SetRestoreInfo(ByVal oRestoreInfo As clsBackup) Handles oRestore.UpdateRestoreInfo
-        Dim sInfo As String
+        Dim sStatus1 As String
+        Dim sStatus2 As String
+        Dim sStatus3 As String
 
         'Build Info
-        sInfo = IO.Path.GetFileName(oRestoreInfo.FileName) & vbCrLf & "Updated by " & oRestoreInfo.UpdatedBy & " on " & oRestoreInfo.DateUpdated & vbCrLf
+        sStatus1 = IO.Path.GetFileName(oRestoreInfo.FileName)
+        sStatus2 = "Updated by " & oRestoreInfo.UpdatedBy & " on " & oRestoreInfo.DateUpdated
         If oRestoreInfo.AbsolutePath Then
-            sInfo = sInfo & oRestoreInfo.RestorePath
+            sStatus3 = oRestoreInfo.RestorePath
         Else
-            sInfo = sInfo & oRestoreInfo.RelativeRestorePath
+            sStatus3 = oRestoreInfo.RelativeRestorePath
         End If
 
-        WorkingGameInfo("Restore in progress...", sInfo)
+        WorkingGameInfo("Restore in progress...", sStatus1, sStatus2, sStatus3)
         UpdateStatus("Restore in progress...")
     End Sub
 
     Private Sub SetBackupInfo(ByVal oGame As clsGame) Handles oBackup.UpdateBackupInfo
-        Dim sInfo As String
+        Dim sStatus1 As String
+        Dim sStatus2 As String
+        Dim sStatus3 As String
 
         'Build Info
-        sInfo = oGame.CroppedName & vbCrLf
-        If oGame.FolderSave Then
-            sInfo = sInfo & "Full Folder Backup" & vbCrLf
-        Else
-            sInfo = sInfo & "File Type Backup: " & oGame.FileType & vbCrLf
-        End If
+        sStatus1 = oGame.CroppedName
         If oGame.AbsolutePath Then
-            sInfo = sInfo & oGame.Path
+            sStatus2 = oGame.Path
         Else
-            sInfo = sInfo & oGame.ProcessPath & "\" & oGame.Path
+            sStatus2 = oGame.ProcessPath & "\" & oGame.Path
         End If
+        sStatus3 = String.Empty
 
-        WorkingGameInfo("Backup in Progress...", sInfo)
+        WorkingGameInfo("Backup in Progress...", sStatus1, sStatus2, sStatus3)
         UpdateStatus("Backup in progress...")
     End Sub
 
@@ -366,7 +369,9 @@ Public Class frmMain
         If bKeepInfo And Not oProcess.GameInfo Is Nothing Then
             lblGameTitle.Text = "Last Game: " & oProcess.GameInfo.CroppedName
             pbIcon.Image = oPriorImage
-            txtGameInfo.Text = sPriorDetails
+            lblStatus1.Text = sPriorPath
+            lblStatus2.Text = sPriorCompany
+            lblStatus3.Text = sPriorVersion
             If oSettings.TimeTracking Then
                 lblTimeTitle.Visible = True
                 lblTimeSpent.Visible = True
@@ -374,7 +379,9 @@ Public Class frmMain
         Else
             pbIcon.Image = My.Resources.Searching
             lblGameTitle.Text = "No Game Detected"
-            txtGameInfo.Clear()
+            lblStatus1.Text = String.Empty
+            lblStatus2.Text = String.Empty
+            lblStatus3.Text = String.Empty
             lblTimeTitle.Visible = False
             lblTimeSpent.Visible = False
         End If
@@ -387,17 +394,19 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub WorkingGameInfo(ByVal sTitle As String, ByVal sInfo As String)
+    Private Sub WorkingGameInfo(ByVal sTitle As String, ByVal sStatus1 As String, ByVal sStatus2 As String, ByVal sStatus3 As String)
         'Thread Safe (If one control requires an invoke assume they all do)
         If pbIcon.InvokeRequired = True Then
             Dim d As New WorkingGameInfoCallBack(AddressOf WorkingGameInfo)
-            Me.Invoke(d, New Object() {sTitle, sInfo})
+            Me.Invoke(d, New Object() {sTitle, sStatus1, sStatus2, sStatus3})
         Else
             lblTimeTitle.Visible = False
             lblTimeSpent.Visible = False
             pbIcon.Image = My.Resources.Working
             lblGameTitle.Text = sTitle
-            txtGameInfo.Text = sInfo
+            lblStatus1.Text = sStatus1
+            lblStatus2.Text = sStatus2
+            lblStatus3.Text = sStatus3
         End If
     End Sub
 
@@ -407,7 +416,9 @@ Public Class frmMain
         Dim sCompanyName As String = String.Empty
 
         'Wipe Game Info
-        txtGameInfo.Clear()
+        lblStatus1.Text = String.Empty
+        lblStatus2.Text = String.Empty
+        lblStatus3.Text = String.Empty
 
         'Get Game Details 
         If bMulti Then
@@ -417,7 +428,7 @@ Public Class frmMain
             lblTimeTitle.Visible = False
             lblTimeSpent.Visible = False
             pbIcon.Image = My.Resources.Unknown
-            txtGameInfo.AppendText("Details are not available when multiple games are detected.")
+            lblStatus1.Text = "Game details are unavailable."
         Else
             bAllowIcon = True
             bAllowDetails = True
@@ -462,27 +473,30 @@ Public Class frmMain
 
             'Set Details
             If sFileName = String.Empty Then
-                txtGameInfo.AppendText("Path Not Available")
+                lblStatus1.Text = "Path Not Available"
             Else
-                txtGameInfo.AppendText(sFileName)
-            End If
-
-            If sFileVersion = String.Empty Then
-                txtGameInfo.AppendText(vbCrLf & "No Version Set")
-            Else
-                txtGameInfo.AppendText(vbCrLf & sFileVersion)
+                lblStatus1.Text = sFileName
             End If
 
             If sCompanyName = String.Empty Then
-                txtGameInfo.AppendText(vbCrLf & "No Company Set")
+                lblStatus2.Text = "No Company Set"
             Else
-                txtGameInfo.AppendText(vbCrLf & sCompanyName)
+                lblStatus2.Text = sCompanyName
             End If
+
+            If sFileVersion = String.Empty Then
+                lblStatus3.Text = "No Version Set"
+            Else
+                lblStatus3.Text = sFileVersion
+            End If
+
         End If
 
         'Set Prior Info
         oPriorImage = pbIcon.Image
-        sPriorDetails = txtGameInfo.Text
+        sPriorPath = lblStatus1.Text
+        sPriorCompany = lblStatus2.Text
+        sPriorVersion = lblStatus3.Text
     End Sub
 
     Private Sub UpdateTimeSpent(ByVal dTotalTime As Double, ByVal dSessionTime As Double)
@@ -1421,7 +1435,7 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub txtGameInfo_Enter(sender As Object, e As EventArgs) Handles txtGameInfo.Enter
+    Private Sub txtGameInfo_Enter(sender As Object, e As EventArgs)
         btnLogToggle.Focus()
     End Sub
 

@@ -2,7 +2,7 @@
 
 Public Class frmIncludeExclude
 
-    Dim sFormName As String = "Include Exclude"
+    Dim sFormName As String = "Builder"
     Dim sRootFolder As String = String.Empty
     Dim sBuilderString As String
 
@@ -187,7 +187,7 @@ Public Class frmIncludeExclude
         Dim iType As Integer = 1
         Dim sFolderCheck As String
 
-        If sNewLabel.Contains("*") Then
+        If sNewLabel.Contains("*") Or sNewLabel.Contains("?") Then
             iType = 2
         Else
             If txtRootFolder.Text <> String.Empty Then
@@ -222,7 +222,7 @@ Public Class frmIncludeExclude
     Private Sub OpenRawEdit()
         Dim sCurrentString As String = CreateNewBuilderString()
         Dim sNewString As String
-        sNewString = InputBox("Entries are semi-colon delimited.", FormName & " Raw Edit", sCurrentString)
+        sNewString = InputBox("Items are semi-colon delimited.", FormName & " Raw Edit", sCurrentString)
         If sNewString <> String.Empty Then
             ParseBuilderString(sNewString)
         End If
@@ -243,7 +243,7 @@ Public Class frmIncludeExclude
         If Not treFiles.SelectedNode Is Nothing Then treFiles.SelectedNode.Expand()
         If txtRootFolder.Text = String.Empty Then
             ttWarning.ToolTipTitle = "Notice"
-            ttWarning.Show("The saved game folder could not be determined or does not exist.  Click here to manually set it.", btnBrowse, 10000)
+            ttWarning.Show("The saved game folder could not be determined or does not exist.", txtRootFolder, 6000)
         End If
     End Sub
 
