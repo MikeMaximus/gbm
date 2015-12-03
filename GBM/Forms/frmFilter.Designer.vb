@@ -68,7 +68,7 @@ Partial Class frmFilter
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(48, 23)
         Me.btnRemove.TabIndex = 4
-        Me.btnRemove.Text = "< <"
+        Me.btnRemove.Text = "<"
         Me.btnRemove.UseVisualStyleBackColor = True
         '
         'btnAdd
@@ -77,7 +77,7 @@ Partial Class frmFilter
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(48, 23)
         Me.btnAdd.TabIndex = 3
-        Me.btnAdd.Text = "> >"
+        Me.btnAdd.Text = ">"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
         'lstFilter

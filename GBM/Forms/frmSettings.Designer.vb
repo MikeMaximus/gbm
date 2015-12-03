@@ -88,7 +88,7 @@ Partial Class frmSettings
         Me.chkTimeTracking.Location = New System.Drawing.Point(6, 111)
         Me.chkTimeTracking.Name = "chkTimeTracking"
         Me.chkTimeTracking.Size = New System.Drawing.Size(122, 17)
-        Me.chkTimeTracking.TabIndex = 5
+        Me.chkTimeTracking.TabIndex = 4
         Me.chkTimeTracking.Text = "Enable time tracking"
         Me.chkTimeTracking.UseVisualStyleBackColor = True
         '
@@ -108,7 +108,7 @@ Partial Class frmSettings
         Me.chkSync.Location = New System.Drawing.Point(6, 134)
         Me.chkSync.Name = "chkSync"
         Me.chkSync.Size = New System.Drawing.Size(208, 17)
-        Me.chkSync.TabIndex = 4
+        Me.chkSync.TabIndex = 5
         Me.chkSync.Text = "Sync game list data with backup folder"
         Me.chkSync.UseVisualStyleBackColor = True
         '

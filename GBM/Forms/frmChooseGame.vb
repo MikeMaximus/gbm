@@ -48,6 +48,7 @@
         oGame = DirectCast(oGamesHash.Item(sSelectedGame), clsGame)
         SaveSelection()
         bGameSelected = True
+        Me.DialogResult = DialogResult.OK
         Me.Close()
     End Sub
 
@@ -62,7 +63,11 @@
 
     Private Sub frmChooseGame_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
         If bGameSelected = False Then
-            e.Cancel = True
+            Me.DialogResult = DialogResult.Cancel
         End If
+    End Sub
+
+    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+        Me.Close()
     End Sub
 End Class

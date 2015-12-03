@@ -1273,8 +1273,12 @@ Public Class frmGameManager
     Private Sub chkFolderSave_CheckedChanged(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged
         If chkFolderSave.Checked Then
             btnInclude.Enabled = False
+            If txtFileType.Text <> String.Empty Then
+                txtFileType.Text = String.Empty
+                UpdateBuilderButtonLabel(txtFileType.Text, "In&clude", btnInclude, False)
+            End If
         Else
-            btnInclude.Enabled = True
+                btnInclude.Enabled = True
         End If
     End Sub
 End Class

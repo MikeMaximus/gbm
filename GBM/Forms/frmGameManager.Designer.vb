@@ -93,7 +93,7 @@ Partial Class frmGameManager
         '
         Me.btnAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAdd.Location = New System.Drawing.Point(12, 527)
+        Me.btnAdd.Location = New System.Drawing.Point(12, 526)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(30, 23)
         Me.btnAdd.TabIndex = 2
@@ -104,7 +104,7 @@ Partial Class frmGameManager
         '
         Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnDelete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDelete.Location = New System.Drawing.Point(48, 527)
+        Me.btnDelete.Location = New System.Drawing.Point(48, 526)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(30, 23)
         Me.btnDelete.TabIndex = 3
@@ -114,7 +114,7 @@ Partial Class frmGameManager
         'btnBackup
         '
         Me.btnBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnBackup.Location = New System.Drawing.Point(616, 526)
+        Me.btnBackup.Location = New System.Drawing.Point(616, 525)
         Me.btnBackup.Name = "btnBackup"
         Me.btnBackup.Size = New System.Drawing.Size(75, 23)
         Me.btnBackup.TabIndex = 14
@@ -124,7 +124,7 @@ Partial Class frmGameManager
         'btnClose
         '
         Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnClose.Location = New System.Drawing.Point(697, 526)
+        Me.btnClose.Location = New System.Drawing.Point(697, 525)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
         Me.btnClose.TabIndex = 15
@@ -161,7 +161,7 @@ Partial Class frmGameManager
         '
         Me.btnExclude.Location = New System.Drawing.Point(9, 125)
         Me.btnExclude.Name = "btnExclude"
-        Me.btnExclude.Size = New System.Drawing.Size(176, 23)
+        Me.btnExclude.Size = New System.Drawing.Size(175, 23)
         Me.btnExclude.TabIndex = 13
         Me.btnExclude.Text = "E&xclude Items..."
         Me.btnExclude.UseVisualStyleBackColor = True
@@ -170,7 +170,7 @@ Partial Class frmGameManager
         '
         Me.btnInclude.Location = New System.Drawing.Point(9, 97)
         Me.btnInclude.Name = "btnInclude"
-        Me.btnInclude.Size = New System.Drawing.Size(176, 23)
+        Me.btnInclude.Size = New System.Drawing.Size(175, 23)
         Me.btnInclude.TabIndex = 10
         Me.btnInclude.Text = "In&clude Items..."
         Me.btnInclude.UseVisualStyleBackColor = True
@@ -251,7 +251,7 @@ Partial Class frmGameManager
         'chkTimeStamp
         '
         Me.chkTimeStamp.AutoSize = True
-        Me.chkTimeStamp.Location = New System.Drawing.Point(191, 129)
+        Me.chkTimeStamp.Location = New System.Drawing.Point(190, 129)
         Me.chkTimeStamp.Name = "chkTimeStamp"
         Me.chkTimeStamp.Size = New System.Drawing.Size(146, 17)
         Me.chkTimeStamp.TabIndex = 14
@@ -261,7 +261,7 @@ Partial Class frmGameManager
         'chkFolderSave
         '
         Me.chkFolderSave.AutoSize = True
-        Me.chkFolderSave.Location = New System.Drawing.Point(191, 101)
+        Me.chkFolderSave.Location = New System.Drawing.Point(190, 101)
         Me.chkFolderSave.Name = "chkFolderSave"
         Me.chkFolderSave.Size = New System.Drawing.Size(109, 17)
         Me.chkFolderSave.TabIndex = 11
@@ -568,7 +568,7 @@ Partial Class frmGameManager
         'btnMarkAsRestored
         '
         Me.btnMarkAsRestored.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnMarkAsRestored.Location = New System.Drawing.Point(429, 526)
+        Me.btnMarkAsRestored.Location = New System.Drawing.Point(429, 525)
         Me.btnMarkAsRestored.Name = "btnMarkAsRestored"
         Me.btnMarkAsRestored.Size = New System.Drawing.Size(100, 23)
         Me.btnMarkAsRestored.TabIndex = 12
@@ -578,7 +578,7 @@ Partial Class frmGameManager
         'btnRestore
         '
         Me.btnRestore.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnRestore.Location = New System.Drawing.Point(535, 526)
+        Me.btnRestore.Location = New System.Drawing.Point(535, 525)
         Me.btnRestore.Name = "btnRestore"
         Me.btnRestore.Size = New System.Drawing.Size(75, 23)
         Me.btnRestore.TabIndex = 13

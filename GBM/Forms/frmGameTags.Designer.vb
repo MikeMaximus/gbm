@@ -56,7 +56,7 @@ Partial Class frmGameTags
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(48, 23)
         Me.btnAdd.TabIndex = 1
-        Me.btnAdd.Text = "> >"
+        Me.btnAdd.Text = ">"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
         'btnRemove
@@ -65,7 +65,7 @@ Partial Class frmGameTags
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(48, 23)
         Me.btnRemove.TabIndex = 2
-        Me.btnRemove.Text = "< <"
+        Me.btnRemove.Text = "<"
         Me.btnRemove.UseVisualStyleBackColor = True
         '
         'lblTags

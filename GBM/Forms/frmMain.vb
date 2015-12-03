@@ -231,21 +231,34 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub DoMultiGameCheck()
+    Private Function DoMultiGameCheck() As Boolean
+        Dim oResult As DialogResult
+
         If oProcess.Duplicate = True Then
-            Dim sProcessPath As String
             Dim frm As New frmChooseGame
             frm.Process = oProcess
-            frm.ShowDialog()
-            'Reload settings
-            LoadGameSettings()
-            'Retain the process path from old object
-            sProcessPath = oProcess.GameInfo.ProcessPath
-            oProcess.GameInfo = frm.Game
-            'Set the process path into the new object
-            oProcess.GameInfo.ProcessPath = sProcessPath
+            oResult = frm.ShowDialog()
+            If oResult = DialogResult.OK Then
+                Dim sProcessPath As String
+                'Reload settings
+                LoadGameSettings()
+                'Retain the process path from old object
+                sProcessPath = oProcess.GameInfo.ProcessPath
+                oProcess.GameInfo = frm.Game
+                'Set the process path into the new object
+                oProcess.GameInfo.ProcessPath = sProcessPath
+                'A game was set, return and continue
+                Return True
+            Else
+                'No game was set, return to cancel
+                Return False
+            End If
+        Else
+            'The game is not a duplicate, return and continue
+            Return True
         End If
-    End Sub
+
+    End Function
 
     Private Sub RunBackup()
         Dim bDoBackup As Boolean
@@ -1398,10 +1411,15 @@ Public Class frmMain
     Private Sub bwMain_RunWorkerCompleted(sender As System.Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwMonitor.RunWorkerCompleted
         oProcess.EndTime = Now
         If Not bCancelledByUser Then
-            DoMultiGameCheck()
-            UpdateLog(oProcess.GameInfo.Name & " has ended.", False)
-            If oSettings.TimeTracking Then HandleTimeSpent()
-            RunBackup()
+            If DoMultiGameCheck() Then
+                UpdateLog(oProcess.GameInfo.Name & " has ended.", False)
+                If oSettings.TimeTracking Then HandleTimeSpent()
+                RunBackup()
+            Else
+                UpdateLog("The unidentified game has ended.", False)
+                ResetGameInfo()
+                ResumeScan()
+            End If
         End If
         bCancelledByUser = False
     End Sub

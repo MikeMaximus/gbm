@@ -446,6 +446,7 @@ Partial Class frmMain
         '
         'lblLastAction
         '
+        Me.lblLastAction.AutoEllipsis = True
         Me.lblLastAction.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblLastAction.Location = New System.Drawing.Point(12, 139)
         Me.lblLastAction.Name = "lblLastAction"
