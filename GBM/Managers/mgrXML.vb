@@ -10,7 +10,6 @@ Public Class mgrXML
         Dim hshList As New Hashtable
         Dim hshDupeList As New Hashtable
         Dim oGame As clsGame
-        Dim oDupeGame As clsGame
 
         'If the file doesn't exist return an empty list
         If Not File.Exists(sLocation) And Not bWebRead Then
@@ -32,20 +31,12 @@ Public Class mgrXML
                 oGame.ImportTags.Add(t)
             Next
 
-            If hshList.Contains(oGame.ProcessName) Or hshDupeList.Contains(oGame.ProcessName) Then
-                oDupeGame = DirectCast(hshList.Item(oGame.ProcessName), clsGame)
-                If Not hshDupeList.Contains(oGame.ProcessName) Then
-                    hshDupeList.Add(oGame.ProcessName, oDupeGame)
-                    hshList.Remove(oDupeGame.ProcessName)
-                    oDupeGame.Duplicate = True
-                    oDupeGame.ProcessName = oDupeGame.ProcessName & ":" & oDupeGame.Name
-                    hshList.Add(oDupeGame.ProcessName, oDupeGame)
-                End If
-                oGame.ProcessName = oGame.ProcessName & ":" & oGame.Name
-                oGame.Duplicate = True
-            End If
-
-            hshList.Add(oGame.ProcessName, oGame)
+            'This should be wrapped just in case we get some bad data
+            Try
+                hshList.Add(oGame.ProcessName & ":" & oGame.Name, oGame)
+            Catch e As Exception
+                'Do Nothing
+            End Try
         Next
 
         Return hshList

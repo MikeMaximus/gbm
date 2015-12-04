@@ -152,7 +152,7 @@ Public Class mgrBackup
                 End If
 
                 If oGame.FolderSave = True Then
-                    BuildFileList(sSavePath, "*.*", mgrPath.IncludeFileLocation)
+                    BuildFileList(sSavePath, "*", mgrPath.IncludeFileLocation)
                 Else
                     BuildFileList(sSavePath, oGame.FileType, mgrPath.IncludeFileLocation)
                 End If

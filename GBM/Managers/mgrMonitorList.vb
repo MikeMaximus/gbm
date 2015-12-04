@@ -119,6 +119,7 @@ Public Class mgrMonitorList
         Dim oFromItem As clsGame
         Dim oToItem As clsGame
         Dim iChanges As Integer
+        Dim sCompareKey As String
 
         Cursor.Current = Cursors.WaitCursor
 
@@ -140,10 +141,11 @@ Public Class mgrMonitorList
         hshSyncItems = hshCompareFrom.Clone
 
         For Each oFromItem In hshCompareFrom.Values
-            If hshCompareTo.Contains(oFromItem.ProcessName) Then
-                oToItem = DirectCast(hshCompareTo(oFromItem.ProcessName), clsGame)
+            sCompareKey = oFromItem.ProcessName & ":" & oFromItem.Name
+            If hshCompareTo.Contains(sCompareKey) Then
+                oToItem = DirectCast(hshCompareTo(sCompareKey), clsGame)
                 If oFromItem.SyncEquals(oToItem) Then
-                    hshSyncItems.Remove(oFromItem.ProcessName)
+                    hshSyncItems.Remove(sCompareKey)
                 End If
             End If
         Next
@@ -171,10 +173,11 @@ Public Class mgrMonitorList
         hshDeleteItems = hshCompareTo.Clone
 
         For Each oToItem In hshCompareTo.Values
-            If hshCompareFrom.Contains(oToItem.ProcessName) Then
-                oFromItem = DirectCast(hshCompareFrom(oToItem.ProcessName), clsGame)
+            sCompareKey = oToItem.ProcessName & ":" & oToItem.Name
+            If hshCompareFrom.Contains(sCompareKey) Then
+                oFromItem = DirectCast(hshCompareFrom(sCompareKey), clsGame)
                 If oToItem.MinimalEquals(oFromItem) Then
-                    hshDeleteItems.Remove(oToItem.ProcessName)
+                    hshDeleteItems.Remove(sCompareKey)
                 End If
             End If
         Next
@@ -196,6 +199,7 @@ Public Class mgrMonitorList
         Dim hshSyncItems As Hashtable
         Dim oFromItem As clsGame
         Dim oToItem As clsGame
+        Dim sCompareKey As String
 
         Cursor.Current = Cursors.WaitCursor
 
@@ -206,10 +210,11 @@ Public Class mgrMonitorList
         hshSyncItems = hshCompareFrom.Clone
 
         For Each oFromItem In hshCompareFrom.Values
-            If hshCompareTo.Contains(oFromItem.ProcessName) Then
-                oToItem = DirectCast(hshCompareTo(oFromItem.ProcessName), clsGame)
+            sCompareKey = oFromItem.ProcessName & ":" & oFromItem.Name
+            If hshCompareTo.Contains(sCompareKey) Then
+                oToItem = DirectCast(hshCompareTo(sCompareKey), clsGame)
                 If oFromItem.CoreEquals(oToItem) Then
-                    hshSyncItems.Remove(oFromItem.ProcessName)
+                    hshSyncItems.Remove(sCompareKey)
                 End If
             End If
         Next
@@ -256,7 +261,6 @@ Public Class mgrMonitorList
         End If
         Return True
     End Function
-
 
     Public Shared Function ReadFilteredList(ByVal oFilters As List(Of clsTag), ByVal eFilterType As frmFilter.eFilterType, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
         Dim oDatabase As New mgrSQLite(iSelectDB)
@@ -333,7 +337,6 @@ Public Class mgrMonitorList
         Dim hshList As New Hashtable
         Dim hshDupeList As New Hashtable
         Dim oGame As clsGame
-        Dim oDupeGame As clsGame
 
         sSQL = "Select * from monitorlist ORDER BY Name Asc"
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
@@ -359,27 +362,14 @@ Public Class mgrMonitorList
 
             Select Case eListType
                 Case eListTypes.FullList
-                    If hshList.Contains(oGame.ProcessName) Or hshDupeList.Contains(oGame.ProcessName) Then
-                        oDupeGame = DirectCast(hshList.Item(oGame.ProcessName), clsGame)
-                        If Not hshDupeList.Contains(oGame.ProcessName) Then
-                            hshDupeList.Add(oGame.ProcessName, oDupeGame)
-                            hshList.Remove(oDupeGame.ProcessName)
-                            oDupeGame.Duplicate = True
-                            oDupeGame.ProcessName = oDupeGame.ProcessName & ":" & oDupeGame.Name
-                            hshList.Add(oDupeGame.ProcessName, oDupeGame)
-                        End If
-                        oGame.ProcessName = oGame.ProcessName & ":" & oGame.Name
-                        oGame.Duplicate = True
-                    End If
-
-                    hshList.Add(oGame.ProcessName, oGame)
+                    'Don't wrap this, if it fails there's a problem with the database
+                    hshList.Add(oGame.ProcessName & ":" & oGame.Name, oGame)
                 Case eListTypes.ScanList
                     If hshList.Contains(oGame.ProcessName) Then
                         DirectCast(hshList.Item(oGame.ProcessName), clsGame).Duplicate = True
                         oGame.ProcessName = oGame.ProcessName & ":" & oGame.Name
                         oGame.Duplicate = True
                     End If
-
                     If oGame.Enabled Then hshList.Add(oGame.ProcessName, oGame)
             End Select
         Next

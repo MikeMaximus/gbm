@@ -2,7 +2,6 @@
 
     Private oProcess As mgrProcesses
     Private oGame As clsGame
-    Private oGamesList As New List(Of KeyValuePair(Of String, String))
     Private oGamesHash As New Hashtable
     Private bGameSelected As Boolean = False
 
@@ -25,14 +24,14 @@
     End Property
 
     Private Sub FillComboBox()
+        lstGameBox.ValueMember = "Key"
+        lstGameBox.DisplayMember = "Value"
+
         For Each o As clsGame In Process.DuplicateList
-            oGamesList.Add(New KeyValuePair(Of String, String)(o.ID, o.Name))
+            lstGameBox.Items.Add(New KeyValuePair(Of String, String)(o.ID, o.Name))
             oGamesHash.Add(o.ID, o)
         Next
 
-        lstGameBox.ValueMember = "key"
-        lstGameBox.DisplayMember = "value"
-        lstGameBox.DataSource = oGamesList
         lstGameBox.SelectedIndex = 0
     End Sub
 
@@ -42,9 +41,8 @@
     End Sub
 
     Private Sub GetSelection()
-        Dim sSelectedGame As String
-        sSelectedGame = CStr(lstGameBox.SelectedValue)
-        oGame = DirectCast(oGamesHash.Item(sSelectedGame), clsGame)
+        Dim oSelected As KeyValuePair(Of String, String) = lstGameBox.SelectedItem
+        oGame = DirectCast(oGamesHash.Item(oSelected.Key), clsGame)
         SaveSelection()
         bGameSelected = True
         Me.DialogResult = DialogResult.OK
