@@ -242,14 +242,19 @@ Public Class frmIncludeExclude
         treFiles.Select()
         If Not treFiles.SelectedNode Is Nothing Then treFiles.SelectedNode.Expand()
         If txtRootFolder.Text = String.Empty Then
-            ttWarning.ToolTipTitle = "Notice"
-            ttWarning.Show("The saved game folder could not be determined or does not exist.", txtRootFolder, 6000)
+            ttWarning.ToolTipTitle = "Saved Game Explorer"
+            ttWarning.SetToolTip(treFiles, "Set the saved game folder using the button above.")
+            ttWarning.SetToolTip(txtRootFolder, "The saved game folder could not be determined or does not exist.")
+            ttWarning.SetToolTip(btnBrowse, "Click here to set the saved game folder.")
         End If
     End Sub
 
     Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowse.Click
         RootPathBrowse()
-        If txtRootFolder.Text <> String.Empty Then BuildTrunk()
+        If txtRootFolder.Text <> String.Empty Then
+            BuildTrunk()
+            ttWarning.RemoveAll()
+        End If
         treFiles.Select()
         If Not treFiles.SelectedNode Is Nothing Then treFiles.SelectedNode.Expand()
     End Sub

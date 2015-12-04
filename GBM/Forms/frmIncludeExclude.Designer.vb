@@ -219,6 +219,9 @@ Partial Class frmIncludeExclude
         '
         'ttWarning
         '
+        Me.ttWarning.AutoPopDelay = 5000
+        Me.ttWarning.InitialDelay = 200
+        Me.ttWarning.ReshowDelay = 50
         Me.ttWarning.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning
         '
         'frmIncludeExclude

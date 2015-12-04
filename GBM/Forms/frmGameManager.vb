@@ -522,9 +522,11 @@ Public Class frmGameManager
             Else
                 txtFileSize.Text = "Backup file was not found!"
             End If
+            txtRestorePath.Text = CurrentBackupItem.RestorePath
         Else
             txtCurrentBackup.Text = "Never"
             txtFileSize.Text = String.Empty
+            txtRestorePath.Text = String.Empty
             btnOpenBackupFile.Enabled = False
             btnOpenRestorePath.Enabled = False
             btnRestore.Enabled = False
