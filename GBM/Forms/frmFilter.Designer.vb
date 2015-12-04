@@ -87,6 +87,7 @@ Partial Class frmFilter
         Me.lstFilter.Name = "lstFilter"
         Me.lstFilter.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.lstFilter.Size = New System.Drawing.Size(150, 173)
+        Me.lstFilter.Sorted = True
         Me.lstFilter.TabIndex = 6
         '
         'lstTags
@@ -96,6 +97,7 @@ Partial Class frmFilter
         Me.lstTags.Name = "lstTags"
         Me.lstTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.lstTags.Size = New System.Drawing.Size(150, 173)
+        Me.lstTags.Sorted = True
         Me.lstTags.TabIndex = 1
         '
         'GroupBox1

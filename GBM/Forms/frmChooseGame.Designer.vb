@@ -52,6 +52,7 @@ Partial Class frmChooseGame
         Me.lstGameBox.Location = New System.Drawing.Point(15, 34)
         Me.lstGameBox.Name = "lstGameBox"
         Me.lstGameBox.Size = New System.Drawing.Size(228, 95)
+        Me.lstGameBox.Sorted = True
         Me.lstGameBox.TabIndex = 1
         '
         'btnCancel

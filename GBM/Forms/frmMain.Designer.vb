@@ -103,7 +103,7 @@ Partial Class frmMain
         '
         Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayShow, Me.gMonTraySep2, Me.gMonTrayMon, Me.gMonTraySettings, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTraySep1, Me.gMonTrayExit})
         Me.gMonTrayMenu.Name = "gMonTrayMenu"
-        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 148)
+        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 170)
         '
         'gMonTrayShow
         '
@@ -157,7 +157,7 @@ Partial Class frmMain
         '
         Me.gMonTraySetupTags.Name = "gMonTraySetupTags"
         Me.gMonTraySetupTags.Size = New System.Drawing.Size(201, 22)
-        Me.gMonTraySetupTags.Text = "&Tags"
+        Me.gMonTraySetupTags.Text = "&Tags..."
         '
         'gMonTrayTools
         '

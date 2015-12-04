@@ -30,11 +30,10 @@
             oGamesHash.Add(o.ID, o)
         Next
 
-        lstGameBox.DataSource = oGamesList
         lstGameBox.ValueMember = "key"
         lstGameBox.DisplayMember = "value"
+        lstGameBox.DataSource = oGamesList
         lstGameBox.SelectedIndex = 0
-
     End Sub
 
     Private Sub SaveSelection()

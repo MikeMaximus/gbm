@@ -39,6 +39,7 @@ Partial Class frmGameTags
         Me.lstTags.Name = "lstTags"
         Me.lstTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.lstTags.Size = New System.Drawing.Size(150, 199)
+        Me.lstTags.Sorted = True
         Me.lstTags.TabIndex = 0
         '
         'lstGameTags
@@ -48,6 +49,7 @@ Partial Class frmGameTags
         Me.lstGameTags.Name = "lstGameTags"
         Me.lstGameTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.lstGameTags.Size = New System.Drawing.Size(150, 199)
+        Me.lstGameTags.Sorted = True
         Me.lstGameTags.TabIndex = 3
         '
         'btnAdd
