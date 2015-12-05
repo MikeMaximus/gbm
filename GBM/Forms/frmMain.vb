@@ -267,24 +267,31 @@ Public Class frmMain
         eCurrentOperation = eOperation.Backup
         OperationStarted(False)
 
-        If oProcess.GameInfo.MonitorOnly = False Then
-            If oSettings.DisableConfirmation Then
-                bDoBackup = True
-            Else
-                If MsgBox("Do you wish to backup data from " & oProcess.GameInfo.Name & "?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+        If SupressBackup() Then
+            bDoBackup = False
+            UpdateLog(oProcess.GameInfo.Name & " backup was cancelled due to session time.", False)
+            SetLastAction(oProcess.GameInfo.CroppedName & " backup was cancelled due to session time")
+            OperationEnded()
+        Else
+            If oProcess.GameInfo.MonitorOnly = False Then
+                If oSettings.DisableConfirmation Then
                     bDoBackup = True
                 Else
-                    bDoBackup = False
-                    UpdateLog(oProcess.GameInfo.Name & " backup was cancelled.", False)
-                    SetLastAction(oProcess.GameInfo.CroppedName & " backup was cancelled")
-                    OperationEnded()
+                    If MsgBox("Do you wish to backup data from " & oProcess.GameInfo.Name & "?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                        bDoBackup = True
+                    Else
+                        bDoBackup = False
+                        UpdateLog(oProcess.GameInfo.Name & " backup was cancelled.", False)
+                        SetLastAction(oProcess.GameInfo.CroppedName & " backup was cancelled")
+                        OperationEnded()
+                    End If
                 End If
+            Else
+                bDoBackup = False
+                UpdateLog(oProcess.GameInfo.Name & " is set to monitor only.", False)
+                SetLastAction(oProcess.GameInfo.CroppedName & " monitoring ended")
+                OperationEnded()
             End If
-        Else
-            bDoBackup = False
-            UpdateLog(oProcess.GameInfo.Name & " is set to monitor only.", False)
-            SetLastAction(oProcess.GameInfo.CroppedName & " monitoring ended")
-            OperationEnded()
         End If
 
         If bDoBackup Then
@@ -563,6 +570,18 @@ Public Class frmMain
         'Reset
         oProcess.StartTime = Now : oProcess.EndTime = Now
     End Sub
+
+    Private Function SupressBackup() As Boolean
+        If oSettings.SupressBackup Then
+            If oProcess.TimeSpent.Minutes > oSettings.SupressBackupThreshold Then
+                Return False
+            Else
+                Return True
+            End If
+        Else
+            Return False
+        End If
+    End Function
 
     'Functions handling the opening of other windows
     Private Sub OpenAbout()

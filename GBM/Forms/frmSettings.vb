@@ -54,6 +54,8 @@
         oSettings.ShowOverwriteWarning = chkOverwriteWarning.Checked
         oSettings.RestoreOnLaunch = chkRestoreOnLaunch.Checked
         oSettings.TimeTracking = chkTimeTracking.Checked
+        oSettings.SupressBackup = chkSupressBackup.Checked
+        oSettings.SupressBackupThreshold = nudSupressBackupThreshold.Value
 
         'We need to clear all checksums its turned off
         If chkCheckSum.Checked = False And oSettings.CheckSum = True Then
@@ -104,6 +106,8 @@
         chkSync.Checked = oSettings.Sync
         chkCheckSum.Checked = oSettings.CheckSum
         chkTimeTracking.Checked = oSettings.TimeTracking
+        chkSupressBackup.Checked = oSettings.SupressBackup
+        nudSupressBackupThreshold.Value = oSettings.SupressBackupThreshold
     End Sub
 
     Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click

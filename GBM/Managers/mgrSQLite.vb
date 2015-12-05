@@ -69,9 +69,10 @@ Public Class mgrSQLite
             SQLiteConnection.CreateFile(sDatabaseLocation)
 
             'Add Tables (Settings)
-            sSql = "CREATE TABLE settings (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, " & _
-                   "DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, " & _
-                   "BackupFolder TEXT NOT NULL, Sync BOOLEAN NOT NULL, CheckSum BOOLEAN NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL);"
+            sSql = "CREATE TABLE settings (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, " &
+                   "DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, " &
+                   "BackupFolder TEXT NOT NULL, Sync BOOLEAN NOT NULL, CheckSum BOOLEAN NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
+                   "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL);"
 
             'Add Tables (Monitor List)
             sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " & _
@@ -486,7 +487,11 @@ Public Class mgrSQLite
                 'Backup DB before starting
                 BackupDB("v94")
 
-                sSQL = "PRAGMA user_version=95"
+                'Add new setting
+                sSQL = "ALTER TABLE settings ADD COLUMN SupressBackup BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN SupressBackupThreshold INTEGER NOT NULL DEFAULT 10;"
+
+                sSQL &= "PRAGMA user_version=95"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If

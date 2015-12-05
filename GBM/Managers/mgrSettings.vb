@@ -12,6 +12,8 @@ Public Class mgrSettings
     Private bSync As Boolean = True
     Private bCheckSum As Boolean = True
     Private bTimeTracking As Boolean = True
+    Private bSupressBackup As Boolean = False
+    Private iSupressBackupThreshold As Integer = 10
     Private sBackupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).TrimEnd(New Char() {"\", "/"})
 
     Property StartWithWindows As Boolean
@@ -113,6 +115,24 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Property SupressBackup As Boolean
+        Get
+            Return bSupressBackup
+        End Get
+        Set(value As Boolean)
+            bSupressBackup = value
+        End Set
+    End Property
+
+    Property SupressBackupThreshold As Integer
+        Get
+            Return iSupressBackupThreshold
+        End Get
+        Set(value As Integer)
+            iSupressBackupThreshold = value
+        End Set
+    End Property
+
     Property BackupFolder As String
         Get
             Return sBackupFolder
@@ -131,7 +151,8 @@ Public Class mgrSettings
         oDatabase.RunParamQuery(sSQL, New Hashtable)
 
         sSQL = "INSERT INTO settings VALUES (1, @MonitorOnStartup, @StartToTray, @ShowDetectionToolTips, @DisableConfirmation, "
-        sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @Sync, @CheckSum, @StartWithWindows, @TimeTracking)"
+        sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @Sync, @CheckSum, @StartWithWindows, "
+        sSQL &= "@TimeTracking, @SupressBackup, @SupressBackupThreshold)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -145,6 +166,8 @@ Public Class mgrSettings
         hshParams.Add("CheckSum", CheckSum)
         hshParams.Add("StartWithWindows", StartWithWindows)
         hshParams.Add("TimeTracking", TimeTracking)
+        hshParams.Add("SupressBackup", SupressBackup)
+        hshParams.Add("SupressBackupThreshold", SupressBackupThreshold)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -172,6 +195,8 @@ Public Class mgrSettings
             CheckSum = CBool(dr("CheckSum"))
             StartWithWindows = CBool(dr("StartWithWindows"))
             TimeTracking = CBool(dr("TimeTracking"))
+            SupressBackup = CBool(dr("SupressBackup"))
+            SupressBackupThreshold = CInt(dr("SupressBackupThreshold"))
         Next
 
         oDatabase.Disconnect()

@@ -38,6 +38,9 @@ Partial Class frmSettings
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.grpBackup = New System.Windows.Forms.GroupBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.nudSupressBackupThreshold = New System.Windows.Forms.NumericUpDown()
+        Me.chkSupressBackup = New System.Windows.Forms.CheckBox()
         Me.chkCheckSum = New System.Windows.Forms.CheckBox()
         Me.chkRestoreOnLaunch = New System.Windows.Forms.CheckBox()
         Me.chkOverwriteWarning = New System.Windows.Forms.CheckBox()
@@ -45,6 +48,7 @@ Partial Class frmSettings
         Me.grpGeneral.SuspendLayout()
         Me.grpPaths.SuspendLayout()
         Me.grpBackup.SuspendLayout()
+        CType(Me.nudSupressBackupThreshold, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'chkMonitorOnStartup
@@ -60,10 +64,10 @@ Partial Class frmSettings
         'chkBackupConfirm
         '
         Me.chkBackupConfirm.AutoSize = True
-        Me.chkBackupConfirm.Location = New System.Drawing.Point(6, 19)
+        Me.chkBackupConfirm.Location = New System.Drawing.Point(6, 42)
         Me.chkBackupConfirm.Name = "chkBackupConfirm"
         Me.chkBackupConfirm.Size = New System.Drawing.Size(160, 17)
-        Me.chkBackupConfirm.TabIndex = 0
+        Me.chkBackupConfirm.TabIndex = 1
         Me.chkBackupConfirm.Text = "Disable backup confirmation"
         Me.chkBackupConfirm.UseVisualStyleBackColor = True
         '
@@ -137,7 +141,7 @@ Partial Class frmSettings
         Me.grpPaths.Controls.Add(Me.btnBackupFolder)
         Me.grpPaths.Controls.Add(Me.lblBackupFolder)
         Me.grpPaths.Controls.Add(Me.txtBackupFolder)
-        Me.grpPaths.Location = New System.Drawing.Point(12, 331)
+        Me.grpPaths.Location = New System.Drawing.Point(12, 360)
         Me.grpPaths.Name = "grpPaths"
         Me.grpPaths.Size = New System.Drawing.Size(360, 60)
         Me.grpPaths.TabIndex = 2
@@ -172,7 +176,7 @@ Partial Class frmSettings
         'btnSave
         '
         Me.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnSave.Location = New System.Drawing.Point(216, 397)
+        Me.btnSave.Location = New System.Drawing.Point(216, 426)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
         Me.btnSave.TabIndex = 3
@@ -182,7 +186,7 @@ Partial Class frmSettings
         'btnCancel
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(297, 397)
+        Me.btnCancel.Location = New System.Drawing.Point(297, 426)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 4
@@ -191,6 +195,9 @@ Partial Class frmSettings
         '
         'grpBackup
         '
+        Me.grpBackup.Controls.Add(Me.Label1)
+        Me.grpBackup.Controls.Add(Me.nudSupressBackupThreshold)
+        Me.grpBackup.Controls.Add(Me.chkSupressBackup)
         Me.grpBackup.Controls.Add(Me.chkCheckSum)
         Me.grpBackup.Controls.Add(Me.chkRestoreOnLaunch)
         Me.grpBackup.Controls.Add(Me.chkOverwriteWarning)
@@ -198,10 +205,37 @@ Partial Class frmSettings
         Me.grpBackup.Controls.Add(Me.chkBackupConfirm)
         Me.grpBackup.Location = New System.Drawing.Point(12, 183)
         Me.grpBackup.Name = "grpBackup"
-        Me.grpBackup.Size = New System.Drawing.Size(360, 142)
+        Me.grpBackup.Size = New System.Drawing.Size(360, 171)
         Me.grpBackup.TabIndex = 1
         Me.grpBackup.TabStop = False
         Me.grpBackup.Text = "Backup and Restore Options"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(286, 135)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(43, 13)
+        Me.Label1.TabIndex = 7
+        Me.Label1.Text = "minutes"
+        '
+        'nudSupressBackupThreshold
+        '
+        Me.nudSupressBackupThreshold.Location = New System.Drawing.Point(229, 133)
+        Me.nudSupressBackupThreshold.Maximum = New Decimal(New Integer() {999, 0, 0, 0})
+        Me.nudSupressBackupThreshold.Name = "nudSupressBackupThreshold"
+        Me.nudSupressBackupThreshold.Size = New System.Drawing.Size(51, 20)
+        Me.nudSupressBackupThreshold.TabIndex = 6
+        '
+        'chkSupressBackup
+        '
+        Me.chkSupressBackup.AutoSize = True
+        Me.chkSupressBackup.Location = New System.Drawing.Point(6, 134)
+        Me.chkSupressBackup.Name = "chkSupressBackup"
+        Me.chkSupressBackup.Size = New System.Drawing.Size(217, 17)
+        Me.chkSupressBackup.TabIndex = 5
+        Me.chkSupressBackup.Text = "Backup only when session time exceeds"
+        Me.chkSupressBackup.UseVisualStyleBackColor = True
         '
         'chkCheckSum
         '
@@ -236,18 +270,18 @@ Partial Class frmSettings
         'chkCreateFolder
         '
         Me.chkCreateFolder.AutoSize = True
-        Me.chkCreateFolder.Location = New System.Drawing.Point(6, 42)
+        Me.chkCreateFolder.Location = New System.Drawing.Point(6, 19)
         Me.chkCreateFolder.Name = "chkCreateFolder"
-        Me.chkCreateFolder.Size = New System.Drawing.Size(211, 17)
-        Me.chkCreateFolder.TabIndex = 1
-        Me.chkCreateFolder.Text = "Create a sub-folder for each application"
+        Me.chkCreateFolder.Size = New System.Drawing.Size(186, 17)
+        Me.chkCreateFolder.TabIndex = 0
+        Me.chkCreateFolder.Text = "Create a sub-folder for each game"
         Me.chkCreateFolder.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(384, 431)
+        Me.ClientSize = New System.Drawing.Size(384, 461)
         Me.Controls.Add(Me.grpBackup)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
@@ -267,6 +301,7 @@ Partial Class frmSettings
         Me.grpPaths.PerformLayout()
         Me.grpBackup.ResumeLayout(False)
         Me.grpBackup.PerformLayout()
+        CType(Me.nudSupressBackupThreshold, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -290,4 +325,7 @@ Partial Class frmSettings
     Friend WithEvents chkCheckSum As System.Windows.Forms.CheckBox
     Friend WithEvents chkStartWindows As System.Windows.Forms.CheckBox
     Friend WithEvents chkTimeTracking As System.Windows.Forms.CheckBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents nudSupressBackupThreshold As NumericUpDown
+    Friend WithEvents chkSupressBackup As CheckBox
 End Class
