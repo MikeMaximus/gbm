@@ -28,6 +28,12 @@
         End Get
     End Property
 
+    ReadOnly Property CompoundKey As String
+        Get
+            Return ProcessName & ":" & Name
+        End Get
+    End Property
+
     ReadOnly Property CroppedName As String
         Get
             If Name.Length > 40 Then

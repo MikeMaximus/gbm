@@ -119,7 +119,6 @@ Public Class mgrMonitorList
         Dim oFromItem As clsGame
         Dim oToItem As clsGame
         Dim iChanges As Integer
-        Dim sCompareKey As String
 
         Cursor.Current = Cursors.WaitCursor
 
@@ -141,11 +140,10 @@ Public Class mgrMonitorList
         hshSyncItems = hshCompareFrom.Clone
 
         For Each oFromItem In hshCompareFrom.Values
-            sCompareKey = oFromItem.ProcessName & ":" & oFromItem.Name
-            If hshCompareTo.Contains(sCompareKey) Then
-                oToItem = DirectCast(hshCompareTo(sCompareKey), clsGame)
+            If hshCompareTo.Contains(oFromItem.CompoundKey) Then
+                oToItem = DirectCast(hshCompareTo(oFromItem.CompoundKey), clsGame)
                 If oFromItem.SyncEquals(oToItem) Then
-                    hshSyncItems.Remove(sCompareKey)
+                    hshSyncItems.Remove(oFromItem.CompoundKey)
                 End If
             End If
         Next
@@ -173,11 +171,10 @@ Public Class mgrMonitorList
         hshDeleteItems = hshCompareTo.Clone
 
         For Each oToItem In hshCompareTo.Values
-            sCompareKey = oToItem.ProcessName & ":" & oToItem.Name
-            If hshCompareFrom.Contains(sCompareKey) Then
-                oFromItem = DirectCast(hshCompareFrom(sCompareKey), clsGame)
+            If hshCompareFrom.Contains(oToItem.CompoundKey) Then
+                oFromItem = DirectCast(hshCompareFrom(oToItem.CompoundKey), clsGame)
                 If oToItem.MinimalEquals(oFromItem) Then
-                    hshDeleteItems.Remove(sCompareKey)
+                    hshDeleteItems.Remove(oToItem.CompoundKey)
                 End If
             End If
         Next
@@ -199,7 +196,6 @@ Public Class mgrMonitorList
         Dim hshSyncItems As Hashtable
         Dim oFromItem As clsGame
         Dim oToItem As clsGame
-        Dim sCompareKey As String
 
         Cursor.Current = Cursors.WaitCursor
 
@@ -210,11 +206,10 @@ Public Class mgrMonitorList
         hshSyncItems = hshCompareFrom.Clone
 
         For Each oFromItem In hshCompareFrom.Values
-            sCompareKey = oFromItem.ProcessName & ":" & oFromItem.Name
-            If hshCompareTo.Contains(sCompareKey) Then
-                oToItem = DirectCast(hshCompareTo(sCompareKey), clsGame)
+            If hshCompareTo.Contains(oFromItem.CompoundKey) Then
+                oToItem = DirectCast(hshCompareTo(oFromItem.CompoundKey), clsGame)
                 If oFromItem.CoreEquals(oToItem) Then
-                    hshSyncItems.Remove(sCompareKey)
+                    hshSyncItems.Remove(oFromItem.CompoundKey)
                 End If
             End If
         Next

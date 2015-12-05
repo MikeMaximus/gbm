@@ -30,7 +30,7 @@
 
         For Each de As DictionaryEntry In ImportData
             oApp = DirectCast(de.Value, clsGame)
-            oData = New KeyValuePair(Of String, String)(oApp.ProcessName, oApp.Name & " (" & oApp.TrueProcess & ")")
+            oData = New KeyValuePair(Of String, String)(oApp.CompoundKey, oApp.Name & " (" & oApp.TrueProcess & ")")
             lstGames.Items.Add(oData)
         Next
     End Sub
