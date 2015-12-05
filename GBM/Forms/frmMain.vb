@@ -269,8 +269,8 @@ Public Class frmMain
 
         If SupressBackup() Then
             bDoBackup = False
-            UpdateLog(oProcess.GameInfo.Name & " backup was cancelled due to session time.", False)
-            SetLastAction(oProcess.GameInfo.CroppedName & " backup was cancelled due to session time")
+            UpdateLog(oProcess.GameInfo.Name & " backup was cancelled due to session length.", False)
+            SetLastAction(oProcess.GameInfo.CroppedName & " backup was cancelled due to session length")
             OperationEnded()
         Else
             If oProcess.GameInfo.MonitorOnly = False Then
@@ -566,14 +566,13 @@ Public Class frmMain
         If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
 
         UpdateTimeSpent(dCurrentHours, oProcess.TimeSpent.TotalHours)
-
-        'Reset
-        oProcess.StartTime = Now : oProcess.EndTime = Now
     End Sub
 
     Private Function SupressBackup() As Boolean
+        Dim iSession As Integer
         If oSettings.SupressBackup Then
-            If oProcess.TimeSpent.Minutes > oSettings.SupressBackupThreshold Then
+            iSession = Math.Ceiling(oProcess.TimeSpent.TotalMinutes)
+            If iSession > oSettings.SupressBackupThreshold Then
                 Return False
             Else
                 Return True
@@ -1429,6 +1428,7 @@ Public Class frmMain
 
     Private Sub bwMain_RunWorkerCompleted(sender As System.Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwMonitor.RunWorkerCompleted
         oProcess.EndTime = Now
+
         If Not bCancelledByUser Then
             If DoMultiGameCheck() Then
                 UpdateLog(oProcess.GameInfo.Name & " has ended.", False)
@@ -1440,7 +1440,9 @@ Public Class frmMain
                 ResumeScan()
             End If
         End If
+
         bCancelledByUser = False
+        oProcess.StartTime = Now : oProcess.EndTime = Now
     End Sub
 
     Private Sub Main_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load

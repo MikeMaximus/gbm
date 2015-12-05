@@ -38,7 +38,7 @@ Partial Class frmSettings
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.grpBackup = New System.Windows.Forms.GroupBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblMinutes = New System.Windows.Forms.Label()
         Me.nudSupressBackupThreshold = New System.Windows.Forms.NumericUpDown()
         Me.chkSupressBackup = New System.Windows.Forms.CheckBox()
         Me.chkCheckSum = New System.Windows.Forms.CheckBox()
@@ -195,7 +195,7 @@ Partial Class frmSettings
         '
         'grpBackup
         '
-        Me.grpBackup.Controls.Add(Me.Label1)
+        Me.grpBackup.Controls.Add(Me.lblMinutes)
         Me.grpBackup.Controls.Add(Me.nudSupressBackupThreshold)
         Me.grpBackup.Controls.Add(Me.chkSupressBackup)
         Me.grpBackup.Controls.Add(Me.chkCheckSum)
@@ -210,14 +210,14 @@ Partial Class frmSettings
         Me.grpBackup.TabStop = False
         Me.grpBackup.Text = "Backup and Restore Options"
         '
-        'Label1
+        'lblMinutes
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(286, 135)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(43, 13)
-        Me.Label1.TabIndex = 7
-        Me.Label1.Text = "minutes"
+        Me.lblMinutes.AutoSize = True
+        Me.lblMinutes.Location = New System.Drawing.Point(286, 135)
+        Me.lblMinutes.Name = "lblMinutes"
+        Me.lblMinutes.Size = New System.Drawing.Size(43, 13)
+        Me.lblMinutes.TabIndex = 7
+        Me.lblMinutes.Text = "minutes"
         '
         'nudSupressBackupThreshold
         '
@@ -325,7 +325,7 @@ Partial Class frmSettings
     Friend WithEvents chkCheckSum As System.Windows.Forms.CheckBox
     Friend WithEvents chkStartWindows As System.Windows.Forms.CheckBox
     Friend WithEvents chkTimeTracking As System.Windows.Forms.CheckBox
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lblMinutes As Label
     Friend WithEvents nudSupressBackupThreshold As NumericUpDown
     Friend WithEvents chkSupressBackup As CheckBox
 End Class
