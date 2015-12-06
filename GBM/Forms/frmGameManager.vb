@@ -16,6 +16,8 @@ Public Class frmGameManager
     Private oRemoteBackupData As SortedList
     Private bIsDirty As Boolean = False
     Private bIsLoading As Boolean = False
+    Private oCurrentFilters As New List(Of clsTag)
+    Private eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.NoFilter
 
     Private Enum eModes As Integer
         View = 1
@@ -201,22 +203,25 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Sub LoadData()
+    Private Sub LoadData(Optional ByVal bRetainFilter As Boolean = True)
         Dim oRestoreData As New SortedList
         Dim oGame As clsGame
         Dim oBackup As clsBackup
         Dim frm As frmFilter
-        Dim oFilters As New List(Of clsTag)
-        Dim eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.Any
 
         If optTag.Checked Then
-            frm = New frmFilter
-            frm.ShowDialog()
-            oFilters = frm.Filters
-            eCurrentFilter = frm.FilterType
+            If Not bRetainFilter Then
+                frm = New frmFilter
+                frm.ShowDialog()
+                oCurrentFilters = frm.Filters
+                eCurrentFilter = frm.FilterType
+            End If
+        Else
+            oCurrentFilters.Clear()
+            eCurrentFilter = frmFilter.eFilterType.NoFilter
         End If
 
-        AppData = mgrMonitorList.ReadFilteredList(oFilters, eCurrentFilter)
+        AppData = mgrMonitorList.ReadFilteredList(oCurrentFilters, eCurrentFilter)
 
         If optPendingRestores.Checked Then
             oRestoreData = mgrRestore.CompareManifests
@@ -492,7 +497,18 @@ Public Class frmGameManager
         frm.IDList = sMonitorIDs
         frm.GameName = CurrentGame.Name
         frm.ShowDialog()
-        FillTags(CurrentGame.ID)
+
+        'Only update visible tags if one item is selected
+        If lstGames.SelectedItems.Count = 1 Then FillTags(CurrentGame.ID)
+
+        'If a tag filter is enabled, reload list to reflect changes
+        If optTag.Checked Then
+            LoadData()
+        End If
+
+        'If the selected game(s) no longer match the filter, disable the form
+        If lstGames.SelectedIndex = -1 Then eCurrentMode = eModes.Disabled
+        ModeChange()
     End Sub
 
     Private Sub GetBackupInfo(ByVal oApp As clsGame)
@@ -801,7 +817,6 @@ Public Class frmGameManager
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
                 pbIcon.Image = My.Resources.Unknown
-                lblTags.Text = String.Empty
                 lblSync.Visible = False
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
@@ -816,6 +831,7 @@ Public Class frmGameManager
                 btnRestore.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnTags.Enabled = False
+                lblTags.Visible = False
                 btnInclude.Text = "In&clude Items..."
                 btnExclude.Text = "E&xclude Items..."
             Case eModes.MultiSelect
@@ -840,6 +856,7 @@ Public Class frmGameManager
                 btnRestore.Enabled = True
                 btnMarkAsRestored.Enabled = True
                 btnTags.Enabled = True
+                lblTags.Visible = False
         End Select
 
         IsLoading = False
@@ -1257,7 +1274,7 @@ Public Class frmGameManager
         lstGames.ClearSelected()
         eCurrentMode = eModes.Disabled
         ModeChange()
-        LoadData()
+        LoadData(False)
     End Sub
 
     Private Sub btnInclude_Click(sender As Object, e As EventArgs) Handles btnInclude.Click

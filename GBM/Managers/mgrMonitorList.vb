@@ -39,12 +39,19 @@ Public Class mgrMonitorList
     End Sub
 
     Public Shared Sub ExportMonitorList(ByVal sLocation As String)
-        Dim frm As New frmFilter
         Dim oList As List(Of Game)
         Dim bSuccess As Boolean = False
+        Dim oFilters As New List(Of clsTag)
+        Dim eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.NoFilter
 
-        frm.ShowDialog()
-        oList = ReadListForExport(frm.Filters, frm.FilterType)
+        If MsgBox("Would you like to apply a filter to your export?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            Dim frm As New frmFilter
+            frm.ShowDialog()
+            oFilters = frm.Filters
+            eCurrentFilter = frm.FilterType
+        End If
+
+        oList = ReadListForExport(oFilters, eCurrentFilter)
 
         bSuccess = mgrXML.SerializeAndExport(oList, sLocation)
         
@@ -266,37 +273,38 @@ Public Class mgrMonitorList
         Dim hshParams As New Hashtable
         Dim iCounter As Integer = 0
 
-        If oFilters.Count > 0 Then
-            Select Case eFilterType
-                Case frmFilter.eFilterType.Any
-                    sSQL = "SELECT DISTINCT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist "
-                    sSQL &= "NATURAL JOIN gametags WHERE gametags.TagID IN ("
 
-                    For Each oTag As clsTag In oFilters
-                        sSQL &= "@TagID" & iCounter & ","
-                        hshParams.Add("TagID" & iCounter, oTag.ID)
-                        iCounter += 1
-                    Next
+        Select Case eFilterType
+            Case frmFilter.eFilterType.NoFilter
+                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist ORDER BY Name Asc"
+            Case frmFilter.eFilterType.AnyTag
+                sSQL = "SELECT DISTINCT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist "
+                sSQL &= "NATURAL JOIN gametags WHERE gametags.TagID IN ("
 
-                    sSQL = sSQL.TrimEnd(",")
-                    sSQL &= ") ORDER BY Name Asc"
-                Case frmFilter.eFilterType.All
-                    sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist WHERE MonitorID IN "
+                For Each oTag As clsTag In oFilters
+                    sSQL &= "@TagID" & iCounter & ","
+                    hshParams.Add("TagID" & iCounter, oTag.ID)
+                    iCounter += 1
+                Next
 
-                    For Each oTag As clsTag In oFilters
-                        sSQL &= "(SELECT MonitorID FROM gametags WHERE monitorlist.MonitorID = gametags.MonitorID And TagID = @TagID" & iCounter & ")"
-                        If iCounter <> oFilters.Count - 1 Then
-                            sSQL &= " AND MonitorID IN "
-                        End If
-                        hshParams.Add("TagID" & iCounter, oTag.ID)
-                        iCounter += 1
-                    Next
+                sSQL = sSQL.TrimEnd(",")
+                sSQL &= ") ORDER BY Name Asc"
+            Case frmFilter.eFilterType.AllTags
+                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist WHERE MonitorID IN "
 
-                    sSQL &= " ORDER BY Name Asc"
-            End Select
-        Else
-            sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist ORDER BY Name Asc"
-        End If
+                For Each oTag As clsTag In oFilters
+                    sSQL &= "(SELECT MonitorID FROM gametags WHERE monitorlist.MonitorID = gametags.MonitorID And TagID = @TagID" & iCounter & ")"
+                    If iCounter <> oFilters.Count - 1 Then
+                        sSQL &= " AND MonitorID IN "
+                    End If
+                    hshParams.Add("TagID" & iCounter, oTag.ID)
+                    iCounter += 1
+                Next
+
+                sSQL &= " ORDER BY Name Asc"
+            Case frmFilter.eFilterType.NoTags
+                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist WHERE MonitorID NOT IN (SELECT MonitorID FROM gametags) ORDER BY Name Asc"
+        End Select
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
@@ -382,37 +390,37 @@ Public Class mgrMonitorList
         Dim hshParams As New Hashtable
         Dim iCounter As Integer = 0
 
-        If oFilters.Count > 0 Then
-            Select Case eFilterType
-                Case frmFilter.eFilterType.Any
-                    sSQL = "SELECT DISTINCT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist "
-                    sSQL &= "NATURAL JOIN gametags WHERE gametags.TagID IN ("
+        Select Case eFilterType
+            Case frmFilter.eFilterType.NoFilter
+                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist ORDER BY Name Asc"
+            Case frmFilter.eFilterType.AnyTag
+                sSQL = "SELECT DISTINCT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist "
+                sSQL &= "NATURAL JOIN gametags WHERE gametags.TagID IN ("
 
-                    For Each oTag As clsTag In oFilters
-                        sSQL &= "@TagID" & iCounter & ","
-                        hshParams.Add("TagID" & iCounter, oTag.ID)
-                        iCounter += 1
-                    Next
+                For Each oTag As clsTag In oFilters
+                    sSQL &= "@TagID" & iCounter & ","
+                    hshParams.Add("TagID" & iCounter, oTag.ID)
+                    iCounter += 1
+                Next
 
-                    sSQL = sSQL.TrimEnd(",")
-                    sSQL &= ") ORDER BY Name Asc"
-                Case frmFilter.eFilterType.All
-                    sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist WHERE MonitorID IN "
+                sSQL = sSQL.TrimEnd(",")
+                sSQL &= ") ORDER BY Name Asc"
+            Case frmFilter.eFilterType.AllTags
+                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist WHERE MonitorID IN "
 
-                    For Each oTag As clsTag In oFilters
-                        sSQL &= "(SELECT MonitorID FROM gametags WHERE monitorlist.MonitorID = gametags.MonitorID And TagID = @TagID" & iCounter & ")"
-                        If iCounter <> oFilters.Count - 1 Then
-                            sSQL &= " AND MonitorID IN "
-                        End If
-                        hshParams.Add("TagID" & iCounter, oTag.ID)
-                        iCounter += 1
-                    Next
+                For Each oTag As clsTag In oFilters
+                    sSQL &= "(SELECT MonitorID FROM gametags WHERE monitorlist.MonitorID = gametags.MonitorID And TagID = @TagID" & iCounter & ")"
+                    If iCounter <> oFilters.Count - 1 Then
+                        sSQL &= " AND MonitorID IN "
+                    End If
+                    hshParams.Add("TagID" & iCounter, oTag.ID)
+                    iCounter += 1
+                Next
 
-                    sSQL &= " ORDER BY Name Asc"
-            End Select
-        Else
-            sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist ORDER BY Name Asc"
-        End If
+                sSQL &= " ORDER BY Name Asc"
+            Case frmFilter.eFilterType.NoTags
+                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist WHERE MonitorID NOT IN (SELECT MonitorID FROM gametags) ORDER BY Name Asc"
+        End Select
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 

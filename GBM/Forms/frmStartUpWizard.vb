@@ -72,7 +72,7 @@ Public Class frmStartUpWizard
     Private Sub DownloadSettings()
         If MsgBox("Would you like to import from the latest pre-configured game list?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
             If mgrMonitorList.DoImport(mgrPath.OfficialImportURL) Then
-                oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.ScanList)
+                oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
                 If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
             End If
         End If
@@ -80,7 +80,7 @@ Public Class frmStartUpWizard
 
     Private Sub LoadGameSettings()
         'Load Game XML
-        oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.ScanList)
+        oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
     End Sub
 
     Private Sub OpenGameWizard()

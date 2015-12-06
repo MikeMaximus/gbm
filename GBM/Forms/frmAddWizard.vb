@@ -194,24 +194,23 @@ Public Class frmAddWizard
     End Function
 
     Private Sub DoSave()
-        Dim oGames As New List(Of clsGame)
         Dim hshDupeCheck As New Hashtable
-        Dim sExistingGame As String
-        Dim sNewGame As String = oGameToSave.Name & ":" & oGameToSave.ProcessName
+        Dim sNewGame As String = oGameToSave.ProcessName & ":" & oGameToSave.Name
 
         For Each o As clsGame In GameData.Values
-            oGames.Add(o)
-            sExistingGame = o.Name & ":" & o.ProcessName
-            hshDupeCheck.Add(sExistingGame, String.Empty)
+            hshDupeCheck.Add(o.CompoundKey, String.Empty)
         Next
 
         If hshDupeCheck.Contains(sNewGame) Then
-            MsgBox("The monitor list already contains a game with this exact name and process.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            MsgBox("A game with this exact name and process already exists.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
         Else
             mgrMonitorList.DoListAdd(oGameToSave)
-            MsgBox(oGameToSave.Name & " has been added to the monitor list.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            If MsgBox(oGameToSave.Name & " has been saved." & vbCrLf & vbCrLf &
+                   "Would you like to add tags for " & oGameToSave.Name & "?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                OpenTags(oGameToSave)
+            End If
             Me.Close()
-        End If
+            End If
     End Sub
 
     Private Sub ValidateBack()
@@ -395,6 +394,16 @@ Public Class frmAddWizard
         frm.ShowDialog()
 
         txtBox.Text = frm.BuilderString
+    End Sub
+
+    Private Sub OpenTags(ByVal oGame As clsGame)
+        Dim frm As New frmGameTags
+        Dim sMonitorIDs As New List(Of String)
+        sMonitorIDs.Add(oGame.ID)
+
+        frm.IDList = sMonitorIDs
+        frm.GameName = oGame.Name
+        frm.ShowDialog()
     End Sub
 
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click

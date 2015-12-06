@@ -1,12 +1,14 @@
 ﻿Public Class frmFilter
 
     Public Enum eFilterType As Integer
-        Any = 1
-        All = 2
+        NoFilter = 1
+        AnyTag = 2
+        AllTags = 3
+        NoTags = 4
     End Enum
 
     Dim oFilters As New List(Of clsTag)
-    Dim eCurrentFilterType As eFilterType = eFilterType.Any
+    Dim eCurrentFilterType As eFilterType = eFilterType.AnyTag
     Dim hshTags As New Hashtable
     Dim bShutdown As Boolean = False
 
@@ -103,10 +105,12 @@
         Next
 
         'Set Filter Type
-        If optAll.Checked Then
-            eCurrentFilterType = eFilterType.All
+        If Filters.Count = 0 Then
+            eCurrentFilterType = eFilterType.NoTags
+        ElseIf optAll.Checked Then
+            eCurrentFilterType = eFilterType.AllTags
         Else
-            eCurrentFilterType = eFilterType.Any
+            eCurrentFilterType = eFilterType.AnyTag
         End If
 
     End Sub
