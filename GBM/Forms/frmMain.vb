@@ -493,19 +493,19 @@ Public Class frmMain
 
             'Set Details
             If sFileName = String.Empty Then
-                lblStatus1.Text = "Path Not Available"
+                lblStatus1.Text = "N/A"
             Else
                 lblStatus1.Text = sFileName
             End If
 
             If sCompanyName = String.Empty Then
-                lblStatus2.Text = "No Company Set"
+                lblStatus2.Text = "N/A"
             Else
                 lblStatus2.Text = sCompanyName
             End If
 
             If sFileVersion = String.Empty Then
-                lblStatus3.Text = "No Version Set"
+                lblStatus3.Text = "N/A"
             Else
                 lblStatus3.Text = sFileVersion
             End If

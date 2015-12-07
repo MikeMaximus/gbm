@@ -328,7 +328,9 @@
     <Content Include="Resources\GBM_Tray_Detected.ico" />
     <Content Include="Resources\GBM_Tray_Ready.ico" />
     <Content Include="Resources\GBM_Tray_Stopped.ico" />
+    <Content Include="Resources\Lock.png" />
     <Content Include="Resources\type.ico" />
+    <Content Include="Resources\Unlock.png" />
     <Content Include="Resources\User.png" />
     <Content Include="Utilities\x64\7za.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -37,7 +37,7 @@
     ReadOnly Property CroppedName As String
         Get
             If Name.Length > 40 Then
-                Return sGameName.Substring(0, 41) & "..."
+                Return sGameName.Substring(0, 41).Trim & "..."
             Else
                 Return sGameName
             End If

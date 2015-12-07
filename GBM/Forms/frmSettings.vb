@@ -108,6 +108,8 @@
         chkTimeTracking.Checked = oSettings.TimeTracking
         chkSupressBackup.Checked = oSettings.SupressBackup
         nudSupressBackupThreshold.Value = oSettings.SupressBackupThreshold
+
+        nudSupressBackupThreshold.Enabled = chkSupressBackup.Checked
     End Sub
 
     Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click
@@ -139,4 +141,7 @@
         End If
     End Sub
 
+    Private Sub chkSupressBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkSupressBackup.CheckedChanged
+        nudSupressBackupThreshold.Enabled = chkSupressBackup.Checked
+    End Sub
 End Class

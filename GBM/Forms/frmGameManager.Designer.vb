@@ -60,6 +60,9 @@ Partial Class frmGameManager
         Me.lblHours = New System.Windows.Forms.Label()
         Me.btnTags = New System.Windows.Forms.Button()
         Me.grpStats = New System.Windows.Forms.GroupBox()
+        Me.btnRestorePathLock = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtRestorePath = New System.Windows.Forms.TextBox()
         Me.btnOpenRestorePath = New System.Windows.Forms.Button()
         Me.btnOpenBackupFile = New System.Windows.Forms.Button()
         Me.txtFileSize = New System.Windows.Forms.TextBox()
@@ -81,8 +84,6 @@ Partial Class frmGameManager
         Me.optBackupData = New System.Windows.Forms.RadioButton()
         Me.optPendingRestores = New System.Windows.Forms.RadioButton()
         Me.optAllGames = New System.Windows.Forms.RadioButton()
-        Me.txtRestorePath = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.grpConfig.SuspendLayout()
         Me.grpExtra.SuspendLayout()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -459,6 +460,7 @@ Partial Class frmGameManager
         'grpStats
         '
         Me.grpStats.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpStats.Controls.Add(Me.btnRestorePathLock)
         Me.grpStats.Controls.Add(Me.Label2)
         Me.grpStats.Controls.Add(Me.txtRestorePath)
         Me.grpStats.Controls.Add(Me.btnOpenRestorePath)
@@ -478,12 +480,38 @@ Partial Class frmGameManager
         Me.grpStats.TabStop = False
         Me.grpStats.Text = "Backup Information"
         '
+        'btnRestorePathLock
+        '
+        Me.btnRestorePathLock.Image = Global.GBM.My.Resources.Resources.Lock
+        Me.btnRestorePathLock.Location = New System.Drawing.Point(495, 97)
+        Me.btnRestorePathLock.Name = "btnRestorePathLock"
+        Me.btnRestorePathLock.Size = New System.Drawing.Size(33, 23)
+        Me.btnRestorePathLock.TabIndex = 9
+        Me.btnRestorePathLock.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(6, 102)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(72, 13)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "Restore Path:"
+        '
+        'txtRestorePath
+        '
+        Me.txtRestorePath.Location = New System.Drawing.Point(96, 99)
+        Me.txtRestorePath.Name = "txtRestorePath"
+        Me.txtRestorePath.ReadOnly = True
+        Me.txtRestorePath.Size = New System.Drawing.Size(396, 20)
+        Me.txtRestorePath.TabIndex = 8
+        '
         'btnOpenRestorePath
         '
         Me.btnOpenRestorePath.Location = New System.Drawing.Point(339, 125)
         Me.btnOpenRestorePath.Name = "btnOpenRestorePath"
         Me.btnOpenRestorePath.Size = New System.Drawing.Size(114, 23)
-        Me.btnOpenRestorePath.TabIndex = 9
+        Me.btnOpenRestorePath.TabIndex = 12
         Me.btnOpenRestorePath.Text = "O&pen Restore Path"
         Me.btnOpenRestorePath.UseVisualStyleBackColor = True
         '
@@ -492,7 +520,7 @@ Partial Class frmGameManager
         Me.btnOpenBackupFile.Location = New System.Drawing.Point(216, 125)
         Me.btnOpenBackupFile.Name = "btnOpenBackupFile"
         Me.btnOpenBackupFile.Size = New System.Drawing.Size(114, 23)
-        Me.btnOpenBackupFile.TabIndex = 8
+        Me.btnOpenBackupFile.TabIndex = 11
         Me.btnOpenBackupFile.Text = "&Open Backup File"
         Me.btnOpenBackupFile.UseVisualStyleBackColor = True
         '
@@ -502,7 +530,7 @@ Partial Class frmGameManager
         Me.txtFileSize.Name = "txtFileSize"
         Me.txtFileSize.ReadOnly = True
         Me.txtFileSize.Size = New System.Drawing.Size(432, 20)
-        Me.txtFileSize.TabIndex = 6
+        Me.txtFileSize.TabIndex = 7
         Me.txtFileSize.TabStop = False
         '
         'btnDeleteBackup
@@ -510,7 +538,7 @@ Partial Class frmGameManager
         Me.btnDeleteBackup.Location = New System.Drawing.Point(96, 125)
         Me.btnDeleteBackup.Name = "btnDeleteBackup"
         Me.btnDeleteBackup.Size = New System.Drawing.Size(114, 23)
-        Me.btnDeleteBackup.TabIndex = 7
+        Me.btnDeleteBackup.TabIndex = 10
         Me.btnDeleteBackup.Text = "&Delete Backup"
         Me.btnDeleteBackup.UseVisualStyleBackColor = True
         '
@@ -529,7 +557,7 @@ Partial Class frmGameManager
         Me.lblSync.Location = New System.Drawing.Point(6, 130)
         Me.lblSync.Name = "lblSync"
         Me.lblSync.Size = New System.Drawing.Size(62, 13)
-        Me.lblSync.TabIndex = 3
+        Me.lblSync.TabIndex = 4
         Me.lblSync.Text = "Up to Date!"
         Me.lblSync.Visible = False
         '
@@ -539,7 +567,7 @@ Partial Class frmGameManager
         Me.txtCurrentBackup.Name = "txtCurrentBackup"
         Me.txtCurrentBackup.ReadOnly = True
         Me.txtCurrentBackup.Size = New System.Drawing.Size(432, 20)
-        Me.txtCurrentBackup.TabIndex = 4
+        Me.txtCurrentBackup.TabIndex = 5
         Me.txtCurrentBackup.TabStop = False
         '
         'lblCurrentBackup
@@ -557,7 +585,7 @@ Partial Class frmGameManager
         Me.txtLocalBackup.Name = "txtLocalBackup"
         Me.txtLocalBackup.ReadOnly = True
         Me.txtLocalBackup.Size = New System.Drawing.Size(432, 20)
-        Me.txtLocalBackup.TabIndex = 5
+        Me.txtLocalBackup.TabIndex = 6
         Me.txtLocalBackup.TabStop = False
         '
         'lblLastBackup
@@ -686,24 +714,6 @@ Partial Class frmGameManager
         Me.optAllGames.Text = "All"
         Me.optAllGames.UseVisualStyleBackColor = True
         '
-        'txtRestorePath
-        '
-        Me.txtRestorePath.Location = New System.Drawing.Point(96, 99)
-        Me.txtRestorePath.Name = "txtRestorePath"
-        Me.txtRestorePath.ReadOnly = True
-        Me.txtRestorePath.Size = New System.Drawing.Size(432, 20)
-        Me.txtRestorePath.TabIndex = 10
-        Me.txtRestorePath.TabStop = False
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(6, 102)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(72, 13)
-        Me.Label2.TabIndex = 11
-        Me.Label2.Text = "Restore Path:"
-        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -807,4 +817,5 @@ Partial Class frmGameManager
     Friend WithEvents btnExclude As System.Windows.Forms.Button
     Friend WithEvents Label2 As Label
     Friend WithEvents txtRestorePath As TextBox
+    Friend WithEvents btnRestorePathLock As Button
 End Class
