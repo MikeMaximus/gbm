@@ -61,7 +61,7 @@ Partial Class frmGameManager
         Me.btnTags = New System.Windows.Forms.Button()
         Me.grpStats = New System.Windows.Forms.GroupBox()
         Me.btnRestorePathLock = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblRestorePath = New System.Windows.Forms.Label()
         Me.txtRestorePath = New System.Windows.Forms.TextBox()
         Me.btnOpenRestorePath = New System.Windows.Forms.Button()
         Me.btnOpenBackupFile = New System.Windows.Forms.Button()
@@ -461,7 +461,7 @@ Partial Class frmGameManager
         '
         Me.grpStats.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grpStats.Controls.Add(Me.btnRestorePathLock)
-        Me.grpStats.Controls.Add(Me.Label2)
+        Me.grpStats.Controls.Add(Me.lblRestorePath)
         Me.grpStats.Controls.Add(Me.txtRestorePath)
         Me.grpStats.Controls.Add(Me.btnOpenRestorePath)
         Me.grpStats.Controls.Add(Me.btnOpenBackupFile)
@@ -489,14 +489,14 @@ Partial Class frmGameManager
         Me.btnRestorePathLock.TabIndex = 9
         Me.btnRestorePathLock.UseVisualStyleBackColor = True
         '
-        'Label2
+        'lblRestorePath
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(6, 102)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(72, 13)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "Restore Path:"
+        Me.lblRestorePath.AutoSize = True
+        Me.lblRestorePath.Location = New System.Drawing.Point(6, 102)
+        Me.lblRestorePath.Name = "lblRestorePath"
+        Me.lblRestorePath.Size = New System.Drawing.Size(72, 13)
+        Me.lblRestorePath.TabIndex = 3
+        Me.lblRestorePath.Text = "Restore Path:"
         '
         'txtRestorePath
         '
@@ -815,7 +815,7 @@ Partial Class frmGameManager
     Friend WithEvents optTag As System.Windows.Forms.RadioButton
     Friend WithEvents btnInclude As System.Windows.Forms.Button
     Friend WithEvents btnExclude As System.Windows.Forms.Button
-    Friend WithEvents Label2 As Label
+    Friend WithEvents lblRestorePath As Label
     Friend WithEvents txtRestorePath As TextBox
     Friend WithEvents btnRestorePathLock As Button
 End Class
