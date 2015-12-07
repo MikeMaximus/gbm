@@ -163,6 +163,7 @@ Public Class frmMain
         Dim oGame As clsGame
         Dim oReadyList As New List(Of clsBackup)
         Dim oRestoreInfo As clsBackup
+        Dim bTriggerReload As Boolean = False
 
         eCurrentOperation = eOperation.Restore
         OperationStarted()
@@ -171,7 +172,8 @@ Public Class frmMain
         For Each oGame In oRestoreList
             oRestoreInfo = oBackupData(oGame.Name)
 
-            If mgrRestore.CheckPath(oRestoreInfo, oGame) Then
+            If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload) Then
+                If bTriggerReload Then LoadGameSettings()
                 oReadyList.Add(oRestoreInfo)
             Else
                 UpdateLog(oRestoreInfo.Name & " restore was cancelled due to unknown restore path.", False, ToolTipIcon.Error, True)

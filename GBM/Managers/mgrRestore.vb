@@ -27,7 +27,7 @@ Public Class mgrRestore
     Public Event UpdateRestoreInfo(oRestoreInfo As clsBackup)
     Public Event SetLastAction(sMessage As String)
 
-    Public Shared Function CheckPath(ByRef oRestoreInfo As clsBackup, ByVal oGame As clsGame) As Boolean
+    Public Shared Function CheckPath(ByRef oRestoreInfo As clsBackup, ByVal oGame As clsGame, Optional ByRef bTriggerReload As Boolean = False) As Boolean
         Dim sProcess As String
         Dim sRestorePath As String
         Dim bNoAuto As Boolean
@@ -41,6 +41,12 @@ Public Class mgrRestore
                 sRestorePath = mgrPath.ProcessPathSearch(oRestoreInfo.Name, sProcess, oRestoreInfo.Name & " uses a relative path and has never been detected on this computer.", bNoAuto)
 
                 If sRestorePath <> String.Empty Then
+                    'Update the process path in game object, save it, and make sure a monitor list reload is triggered
+                    oGame.ProcessPath = sRestorePath
+                    mgrMonitorList.DoListUpdate(oGame)
+                    bTriggerReload = True
+
+                    'Set path for restore
                     oRestoreInfo.RelativeRestorePath = sRestorePath & "\" & oRestoreInfo.RestorePath
                 Else
                     Return False
