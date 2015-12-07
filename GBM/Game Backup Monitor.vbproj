@@ -328,6 +328,7 @@
     <Content Include="Resources\GBM_Tray_Detected.ico" />
     <Content Include="Resources\GBM_Tray_Ready.ico" />
     <Content Include="Resources\GBM_Tray_Stopped.ico" />
+    <Content Include="Resources\Inbox.png" />
     <Content Include="Resources\Lock.png" />
     <Content Include="Resources\type.ico" />
     <Content Include="Resources\Unlock.png" />

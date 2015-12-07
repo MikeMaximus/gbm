@@ -172,13 +172,15 @@ Public Class frmMain
         For Each oGame In oRestoreList
             oRestoreInfo = oBackupData(oGame.Name)
 
-            If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload) Then
-                If bTriggerReload Then LoadGameSettings()
+            If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload) Then                
                 oReadyList.Add(oRestoreInfo)
             Else
                 UpdateLog(oRestoreInfo.Name & " restore was cancelled due to unknown restore path.", False, ToolTipIcon.Error, True)
             End If
         Next
+
+        'Reload the monitor list if any game data was changed during the path checks
+        If bTriggerReload Then LoadGameSettings()
 
         'Run restores
         If oReadyList.Count > 0 Then
@@ -309,10 +311,9 @@ Public Class frmMain
         Dim slRestoreData As SortedList = mgrRestore.CompareManifests()
 
         If slRestoreData.Count > 0 Then
-            If MsgBox("You have " & slRestoreData.Count & " new backup(s) to restore on this computer." & vbCrLf & vbCrLf & "Do you want to review them in the Game Manager now?",
-                      MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
-                OpenGameManager(True)
-            End If
+            gMonNotification.Image = My.Resources.Inbox
+            gMonNotification.Text = slRestoreData.Count & " pending restore(s)"
+            gMonNotification.Visible = True
         End If
 
     End Sub
@@ -1118,7 +1119,7 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Function VerifyStartWithWindows() As Boolean   
+    Private Function VerifyStartWithWindows() As Boolean
         Dim oKey As Microsoft.Win32.RegistryKey
         Dim sAppName As String = Application.ProductName
         Dim sAppPath As String = Application.ExecutablePath
@@ -1291,6 +1292,11 @@ Public Class frmMain
 
     Private Sub gMonHelpCheckforUpdates_Click(sender As Object, e As EventArgs) Handles gMonHelpCheckforUpdates.Click
         OpenCheckforUpdates()
+    End Sub
+
+    Private Sub gMonNotification_Click(sender As Object, e As EventArgs) Handles gMonNotification.Click
+        gMonNotification.Visible = False
+        OpenGameManager(True)
     End Sub
 
     Private Sub btnLogToggle_Click(sender As Object, e As EventArgs) Handles btnLogToggle.Click

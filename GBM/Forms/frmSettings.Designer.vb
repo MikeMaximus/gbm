@@ -240,21 +240,21 @@ Partial Class frmSettings
         'chkCheckSum
         '
         Me.chkCheckSum.AutoSize = True
-        Me.chkCheckSum.Location = New System.Drawing.Point(6, 111)
+        Me.chkCheckSum.Location = New System.Drawing.Point(6, 88)
         Me.chkCheckSum.Name = "chkCheckSum"
         Me.chkCheckSum.Size = New System.Drawing.Size(195, 17)
-        Me.chkCheckSum.TabIndex = 4
+        Me.chkCheckSum.TabIndex = 3
         Me.chkCheckSum.Text = "Verify backup files with a checksum"
         Me.chkCheckSum.UseVisualStyleBackColor = True
         '
         'chkRestoreOnLaunch
         '
         Me.chkRestoreOnLaunch.AutoSize = True
-        Me.chkRestoreOnLaunch.Location = New System.Drawing.Point(6, 88)
+        Me.chkRestoreOnLaunch.Location = New System.Drawing.Point(6, 111)
         Me.chkRestoreOnLaunch.Name = "chkRestoreOnLaunch"
-        Me.chkRestoreOnLaunch.Size = New System.Drawing.Size(249, 17)
-        Me.chkRestoreOnLaunch.TabIndex = 3
-        Me.chkRestoreOnLaunch.Text = "Check for new backup files to restore at launch"
+        Me.chkRestoreOnLaunch.Size = New System.Drawing.Size(257, 17)
+        Me.chkRestoreOnLaunch.TabIndex = 4
+        Me.chkRestoreOnLaunch.Text = "Notify when there are new backup files to restore"
         Me.chkRestoreOnLaunch.UseVisualStyleBackColor = True
         '
         'chkOverwriteWarning

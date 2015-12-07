@@ -84,6 +84,7 @@ Partial Class frmMain
         Me.lblStatus1 = New System.Windows.Forms.Label()
         Me.lblStatus2 = New System.Windows.Forms.Label()
         Me.lblStatus3 = New System.Windows.Forms.Label()
+        Me.gMonNotification = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayMenu.SuspendLayout()
         Me.gMonStatusStrip.SuspendLayout()
         Me.gMonMainMenu.SuspendLayout()
@@ -103,7 +104,7 @@ Partial Class frmMain
         '
         Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayShow, Me.gMonTraySep2, Me.gMonTrayMon, Me.gMonTraySettings, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTraySep1, Me.gMonTrayExit})
         Me.gMonTrayMenu.Name = "gMonTrayMenu"
-        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 170)
+        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 148)
         '
         'gMonTrayShow
         '
@@ -274,7 +275,7 @@ Partial Class frmMain
         '
         'gMonMainMenu
         '
-        Me.gMonMainMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonFile, Me.gMonSetup, Me.gMonTools, Me.gMonHelp})
+        Me.gMonMainMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonFile, Me.gMonSetup, Me.gMonTools, Me.gMonHelp, Me.gMonNotification})
         Me.gMonMainMenu.Location = New System.Drawing.Point(0, 0)
         Me.gMonMainMenu.Name = "gMonMainMenu"
         Me.gMonMainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
@@ -517,6 +518,14 @@ Partial Class frmMain
         Me.lblStatus3.Size = New System.Drawing.Size(365, 13)
         Me.lblStatus3.TabIndex = 17
         '
+        'gMonNotification
+        '
+        Me.gMonNotification.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.gMonNotification.Name = "gMonNotification"
+        Me.gMonNotification.Size = New System.Drawing.Size(82, 20)
+        Me.gMonNotification.Text = "Notification"
+        Me.gMonNotification.Visible = False
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -616,4 +625,5 @@ Partial Class frmMain
     Friend WithEvents lblStatus1 As Label
     Friend WithEvents lblStatus2 As Label
     Friend WithEvents lblStatus3 As Label
+    Friend WithEvents gMonNotification As System.Windows.Forms.ToolStripMenuItem
 End Class

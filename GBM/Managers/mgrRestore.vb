@@ -27,7 +27,7 @@ Public Class mgrRestore
     Public Event UpdateRestoreInfo(oRestoreInfo As clsBackup)
     Public Event SetLastAction(sMessage As String)
 
-    Public Shared Function CheckPath(ByRef oRestoreInfo As clsBackup, ByVal oGame As clsGame, Optional ByRef bTriggerReload As Boolean = False) As Boolean
+    Public Shared Function CheckPath(ByRef oRestoreInfo As clsBackup, ByVal oGame As clsGame, ByRef bTriggerReload As Boolean) As Boolean
         Dim sProcess As String
         Dim sRestorePath As String
         Dim bNoAuto As Boolean

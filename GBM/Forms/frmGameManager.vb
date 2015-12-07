@@ -1186,7 +1186,7 @@ Public Class frmGameManager
 
         If txtRestorePath.ReadOnly Then
             If CurrentBackupItem.RestorePath = txtSavePath.Text Then
-                If MsgBox("No problems were detected with the current backup's Restore Path, it's highly recommend you do NOT change it." &
+                If MsgBox("No problems were detected with the current backup's Restore Path, it's highly recommended you do NOT change it." &
                           vbCrLf & vbCrLf & "Do you still want to unlock the field for editing?",
                           MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
                     bUnlock = True
