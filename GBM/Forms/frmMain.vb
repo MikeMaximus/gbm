@@ -175,7 +175,7 @@ Public Class frmMain
             If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload) Then                
                 oReadyList.Add(oRestoreInfo)
             Else
-                UpdateLog(oRestoreInfo.Name & " restore was cancelled due to unknown restore path.", False, ToolTipIcon.Error, True)
+                UpdateLog(oRestoreInfo.Name & " restore was cancelled due to a restore path issue.", False, ToolTipIcon.Error, True)
             End If
         Next
 
@@ -309,13 +309,21 @@ Public Class frmMain
 
     Private Sub CheckRestore()
         Dim slRestoreData As SortedList = mgrRestore.CompareManifests()
+        Dim sNotification As String
 
         If slRestoreData.Count > 0 Then
+            If slRestoreData.Count > 1 Then
+                sNotification = slRestoreData.Count & " Games Pending Restore"
+            Else
+                sNotification = slRestoreData.Count & " Game Pending Restore"
+            End If
             gMonNotification.Image = My.Resources.Inbox
-            gMonNotification.Text = slRestoreData.Count & " pending restore(s)"
+            gMonTrayNotification.Image = My.Resources.Inbox
+            gMonNotification.Text = sNotification
+            gMonTrayNotification.Text = sNotification
             gMonNotification.Visible = True
+            gMonTrayNotification.Visible = True
         End If
-
     End Sub
 
     'Functions to handle monitor list features
@@ -1294,8 +1302,9 @@ Public Class frmMain
         OpenCheckforUpdates()
     End Sub
 
-    Private Sub gMonNotification_Click(sender As Object, e As EventArgs) Handles gMonNotification.Click
+    Private Sub gMonNotification_Click(sender As Object, e As EventArgs) Handles gMonNotification.Click, gMonTrayNotification.Click
         gMonNotification.Visible = False
+        gMonTrayNotification.Visible = False
         OpenGameManager(True)
     End Sub
 

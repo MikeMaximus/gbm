@@ -538,8 +538,7 @@ Public Class frmGameManager
             Else
                 txtFileSize.Text = "Backup file was not found!"
             End If
-            txtRestorePath.Text = CurrentBackupItem.RestorePath
-            btnRestorePathLock.Enabled = True
+            txtRestorePath.Text = CurrentBackupItem.RestorePath            
         Else
             txtCurrentBackup.Text = "Never"
             txtFileSize.Text = String.Empty
@@ -547,8 +546,7 @@ Public Class frmGameManager
             btnOpenBackupFile.Enabled = False
             btnOpenRestorePath.Enabled = False
             btnRestore.Enabled = False
-            btnDeleteBackup.Enabled = False
-            btnRestorePathLock.Enabled = False
+            btnDeleteBackup.Enabled = False            
         End If
 
         If oLocalBackupData.Contains(oApp.Name) Then
@@ -762,10 +760,7 @@ Public Class frmGameManager
                 btnTags.Enabled = False
                 lblTags.Visible = False
                 btnInclude.Text = "In&clude Items..."
-                btnExclude.Text = "E&xclude Items..."
-                txtRestorePath.ReadOnly = True
-                btnRestorePathLock.Image = My.Resources.Lock
-                btnRestorePathLock.Enabled = False
+                btnExclude.Text = "E&xclude Items..."                
             Case eModes.Edit
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
@@ -800,9 +795,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 btnBackup.Enabled = True
                 btnTags.Enabled = True
-                lblTags.Visible = True
-                txtRestorePath.ReadOnly = True
-                btnRestorePathLock.Image = My.Resources.Lock
+                lblTags.Visible = True                
             Case eModes.ViewTemp
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -819,9 +812,7 @@ Public Class frmGameManager
                 btnTags.Enabled = False
                 lblTags.Visible = False
                 btnInclude.Text = "In&clude Items..."
-                btnExclude.Text = "E&xclude Items..."
-                txtRestorePath.ReadOnly = True
-                btnRestorePathLock.Image = My.Resources.Lock
+                btnExclude.Text = "E&xclude Items..."                
             Case eModes.Disabled
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -846,9 +837,7 @@ Public Class frmGameManager
                 lblTags.Visible = False
                 btnInclude.Text = "In&clude Items..."
                 btnExclude.Text = "E&xclude Items..."
-                txtRestorePath.ReadOnly = True
-                btnRestorePathLock.Image = My.Resources.Lock
-                btnRestorePathLock.Enabled = False
+                txtRestorePath.ReadOnly = True                
             Case eModes.MultiSelect
                 lstGames.Enabled = True
                 WipeControls(grpConfig.Controls)
@@ -872,10 +861,10 @@ Public Class frmGameManager
                 btnMarkAsRestored.Enabled = True
                 btnTags.Enabled = True
                 lblTags.Visible = False
-                txtRestorePath.ReadOnly = True
-                btnRestorePathLock.Image = My.Resources.Lock
-                btnRestorePathLock.Enabled = False
+                txtRestorePath.ReadOnly = True                
         End Select
+
+        lstGames.Focus()
 
         IsLoading = False
     End Sub
@@ -1181,40 +1170,6 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Sub HandleRestorePathOverride()
-        Dim bUnlock As Boolean = False
-
-        If txtRestorePath.ReadOnly Then
-            If CurrentBackupItem.RestorePath = txtSavePath.Text Then
-                If MsgBox("No problems were detected with the current backup's Restore Path, it's highly recommended you do NOT change it." &
-                          vbCrLf & vbCrLf & "Do you still want to unlock the field for editing?",
-                          MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
-                    bUnlock = True
-                End If
-            Else
-                bUnlock = True
-            End If
-
-            If bUnlock Then
-                txtRestorePath.ReadOnly = False
-                btnRestorePathLock.Image = My.Resources.Unlock
-                MsgBox("You may now edit the Restore Path." & vbCrLf & vbCrLf & "Click the Lock button to save any changes.", MsgBoxStyle.Information, "Game Backup Monitor")
-            End If
-        Else
-            txtRestorePath.ReadOnly = True
-            btnRestorePathLock.Image = My.Resources.Lock
-            If CurrentBackupItem.RestorePath <> txtRestorePath.Text Then
-                If Path.IsPathRooted(txtRestorePath.Text) Then
-                    CurrentBackupItem.AbsolutePath = True
-                    CurrentBackupItem.RestorePath = txtRestorePath.Text
-                Else
-                    CurrentBackupItem.RestorePath = txtRestorePath.Text
-                End If
-                mgrManifest.DoManifestUpdate(CurrentBackupItem, mgrSQLite.Database.Remote)
-            End If
-        End If
-    End Sub
-
     Private Sub frmGameManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         If DisableExternalFunctions Then
@@ -1351,9 +1306,5 @@ Public Class frmGameManager
         Else
             btnInclude.Enabled = True
         End If
-    End Sub
-
-    Private Sub btnTogglePathLock_Click(sender As Object, e As EventArgs) Handles btnRestorePathLock.Click
-        HandleRestorePathOverride()
     End Sub
 End Class

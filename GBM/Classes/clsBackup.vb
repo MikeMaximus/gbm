@@ -32,7 +32,7 @@
     ReadOnly Property CroppedName As String
         Get
             If Name.Length > 40 Then
-                Return sName.Substring(0, 41) & "..."
+                Return sName.Substring(0, 41).Trim & "..."
             Else
                 Return sName
             End If

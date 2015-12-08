@@ -273,9 +273,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -329,9 +329,7 @@
     <Content Include="Resources\GBM_Tray_Ready.ico" />
     <Content Include="Resources\GBM_Tray_Stopped.ico" />
     <Content Include="Resources\Inbox.png" />
-    <Content Include="Resources\Lock.png" />
     <Content Include="Resources\type.ico" />
-    <Content Include="Resources\Unlock.png" />
     <Content Include="Resources\User.png" />
     <Content Include="Utilities\x64\7za.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

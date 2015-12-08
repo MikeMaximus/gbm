@@ -60,7 +60,6 @@ Partial Class frmGameManager
         Me.lblHours = New System.Windows.Forms.Label()
         Me.btnTags = New System.Windows.Forms.Button()
         Me.grpStats = New System.Windows.Forms.GroupBox()
-        Me.btnRestorePathLock = New System.Windows.Forms.Button()
         Me.lblRestorePath = New System.Windows.Forms.Label()
         Me.txtRestorePath = New System.Windows.Forms.TextBox()
         Me.btnOpenRestorePath = New System.Windows.Forms.Button()
@@ -460,7 +459,6 @@ Partial Class frmGameManager
         'grpStats
         '
         Me.grpStats.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.grpStats.Controls.Add(Me.btnRestorePathLock)
         Me.grpStats.Controls.Add(Me.lblRestorePath)
         Me.grpStats.Controls.Add(Me.txtRestorePath)
         Me.grpStats.Controls.Add(Me.btnOpenRestorePath)
@@ -480,15 +478,6 @@ Partial Class frmGameManager
         Me.grpStats.TabStop = False
         Me.grpStats.Text = "Backup Information"
         '
-        'btnRestorePathLock
-        '
-        Me.btnRestorePathLock.Image = Global.GBM.My.Resources.Resources.Lock
-        Me.btnRestorePathLock.Location = New System.Drawing.Point(495, 97)
-        Me.btnRestorePathLock.Name = "btnRestorePathLock"
-        Me.btnRestorePathLock.Size = New System.Drawing.Size(33, 23)
-        Me.btnRestorePathLock.TabIndex = 9
-        Me.btnRestorePathLock.UseVisualStyleBackColor = True
-        '
         'lblRestorePath
         '
         Me.lblRestorePath.AutoSize = True
@@ -503,7 +492,7 @@ Partial Class frmGameManager
         Me.txtRestorePath.Location = New System.Drawing.Point(96, 99)
         Me.txtRestorePath.Name = "txtRestorePath"
         Me.txtRestorePath.ReadOnly = True
-        Me.txtRestorePath.Size = New System.Drawing.Size(396, 20)
+        Me.txtRestorePath.Size = New System.Drawing.Size(432, 20)
         Me.txtRestorePath.TabIndex = 8
         '
         'btnOpenRestorePath
@@ -817,5 +806,4 @@ Partial Class frmGameManager
     Friend WithEvents btnExclude As System.Windows.Forms.Button
     Friend WithEvents lblRestorePath As Label
     Friend WithEvents txtRestorePath As TextBox
-    Friend WithEvents btnRestorePathLock As Button
 End Class

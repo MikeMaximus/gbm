@@ -27,10 +27,36 @@ Public Class mgrRestore
     Public Event UpdateRestoreInfo(oRestoreInfo As clsBackup)
     Public Event SetLastAction(sMessage As String)
 
+    Private Shared Function CheckForPathOverride(ByRef oCheckBackup As clsBackup, ByVal oCheckGame As clsGame) As Boolean
+        Dim oResult As MsgBoxResult
+
+        If oCheckBackup.RestorePath <> oCheckGame.Path Then
+            oResult = MsgBox("The restore path for " & oCheckBackup.CroppedName & " does not match it's current save path." & vbCrLf & vbCrLf & _
+                      "Do you want to restore to the current save path instead? (Recommended)", MsgBoxStyle.YesNoCancel, "Game Backup Monitor")
+            If oResult = MsgBoxResult.Yes Then
+                If Path.IsPathRooted(oCheckGame.Path) Then
+                    oCheckBackup.AbsolutePath = True
+                    oCheckBackup.RestorePath = oCheckGame.Path
+                Else
+                    oCheckBackup.RestorePath = oCheckGame.Path
+                End If                
+            ElseIf oResult = MsgBoxResult.Cancel Then
+                Return False
+            End If
+        End If
+
+        Return True
+    End Function
+
     Public Shared Function CheckPath(ByRef oRestoreInfo As clsBackup, ByVal oGame As clsGame, ByRef bTriggerReload As Boolean) As Boolean
         Dim sProcess As String
         Dim sRestorePath As String
         Dim bNoAuto As Boolean
+
+        'Before we do anything check if we need to override the current path
+        If Not CheckForPathOverride(oRestoreInfo, oGame) Then
+            Return False
+        End If
 
         If Not oRestoreInfo.AbsolutePath Then
             If oGame.ProcessPath <> String.Empty Then
