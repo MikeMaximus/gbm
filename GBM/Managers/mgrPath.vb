@@ -8,6 +8,7 @@ Public Class mgrPath
     Private Shared sDBLocation As String = sSettingsRoot & "\gbm.s3db"
     Private Shared sIncludeFile As String = sSettingsRoot & "\gbm_include.txt"
     Private Shared sExcludeFile As String = sSettingsRoot & "\gbm_exclude.txt"
+    Private Shared sOfficialWebURL As String = "http://mikemaximus.github.io/gbm-web/"
     Private Shared sOfficialImportURL As String = "http://mikemaximus.github.io/gbm-web/GBM_Official.xml"
     Private Shared sOfficialManualURL As String = "http://mikemaximus.github.io/gbm-web/manual.html"
     Private Shared sOfficialUpdatesURL As String = "https://github.com/MikeMaximus/gbm/releases"
@@ -72,6 +73,12 @@ Public Class mgrPath
     Shared ReadOnly Property ExcludeFileLocation As String
         Get
             Return sExcludeFile
+        End Get
+    End Property
+
+    Shared ReadOnly Property OfficialWebURL As String
+        Get
+            Return sOfficialWebURL
         End Get
     End Property
 

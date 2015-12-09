@@ -41,17 +41,19 @@ Public Class mgrMonitorList
     Public Shared Sub ExportMonitorList(ByVal sLocation As String)
         Dim oList As List(Of Game)
         Dim bSuccess As Boolean = False
-        Dim oFilters As New List(Of clsTag)
+        Dim oTagFilters As New List(Of clsTag)
+        Dim oStringFilters As New Hashtable
         Dim eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.NoFilter
 
         If MsgBox("Would you like to apply a filter to your export?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
             Dim frm As New frmFilter
             frm.ShowDialog()
-            oFilters = frm.Filters
+            oTagFilters = frm.TagFilters
+            oStringFilters = frm.StringFilters
             eCurrentFilter = frm.FilterType
         End If
 
-        oList = ReadListForExport(oFilters, eCurrentFilter)
+        oList = ReadListForExport(oTagFilters, oStringFilters, eCurrentFilter)
 
         bSuccess = mgrXML.SerializeAndExport(oList, sLocation)
         
@@ -264,24 +266,40 @@ Public Class mgrMonitorList
         Return True
     End Function
 
-    Public Shared Function ReadFilteredList(ByVal oFilters As List(Of clsTag), ByVal eFilterType As frmFilter.eFilterType, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim oData As DataSet
+    Private Shared Function BuildFilterQuery(ByVal oTagFilters As List(Of clsTag), ByVal hshStringFilters As Hashtable, eFilterType As frmFilter.eFilterType, ByRef hshParams As Hashtable) As String
         Dim sSQL As String = String.Empty
-        Dim hshList As New Hashtable
-        Dim oGame As clsGame
-        Dim hshParams As New Hashtable
         Dim iCounter As Integer = 0
-
 
         Select Case eFilterType
             Case frmFilter.eFilterType.NoFilter
                 sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist ORDER BY Name Asc"
+            Case frmFilter.eFilterType.FieldAnd, frmFilter.eFilterType.FieldOr
+                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist"
+
+                If hshStringFilters.Count > 0 Then
+                    sSQL &= " WHERE ("
+                    For Each de As DictionaryEntry In hshStringFilters
+                        sSQL &= de.Key & " LIKE @" & de.Key
+                        hshParams.Add(de.Key, "%" & de.Value.ToString & "%")
+                        iCounter += 1
+                        If iCounter <> hshStringFilters.Count Then
+                            Select Case eFilterType
+                                Case frmFilter.eFilterType.FieldAnd
+                                    sSQL &= " AND "
+                                Case frmFilter.eFilterType.FieldOr
+                                    sSQL &= " OR "
+                            End Select
+                        End If
+
+                    Next
+                    sSQL &= ")"
+                End If
+                sSQL &= " ORDER BY Name Asc"
             Case frmFilter.eFilterType.AnyTag
                 sSQL = "SELECT DISTINCT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist "
                 sSQL &= "NATURAL JOIN gametags WHERE gametags.TagID IN ("
 
-                For Each oTag As clsTag In oFilters
+                For Each oTag As clsTag In oTagFilters
                     sSQL &= "@TagID" & iCounter & ","
                     hshParams.Add("TagID" & iCounter, oTag.ID)
                     iCounter += 1
@@ -292,9 +310,9 @@ Public Class mgrMonitorList
             Case frmFilter.eFilterType.AllTags
                 sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist WHERE MonitorID IN "
 
-                For Each oTag As clsTag In oFilters
+                For Each oTag As clsTag In oTagFilters
                     sSQL &= "(SELECT MonitorID FROM gametags WHERE monitorlist.MonitorID = gametags.MonitorID And TagID = @TagID" & iCounter & ")"
-                    If iCounter <> oFilters.Count - 1 Then
+                    If iCounter <> oTagFilters.Count - 1 Then
                         sSQL &= " AND MonitorID IN "
                     End If
                     hshParams.Add("TagID" & iCounter, oTag.ID)
@@ -305,6 +323,21 @@ Public Class mgrMonitorList
             Case frmFilter.eFilterType.NoTags
                 sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist WHERE MonitorID NOT IN (SELECT MonitorID FROM gametags) ORDER BY Name Asc"
         End Select
+
+        Return sSQL
+
+    End Function
+
+    Public Shared Function ReadFilteredList(ByVal oTagFilters As List(Of clsTag), ByVal hshStringFilters As Hashtable, eFilterType As frmFilter.eFilterType, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim oData As DataSet
+        Dim sSQL As String = String.Empty
+        Dim hshList As New Hashtable
+        Dim oGame As clsGame
+        Dim hshParams As New Hashtable
+        Dim iCounter As Integer = 0
+
+        sSQL = BuildFilterQuery(oTagFilters, hshStringFilters, eFilterType, hshParams)
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
@@ -331,6 +364,36 @@ Public Class mgrMonitorList
         Next
 
         Return hshList
+    End Function
+
+    Public Shared Function ReadListForExport(ByVal oTagFilters As List(Of clsTag), ByVal hshStringFilters As Hashtable, ByVal eFilterType As frmFilter.eFilterType, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As List(Of Game)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim oData As DataSet
+        Dim sSQL As String = String.Empty
+        Dim sID As String
+        Dim oList As New List(Of Game)
+        Dim oGame As Game
+        Dim hshParams As New Hashtable
+
+        sSQL = BuildFilterQuery(oTagFilters, hshStringFilters, eFilterType, hshParams)
+
+        oData = oDatabase.ReadParamData(sSQL, hshParams)
+
+        For Each dr As DataRow In oData.Tables(0).Rows
+            oGame = New Game
+            sID = CStr(dr("MonitorID"))
+            oGame.Name = CStr(dr("Name"))
+            oGame.ProcessName = CStr(dr("Process"))
+            If Not IsDBNull(dr("Path")) Then oGame.Path = CStr(dr("Path"))
+            oGame.AbsolutePath = CBool(dr("AbsolutePath"))
+            oGame.FolderSave = CBool(dr("FolderSave"))
+            If Not IsDBNull(dr("FileType")) Then oGame.FileType = CStr(dr("FileType"))
+            If Not IsDBNull(dr("ExcludeList")) Then oGame.ExcludeList = CStr(dr("ExcludeList"))
+            oGame.Tags = mgrGameTags.GetTagsByGameForExport(sID)
+            oList.Add(oGame)
+        Next
+
+        Return oList
     End Function
 
     Public Shared Function ReadList(ByVal eListType As eListTypes, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
@@ -378,67 +441,6 @@ Public Class mgrMonitorList
         Next
 
         Return hshList
-    End Function
-
-    Public Shared Function ReadListForExport(ByVal oFilters As List(Of clsTag), ByVal eFilterType As frmFilter.eFilterType, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As List(Of Game)
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim oData As DataSet
-        Dim sSQL As String = String.Empty
-        Dim sID As String
-        Dim oList As New List(Of Game)
-        Dim oGame As Game
-        Dim hshParams As New Hashtable
-        Dim iCounter As Integer = 0
-
-        Select Case eFilterType
-            Case frmFilter.eFilterType.NoFilter
-                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist ORDER BY Name Asc"
-            Case frmFilter.eFilterType.AnyTag
-                sSQL = "SELECT DISTINCT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist "
-                sSQL &= "NATURAL JOIN gametags WHERE gametags.TagID IN ("
-
-                For Each oTag As clsTag In oFilters
-                    sSQL &= "@TagID" & iCounter & ","
-                    hshParams.Add("TagID" & iCounter, oTag.ID)
-                    iCounter += 1
-                Next
-
-                sSQL = sSQL.TrimEnd(",")
-                sSQL &= ") ORDER BY Name Asc"
-            Case frmFilter.eFilterType.AllTags
-                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist WHERE MonitorID IN "
-
-                For Each oTag As clsTag In oFilters
-                    sSQL &= "(SELECT MonitorID FROM gametags WHERE monitorlist.MonitorID = gametags.MonitorID And TagID = @TagID" & iCounter & ")"
-                    If iCounter <> oFilters.Count - 1 Then
-                        sSQL &= " AND MonitorID IN "
-                    End If
-                    hshParams.Add("TagID" & iCounter, oTag.ID)
-                    iCounter += 1
-                Next
-
-                sSQL &= " ORDER BY Name Asc"
-            Case frmFilter.eFilterType.NoTags
-                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist WHERE MonitorID NOT IN (SELECT MonitorID FROM gametags) ORDER BY Name Asc"
-        End Select
-
-        oData = oDatabase.ReadParamData(sSQL, hshParams)
-
-        For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = New Game
-            sID = CStr(dr("MonitorID"))
-            oGame.Name = CStr(dr("Name"))
-            oGame.ProcessName = CStr(dr("Process"))
-            If Not IsDBNull(dr("Path")) Then oGame.Path = CStr(dr("Path"))
-            oGame.AbsolutePath = CBool(dr("AbsolutePath"))
-            oGame.FolderSave = CBool(dr("FolderSave"))
-            If Not IsDBNull(dr("FileType")) Then oGame.FileType = CStr(dr("FileType"))
-            If Not IsDBNull(dr("ExcludeList")) Then oGame.ExcludeList = CStr(dr("ExcludeList"))
-            oGame.Tags = mgrGameTags.GetTagsByGameForExport(sID)
-            oList.Add(oGame)
-        Next
-
-        Return oList
     End Function
 
     Public Shared Sub DoListAdd(ByVal oGame As clsGame, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)

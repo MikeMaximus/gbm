@@ -79,7 +79,7 @@ Partial Class frmGameManager
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.chkEnabled = New System.Windows.Forms.CheckBox()
         Me.grpFilter = New System.Windows.Forms.GroupBox()
-        Me.optTag = New System.Windows.Forms.RadioButton()
+        Me.optCustom = New System.Windows.Forms.RadioButton()
         Me.optBackupData = New System.Windows.Forms.RadioButton()
         Me.optPendingRestores = New System.Windows.Forms.RadioButton()
         Me.optAllGames = New System.Windows.Forms.RadioButton()
@@ -648,7 +648,7 @@ Partial Class frmGameManager
         '
         'grpFilter
         '
-        Me.grpFilter.Controls.Add(Me.optTag)
+        Me.grpFilter.Controls.Add(Me.optCustom)
         Me.grpFilter.Controls.Add(Me.optBackupData)
         Me.grpFilter.Controls.Add(Me.optPendingRestores)
         Me.grpFilter.Controls.Add(Me.optAllGames)
@@ -659,16 +659,16 @@ Partial Class frmGameManager
         Me.grpFilter.TabStop = False
         Me.grpFilter.Text = "Games Filter"
         '
-        'optTag
+        'optCustom
         '
-        Me.optTag.AutoSize = True
-        Me.optTag.Location = New System.Drawing.Point(6, 87)
-        Me.optTag.Name = "optTag"
-        Me.optTag.Size = New System.Drawing.Size(49, 17)
-        Me.optTag.TabIndex = 3
-        Me.optTag.TabStop = True
-        Me.optTag.Text = "Tags"
-        Me.optTag.UseVisualStyleBackColor = True
+        Me.optCustom.AutoSize = True
+        Me.optCustom.Location = New System.Drawing.Point(6, 87)
+        Me.optCustom.Name = "optCustom"
+        Me.optCustom.Size = New System.Drawing.Size(60, 17)
+        Me.optCustom.TabIndex = 3
+        Me.optCustom.TabStop = True
+        Me.optCustom.Text = "Custom"
+        Me.optCustom.UseVisualStyleBackColor = True
         '
         'optBackupData
         '
@@ -801,7 +801,7 @@ Partial Class frmGameManager
     Friend WithEvents btnOpenRestorePath As System.Windows.Forms.Button
     Friend WithEvents btnTags As System.Windows.Forms.Button
     Friend WithEvents lblTags As System.Windows.Forms.Label
-    Friend WithEvents optTag As System.Windows.Forms.RadioButton
+    Friend WithEvents optCustom As System.Windows.Forms.RadioButton
     Friend WithEvents btnInclude As System.Windows.Forms.Button
     Friend WithEvents btnExclude As System.Windows.Forms.Button
     Friend WithEvents lblRestorePath As Label

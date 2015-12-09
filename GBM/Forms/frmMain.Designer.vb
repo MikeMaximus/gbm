@@ -26,6 +26,7 @@ Partial Class frmMain
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.gMonTray = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.gMonTrayMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.gMonTrayNotification = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayShow = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySep2 = New System.Windows.Forms.ToolStripSeparator()
         Me.gMonTrayMon = New System.Windows.Forms.ToolStripMenuItem()
@@ -85,7 +86,7 @@ Partial Class frmMain
         Me.lblStatus1 = New System.Windows.Forms.Label()
         Me.lblStatus2 = New System.Windows.Forms.Label()
         Me.lblStatus3 = New System.Windows.Forms.Label()
-        Me.gMonTrayNotification = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonHelpWebSite = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayMenu.SuspendLayout()
         Me.gMonStatusStrip.SuspendLayout()
         Me.gMonMainMenu.SuspendLayout()
@@ -105,7 +106,14 @@ Partial Class frmMain
         '
         Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayNotification, Me.gMonTrayShow, Me.gMonTraySep2, Me.gMonTrayMon, Me.gMonTraySettings, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTraySep1, Me.gMonTrayExit})
         Me.gMonTrayMenu.Name = "gMonTrayMenu"
-        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 192)
+        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 170)
+        '
+        'gMonTrayNotification
+        '
+        Me.gMonTrayNotification.Name = "gMonTrayNotification"
+        Me.gMonTrayNotification.Size = New System.Drawing.Size(161, 22)
+        Me.gMonTrayNotification.Text = "Notification"
+        Me.gMonTrayNotification.Visible = False
         '
         'gMonTrayShow
         '
@@ -367,19 +375,19 @@ Partial Class frmMain
         'gMonToolsGameImportOfficialList
         '
         Me.gMonToolsGameImportOfficialList.Name = "gMonToolsGameImportOfficialList"
-        Me.gMonToolsGameImportOfficialList.Size = New System.Drawing.Size(201, 22)
-        Me.gMonToolsGameImportOfficialList.Text = "Import from &Official List"
+        Me.gMonToolsGameImportOfficialList.Size = New System.Drawing.Size(210, 22)
+        Me.gMonToolsGameImportOfficialList.Text = "Import from &Official List..."
         '
         'gMonToolsGameImportList
         '
         Me.gMonToolsGameImportList.Name = "gMonToolsGameImportList"
-        Me.gMonToolsGameImportList.Size = New System.Drawing.Size(201, 22)
-        Me.gMonToolsGameImportList.Text = "I&mport Game List"
+        Me.gMonToolsGameImportList.Size = New System.Drawing.Size(210, 22)
+        Me.gMonToolsGameImportList.Text = "I&mport Game List..."
         '
         'gMonToolsGameExportList
         '
         Me.gMonToolsGameExportList.Name = "gMonToolsGameExportList"
-        Me.gMonToolsGameExportList.Size = New System.Drawing.Size(201, 22)
+        Me.gMonToolsGameExportList.Size = New System.Drawing.Size(210, 22)
         Me.gMonToolsGameExportList.Text = "E&xport Game List"
         '
         'gMonToolsSyncMan
@@ -396,7 +404,7 @@ Partial Class frmMain
         '
         'gMonHelp
         '
-        Me.gMonHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonHelpManual, Me.gMonHelpCheckforUpdates, Me.gMonHelpAbout})
+        Me.gMonHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonHelpWebSite, Me.gMonHelpManual, Me.gMonHelpCheckforUpdates, Me.gMonHelpAbout})
         Me.gMonHelp.Name = "gMonHelp"
         Me.gMonHelp.Size = New System.Drawing.Size(44, 20)
         Me.gMonHelp.Text = "&Help"
@@ -404,19 +412,19 @@ Partial Class frmMain
         'gMonHelpManual
         '
         Me.gMonHelpManual.Name = "gMonHelpManual"
-        Me.gMonHelpManual.Size = New System.Drawing.Size(171, 22)
-        Me.gMonHelpManual.Text = "Online &Manual"
+        Me.gMonHelpManual.Size = New System.Drawing.Size(180, 22)
+        Me.gMonHelpManual.Text = "Online &Manual..."
         '
         'gMonHelpCheckforUpdates
         '
         Me.gMonHelpCheckforUpdates.Name = "gMonHelpCheckforUpdates"
-        Me.gMonHelpCheckforUpdates.Size = New System.Drawing.Size(171, 22)
-        Me.gMonHelpCheckforUpdates.Text = "Check for Updates"
+        Me.gMonHelpCheckforUpdates.Size = New System.Drawing.Size(180, 22)
+        Me.gMonHelpCheckforUpdates.Text = "Check for Updates..."
         '
         'gMonHelpAbout
         '
         Me.gMonHelpAbout.Name = "gMonHelpAbout"
-        Me.gMonHelpAbout.Size = New System.Drawing.Size(171, 22)
+        Me.gMonHelpAbout.Size = New System.Drawing.Size(180, 22)
         Me.gMonHelpAbout.Text = "&About"
         '
         'gMonNotification
@@ -527,12 +535,11 @@ Partial Class frmMain
         Me.lblStatus3.Size = New System.Drawing.Size(365, 13)
         Me.lblStatus3.TabIndex = 17
         '
-        'gMonTrayNotification
+        'gMonHelpWebSite
         '
-        Me.gMonTrayNotification.Name = "gMonTrayNotification"
-        Me.gMonTrayNotification.Size = New System.Drawing.Size(161, 22)
-        Me.gMonTrayNotification.Text = "Notification"
-        Me.gMonTrayNotification.Visible = False
+        Me.gMonHelpWebSite.Name = "gMonHelpWebSite"
+        Me.gMonHelpWebSite.Size = New System.Drawing.Size(180, 22)
+        Me.gMonHelpWebSite.Text = "&Official Web Site..."
         '
         'frmMain
         '
@@ -635,4 +642,5 @@ Partial Class frmMain
     Friend WithEvents lblStatus3 As Label
     Friend WithEvents gMonNotification As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTrayNotification As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents gMonHelpWebSite As System.Windows.Forms.ToolStripMenuItem
 End Class

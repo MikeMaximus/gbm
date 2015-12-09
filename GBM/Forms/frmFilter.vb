@@ -5,16 +5,25 @@
         AnyTag = 2
         AllTags = 3
         NoTags = 4
+        FieldAnd = 5
+        FieldOr = 6
     End Enum
 
-    Dim oFilters As New List(Of clsTag)
+    Dim oTagFilters As New List(Of clsTag)
+    Dim hshStringFilters As New Hashtable
     Dim eCurrentFilterType As eFilterType = eFilterType.AnyTag
     Dim hshTags As New Hashtable
     Dim bShutdown As Boolean = False
 
-    Public ReadOnly Property Filters As List(Of clsTag)
+    Public ReadOnly Property StringFilters As Hashtable
         Get
-            Return oFilters
+            Return hshStringFilters
+        End Get
+    End Property
+
+    Public ReadOnly Property TagFilters As List(Of clsTag)
+        Get
+            Return oTagFilters
         End Get
     End Property
 
@@ -39,7 +48,7 @@
                 oTags.Add(oData)
             Next
 
-            For Each kp As KeyValuePair(Of String, String) In oTags            
+            For Each kp As KeyValuePair(Of String, String) In oTags
                 lstFilter.Items.Add(kp)
                 lstTags.Items.Remove(kp)
             Next
@@ -50,7 +59,7 @@
     Private Sub RemoveTag()
         Dim oData As KeyValuePair(Of String, String)
         Dim oTags As List(Of KeyValuePair(Of String, String))
-        
+
         If lstFilter.SelectedItems.Count = 1 Then
             oData = lstFilter.SelectedItems(0)
             lstFilter.Items.Remove(oData)
@@ -62,7 +71,7 @@
                 oTags.Add(oData)
             Next
 
-            For Each kp As KeyValuePair(Of String, String) In oTags                
+            For Each kp As KeyValuePair(Of String, String) In oTags
                 lstFilter.Items.Remove(kp)
                 lstTags.Items.Add(kp)
             Next
@@ -76,7 +85,7 @@
 
         'Handle Data
         hshTags = mgrTags.ReadTags()
-                
+
         'Handle Lists
         lstTags.Items.Clear()
         lstFilter.Items.Clear()
@@ -98,31 +107,52 @@
         Dim oData As KeyValuePair(Of String, String)
         Dim oTag As clsTag
 
-        'Set Tags
-        For Each oData In lstFilter.Items
-            oTag = DirectCast(hshTags(oData.Value), clsTag)
-            Filters.Add(oTag)
-        Next
 
-        'Set Filter Type
-        If Filters.Count = 0 Then
-            eCurrentFilterType = eFilterType.NoTags
-        ElseIf optAll.Checked Then
-            eCurrentFilterType = eFilterType.AllTags
+        If optGameInfo.Checked Then
+            'Set Filter Type
+            If optAnd.Checked Then
+                eCurrentFilterType = eFilterType.FieldAnd                
+            Else
+                eCurrentFilterType = eFilterType.FieldOr
+            End If
+            'Set String Filter
+            If txtName.Text <> String.Empty Then
+                hshStringFilters.Add("Name", txtName.Text)
+            End If
+            If txtProcess.Text <> String.Empty Then
+                hshStringFilters.Add("Process", txtProcess.Text)
+            End If
+            If txtCompany.Text <> String.Empty Then
+                hshStringFilters.Add("Company", txtCompany.Text)
+            End If
         Else
-            eCurrentFilterType = eFilterType.AnyTag
+            'Set Tags
+            For Each oData In lstFilter.Items
+                oTag = DirectCast(hshTags(oData.Value), clsTag)
+                TagFilters.Add(oTag)
+            Next
+
+            'Set Filter Type
+            If TagFilters.Count = 0 Then
+                eCurrentFilterType = eFilterType.NoTags
+            ElseIf optAll.Checked Then
+                eCurrentFilterType = eFilterType.AllTags
+            Else
+                eCurrentFilterType = eFilterType.AnyTag
+            End If
         End If
 
     End Sub
 
     Private Sub frmGameTags_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        optGameInfo.Checked = True
         LoadData()
     End Sub
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         GetFilters()
         bShutdown = True
-        Me.close
+        Me.Close()
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
@@ -136,6 +166,16 @@
     Private Sub frmFilter_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If Not bShutdown Then
             e.Cancel = True
+        End If
+    End Sub
+
+    Private Sub optGameInfo_Click(sender As Object, e As EventArgs) Handles optGameInfo.Click, optTag.Click
+        If optGameInfo.Checked = True Then
+            grpGameFilter.Enabled = True
+            grpTagFilter.Enabled = False
+        Else
+            grpGameFilter.Enabled = False
+            grpTagFilter.Enabled = True
         End If
     End Sub
 End Class

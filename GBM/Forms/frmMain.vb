@@ -673,6 +673,10 @@ Public Class frmMain
         ResumeScan()
     End Sub
 
+    Private Sub OpenWebSite()
+        Process.Start(mgrPath.OfficialWebURL)
+    End Sub
+
     Private Sub OpenOnlineManual()
         Process.Start(mgrPath.OfficialManualURL)
     End Sub
@@ -1294,6 +1298,10 @@ Public Class frmMain
         OpenAbout()
     End Sub
 
+    Private Sub gMonHelpWebSite_Click(sender As Object, e As EventArgs) Handles gMonHelpWebSite.Click
+        OpenWebSite()
+    End Sub
+
     Private Sub gMonHelpManual_Click(sender As Object, e As EventArgs) Handles gMonHelpManual.Click
         OpenOnlineManual()
     End Sub
@@ -1494,5 +1502,4 @@ Public Class frmMain
     Private Sub txtGameInfo_Enter(sender As Object, e As EventArgs)
         btnLogToggle.Focus()
     End Sub
-
 End Class

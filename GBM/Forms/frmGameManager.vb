@@ -16,7 +16,8 @@ Public Class frmGameManager
     Private oRemoteBackupData As SortedList
     Private bIsDirty As Boolean = False
     Private bIsLoading As Boolean = False
-    Private oCurrentFilters As New List(Of clsTag)
+    Private oCurrentTagFilters As New List(Of clsTag)
+    Private oCurrentStringFilters As New Hashtable    
     Private eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.NoFilter
 
     Private Enum eModes As Integer
@@ -209,19 +210,21 @@ Public Class frmGameManager
         Dim oBackup As clsBackup
         Dim frm As frmFilter
 
-        If optTag.Checked Then
+        If optCustom.Checked Then
             If Not bRetainFilter Then
                 frm = New frmFilter
                 frm.ShowDialog()
-                oCurrentFilters = frm.Filters
-                eCurrentFilter = frm.FilterType
+                oCurrentTagFilters = frm.TagFilters
+                oCurrentStringFilters = frm.StringFilters
+                eCurrentFilter = frm.FilterType                
             End If
         Else
-            oCurrentFilters.Clear()
+            oCurrentTagFilters.Clear()
+            oCurrentStringFilters.Clear()
             eCurrentFilter = frmFilter.eFilterType.NoFilter
         End If
 
-        AppData = mgrMonitorList.ReadFilteredList(oCurrentFilters, eCurrentFilter)
+        AppData = mgrMonitorList.ReadFilteredList(oCurrentTagFilters, oCurrentStringFilters, eCurrentFilter)
 
         If optPendingRestores.Checked Then
             oRestoreData = mgrRestore.CompareManifests
@@ -502,7 +505,7 @@ Public Class frmGameManager
         If lstGames.SelectedItems.Count = 1 Then FillTags(CurrentGame.ID)
 
         'If a tag filter is enabled, reload list to reflect changes
-        If optTag.Checked Then
+        If optCustom.Checked Then
             LoadData()
         End If
 
@@ -538,7 +541,7 @@ Public Class frmGameManager
             Else
                 txtFileSize.Text = "Backup file was not found!"
             End If
-            txtRestorePath.Text = CurrentBackupItem.RestorePath            
+            txtRestorePath.Text = CurrentBackupItem.RestorePath
         Else
             txtCurrentBackup.Text = "Never"
             txtFileSize.Text = String.Empty
@@ -546,7 +549,7 @@ Public Class frmGameManager
             btnOpenBackupFile.Enabled = False
             btnOpenRestorePath.Enabled = False
             btnRestore.Enabled = False
-            btnDeleteBackup.Enabled = False            
+            btnDeleteBackup.Enabled = False
         End If
 
         If oLocalBackupData.Contains(oApp.Name) Then
@@ -760,7 +763,7 @@ Public Class frmGameManager
                 btnTags.Enabled = False
                 lblTags.Visible = False
                 btnInclude.Text = "In&clude Items..."
-                btnExclude.Text = "E&xclude Items..."                
+                btnExclude.Text = "E&xclude Items..."
             Case eModes.Edit
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
@@ -795,7 +798,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 btnBackup.Enabled = True
                 btnTags.Enabled = True
-                lblTags.Visible = True                
+                lblTags.Visible = True
             Case eModes.ViewTemp
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -812,7 +815,7 @@ Public Class frmGameManager
                 btnTags.Enabled = False
                 lblTags.Visible = False
                 btnInclude.Text = "In&clude Items..."
-                btnExclude.Text = "E&xclude Items..."                
+                btnExclude.Text = "E&xclude Items..."
             Case eModes.Disabled
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -837,7 +840,7 @@ Public Class frmGameManager
                 lblTags.Visible = False
                 btnInclude.Text = "In&clude Items..."
                 btnExclude.Text = "E&xclude Items..."
-                txtRestorePath.ReadOnly = True                
+                txtRestorePath.ReadOnly = True
             Case eModes.MultiSelect
                 lstGames.Enabled = True
                 WipeControls(grpConfig.Controls)
@@ -861,7 +864,7 @@ Public Class frmGameManager
                 btnMarkAsRestored.Enabled = True
                 btnTags.Enabled = True
                 lblTags.Visible = False
-                txtRestorePath.ReadOnly = True                
+                txtRestorePath.ReadOnly = True
         End Select
 
         lstGames.Focus()
@@ -1277,7 +1280,7 @@ Public Class frmGameManager
         TriggerSelectedRestore()
     End Sub
 
-    Private Sub optGamesFilter_Click(sender As Object, e As EventArgs) Handles optPendingRestores.Click, optAllGames.Click, optBackupData.Click, optTag.Click
+    Private Sub optGamesFilter_Click(sender As Object, e As EventArgs) Handles optPendingRestores.Click, optAllGames.Click, optBackupData.Click, optCustom.Click
         lstGames.ClearSelected()
         eCurrentMode = eModes.Disabled
         ModeChange()
