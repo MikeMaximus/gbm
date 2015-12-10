@@ -313,9 +313,9 @@ Public Class frmMain
 
         If slRestoreData.Count > 0 Then
             If slRestoreData.Count > 1 Then
-                sNotification = slRestoreData.Count & " Games Pending Restore"
+                sNotification = slRestoreData.Count & " Restores pending"
             Else
-                sNotification = slRestoreData.Count & " Game Pending Restore"
+                sNotification = slRestoreData.Count & " Restore pending"
             End If
             gMonNotification.Image = My.Resources.Inbox
             gMonTrayNotification.Image = My.Resources.Inbox
@@ -404,7 +404,7 @@ Public Class frmMain
             lblStatus2.Text = sPriorCompany
             lblStatus3.Text = sPriorVersion
             If oSettings.TimeTracking Then
-                lblTimeTitle.Visible = True
+                pbTime.Visible = True
                 lblTimeSpent.Visible = True
             End If
         Else
@@ -413,7 +413,7 @@ Public Class frmMain
             lblStatus1.Text = String.Empty
             lblStatus2.Text = String.Empty
             lblStatus3.Text = String.Empty
-            lblTimeTitle.Visible = False
+            pbTime.Visible = False
             lblTimeSpent.Visible = False
         End If
 
@@ -431,7 +431,7 @@ Public Class frmMain
             Dim d As New WorkingGameInfoCallBack(AddressOf WorkingGameInfo)
             Me.Invoke(d, New Object() {sTitle, sStatus1, sStatus2, sStatus3})
         Else
-            lblTimeTitle.Visible = False
+            pbTime.Visible = False
             lblTimeSpent.Visible = False
             pbIcon.Image = My.Resources.Working
             lblGameTitle.Text = sTitle
@@ -456,7 +456,7 @@ Public Class frmMain
             bAllowIcon = False
             bAllowDetails = False
             lblGameTitle.Text = "Multiple Games"
-            lblTimeTitle.Visible = False
+            pbTime.Visible = False
             lblTimeSpent.Visible = False
             pbIcon.Image = My.Resources.Unknown
             lblStatus1.Text = "Game details are unavailable."
@@ -498,7 +498,7 @@ Public Class frmMain
             If oSettings.TimeTracking Then
                 UpdateTimeSpent(oProcess.GameInfo.Hours, 0)
             Else
-                lblTimeTitle.Visible = False
+                pbTime.Visible = False
                 lblTimeSpent.Visible = False
             End If
 
@@ -535,24 +535,24 @@ Public Class frmMain
         Dim sSessionTime As String
 
         If dTotalTime < 1 Then
-            sTotalTime = Math.Round((dTotalTime * 100) * 0.6) & " minutes [Total]"
+            sTotalTime = Math.Round((dTotalTime * 100) * 0.6) & " minutes"
         Else
-            sTotalTime = Math.Round(dTotalTime, 1) & " hours [Total]"
+            sTotalTime = Math.Round(dTotalTime, 1) & " hours"
         End If
 
         If dSessionTime < 1 Then
-            sSessionTime = Math.Round((dSessionTime * 100) * 0.6) & " minutes [Session]"
+            sSessionTime = Math.Round((dSessionTime * 100) * 0.6) & " minutes"
         Else
-            sSessionTime = Math.Round(dSessionTime, 1) & " hours [Session]"
+            sSessionTime = Math.Round(dSessionTime, 1) & " hours"
         End If
 
         If dSessionTime > 0 Then
-            lblTimeSpent.Text = sSessionTime & " | " & sTotalTime
+            lblTimeSpent.Text = sSessionTime & " (" & sTotalTime & ")"
         Else
             lblTimeSpent.Text = sTotalTime
         End If
 
-        lblTimeTitle.Visible = True
+        pbTime.Visible = True
         lblTimeSpent.Visible = True
     End Sub
 
@@ -793,14 +793,14 @@ Public Class frmMain
     Private Sub ToggleLog()
         If bLogToggle = False Then
             txtLog.Visible = True
-            Me.Size = New System.Drawing.Size(540, 410)
+            Me.Size = New System.Drawing.Size(540, 425)
             bLogToggle = True
             btnLogToggle.Text = "Hide &Log"
             txtLog.Select(txtLog.TextLength, 0)
             txtLog.ScrollToCaret()
         Else
             txtLog.Visible = False
-            Me.Size = New System.Drawing.Size(540, 225)
+            Me.Size = New System.Drawing.Size(540, 245)
             bLogToggle = False
             btnLogToggle.Text = "Show &Log"
         End If
@@ -918,6 +918,8 @@ Public Class frmMain
             ToggleMenuItems(False, gMonTools)
             ToggleMenuItems(False, gMonTraySetup)
             ToggleMenuItems(False, gMonTrayTools)
+            gMonNotification.Enabled = False
+            gMonTrayNotification.Enabled = False
             gMonTraySettings.Enabled = False
             bMenuEnabled = False
         Else
@@ -928,6 +930,8 @@ Public Class frmMain
             ToggleMenuItems(True, gMonTools)
             ToggleMenuItems(True, gMonTraySetup)
             ToggleMenuItems(True, gMonTrayTools)
+            gMonNotification.Enabled = True
+            gMonTrayNotification.Enabled = True
             gMonTraySettings.Enabled = True
             bMenuEnabled = True
         End If
@@ -1006,7 +1010,9 @@ Public Class frmMain
         txtLog.Visible = False
         lblLastActionTitle.Visible = False
         lblLastAction.Text = String.Empty
-        Me.Size = New System.Drawing.Size(540, 225)
+        pbTime.SizeMode = PictureBoxSizeMode.AutoSize
+        pbTime.Image = My.Resources.Clock
+        Me.Size = New System.Drawing.Size(540, 245)
         AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
         ResetGameInfo()
     End Sub

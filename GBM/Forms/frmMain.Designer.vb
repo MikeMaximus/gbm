@@ -71,6 +71,7 @@ Partial Class frmMain
         Me.gMonToolsSyncMan = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonToolsCompact = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonHelp = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonHelpWebSite = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonHelpManual = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonHelpCheckforUpdates = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonHelpAbout = New System.Windows.Forms.ToolStripMenuItem()
@@ -80,17 +81,17 @@ Partial Class frmMain
         Me.lblGameTitle = New System.Windows.Forms.Label()
         Me.lblLastAction = New System.Windows.Forms.Label()
         Me.lblLastActionTitle = New System.Windows.Forms.Label()
-        Me.lblTimeTitle = New System.Windows.Forms.Label()
         Me.lblTimeSpent = New System.Windows.Forms.Label()
         Me.btnCancelOperation = New System.Windows.Forms.Button()
         Me.lblStatus1 = New System.Windows.Forms.Label()
         Me.lblStatus2 = New System.Windows.Forms.Label()
         Me.lblStatus3 = New System.Windows.Forms.Label()
-        Me.gMonHelpWebSite = New System.Windows.Forms.ToolStripMenuItem()
+        Me.pbTime = New System.Windows.Forms.PictureBox()
         Me.gMonTrayMenu.SuspendLayout()
         Me.gMonStatusStrip.SuspendLayout()
         Me.gMonMainMenu.SuspendLayout()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pbTime, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'gMonTray
@@ -231,20 +232,20 @@ Partial Class frmMain
         'txtLog
         '
         Me.txtLog.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLog.Location = New System.Drawing.Point(12, 161)
+        Me.txtLog.Location = New System.Drawing.Point(12, 184)
         Me.txtLog.Multiline = True
         Me.txtLog.Name = "txtLog"
         Me.txtLog.ReadOnly = True
         Me.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtLog.Size = New System.Drawing.Size(500, 177)
-        Me.txtLog.TabIndex = 2
+        Me.txtLog.TabIndex = 10
         Me.txtLog.TabStop = False
         '
         'gMonStatusStrip
         '
         Me.gMonStatusStrip.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gMonStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonStripAdminButton, Me.gMonStripTxtStatus, Me.gMonStripStatusButton})
-        Me.gMonStatusStrip.Location = New System.Drawing.Point(0, 350)
+        Me.gMonStatusStrip.Location = New System.Drawing.Point(0, 364)
         Me.gMonStatusStrip.Name = "gMonStatusStrip"
         Me.gMonStatusStrip.ShowItemToolTips = True
         Me.gMonStatusStrip.Size = New System.Drawing.Size(524, 22)
@@ -289,7 +290,7 @@ Partial Class frmMain
         Me.gMonMainMenu.Name = "gMonMainMenu"
         Me.gMonMainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
         Me.gMonMainMenu.Size = New System.Drawing.Size(524, 24)
-        Me.gMonMainMenu.TabIndex = 8
+        Me.gMonMainMenu.TabIndex = 0
         Me.gMonMainMenu.Text = "MenuStrip1"
         '
         'gMonFile
@@ -409,6 +410,12 @@ Partial Class frmMain
         Me.gMonHelp.Size = New System.Drawing.Size(44, 20)
         Me.gMonHelp.Text = "&Help"
         '
+        'gMonHelpWebSite
+        '
+        Me.gMonHelpWebSite.Name = "gMonHelpWebSite"
+        Me.gMonHelpWebSite.Size = New System.Drawing.Size(180, 22)
+        Me.gMonHelpWebSite.Text = "&Official Web Site..."
+        '
         'gMonHelpManual
         '
         Me.gMonHelpManual.Name = "gMonHelpManual"
@@ -419,7 +426,7 @@ Partial Class frmMain
         '
         Me.gMonHelpCheckforUpdates.Name = "gMonHelpCheckforUpdates"
         Me.gMonHelpCheckforUpdates.Size = New System.Drawing.Size(180, 22)
-        Me.gMonHelpCheckforUpdates.Text = "Check for Updates..."
+        Me.gMonHelpCheckforUpdates.Text = "&Check for Updates..."
         '
         'gMonHelpAbout
         '
@@ -446,10 +453,10 @@ Partial Class frmMain
         '
         'btnLogToggle
         '
-        Me.btnLogToggle.Location = New System.Drawing.Point(437, 132)
+        Me.btnLogToggle.Location = New System.Drawing.Point(437, 155)
         Me.btnLogToggle.Name = "btnLogToggle"
         Me.btnLogToggle.Size = New System.Drawing.Size(75, 23)
-        Me.btnLogToggle.TabIndex = 1
+        Me.btnLogToggle.TabIndex = 7
         Me.btnLogToggle.Text = "Show &Log"
         Me.btnLogToggle.UseVisualStyleBackColor = True
         '
@@ -459,99 +466,91 @@ Partial Class frmMain
         Me.lblGameTitle.Location = New System.Drawing.Point(66, 36)
         Me.lblGameTitle.Name = "lblGameTitle"
         Me.lblGameTitle.Size = New System.Drawing.Size(446, 16)
-        Me.lblGameTitle.TabIndex = 10
+        Me.lblGameTitle.TabIndex = 1
         Me.lblGameTitle.Text = "Game Title"
         '
         'lblLastAction
         '
         Me.lblLastAction.AutoEllipsis = True
         Me.lblLastAction.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLastAction.Location = New System.Drawing.Point(12, 139)
+        Me.lblLastAction.Location = New System.Drawing.Point(12, 165)
         Me.lblLastAction.Name = "lblLastAction"
-        Me.lblLastAction.Size = New System.Drawing.Size(419, 16)
-        Me.lblLastAction.TabIndex = 11
+        Me.lblLastAction.Size = New System.Drawing.Size(419, 13)
+        Me.lblLastAction.TabIndex = 9
         Me.lblLastAction.Text = "Last Action"
         '
         'lblLastActionTitle
         '
         Me.lblLastActionTitle.AutoSize = True
         Me.lblLastActionTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLastActionTitle.Location = New System.Drawing.Point(12, 126)
+        Me.lblLastActionTitle.Location = New System.Drawing.Point(12, 147)
         Me.lblLastActionTitle.Name = "lblLastActionTitle"
         Me.lblLastActionTitle.Size = New System.Drawing.Size(75, 13)
-        Me.lblLastActionTitle.TabIndex = 12
+        Me.lblLastActionTitle.TabIndex = 8
         Me.lblLastActionTitle.Text = "Last Action:"
-        '
-        'lblTimeTitle
-        '
-        Me.lblTimeTitle.AutoSize = True
-        Me.lblTimeTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTimeTitle.Location = New System.Drawing.Point(66, 55)
-        Me.lblTimeTitle.Name = "lblTimeTitle"
-        Me.lblTimeTitle.Size = New System.Drawing.Size(75, 13)
-        Me.lblTimeTitle.TabIndex = 13
-        Me.lblTimeTitle.Text = "Time Spent:"
         '
         'lblTimeSpent
         '
-        Me.lblTimeSpent.AutoSize = True
-        Me.lblTimeSpent.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTimeSpent.Location = New System.Drawing.Point(139, 55)
+        Me.lblTimeSpent.AutoEllipsis = True
+        Me.lblTimeSpent.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTimeSpent.Location = New System.Drawing.Point(66, 110)
         Me.lblTimeSpent.Name = "lblTimeSpent"
-        Me.lblTimeSpent.Size = New System.Drawing.Size(44, 13)
-        Me.lblTimeSpent.TabIndex = 14
+        Me.lblTimeSpent.Size = New System.Drawing.Size(446, 16)
+        Me.lblTimeSpent.TabIndex = 5
         Me.lblTimeSpent.Text = "0 Hours"
         '
         'btnCancelOperation
         '
-        Me.btnCancelOperation.Location = New System.Drawing.Point(437, 103)
+        Me.btnCancelOperation.Location = New System.Drawing.Point(437, 126)
         Me.btnCancelOperation.Name = "btnCancelOperation"
         Me.btnCancelOperation.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancelOperation.TabIndex = 0
+        Me.btnCancelOperation.TabIndex = 6
         Me.btnCancelOperation.Text = "&Cancel"
         Me.btnCancelOperation.UseVisualStyleBackColor = True
         '
         'lblStatus1
         '
         Me.lblStatus1.AutoEllipsis = True
-        Me.lblStatus1.Location = New System.Drawing.Point(66, 71)
+        Me.lblStatus1.Location = New System.Drawing.Point(66, 58)
         Me.lblStatus1.Name = "lblStatus1"
         Me.lblStatus1.Size = New System.Drawing.Size(446, 13)
-        Me.lblStatus1.TabIndex = 15
+        Me.lblStatus1.TabIndex = 2
         '
         'lblStatus2
         '
         Me.lblStatus2.AutoEllipsis = True
-        Me.lblStatus2.Location = New System.Drawing.Point(66, 87)
+        Me.lblStatus2.Location = New System.Drawing.Point(66, 74)
         Me.lblStatus2.Name = "lblStatus2"
         Me.lblStatus2.Size = New System.Drawing.Size(446, 13)
-        Me.lblStatus2.TabIndex = 16
+        Me.lblStatus2.TabIndex = 3
         '
         'lblStatus3
         '
         Me.lblStatus3.AutoEllipsis = True
-        Me.lblStatus3.Location = New System.Drawing.Point(66, 103)
+        Me.lblStatus3.Location = New System.Drawing.Point(66, 90)
         Me.lblStatus3.Name = "lblStatus3"
-        Me.lblStatus3.Size = New System.Drawing.Size(365, 13)
-        Me.lblStatus3.TabIndex = 17
+        Me.lblStatus3.Size = New System.Drawing.Size(446, 13)
+        Me.lblStatus3.TabIndex = 4
         '
-        'gMonHelpWebSite
+        'pbTime
         '
-        Me.gMonHelpWebSite.Name = "gMonHelpWebSite"
-        Me.gMonHelpWebSite.Size = New System.Drawing.Size(180, 22)
-        Me.gMonHelpWebSite.Text = "&Official Web Site..."
+        Me.pbTime.Location = New System.Drawing.Point(36, 106)
+        Me.pbTime.Name = "pbTime"
+        Me.pbTime.Size = New System.Drawing.Size(24, 24)
+        Me.pbTime.TabIndex = 18
+        Me.pbTime.TabStop = False
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(524, 372)
+        Me.ClientSize = New System.Drawing.Size(524, 386)
+        Me.Controls.Add(Me.pbTime)
         Me.Controls.Add(Me.lblStatus3)
         Me.Controls.Add(Me.lblStatus2)
         Me.Controls.Add(Me.lblStatus1)
         Me.Controls.Add(Me.btnCancelOperation)
         Me.Controls.Add(Me.lblTimeSpent)
-        Me.Controls.Add(Me.lblTimeTitle)
         Me.Controls.Add(Me.lblLastActionTitle)
         Me.Controls.Add(Me.lblLastAction)
         Me.Controls.Add(Me.lblGameTitle)
@@ -576,6 +575,7 @@ Partial Class frmMain
         Me.gMonMainMenu.ResumeLayout(False)
         Me.gMonMainMenu.PerformLayout()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pbTime, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -617,7 +617,6 @@ Partial Class frmMain
     Friend WithEvents gMonTrayToolsSyncMan As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonSetupAddWizard As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTraySetupAddWizard As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents lblTimeTitle As System.Windows.Forms.Label
     Friend WithEvents lblTimeSpent As System.Windows.Forms.Label
     Friend WithEvents gMonToolsGameList As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonToolsGameImportOfficialList As System.Windows.Forms.ToolStripMenuItem
@@ -643,4 +642,5 @@ Partial Class frmMain
     Friend WithEvents gMonNotification As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTrayNotification As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonHelpWebSite As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents pbTime As System.Windows.Forms.PictureBox
 End Class

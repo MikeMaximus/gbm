@@ -323,6 +323,7 @@
     <Content Include="References\System.Data.SQLite.dll" />
     <None Include="Resources\gbm.ico" />
     <Content Include="Resources\Admin.png" />
+    <Content Include="Resources\Clock.png" />
     <Content Include="Resources\file.ico" />
     <Content Include="Resources\folder.ico" />
     <Content Include="Resources\GBM_Tray_Detected.ico" />

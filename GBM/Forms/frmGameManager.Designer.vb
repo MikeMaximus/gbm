@@ -689,7 +689,7 @@ Partial Class frmGameManager
         Me.optPendingRestores.Size = New System.Drawing.Size(104, 17)
         Me.optPendingRestores.TabIndex = 2
         Me.optPendingRestores.TabStop = True
-        Me.optPendingRestores.Text = "Pending Restore"
+        Me.optPendingRestores.Text = "Restore Pending"
         Me.optPendingRestores.UseVisualStyleBackColor = True
         '
         'optAllGames
