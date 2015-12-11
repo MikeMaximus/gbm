@@ -25,11 +25,10 @@ Partial Class frmStartUpWizard
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmStartUpWizard))
         Me.tabWizard = New System.Windows.Forms.TabControl()
         Me.tbPage1 = New System.Windows.Forms.TabPage()
-        Me.lblStep1Instructions3 = New System.Windows.Forms.Label()
         Me.lblStep1Instructions2 = New System.Windows.Forms.Label()
+        Me.llbManual = New System.Windows.Forms.LinkLabel()
         Me.lblStep1Title = New System.Windows.Forms.Label()
         Me.lblStep1Instructions = New System.Windows.Forms.Label()
-        Me.lblStep1Intro = New System.Windows.Forms.Label()
         Me.tbPage2 = New System.Windows.Forms.TabPage()
         Me.chkSync = New System.Windows.Forms.CheckBox()
         Me.chkCreateFolder = New System.Windows.Forms.CheckBox()
@@ -74,11 +73,10 @@ Partial Class frmStartUpWizard
         'tbPage1
         '
         Me.tbPage1.BackColor = System.Drawing.SystemColors.Control
-        Me.tbPage1.Controls.Add(Me.lblStep1Instructions3)
         Me.tbPage1.Controls.Add(Me.lblStep1Instructions2)
+        Me.tbPage1.Controls.Add(Me.llbManual)
         Me.tbPage1.Controls.Add(Me.lblStep1Title)
         Me.tbPage1.Controls.Add(Me.lblStep1Instructions)
-        Me.tbPage1.Controls.Add(Me.lblStep1Intro)
         Me.tbPage1.Location = New System.Drawing.Point(4, 22)
         Me.tbPage1.Name = "tbPage1"
         Me.tbPage1.Padding = New System.Windows.Forms.Padding(3)
@@ -86,24 +84,26 @@ Partial Class frmStartUpWizard
         Me.tbPage1.TabIndex = 0
         Me.tbPage1.Text = "TabPage1"
         '
-        'lblStep1Instructions3
-        '
-        Me.lblStep1Instructions3.AutoSize = True
-        Me.lblStep1Instructions3.Location = New System.Drawing.Point(14, 160)
-        Me.lblStep1Instructions3.Name = "lblStep1Instructions3"
-        Me.lblStep1Instructions3.Size = New System.Drawing.Size(310, 13)
-        Me.lblStep1Instructions3.TabIndex = 10
-        Me.lblStep1Instructions3.Text = "GBM was designed and tested using the Dropbox cloud service."
-        '
         'lblStep1Instructions2
         '
-        Me.lblStep1Instructions2.Location = New System.Drawing.Point(14, 106)
+        Me.lblStep1Instructions2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
+        Me.lblStep1Instructions2.Location = New System.Drawing.Point(14, 91)
         Me.lblStep1Instructions2.Name = "lblStep1Instructions2"
-        Me.lblStep1Instructions2.Size = New System.Drawing.Size(303, 42)
-        Me.lblStep1Instructions2.TabIndex = 9
-        Me.lblStep1Instructions2.Text = "Before proceeding you may want to sign up for a cloud service and install their c" & _
-    "lient software.  GBM works best when paired with a cloud service and client but " & _
-    "is not required!"
+        Me.lblStep1Instructions2.Size = New System.Drawing.Size(303, 53)
+        Me.lblStep1Instructions2.TabIndex = 2
+        Me.lblStep1Instructions2.Text = "If you'd like to learn about advanced features or have any other questions before" & _
+    " you get started, there is a detailed online manual available."
+        '
+        'llbManual
+        '
+        Me.llbManual.AutoSize = True
+        Me.llbManual.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
+        Me.llbManual.Location = New System.Drawing.Point(14, 158)
+        Me.llbManual.Name = "llbManual"
+        Me.llbManual.Size = New System.Drawing.Size(151, 13)
+        Me.llbManual.TabIndex = 3
+        Me.llbManual.TabStop = True
+        Me.llbManual.Text = "Game Backup Monitor Manual"
         '
         'lblStep1Title
         '
@@ -112,25 +112,17 @@ Partial Class frmStartUpWizard
         Me.lblStep1Title.Location = New System.Drawing.Point(13, 11)
         Me.lblStep1Title.Name = "lblStep1Title"
         Me.lblStep1Title.Size = New System.Drawing.Size(148, 20)
-        Me.lblStep1Title.TabIndex = 8
+        Me.lblStep1Title.TabIndex = 0
         Me.lblStep1Title.Text = "Welcome to GBM"
         '
         'lblStep1Instructions
         '
-        Me.lblStep1Instructions.Location = New System.Drawing.Point(14, 64)
+        Me.lblStep1Instructions.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
+        Me.lblStep1Instructions.Location = New System.Drawing.Point(14, 41)
         Me.lblStep1Instructions.Name = "lblStep1Instructions"
-        Me.lblStep1Instructions.Size = New System.Drawing.Size(303, 42)
-        Me.lblStep1Instructions.TabIndex = 6
-        Me.lblStep1Instructions.Text = "This wizard will guide you through some easy setup steps to get started."
-        '
-        'lblStep1Intro
-        '
-        Me.lblStep1Intro.AutoSize = True
-        Me.lblStep1Intro.Location = New System.Drawing.Point(14, 41)
-        Me.lblStep1Intro.Name = "lblStep1Intro"
-        Me.lblStep1Intro.Size = New System.Drawing.Size(213, 13)
-        Me.lblStep1Intro.TabIndex = 5
-        Me.lblStep1Intro.Text = "Thank you for trying Game Backup Monitor!"
+        Me.lblStep1Instructions.Size = New System.Drawing.Size(303, 36)
+        Me.lblStep1Instructions.TabIndex = 1
+        Me.lblStep1Instructions.Text = "This guide will help you through some quick and easy steps to get started."
         '
         'tbPage2
         '
@@ -154,9 +146,9 @@ Partial Class frmStartUpWizard
         Me.chkSync.AutoSize = True
         Me.chkSync.Location = New System.Drawing.Point(17, 105)
         Me.chkSync.Name = "chkSync"
-        Me.chkSync.Size = New System.Drawing.Size(258, 17)
-        Me.chkSync.TabIndex = 13
-        Me.chkSync.Text = "Sync with existing GBM data in the backup folder"
+        Me.chkSync.Size = New System.Drawing.Size(261, 17)
+        Me.chkSync.TabIndex = 5
+        Me.chkSync.Text = "Import any existing GBM data in the backup folder"
         Me.chkSync.UseVisualStyleBackColor = True
         '
         'chkCreateFolder
@@ -164,9 +156,9 @@ Partial Class frmStartUpWizard
         Me.chkCreateFolder.AutoSize = True
         Me.chkCreateFolder.Location = New System.Drawing.Point(17, 83)
         Me.chkCreateFolder.Name = "chkCreateFolder"
-        Me.chkCreateFolder.Size = New System.Drawing.Size(211, 17)
-        Me.chkCreateFolder.TabIndex = 12
-        Me.chkCreateFolder.Text = "Create a sub-folder for each application"
+        Me.chkCreateFolder.Size = New System.Drawing.Size(186, 17)
+        Me.chkCreateFolder.TabIndex = 4
+        Me.chkCreateFolder.Text = "Create a sub-folder for each game"
         Me.chkCreateFolder.UseVisualStyleBackColor = True
         '
         'lblStep2Title
@@ -176,23 +168,24 @@ Partial Class frmStartUpWizard
         Me.lblStep2Title.Location = New System.Drawing.Point(13, 11)
         Me.lblStep2Title.Name = "lblStep2Title"
         Me.lblStep2Title.Size = New System.Drawing.Size(143, 20)
-        Me.lblStep2Title.TabIndex = 11
+        Me.lblStep2Title.TabIndex = 0
         Me.lblStep2Title.Text = "Backup Location"
         '
         'lblStep2Instructions
         '
-        Me.lblStep2Instructions.Location = New System.Drawing.Point(14, 125)
+        Me.lblStep2Instructions.Location = New System.Drawing.Point(14, 151)
         Me.lblStep2Instructions.Name = "lblStep2Instructions"
-        Me.lblStep2Instructions.Size = New System.Drawing.Size(335, 57)
-        Me.lblStep2Instructions.TabIndex = 10
-        Me.lblStep2Instructions.Text = resources.GetString("lblStep2Instructions.Text")
+        Me.lblStep2Instructions.Size = New System.Drawing.Size(335, 31)
+        Me.lblStep2Instructions.TabIndex = 6
+        Me.lblStep2Instructions.Text = "GBM will store all your backup files along with a manifest database (gbm.s3db) in" & _
+    " this location. "
         '
         'btnFolderBrowse
         '
         Me.btnFolderBrowse.Location = New System.Drawing.Point(322, 56)
         Me.btnFolderBrowse.Name = "btnFolderBrowse"
         Me.btnFolderBrowse.Size = New System.Drawing.Size(27, 20)
-        Me.btnFolderBrowse.TabIndex = 8
+        Me.btnFolderBrowse.TabIndex = 3
         Me.btnFolderBrowse.Text = "..."
         Me.btnFolderBrowse.UseVisualStyleBackColor = True
         '
@@ -202,7 +195,7 @@ Partial Class frmStartUpWizard
         Me.txtBackupPath.Location = New System.Drawing.Point(17, 57)
         Me.txtBackupPath.Name = "txtBackupPath"
         Me.txtBackupPath.Size = New System.Drawing.Size(300, 20)
-        Me.txtBackupPath.TabIndex = 6
+        Me.txtBackupPath.TabIndex = 2
         '
         'lblStep2Intro
         '
@@ -210,7 +203,7 @@ Partial Class frmStartUpWizard
         Me.lblStep2Intro.Location = New System.Drawing.Point(14, 41)
         Me.lblStep2Intro.Name = "lblStep2Intro"
         Me.lblStep2Intro.Size = New System.Drawing.Size(219, 13)
-        Me.lblStep2Intro.TabIndex = 7
+        Me.lblStep2Intro.TabIndex = 1
         Me.lblStep2Intro.Text = "Choose where GBM saves your backup files:"
         '
         'tbPage3
@@ -291,8 +284,8 @@ Partial Class frmStartUpWizard
         Me.lblStep4Instructions3.Name = "lblStep4Instructions3"
         Me.lblStep4Instructions3.Size = New System.Drawing.Size(303, 33)
         Me.lblStep4Instructions3.TabIndex = 18
-        Me.lblStep4Instructions3.Text = "You can change anything you've setup in this wizard and see more settings and fea" & _
-    "tures by exploring the menus.  Thanks!"
+        Me.lblStep4Instructions3.Text = "You can change anything you've setup in this wizard and find more settings and fe" & _
+    "atures by exploring the menus.  Thanks!"
         '
         'lblStep4Instructions2
         '
@@ -318,15 +311,14 @@ Partial Class frmStartUpWizard
         Me.lblStep4Instructions.Name = "lblStep4Instructions"
         Me.lblStep4Instructions.Size = New System.Drawing.Size(303, 31)
         Me.lblStep4Instructions.TabIndex = 12
-        Me.lblStep4Instructions.Text = "That's all there is to it!  GBM will automatically monitor and backup your applic" & _
-    "ations each time they are closed."
+        Me.lblStep4Instructions.Text = "GBM will automatically monitor and backup your games each time they are closed."
         '
         'btnNext
         '
         Me.btnNext.Location = New System.Drawing.Point(272, 202)
         Me.btnNext.Name = "btnNext"
         Me.btnNext.Size = New System.Drawing.Size(75, 23)
-        Me.btnNext.TabIndex = 11
+        Me.btnNext.TabIndex = 2
         Me.btnNext.Text = "&Next"
         Me.btnNext.UseVisualStyleBackColor = True
         '
@@ -335,7 +327,7 @@ Partial Class frmStartUpWizard
         Me.btnBack.Location = New System.Drawing.Point(191, 202)
         Me.btnBack.Name = "btnBack"
         Me.btnBack.Size = New System.Drawing.Size(75, 23)
-        Me.btnBack.TabIndex = 10
+        Me.btnBack.TabIndex = 1
         Me.btnBack.Text = "&Back"
         Me.btnBack.UseVisualStyleBackColor = True
         '
@@ -353,7 +345,7 @@ Partial Class frmStartUpWizard
         Me.Name = "frmStartUpWizard"
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "GBM Setup Wizard"
+        Me.Text = "GBM Setup"
         Me.tabWizard.ResumeLayout(False)
         Me.tbPage1.ResumeLayout(False)
         Me.tbPage1.PerformLayout()
@@ -374,7 +366,6 @@ Partial Class frmStartUpWizard
     Friend WithEvents tbPage3 As System.Windows.Forms.TabPage
     Friend WithEvents tbPage4 As System.Windows.Forms.TabPage
     Friend WithEvents lblStep1Instructions As System.Windows.Forms.Label
-    Friend WithEvents lblStep1Intro As System.Windows.Forms.Label
     Friend WithEvents lblStep2Instructions As System.Windows.Forms.Label
     Friend WithEvents btnFolderBrowse As System.Windows.Forms.Button
     Friend WithEvents txtBackupPath As System.Windows.Forms.TextBox
@@ -385,8 +376,6 @@ Partial Class frmStartUpWizard
     Friend WithEvents lblStep2Title As System.Windows.Forms.Label
     Friend WithEvents lblStep3Title As System.Windows.Forms.Label
     Friend WithEvents lblStep4Title As System.Windows.Forms.Label
-    Friend WithEvents lblStep1Instructions2 As System.Windows.Forms.Label
-    Friend WithEvents lblStep1Instructions3 As System.Windows.Forms.Label
     Friend WithEvents chkCreateFolder As System.Windows.Forms.CheckBox
     Friend WithEvents btnDownloadList As System.Windows.Forms.Button
     Friend WithEvents btnOpenWizard As System.Windows.Forms.Button
@@ -394,4 +383,6 @@ Partial Class frmStartUpWizard
     Friend WithEvents lblStep4Instructions3 As System.Windows.Forms.Label
     Friend WithEvents lblStep4Instructions2 As System.Windows.Forms.Label
     Friend WithEvents chkSync As System.Windows.Forms.CheckBox
+    Friend WithEvents lblStep1Instructions2 As System.Windows.Forms.Label
+    Friend WithEvents llbManual As System.Windows.Forms.LinkLabel
 End Class

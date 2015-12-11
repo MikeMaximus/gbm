@@ -1146,6 +1146,8 @@ Public Class frmMain
     Private Sub CleanLocalManifest()
         Dim slItems As SortedList
 
+        PauseScan()
+
         If MsgBox("This tool removes orphaned backup information from the local manifest based on the current backup folder.  Data can become orphaned when backups are deleted by various computers that share the same backup folder on a cloud or network." & vbCrLf & vbCrLf &
                   "When alternating between different backup folders you should NOT use this tool." & vbCrLf & vbCrLf &
                   "Do you wish to proceed?", MsgBoxStyle.YesNo _
@@ -1159,9 +1161,11 @@ Public Class frmMain
                 Next
                 MsgBox(slItems.Count & " entries were removed from the local manifest.")
             Else
-                MsgBox("The local manifest is already clean.")
+                MsgBox("The local manifest is clean.")
             End If
         End If
+
+        ResumeScan()
 
     End Sub
 

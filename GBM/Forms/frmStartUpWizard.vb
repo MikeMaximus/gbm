@@ -27,6 +27,7 @@ Public Class frmStartUpWizard
     Private eCurrentStep As eSteps = eSteps.Step1
 
     Private Sub FormInit()
+        llbManual.Links.Add(0, 26, "http://mikemaximus.github.io/gbm-web/manual.html")
         LoadGameSettings()
         StepHandler()
     End Sub
@@ -47,7 +48,7 @@ Public Class frmStartUpWizard
         Select Case eCurrentStep
             Case eSteps.Step1
                 btnBack.Enabled = False
-                btnNext.Enabled = True
+                btnNext.Enabled = True                
                 tabWizard.SelectTab(0)
             Case eSteps.Step2
                 txtBackupPath.Text = oSettings.BackupFolder
@@ -216,5 +217,9 @@ Public Class frmStartUpWizard
         If Not bShutdown Then
             e.Cancel = True
         End If
+    End Sub
+
+    Private Sub llbManual_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbManual.LinkClicked
+        Process.Start(e.Link.LinkData.ToString)
     End Sub
 End Class

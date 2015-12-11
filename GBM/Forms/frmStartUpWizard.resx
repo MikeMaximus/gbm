@@ -117,10 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblStep2Instructions.Text" xml:space="preserve">
-    <value>GBM will store all your backup files in this location.  It's best to use a cloud folder so your backups are automatically uploaded as soon as they are completed.  GBM also stores a file called gbm.s3db in this location,  this is how your backups are tracked so don't delete it!</value>
-  </data>
   <data name="lblStep3Intro.Text" xml:space="preserve">
-    <value>Before you can start monitoring for games, they need to be configured so GBM knows what to look for and how to handle them.  You can download configurations from the official pre-configured list or add them all yourself.</value>
+    <value>Before you can start monitoring for games, they need to be configured so GBM knows what to look for and how to handle them.  You can download pre-made configurations from the official list or add them all yourself using the tools below.  You can also skip this step for now!</value>
   </data>
 </root>
