@@ -764,6 +764,8 @@ Public Class frmGameManager
                 lblTags.Visible = False
                 btnInclude.Text = "In&clude Items..."
                 btnExclude.Text = "E&xclude Items..."
+                btnImport.Enabled = False
+                btnExport.Enabled = False
             Case eModes.Edit
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
@@ -784,6 +786,8 @@ Public Class frmGameManager
                 btnOpenRestorePath.Enabled = False
                 btnTags.Enabled = True
                 lblTags.Visible = True
+                btnImport.Enabled = False
+                btnExport.Enabled = False
             Case eModes.View
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -799,6 +803,8 @@ Public Class frmGameManager
                 btnBackup.Enabled = True
                 btnTags.Enabled = True
                 lblTags.Visible = True
+                btnImport.Enabled = True
+                btnExport.Enabled = True
             Case eModes.ViewTemp
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -816,6 +822,8 @@ Public Class frmGameManager
                 lblTags.Visible = False
                 btnInclude.Text = "In&clude Items..."
                 btnExclude.Text = "E&xclude Items..."
+                btnImport.Enabled = True
+                btnExport.Enabled = True
             Case eModes.Disabled
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -840,7 +848,8 @@ Public Class frmGameManager
                 lblTags.Visible = False
                 btnInclude.Text = "In&clude Items..."
                 btnExclude.Text = "E&xclude Items..."
-                txtRestorePath.ReadOnly = True
+                btnImport.Enabled = True
+                btnExport.Enabled = True
             Case eModes.MultiSelect
                 lstGames.Enabled = True
                 WipeControls(grpConfig.Controls)
@@ -864,7 +873,8 @@ Public Class frmGameManager
                 btnMarkAsRestored.Enabled = True
                 btnTags.Enabled = True
                 lblTags.Visible = False
-                txtRestorePath.ReadOnly = True
+                btnImport.Enabled = True
+                btnExport.Enabled = True
         End Select
 
         lstGames.Focus()
@@ -1173,6 +1183,40 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub ImportGameListFile()
+        Dim sLocation As String
+
+        sLocation = mgrCommon.OpenFileBrowser("Choose a valid xml file to import", "xml", "XML", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
+
+        If sLocation <> String.Empty Then
+            If mgrMonitorList.DoImport(sLocation) Then
+                LoadData()
+            End If
+        End If
+
+    End Sub
+
+    Private Sub ExportGameList()
+        Dim sLocation As String
+
+        sLocation = mgrCommon.SaveFileBrowser("Choose a location for the export file", "xml", "XML", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Game Backup Monitor Export " & Date.Now.ToString("dd-MMM-yyyy"))
+
+        If sLocation <> String.Empty Then
+            mgrMonitorList.ExportMonitorList(sLocation)
+        End If
+
+    End Sub
+
+    Private Sub ImportOfficialGameList()
+
+        If MsgBox("Would you like to choose games to import from the official game list?" & vbCrLf & vbCrLf & "This require an active internet connection.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrMonitorList.DoImport(mgrPath.OfficialImportURL) Then
+                LoadData()
+            End If
+        End If
+
+    End Sub
+
     Private Sub frmGameManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         If DisableExternalFunctions Then
@@ -1309,5 +1353,21 @@ Public Class frmGameManager
         Else
             btnInclude.Enabled = True
         End If
+    End Sub
+
+    Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
+        cmsImport.Show(btnImport, New Drawing.Point(70, 11), ToolStripDropDownDirection.AboveRight)
+    End Sub
+
+    Private Sub cmsOfficial_Click(sender As Object, e As EventArgs) Handles cmsOfficial.Click
+        ImportOfficialGameList()
+    End Sub
+
+    Private Sub cmsFile_Click(sender As Object, e As EventArgs) Handles cmsFile.Click
+        ImportGameListFile()
+    End Sub
+
+    Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
+        ExportGameList()
     End Sub
 End Class

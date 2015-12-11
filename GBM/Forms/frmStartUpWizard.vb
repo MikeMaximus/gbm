@@ -70,7 +70,7 @@ Public Class frmStartUpWizard
     End Sub
 
     Private Sub DownloadSettings()
-        If MsgBox("Would you like to import from the latest pre-configured game list?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+        If MsgBox("Would you like to choose games to import from the official game list?" & vbCrLf & vbCrLf & "This require an active internet connection.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
             If mgrMonitorList.DoImport(mgrPath.OfficialImportURL) Then
                 oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
                 If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()

@@ -291,8 +291,8 @@ Partial Class frmStartUpWizard
         Me.lblStep4Instructions3.Name = "lblStep4Instructions3"
         Me.lblStep4Instructions3.Size = New System.Drawing.Size(303, 33)
         Me.lblStep4Instructions3.TabIndex = 18
-        Me.lblStep4Instructions3.Text = "To change anything you've setup in this wizard and see more settings and features" & _
-    ", explore the menus in the application,"
+        Me.lblStep4Instructions3.Text = "You can change anything you've setup in this wizard and see more settings and fea" & _
+    "tures by exploring the menus.  Thanks!"
         '
         'lblStep4Instructions2
         '

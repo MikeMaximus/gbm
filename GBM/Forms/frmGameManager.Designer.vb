@@ -22,6 +22,7 @@ Partial Class frmGameManager
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.btnBackup = New System.Windows.Forms.Button()
@@ -83,12 +84,18 @@ Partial Class frmGameManager
         Me.optBackupData = New System.Windows.Forms.RadioButton()
         Me.optPendingRestores = New System.Windows.Forms.RadioButton()
         Me.optAllGames = New System.Windows.Forms.RadioButton()
+        Me.btnImport = New System.Windows.Forms.Button()
+        Me.btnExport = New System.Windows.Forms.Button()
+        Me.cmsImport = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmsOfficial = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.grpConfig.SuspendLayout()
         Me.grpExtra.SuspendLayout()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudHours, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpStats.SuspendLayout()
         Me.grpFilter.SuspendLayout()
+        Me.cmsImport.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnAdd
@@ -119,7 +126,7 @@ Partial Class frmGameManager
         Me.btnBackup.Location = New System.Drawing.Point(616, 525)
         Me.btnBackup.Name = "btnBackup"
         Me.btnBackup.Size = New System.Drawing.Size(75, 23)
-        Me.btnBackup.TabIndex = 14
+        Me.btnBackup.TabIndex = 16
         Me.btnBackup.Text = "&Backup"
         Me.btnBackup.UseVisualStyleBackColor = True
         '
@@ -129,7 +136,7 @@ Partial Class frmGameManager
         Me.btnClose.Location = New System.Drawing.Point(697, 525)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 15
+        Me.btnClose.TabIndex = 17
         Me.btnClose.Text = "C&lose"
         Me.btnClose.UseVisualStyleBackColor = True
         '
@@ -152,10 +159,10 @@ Partial Class frmGameManager
         Me.grpConfig.Controls.Add(Me.txtProcess)
         Me.grpConfig.Controls.Add(Me.txtName)
         Me.grpConfig.Enabled = False
-        Me.grpConfig.Location = New System.Drawing.Point(238, 12)
+        Me.grpConfig.Location = New System.Drawing.Point(247, 12)
         Me.grpConfig.Name = "grpConfig"
-        Me.grpConfig.Size = New System.Drawing.Size(534, 157)
-        Me.grpConfig.TabIndex = 4
+        Me.grpConfig.Size = New System.Drawing.Size(525, 157)
+        Me.grpConfig.TabIndex = 6
         Me.grpConfig.TabStop = False
         Me.grpConfig.Text = "Configuration"
         '
@@ -180,16 +187,16 @@ Partial Class frmGameManager
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(495, 19)
+        Me.txtID.Location = New System.Drawing.Point(489, 19)
         Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(33, 20)
+        Me.txtID.Size = New System.Drawing.Size(30, 20)
         Me.txtID.TabIndex = 16
         Me.txtID.TabStop = False
         Me.txtID.Visible = False
         '
         'btnSavePathBrowse
         '
-        Me.btnSavePathBrowse.Location = New System.Drawing.Point(498, 71)
+        Me.btnSavePathBrowse.Location = New System.Drawing.Point(489, 71)
         Me.btnSavePathBrowse.Name = "btnSavePathBrowse"
         Me.btnSavePathBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnSavePathBrowse.TabIndex = 9
@@ -198,7 +205,7 @@ Partial Class frmGameManager
         '
         'btnProcessBrowse
         '
-        Me.btnProcessBrowse.Location = New System.Drawing.Point(498, 45)
+        Me.btnProcessBrowse.Location = New System.Drawing.Point(489, 45)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
         Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnProcessBrowse.TabIndex = 7
@@ -234,18 +241,18 @@ Partial Class frmGameManager
         '
         'txtExclude
         '
-        Me.txtExclude.Location = New System.Drawing.Point(354, 127)
+        Me.txtExclude.Location = New System.Drawing.Point(363, 128)
         Me.txtExclude.Name = "txtExclude"
-        Me.txtExclude.Size = New System.Drawing.Size(174, 20)
+        Me.txtExclude.Size = New System.Drawing.Size(156, 20)
         Me.txtExclude.TabIndex = 0
         Me.txtExclude.TabStop = False
         Me.txtExclude.Visible = False
         '
         'txtFileType
         '
-        Me.txtFileType.Location = New System.Drawing.Point(354, 99)
+        Me.txtFileType.Location = New System.Drawing.Point(363, 99)
         Me.txtFileType.Name = "txtFileType"
-        Me.txtFileType.Size = New System.Drawing.Size(174, 20)
+        Me.txtFileType.Size = New System.Drawing.Size(156, 20)
         Me.txtFileType.TabIndex = 0
         Me.txtFileType.TabStop = False
         Me.txtFileType.Visible = False
@@ -274,30 +281,30 @@ Partial Class frmGameManager
         '
         Me.txtSavePath.Location = New System.Drawing.Point(69, 71)
         Me.txtSavePath.Name = "txtSavePath"
-        Me.txtSavePath.Size = New System.Drawing.Size(423, 20)
+        Me.txtSavePath.Size = New System.Drawing.Size(414, 20)
         Me.txtSavePath.TabIndex = 8
         '
         'txtProcess
         '
         Me.txtProcess.Location = New System.Drawing.Point(69, 45)
         Me.txtProcess.Name = "txtProcess"
-        Me.txtProcess.Size = New System.Drawing.Size(423, 20)
+        Me.txtProcess.Size = New System.Drawing.Size(414, 20)
         Me.txtProcess.TabIndex = 6
         '
         'txtName
         '
         Me.txtName.Location = New System.Drawing.Point(69, 19)
         Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(423, 20)
+        Me.txtName.Size = New System.Drawing.Size(414, 20)
         Me.txtName.TabIndex = 5
         '
         'chkMonitorOnly
         '
         Me.chkMonitorOnly.AutoSize = True
-        Me.chkMonitorOnly.Location = New System.Drawing.Point(353, 340)
+        Me.chkMonitorOnly.Location = New System.Drawing.Point(362, 340)
         Me.chkMonitorOnly.Name = "chkMonitorOnly"
         Me.chkMonitorOnly.Size = New System.Drawing.Size(145, 17)
-        Me.chkMonitorOnly.TabIndex = 7
+        Me.chkMonitorOnly.TabIndex = 9
         Me.chkMonitorOnly.Text = "Monitor only (No backup)"
         Me.chkMonitorOnly.UseVisualStyleBackColor = True
         '
@@ -318,10 +325,10 @@ Partial Class frmGameManager
         Me.grpExtra.Controls.Add(Me.txtAppPath)
         Me.grpExtra.Controls.Add(Me.nudHours)
         Me.grpExtra.Controls.Add(Me.lblHours)
-        Me.grpExtra.Location = New System.Drawing.Point(238, 175)
+        Me.grpExtra.Location = New System.Drawing.Point(247, 175)
         Me.grpExtra.Name = "grpExtra"
-        Me.grpExtra.Size = New System.Drawing.Size(534, 155)
-        Me.grpExtra.TabIndex = 5
+        Me.grpExtra.Size = New System.Drawing.Size(525, 155)
+        Me.grpExtra.TabIndex = 7
         Me.grpExtra.TabStop = False
         Me.grpExtra.Text = "Game Information"
         '
@@ -329,16 +336,16 @@ Partial Class frmGameManager
         '
         Me.lblTags.AutoEllipsis = True
         Me.lblTags.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTags.Location = New System.Drawing.Point(163, 124)
+        Me.lblTags.Location = New System.Drawing.Point(161, 124)
         Me.lblTags.Name = "lblTags"
-        Me.lblTags.Size = New System.Drawing.Size(311, 20)
+        Me.lblTags.Size = New System.Drawing.Size(304, 20)
         Me.lblTags.TabIndex = 0
         Me.lblTags.Text = "#Tags"
         Me.lblTags.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'btnIconBrowse
         '
-        Me.btnIconBrowse.Location = New System.Drawing.Point(444, 96)
+        Me.btnIconBrowse.Location = New System.Drawing.Point(435, 97)
         Me.btnIconBrowse.Name = "btnIconBrowse"
         Me.btnIconBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnIconBrowse.TabIndex = 10
@@ -349,7 +356,7 @@ Partial Class frmGameManager
         '
         Me.txtIcon.Location = New System.Drawing.Point(69, 97)
         Me.txtIcon.Name = "txtIcon"
-        Me.txtIcon.Size = New System.Drawing.Size(369, 20)
+        Me.txtIcon.Size = New System.Drawing.Size(360, 20)
         Me.txtIcon.TabIndex = 9
         '
         'lblVersion
@@ -365,14 +372,14 @@ Partial Class frmGameManager
         '
         Me.txtVersion.Location = New System.Drawing.Point(69, 71)
         Me.txtVersion.Name = "txtVersion"
-        Me.txtVersion.Size = New System.Drawing.Size(459, 20)
+        Me.txtVersion.Size = New System.Drawing.Size(414, 20)
         Me.txtVersion.TabIndex = 8
         '
         'txtCompany
         '
         Me.txtCompany.Location = New System.Drawing.Point(69, 45)
         Me.txtCompany.Name = "txtCompany"
-        Me.txtCompany.Size = New System.Drawing.Size(459, 20)
+        Me.txtCompany.Size = New System.Drawing.Size(414, 20)
         Me.txtCompany.TabIndex = 7
         '
         'lblCompany
@@ -387,7 +394,7 @@ Partial Class frmGameManager
         'pbIcon
         '
         Me.pbIcon.InitialImage = Nothing
-        Me.pbIcon.Location = New System.Drawing.Point(480, 100)
+        Me.pbIcon.Location = New System.Drawing.Point(471, 97)
         Me.pbIcon.Name = "pbIcon"
         Me.pbIcon.Size = New System.Drawing.Size(48, 48)
         Me.pbIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -405,7 +412,7 @@ Partial Class frmGameManager
         '
         'btnAppPathBrowse
         '
-        Me.btnAppPathBrowse.Location = New System.Drawing.Point(498, 19)
+        Me.btnAppPathBrowse.Location = New System.Drawing.Point(489, 19)
         Me.btnAppPathBrowse.Name = "btnAppPathBrowse"
         Me.btnAppPathBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnAppPathBrowse.TabIndex = 6
@@ -425,7 +432,7 @@ Partial Class frmGameManager
         '
         Me.txtAppPath.Location = New System.Drawing.Point(69, 19)
         Me.txtAppPath.Name = "txtAppPath"
-        Me.txtAppPath.Size = New System.Drawing.Size(423, 20)
+        Me.txtAppPath.Size = New System.Drawing.Size(414, 20)
         Me.txtAppPath.TabIndex = 5
         '
         'nudHours
@@ -452,7 +459,7 @@ Partial Class frmGameManager
         Me.btnTags.Location = New System.Drawing.Point(535, 336)
         Me.btnTags.Name = "btnTags"
         Me.btnTags.Size = New System.Drawing.Size(75, 23)
-        Me.btnTags.TabIndex = 8
+        Me.btnTags.TabIndex = 10
         Me.btnTags.Text = "Tags..."
         Me.btnTags.UseVisualStyleBackColor = True
         '
@@ -471,10 +478,10 @@ Partial Class frmGameManager
         Me.grpStats.Controls.Add(Me.lblCurrentBackup)
         Me.grpStats.Controls.Add(Me.txtLocalBackup)
         Me.grpStats.Controls.Add(Me.lblLastBackup)
-        Me.grpStats.Location = New System.Drawing.Point(238, 365)
+        Me.grpStats.Location = New System.Drawing.Point(247, 365)
         Me.grpStats.Name = "grpStats"
-        Me.grpStats.Size = New System.Drawing.Size(534, 154)
-        Me.grpStats.TabIndex = 11
+        Me.grpStats.Size = New System.Drawing.Size(525, 154)
+        Me.grpStats.TabIndex = 13
         Me.grpStats.TabStop = False
         Me.grpStats.Text = "Backup Information"
         '
@@ -492,7 +499,7 @@ Partial Class frmGameManager
         Me.txtRestorePath.Location = New System.Drawing.Point(96, 99)
         Me.txtRestorePath.Name = "txtRestorePath"
         Me.txtRestorePath.ReadOnly = True
-        Me.txtRestorePath.Size = New System.Drawing.Size(432, 20)
+        Me.txtRestorePath.Size = New System.Drawing.Size(387, 20)
         Me.txtRestorePath.TabIndex = 8
         '
         'btnOpenRestorePath
@@ -518,7 +525,7 @@ Partial Class frmGameManager
         Me.txtFileSize.Location = New System.Drawing.Point(96, 74)
         Me.txtFileSize.Name = "txtFileSize"
         Me.txtFileSize.ReadOnly = True
-        Me.txtFileSize.Size = New System.Drawing.Size(432, 20)
+        Me.txtFileSize.Size = New System.Drawing.Size(387, 20)
         Me.txtFileSize.TabIndex = 7
         Me.txtFileSize.TabStop = False
         '
@@ -555,7 +562,7 @@ Partial Class frmGameManager
         Me.txtCurrentBackup.Location = New System.Drawing.Point(96, 24)
         Me.txtCurrentBackup.Name = "txtCurrentBackup"
         Me.txtCurrentBackup.ReadOnly = True
-        Me.txtCurrentBackup.Size = New System.Drawing.Size(432, 20)
+        Me.txtCurrentBackup.Size = New System.Drawing.Size(387, 20)
         Me.txtCurrentBackup.TabIndex = 5
         Me.txtCurrentBackup.TabStop = False
         '
@@ -573,7 +580,7 @@ Partial Class frmGameManager
         Me.txtLocalBackup.Location = New System.Drawing.Point(96, 50)
         Me.txtLocalBackup.Name = "txtLocalBackup"
         Me.txtLocalBackup.ReadOnly = True
-        Me.txtLocalBackup.Size = New System.Drawing.Size(432, 20)
+        Me.txtLocalBackup.Size = New System.Drawing.Size(387, 20)
         Me.txtLocalBackup.TabIndex = 6
         Me.txtLocalBackup.TabStop = False
         '
@@ -592,7 +599,7 @@ Partial Class frmGameManager
         Me.btnMarkAsRestored.Location = New System.Drawing.Point(429, 525)
         Me.btnMarkAsRestored.Name = "btnMarkAsRestored"
         Me.btnMarkAsRestored.Size = New System.Drawing.Size(100, 23)
-        Me.btnMarkAsRestored.TabIndex = 12
+        Me.btnMarkAsRestored.TabIndex = 14
         Me.btnMarkAsRestored.Text = "&Mark as Restored"
         Me.btnMarkAsRestored.UseVisualStyleBackColor = True
         '
@@ -602,7 +609,7 @@ Partial Class frmGameManager
         Me.btnRestore.Location = New System.Drawing.Point(535, 525)
         Me.btnRestore.Name = "btnRestore"
         Me.btnRestore.Size = New System.Drawing.Size(75, 23)
-        Me.btnRestore.TabIndex = 13
+        Me.btnRestore.TabIndex = 15
         Me.btnRestore.Text = "&Restore"
         Me.btnRestore.UseVisualStyleBackColor = True
         '
@@ -612,7 +619,7 @@ Partial Class frmGameManager
         Me.btnSave.Location = New System.Drawing.Point(616, 336)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 9
+        Me.btnSave.TabIndex = 11
         Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
@@ -622,7 +629,7 @@ Partial Class frmGameManager
         Me.lstGames.Location = New System.Drawing.Point(12, 138)
         Me.lstGames.Name = "lstGames"
         Me.lstGames.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstGames.Size = New System.Drawing.Size(220, 381)
+        Me.lstGames.Size = New System.Drawing.Size(228, 381)
         Me.lstGames.Sorted = True
         Me.lstGames.TabIndex = 1
         '
@@ -632,17 +639,17 @@ Partial Class frmGameManager
         Me.btnCancel.Location = New System.Drawing.Point(697, 336)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 10
+        Me.btnCancel.TabIndex = 12
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'chkEnabled
         '
         Me.chkEnabled.AutoSize = True
-        Me.chkEnabled.Location = New System.Drawing.Point(238, 340)
+        Me.chkEnabled.Location = New System.Drawing.Point(247, 340)
         Me.chkEnabled.Name = "chkEnabled"
         Me.chkEnabled.Size = New System.Drawing.Size(109, 17)
-        Me.chkEnabled.TabIndex = 6
+        Me.chkEnabled.TabIndex = 8
         Me.chkEnabled.Text = "Monitor this game"
         Me.chkEnabled.UseVisualStyleBackColor = True
         '
@@ -654,7 +661,7 @@ Partial Class frmGameManager
         Me.grpFilter.Controls.Add(Me.optAllGames)
         Me.grpFilter.Location = New System.Drawing.Point(12, 12)
         Me.grpFilter.Name = "grpFilter"
-        Me.grpFilter.Size = New System.Drawing.Size(220, 113)
+        Me.grpFilter.Size = New System.Drawing.Size(228, 113)
         Me.grpFilter.TabIndex = 0
         Me.grpFilter.TabStop = False
         Me.grpFilter.Text = "Games Filter"
@@ -703,11 +710,50 @@ Partial Class frmGameManager
         Me.optAllGames.Text = "All"
         Me.optAllGames.UseVisualStyleBackColor = True
         '
+        'btnImport
+        '
+        Me.btnImport.Location = New System.Drawing.Point(84, 526)
+        Me.btnImport.Name = "btnImport"
+        Me.btnImport.Size = New System.Drawing.Size(75, 23)
+        Me.btnImport.TabIndex = 4
+        Me.btnImport.Text = "&Import"
+        Me.btnImport.UseVisualStyleBackColor = True
+        '
+        'btnExport
+        '
+        Me.btnExport.Location = New System.Drawing.Point(165, 526)
+        Me.btnExport.Name = "btnExport"
+        Me.btnExport.Size = New System.Drawing.Size(75, 23)
+        Me.btnExport.TabIndex = 5
+        Me.btnExport.Text = "&Export"
+        Me.btnExport.UseVisualStyleBackColor = True
+        '
+        'cmsImport
+        '
+        Me.cmsImport.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsOfficial, Me.cmsFile})
+        Me.cmsImport.Name = "cmsImport"
+        Me.cmsImport.ShowImageMargin = False
+        Me.cmsImport.Size = New System.Drawing.Size(118, 48)
+        '
+        'cmsOfficial
+        '
+        Me.cmsOfficial.Name = "cmsOfficial"
+        Me.cmsOfficial.Size = New System.Drawing.Size(117, 22)
+        Me.cmsOfficial.Text = "&Official List..."
+        '
+        'cmsFile
+        '
+        Me.cmsFile.Name = "cmsFile"
+        Me.cmsFile.Size = New System.Drawing.Size(117, 22)
+        Me.cmsFile.Text = "&File..."
+        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 561)
+        Me.Controls.Add(Me.btnExport)
+        Me.Controls.Add(Me.btnImport)
         Me.Controls.Add(Me.grpFilter)
         Me.Controls.Add(Me.btnTags)
         Me.Controls.Add(Me.chkEnabled)
@@ -741,6 +787,7 @@ Partial Class frmGameManager
         Me.grpStats.PerformLayout()
         Me.grpFilter.ResumeLayout(False)
         Me.grpFilter.PerformLayout()
+        Me.cmsImport.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -806,4 +853,9 @@ Partial Class frmGameManager
     Friend WithEvents btnExclude As System.Windows.Forms.Button
     Friend WithEvents lblRestorePath As Label
     Friend WithEvents txtRestorePath As TextBox
+    Friend WithEvents btnImport As System.Windows.Forms.Button
+    Friend WithEvents btnExport As System.Windows.Forms.Button
+    Friend WithEvents cmsImport As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents cmsOfficial As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmsFile As System.Windows.Forms.ToolStripMenuItem
 End Class

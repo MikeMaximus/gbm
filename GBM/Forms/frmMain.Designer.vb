@@ -37,11 +37,7 @@ Partial Class frmMain
         Me.gMonTraySetupCustomVariables = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetupTags = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayTools = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonTrayToolsGameList = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonTrayToolsGameImportOfficialList = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonTrayToolsGameImportList = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonTrayToolsGameExportList = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonTrayToolsSyncMan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayToolsCleanMan = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayToolsCompact = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySep1 = New System.Windows.Forms.ToolStripSeparator()
         Me.gMonTrayExit = New System.Windows.Forms.ToolStripMenuItem()
@@ -64,11 +60,7 @@ Partial Class frmMain
         Me.gMonSetupCustomVariables = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSetupTags = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTools = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonToolsGameList = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonToolsGameImportOfficialList = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonToolsGameImportList = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonToolsGameExportList = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonToolsSyncMan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonToolsCleanMan = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonToolsCompact = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonHelpWebSite = New System.Windows.Forms.ToolStripMenuItem()
@@ -107,7 +99,7 @@ Partial Class frmMain
         '
         Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayNotification, Me.gMonTrayShow, Me.gMonTraySep2, Me.gMonTrayMon, Me.gMonTraySettings, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTraySep1, Me.gMonTrayExit})
         Me.gMonTrayMenu.Name = "gMonTrayMenu"
-        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 170)
+        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 192)
         '
         'gMonTrayNotification
         '
@@ -172,46 +164,21 @@ Partial Class frmMain
         '
         'gMonTrayTools
         '
-        Me.gMonTrayTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayToolsGameList, Me.gMonTrayToolsSyncMan, Me.gMonTrayToolsCompact})
+        Me.gMonTrayTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayToolsCleanMan, Me.gMonTrayToolsCompact})
         Me.gMonTrayTools.Name = "gMonTrayTools"
         Me.gMonTrayTools.Size = New System.Drawing.Size(161, 22)
         Me.gMonTrayTools.Text = "&Tools"
         '
-        'gMonTrayToolsGameList
+        'gMonTrayToolsCleanMan
         '
-        Me.gMonTrayToolsGameList.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayToolsGameImportOfficialList, Me.gMonTrayToolsGameImportList, Me.gMonTrayToolsGameExportList})
-        Me.gMonTrayToolsGameList.Name = "gMonTrayToolsGameList"
-        Me.gMonTrayToolsGameList.Size = New System.Drawing.Size(179, 22)
-        Me.gMonTrayToolsGameList.Text = "&Game List"
-        '
-        'gMonTrayToolsGameImportOfficialList
-        '
-        Me.gMonTrayToolsGameImportOfficialList.Name = "gMonTrayToolsGameImportOfficialList"
-        Me.gMonTrayToolsGameImportOfficialList.Size = New System.Drawing.Size(201, 22)
-        Me.gMonTrayToolsGameImportOfficialList.Text = "Import from &Official List"
-        '
-        'gMonTrayToolsGameImportList
-        '
-        Me.gMonTrayToolsGameImportList.Name = "gMonTrayToolsGameImportList"
-        Me.gMonTrayToolsGameImportList.Size = New System.Drawing.Size(201, 22)
-        Me.gMonTrayToolsGameImportList.Text = "I&mport Game List"
-        '
-        'gMonTrayToolsGameExportList
-        '
-        Me.gMonTrayToolsGameExportList.Name = "gMonTrayToolsGameExportList"
-        Me.gMonTrayToolsGameExportList.Size = New System.Drawing.Size(201, 22)
-        Me.gMonTrayToolsGameExportList.Text = "E&xport Game List"
-        '
-        'gMonTrayToolsSyncMan
-        '
-        Me.gMonTrayToolsSyncMan.Name = "gMonTrayToolsSyncMan"
-        Me.gMonTrayToolsSyncMan.Size = New System.Drawing.Size(179, 22)
-        Me.gMonTrayToolsSyncMan.Text = "Sync Ma&nifests"
+        Me.gMonTrayToolsCleanMan.Name = "gMonTrayToolsCleanMan"
+        Me.gMonTrayToolsCleanMan.Size = New System.Drawing.Size(184, 22)
+        Me.gMonTrayToolsCleanMan.Text = "Clean Local Ma&nifest"
         '
         'gMonTrayToolsCompact
         '
         Me.gMonTrayToolsCompact.Name = "gMonTrayToolsCompact"
-        Me.gMonTrayToolsCompact.Size = New System.Drawing.Size(179, 22)
+        Me.gMonTrayToolsCompact.Size = New System.Drawing.Size(184, 22)
         Me.gMonTrayToolsCompact.Text = "&Compact Databases"
         '
         'gMonTraySep1
@@ -361,46 +328,21 @@ Partial Class frmMain
         '
         'gMonTools
         '
-        Me.gMonTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonToolsGameList, Me.gMonToolsSyncMan, Me.gMonToolsCompact})
+        Me.gMonTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonToolsCleanMan, Me.gMonToolsCompact})
         Me.gMonTools.Name = "gMonTools"
         Me.gMonTools.Size = New System.Drawing.Size(47, 20)
         Me.gMonTools.Text = "&Tools"
         '
-        'gMonToolsGameList
+        'gMonToolsCleanMan
         '
-        Me.gMonToolsGameList.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonToolsGameImportOfficialList, Me.gMonToolsGameImportList, Me.gMonToolsGameExportList})
-        Me.gMonToolsGameList.Name = "gMonToolsGameList"
-        Me.gMonToolsGameList.Size = New System.Drawing.Size(179, 22)
-        Me.gMonToolsGameList.Text = "&Game List"
-        '
-        'gMonToolsGameImportOfficialList
-        '
-        Me.gMonToolsGameImportOfficialList.Name = "gMonToolsGameImportOfficialList"
-        Me.gMonToolsGameImportOfficialList.Size = New System.Drawing.Size(210, 22)
-        Me.gMonToolsGameImportOfficialList.Text = "Import from &Official List..."
-        '
-        'gMonToolsGameImportList
-        '
-        Me.gMonToolsGameImportList.Name = "gMonToolsGameImportList"
-        Me.gMonToolsGameImportList.Size = New System.Drawing.Size(210, 22)
-        Me.gMonToolsGameImportList.Text = "I&mport Game List..."
-        '
-        'gMonToolsGameExportList
-        '
-        Me.gMonToolsGameExportList.Name = "gMonToolsGameExportList"
-        Me.gMonToolsGameExportList.Size = New System.Drawing.Size(210, 22)
-        Me.gMonToolsGameExportList.Text = "E&xport Game List"
-        '
-        'gMonToolsSyncMan
-        '
-        Me.gMonToolsSyncMan.Name = "gMonToolsSyncMan"
-        Me.gMonToolsSyncMan.Size = New System.Drawing.Size(179, 22)
-        Me.gMonToolsSyncMan.Text = "Sync Ma&nifests"
+        Me.gMonToolsCleanMan.Name = "gMonToolsCleanMan"
+        Me.gMonToolsCleanMan.Size = New System.Drawing.Size(184, 22)
+        Me.gMonToolsCleanMan.Text = "Clean Local Ma&nifest"
         '
         'gMonToolsCompact
         '
         Me.gMonToolsCompact.Name = "gMonToolsCompact"
-        Me.gMonToolsCompact.Size = New System.Drawing.Size(179, 22)
+        Me.gMonToolsCompact.Size = New System.Drawing.Size(184, 22)
         Me.gMonToolsCompact.Text = "&Compact Databases"
         '
         'gMonHelp
@@ -612,20 +554,10 @@ Partial Class frmMain
     Friend WithEvents lblLastAction As System.Windows.Forms.Label
     Friend WithEvents lblLastActionTitle As System.Windows.Forms.Label
     Friend WithEvents gMonTools As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents gMonToolsSyncMan As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTrayTools As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents gMonTrayToolsSyncMan As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonSetupAddWizard As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTraySetupAddWizard As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lblTimeSpent As System.Windows.Forms.Label
-    Friend WithEvents gMonToolsGameList As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents gMonToolsGameImportOfficialList As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents gMonToolsGameImportList As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents gMonToolsGameExportList As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents gMonTrayToolsGameList As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents gMonTrayToolsGameImportList As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents gMonTrayToolsGameExportList As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents gMonTrayToolsGameImportOfficialList As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonSetupGameManager As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonSetupCustomVariables As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonToolsCompact As System.Windows.Forms.ToolStripMenuItem
@@ -643,4 +575,6 @@ Partial Class frmMain
     Friend WithEvents gMonTrayNotification As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonHelpWebSite As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents pbTime As System.Windows.Forms.PictureBox
+    Friend WithEvents gMonTrayToolsCleanMan As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents gMonToolsCleanMan As System.Windows.Forms.ToolStripMenuItem
 End Class

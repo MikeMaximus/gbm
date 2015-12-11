@@ -326,51 +326,6 @@ Public Class frmMain
         End If
     End Sub
 
-    'Functions to handle monitor list features
-    Private Sub ImportMonitorList()
-        Dim sLocation As String
-
-        PauseScan()
-
-        sLocation = mgrCommon.OpenFileBrowser("Choose a valid xml file to import", "xml", "XML", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
-
-        If sLocation <> String.Empty Then
-            If mgrMonitorList.DoImport(sLocation) Then
-                LoadGameSettings()
-                If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
-            End If
-        End If
-
-        ResumeScan()
-    End Sub
-
-    Private Sub ExportMonitorList()
-        Dim sLocation As String
-
-        PauseScan()
-
-        sLocation = mgrCommon.SaveFileBrowser("Choose a location for the export file", "xml", "XML", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Game Backup Monitor Export " & Date.Now.ToString("dd-MMM-yyyy"))
-
-        If sLocation <> String.Empty Then
-            mgrMonitorList.ExportMonitorList(sLocation)
-        End If
-
-        ResumeScan()
-    End Sub
-
-    Private Sub DownloadOfficialList()
-        PauseScan()
-
-        If MsgBox("Would you like to import from the latest pre-configured game list?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(mgrPath.OfficialImportURL) Then
-                LoadGameSettings()
-                If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
-            End If
-        End If
-
-        ResumeScan()
-    End Sub
-
     'Functions handling the display of game information
     Private Sub SetIcon()
         Dim sIcon As String
@@ -1188,29 +1143,26 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub SyncManifest()
+    Private Sub CleanLocalManifest()
         Dim slItems As SortedList
 
-        PauseScan()
-
-        If MsgBox("This removes orphaned backup information from the local manifest." & vbCrLf & vbCrLf &
-                  "Do you want to sync the local backup manfiest with the current backup folder?" & vbCrLf & vbCrLf &
-                  "Not recommended if alternating between more than one backup folder.", MsgBoxStyle.YesNo _
+        If MsgBox("This tool removes orphaned backup information from the local manifest based on the current backup folder.  Data can become orphaned when backups are deleted by various computers that share the same backup folder on a cloud or network." & vbCrLf & vbCrLf &
+                  "When alternating between different backup folders you should NOT use this tool." & vbCrLf & vbCrLf &
+                  "Do you wish to proceed?", MsgBoxStyle.YesNo _
                   , "Game Backup Monitor") = MsgBoxResult.Yes Then
 
             slItems = mgrRestore.SyncLocalManifest()
 
             If slItems.Count > 0 Then
                 For Each oItem As clsBackup In slItems.Values
-                    UpdateLog(oItem.Name & " entry removed from local manfiest.", False)
+                    UpdateLog(oItem.Name & " entry was removed from local manfiest.", False)
                 Next
-                MsgBox(slItems.Count & " entries removed from the local manifest.")
+                MsgBox(slItems.Count & " entries were removed from the local manifest.")
             Else
-                MsgBox("No orphaned entries found.  Local manifest is already in sync.")
+                MsgBox("The local manifest is already clean.")
             End If
         End If
 
-        ResumeScan()
     End Sub
 
     Private Sub CompactDatabases()
@@ -1268,24 +1220,12 @@ Public Class frmMain
         OpenGameManager()
     End Sub
 
-    Private Sub gMonToolsSync_Click(sender As Object, e As EventArgs) Handles gMonToolsSyncMan.Click, gMonTrayToolsSyncMan.Click
-        SyncManifest()
+    Private Sub gMonToolsSync_Click(sender As Object, e As EventArgs) Handles gMonTrayToolsCleanMan.Click, gMonToolsCleanMan.Click
+        CleanLocalManifest()
     End Sub
 
     Private Sub gMonToolsCompact_Click(sender As Object, e As EventArgs) Handles gMonToolsCompact.Click, gMonTrayToolsCompact.Click
         CompactDatabases()
-    End Sub
-
-    Private Sub gMonToolsGameExportList_Click(sender As Object, e As EventArgs) Handles gMonToolsGameExportList.Click, gMonTrayToolsGameExportList.Click
-        ExportMonitorList()
-    End Sub
-
-    Private Sub gMonToolsGameImportList_Click(sender As Object, e As EventArgs) Handles gMonToolsGameImportList.Click, gMonTrayToolsGameImportList.Click
-        ImportMonitorList()
-    End Sub
-
-    Private Sub gMonToolsGameImportOfficialList_Click(sender As Object, e As EventArgs) Handles gMonToolsGameImportOfficialList.Click, gMonTrayToolsGameImportOfficialList.Click
-        DownloadOfficialList()
     End Sub
 
     Private Sub gMonSetupAddWizard_Click(sender As Object, e As EventArgs) Handles gMonSetupAddWizard.Click, gMonTraySetupAddWizard.Click
