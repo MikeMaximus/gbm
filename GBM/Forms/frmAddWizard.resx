@@ -117,7 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblStep4Instructions.Text" xml:space="preserve">
-    <value>Choose any file types, specific files  or folders you wish to exclude from the backup.  You may choose multiple items to exclude.  A more advanced exclude list can be created manually via the Game Manager.  This step can be skipped.</value>
-  </data>
 </root>

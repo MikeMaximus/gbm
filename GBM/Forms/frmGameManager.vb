@@ -1052,6 +1052,12 @@ Public Class frmGameManager
             Return False
         End If
 
+        If chkFolderSave.Checked = False And txtFileType.Text = String.Empty Then
+            MsgBox("You must choose items to include in the backup, or choose to save the entire folder.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            btnInclude.Focus()
+            Return False
+        End If
+
         If mgrMonitorList.DoDuplicateListCheck(oApp.Name, oApp.ProcessName, , oApp.ID) Then
             MsgBox("A game with this exact name and process already exists.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
             txtName.Focus()

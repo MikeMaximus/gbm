@@ -22,7 +22,6 @@ Partial Class frmAddWizard
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAddWizard))
         Me.tabWizard = New System.Windows.Forms.TabControl()
         Me.tbPage1 = New System.Windows.Forms.TabPage()
         Me.lblStep1Title = New System.Windows.Forms.Label()
@@ -46,10 +45,18 @@ Partial Class frmAddWizard
         Me.txtSavePath = New System.Windows.Forms.TextBox()
         Me.lblStep3Intro = New System.Windows.Forms.Label()
         Me.tbPage3a = New System.Windows.Forms.TabPage()
+        Me.lblIncludePathTitle = New System.Windows.Forms.Label()
+        Me.lblIncludePath = New System.Windows.Forms.Label()
+        Me.lblFileTypes = New System.Windows.Forms.Label()
+        Me.btnInclude = New System.Windows.Forms.Button()
         Me.lblStep3aTitle = New System.Windows.Forms.Label()
         Me.lblStep3aInstructions = New System.Windows.Forms.Label()
         Me.txtFileTypes = New System.Windows.Forms.TextBox()
         Me.tbPage4 = New System.Windows.Forms.TabPage()
+        Me.lblExcludePathTitle = New System.Windows.Forms.Label()
+        Me.lblExcludePath = New System.Windows.Forms.Label()
+        Me.lblExclude = New System.Windows.Forms.Label()
+        Me.btnExclude = New System.Windows.Forms.Button()
         Me.lblStep4Title = New System.Windows.Forms.Label()
         Me.lblStep4Instructions = New System.Windows.Forms.Label()
         Me.txtExcludeList = New System.Windows.Forms.TextBox()
@@ -60,14 +67,6 @@ Partial Class frmAddWizard
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnNext = New System.Windows.Forms.Button()
         Me.btnBack = New System.Windows.Forms.Button()
-        Me.btnInclude = New System.Windows.Forms.Button()
-        Me.lblFileTypes = New System.Windows.Forms.Label()
-        Me.lblExclude = New System.Windows.Forms.Label()
-        Me.btnExclude = New System.Windows.Forms.Button()
-        Me.lblExcludePath = New System.Windows.Forms.Label()
-        Me.lblIncludePath = New System.Windows.Forms.Label()
-        Me.lblIncludePathTitle = New System.Windows.Forms.Label()
-        Me.lblExcludePathTitle = New System.Windows.Forms.Label()
         Me.tabWizard.SuspendLayout()
         Me.tbPage1.SuspendLayout()
         Me.tbPage2.SuspendLayout()
@@ -121,9 +120,9 @@ Partial Class frmAddWizard
         '
         Me.lblDrag1.AllowDrop = True
         Me.lblDrag1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDrag1.Location = New System.Drawing.Point(14, 147)
+        Me.lblDrag1.Location = New System.Drawing.Point(14, 135)
         Me.lblDrag1.Name = "lblDrag1"
-        Me.lblDrag1.Size = New System.Drawing.Size(303, 37)
+        Me.lblDrag1.Size = New System.Drawing.Size(303, 49)
         Me.lblDrag1.TabIndex = 7
         Me.lblDrag1.Text = "Drag a shortcut here to complete this step."
         '
@@ -131,11 +130,9 @@ Partial Class frmAddWizard
         '
         Me.lblStep1Instructions.Location = New System.Drawing.Point(14, 93)
         Me.lblStep1Instructions.Name = "lblStep1Instructions"
-        Me.lblStep1Instructions.Size = New System.Drawing.Size(303, 42)
+        Me.lblStep1Instructions.Size = New System.Drawing.Size(303, 30)
         Me.lblStep1Instructions.TabIndex = 6
-        Me.lblStep1Instructions.Text = "The name of the game is used for the backup file and must conform to Windows file" &
-    " name standards.  It will be automatically filtered for length and invalid chara" &
-    "cters. "
+        Me.lblStep1Instructions.Text = "The name will be automatically filtered for length and invalid characters. "
         '
         'txtName
         '
@@ -184,16 +181,16 @@ Partial Class frmAddWizard
         '
         Me.lblStep2Instructions.Location = New System.Drawing.Point(14, 93)
         Me.lblStep2Instructions.Name = "lblStep2Instructions"
-        Me.lblStep2Instructions.Size = New System.Drawing.Size(303, 41)
+        Me.lblStep2Instructions.Size = New System.Drawing.Size(303, 29)
         Me.lblStep2Instructions.TabIndex = 10
-        Me.lblStep2Instructions.Text = "GBM needs to know what to look for when you run the application.  Some games use " &
-    "launchers.  Do not monitor launchers,  choose the actual game exe file."
+        Me.lblStep2Instructions.Text = "Some games use launchers.  Do not monitor launchers,  be sure to choose the game'" & _
+    "s actual exe file."
         '
         'lblDrag2
         '
         Me.lblDrag2.AllowDrop = True
         Me.lblDrag2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDrag2.Location = New System.Drawing.Point(14, 147)
+        Me.lblDrag2.Location = New System.Drawing.Point(14, 135)
         Me.lblDrag2.Name = "lblDrag2"
         Me.lblDrag2.Size = New System.Drawing.Size(336, 44)
         Me.lblDrag2.TabIndex = 9
@@ -257,8 +254,8 @@ Partial Class frmAddWizard
         Me.lblStep3Instructions.Name = "lblStep3Instructions"
         Me.lblStep3Instructions.Size = New System.Drawing.Size(303, 42)
         Me.lblStep3Instructions.TabIndex = 9
-        Me.lblStep3Instructions.Text = "If you're unsure of exactly which files to backup,  make sure Save Entire Folder " &
-    "is checked.  You can also time stamp your backup files to make incremental backu" &
+        Me.lblStep3Instructions.Text = "If you're unsure of exactly which files to backup,  make sure Save Entire Folder " & _
+    "is checked.  You can also time stamp your backup files to make incremental backu" & _
     "ps."
         '
         'chkTimeStamp
@@ -322,6 +319,43 @@ Partial Class frmAddWizard
         Me.tbPage3a.TabIndex = 3
         Me.tbPage3a.Text = "TabPage4"
         '
+        'lblIncludePathTitle
+        '
+        Me.lblIncludePathTitle.AutoSize = True
+        Me.lblIncludePathTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblIncludePathTitle.Location = New System.Drawing.Point(14, 45)
+        Me.lblIncludePathTitle.Name = "lblIncludePathTitle"
+        Me.lblIncludePathTitle.Size = New System.Drawing.Size(122, 13)
+        Me.lblIncludePathTitle.TabIndex = 6
+        Me.lblIncludePathTitle.Text = "Saved Game Folder:"
+        '
+        'lblIncludePath
+        '
+        Me.lblIncludePath.AutoEllipsis = True
+        Me.lblIncludePath.Location = New System.Drawing.Point(14, 60)
+        Me.lblIncludePath.Name = "lblIncludePath"
+        Me.lblIncludePath.Size = New System.Drawing.Size(324, 13)
+        Me.lblIncludePath.TabIndex = 1
+        Me.lblIncludePath.Text = "Save Path"
+        '
+        'lblFileTypes
+        '
+        Me.lblFileTypes.AutoSize = True
+        Me.lblFileTypes.Location = New System.Drawing.Point(199, 91)
+        Me.lblFileTypes.Name = "lblFileTypes"
+        Me.lblFileTypes.Size = New System.Drawing.Size(89, 13)
+        Me.lblFileTypes.TabIndex = 3
+        Me.lblFileTypes.Text = "0 item(s) selected"
+        '
+        'btnInclude
+        '
+        Me.btnInclude.Location = New System.Drawing.Point(17, 86)
+        Me.btnInclude.Name = "btnInclude"
+        Me.btnInclude.Size = New System.Drawing.Size(176, 23)
+        Me.btnInclude.TabIndex = 2
+        Me.btnInclude.Text = "Choose items to in&clude..."
+        Me.btnInclude.UseVisualStyleBackColor = True
+        '
         'lblStep3aTitle
         '
         Me.lblStep3aTitle.AutoSize = True
@@ -338,9 +372,8 @@ Partial Class frmAddWizard
         Me.lblStep3aInstructions.Name = "lblStep3aInstructions"
         Me.lblStep3aInstructions.Size = New System.Drawing.Size(303, 56)
         Me.lblStep3aInstructions.TabIndex = 5
-        Me.lblStep3aInstructions.Text = "Choose any file types, specific files  or folders you wish to include in the back" &
-    "up.  You may choose multiple items to include.  If you're unsure, go back a step" &
-    " and choose to save the entire folder. "
+        Me.lblStep3aInstructions.Text = "Choose any file types, specific files  or folders you wish to include in the back" & _
+    "up.  If you're unsure, go back a step and choose to save the entire folder. "
         '
         'txtFileTypes
         '
@@ -368,6 +401,43 @@ Partial Class frmAddWizard
         Me.tbPage4.TabIndex = 4
         Me.tbPage4.Text = "TabPage5"
         '
+        'lblExcludePathTitle
+        '
+        Me.lblExcludePathTitle.AutoSize = True
+        Me.lblExcludePathTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblExcludePathTitle.Location = New System.Drawing.Point(14, 45)
+        Me.lblExcludePathTitle.Name = "lblExcludePathTitle"
+        Me.lblExcludePathTitle.Size = New System.Drawing.Size(122, 13)
+        Me.lblExcludePathTitle.TabIndex = 7
+        Me.lblExcludePathTitle.Text = "Saved Game Folder:"
+        '
+        'lblExcludePath
+        '
+        Me.lblExcludePath.AutoEllipsis = True
+        Me.lblExcludePath.Location = New System.Drawing.Point(14, 60)
+        Me.lblExcludePath.Name = "lblExcludePath"
+        Me.lblExcludePath.Size = New System.Drawing.Size(334, 13)
+        Me.lblExcludePath.TabIndex = 1
+        Me.lblExcludePath.Text = "Save Path"
+        '
+        'lblExclude
+        '
+        Me.lblExclude.AutoSize = True
+        Me.lblExclude.Location = New System.Drawing.Point(199, 91)
+        Me.lblExclude.Name = "lblExclude"
+        Me.lblExclude.Size = New System.Drawing.Size(89, 13)
+        Me.lblExclude.TabIndex = 3
+        Me.lblExclude.Text = "0 item(s) selected"
+        '
+        'btnExclude
+        '
+        Me.btnExclude.Location = New System.Drawing.Point(17, 86)
+        Me.btnExclude.Name = "btnExclude"
+        Me.btnExclude.Size = New System.Drawing.Size(176, 23)
+        Me.btnExclude.TabIndex = 2
+        Me.btnExclude.Text = "Choose items to e&xclude..."
+        Me.btnExclude.UseVisualStyleBackColor = True
+        '
         'lblStep4Title
         '
         Me.lblStep4Title.AutoSize = True
@@ -384,7 +454,8 @@ Partial Class frmAddWizard
         Me.lblStep4Instructions.Name = "lblStep4Instructions"
         Me.lblStep4Instructions.Size = New System.Drawing.Size(303, 59)
         Me.lblStep4Instructions.TabIndex = 5
-        Me.lblStep4Instructions.Text = resources.GetString("lblStep4Instructions.Text")
+        Me.lblStep4Instructions.Text = "Choose any file types, specific files  or folders you wish to exclude from the ba" & _
+    "ckup.  You may choose multiple items to exclude.  This step can be skipped."
         '
         'txtExcludeList
         '
@@ -432,6 +503,7 @@ Partial Class frmAddWizard
         Me.lstSummary.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
         Me.lstSummary.Location = New System.Drawing.Point(14, 65)
         Me.lstSummary.Name = "lstSummary"
+        Me.lstSummary.ShowItemToolTips = True
         Me.lstSummary.Size = New System.Drawing.Size(335, 126)
         Me.lstSummary.TabIndex = 1
         Me.lstSummary.UseCompatibleStateImageBehavior = False
@@ -463,80 +535,6 @@ Partial Class frmAddWizard
         Me.btnBack.TabIndex = 10
         Me.btnBack.Text = "&Back"
         Me.btnBack.UseVisualStyleBackColor = True
-        '
-        'btnInclude
-        '
-        Me.btnInclude.Location = New System.Drawing.Point(17, 86)
-        Me.btnInclude.Name = "btnInclude"
-        Me.btnInclude.Size = New System.Drawing.Size(176, 23)
-        Me.btnInclude.TabIndex = 2
-        Me.btnInclude.Text = "Choose items to in&clude..."
-        Me.btnInclude.UseVisualStyleBackColor = True
-        '
-        'lblFileTypes
-        '
-        Me.lblFileTypes.AutoSize = True
-        Me.lblFileTypes.Location = New System.Drawing.Point(199, 91)
-        Me.lblFileTypes.Name = "lblFileTypes"
-        Me.lblFileTypes.Size = New System.Drawing.Size(89, 13)
-        Me.lblFileTypes.TabIndex = 3
-        Me.lblFileTypes.Text = "0 item(s) selected"
-        '
-        'lblExclude
-        '
-        Me.lblExclude.AutoSize = True
-        Me.lblExclude.Location = New System.Drawing.Point(199, 91)
-        Me.lblExclude.Name = "lblExclude"
-        Me.lblExclude.Size = New System.Drawing.Size(89, 13)
-        Me.lblExclude.TabIndex = 3
-        Me.lblExclude.Text = "0 item(s) selected"
-        '
-        'btnExclude
-        '
-        Me.btnExclude.Location = New System.Drawing.Point(17, 86)
-        Me.btnExclude.Name = "btnExclude"
-        Me.btnExclude.Size = New System.Drawing.Size(176, 23)
-        Me.btnExclude.TabIndex = 2
-        Me.btnExclude.Text = "Choose items to e&xclude..."
-        Me.btnExclude.UseVisualStyleBackColor = True
-        '
-        'lblExcludePath
-        '
-        Me.lblExcludePath.AutoEllipsis = True
-        Me.lblExcludePath.Location = New System.Drawing.Point(14, 60)
-        Me.lblExcludePath.Name = "lblExcludePath"
-        Me.lblExcludePath.Size = New System.Drawing.Size(334, 13)
-        Me.lblExcludePath.TabIndex = 1
-        Me.lblExcludePath.Text = "Save Path"
-        '
-        'lblIncludePath
-        '
-        Me.lblIncludePath.AutoEllipsis = True
-        Me.lblIncludePath.Location = New System.Drawing.Point(14, 60)
-        Me.lblIncludePath.Name = "lblIncludePath"
-        Me.lblIncludePath.Size = New System.Drawing.Size(324, 13)
-        Me.lblIncludePath.TabIndex = 1
-        Me.lblIncludePath.Text = "Save Path"
-        '
-        'lblIncludePathTitle
-        '
-        Me.lblIncludePathTitle.AutoSize = True
-        Me.lblIncludePathTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblIncludePathTitle.Location = New System.Drawing.Point(14, 45)
-        Me.lblIncludePathTitle.Name = "lblIncludePathTitle"
-        Me.lblIncludePathTitle.Size = New System.Drawing.Size(122, 13)
-        Me.lblIncludePathTitle.TabIndex = 6
-        Me.lblIncludePathTitle.Text = "Saved Game Folder:"
-        '
-        'lblExcludePathTitle
-        '
-        Me.lblExcludePathTitle.AutoSize = True
-        Me.lblExcludePathTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblExcludePathTitle.Location = New System.Drawing.Point(14, 45)
-        Me.lblExcludePathTitle.Name = "lblExcludePathTitle"
-        Me.lblExcludePathTitle.Size = New System.Drawing.Size(122, 13)
-        Me.lblExcludePathTitle.TabIndex = 7
-        Me.lblExcludePathTitle.Text = "Saved Game Folder:"
         '
         'frmAddWizard
         '

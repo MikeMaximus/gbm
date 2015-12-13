@@ -36,15 +36,15 @@ Partial Class frmFilter
         Me.lstTags = New System.Windows.Forms.ListBox()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.grpGameFilter = New System.Windows.Forms.GroupBox()
+        Me.grpGameInfoOptions = New System.Windows.Forms.GroupBox()
+        Me.optOr = New System.Windows.Forms.RadioButton()
+        Me.optAnd = New System.Windows.Forms.RadioButton()
+        Me.txtCompany = New System.Windows.Forms.TextBox()
+        Me.lblCompany = New System.Windows.Forms.Label()
         Me.txtProcess = New System.Windows.Forms.TextBox()
         Me.lblProcess = New System.Windows.Forms.Label()
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtName = New System.Windows.Forms.TextBox()
-        Me.txtCompany = New System.Windows.Forms.TextBox()
-        Me.lblCompany = New System.Windows.Forms.Label()
-        Me.grpGameInfoOptions = New System.Windows.Forms.GroupBox()
-        Me.optOr = New System.Windows.Forms.RadioButton()
-        Me.optAnd = New System.Windows.Forms.RadioButton()
         Me.grpTagFilter.SuspendLayout()
         Me.grpTagOptions.SuspendLayout()
         Me.grpGameFilter.SuspendLayout()
@@ -200,54 +200,6 @@ Partial Class frmFilter
         Me.grpGameFilter.TabIndex = 1
         Me.grpGameFilter.TabStop = False
         '
-        'txtProcess
-        '
-        Me.txtProcess.Location = New System.Drawing.Point(86, 45)
-        Me.txtProcess.Name = "txtProcess"
-        Me.txtProcess.Size = New System.Drawing.Size(293, 20)
-        Me.txtProcess.TabIndex = 3
-        '
-        'lblProcess
-        '
-        Me.lblProcess.AutoSize = True
-        Me.lblProcess.Location = New System.Drawing.Point(11, 48)
-        Me.lblProcess.Name = "lblProcess"
-        Me.lblProcess.Size = New System.Drawing.Size(48, 13)
-        Me.lblProcess.TabIndex = 2
-        Me.lblProcess.Text = "Process:"
-        '
-        'lblName
-        '
-        Me.lblName.AutoSize = True
-        Me.lblName.Location = New System.Drawing.Point(11, 22)
-        Me.lblName.Name = "lblName"
-        Me.lblName.Size = New System.Drawing.Size(38, 13)
-        Me.lblName.TabIndex = 0
-        Me.lblName.Text = "Name:"
-        '
-        'txtName
-        '
-        Me.txtName.Location = New System.Drawing.Point(86, 19)
-        Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(293, 20)
-        Me.txtName.TabIndex = 1
-        '
-        'txtCompany
-        '
-        Me.txtCompany.Location = New System.Drawing.Point(86, 71)
-        Me.txtCompany.Name = "txtCompany"
-        Me.txtCompany.Size = New System.Drawing.Size(293, 20)
-        Me.txtCompany.TabIndex = 5
-        '
-        'lblCompany
-        '
-        Me.lblCompany.AutoSize = True
-        Me.lblCompany.Location = New System.Drawing.Point(11, 74)
-        Me.lblCompany.Name = "lblCompany"
-        Me.lblCompany.Size = New System.Drawing.Size(54, 13)
-        Me.lblCompany.TabIndex = 4
-        Me.lblCompany.Text = "Company:"
-        '
         'grpGameInfoOptions
         '
         Me.grpGameInfoOptions.Controls.Add(Me.optOr)
@@ -281,6 +233,54 @@ Partial Class frmFilter
         Me.optAnd.TabStop = True
         Me.optAnd.Text = "And"
         Me.optAnd.UseVisualStyleBackColor = True
+        '
+        'txtCompany
+        '
+        Me.txtCompany.Location = New System.Drawing.Point(70, 71)
+        Me.txtCompany.Name = "txtCompany"
+        Me.txtCompany.Size = New System.Drawing.Size(309, 20)
+        Me.txtCompany.TabIndex = 5
+        '
+        'lblCompany
+        '
+        Me.lblCompany.AutoSize = True
+        Me.lblCompany.Location = New System.Drawing.Point(11, 74)
+        Me.lblCompany.Name = "lblCompany"
+        Me.lblCompany.Size = New System.Drawing.Size(54, 13)
+        Me.lblCompany.TabIndex = 4
+        Me.lblCompany.Text = "Company:"
+        '
+        'txtProcess
+        '
+        Me.txtProcess.Location = New System.Drawing.Point(70, 45)
+        Me.txtProcess.Name = "txtProcess"
+        Me.txtProcess.Size = New System.Drawing.Size(309, 20)
+        Me.txtProcess.TabIndex = 3
+        '
+        'lblProcess
+        '
+        Me.lblProcess.AutoSize = True
+        Me.lblProcess.Location = New System.Drawing.Point(11, 48)
+        Me.lblProcess.Name = "lblProcess"
+        Me.lblProcess.Size = New System.Drawing.Size(48, 13)
+        Me.lblProcess.TabIndex = 2
+        Me.lblProcess.Text = "Process:"
+        '
+        'lblName
+        '
+        Me.lblName.AutoSize = True
+        Me.lblName.Location = New System.Drawing.Point(11, 22)
+        Me.lblName.Name = "lblName"
+        Me.lblName.Size = New System.Drawing.Size(38, 13)
+        Me.lblName.TabIndex = 0
+        Me.lblName.Text = "Name:"
+        '
+        'txtName
+        '
+        Me.txtName.Location = New System.Drawing.Point(70, 19)
+        Me.txtName.Name = "txtName"
+        Me.txtName.Size = New System.Drawing.Size(309, 20)
+        Me.txtName.TabIndex = 1
         '
         'frmFilter
         '

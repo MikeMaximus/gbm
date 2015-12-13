@@ -69,8 +69,8 @@ Public Class frmAddWizard
         lstSummary.Columns(0).Width = 95
         lstSummary.Columns(1).Width = 210
 
-        sItems = {"Name", "Process", "Absolute Path", "Save Path", "Folder Backup", "Specific Files", "Time Stamp", "Exclude List"}
-        sValues = {sName, sProcessSummaryText, mgrCommon.BooleanYesNo(bIsAbsolute), sSavePath, mgrCommon.BooleanYesNo(bFolderBackup), StringEmptyText(sFileType), mgrCommon.BooleanYesNo(bTimeStamp), StringEmptyText(sExcludeList)}
+        sItems = {"Name", "Process", "Absolute Path", "Save Path", "Folder Backup", "Time Stamp", "Included Items", "Excluded Items"}
+        sValues = {sName, sProcessSummaryText, mgrCommon.BooleanYesNo(bIsAbsolute), sSavePath, mgrCommon.BooleanYesNo(bFolderBackup), mgrCommon.BooleanYesNo(bTimeStamp), StringEmptyText(sFileType), StringEmptyText(sExcludeList)}
 
         For i = 0 To sItems.Length - 1
             sItem = {sItems(i), sValues(i)}
@@ -185,7 +185,7 @@ Public Class frmAddWizard
 
     Private Function ValidateSaveType(ByVal strSaveType As String, ByRef sErrorMessage As String)
         If strSaveType = String.Empty Then
-            sErrorMessage = "You must choose a file type or specific file to backup."
+            sErrorMessage = "You must choose items to include in the backup, or choose to save the entire folder."
             txtFileTypes.Focus()
             Return False
         End If
