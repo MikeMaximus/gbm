@@ -68,9 +68,11 @@ Public Class mgrMonitorList
         Dim hshParams As Hashtable
         Dim oParamList As New List(Of Hashtable)
 
-        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, Hours, Enabled, MonitorOnly) "
+        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly) "
         sSQL &= "VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, "
-        sSQL &= "@TimeStamp, @ExcludeList, @Hours, @Enabled, @MonitorOnly);"
+        sSQL &= "@TimeStamp, @ExcludeList, (SELECT ProcessPath FROM monitorlist WHERE MonitorID=@ID), "
+        sSQL &= "(SELECT Icon FROM monitorlist WHERE MonitorID=@ID), @Hours, (SELECT Version FROM monitorlist WHERE MonitorID=@ID), "
+        sSQL &= "(SELECT Company FROM monitorlist WHERE MonitorID=@ID), COALESCE((SELECT Enabled FROM monitorlist WHERE MonitorID=@ID),1), COALESCE((SELECT MonitorOnly FROM monitorlist WHERE MonitorID=@ID),0));"
 
         For Each oGame As clsGame In hshGames.Values
             hshParams = New Hashtable
@@ -86,10 +88,6 @@ Public Class mgrMonitorList
             hshParams.Add("TimeStamp", oGame.AppendTimeStamp)
             hshParams.Add("ExcludeList", oGame.ExcludeList)
             hshParams.Add("Hours", oGame.Hours)
-
-            'Required Defaults
-            hshParams.Add("Enabled", True)
-            hshParams.Add("MonitorOnly", False)
 
             oParamList.Add(hshParams)
         Next

@@ -693,10 +693,10 @@ Partial Class frmGameManager
         Me.optPendingRestores.AutoSize = True
         Me.optPendingRestores.Location = New System.Drawing.Point(6, 64)
         Me.optPendingRestores.Name = "optPendingRestores"
-        Me.optPendingRestores.Size = New System.Drawing.Size(104, 17)
+        Me.optPendingRestores.Size = New System.Drawing.Size(122, 17)
         Me.optPendingRestores.TabIndex = 2
         Me.optPendingRestores.TabStop = True
-        Me.optPendingRestores.Text = "Restore Pending"
+        Me.optPendingRestores.Text = "New Saves Pending"
         Me.optPendingRestores.UseVisualStyleBackColor = True
         '
         'optAllGames

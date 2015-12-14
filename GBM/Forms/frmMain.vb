@@ -313,9 +313,9 @@ Public Class frmMain
 
         If slRestoreData.Count > 0 Then
             If slRestoreData.Count > 1 Then
-                sNotification = slRestoreData.Count & " Restores pending"
+                sNotification = slRestoreData.Count & " New Saves Pending"
             Else
-                sNotification = slRestoreData.Count & " Restore pending"
+                sNotification = slRestoreData.Count & " New Save Pending"
             End If
             gMonNotification.Image = My.Resources.Inbox
             gMonTrayNotification.Image = My.Resources.Inbox
