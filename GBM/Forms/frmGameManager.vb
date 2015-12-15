@@ -562,6 +562,9 @@ Public Class frmGameManager
         If txtCurrentBackup.Text = "Never" And txtLocalBackup.Text = "Never" Then
             lblSync.Visible = False
             btnMarkAsRestored.Enabled = False
+        ElseIf txtCurrentBackup.Text = "Never" And txtLocalBackup.Text <> "Never" Then
+            lblSync.Visible = False
+            btnMarkAsRestored.Enabled = False
         ElseIf txtCurrentBackup.Text <> txtLocalBackup.Text Then
             lblSync.ForeColor = Color.Red
             lblSync.Text = "Out of Sync!"

@@ -121,9 +121,9 @@ Partial Class frmSettings
         Me.chkShowDetectionTips.AutoSize = True
         Me.chkShowDetectionTips.Location = New System.Drawing.Point(6, 88)
         Me.chkShowDetectionTips.Name = "chkShowDetectionTips"
-        Me.chkShowDetectionTips.Size = New System.Drawing.Size(136, 17)
+        Me.chkShowDetectionTips.Size = New System.Drawing.Size(159, 17)
         Me.chkShowDetectionTips.TabIndex = 3
-        Me.chkShowDetectionTips.Text = "Show detection tooltips"
+        Me.chkShowDetectionTips.Text = "Show detection notifications"
         Me.chkShowDetectionTips.UseVisualStyleBackColor = True
         '
         'chkStartToTray
@@ -208,7 +208,7 @@ Partial Class frmSettings
         Me.grpBackup.Size = New System.Drawing.Size(360, 171)
         Me.grpBackup.TabIndex = 1
         Me.grpBackup.TabStop = False
-        Me.grpBackup.Text = "Backup and Restore Options"
+        Me.grpBackup.Text = "Backup and Restore"
         '
         'lblMinutes
         '
