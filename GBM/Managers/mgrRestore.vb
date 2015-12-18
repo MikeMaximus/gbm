@@ -31,15 +31,15 @@ Public Class mgrRestore
         Dim oResult As MsgBoxResult
 
         If oCheckBackup.RestorePath <> oCheckGame.Path Then
-            oResult = MsgBox("The restore path for " & oCheckBackup.CroppedName & " does not match it's current save path." & vbCrLf & vbCrLf & _
-                      "Do you want to restore to the current save path instead? (Recommended)", MsgBoxStyle.YesNoCancel, "Game Backup Monitor")
+            oResult = mgrCommon.ShowMessage("The restore path for " & oCheckBackup.CroppedName & " does not match it's current save path." & vbCrLf & vbCrLf & _
+                      "Do you want to restore to the current save path instead? (Recommended)", MsgBoxStyle.YesNoCancel)
             If oResult = MsgBoxResult.Yes Then
                 If Path.IsPathRooted(oCheckGame.Path) Then
                     oCheckBackup.AbsolutePath = True
                     oCheckBackup.RestorePath = oCheckGame.Path
                 Else
                     oCheckBackup.RestorePath = oCheckGame.Path
-                End If                
+                End If
             ElseIf oResult = MsgBoxResult.Cancel Then
                 Return False
             End If
@@ -198,8 +198,8 @@ Public Class mgrRestore
 
             'Check if restore location exists, prompt to create if it doesn't.
             If Not Directory.Exists(sExtractPath) Then
-                If MsgBox("The restore path " & sExtractPath & " does not exist." & vbCrLf & vbCrLf & _
-                          "Do you want to create the folder and continue?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                If mgrCommon.ShowMessage("The restore path " & sExtractPath & " does not exist." & vbCrLf & vbCrLf & _
+                          "Do you want to create the folder and continue?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     Try
                         Directory.CreateDirectory(sExtractPath)
                     Catch ex As Exception
@@ -218,8 +218,8 @@ Public Class mgrRestore
                     sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
                     If sHash <> oBackupInfo.CheckSum Then
                         RaiseEvent UpdateLog("The backup file for " & oBackupInfo.Name & " has failed the file integrity check.", False, ToolTipIcon.Info, True)
-                        If MsgBox("The backup file for " & oBackupInfo.Name & " has failed the file intergity check.  It may be corrupted, not exist or been modified by another application." & vbCrLf & vbCrLf & _
-                              "Do you still want to restore this backup? (Not Recommended)", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.No Then
+                        If mgrCommon.ShowMessage("The backup file for " & oBackupInfo.Name & " has failed the file intergity check.  It may be corrupted, not exist or been modified by another application." & vbCrLf & vbCrLf & _
+                              "Do you still want to restore this backup? (Not Recommended)", MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                             RaiseEvent UpdateLog("Restored Aborted by user due to a failed file integrity check.", False, ToolTipIcon.Info, True)
                             bDoRestore = False
                         End If

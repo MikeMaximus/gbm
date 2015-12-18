@@ -23,9 +23,9 @@ Public Class mgrMonitorList
 
             'If the remote database actually contains a list, then ask what to do
             If iGameCount > 0 Then
-                If MsgBox("GBM data already exists in the backup folder." & vbCrLf & vbCrLf & _
+                If mgrCommon.ShowMessage("GBM data already exists in the backup folder." & vbCrLf & vbCrLf & _
                           "Do you want to make your local game list the new master game list in this folder? (Recommended)" & vbCrLf & vbCrLf & _
-                          "Choosing No will sync your local game list to the current master game list in this folder.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                          "Choosing No will sync your local game list to the current master game list in this folder.", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     mgrMonitorList.SyncMonitorLists()
                 Else
                     mgrMonitorList.SyncMonitorLists(False)
@@ -45,7 +45,7 @@ Public Class mgrMonitorList
         Dim oStringFilters As New Hashtable
         Dim eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.NoFilter
 
-        If MsgBox("Would you like to apply a filter to your export?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+        If mgrCommon.ShowMessage("Would you like to apply a filter to your export?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             Dim frm As New frmFilter
             frm.ShowDialog()
             oTagFilters = frm.TagFilters
@@ -56,9 +56,9 @@ Public Class mgrMonitorList
         oList = ReadListForExport(oTagFilters, oStringFilters, eCurrentFilter)
 
         bSuccess = mgrXML.SerializeAndExport(oList, sLocation)
-        
+
         If bSuccess Then
-            MsgBox("Export Complete.  " & oList.Count & " item(s) have been exported.", MsgBoxStyle.Information, "Game Backup Monitor")
+            mgrCommon.ShowMessage("Export Complete.  " & oList.Count & " item(s) have been exported.", MsgBoxStyle.Information)
         End If
     End Sub
 
@@ -157,7 +157,7 @@ Public Class mgrMonitorList
 
         If bToRemote Then
             DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Remote)
-            
+
         Else
             DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Local)
         End If
@@ -233,10 +233,10 @@ Public Class mgrMonitorList
                 mgrTags.DoTagAddImport(frm.ImportData)
 
                 Cursor.Current = Cursors.Default
-                MsgBox("Import Complete.", MsgBoxStyle.Information, "Game Backup Monitor")
+                mgrCommon.ShowMessage("Import Complete.", MsgBoxStyle.Information)
             End If
         Else
-            MsgBox("This list does not contain any new games to import.", MsgBoxStyle.Information, "Game Backup Monitor")
+            mgrCommon.ShowMessage("This list does not contain any new games to import.", MsgBoxStyle.Information)
         End If
 
         Application.DoEvents()
@@ -249,7 +249,7 @@ Public Class mgrMonitorList
                 ImportMonitorList(sPath, True)
                 Return True
             Else
-                MsgBox("There's no response from:" & vbCrLf & vbCrLf & sPath & vbCrLf & vbCrLf & "Either the server is not responding or the URL is invalid.")
+                mgrCommon.ShowMessage("There's no response from:" & vbCrLf & vbCrLf & sPath & vbCrLf & vbCrLf & "Either the server is not responding or the URL is invalid.", MsgBoxStyle.Exclamation)
                 Return False
             End If
         Else
@@ -257,7 +257,7 @@ Public Class mgrMonitorList
                 ImportMonitorList(sPath)
                 Return True
             Else
-                MsgBox("The file:" & vbCrLf & sPath & vbCrLf & "cannot be found.")
+                mgrCommon.ShowMessage("The file:" & vbCrLf & sPath & vbCrLf & "cannot be found.", MsgBoxStyle.Exclamation)
                 Return False
             End If
         End If

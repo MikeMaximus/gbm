@@ -281,7 +281,7 @@ Public Class frmMain
                 If oSettings.DisableConfirmation Then
                     bDoBackup = True
                 Else
-                    If MsgBox("Do you wish to backup data from " & oProcess.GameInfo.Name & "?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                    If mgrCommon.ShowMessage("Do you wish to backup data from " & oProcess.GameInfo.Name & "?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                         bDoBackup = True
                     Else
                         bDoBackup = False
@@ -550,10 +550,10 @@ Public Class frmMain
 
     'Functions handling the opening of other windows
     Private Sub OpenAbout()
-        MsgBox("Game Backup Monitor" & vbCrLf & sVersion & vbCrLf & sRevision & vbCrLf & Chr(169) & sConstCopyright & vbCrLf & vbCrLf &
+        mgrCommon.ShowMessage("Game Backup Monitor" & vbCrLf & sVersion & vbCrLf & sRevision & vbCrLf & Chr(169) & sConstCopyright & vbCrLf & vbCrLf &
                "This program comes with ABSOLUTELY NO WARRANTY." & vbCrLf &
                "This is free software, and you are welcome to redistribute it under certain conditions." & vbCrLf & vbCrLf &
-               "See gpl-3.0.html in the program folder for details.", MsgBoxStyle.Information, "Game Backup Monitor")
+               "See gpl-3.0.html in the program folder for details.", MsgBoxStyle.Information)
     End Sub
 
     Private Sub OpenTags()
@@ -702,7 +702,7 @@ Public Class frmMain
 
         'The application cannot continue if this fails
         If Not oBackup.CheckForUtilities(mgrPath.Utility7zLocation) Then
-            MsgBox("7-Zip was not found in the Game Backup Monitor utilities folder.  The application cannot continue.", MsgBoxStyle.Critical, "Game Backup Monitor")
+            mgrCommon.ShowMessage("7-Zip was not found in the Game Backup Monitor utilities folder.  The application cannot continue.", MsgBoxStyle.Critical)
             bShutdown = True
             Me.Close()
         End If
@@ -783,9 +783,9 @@ Public Class frmMain
                 Dim sGame As String = oProcess.GameInfo.Name
 
                 If bProcessIsAdmin Then
-                    MsgBox(sGame & " is running as Administrator and GBM is not." &
+                    mgrCommon.ShowMessage(sGame & " is running as Administrator and GBM is not." &
                            vbCrLf & "You cannot cancel monitoring at this time." _
-                           & vbCrLf & vbCrLf & "Run GBM as Administrator to prevent this issue.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+                           & vbCrLf & vbCrLf & "Run GBM as Administrator to prevent this issue.", MsgBoxStyle.Exclamation)
                     RestartAsAdmin()
                     Exit Sub
                 End If
@@ -794,7 +794,7 @@ Public Class frmMain
                     sGame = "the unknown game"
                 End If
 
-                If MsgBox("Do you wish to cancel the monitoring of " & sGame & "?" & vbCrLf & vbCrLf & "Warning: When monitoring is cancelled, session time is NOT saved.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                If mgrCommon.ShowMessage("Do you wish to cancel the monitoring of " & sGame & "?" & vbCrLf & vbCrLf & "Warning: When monitoring is cancelled, session time is NOT saved.", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     UpdateLog("Monitoring of " & sGame & " was cancelled.", False)
                     SetLastAction("Monitoring of " & oProcess.GameInfo.CroppedName & " was cancelled")
 
@@ -816,7 +816,7 @@ Public Class frmMain
         Dim bClose As Boolean = False
 
         If bPrompt Then
-            If MsgBox("Are you sure you want to exit?  Your games will no longer be monitored.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage("Are you sure you want to exit?  Your games will no longer be monitored.", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 bClose = True
             End If
         Else
@@ -1038,7 +1038,7 @@ Public Class frmMain
     Private Sub VerifyCustomPathVariables()
         Dim sGames As String = String.Empty
         If Not mgrPath.VerifyCustomVariables(hshScanList, sGames) Then
-            MsgBox("The following monitored game(s) contain a custom path variable that is not set." & vbCrLf & sGames & vbCrLf & vbCrLf & "You will encounter backup/restore errors with these games until the variables are set.", MsgBoxStyle.Critical, "Game Backup Monitor")
+            mgrCommon.ShowMessage("The following monitored game(s) contain a custom path variable that is not set." & vbCrLf & sGames & vbCrLf & vbCrLf & "You will encounter backup/restore errors with these games until the variables are set.", MsgBoxStyle.Exclamation)
         End If
     End Sub
 
@@ -1066,7 +1066,7 @@ Public Class frmMain
             Try
                 IO.Directory.CreateDirectory(sSettingsRoot)
             Catch ex As Exception
-                MsgBox("An error occured creating application settings folder.  The application cannot proceed." & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Game Backup Monitor")
+                mgrCommon.ShowMessage("An error occured creating application settings folder.  The application cannot proceed." & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical)
                 bShutdown = True
                 Me.Close()
             End Try
@@ -1082,9 +1082,9 @@ Public Class frmMain
         If Not oDatabase.CheckDBVer(iDBVer) Then
             Select Case iDB
                 Case mgrSQLite.Database.Local
-                    MsgBox("Your local GBM data (Version " & iDBVer & ") is too new for your version of GBM (Version " & mgrCommon.AppVersion & ")." & vbCrLf & vbCrLf & "Please upgrade GBM or restore the settings file appropriate for your version.  The application cannot proceed.", MsgBoxStyle.Critical, "Game Backup Monitor")
+                    mgrCommon.ShowMessage("Your local GBM data (Version " & iDBVer & ") is too new for your version of GBM (Version " & mgrCommon.AppVersion & ")." & vbCrLf & vbCrLf & "Please upgrade GBM or restore the settings file appropriate for your version.  The application cannot proceed.", MsgBoxStyle.Critical)
                 Case mgrSQLite.Database.Remote
-                    MsgBox("The GBM data (Version " & iDBVer & ") in your backup folder is too new for your version of GBM (Version " & mgrCommon.AppVersion & ")." & vbCrLf & vbCrLf & "All computers sharing a backup folder must use the same version of GBM.  The application cannot proceed.", MsgBoxStyle.Critical, "Game Backup Monitor")
+                    mgrCommon.ShowMessage("The GBM data (Version " & iDBVer & ") in your backup folder is too new for your version of GBM (Version " & mgrCommon.AppVersion & ")." & vbCrLf & vbCrLf & "All computers sharing a backup folder must use the same version of GBM.  The application cannot proceed.", MsgBoxStyle.Critical)
             End Select
 
             bShutdown = True
@@ -1133,9 +1133,9 @@ Public Class frmMain
     'Functions to handle other features
     Private Sub RestartAsAdmin()
         If mgrCommon.IsElevated Then
-            MsgBox("Game Backup Monitor is already running as Administrator.", MsgBoxStyle.Information, "Game Backup Monitor")
+            mgrCommon.ShowMessage("Game Backup Monitor is already running as Administrator.", MsgBoxStyle.Information)
         Else
-            If MsgBox("Do you want to restart Game Backup Monitor as Administrator?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage("Do you want to restart Game Backup Monitor as Administrator?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrCommon.RestartAsAdmin()
                 bShutdown = True
                 ShutdownApp(False)
@@ -1148,10 +1148,10 @@ Public Class frmMain
 
         PauseScan()
 
-        If MsgBox("This tool removes orphaned backup information from the local manifest based on the current backup folder.  Data can become orphaned when backups are deleted by various computers that share the same backup folder on a cloud or network." & vbCrLf & vbCrLf &
+        If mgrCommon.ShowMessage("This tool removes orphaned backup information from the local manifest based on the current backup folder.  Data can become orphaned when backups are deleted by various computers that share the same backup folder on a cloud or network." & vbCrLf & vbCrLf &
                   "When alternating between different backup folders you should NOT use this tool." & vbCrLf & vbCrLf &
                   "Do you wish to proceed?", MsgBoxStyle.YesNo _
-                  , "Game Backup Monitor") = MsgBoxResult.Yes Then
+                  ) = MsgBoxResult.Yes Then
 
             slItems = mgrRestore.SyncLocalManifest()
 
@@ -1159,9 +1159,9 @@ Public Class frmMain
                 For Each oItem As clsBackup In slItems.Values
                     UpdateLog(oItem.Name & " entry was removed from local manfiest.", False)
                 Next
-                MsgBox(slItems.Count & " entries were removed from the local manifest.")
+                mgrCommon.ShowMessage(slItems.Count & " entries were removed from the local manifest.", MsgBoxStyle.Information)
             Else
-                MsgBox("The local manifest is clean.")
+                mgrCommon.ShowMessage("The local manifest is clean.", MsgBoxStyle.Information)
             End If
         End If
 
@@ -1175,9 +1175,9 @@ Public Class frmMain
 
         PauseScan()
 
-        If MsgBox("This will rebuild all databases and shrink them to an optimal size." & vbCrLf &
+        If mgrCommon.ShowMessage("This will rebuild all databases and shrink them to an optimal size." & vbCrLf &
                   "This should only be used if your gbm.s3db files are becoming very large." & vbCrLf & vbCrLf &
-                  "Do you wish to continue?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                  "Do you wish to continue?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
 
             oLocalDatabase = New mgrSQLite(mgrSQLite.Database.Local)
             oRemoteDatabase = New mgrSQLite(mgrSQLite.Database.Remote)
@@ -1326,7 +1326,7 @@ Public Class frmMain
                     If oProcess.Duplicate Then
                         sErrorMessage = "Multiple possible games have been detected running as Administrator and GBM is not, GBM cannot detect the path to identify your game or save your backup." & vbCrLf & vbCrLf &
                         "Please run GBM as Administrator to properly detect and backup this game."
-                        MsgBox(sErrorMessage, MsgBoxStyle.Critical, "Game Backup Monitor")
+                        mgrCommon.ShowMessage(sErrorMessage, MsgBoxStyle.Exclamation)
                         bAskForRestart = True
                     Else
                         If Not CheckForSavedPath() Then
@@ -1346,7 +1346,7 @@ Public Class frmMain
                     If oProcess.Duplicate Then
                         sErrorMessage = "Multiple possible 64-bit games have been detected, GBM cannot detect the path to identify your game or save your backup." & vbCrLf & vbCrLf &
                           "Please install the 64-bit version of GBM to detect and backup this game properly."
-                        MsgBox(sErrorMessage, MsgBoxStyle.Critical, "Game Backup Monitor")
+                        mgrCommon.ShowMessage(sErrorMessage, MsgBoxStyle.Exclamation)
                     Else
                         If Not CheckForSavedPath() Then
                             sErrorMessage = oProcess.GameInfo.Name & " is a 64-bit game, GBM cannot detect the required information to save your backup."

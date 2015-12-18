@@ -347,7 +347,7 @@ Public Class mgrPath
         If bNoAuto Then
             sMessage = sSearchReason & vbCrLf & vbCrLf & "Do you wish to manually set the game path? (Path will be saved)"
 
-            If MsgBox(sMessage, MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 sFolder = SetManualgamePath()
             End If
 
@@ -356,14 +356,14 @@ Public Class mgrPath
 
         sMessage = sSearchReason & vbCrLf & vbCrLf & "Do you wish to automatically search for the game path? (Path will be saved)"
 
-        If MsgBox(sMessage, MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+        If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             frmFind.ShowDialog()
 
             If frmFind.FoundItem <> String.Empty Then
                 sFolder = IO.Path.GetDirectoryName(frmFind.FoundItem)
                 sMessage = sGameName & " was located in the following folder:" & vbCrLf & vbCrLf & _
                            sFolder & vbCrLf & vbCrLf & "Is this correct?"
-                If MsgBox(sMessage, MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     Return sFolder
                 Else
                     sFolder = String.Empty
@@ -379,7 +379,7 @@ Public Class mgrPath
                 sMessage = "Do you wish to manually set the game path? (Path will be saved)"
             End If
 
-            If MsgBox(sMessage, MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 sFolder = SetManualgamePath()
             End If
         End If
@@ -391,9 +391,9 @@ Public Class mgrPath
         Dim dBrowser As FolderBrowserDialog
 
         If Not Directory.Exists(sBackupPath) Then
-            If MsgBox("The backup location " & sBackupPath & " is not available." & vbCrLf & _
+            If mgrCommon.ShowMessage("The backup location " & sBackupPath & " is not available." & vbCrLf & _
                       "It may be on an external or network drive that isn't connected." & vbCrLf & vbCrLf & _
-                      "Do you want to select another backup location and continue?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                      "Do you want to select another backup location and continue?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 dBrowser = New FolderBrowserDialog
                 dBrowser.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
                 If dBrowser.ShowDialog = DialogResult.OK Then

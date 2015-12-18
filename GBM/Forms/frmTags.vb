@@ -50,7 +50,7 @@
     Private Function HandleDirty() As MsgBoxResult
         Dim oResult As MsgBoxResult
 
-        oResult = MsgBox("There are unsaved changes on this form.  Do you want to save?", MsgBoxStyle.YesNoCancel, "Game Backup Monitor")
+        oResult = mgrCommon.ShowMessage("There are unsaved changes on this form.  Do you want to save?", MsgBoxStyle.YesNoCancel)
 
         Select Case oResult
             Case MsgBoxResult.Yes
@@ -204,7 +204,7 @@
             Case eModes.Add
                 If CoreValidatation(oTag) Then
                     bSuccess = True
-                    mgrTags.DoTagAdd(oTag)                    
+                    mgrTags.DoTagAdd(oTag)
                     eCurrentMode = eModes.View
                 End If
             Case eModes.Edit
@@ -229,7 +229,7 @@
         If lstTags.SelectedItems.Count > 0 Then
             oTag = DirectCast(TagData(lstTags.SelectedItems(0).ToString), clsTag)
 
-            If MsgBox("Are you sure you want to delete " & oTag.Name & "?  This cannot be undone." & vbCrLf & vbCrLf & "All games using this tag will have it removed.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage("Are you sure you want to delete " & oTag.Name & "?  This cannot be undone." & vbCrLf & vbCrLf & "All games using this tag will have it removed.", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrTags.DoTagDelete(oTag.ID)
                 LoadData()
                 eCurrentMode = eModes.Disabled
@@ -248,13 +248,13 @@
 
     Private Function CoreValidatation(ByVal oTag As clsTag) As Boolean
         If txtName.Text = String.Empty Then
-            MsgBox("You must enter a valid tag name.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage("You must enter a valid tag name.", MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
         End If
 
         If mgrTags.DoCheckDuplicate(oTag.Name, oTag.ID) Then
-            MsgBox("A tag with this name already exists.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage("A tag with this name already exists.", MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
         End If

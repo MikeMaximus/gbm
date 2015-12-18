@@ -349,7 +349,7 @@ Public Class frmGameManager
     Private Function HandleDirty() As MsgBoxResult
         Dim oResult As MsgBoxResult
 
-        oResult = MsgBox("There are unsaved changes on this form.  Do you want to save?", MsgBoxStyle.YesNoCancel, "Game Backup Monitor")
+        oResult = mgrCommon.ShowMessage("There are unsaved changes on this form.  Do you want to save?", MsgBoxStyle.YesNoCancel)
 
         Select Case oResult
             Case MsgBoxResult.Yes
@@ -393,7 +393,7 @@ Public Class frmGameManager
         If File.Exists(sFileName) Then
             Process.Start("explorer.exe", "/select," & sFileName)
         Else
-            MsgBox("The backup file does not exist.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage("The backup file does not exist.", MsgBoxStyle.Exclamation)
         End If
 
     End Sub
@@ -482,7 +482,7 @@ Public Class frmGameManager
         If Directory.Exists(sPath) Then
             Process.Start("explorer.exe", sPath)
         Else
-            MsgBox("The restore path does not exist.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage("The restore path does not exist.", MsgBoxStyle.Exclamation)
         End If
 
     End Sub
@@ -583,8 +583,8 @@ Public Class frmGameManager
         Dim oDir As DirectoryInfo
         Dim sSubDir As String
 
-        If MsgBox("This will delete the backup file and all records of this backup.  This cannot be undone. " & vbCrLf & vbCrLf & "Do you want to remove the data for " _
-                  & CurrentBackupItem.Name & "?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+        If mgrCommon.ShowMessage("This will delete the backup file and all records of this backup.  This cannot be undone. " & vbCrLf & vbCrLf & "Do you want to remove the data for " _
+                  & CurrentBackupItem.Name & "?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             mgrManifest.DoManifestDelete(CurrentBackupItem, mgrSQLite.Database.Local)
             mgrManifest.DoManifestDelete(CurrentBackupItem, mgrSQLite.Database.Remote)
 
@@ -601,9 +601,9 @@ Public Class frmGameManager
                     oDir = New DirectoryInfo(sSubDir)
                     If oDir.GetDirectories.Length > 0 Or oDir.GetFiles.Length > 0 Then
                         'Confirm
-                        If MsgBox("The backup folder " & sSubDir & " still contains " & oDir.GetDirectories.Length & " directories and " &
+                        If mgrCommon.ShowMessage("The backup folder " & sSubDir & " still contains " & oDir.GetDirectories.Length & " directories and " &
                                   oDir.GetFiles.Length & " files." & vbCrLf & vbCrLf & "Do you want to delete the contents and remove the sub-folder for this game?",
-                                  MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                                  MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                             If Directory.Exists(sSubDir) Then Directory.Delete(sSubDir, True)
                         End If
                     Else
@@ -982,7 +982,7 @@ Public Class frmGameManager
                 Next
 
                 sChanges = vbCrLf & vbCrLf & "Monitor this game:  " & mgrCommon.BooleanYesNo(oApp.Enabled) & vbCrLf & "Monitor only (No backup):  " & mgrCommon.BooleanYesNo(oApp.MonitorOnly)
-                If MsgBox("Are you sure you want to save the following changes to " & sMonitorIDs.Count & " selected games?" & sChanges, MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                If mgrCommon.ShowMessage("Are you sure you want to save the following changes to " & sMonitorIDs.Count & " selected games?" & sChanges, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     bSuccess = True
                     mgrMonitorList.DoListUpdateMulti(sMonitorIDs, oApp)
                     eCurrentMode = eModes.Disabled
@@ -1008,7 +1008,7 @@ Public Class frmGameManager
             oData = lstGames.SelectedItems(0)
             oApp = DirectCast(AppData(oData.Key), clsGame)
 
-            If MsgBox("Are you sure you want to delete " & oApp.Name & "?  This cannot be undone." & vbCrLf & vbCrLf & "This will not delete any backup files that already exist for this game.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage("Are you sure you want to delete " & oApp.Name & "?  This cannot be undone." & vbCrLf & vbCrLf & "This will not delete any backup files that already exist for this game.", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDelete(oApp.ID)
                 LoadData()
                 eCurrentMode = eModes.Disabled
@@ -1022,7 +1022,7 @@ Public Class frmGameManager
                 sMonitorIDs.Add(oApp.ID)
             Next
 
-            If MsgBox("Are you sure you want to delete the " & sMonitorIDs.Count & " selected games?  This cannot be undone.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage("Are you sure you want to delete the " & sMonitorIDs.Count & " selected games?  This cannot be undone.", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDeleteMulti(sMonitorIDs)
                 LoadData()
                 eCurrentMode = eModes.Disabled
@@ -1044,25 +1044,25 @@ Public Class frmGameManager
 
     Private Function CoreValidatation(ByVal oApp As clsGame) As Boolean
         If txtName.Text = String.Empty Then
-            MsgBox("You must enter a valid application name.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage("You must enter a valid application name.", MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
         End If
 
         If txtProcess.Text = String.Empty Then
-            MsgBox("You must enter a valid process name.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage("You must enter a valid process name.", MsgBoxStyle.Exclamation)
             txtProcess.Focus()
             Return False
         End If
 
         If chkFolderSave.Checked = False And txtFileType.Text = String.Empty Then
-            MsgBox("You must choose items to include in the backup, or choose to save the entire folder.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage("You must choose items to include in the backup, or choose to save the entire folder.", MsgBoxStyle.Exclamation)
             btnInclude.Focus()
             Return False
         End If
 
         If mgrMonitorList.DoDuplicateListCheck(oApp.Name, oApp.ProcessName, , oApp.ID) Then
-            MsgBox("A game with this exact name and process already exists.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage("A game with this exact name and process already exists.", MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
         End If
@@ -1085,7 +1085,7 @@ Public Class frmGameManager
             Next
 
             If oMarkList.Count = 1 Then
-                If MsgBox("Do you want to mark " & oMarkList(0).Name & " as restored?  This cannot be undone.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                If mgrCommon.ShowMessage("Do you want to mark " & oMarkList(0).Name & " as restored?  This cannot be undone.", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     bWasUpdated = True
                     If mgrManifest.DoManifestCheck(oMarkList(0).Name, mgrSQLite.Database.Local) Then
                         mgrManifest.DoManifestUpdate(oMarkList(0), mgrSQLite.Database.Local)
@@ -1094,7 +1094,7 @@ Public Class frmGameManager
                     End If
                 End If
             ElseIf oMarkList.Count > 1 Then
-                If MsgBox("Do you want to mark " & oMarkList.Count & " games as restored?  This cannot be undone.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                If mgrCommon.ShowMessage("Do you want to mark " & oMarkList.Count & " games as restored?  This cannot be undone.", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     bWasUpdated = True
                     For Each oGameBackup In oMarkList
                         If mgrManifest.DoManifestCheck(oGameBackup.Name, mgrSQLite.Database.Local) Then
@@ -1105,7 +1105,7 @@ Public Class frmGameManager
                     Next
                 End If
             Else
-                MsgBox("The selected game(s) have no backup data.", MsgBoxStyle.Information, "Game Backup Monitor")
+                mgrCommon.ShowMessage("The selected game(s) have no backup data.", MsgBoxStyle.Information)
             End If
 
             'Don't bother updating unless we actually did something
@@ -1144,7 +1144,7 @@ Public Class frmGameManager
                 sMsg = "Are you sure you want to run a backup for " & BackupList.Count & " games?  This will close the form."
             End If
 
-            If MsgBox(sMsg, MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(sMsg, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 TriggerBackup = True
                 Me.Close()
             End If
@@ -1179,12 +1179,12 @@ Public Class frmGameManager
                 bDoRestore = True
                 sMsg = "Are you sure you want to restore the backups for " & RestoreList.Count & " games?  This will close the form."
             Else
-                MsgBox("The selected game(s) have no backup data.", MsgBoxStyle.Information, "Game Backup Monitor")
+                mgrCommon.ShowMessage("The selected game(s) have no backup data.", MsgBoxStyle.Information)
             End If
 
             'We need this check in case a bunch of games with no backups are multi-selected
             If bDoRestore Then
-                If MsgBox(sMsg, MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                If mgrCommon.ShowMessage(sMsg, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     TriggerRestore = True
                     Me.Close()
                 End If
@@ -1218,7 +1218,7 @@ Public Class frmGameManager
 
     Private Sub ImportOfficialGameList()
 
-        If MsgBox("Would you like to choose games to import from the official game list?" & vbCrLf & vbCrLf & "This require an active internet connection.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+        If mgrCommon.ShowMessage("Would you like to choose games to import from the official game list?" & vbCrLf & vbCrLf & "This require an active internet connection.", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             If mgrMonitorList.DoImport(mgrPath.OfficialImportURL) Then
                 LoadData()
             End If

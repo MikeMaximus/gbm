@@ -109,7 +109,7 @@ Public Class mgrBackup
             RaiseEvent UpdateBackupInfo(oGame)
 
             If mgrRestore.CheckManifest(oGame.Name) Then
-                If MsgBox("The manifest shows the backup folder contains a backup for " & oGame.Name & " that has not been restored on this computer." & vbCrLf & vbCrLf & "Do you want to overwrite this file anyway?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.No Then
+                If mgrCommon.ShowMessage("The manifest shows the backup folder contains a backup for " & oGame.Name & " that has not been restored on this computer." & vbCrLf & vbCrLf & "Do you want to overwrite this file anyway?", MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                     RaiseEvent UpdateLog("Backup aborted by user due to manifest conflict.", False, ToolTipIcon.Error, True)
                     bDoBackup = False
                 End If
@@ -134,7 +134,7 @@ Public Class mgrBackup
             End If
 
             If oSettings.ShowOverwriteWarning And File.Exists(sBackupFile) Then
-                If MsgBox("A file with the same name already exists in the backup folder." & vbCrLf & vbCrLf & "Do you want to overwrite this file?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.No Then
+                If mgrCommon.ShowMessage("A file with the same name already exists in the backup folder." & vbCrLf & vbCrLf & "Do you want to overwrite this file?", MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                     RaiseEvent UpdateLog(oGame.Name & " backup aborted by user due to overwrite.", False, ToolTipIcon.Error, True)
                     bDoBackup = False
                 End If

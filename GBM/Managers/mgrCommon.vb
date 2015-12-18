@@ -125,4 +125,10 @@ Public Class mgrCommon
         oProcess.Start()
     End Sub
 
+    Public Shared Function ShowMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
+        Dim oResult As MsgBoxResult
+        oResult = MsgBox(sMsg, oType, "Game Backup Monitor")
+        Return oResult
+    End Function
+
 End Class

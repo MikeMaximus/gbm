@@ -202,15 +202,15 @@ Public Class frmAddWizard
         Next
 
         If hshDupeCheck.Contains(sNewGame) Then
-            MsgBox("A game with this exact name and process already exists.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage("A game with this exact name and process already exists.", MsgBoxStyle.Exclamation)
         Else
             mgrMonitorList.DoListAdd(oGameToSave)
-            If MsgBox(oGameToSave.Name & " has been saved." & vbCrLf & vbCrLf &
-                   "Would you like to add tags for " & oGameToSave.Name & "?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(oGameToSave.Name & " has been saved." & vbCrLf & vbCrLf &
+                   "Would you like to add tags for " & oGameToSave.Name & "?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 OpenTags(oGameToSave)
             End If
             Me.Close()
-            End If
+        End If
     End Sub
 
     Private Sub ValidateBack()
@@ -286,7 +286,7 @@ Public Class frmAddWizard
                 DoSave()
         End Select
 
-        If bError Then MsgBox(sErrorMessage, MsgBoxStyle.Exclamation, "Game Backup Monitor")
+        If bError Then mgrCommon.ShowMessage(sErrorMessage, MsgBoxStyle.Exclamation)
         StepHandler()
     End Sub
 
@@ -330,14 +330,14 @@ Public Class frmAddWizard
                         ReadShortcut(sTemp)
                         File.Delete(sTemp)
                     Catch e2 As Exception
-                        MsgBox("An error occured working with the shortcut file." & vbCrLf & vbCrLf & e2.Message, MsgBoxStyle.Critical, "Game Backup Monitor")
+                        mgrCommon.ShowMessage("An error occured working with the shortcut file." & vbCrLf & vbCrLf & e2.Message, MsgBoxStyle.Critical)
                     End Try
                 Else
-                    MsgBox("An error occured reading the shortcut file." & vbCrLf & vbCrLf & e1.Message, MsgBoxStyle.Critical, "Game Backup Monitor")
+                    mgrCommon.ShowMessage("An error occured reading the shortcut file." & vbCrLf & vbCrLf & e1.Message, MsgBoxStyle.Critical)
                 End If
             End Try
         Else
-            MsgBox("This file is not a shorcut.")
+            mgrCommon.ShowMessage("This file is not a shorcut.", MsgBoxStyle.Information)
         End If
     End Sub
 

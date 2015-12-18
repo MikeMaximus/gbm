@@ -135,9 +135,9 @@ Public Class frmFileFolderSearch
         If FoundItem = "Cancel" Then FoundItem = String.Empty
 
         If oDrives.Count > iCurrentDrive And FoundItem = String.Empty Then
-            oResult = MsgBox("The location was not found on the " & oSearchDrive.Root.ToString & _
+            oResult = mgrCommon.ShowMessage("The location was not found on the " & oSearchDrive.Root.ToString & _
                              " drive.  Do you wish to search the " & oDrives(iCurrentDrive).RootDirectory.ToString & _
-                             " drive?", MsgBoxStyle.YesNo, "Game Backup Monitor")
+                             " drive?", MsgBoxStyle.YesNo)
             If oResult = MsgBoxResult.Yes Then
                 Search(oDrives(iCurrentDrive))
             Else

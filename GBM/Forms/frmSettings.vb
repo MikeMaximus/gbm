@@ -75,7 +75,7 @@
             End If
             oSettings.BackupFolder = txtBackupFolder.Text
         Else
-            MsgBox("The backup folder does not exist.  Please choose a valid backup folder.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage("The backup folder does not exist.  Please choose a valid backup folder.", MsgBoxStyle.Exclamation)
             Return False
         End If
 

@@ -39,7 +39,7 @@ Public Class mgrSQLite
                     File.Copy(mgrPath.RemoteDatabaseLocation, sNewFile, False)
             End Select
         Catch ex As Exception
-            MsgBox("An error occured creating a backup of the database file at " & sNewFile & vbCrLf & vbCrLf & ex.Message)
+            mgrCommon.ShowMessage("An error occured creating a backup of the database file at " & sNewFile & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Exclamation)
         End Try
 
     End Sub
@@ -99,7 +99,7 @@ Public Class mgrSQLite
             RunParamQuery(sSql, New Hashtable)
             Return True
         Catch e As Exception
-            MsgBox("An error has occured attempting to create the local application database: " & vbCrLf & vbCrLf & e.Message)
+            mgrCommon.ShowMessage("An error has occured attempting to create the local application database: " & vbCrLf & vbCrLf & e.Message, MsgBoxStyle.Critical)
             Return False
         End Try
     End Function
@@ -133,7 +133,7 @@ Public Class mgrSQLite
             RunParamQuery(sSql, New Hashtable)
             Return True
         Catch e As Exception
-            MsgBox("An error has occured attempting to create the remote application database: " & vbCrLf & vbCrLf & e.Message)
+            mgrCommon.ShowMessage("An error has occured attempting to create the remote application database: " & vbCrLf & vbCrLf & e.Message, MsgBoxStyle.Critical)
             Return False
         End Try
     End Function
@@ -180,12 +180,12 @@ Public Class mgrSQLite
         BuildParams(command, hshParams)
         trans = db.BeginTransaction()
 
-        Try    
+        Try
             command.ExecuteNonQuery()
             trans.Commit()
         Catch e As Exception
             trans.Rollback()
-            MsgBox("An error has occured attempting run the query." & vbCrLf & vbCrLf & sSQL & vbCrLf & vbCrLf & e.Message)
+            mgrCommon.ShowMessage("An error has occured attempting run the query." & vbCrLf & vbCrLf & sSQL & vbCrLf & vbCrLf & e.Message, MsgBoxStyle.Exclamation)
             Return False
         Finally
             command.Dispose()
@@ -211,7 +211,7 @@ Public Class mgrSQLite
             trans.Commit()
         Catch e As Exception
             trans.Rollback()
-            MsgBox("An error has occured attempting run the query." & vbCrLf & vbCrLf & sSQL & vbCrLf & vbCrLf & e.Message)
+            mgrCommon.ShowMessage("An error has occured attempting run the query." & vbCrLf & vbCrLf & sSQL & vbCrLf & vbCrLf & e.Message, MsgBoxStyle.Exclamation)
             Return False
         Finally
             command.Dispose()
@@ -234,7 +234,7 @@ Public Class mgrSQLite
             adapter = New SQLiteDataAdapter(command)
             adapter.Fill(oData)
         Catch e As Exception
-            MsgBox("An error has occured attempting run the query." & vbCrLf & vbCrLf & sSQL & vbCrLf & vbCrLf & e.Message)
+            mgrCommon.ShowMessage("An error has occured attempting run the query." & vbCrLf & vbCrLf & sSQL & vbCrLf & vbCrLf & e.Message, MsgBoxStyle.Exclamation)
         Finally
             command.Dispose()
             Disconnect()
@@ -396,7 +396,7 @@ Public Class mgrSQLite
                 RunParamQuery(sSQL, New Hashtable)
 
                 'Upgrade IDs to GUIDs
-                UpgradeToGUID("monitorlist", "MonitorID")                
+                UpgradeToGUID("monitorlist", "MonitorID")
                 UpgradeToGUID("manifest", "ManifestID")
 
                 'Run a compact due to the large operations
@@ -524,7 +524,7 @@ Public Class mgrSQLite
         Try
             command.ExecuteNonQuery()
         Catch e As Exception
-            MsgBox("An error has occured attempting run the query." & vbCrLf & vbCrLf & sSQL & vbCrLf & vbCrLf & e.Message)
+            mgrCommon.ShowMessage("An error has occured attempting run the query." & vbCrLf & vbCrLf & sSQL & vbCrLf & vbCrLf & e.Message, MsgBoxStyle.Exclamation)
         Finally
             command.Dispose()
             Disconnect()

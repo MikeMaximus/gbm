@@ -67,7 +67,7 @@ Public Class frmVariableManager
     Private Function HandleDirty() As MsgBoxResult
         Dim oResult As MsgBoxResult
 
-        oResult = MsgBox("There are unsaved changes on this form.  Do you want to save?", MsgBoxStyle.YesNoCancel, "Game Backup Monitor")
+        oResult = mgrCommon.ShowMessage("There are unsaved changes on this form.  Do you want to save?", MsgBoxStyle.YesNoCancel)
 
         Select Case oResult
             Case MsgBoxResult.Yes
@@ -251,7 +251,7 @@ Public Class frmVariableManager
         If lstVariables.SelectedItems.Count > 0 Then
             oCustomVariable = DirectCast(VariableData(lstVariables.SelectedItems(0).ToString), clsPathVariable)
 
-            If MsgBox("Are you sure you want to delete " & oCustomVariable.Name & "?  This cannot be undone.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage("Are you sure you want to delete " & oCustomVariable.Name & "?  This cannot be undone.", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrVariables.DoVariableDelete(oCustomVariable.ID)
                 mgrVariables.DoPathUpdate(oCurrentVariable.FormattedName, oCurrentVariable.Path)
                 LoadData()
@@ -271,19 +271,19 @@ Public Class frmVariableManager
 
     Private Function CoreValidatation(ByVal oCustomVariable As clsPathVariable) As Boolean
         If txtName.Text = String.Empty Then
-            MsgBox("You must enter a valid path name.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage("You must enter a valid path name.", MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
         End If
 
         If txtPath.Text = String.Empty Then
-            MsgBox("You must enter a valid path.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage("You must enter a valid path.", MsgBoxStyle.Exclamation)
             txtPath.Focus()
             Return False
         End If
 
         If mgrVariables.DoCheckDuplicate(oCustomVariable.Name, oCustomVariable.ID) Then
-            MsgBox("An custom variable with this name already exists.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage("An custom variable with this name already exists.", MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
         End If

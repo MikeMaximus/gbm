@@ -72,7 +72,7 @@ Public Class frmIncludeExclude
             Catch uaex As UnauthorizedAccessException
                 'Do Nothing
             Catch ex As Exception
-                MsgBox("An unexpected error occured while reading the file system: " & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Game Backup Monitor")
+                mgrCommon.ShowMessage("An unexpected error occured while reading the file system: " & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical)
             Finally
                 treFiles.EndUpdate()
                 Cursor.Current = Cursors.Default

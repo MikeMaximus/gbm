@@ -40,7 +40,7 @@ Public Class frmStartUpWizard
             'Make sure database is the latest version
             oDatabase.DatabaseUpgrade()
             mgrMonitorList.SyncMonitorLists(False)
-            MsgBox("Existing data was detected in the backup folder and has been imported.", MsgBoxStyle.Information, "Game Backup Monitor")
+            mgrCommon.ShowMessage("Existing data was detected in the backup folder and has been imported.", MsgBoxStyle.Information)
         End If
     End Sub
 
@@ -48,7 +48,7 @@ Public Class frmStartUpWizard
         Select Case eCurrentStep
             Case eSteps.Step1
                 btnBack.Enabled = False
-                btnNext.Enabled = True                
+                btnNext.Enabled = True
                 tabWizard.SelectTab(0)
             Case eSteps.Step2
                 txtBackupPath.Text = oSettings.BackupFolder
@@ -71,7 +71,7 @@ Public Class frmStartUpWizard
     End Sub
 
     Private Sub DownloadSettings()
-        If MsgBox("Would you like to choose games to import from the official game list?" & vbCrLf & vbCrLf & "This require an active internet connection.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+        If mgrCommon.ShowMessage("Would you like to choose games to import from the official game list?" & vbCrLf & vbCrLf & "This require an active internet connection.", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             If mgrMonitorList.DoImport(mgrPath.OfficialImportURL) Then
                 oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
                 If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
@@ -165,7 +165,7 @@ Public Class frmStartUpWizard
                 Me.Close()
         End Select
 
-        If bError Then MsgBox(sErrorMessage, MsgBoxStyle.Exclamation, "Game Backup Monitor")
+        If bError Then mgrCommon.ShowMessage(sErrorMessage, MsgBoxStyle.Exclamation)
         StepHandler()
     End Sub
 
