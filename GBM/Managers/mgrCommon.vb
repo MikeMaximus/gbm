@@ -127,8 +127,40 @@ Public Class mgrCommon
 
     Public Shared Function ShowMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
         Dim oResult As MsgBoxResult
-        oResult = MsgBox(sMsg, oType, "Game Backup Monitor")
+        oResult = MsgBox(sMsg, oType, My.Resources.AppNameLong)
         Return oResult
     End Function
+
+    'Handles no extra parameters
+    Public Shared Function FormatString(ByVal sString As String) As String
+        sString = sString.Replace("[BR]", vbCrLf)
+
+        Return sString
+    End Function
+
+
+    'Handles single parameter stings
+    Public Shared Function FormatString(ByVal sString As String, ByVal sParam As String) As String
+        sString = sString.Replace("[BR]", vbCrLf)
+        sString = sString.Replace("[PARAM]", sParam)
+
+        Return sString
+    End Function
+
+    'Handles multi-parameter strings
+    Public Shared Function FormatString(ByVal sString As String, ByVal sParams As String()) As String
+        Dim iParam As Integer
+
+        sString = sString.Replace("[BR]", vbCrLf)
+
+        For Each s As String In sParams
+            iParam = sString.IndexOf("[PARAM]")
+            sString = sString.Remove(iParam, 7)
+            sString = sString.Insert(iParam, s)
+        Next
+
+        Return sString
+    End Function
+
 
 End Class

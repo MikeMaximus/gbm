@@ -121,11 +121,212 @@
   <data name="Admin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Admin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AppAbout" xml:space="preserve">
+    <value>Game Backup Monitor[BR]Version: [PARAM] Beta ([PARAM])[BR]Build: [PARAM][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details.</value>
+  </data>
+  <data name="AppAlreadyClean" xml:space="preserve">
+    <value>The local manifest is clean.</value>
+  </data>
+  <data name="AppCleanedGame" xml:space="preserve">
+    <value>[PARAM] entry was removed from local manfiest.</value>
+  </data>
+  <data name="AppCleanedTotal" xml:space="preserve">
+    <value>[PARAM] entries were removed from the local manifest.</value>
+  </data>
+  <data name="AppConfirmClean" xml:space="preserve">
+    <value>This tool removes orphaned backup information from the local manifest based on the current backup folder.  Data can become orphaned when backups are deleted by various computers that share the same backup folder on a cloud or network.[BR][BR]When alternating between different backup folders you should NOT use this tool.[BR][BR]Do you wish to proceed?</value>
+  </data>
+  <data name="AppConfirmRebuild" xml:space="preserve">
+    <value>This will rebuild all databases and shrink them to an optimal size.[BR]This should only be used if your gbm.s3db files are becoming very large.[BR][BR]Do you wish to continue?</value>
+  </data>
+  <data name="AppCopyright" xml:space="preserve">
+    <value>2015 Michael J. Seiferling</value>
+  </data>
+  <data name="AppExit" xml:space="preserve">
+    <value>Are you sure you want to exit?  Your games will no longer be monitored.</value>
+  </data>
+  <data name="AppLocalCompactComplete" xml:space="preserve">
+    <value>Local Database Vacuum Completed: [PARAM] KB</value>
+  </data>
+  <data name="AppLocalCompactInit" xml:space="preserve">
+    <value>Local Database Vacuum Initialized: [PARAM] KB</value>
+  </data>
+  <data name="AppNameLong" xml:space="preserve">
+    <value>Game Backup Monitor</value>
+  </data>
+  <data name="AppNameShort" xml:space="preserve">
+    <value>GBM</value>
+  </data>
+  <data name="AppRemoteCompactComplete" xml:space="preserve">
+    <value>Remote Database Vacuum Completed: [PARAM] KB</value>
+  </data>
+  <data name="AppRemoteCompactInit" xml:space="preserve">
+    <value>Remote Database Vacuum Initialized: [PARAM] KB</value>
+  </data>
   <data name="Clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Clock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Detected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_BackupInProgress" xml:space="preserve">
+    <value>Backup in Progress...</value>
+  </data>
+  <data name="frmMain_btnToggleLog_Hide" xml:space="preserve">
+    <value>Hide &amp;Log</value>
+  </data>
+  <data name="frmMain_btnToggleLog_Show" xml:space="preserve">
+    <value>Show &amp;Log</value>
+  </data>
+  <data name="frmMain_ChooseIcon" xml:space="preserve">
+    <value>Choose icon for [PARAM]</value>
+  </data>
+  <data name="frmMain_ConfirmBackup" xml:space="preserve">
+    <value>Do you wish to backup data from [PARAM]?</value>
+  </data>
+  <data name="frmMain_ConfirmMonitorCancel" xml:space="preserve">
+    <value>Do you wish to cancel the monitoring of [PARAM]?[BR][BR]Warning: When monitoring is cancelled, session time is NOT saved.</value>
+  </data>
+  <data name="frmMain_ConfirmRunAsAdmin" xml:space="preserve">
+    <value>Do you want to restart Game Backup Monitor as Administrator?</value>
+  </data>
+  <data name="frmMain_Error64Backup" xml:space="preserve">
+    <value>[PARAM] is a 64-bit game, GBM cannot detect the required information to save your backup.</value>
+  </data>
+  <data name="frmMain_Error7zip" xml:space="preserve">
+    <value>7-Zip was not found in the Game Backup Monitor utilities folder.  The application cannot continue.</value>
+  </data>
+  <data name="frmMain_ErrorAdminBackup" xml:space="preserve">
+    <value>[PARAM] is running as Administrator and GBM is not, GBM cannot detect the required information to save your backup.</value>
+  </data>
+  <data name="frmMain_ErrorAdminDetect" xml:space="preserve">
+    <value>[PARAM] is running as Administrator and GBM is not.[BR]You cannot cancel monitoring at this time.[BR][BR]Run GBM as Administrator to prevent this issue.</value>
+  </data>
+  <data name="frmMain_ErrorAlreadyAdmin" xml:space="preserve">
+    <value>Game Backup Monitor is already running as Administrator.</value>
+  </data>
+  <data name="frmMain_ErrorAppLocationChanged" xml:space="preserve">
+    <value>GBM is running from a new location, the Windows startup entry has been updated.</value>
+  </data>
+  <data name="frmMain_ErrorBackupCancel" xml:space="preserve">
+    <value>[PARAM] backup was cancelled.</value>
+  </data>
+  <data name="frmMain_ErrorBackupSessionLength" xml:space="preserve">
+    <value>[PARAM] backup was cancelled due to session length.</value>
+  </data>
+  <data name="frmMain_ErrorBackupUnknownPath" xml:space="preserve">
+    <value>[PARAM] backup was cancelled due to unknown path.</value>
+  </data>
+  <data name="frmMain_ErrorCustomVariable" xml:space="preserve">
+    <value>The following monitored game(s) contain a custom path variable that is not set.[BR][PARAM][BR][BR]You will encounter backup/restore errors with these games until the variables are set.</value>
+  </data>
+  <data name="frmMain_ErrorDBVerLocal" xml:space="preserve">
+    <value>Your local GBM data (Version [PARAM]) is too new for your version of GBM (Version [PARAM]).[BR][BR]Please upgrade GBM or restore the database file appropriate for your version.  The application cannot proceed.</value>
+  </data>
+  <data name="frmMain_ErrorDBVerRemote" xml:space="preserve">
+    <value>The GBM data (Version [PARAM]) in your backup folder is too new for your version of GBM (Version [PARAM])[BR][BR]All computers sharing a backup folder must use the same version of GBM.  The application cannot proceed.</value>
+  </data>
+  <data name="frmMain_ErrorMulti64" xml:space="preserve">
+    <value>Multiple possible 64-bit games have been detected, GBM cannot detect the path to identify your game or save your backup.[BR][BR]Please install the 64-bit version of GBM to detect and backup this game properly.</value>
+  </data>
+  <data name="frmMain_ErrorMultiAdmin" xml:space="preserve">
+    <value>Multiple possible games have been detected running as Administrator and GBM is not, GBM cannot detect the path to identify your game or save your backup.[BR][BR]Please run GBM as Administrator to properly detect and backup this game.</value>
+  </data>
+  <data name="frmMain_ErrorRelativePath" xml:space="preserve">
+    <value>[PARAM] uses a relative path and has never been detected on this computer.</value>
+  </data>
+  <data name="frmMain_ErrorRestorePath" xml:space="preserve">
+    <value>[PARAM] restore was cancelled due to a restore path issue.</value>
+  </data>
+  <data name="frmMain_ErrorSettingsFolder" xml:space="preserve">
+    <value>An error occured creating application settings folder.  The application cannot proceed.[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmMain_ExePath" xml:space="preserve">
+    <value>[PARAM] (Executable Path)</value>
+  </data>
+  <data name="frmMain_GameDetected" xml:space="preserve">
+    <value>[PARAM] Detected</value>
+  </data>
+  <data name="frmMain_GameEnded" xml:space="preserve">
+    <value>[PARAM] has ended.</value>
+  </data>
+  <data name="frmMain_GameListLoaded" xml:space="preserve">
+    <value>Game List ([PARAM]) Loaded.</value>
+  </data>
+  <data name="frmMain_gMonFileMonitor_Cancel" xml:space="preserve">
+    <value>Cancel &amp;Monitoring</value>
+  </data>
+  <data name="frmMain_gMonFileMonitor_Start" xml:space="preserve">
+    <value>Start &amp;Monitoring</value>
+  </data>
+  <data name="frmMain_gMonFileMonitor_Stop" xml:space="preserve">
+    <value>Stop &amp;Monitoring</value>
+  </data>
+  <data name="frmMain_IconFilter" xml:space="preserve">
+    <value>Icon files (*.ico)|*.ico</value>
+  </data>
+  <data name="frmMain_LastGame" xml:space="preserve">
+    <value>Last Game: [PARAM]</value>
+  </data>
+  <data name="frmMain_ManualBackup" xml:space="preserve">
+    <value>A manaul backup of [PARAM] was triggered.</value>
+  </data>
+  <data name="frmMain_MasterListChanged" xml:space="preserve">
+    <value>The master game list has been changed by a program other than GBM.</value>
+  </data>
+  <data name="frmMain_MonitorCancel" xml:space="preserve">
+    <value>Monitoring of [PARAM] was cancelled.</value>
+  </data>
+  <data name="frmMain_MonitorEnded" xml:space="preserve">
+    <value>[PARAM] monitoring ended.</value>
+  </data>
+  <data name="frmMain_MultipleGames" xml:space="preserve">
+    <value>Multiple Games</value>
+  </data>
+  <data name="frmMain_MultipleGamesDetected" xml:space="preserve">
+    <value>Multiple Games Detected</value>
+  </data>
+  <data name="frmMain_NewSaveNotificationMulti" xml:space="preserve">
+    <value>[PARAM] New Saves Pending</value>
+  </data>
+  <data name="frmMain_NewSaveNotificationSingle" xml:space="preserve">
+    <value>[PARAM] New Save Pending</value>
+  </data>
+  <data name="frmMain_NoDetails" xml:space="preserve">
+    <value>Game details are unavailable.</value>
+  </data>
+  <data name="frmMain_NoGameDetected" xml:space="preserve">
+    <value>No Game Detected</value>
+  </data>
+  <data name="frmMain_NotAvailable" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="frmMain_NotScanning" xml:space="preserve">
+    <value>Not Scanning</value>
+  </data>
+  <data name="frmMain_RestoreInProgress" xml:space="preserve">
+    <value>Restore in progress...</value>
+  </data>
+  <data name="frmMain_RunningAsAdmin" xml:space="preserve">
+    <value>GBM is running with Administrator privileges.</value>
+  </data>
+  <data name="frmMain_RunningAsNormal" xml:space="preserve">
+    <value>GBM is running with normal privileges.  Click to restart as Administrator.</value>
+  </data>
+  <data name="frmMain_SessionHours" xml:space="preserve">
+    <value>[PARAM] hours</value>
+  </data>
+  <data name="frmMain_SessionMinutes" xml:space="preserve">
+    <value>[PARAM] minutes</value>
+  </data>
+  <data name="frmMain_UnknownGame" xml:space="preserve">
+    <value>the unidentified game</value>
+  </data>
+  <data name="frmMain_UnknownGameEnded" xml:space="preserve">
+    <value>The unidentified game has ended.</value>
+  </data>
+  <data name="frmMain_UpdatedBy" xml:space="preserve">
+    <value>Updated by [PARAM] on [PARAM]</value>
   </data>
   <data name="GBM_Tray_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GBM_Tray_Detected.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -156,5 +357,65 @@
   </data>
   <data name="Working" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Working.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_btnCancelOperation" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmMain_gMonFile" xml:space="preserve">
+    <value>&amp;File</value>
+  </data>
+  <data name="frmMain_gMonFileExit" xml:space="preserve">
+    <value>&amp;Exit</value>
+  </data>
+  <data name="frmMain_gMonFileSettings" xml:space="preserve">
+    <value>&amp;Settings...</value>
+  </data>
+  <data name="frmMain_gMonHelp" xml:space="preserve">
+    <value>&amp;Help</value>
+  </data>
+  <data name="frmMain_gMonHelpAbout" xml:space="preserve">
+    <value>&amp;About Game Backup Monitor</value>
+  </data>
+  <data name="frmMain_gMonHelpCheckForUpdates" xml:space="preserve">
+    <value>&amp;Check for Updates...</value>
+  </data>
+  <data name="frmMain_gMonHelpManual" xml:space="preserve">
+    <value>Online &amp;Manual...</value>
+  </data>
+  <data name="frmMain_gMonHelpWebSite" xml:space="preserve">
+    <value>&amp;Official Web Site...</value>
+  </data>
+  <data name="frmMain_gMonSetup" xml:space="preserve">
+    <value>&amp;Setup</value>
+  </data>
+  <data name="frmMain_gMonSetupAddWizard" xml:space="preserve">
+    <value>Add Game &amp;Wizard...</value>
+  </data>
+  <data name="frmMain_gMonSetupCustomVariables" xml:space="preserve">
+    <value>Custom &amp;Path Variables...</value>
+  </data>
+  <data name="frmMain_gMonSetupGameManager" xml:space="preserve">
+    <value>&amp;Game Manager...</value>
+  </data>
+  <data name="frmMain_gMonSetupTags" xml:space="preserve">
+    <value>&amp;Tags...</value>
+  </data>
+  <data name="frmMain_gMonStripStatusButton" xml:space="preserve">
+    <value>Monitor Status:</value>
+  </data>
+  <data name="frmMain_gMonTools" xml:space="preserve">
+    <value>&amp;Tools</value>
+  </data>
+  <data name="frmMain_gMonToolsCleanMan" xml:space="preserve">
+    <value>Clea&amp;n Local Manifest</value>
+  </data>
+  <data name="frmMain_gMonToolsCompact" xml:space="preserve">
+    <value>&amp;Compact Databases</value>
+  </data>
+  <data name="frmMain_gMonTrayShow" xml:space="preserve">
+    <value>Show / Hide</value>
+  </data>
+  <data name="frmMain_lblLastActionTitle" xml:space="preserve">
+    <value>Last Action:</value>
   </data>
 </root>
