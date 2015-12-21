@@ -121,46 +121,46 @@
   <data name="Admin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Admin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AppAbout" xml:space="preserve">
+  <data name="frmMain_About" xml:space="preserve">
     <value>Game Backup Monitor[BR]Version: [PARAM] Beta ([PARAM])[BR]Build: [PARAM][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details.</value>
   </data>
-  <data name="AppAlreadyClean" xml:space="preserve">
+  <data name="frmMain_ManifestAreadyClean" xml:space="preserve">
     <value>The local manifest is clean.</value>
   </data>
-  <data name="AppCleanedGame" xml:space="preserve">
+  <data name="frmMain_ManifestRemovedEntry" xml:space="preserve">
     <value>[PARAM] entry was removed from local manfiest.</value>
   </data>
-  <data name="AppCleanedTotal" xml:space="preserve">
+  <data name="frmMain_ManifestTotalRemoved" xml:space="preserve">
     <value>[PARAM] entries were removed from the local manifest.</value>
   </data>
-  <data name="AppConfirmClean" xml:space="preserve">
+  <data name="frmMain_ConfirmManifestClean" xml:space="preserve">
     <value>This tool removes orphaned backup information from the local manifest based on the current backup folder.  Data can become orphaned when backups are deleted by various computers that share the same backup folder on a cloud or network.[BR][BR]When alternating between different backup folders you should NOT use this tool.[BR][BR]Do you wish to proceed?</value>
   </data>
-  <data name="AppConfirmRebuild" xml:space="preserve">
+  <data name="frmMain_ConfirmRebuild" xml:space="preserve">
     <value>This will rebuild all databases and shrink them to an optimal size.[BR]This should only be used if your gbm.s3db files are becoming very large.[BR][BR]Do you wish to continue?</value>
   </data>
-  <data name="AppCopyright" xml:space="preserve">
+  <data name="App_Copyright" xml:space="preserve">
     <value>2015 Michael J. Seiferling</value>
   </data>
-  <data name="AppExit" xml:space="preserve">
+  <data name="frmMain_Exit" xml:space="preserve">
     <value>Are you sure you want to exit?  Your games will no longer be monitored.</value>
   </data>
-  <data name="AppLocalCompactComplete" xml:space="preserve">
+  <data name="frmMain_LocalCompactComplete" xml:space="preserve">
     <value>Local Database Vacuum Completed: [PARAM] KB</value>
   </data>
-  <data name="AppLocalCompactInit" xml:space="preserve">
+  <data name="frmMain_LocalCompactInit" xml:space="preserve">
     <value>Local Database Vacuum Initialized: [PARAM] KB</value>
   </data>
-  <data name="AppNameLong" xml:space="preserve">
+  <data name="App_NameLong" xml:space="preserve">
     <value>Game Backup Monitor</value>
   </data>
   <data name="AppNameShort" xml:space="preserve">
     <value>GBM</value>
   </data>
-  <data name="AppRemoteCompactComplete" xml:space="preserve">
+  <data name="frmMain_RemoteCompactComplete" xml:space="preserve">
     <value>Remote Database Vacuum Completed: [PARAM] KB</value>
   </data>
-  <data name="AppRemoteCompactInit" xml:space="preserve">
+  <data name="frmMain_RemoteCompactInit" xml:space="preserve">
     <value>Remote Database Vacuum Initialized: [PARAM] KB</value>
   </data>
   <data name="Clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -417,5 +417,260 @@
   </data>
   <data name="frmMain_lblLastActionTitle" xml:space="preserve">
     <value>Last Action:</value>
+  </data>
+  <data name="frmMain_gMonStripStatusButtonToolTip" xml:space="preserve">
+    <value>Click to toggle monitoring on or off.</value>
+  </data>
+  <data name="App_ConfirmDirty" xml:space="preserve">
+    <value>There are unsaved changes on this form.  Do you want to save?</value>
+  </data>
+  <data name="App_KB" xml:space="preserve">
+    <value>[PARAM] KB</value>
+  </data>
+  <data name="App_MB" xml:space="preserve">
+    <value>[PARAM] MB</value>
+  </data>
+  <data name="frmGameManager_BackupTimeAndName" xml:space="preserve">
+    <value>[PARAM] by [PARAM]</value>
+  </data>
+  <data name="frmGameManager_btnAdd" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="frmGameManager_btnAppPathBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmGameManager_btnBackup" xml:space="preserve">
+    <value>&amp;Backup</value>
+  </data>
+  <data name="frmGameManager_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmGameManager_btnClose" xml:space="preserve">
+    <value>C&amp;lose</value>
+  </data>
+  <data name="frmGameManager_btnDelete" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="frmGameManager_btnDeleteBackup" xml:space="preserve">
+    <value>&amp;Delete Backup</value>
+  </data>
+  <data name="frmGameManager_btnExclude" xml:space="preserve">
+    <value>E&amp;xclude Items...</value>
+  </data>
+  <data name="frmGameManager_btnExport" xml:space="preserve">
+    <value>&amp;Export</value>
+  </data>
+  <data name="frmGameManager_btnIconBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmGameManager_btnImport" xml:space="preserve">
+    <value>&amp;Import</value>
+  </data>
+  <data name="frmGameManager_btnInclude" xml:space="preserve">
+    <value>In&amp;clude Items...</value>
+  </data>
+  <data name="frmGameManager_btnMarkAsRestored" xml:space="preserve">
+    <value>&amp;Mark as Restored</value>
+  </data>
+  <data name="frmGameManager_btnOpenBackupFile" xml:space="preserve">
+    <value>&amp;Open Backup File</value>
+  </data>
+  <data name="frmGameManager_btnOpenRestorePath" xml:space="preserve">
+    <value>O&amp;pen Restore Path</value>
+  </data>
+  <data name="frmGameManager_btnProcessBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmGameManager_btnRestore" xml:space="preserve">
+    <value>&amp;Restore</value>
+  </data>
+  <data name="frmGameManager_btnSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmGameManager_btnSavePathBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmGameManager_btnTags" xml:space="preserve">
+    <value>Tags...</value>
+  </data>
+  <data name="frmGameManager_chkEnabled" xml:space="preserve">
+    <value>Monitor this game</value>
+  </data>
+  <data name="frmGameManager_chkFolderSave" xml:space="preserve">
+    <value>Save entire folder</value>
+  </data>
+  <data name="frmGameManager_chkMonitorOnly" xml:space="preserve">
+    <value>Monitor only</value>
+  </data>
+  <data name="frmGameManager_chkTimeStamp" xml:space="preserve">
+    <value>Timestamp each backup</value>
+  </data>
+  <data name="frmGameManager_ChooseCustomIcon" xml:space="preserve">
+    <value>Choose a custom icon for the game</value>
+  </data>
+  <data name="frmGameManager_ChooseExe" xml:space="preserve">
+    <value>Choose exe file that starts the application</value>
+  </data>
+  <data name="frmGameManager_ChooseExePath" xml:space="preserve">
+    <value>Choose the location of application's exe file:</value>
+  </data>
+  <data name="frmGameManager_ChooseExportXML" xml:space="preserve">
+    <value>Choose a location for the export file</value>
+  </data>
+  <data name="frmGameManager_ChooseImportXML" xml:space="preserve">
+    <value>Choose a valid xml file to import</value>
+  </data>
+  <data name="frmGameManager_ChooseSaveFolder" xml:space="preserve">
+    <value>Choose the saved game folder:</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackup" xml:space="preserve">
+    <value>Are you sure you want to run a backup for [PARAM]?  This will close the form.</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackupDelete" xml:space="preserve">
+    <value>This will delete the backup file and all records of this backup.  This cannot be undone. [BR][BR]Do you want to remove the data for [PARAM]?</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackupFolderDelete" xml:space="preserve">
+    <value>The backup folder [PARAM] still contains [PARAM] directories and [PARAM] files.[BR][BR]Do you want to delete the contents and remove the sub-folder for this game?</value>
+  </data>
+  <data name="frmGameManager_ConfirmGameDelete" xml:space="preserve">
+    <value>Are you sure you want to delete [PARAM]?  This cannot be undone.[BR][BR]This will not delete any backup files that already exist for this game.</value>
+  </data>
+  <data name="frmGameManager_ConfirmMark" xml:space="preserve">
+    <value>Do you want to mark [PARAM] as restored?  This cannot be undone.</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiBackup" xml:space="preserve">
+    <value>Are you sure you want to run a backup for [PARAM] games?  This will close the form.</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiGameDelete" xml:space="preserve">
+    <value>Are you sure you want to delete the [PARAM] selected games?  This cannot be undone.</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiMark" xml:space="preserve">
+    <value>Do you want to mark [PARAM] games as restored?  This cannot be undone.</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiRestore" xml:space="preserve">
+    <value>Are you sure you want to restore the backups for [PARAM] games?  This will close the form.</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiSave" xml:space="preserve">
+    <value>Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Monitor this game: [PARAM][BR]Monitor only: [PARAM]</value>
+  </data>
+  <data name="frmGameManager_ConfirmOfficialImport" xml:space="preserve">
+    <value>Would you like to choose games to import from the official game list?[BR][BR]This require an active internet connection.</value>
+  </data>
+  <data name="frmGameManager_ConfirmRestore" xml:space="preserve">
+    <value>Are you sure you want to restore the backup for [PARAM]?  This will close the form.</value>
+  </data>
+  <data name="frmGameManager_ConfirmRestoreAnyway" xml:space="preserve">
+    <value>[PARAM] is already up to date.[BR][BR]Would you like to restore this backup anyway?</value>
+  </data>
+  <data name="frmGameManager_ErrorGameDupe" xml:space="preserve">
+    <value>A game with this exact name and process already exists.</value>
+  </data>
+  <data name="frmGameManager_ErrorNoBackupData" xml:space="preserve">
+    <value>The selected game(s) have no backup data.</value>
+  </data>
+  <data name="frmGameManager_ErrorNoBackupExists" xml:space="preserve">
+    <value>The backup file does not exist.</value>
+  </data>
+  <data name="frmGameManager_ErrorNoItems" xml:space="preserve">
+    <value>You must choose items to include in the backup, or choose to save the entire folder.</value>
+  </data>
+  <data name="frmGameManager_ErrorNoRestorePathExists" xml:space="preserve">
+    <value>The restore path does not exist.</value>
+  </data>
+  <data name="frmGameManager_ErrorPathNotSet" xml:space="preserve">
+    <value>[PARAM] uses a relative path and the game path has not been set.</value>
+  </data>
+  <data name="frmGameManager_ErrorValidName" xml:space="preserve">
+    <value>You must enter a valid game name.</value>
+  </data>
+  <data name="frmGameManager_ErrorValidProcess" xml:space="preserve">
+    <value>You must enter a valid process name.</value>
+  </data>
+  <data name="frmGameManager_Exclude" xml:space="preserve">
+    <value>Exclude</value>
+  </data>
+  <data name="frmGameManager_ExcludeShortcut" xml:space="preserve">
+    <value>E&amp;xclude</value>
+  </data>
+  <data name="frmGameManager_Executable" xml:space="preserve">
+    <value>Executable</value>
+  </data>
+  <data name="frmGameManager_FormName" xml:space="preserve">
+    <value>Game Manager</value>
+  </data>
+  <data name="frmGameManager_Icon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="frmGameManager_Include" xml:space="preserve">
+    <value>Include</value>
+  </data>
+  <data name="frmGameManager_IncludeShortcut" xml:space="preserve">
+    <value>In&amp;clude</value>
+  </data>
+  <data name="frmGameManager_Items" xml:space="preserve">
+    <value>Items...</value>
+  </data>
+  <data name="frmGameManager_ItemsExist" xml:space="preserve">
+    <value>Items... ([PARAM])</value>
+  </data>
+  <data name="frmGameManager_lblCompany" xml:space="preserve">
+    <value>Company:</value>
+  </data>
+  <data name="frmGameManager_lblCurrentBackup" xml:space="preserve">
+    <value>Current Backup:</value>
+  </data>
+  <data name="frmGameManager_lblFileSize" xml:space="preserve">
+    <value>Backup Size:</value>
+  </data>
+  <data name="frmGameManager_lblGamePath" xml:space="preserve">
+    <value>Game Path:</value>
+  </data>
+  <data name="frmGameManager_lblHours" xml:space="preserve">
+    <value>Hours:</value>
+  </data>
+  <data name="frmGameManager_lblIcon" xml:space="preserve">
+    <value>Icon:</value>
+  </data>
+  <data name="frmGameManager_lblLastBackup" xml:space="preserve">
+    <value>Local Backup:</value>
+  </data>
+  <data name="frmGameManager_lblName" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="frmGameManager_lblProcess" xml:space="preserve">
+    <value>Process:</value>
+  </data>
+  <data name="frmGameManager_lblRestorePath" xml:space="preserve">
+    <value>Restore Path:</value>
+  </data>
+  <data name="frmGameManager_lblSavePath" xml:space="preserve">
+    <value>Save Path:</value>
+  </data>
+  <data name="frmGameManager_lblVersion" xml:space="preserve">
+    <value>Version:</value>
+  </data>
+  <data name="frmGameManager_Never" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="frmGameManager_optAllGames" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="frmGameManager_optBackupData" xml:space="preserve">
+    <value>Backups Only</value>
+  </data>
+  <data name="frmGameManager_optCustom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="frmGameManager_optPendingRestores" xml:space="preserve">
+    <value>New Saves Pending</value>
+  </data>
+  <data name="frmGameManager_OutofSync" xml:space="preserve">
+    <value>Out of Sync</value>
+  </data>
+  <data name="frmGameManager_UpToDate" xml:space="preserve">
+    <value>Up to Date!</value>
+  </data>
+  <data name="frmGameManager_XML" xml:space="preserve">
+    <value>XML</value>
   </data>
 </root>

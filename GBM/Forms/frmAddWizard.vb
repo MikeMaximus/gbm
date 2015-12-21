@@ -420,6 +420,11 @@ Public Class frmAddWizard
 
     Private Sub frmAddWizard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         FormInit()
+
+        'Dim sResource As String = String.Empty
+        'Dim sCode As String = String.Empty
+        'mgrCommon.GetAllStrings(Me, sResource, sCode, "frmAddWizard")
+        'Clipboard.SetText(sResource & vbCrLf & vbCrLf & sCode)
     End Sub
 
     Private Sub DropTarget_DragEnter(sender As Object, e As DragEventArgs) Handles lblDrag1.DragEnter, lblDrag2.DragEnter, txtName.DragEnter, txtProcessPath.DragEnter

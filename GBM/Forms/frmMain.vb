@@ -548,9 +548,9 @@ Public Class frmMain
         Dim sVersion As String = My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor
         Dim sProcessType = [Enum].GetName(GetType(System.Reflection.ProcessorArchitecture), iProcessType)
         Dim sRevision As String = My.Application.Info.Version.Build & "." & My.Application.Info.Version.Revision
-        Dim sConstCopyright As String = Chr(169) & My.Resources.AppCopyright
+        Dim sConstCopyright As String = Chr(169) & My.Resources.App_Copyright
 
-        mgrCommon.ShowMessage(mgrCommon.FormatString(My.Resources.AppAbout, New String() {sVersion, sProcessType, sRevision, sConstCopyright}), MsgBoxStyle.Information)
+        mgrCommon.ShowMessage(mgrCommon.FormatString(My.Resources.frmMain_About, New String() {sVersion, sProcessType, sRevision, sConstCopyright}), MsgBoxStyle.Information)
     End Sub
 
     Private Sub OpenTags()
@@ -811,7 +811,7 @@ Public Class frmMain
         Dim bClose As Boolean = False
 
         If bPrompt Then
-            If mgrCommon.ShowMessage(My.Resources.AppExit, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(My.Resources.frmMain_Exit, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 bClose = True
             End If
         Else
@@ -948,6 +948,9 @@ Public Class frmMain
     End Sub
 
     Private Sub SetForm()
+        'Set Form Name
+        Me.Name = My.Resources.App_NameLong
+
         'Set Menu Text
         gMonFile.Text = My.Resources.frmMain_gMonFile
         gMonFileMonitor.Text = My.Resources.frmMain_gMonFileMonitor_Start
@@ -985,6 +988,7 @@ Public Class frmMain
         lblLastActionTitle.Text = My.Resources.frmMain_lblLastActionTitle
         btnCancelOperation.Text = My.Resources.frmMain_btnCancelOperation
         gMonStripStatusButton.Text = My.Resources.frmMain_gMonStripStatusButton
+        gMonStripStatusButton.ToolTipText = My.Resources.frmMain_gMonStripStatusButtonToolTip
 
         If mgrCommon.IsElevated Then
             gMonStripAdminButton.Image = My.Resources.Admin
@@ -1181,17 +1185,17 @@ Public Class frmMain
 
         PauseScan()
 
-        If mgrCommon.ShowMessage(mgrCommon.FormatString(My.Resources.AppConfirmClean), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+        If mgrCommon.ShowMessage(mgrCommon.FormatString(My.Resources.frmMain_ConfirmManifestClean), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
 
             slItems = mgrRestore.SyncLocalManifest()
 
             If slItems.Count > 0 Then
                 For Each oItem As clsBackup In slItems.Values
-                    UpdateLog(mgrCommon.FormatString(My.Resources.AppCleanedGame, oItem.Name), False)
+                    UpdateLog(mgrCommon.FormatString(My.Resources.frmMain_ManifestRemovedEntry, oItem.Name), False)
                 Next
-                mgrCommon.ShowMessage(mgrCommon.FormatString(My.Resources.AppCleanedTotal, slItems.Count), MsgBoxStyle.Information)
+                mgrCommon.ShowMessage(mgrCommon.FormatString(My.Resources.frmMain_ManifestTotalRemoved, slItems.Count), MsgBoxStyle.Information)
             Else
-                mgrCommon.ShowMessage(My.Resources.AppAlreadyClean, MsgBoxStyle.Information)
+                mgrCommon.ShowMessage(My.Resources.frmMain_ManifestAreadyClean, MsgBoxStyle.Information)
             End If
         End If
 
@@ -1205,18 +1209,18 @@ Public Class frmMain
 
         PauseScan()
 
-        If mgrCommon.ShowMessage(mgrCommon.FormatString(My.Resources.AppConfirmRebuild), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+        If mgrCommon.ShowMessage(mgrCommon.FormatString(My.Resources.frmMain_ConfirmRebuild), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
 
             oLocalDatabase = New mgrSQLite(mgrSQLite.Database.Local)
             oRemoteDatabase = New mgrSQLite(mgrSQLite.Database.Remote)
 
-            UpdateLog(mgrCommon.FormatString(My.Resources.AppLocalCompactInit, oLocalDatabase.GetDBSize), False)
+            UpdateLog(mgrCommon.FormatString(My.Resources.frmMain_LocalCompactInit, oLocalDatabase.GetDBSize), False)
             oLocalDatabase.CompactDatabase()
-            UpdateLog(mgrCommon.FormatString(My.Resources.AppLocalCompactComplete, oLocalDatabase.GetDBSize), False)
+            UpdateLog(mgrCommon.FormatString(My.Resources.frmMain_LocalCompactComplete, oLocalDatabase.GetDBSize), False)
 
-            UpdateLog(mgrCommon.FormatString(My.Resources.AppRemoteCompactInit, oRemoteDatabase.GetDBSize), False)
+            UpdateLog(mgrCommon.FormatString(My.Resources.frmMain_RemoteCompactInit, oRemoteDatabase.GetDBSize), False)
             oRemoteDatabase.CompactDatabase()
-            UpdateLog(mgrCommon.FormatString(My.Resources.AppRemoteCompactComplete, oRemoteDatabase.GetDBSize), False)
+            UpdateLog(mgrCommon.FormatString(My.Resources.frmMain_RemoteCompactComplete, oRemoteDatabase.GetDBSize), False)
         End If
 
         ResumeScan()

@@ -127,7 +127,7 @@ Public Class mgrCommon
 
     Public Shared Function ShowMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
         Dim oResult As MsgBoxResult
-        oResult = MsgBox(sMsg, oType, My.Resources.AppNameLong)
+        oResult = MsgBox(sMsg, oType, My.Resources.App_NameLong)
         Return oResult
     End Function
 
@@ -162,5 +162,29 @@ Public Class mgrCommon
         Return sString
     End Function
 
+    'Maintenance Only - Function for string management
+    Public Shared Sub GetAllStrings(ByVal ctlParent As Control, ByRef sResource As String, ByRef sCode As String, ByVal sFormName As String)
+        For Each ctl As Control In ctlParent.Controls
+            If TypeOf ctl Is GroupBox Then
+                GetAllStrings(ctl, sResource, sCode, sFormName)
+            ElseIf TypeOf ctl Is TabControl Then
+                For Each tb As TabPage In ctl.Controls
+                    GetAllStrings(tb, sResource, sCode, sFormName)
+                Next
+            ElseIf TypeOf ctl Is Label Then
+                sResource &= sFormName & "_" & ctl.Name & vbTab & ctl.Text & vbCrLf
+                sCode &= ctl.Name & ".Text = My.Resources." & sFormName & "_" & ctl.Name & vbCrLf
+            ElseIf TypeOf ctl Is Button Then
+                sResource &= sFormName & "_" & ctl.Name & vbTab & ctl.Text & vbCrLf
+                sCode &= ctl.Name & ".Text = My.Resources." & sFormName & "_" & ctl.Name & vbCrLf
+            ElseIf TypeOf ctl Is RadioButton Then
+                sResource &= sFormName & "_" & ctl.Name & vbTab & ctl.Text & vbCrLf
+                sCode &= ctl.Name & ".Text = My.Resources." & sFormName & "_" & ctl.Name & vbCrLf
+            ElseIf TypeOf ctl Is CheckBox Then
+                sResource &= sFormName & "_" & ctl.Name & vbTab & ctl.Text & vbCrLf
+                sCode &= ctl.Name & ".Text = My.Resources." & sFormName & "_" & ctl.Name & vbCrLf
+            End If
+        Next
+    End Sub
 
 End Class

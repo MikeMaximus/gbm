@@ -53,7 +53,7 @@ Partial Class frmGameManager
         Me.txtCompany = New System.Windows.Forms.TextBox()
         Me.lblCompany = New System.Windows.Forms.Label()
         Me.pbIcon = New System.Windows.Forms.PictureBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblIcon = New System.Windows.Forms.Label()
         Me.btnAppPathBrowse = New System.Windows.Forms.Button()
         Me.lblGamePath = New System.Windows.Forms.Label()
         Me.txtAppPath = New System.Windows.Forms.TextBox()
@@ -319,7 +319,7 @@ Partial Class frmGameManager
         Me.grpExtra.Controls.Add(Me.txtCompany)
         Me.grpExtra.Controls.Add(Me.lblCompany)
         Me.grpExtra.Controls.Add(Me.pbIcon)
-        Me.grpExtra.Controls.Add(Me.Label1)
+        Me.grpExtra.Controls.Add(Me.lblIcon)
         Me.grpExtra.Controls.Add(Me.btnAppPathBrowse)
         Me.grpExtra.Controls.Add(Me.lblGamePath)
         Me.grpExtra.Controls.Add(Me.txtAppPath)
@@ -401,14 +401,14 @@ Partial Class frmGameManager
         Me.pbIcon.TabIndex = 15
         Me.pbIcon.TabStop = False
         '
-        'Label1
+        'lblIcon
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 100)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(31, 13)
-        Me.Label1.TabIndex = 3
-        Me.Label1.Text = "Icon:"
+        Me.lblIcon.AutoSize = True
+        Me.lblIcon.Location = New System.Drawing.Point(6, 100)
+        Me.lblIcon.Name = "lblIcon"
+        Me.lblIcon.Size = New System.Drawing.Size(31, 13)
+        Me.lblIcon.TabIndex = 3
+        Me.lblIcon.Text = "Icon:"
         '
         'btnAppPathBrowse
         '
@@ -815,7 +815,7 @@ Partial Class frmGameManager
     Friend WithEvents btnAppPathBrowse As System.Windows.Forms.Button
     Friend WithEvents lblGamePath As System.Windows.Forms.Label
     Friend WithEvents txtAppPath As System.Windows.Forms.TextBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents lblIcon As System.Windows.Forms.Label
     Friend WithEvents pbIcon As System.Windows.Forms.PictureBox
     Friend WithEvents lblVersion As System.Windows.Forms.Label
     Friend WithEvents txtVersion As System.Windows.Forms.TextBox
