@@ -125,9 +125,24 @@ Public Class mgrCommon
         oProcess.Start()
     End Sub
 
+    'Handles no extra parameters
     Public Shared Function ShowMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
         Dim oResult As MsgBoxResult
-        oResult = MsgBox(sMsg, oType, My.Resources.App_NameLong)
+        oResult = MsgBox(FormatString(sMsg), oType, My.Resources.App_NameLong)
+        Return oResult
+    End Function
+
+    'Handles single parameter stings
+    Public Shared Function ShowMessage(ByVal sMsg As String, ByVal sParam As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
+        Dim oResult As MsgBoxResult
+        oResult = MsgBox(FormatString(sMsg, sParam), oType, My.Resources.App_NameLong)
+        Return oResult
+    End Function
+
+    'Handles multi-parameter strings
+    Public Shared Function ShowMessage(ByVal sMsg As String, ByVal sParams As String(), ByVal oType As MsgBoxStyle) As MsgBoxResult
+        Dim oResult As MsgBoxResult
+        oResult = MsgBox(FormatString(sMsg, sParams), oType, My.Resources.App_NameLong)
         Return oResult
     End Function
 

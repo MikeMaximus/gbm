@@ -673,4 +673,10 @@
   <data name="frmGameManager_XML" xml:space="preserve">
     <value>XML</value>
   </data>
+  <data name="frmGameManager_cmsFile" xml:space="preserve">
+    <value>&amp;File...</value>
+  </data>
+  <data name="frmGameManager_cmsOfficial" xml:space="preserve">
+    <value>&amp;Official List...</value>
+  </data>
 </root>
