@@ -188,16 +188,16 @@ Public Class mgrCommon
                 Next
             ElseIf TypeOf ctl Is Label Then
                 sResource &= sFormName & "_" & ctl.Name & vbTab & ctl.Text & vbCrLf
-                sCode &= ctl.Name & ".Text = My.Resources." & sFormName & "_" & ctl.Name & vbCrLf
+                sCode &= ctl.Name & ".Text = " & sFormName & "_" & ctl.Name & vbCrLf
             ElseIf TypeOf ctl Is Button Then
                 sResource &= sFormName & "_" & ctl.Name & vbTab & ctl.Text & vbCrLf
-                sCode &= ctl.Name & ".Text = My.Resources." & sFormName & "_" & ctl.Name & vbCrLf
+                sCode &= ctl.Name & ".Text = " & sFormName & "_" & ctl.Name & vbCrLf
             ElseIf TypeOf ctl Is RadioButton Then
                 sResource &= sFormName & "_" & ctl.Name & vbTab & ctl.Text & vbCrLf
-                sCode &= ctl.Name & ".Text = My.Resources." & sFormName & "_" & ctl.Name & vbCrLf
+                sCode &= ctl.Name & ".Text = " & sFormName & "_" & ctl.Name & vbCrLf
             ElseIf TypeOf ctl Is CheckBox Then
                 sResource &= sFormName & "_" & ctl.Name & vbTab & ctl.Text & vbCrLf
-                sCode &= ctl.Name & ".Text = My.Resources." & sFormName & "_" & ctl.Name & vbCrLf
+                sCode &= ctl.Name & ".Text = " & sFormName & "_" & ctl.Name & vbCrLf
             End If
         Next
     End Sub

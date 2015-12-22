@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports GBM.My.Resources
+Imports System.IO
 
 Public Class frmAddWizard
 
@@ -26,7 +27,44 @@ Public Class frmAddWizard
 
     Private eCurrentStep As eSteps = eSteps.Step1
 
-    Private Sub FormInit()
+    Private Sub SetForm()
+        'Set Form Name
+        Me.Text = frmAddWizard_FormName
+
+        'Set Form Text
+        btnCancel.Text = frmAddWizard_btnCancel
+        btnNext.Text = frmAddWizard_btnNext
+        btnBack.Text = frmAddWizard_btnBack
+        lblStep1Title.Text = frmAddWizard_lblStep1Title
+        lblDrag1.Text = frmAddWizard_lblDrag1
+        lblStep1Instructions.Text = frmAddWizard_lblStep1Instructions
+        lblStep1Intro.Text = frmAddWizard_lblStep1Intro
+        lblStep2Title.Text = frmAddWizard_lblStep2Title
+        lblStep2Instructions.Text = frmAddWizard_lblStep2Instructions
+        lblDrag2.Text = frmAddWizard_lblDrag2
+        btnProcessBrowse.Text = frmAddWizard_btnProcessBrowse
+        lblStep2Intro.Text = frmAddWizard_lblStep2Intro
+        lblStep3Title.Text = frmAddWizard_lblStep3Title
+        lblStep3Instructions.Text = frmAddWizard_lblStep3Instructions
+        chkTimeStamp.Text = frmAddWizard_chkTimeStamp
+        chkFolderSave.Text = frmAddWizard_chkFolderSave
+        btnSaveBrowse.Text = frmAddWizard_btnSaveBrowse
+        lblStep3Intro.Text = frmAddWizard_lblStep3Intro
+        lblIncludePathTitle.Text = frmAddWizard_lblIncludePathTitle
+        lblIncludePath.Text = frmAddWizard_lblIncludePath
+        lblFileTypes.Text = frmAddWizard_ItemsSelectedNone
+        btnInclude.Text = frmAddWizard_btnInclude
+        lblStep3aTitle.Text = frmAddWizard_lblStep3aTitle
+        lblStep3aInstructions.Text = frmAddWizard_lblStep3aInstructions
+        lblExcludePathTitle.Text = frmAddWizard_lblExcludePathTitle
+        lblExcludePath.Text = frmAddWizard_lblExcludePath
+        lblExclude.Text = frmAddWizard_ItemsSelectedNone
+        btnExclude.Text = frmAddWizard_btnExclude
+        lblStep4Title.Text = frmAddWizard_lblStep4Title
+        lblStep4Instructions.Text = frmAddWizard_lblStep4Instructions
+        lblStep5Intro.Text = frmAddWizard_lblStep5Intro
+        lblStep5Title.Text = frmAddWizard_lblStep5Title
+
         chkFolderSave.Checked = True
         chkTimeStamp.Checked = False
         StepHandler()
@@ -34,7 +72,7 @@ Public Class frmAddWizard
 
     Private Function StringEmptyText(ByVal sString As String) As String
         If sString = String.Empty Then
-            Return "None"
+            Return frmAddWizard_None
         Else
             Return sString
         End If
@@ -69,7 +107,7 @@ Public Class frmAddWizard
         lstSummary.Columns(0).Width = 95
         lstSummary.Columns(1).Width = 210
 
-        sItems = {"Name", "Process", "Absolute Path", "Save Path", "Folder Backup", "Time Stamp", "Included Items", "Excluded Items"}
+        sItems = {frmAddWizard_Summary_Name, frmAddWizard_Summary_Process, frmAddWizard_Summary_AbsolutePath, frmAddWizard_Summary_SavePath, frmAddWizard_Summary_FolderSave, frmAddWizard_Summary_Timestamp, frmAddWizard_Summary_Include, frmAddWizard_Summary_Exclude}
         sValues = {sName, sProcessSummaryText, mgrCommon.BooleanYesNo(bIsAbsolute), sSavePath, mgrCommon.BooleanYesNo(bFolderBackup), mgrCommon.BooleanYesNo(bTimeStamp), StringEmptyText(sFileType), StringEmptyText(sExcludeList)}
 
         For i = 0 To sItems.Length - 1
@@ -112,11 +150,11 @@ Public Class frmAddWizard
             Case eSteps.Step4
                 btnBack.Enabled = True
                 btnNext.Enabled = True
-                btnNext.Text = "&Next"
+                btnNext.Text = frmAddWizard_btnNext
                 tabWizard.SelectTab(4)
             Case eSteps.Step5
                 btnBack.Enabled = True
-                btnNext.Text = "&Finish"
+                btnNext.Text = frmAddWizard_btnNext_Finish
                 tabWizard.SelectTab(5)
         End Select
     End Sub
@@ -126,7 +164,7 @@ Public Class frmAddWizard
             txtName.Text = mgrPath.ValidateForFileSystem(txtName.Text)
             Return True
         Else
-            sErrorMessage = "You must enter a valid game name."
+            sErrorMessage = frmAddWizard_ErrorValidName
             txtName.Focus()
             Return False
         End If
@@ -135,25 +173,25 @@ Public Class frmAddWizard
 
     Private Function ValidateProcessPath(ByVal strPath As String, ByRef sErrorMessage As String) As Boolean
         If strPath = String.Empty Then
-            sErrorMessage = "You must select the game's executable file (.exe) to continue."
+            sErrorMessage = frmAddWizard_ErrorValidProcess
             txtProcessPath.Focus()
             Return False
         End If
 
         If Path.GetExtension(strPath.ToLower) <> ".exe" Then
-            sErrorMessage = "The file you selected is not an executable file."
+            sErrorMessage = frmAddWizard_ErrorNotAProcess
             txtProcessPath.Focus()
             Return False
         End If
 
         If Not Path.IsPathRooted(strPath) Then
-            sErrorMessage = "The path to the executable must be a full path."
+            sErrorMessage = frmAddWizard_ErrorBadProcessPath
             txtProcessPath.Focus()
             Return False
         End If
 
         If Not File.Exists(strPath) Then
-            sErrorMessage = "The selected executable file does not exist."
+            sErrorMessage = frmAddWizard_ErrorProcessNotExist
             txtProcessPath.Focus()
             Return False
         End If
@@ -163,19 +201,19 @@ Public Class frmAddWizard
 
     Private Function ValidateSavePath(ByVal strPath As String, ByRef sErrorMessage As String) As Boolean
         If strPath = String.Empty Then
-            sErrorMessage = "You must select the game's save file path to continue."
+            sErrorMessage = frmAddWizard_ErrorValidSavePath
             txtSavePath.Focus()
             Return False
         End If
 
         If Not Directory.Exists(strPath) Then
-            sErrorMessage = "The folder you selected does not exist or is not a valid folder."
+            sErrorMessage = frmAddWizard_ErrorSavePathNotExist
             txtSavePath.Focus()
             Return False
         End If
 
         If Not Path.IsPathRooted(strPath) Then
-            sErrorMessage = "The selected path must be a full path."
+            sErrorMessage = frmAddWizard_ErrorBadSavePath
             txtSavePath.Focus()
             Return False
         End If
@@ -185,7 +223,7 @@ Public Class frmAddWizard
 
     Private Function ValidateSaveType(ByVal strSaveType As String, ByRef sErrorMessage As String)
         If strSaveType = String.Empty Then
-            sErrorMessage = "You must choose items to include in the backup, or choose to save the entire folder."
+            sErrorMessage = frmAddWizard_ErrorValidSaveType
             txtFileTypes.Focus()
             Return False
         End If
@@ -202,11 +240,10 @@ Public Class frmAddWizard
         Next
 
         If hshDupeCheck.Contains(sNewGame) Then
-            mgrCommon.ShowMessage("A game with this exact name and process already exists.", MsgBoxStyle.Exclamation)
+            mgrCommon.ShowMessage(frmAddWizard_ErrorGameDupe, MsgBoxStyle.Exclamation)
         Else
             mgrMonitorList.DoListAdd(oGameToSave)
-            If mgrCommon.ShowMessage(oGameToSave.Name & " has been saved." & vbCrLf & vbCrLf &
-                   "Would you like to add tags for " & oGameToSave.Name & "?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(frmAddWizard_ConfirmSaveTags, New String() {oGameToSave.Name, oGameToSave.Name}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 OpenTags(oGameToSave)
             End If
             Me.Close()
@@ -330,14 +367,14 @@ Public Class frmAddWizard
                         ReadShortcut(sTemp)
                         File.Delete(sTemp)
                     Catch e2 As Exception
-                        mgrCommon.ShowMessage("An error occured working with the shortcut file." & vbCrLf & vbCrLf & e2.Message, MsgBoxStyle.Critical)
+                        mgrCommon.ShowMessage(frmAddWizard_ErrorWithShortcut, e2.Message, MsgBoxStyle.Critical)
                     End Try
                 Else
-                    mgrCommon.ShowMessage("An error occured reading the shortcut file." & vbCrLf & vbCrLf & e1.Message, MsgBoxStyle.Critical)
+                    mgrCommon.ShowMessage(frmAddWizard_ErrorWithShortcut, e1.Message, MsgBoxStyle.Critical)
                 End If
             End Try
         Else
-            mgrCommon.ShowMessage("This file is not a shorcut.", MsgBoxStyle.Information)
+            mgrCommon.ShowMessage(frmAddWizard_ErrorNotAShortcut, MsgBoxStyle.Information)
         End If
     End Sub
 
@@ -353,8 +390,8 @@ Public Class frmAddWizard
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFileBrowser("Choose exe file that starts the game", "exe", _
-                                          "Executable", sDefaultFolder, False)
+        sNewPath = mgrCommon.OpenFileBrowser(frmAddWizard_ChooseProcess, "exe",
+                                          frmAddWizard_Executable, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then txtProcessPath.Text = sNewPath
     End Sub
@@ -370,7 +407,7 @@ Public Class frmAddWizard
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser("Choose the game save folder:", sDefaultFolder, False)
+        sNewPath = mgrCommon.OpenFolderBrowser(frmAddWizard_ChooseSavePath, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then txtSavePath.Text = sNewPath
     End Sub
@@ -379,9 +416,9 @@ Public Class frmAddWizard
         Dim iCount As Integer = sBuilderString.Split(":").Length
 
         If sBuilderString <> String.Empty And iCount > 0 Then
-            lbl.Text = iCount & " item(s) selected"
+            lbl.Text = mgrCommon.FormatString(frmAddWizard_ItemsSelectedMulti, iCount)
         Else
-            lbl.Text = "0 Item(s) selected"
+            lbl.Text = frmAddWizard_ItemsSelectedNone
         End If
     End Sub
 
@@ -419,12 +456,7 @@ Public Class frmAddWizard
     End Sub
 
     Private Sub frmAddWizard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        FormInit()
-
-        'Dim sResource As String = String.Empty
-        'Dim sCode As String = String.Empty
-        'mgrCommon.GetAllStrings(Me, sResource, sCode, "frmAddWizard")
-        'Clipboard.SetText(sResource & vbCrLf & vbCrLf & sCode)
+        SetForm()
     End Sub
 
     Private Sub DropTarget_DragEnter(sender As Object, e As DragEventArgs) Handles lblDrag1.DragEnter, lblDrag2.DragEnter, txtName.DragEnter, txtProcessPath.DragEnter
@@ -461,12 +493,12 @@ Public Class frmAddWizard
     End Sub
 
     Private Sub btnInclude_Click(sender As Object, e As EventArgs) Handles btnInclude.Click
-        OpenBuilder("Include", txtFileTypes)
+        OpenBuilder(frmAddWizard_Include, txtFileTypes)
         UpdateBuilderLabel(txtFileTypes.Text, lblFileTypes)
     End Sub
 
     Private Sub btnExclude_Click(sender As Object, e As EventArgs) Handles btnExclude.Click
-        OpenBuilder("Exclude", txtExcludeList)
+        OpenBuilder(frmAddWizard_Exclude, txtExcludeList)
         UpdateBuilderLabel(txtExcludeList.Text, lblExclude)
     End Sub
 End Class

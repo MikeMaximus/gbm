@@ -61,6 +61,11 @@
         LoadData()
         SelectToggle()
         bIsLoading = False
+
+        Dim sResource As String = String.Empty
+        Dim sCode As String = String.Empty
+        mgrCommon.GetAllStrings(Me, sResource, sCode, "frmAdvancedImport")
+        Clipboard.SetText(sResource & vbCrLf & vbCrLf & sCode)
     End Sub
 
     Private Sub chkSelectAll_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectAll.CheckedChanged
