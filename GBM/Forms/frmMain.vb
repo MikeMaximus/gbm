@@ -313,8 +313,8 @@ Public Class frmMain
             Else
                 sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationSingle, slRestoreData.Count)
             End If
-            gMonNotification.Image = Inbox
-            gMonTrayNotification.Image = Inbox
+            gMonNotification.Image = Icon_Inbox
+            gMonTrayNotification.Image = Icon_Inbox
             gMonNotification.Text = sNotification
             gMonTrayNotification.Text = sNotification
             gMonNotification.Visible = True
@@ -359,7 +359,7 @@ Public Class frmMain
                 lblTimeSpent.Visible = True
             End If
         Else
-            pbIcon.Image = Searching
+            pbIcon.Image = Icon_Searching
             lblGameTitle.Text = frmMain_NoGameDetected
             lblStatus1.Text = String.Empty
             lblStatus2.Text = String.Empty
@@ -384,7 +384,7 @@ Public Class frmMain
         Else
             pbTime.Visible = False
             lblTimeSpent.Visible = False
-            pbIcon.Image = Working
+            pbIcon.Image = Icon_Working
             lblGameTitle.Text = sTitle
             lblStatus1.Text = sStatus1
             lblStatus2.Text = sStatus2
@@ -409,7 +409,7 @@ Public Class frmMain
             lblGameTitle.Text = frmMain_MultipleGames
             pbTime.Visible = False
             lblTimeSpent.Visible = False
-            pbIcon.Image = Unknown
+            pbIcon.Image = Icon_Unknown
             lblStatus1.Text = frmMain_NoDetails
         Else
             bAllowIcon = True
@@ -426,7 +426,7 @@ Public Class frmMain
                 sCompanyName = oProcess.FoundProcess.MainModule.FileVersionInfo.CompanyName
 
             Catch ex As Exception
-                pbIcon.Image = Unknown
+                pbIcon.Image = Icon_Unknown
             End Try
 
             'Check for a custom icon & details            
@@ -993,11 +993,11 @@ Public Class frmMain
         gMonStripStatusButton.ToolTipText = frmMain_gMonStripStatusButtonToolTip
 
         If mgrCommon.IsElevated Then
-            gMonStripAdminButton.Image = Admin
+            gMonStripAdminButton.Image = Icon_Admin
             gMonStripAdminButton.ToolTipText = frmMain_RunningAsAdmin
 
         Else
-            gMonStripAdminButton.Image = User
+            gMonStripAdminButton.Image = Icon_User
             gMonStripAdminButton.ToolTipText = frmMain_RunningAsNormal
         End If
         btnCancelOperation.Visible = False
@@ -1005,7 +1005,7 @@ Public Class frmMain
         lblLastActionTitle.Visible = False
         lblLastAction.Text = String.Empty
         pbTime.SizeMode = PictureBoxSizeMode.AutoSize
-        pbTime.Image = Clock
+        pbTime.Image = Icon_Clock
         Me.Size = New System.Drawing.Size(540, 245)
         AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
         ResetGameInfo()
@@ -1023,14 +1023,14 @@ Public Class frmMain
             tmScanTimer.Stop()
             eCurrentStatus = eStatus.Stopped
             UpdateStatus(frmMain_NotScanning)
-            gMonStripStatusButton.Image = Stopped
+            gMonStripStatusButton.Image = Icon_Stopped
             gMonTray.Icon = GBM_Tray_Stopped
         Else
             StartScan()
             StartSyncWatcher()
             eCurrentStatus = eStatus.Running
             UpdateStatus(frmMain_NoGameDetected)
-            gMonStripStatusButton.Image = Ready
+            gMonStripStatusButton.Image = Icon_Ready
             gMonTray.Icon = GBM_Tray_Ready
         End If
         ToggleMenuText()
@@ -1042,7 +1042,7 @@ Public Class frmMain
             tmScanTimer.Stop()
             eCurrentStatus = eStatus.Paused
             UpdateStatus(frmMain_NotScanning)
-            gMonStripStatusButton.Image = Detected
+            gMonStripStatusButton.Image = Icon_Detected
             gMonTray.Icon = GBM_Tray_Detected
         End If
         ToggleMenuText()
@@ -1054,7 +1054,7 @@ Public Class frmMain
             StartScan()
             StartSyncWatcher()
             eCurrentStatus = eStatus.Running
-            gMonStripStatusButton.Image = Ready
+            gMonStripStatusButton.Image = Icon_Ready
             gMonTray.Icon = GBM_Tray_Ready
             UpdateStatus(frmMain_NoGameDetected)
         End If
@@ -1067,7 +1067,7 @@ Public Class frmMain
         tmScanTimer.Stop()
         eCurrentStatus = eStatus.Stopped
         UpdateStatus(frmMain_NotScanning)
-        gMonStripStatusButton.Image = Stopped
+        gMonStripStatusButton.Image = Icon_Stopped
         gMonTray.Icon = GBM_Tray_Stopped
         ToggleMenuText()
         ToggleMenuEnable()

@@ -657,7 +657,7 @@ Public Class frmGameManager
         If IO.File.Exists(oApp.Icon) Then
             pbIcon.Image = Image.FromFile(oApp.Icon)
         Else
-            pbIcon.Image = Unknown
+            pbIcon.Image = Icon_Unknown
         End If
 
         'Stats
@@ -745,7 +745,7 @@ Public Class frmGameManager
                 WipeControls(grpConfig.Controls)
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
-                pbIcon.Image = Unknown
+                pbIcon.Image = Icon_Unknown
                 chkEnabled.Enabled = True
                 chkMonitorOnly.Enabled = True
                 btnSave.Enabled = True
@@ -831,7 +831,7 @@ Public Class frmGameManager
                 WipeControls(grpConfig.Controls)
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
-                pbIcon.Image = Unknown
+                pbIcon.Image = Icon_Unknown
                 lblSync.Visible = False
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
@@ -856,7 +856,7 @@ Public Class frmGameManager
                 WipeControls(grpConfig.Controls)
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
-                pbIcon.Image = Unknown
+                pbIcon.Image = Icon_Unknown
                 lblSync.Visible = False
                 btnSave.Enabled = True
                 btnCancel.Enabled = False

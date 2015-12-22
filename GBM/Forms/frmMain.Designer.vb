@@ -223,7 +223,7 @@ Partial Class frmMain
         '
         Me.gMonStripAdminButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.gMonStripAdminButton.DropDownButtonWidth = 0
-        Me.gMonStripAdminButton.Image = Global.GBM.My.Resources.Resources.User
+        Me.gMonStripAdminButton.Image = Global.GBM.My.Resources.Resources.Icon_User
         Me.gMonStripAdminButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.gMonStripAdminButton.Name = "gMonStripAdminButton"
         Me.gMonStripAdminButton.Size = New System.Drawing.Size(21, 20)
