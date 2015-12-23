@@ -862,4 +862,85 @@
   <data name="frmAddWizard_Summary_Timestamp" xml:space="preserve">
     <value>Timestamp</value>
   </data>
+  <data name="frmAdvancedImport_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmAdvancedImport_btnImport" xml:space="preserve">
+    <value>&amp;Import</value>
+  </data>
+  <data name="frmAdvancedImport_FormName" xml:space="preserve">
+    <value>Import Game Configurations</value>
+  </data>
+  <data name="frmAdvancedImport_NewConfigs" xml:space="preserve">
+    <value>[PARAM] new configurations available.</value>
+  </data>
+  <data name="frmAdvancedImport_Selected" xml:space="preserve">
+    <value>[PARAM] Selected</value>
+  </data>
+  <data name="frmChooseGame_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmChooseGame_btnChoose" xml:space="preserve">
+    <value>C&amp;hoose Game</value>
+  </data>
+  <data name="frmChooseGame_FormName" xml:space="preserve">
+    <value>Choose Game</value>
+  </data>
+  <data name="frmChooseGame_lblChoose" xml:space="preserve">
+    <value>Please choose the game you were playing:</value>
+  </data>
+  <data name="frmFileFolderSearch_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmFileFolderSearch_FormName" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="frmFileFolderSearch_SwitchDrives" xml:space="preserve">
+    <value>The location was not found on the [PARAM] drive.  Do you wish to search the [PARAM] drive?</value>
+  </data>
+  <data name="frmFilter_btnAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmFilter_btnOK" xml:space="preserve">
+    <value>&amp;OK</value>
+  </data>
+  <data name="frmFilter_btnRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmFilter_FormName" xml:space="preserve">
+    <value>Custom Filter</value>
+  </data>
+  <data name="frmFilter_lblCompany" xml:space="preserve">
+    <value>Company:</value>
+  </data>
+  <data name="frmFilter_lblGameTags" xml:space="preserve">
+    <value>Current Filter</value>
+  </data>
+  <data name="frmFilter_lblName" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="frmFilter_lblProcess" xml:space="preserve">
+    <value>Process:</value>
+  </data>
+  <data name="frmFilter_lblTags" xml:space="preserve">
+    <value>Available Tags</value>
+  </data>
+  <data name="frmFilter_optAll" xml:space="preserve">
+    <value>All Tags</value>
+  </data>
+  <data name="frmFilter_optAnd" xml:space="preserve">
+    <value>And</value>
+  </data>
+  <data name="frmFilter_optAny" xml:space="preserve">
+    <value>Any Tag</value>
+  </data>
+  <data name="frmFilter_optGameInfo" xml:space="preserve">
+    <value>Game Information</value>
+  </data>
+  <data name="frmFilter_optOr" xml:space="preserve">
+    <value>Or</value>
+  </data>
+  <data name="frmFilter_optTag" xml:space="preserve">
+    <value>Tag</value>
+  </data>
 </root>

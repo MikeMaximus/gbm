@@ -1,4 +1,6 @@
-﻿Public Class frmAdvancedImport
+﻿Imports GBM.My.Resources
+
+Public Class frmAdvancedImport
 
     Private hshImportData As Hashtable
     Private bSelectAll As Boolean = False
@@ -36,8 +38,15 @@
     End Sub
 
     Private Sub SetForm()
+        'Set Form Name
+        Me.Text = frmAdvancedImport_FormName
+
+        'Set Form Text
+        btnCancel.Text = frmAdvancedImport_btnCancel
+        btnImport.Text = frmAdvancedImport_btnImport
+
         chkSelectAll.Checked = True
-        lblGames.Text = ImportData.Count & " new configurations available."
+        lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_NewConfigs, ImportData.Count)
     End Sub
 
     Private Sub BuildList()
@@ -52,7 +61,7 @@
     End Sub
 
     Private Sub UpdateSelected()
-        lblSelected.Text = lstGames.CheckedItems.Count & " Selected"
+        lblSelected.Text = mgrCommon.FormatString(frmAdvancedImport_Selected, lstGames.CheckedItems.Count)
     End Sub
 
     Private Sub frmAdvancedImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -61,11 +70,6 @@
         LoadData()
         SelectToggle()
         bIsLoading = False
-
-        Dim sResource As String = String.Empty
-        Dim sCode As String = String.Empty
-        mgrCommon.GetAllStrings(Me, sResource, sCode, "frmAdvancedImport")
-        Clipboard.SetText(sResource & vbCrLf & vbCrLf & sCode)
     End Sub
 
     Private Sub chkSelectAll_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectAll.CheckedChanged

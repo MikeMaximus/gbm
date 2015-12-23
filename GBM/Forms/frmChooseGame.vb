@@ -1,4 +1,6 @@
-﻿Public Class frmChooseGame
+﻿Imports GBM.My.Resources
+
+Public Class frmChooseGame
 
     Private oProcess As mgrProcesses
     Private oGame As clsGame
@@ -49,9 +51,25 @@
         Me.Close()
     End Sub
 
+    Private Sub SetForm()
+        'Set Form Name
+        Me.Text = frmChooseGame_FormName
+
+        'Set Form Text
+        btnCancel.Text = frmChooseGame_btnCancel
+        btnChoose.Text = frmChooseGame_btnChoose
+        lblChoose.Text = frmChooseGame_lblChoose
+    End Sub
+
     Private Sub frmChooseGame_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        SetForm()
         FillComboBox()
         Me.Focus()
+
+        Dim sResource As String = String.Empty
+        Dim sCode As String = String.Empty
+        mgrCommon.GetAllStrings(Me, sResource, sCode, "frmChooseGame")
+        Clipboard.SetText(sResource & vbCrLf & vbCrLf & sCode)
     End Sub
 
     Private Sub btnChoose_Click(sender As System.Object, e As System.EventArgs) Handles btnChoose.Click
