@@ -99,7 +99,7 @@ Public Class frmStartUpWizard
 
     Private Sub DownloadSettings()
         If mgrCommon.ShowMessage(frmStartUpWizard_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(mgrPath.OfficialImportURL) Then
+            If mgrMonitorList.DoImport(App_URLImport) Then
                 oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
                 If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
             End If

@@ -1215,7 +1215,7 @@ Public Class frmGameManager
     Private Sub ImportOfficialGameList()
 
         If mgrCommon.ShowMessage(frmGameManager_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(mgrPath.OfficialImportURL) Then
+            If mgrMonitorList.DoImport(App_URLImport) Then
                 LoadData()
             End If
         End If

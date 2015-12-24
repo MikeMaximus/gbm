@@ -1,4 +1,5 @@
-﻿Imports System.Net
+﻿Imports GBM.My.Resources
+Imports System.Net
 
 Public Class mgrCommon
 
@@ -34,9 +35,9 @@ Public Class mgrCommon
 
     Public Shared Function BooleanYesNo(ByVal bBool As Boolean) As String
         If bBool Then
-            Return "Yes"
+            Return mgrCommon_Yes
         Else
-            Return "No"
+            Return mgrCommon_No
         End If
     End Function
 
@@ -44,7 +45,7 @@ Public Class mgrCommon
         Dim fbBrowser As New SaveFileDialog
         fbBrowser.Title = sTitle
         fbBrowser.DefaultExt = sExtension
-        fbBrowser.Filter = sFileType & " files (*." & sExtension & ")|*." & sExtension
+        fbBrowser.Filter = FormatString(mgrCommon_FilesFilter, New String() {sFileType, sExtension, sExtension})
         fbBrowser.InitialDirectory = sDefaultFolder
         fbBrowser.FileName = sDefaultFile
 
@@ -59,7 +60,7 @@ Public Class mgrCommon
         Dim fbBrowser As New OpenFileDialog
         fbBrowser.Title = sTitle
         fbBrowser.DefaultExt = sExtension
-        fbBrowser.Filter = sFileType & " files (*." & sExtension & ")|*." & sExtension
+        fbBrowser.Filter = FormatString(mgrCommon_FilesFilter, New String() {sFileType, sExtension, sExtension})
         fbBrowser.InitialDirectory = sDefaultFolder
         fbBrowser.Multiselect = bMulti
 

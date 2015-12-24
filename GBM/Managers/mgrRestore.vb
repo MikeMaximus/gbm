@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports GBM.My.Resources
+Imports System.IO
 
 Public Class mgrRestore
 
@@ -31,8 +32,7 @@ Public Class mgrRestore
         Dim oResult As MsgBoxResult
 
         If oCheckBackup.RestorePath <> oCheckGame.Path Then
-            oResult = mgrCommon.ShowMessage("The restore path for " & oCheckBackup.CroppedName & " does not match it's current save path." & vbCrLf & vbCrLf & _
-                      "Do you want to restore to the current save path instead? (Recommended)", MsgBoxStyle.YesNoCancel)
+            oResult = mgrCommon.ShowMessage(mgrRestore_ConfirmPathMismatch, oCheckBackup.CroppedName, MsgBoxStyle.YesNoCancel)
             If oResult = MsgBoxResult.Yes Then
                 If Path.IsPathRooted(oCheckGame.Path) Then
                     oCheckBackup.AbsolutePath = True
@@ -64,7 +64,7 @@ Public Class mgrRestore
             Else
                 sProcess = oGame.TrueProcess
                 If mgrCommon.IsProcessNotSearchable(oGame) Then bNoAuto = True
-                sRestorePath = mgrPath.ProcessPathSearch(oRestoreInfo.Name, sProcess, oRestoreInfo.Name & " uses a relative path and has never been detected on this computer.", bNoAuto)
+                sRestorePath = mgrPath.ProcessPathSearch(oRestoreInfo.Name, sProcess, mgrCommon.FormatString(mgrRestore_RelativeNeedPath, oRestoreInfo.Name), bNoAuto)
 
                 If sRestorePath <> String.Empty Then
                     'Update the process path in game object, save it, and make sure a monitor list reload is triggered
@@ -198,16 +198,15 @@ Public Class mgrRestore
 
             'Check if restore location exists, prompt to create if it doesn't.
             If Not Directory.Exists(sExtractPath) Then
-                If mgrCommon.ShowMessage("The restore path " & sExtractPath & " does not exist." & vbCrLf & vbCrLf & _
-                          "Do you want to create the folder and continue?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                If mgrCommon.ShowMessage(mgrRestore_ConfirmCreatePath, sExtractPath, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     Try
                         Directory.CreateDirectory(sExtractPath)
                     Catch ex As Exception
-                        RaiseEvent UpdateLog("The restore path could not be created due to an unexpected error." & vbCrLf & ex.Message, False, ToolTipIcon.Error, True)
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorCreatePath, ex.Message), False, ToolTipIcon.Error, True)
                         bDoRestore = False
                     End Try
                 Else
-                    RaiseEvent UpdateLog("Restored Aborted.  The path " & sExtractPath & " does not exist.", False, ToolTipIcon.Error, True)
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorNoPath, sExtractPath), False, ToolTipIcon.Error, True)
                     bDoRestore = False
                 End If
             End If
@@ -217,17 +216,16 @@ Public Class mgrRestore
                 If oBackupInfo.CheckSum <> String.Empty Then
                     sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
                     If sHash <> oBackupInfo.CheckSum Then
-                        RaiseEvent UpdateLog("The backup file for " & oBackupInfo.Name & " has failed the file integrity check.", False, ToolTipIcon.Info, True)
-                        If mgrCommon.ShowMessage("The backup file for " & oBackupInfo.Name & " has failed the file intergity check.  It may be corrupted, not exist or been modified by another application." & vbCrLf & vbCrLf & _
-                              "Do you still want to restore this backup? (Not Recommended)", MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                            RaiseEvent UpdateLog("Restored Aborted by user due to a failed file integrity check.", False, ToolTipIcon.Info, True)
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFailedCheck, oBackupInfo.Name), False, ToolTipIcon.Info, True)
+                        If mgrCommon.ShowMessage(mgrRestore_ConfirmFailedCheck, oBackupInfo.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                            RaiseEvent UpdateLog(mgrRestore_ErrorCheckAbort, False, ToolTipIcon.Info, True)
                             bDoRestore = False
                         End If
                     Else
-                        RaiseEvent UpdateLog(oBackupInfo.Name & " backup has been verified.", False, ToolTipIcon.Info, True)
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_Verified, oBackupInfo.Name), False, ToolTipIcon.Info, True)
                     End If
                 Else
-                    RaiseEvent UpdateLog(oBackupInfo.Name & " has no stored checksum,  verification has been skipped.", False, ToolTipIcon.Info, True)
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_NoVerify, oBackupInfo.Name), False, ToolTipIcon.Info, True)
                 End If
             End If
 
@@ -240,11 +238,11 @@ Public Class mgrRestore
                         prs7z.StartInfo.RedirectStandardOutput = True
                         prs7z.StartInfo.CreateNoWindow = True
                         prs7z.Start()
-                        RaiseEvent UpdateLog("Restore to " & sExtractPath & " in progress...", False, ToolTipIcon.Info, True)
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreInProgress, sExtractPath), False, ToolTipIcon.Info, True)
                         While Not prs7z.StandardOutput.EndOfStream
                             If CancelOperation Then
                                 prs7z.Kill()
-                                RaiseEvent UpdateLog("Restored Aborted.  The saved games for " & oBackupInfo.Name & " may now be invalid.", True, ToolTipIcon.Error, True)
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFullAbort, oBackupInfo.Name), True, ToolTipIcon.Error, True)
                                 Exit While
                             End If
                             RaiseEvent UpdateLog(prs7z.StandardOutput.ReadLine, False, ToolTipIcon.Info, False)
@@ -252,16 +250,16 @@ Public Class mgrRestore
                         prs7z.WaitForExit()
                         If Not CancelOperation Then
                             If prs7z.ExitCode = 0 Then
-                                RaiseEvent UpdateLog(oBackupInfo.Name & " backup restored.", False, ToolTipIcon.Info, True)
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreComplete, oBackupInfo.Name), False, ToolTipIcon.Info, True)
                                 bRestoreCompleted = True
                             Else
-                                RaiseEvent UpdateLog(oBackupInfo.Name & " restore finished with warnings or errors.", True, ToolTipIcon.Warning, True)
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreWarnings, oBackupInfo.Name), True, ToolTipIcon.Warning, True)
                                 bRestoreCompleted = False
                             End If
                         End If
                         prs7z.Dispose()
                     Else
-                        RaiseEvent UpdateLog("Restore Aborted.  The backup file could not be found.", True, ToolTipIcon.Error, True)
+                        RaiseEvent UpdateLog(mgrRestore_ErrorNoBackup, True, ToolTipIcon.Error, True)
                     End If
 
                     If bRestoreCompleted Then
@@ -273,13 +271,13 @@ Public Class mgrRestore
                         End If
                     End If
                 Catch ex As Exception
-                    RaiseEvent UpdateLog("An unexpected error occured during the restore process." & vbCrLf & ex.Message, False, ToolTipIcon.Error, True)
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorOtherFailure, ex.Message), False, ToolTipIcon.Error, True)
                 End Try
 
                 If bRestoreCompleted Then
-                    RaiseEvent SetLastAction(oBackupInfo.CroppedName & " backup restored")
+                    RaiseEvent SetLastAction(mgrCommon.FormatString(mgrRestore_ActionComplete, oBackupInfo.CroppedName))
                 Else
-                    RaiseEvent SetLastAction(oBackupInfo.CroppedName & " restore failed")
+                    RaiseEvent SetLastAction(mgrCommon.FormatString(mgrRestore_ActionFailed, oBackupInfo.CroppedName))
                 End If
             End If
         Next

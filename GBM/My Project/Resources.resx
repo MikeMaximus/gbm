@@ -1303,4 +1303,184 @@
   <data name="frmVariableManager_PathBrowse" xml:space="preserve">
     <value>Choose the path the variable represents:</value>
   </data>
+  <data name="mgPath_ConfirmManualPathNoParam" xml:space="preserve">
+    <value>Do you wish to manually set the game path? (Path will be saved)</value>
+  </data>
+  <data name="mgrBackup_ActionComplete" xml:space="preserve">
+    <value>[PARAM] backup completed</value>
+  </data>
+  <data name="mgrBackup_ActionFailed" xml:space="preserve">
+    <value>[PARAM] backup failed</value>
+  </data>
+  <data name="mgrBackup_BackupComplete" xml:space="preserve">
+    <value>[PARAM] backup completed.</value>
+  </data>
+  <data name="mgrBackup_BackupInProgress" xml:space="preserve">
+    <value>Backup of [PARAM] in progress...</value>
+  </data>
+  <data name="mgrBackup_BackupWarnings" xml:space="preserve">
+    <value>[PARAM] backup finished with warnings or errors.</value>
+  </data>
+  <data name="mgrBackup_ConfirmManifestConflict" xml:space="preserve">
+    <value>The manifest shows the backup folder contains a backup for [PARAM] that has not been restored on this computer.[BR][BR]Do you want to overwrite this file anyway?</value>
+  </data>
+  <data name="mgrBackup_ConfirmOverwrite" xml:space="preserve">
+    <value>A file with the same name already exists in the backup folder.[BR][BR]Do you want to overwrite this file?</value>
+  </data>
+  <data name="mgrBackup_ErrorFileList" xml:space="preserve">
+    <value>An error occured creating a file list: [PARAM]</value>
+  </data>
+  <data name="mgrBackup_ErrorFullAbort" xml:space="preserve">
+    <value>Backup aborted.  The backup file for [PARAM] may be unusable.</value>
+  </data>
+  <data name="mgrBackup_ErrorManifestConflict" xml:space="preserve">
+    <value>Backup aborted by user due to manifest conflict.</value>
+  </data>
+  <data name="mgrBackup_ErrorManifestFailure" xml:space="preserve">
+    <value>The manifest update for [PARAM] failed.</value>
+  </data>
+  <data name="mgrBackup_ErrorNoSavePath" xml:space="preserve">
+    <value>Backup aborted.  The saved game path for [PARAM] does not exist.</value>
+  </data>
+  <data name="mgrBackup_ErrorOtherFailure" xml:space="preserve">
+    <value>An unexpected error occured during the backup of [PARAM].[BR][PARAM]</value>
+  </data>
+  <data name="mgrBackup_ErrorOverwriteAbort" xml:space="preserve">
+    <value>[PARAM] backup aborted by user due to overwrite.</value>
+  </data>
+  <data name="mgrBackup_ErrorSubFolderCreate" xml:space="preserve">
+    <value>Backup aborted.  A failure occured while creating a backup sub-folder for [PARAM].[BR][PARAM]</value>
+  </data>
+  <data name="mgrBackup_GenerateHash" xml:space="preserve">
+    <value>Generating SHA-256 hash for [PARAM] backup file.</value>
+  </data>
+  <data name="mgrCommon_FilesFilter" xml:space="preserve">
+    <value>[PARAM] files (*.[PARAM])|*.[PARAM]</value>
+  </data>
+  <data name="mgrCommon_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="mgrCommon_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="mgrMonitorList_ConfirmApplyFilter" xml:space="preserve">
+    <value>Would you like to apply a filter to your export?</value>
+  </data>
+  <data name="mgrMonitorList_ConfirmExistingData" xml:space="preserve">
+    <value>GBM data already exists in the backup folder.[BR][BR]Do you want to make your local game list the new master game list in this folder? (Recommended)[BR][BR]Choosing No will sync your local game list to the current master game list in this folder.</value>
+  </data>
+  <data name="mgrMonitorList_ExportComplete" xml:space="preserve">
+    <value>Export Complete.  [PARAM] item(s) have been exported.</value>
+  </data>
+  <data name="mgrMonitorList_FileNotFound" xml:space="preserve">
+    <value>The file:[BR][PARAM][BR]cannot be found.</value>
+  </data>
+  <data name="mgrMonitorList_ImportComplete" xml:space="preserve">
+    <value>Import Complete.</value>
+  </data>
+  <data name="mgrMonitorList_ImportNothing" xml:space="preserve">
+    <value>This list does not contain any new games to import.</value>
+  </data>
+  <data name="mgrMonitorList_SyncChanges" xml:space="preserve">
+    <value>[PARAM] change(s) synced.</value>
+  </data>
+  <data name="mgrMonitorList_SyncFromMaster" xml:space="preserve">
+    <value>A sync from the master game list has been triggered.</value>
+  </data>
+  <data name="mgrMonitorList_SyncToMaster" xml:space="preserve">
+    <value>A sync to the master game list has been triggered.</value>
+  </data>
+  <data name="mgrMonitorList_WebNoReponse" xml:space="preserve">
+    <value>There's no response from:[BR][PARAM][BR]Either the server is not responding or the URL is invalid.</value>
+  </data>
+  <data name="mgrPath_ChoosePath" xml:space="preserve">
+    <value>Choose the game folder containing the executable.</value>
+  </data>
+  <data name="mgrPath_ConfirmAutoFailure" xml:space="preserve">
+    <value>The search failed to locate the path for [PARAM].[BR][BR]Do you wish to manually set the game path? (Path will be saved)</value>
+  </data>
+  <data name="mgrPath_ConfirmAutoPath" xml:space="preserve">
+    <value>[PARAM][BR][BR]Do you wish to automatically search for the game path? (Path will be saved)"</value>
+  </data>
+  <data name="mgrPath_ConfirmBackupLocation" xml:space="preserve">
+    <value>The backup location [PARAM] is not available.[BR]It may be on an external or network drive that isn't connected.[BR][BR]Do you want to select another backup location and continue?</value>
+  </data>
+  <data name="mgrPath_ConfirmManualPath" xml:space="preserve">
+    <value>[PARAM][BR][BR]Do you wish to manually set the game path? (Path will be saved)</value>
+  </data>
+  <data name="mgrPath_ConfirmPathCorrect" xml:space="preserve">
+    <value>[PARAM] was located in the following folder:[BR][BR][PARAM][BR][BR]Is this correct?</value>
+  </data>
+  <data name="mgrRestore_ActionComplete" xml:space="preserve">
+    <value>[PARAM] backup restored</value>
+  </data>
+  <data name="mgrRestore_ActionFailed" xml:space="preserve">
+    <value>[PARAM] restore failed</value>
+  </data>
+  <data name="mgrRestore_ConfirmCreatePath" xml:space="preserve">
+    <value>The restore path [PARAM] does not exist.[BR][BR]Do you want to create the folder and continue?"</value>
+  </data>
+  <data name="mgrRestore_ConfirmFailedCheck" xml:space="preserve">
+    <value>The backup file for [PARAM] has failed the file intergity check.  It may be corrupted, not exist or been modified by another application.[BR][BR]Do you still want to restore this backup? (Not Recommended)</value>
+  </data>
+  <data name="mgrRestore_ConfirmPathMismatch" xml:space="preserve">
+    <value>The restore path for [PARAM] does not match it's current save path.[BR][BR]Do you want to restore to the current save path instead? (Recommended)"</value>
+  </data>
+  <data name="mgrRestore_ErrorCheckAbort" xml:space="preserve">
+    <value>Restored aborted by user due to a failed file integrity check.</value>
+  </data>
+  <data name="mgrRestore_ErrorCreatePath" xml:space="preserve">
+    <value>The restore path could not be created due to an unexpected error.[BR][PARAM]</value>
+  </data>
+  <data name="mgrRestore_ErrorFailedCheck" xml:space="preserve">
+    <value>The backup file for [PARAM] has failed the file integrity check.</value>
+  </data>
+  <data name="mgrRestore_ErrorFullAbort" xml:space="preserve">
+    <value>Restore aborted.  The saved games for [PARAM] may now be invalid.</value>
+  </data>
+  <data name="mgrRestore_ErrorNoBackup" xml:space="preserve">
+    <value>Restore aborted.  The backup file could not be found.</value>
+  </data>
+  <data name="mgrRestore_ErrorNoPath" xml:space="preserve">
+    <value>Restored aborted.  The path [PARAM] does not exist.</value>
+  </data>
+  <data name="mgrRestore_ErrorOtherFailure" xml:space="preserve">
+    <value>An unexpected error occured during the restore process.[BR][PARAM]</value>
+  </data>
+  <data name="mgrRestore_NoVerify" xml:space="preserve">
+    <value>[PARAM] has no stored checksum,  verification has been skipped.</value>
+  </data>
+  <data name="mgrRestore_RelativeNeedPath" xml:space="preserve">
+    <value>[PARAM] uses a relative path and has never been detected on this computer.</value>
+  </data>
+  <data name="mgrRestore_RestoreComplete" xml:space="preserve">
+    <value>[PARAM] backup restored.</value>
+  </data>
+  <data name="mgrRestore_RestoreInProgress" xml:space="preserve">
+    <value>Restore to [PARAM] in progress...</value>
+  </data>
+  <data name="mgrRestore_RestoreWarnings" xml:space="preserve">
+    <value>[PARAM] restore finished with warnings or errors.</value>
+  </data>
+  <data name="mgrRestore_Verified" xml:space="preserve">
+    <value>[PARAM] backup has been verified.</value>
+  </data>
+  <data name="mgrSQLite_ErrorBackupFailure" xml:space="preserve">
+    <value>An error occured creating a backup of the database file at [PARAM][BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrSQLite_ErrorCreatingLocalDB" xml:space="preserve">
+    <value>An error has occured attempting to create the local application database:[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrSQLite_ErrorCreatingRemoteDB" xml:space="preserve">
+    <value>An error has occured attempting to create the remote application database:[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrSQLite_ErrorQueryFailure" xml:space="preserve">
+    <value>An error has occured attempting run the query.[BR][BR][PARAM][BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrXML_ErrorExportFailure" xml:space="preserve">
+    <value>An error occured exporting the XML data.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrXML_ErrorImportFailure" xml:space="preserve">
+    <value>The XML file cannot be read, it may be an invalid format or corrupted.[BR][BR][PARAM]</value>
+  </data>
 </root>

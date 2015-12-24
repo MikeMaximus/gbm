@@ -1,5 +1,4 @@
 ﻿Imports System.IO
-Imports System.Security
 Imports System.Security.Cryptography
 
 Public Class mgrHash

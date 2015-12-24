@@ -628,15 +628,15 @@ Public Class frmMain
     End Sub
 
     Private Sub OpenWebSite()
-        Process.Start(mgrPath.OfficialWebURL)
+        Process.Start(App_URLWebsite)
     End Sub
 
     Private Sub OpenOnlineManual()
-        Process.Start(mgrPath.OfficialManualURL)
+        Process.Start(App_URLManual)
     End Sub
 
     Private Sub OpenCheckforUpdates()
-        Process.Start(mgrPath.OfficialUpdatesURL)
+        Process.Start(App_URLUpdates)
     End Sub
 
     Private Sub CheckForNewBackups()

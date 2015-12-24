@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports GBM.My.Resources
+Imports System.IO
 
 Public Class mgrMonitorList
 
@@ -23,9 +24,7 @@ Public Class mgrMonitorList
 
             'If the remote database actually contains a list, then ask what to do
             If iGameCount > 0 Then
-                If mgrCommon.ShowMessage("GBM data already exists in the backup folder." & vbCrLf & vbCrLf & _
-                          "Do you want to make your local game list the new master game list in this folder? (Recommended)" & vbCrLf & vbCrLf & _
-                          "Choosing No will sync your local game list to the current master game list in this folder.", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                If mgrCommon.ShowMessage(mgrMonitorList_ConfirmExistingData, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     mgrMonitorList.SyncMonitorLists()
                 Else
                     mgrMonitorList.SyncMonitorLists(False)
@@ -45,7 +44,7 @@ Public Class mgrMonitorList
         Dim oStringFilters As New Hashtable
         Dim eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.NoFilter
 
-        If mgrCommon.ShowMessage("Would you like to apply a filter to your export?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+        If mgrCommon.ShowMessage(mgrMonitorList_ConfirmApplyFilter, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             Dim frm As New frmFilter
             frm.ShowDialog()
             oTagFilters = frm.TagFilters
@@ -58,7 +57,7 @@ Public Class mgrMonitorList
         bSuccess = mgrXML.SerializeAndExport(oList, sLocation)
 
         If bSuccess Then
-            mgrCommon.ShowMessage("Export Complete.  " & oList.Count & " item(s) have been exported.", MsgBoxStyle.Information)
+            mgrCommon.ShowMessage(mgrMonitorList_ExportComplete, oList.Count, MsgBoxStyle.Information)
         End If
     End Sub
 
@@ -130,9 +129,9 @@ Public Class mgrMonitorList
         Cursor.Current = Cursors.WaitCursor
 
         If bToRemote Then
-            RaiseEvent UpdateLog("A sync to the master game list has been triggered.", False, ToolTipIcon.Info, True)
+            RaiseEvent UpdateLog(mgrMonitorList_SyncToMaster, False, ToolTipIcon.Info, True)
         Else
-            RaiseEvent UpdateLog("A sync from the master game list has been triggered.", False, ToolTipIcon.Info, True)
+            RaiseEvent UpdateLog(mgrMonitorList_SyncFromMaster, False, ToolTipIcon.Info, True)
         End If
 
         'Add / Update Sync
@@ -192,7 +191,7 @@ Public Class mgrMonitorList
             DoListDeleteSync(hshDeleteItems, mgrSQLite.Database.Local)
         End If
 
-        RaiseEvent UpdateLog(hshDeleteItems.Count + hshSyncItems.Count + iChanges & " change(s) synced.", False, ToolTipIcon.Info, True)
+        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrMonitorList_SyncChanges, (hshDeleteItems.Count + hshSyncItems.Count + iChanges).ToString), False, ToolTipIcon.Info, True)
         Cursor.Current = Cursors.Default
         Application.DoEvents()
     End Sub
@@ -233,10 +232,10 @@ Public Class mgrMonitorList
                 mgrTags.DoTagAddImport(frm.ImportData)
 
                 Cursor.Current = Cursors.Default
-                mgrCommon.ShowMessage("Import Complete.", MsgBoxStyle.Information)
+                mgrCommon.ShowMessage(mgrMonitorList_ImportComplete, MsgBoxStyle.Information)
             End If
         Else
-            mgrCommon.ShowMessage("This list does not contain any new games to import.", MsgBoxStyle.Information)
+            mgrCommon.ShowMessage(mgrMonitorList_ImportNothing, MsgBoxStyle.Information)
         End If
 
         Application.DoEvents()
@@ -249,7 +248,7 @@ Public Class mgrMonitorList
                 ImportMonitorList(sPath, True)
                 Return True
             Else
-                mgrCommon.ShowMessage("There's no response from:" & vbCrLf & vbCrLf & sPath & vbCrLf & vbCrLf & "Either the server is not responding or the URL is invalid.", MsgBoxStyle.Exclamation)
+                mgrCommon.ShowMessage(mgrMonitorList_WebNoReponse, sPath, MsgBoxStyle.Exclamation)
                 Return False
             End If
         Else
@@ -257,7 +256,7 @@ Public Class mgrMonitorList
                 ImportMonitorList(sPath)
                 Return True
             Else
-                mgrCommon.ShowMessage("The file:" & vbCrLf & sPath & vbCrLf & "cannot be found.", MsgBoxStyle.Exclamation)
+                mgrCommon.ShowMessage(mgrMonitorList_FileNotFound, sPath, MsgBoxStyle.Exclamation)
                 Return False
             End If
         End If
