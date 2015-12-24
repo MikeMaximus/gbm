@@ -1227,6 +1227,10 @@ Public Class frmGameManager
         Me.Name = frmGameManager_FormName
 
         'Set Form text
+        grpFilter.Text = frmGameManager_grpFilter
+        grpConfig.Text = frmGameManager_grpConfig
+        grpExtra.Text = frmGameManager_grpExtra
+        grpStats.Text = frmGameManager_grpStats
         btnExport.Text = frmGameManager_btnExport
         btnImport.Text = frmGameManager_btnImport
         optCustom.Text = frmGameManager_optCustom

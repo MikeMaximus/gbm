@@ -180,7 +180,7 @@ Public Class frmStartUpWizard
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser("Choose GBM backup folder:", sDefaultFolder, False)
+        sNewPath = mgrCommon.OpenFolderBrowser("Choose a backup folder:", sDefaultFolder, True)
 
         If sNewPath <> String.Empty Then txtBackupPath.Text = sNewPath
     End Sub
@@ -195,6 +195,11 @@ Public Class frmStartUpWizard
 
     Private Sub frmStartUpWizard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         FormInit()
+
+        Dim sResource As String = String.Empty
+        Dim sCode As String = String.Empty
+        mgrCommon.GetAllStrings(Me, sResource, sCode, "frmStartUpWizard")
+        Clipboard.SetText(sResource & vbCrLf & vbCrLf & sCode)
     End Sub
 
     Private Sub btnFolderBrowse_Click(sender As Object, e As EventArgs) Handles btnFolderBrowse.Click

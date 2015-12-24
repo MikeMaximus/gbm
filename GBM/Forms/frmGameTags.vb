@@ -1,4 +1,6 @@
-﻿Public Class frmGameTags
+﻿Imports GBM.My.Resources
+
+Public Class frmGameTags
 
     Dim sMonitorIDs As List(Of String)
     Dim sGameName As String = String.Empty
@@ -31,7 +33,7 @@
             oData = lstTags.SelectedItems(0)
 
             oGameTags = New List(Of clsGameTag)
-            For Each sID As String In IDList                
+            For Each sID As String In IDList
                 oGameTag = New clsGameTag
                 oGameTag.MonitorID = sID
                 oGameTag.TagID = oData.Key
@@ -160,14 +162,24 @@
     End Sub
 
     Private Sub SetForm()
+        'Set Form Name
         If IDList.Count > 1 Then
-            Me.Text = "Edit Tags for Multiple Games"
+            Me.Text = frmGameTags_FormNameMulti
         Else
-            Me.Text = "Edit Tags for " & GameName
+            Me.Text = mgrCommon.FormatString(frmGameTags_FormNameSingle, GameName)
         End If
+
+        'Set Form Text
+        btnOpenTags.Text = frmGameTags_btnOpenTags
+        btnClose.Text = frmGameTags_btnClose
+        lblGameTags.Text = frmGameTags_lblGameTags
+        lblTags.Text = frmGameTags_lblTags
+        btnRemove.Text = frmGameTags_btnRemove
+        btnAdd.Text = frmGameTags_btnAdd
+
     End Sub
 
-    Private Sub frmGameTags_Load(sender As Object, e As EventArgs) Handles MyBase.Load       
+    Private Sub frmGameTags_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadData()
         SetForm()
     End Sub

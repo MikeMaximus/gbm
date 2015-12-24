@@ -943,4 +943,187 @@
   <data name="frmFilter_optTag" xml:space="preserve">
     <value>Tag</value>
   </data>
+  <data name="frmGameTags_btnAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmGameTags_btnClose" xml:space="preserve">
+    <value>&amp;Close</value>
+  </data>
+  <data name="frmGameTags_btnOpenTags" xml:space="preserve">
+    <value>Setup &amp;Tags...</value>
+  </data>
+  <data name="frmGameTags_btnRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmGameTags_FormNameMulti" xml:space="preserve">
+    <value>Edit Tags for Multiple Games</value>
+  </data>
+  <data name="frmGameTags_FormNameSingle" xml:space="preserve">
+    <value>Edit Tags for [PARAM]</value>
+  </data>
+  <data name="frmGameTags_lblGameTags" xml:space="preserve">
+    <value>Current Tags</value>
+  </data>
+  <data name="frmGameTags_lblTags" xml:space="preserve">
+    <value>Available Tags</value>
+  </data>
+  <data name="frmIncludeExclude_BrowseSaveFolder" xml:space="preserve">
+    <value>Choose the location of the saved game folder:</value>
+  </data>
+  <data name="frmIncludeExclude_btnAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmIncludeExclude_btnBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmIncludeExclude_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmIncludeExclude_btnRawEdit" xml:space="preserve">
+    <value>Raw &amp;Edit</value>
+  </data>
+  <data name="frmIncludeExclude_btnRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmIncludeExclude_btnSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmIncludeExclude_CustomItem" xml:space="preserve">
+    <value>Custom Item</value>
+  </data>
+  <data name="frmIncludeExclude_ErrorFileSystemRead" xml:space="preserve">
+    <value>An unexpected error occured while reading the file system:[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmIncludeExclude_FormName" xml:space="preserve">
+    <value>[PARAM] Builder</value>
+  </data>
+  <data name="frmIncludeExclude_grpFileOptions" xml:space="preserve">
+    <value>[PARAM] Options</value>
+  </data>
+  <data name="frmIncludeExclude_lblItems" xml:space="preserve">
+    <value>[PARAM] Items</value>
+  </data>
+  <data name="frmIncludeExclude_lblSaveFolder" xml:space="preserve">
+    <value>Saved Game Explorer</value>
+  </data>
+  <data name="frmIncludeExclude_optFileTypes" xml:space="preserve">
+    <value>File Types</value>
+  </data>
+  <data name="frmIncludeExclude_optIndividualFiles" xml:space="preserve">
+    <value>Individual Files</value>
+  </data>
+  <data name="frmIncludeExclude_RawEditInfo" xml:space="preserve">
+    <value>Items are semi-colon delimited.</value>
+  </data>
+  <data name="frmIncludeExclude_RawEditTitle" xml:space="preserve">
+    <value>[PARAM] Raw Edit</value>
+  </data>
+  <data name="frmIncludeExclude_ToolTipBrowse" xml:space="preserve">
+    <value>Click here to set the saved game folder.</value>
+  </data>
+  <data name="frmIncludeExclude_ToolTipFiles" xml:space="preserve">
+    <value>Set the saved game folder using the button above.</value>
+  </data>
+  <data name="frmIncludeExclude_ToolTipFolder" xml:space="preserve">
+    <value>The saved game folder could not be determined or does not exist.</value>
+  </data>
+  <data name="frmIncludeExclude_ToolTipTitle" xml:space="preserve">
+    <value>Saved Game Explorer</value>
+  </data>
+  <data name="frmFilter_grpGameInfoOptions" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="frmFilter_grpTagOptions" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="frmGameManager_grpConfig" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="frmGameManager_grpExtra" xml:space="preserve">
+    <value>Game Information</value>
+  </data>
+  <data name="frmGameManager_grpFilter" xml:space="preserve">
+    <value>Games Filter</value>
+  </data>
+  <data name="frmGameManager_grpStats" xml:space="preserve">
+    <value>Backup Information</value>
+  </data>
+  <data name="frmIncludeExclude_cmsAdd" xml:space="preserve">
+    <value>Add Custom Item</value>
+  </data>
+  <data name="frmIncludeExclude_cmsEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="frmIncludeExclude_cmsRemove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="frmSettings_BrowseFolder" xml:space="preserve">
+    <value>Choose a backup folder:</value>
+  </data>
+  <data name="frmSettings_btnBackupFolder" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmSettings_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmSettings_btnSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmSettings_chkBackupConfirm" xml:space="preserve">
+    <value>Disable backup confirmation</value>
+  </data>
+  <data name="frmSettings_chkCheckSum" xml:space="preserve">
+    <value>Verify backup files with a checksum</value>
+  </data>
+  <data name="frmSettings_chkCreateFolder" xml:space="preserve">
+    <value>Create a sub-folder for each game</value>
+  </data>
+  <data name="frmSettings_chkMonitorOnStartup" xml:space="preserve">
+    <value>Start monitoring at launch</value>
+  </data>
+  <data name="frmSettings_chkOverwriteWarning" xml:space="preserve">
+    <value>Show overwrite warning</value>
+  </data>
+  <data name="frmSettings_chkRestoreOnLaunch" xml:space="preserve">
+    <value>Notify when there are new backup files to restore</value>
+  </data>
+  <data name="frmSettings_chkShowDetectionTips" xml:space="preserve">
+    <value>Show detection notifications</value>
+  </data>
+  <data name="frmSettings_chkStartToTray" xml:space="preserve">
+    <value>Start to system tray</value>
+  </data>
+  <data name="frmSettings_chkStartWindows" xml:space="preserve">
+    <value>Start with Windows</value>
+  </data>
+  <data name="frmSettings_chkSupressBackup" xml:space="preserve">
+    <value>Backup only when session time exceeds</value>
+  </data>
+  <data name="frmSettings_chkSync" xml:space="preserve">
+    <value>Sync game list data with backup folder</value>
+  </data>
+  <data name="frmSettings_chkTimeTracking" xml:space="preserve">
+    <value>Enable time tracking</value>
+  </data>
+  <data name="frmSettings_ErrorBackupFolder" xml:space="preserve">
+    <value>The backup folder does not exist.  Please choose a valid backup folder.</value>
+  </data>
+  <data name="frmSettings_FormName" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="frmSettings_grpBackup" xml:space="preserve">
+    <value>Backup and Restore</value>
+  </data>
+  <data name="frmSettings_grpGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="frmSettings_grpPaths" xml:space="preserve">
+    <value>Paths</value>
+  </data>
+  <data name="frmSettings_lblBackupFolder" xml:space="preserve">
+    <value>Backup Folder</value>
+  </data>
+  <data name="frmSettings_lblMinutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
 </root>

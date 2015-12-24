@@ -157,6 +157,7 @@ Public Class frmFilter
         lblCompany.Text = frmFilter_lblCompany
         lblProcess.Text = frmFilter_lblProcess
         lblName.Text = frmFilter_lblName
+        grpGameInfoOptions.Text = frmFilter_grpGameInfoOptions
         optAll.Text = frmFilter_optAll
         optAny.Text = frmFilter_optAny
         lblGameTags.Text = frmFilter_lblGameTags
@@ -164,6 +165,7 @@ Public Class frmFilter
         btnRemove.Text = frmFilter_btnRemove
         btnAdd.Text = frmFilter_btnAdd
         btnOK.Text = frmFilter_btnOK
+        grpTagOptions.Text = frmFilter_grpTagOptions
         optTag.Text = frmFilter_optTag
         optGameInfo.Text = frmFilter_optGameInfo
     End Sub

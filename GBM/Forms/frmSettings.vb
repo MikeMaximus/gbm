@@ -1,4 +1,6 @@
-﻿Public Class frmSettings
+﻿Imports GBM.My.Resources
+
+Public Class frmSettings
     Dim bShutdown As Boolean = False
     Dim bBackupLocationChanged As Boolean = False
     Dim bCheckSumDisabled As Boolean = False
@@ -47,7 +49,7 @@
         oSettings.StartWithWindows = chkStartWindows.Checked
 
         oSettings.MonitorOnStartup = chkMonitorOnStartup.Checked
-        oSettings.StartToTray = chkStartToTray.Checked        
+        oSettings.StartToTray = chkStartToTray.Checked
         oSettings.ShowDetectionToolTips = chkShowDetectionTips.Checked
         oSettings.DisableConfirmation = chkBackupConfirm.Checked
         oSettings.CreateSubFolder = chkCreateFolder.Checked
@@ -75,7 +77,7 @@
             End If
             oSettings.BackupFolder = txtBackupFolder.Text
         Else
-            mgrCommon.ShowMessage("The backup folder does not exist.  Please choose a valid backup folder.", MsgBoxStyle.Exclamation)
+            mgrCommon.ShowMessage(frmSettings_ErrorBackupFolder, MsgBoxStyle.Exclamation)
             Return False
         End If
 
@@ -108,7 +110,6 @@
         chkTimeTracking.Checked = oSettings.TimeTracking
         chkSupressBackup.Checked = oSettings.SupressBackup
         nudSupressBackupThreshold.Value = oSettings.SupressBackupThreshold
-
         nudSupressBackupThreshold.Enabled = chkSupressBackup.Checked
     End Sub
 
@@ -130,15 +131,42 @@
         End If
     End Sub
 
+    Private Sub SetForm()
+        'Set Form Name
+        Me.Text = frmSettings_FormName
+
+        'Set Form Text
+        grpBackup.Text = frmSettings_grpBackup
+        lblMinutes.Text = frmSettings_lblMinutes
+        chkSupressBackup.Text = frmSettings_chkSupressBackup
+        chkCheckSum.Text = frmSettings_chkCheckSum
+        chkRestoreOnLaunch.Text = frmSettings_chkRestoreOnLaunch
+        chkOverwriteWarning.Text = frmSettings_chkOverwriteWarning
+        chkCreateFolder.Text = frmSettings_chkCreateFolder
+        chkBackupConfirm.Text = frmSettings_chkBackupConfirm
+        btnCancel.Text = frmSettings_btnCancel
+        btnSave.Text = frmSettings_btnSave
+        grpPaths.Text = frmSettings_grpPaths
+        btnBackupFolder.Text = frmSettings_btnBackupFolder
+        lblBackupFolder.Text = frmSettings_lblBackupFolder
+        grpGeneral.Text = frmSettings_grpGeneral
+        chkTimeTracking.Text = frmSettings_chkTimeTracking
+        chkStartWindows.Text = frmSettings_chkStartWindows
+        chkSync.Text = frmSettings_chkSync
+        chkShowDetectionTips.Text = frmSettings_chkShowDetectionTips
+        chkStartToTray.Text = frmSettings_chkStartToTray
+        chkMonitorOnStartup.Text = frmSettings_chkMonitorOnStartup
+    End Sub
+
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        SetForm()
         LoadSettings()
     End Sub
 
     Private Sub btnBackupFolder_Click(sender As System.Object, e As System.EventArgs) Handles btnBackupFolder.Click
-        fbBrowser.SelectedPath = oSettings.BackupFolder
-        If fbBrowser.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            txtBackupFolder.Text = fbBrowser.SelectedPath
-        End If
+        Dim sNewFolder As String
+        sNewFolder = mgrCommon.OpenFolderBrowser(frmSettings_BrowseFolder, oSettings.BackupFolder, True)
+        If sNewFolder <> String.Empty Then txtBackupFolder.Text = sNewFolder
     End Sub
 
     Private Sub chkSupressBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkSupressBackup.CheckedChanged

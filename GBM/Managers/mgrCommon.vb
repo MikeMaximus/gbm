@@ -181,6 +181,8 @@ Public Class mgrCommon
     Public Shared Sub GetAllStrings(ByVal ctlParent As Control, ByRef sResource As String, ByRef sCode As String, ByVal sFormName As String)
         For Each ctl As Control In ctlParent.Controls
             If TypeOf ctl Is GroupBox Then
+                sResource &= sFormName & "_" & ctl.Name & vbTab & ctl.Text & vbCrLf
+                sCode &= ctl.Name & ".Text = " & sFormName & "_" & ctl.Name & vbCrLf
                 GetAllStrings(ctl, sResource, sCode, sFormName)
             ElseIf TypeOf ctl Is TabControl Then
                 For Each tb As TabPage In ctl.Controls
