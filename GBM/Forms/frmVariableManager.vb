@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports GBM.My.Resources
+Imports System.IO
 
 Public Class frmVariableManager
     Dim hshVariableData As Hashtable
@@ -53,7 +54,7 @@ Public Class frmVariableManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser("Choose the path the variable represents:", sDefaultFolder, False)
+        sNewPath = mgrCommon.OpenFolderBrowser(frmVariableManager_PathBrowse, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then txtPath.Text = sNewPath
     End Sub
@@ -67,7 +68,7 @@ Public Class frmVariableManager
     Private Function HandleDirty() As MsgBoxResult
         Dim oResult As MsgBoxResult
 
-        oResult = mgrCommon.ShowMessage("There are unsaved changes on this form.  Do you want to save?", MsgBoxStyle.YesNoCancel)
+        oResult = mgrCommon.ShowMessage(App_ConfirmDirty, MsgBoxStyle.YesNoCancel)
 
         Select Case oResult
             Case MsgBoxResult.Yes
@@ -251,7 +252,7 @@ Public Class frmVariableManager
         If lstVariables.SelectedItems.Count > 0 Then
             oCustomVariable = DirectCast(VariableData(lstVariables.SelectedItems(0).ToString), clsPathVariable)
 
-            If mgrCommon.ShowMessage("Are you sure you want to delete " & oCustomVariable.Name & "?  This cannot be undone.", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(frmVariableManager_ConfirmDelete, oCustomVariable.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrVariables.DoVariableDelete(oCustomVariable.ID)
                 mgrVariables.DoPathUpdate(oCurrentVariable.FormattedName, oCurrentVariable.Path)
                 LoadData()
@@ -271,19 +272,19 @@ Public Class frmVariableManager
 
     Private Function CoreValidatation(ByVal oCustomVariable As clsPathVariable) As Boolean
         If txtName.Text = String.Empty Then
-            mgrCommon.ShowMessage("You must enter a valid path name.", MsgBoxStyle.Exclamation)
+            mgrCommon.ShowMessage(frmVariableManager_ErrorValidName, MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
         End If
 
         If txtPath.Text = String.Empty Then
-            mgrCommon.ShowMessage("You must enter a valid path.", MsgBoxStyle.Exclamation)
+            mgrCommon.ShowMessage(frmVariableManager_ErrorValidPath, MsgBoxStyle.Exclamation)
             txtPath.Focus()
             Return False
         End If
 
         If mgrVariables.DoCheckDuplicate(oCustomVariable.Name, oCustomVariable.ID) Then
-            mgrCommon.ShowMessage("An custom variable with this name already exists.", MsgBoxStyle.Exclamation)
+            mgrCommon.ShowMessage(frmVariableManager_ErrorVariableDupe, MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
         End If
@@ -291,7 +292,24 @@ Public Class frmVariableManager
         Return True
     End Function
 
+    Private Sub SetForm()
+        'Set Form Name
+        Me.Text = frmVariableManager_FormName
+
+        'Set Form Text
+        btnCancel.Text = frmVariableManager_btnCancel
+        btnSave.Text = frmVariableManager_btnSave
+        grpVariable.Text = frmVariableManager_grpVariable
+        btnPathBrowse.Text = frmVariableManager_btnPathBrowse
+        lblPath.Text = frmVariableManager_lblPath
+        lblName.Text = frmVariableManager_lblName
+        btnClose.Text = frmVariableManager_btnClose
+        btnDelete.Text = frmVariableManager_btnDelete
+        btnAdd.Text = frmVariableManager_btnAdd
+    End Sub
+
     Private Sub frmVariableManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetForm()
         LoadData()
         ModeChange()
         AssignDirtyHandlers(grpVariable.Controls)

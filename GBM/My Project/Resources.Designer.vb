@@ -115,6 +115,42 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to http://mikemaximus.github.io/gbm-web/GBM_Official.xml.
+        '''</summary>
+        Friend ReadOnly Property App_URLImport() As String
+            Get
+                Return ResourceManager.GetString("App_URLImport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to http://mikemaximus.github.io/gbm-web/manual.html.
+        '''</summary>
+        Friend ReadOnly Property App_URLManual() As String
+            Get
+                Return ResourceManager.GetString("App_URLManual", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to https://github.com/MikeMaximus/gbm/releases.
+        '''</summary>
+        Friend ReadOnly Property App_URLUpdates() As String
+            Get
+                Return ResourceManager.GetString("App_URLUpdates", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to http://mikemaximus.github.io/gbm-web/.
+        '''</summary>
+        Friend ReadOnly Property App_URLWebsite() As String
+            Get
+                Return ResourceManager.GetString("App_URLWebsite", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Back.
         '''</summary>
         Friend ReadOnly Property frmAddWizard_btnBack() As String
@@ -1312,7 +1348,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Would you like to choose games to import from the official game list?[BR][BR]This require an active internet connection..
+        '''  Looks up a localized string similar to Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmOfficialImport() As String
             Get
@@ -2964,6 +3000,501 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_lblMinutes() As String
             Get
                 Return ResourceManager.GetString("frmSettings_lblMinutes", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Choose a backup folder:.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_BrowseFolder() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_BrowseFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Back.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_btnBack() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_btnBack", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Import from Official List.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_btnDownloadList() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_btnDownloadList", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to ....
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_btnFolderBrowse() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_btnFolderBrowse", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Next.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_btnNext() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_btnNext", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Finish.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_btnNext_Finish() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_btnNext_Finish", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game Manager.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_btnOpenMonitorList() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_btnOpenMonitorList", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Add Game Wizard.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_btnOpenWizard() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_btnOpenWizard", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Create a sub-folder for each game.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_chkCreateFolder() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_chkCreateFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Import any existing GBM data in the backup folder.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_chkSync() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_chkSync", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection..
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_ConfirmOfficialImport() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_ConfirmOfficialImport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The selected path must be a full path..
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_ErrorBadFolder() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_ErrorBadFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to You must select a backup path to continue..
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_ErrorNoFolder() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_ErrorNoFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The folder you selected does not exist or is not a valid folder..
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_ErrorNoFolderExists() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_ErrorNoFolderExists", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Existing data was detected in the backup folder and has been imported..
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_ExistingData() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_ExistingData", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to GBM Setup.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to This guide will help you through some quick and easy steps to get started..
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_lblStep1Instructions() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_lblStep1Instructions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to If you&apos;d like to learn about advanced features or have any other questions before you get started, there is a detailed online manual available..
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_lblStep1Instructions2() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_lblStep1Instructions2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Welcome to GBM.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_lblStep1Title() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_lblStep1Title", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to GBM will store all your backup files along with a manifest database (gbm.s3db) in this location. .
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_lblStep2Instructions() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_lblStep2Instructions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Choose where GBM saves your backup files:.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_lblStep2Intro() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_lblStep2Intro", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backup Location.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_lblStep2Title() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_lblStep2Title", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Before you can start monitoring for games, they need to be configured so GBM knows what to look for and how to handle them.  You can download pre-made configurations from the official list or add them all yourself using the tools below.  You can also skip this step for now!.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_lblStep3Intro() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_lblStep3Intro", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Monitoring Games.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_lblStep3Title() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_lblStep3Title", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to GBM will automatically monitor and backup your games each time they are closed..
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_lblStep4Instructions() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_lblStep4Instructions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Remember that GBM can only currently monitor one game at a time..
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_lblStep4Instructions2() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_lblStep4Instructions2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to You can change anything you&apos;ve setup in this wizard and find more settings and features by exploring the menus.  Thanks!.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_lblStep4Instructions3() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_lblStep4Instructions3", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Finished!.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_lblStep4Title() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_lblStep4Title", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game Backup Monitor Manual.
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_llbManual() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_llbManual", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to +.
+        '''</summary>
+        Friend ReadOnly Property frmTags_btnAdd() As String
+            Get
+                Return ResourceManager.GetString("frmTags_btnAdd", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Cancel.
+        '''</summary>
+        Friend ReadOnly Property frmTags_btnCancel() As String
+            Get
+                Return ResourceManager.GetString("frmTags_btnCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to C&amp;lose.
+        '''</summary>
+        Friend ReadOnly Property frmTags_btnClose() As String
+            Get
+                Return ResourceManager.GetString("frmTags_btnClose", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to -.
+        '''</summary>
+        Friend ReadOnly Property frmTags_btnDelete() As String
+            Get
+                Return ResourceManager.GetString("frmTags_btnDelete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Save.
+        '''</summary>
+        Friend ReadOnly Property frmTags_btnSave() As String
+            Get
+                Return ResourceManager.GetString("frmTags_btnSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to delete [PARAM]?  This cannot be undone.[BR][BR]All games using this tag will have it removed..
+        '''</summary>
+        Friend ReadOnly Property frmTags_ConfirmDelete() As String
+            Get
+                Return ResourceManager.GetString("frmTags_ConfirmDelete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to A tag with this name already exists..
+        '''</summary>
+        Friend ReadOnly Property frmTags_ErrorTagDupe() As String
+            Get
+                Return ResourceManager.GetString("frmTags_ErrorTagDupe", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to You must enter a valid tag name..
+        '''</summary>
+        Friend ReadOnly Property frmTags_ErrorValidName() As String
+            Get
+                Return ResourceManager.GetString("frmTags_ErrorValidName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Tags.
+        '''</summary>
+        Friend ReadOnly Property frmTags_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmTags_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Configuration.
+        '''</summary>
+        Friend ReadOnly Property frmTags_grpTag() As String
+            Get
+                Return ResourceManager.GetString("frmTags_grpTag", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Name:.
+        '''</summary>
+        Friend ReadOnly Property frmTags_lblName() As String
+            Get
+                Return ResourceManager.GetString("frmTags_lblName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to +.
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_btnAdd() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_btnAdd", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Cancel.
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_btnCancel() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_btnCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to C&amp;lose.
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_btnClose() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_btnClose", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to -.
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_btnDelete() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_btnDelete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to ....
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_btnPathBrowse() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_btnPathBrowse", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Save.
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_btnSave() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_btnSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to delete [PARAM]?  This cannot be undone..
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_ConfirmDelete() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_ConfirmDelete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to You must enter a valid variable name..
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_ErrorValidName() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_ErrorValidName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to You must enter a valid path..
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_ErrorValidPath() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_ErrorValidPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to A custom variable with this name already exists..
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_ErrorVariableDupe() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_ErrorVariableDupe", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Custom Variable Manager.
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Configuration.
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_grpVariable() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_grpVariable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Name:.
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_lblName() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_lblName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Path:.
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_lblPath() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_lblPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Choose the path the variable represents:.
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_PathBrowse() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_PathBrowse", resourceCulture)
             End Get
         End Property
         

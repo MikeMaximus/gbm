@@ -34,7 +34,6 @@ Partial Class frmSettings
         Me.btnBackupFolder = New System.Windows.Forms.Button()
         Me.lblBackupFolder = New System.Windows.Forms.Label()
         Me.txtBackupFolder = New System.Windows.Forms.TextBox()
-        Me.fbBrowser = New System.Windows.Forms.FolderBrowserDialog()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.grpBackup = New System.Windows.Forms.GroupBox()
@@ -310,7 +309,6 @@ Partial Class frmSettings
     Friend WithEvents grpGeneral As System.Windows.Forms.GroupBox
     Friend WithEvents grpPaths As System.Windows.Forms.GroupBox
     Friend WithEvents txtBackupFolder As System.Windows.Forms.TextBox
-    Friend WithEvents fbBrowser As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents btnSave As System.Windows.Forms.Button
     Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents lblBackupFolder As System.Windows.Forms.Label

@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports GBM.My.Resources
+Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Reflection
 
@@ -8,10 +9,10 @@ Public Class mgrPath
     Private Shared sDBLocation As String = sSettingsRoot & "\gbm.s3db"
     Private Shared sIncludeFile As String = sSettingsRoot & "\gbm_include.txt"
     Private Shared sExcludeFile As String = sSettingsRoot & "\gbm_exclude.txt"
-    Private Shared sOfficialWebURL As String = "http://mikemaximus.github.io/gbm-web/"
-    Private Shared sOfficialImportURL As String = "http://mikemaximus.github.io/gbm-web/GBM_Official.xml"
-    Private Shared sOfficialManualURL As String = "http://mikemaximus.github.io/gbm-web/manual.html"
-    Private Shared sOfficialUpdatesURL As String = "https://github.com/MikeMaximus/gbm/releases"
+    Private Shared sOfficialWebURL As String = App_URLWebsite
+    Private Shared sOfficialImportURL As String = App_URLImport
+    Private Shared sOfficialManualURL As String = App_URLManual
+    Private Shared sOfficialUpdatesURL As String = App_URLUpdates
     Private Shared sRemoteDatabaseLocation As String
     Private Shared hshCustomVariables As Hashtable
     Private Shared oReleaseType As ProcessorArchitecture = AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture

@@ -554,7 +554,7 @@
     <value>Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Monitor this game: [PARAM][BR]Monitor only: [PARAM]</value>
   </data>
   <data name="frmGameManager_ConfirmOfficialImport" xml:space="preserve">
-    <value>Would you like to choose games to import from the official game list?[BR][BR]This require an active internet connection.</value>
+    <value>Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection.</value>
   </data>
   <data name="frmGameManager_ConfirmRestore" xml:space="preserve">
     <value>Are you sure you want to restore the backup for [PARAM]?  This will close the form.</value>
@@ -1048,6 +1048,18 @@
   <data name="frmGameManager_grpStats" xml:space="preserve">
     <value>Backup Information</value>
   </data>
+  <data name="App_URLImport" xml:space="preserve">
+    <value>http://mikemaximus.github.io/gbm-web/GBM_Official.xml</value>
+  </data>
+  <data name="App_URLManual" xml:space="preserve">
+    <value>http://mikemaximus.github.io/gbm-web/manual.html</value>
+  </data>
+  <data name="App_URLUpdates" xml:space="preserve">
+    <value>https://github.com/MikeMaximus/gbm/releases</value>
+  </data>
+  <data name="App_URLWebsite" xml:space="preserve">
+    <value>http://mikemaximus.github.io/gbm-web/</value>
+  </data>
   <data name="frmIncludeExclude_cmsAdd" xml:space="preserve">
     <value>Add Custom Item</value>
   </data>
@@ -1125,5 +1137,170 @@
   </data>
   <data name="frmSettings_lblMinutes" xml:space="preserve">
     <value>minutes</value>
+  </data>
+  <data name="frmStartUpWizard_BrowseFolder" xml:space="preserve">
+    <value>Choose a backup folder:</value>
+  </data>
+  <data name="frmStartUpWizard_btnBack" xml:space="preserve">
+    <value>&amp;Back</value>
+  </data>
+  <data name="frmStartUpWizard_btnDownloadList" xml:space="preserve">
+    <value>Import from Official List</value>
+  </data>
+  <data name="frmStartUpWizard_btnFolderBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmStartUpWizard_btnNext" xml:space="preserve">
+    <value>&amp;Next</value>
+  </data>
+  <data name="frmStartUpWizard_btnNext_Finish" xml:space="preserve">
+    <value>&amp;Finish</value>
+  </data>
+  <data name="frmStartUpWizard_btnOpenMonitorList" xml:space="preserve">
+    <value>Game Manager</value>
+  </data>
+  <data name="frmStartUpWizard_btnOpenWizard" xml:space="preserve">
+    <value>Add Game Wizard</value>
+  </data>
+  <data name="frmStartUpWizard_chkCreateFolder" xml:space="preserve">
+    <value>Create a sub-folder for each game</value>
+  </data>
+  <data name="frmStartUpWizard_chkSync" xml:space="preserve">
+    <value>Import any existing GBM data in the backup folder</value>
+  </data>
+  <data name="frmStartUpWizard_ConfirmOfficialImport" xml:space="preserve">
+    <value>Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection.</value>
+  </data>
+  <data name="frmStartUpWizard_ErrorBadFolder" xml:space="preserve">
+    <value>The selected path must be a full path.</value>
+  </data>
+  <data name="frmStartUpWizard_ErrorNoFolder" xml:space="preserve">
+    <value>You must select a backup path to continue.</value>
+  </data>
+  <data name="frmStartUpWizard_ErrorNoFolderExists" xml:space="preserve">
+    <value>The folder you selected does not exist or is not a valid folder.</value>
+  </data>
+  <data name="frmStartUpWizard_ExistingData" xml:space="preserve">
+    <value>Existing data was detected in the backup folder and has been imported.</value>
+  </data>
+  <data name="frmStartUpWizard_FormName" xml:space="preserve">
+    <value>GBM Setup</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep1Instructions" xml:space="preserve">
+    <value>This guide will help you through some quick and easy steps to get started.</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep1Instructions2" xml:space="preserve">
+    <value>If you'd like to learn about advanced features or have any other questions before you get started, there is a detailed online manual available.</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep1Title" xml:space="preserve">
+    <value>Welcome to GBM</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep2Instructions" xml:space="preserve">
+    <value>GBM will store all your backup files along with a manifest database (gbm.s3db) in this location. </value>
+  </data>
+  <data name="frmStartUpWizard_lblStep2Intro" xml:space="preserve">
+    <value>Choose where GBM saves your backup files:</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep2Title" xml:space="preserve">
+    <value>Backup Location</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep3Intro" xml:space="preserve">
+    <value>Before you can start monitoring for games, they need to be configured so GBM knows what to look for and how to handle them.  You can download pre-made configurations from the official list or add them all yourself using the tools below.  You can also skip this step for now!</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep3Title" xml:space="preserve">
+    <value>Monitoring Games</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep4Instructions" xml:space="preserve">
+    <value>GBM will automatically monitor and backup your games each time they are closed.</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep4Instructions2" xml:space="preserve">
+    <value>Remember that GBM can only currently monitor one game at a time.</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep4Instructions3" xml:space="preserve">
+    <value>You can change anything you've setup in this wizard and find more settings and features by exploring the menus.  Thanks!</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep4Title" xml:space="preserve">
+    <value>Finished!</value>
+  </data>
+  <data name="frmStartUpWizard_llbManual" xml:space="preserve">
+    <value>Game Backup Monitor Manual</value>
+  </data>
+  <data name="frmTags_btnAdd" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="frmTags_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmTags_btnClose" xml:space="preserve">
+    <value>C&amp;lose</value>
+  </data>
+  <data name="frmTags_btnDelete" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="frmTags_btnSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmTags_ConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete [PARAM]?  This cannot be undone.[BR][BR]All games using this tag will have it removed.</value>
+  </data>
+  <data name="frmTags_ErrorTagDupe" xml:space="preserve">
+    <value>A tag with this name already exists.</value>
+  </data>
+  <data name="frmTags_ErrorValidName" xml:space="preserve">
+    <value>You must enter a valid tag name.</value>
+  </data>
+  <data name="frmTags_FormName" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="frmTags_grpTag" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="frmTags_lblName" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="frmVariableManager_btnAdd" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="frmVariableManager_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmVariableManager_btnClose" xml:space="preserve">
+    <value>C&amp;lose</value>
+  </data>
+  <data name="frmVariableManager_btnDelete" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="frmVariableManager_btnPathBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmVariableManager_btnSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmVariableManager_ConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete [PARAM]?  This cannot be undone.</value>
+  </data>
+  <data name="frmVariableManager_ErrorValidName" xml:space="preserve">
+    <value>You must enter a valid variable name.</value>
+  </data>
+  <data name="frmVariableManager_ErrorValidPath" xml:space="preserve">
+    <value>You must enter a valid path.</value>
+  </data>
+  <data name="frmVariableManager_ErrorVariableDupe" xml:space="preserve">
+    <value>A custom variable with this name already exists.</value>
+  </data>
+  <data name="frmVariableManager_FormName" xml:space="preserve">
+    <value>Custom Variable Manager</value>
+  </data>
+  <data name="frmVariableManager_grpVariable" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="frmVariableManager_lblName" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="frmVariableManager_lblPath" xml:space="preserve">
+    <value>Path:</value>
+  </data>
+  <data name="frmVariableManager_PathBrowse" xml:space="preserve">
+    <value>Choose the path the variable represents:</value>
   </data>
 </root>
