@@ -921,7 +921,7 @@ Public Class frmMain
             Me.Invoke(d, New Object() {sLogUpdate, bTrayUpdate, objIcon, bTimeStamp})
         Else
             'Clear the log if we are approaching the limit
-            If txtLog.TextLength > 32000 Then
+            If txtLog.TextLength > 16770000 Then
                 txtLog.Text = String.Empty
             End If
 

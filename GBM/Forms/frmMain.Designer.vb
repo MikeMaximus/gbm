@@ -200,6 +200,7 @@ Partial Class frmMain
         '
         Me.txtLog.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtLog.Location = New System.Drawing.Point(12, 184)
+        Me.txtLog.MaxLength = 16777216
         Me.txtLog.Multiline = True
         Me.txtLog.Name = "txtLog"
         Me.txtLog.ReadOnly = True
