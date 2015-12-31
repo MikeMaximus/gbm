@@ -1400,7 +1400,7 @@
     <value>The search failed to locate the path for [PARAM].[BR][BR]Do you wish to manually set the game path? (Path will be saved)</value>
   </data>
   <data name="mgrPath_ConfirmAutoPath" xml:space="preserve">
-    <value>[PARAM][BR][BR]Do you wish to automatically search for the game path? (Path will be saved)"</value>
+    <value>[PARAM][BR][BR]Do you wish to automatically search for the game path? (Path will be saved)</value>
   </data>
   <data name="mgrPath_ConfirmBackupLocation" xml:space="preserve">
     <value>The backup location [PARAM] is not available.[BR]It may be on an external or network drive that isn't connected.[BR][BR]Do you want to select another backup location and continue?</value>
@@ -1418,13 +1418,13 @@
     <value>[PARAM] restore failed</value>
   </data>
   <data name="mgrRestore_ConfirmCreatePath" xml:space="preserve">
-    <value>The restore path [PARAM] does not exist.[BR][BR]Do you want to create the folder and continue?"</value>
+    <value>The restore path [PARAM] does not exist.[BR][BR]Do you want to create the folder and continue?</value>
   </data>
   <data name="mgrRestore_ConfirmFailedCheck" xml:space="preserve">
     <value>The backup file for [PARAM] has failed the file intergity check.  It may be corrupted, not exist or been modified by another application.[BR][BR]Do you still want to restore this backup? (Not Recommended)</value>
   </data>
   <data name="mgrRestore_ConfirmPathMismatch" xml:space="preserve">
-    <value>The restore path for [PARAM] does not match it's current save path.[BR][BR]Do you want to restore to the current save path instead? (Recommended)"</value>
+    <value>The restore path for [PARAM] does not match it's current save path.[BR][BR]Do you want to restore to the current save path instead? (Recommended)</value>
   </data>
   <data name="mgrRestore_ErrorCheckAbort" xml:space="preserve">
     <value>Restored aborted by user due to a failed file integrity check.</value>

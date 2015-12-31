@@ -3917,7 +3917,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM][BR][BR]Do you wish to automatically search for the game path? (Path will be saved)&quot;.
+        '''  Looks up a localized string similar to [PARAM][BR][BR]Do you wish to automatically search for the game path? (Path will be saved).
         '''</summary>
         Friend ReadOnly Property mgrPath_ConfirmAutoPath() As String
             Get
@@ -3971,7 +3971,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The restore path [PARAM] does not exist.[BR][BR]Do you want to create the folder and continue?&quot;.
+        '''  Looks up a localized string similar to The restore path [PARAM] does not exist.[BR][BR]Do you want to create the folder and continue?.
         '''</summary>
         Friend ReadOnly Property mgrRestore_ConfirmCreatePath() As String
             Get
@@ -3989,7 +3989,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The restore path for [PARAM] does not match it&apos;s current save path.[BR][BR]Do you want to restore to the current save path instead? (Recommended)&quot;.
+        '''  Looks up a localized string similar to The restore path for [PARAM] does not match it&apos;s current save path.[BR][BR]Do you want to restore to the current save path instead? (Recommended).
         '''</summary>
         Friend ReadOnly Property mgrRestore_ConfirmPathMismatch() As String
             Get
