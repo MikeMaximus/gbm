@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports GBM.My.Resources
+Imports System.IO
 
 Public Class frmFileFolderSearch
     Private sSearchItem As String
@@ -135,9 +136,7 @@ Public Class frmFileFolderSearch
         If FoundItem = "Cancel" Then FoundItem = String.Empty
 
         If oDrives.Count > iCurrentDrive And FoundItem = String.Empty Then
-            oResult = MsgBox("The location was not found on the " & oSearchDrive.Root.ToString & _
-                             " drive.  Do you wish to search the " & oDrives(iCurrentDrive).RootDirectory.ToString & _
-                             " drive?", MsgBoxStyle.YesNo, "Game Backup Monitor")
+            oResult = mgrCommon.ShowMessage(frmFileFolderSearch_SwitchDrives, New String() {oSearchDrive.Root.ToString, oDrives(iCurrentDrive).RootDirectory.ToString}, MsgBoxStyle.YesNo)
             If oResult = MsgBoxResult.Yes Then
                 Search(oDrives(iCurrentDrive))
             Else
@@ -150,7 +149,16 @@ Public Class frmFileFolderSearch
         End If
     End Sub
 
+    Private Sub SetForm()
+        'Set Form Name
+        Me.Text = frmFileFolderSearch_FormName
+
+        'Set Form Text
+        btnCancel.Text = frmFileFolderSearch_btnCancel
+    End Sub
+
     Private Sub frmFileFolderSearch_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetForm()
         GetDrives()
         Search(oDrives(iCurrentDrive))
     End Sub

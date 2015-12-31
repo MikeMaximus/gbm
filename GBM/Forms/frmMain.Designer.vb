@@ -99,7 +99,7 @@ Partial Class frmMain
         '
         Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayNotification, Me.gMonTrayShow, Me.gMonTraySep2, Me.gMonTrayMon, Me.gMonTraySettings, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTraySep1, Me.gMonTrayExit})
         Me.gMonTrayMenu.Name = "gMonTrayMenu"
-        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 192)
+        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 170)
         '
         'gMonTrayNotification
         '
@@ -200,6 +200,7 @@ Partial Class frmMain
         '
         Me.txtLog.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtLog.Location = New System.Drawing.Point(12, 184)
+        Me.txtLog.MaxLength = 16777216
         Me.txtLog.Multiline = True
         Me.txtLog.Name = "txtLog"
         Me.txtLog.ReadOnly = True
@@ -223,7 +224,7 @@ Partial Class frmMain
         '
         Me.gMonStripAdminButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.gMonStripAdminButton.DropDownButtonWidth = 0
-        Me.gMonStripAdminButton.Image = Global.GBM.My.Resources.Resources.User
+        Me.gMonStripAdminButton.Image = Global.GBM.My.Resources.Resources.Icon_User
         Me.gMonStripAdminButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.gMonStripAdminButton.Name = "gMonStripAdminButton"
         Me.gMonStripAdminButton.Size = New System.Drawing.Size(21, 20)

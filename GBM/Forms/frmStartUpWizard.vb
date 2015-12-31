@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports GBM.My.Resources
+Imports System.IO
 
 Public Class frmStartUpWizard
 
@@ -26,8 +27,34 @@ Public Class frmStartUpWizard
 
     Private eCurrentStep As eSteps = eSteps.Step1
 
-    Private Sub FormInit()
-        llbManual.Links.Add(0, 26, "http://mikemaximus.github.io/gbm-web/manual.html")
+    Private Sub SetForm()
+        'Set Form Name
+        Me.Text = frmStartUpWizard_FormName
+
+        'Set Form Text
+        btnNext.Text = frmStartUpWizard_btnNext
+        btnBack.Text = frmStartUpWizard_btnBack
+        lblStep1Instructions2.Text = frmStartUpWizard_lblStep1Instructions2
+        llbManual.Text = frmStartUpWizard_llbManual
+        lblStep1Title.Text = frmStartUpWizard_lblStep1Title
+        lblStep1Instructions.Text = frmStartUpWizard_lblStep1Instructions
+        chkSync.Text = frmStartUpWizard_chkSync
+        chkCreateFolder.Text = frmStartUpWizard_chkCreateFolder
+        lblStep2Title.Text = frmStartUpWizard_lblStep2Title
+        lblStep2Instructions.Text = frmStartUpWizard_lblStep2Instructions
+        btnFolderBrowse.Text = frmStartUpWizard_btnFolderBrowse
+        lblStep2Intro.Text = frmStartUpWizard_lblStep2Intro
+        btnOpenWizard.Text = frmStartUpWizard_btnOpenWizard
+        btnOpenMonitorList.Text = frmStartUpWizard_btnOpenMonitorList
+        btnDownloadList.Text = frmStartUpWizard_btnDownloadList
+        lblStep3Title.Text = frmStartUpWizard_lblStep3Title
+        lblStep3Intro.Text = frmStartUpWizard_lblStep3Intro
+        lblStep4Instructions3.Text = frmStartUpWizard_lblStep4Instructions3
+        lblStep4Instructions2.Text = frmStartUpWizard_lblStep4Instructions2
+        lblStep4Title.Text = frmStartUpWizard_lblStep4Title
+        lblStep4Instructions.Text = frmStartUpWizard_lblStep4Instructions
+
+        llbManual.Links.Add(0, 26, App_URLManual)
         LoadGameSettings()
         StepHandler()
     End Sub
@@ -40,7 +67,7 @@ Public Class frmStartUpWizard
             'Make sure database is the latest version
             oDatabase.DatabaseUpgrade()
             mgrMonitorList.SyncMonitorLists(False)
-            MsgBox("Existing data was detected in the backup folder and has been imported.", MsgBoxStyle.Information, "Game Backup Monitor")
+            mgrCommon.ShowMessage(frmStartUpWizard_ExistingData, MsgBoxStyle.Information)
         End If
     End Sub
 
@@ -48,7 +75,7 @@ Public Class frmStartUpWizard
         Select Case eCurrentStep
             Case eSteps.Step1
                 btnBack.Enabled = False
-                btnNext.Enabled = True                
+                btnNext.Enabled = True
                 tabWizard.SelectTab(0)
             Case eSteps.Step2
                 txtBackupPath.Text = oSettings.BackupFolder
@@ -60,19 +87,19 @@ Public Class frmStartUpWizard
             Case eSteps.Step3
                 btnBack.Enabled = False
                 btnNext.Enabled = True
-                btnNext.Text = "&Next"
+                btnNext.Text = frmStartUpWizard_btnNext
                 tabWizard.SelectTab(2)
             Case eSteps.Step4
                 btnBack.Enabled = True
                 btnNext.Enabled = True
-                btnNext.Text = "&Finish"
+                btnNext.Text = frmStartUpWizard_btnNext_Finish
                 tabWizard.SelectTab(3)
         End Select
     End Sub
 
     Private Sub DownloadSettings()
-        If MsgBox("Would you like to choose games to import from the official game list?" & vbCrLf & vbCrLf & "This require an active internet connection.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(mgrPath.OfficialImportURL) Then
+        If mgrCommon.ShowMessage(frmStartUpWizard_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If mgrMonitorList.DoImport(App_URLImport) Then
                 oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
                 If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
             End If
@@ -103,19 +130,19 @@ Public Class frmStartUpWizard
 
     Private Function ValidateBackupPath(ByVal strPath As String, ByRef sErrorMessage As String) As Boolean
         If strPath = String.Empty Then
-            sErrorMessage = "You must select a backup path to continue."
+            sErrorMessage = frmStartUpWizard_ErrorNoFolder
             txtBackupPath.Focus()
             Return False
         End If
 
         If Not Directory.Exists(strPath) Then
-            sErrorMessage = "The folder you selected does not exist or is not a valid folder."
+            sErrorMessage = frmStartUpWizard_ErrorNoFolderExists
             txtBackupPath.Focus()
             Return False
         End If
 
         If Not Path.IsPathRooted(strPath) Then
-            sErrorMessage = "The selected path must be a full path."
+            sErrorMessage = frmStartUpWizard_ErrorBadFolder
             txtBackupPath.Focus()
             Return False
         End If
@@ -165,7 +192,7 @@ Public Class frmStartUpWizard
                 Me.Close()
         End Select
 
-        If bError Then MsgBox(sErrorMessage, MsgBoxStyle.Exclamation, "Game Backup Monitor")
+        If bError Then mgrCommon.ShowMessage(sErrorMessage, MsgBoxStyle.Exclamation)
         StepHandler()
     End Sub
 
@@ -180,7 +207,7 @@ Public Class frmStartUpWizard
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser("Choose GBM backup folder:", sDefaultFolder, False)
+        sNewPath = mgrCommon.OpenFolderBrowser(frmStartUpWizard_BrowseFolder, sDefaultFolder, True)
 
         If sNewPath <> String.Empty Then txtBackupPath.Text = sNewPath
     End Sub
@@ -194,7 +221,7 @@ Public Class frmStartUpWizard
     End Sub
 
     Private Sub frmStartUpWizard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        FormInit()
+        SetForm()
     End Sub
 
     Private Sub btnFolderBrowse_Click(sender As Object, e As EventArgs) Handles btnFolderBrowse.Click

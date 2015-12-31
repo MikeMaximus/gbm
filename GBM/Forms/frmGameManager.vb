@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports GBM.My.Resources
+Imports System.IO
 
 Public Class frmGameManager
 
@@ -279,8 +280,8 @@ Public Class frmGameManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFileBrowser("Choose exe file that starts the application", "exe", _
-                                          "Executable", sDefaultFolder, False)
+        sNewPath = mgrCommon.OpenFileBrowser(frmGameManager_ChooseExe, "exe", _
+                                          frmGameManager_Executable, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then
             txtAppPath.Text = Path.GetDirectoryName(sNewPath)
@@ -300,7 +301,7 @@ Public Class frmGameManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser("Choose the location of application's exe file:", sDefaultFolder, False)
+        sNewPath = mgrCommon.OpenFolderBrowser(frmGameManager_ChooseExePath, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then txtAppPath.Text = sNewPath
     End Sub
@@ -316,7 +317,7 @@ Public Class frmGameManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser("Choose the application save folder:", sDefaultFolder, False)
+        sNewPath = mgrCommon.OpenFolderBrowser(frmGameManager_ChooseSaveFolder, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then
             txtSavePath.Text = sNewPath
@@ -335,8 +336,8 @@ Public Class frmGameManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFileBrowser("Choose a custom icon for the application", "ico", _
-                                          "Icon", sDefaultFolder, False)
+        sNewPath = mgrCommon.OpenFileBrowser(frmGameManager_ChooseCustomIcon, "ico", _
+                                          frmGameManager_Icon, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then
             txtIcon.Text = sNewPath
@@ -349,7 +350,7 @@ Public Class frmGameManager
     Private Function HandleDirty() As MsgBoxResult
         Dim oResult As MsgBoxResult
 
-        oResult = MsgBox("There are unsaved changes on this form.  Do you want to save?", MsgBoxStyle.YesNoCancel, "Game Backup Monitor")
+        oResult = mgrCommon.ShowMessage(App_ConfirmDirty, MsgBoxStyle.YesNoCancel)
 
         Select Case oResult
             Case MsgBoxResult.Yes
@@ -393,7 +394,7 @@ Public Class frmGameManager
         If File.Exists(sFileName) Then
             Process.Start("explorer.exe", "/select," & sFileName)
         Else
-            MsgBox("The backup file does not exist.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage(frmGameManager_ErrorNoBackupExists, MsgBoxStyle.Exclamation)
         End If
 
     End Sub
@@ -402,9 +403,9 @@ Public Class frmGameManager
         Dim iCount As Integer = sBuilderString.Split(":").Length
 
         If sBuilderString <> String.Empty And iCount > 0 Then
-            btn.Text = sLabel & " Items... (" & iCount & ")"
+            btn.Text = sLabel & " " & mgrCommon.FormatString(frmGameManager_ItemsExist, iCount)
         Else
-            btn.Text = sLabel & " Items..."
+            btn.Text = sLabel & " " & frmGameManager_Items
         End If
 
         If bDirty Then
@@ -454,7 +455,7 @@ Public Class frmGameManager
             Else
                 sProcess = CurrentGame.TrueProcess
                 If mgrCommon.IsProcessNotSearchable(CurrentGame) Then bNoAuto = True
-                sRestorePath = mgrPath.ProcessPathSearch(CurrentBackupItem.Name, sProcess, CurrentBackupItem.Name & " uses a relative path and the game path has not been set.", bNoAuto)
+                sRestorePath = mgrPath.ProcessPathSearch(CurrentBackupItem.Name, sProcess, mgrCommon.FormatString(frmGameManager_ErrorPathNotSet, CurrentBackupItem.Name), bNoAuto)
 
                 If sRestorePath <> String.Empty Then
                     CurrentBackupItem.RelativeRestorePath = sRestorePath & "\" & CurrentBackupItem.RestorePath
@@ -482,7 +483,7 @@ Public Class frmGameManager
         If Directory.Exists(sPath) Then
             Process.Start("explorer.exe", sPath)
         Else
-            MsgBox("The restore path does not exist.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage(frmGameManager_ErrorNoRestorePathExists, MsgBoxStyle.Exclamation)
         End If
 
     End Sub
@@ -522,7 +523,7 @@ Public Class frmGameManager
 
         If oRemoteBackupData.Contains(oApp.Name) Then
             CurrentBackupItem = DirectCast(oRemoteBackupData(oApp.Name), clsBackup)
-            txtCurrentBackup.Text = CurrentBackupItem.DateUpdated & " by " & CurrentBackupItem.UpdatedBy
+            txtCurrentBackup.Text = mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {CurrentBackupItem.DateUpdated, CurrentBackupItem.UpdatedBy})
             sFileName = BackupFolder & CurrentBackupItem.FileName
 
             btnOpenBackupFile.Enabled = True
@@ -534,16 +535,16 @@ Public Class frmGameManager
                 oFileInfo = New FileInfo(sFileName)
                 dFileSize = oFileInfo.Length
                 If dFileSize > 1048576 Then
-                    txtFileSize.Text = Math.Round(dFileSize / 1048576, 2) & " MB"
+                    txtFileSize.Text = mgrCommon.FormatString(App_MB, Math.Round(dFileSize / 1048576, 2).ToString)
                 Else
-                    txtFileSize.Text = Math.Round(dFileSize / 1024, 2) & " KB"
+                    txtFileSize.Text = mgrCommon.FormatString(App_KB, Math.Round(dFileSize / 1024, 2).ToString)
                 End If
             Else
-                txtFileSize.Text = "Backup file was not found!"
+                txtFileSize.Text = frmGameManager_ErrorNoBackupExists
             End If
             txtRestorePath.Text = CurrentBackupItem.RestorePath
         Else
-            txtCurrentBackup.Text = "Never"
+            txtCurrentBackup.Text = frmGameManager_Never
             txtFileSize.Text = String.Empty
             txtRestorePath.Text = String.Empty
             btnOpenBackupFile.Enabled = False
@@ -554,25 +555,25 @@ Public Class frmGameManager
 
         If oLocalBackupData.Contains(oApp.Name) Then
             oBackupInfo = DirectCast(oLocalBackupData(oApp.Name), clsBackup)
-            txtLocalBackup.Text = oBackupInfo.DateUpdated & " by " & oBackupInfo.UpdatedBy
+            txtLocalBackup.Text = mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {oBackupInfo.DateUpdated, oBackupInfo.UpdatedBy})
         Else
-            txtLocalBackup.Text = "Never"
+            txtLocalBackup.Text = frmGameManager_Never
         End If
 
-        If txtCurrentBackup.Text = "Never" And txtLocalBackup.Text = "Never" Then
+        If txtCurrentBackup.Text = frmGameManager_Never And txtLocalBackup.Text = frmGameManager_Never Then
             lblSync.Visible = False
             btnMarkAsRestored.Enabled = False
-        ElseIf txtCurrentBackup.Text = "Never" And txtLocalBackup.Text <> "Never" Then
+        ElseIf txtCurrentBackup.Text = frmGameManager_Never And txtLocalBackup.Text <> frmGameManager_Never Then
             lblSync.Visible = False
             btnMarkAsRestored.Enabled = False
         ElseIf txtCurrentBackup.Text <> txtLocalBackup.Text Then
             lblSync.ForeColor = Color.Red
-            lblSync.Text = "Out of Sync!"
+            lblSync.Text = frmGameManager_OutofSync
             lblSync.Visible = True
             btnMarkAsRestored.Enabled = True
         Else
             lblSync.ForeColor = Color.Green
-            lblSync.Text = "Up to Date!"
+            lblSync.Text = frmGameManager_UpToDate
             lblSync.Visible = True
             btnMarkAsRestored.Enabled = False
         End If
@@ -583,8 +584,7 @@ Public Class frmGameManager
         Dim oDir As DirectoryInfo
         Dim sSubDir As String
 
-        If MsgBox("This will delete the backup file and all records of this backup.  This cannot be undone. " & vbCrLf & vbCrLf & "Do you want to remove the data for " _
-                  & CurrentBackupItem.Name & "?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+        If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupDelete, CurrentBackupItem.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             mgrManifest.DoManifestDelete(CurrentBackupItem, mgrSQLite.Database.Local)
             mgrManifest.DoManifestDelete(CurrentBackupItem, mgrSQLite.Database.Remote)
 
@@ -601,9 +601,7 @@ Public Class frmGameManager
                     oDir = New DirectoryInfo(sSubDir)
                     If oDir.GetDirectories.Length > 0 Or oDir.GetFiles.Length > 0 Then
                         'Confirm
-                        If MsgBox("The backup folder " & sSubDir & " still contains " & oDir.GetDirectories.Length & " directories and " &
-                                  oDir.GetFiles.Length & " files." & vbCrLf & vbCrLf & "Do you want to delete the contents and remove the sub-folder for this game?",
-                                  MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                        If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupFolderDelete, New String() {sSubDir, oDir.GetDirectories.Length, oDir.GetFiles.Length}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                             If Directory.Exists(sSubDir) Then Directory.Delete(sSubDir, True)
                         End If
                     Else
@@ -644,8 +642,8 @@ Public Class frmGameManager
         chkMonitorOnly.Checked = oApp.MonitorOnly
 
         'Update Buttons
-        UpdateBuilderButtonLabel(oApp.FileType, "In&clude", btnInclude, False)
-        UpdateBuilderButtonLabel(oApp.ExcludeList, "E&xclude", btnExclude, False)
+        UpdateBuilderButtonLabel(oApp.FileType, frmGameManager_IncludeShortcut, btnInclude, False)
+        UpdateBuilderButtonLabel(oApp.ExcludeList, frmGameManager_ExcludeShortcut, btnExclude, False)
 
         'Extra
         txtAppPath.Text = oApp.ProcessPath
@@ -659,7 +657,7 @@ Public Class frmGameManager
         If IO.File.Exists(oApp.Icon) Then
             pbIcon.Image = Image.FromFile(oApp.Icon)
         Else
-            pbIcon.Image = My.Resources.Unknown
+            pbIcon.Image = Icon_Unknown
         End If
 
         'Stats
@@ -747,7 +745,7 @@ Public Class frmGameManager
                 WipeControls(grpConfig.Controls)
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
-                pbIcon.Image = My.Resources.Unknown
+                pbIcon.Image = Icon_Unknown
                 chkEnabled.Enabled = True
                 chkMonitorOnly.Enabled = True
                 btnSave.Enabled = True
@@ -765,8 +763,8 @@ Public Class frmGameManager
                 chkMonitorOnly.Checked = False
                 btnTags.Enabled = False
                 lblTags.Visible = False
-                btnInclude.Text = "In&clude Items..."
-                btnExclude.Text = "E&xclude Items..."
+                btnInclude.Text = frmGameManager_btnInclude
+                btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = False
                 btnExport.Enabled = False
             Case eModes.Edit
@@ -823,8 +821,8 @@ Public Class frmGameManager
                 btnBackup.Enabled = False
                 btnTags.Enabled = False
                 lblTags.Visible = False
-                btnInclude.Text = "In&clude Items..."
-                btnExclude.Text = "E&xclude Items..."
+                btnInclude.Text = frmGameManager_btnInclude
+                btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = True
                 btnExport.Enabled = True
             Case eModes.Disabled
@@ -833,7 +831,7 @@ Public Class frmGameManager
                 WipeControls(grpConfig.Controls)
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
-                pbIcon.Image = My.Resources.Unknown
+                pbIcon.Image = Icon_Unknown
                 lblSync.Visible = False
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
@@ -849,8 +847,8 @@ Public Class frmGameManager
                 btnMarkAsRestored.Enabled = False
                 btnTags.Enabled = False
                 lblTags.Visible = False
-                btnInclude.Text = "In&clude Items..."
-                btnExclude.Text = "E&xclude Items..."
+                btnInclude.Text = frmGameManager_btnInclude
+                btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = True
                 btnExport.Enabled = True
             Case eModes.MultiSelect
@@ -858,7 +856,7 @@ Public Class frmGameManager
                 WipeControls(grpConfig.Controls)
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
-                pbIcon.Image = My.Resources.Unknown
+                pbIcon.Image = Icon_Unknown
                 lblSync.Visible = False
                 btnSave.Enabled = True
                 btnCancel.Enabled = False
@@ -976,13 +974,11 @@ Public Class frmGameManager
                 End If
             Case eModes.MultiSelect
                 Dim sMonitorIDs As New List(Of String)
-                Dim sChanges As String
                 For Each oData In lstGames.SelectedItems
                     sMonitorIDs.Add(AppData(oData.Key))
                 Next
 
-                sChanges = vbCrLf & vbCrLf & "Monitor this game:  " & mgrCommon.BooleanYesNo(oApp.Enabled) & vbCrLf & "Monitor only (No backup):  " & mgrCommon.BooleanYesNo(oApp.MonitorOnly)
-                If MsgBox("Are you sure you want to save the following changes to " & sMonitorIDs.Count & " selected games?" & sChanges, MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiSave, New String() {sMonitorIDs.Count, mgrCommon.BooleanYesNo(oApp.Enabled), mgrCommon.BooleanYesNo(oApp.MonitorOnly)}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     bSuccess = True
                     mgrMonitorList.DoListUpdateMulti(sMonitorIDs, oApp)
                     eCurrentMode = eModes.Disabled
@@ -1008,7 +1004,7 @@ Public Class frmGameManager
             oData = lstGames.SelectedItems(0)
             oApp = DirectCast(AppData(oData.Key), clsGame)
 
-            If MsgBox("Are you sure you want to delete " & oApp.Name & "?  This cannot be undone." & vbCrLf & vbCrLf & "This will not delete any backup files that already exist for this game.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(frmGameManager_ConfirmGameDelete, oApp.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDelete(oApp.ID)
                 LoadData()
                 eCurrentMode = eModes.Disabled
@@ -1022,7 +1018,7 @@ Public Class frmGameManager
                 sMonitorIDs.Add(oApp.ID)
             Next
 
-            If MsgBox("Are you sure you want to delete the " & sMonitorIDs.Count & " selected games?  This cannot be undone.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiGameDelete, sMonitorIDs.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDeleteMulti(sMonitorIDs)
                 LoadData()
                 eCurrentMode = eModes.Disabled
@@ -1044,25 +1040,25 @@ Public Class frmGameManager
 
     Private Function CoreValidatation(ByVal oApp As clsGame) As Boolean
         If txtName.Text = String.Empty Then
-            MsgBox("You must enter a valid application name.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage(frmGameManager_ErrorValidName, MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
         End If
 
         If txtProcess.Text = String.Empty Then
-            MsgBox("You must enter a valid process name.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage(frmGameManager_ErrorValidProcess, MsgBoxStyle.Exclamation)
             txtProcess.Focus()
             Return False
         End If
 
         If chkFolderSave.Checked = False And txtFileType.Text = String.Empty Then
-            MsgBox("You must choose items to include in the backup, or choose to save the entire folder.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage(frmGameManager_ErrorNoItems, MsgBoxStyle.Exclamation)
             btnInclude.Focus()
             Return False
         End If
 
         If mgrMonitorList.DoDuplicateListCheck(oApp.Name, oApp.ProcessName, , oApp.ID) Then
-            MsgBox("A game with this exact name and process already exists.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage(frmGameManager_ErrorGameDupe, MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
         End If
@@ -1085,7 +1081,7 @@ Public Class frmGameManager
             Next
 
             If oMarkList.Count = 1 Then
-                If MsgBox("Do you want to mark " & oMarkList(0).Name & " as restored?  This cannot be undone.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                If mgrCommon.ShowMessage(frmGameManager_ConfirmMark, oMarkList(0).Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     bWasUpdated = True
                     If mgrManifest.DoManifestCheck(oMarkList(0).Name, mgrSQLite.Database.Local) Then
                         mgrManifest.DoManifestUpdate(oMarkList(0), mgrSQLite.Database.Local)
@@ -1094,7 +1090,7 @@ Public Class frmGameManager
                     End If
                 End If
             ElseIf oMarkList.Count > 1 Then
-                If MsgBox("Do you want to mark " & oMarkList.Count & " games as restored?  This cannot be undone.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiMark, oMarkList.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     bWasUpdated = True
                     For Each oGameBackup In oMarkList
                         If mgrManifest.DoManifestCheck(oGameBackup.Name, mgrSQLite.Database.Local) Then
@@ -1105,7 +1101,7 @@ Public Class frmGameManager
                     Next
                 End If
             Else
-                MsgBox("The selected game(s) have no backup data.", MsgBoxStyle.Information, "Game Backup Monitor")
+                mgrCommon.ShowMessage(frmGameManager_ErrorNoBackupData, MsgBoxStyle.Information)
             End If
 
             'Don't bother updating unless we actually did something
@@ -1139,12 +1135,12 @@ Public Class frmGameManager
             Next
 
             If BackupList.Count = 1 Then
-                sMsg = "Are you sure you want to run a backup for " & BackupList(0).Name & "?  This will close the form."
+                sMsg = mgrCommon.FormatString(frmGameManager_ConfirmBackup, BackupList(0).Name)
             ElseIf BackupList.Count > 1 Then
-                sMsg = "Are you sure you want to run a backup for " & BackupList.Count & " games?  This will close the form."
+                sMsg = mgrCommon.FormatString(frmGameManager_ConfirmMultiBackup, BackupList.Count)
             End If
 
-            If MsgBox(sMsg, MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(sMsg, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 TriggerBackup = True
                 Me.Close()
             End If
@@ -1171,20 +1167,20 @@ Public Class frmGameManager
             If RestoreList.Count = 1 Then
                 bDoRestore = True
                 If Not mgrRestore.CheckManifest(RestoreList(0).Name) Then
-                    sMsg = RestoreList(0).Name & " is already up to date." & vbCrLf & vbCrLf & "Would you like to restore this backup anyway?"
+                    sMsg = mgrCommon.FormatString(frmGameManager_ConfirmRestoreAnyway, RestoreList(0).Name)
                 Else
-                    sMsg = "Are you sure you want to restore the backup for " & RestoreList(0).Name & "?  This will close the form."
+                    sMsg = mgrCommon.FormatString(frmGameManager_ConfirmRestore, RestoreList(0).Name)
                 End If
             ElseIf RestoreList.Count > 1 Then
                 bDoRestore = True
-                sMsg = "Are you sure you want to restore the backups for " & RestoreList.Count & " games?  This will close the form."
+                sMsg = mgrCommon.FormatString(frmGameManager_ConfirmMultiRestore, RestoreList.Count)
             Else
-                MsgBox("The selected game(s) have no backup data.", MsgBoxStyle.Information, "Game Backup Monitor")
+                mgrCommon.ShowMessage(frmGameManager_ErrorNoBackupData, MsgBoxStyle.Information)
             End If
 
             'We need this check in case a bunch of games with no backups are multi-selected
             If bDoRestore Then
-                If MsgBox(sMsg, MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                If mgrCommon.ShowMessage(sMsg, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     TriggerRestore = True
                     Me.Close()
                 End If
@@ -1195,7 +1191,7 @@ Public Class frmGameManager
     Private Sub ImportGameListFile()
         Dim sLocation As String
 
-        sLocation = mgrCommon.OpenFileBrowser("Choose a valid xml file to import", "xml", "XML", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
+        sLocation = mgrCommon.OpenFileBrowser(frmGameManager_ChooseImportXML, "xml", frmGameManager_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
 
         If sLocation <> String.Empty Then
             If mgrMonitorList.DoImport(sLocation) Then
@@ -1208,7 +1204,7 @@ Public Class frmGameManager
     Private Sub ExportGameList()
         Dim sLocation As String
 
-        sLocation = mgrCommon.SaveFileBrowser("Choose a location for the export file", "xml", "XML", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Game Backup Monitor Export " & Date.Now.ToString("dd-MMM-yyyy"))
+        sLocation = mgrCommon.SaveFileBrowser(frmGameManager_ChooseExportXML, "xml", frmGameManager_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Game Backup Monitor Export " & Date.Now.ToString("dd-MMM-yyyy"))
 
         If sLocation <> String.Empty Then
             mgrMonitorList.ExportMonitorList(sLocation)
@@ -1218,15 +1214,69 @@ Public Class frmGameManager
 
     Private Sub ImportOfficialGameList()
 
-        If MsgBox("Would you like to choose games to import from the official game list?" & vbCrLf & vbCrLf & "This require an active internet connection.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(mgrPath.OfficialImportURL) Then
+        If mgrCommon.ShowMessage(frmGameManager_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If mgrMonitorList.DoImport(App_URLImport) Then
                 LoadData()
             End If
         End If
 
     End Sub
 
+    Private Sub SetForm()
+        'Set Form Name
+        Me.Name = frmGameManager_FormName
+
+        'Set Form text
+        grpFilter.Text = frmGameManager_grpFilter
+        grpConfig.Text = frmGameManager_grpConfig
+        grpExtra.Text = frmGameManager_grpExtra
+        grpStats.Text = frmGameManager_grpStats
+        btnExport.Text = frmGameManager_btnExport
+        btnImport.Text = frmGameManager_btnImport
+        optCustom.Text = frmGameManager_optCustom
+        optBackupData.Text = frmGameManager_optBackupData
+        optPendingRestores.Text = frmGameManager_optPendingRestores
+        optAllGames.Text = frmGameManager_optAllGames
+        btnTags.Text = frmGameManager_btnTags
+        chkEnabled.Text = frmGameManager_chkEnabled
+        btnCancel.Text = frmGameManager_btnCancel
+        chkMonitorOnly.Text = frmGameManager_chkMonitorOnly
+        btnMarkAsRestored.Text = frmGameManager_btnMarkAsRestored
+        btnRestore.Text = frmGameManager_btnRestore
+        btnSave.Text = frmGameManager_btnSave
+        lblRestorePath.Text = frmGameManager_lblRestorePath
+        btnOpenRestorePath.Text = frmGameManager_btnOpenRestorePath
+        btnOpenBackupFile.Text = frmGameManager_btnOpenBackupFile
+        btnDeleteBackup.Text = frmGameManager_btnDeleteBackup
+        lblFileSize.Text = frmGameManager_lblFileSize
+        lblCurrentBackup.Text = frmGameManager_lblCurrentBackup
+        lblLastBackup.Text = frmGameManager_lblLastBackup
+        btnIconBrowse.Text = frmGameManager_btnIconBrowse
+        lblVersion.Text = frmGameManager_lblVersion
+        lblCompany.Text = frmGameManager_lblCompany
+        lblIcon.Text = frmGameManager_lblIcon
+        btnAppPathBrowse.Text = frmGameManager_btnAppPathBrowse
+        lblGamePath.Text = frmGameManager_lblGamePath
+        lblHours.Text = frmGameManager_lblHours
+        btnExclude.Text = frmGameManager_btnExclude
+        btnInclude.Text = frmGameManager_btnInclude
+        btnSavePathBrowse.Text = frmGameManager_btnSavePathBrowse
+        btnProcessBrowse.Text = frmGameManager_btnProcessBrowse
+        lblSavePath.Text = frmGameManager_lblSavePath
+        lblProcess.Text = frmGameManager_lblProcess
+        lblName.Text = frmGameManager_lblName
+        chkTimeStamp.Text = frmGameManager_chkTimeStamp
+        chkFolderSave.Text = frmGameManager_chkFolderSave
+        btnBackup.Text = frmGameManager_btnBackup
+        btnClose.Text = frmGameManager_btnClose
+        btnDelete.Text = frmGameManager_btnDelete
+        btnAdd.Text = frmGameManager_btnAdd
+        cmsOfficial.Text = frmGameManager_cmsOfficial
+        cmsFile.Text = frmGameManager_cmsFile
+    End Sub
+
     Private Sub frmGameManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetForm()
 
         If DisableExternalFunctions Then
             btnBackup.Visible = False
@@ -1342,14 +1392,14 @@ Public Class frmGameManager
 
     Private Sub btnInclude_Click(sender As Object, e As EventArgs) Handles btnInclude.Click
         Dim sInclude As String = txtFileType.Text
-        OpenBuilder("Include", txtFileType)
-        UpdateBuilderButtonLabel(txtFileType.Text, "In&clude", btnInclude, (sInclude <> txtFileType.Text))
+        OpenBuilder(frmGameManager_Include, txtFileType)
+        UpdateBuilderButtonLabel(txtFileType.Text, frmGameManager_IncludeShortcut, btnInclude, (sInclude <> txtFileType.Text))
     End Sub
 
     Private Sub btnExclude_Click(sender As Object, e As EventArgs) Handles btnExclude.Click
         Dim sExclude As String = txtExclude.Text
-        OpenBuilder("Exclude", txtExclude)
-        UpdateBuilderButtonLabel(txtExclude.Text, "E&xclude", btnExclude, (sExclude <> txtExclude.Text))
+        OpenBuilder(frmGameManager_Exclude, txtExclude)
+        UpdateBuilderButtonLabel(txtExclude.Text, frmGameManager_ExcludeShortcut, btnExclude, (sExclude <> txtExclude.Text))
     End Sub
 
     Private Sub chkFolderSave_CheckedChanged(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged
@@ -1357,7 +1407,7 @@ Public Class frmGameManager
             btnInclude.Enabled = False
             If txtFileType.Text <> String.Empty Then
                 txtFileType.Text = String.Empty
-                UpdateBuilderButtonLabel(txtFileType.Text, "In&clude", btnInclude, False)
+                UpdateBuilderButtonLabel(txtFileType.Text, frmGameManager_IncludeShortcut, btnInclude, False)
             End If
         Else
             btnInclude.Enabled = True

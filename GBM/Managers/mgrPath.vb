@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports GBM.My.Resources
+Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Reflection
 
@@ -8,10 +9,6 @@ Public Class mgrPath
     Private Shared sDBLocation As String = sSettingsRoot & "\gbm.s3db"
     Private Shared sIncludeFile As String = sSettingsRoot & "\gbm_include.txt"
     Private Shared sExcludeFile As String = sSettingsRoot & "\gbm_exclude.txt"
-    Private Shared sOfficialWebURL As String = "http://mikemaximus.github.io/gbm-web/"
-    Private Shared sOfficialImportURL As String = "http://mikemaximus.github.io/gbm-web/GBM_Official.xml"
-    Private Shared sOfficialManualURL As String = "http://mikemaximus.github.io/gbm-web/manual.html"
-    Private Shared sOfficialUpdatesURL As String = "https://github.com/MikeMaximus/gbm/releases"
     Private Shared sRemoteDatabaseLocation As String
     Private Shared hshCustomVariables As Hashtable
     Private Shared oReleaseType As ProcessorArchitecture = AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
@@ -73,30 +70,6 @@ Public Class mgrPath
     Shared ReadOnly Property ExcludeFileLocation As String
         Get
             Return sExcludeFile
-        End Get
-    End Property
-
-    Shared ReadOnly Property OfficialWebURL As String
-        Get
-            Return sOfficialWebURL
-        End Get
-    End Property
-
-    Shared ReadOnly Property OfficialManualURL As String
-        Get
-            Return sOfficialManualURL
-        End Get
-    End Property
-
-    Shared ReadOnly Property OfficialUpdatesURL As String
-        Get
-            Return sOfficialUpdatesURL
-        End Get
-    End Property
-
-    Shared ReadOnly Property OfficialImportURL As String
-        Get
-            Return sOfficialImportURL
         End Get
     End Property
 
@@ -325,11 +298,11 @@ Public Class mgrPath
         hshCustomVariables = mgrVariables.ReadVariables
     End Sub
 
-    Public Shared Function SetManualgamePath() As String
+    Public Shared Function SetManualGamePath() As String
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
         Dim sNewPath As String
 
-        sNewPath = mgrCommon.OpenFolderBrowser("Choose the game folder containing the executable.", sDefaultFolder, False)
+        sNewPath = mgrCommon.OpenFolderBrowser(mgrPath_ChoosePath, sDefaultFolder, False)
 
         Return sNewPath
     End Function
@@ -345,25 +318,24 @@ Public Class mgrPath
 
         'We can't automatically search for certain game types
         If bNoAuto Then
-            sMessage = sSearchReason & vbCrLf & vbCrLf & "Do you wish to manually set the game path? (Path will be saved)"
+            sMessage = mgrCommon.FormatString(mgrPath_ConfirmManualPath, sSearchReason)
 
-            If MsgBox(sMessage, MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 sFolder = SetManualgamePath()
             End If
 
             Return sFolder
         End If
 
-        sMessage = sSearchReason & vbCrLf & vbCrLf & "Do you wish to automatically search for the game path? (Path will be saved)"
+        sMessage = mgrCommon.FormatString(mgrPath_ConfirmAutoPath, sSearchReason)
 
-        If MsgBox(sMessage, MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+        If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             frmFind.ShowDialog()
 
             If frmFind.FoundItem <> String.Empty Then
                 sFolder = IO.Path.GetDirectoryName(frmFind.FoundItem)
-                sMessage = sGameName & " was located in the following folder:" & vbCrLf & vbCrLf & _
-                           sFolder & vbCrLf & vbCrLf & "Is this correct?"
-                If MsgBox(sMessage, MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                sMessage = mgrCommon.FormatString(mgrPath_ConfirmPathCorrect, New String() {sGameName, sFolder})
+                If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     Return sFolder
                 Else
                     sFolder = String.Empty
@@ -373,13 +345,12 @@ Public Class mgrPath
             End If
 
             If bSearchFailed Then
-                sMessage = "The search failed to locate the path for " & sGameName & "." & vbCrLf & vbCrLf & _
-                    "Do you wish to manually set the game path? (Path will be saved)"
+                sMessage = mgrCommon.FormatString(mgrPath_ConfirmAutoFailure, sGameName)
             Else
-                sMessage = "Do you wish to manually set the game path? (Path will be saved)"
+                sMessage = mgPath_ConfirmManualPathNoParam
             End If
 
-            If MsgBox(sMessage, MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 sFolder = SetManualgamePath()
             End If
         End If
@@ -391,9 +362,7 @@ Public Class mgrPath
         Dim dBrowser As FolderBrowserDialog
 
         If Not Directory.Exists(sBackupPath) Then
-            If MsgBox("The backup location " & sBackupPath & " is not available." & vbCrLf & _
-                      "It may be on an external or network drive that isn't connected." & vbCrLf & vbCrLf & _
-                      "Do you want to select another backup location and continue?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(mgrPath_ConfirmBackupLocation, sBackupPath, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 dBrowser = New FolderBrowserDialog
                 dBrowser.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
                 If dBrowser.ShowDialog = DialogResult.OK Then

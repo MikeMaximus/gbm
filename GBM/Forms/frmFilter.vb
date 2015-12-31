@@ -1,4 +1,6 @@
-﻿Public Class frmFilter
+﻿Imports GBM.My.Resources
+
+Public Class frmFilter
 
     Public Enum eFilterType As Integer
         NoFilter = 1
@@ -111,10 +113,11 @@
         If optGameInfo.Checked Then
             'Set Filter Type
             If optAnd.Checked Then
-                eCurrentFilterType = eFilterType.FieldAnd                
+                eCurrentFilterType = eFilterType.FieldAnd
             Else
                 eCurrentFilterType = eFilterType.FieldOr
             End If
+
             'Set String Filter
             If txtName.Text <> String.Empty Then
                 hshStringFilters.Add("Name", txtName.Text)
@@ -144,7 +147,31 @@
 
     End Sub
 
+    Private Sub SetForm()
+        'Set Form Name
+        Me.Text = frmFilter_FormName
+
+        'Set Form Text
+        optOr.Text = frmFilter_optOr
+        optAnd.Text = frmFilter_optAnd
+        lblCompany.Text = frmFilter_lblCompany
+        lblProcess.Text = frmFilter_lblProcess
+        lblName.Text = frmFilter_lblName
+        grpGameInfoOptions.Text = frmFilter_grpGameInfoOptions
+        optAll.Text = frmFilter_optAll
+        optAny.Text = frmFilter_optAny
+        lblGameTags.Text = frmFilter_lblGameTags
+        lblTags.Text = frmFilter_lblTags
+        btnRemove.Text = frmFilter_btnRemove
+        btnAdd.Text = frmFilter_btnAdd
+        btnOK.Text = frmFilter_btnOK
+        grpTagOptions.Text = frmFilter_grpTagOptions
+        optTag.Text = frmFilter_optTag
+        optGameInfo.Text = frmFilter_optGameInfo
+    End Sub
+
     Private Sub frmGameTags_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetForm()
         optGameInfo.Checked = True
         LoadData()
     End Sub

@@ -1,6 +1,4 @@
-﻿Imports System.IO
-
-Public Class mgrManifest
+﻿Public Class mgrManifest
 
     Public Shared Function ReadManifest(ByVal iSelectDB As mgrSQLite.Database) As SortedList
         Dim oDatabase As New mgrSQLite(iSelectDB)

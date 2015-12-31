@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports GBM.My.Resources
+Imports System.IO
 Imports System.Data.SQLite
 
 Public Class mgrSQLite
@@ -39,7 +40,7 @@ Public Class mgrSQLite
                     File.Copy(mgrPath.RemoteDatabaseLocation, sNewFile, False)
             End Select
         Catch ex As Exception
-            MsgBox("An error occured creating a backup of the database file at " & sNewFile & vbCrLf & vbCrLf & ex.Message)
+            mgrCommon.ShowMessage(mgrSQLite_ErrorBackupFailure, New String() {sNewFile, ex.Message}, MsgBoxStyle.Exclamation)
         End Try
 
     End Sub
@@ -75,9 +76,9 @@ Public Class mgrSQLite
                    "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL);"
 
             'Add Tables (Monitor List)
-            sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " & _
-                   "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " & _
-                   "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " & _
+            sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
+                   "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
+                   "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
                    "PRIMARY KEY(Name, Process));"
 
             'Add Tables (Tags)
@@ -90,7 +91,7 @@ Public Class mgrSQLite
             sSql &= "CREATE TABLE variables (VariableID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
 
             'Add Tables (Local Manifest)
-            sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, " & _
+            sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, " &
                    "AbsolutePath BOOLEAN NOT NULL, DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
 
             'Set Version
@@ -98,8 +99,8 @@ Public Class mgrSQLite
 
             RunParamQuery(sSql, New Hashtable)
             Return True
-        Catch e As Exception
-            MsgBox("An error has occured attempting to create the local application database: " & vbCrLf & vbCrLf & e.Message)
+        Catch ex As Exception
+            mgrCommon.ShowMessage(mgrSQLite_ErrorCreatingLocalDB, ex.Message, MsgBoxStyle.Critical)
             Return False
         End Try
     End Function
@@ -112,13 +113,13 @@ Public Class mgrSQLite
             SQLiteConnection.CreateFile(sDatabaseLocation)
 
             'Add Tables (Remote Monitor List)
-            sSql = "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " & _
-                   "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " & _
-                   "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " & _
+            sSql = "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
+                   "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
+                   "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
                    "PRIMARY KEY(Name, Process));"
 
             'Add Tables (Remote Manifest)
-            sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, " & _
+            sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, " &
                    "AbsolutePath BOOLEAN NOT NULL, DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
 
             'Add Tables (Remote Tags)
@@ -132,8 +133,8 @@ Public Class mgrSQLite
 
             RunParamQuery(sSql, New Hashtable)
             Return True
-        Catch e As Exception
-            MsgBox("An error has occured attempting to create the remote application database: " & vbCrLf & vbCrLf & e.Message)
+        Catch ex As Exception
+            mgrCommon.ShowMessage(mgrSQLite_ErrorCreatingRemoteDB, ex.Message, MsgBoxStyle.Critical)
             Return False
         End Try
     End Function
@@ -180,12 +181,12 @@ Public Class mgrSQLite
         BuildParams(command, hshParams)
         trans = db.BeginTransaction()
 
-        Try    
+        Try
             command.ExecuteNonQuery()
             trans.Commit()
-        Catch e As Exception
+        Catch ex As Exception
             trans.Rollback()
-            MsgBox("An error has occured attempting run the query." & vbCrLf & vbCrLf & sSQL & vbCrLf & vbCrLf & e.Message)
+            mgrCommon.ShowMessage(mgrSQLite_ErrorQueryFailure, New String() {sSQL, ex.Message}, MsgBoxStyle.Exclamation)
             Return False
         Finally
             command.Dispose()
@@ -209,9 +210,9 @@ Public Class mgrSQLite
                 command.ExecuteNonQuery()
             Next
             trans.Commit()
-        Catch e As Exception
+        Catch ex As Exception
             trans.Rollback()
-            MsgBox("An error has occured attempting run the query." & vbCrLf & vbCrLf & sSQL & vbCrLf & vbCrLf & e.Message)
+            mgrCommon.ShowMessage(mgrSQLite_ErrorQueryFailure, New String() {sSQL, ex.Message}, MsgBoxStyle.Exclamation)
             Return False
         Finally
             command.Dispose()
@@ -233,8 +234,8 @@ Public Class mgrSQLite
         Try
             adapter = New SQLiteDataAdapter(command)
             adapter.Fill(oData)
-        Catch e As Exception
-            MsgBox("An error has occured attempting run the query." & vbCrLf & vbCrLf & sSQL & vbCrLf & vbCrLf & e.Message)
+        Catch ex As Exception
+            mgrCommon.ShowMessage(mgrSQLite_ErrorQueryFailure, New String() {sSQL, ex.Message}, MsgBoxStyle.Exclamation)
         Finally
             command.Dispose()
             Disconnect()
@@ -396,7 +397,7 @@ Public Class mgrSQLite
                 RunParamQuery(sSQL, New Hashtable)
 
                 'Upgrade IDs to GUIDs
-                UpgradeToGUID("monitorlist", "MonitorID")                
+                UpgradeToGUID("monitorlist", "MonitorID")
                 UpgradeToGUID("manifest", "ManifestID")
 
                 'Run a compact due to the large operations
@@ -523,8 +524,8 @@ Public Class mgrSQLite
 
         Try
             command.ExecuteNonQuery()
-        Catch e As Exception
-            MsgBox("An error has occured attempting run the query." & vbCrLf & vbCrLf & sSQL & vbCrLf & vbCrLf & e.Message)
+        Catch ex As Exception
+            mgrCommon.ShowMessage(mgrSQLite_ErrorQueryFailure, New String() {sSQL, ex.Message}, MsgBoxStyle.Exclamation)
         Finally
             command.Dispose()
             Disconnect()

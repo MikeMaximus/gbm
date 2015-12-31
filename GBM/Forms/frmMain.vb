@@ -1,4 +1,6 @@
-﻿'Name: frmMain
+﻿Imports GBM.My.Resources
+
+'Name: frmMain
 'Description: Game Backup Monitor Main Screen
 'Author: Michael J. Seiferling
 Public Class frmMain
@@ -16,12 +18,6 @@ Public Class frmMain
         Backup = 2
         Restore = 3
     End Enum
-
-    Private iProcessType As System.Reflection.ProcessorArchitecture = System.Reflection.AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
-    Private sVersion As String = "Version: " & My.Application.Info.Version.Major & "." & _
-        My.Application.Info.Version.Minor & " Beta (" & [Enum].GetName(GetType(System.Reflection.ProcessorArchitecture), iProcessType) & ")"
-    Private sRevision As String = "Build: " & My.Application.Info.Version.Build & "." & My.Application.Info.Version.Revision
-    Const sConstCopyright As String = "2015 Michael J. Seiferling"
 
     Private eCurrentStatus As eStatus = eStatus.Stopped
     Private eCurrentOperation As eOperation = eOperation.None
@@ -75,15 +71,15 @@ Public Class frmMain
 
         'Build Info
         sStatus1 = IO.Path.GetFileName(oRestoreInfo.FileName)
-        sStatus2 = "Updated by " & oRestoreInfo.UpdatedBy & " on " & oRestoreInfo.DateUpdated
+        sStatus2 = mgrCommon.FormatString(frmMain_UpdatedBy, New String() {oRestoreInfo.UpdatedBy, oRestoreInfo.DateUpdated})
         If oRestoreInfo.AbsolutePath Then
             sStatus3 = oRestoreInfo.RestorePath
         Else
             sStatus3 = oRestoreInfo.RelativeRestorePath
         End If
 
-        WorkingGameInfo("Restore in progress...", sStatus1, sStatus2, sStatus3)
-        UpdateStatus("Restore in progress...")
+        WorkingGameInfo(frmMain_RestoreInProgress, sStatus1, sStatus2, sStatus3)
+        UpdateStatus(frmMain_RestoreInProgress)
     End Sub
 
     Private Sub SetBackupInfo(ByVal oGame As clsGame) Handles oBackup.UpdateBackupInfo
@@ -100,8 +96,8 @@ Public Class frmMain
         End If
         sStatus3 = String.Empty
 
-        WorkingGameInfo("Backup in Progress...", sStatus1, sStatus2, sStatus3)
-        UpdateStatus("Backup in progress...")
+        WorkingGameInfo(frmMain_BackupInProgress, sStatus1, sStatus2, sStatus3)
+        UpdateStatus(frmMain_BackupInProgress)
     End Sub
 
     Private Sub OperationStarted(Optional ByVal bPause As Boolean = True)
@@ -110,7 +106,7 @@ Public Class frmMain
             Dim d As New OperationEndedCallBack(AddressOf OperationEnded)
             Me.Invoke(d, New Object() {})
         Else
-            btnCancelOperation.Visible = True            
+            btnCancelOperation.Visible = True
             LockDownMenuEnable()
             If bPause Then PauseScan()
         End If
@@ -147,7 +143,7 @@ Public Class frmMain
     Private Sub ExecuteBackup(ByVal oBackupList As List(Of clsGame))
         'Init Backup Settings
         oBackup.Settings = oSettings
-        oBackup.DoBackup(oBackupList)        
+        oBackup.DoBackup(oBackupList)
         OperationEnded()
     End Sub
 
@@ -172,10 +168,10 @@ Public Class frmMain
         For Each oGame In oRestoreList
             oRestoreInfo = oBackupData(oGame.Name)
 
-            If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload) Then                
+            If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload) Then
                 oReadyList.Add(oRestoreInfo)
             Else
-                UpdateLog(oRestoreInfo.Name & " restore was cancelled due to a restore path issue.", False, ToolTipIcon.Error, True)
+                UpdateLog(mgrCommon.FormatString(frmMain_ErrorRestorePath, oRestoreInfo.Name), False, ToolTipIcon.Error, True)
             End If
         Next
 
@@ -206,18 +202,18 @@ Public Class frmMain
             bNoAuto = False
             gMonStripStatusButton.Enabled = False
 
-            UpdateLog("A manaul backup of " & oGame.Name & " was triggered.", False)
+            UpdateLog(mgrCommon.FormatString(frmMain_ManualBackup, oGame.Name), False)
 
             If oGame.AbsolutePath = False Then
                 If oGame.ProcessPath = String.Empty Then
                     If mgrCommon.IsProcessNotSearchable(oGame) Then bNoAuto = True
-                    oGame.ProcessPath = mgrPath.ProcessPathSearch(oGame.Name, oGame.TrueProcess, oGame.Name & " uses a relative path and has never been detected on this computer.", bNoAuto)
+                    oGame.ProcessPath = mgrPath.ProcessPathSearch(oGame.Name, oGame.TrueProcess, mgrCommon.FormatString(frmMain_ErrorRelativePath, oGame.Name), bNoAuto)
                 End If
 
                 If oGame.ProcessPath <> String.Empty Then
                     oReadyList.Add(oGame)
                 Else
-                    UpdateLog(oGame.Name & " backup was cancelled due to unknown path.", True, ToolTipIcon.Error, True)
+                    UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oGame.Name), True, ToolTipIcon.Error, True)
                 End If
             Else
                 oReadyList.Add(oGame)
@@ -273,27 +269,27 @@ Public Class frmMain
 
         If SupressBackup() Then
             bDoBackup = False
-            UpdateLog(oProcess.GameInfo.Name & " backup was cancelled due to session length.", False)
-            SetLastAction(oProcess.GameInfo.CroppedName & " backup was cancelled due to session length")
+            UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupSessionLength, oProcess.GameInfo.Name), False)
+            SetLastAction(mgrCommon.FormatString(frmMain_ErrorBackupSessionLength, oProcess.GameInfo.CroppedName))
             OperationEnded()
         Else
             If oProcess.GameInfo.MonitorOnly = False Then
                 If oSettings.DisableConfirmation Then
                     bDoBackup = True
                 Else
-                    If MsgBox("Do you wish to backup data from " & oProcess.GameInfo.Name & "?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+                    If mgrCommon.ShowMessage(frmMain_ConfirmBackup, oProcess.GameInfo.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                         bDoBackup = True
                     Else
                         bDoBackup = False
-                        UpdateLog(oProcess.GameInfo.Name & " backup was cancelled.", False)
-                        SetLastAction(oProcess.GameInfo.CroppedName & " backup was cancelled")
+                        UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupCancel, oProcess.GameInfo.Name), False)
+                        SetLastAction(mgrCommon.FormatString(frmMain_ErrorBackupCancel, oProcess.GameInfo.CroppedName))
                         OperationEnded()
                     End If
                 End If
             Else
                 bDoBackup = False
-                UpdateLog(oProcess.GameInfo.Name & " is set to monitor only.", False)
-                SetLastAction(oProcess.GameInfo.CroppedName & " monitoring ended")
+                UpdateLog(mgrCommon.FormatString(frmMain_MonitorEnded, oProcess.GameInfo.Name), False)
+                SetLastAction(mgrCommon.FormatString(frmMain_MonitorEnded, oProcess.GameInfo.CroppedName))
                 OperationEnded()
             End If
         End If
@@ -313,12 +309,12 @@ Public Class frmMain
 
         If slRestoreData.Count > 0 Then
             If slRestoreData.Count > 1 Then
-                sNotification = slRestoreData.Count & " New Saves Pending"
+                sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationMulti, slRestoreData.Count)
             Else
-                sNotification = slRestoreData.Count & " New Save Pending"
+                sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationSingle, slRestoreData.Count)
             End If
-            gMonNotification.Image = My.Resources.Inbox
-            gMonTrayNotification.Image = My.Resources.Inbox
+            gMonNotification.Image = Icon_Inbox
+            gMonTrayNotification.Image = Icon_Inbox
             gMonNotification.Text = sNotification
             gMonTrayNotification.Text = sNotification
             gMonNotification.Visible = True
@@ -331,9 +327,9 @@ Public Class frmMain
         Dim sIcon As String
         Dim fbBrowser As New OpenFileDialog
 
-        fbBrowser.Title = "Choose icon for " & oProcess.GameInfo.Name
+        fbBrowser.Title = mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName)
         fbBrowser.DefaultExt = "ico"
-        fbBrowser.Filter = "Icon files (*.ico)|*.ico"
+        fbBrowser.Filter = frmMain_IconFilter
         Try
             fbBrowser.InitialDirectory = IO.Path.GetDirectoryName(oProcess.FoundProcess.MainModule.FileName)
         Catch ex As Exception
@@ -353,7 +349,7 @@ Public Class frmMain
 
     Private Sub ResetGameInfo(Optional ByVal bKeepInfo As Boolean = False)
         If bKeepInfo And Not oProcess.GameInfo Is Nothing Then
-            lblGameTitle.Text = "Last Game: " & oProcess.GameInfo.CroppedName
+            lblGameTitle.Text = mgrCommon.FormatString(frmMain_LastGame, oProcess.GameInfo.CroppedName)
             pbIcon.Image = oPriorImage
             lblStatus1.Text = sPriorPath
             lblStatus2.Text = sPriorCompany
@@ -363,8 +359,8 @@ Public Class frmMain
                 lblTimeSpent.Visible = True
             End If
         Else
-            pbIcon.Image = My.Resources.Searching
-            lblGameTitle.Text = "No Game Detected"
+            pbIcon.Image = Icon_Searching
+            lblGameTitle.Text = frmMain_NoGameDetected
             lblStatus1.Text = String.Empty
             lblStatus2.Text = String.Empty
             lblStatus3.Text = String.Empty
@@ -373,9 +369,9 @@ Public Class frmMain
         End If
 
         If eCurrentStatus = eStatus.Stopped Then
-            UpdateStatus("Not Scanning")
+            UpdateStatus(frmMain_NotScanning)
         Else
-            UpdateStatus("No Game Detected")
+            UpdateStatus(frmMain_NoGameDetected)
         End If
 
     End Sub
@@ -388,7 +384,7 @@ Public Class frmMain
         Else
             pbTime.Visible = False
             lblTimeSpent.Visible = False
-            pbIcon.Image = My.Resources.Working
+            pbIcon.Image = Icon_Working
             lblGameTitle.Text = sTitle
             lblStatus1.Text = sStatus1
             lblStatus2.Text = sStatus2
@@ -410,11 +406,11 @@ Public Class frmMain
         If bMulti Then
             bAllowIcon = False
             bAllowDetails = False
-            lblGameTitle.Text = "Multiple Games"
+            lblGameTitle.Text = frmMain_MultipleGames
             pbTime.Visible = False
             lblTimeSpent.Visible = False
-            pbIcon.Image = My.Resources.Unknown
-            lblStatus1.Text = "Game details are unavailable."
+            pbIcon.Image = Icon_Unknown
+            lblStatus1.Text = frmMain_NoDetails
         Else
             bAllowIcon = True
             bAllowDetails = True
@@ -430,7 +426,7 @@ Public Class frmMain
                 sCompanyName = oProcess.FoundProcess.MainModule.FileVersionInfo.CompanyName
 
             Catch ex As Exception
-                pbIcon.Image = My.Resources.Unknown
+                pbIcon.Image = Icon_Unknown
             End Try
 
             'Check for a custom icon & details            
@@ -439,7 +435,7 @@ Public Class frmMain
             End If
             If sFileName = String.Empty Then
                 If oProcess.GameInfo.ProcessPath <> String.Empty Then
-                    sFileName = oProcess.GameInfo.ProcessPath & " (Executable Path)"
+                    sFileName = mgrCommon.FormatString(frmMain_ExePath, oProcess.GameInfo.ProcessPath)
                 End If
             End If
             If oProcess.GameInfo.Version <> String.Empty Then
@@ -459,19 +455,19 @@ Public Class frmMain
 
             'Set Details
             If sFileName = String.Empty Then
-                lblStatus1.Text = "N/A"
+                lblStatus1.Text = frmMain_NotAvailable
             Else
                 lblStatus1.Text = sFileName
             End If
 
             If sCompanyName = String.Empty Then
-                lblStatus2.Text = "N/A"
+                lblStatus2.Text = frmMain_NotAvailable
             Else
                 lblStatus2.Text = sCompanyName
             End If
 
             If sFileVersion = String.Empty Then
-                lblStatus3.Text = "N/A"
+                lblStatus3.Text = frmMain_NotAvailable
             Else
                 lblStatus3.Text = sFileVersion
             End If
@@ -490,15 +486,15 @@ Public Class frmMain
         Dim sSessionTime As String
 
         If dTotalTime < 1 Then
-            sTotalTime = Math.Round((dTotalTime * 100) * 0.6) & " minutes"
+            sTotalTime = mgrCommon.FormatString(frmMain_SessionMinutes, Math.Round((dTotalTime * 100) * 0.6).ToString)
         Else
-            sTotalTime = Math.Round(dTotalTime, 1) & " hours"
+            sTotalTime = mgrCommon.FormatString(frmMain_SessionHours, Math.Round(dTotalTime, 1).ToString)
         End If
 
         If dSessionTime < 1 Then
-            sSessionTime = Math.Round((dSessionTime * 100) * 0.6) & " minutes"
+            sSessionTime = mgrCommon.FormatString(frmMain_SessionMinutes, Math.Round((dSessionTime * 100) * 0.6).ToString)
         Else
-            sSessionTime = Math.Round(dSessionTime, 1) & " hours"
+            sSessionTime = mgrCommon.FormatString(frmMain_SessionHours, Math.Round(dSessionTime, 1).ToString)
         End If
 
         If dSessionTime > 0 Then
@@ -550,10 +546,13 @@ Public Class frmMain
 
     'Functions handling the opening of other windows
     Private Sub OpenAbout()
-        MsgBox("Game Backup Monitor" & vbCrLf & sVersion & vbCrLf & sRevision & vbCrLf & Chr(169) & sConstCopyright & vbCrLf & vbCrLf &
-               "This program comes with ABSOLUTELY NO WARRANTY." & vbCrLf &
-               "This is free software, and you are welcome to redistribute it under certain conditions." & vbCrLf & vbCrLf &
-               "See gpl-3.0.html in the program folder for details.", MsgBoxStyle.Information, "Game Backup Monitor")
+        Dim iProcessType As System.Reflection.ProcessorArchitecture = System.Reflection.AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
+        Dim sVersion As String = My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor
+        Dim sProcessType = [Enum].GetName(GetType(System.Reflection.ProcessorArchitecture), iProcessType)
+        Dim sRevision As String = My.Application.Info.Version.Build & "." & My.Application.Info.Version.Revision
+        Dim sConstCopyright As String = Chr(169) & App_Copyright
+
+        mgrCommon.ShowMessage(frmMain_About, New String() {sVersion, sProcessType, sRevision, sConstCopyright}, MsgBoxStyle.Information)
     End Sub
 
     Private Sub OpenTags()
@@ -629,15 +628,15 @@ Public Class frmMain
     End Sub
 
     Private Sub OpenWebSite()
-        Process.Start(mgrPath.OfficialWebURL)
+        Process.Start(App_URLWebsite)
     End Sub
 
     Private Sub OpenOnlineManual()
-        Process.Start(mgrPath.OfficialManualURL)
+        Process.Start(App_URLManual)
     End Sub
 
     Private Sub OpenCheckforUpdates()
-        Process.Start(mgrPath.OfficialUpdatesURL)
+        Process.Start(App_URLUpdates)
     End Sub
 
     Private Sub CheckForNewBackups()
@@ -651,7 +650,7 @@ Public Class frmMain
         'Load Monitor List
         hshScanList = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.ScanList)
 
-        UpdateLog("Game List (" & hshScanList.Keys.Count & ") Loaded.", False)
+        UpdateLog(mgrCommon.FormatString(frmMain_GameListLoaded, hshScanList.Keys.Count), False)
     End Sub
 
     Private Sub StartSyncWatcher()
@@ -676,7 +675,7 @@ Public Class frmMain
 
     Private Sub HandleSyncWatcher() Handles oFileWatcher.Changed
         If oSettings.Sync Then
-            UpdateLog("The master game list has been changed by a program other than GBM.", False, ToolTipIcon.Info, True)
+            UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
             SyncGameSettings()
             LoadGameSettings()
             CheckForNewBackups()
@@ -702,7 +701,7 @@ Public Class frmMain
 
         'The application cannot continue if this fails
         If Not oBackup.CheckForUtilities(mgrPath.Utility7zLocation) Then
-            MsgBox("7-Zip was not found in the Game Backup Monitor utilities folder.  The application cannot continue.", MsgBoxStyle.Critical, "Game Backup Monitor")
+            mgrCommon.ShowMessage(frmMain_Error7zip, MsgBoxStyle.Critical)
             bShutdown = True
             Me.Close()
         End If
@@ -738,7 +737,7 @@ Public Class frmMain
         'Verify the "Start with Windows" setting
         If oSettings.StartWithWindows Then
             If Not VerifyStartWithWindows() Then
-                UpdateLog("GBM is running from a new location, the Windows startup entry has been updated.", False, ToolTipIcon.Info)
+                UpdateLog(frmMain_ErrorAppLocationChanged, False, ToolTipIcon.Info)
             End If
         End If
 
@@ -750,14 +749,14 @@ Public Class frmMain
             txtLog.Visible = True
             Me.Size = New System.Drawing.Size(540, 425)
             bLogToggle = True
-            btnLogToggle.Text = "Hide &Log"
+            btnLogToggle.Text = frmMain_btnToggleLog_Hide
             txtLog.Select(txtLog.TextLength, 0)
             txtLog.ScrollToCaret()
         Else
             txtLog.Visible = False
             Me.Size = New System.Drawing.Size(540, 245)
             bLogToggle = False
-            btnLogToggle.Text = "Show &Log"
+            btnLogToggle.Text = frmMain_btnToggleLog_Show
         End If
     End Sub
 
@@ -780,23 +779,21 @@ Public Class frmMain
             Case eStatus.Running
                 HandleScan()
             Case eStatus.Paused
-                Dim sGame As String = oProcess.GameInfo.Name
+                Dim sGame As String = oProcess.GameInfo.CroppedName
 
                 If bProcessIsAdmin Then
-                    MsgBox(sGame & " is running as Administrator and GBM is not." &
-                           vbCrLf & "You cannot cancel monitoring at this time." _
-                           & vbCrLf & vbCrLf & "Run GBM as Administrator to prevent this issue.", MsgBoxStyle.Exclamation, "Game Backup Monitor")
+                    mgrCommon.ShowMessage(frmMain_ErrorAdminDetect, sGame, MsgBoxStyle.Exclamation)
                     RestartAsAdmin()
                     Exit Sub
                 End If
 
                 If oProcess.Duplicate Then
-                    sGame = "the unknown game"
+                    sGame = frmMain_UnknownGame
                 End If
 
-                If MsgBox("Do you wish to cancel the monitoring of " & sGame & "?" & vbCrLf & vbCrLf & "Warning: When monitoring is cancelled, session time is NOT saved.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
-                    UpdateLog("Monitoring of " & sGame & " was cancelled.", False)
-                    SetLastAction("Monitoring of " & oProcess.GameInfo.CroppedName & " was cancelled")
+                If mgrCommon.ShowMessage(frmMain_ConfirmMonitorCancel, sGame, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    UpdateLog(mgrCommon.FormatString(frmMain_MonitorCancel, sGame), False)
+                    SetLastAction(mgrCommon.FormatString(frmMain_MonitorCancel, sGame))
 
                     bwMonitor.CancelAsync()
                     StopScan()
@@ -816,7 +813,7 @@ Public Class frmMain
         Dim bClose As Boolean = False
 
         If bPrompt Then
-            If MsgBox("Are you sure you want to exit?  Your games will no longer be monitored.", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(frmMain_Exit, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 bClose = True
             End If
         Else
@@ -895,14 +892,14 @@ Public Class frmMain
     Private Sub ToggleMenuText()
         Select Case eCurrentStatus
             Case eStatus.Running
-                gMonFileMonitor.Text = "Stop &Monitoring"
-                gMonTrayMon.Text = "Stop &Monitoring"
+                gMonFileMonitor.Text = frmMain_gMonFileMonitor_Stop
+                gMonTrayMon.Text = frmMain_gMonFileMonitor_Stop
             Case eStatus.Stopped
-                gMonFileMonitor.Text = "Start &Monitoring"
-                gMonTrayMon.Text = "Start &Monitoring"
+                gMonFileMonitor.Text = frmMain_gMonFileMonitor_Start
+                gMonTrayMon.Text = frmMain_gMonFileMonitor_Start
             Case eStatus.Paused
-                gMonFileMonitor.Text = "Cancel &Monitoring"
-                gMonTrayMon.Text = "Cancel &Monitoring"
+                gMonFileMonitor.Text = frmMain_gMonFileMonitor_Cancel
+                gMonTrayMon.Text = frmMain_gMonFileMonitor_Cancel
         End Select
     End Sub
 
@@ -924,7 +921,7 @@ Public Class frmMain
             Me.Invoke(d, New Object() {sLogUpdate, bTrayUpdate, objIcon, bTimeStamp})
         Else
             'Clear the log if we are approaching the limit
-            If txtLog.TextLength > 32000 Then
+            If txtLog.TextLength > 16770000 Then
                 txtLog.Text = String.Empty
             End If
 
@@ -953,20 +950,62 @@ Public Class frmMain
     End Sub
 
     Private Sub SetForm()
+        'Set Form Name
+        Me.Name = App_NameLong
+
+        'Set Menu Text
+        gMonFile.Text = frmMain_gMonFile
+        gMonFileMonitor.Text = frmMain_gMonFileMonitor_Start
+        gMonFileSettings.Text = frmMain_gMonFileSettings
+        gMonFileExit.Text = frmMain_gMonFileExit
+        gMonSetup.Text = frmMain_gMonSetup
+        gMonSetupGameManager.Text = frmMain_gMonSetupGameManager
+        gMonSetupAddWizard.Text = frmMain_gMonSetupAddWizard
+        gMonSetupCustomVariables.Text = frmMain_gMonSetupCustomVariables
+        gMonSetupTags.Text = frmMain_gMonSetupTags
+        gMonTools.Text = frmMain_gMonTools
+        gMonToolsCleanMan.Text = frmMain_gMonToolsCleanMan
+        gMonToolsCompact.Text = frmMain_gMonToolsCompact
+        gMonHelp.Text = frmMain_gMonHelp
+        gMonHelpWebSite.Text = frmMain_gMonHelpWebSite
+        gMonHelpManual.Text = frmMain_gMonHelpManual
+        gMonHelpCheckforUpdates.Text = frmMain_gMonHelpCheckForUpdates
+        gMonHelpAbout.Text = frmMain_gMonHelpAbout
+
+        'Set Tray Menu Text
+        gMonTrayShow.Text = frmMain_gMonTrayShow
+        gMonTrayMon.Text = frmMain_gMonFileMonitor_Start
+        gMonTraySettings.Text = frmMain_gMonFileSettings
+        gMonTraySetup.Text = frmMain_gMonSetup
+        gMonTraySetupGameManager.Text = frmMain_gMonSetupGameManager
+        gMonTraySetupAddWizard.Text = frmMain_gMonSetupAddWizard
+        gMonTraySetupCustomVariables.Text = frmMain_gMonSetupCustomVariables
+        gMonTraySetupTags.Text = frmMain_gMonSetupTags
+        gMonTrayTools.Text = frmMain_gMonTools
+        gMonTrayToolsCleanMan.Text = frmMain_gMonToolsCleanMan
+        gMonTrayToolsCompact.Text = frmMain_gMonToolsCompact
+        gMonTrayExit.Text = frmMain_gMonFileExit
+
+        'Set Form Text
+        lblLastActionTitle.Text = frmMain_lblLastActionTitle
+        btnCancelOperation.Text = frmMain_btnCancelOperation
+        gMonStripStatusButton.Text = frmMain_gMonStripStatusButton
+        gMonStripStatusButton.ToolTipText = frmMain_gMonStripStatusButtonToolTip
+
         If mgrCommon.IsElevated Then
-            gMonStripAdminButton.Image = My.Resources.Admin
-            gMonStripAdminButton.ToolTipText = "GBM is running with Administrator privileges."
+            gMonStripAdminButton.Image = Icon_Admin
+            gMonStripAdminButton.ToolTipText = frmMain_RunningAsAdmin
 
         Else
-            gMonStripAdminButton.Image = My.Resources.User
-            gMonStripAdminButton.ToolTipText = "GBM is running with normal privileges.  Click to restart as Administrator."
+            gMonStripAdminButton.Image = Icon_User
+            gMonStripAdminButton.ToolTipText = frmMain_RunningAsNormal
         End If
         btnCancelOperation.Visible = False
         txtLog.Visible = False
         lblLastActionTitle.Visible = False
         lblLastAction.Text = String.Empty
         pbTime.SizeMode = PictureBoxSizeMode.AutoSize
-        pbTime.Image = My.Resources.Clock
+        pbTime.Image = Icon_Clock
         Me.Size = New System.Drawing.Size(540, 245)
         AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
         ResetGameInfo()
@@ -983,16 +1022,16 @@ Public Class frmMain
             StopSyncWatcher()
             tmScanTimer.Stop()
             eCurrentStatus = eStatus.Stopped
-            UpdateStatus("Not Scanning")
-            gMonStripStatusButton.Image = My.Resources.Stopped
-            gMonTray.Icon = My.Resources.GBM_Tray_Stopped
+            UpdateStatus(frmMain_NotScanning)
+            gMonStripStatusButton.Image = Icon_Stopped
+            gMonTray.Icon = GBM_Tray_Stopped
         Else
             StartScan()
             StartSyncWatcher()
             eCurrentStatus = eStatus.Running
-            UpdateStatus("No Game Detected")
-            gMonStripStatusButton.Image = My.Resources.Ready
-            gMonTray.Icon = My.Resources.GBM_Tray_Ready
+            UpdateStatus(frmMain_NoGameDetected)
+            gMonStripStatusButton.Image = Icon_Ready
+            gMonTray.Icon = GBM_Tray_Ready
         End If
         ToggleMenuText()
     End Sub
@@ -1002,9 +1041,9 @@ Public Class frmMain
             StopSyncWatcher()
             tmScanTimer.Stop()
             eCurrentStatus = eStatus.Paused
-            UpdateStatus("Not Scanning")
-            gMonStripStatusButton.Image = My.Resources.Detected
-            gMonTray.Icon = My.Resources.GBM_Tray_Detected
+            UpdateStatus(frmMain_NotScanning)
+            gMonStripStatusButton.Image = Icon_Detected
+            gMonTray.Icon = GBM_Tray_Detected
         End If
         ToggleMenuText()
         ToggleMenuEnable()
@@ -1015,9 +1054,9 @@ Public Class frmMain
             StartScan()
             StartSyncWatcher()
             eCurrentStatus = eStatus.Running
-            gMonStripStatusButton.Image = My.Resources.Ready
-            gMonTray.Icon = My.Resources.GBM_Tray_Ready
-            UpdateStatus("No Game Detected")
+            gMonStripStatusButton.Image = Icon_Ready
+            gMonTray.Icon = GBM_Tray_Ready
+            UpdateStatus(frmMain_NoGameDetected)
         End If
         ToggleMenuText()
         ToggleMenuEnable()
@@ -1027,9 +1066,9 @@ Public Class frmMain
         StopSyncWatcher()
         tmScanTimer.Stop()
         eCurrentStatus = eStatus.Stopped
-        UpdateStatus("Not Scanning")
-        gMonStripStatusButton.Image = My.Resources.Stopped
-        gMonTray.Icon = My.Resources.GBM_Tray_Stopped
+        UpdateStatus(frmMain_NotScanning)
+        gMonStripStatusButton.Image = Icon_Stopped
+        gMonTray.Icon = GBM_Tray_Stopped
         ToggleMenuText()
         ToggleMenuEnable()
     End Sub
@@ -1038,7 +1077,7 @@ Public Class frmMain
     Private Sub VerifyCustomPathVariables()
         Dim sGames As String = String.Empty
         If Not mgrPath.VerifyCustomVariables(hshScanList, sGames) Then
-            MsgBox("The following monitored game(s) contain a custom path variable that is not set." & vbCrLf & sGames & vbCrLf & vbCrLf & "You will encounter backup/restore errors with these games until the variables are set.", MsgBoxStyle.Critical, "Game Backup Monitor")
+            mgrCommon.ShowMessage(frmMain_ErrorCustomVariable, sGames, MsgBoxStyle.Exclamation)
         End If
     End Sub
 
@@ -1066,7 +1105,7 @@ Public Class frmMain
             Try
                 IO.Directory.CreateDirectory(sSettingsRoot)
             Catch ex As Exception
-                MsgBox("An error occured creating application settings folder.  The application cannot proceed." & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Game Backup Monitor")
+                mgrCommon.ShowMessage(frmMain_ErrorSettingsFolder, ex.Message, MsgBoxStyle.Critical)
                 bShutdown = True
                 Me.Close()
             End Try
@@ -1082,9 +1121,9 @@ Public Class frmMain
         If Not oDatabase.CheckDBVer(iDBVer) Then
             Select Case iDB
                 Case mgrSQLite.Database.Local
-                    MsgBox("Your local GBM data (Version " & iDBVer & ") is too new for your version of GBM (Version " & mgrCommon.AppVersion & ")." & vbCrLf & vbCrLf & "Please upgrade GBM or restore the settings file appropriate for your version.  The application cannot proceed.", MsgBoxStyle.Critical, "Game Backup Monitor")
+                    mgrCommon.ShowMessage(frmMain_ErrorDBVerLocal, New String() {iDBVer, mgrCommon.AppVersion}, MsgBoxStyle.Critical)
                 Case mgrSQLite.Database.Remote
-                    MsgBox("The GBM data (Version " & iDBVer & ") in your backup folder is too new for your version of GBM (Version " & mgrCommon.AppVersion & ")." & vbCrLf & vbCrLf & "All computers sharing a backup folder must use the same version of GBM.  The application cannot proceed.", MsgBoxStyle.Critical, "Game Backup Monitor")
+                    mgrCommon.ShowMessage(frmMain_ErrorDBVerRemote, New String() {iDBVer, mgrCommon.AppVersion}, MsgBoxStyle.Critical)
             End Select
 
             bShutdown = True
@@ -1133,9 +1172,9 @@ Public Class frmMain
     'Functions to handle other features
     Private Sub RestartAsAdmin()
         If mgrCommon.IsElevated Then
-            MsgBox("Game Backup Monitor is already running as Administrator.", MsgBoxStyle.Information, "Game Backup Monitor")
+            mgrCommon.ShowMessage(frmMain_ErrorAlreadyAdmin, MsgBoxStyle.Information)
         Else
-            If MsgBox("Do you want to restart Game Backup Monitor as Administrator?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(frmMain_ConfirmRunAsAdmin, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrCommon.RestartAsAdmin()
                 bShutdown = True
                 ShutdownApp(False)
@@ -1148,20 +1187,17 @@ Public Class frmMain
 
         PauseScan()
 
-        If MsgBox("This tool removes orphaned backup information from the local manifest based on the current backup folder.  Data can become orphaned when backups are deleted by various computers that share the same backup folder on a cloud or network." & vbCrLf & vbCrLf &
-                  "When alternating between different backup folders you should NOT use this tool." & vbCrLf & vbCrLf &
-                  "Do you wish to proceed?", MsgBoxStyle.YesNo _
-                  , "Game Backup Monitor") = MsgBoxResult.Yes Then
+        If mgrCommon.ShowMessage(frmMain_ConfirmManifestClean, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
 
             slItems = mgrRestore.SyncLocalManifest()
 
             If slItems.Count > 0 Then
                 For Each oItem As clsBackup In slItems.Values
-                    UpdateLog(oItem.Name & " entry was removed from local manfiest.", False)
+                    UpdateLog(mgrCommon.FormatString(frmMain_ManifestRemovedEntry, oItem.Name), False)
                 Next
-                MsgBox(slItems.Count & " entries were removed from the local manifest.")
+                mgrCommon.ShowMessage(frmMain_ManifestTotalRemoved, slItems.Count, MsgBoxStyle.Information)
             Else
-                MsgBox("The local manifest is clean.")
+                mgrCommon.ShowMessage(frmMain_ManifestAreadyClean, MsgBoxStyle.Information)
             End If
         End If
 
@@ -1175,20 +1211,18 @@ Public Class frmMain
 
         PauseScan()
 
-        If MsgBox("This will rebuild all databases and shrink them to an optimal size." & vbCrLf &
-                  "This should only be used if your gbm.s3db files are becoming very large." & vbCrLf & vbCrLf &
-                  "Do you wish to continue?", MsgBoxStyle.YesNo, "Game Backup Monitor") = MsgBoxResult.Yes Then
+        If mgrCommon.ShowMessage(frmMain_ConfirmRebuild, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
 
             oLocalDatabase = New mgrSQLite(mgrSQLite.Database.Local)
             oRemoteDatabase = New mgrSQLite(mgrSQLite.Database.Remote)
 
-            UpdateLog("Local Database Vacuum Initialized: " & oLocalDatabase.GetDBSize & " KB", False)
+            UpdateLog(mgrCommon.FormatString(frmMain_LocalCompactInit, oLocalDatabase.GetDBSize), False)
             oLocalDatabase.CompactDatabase()
-            UpdateLog("Local Database Vacuum Completed: " & oLocalDatabase.GetDBSize & " KB", False)
+            UpdateLog(mgrCommon.FormatString(frmMain_LocalCompactComplete, oLocalDatabase.GetDBSize), False)
 
-            UpdateLog("Remote Database Vacuum Initialized: " & oRemoteDatabase.GetDBSize & " KB", False)
+            UpdateLog(mgrCommon.FormatString(frmMain_RemoteCompactInit, oRemoteDatabase.GetDBSize), False)
             oRemoteDatabase.CompactDatabase()
-            UpdateLog("Remote Database Vacuum Completed: " & oRemoteDatabase.GetDBSize & " KB", False)
+            UpdateLog(mgrCommon.FormatString(frmMain_RemoteCompactComplete, oRemoteDatabase.GetDBSize), False)
         End If
 
         ResumeScan()
@@ -1324,13 +1358,12 @@ Public Class frmMain
                 bContinue = False
                 If iErrorCode = 5 Then
                     If oProcess.Duplicate Then
-                        sErrorMessage = "Multiple possible games have been detected running as Administrator and GBM is not, GBM cannot detect the path to identify your game or save your backup." & vbCrLf & vbCrLf &
-                        "Please run GBM as Administrator to properly detect and backup this game."
-                        MsgBox(sErrorMessage, MsgBoxStyle.Critical, "Game Backup Monitor")
+                        sErrorMessage = mgrCommon.FormatString(frmMain_ErrorMultiAdmin)
+                        mgrCommon.ShowMessage(sErrorMessage, MsgBoxStyle.Exclamation)
                         bAskForRestart = True
                     Else
                         If Not CheckForSavedPath() Then
-                            sErrorMessage = oProcess.GameInfo.Name & " is running as Administrator and GBM is not, GBM cannot detect the required information to save your backup."
+                            sErrorMessage = mgrCommon.FormatString(frmMain_ErrorAdminBackup, oProcess.GameInfo.Name)
                             oProcess.GameInfo.ProcessPath = mgrPath.ProcessPathSearch(oProcess.GameInfo.Name, oProcess.GameInfo.ProcessName, sErrorMessage)
                             If oProcess.GameInfo.ProcessPath <> String.Empty Then
                                 'Update and reload
@@ -1344,12 +1377,11 @@ Public Class frmMain
                     End If
                 ElseIf iErrorCode = 299 Then
                     If oProcess.Duplicate Then
-                        sErrorMessage = "Multiple possible 64-bit games have been detected, GBM cannot detect the path to identify your game or save your backup." & vbCrLf & vbCrLf &
-                          "Please install the 64-bit version of GBM to detect and backup this game properly."
-                        MsgBox(sErrorMessage, MsgBoxStyle.Critical, "Game Backup Monitor")
+                        sErrorMessage = mgrCommon.FormatString(frmMain_ErrorMulti64)
+                        mgrCommon.ShowMessage(sErrorMessage, MsgBoxStyle.Exclamation)
                     Else
                         If Not CheckForSavedPath() Then
-                            sErrorMessage = oProcess.GameInfo.Name & " is a 64-bit game, GBM cannot detect the required information to save your backup."
+                            sErrorMessage = mgrCommon.FormatString(frmMain_Error64Backup, oProcess.GameInfo.Name)
                             oProcess.GameInfo.ProcessPath = mgrPath.ProcessPathSearch(oProcess.GameInfo.Name, oProcess.GameInfo.ProcessName, sErrorMessage)
                             If oProcess.GameInfo.ProcessPath <> String.Empty Then
                                 'Update and reload
@@ -1367,12 +1399,12 @@ Public Class frmMain
             If bContinue = True Then
                 CheckForSavedDuplicate()
                 If oProcess.Duplicate Then
-                    UpdateLog("Multiple Games Detected", oSettings.ShowDetectionToolTips)
-                    UpdateStatus("Multiple Games Detected")
+                    UpdateLog(frmMain_MultipleGamesDetected, oSettings.ShowDetectionToolTips)
+                    UpdateStatus(frmMain_MultipleGamesDetected)
                     SetGameInfo(True)
                 Else
-                    UpdateLog(oProcess.GameInfo.Name & " Detected", oSettings.ShowDetectionToolTips)
-                    UpdateStatus(oProcess.GameInfo.CroppedName & " Detected")
+                    UpdateLog(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.Name), oSettings.ShowDetectionToolTips)
+                    UpdateStatus(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.CroppedName))
                     SetGameInfo()
                 End If
                 oProcess.StartTime = Now
@@ -1406,11 +1438,11 @@ Public Class frmMain
 
         If Not bCancelledByUser Then
             If DoMultiGameCheck() Then
-                UpdateLog(oProcess.GameInfo.Name & " has ended.", False)
+                UpdateLog(mgrCommon.FormatString(frmMain_GameEnded, oProcess.GameInfo.Name), False)
                 If oSettings.TimeTracking Then HandleTimeSpent()
                 RunBackup()
             Else
-                UpdateLog("The unidentified game has ended.", False)
+                UpdateLog(frmMain_UnknownGameEnded, False)
                 ResetGameInfo()
                 ResumeScan()
             End If

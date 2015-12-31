@@ -118,14 +118,215 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Admin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Icon_Admin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Admin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="frmMain_About" xml:space="preserve">
+    <value>Game Backup Monitor[BR]Version: [PARAM] Beta ([PARAM])[BR]Build: [PARAM][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details.</value>
+  </data>
+  <data name="frmMain_ManifestAreadyClean" xml:space="preserve">
+    <value>The local manifest is clean.</value>
+  </data>
+  <data name="frmMain_ManifestRemovedEntry" xml:space="preserve">
+    <value>[PARAM] entry was removed from local manfiest.</value>
+  </data>
+  <data name="frmMain_ManifestTotalRemoved" xml:space="preserve">
+    <value>[PARAM] entries were removed from the local manifest.</value>
+  </data>
+  <data name="frmMain_ConfirmManifestClean" xml:space="preserve">
+    <value>This tool removes orphaned backup information from the local manifest based on the current backup folder.  Data can become orphaned when backups are deleted by various computers that share the same backup folder on a cloud or network.[BR][BR]When alternating between different backup folders you should NOT use this tool.[BR][BR]Do you wish to proceed?</value>
+  </data>
+  <data name="frmMain_ConfirmRebuild" xml:space="preserve">
+    <value>This will rebuild all databases and shrink them to an optimal size.[BR]This should only be used if your gbm.s3db files are becoming very large.[BR][BR]Do you wish to continue?</value>
+  </data>
+  <data name="App_Copyright" xml:space="preserve">
+    <value>2015 Michael J. Seiferling</value>
+  </data>
+  <data name="frmMain_Exit" xml:space="preserve">
+    <value>Are you sure you want to exit?  Your games will no longer be monitored.</value>
+  </data>
+  <data name="frmMain_LocalCompactComplete" xml:space="preserve">
+    <value>Local Database Vacuum Completed: [PARAM] KB</value>
+  </data>
+  <data name="frmMain_LocalCompactInit" xml:space="preserve">
+    <value>Local Database Vacuum Initialized: [PARAM] KB</value>
+  </data>
+  <data name="App_NameLong" xml:space="preserve">
+    <value>Game Backup Monitor</value>
+  </data>
+  <data name="App_NameShort" xml:space="preserve">
+    <value>GBM</value>
+  </data>
+  <data name="frmMain_RemoteCompactComplete" xml:space="preserve">
+    <value>Remote Database Vacuum Completed: [PARAM] KB</value>
+  </data>
+  <data name="frmMain_RemoteCompactInit" xml:space="preserve">
+    <value>Remote Database Vacuum Initialized: [PARAM] KB</value>
+  </data>
+  <data name="Icon_Clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Clock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Icon_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Detected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_BackupInProgress" xml:space="preserve">
+    <value>Backup in Progress...</value>
+  </data>
+  <data name="frmMain_btnToggleLog_Hide" xml:space="preserve">
+    <value>Hide &amp;Log</value>
+  </data>
+  <data name="frmMain_btnToggleLog_Show" xml:space="preserve">
+    <value>Show &amp;Log</value>
+  </data>
+  <data name="frmMain_ChooseIcon" xml:space="preserve">
+    <value>Choose icon for [PARAM]</value>
+  </data>
+  <data name="frmMain_ConfirmBackup" xml:space="preserve">
+    <value>Do you wish to backup data from [PARAM]?</value>
+  </data>
+  <data name="frmMain_ConfirmMonitorCancel" xml:space="preserve">
+    <value>Do you wish to cancel the monitoring of [PARAM]?[BR][BR]Warning: When monitoring is cancelled, session time is NOT saved.</value>
+  </data>
+  <data name="frmMain_ConfirmRunAsAdmin" xml:space="preserve">
+    <value>Do you want to restart Game Backup Monitor as Administrator?</value>
+  </data>
+  <data name="frmMain_Error64Backup" xml:space="preserve">
+    <value>[PARAM] is a 64-bit game, GBM cannot detect the required information to save your backup.</value>
+  </data>
+  <data name="frmMain_Error7zip" xml:space="preserve">
+    <value>7-Zip was not found in the Game Backup Monitor utilities folder.  The application cannot continue.</value>
+  </data>
+  <data name="frmMain_ErrorAdminBackup" xml:space="preserve">
+    <value>[PARAM] is running as Administrator and GBM is not, GBM cannot detect the required information to save your backup.</value>
+  </data>
+  <data name="frmMain_ErrorAdminDetect" xml:space="preserve">
+    <value>[PARAM] is running as Administrator and GBM is not.[BR]You cannot cancel monitoring at this time.[BR][BR]Run GBM as Administrator to prevent this issue.</value>
+  </data>
+  <data name="frmMain_ErrorAlreadyAdmin" xml:space="preserve">
+    <value>Game Backup Monitor is already running as Administrator.</value>
+  </data>
+  <data name="frmMain_ErrorAppLocationChanged" xml:space="preserve">
+    <value>GBM is running from a new location, the Windows startup entry has been updated.</value>
+  </data>
+  <data name="frmMain_ErrorBackupCancel" xml:space="preserve">
+    <value>[PARAM] backup was cancelled.</value>
+  </data>
+  <data name="frmMain_ErrorBackupSessionLength" xml:space="preserve">
+    <value>[PARAM] backup was cancelled due to session length.</value>
+  </data>
+  <data name="frmMain_ErrorBackupUnknownPath" xml:space="preserve">
+    <value>[PARAM] backup was cancelled due to unknown path.</value>
+  </data>
+  <data name="frmMain_ErrorCustomVariable" xml:space="preserve">
+    <value>The following monitored game(s) contain a custom path variable that is not set.[BR][PARAM][BR][BR]You will encounter backup/restore errors with these games until the variables are set.</value>
+  </data>
+  <data name="frmMain_ErrorDBVerLocal" xml:space="preserve">
+    <value>Your local GBM data (Version [PARAM]) is too new for your version of GBM (Version [PARAM]).[BR][BR]Please upgrade GBM or restore the database file appropriate for your version.  The application cannot proceed.</value>
+  </data>
+  <data name="frmMain_ErrorDBVerRemote" xml:space="preserve">
+    <value>The GBM data (Version [PARAM]) in your backup folder is too new for your version of GBM (Version [PARAM])[BR][BR]All computers sharing a backup folder must use the same version of GBM.  The application cannot proceed.</value>
+  </data>
+  <data name="frmMain_ErrorMulti64" xml:space="preserve">
+    <value>Multiple possible 64-bit games have been detected, GBM cannot detect the path to identify your game or save your backup.[BR][BR]Please install the 64-bit version of GBM to detect and backup this game properly.</value>
+  </data>
+  <data name="frmMain_ErrorMultiAdmin" xml:space="preserve">
+    <value>Multiple possible games have been detected running as Administrator and GBM is not, GBM cannot detect the path to identify your game or save your backup.[BR][BR]Please run GBM as Administrator to properly detect and backup this game.</value>
+  </data>
+  <data name="frmMain_ErrorRelativePath" xml:space="preserve">
+    <value>[PARAM] uses a relative path and has never been detected on this computer.</value>
+  </data>
+  <data name="frmMain_ErrorRestorePath" xml:space="preserve">
+    <value>[PARAM] restore was cancelled due to a restore path issue.</value>
+  </data>
+  <data name="frmMain_ErrorSettingsFolder" xml:space="preserve">
+    <value>An error occured creating application settings folder.  The application cannot proceed.[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmMain_ExePath" xml:space="preserve">
+    <value>[PARAM] (Executable Path)</value>
+  </data>
+  <data name="frmMain_GameDetected" xml:space="preserve">
+    <value>[PARAM] Detected</value>
+  </data>
+  <data name="frmMain_GameEnded" xml:space="preserve">
+    <value>[PARAM] has ended.</value>
+  </data>
+  <data name="frmMain_GameListLoaded" xml:space="preserve">
+    <value>Game List ([PARAM]) Loaded.</value>
+  </data>
+  <data name="frmMain_gMonFileMonitor_Cancel" xml:space="preserve">
+    <value>Cancel &amp;Monitoring</value>
+  </data>
+  <data name="frmMain_gMonFileMonitor_Start" xml:space="preserve">
+    <value>Start &amp;Monitoring</value>
+  </data>
+  <data name="frmMain_gMonFileMonitor_Stop" xml:space="preserve">
+    <value>Stop &amp;Monitoring</value>
+  </data>
+  <data name="frmMain_IconFilter" xml:space="preserve">
+    <value>Icon files (*.ico)|*.ico</value>
+  </data>
+  <data name="frmMain_LastGame" xml:space="preserve">
+    <value>Last Game: [PARAM]</value>
+  </data>
+  <data name="frmMain_ManualBackup" xml:space="preserve">
+    <value>A manaul backup of [PARAM] was triggered.</value>
+  </data>
+  <data name="frmMain_MasterListChanged" xml:space="preserve">
+    <value>The master game list has been changed by a program other than GBM.</value>
+  </data>
+  <data name="frmMain_MonitorCancel" xml:space="preserve">
+    <value>Monitoring of [PARAM] was cancelled.</value>
+  </data>
+  <data name="frmMain_MonitorEnded" xml:space="preserve">
+    <value>[PARAM] monitoring ended.</value>
+  </data>
+  <data name="frmMain_MultipleGames" xml:space="preserve">
+    <value>Multiple Games</value>
+  </data>
+  <data name="frmMain_MultipleGamesDetected" xml:space="preserve">
+    <value>Multiple Games Detected</value>
+  </data>
+  <data name="frmMain_NewSaveNotificationMulti" xml:space="preserve">
+    <value>[PARAM] New Saves Pending</value>
+  </data>
+  <data name="frmMain_NewSaveNotificationSingle" xml:space="preserve">
+    <value>[PARAM] New Save Pending</value>
+  </data>
+  <data name="frmMain_NoDetails" xml:space="preserve">
+    <value>Game details are unavailable.</value>
+  </data>
+  <data name="frmMain_NoGameDetected" xml:space="preserve">
+    <value>No Game Detected</value>
+  </data>
+  <data name="frmMain_NotAvailable" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="frmMain_NotScanning" xml:space="preserve">
+    <value>Not Scanning</value>
+  </data>
+  <data name="frmMain_RestoreInProgress" xml:space="preserve">
+    <value>Restore in progress...</value>
+  </data>
+  <data name="frmMain_RunningAsAdmin" xml:space="preserve">
+    <value>GBM is running with Administrator privileges.</value>
+  </data>
+  <data name="frmMain_RunningAsNormal" xml:space="preserve">
+    <value>GBM is running with normal privileges.  Click to restart as Administrator.</value>
+  </data>
+  <data name="frmMain_SessionHours" xml:space="preserve">
+    <value>[PARAM] hours</value>
+  </data>
+  <data name="frmMain_SessionMinutes" xml:space="preserve">
+    <value>[PARAM] minutes</value>
+  </data>
+  <data name="frmMain_UnknownGame" xml:space="preserve">
+    <value>the unidentified game</value>
+  </data>
+  <data name="frmMain_UnknownGameEnded" xml:space="preserve">
+    <value>The unidentified game has ended.</value>
+  </data>
+  <data name="frmMain_UpdatedBy" xml:space="preserve">
+    <value>Updated by [PARAM] on [PARAM]</value>
   </data>
   <data name="GBM_Tray_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GBM_Tray_Detected.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -136,25 +337,1150 @@
   <data name="GBM_Tray_Stopped" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GBM_Tray_Stopped.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Inbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Icon_Inbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Inbox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Ready" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Icon_Ready" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Ready.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Searching" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Icon_Searching" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Searching.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Stopped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Icon_Stopped" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Stopped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Icon_Unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Unknown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="User" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Icon_User" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\User.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Working" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Icon_Working" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Working.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_btnCancelOperation" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmMain_gMonFile" xml:space="preserve">
+    <value>&amp;File</value>
+  </data>
+  <data name="frmMain_gMonFileExit" xml:space="preserve">
+    <value>&amp;Exit</value>
+  </data>
+  <data name="frmMain_gMonFileSettings" xml:space="preserve">
+    <value>&amp;Settings...</value>
+  </data>
+  <data name="frmMain_gMonHelp" xml:space="preserve">
+    <value>&amp;Help</value>
+  </data>
+  <data name="frmMain_gMonHelpAbout" xml:space="preserve">
+    <value>&amp;About Game Backup Monitor</value>
+  </data>
+  <data name="frmMain_gMonHelpCheckForUpdates" xml:space="preserve">
+    <value>&amp;Check for Updates...</value>
+  </data>
+  <data name="frmMain_gMonHelpManual" xml:space="preserve">
+    <value>Online &amp;Manual...</value>
+  </data>
+  <data name="frmMain_gMonHelpWebSite" xml:space="preserve">
+    <value>&amp;Official Web Site...</value>
+  </data>
+  <data name="frmMain_gMonSetup" xml:space="preserve">
+    <value>&amp;Setup</value>
+  </data>
+  <data name="frmMain_gMonSetupAddWizard" xml:space="preserve">
+    <value>Add Game &amp;Wizard...</value>
+  </data>
+  <data name="frmMain_gMonSetupCustomVariables" xml:space="preserve">
+    <value>Custom &amp;Path Variables...</value>
+  </data>
+  <data name="frmMain_gMonSetupGameManager" xml:space="preserve">
+    <value>&amp;Game Manager...</value>
+  </data>
+  <data name="frmMain_gMonSetupTags" xml:space="preserve">
+    <value>&amp;Tags...</value>
+  </data>
+  <data name="frmMain_gMonStripStatusButton" xml:space="preserve">
+    <value>Monitor Status:</value>
+  </data>
+  <data name="frmMain_gMonTools" xml:space="preserve">
+    <value>&amp;Tools</value>
+  </data>
+  <data name="frmMain_gMonToolsCleanMan" xml:space="preserve">
+    <value>Clea&amp;n Local Manifest</value>
+  </data>
+  <data name="frmMain_gMonToolsCompact" xml:space="preserve">
+    <value>&amp;Compact Databases</value>
+  </data>
+  <data name="frmMain_gMonTrayShow" xml:space="preserve">
+    <value>Show / Hide</value>
+  </data>
+  <data name="frmMain_lblLastActionTitle" xml:space="preserve">
+    <value>Last Action:</value>
+  </data>
+  <data name="frmMain_gMonStripStatusButtonToolTip" xml:space="preserve">
+    <value>Click to toggle monitoring on or off.</value>
+  </data>
+  <data name="App_ConfirmDirty" xml:space="preserve">
+    <value>There are unsaved changes on this form.  Do you want to save?</value>
+  </data>
+  <data name="App_KB" xml:space="preserve">
+    <value>[PARAM] KB</value>
+  </data>
+  <data name="App_MB" xml:space="preserve">
+    <value>[PARAM] MB</value>
+  </data>
+  <data name="frmGameManager_BackupTimeAndName" xml:space="preserve">
+    <value>[PARAM] by [PARAM]</value>
+  </data>
+  <data name="frmGameManager_btnAdd" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="frmGameManager_btnAppPathBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmGameManager_btnBackup" xml:space="preserve">
+    <value>&amp;Backup</value>
+  </data>
+  <data name="frmGameManager_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmGameManager_btnClose" xml:space="preserve">
+    <value>C&amp;lose</value>
+  </data>
+  <data name="frmGameManager_btnDelete" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="frmGameManager_btnDeleteBackup" xml:space="preserve">
+    <value>&amp;Delete Backup</value>
+  </data>
+  <data name="frmGameManager_btnExclude" xml:space="preserve">
+    <value>E&amp;xclude Items...</value>
+  </data>
+  <data name="frmGameManager_btnExport" xml:space="preserve">
+    <value>&amp;Export</value>
+  </data>
+  <data name="frmGameManager_btnIconBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmGameManager_btnImport" xml:space="preserve">
+    <value>&amp;Import</value>
+  </data>
+  <data name="frmGameManager_btnInclude" xml:space="preserve">
+    <value>In&amp;clude Items...</value>
+  </data>
+  <data name="frmGameManager_btnMarkAsRestored" xml:space="preserve">
+    <value>&amp;Mark as Restored</value>
+  </data>
+  <data name="frmGameManager_btnOpenBackupFile" xml:space="preserve">
+    <value>&amp;Open Backup File</value>
+  </data>
+  <data name="frmGameManager_btnOpenRestorePath" xml:space="preserve">
+    <value>O&amp;pen Restore Path</value>
+  </data>
+  <data name="frmGameManager_btnProcessBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmGameManager_btnRestore" xml:space="preserve">
+    <value>&amp;Restore</value>
+  </data>
+  <data name="frmGameManager_btnSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmGameManager_btnSavePathBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmGameManager_btnTags" xml:space="preserve">
+    <value>Tags...</value>
+  </data>
+  <data name="frmGameManager_chkEnabled" xml:space="preserve">
+    <value>Monitor this game</value>
+  </data>
+  <data name="frmGameManager_chkFolderSave" xml:space="preserve">
+    <value>Save entire folder</value>
+  </data>
+  <data name="frmGameManager_chkMonitorOnly" xml:space="preserve">
+    <value>Monitor only</value>
+  </data>
+  <data name="frmGameManager_chkTimeStamp" xml:space="preserve">
+    <value>Timestamp each backup</value>
+  </data>
+  <data name="frmGameManager_ChooseCustomIcon" xml:space="preserve">
+    <value>Choose a custom icon for the game</value>
+  </data>
+  <data name="frmGameManager_ChooseExe" xml:space="preserve">
+    <value>Choose exe file that starts the application</value>
+  </data>
+  <data name="frmGameManager_ChooseExePath" xml:space="preserve">
+    <value>Choose the location of application's exe file:</value>
+  </data>
+  <data name="frmGameManager_ChooseExportXML" xml:space="preserve">
+    <value>Choose a location for the export file</value>
+  </data>
+  <data name="frmGameManager_ChooseImportXML" xml:space="preserve">
+    <value>Choose a valid xml file to import</value>
+  </data>
+  <data name="frmGameManager_ChooseSaveFolder" xml:space="preserve">
+    <value>Choose the saved game folder:</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackup" xml:space="preserve">
+    <value>Are you sure you want to run a backup for [PARAM]?  This will close the form.</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackupDelete" xml:space="preserve">
+    <value>This will delete the backup file and all records of this backup.  This cannot be undone. [BR][BR]Do you want to remove the data for [PARAM]?</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackupFolderDelete" xml:space="preserve">
+    <value>The backup folder [PARAM] still contains [PARAM] directories and [PARAM] files.[BR][BR]Do you want to delete the contents and remove the sub-folder for this game?</value>
+  </data>
+  <data name="frmGameManager_ConfirmGameDelete" xml:space="preserve">
+    <value>Are you sure you want to delete [PARAM]?  This cannot be undone.[BR][BR]This will not delete any backup files that already exist for this game.</value>
+  </data>
+  <data name="frmGameManager_ConfirmMark" xml:space="preserve">
+    <value>Do you want to mark [PARAM] as restored?  This cannot be undone.</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiBackup" xml:space="preserve">
+    <value>Are you sure you want to run a backup for [PARAM] games?  This will close the form.</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiGameDelete" xml:space="preserve">
+    <value>Are you sure you want to delete the [PARAM] selected games?  This cannot be undone.</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiMark" xml:space="preserve">
+    <value>Do you want to mark [PARAM] games as restored?  This cannot be undone.</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiRestore" xml:space="preserve">
+    <value>Are you sure you want to restore the backups for [PARAM] games?  This will close the form.</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiSave" xml:space="preserve">
+    <value>Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Monitor this game: [PARAM][BR]Monitor only: [PARAM]</value>
+  </data>
+  <data name="frmGameManager_ConfirmOfficialImport" xml:space="preserve">
+    <value>Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection.</value>
+  </data>
+  <data name="frmGameManager_ConfirmRestore" xml:space="preserve">
+    <value>Are you sure you want to restore the backup for [PARAM]?  This will close the form.</value>
+  </data>
+  <data name="frmGameManager_ConfirmRestoreAnyway" xml:space="preserve">
+    <value>[PARAM] is already up to date.[BR][BR]Would you like to restore this backup anyway?</value>
+  </data>
+  <data name="frmGameManager_ErrorGameDupe" xml:space="preserve">
+    <value>A game with this exact name and process already exists.</value>
+  </data>
+  <data name="frmGameManager_ErrorNoBackupData" xml:space="preserve">
+    <value>The selected game(s) have no backup data.</value>
+  </data>
+  <data name="frmGameManager_ErrorNoBackupExists" xml:space="preserve">
+    <value>The backup file does not exist.</value>
+  </data>
+  <data name="frmGameManager_ErrorNoItems" xml:space="preserve">
+    <value>You must choose items to include in the backup, or choose to save the entire folder.</value>
+  </data>
+  <data name="frmGameManager_ErrorNoRestorePathExists" xml:space="preserve">
+    <value>The restore path does not exist.</value>
+  </data>
+  <data name="frmGameManager_ErrorPathNotSet" xml:space="preserve">
+    <value>[PARAM] uses a relative path and the game path has not been set.</value>
+  </data>
+  <data name="frmGameManager_ErrorValidName" xml:space="preserve">
+    <value>You must enter a valid game name.</value>
+  </data>
+  <data name="frmGameManager_ErrorValidProcess" xml:space="preserve">
+    <value>You must enter a valid process name.</value>
+  </data>
+  <data name="frmGameManager_Exclude" xml:space="preserve">
+    <value>Exclude</value>
+  </data>
+  <data name="frmGameManager_ExcludeShortcut" xml:space="preserve">
+    <value>E&amp;xclude</value>
+  </data>
+  <data name="frmGameManager_Executable" xml:space="preserve">
+    <value>Executable</value>
+  </data>
+  <data name="frmGameManager_FormName" xml:space="preserve">
+    <value>Game Manager</value>
+  </data>
+  <data name="frmGameManager_Icon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="frmGameManager_Include" xml:space="preserve">
+    <value>Include</value>
+  </data>
+  <data name="frmGameManager_IncludeShortcut" xml:space="preserve">
+    <value>In&amp;clude</value>
+  </data>
+  <data name="frmGameManager_Items" xml:space="preserve">
+    <value>Items...</value>
+  </data>
+  <data name="frmGameManager_ItemsExist" xml:space="preserve">
+    <value>Items... ([PARAM])</value>
+  </data>
+  <data name="frmGameManager_lblCompany" xml:space="preserve">
+    <value>Company:</value>
+  </data>
+  <data name="frmGameManager_lblCurrentBackup" xml:space="preserve">
+    <value>Current Backup:</value>
+  </data>
+  <data name="frmGameManager_lblFileSize" xml:space="preserve">
+    <value>Backup Size:</value>
+  </data>
+  <data name="frmGameManager_lblGamePath" xml:space="preserve">
+    <value>Game Path:</value>
+  </data>
+  <data name="frmGameManager_lblHours" xml:space="preserve">
+    <value>Hours:</value>
+  </data>
+  <data name="frmGameManager_lblIcon" xml:space="preserve">
+    <value>Icon:</value>
+  </data>
+  <data name="frmGameManager_lblLastBackup" xml:space="preserve">
+    <value>Local Backup:</value>
+  </data>
+  <data name="frmGameManager_lblName" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="frmGameManager_lblProcess" xml:space="preserve">
+    <value>Process:</value>
+  </data>
+  <data name="frmGameManager_lblRestorePath" xml:space="preserve">
+    <value>Restore Path:</value>
+  </data>
+  <data name="frmGameManager_lblSavePath" xml:space="preserve">
+    <value>Save Path:</value>
+  </data>
+  <data name="frmGameManager_lblVersion" xml:space="preserve">
+    <value>Version:</value>
+  </data>
+  <data name="frmGameManager_Never" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="frmGameManager_optAllGames" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="frmGameManager_optBackupData" xml:space="preserve">
+    <value>Backups Only</value>
+  </data>
+  <data name="frmGameManager_optCustom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="frmGameManager_optPendingRestores" xml:space="preserve">
+    <value>New Saves Pending</value>
+  </data>
+  <data name="frmGameManager_OutofSync" xml:space="preserve">
+    <value>Out of Sync</value>
+  </data>
+  <data name="frmGameManager_UpToDate" xml:space="preserve">
+    <value>Up to Date!</value>
+  </data>
+  <data name="frmGameManager_XML" xml:space="preserve">
+    <value>XML</value>
+  </data>
+  <data name="frmGameManager_cmsFile" xml:space="preserve">
+    <value>&amp;File...</value>
+  </data>
+  <data name="frmGameManager_cmsOfficial" xml:space="preserve">
+    <value>&amp;Official List...</value>
+  </data>
+  <data name="frmAddWizard_btnBack" xml:space="preserve">
+    <value>&amp;Back</value>
+  </data>
+  <data name="frmAddWizard_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmAddWizard_btnExclude" xml:space="preserve">
+    <value>Choose items to e&amp;xclude...</value>
+  </data>
+  <data name="frmAddWizard_btnInclude" xml:space="preserve">
+    <value>Choose items to in&amp;clude...</value>
+  </data>
+  <data name="frmAddWizard_btnNext" xml:space="preserve">
+    <value>&amp;Next</value>
+  </data>
+  <data name="frmAddWizard_btnNext_Finish" xml:space="preserve">
+    <value>&amp;Finish</value>
+  </data>
+  <data name="frmAddWizard_btnProcessBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmAddWizard_btnSaveBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmAddWizard_chkFolderSave" xml:space="preserve">
+    <value>Save Entire Folder</value>
+  </data>
+  <data name="frmAddWizard_chkTimeStamp" xml:space="preserve">
+    <value>Time Stamp Backup</value>
+  </data>
+  <data name="frmAddWizard_ChooseProcess" xml:space="preserve">
+    <value>Choose exe file that starts the game</value>
+  </data>
+  <data name="frmAddWizard_ChooseSavePath" xml:space="preserve">
+    <value>Choose the game save folder:</value>
+  </data>
+  <data name="frmAddWizard_ConfirmSaveTags" xml:space="preserve">
+    <value>[PARAM] has been saved.[BR][BR]Would you like to add tags for [PARAM]?</value>
+  </data>
+  <data name="frmAddWizard_ErrorBadProcessPath" xml:space="preserve">
+    <value>The path to the executable must be a full path.</value>
+  </data>
+  <data name="frmAddWizard_ErrorBadSavePath" xml:space="preserve">
+    <value>The selected path must be a full path.</value>
+  </data>
+  <data name="frmAddWizard_ErrorGameDupe" xml:space="preserve">
+    <value>A game with this exact name and process already exists.</value>
+  </data>
+  <data name="frmAddWizard_ErrorNotAProcess" xml:space="preserve">
+    <value>The file you selected is not an executable file.</value>
+  </data>
+  <data name="frmAddWizard_ErrorNotAShortcut" xml:space="preserve">
+    <value>This file is not a shorcut.</value>
+  </data>
+  <data name="frmAddWizard_ErrorProcessNotExist" xml:space="preserve">
+    <value>The selected executable file does not exist.</value>
+  </data>
+  <data name="frmAddWizard_ErrorSavePathNotExist" xml:space="preserve">
+    <value>The folder you selected does not exist or is not a valid folder.</value>
+  </data>
+  <data name="frmAddWizard_ErrorValidName" xml:space="preserve">
+    <value>You must enter a valid game name.</value>
+  </data>
+  <data name="frmAddWizard_ErrorValidProcess" xml:space="preserve">
+    <value>You must select the game's executable file (.exe) to continue.</value>
+  </data>
+  <data name="frmAddWizard_ErrorValidSavePath" xml:space="preserve">
+    <value>You must select the game's save file path to continue</value>
+  </data>
+  <data name="frmAddWizard_ErrorValidSaveType" xml:space="preserve">
+    <value>You must choose items to include in the backup, or choose to save the entire folder.</value>
+  </data>
+  <data name="frmAddWizard_ErrorWithShortcut" xml:space="preserve">
+    <value>An error occured working with the shortcut file.[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmAddWizard_Exclude" xml:space="preserve">
+    <value>Exclude</value>
+  </data>
+  <data name="frmAddWizard_Executable" xml:space="preserve">
+    <value>Executable</value>
+  </data>
+  <data name="frmAddWizard_FormName" xml:space="preserve">
+    <value>Add Game Wizard</value>
+  </data>
+  <data name="frmAddWizard_Include" xml:space="preserve">
+    <value>Include</value>
+  </data>
+  <data name="frmAddWizard_ItemsSelectedMulti" xml:space="preserve">
+    <value>[PARAM] item(s) selected</value>
+  </data>
+  <data name="frmAddWizard_ItemsSelectedNone" xml:space="preserve">
+    <value>0 item(s) selected</value>
+  </data>
+  <data name="frmAddWizard_lblDrag1" xml:space="preserve">
+    <value>Drag a shortcut here to complete this step.</value>
+  </data>
+  <data name="frmAddWizard_lblDrag2" xml:space="preserve">
+    <value>Drag a shortcut here to complete this step.</value>
+  </data>
+  <data name="frmAddWizard_lblExcludePath" xml:space="preserve">
+    <value>Save Path</value>
+  </data>
+  <data name="frmAddWizard_lblExcludePathTitle" xml:space="preserve">
+    <value>Saved Game Folder:</value>
+  </data>
+  <data name="frmAddWizard_lblIncludePath" xml:space="preserve">
+    <value>Save Path</value>
+  </data>
+  <data name="frmAddWizard_lblIncludePathTitle" xml:space="preserve">
+    <value>Saved Game Folder:</value>
+  </data>
+  <data name="frmAddWizard_lblStep1Instructions" xml:space="preserve">
+    <value>The name will be automatically filtered for length and invalid characters. </value>
+  </data>
+  <data name="frmAddWizard_lblStep1Intro" xml:space="preserve">
+    <value>Enter the name of the game to monitor:</value>
+  </data>
+  <data name="frmAddWizard_lblStep1Title" xml:space="preserve">
+    <value>Game Name</value>
+  </data>
+  <data name="frmAddWizard_lblStep2Instructions" xml:space="preserve">
+    <value>Some games use launchers.  Do not monitor launchers,  be sure to choose the game's actual exe file.</value>
+  </data>
+  <data name="frmAddWizard_lblStep2Intro" xml:space="preserve">
+    <value>Choose the game's executable file or shortcut:</value>
+  </data>
+  <data name="frmAddWizard_lblStep2Title" xml:space="preserve">
+    <value>Process to Monitor</value>
+  </data>
+  <data name="frmAddWizard_lblStep3aInstructions" xml:space="preserve">
+    <value>Choose any file types, specific files  or folders you wish to include in the backup.  If you're unsure, go back a step and choose to save the entire folder. </value>
+  </data>
+  <data name="frmAddWizard_lblStep3aTitle" xml:space="preserve">
+    <value>Choose Files to Backup</value>
+  </data>
+  <data name="frmAddWizard_lblStep3Instructions" xml:space="preserve">
+    <value>If you're unsure of exactly which files to backup,  make sure Save Entire Folder is checked.  You can also time stamp your backup files to make incremental backups.</value>
+  </data>
+  <data name="frmAddWizard_lblStep3Intro" xml:space="preserve">
+    <value>Choose the location of your game's save files:</value>
+  </data>
+  <data name="frmAddWizard_lblStep3Title" xml:space="preserve">
+    <value>Game Backup Path</value>
+  </data>
+  <data name="frmAddWizard_lblStep4Instructions" xml:space="preserve">
+    <value>Choose any file types, specific files  or folders you wish to exclude from the backup.  You may choose multiple items to exclude.  This step can be skipped.</value>
+  </data>
+  <data name="frmAddWizard_lblStep4Title" xml:space="preserve">
+    <value>Exclude Files or Folders</value>
+  </data>
+  <data name="frmAddWizard_lblStep5Intro" xml:space="preserve">
+    <value>Verify your settings below and click Finish to save.</value>
+  </data>
+  <data name="frmAddWizard_lblStep5Title" xml:space="preserve">
+    <value>Summary of your Game</value>
+  </data>
+  <data name="frmAddWizard_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="frmAddWizard_Summary_AbsolutePath" xml:space="preserve">
+    <value>Absolute Path</value>
+  </data>
+  <data name="frmAddWizard_Summary_Exclude" xml:space="preserve">
+    <value>Excluded Items</value>
+  </data>
+  <data name="frmAddWizard_Summary_FolderSave" xml:space="preserve">
+    <value>Folder Save</value>
+  </data>
+  <data name="frmAddWizard_Summary_Include" xml:space="preserve">
+    <value>Included Items</value>
+  </data>
+  <data name="frmAddWizard_Summary_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="frmAddWizard_Summary_Process" xml:space="preserve">
+    <value>Process</value>
+  </data>
+  <data name="frmAddWizard_Summary_SavePath" xml:space="preserve">
+    <value>Save Path</value>
+  </data>
+  <data name="frmAddWizard_Summary_Timestamp" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="frmAdvancedImport_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmAdvancedImport_btnImport" xml:space="preserve">
+    <value>&amp;Import</value>
+  </data>
+  <data name="frmAdvancedImport_FormName" xml:space="preserve">
+    <value>Import Game Configurations</value>
+  </data>
+  <data name="frmAdvancedImport_NewConfigs" xml:space="preserve">
+    <value>[PARAM] new configurations available.</value>
+  </data>
+  <data name="frmAdvancedImport_Selected" xml:space="preserve">
+    <value>[PARAM] Selected</value>
+  </data>
+  <data name="frmChooseGame_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmChooseGame_btnChoose" xml:space="preserve">
+    <value>C&amp;hoose Game</value>
+  </data>
+  <data name="frmChooseGame_FormName" xml:space="preserve">
+    <value>Choose Game</value>
+  </data>
+  <data name="frmChooseGame_lblChoose" xml:space="preserve">
+    <value>Please choose the game you were playing:</value>
+  </data>
+  <data name="frmFileFolderSearch_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmFileFolderSearch_FormName" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="frmFileFolderSearch_SwitchDrives" xml:space="preserve">
+    <value>The location was not found on the [PARAM] drive.  Do you wish to search the [PARAM] drive?</value>
+  </data>
+  <data name="frmFilter_btnAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmFilter_btnOK" xml:space="preserve">
+    <value>&amp;OK</value>
+  </data>
+  <data name="frmFilter_btnRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmFilter_FormName" xml:space="preserve">
+    <value>Custom Filter</value>
+  </data>
+  <data name="frmFilter_lblCompany" xml:space="preserve">
+    <value>Company:</value>
+  </data>
+  <data name="frmFilter_lblGameTags" xml:space="preserve">
+    <value>Current Filter</value>
+  </data>
+  <data name="frmFilter_lblName" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="frmFilter_lblProcess" xml:space="preserve">
+    <value>Process:</value>
+  </data>
+  <data name="frmFilter_lblTags" xml:space="preserve">
+    <value>Available Tags</value>
+  </data>
+  <data name="frmFilter_optAll" xml:space="preserve">
+    <value>All Tags</value>
+  </data>
+  <data name="frmFilter_optAnd" xml:space="preserve">
+    <value>And</value>
+  </data>
+  <data name="frmFilter_optAny" xml:space="preserve">
+    <value>Any Tag</value>
+  </data>
+  <data name="frmFilter_optGameInfo" xml:space="preserve">
+    <value>Game Information</value>
+  </data>
+  <data name="frmFilter_optOr" xml:space="preserve">
+    <value>Or</value>
+  </data>
+  <data name="frmFilter_optTag" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="frmGameTags_btnAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmGameTags_btnClose" xml:space="preserve">
+    <value>&amp;Close</value>
+  </data>
+  <data name="frmGameTags_btnOpenTags" xml:space="preserve">
+    <value>Setup &amp;Tags...</value>
+  </data>
+  <data name="frmGameTags_btnRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmGameTags_FormNameMulti" xml:space="preserve">
+    <value>Edit Tags for Multiple Games</value>
+  </data>
+  <data name="frmGameTags_FormNameSingle" xml:space="preserve">
+    <value>Edit Tags for [PARAM]</value>
+  </data>
+  <data name="frmGameTags_lblGameTags" xml:space="preserve">
+    <value>Current Tags</value>
+  </data>
+  <data name="frmGameTags_lblTags" xml:space="preserve">
+    <value>Available Tags</value>
+  </data>
+  <data name="frmIncludeExclude_BrowseSaveFolder" xml:space="preserve">
+    <value>Choose the location of the saved game folder:</value>
+  </data>
+  <data name="frmIncludeExclude_btnAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmIncludeExclude_btnBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmIncludeExclude_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmIncludeExclude_btnRawEdit" xml:space="preserve">
+    <value>Raw &amp;Edit</value>
+  </data>
+  <data name="frmIncludeExclude_btnRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmIncludeExclude_btnSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmIncludeExclude_CustomItem" xml:space="preserve">
+    <value>Custom Item</value>
+  </data>
+  <data name="frmIncludeExclude_ErrorFileSystemRead" xml:space="preserve">
+    <value>An unexpected error occured while reading the file system:[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmIncludeExclude_FormName" xml:space="preserve">
+    <value>[PARAM] Builder</value>
+  </data>
+  <data name="frmIncludeExclude_grpFileOptions" xml:space="preserve">
+    <value>[PARAM] Options</value>
+  </data>
+  <data name="frmIncludeExclude_lblItems" xml:space="preserve">
+    <value>[PARAM] Items</value>
+  </data>
+  <data name="frmIncludeExclude_lblSaveFolder" xml:space="preserve">
+    <value>Saved Game Explorer</value>
+  </data>
+  <data name="frmIncludeExclude_optFileTypes" xml:space="preserve">
+    <value>File Types</value>
+  </data>
+  <data name="frmIncludeExclude_optIndividualFiles" xml:space="preserve">
+    <value>Individual Files</value>
+  </data>
+  <data name="frmIncludeExclude_RawEditInfo" xml:space="preserve">
+    <value>Items are semi-colon delimited.</value>
+  </data>
+  <data name="frmIncludeExclude_RawEditTitle" xml:space="preserve">
+    <value>[PARAM] Raw Edit</value>
+  </data>
+  <data name="frmIncludeExclude_ToolTipBrowse" xml:space="preserve">
+    <value>Click here to set the saved game folder.</value>
+  </data>
+  <data name="frmIncludeExclude_ToolTipFiles" xml:space="preserve">
+    <value>Set the saved game folder using the button above.</value>
+  </data>
+  <data name="frmIncludeExclude_ToolTipFolder" xml:space="preserve">
+    <value>The saved game folder could not be determined or does not exist.</value>
+  </data>
+  <data name="frmIncludeExclude_ToolTipTitle" xml:space="preserve">
+    <value>Saved Game Explorer</value>
+  </data>
+  <data name="frmFilter_grpGameInfoOptions" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="frmFilter_grpTagOptions" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="frmGameManager_grpConfig" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="frmGameManager_grpExtra" xml:space="preserve">
+    <value>Game Information</value>
+  </data>
+  <data name="frmGameManager_grpFilter" xml:space="preserve">
+    <value>Games Filter</value>
+  </data>
+  <data name="frmGameManager_grpStats" xml:space="preserve">
+    <value>Backup Information</value>
+  </data>
+  <data name="App_URLImport" xml:space="preserve">
+    <value>http://mikemaximus.github.io/gbm-web/GBM_Official.xml</value>
+  </data>
+  <data name="App_URLManual" xml:space="preserve">
+    <value>http://mikemaximus.github.io/gbm-web/manual.html</value>
+  </data>
+  <data name="App_URLUpdates" xml:space="preserve">
+    <value>https://github.com/MikeMaximus/gbm/releases</value>
+  </data>
+  <data name="App_URLWebsite" xml:space="preserve">
+    <value>http://mikemaximus.github.io/gbm-web/</value>
+  </data>
+  <data name="frmIncludeExclude_cmsAdd" xml:space="preserve">
+    <value>Add Custom Item</value>
+  </data>
+  <data name="frmIncludeExclude_cmsEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="frmIncludeExclude_cmsRemove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="frmSettings_BrowseFolder" xml:space="preserve">
+    <value>Choose a backup folder:</value>
+  </data>
+  <data name="frmSettings_btnBackupFolder" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmSettings_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmSettings_btnSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmSettings_chkBackupConfirm" xml:space="preserve">
+    <value>Disable backup confirmation</value>
+  </data>
+  <data name="frmSettings_chkCheckSum" xml:space="preserve">
+    <value>Verify backup files with a checksum</value>
+  </data>
+  <data name="frmSettings_chkCreateFolder" xml:space="preserve">
+    <value>Create a sub-folder for each game</value>
+  </data>
+  <data name="frmSettings_chkMonitorOnStartup" xml:space="preserve">
+    <value>Start monitoring at launch</value>
+  </data>
+  <data name="frmSettings_chkOverwriteWarning" xml:space="preserve">
+    <value>Show overwrite warning</value>
+  </data>
+  <data name="frmSettings_chkRestoreOnLaunch" xml:space="preserve">
+    <value>Notify when there are new backup files to restore</value>
+  </data>
+  <data name="frmSettings_chkShowDetectionTips" xml:space="preserve">
+    <value>Show detection notifications</value>
+  </data>
+  <data name="frmSettings_chkStartToTray" xml:space="preserve">
+    <value>Start to system tray</value>
+  </data>
+  <data name="frmSettings_chkStartWindows" xml:space="preserve">
+    <value>Start with Windows</value>
+  </data>
+  <data name="frmSettings_chkSupressBackup" xml:space="preserve">
+    <value>Backup only when session time exceeds</value>
+  </data>
+  <data name="frmSettings_chkSync" xml:space="preserve">
+    <value>Sync game list data with backup folder</value>
+  </data>
+  <data name="frmSettings_chkTimeTracking" xml:space="preserve">
+    <value>Enable time tracking</value>
+  </data>
+  <data name="frmSettings_ErrorBackupFolder" xml:space="preserve">
+    <value>The backup folder does not exist.  Please choose a valid backup folder.</value>
+  </data>
+  <data name="frmSettings_FormName" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="frmSettings_grpBackup" xml:space="preserve">
+    <value>Backup and Restore</value>
+  </data>
+  <data name="frmSettings_grpGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="frmSettings_grpPaths" xml:space="preserve">
+    <value>Paths</value>
+  </data>
+  <data name="frmSettings_lblBackupFolder" xml:space="preserve">
+    <value>Backup Folder</value>
+  </data>
+  <data name="frmSettings_lblMinutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="frmStartUpWizard_BrowseFolder" xml:space="preserve">
+    <value>Choose a backup folder:</value>
+  </data>
+  <data name="frmStartUpWizard_btnBack" xml:space="preserve">
+    <value>&amp;Back</value>
+  </data>
+  <data name="frmStartUpWizard_btnDownloadList" xml:space="preserve">
+    <value>Import from Official List</value>
+  </data>
+  <data name="frmStartUpWizard_btnFolderBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmStartUpWizard_btnNext" xml:space="preserve">
+    <value>&amp;Next</value>
+  </data>
+  <data name="frmStartUpWizard_btnNext_Finish" xml:space="preserve">
+    <value>&amp;Finish</value>
+  </data>
+  <data name="frmStartUpWizard_btnOpenMonitorList" xml:space="preserve">
+    <value>Game Manager</value>
+  </data>
+  <data name="frmStartUpWizard_btnOpenWizard" xml:space="preserve">
+    <value>Add Game Wizard</value>
+  </data>
+  <data name="frmStartUpWizard_chkCreateFolder" xml:space="preserve">
+    <value>Create a sub-folder for each game</value>
+  </data>
+  <data name="frmStartUpWizard_chkSync" xml:space="preserve">
+    <value>Import any existing GBM data in the backup folder</value>
+  </data>
+  <data name="frmStartUpWizard_ConfirmOfficialImport" xml:space="preserve">
+    <value>Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection.</value>
+  </data>
+  <data name="frmStartUpWizard_ErrorBadFolder" xml:space="preserve">
+    <value>The selected path must be a full path.</value>
+  </data>
+  <data name="frmStartUpWizard_ErrorNoFolder" xml:space="preserve">
+    <value>You must select a backup path to continue.</value>
+  </data>
+  <data name="frmStartUpWizard_ErrorNoFolderExists" xml:space="preserve">
+    <value>The folder you selected does not exist or is not a valid folder.</value>
+  </data>
+  <data name="frmStartUpWizard_ExistingData" xml:space="preserve">
+    <value>Existing data was detected in the backup folder and has been imported.</value>
+  </data>
+  <data name="frmStartUpWizard_FormName" xml:space="preserve">
+    <value>GBM Setup</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep1Instructions" xml:space="preserve">
+    <value>This guide will help you through some quick and easy steps to get started.</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep1Instructions2" xml:space="preserve">
+    <value>If you'd like to learn about advanced features or have any other questions before you get started, there is a detailed online manual available.</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep1Title" xml:space="preserve">
+    <value>Welcome to GBM</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep2Instructions" xml:space="preserve">
+    <value>GBM will store all your backup files along with a manifest database (gbm.s3db) in this location. </value>
+  </data>
+  <data name="frmStartUpWizard_lblStep2Intro" xml:space="preserve">
+    <value>Choose where GBM saves your backup files:</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep2Title" xml:space="preserve">
+    <value>Backup Location</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep3Intro" xml:space="preserve">
+    <value>Before you can start monitoring for games, they need to be configured so GBM knows what to look for and how to handle them.  You can download pre-made configurations from the official list or add them all yourself using the tools below.  You can also skip this step for now!</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep3Title" xml:space="preserve">
+    <value>Monitoring Games</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep4Instructions" xml:space="preserve">
+    <value>GBM will automatically monitor and backup your games each time they are closed.</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep4Instructions2" xml:space="preserve">
+    <value>Remember that GBM can only currently monitor one game at a time.</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep4Instructions3" xml:space="preserve">
+    <value>You can change anything you've setup in this wizard and find more settings and features by exploring the menus.  Thanks!</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep4Title" xml:space="preserve">
+    <value>Finished!</value>
+  </data>
+  <data name="frmStartUpWizard_llbManual" xml:space="preserve">
+    <value>Game Backup Monitor Manual</value>
+  </data>
+  <data name="frmTags_btnAdd" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="frmTags_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmTags_btnClose" xml:space="preserve">
+    <value>C&amp;lose</value>
+  </data>
+  <data name="frmTags_btnDelete" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="frmTags_btnSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmTags_ConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete [PARAM]?  This cannot be undone.[BR][BR]All games using this tag will have it removed.</value>
+  </data>
+  <data name="frmTags_ErrorTagDupe" xml:space="preserve">
+    <value>A tag with this name already exists.</value>
+  </data>
+  <data name="frmTags_ErrorValidName" xml:space="preserve">
+    <value>You must enter a valid tag name.</value>
+  </data>
+  <data name="frmTags_FormName" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="frmTags_grpTag" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="frmTags_lblName" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="frmVariableManager_btnAdd" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="frmVariableManager_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmVariableManager_btnClose" xml:space="preserve">
+    <value>C&amp;lose</value>
+  </data>
+  <data name="frmVariableManager_btnDelete" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="frmVariableManager_btnPathBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmVariableManager_btnSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmVariableManager_ConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete [PARAM]?  This cannot be undone.</value>
+  </data>
+  <data name="frmVariableManager_ErrorValidName" xml:space="preserve">
+    <value>You must enter a valid variable name.</value>
+  </data>
+  <data name="frmVariableManager_ErrorValidPath" xml:space="preserve">
+    <value>You must enter a valid path.</value>
+  </data>
+  <data name="frmVariableManager_ErrorVariableDupe" xml:space="preserve">
+    <value>A custom variable with this name already exists.</value>
+  </data>
+  <data name="frmVariableManager_FormName" xml:space="preserve">
+    <value>Custom Variable Manager</value>
+  </data>
+  <data name="frmVariableManager_grpVariable" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="frmVariableManager_lblName" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="frmVariableManager_lblPath" xml:space="preserve">
+    <value>Path:</value>
+  </data>
+  <data name="frmVariableManager_PathBrowse" xml:space="preserve">
+    <value>Choose the path the variable represents:</value>
+  </data>
+  <data name="mgPath_ConfirmManualPathNoParam" xml:space="preserve">
+    <value>Do you wish to manually set the game path? (Path will be saved)</value>
+  </data>
+  <data name="mgrBackup_ActionComplete" xml:space="preserve">
+    <value>[PARAM] backup completed</value>
+  </data>
+  <data name="mgrBackup_ActionFailed" xml:space="preserve">
+    <value>[PARAM] backup failed</value>
+  </data>
+  <data name="mgrBackup_BackupComplete" xml:space="preserve">
+    <value>[PARAM] backup completed.</value>
+  </data>
+  <data name="mgrBackup_BackupInProgress" xml:space="preserve">
+    <value>Backup of [PARAM] in progress...</value>
+  </data>
+  <data name="mgrBackup_BackupWarnings" xml:space="preserve">
+    <value>[PARAM] backup finished with warnings or errors.</value>
+  </data>
+  <data name="mgrBackup_ConfirmManifestConflict" xml:space="preserve">
+    <value>The manifest shows the backup folder contains a backup for [PARAM] that has not been restored on this computer.[BR][BR]Do you want to overwrite this file anyway?</value>
+  </data>
+  <data name="mgrBackup_ConfirmOverwrite" xml:space="preserve">
+    <value>A file with the same name already exists in the backup folder.[BR][BR]Do you want to overwrite this file?</value>
+  </data>
+  <data name="mgrBackup_ErrorFileList" xml:space="preserve">
+    <value>An error occured creating a file list: [PARAM]</value>
+  </data>
+  <data name="mgrBackup_ErrorFullAbort" xml:space="preserve">
+    <value>Backup aborted.  The backup file for [PARAM] may be unusable.</value>
+  </data>
+  <data name="mgrBackup_ErrorManifestConflict" xml:space="preserve">
+    <value>Backup aborted by user due to manifest conflict.</value>
+  </data>
+  <data name="mgrBackup_ErrorManifestFailure" xml:space="preserve">
+    <value>The manifest update for [PARAM] failed.</value>
+  </data>
+  <data name="mgrBackup_ErrorNoSavePath" xml:space="preserve">
+    <value>Backup aborted.  The saved game path for [PARAM] does not exist.</value>
+  </data>
+  <data name="mgrBackup_ErrorOtherFailure" xml:space="preserve">
+    <value>An unexpected error occured during the backup of [PARAM].[BR][PARAM]</value>
+  </data>
+  <data name="mgrBackup_ErrorOverwriteAbort" xml:space="preserve">
+    <value>[PARAM] backup aborted by user due to overwrite.</value>
+  </data>
+  <data name="mgrBackup_ErrorSubFolderCreate" xml:space="preserve">
+    <value>Backup aborted.  A failure occured while creating a backup sub-folder for [PARAM].[BR][PARAM]</value>
+  </data>
+  <data name="mgrBackup_GenerateHash" xml:space="preserve">
+    <value>Generating SHA-256 hash for [PARAM] backup file.</value>
+  </data>
+  <data name="mgrCommon_FilesFilter" xml:space="preserve">
+    <value>[PARAM] files (*.[PARAM])|*.[PARAM]</value>
+  </data>
+  <data name="mgrCommon_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="mgrCommon_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="mgrMonitorList_ConfirmApplyFilter" xml:space="preserve">
+    <value>Would you like to apply a filter to your export?</value>
+  </data>
+  <data name="mgrMonitorList_ConfirmExistingData" xml:space="preserve">
+    <value>GBM data already exists in the backup folder.[BR][BR]Do you want to make your local game list the new master game list in this folder? (Recommended)[BR][BR]Choosing No will sync your local game list to the current master game list in this folder.</value>
+  </data>
+  <data name="mgrMonitorList_ExportComplete" xml:space="preserve">
+    <value>Export Complete.  [PARAM] item(s) have been exported.</value>
+  </data>
+  <data name="mgrMonitorList_FileNotFound" xml:space="preserve">
+    <value>The file:[BR][PARAM][BR]cannot be found.</value>
+  </data>
+  <data name="mgrMonitorList_ImportComplete" xml:space="preserve">
+    <value>Import Complete.</value>
+  </data>
+  <data name="mgrMonitorList_ImportNothing" xml:space="preserve">
+    <value>This list does not contain any new games to import.</value>
+  </data>
+  <data name="mgrMonitorList_SyncChanges" xml:space="preserve">
+    <value>[PARAM] change(s) synced.</value>
+  </data>
+  <data name="mgrMonitorList_SyncFromMaster" xml:space="preserve">
+    <value>A sync from the master game list has been triggered.</value>
+  </data>
+  <data name="mgrMonitorList_SyncToMaster" xml:space="preserve">
+    <value>A sync to the master game list has been triggered.</value>
+  </data>
+  <data name="mgrMonitorList_WebNoReponse" xml:space="preserve">
+    <value>There's no response from:[BR][PARAM][BR]Either the server is not responding or the URL is invalid.</value>
+  </data>
+  <data name="mgrPath_ChoosePath" xml:space="preserve">
+    <value>Choose the game folder containing the executable.</value>
+  </data>
+  <data name="mgrPath_ConfirmAutoFailure" xml:space="preserve">
+    <value>The search failed to locate the path for [PARAM].[BR][BR]Do you wish to manually set the game path? (Path will be saved)</value>
+  </data>
+  <data name="mgrPath_ConfirmAutoPath" xml:space="preserve">
+    <value>[PARAM][BR][BR]Do you wish to automatically search for the game path? (Path will be saved)"</value>
+  </data>
+  <data name="mgrPath_ConfirmBackupLocation" xml:space="preserve">
+    <value>The backup location [PARAM] is not available.[BR]It may be on an external or network drive that isn't connected.[BR][BR]Do you want to select another backup location and continue?</value>
+  </data>
+  <data name="mgrPath_ConfirmManualPath" xml:space="preserve">
+    <value>[PARAM][BR][BR]Do you wish to manually set the game path? (Path will be saved)</value>
+  </data>
+  <data name="mgrPath_ConfirmPathCorrect" xml:space="preserve">
+    <value>[PARAM] was located in the following folder:[BR][BR][PARAM][BR][BR]Is this correct?</value>
+  </data>
+  <data name="mgrRestore_ActionComplete" xml:space="preserve">
+    <value>[PARAM] backup restored</value>
+  </data>
+  <data name="mgrRestore_ActionFailed" xml:space="preserve">
+    <value>[PARAM] restore failed</value>
+  </data>
+  <data name="mgrRestore_ConfirmCreatePath" xml:space="preserve">
+    <value>The restore path [PARAM] does not exist.[BR][BR]Do you want to create the folder and continue?"</value>
+  </data>
+  <data name="mgrRestore_ConfirmFailedCheck" xml:space="preserve">
+    <value>The backup file for [PARAM] has failed the file intergity check.  It may be corrupted, not exist or been modified by another application.[BR][BR]Do you still want to restore this backup? (Not Recommended)</value>
+  </data>
+  <data name="mgrRestore_ConfirmPathMismatch" xml:space="preserve">
+    <value>The restore path for [PARAM] does not match it's current save path.[BR][BR]Do you want to restore to the current save path instead? (Recommended)"</value>
+  </data>
+  <data name="mgrRestore_ErrorCheckAbort" xml:space="preserve">
+    <value>Restored aborted by user due to a failed file integrity check.</value>
+  </data>
+  <data name="mgrRestore_ErrorCreatePath" xml:space="preserve">
+    <value>The restore path could not be created due to an unexpected error.[BR][PARAM]</value>
+  </data>
+  <data name="mgrRestore_ErrorFailedCheck" xml:space="preserve">
+    <value>The backup file for [PARAM] has failed the file integrity check.</value>
+  </data>
+  <data name="mgrRestore_ErrorFullAbort" xml:space="preserve">
+    <value>Restore aborted.  The saved games for [PARAM] may now be invalid.</value>
+  </data>
+  <data name="mgrRestore_ErrorNoBackup" xml:space="preserve">
+    <value>Restore aborted.  The backup file could not be found.</value>
+  </data>
+  <data name="mgrRestore_ErrorNoPath" xml:space="preserve">
+    <value>Restored aborted.  The path [PARAM] does not exist.</value>
+  </data>
+  <data name="mgrRestore_ErrorOtherFailure" xml:space="preserve">
+    <value>An unexpected error occured during the restore process.[BR][PARAM]</value>
+  </data>
+  <data name="mgrRestore_NoVerify" xml:space="preserve">
+    <value>[PARAM] has no stored checksum,  verification has been skipped.</value>
+  </data>
+  <data name="mgrRestore_RelativeNeedPath" xml:space="preserve">
+    <value>[PARAM] uses a relative path and has never been detected on this computer.</value>
+  </data>
+  <data name="mgrRestore_RestoreComplete" xml:space="preserve">
+    <value>[PARAM] backup restored.</value>
+  </data>
+  <data name="mgrRestore_RestoreInProgress" xml:space="preserve">
+    <value>Restore to [PARAM] in progress...</value>
+  </data>
+  <data name="mgrRestore_RestoreWarnings" xml:space="preserve">
+    <value>[PARAM] restore finished with warnings or errors.</value>
+  </data>
+  <data name="mgrRestore_Verified" xml:space="preserve">
+    <value>[PARAM] backup has been verified.</value>
+  </data>
+  <data name="mgrSQLite_ErrorBackupFailure" xml:space="preserve">
+    <value>An error occured creating a backup of the database file at [PARAM][BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrSQLite_ErrorCreatingLocalDB" xml:space="preserve">
+    <value>An error has occured attempting to create the local application database:[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrSQLite_ErrorCreatingRemoteDB" xml:space="preserve">
+    <value>An error has occured attempting to create the remote application database:[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrSQLite_ErrorQueryFailure" xml:space="preserve">
+    <value>An error has occured attempting run the query.[BR][BR][PARAM][BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrXML_ErrorExportFailure" xml:space="preserve">
+    <value>An error occured exporting the XML data.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrXML_ErrorImportFailure" xml:space="preserve">
+    <value>The XML file cannot be read, it may be an invalid format or corrupted.[BR][BR][PARAM]</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
-﻿Imports System.Xml.Serialization
+﻿Imports GBM.My.Resources
+Imports System.Xml.Serialization
 Imports System.IO
 Imports System.Net
 
@@ -60,7 +61,7 @@ Public Class mgrXML
             oList = oSerializer.Deserialize(oReader)
             oReader.Close()
         Catch ex As Exception
-            MsgBox("The XML file cannot be read, it may be an invalid format or corrupted." & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage(mgrXML_ErrorImportFailure, ex.Message, MsgBoxStyle.Exclamation)
         End Try
 
         Return oList
@@ -75,10 +76,10 @@ Public Class mgrXML
             oWriter = New StreamWriter(sLocation)
             oSerializer.Serialize(oWriter.BaseStream, oList)
             oWriter.Flush()
-            oWriter.Close()            
+            oWriter.Close()
             Return True
         Catch ex As Exception
-            MsgBox("An error occured exporting the XML data." & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Exclamation, "Game Backup Monitor")
+            mgrCommon.ShowMessage(mgrXML_ErrorExportFailure, ex.Message, MsgBoxStyle.Exclamation)
             Return False
         End Try
     End Function

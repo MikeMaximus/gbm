@@ -1,3 +1,5 @@
+Imports System.Resources
+
 Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
@@ -15,10 +17,10 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyCopyright("Copyright © 2015 Michael J. Seiferling")> 
 <Assembly: AssemblyTrademark("")> 
 
-<Assembly: ComVisible(False)>
+<Assembly: ComVisible(False)> 
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("bc5c563d-71b2-47f4-a318-3313baf26540")>
+<Assembly: Guid("bc5c563d-71b2-47f4-a318-3313baf26540")> 
 
 ' Version information for an assembly consists of the following four values:
 '
@@ -33,3 +35,5 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyVersion("0.95.*")> 
 <Assembly: AssemblyFileVersion("0.95.0.0")> 
+
+<Assembly: NeutralResourcesLanguageAttribute("en")> 

@@ -1,4 +1,5 @@
-﻿Imports System.Net
+﻿Imports GBM.My.Resources
+Imports System.Net
 
 Public Class mgrCommon
 
@@ -34,9 +35,9 @@ Public Class mgrCommon
 
     Public Shared Function BooleanYesNo(ByVal bBool As Boolean) As String
         If bBool Then
-            Return "Yes"
+            Return mgrCommon_Yes
         Else
-            Return "No"
+            Return mgrCommon_No
         End If
     End Function
 
@@ -44,7 +45,7 @@ Public Class mgrCommon
         Dim fbBrowser As New SaveFileDialog
         fbBrowser.Title = sTitle
         fbBrowser.DefaultExt = sExtension
-        fbBrowser.Filter = sFileType & " files (*." & sExtension & ")|*." & sExtension
+        fbBrowser.Filter = FormatString(mgrCommon_FilesFilter, New String() {sFileType, sExtension, sExtension})
         fbBrowser.InitialDirectory = sDefaultFolder
         fbBrowser.FileName = sDefaultFile
 
@@ -59,7 +60,7 @@ Public Class mgrCommon
         Dim fbBrowser As New OpenFileDialog
         fbBrowser.Title = sTitle
         fbBrowser.DefaultExt = sExtension
-        fbBrowser.Filter = sFileType & " files (*." & sExtension & ")|*." & sExtension
+        fbBrowser.Filter = FormatString(mgrCommon_FilesFilter, New String() {sFileType, sExtension, sExtension})
         fbBrowser.InitialDirectory = sDefaultFolder
         fbBrowser.Multiselect = bMulti
 
@@ -123,6 +124,85 @@ Public Class mgrCommon
         oProcess.StartInfo.Verb = "runas"
 
         oProcess.Start()
+    End Sub
+
+    'Handles no extra parameters
+    Public Shared Function ShowMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
+        Dim oResult As MsgBoxResult
+        oResult = MsgBox(FormatString(sMsg), oType, My.Resources.App_NameLong)
+        Return oResult
+    End Function
+
+    'Handles single parameter stings
+    Public Shared Function ShowMessage(ByVal sMsg As String, ByVal sParam As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
+        Dim oResult As MsgBoxResult
+        oResult = MsgBox(FormatString(sMsg, sParam), oType, My.Resources.App_NameLong)
+        Return oResult
+    End Function
+
+    'Handles multi-parameter strings
+    Public Shared Function ShowMessage(ByVal sMsg As String, ByVal sParams As String(), ByVal oType As MsgBoxStyle) As MsgBoxResult
+        Dim oResult As MsgBoxResult
+        oResult = MsgBox(FormatString(sMsg, sParams), oType, My.Resources.App_NameLong)
+        Return oResult
+    End Function
+
+    'Handles no extra parameters
+    Public Shared Function FormatString(ByVal sString As String) As String
+        sString = sString.Replace("[BR]", vbCrLf)
+
+        Return sString
+    End Function
+
+
+    'Handles single parameter stings
+    Public Shared Function FormatString(ByVal sString As String, ByVal sParam As String) As String
+        sString = sString.Replace("[BR]", vbCrLf)
+        sString = sString.Replace("[PARAM]", sParam)
+
+        Return sString
+    End Function
+
+    'Handles multi-parameter strings
+    Public Shared Function FormatString(ByVal sString As String, ByVal sParams As String()) As String
+        Dim iParam As Integer
+
+        sString = sString.Replace("[BR]", vbCrLf)
+
+        For Each s As String In sParams
+            iParam = sString.IndexOf("[PARAM]")
+            sString = sString.Remove(iParam, 7)
+            sString = sString.Insert(iParam, s)
+        Next
+
+        Return sString
+    End Function
+
+    'Maintenance Only - Function for string management
+    Public Shared Sub GetAllStrings(ByVal ctlParent As Control, ByRef sResource As String, ByRef sCode As String, ByVal sFormName As String)
+        For Each ctl As Control In ctlParent.Controls
+            If TypeOf ctl Is GroupBox Then
+                sResource &= sFormName & "_" & ctl.Name & vbTab & ctl.Text & vbCrLf
+                sCode &= ctl.Name & ".Text = " & sFormName & "_" & ctl.Name & vbCrLf
+                GetAllStrings(ctl, sResource, sCode, sFormName)
+            ElseIf TypeOf ctl Is TabControl Then
+                For Each tb As TabPage In ctl.Controls
+                    GetAllStrings(tb, sResource, sCode, sFormName)
+                Next
+            ElseIf TypeOf ctl Is Label Then
+                sResource &= sFormName & "_" & ctl.Name & vbTab & ctl.Text & vbCrLf
+                sCode &= ctl.Name & ".Text = " & sFormName & "_" & ctl.Name & vbCrLf
+            ElseIf TypeOf ctl Is Button Then
+                sResource &= sFormName & "_" & ctl.Name & vbTab & ctl.Text & vbCrLf
+                sCode &= ctl.Name & ".Text = " & sFormName & "_" & ctl.Name & vbCrLf
+            ElseIf TypeOf ctl Is RadioButton Then
+                sResource &= sFormName & "_" & ctl.Name & vbTab & ctl.Text & vbCrLf
+                sCode &= ctl.Name & ".Text = " & sFormName & "_" & ctl.Name & vbCrLf
+            ElseIf TypeOf ctl Is CheckBox Then
+                sResource &= sFormName & "_" & ctl.Name & vbTab & ctl.Text & vbCrLf
+                sCode &= ctl.Name & ".Text = " & sFormName & "_" & ctl.Name & vbCrLf
+            End If
+        Next
     End Sub
 
 End Class

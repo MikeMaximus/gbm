@@ -1,8 +1,9 @@
-﻿Imports System.IO
+﻿Imports GBM.My.Resources
+Imports System.IO
 
 Public Class frmIncludeExclude
 
-    Dim sFormName As String = "Builder"
+    Dim sFormName As String = String.Empty
     Dim sRootFolder As String = String.Empty
     Dim sBuilderString As String
 
@@ -72,7 +73,7 @@ Public Class frmIncludeExclude
             Catch uaex As UnauthorizedAccessException
                 'Do Nothing
             Catch ex As Exception
-                MsgBox("An unexpected error occured while reading the file system: " & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Game Backup Monitor")
+                mgrCommon.ShowMessage(frmIncludeExclude_ErrorFileSystemRead, ex.Message, MsgBoxStyle.Critical)
             Finally
                 treFiles.EndUpdate()
                 Cursor.Current = Cursors.Default
@@ -107,7 +108,7 @@ Public Class frmIncludeExclude
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser("Choose the location of the saved game folder:", sDefaultFolder, False)
+        sNewPath = mgrCommon.OpenFolderBrowser(frmIncludeExclude_BrowseSaveFolder, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then txtRootFolder.Text = sNewPath
     End Sub
@@ -222,30 +223,51 @@ Public Class frmIncludeExclude
     Private Sub OpenRawEdit()
         Dim sCurrentString As String = CreateNewBuilderString()
         Dim sNewString As String
-        sNewString = InputBox("Items are semi-colon delimited.", FormName & " Raw Edit", sCurrentString)
+        sNewString = InputBox(frmIncludeExclude_RawEditInfo, mgrCommon.FormatString(frmIncludeExclude_RawEditTitle, FormName), sCurrentString)
         If sNewString <> String.Empty Then
             ParseBuilderString(sNewString)
         End If
     End Sub
 
-    Private Sub frmIncludeExclude_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Text = FormName & " Builder"
+    Private Sub SetForm()
+        'Set Form Name
+        Me.Text = mgrCommon.FormatString(frmIncludeExclude_FormName, FormName)
+
+        'Set Form Text
+        lblSaveFolder.Text = frmIncludeExclude_lblSaveFolder
+        btnRawEdit.Text = frmIncludeExclude_btnRawEdit
+        lblItems.Text = mgrCommon.FormatString(frmIncludeExclude_lblItems, FormName)
+        grpFileOptions.Text = mgrCommon.FormatString(frmIncludeExclude_grpFileOptions, FormName)
+        optFileTypes.Text = frmIncludeExclude_optFileTypes
+        optIndividualFiles.Text = frmIncludeExclude_optIndividualFiles
+        btnRemove.Text = frmIncludeExclude_btnRemove
+        btnAdd.Text = frmIncludeExclude_btnAdd
+        btnBrowse.Text = frmIncludeExclude_btnBrowse
+        btnCancel.Text = frmIncludeExclude_btnCancel
+        btnSave.Text = frmIncludeExclude_btnSave
+        cmsAdd.Text = frmIncludeExclude_cmsAdd
+        cmsEdit.Text = frmIncludeExclude_cmsEdit
+        cmsRemove.Text = frmIncludeExclude_cmsRemove
+
+        'Set Defaults
         txtRootFolder.Text = RootFolder
         optFileTypes.Checked = True
-        lblItems.Text = FormName & " Items"
-        grpFileOptions.Text = FormName & " Options"
         If BuilderString <> String.Empty Then ParseBuilderString(BuilderString)
         If txtRootFolder.Text <> String.Empty Then BuildTrunk()
+    End Sub
+
+    Private Sub frmIncludeExclude_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetForm()
     End Sub
 
     Private Sub frmIncludeExclude_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         treFiles.Select()
         If Not treFiles.SelectedNode Is Nothing Then treFiles.SelectedNode.Expand()
         If txtRootFolder.Text = String.Empty Then
-            ttWarning.ToolTipTitle = "Saved Game Explorer"
-            ttWarning.SetToolTip(treFiles, "Set the saved game folder using the button above.")
-            ttWarning.SetToolTip(txtRootFolder, "The saved game folder could not be determined or does not exist.")
-            ttWarning.SetToolTip(btnBrowse, "Click here to set the saved game folder.")
+            ttWarning.ToolTipTitle = frmIncludeExclude_ToolTipTitle
+            ttWarning.SetToolTip(treFiles, frmIncludeExclude_ToolTipFiles)
+            ttWarning.SetToolTip(txtRootFolder, frmIncludeExclude_ToolTipFolder)
+            ttWarning.SetToolTip(btnBrowse, frmIncludeExclude_ToolTipBrowse)
         End If
     End Sub
 
@@ -305,7 +327,7 @@ Public Class frmIncludeExclude
     End Sub
 
     Private Sub cmsAdd_Click(sender As Object, e As EventArgs) Handles cmsAdd.Click
-        Dim oNewItem As New ListViewItem("Custom Item", 1)
+        Dim oNewItem As New ListViewItem(frmIncludeExclude_CustomItem, 1)
         oNewItem.Selected = True
         lstBuilder.Items.Add(oNewItem)        
         lstBuilder.SelectedItems(0).BeginEdit()
