@@ -975,7 +975,7 @@ Public Class frmGameManager
             Case eModes.MultiSelect
                 Dim sMonitorIDs As New List(Of String)
                 For Each oData In lstGames.SelectedItems
-                    sMonitorIDs.Add(AppData(oData.Key))
+                    sMonitorIDs.Add(oData.Key)
                 Next
 
                 If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiSave, New String() {sMonitorIDs.Count, mgrCommon.BooleanYesNo(oApp.Enabled), mgrCommon.BooleanYesNo(oApp.MonitorOnly)}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
