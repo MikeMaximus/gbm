@@ -1,5 +1,6 @@
 ﻿Imports GBM.My.Resources
 Imports System.Net
+Imports System.IO
 
 Public Class mgrCommon
 
@@ -124,6 +125,21 @@ Public Class mgrCommon
         oProcess.StartInfo.Verb = "runas"
 
         oProcess.Start()
+    End Sub
+
+    'Save string as text file
+    Public Shared Sub SaveText(ByVal sText As String, ByVal sPath As String)
+        Dim oStream As StreamWriter
+
+        Try
+            If File.Exists(sPath) Then My.Computer.FileSystem.DeleteFile(sPath, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.SendToRecycleBin)
+            oStream = New StreamWriter(sPath)
+            oStream.Write(sText)
+            oStream.Flush()
+            oStream.Close()
+        Catch ex As Exception
+            ShowMessage(mgrCommon_ErrorWritingTextFile, ex.Message, MsgBoxStyle.Critical)
+        End Try
     End Sub
 
     'Handles no extra parameters

@@ -1375,6 +1375,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Game Backup Monitor Export.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_DefaultExportFileName() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_DefaultExportFileName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to A game with this exact name and process already exists..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ErrorGameDupe() As String
@@ -2086,11 +2095,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Choose a location for the log file.
+        '''</summary>
+        Friend ReadOnly Property frmMain_ChooseLogFile() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ChooseLogFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Do you wish to backup data from [PARAM]?.
         '''</summary>
         Friend ReadOnly Property frmMain_ConfirmBackup() As String
             Get
                 Return ResourceManager.GetString("frmMain_ConfirmBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to clear the session log?.
+        '''</summary>
+        Friend ReadOnly Property frmMain_ConfirmLogClear() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ConfirmLogClear", resourceCulture)
             End Get
         End Property
         
@@ -2127,6 +2154,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_ConfirmRunAsAdmin() As String
             Get
                 Return ResourceManager.GetString("frmMain_ConfirmRunAsAdmin", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game Backup Monitor Log.
+        '''</summary>
+        Friend ReadOnly Property frmMain_DefaultLogFileName() As String
+            Get
+                Return ResourceManager.GetString("frmMain_DefaultLogFileName", resourceCulture)
             End Get
         End Property
         
@@ -2428,6 +2464,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Clear.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonLogClear() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonLogClear", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Save.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonLogSave() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonLogSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Setup.
         '''</summary>
         Friend ReadOnly Property frmMain_gMonSetup() As String
@@ -2518,6 +2572,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Log.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonToolsLog() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonToolsLog", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Show / Hide.
         '''</summary>
         Friend ReadOnly Property frmMain_gMonTrayShow() As String
@@ -2568,6 +2631,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_LocalCompactInit() As String
             Get
                 Return ResourceManager.GetString("frmMain_LocalCompactInit", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The session log has been cleared due to size and auto-saved to [PARAM]..
+        '''</summary>
+        Friend ReadOnly Property frmMain_LogAutoSave() As String
+            Get
+                Return ResourceManager.GetString("frmMain_LogAutoSave", resourceCulture)
             End Get
         End Property
         
@@ -2766,6 +2838,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_SessionMinutes() As String
             Get
                 Return ResourceManager.GetString("frmMain_SessionMinutes", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Text.
+        '''</summary>
+        Friend ReadOnly Property frmMain_Text() As String
+            Get
+                Return ResourceManager.GetString("frmMain_Text", resourceCulture)
             End Get
         End Property
         
@@ -3778,6 +3859,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_GenerateHash() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_GenerateHash", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error has occured writing the text file.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_ErrorWritingTextFile() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_ErrorWritingTextFile", resourceCulture)
             End Get
         End Property
         

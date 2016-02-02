@@ -1204,7 +1204,7 @@ Public Class frmGameManager
     Private Sub ExportGameList()
         Dim sLocation As String
 
-        sLocation = mgrCommon.SaveFileBrowser(frmGameManager_ChooseExportXML, "xml", frmGameManager_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Game Backup Monitor Export " & Date.Now.ToString("dd-MMM-yyyy"))
+        sLocation = mgrCommon.SaveFileBrowser(frmGameManager_ChooseExportXML, "xml", frmGameManager_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmGameManager_DefaultExportFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
 
         If sLocation <> String.Empty Then
             mgrMonitorList.ExportMonitorList(sLocation)

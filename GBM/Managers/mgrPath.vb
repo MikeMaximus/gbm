@@ -9,6 +9,7 @@ Public Class mgrPath
     Private Shared sDBLocation As String = sSettingsRoot & "\gbm.s3db"
     Private Shared sIncludeFile As String = sSettingsRoot & "\gbm_include.txt"
     Private Shared sExcludeFile As String = sSettingsRoot & "\gbm_exclude.txt"
+    Private Shared sLogFile As String = sSettingsRoot & "\gbm_log_" & Date.Now.ToString("dd-MM-yyyy-HH-mm-ss") & ".txt"
     Private Shared sRemoteDatabaseLocation As String
     Private Shared hshCustomVariables As Hashtable
     Private Shared oReleaseType As ProcessorArchitecture = AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
@@ -70,6 +71,12 @@ Public Class mgrPath
     Shared ReadOnly Property ExcludeFileLocation As String
         Get
             Return sExcludeFile
+        End Get
+    End Property
+
+    Shared ReadOnly Property LogFileLocation As String
+        Get
+            Return sLogFile
         End Get
     End Property
 

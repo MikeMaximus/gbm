@@ -1483,4 +1483,34 @@
   <data name="mgrXML_ErrorImportFailure" xml:space="preserve">
     <value>The XML file cannot be read, it may be an invalid format or corrupted.[BR][BR][PARAM]</value>
   </data>
+  <data name="frmGameManager_DefaultExportFileName" xml:space="preserve">
+    <value>Game Backup Monitor Export</value>
+  </data>
+  <data name="frmMain_ChooseLogFile" xml:space="preserve">
+    <value>Choose a location for the log file</value>
+  </data>
+  <data name="frmMain_ConfirmLogClear" xml:space="preserve">
+    <value>Are you sure you want to clear the session log?</value>
+  </data>
+  <data name="frmMain_DefaultLogFileName" xml:space="preserve">
+    <value>Game Backup Monitor Log</value>
+  </data>
+  <data name="frmMain_gMonLogClear" xml:space="preserve">
+    <value>&amp;Clear</value>
+  </data>
+  <data name="frmMain_gMonLogSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmMain_gMonToolsLog" xml:space="preserve">
+    <value>&amp;Log</value>
+  </data>
+  <data name="frmMain_LogAutoSave" xml:space="preserve">
+    <value>The session log has been cleared due to size and auto-saved to [PARAM].</value>
+  </data>
+  <data name="frmMain_Text" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="mgrCommon_ErrorWritingTextFile" xml:space="preserve">
+    <value>An error has occured writing the text file.[BR][BR][PARAM]</value>
+  </data>
 </root>

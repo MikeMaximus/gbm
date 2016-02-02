@@ -920,9 +920,12 @@ Public Class frmMain
             Dim d As New UpdateLogCallBack(AddressOf UpdateLog)
             Me.Invoke(d, New Object() {sLogUpdate, bTrayUpdate, objIcon, bTimeStamp})
         Else
-            'Clear the log if we are approaching the limit
+            'Auto save and clear the log if we are approaching the limit
             If txtLog.TextLength > 16770000 Then
-                txtLog.Text = String.Empty
+                Dim sLogFile As String = mgrPath.LogFileLocation
+                mgrCommon.SaveText(txtLog.Text, sLogFile)
+                txtLog.Clear()
+                txtLog.AppendText("[" & Date.Now & "] " & mgrCommon.FormatString(frmMain_LogAutoSave, sLogFile))
             End If
 
             'We shouldn't allow any one message to be greater than 255 characters if that same message is pushed to the tray icon
@@ -949,6 +952,22 @@ Public Class frmMain
         Application.DoEvents()
     End Sub
 
+    Private Sub ClearLog()
+        If mgrCommon.ShowMessage(frmMain_ConfirmLogClear, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            txtLog.Clear()
+        End If
+    End Sub
+
+    Private Sub SaveLog()
+        Dim sLocation As String
+
+        sLocation = mgrCommon.SaveFileBrowser(frmMain_ChooseLogFile, "txt", frmMain_Text, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmMain_DefaultLogFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
+
+        If sLocation <> String.Empty Then
+            mgrCommon.SaveText(txtLog.Text, sLocation)
+        End If
+    End Sub
+
     Private Sub SetForm()
         'Set Form Name
         Me.Name = App_NameLong
@@ -966,6 +985,9 @@ Public Class frmMain
         gMonTools.Text = frmMain_gMonTools
         gMonToolsCleanMan.Text = frmMain_gMonToolsCleanMan
         gMonToolsCompact.Text = frmMain_gMonToolsCompact
+        gMonToolsLog.Text = frmMain_gMonToolsLog
+        gMonLogClear.Text = frmMain_gMonLogClear
+        gMonLogSave.Text = frmMain_gMonLogSave
         gMonHelp.Text = frmMain_gMonHelp
         gMonHelpWebSite.Text = frmMain_gMonHelpWebSite
         gMonHelpManual.Text = frmMain_gMonHelpManual
@@ -984,6 +1006,9 @@ Public Class frmMain
         gMonTrayTools.Text = frmMain_gMonTools
         gMonTrayToolsCleanMan.Text = frmMain_gMonToolsCleanMan
         gMonTrayToolsCompact.Text = frmMain_gMonToolsCompact
+        gMonTrayToolsLog.Text = frmMain_gMonToolsLog
+        gMonTrayLogClear.Text = frmMain_gMonLogClear
+        gMonTrayLogSave.Text = frmMain_gMonLogSave
         gMonTrayExit.Text = frmMain_gMonFileExit
 
         'Set Form Text
@@ -1292,6 +1317,14 @@ Public Class frmMain
 
     Private Sub gMonHelpCheckforUpdates_Click(sender As Object, e As EventArgs) Handles gMonHelpCheckforUpdates.Click
         OpenCheckforUpdates()
+    End Sub
+
+    Private Sub gMonLogClear_Click(sender As Object, e As EventArgs) Handles gMonLogClear.Click, gMonTrayLogClear.Click
+        ClearLog()
+    End Sub
+
+    Private Sub gMonLogSave_Click(sender As Object, e As EventArgs) Handles gMonLogSave.Click, gMonTrayLogSave.Click
+        SaveLog()
     End Sub
 
     Private Sub gMonNotification_Click(sender As Object, e As EventArgs) Handles gMonNotification.Click, gMonTrayNotification.Click
