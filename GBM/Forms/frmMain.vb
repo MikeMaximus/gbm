@@ -1476,6 +1476,7 @@ Public Class frmMain
                 RunBackup()
             Else
                 UpdateLog(frmMain_UnknownGameEnded, False)
+                oProcess.GameInfo = Nothing
                 ResetGameInfo()
                 ResumeScan()
             End If

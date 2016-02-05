@@ -65,11 +65,6 @@ Public Class frmChooseGame
         SetForm()
         FillComboBox()
         Me.Focus()
-
-        Dim sResource As String = String.Empty
-        Dim sCode As String = String.Empty
-        mgrCommon.GetAllStrings(Me, sResource, sCode, "frmChooseGame")
-        Clipboard.SetText(sResource & vbCrLf & vbCrLf & sCode)
     End Sub
 
     Private Sub btnChoose_Click(sender As System.Object, e As System.EventArgs) Handles btnChoose.Click
