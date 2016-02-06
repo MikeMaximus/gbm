@@ -186,7 +186,7 @@ Public Class mgrBackup
                         prs7z.WaitForExit()
                         If Not CancelOperation Then
                             If prs7z.ExitCode = 0 Then
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupComplete, oGame.Name), False, ToolTipIcon.Info, True)
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupComplete, New String() {oGame.Name, mgrCommon.GetFileSize(sBackupFile)}), False, ToolTipIcon.Info, True)
                                 bBackupCompleted = True
                             Else
                                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupWarnings, oGame.Name), True, ToolTipIcon.Warning, True)

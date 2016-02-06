@@ -3737,7 +3737,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] backup completed..
+        '''  Looks up a localized string similar to [PARAM] backup ([PARAM]) completed. .
         '''</summary>
         Friend ReadOnly Property mgrBackup_BackupComplete() As String
             Get

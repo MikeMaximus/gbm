@@ -142,6 +142,26 @@ Public Class mgrCommon
         End Try
     End Sub
 
+    'Get a file size
+    Public Shared Function GetFileSize(ByVal sFile As String) As String
+        Dim oFileInfo As FileInfo
+        Dim dFileSize As Double
+
+        Try
+            oFileInfo = New FileInfo(sFile)
+            dFileSize = oFileInfo.Length
+            If dFileSize > 1048576 Then
+                Return FormatString(App_MB, Math.Round(dFileSize / 1048576, 2).ToString)
+            Else
+                Return FormatString(App_KB, Math.Round(dFileSize / 1024, 2).ToString)
+            End If
+        Catch ex As Exception
+            Return String.Empty
+        End Try
+    End Function
+
+
+
     'Handles no extra parameters
     Public Shared Function ShowMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
         Dim oResult As MsgBoxResult

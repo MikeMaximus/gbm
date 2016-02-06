@@ -1313,7 +1313,7 @@
     <value>[PARAM] backup failed</value>
   </data>
   <data name="mgrBackup_BackupComplete" xml:space="preserve">
-    <value>[PARAM] backup completed.</value>
+    <value>[PARAM] backup ([PARAM]) completed. </value>
   </data>
   <data name="mgrBackup_BackupInProgress" xml:space="preserve">
     <value>Backup of [PARAM] in progress...</value>

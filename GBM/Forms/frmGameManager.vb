@@ -518,8 +518,7 @@ Public Class frmGameManager
     Private Sub GetBackupInfo(ByVal oApp As clsGame)
         Dim oBackupInfo As clsBackup
         Dim sFileName As String
-        Dim oFileInfo As FileInfo
-        Dim dFileSize As Double
+
 
         If oRemoteBackupData.Contains(oApp.Name) Then
             CurrentBackupItem = DirectCast(oRemoteBackupData(oApp.Name), clsBackup)
@@ -532,13 +531,7 @@ Public Class frmGameManager
             btnDeleteBackup.Enabled = True
 
             If File.Exists(sFileName) Then
-                oFileInfo = New FileInfo(sFileName)
-                dFileSize = oFileInfo.Length
-                If dFileSize > 1048576 Then
-                    txtFileSize.Text = mgrCommon.FormatString(App_MB, Math.Round(dFileSize / 1048576, 2).ToString)
-                Else
-                    txtFileSize.Text = mgrCommon.FormatString(App_KB, Math.Round(dFileSize / 1024, 2).ToString)
-                End If
+                txtFileSize.Text = mgrCommon.GetFileSize(sFileName)
             Else
                 txtFileSize.Text = frmGameManager_ErrorNoBackupExists
             End If
