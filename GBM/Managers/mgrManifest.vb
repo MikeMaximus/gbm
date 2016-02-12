@@ -82,7 +82,7 @@
         Dim sSQL As String
         Dim hshParams As New Hashtable
 
-        sSQL = "INSERT INTO manifest VALUES (@ID, @Name, @FileName, @Path, @AbsolutePath, @DateUpdated, @UpdatedBy, @CheckSum)"
+        sSQL = "INSERT OR REPLACE INTO manifest VALUES (@ID, @Name, @FileName, @Path, @AbsolutePath, @DateUpdated, @UpdatedBy, @CheckSum)"
 
         hshParams.Add("ID", oBackupItem.ID)
         hshParams.Add("Name", oBackupItem.Name)
