@@ -2113,7 +2113,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Are you sure you want to clear the session log?.
+        '''  Looks up a localized string similar to Are you sure you want to clear the log?.
         '''</summary>
         Friend ReadOnly Property frmMain_ConfirmLogClear() As String
             Get

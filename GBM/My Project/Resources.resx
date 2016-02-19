@@ -1490,7 +1490,7 @@
     <value>Choose a location for the log file</value>
   </data>
   <data name="frmMain_ConfirmLogClear" xml:space="preserve">
-    <value>Are you sure you want to clear the session log?</value>
+    <value>Are you sure you want to clear the log?</value>
   </data>
   <data name="frmMain_DefaultLogFileName" xml:space="preserve">
     <value>Game Backup Monitor Log</value>
