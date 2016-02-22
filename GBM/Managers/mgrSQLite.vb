@@ -73,7 +73,7 @@ Public Class mgrSQLite
             sSql = "CREATE TABLE settings (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, " &
                    "DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, " &
                    "BackupFolder TEXT NOT NULL, Sync BOOLEAN NOT NULL, CheckSum BOOLEAN NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
-                   "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL);"
+                   "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL);"
 
             'Add Tables (Monitor List)
             sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
@@ -501,6 +501,29 @@ Public Class mgrSQLite
                 BackupDB("v94")
 
                 sSQL = "PRAGMA user_version=95"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '0.96 Upgrade
+        If GetDatabaseVersion() < 96 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v95")
+
+                'Add new setting                
+                sSQL = "ALTER TABLE settings ADD COLUMN CompressionLevel INTEGER NOT NULL DEFAULT 5;"
+
+                sSQL &= "PRAGMA user_version=96"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v95")
+
+                sSQL = "PRAGMA user_version=96"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If

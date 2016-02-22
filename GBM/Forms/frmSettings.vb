@@ -58,6 +58,7 @@ Public Class frmSettings
         oSettings.TimeTracking = chkTimeTracking.Checked
         oSettings.SupressBackup = chkSupressBackup.Checked
         oSettings.SupressBackupThreshold = nudSupressBackupThreshold.Value
+        oSettings.CompressionLevel = cboCompression.SelectedValue
 
         'We need to clear all checksums its turned off
         If chkCheckSum.Checked = False And oSettings.CheckSum = True Then
@@ -111,24 +112,24 @@ Public Class frmSettings
         chkSupressBackup.Checked = oSettings.SupressBackup
         nudSupressBackupThreshold.Value = oSettings.SupressBackupThreshold
         nudSupressBackupThreshold.Enabled = chkSupressBackup.Checked
+        cboCompression.SelectedValue = oSettings.CompressionLevel
     End Sub
 
-    Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click
-        If SaveSettings() Then
-            bShutdown = True
-            Me.Close()
-        End If
-    End Sub
+    Private Sub LoadCombos()
+        Dim oComboItems As New List(Of KeyValuePair(Of Integer, String))
 
-    Private Sub btnCancel_Click(sender As System.Object, e As System.EventArgs) Handles btnCancel.Click
-        bShutdown = True
-        Me.Close()
-    End Sub
+        'cboCompression
+        cboCompression.ValueMember = "Key"
+        cboCompression.DisplayMember = "Value"
 
-    Private Sub frmSettings_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        If bShutdown = False Then
-            e.Cancel = True
-        End If
+        oComboItems.Add(New KeyValuePair(Of Integer, String)(0, frmSettings_cboCompression_None))
+        oComboItems.Add(New KeyValuePair(Of Integer, String)(1, frmSettings_cboCompression_Fastest))
+        oComboItems.Add(New KeyValuePair(Of Integer, String)(3, frmSettings_cboCompression_Fast))
+        oComboItems.Add(New KeyValuePair(Of Integer, String)(5, frmSettings_cboCompression_Normal))
+        oComboItems.Add(New KeyValuePair(Of Integer, String)(7, frmSettings_cboCompression_Maximum))
+        oComboItems.Add(New KeyValuePair(Of Integer, String)(9, frmSettings_cboCompression_Ultra))
+
+        cboCompression.DataSource = oComboItems
     End Sub
 
     Private Sub SetForm()
@@ -156,10 +157,31 @@ Public Class frmSettings
         chkShowDetectionTips.Text = frmSettings_chkShowDetectionTips
         chkStartToTray.Text = frmSettings_chkStartToTray
         chkMonitorOnStartup.Text = frmSettings_chkMonitorOnStartup
+        grp7z.Text = frmSettings_grp7z
+        lblCompression.Text = frmSettings_lblCompression
+    End Sub
+
+    Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click
+        If SaveSettings() Then
+            bShutdown = True
+            Me.Close()
+        End If
+    End Sub
+
+    Private Sub btnCancel_Click(sender As System.Object, e As System.EventArgs) Handles btnCancel.Click
+        bShutdown = True
+        Me.Close()
+    End Sub
+
+    Private Sub frmSettings_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+        If bShutdown = False Then
+            e.Cancel = True
+        End If
     End Sub
 
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         SetForm()
+        LoadCombos()
         LoadSettings()
     End Sub
 

@@ -14,6 +14,7 @@ Public Class mgrSettings
     Private bTimeTracking As Boolean = True
     Private bSupressBackup As Boolean = False
     Private iSupressBackupThreshold As Integer = 10
+    Private iCompressionLevel As Integer = 5
     Private sBackupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).TrimEnd(New Char() {"\", "/"})
 
     Property StartWithWindows As Boolean
@@ -133,6 +134,15 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Property CompressionLevel As Integer
+        Get
+            Return iCompressionLevel
+        End Get
+        Set(value As Integer)
+            iCompressionLevel = value
+        End Set
+    End Property
+
     Property BackupFolder As String
         Get
             Return sBackupFolder
@@ -152,7 +162,7 @@ Public Class mgrSettings
 
         sSQL = "INSERT INTO settings VALUES (1, @MonitorOnStartup, @StartToTray, @ShowDetectionToolTips, @DisableConfirmation, "
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @Sync, @CheckSum, @StartWithWindows, "
-        sSQL &= "@TimeTracking, @SupressBackup, @SupressBackupThreshold)"
+        sSQL &= "@TimeTracking, @SupressBackup, @SupressBackupThreshold, @CompressionLevel)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -168,6 +178,7 @@ Public Class mgrSettings
         hshParams.Add("TimeTracking", TimeTracking)
         hshParams.Add("SupressBackup", SupressBackup)
         hshParams.Add("SupressBackupThreshold", SupressBackupThreshold)
+        hshParams.Add("CompressionLevel", CompressionLevel)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -197,6 +208,7 @@ Public Class mgrSettings
             TimeTracking = CBool(dr("TimeTracking"))
             SupressBackup = CBool(dr("SupressBackup"))
             SupressBackupThreshold = CInt(dr("SupressBackupThreshold"))
+            CompressionLevel = CInt(dr("CompressionLevel"))
         Next
 
         oDatabase.Disconnect()

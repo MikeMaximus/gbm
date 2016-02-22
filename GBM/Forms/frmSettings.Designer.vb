@@ -44,10 +44,14 @@ Partial Class frmSettings
         Me.chkRestoreOnLaunch = New System.Windows.Forms.CheckBox()
         Me.chkOverwriteWarning = New System.Windows.Forms.CheckBox()
         Me.chkCreateFolder = New System.Windows.Forms.CheckBox()
+        Me.grp7z = New System.Windows.Forms.GroupBox()
+        Me.lblCompression = New System.Windows.Forms.Label()
+        Me.cboCompression = New System.Windows.Forms.ComboBox()
         Me.grpGeneral.SuspendLayout()
         Me.grpPaths.SuspendLayout()
         Me.grpBackup.SuspendLayout()
         CType(Me.nudSupressBackupThreshold, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.grp7z.SuspendLayout()
         Me.SuspendLayout()
         '
         'chkMonitorOnStartup
@@ -140,10 +144,10 @@ Partial Class frmSettings
         Me.grpPaths.Controls.Add(Me.btnBackupFolder)
         Me.grpPaths.Controls.Add(Me.lblBackupFolder)
         Me.grpPaths.Controls.Add(Me.txtBackupFolder)
-        Me.grpPaths.Location = New System.Drawing.Point(12, 360)
+        Me.grpPaths.Location = New System.Drawing.Point(12, 410)
         Me.grpPaths.Name = "grpPaths"
         Me.grpPaths.Size = New System.Drawing.Size(360, 60)
-        Me.grpPaths.TabIndex = 2
+        Me.grpPaths.TabIndex = 3
         Me.grpPaths.TabStop = False
         Me.grpPaths.Text = "Paths"
         '
@@ -175,7 +179,7 @@ Partial Class frmSettings
         'btnSave
         '
         Me.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnSave.Location = New System.Drawing.Point(216, 426)
+        Me.btnSave.Location = New System.Drawing.Point(216, 476)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
         Me.btnSave.TabIndex = 3
@@ -185,7 +189,7 @@ Partial Class frmSettings
         'btnCancel
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(297, 426)
+        Me.btnCancel.Location = New System.Drawing.Point(297, 476)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 4
@@ -204,7 +208,7 @@ Partial Class frmSettings
         Me.grpBackup.Controls.Add(Me.chkBackupConfirm)
         Me.grpBackup.Location = New System.Drawing.Point(12, 183)
         Me.grpBackup.Name = "grpBackup"
-        Me.grpBackup.Size = New System.Drawing.Size(360, 171)
+        Me.grpBackup.Size = New System.Drawing.Size(360, 168)
         Me.grpBackup.TabIndex = 1
         Me.grpBackup.TabStop = False
         Me.grpBackup.Text = "Backup and Restore"
@@ -276,11 +280,41 @@ Partial Class frmSettings
         Me.chkCreateFolder.Text = "Create a sub-folder for each game"
         Me.chkCreateFolder.UseVisualStyleBackColor = True
         '
+        'grp7z
+        '
+        Me.grp7z.Controls.Add(Me.cboCompression)
+        Me.grp7z.Controls.Add(Me.lblCompression)
+        Me.grp7z.Location = New System.Drawing.Point(12, 357)
+        Me.grp7z.Name = "grp7z"
+        Me.grp7z.Size = New System.Drawing.Size(360, 47)
+        Me.grp7z.TabIndex = 2
+        Me.grp7z.TabStop = False
+        Me.grp7z.Text = "7z Options"
+        '
+        'lblCompression
+        '
+        Me.lblCompression.AutoSize = True
+        Me.lblCompression.Location = New System.Drawing.Point(6, 20)
+        Me.lblCompression.Name = "lblCompression"
+        Me.lblCompression.Size = New System.Drawing.Size(70, 13)
+        Me.lblCompression.TabIndex = 0
+        Me.lblCompression.Text = "Compression:"
+        '
+        'cboCompression
+        '
+        Me.cboCompression.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboCompression.FormattingEnabled = True
+        Me.cboCompression.Location = New System.Drawing.Point(88, 17)
+        Me.cboCompression.Name = "cboCompression"
+        Me.cboCompression.Size = New System.Drawing.Size(224, 21)
+        Me.cboCompression.TabIndex = 1
+        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(384, 461)
+        Me.ClientSize = New System.Drawing.Size(384, 511)
+        Me.Controls.Add(Me.grp7z)
         Me.Controls.Add(Me.grpBackup)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
@@ -292,7 +326,7 @@ Partial Class frmSettings
         Me.Name = "frmSettings"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Settings"
         Me.grpGeneral.ResumeLayout(False)
         Me.grpGeneral.PerformLayout()
@@ -301,6 +335,8 @@ Partial Class frmSettings
         Me.grpBackup.ResumeLayout(False)
         Me.grpBackup.PerformLayout()
         CType(Me.nudSupressBackupThreshold, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.grp7z.ResumeLayout(False)
+        Me.grp7z.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -326,4 +362,7 @@ Partial Class frmSettings
     Friend WithEvents lblMinutes As Label
     Friend WithEvents nudSupressBackupThreshold As NumericUpDown
     Friend WithEvents chkSupressBackup As CheckBox
+    Friend WithEvents grp7z As GroupBox
+    Friend WithEvents cboCompression As ComboBox
+    Friend WithEvents lblCompression As Label
 End Class

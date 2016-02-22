@@ -2914,6 +2914,60 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Fast.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_cboCompression_Fast() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_cboCompression_Fast", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Fastest.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_cboCompression_Fastest() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_cboCompression_Fastest", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Maximum.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_cboCompression_Maximum() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_cboCompression_Maximum", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to None.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_cboCompression_None() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_cboCompression_None", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Normal.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_cboCompression_Normal() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_cboCompression_Normal", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Ultra.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_cboCompression_Ultra() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_cboCompression_Ultra", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Disable backup confirmation.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkBackupConfirm() As String
@@ -3040,6 +3094,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to 7z Options.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grp7z() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grp7z", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup and Restore.
         '''</summary>
         Friend ReadOnly Property frmSettings_grpBackup() As String
@@ -3067,11 +3130,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Backup Folder.
+        '''  Looks up a localized string similar to Backup Folder:.
         '''</summary>
         Friend ReadOnly Property frmSettings_lblBackupFolder() As String
             Get
                 Return ResourceManager.GetString("frmSettings_lblBackupFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Compression:.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_lblCompression() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_lblCompression", resourceCulture)
             End Get
         End Property
         

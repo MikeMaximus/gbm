@@ -1133,7 +1133,7 @@
     <value>Paths</value>
   </data>
   <data name="frmSettings_lblBackupFolder" xml:space="preserve">
-    <value>Backup Folder</value>
+    <value>Backup Folder:</value>
   </data>
   <data name="frmSettings_lblMinutes" xml:space="preserve">
     <value>minutes</value>
@@ -1512,5 +1512,29 @@
   </data>
   <data name="mgrCommon_ErrorWritingTextFile" xml:space="preserve">
     <value>An error has occured writing the text file.[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmSettings_cboCompression_Fast" xml:space="preserve">
+    <value>Fast</value>
+  </data>
+  <data name="frmSettings_cboCompression_Fastest" xml:space="preserve">
+    <value>Fastest</value>
+  </data>
+  <data name="frmSettings_cboCompression_Maximum" xml:space="preserve">
+    <value>Maximum</value>
+  </data>
+  <data name="frmSettings_cboCompression_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="frmSettings_cboCompression_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="frmSettings_cboCompression_Ultra" xml:space="preserve">
+    <value>Ultra</value>
+  </data>
+  <data name="frmSettings_grp7z" xml:space="preserve">
+    <value>7z Options</value>
+  </data>
+  <data name="frmSettings_lblCompression" xml:space="preserve">
+    <value>Compression:</value>
   </data>
 </root>
