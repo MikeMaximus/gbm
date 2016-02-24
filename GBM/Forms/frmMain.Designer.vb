@@ -39,6 +39,9 @@ Partial Class frmMain
         Me.gMonTrayTools = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayToolsCleanMan = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayToolsCompact = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayToolsLog = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayLogClear = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayLogSave = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySep1 = New System.Windows.Forms.ToolStripSeparator()
         Me.gMonTrayExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.bwMonitor = New System.ComponentModel.BackgroundWorker()
@@ -82,9 +85,6 @@ Partial Class frmMain
         Me.lblStatus2 = New System.Windows.Forms.Label()
         Me.lblStatus3 = New System.Windows.Forms.Label()
         Me.pbTime = New System.Windows.Forms.PictureBox()
-        Me.gMonTrayToolsLog = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonTrayLogClear = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonTrayLogSave = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayMenu.SuspendLayout()
         Me.gMonStatusStrip.SuspendLayout()
         Me.gMonMainMenu.SuspendLayout()
@@ -105,7 +105,7 @@ Partial Class frmMain
         '
         Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayNotification, Me.gMonTrayShow, Me.gMonTraySep2, Me.gMonTrayMon, Me.gMonTraySettings, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTraySep1, Me.gMonTrayExit})
         Me.gMonTrayMenu.Name = "gMonTrayMenu"
-        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 192)
+        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 170)
         '
         'gMonTrayNotification
         '
@@ -186,6 +186,25 @@ Partial Class frmMain
         Me.gMonTrayToolsCompact.Name = "gMonTrayToolsCompact"
         Me.gMonTrayToolsCompact.Size = New System.Drawing.Size(184, 22)
         Me.gMonTrayToolsCompact.Text = "&Compact Databases"
+        '
+        'gMonTrayToolsLog
+        '
+        Me.gMonTrayToolsLog.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayLogClear, Me.gMonTrayLogSave})
+        Me.gMonTrayToolsLog.Name = "gMonTrayToolsLog"
+        Me.gMonTrayToolsLog.Size = New System.Drawing.Size(184, 22)
+        Me.gMonTrayToolsLog.Text = "&Log"
+        '
+        'gMonTrayLogClear
+        '
+        Me.gMonTrayLogClear.Name = "gMonTrayLogClear"
+        Me.gMonTrayLogClear.Size = New System.Drawing.Size(101, 22)
+        Me.gMonTrayLogClear.Text = "&Clear"
+        '
+        'gMonTrayLogSave
+        '
+        Me.gMonTrayLogSave.Name = "gMonTrayLogSave"
+        Me.gMonTrayLogSave.Size = New System.Drawing.Size(101, 22)
+        Me.gMonTrayLogSave.Text = "&Save"
         '
         'gMonTraySep1
         '
@@ -362,13 +381,13 @@ Partial Class frmMain
         'gMonLogClear
         '
         Me.gMonLogClear.Name = "gMonLogClear"
-        Me.gMonLogClear.Size = New System.Drawing.Size(152, 22)
+        Me.gMonLogClear.Size = New System.Drawing.Size(101, 22)
         Me.gMonLogClear.Text = "&Clear"
         '
         'gMonLogSave
         '
         Me.gMonLogSave.Name = "gMonLogSave"
-        Me.gMonLogSave.Size = New System.Drawing.Size(152, 22)
+        Me.gMonLogSave.Size = New System.Drawing.Size(101, 22)
         Me.gMonLogSave.Text = "&Save"
         '
         'gMonHelp
@@ -508,25 +527,6 @@ Partial Class frmMain
         Me.pbTime.TabIndex = 18
         Me.pbTime.TabStop = False
         '
-        'gMonTrayToolsLog
-        '
-        Me.gMonTrayToolsLog.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayLogClear, Me.gMonTrayLogSave})
-        Me.gMonTrayToolsLog.Name = "gMonTrayToolsLog"
-        Me.gMonTrayToolsLog.Size = New System.Drawing.Size(184, 22)
-        Me.gMonTrayToolsLog.Text = "&Log"
-        '
-        'gMonTrayLogClear
-        '
-        Me.gMonTrayLogClear.Name = "gMonTrayLogClear"
-        Me.gMonTrayLogClear.Size = New System.Drawing.Size(152, 22)
-        Me.gMonTrayLogClear.Text = "&Clear"
-        '
-        'gMonTrayLogSave
-        '
-        Me.gMonTrayLogSave.Name = "gMonTrayLogSave"
-        Me.gMonTrayLogSave.Size = New System.Drawing.Size(152, 22)
-        Me.gMonTrayLogSave.Text = "&Save"
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -549,6 +549,7 @@ Partial Class frmMain
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.KeyPreview = True
         Me.MainMenuStrip = Me.gMonMainMenu
         Me.MaximizeBox = False
         Me.MinimizeBox = False

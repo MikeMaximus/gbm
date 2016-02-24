@@ -545,6 +545,51 @@ Public Class frmMain
     End Function
 
     'Functions handling the opening of other windows
+    Private Sub OpenDevConsole()
+        Dim sFullCommand As String
+        Dim sCommand As String()
+
+        sFullCommand = InputBox(frmMain_EnterCommand, frmMain_DeveloperConsole)
+
+        If sFullCommand <> String.Empty Then
+            sCommand = sFullCommand.Split(":")
+
+            'Parse Command
+            Select Case sCommand(0)
+                Case "SQL"
+                    Dim oDatabase As mgrSQLite
+                    Dim bSuccess As Boolean
+
+                    'Check Paramters
+                    If sCommand.Length < 3 Then
+                        mgrCommon.ShowMessage(frmMain_ErrorMissingParams, sCommand(0), MsgBoxStyle.Exclamation)
+                        Exit Select
+                    End If
+
+                    If sCommand(1) = "Local" Then
+                        oDatabase = New mgrSQLite(mgrSQLite.Database.Local)
+                    ElseIf sCommand(1) = "Remote" Then
+                        oDatabase = New mgrSQLite(mgrSQLite.Database.Remote)
+                    Else
+                        mgrCommon.ShowMessage(frmMain_ErrorCommandBadParam, New String() {sCommand(1), sCommand(0)}, MsgBoxStyle.Exclamation)
+                        Exit Select
+                    End If
+
+                    bSuccess = oDatabase.RunParamQuery(sCommand(2), New Hashtable)
+
+                    If bSuccess Then
+                        mgrCommon.ShowMessage(frmMain_CommandSucess, MsgBoxStyle.Exclamation)
+                    Else
+                        mgrCommon.ShowMessage(frmMain_CommandFail, MsgBoxStyle.Exclamation)
+                    End If
+
+                Case Else
+                    mgrCommon.ShowMessage(frmMain_ErrorCommandInvalid, sCommand(0), MsgBoxStyle.Exclamation)
+            End Select
+
+        End If
+    End Sub
+
     Private Sub OpenAbout()
         Dim iProcessType As System.Reflection.ProcessorArchitecture = System.Reflection.AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
         Dim sVersion As String = My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor
@@ -1518,4 +1563,11 @@ Public Class frmMain
     Private Sub txtGameInfo_Enter(sender As Object, e As EventArgs)
         btnLogToggle.Focus()
     End Sub
+
+    Private Sub frmMain_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        If e.KeyCode = Keys.Oemtilde AndAlso e.Modifiers = Keys.Control Then
+            OpenDevConsole()
+        End If
+    End Sub
+
 End Class

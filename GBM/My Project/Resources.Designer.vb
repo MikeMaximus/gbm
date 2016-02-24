@@ -2104,6 +2104,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The command has failed..
+        '''</summary>
+        Friend ReadOnly Property frmMain_CommandFail() As String
+            Get
+                Return ResourceManager.GetString("frmMain_CommandFail", resourceCulture)
+            End Get
+        End Property
+
+        '''<summary>
+        '''  Looks up a localized string similar to The command was executed successfully..
+        '''</summary>
+        Friend ReadOnly Property frmMain_CommandSucess() As String
+            Get
+                Return ResourceManager.GetString("frmMain_CommandSucess", resourceCulture)
+            End Get
+        End Property
+
+        '''<summary>
         '''  Looks up a localized string similar to Do you wish to backup data from [PARAM]?.
         '''</summary>
         Friend ReadOnly Property frmMain_ConfirmBackup() As String
@@ -2111,7 +2129,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ConfirmBackup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to clear the log?.
         '''</summary>
@@ -2120,7 +2138,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ConfirmLogClear", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to This tool removes orphaned backup information from the local manifest based on the current backup folder.  Data can become orphaned when backups are deleted by various computers that share the same backup folder on a cloud or network.[BR][BR]When alternating between different backup folders you should NOT use this tool.[BR][BR]Do you wish to proceed?.
         '''</summary>
@@ -2129,7 +2147,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ConfirmManifestClean", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Do you wish to cancel the monitoring of [PARAM]?[BR][BR]Warning: When monitoring is cancelled, session time is NOT saved..
         '''</summary>
@@ -2138,7 +2156,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ConfirmMonitorCancel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to This will rebuild all databases and shrink them to an optimal size.[BR]This should only be used if your gbm.s3db files are becoming very large.[BR][BR]Do you wish to continue?.
         '''</summary>
@@ -2147,7 +2165,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ConfirmRebuild", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Do you want to restart Game Backup Monitor as Administrator?.
         '''</summary>
@@ -2156,7 +2174,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ConfirmRunAsAdmin", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor Log.
         '''</summary>
@@ -2165,7 +2183,25 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_DefaultLogFileName", resourceCulture)
             End Get
         End Property
-        
+
+        '''<summary>
+        '''  Looks up a localized string similar to Developer Console.
+        '''</summary>
+        Friend ReadOnly Property frmMain_DeveloperConsole() As String
+            Get
+                Return ResourceManager.GetString("frmMain_DeveloperConsole", resourceCulture)
+            End Get
+        End Property
+
+        '''<summary>
+        '''  Looks up a localized string similar to Enter Command.
+        '''</summary>
+        Friend ReadOnly Property frmMain_EnterCommand() As String
+            Get
+                Return ResourceManager.GetString("frmMain_EnterCommand", resourceCulture)
+            End Get
+        End Property
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] is a 64-bit game, GBM cannot detect the required information to save your backup..
         '''</summary>
@@ -2174,7 +2210,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_Error64Backup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to 7-Zip was not found in the Game Backup Monitor utilities folder.  The application cannot continue..
         '''</summary>
@@ -2183,7 +2219,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_Error7zip", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] is running as Administrator and GBM is not, GBM cannot detect the required information to save your backup..
         '''</summary>
@@ -2192,7 +2228,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorAdminBackup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] is running as Administrator and GBM is not.[BR]You cannot cancel monitoring at this time.[BR][BR]Run GBM as Administrator to prevent this issue..
         '''</summary>
@@ -2201,7 +2237,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorAdminDetect", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor is already running as Administrator..
         '''</summary>
@@ -2210,7 +2246,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorAlreadyAdmin", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to GBM is running from a new location, the Windows startup entry has been updated..
         '''</summary>
@@ -2219,7 +2255,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorAppLocationChanged", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] backup was cancelled..
         '''</summary>
@@ -2228,7 +2264,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorBackupCancel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] backup was cancelled due to session length..
         '''</summary>
@@ -2237,7 +2273,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorBackupSessionLength", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] backup was cancelled due to unknown path..
         '''</summary>
@@ -2246,7 +2282,25 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorBackupUnknownPath", resourceCulture)
             End Get
         End Property
-        
+
+        '''<summary>
+        '''  Looks up a localized string similar to Bad parameter ([PARAM]) for command [PARAM]..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorCommandBadParam() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorCommandBadParam", resourceCulture)
+            End Get
+        End Property
+
+        '''<summary>
+        '''  Looks up a localized string similar to The command [PARAM] was not recognized..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorCommandInvalid() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorCommandInvalid", resourceCulture)
+            End Get
+        End Property
+
         '''<summary>
         '''  Looks up a localized string similar to The following monitored game(s) contain a custom path variable that is not set.[BR][PARAM][BR][BR]You will encounter backup/restore errors with these games until the variables are set..
         '''</summary>
@@ -2255,7 +2309,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorCustomVariable", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Your local GBM data (Version [PARAM]) is too new for your version of GBM (Version [PARAM]).[BR][BR]Please upgrade GBM or restore the database file appropriate for your version.  The application cannot proceed..
         '''</summary>
@@ -2264,7 +2318,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorDBVerLocal", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The GBM data (Version [PARAM]) in your backup folder is too new for your version of GBM (Version [PARAM])[BR][BR]All computers sharing a backup folder must use the same version of GBM.  The application cannot proceed..
         '''</summary>
@@ -2273,7 +2327,16 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorDBVerRemote", resourceCulture)
             End Get
         End Property
-        
+
+        '''<summary>
+        '''  Looks up a localized string similar to The command [PARAM] requires more parameters..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorMissingParams() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorMissingParams", resourceCulture)
+            End Get
+        End Property
+
         '''<summary>
         '''  Looks up a localized string similar to Multiple possible 64-bit games have been detected, GBM cannot detect the path to identify your game or save your backup.[BR][BR]Please install the 64-bit version of GBM to detect and backup this game properly..
         '''</summary>
@@ -2282,7 +2345,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorMulti64", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Multiple possible games have been detected running as Administrator and GBM is not, GBM cannot detect the path to identify your game or save your backup.[BR][BR]Please run GBM as Administrator to properly detect and backup this game..
         '''</summary>
@@ -2291,7 +2354,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorMultiAdmin", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] uses a relative path and has never been detected on this computer..
         '''</summary>

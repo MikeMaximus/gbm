@@ -1537,4 +1537,25 @@
   <data name="frmSettings_lblCompression" xml:space="preserve">
     <value>Compression:</value>
   </data>
+  <data name="frmMain_CommandFail" xml:space="preserve">
+    <value>The command has failed.</value>
+  </data>
+  <data name="frmMain_CommandSucess" xml:space="preserve">
+    <value>The command was executed successfully.</value>
+  </data>
+  <data name="frmMain_DeveloperConsole" xml:space="preserve">
+    <value>Developer Console</value>
+  </data>
+  <data name="frmMain_EnterCommand" xml:space="preserve">
+    <value>Enter Command</value>
+  </data>
+  <data name="frmMain_ErrorCommandBadParam" xml:space="preserve">
+    <value>Bad parameter ([PARAM]) for command [PARAM].</value>
+  </data>
+  <data name="frmMain_ErrorCommandInvalid" xml:space="preserve">
+    <value>The command [PARAM] was not recognized.</value>
+  </data>
+  <data name="frmMain_ErrorMissingParams" xml:space="preserve">
+    <value>The command [PARAM] requires more parameters.</value>
+  </data>
 </root>
