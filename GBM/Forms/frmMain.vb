@@ -547,18 +547,23 @@ Public Class frmMain
     'Functions handling the opening of other windows
     Private Sub OpenDevConsole()
         Dim sFullCommand As String
+        Dim sMainCommand As String
         Dim sCommand As String()
+        Dim sDelimters As String = " :"
+        Dim cDelimters As Char() = sDelimters.ToCharArray
 
         sFullCommand = InputBox(frmMain_EnterCommand, frmMain_DeveloperConsole)
 
         If sFullCommand <> String.Empty Then
-            sCommand = sFullCommand.Split(":")
+            sMainCommand = sFullCommand.Split(cDelimters, 2)(0)
 
             'Parse Command
-            Select Case sCommand(0)
+            Select Case sMainCommand
                 Case "SQL"
                     Dim oDatabase As mgrSQLite
                     Dim bSuccess As Boolean
+
+                    sCommand = sFullCommand.Split(cDelimters, 3)
 
                     'Check Paramters
                     If sCommand.Length < 3 Then
@@ -584,7 +589,7 @@ Public Class frmMain
                     End If
 
                 Case Else
-                    mgrCommon.ShowMessage(frmMain_ErrorCommandInvalid, sCommand(0), MsgBoxStyle.Exclamation)
+                    mgrCommon.ShowMessage(frmMain_ErrorCommandInvalid, sMainCommand, MsgBoxStyle.Exclamation)
             End Select
 
         End If
