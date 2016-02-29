@@ -23,6 +23,7 @@ Public Class frmMain
     Private eCurrentOperation As eOperation = eOperation.None
     Private bCancelledByUser As Boolean = False
     Private bShutdown As Boolean = False
+    Private bInitFail As Boolean = False
     Private bMenuEnabled As Boolean = True
     Private bLockdown As Boolean = True
     Private bFirstRun As Boolean = False
@@ -812,15 +813,13 @@ Public Class frmMain
 
     Private Sub ToggleState()
         'Toggle State with Tray Clicks
-        If Me.WindowState = FormWindowState.Minimized Then
+        If Me.Visible = False Then
             Me.Visible = True
             Me.ShowInTaskbar = True
-            Me.WindowState = FormWindowState.Normal
             Me.Focus()
         Else
             Me.Visible = False
             Me.ShowInTaskbar = False
-            Me.WindowState = FormWindowState.Minimized
         End If
     End Sub
 
@@ -1173,8 +1172,8 @@ Public Class frmMain
 
     Private Sub VerifyGameDataPath()
         'Important: This function cannot access mgrPath for settings, as that will trigger a database creation and destroy the reason for this function
-        Dim sSettingsRoot As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "\gbm"
-        Dim sDBLocation As String = sSettingsRoot & "\gbm.s3db"
+        Dim sSettingsRoot As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "/gbm"
+        Dim sDBLocation As String = sSettingsRoot & "/gbm.s3db"
 
         If Not IO.Directory.Exists(sSettingsRoot) Then
             Try
@@ -1400,7 +1399,6 @@ Public Class frmMain
     Private Sub gMonTray_BalloonTipClicked(sender As System.Object, e As System.EventArgs) Handles gMonTray.BalloonTipClicked
         Me.Visible = True
         Me.ShowInTaskbar = True
-        Me.WindowState = FormWindowState.Normal
         Me.Focus()
     End Sub
 
@@ -1422,8 +1420,7 @@ Public Class frmMain
         If bShutdown = False Then
             e.Cancel = True
             Me.Visible = False
-            Me.ShowInTaskbar = False
-            Me.WindowState = FormWindowState.Minimized
+            Me.ShowInTaskbar = False            
         End If
     End Sub
 
@@ -1537,31 +1534,45 @@ Public Class frmMain
     End Sub
 
     Private Sub Main_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        SetForm()
-        VerifyGameDataPath()
-        LoadAndVerify()
-        VerifyCustomPathVariables()
 
-        If oSettings.StartToTray Then
-            Me.Visible = False
-            Me.ShowInTaskbar = False
-            Me.WindowState = FormWindowState.Minimized
-        End If
+        'Init
+        Try
+            SetForm()
+            VerifyGameDataPath()
+            LoadAndVerify()
+            VerifyCustomPathVariables()
 
-        If oSettings.MonitorOnStartup Then
-            eCurrentStatus = eStatus.Stopped
-        Else
-            eCurrentStatus = eStatus.Running
-        End If
+            If oSettings.StartToTray Then
+                Me.Visible = False
+                Me.ShowInTaskbar = False
+            End If
 
-        HandleScan()
-        CheckForNewBackups()
+            If oSettings.MonitorOnStartup Then
+                eCurrentStatus = eStatus.Stopped
+            Else
+                eCurrentStatus = eStatus.Running
+            End If
+
+            HandleScan()
+            CheckForNewBackups()            
+        Catch niex As NotImplementedException
+            'Ignore for Mono runtime tests
+        Catch ex As Exception
+            mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message, MsgBoxStyle.Critical)
+            bInitFail = True            
+        End Try
 
     End Sub
 
     Private Sub frmMain_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        If bFirstRun Then
+
+        If bFirstRun And Not bInitFail Then
             OpenStartupWizard()
+        End If
+
+        If bInitFail Then
+            bShutdown = True
+            Me.Close()
         End If
     End Sub
 

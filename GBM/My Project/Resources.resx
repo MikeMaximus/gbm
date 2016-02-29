@@ -1558,4 +1558,7 @@
   <data name="frmMain_ErrorMissingParams" xml:space="preserve">
     <value>The command [PARAM] requires more parameters.</value>
   </data>
+  <data name="frmMain_ErrorInitFailure" xml:space="preserve">
+    <value>An unexpected error occured while initializing GBM.[BR][BR][PARAM][BR][BR]The application will now exit.</value>
+  </data>
 </root>

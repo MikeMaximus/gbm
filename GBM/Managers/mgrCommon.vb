@@ -160,8 +160,6 @@ Public Class mgrCommon
         End Try
     End Function
 
-
-
     'Handles no extra parameters
     Public Shared Function ShowMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
         Dim oResult As MsgBoxResult

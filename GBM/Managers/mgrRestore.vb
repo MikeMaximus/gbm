@@ -60,7 +60,7 @@ Public Class mgrRestore
 
         If Not oRestoreInfo.AbsolutePath Then
             If oGame.ProcessPath <> String.Empty Then
-                oRestoreInfo.RelativeRestorePath = oGame.ProcessPath & "\" & oRestoreInfo.RestorePath
+                oRestoreInfo.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oRestoreInfo.RestorePath
             Else
                 sProcess = oGame.TrueProcess
                 If mgrCommon.IsProcessNotSearchable(oGame) Then bNoAuto = True
@@ -73,7 +73,7 @@ Public Class mgrRestore
                     bTriggerReload = True
 
                     'Set path for restore
-                    oRestoreInfo.RelativeRestorePath = sRestorePath & "\" & oRestoreInfo.RestorePath
+                    oRestoreInfo.RelativeRestorePath = sRestorePath & Path.DirectorySeparatorChar & oRestoreInfo.RestorePath
                 Else
                     Return False
                 End If
@@ -183,7 +183,7 @@ Public Class mgrRestore
         For Each oBackupInfo In oRestoreList
             'Init
             prs7z = New Process
-            sBackupFile = oSettings.BackupFolder & "\" & oBackupInfo.FileName
+            sBackupFile = oSettings.BackupFolder & Path.DirectorySeparatorChar & oBackupInfo.FileName
             sExtractPath = String.Empty
             bDoRestore = True
             bRestoreCompleted = False

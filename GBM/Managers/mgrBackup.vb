@@ -42,7 +42,7 @@ Public Class mgrBackup
         'Create manifest item
         oItem.Name = oGameInfo.Name
         'Keep the path relative to the manifest location
-        oItem.FileName = sBackupFile.Replace(Path.GetDirectoryName(mgrPath.RemoteDatabaseLocation) & "\", "")
+        oItem.FileName = sBackupFile.Replace(Path.GetDirectoryName(mgrPath.RemoteDatabaseLocation) & Path.DirectorySeparatorChar, "")
         oItem.RestorePath = oGameInfo.TruePath
         oItem.AbsolutePath = oGameInfo.AbsolutePath
         oItem.DateUpdated = dTimeStamp
@@ -75,7 +75,7 @@ Public Class mgrBackup
             Using oStream
                 If sList <> String.Empty Then
                     For Each sTypeItem As String In sList.Split(":")
-                        oStream.WriteLine("""" & sBackupPath & "\" & sTypeItem & """")
+                        oStream.WriteLine("""" & sBackupPath & Path.DirectorySeparatorChar & sTypeItem & """")
                     Next
                 End If
                 oStream.Flush()
@@ -129,9 +129,9 @@ Public Class mgrBackup
             End If
 
             If oGame.AppendTimeStamp Then
-                sBackupFile = sBackupFile & "\" & oGame.Name & sTimeStamp & ".7z"
+                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name & sTimeStamp & ".7z"
             Else
-                sBackupFile = sBackupFile & "\" & oGame.Name & ".7z"
+                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name & ".7z"
             End If
 
             If oSettings.ShowOverwriteWarning And File.Exists(sBackupFile) Then
@@ -144,7 +144,7 @@ Public Class mgrBackup
             If bDoBackup Then
                 If oGame.AbsolutePath = False Then
                     If oGame.Path <> String.Empty Then
-                        sSavePath = oGame.ProcessPath & "\" & oGame.Path
+                        sSavePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oGame.Path
                     Else
                         sSavePath = oGame.ProcessPath
                     End If

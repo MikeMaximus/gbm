@@ -5,11 +5,11 @@ Imports System.Reflection
 
 Public Class mgrPath
     'Important Note: Any changes to sSettingsRoot & sDBLocation need to be mirrored in frmMain.vb -> VerifyGameDataPath
-    Private Shared sSettingsRoot As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "\gbm"
-    Private Shared sDBLocation As String = sSettingsRoot & "\gbm.s3db"
-    Private Shared sIncludeFile As String = sSettingsRoot & "\gbm_include.txt"
-    Private Shared sExcludeFile As String = sSettingsRoot & "\gbm_exclude.txt"
-    Private Shared sLogFile As String = sSettingsRoot & "\gbm_log_" & Date.Now.ToString("dd-MM-yyyy-HH-mm-ss") & ".txt"
+    Private Shared sSettingsRoot As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "/gbm"
+    Private Shared sDBLocation As String = sSettingsRoot & "/gbm.s3db"
+    Private Shared sIncludeFile As String = sSettingsRoot & "/gbm_include.txt"
+    Private Shared sExcludeFile As String = sSettingsRoot & "/gbm_exclude.txt"
+    Private Shared sLogFile As String = sSettingsRoot & "/gbm_log_" & Date.Now.ToString("dd-MM-yyyy-HH-mm-ss") & ".txt"
     Private Shared sRemoteDatabaseLocation As String
     Private Shared hshCustomVariables As Hashtable
     Private Shared oReleaseType As ProcessorArchitecture = AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
@@ -41,18 +41,18 @@ Public Class mgrPath
         Get
             Select Case oReleaseType
                 Case ProcessorArchitecture.Amd64
-                    Return Application.StartupPath & "\Utilities\x64\7za.exe"
+                    Return Application.StartupPath & "/Utilities/x64/7za.exe"
                 Case ProcessorArchitecture.IA64
-                    Return Application.StartupPath & "\Utilities\x64\7za.exe"
+                    Return Application.StartupPath & "/Utilities/x64/7za.exe"
                 Case ProcessorArchitecture.MSIL
-                    Return Application.StartupPath & "\Utilities\x86\7za.exe"
+                    Return Application.StartupPath & "/Utilities/x86/7za.exe"
                 Case ProcessorArchitecture.X86
-                    Return Application.StartupPath & "\Utilities\x86\7za.exe"
+                    Return Application.StartupPath & "/Utilities/x86/7za.exe"
                 Case ProcessorArchitecture.None
-                    Return Application.StartupPath & "\Utilities\x86\7za.exe"
+                    Return Application.StartupPath & "/Utilities/x86/7za.exe"
             End Select
 
-            Return Application.StartupPath & "\Utilities\x86\7za.exe"
+            Return Application.StartupPath & "/Utilities/x86/7za.exe"
         End Get
     End Property
 
@@ -119,19 +119,20 @@ Public Class mgrPath
         Dim iRemove As Integer = 0
         Dim iBackFolders As Integer = 0
         Dim bDeep As Boolean
+        Dim cPathChars As Char() = {"\", "/"}
 
         'We are working with a case insenstive file system,  ensure a uniform case
         sProcessPath = sProcessPath.ToLower
         sSavePath = sSavePath.ToLower
 
         'We need to ensure we have a single trailing slash on the parameters
-        sProcessPath = sProcessPath.TrimEnd("\")
-        sSavePath = sSavePath.TrimEnd("\")
-        sProcessPath &= "\"
-        sSavePath &= "\"
+        sProcessPath = sProcessPath.TrimEnd(cPathChars)
+        sSavePath = sSavePath.TrimEnd(cPathChars)
+        sProcessPath &= "/"
+        sSavePath &= "/"
 
         'Determines the direction we need to go, we always want to be relative to the process location
-        If sSavePath.Split("\").Length > sProcessPath.Split("\").Length Then
+        If sSavePath.Split(cPathChars).Length > sProcessPath.Split(cPathChars).Length Then
             sPath1 = sProcessPath
             sPath2 = sSavePath
             bDeep = True
@@ -142,8 +143,8 @@ Public Class mgrPath
         End If
 
         'Build an array of folders to work with from each path
-        sPath1Array = sPath1.Split("\")
-        sPath2Array = sPath2.Split("\")
+        sPath1Array = sPath1.Split(cPathChars)
+        sPath2Array = sPath2.Split(cPathChars)
 
         'Take the shortest path and remove the common folders from both
         For Each s As String In sPath1Array
@@ -155,25 +156,25 @@ Public Class mgrPath
         Next
 
         'Remove the trailing slashes 
-        sPath1 = sPath1.TrimEnd("\")
-        sPath2 = sPath2.TrimEnd("\")
+        sPath1 = sPath1.TrimEnd(cPathChars)
+        sPath2 = sPath2.TrimEnd(cPathChars)
 
         'Determine which way we go
         If bDeep Then
             If sPath1.Length > 0 Then
-                iBackFolders = sPath1.Split("\").Length
+                iBackFolders = sPath1.Split(cPathChars).Length
             End If
             sResult = sPath2
         Else
             If sPath2.Length > 0 Then
-                iBackFolders = sPath2.Split("\").Length
+                iBackFolders = sPath2.Split(cPathChars).Length
             End If
             sResult = sPath1
         End If
 
         'Insert direction modifiers based on how many folders are left
         For i = 1 To iBackFolders
-            sResult = "..\" & sResult
+            sResult = ".." & Path.DirectorySeparatorChar & sResult
         Next i
 
         'Done
