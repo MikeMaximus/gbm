@@ -29,6 +29,7 @@ Public Class frmMain
     Private bFirstRun As Boolean = False
     Private bProcessIsAdmin As Boolean = False
     Private bLogToggle As Boolean = False
+    Private bShowToggle As Boolean = True
     Private bAllowIcon As Boolean = False
     Private bAllowDetails As Boolean = False
     Private oPriorImage As Image
@@ -812,12 +813,14 @@ Public Class frmMain
     End Sub
 
     Private Sub ToggleState()
-        'Toggle State with Tray Clicks
-        If Me.Visible = False Then
+        'Toggle State with Tray Clicks        
+        If Not bShowToggle Then
+            bShowToggle = True
             Me.Visible = True
             Me.ShowInTaskbar = True
             Me.Focus()
         Else
+            bShowToggle = False
             Me.Visible = False
             Me.ShowInTaskbar = False
         End If
@@ -1402,6 +1405,7 @@ Public Class frmMain
     End Sub
 
     Private Sub gMonTray_BalloonTipClicked(sender As System.Object, e As System.EventArgs) Handles gMonTray.BalloonTipClicked
+        bShowToggle = True
         Me.Visible = True
         Me.ShowInTaskbar = True
         Me.Focus()
@@ -1554,6 +1558,7 @@ Public Class frmMain
             VerifyCustomPathVariables()
 
             If oSettings.StartToTray And Not mgrCommon.IsUnix Then
+                bShowToggle = False
                 Me.Visible = False
                 Me.ShowInTaskbar = False
             End If
@@ -1565,7 +1570,7 @@ Public Class frmMain
             End If
 
             HandleScan()
-            CheckForNewBackups()        
+            CheckForNewBackups()
         Catch ex As Exception
             mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message, MsgBoxStyle.Critical)
             bInitFail = True
