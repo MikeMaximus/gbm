@@ -99,7 +99,6 @@ Partial Class frmMain
         Me.gMonTray.ContextMenuStrip = Me.gMonTrayMenu
         Me.gMonTray.Icon = CType(resources.GetObject("gMonTray.Icon"), System.Drawing.Icon)
         Me.gMonTray.Text = "GBM"
-        Me.gMonTray.Visible = True
         '
         'gMonTrayMenu
         '
@@ -257,7 +256,7 @@ Partial Class frmMain
         '
         Me.gMonStripTxtStatus.Margin = New System.Windows.Forms.Padding(5, 0, 0, 0)
         Me.gMonStripTxtStatus.Name = "gMonStripTxtStatus"
-        Me.gMonStripTxtStatus.Size = New System.Drawing.Size(369, 22)
+        Me.gMonStripTxtStatus.Size = New System.Drawing.Size(400, 22)
         Me.gMonStripTxtStatus.Spring = True
         Me.gMonStripTxtStatus.Text = "Monitor Status"
         Me.gMonStripTxtStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft

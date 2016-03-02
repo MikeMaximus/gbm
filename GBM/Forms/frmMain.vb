@@ -1577,21 +1577,22 @@ Public Class frmMain
         End Try
 
         'Unix Handler
-        If mgrCommon.IsUnix Then
-            gMonTray.Visible = False
+        If mgrCommon.IsUnix Then            
             Me.MinimizeBox = True
+        Else
+            Me.gMonTray.Visible = True
         End If
 
     End Sub
 
     Private Sub frmMain_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        If bFirstRun And Not bInitFail Then
-            OpenStartupWizard()
-        End If
-
         If bInitFail Then
             bShutdown = True
             Me.Close()
+        End If
+
+        If bFirstRun And Not bShutdown Then
+            OpenStartupWizard()
         End If
     End Sub
 

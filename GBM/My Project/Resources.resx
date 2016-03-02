@@ -194,7 +194,7 @@
     <value>[PARAM] is a 64-bit game, GBM cannot detect the required information to save your backup.</value>
   </data>
   <data name="frmMain_Error7zip" xml:space="preserve">
-    <value>7-Zip was not found in the Game Backup Monitor utilities folder.  The application cannot continue.</value>
+    <value>7-Zip was not found.  The application cannot continue.</value>
   </data>
   <data name="frmMain_ErrorAdminBackup" xml:space="preserve">
     <value>[PARAM] is running as Administrator and GBM is not, GBM cannot detect the required information to save your backup.</value>
