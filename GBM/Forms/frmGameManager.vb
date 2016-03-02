@@ -34,7 +34,7 @@ Public Class frmGameManager
 
     Property BackupFolder As String
         Get
-            Return sBackupFolder & "\"
+            Return sBackupFolder & Path.DirectorySeparatorChar
         End Get
         Set(value As String)
             sBackupFolder = value
@@ -175,7 +175,7 @@ Public Class frmGameManager
                 sFileName = BackupFolder & oBackupItem.FileName
 
                 'Rename Backup File
-                sNewFileName = Path.GetDirectoryName(sFileName) & "\" & Path.GetFileName(sFileName).Replace(oOriginalApp.Name, oNewApp.Name)
+                sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(oOriginalApp.Name, oNewApp.Name)
                 If File.Exists(sFileName) Then
                     FileSystem.Rename(sFileName, sNewFileName)
                 End If
@@ -265,7 +265,7 @@ Public Class frmGameManager
             Next
         End If
 
-        lstGames.Items.Clear()
+        lstGames.DataSource = Nothing
         FormatAndFillList()
     End Sub
 
@@ -365,24 +365,31 @@ Public Class frmGameManager
 
     End Function
 
+    Public Shared Function CompareByName(sItem1 As KeyValuePair(Of String, String), sItem2 As KeyValuePair(Of String, String)) As Integer
+        Return String.Compare(sItem1.Value, sItem2.value)
+    End Function
+
     Private Sub FormatAndFillList()
         IsLoading = True
 
         Dim oApp As clsGame
         Dim oData As KeyValuePair(Of String, String)
+        Dim oList As New List(Of KeyValuePair(Of String, String))
 
         lstGames.ValueMember = "Key"
         lstGames.DisplayMember = "Value"
 
-        lstGames.BeginUpdate()
-
         For Each de As DictionaryEntry In AppData
             oApp = DirectCast(de.Value, clsGame)
-            oData = New KeyValuePair(Of String, String)(oApp.ID, oApp.Name)
-            lstGames.Items.Add(oData)
+            oData = New KeyValuePair(Of String, String)(oApp.ID, oApp.Name)            
+            oList.Add(oData)
         Next
 
-        lstGames.EndUpdate()
+        oList.Sort(AddressOf CompareByName)
+
+        lstGames.BeginUpdate()
+        lstGames.DataSource = oList
+        lstGames.EndUpdate()        
 
         IsLoading = False
     End Sub
@@ -979,13 +986,11 @@ Public Class frmGameManager
         End Select
 
         If bSuccess Then
-            Dim iSelected As Integer
             IsDirty = False
             LoadData()
-            iSelected = lstGames.Items.IndexOf(New KeyValuePair(Of String, String)(oApp.ID, oApp.Name))
-            If iSelected = -1 Then eCurrentMode = eModes.Disabled
             ModeChange()
-            If eCurrentMode = eModes.View Then lstGames.SelectedIndex = iSelected
+            lstGames.ClearSelected()
+            If eCurrentMode = eModes.View Then lstGames.SelectedValue = oApp.ID
         End If
     End Sub
 
@@ -1293,6 +1298,8 @@ Public Class frmGameManager
         AssignDirtyHandlers(grpExtra.Controls)
         AssignDirtyHandlers(grpStats.Controls)
         AssignDirtyHandlersMisc()
+
+        LoadData(False)
     End Sub
 
     Private Sub lstGames_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstGames.SelectedIndexChanged

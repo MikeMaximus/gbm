@@ -39,6 +39,10 @@ Public Class mgrPath
 
     Shared ReadOnly Property Utility7zLocation As String
         Get
+            If mgrCommon.IsUnix Then
+                Return "/usr/bin/7za"
+            End If
+
             Select Case oReleaseType
                 Case ProcessorArchitecture.Amd64
                     Return Application.StartupPath & "/Utilities/x64/7za.exe"
@@ -91,7 +95,7 @@ Public Class mgrPath
             Return sRemoteDatabaseLocation
         End Get
         Set(value As String)
-            sRemoteDatabaseLocation = value & "\gbm.s3db"
+            sRemoteDatabaseLocation = value & "/gbm.s3db"
         End Set
     End Property
 
@@ -191,12 +195,9 @@ Public Class mgrPath
         Dim sCurrentUser As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
         Dim oCustomVariable As clsPathVariable
 
+
         If sValue.Contains("*mydocs*") Then
             Return sValue.Replace("*mydocs*", sMyDocs)
-        End If
-
-        If sValue.Contains("*publicdocs*") Then
-            Return sValue.Replace("*publicdocs*", sPublicDocs)
         End If
 
         If sValue.Contains("*appdatalocal*") Then
@@ -207,8 +208,15 @@ Public Class mgrPath
             Return sValue.Replace("*appdataroaming*", sAppDataRoaming)
         End If
 
-        If sValue.Contains("*currentuser*") Then
-            Return sValue.Replace("*currentuser*", sCurrentUser)
+        'These don't work on Unix OS
+        If Not mgrCommon.IsUnix Then
+            If sValue.Contains("*publicdocs*") Then
+                Return sValue.Replace("*publicdocs*", sPublicDocs)
+            End If
+
+            If sValue.Contains("*currentuser*") Then
+                Return sValue.Replace("*currentuser*", sCurrentUser)
+            End If
         End If
 
         For Each oCustomVariable In hshCustomVariables.Values
@@ -232,10 +240,6 @@ Public Class mgrPath
             Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), sMyDocs)
         End If
 
-        If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments)) Then
-            Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), sPublicDocs)
-        End If
-
         If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) Then
             Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), sAppDataLocal)
         End If
@@ -244,8 +248,15 @@ Public Class mgrPath
             Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), sAppDataRoaming)
         End If
 
-        If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)) Then
-            Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), sCurrentUser)
+        'These don't work on Unix OS
+        If Not mgrCommon.IsUnix Then
+            If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments)) Then
+                Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), sPublicDocs)
+            End If
+
+            If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)) Then
+                Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), sCurrentUser)
+            End If
         End If
 
         For Each oCustomVariable In hshCustomVariables.Values

@@ -232,7 +232,7 @@ Public Class mgrRestore
             If bDoRestore Then
                 Try
                     If File.Exists(sBackupFile) Then
-                        prs7z.StartInfo.Arguments = "x """ & sBackupFile & """ -o""" & sExtractPath & "\"" -aoa -r"
+                        prs7z.StartInfo.Arguments = "x """ & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -aoa -r"
                         prs7z.StartInfo.FileName = mgrPath.Utility7zLocation
                         prs7z.StartInfo.UseShellExecute = False
                         prs7z.StartInfo.RedirectStandardOutput = True

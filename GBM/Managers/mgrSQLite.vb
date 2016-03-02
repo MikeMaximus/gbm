@@ -1,6 +1,6 @@
 ﻿Imports GBM.My.Resources
 Imports System.IO
-Imports System.Data.SQLite
+Imports Mono.Data.Sqlite
 
 Public Class mgrSQLite
 
@@ -232,7 +232,8 @@ Public Class mgrSQLite
         BuildParams(command, hshParams)
 
         Try
-            adapter = New SQLiteDataAdapter(command)
+            adapter = New SqliteDataAdapter()
+            adapter.SelectCommand = command
             adapter.Fill(oData)
         Catch ex As Exception
             mgrCommon.ShowMessage(mgrSQLite_ErrorQueryFailure, New String() {sSQL, ex.Message}, MsgBoxStyle.Exclamation)

@@ -117,7 +117,7 @@ Public Class mgrBackup
             End If
 
             If oSettings.CreateSubFolder Then
-                sBackupFile = sBackupFile & "\" & oGame.Name
+                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name
                 Try
                     If Not Directory.Exists(sBackupFile) Then
                         Directory.CreateDirectory(sBackupFile)
@@ -168,8 +168,9 @@ Public Class mgrBackup
                     End If
 
                     If Directory.Exists(sSavePath) Then
-                        prs7z.StartInfo.Arguments = "a -bb1 -bt -t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """ -r"
-                        prs7z.StartInfo.FileName = mgrPath.Utility7zLocation
+                        'prs7z.StartInfo.Arguments = "a -bb1 -bt -t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """ -r"
+                        prs7z.StartInfo.Arguments = "a -t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """ -r"
+                        prs7z.StartInfo.FileName = mgrPath.Utility7zLocation                        
                         prs7z.StartInfo.UseShellExecute = False
                         prs7z.StartInfo.RedirectStandardOutput = True
                         prs7z.StartInfo.CreateNoWindow = True

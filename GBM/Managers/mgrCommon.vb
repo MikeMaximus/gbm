@@ -108,7 +108,18 @@ Public Class mgrCommon
         End If
     End Function
 
+    Public Shared Function IsUnix() As Boolean
+        If Path.DirectorySeparatorChar = "/" Then
+            Return True
+        End If
+
+        Return False
+    End Function
+
     Public Shared Function IsElevated() As Boolean
+        If IsUnix() Then
+            Return True
+        End If
         If My.User.IsInRole(ApplicationServices.BuiltInRole.Administrator) Then
             Return True
         Else

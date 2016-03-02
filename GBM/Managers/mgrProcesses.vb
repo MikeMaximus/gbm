@@ -90,7 +90,11 @@ Public Class mgrProcesses
         Dim sProcessCheck As String = String.Empty
 
         For Each prsCurrent As Process In prsList
-            sProcessCheck = prsCurrent.ProcessName
+            Try
+                sProcessCheck = prsCurrent.ProcessName               
+            Catch ex As Exception
+                'Do Nothing
+            End Try
 
             If hshScanList.ContainsKey(sProcessCheck) Then
                 prsFoundProcess = prsCurrent
@@ -117,10 +121,12 @@ Public Class mgrProcesses
                             bNeedsPath = True
                             iErrorCode = 299
                         Else
+                            MsgBox(exWin32.Message & vbCrLf & exWin32.StackTrace)
                             'A different failure occured,  drop out and continue to scan.
                             Return False
                         End If
                     Catch exAll As Exception
+                        MsgBox(exAll.Message & vbCrLf & exAll.StackTrace)
                         'A different failure occured,  drop out and continue to scan.
                         Return False
                     End Try

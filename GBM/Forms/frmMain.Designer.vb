@@ -47,9 +47,9 @@ Partial Class frmMain
         Me.bwMonitor = New System.ComponentModel.BackgroundWorker()
         Me.txtLog = New System.Windows.Forms.TextBox()
         Me.gMonStatusStrip = New System.Windows.Forms.StatusStrip()
-        Me.gMonStripAdminButton = New System.Windows.Forms.ToolStripSplitButton()
+        Me.gMonStripAdminButton = New System.Windows.Forms.ToolStripStatusLabel()
         Me.gMonStripTxtStatus = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.gMonStripStatusButton = New System.Windows.Forms.ToolStripSplitButton()
+        Me.gMonStripStatusButton = New System.Windows.Forms.ToolStripStatusLabel()
         Me.gMonMainMenu = New System.Windows.Forms.MenuStrip()
         Me.gMonFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileMonitor = New System.Windows.Forms.ToolStripMenuItem()
@@ -238,7 +238,7 @@ Partial Class frmMain
         '
         Me.gMonStatusStrip.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gMonStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonStripAdminButton, Me.gMonStripTxtStatus, Me.gMonStripStatusButton})
-        Me.gMonStatusStrip.Location = New System.Drawing.Point(0, 364)
+        Me.gMonStatusStrip.Location = New System.Drawing.Point(0, 379)
         Me.gMonStatusStrip.Name = "gMonStatusStrip"
         Me.gMonStatusStrip.ShowItemToolTips = True
         Me.gMonStatusStrip.Size = New System.Drawing.Size(524, 22)
@@ -248,33 +248,25 @@ Partial Class frmMain
         'gMonStripAdminButton
         '
         Me.gMonStripAdminButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.gMonStripAdminButton.DropDownButtonWidth = 0
         Me.gMonStripAdminButton.Image = Global.GBM.My.Resources.Resources.Icon_User
-        Me.gMonStripAdminButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.gMonStripAdminButton.Name = "gMonStripAdminButton"
-        Me.gMonStripAdminButton.Size = New System.Drawing.Size(21, 20)
-        Me.gMonStripAdminButton.Text = "Elevation"
-        Me.gMonStripAdminButton.ToolTipText = "Elevation"
+        Me.gMonStripAdminButton.Size = New System.Drawing.Size(16, 17)
+        Me.gMonStripAdminButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         '
         'gMonStripTxtStatus
         '
         Me.gMonStripTxtStatus.Name = "gMonStripTxtStatus"
-        Me.gMonStripTxtStatus.Size = New System.Drawing.Size(395, 17)
+        Me.gMonStripTxtStatus.Size = New System.Drawing.Size(405, 17)
         Me.gMonStripTxtStatus.Spring = True
         Me.gMonStripTxtStatus.Text = "Monitor Status"
         Me.gMonStripTxtStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'gMonStripStatusButton
         '
-        Me.gMonStripStatusButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.gMonStripStatusButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.gMonStripStatusButton.DropDownButtonWidth = 0
-        Me.gMonStripStatusButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.gMonStripStatusButton.Name = "gMonStripStatusButton"
-        Me.gMonStripStatusButton.Size = New System.Drawing.Size(93, 20)
+        Me.gMonStripStatusButton.Size = New System.Drawing.Size(88, 17)
         Me.gMonStripStatusButton.Text = "Monitor Status:"
         Me.gMonStripStatusButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
-        Me.gMonStripStatusButton.ToolTipText = "Click to toggle monitoring on or off."
         '
         'gMonMainMenu
         '
@@ -531,7 +523,7 @@ Partial Class frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(524, 386)
+        Me.ClientSize = New System.Drawing.Size(524, 401)
         Me.Controls.Add(Me.pbTime)
         Me.Controls.Add(Me.lblStatus3)
         Me.Controls.Add(Me.lblStatus2)
@@ -593,7 +585,6 @@ Partial Class frmMain
     Friend WithEvents gMonHelpAbout As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTraySetupGameManager As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTraySetupCustomVariables As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents gMonStripStatusButton As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents pbIcon As System.Windows.Forms.PictureBox
     Friend WithEvents btnLogToggle As System.Windows.Forms.Button
     Friend WithEvents lblGameTitle As System.Windows.Forms.Label
@@ -611,7 +602,6 @@ Partial Class frmMain
     Friend WithEvents gMonHelpManual As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonHelpCheckforUpdates As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents btnCancelOperation As System.Windows.Forms.Button
-    Friend WithEvents gMonStripAdminButton As ToolStripSplitButton
     Friend WithEvents gMonTraySetupTags As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonSetupTags As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lblStatus1 As Label
@@ -629,4 +619,6 @@ Partial Class frmMain
     Friend WithEvents gMonTrayToolsLog As ToolStripMenuItem
     Friend WithEvents gMonTrayLogClear As ToolStripMenuItem
     Friend WithEvents gMonTrayLogSave As ToolStripMenuItem
+    Friend WithEvents gMonStripAdminButton As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents gMonStripStatusButton As System.Windows.Forms.ToolStripStatusLabel
 End Class

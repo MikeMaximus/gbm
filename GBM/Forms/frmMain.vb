@@ -798,14 +798,14 @@ Public Class frmMain
     Private Sub ToggleLog()
         If bLogToggle = False Then
             txtLog.Visible = True
-            Me.Size = New System.Drawing.Size(540, 425)
+            Me.Size = New System.Drawing.Size(Me.Size.Width, 440)
             bLogToggle = True
             btnLogToggle.Text = frmMain_btnToggleLog_Hide
             txtLog.Select(txtLog.TextLength, 0)
             txtLog.ScrollToCaret()
         Else
             txtLog.Visible = False
-            Me.Size = New System.Drawing.Size(540, 245)
+            Me.Size = New System.Drawing.Size(Me.Size.Width, 245)
             bLogToggle = False
             btnLogToggle.Text = frmMain_btnToggleLog_Show
         End If
@@ -1080,7 +1080,7 @@ Public Class frmMain
         lblLastAction.Text = String.Empty
         pbTime.SizeMode = PictureBoxSizeMode.AutoSize
         pbTime.Image = Icon_Clock
-        Me.Size = New System.Drawing.Size(540, 245)
+        Me.Size = New System.Drawing.Size(Me.Size.Width, 245)
         AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
         ResetGameInfo()
     End Sub
@@ -1386,7 +1386,7 @@ Public Class frmMain
         ToggleLog()
     End Sub
 
-    Private Sub gMonStripSplitButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripStatusButton.ButtonClick
+    Private Sub gMonStripSplitStatusButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripStatusButton.Click
         ScanToggle()
     End Sub
 
@@ -1406,7 +1406,7 @@ Public Class frmMain
         OperationCancel()
     End Sub
 
-    Private Sub gMonStripAdminButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripAdminButton.ButtonClick
+    Private Sub gMonStripAdminButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripAdminButton.Click
         RestartAsAdmin()
     End Sub
 
@@ -1534,7 +1534,6 @@ Public Class frmMain
     End Sub
 
     Private Sub Main_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-
         'Init
         Try
             SetForm()
@@ -1554,18 +1553,17 @@ Public Class frmMain
             End If
 
             HandleScan()
-            CheckForNewBackups()            
+            CheckForNewBackups()
         Catch niex As NotImplementedException
             'Ignore for Mono runtime tests
         Catch ex As Exception
             mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message, MsgBoxStyle.Critical)
-            bInitFail = True            
+            bInitFail = True
         End Try
 
     End Sub
 
     Private Sub frmMain_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-
         If bFirstRun And Not bInitFail Then
             OpenStartupWizard()
         End If
