@@ -1,6 +1,7 @@
 ﻿Imports GBM.My.Resources
 Imports System.Net
 Imports System.IO
+Imports System.Security.Principal
 
 Public Class mgrCommon
 
@@ -117,14 +118,9 @@ Public Class mgrCommon
     End Function
 
     Public Shared Function IsElevated() As Boolean
-        If IsUnix() Then
-            Return True
-        End If
-        If My.User.IsInRole(ApplicationServices.BuiltInRole.Administrator) Then
-            Return True
-        Else
-            Return False
-        End If
+        Dim oID As WindowsIdentity = WindowsIdentity.GetCurrent
+        Dim oPrincipal As New WindowsPrincipal(oID)
+        Return oPrincipal.IsInRole(WindowsBuiltInRole.Administrator)
     End Function
 
     Public Shared Sub RestartAsAdmin()

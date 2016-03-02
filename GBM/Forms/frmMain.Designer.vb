@@ -255,8 +255,9 @@ Partial Class frmMain
         '
         'gMonStripTxtStatus
         '
+        Me.gMonStripTxtStatus.Margin = New System.Windows.Forms.Padding(5, 0, 0, 0)
         Me.gMonStripTxtStatus.Name = "gMonStripTxtStatus"
-        Me.gMonStripTxtStatus.Size = New System.Drawing.Size(405, 17)
+        Me.gMonStripTxtStatus.Size = New System.Drawing.Size(369, 22)
         Me.gMonStripTxtStatus.Spring = True
         Me.gMonStripTxtStatus.Text = "Monitor Status"
         Me.gMonStripTxtStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft

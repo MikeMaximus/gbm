@@ -178,11 +178,11 @@ Public Class frmAddWizard
             Return False
         End If
 
-        If Path.GetExtension(strPath.ToLower) <> ".exe" Then
-            sErrorMessage = frmAddWizard_ErrorNotAProcess
-            txtProcessPath.Focus()
-            Return False
-        End If
+        'If Path.GetExtension(strPath.ToLower) <> ".exe" Then
+        '    sErrorMessage = frmAddWizard_ErrorNotAProcess
+        '    txtProcessPath.Focus()
+        '    Return False
+        'End If
 
         If Not Path.IsPathRooted(strPath) Then
             sErrorMessage = frmAddWizard_ErrorBadProcessPath

@@ -1245,14 +1245,19 @@ Public Class frmMain
 
     'Functions to handle other features
     Private Sub RestartAsAdmin()
-        If mgrCommon.IsElevated Then
-            mgrCommon.ShowMessage(frmMain_ErrorAlreadyAdmin, MsgBoxStyle.Information)
-        Else
-            If mgrCommon.ShowMessage(frmMain_ConfirmRunAsAdmin, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                mgrCommon.RestartAsAdmin()
-                bShutdown = True
-                ShutdownApp(False)
+        'Unix Hanlder
+        If Not mgrCommon.IsUnix Then
+            If mgrCommon.IsElevated Then
+                mgrCommon.ShowMessage(frmMain_ErrorAlreadyAdmin, MsgBoxStyle.Information)
+            Else
+                If mgrCommon.ShowMessage(frmMain_ConfirmRunAsAdmin, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    mgrCommon.RestartAsAdmin()
+                    bShutdown = True
+                    ShutdownApp(False)
+                End If
             End If
+        Else
+            mgrCommon.ShowMessage(App_ErrorUnixNotAvailable, MsgBoxStyle.Exclamation)
         End If
     End Sub
 
@@ -1416,11 +1421,18 @@ Public Class frmMain
     End Sub
 
     Private Sub Main_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        'Intercept Exit & Minimize
+        'Unix Handler
+        If mgrCommon.IsUnix And Not bShutdown Then
+            ShutdownApp()
+        End If
+
+        'Intercept Exit
         If bShutdown = False Then
             e.Cancel = True
-            Me.Visible = False
-            Me.ShowInTaskbar = False            
+            If Not mgrCommon.IsUnix Then
+                Me.Visible = False
+                Me.ShowInTaskbar = False
+            End If
         End If
     End Sub
 
@@ -1541,7 +1553,7 @@ Public Class frmMain
             LoadAndVerify()
             VerifyCustomPathVariables()
 
-            If oSettings.StartToTray Then
+            If oSettings.StartToTray And Not mgrCommon.IsUnix Then
                 Me.Visible = False
                 Me.ShowInTaskbar = False
             End If
@@ -1553,13 +1565,17 @@ Public Class frmMain
             End If
 
             HandleScan()
-            CheckForNewBackups()
-        Catch niex As NotImplementedException
-            'Ignore for Mono runtime tests
+            CheckForNewBackups()        
         Catch ex As Exception
             mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message, MsgBoxStyle.Critical)
             bInitFail = True
         End Try
+
+        'Unix Handler
+        If mgrCommon.IsUnix Then
+            gMonTray.Visible = False
+            Me.MinimizeBox = True
+        End If
 
     End Sub
 

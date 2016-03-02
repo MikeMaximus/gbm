@@ -395,13 +395,18 @@ Public Class frmGameManager
     End Sub
 
     Private Sub OpenBackupFile()
-        Dim sFileName As String
-        sFileName = BackupFolder & CurrentBackupItem.FileName
+        'Unix Hanlder
+        If Not mgrCommon.IsUnix Then
+            Dim sFileName As String
+            sFileName = BackupFolder & CurrentBackupItem.FileName
 
-        If File.Exists(sFileName) Then
-            Process.Start("explorer.exe", "/select," & sFileName)
+            If File.Exists(sFileName) Then
+                Process.Start("explorer.exe", "/select," & sFileName)
+            Else
+                mgrCommon.ShowMessage(frmGameManager_ErrorNoBackupExists, MsgBoxStyle.Exclamation)
+            End If
         Else
-            mgrCommon.ShowMessage(frmGameManager_ErrorNoBackupExists, MsgBoxStyle.Exclamation)
+            mgrCommon.ShowMessage(App_ErrorUnixNotAvailable, MsgBoxStyle.Exclamation)
         End If
 
     End Sub
@@ -477,22 +482,25 @@ Public Class frmGameManager
     End Function
 
     Private Sub OpenRestorePath()
-        Dim sPath As String = String.Empty
+        If Not mgrCommon.IsUnix Then
+            Dim sPath As String = String.Empty
 
-        If CurrentBackupItem.AbsolutePath Then
-            sPath = CurrentBackupItem.RestorePath
-        Else
-            If FindRestorePath() Then
-                sPath = CurrentBackupItem.RelativeRestorePath
+            If CurrentBackupItem.AbsolutePath Then
+                sPath = CurrentBackupItem.RestorePath
+            Else
+                If FindRestorePath() Then
+                    sPath = CurrentBackupItem.RelativeRestorePath
+                End If
             End If
-        End If
 
-        If Directory.Exists(sPath) Then
-            Process.Start("explorer.exe", sPath)
+            If Directory.Exists(sPath) Then
+                Process.Start("explorer.exe", sPath)
+            Else
+                mgrCommon.ShowMessage(frmGameManager_ErrorNoRestorePathExists, MsgBoxStyle.Exclamation)
+            End If
         Else
-            mgrCommon.ShowMessage(frmGameManager_ErrorNoRestorePathExists, MsgBoxStyle.Exclamation)
+            mgrCommon.ShowMessage(App_ErrorUnixNotAvailable, MsgBoxStyle.Exclamation)
         End If
-
     End Sub
 
     Private Sub OpenTags()

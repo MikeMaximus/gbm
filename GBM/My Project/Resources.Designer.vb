@@ -79,6 +79,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to This function is currently not available on a Unix based operating system..
+        '''</summary>
+        Friend ReadOnly Property App_ErrorUnixNotAvailable() As String
+            Get
+                Return ResourceManager.GetString("App_ErrorUnixNotAvailable", resourceCulture)
+            End Get
+        End Property
+
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] KB.
         '''</summary>
         Friend ReadOnly Property App_KB() As String
@@ -86,7 +95,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("App_KB", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] MB.
         '''</summary>
@@ -95,7 +104,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("App_MB", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor.
         '''</summary>
@@ -104,7 +113,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("App_NameLong", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to GBM.
         '''</summary>
@@ -113,7 +122,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("App_NameShort", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to http://mikemaximus.github.io/gbm-web/GBM_Official.xml.
         '''</summary>
@@ -122,7 +131,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("App_URLImport", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to http://mikemaximus.github.io/gbm-web/manual.html.
         '''</summary>
@@ -131,7 +140,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("App_URLManual", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to https://github.com/MikeMaximus/gbm/releases.
         '''</summary>
@@ -140,7 +149,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("App_URLUpdates", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to http://mikemaximus.github.io/gbm-web/.
         '''</summary>
@@ -149,7 +158,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("App_URLWebsite", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Back.
         '''</summary>
@@ -158,7 +167,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_btnBack", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Cancel.
         '''</summary>
@@ -167,7 +176,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_btnCancel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose items to e&amp;xclude....
         '''</summary>
@@ -176,7 +185,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_btnExclude", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose items to in&amp;clude....
         '''</summary>
@@ -185,7 +194,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_btnInclude", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Next.
         '''</summary>
@@ -194,7 +203,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_btnNext", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Finish.
         '''</summary>
@@ -203,7 +212,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_btnNext_Finish", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ....
         '''</summary>
@@ -212,7 +221,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_btnProcessBrowse", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ....
         '''</summary>
@@ -221,7 +230,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_btnSaveBrowse", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Save Entire Folder.
         '''</summary>
@@ -230,7 +239,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_chkFolderSave", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Time Stamp Backup.
         '''</summary>
@@ -239,7 +248,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_chkTimeStamp", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose exe file that starts the game.
         '''</summary>
@@ -248,7 +257,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ChooseProcess", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose the game save folder:.
         '''</summary>
@@ -257,7 +266,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ChooseSavePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] has been saved.[BR][BR]Would you like to add tags for [PARAM]?.
         '''</summary>
@@ -266,7 +275,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ConfirmSaveTags", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The path to the executable must be a full path..
         '''</summary>
@@ -275,7 +284,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ErrorBadProcessPath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The selected path must be a full path..
         '''</summary>
@@ -284,7 +293,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ErrorBadSavePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to A game with this exact name and process already exists..
         '''</summary>
@@ -293,7 +302,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ErrorGameDupe", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The file you selected is not an executable file..
         '''</summary>
@@ -302,7 +311,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ErrorNotAProcess", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to This file is not a shorcut..
         '''</summary>
@@ -311,7 +320,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ErrorNotAShortcut", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The selected executable file does not exist..
         '''</summary>
@@ -320,7 +329,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ErrorProcessNotExist", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The folder you selected does not exist or is not a valid folder..
         '''</summary>
@@ -329,7 +338,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ErrorSavePathNotExist", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to You must enter a valid game name..
         '''</summary>
@@ -338,7 +347,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ErrorValidName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to You must select the game&apos;s executable file (.exe) to continue..
         '''</summary>
@@ -347,7 +356,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ErrorValidProcess", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to You must select the game&apos;s save file path to continue.
         '''</summary>
@@ -356,7 +365,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ErrorValidSavePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to You must choose items to include in the backup, or choose to save the entire folder..
         '''</summary>
@@ -365,7 +374,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ErrorValidSaveType", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to An error occured working with the shortcut file.[BR][BR][PARAM].
         '''</summary>
@@ -374,7 +383,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ErrorWithShortcut", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Exclude.
         '''</summary>
@@ -383,7 +392,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_Exclude", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Executable.
         '''</summary>
@@ -392,7 +401,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_Executable", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Add Game Wizard.
         '''</summary>
@@ -401,7 +410,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_FormName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Include.
         '''</summary>
@@ -410,7 +419,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_Include", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] item(s) selected.
         '''</summary>
@@ -419,7 +428,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ItemsSelectedMulti", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to 0 item(s) selected.
         '''</summary>
@@ -428,7 +437,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_ItemsSelectedNone", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Drag a shortcut here to complete this step..
         '''</summary>
@@ -437,7 +446,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblDrag1", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Drag a shortcut here to complete this step..
         '''</summary>
@@ -446,7 +455,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblDrag2", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Save Path.
         '''</summary>
@@ -455,7 +464,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblExcludePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Saved Game Folder:.
         '''</summary>
@@ -464,7 +473,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblExcludePathTitle", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Save Path.
         '''</summary>
@@ -473,7 +482,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblIncludePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Saved Game Folder:.
         '''</summary>
@@ -482,7 +491,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblIncludePathTitle", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The name will be automatically filtered for length and invalid characters. .
         '''</summary>
@@ -491,7 +500,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblStep1Instructions", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Enter the name of the game to monitor:.
         '''</summary>
@@ -500,7 +509,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblStep1Intro", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game Name.
         '''</summary>
@@ -509,7 +518,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblStep1Title", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Some games use launchers.  Do not monitor launchers,  be sure to choose the game&apos;s actual exe file..
         '''</summary>
@@ -518,7 +527,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblStep2Instructions", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose the game&apos;s executable file or shortcut:.
         '''</summary>
@@ -527,7 +536,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblStep2Intro", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Process to Monitor.
         '''</summary>
@@ -536,7 +545,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblStep2Title", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose any file types, specific files  or folders you wish to include in the backup.  If you&apos;re unsure, go back a step and choose to save the entire folder. .
         '''</summary>
@@ -545,7 +554,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblStep3aInstructions", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose Files to Backup.
         '''</summary>
@@ -554,7 +563,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblStep3aTitle", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to If you&apos;re unsure of exactly which files to backup,  make sure Save Entire Folder is checked.  You can also time stamp your backup files to make incremental backups..
         '''</summary>
@@ -563,7 +572,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblStep3Instructions", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose the location of your game&apos;s save files:.
         '''</summary>
@@ -572,7 +581,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblStep3Intro", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game Backup Path.
         '''</summary>
@@ -581,7 +590,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblStep3Title", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose any file types, specific files  or folders you wish to exclude from the backup.  You may choose multiple items to exclude.  This step can be skipped..
         '''</summary>
@@ -590,7 +599,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblStep4Instructions", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Exclude Files or Folders.
         '''</summary>
@@ -599,7 +608,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblStep4Title", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Verify your settings below and click Finish to save..
         '''</summary>
@@ -608,7 +617,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblStep5Intro", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Summary of your Game.
         '''</summary>
@@ -617,7 +626,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_lblStep5Title", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to None.
         '''</summary>
@@ -626,7 +635,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_None", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Absolute Path.
         '''</summary>
@@ -635,7 +644,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_Summary_AbsolutePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Excluded Items.
         '''</summary>
@@ -644,7 +653,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_Summary_Exclude", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Folder Save.
         '''</summary>
@@ -653,7 +662,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_Summary_FolderSave", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Included Items.
         '''</summary>
@@ -662,7 +671,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_Summary_Include", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Name.
         '''</summary>
@@ -671,7 +680,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_Summary_Name", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Process.
         '''</summary>
@@ -680,7 +689,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_Summary_Process", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Save Path.
         '''</summary>
@@ -689,7 +698,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_Summary_SavePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Timestamp.
         '''</summary>
@@ -698,7 +707,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAddWizard_Summary_Timestamp", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Cancel.
         '''</summary>
@@ -707,7 +716,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAdvancedImport_btnCancel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Import.
         '''</summary>
@@ -716,7 +725,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAdvancedImport_btnImport", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Import Game Configurations.
         '''</summary>
@@ -725,7 +734,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAdvancedImport_FormName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] new configurations available..
         '''</summary>
@@ -734,7 +743,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAdvancedImport_NewConfigs", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] Selected.
         '''</summary>
@@ -743,7 +752,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmAdvancedImport_Selected", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Cancel.
         '''</summary>
@@ -752,7 +761,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmChooseGame_btnCancel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to C&amp;hoose Game.
         '''</summary>
@@ -761,7 +770,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmChooseGame_btnChoose", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose Game.
         '''</summary>
@@ -770,7 +779,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmChooseGame_FormName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Please choose the game you were playing:.
         '''</summary>
@@ -779,7 +788,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmChooseGame_lblChoose", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Cancel.
         '''</summary>
@@ -788,7 +797,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFileFolderSearch_btnCancel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Search.
         '''</summary>
@@ -797,7 +806,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFileFolderSearch_FormName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The location was not found on the [PARAM] drive.  Do you wish to search the [PARAM] drive?.
         '''</summary>
@@ -806,7 +815,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFileFolderSearch_SwitchDrives", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &gt;.
         '''</summary>
@@ -815,7 +824,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_btnAdd", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;OK.
         '''</summary>
@@ -824,7 +833,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_btnOK", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &lt;.
         '''</summary>
@@ -833,7 +842,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_btnRemove", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Custom Filter.
         '''</summary>
@@ -842,7 +851,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_FormName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Options.
         '''</summary>
@@ -851,7 +860,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_grpGameInfoOptions", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Options.
         '''</summary>
@@ -860,7 +869,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_grpTagOptions", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Company:.
         '''</summary>
@@ -869,7 +878,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_lblCompany", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Current Filter.
         '''</summary>
@@ -878,7 +887,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_lblGameTags", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Name:.
         '''</summary>
@@ -887,7 +896,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_lblName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Process:.
         '''</summary>
@@ -896,7 +905,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_lblProcess", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Available Tags.
         '''</summary>
@@ -905,7 +914,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_lblTags", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to All Tags.
         '''</summary>
@@ -914,7 +923,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_optAll", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to And.
         '''</summary>
@@ -923,7 +932,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_optAnd", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Any Tag.
         '''</summary>
@@ -932,7 +941,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_optAny", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game Information.
         '''</summary>
@@ -941,7 +950,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_optGameInfo", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Or.
         '''</summary>
@@ -950,7 +959,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_optOr", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Tag.
         '''</summary>
@@ -959,7 +968,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFilter_optTag", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] by [PARAM].
         '''</summary>
@@ -968,7 +977,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_BackupTimeAndName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to +.
         '''</summary>
@@ -977,7 +986,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnAdd", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ....
         '''</summary>
@@ -986,7 +995,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnAppPathBrowse", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Backup.
         '''</summary>
@@ -995,7 +1004,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnBackup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Cancel.
         '''</summary>
@@ -1004,7 +1013,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnCancel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to C&amp;lose.
         '''</summary>
@@ -1013,7 +1022,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnClose", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to -.
         '''</summary>
@@ -1022,7 +1031,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnDelete", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Delete Backup.
         '''</summary>
@@ -1031,7 +1040,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnDeleteBackup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to E&amp;xclude Items....
         '''</summary>
@@ -1040,7 +1049,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnExclude", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Export.
         '''</summary>
@@ -1049,7 +1058,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnExport", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ....
         '''</summary>
@@ -1058,7 +1067,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnIconBrowse", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Import.
         '''</summary>
@@ -1067,7 +1076,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnImport", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to In&amp;clude Items....
         '''</summary>
@@ -1076,7 +1085,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnInclude", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Mark as Restored.
         '''</summary>
@@ -1085,7 +1094,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnMarkAsRestored", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Open Backup File.
         '''</summary>
@@ -1094,7 +1103,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnOpenBackupFile", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to O&amp;pen Restore Path.
         '''</summary>
@@ -1103,7 +1112,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnOpenRestorePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ....
         '''</summary>
@@ -1112,7 +1121,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnProcessBrowse", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Restore.
         '''</summary>
@@ -1121,7 +1130,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnRestore", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Save.
         '''</summary>
@@ -1130,7 +1139,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnSave", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ....
         '''</summary>
@@ -1139,7 +1148,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnSavePathBrowse", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Tags....
         '''</summary>
@@ -1148,7 +1157,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_btnTags", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Monitor this game.
         '''</summary>
@@ -1157,7 +1166,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_chkEnabled", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Save entire folder.
         '''</summary>
@@ -1166,7 +1175,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_chkFolderSave", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Monitor only.
         '''</summary>
@@ -1175,7 +1184,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_chkMonitorOnly", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Timestamp each backup.
         '''</summary>
@@ -1184,7 +1193,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_chkTimeStamp", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose a custom icon for the game.
         '''</summary>
@@ -1193,7 +1202,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ChooseCustomIcon", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose exe file that starts the application.
         '''</summary>
@@ -1202,7 +1211,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ChooseExe", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose the location of application&apos;s exe file:.
         '''</summary>
@@ -1211,7 +1220,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ChooseExePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose a location for the export file.
         '''</summary>
@@ -1220,7 +1229,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ChooseExportXML", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose a valid xml file to import.
         '''</summary>
@@ -1229,7 +1238,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ChooseImportXML", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose the saved game folder:.
         '''</summary>
@@ -1238,7 +1247,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ChooseSaveFolder", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;File....
         '''</summary>
@@ -1247,7 +1256,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_cmsFile", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Official List....
         '''</summary>
@@ -1256,7 +1265,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_cmsOfficial", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to run a backup for [PARAM]?  This will close the form..
         '''</summary>
@@ -1265,7 +1274,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ConfirmBackup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to This will delete the backup file and all records of this backup.  This cannot be undone. [BR][BR]Do you want to remove the data for [PARAM]?.
         '''</summary>
@@ -1274,7 +1283,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ConfirmBackupDelete", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The backup folder [PARAM] still contains [PARAM] directories and [PARAM] files.[BR][BR]Do you want to delete the contents and remove the sub-folder for this game?.
         '''</summary>
@@ -1283,7 +1292,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ConfirmBackupFolderDelete", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to delete [PARAM]?  This cannot be undone.[BR][BR]This will not delete any backup files that already exist for this game..
         '''</summary>
@@ -1292,7 +1301,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ConfirmGameDelete", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Do you want to mark [PARAM] as restored?  This cannot be undone..
         '''</summary>
@@ -1301,7 +1310,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ConfirmMark", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to run a backup for [PARAM] games?  This will close the form..
         '''</summary>
@@ -1310,7 +1319,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ConfirmMultiBackup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to delete the [PARAM] selected games?  This cannot be undone..
         '''</summary>
@@ -1319,7 +1328,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ConfirmMultiGameDelete", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Do you want to mark [PARAM] games as restored?  This cannot be undone..
         '''</summary>
@@ -1328,7 +1337,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ConfirmMultiMark", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to restore the backups for [PARAM] games?  This will close the form..
         '''</summary>
@@ -1337,7 +1346,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ConfirmMultiRestore", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Monitor this game: [PARAM][BR]Monitor only: [PARAM].
         '''</summary>
@@ -1346,7 +1355,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ConfirmMultiSave", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection..
         '''</summary>
@@ -1355,7 +1364,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ConfirmOfficialImport", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to restore the backup for [PARAM]?  This will close the form..
         '''</summary>
@@ -1364,7 +1373,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ConfirmRestore", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] is already up to date.[BR][BR]Would you like to restore this backup anyway?.
         '''</summary>
@@ -1373,7 +1382,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ConfirmRestoreAnyway", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor Export.
         '''</summary>
@@ -1382,7 +1391,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_DefaultExportFileName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to A game with this exact name and process already exists..
         '''</summary>
@@ -1391,7 +1400,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ErrorGameDupe", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The selected game(s) have no backup data..
         '''</summary>
@@ -1400,7 +1409,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ErrorNoBackupData", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The backup file does not exist..
         '''</summary>
@@ -1409,7 +1418,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ErrorNoBackupExists", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to You must choose items to include in the backup, or choose to save the entire folder..
         '''</summary>
@@ -1418,7 +1427,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ErrorNoItems", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The restore path does not exist..
         '''</summary>
@@ -1427,7 +1436,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ErrorNoRestorePathExists", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] uses a relative path and the game path has not been set..
         '''</summary>
@@ -1436,7 +1445,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ErrorPathNotSet", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to You must enter a valid game name..
         '''</summary>
@@ -1445,7 +1454,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ErrorValidName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to You must enter a valid process name..
         '''</summary>
@@ -1454,7 +1463,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ErrorValidProcess", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Exclude.
         '''</summary>
@@ -1463,7 +1472,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_Exclude", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to E&amp;xclude.
         '''</summary>
@@ -1472,7 +1481,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ExcludeShortcut", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Executable.
         '''</summary>
@@ -1481,7 +1490,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_Executable", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game Manager.
         '''</summary>
@@ -1490,7 +1499,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_FormName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Configuration.
         '''</summary>
@@ -1499,7 +1508,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_grpConfig", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game Information.
         '''</summary>
@@ -1508,7 +1517,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_grpExtra", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Games Filter.
         '''</summary>
@@ -1517,7 +1526,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_grpFilter", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Backup Information.
         '''</summary>
@@ -1526,7 +1535,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_grpStats", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Icon.
         '''</summary>
@@ -1535,7 +1544,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_Icon", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Include.
         '''</summary>
@@ -1544,7 +1553,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_Include", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to In&amp;clude.
         '''</summary>
@@ -1553,7 +1562,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_IncludeShortcut", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Items....
         '''</summary>
@@ -1562,7 +1571,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_Items", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Items... ([PARAM]).
         '''</summary>
@@ -1571,7 +1580,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_ItemsExist", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Company:.
         '''</summary>
@@ -1580,7 +1589,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_lblCompany", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Current Backup:.
         '''</summary>
@@ -1589,7 +1598,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_lblCurrentBackup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Backup Size:.
         '''</summary>
@@ -1598,7 +1607,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_lblFileSize", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game Path:.
         '''</summary>
@@ -1607,7 +1616,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_lblGamePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Hours:.
         '''</summary>
@@ -1616,7 +1625,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_lblHours", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Icon:.
         '''</summary>
@@ -1625,7 +1634,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_lblIcon", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Local Backup:.
         '''</summary>
@@ -1634,7 +1643,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_lblLastBackup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Name:.
         '''</summary>
@@ -1643,7 +1652,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_lblName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Process:.
         '''</summary>
@@ -1652,7 +1661,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_lblProcess", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Restore Path:.
         '''</summary>
@@ -1661,7 +1670,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_lblRestorePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Save Path:.
         '''</summary>
@@ -1670,7 +1679,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_lblSavePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Version:.
         '''</summary>
@@ -1679,7 +1688,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_lblVersion", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Never.
         '''</summary>
@@ -1688,7 +1697,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_Never", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to All.
         '''</summary>
@@ -1697,7 +1706,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_optAllGames", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Backups Only.
         '''</summary>
@@ -1706,7 +1715,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_optBackupData", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Custom.
         '''</summary>
@@ -1715,7 +1724,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_optCustom", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to New Saves Pending.
         '''</summary>
@@ -1724,7 +1733,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_optPendingRestores", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Out of Sync.
         '''</summary>
@@ -1733,7 +1742,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_OutofSync", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Up to Date!.
         '''</summary>
@@ -1742,7 +1751,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_UpToDate", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to XML.
         '''</summary>
@@ -1751,7 +1760,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameManager_XML", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &gt;.
         '''</summary>
@@ -1760,7 +1769,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameTags_btnAdd", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Close.
         '''</summary>
@@ -1769,7 +1778,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameTags_btnClose", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Setup &amp;Tags....
         '''</summary>
@@ -1778,7 +1787,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameTags_btnOpenTags", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &lt;.
         '''</summary>
@@ -1787,7 +1796,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameTags_btnRemove", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Edit Tags for Multiple Games.
         '''</summary>
@@ -1796,7 +1805,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameTags_FormNameMulti", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Edit Tags for [PARAM].
         '''</summary>
@@ -1805,7 +1814,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameTags_FormNameSingle", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Current Tags.
         '''</summary>
@@ -1814,7 +1823,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameTags_lblGameTags", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Available Tags.
         '''</summary>
@@ -1823,7 +1832,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmGameTags_lblTags", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose the location of the saved game folder:.
         '''</summary>
@@ -1832,7 +1841,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_BrowseSaveFolder", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &gt;.
         '''</summary>
@@ -1841,7 +1850,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_btnAdd", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ....
         '''</summary>
@@ -1850,7 +1859,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_btnBrowse", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Cancel.
         '''</summary>
@@ -1859,7 +1868,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_btnCancel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Raw &amp;Edit.
         '''</summary>
@@ -1868,7 +1877,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_btnRawEdit", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &lt;.
         '''</summary>
@@ -1877,7 +1886,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_btnRemove", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Save.
         '''</summary>
@@ -1886,7 +1895,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_btnSave", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Add Custom Item.
         '''</summary>
@@ -1895,7 +1904,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_cmsAdd", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Edit.
         '''</summary>
@@ -1904,7 +1913,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_cmsEdit", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Remove.
         '''</summary>
@@ -1913,7 +1922,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_cmsRemove", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Custom Item.
         '''</summary>
@@ -1922,7 +1931,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_CustomItem", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to An unexpected error occured while reading the file system:[BR][BR][PARAM].
         '''</summary>
@@ -1931,7 +1940,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_ErrorFileSystemRead", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] Builder.
         '''</summary>
@@ -1940,7 +1949,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_FormName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] Options.
         '''</summary>
@@ -1949,7 +1958,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_grpFileOptions", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] Items.
         '''</summary>
@@ -1958,7 +1967,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_lblItems", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Saved Game Explorer.
         '''</summary>
@@ -1967,7 +1976,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_lblSaveFolder", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to File Types.
         '''</summary>
@@ -1976,7 +1985,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_optFileTypes", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Individual Files.
         '''</summary>
@@ -1985,7 +1994,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_optIndividualFiles", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Items are semi-colon delimited..
         '''</summary>
@@ -1994,7 +2003,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_RawEditInfo", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] Raw Edit.
         '''</summary>
@@ -2003,7 +2012,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_RawEditTitle", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Click here to set the saved game folder..
         '''</summary>
@@ -2012,7 +2021,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_ToolTipBrowse", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Set the saved game folder using the button above..
         '''</summary>
@@ -2021,7 +2030,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_ToolTipFiles", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The saved game folder could not be determined or does not exist..
         '''</summary>
@@ -2030,7 +2039,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_ToolTipFolder", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Saved Game Explorer.
         '''</summary>
@@ -2039,7 +2048,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmIncludeExclude_ToolTipTitle", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor[BR]Version: [PARAM] Beta ([PARAM])[BR]Build: [PARAM][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details..
         '''</summary>
@@ -2048,7 +2057,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_About", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Backup in Progress....
         '''</summary>
@@ -2057,7 +2066,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_BackupInProgress", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Cancel.
         '''</summary>
@@ -2066,7 +2075,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_btnCancelOperation", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Hide &amp;Log.
         '''</summary>
@@ -2075,7 +2084,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_btnToggleLog_Hide", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Show &amp;Log.
         '''</summary>
@@ -2084,7 +2093,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_btnToggleLog_Show", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose icon for [PARAM].
         '''</summary>
@@ -2093,7 +2102,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ChooseIcon", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose a location for the log file.
         '''</summary>
@@ -2102,7 +2111,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ChooseLogFile", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The command has failed..
         '''</summary>
@@ -2111,7 +2120,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_CommandFail", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The command was executed successfully..
         '''</summary>
@@ -2120,7 +2129,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_CommandSucess", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Do you wish to backup data from [PARAM]?.
         '''</summary>
@@ -2129,7 +2138,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ConfirmBackup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to clear the log?.
         '''</summary>
@@ -2138,7 +2147,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ConfirmLogClear", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to This tool removes orphaned backup information from the local manifest based on the current backup folder.  Data can become orphaned when backups are deleted by various computers that share the same backup folder on a cloud or network.[BR][BR]When alternating between different backup folders you should NOT use this tool.[BR][BR]Do you wish to proceed?.
         '''</summary>
@@ -2147,7 +2156,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ConfirmManifestClean", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Do you wish to cancel the monitoring of [PARAM]?[BR][BR]Warning: When monitoring is cancelled, session time is NOT saved..
         '''</summary>
@@ -2156,7 +2165,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ConfirmMonitorCancel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to This will rebuild all databases and shrink them to an optimal size.[BR]This should only be used if your gbm.s3db files are becoming very large.[BR][BR]Do you wish to continue?.
         '''</summary>
@@ -2165,7 +2174,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ConfirmRebuild", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Do you want to restart Game Backup Monitor as Administrator?.
         '''</summary>
@@ -2174,7 +2183,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ConfirmRunAsAdmin", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor Log.
         '''</summary>
@@ -2183,7 +2192,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_DefaultLogFileName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Developer Console.
         '''</summary>
@@ -2192,7 +2201,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_DeveloperConsole", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Enter Command.
         '''</summary>
@@ -2201,7 +2210,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_EnterCommand", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] is a 64-bit game, GBM cannot detect the required information to save your backup..
         '''</summary>
@@ -2210,7 +2219,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_Error64Backup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to 7-Zip was not found in the Game Backup Monitor utilities folder.  The application cannot continue..
         '''</summary>
@@ -2219,7 +2228,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_Error7zip", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] is running as Administrator and GBM is not, GBM cannot detect the required information to save your backup..
         '''</summary>
@@ -2228,7 +2237,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorAdminBackup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] is running as Administrator and GBM is not.[BR]You cannot cancel monitoring at this time.[BR][BR]Run GBM as Administrator to prevent this issue..
         '''</summary>
@@ -2237,7 +2246,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorAdminDetect", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor is already running as Administrator..
         '''</summary>
@@ -2246,7 +2255,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorAlreadyAdmin", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to GBM is running from a new location, the Windows startup entry has been updated..
         '''</summary>
@@ -2255,7 +2264,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorAppLocationChanged", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] backup was cancelled..
         '''</summary>
@@ -2264,7 +2273,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorBackupCancel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] backup was cancelled due to session length..
         '''</summary>
@@ -2273,7 +2282,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorBackupSessionLength", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] backup was cancelled due to unknown path..
         '''</summary>
@@ -2282,7 +2291,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorBackupUnknownPath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Bad parameter ([PARAM]) for command [PARAM]..
         '''</summary>
@@ -2291,7 +2300,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorCommandBadParam", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The command [PARAM] was not recognized..
         '''</summary>
@@ -2300,7 +2309,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorCommandInvalid", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The following monitored game(s) contain a custom path variable that is not set.[BR][PARAM][BR][BR]You will encounter backup/restore errors with these games until the variables are set..
         '''</summary>
@@ -2309,7 +2318,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorCustomVariable", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Your local GBM data (Version [PARAM]) is too new for your version of GBM (Version [PARAM]).[BR][BR]Please upgrade GBM or restore the database file appropriate for your version.  The application cannot proceed..
         '''</summary>
@@ -2318,7 +2327,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorDBVerLocal", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The GBM data (Version [PARAM]) in your backup folder is too new for your version of GBM (Version [PARAM])[BR][BR]All computers sharing a backup folder must use the same version of GBM.  The application cannot proceed..
         '''</summary>
@@ -2327,7 +2336,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorDBVerRemote", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to An unexpected error occured while initializing GBM.[BR][BR][PARAM][BR][BR]The application will now exit..
         '''</summary>
@@ -2336,7 +2345,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorInitFailure", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The command [PARAM] requires more parameters..
         '''</summary>
@@ -2345,7 +2354,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorMissingParams", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Multiple possible 64-bit games have been detected, GBM cannot detect the path to identify your game or save your backup.[BR][BR]Please install the 64-bit version of GBM to detect and backup this game properly..
         '''</summary>
@@ -2354,7 +2363,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorMulti64", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Multiple possible games have been detected running as Administrator and GBM is not, GBM cannot detect the path to identify your game or save your backup.[BR][BR]Please run GBM as Administrator to properly detect and backup this game..
         '''</summary>
@@ -2363,7 +2372,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorMultiAdmin", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] uses a relative path and has never been detected on this computer..
         '''</summary>
@@ -2372,7 +2381,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorRelativePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] restore was cancelled due to a restore path issue..
         '''</summary>
@@ -2381,7 +2390,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorRestorePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to An error occured creating application settings folder.  The application cannot proceed.[BR][BR][PARAM].
         '''</summary>
@@ -2390,7 +2399,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ErrorSettingsFolder", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] (Executable Path).
         '''</summary>
@@ -2399,7 +2408,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ExePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to exit?  Your games will no longer be monitored..
         '''</summary>
@@ -2408,7 +2417,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_Exit", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] Detected.
         '''</summary>
@@ -2417,7 +2426,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_GameDetected", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] has ended..
         '''</summary>
@@ -2426,7 +2435,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_GameEnded", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game List ([PARAM]) Loaded..
         '''</summary>
@@ -2435,7 +2444,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_GameListLoaded", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;File.
         '''</summary>
@@ -2444,7 +2453,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonFile", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Exit.
         '''</summary>
@@ -2453,7 +2462,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonFileExit", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Cancel &amp;Monitoring.
         '''</summary>
@@ -2462,7 +2471,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonFileMonitor_Cancel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Start &amp;Monitoring.
         '''</summary>
@@ -2471,7 +2480,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonFileMonitor_Start", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Stop &amp;Monitoring.
         '''</summary>
@@ -2480,7 +2489,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonFileMonitor_Stop", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Settings....
         '''</summary>
@@ -2489,7 +2498,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonFileSettings", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Help.
         '''</summary>
@@ -2498,7 +2507,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonHelp", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;About Game Backup Monitor.
         '''</summary>
@@ -2507,7 +2516,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonHelpAbout", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Check for Updates....
         '''</summary>
@@ -2516,7 +2525,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonHelpCheckForUpdates", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Online &amp;Manual....
         '''</summary>
@@ -2525,7 +2534,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonHelpManual", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Official Web Site....
         '''</summary>
@@ -2534,7 +2543,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonHelpWebSite", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Clear.
         '''</summary>
@@ -2543,7 +2552,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonLogClear", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Save.
         '''</summary>
@@ -2552,7 +2561,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonLogSave", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Setup.
         '''</summary>
@@ -2561,7 +2570,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonSetup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Add Game &amp;Wizard....
         '''</summary>
@@ -2570,7 +2579,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonSetupAddWizard", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Custom &amp;Path Variables....
         '''</summary>
@@ -2579,7 +2588,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonSetupCustomVariables", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Game Manager....
         '''</summary>
@@ -2588,7 +2597,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonSetupGameManager", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Tags....
         '''</summary>
@@ -2597,7 +2606,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonSetupTags", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Monitor Status:.
         '''</summary>
@@ -2606,7 +2615,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonStripStatusButton", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Click to toggle monitoring on or off..
         '''</summary>
@@ -2615,7 +2624,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonStripStatusButtonToolTip", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Tools.
         '''</summary>
@@ -2624,7 +2633,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonTools", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Clea&amp;n Local Manifest.
         '''</summary>
@@ -2633,7 +2642,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonToolsCleanMan", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Compact Databases.
         '''</summary>
@@ -2642,7 +2651,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonToolsCompact", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Log.
         '''</summary>
@@ -2651,7 +2660,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonToolsLog", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Show / Hide.
         '''</summary>
@@ -2660,7 +2669,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_gMonTrayShow", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Icon files (*.ico)|*.ico.
         '''</summary>
@@ -2669,7 +2678,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_IconFilter", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Last Game: [PARAM].
         '''</summary>
@@ -2678,7 +2687,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_LastGame", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Last Action:.
         '''</summary>
@@ -2687,7 +2696,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_lblLastActionTitle", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Local Database Vacuum Completed: [PARAM] KB.
         '''</summary>
@@ -2696,7 +2705,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_LocalCompactComplete", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Local Database Vacuum Initialized: [PARAM] KB.
         '''</summary>
@@ -2705,7 +2714,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_LocalCompactInit", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The session log has been cleared due to size and auto-saved to [PARAM]..
         '''</summary>
@@ -2714,7 +2723,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_LogAutoSave", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The local manifest is clean..
         '''</summary>
@@ -2723,7 +2732,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ManifestAreadyClean", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] entry was removed from local manfiest..
         '''</summary>
@@ -2732,7 +2741,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ManifestRemovedEntry", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] entries were removed from the local manifest..
         '''</summary>
@@ -2741,7 +2750,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ManifestTotalRemoved", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to A manaul backup of [PARAM] was triggered..
         '''</summary>
@@ -2750,7 +2759,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_ManualBackup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The master game list has been changed by a program other than GBM..
         '''</summary>
@@ -2759,7 +2768,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_MasterListChanged", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Monitoring of [PARAM] was cancelled..
         '''</summary>
@@ -2768,7 +2777,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_MonitorCancel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] monitoring ended..
         '''</summary>
@@ -2777,7 +2786,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_MonitorEnded", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Multiple Games.
         '''</summary>
@@ -2786,7 +2795,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_MultipleGames", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Multiple Games Detected.
         '''</summary>
@@ -2795,7 +2804,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_MultipleGamesDetected", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] New Saves Pending.
         '''</summary>
@@ -2804,7 +2813,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_NewSaveNotificationMulti", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] New Save Pending.
         '''</summary>
@@ -2813,7 +2822,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_NewSaveNotificationSingle", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game details are unavailable..
         '''</summary>
@@ -2822,7 +2831,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_NoDetails", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to No Game Detected.
         '''</summary>
@@ -2831,7 +2840,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_NoGameDetected", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to N/A.
         '''</summary>
@@ -2840,7 +2849,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_NotAvailable", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Not Scanning.
         '''</summary>
@@ -2849,7 +2858,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_NotScanning", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Remote Database Vacuum Completed: [PARAM] KB.
         '''</summary>
@@ -2858,7 +2867,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_RemoteCompactComplete", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Remote Database Vacuum Initialized: [PARAM] KB.
         '''</summary>
@@ -2867,7 +2876,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_RemoteCompactInit", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Restore in progress....
         '''</summary>
@@ -2876,7 +2885,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_RestoreInProgress", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to GBM is running with Administrator privileges..
         '''</summary>
@@ -2885,7 +2894,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_RunningAsAdmin", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to GBM is running with normal privileges.  Click to restart as Administrator..
         '''</summary>
@@ -2894,7 +2903,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_RunningAsNormal", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] hours.
         '''</summary>
@@ -2903,7 +2912,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_SessionHours", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] minutes.
         '''</summary>
@@ -2912,7 +2921,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_SessionMinutes", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Text.
         '''</summary>
@@ -2921,7 +2930,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_Text", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to the unidentified game.
         '''</summary>
@@ -2930,7 +2939,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_UnknownGame", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The unidentified game has ended..
         '''</summary>
@@ -2939,7 +2948,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_UnknownGameEnded", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Updated by [PARAM] on [PARAM].
         '''</summary>
@@ -2948,7 +2957,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmMain_UpdatedBy", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose a backup folder:.
         '''</summary>
@@ -2957,7 +2966,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_BrowseFolder", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ....
         '''</summary>
@@ -2966,7 +2975,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_btnBackupFolder", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Cancel.
         '''</summary>
@@ -2975,7 +2984,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_btnCancel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Save.
         '''</summary>
@@ -2984,7 +2993,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_btnSave", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Fast.
         '''</summary>
@@ -2993,7 +3002,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_cboCompression_Fast", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Fastest.
         '''</summary>
@@ -3002,7 +3011,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_cboCompression_Fastest", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Maximum.
         '''</summary>
@@ -3011,7 +3020,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_cboCompression_Maximum", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to None.
         '''</summary>
@@ -3020,7 +3029,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_cboCompression_None", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Normal.
         '''</summary>
@@ -3029,7 +3038,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_cboCompression_Normal", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Ultra.
         '''</summary>
@@ -3038,7 +3047,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_cboCompression_Ultra", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Disable backup confirmation.
         '''</summary>
@@ -3047,7 +3056,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_chkBackupConfirm", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Verify backup files with a checksum.
         '''</summary>
@@ -3056,7 +3065,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_chkCheckSum", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Create a sub-folder for each game.
         '''</summary>
@@ -3065,7 +3074,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_chkCreateFolder", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Start monitoring at launch.
         '''</summary>
@@ -3074,7 +3083,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_chkMonitorOnStartup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Show overwrite warning.
         '''</summary>
@@ -3083,7 +3092,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_chkOverwriteWarning", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Notify when there are new backup files to restore.
         '''</summary>
@@ -3092,7 +3101,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_chkRestoreOnLaunch", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Show detection notifications.
         '''</summary>
@@ -3101,7 +3110,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_chkShowDetectionTips", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Start to system tray.
         '''</summary>
@@ -3110,7 +3119,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_chkStartToTray", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Start with Windows.
         '''</summary>
@@ -3119,7 +3128,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_chkStartWindows", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Backup only when session time exceeds.
         '''</summary>
@@ -3128,7 +3137,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_chkSupressBackup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Sync game list data with backup folder.
         '''</summary>
@@ -3137,7 +3146,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_chkSync", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Enable time tracking.
         '''</summary>
@@ -3146,7 +3155,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_chkTimeTracking", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The backup folder does not exist.  Please choose a valid backup folder..
         '''</summary>
@@ -3155,7 +3164,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_ErrorBackupFolder", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Settings.
         '''</summary>
@@ -3164,7 +3173,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_FormName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to 7z Options.
         '''</summary>
@@ -3173,7 +3182,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_grp7z", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Backup and Restore.
         '''</summary>
@@ -3182,7 +3191,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_grpBackup", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to General.
         '''</summary>
@@ -3191,7 +3200,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_grpGeneral", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Paths.
         '''</summary>
@@ -3200,7 +3209,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_grpPaths", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Backup Folder:.
         '''</summary>
@@ -3209,7 +3218,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_lblBackupFolder", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Compression:.
         '''</summary>
@@ -3218,7 +3227,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_lblCompression", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to minutes.
         '''</summary>
@@ -3227,7 +3236,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmSettings_lblMinutes", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose a backup folder:.
         '''</summary>
@@ -3236,7 +3245,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_BrowseFolder", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Back.
         '''</summary>
@@ -3245,7 +3254,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_btnBack", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Import from Official List.
         '''</summary>
@@ -3254,7 +3263,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_btnDownloadList", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ....
         '''</summary>
@@ -3263,7 +3272,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_btnFolderBrowse", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Next.
         '''</summary>
@@ -3272,7 +3281,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_btnNext", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Finish.
         '''</summary>
@@ -3281,7 +3290,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_btnNext_Finish", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game Manager.
         '''</summary>
@@ -3290,7 +3299,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_btnOpenMonitorList", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Add Game Wizard.
         '''</summary>
@@ -3299,7 +3308,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_btnOpenWizard", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Create a sub-folder for each game.
         '''</summary>
@@ -3308,7 +3317,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_chkCreateFolder", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Import any existing GBM data in the backup folder.
         '''</summary>
@@ -3317,7 +3326,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_chkSync", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection..
         '''</summary>
@@ -3326,7 +3335,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_ConfirmOfficialImport", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The selected path must be a full path..
         '''</summary>
@@ -3335,7 +3344,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_ErrorBadFolder", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to You must select a backup path to continue..
         '''</summary>
@@ -3344,7 +3353,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_ErrorNoFolder", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The folder you selected does not exist or is not a valid folder..
         '''</summary>
@@ -3353,7 +3362,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_ErrorNoFolderExists", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Existing data was detected in the backup folder and has been imported..
         '''</summary>
@@ -3362,7 +3371,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_ExistingData", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to GBM Setup.
         '''</summary>
@@ -3371,7 +3380,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_FormName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to This guide will help you through some quick and easy steps to get started..
         '''</summary>
@@ -3380,7 +3389,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_lblStep1Instructions", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to If you&apos;d like to learn about advanced features or have any other questions before you get started, there is a detailed online manual available..
         '''</summary>
@@ -3389,7 +3398,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_lblStep1Instructions2", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Welcome to GBM.
         '''</summary>
@@ -3398,7 +3407,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_lblStep1Title", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to GBM will store all your backup files along with a manifest database (gbm.s3db) in this location. .
         '''</summary>
@@ -3407,7 +3416,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_lblStep2Instructions", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose where GBM saves your backup files:.
         '''</summary>
@@ -3416,7 +3425,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_lblStep2Intro", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Backup Location.
         '''</summary>
@@ -3425,7 +3434,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_lblStep2Title", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Before you can start monitoring for games, they need to be configured so GBM knows what to look for and how to handle them.  You can download pre-made configurations from the official list or add them all yourself using the tools below.  You can also skip this step for now!.
         '''</summary>
@@ -3434,7 +3443,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_lblStep3Intro", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Monitoring Games.
         '''</summary>
@@ -3443,7 +3452,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_lblStep3Title", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to GBM will automatically monitor and backup your games each time they are closed..
         '''</summary>
@@ -3452,7 +3461,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_lblStep4Instructions", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Remember that GBM can only currently monitor one game at a time..
         '''</summary>
@@ -3461,7 +3470,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_lblStep4Instructions2", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to You can change anything you&apos;ve setup in this wizard and find more settings and features by exploring the menus.  Thanks!.
         '''</summary>
@@ -3470,7 +3479,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_lblStep4Instructions3", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Finished!.
         '''</summary>
@@ -3479,7 +3488,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_lblStep4Title", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor Manual.
         '''</summary>
@@ -3488,7 +3497,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmStartUpWizard_llbManual", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to +.
         '''</summary>
@@ -3497,7 +3506,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmTags_btnAdd", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Cancel.
         '''</summary>
@@ -3506,7 +3515,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmTags_btnCancel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to C&amp;lose.
         '''</summary>
@@ -3515,7 +3524,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmTags_btnClose", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to -.
         '''</summary>
@@ -3524,7 +3533,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmTags_btnDelete", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Save.
         '''</summary>
@@ -3533,7 +3542,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmTags_btnSave", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to delete [PARAM]?  This cannot be undone.[BR][BR]All games using this tag will have it removed..
         '''</summary>
@@ -3542,7 +3551,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmTags_ConfirmDelete", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to A tag with this name already exists..
         '''</summary>
@@ -3551,7 +3560,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmTags_ErrorTagDupe", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to You must enter a valid tag name..
         '''</summary>
@@ -3560,7 +3569,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmTags_ErrorValidName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Tags.
         '''</summary>
@@ -3569,7 +3578,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmTags_FormName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Configuration.
         '''</summary>
@@ -3578,7 +3587,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmTags_grpTag", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Name:.
         '''</summary>
@@ -3587,7 +3596,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmTags_lblName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to +.
         '''</summary>
@@ -3596,7 +3605,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmVariableManager_btnAdd", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Cancel.
         '''</summary>
@@ -3605,7 +3614,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmVariableManager_btnCancel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to C&amp;lose.
         '''</summary>
@@ -3614,7 +3623,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmVariableManager_btnClose", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to -.
         '''</summary>
@@ -3623,7 +3632,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmVariableManager_btnDelete", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ....
         '''</summary>
@@ -3632,7 +3641,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmVariableManager_btnPathBrowse", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to &amp;Save.
         '''</summary>
@@ -3641,7 +3650,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmVariableManager_btnSave", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to delete [PARAM]?  This cannot be undone..
         '''</summary>
@@ -3650,7 +3659,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmVariableManager_ConfirmDelete", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to You must enter a valid variable name..
         '''</summary>
@@ -3659,7 +3668,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmVariableManager_ErrorValidName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to You must enter a valid path..
         '''</summary>
@@ -3668,7 +3677,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmVariableManager_ErrorValidPath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to A custom variable with this name already exists..
         '''</summary>
@@ -3677,7 +3686,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmVariableManager_ErrorVariableDupe", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Custom Variable Manager.
         '''</summary>
@@ -3686,7 +3695,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmVariableManager_FormName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Configuration.
         '''</summary>
@@ -3695,7 +3704,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmVariableManager_grpVariable", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Name:.
         '''</summary>
@@ -3704,7 +3713,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmVariableManager_lblName", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Path:.
         '''</summary>
@@ -3713,7 +3722,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmVariableManager_lblPath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Choose the path the variable represents:.
         '''</summary>
@@ -3722,137 +3731,137 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmVariableManager_PathBrowse", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         '''</summary>
         Friend ReadOnly Property GBM_Tray_Detected() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("GBM_Tray_Detected", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
+                Return CType(obj, System.Drawing.Icon)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         '''</summary>
         Friend ReadOnly Property GBM_Tray_Ready() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("GBM_Tray_Ready", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
+                Return CType(obj, System.Drawing.Icon)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         '''</summary>
         Friend ReadOnly Property GBM_Tray_Stopped() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("GBM_Tray_Stopped", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
+                Return CType(obj, System.Drawing.Icon)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property Icon_Admin() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Icon_Admin", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Return CType(obj, System.Drawing.Bitmap)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property Icon_Clock() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Icon_Clock", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Return CType(obj, System.Drawing.Bitmap)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property Icon_Detected() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Icon_Detected", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Return CType(obj, System.Drawing.Bitmap)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property Icon_Inbox() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Icon_Inbox", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Return CType(obj, System.Drawing.Bitmap)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property Icon_Ready() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Icon_Ready", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Return CType(obj, System.Drawing.Bitmap)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property Icon_Searching() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Icon_Searching", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Return CType(obj, System.Drawing.Bitmap)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property Icon_Stopped() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Icon_Stopped", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Return CType(obj, System.Drawing.Bitmap)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property Icon_Unknown() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Icon_Unknown", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Return CType(obj, System.Drawing.Bitmap)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property Icon_User() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Icon_User", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Return CType(obj, System.Drawing.Bitmap)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property Icon_Working() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Icon_Working", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Return CType(obj, System.Drawing.Bitmap)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Do you wish to manually set the game path? (Path will be saved).
         '''</summary>
@@ -3861,7 +3870,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgPath_ConfirmManualPathNoParam", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] backup completed.
         '''</summary>
@@ -3870,7 +3879,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_ActionComplete", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] backup failed.
         '''</summary>
@@ -3879,7 +3888,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_ActionFailed", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] backup ([PARAM]) completed. .
         '''</summary>
@@ -3888,7 +3897,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_BackupComplete", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Backup of [PARAM] in progress....
         '''</summary>
@@ -3897,7 +3906,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_BackupInProgress", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] backup finished with warnings or errors..
         '''</summary>
@@ -3906,7 +3915,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_BackupWarnings", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The manifest shows the backup folder contains a backup for [PARAM] that has not been restored on this computer.[BR][BR]Do you want to overwrite this file anyway?.
         '''</summary>
@@ -3915,7 +3924,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_ConfirmManifestConflict", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to A file with the same name already exists in the backup folder.[BR][BR]Do you want to overwrite this file?.
         '''</summary>
@@ -3924,7 +3933,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_ConfirmOverwrite", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to An error occured creating a file list: [PARAM].
         '''</summary>
@@ -3933,7 +3942,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_ErrorFileList", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Backup aborted.  The backup file for [PARAM] may be unusable..
         '''</summary>
@@ -3942,7 +3951,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_ErrorFullAbort", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Backup aborted by user due to manifest conflict..
         '''</summary>
@@ -3951,7 +3960,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_ErrorManifestConflict", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to The manifest update for [PARAM] failed..
         '''</summary>
@@ -3960,7 +3969,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_ErrorManifestFailure", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Backup aborted.  The saved game path for [PARAM] does not exist..
         '''</summary>
@@ -3969,7 +3978,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_ErrorNoSavePath", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to An unexpected error occured during the backup of [PARAM].[BR][PARAM].
         '''</summary>
@@ -3978,7 +3987,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_ErrorOtherFailure", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] backup aborted by user due to overwrite..
         '''</summary>
@@ -3987,7 +3996,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_ErrorOverwriteAbort", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Backup aborted.  A failure occured while creating a backup sub-folder for [PARAM].[BR][PARAM].
         '''</summary>
@@ -3996,7 +4005,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_ErrorSubFolderCreate", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Generating SHA-256 hash for [PARAM] backup file..
         '''</summary>
@@ -4005,7 +4014,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrBackup_GenerateHash", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to An error has occured writing the text file.[BR][BR][PARAM].
         '''</summary>
@@ -4014,9 +4023,9 @@ Namespace My.Resources
                 Return ResourceManager.GetString("mgrCommon_ErrorWritingTextFile", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] files (*.[PARAM])|*.[PARAM].
+        '''  Looks up a localized string similar to [PARAM] files (*.[PARAM])|*.[PARAM]|All files (*.*)|*.*.
         '''</summary>
         Friend ReadOnly Property mgrCommon_FilesFilter() As String
             Get

@@ -1355,7 +1355,7 @@
     <value>Generating SHA-256 hash for [PARAM] backup file.</value>
   </data>
   <data name="mgrCommon_FilesFilter" xml:space="preserve">
-    <value>[PARAM] files (*.[PARAM])|*.[PARAM]</value>
+    <value>[PARAM] files (*.[PARAM])|*.[PARAM]|All files (*.*)|*.*</value>
   </data>
   <data name="mgrCommon_No" xml:space="preserve">
     <value>No</value>
@@ -1560,5 +1560,8 @@
   </data>
   <data name="frmMain_ErrorInitFailure" xml:space="preserve">
     <value>An unexpected error occured while initializing GBM.[BR][BR][PARAM][BR][BR]The application will now exit.</value>
+  </data>
+  <data name="App_ErrorUnixNotAvailable" xml:space="preserve">
+    <value>This function is currently not available on a Unix based operating system.</value>
   </data>
 </root>
