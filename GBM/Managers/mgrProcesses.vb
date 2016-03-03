@@ -110,8 +110,8 @@ Public Class mgrProcesses
             prsls.StartInfo.RedirectStandardOutput = True
             prsls.StartInfo.CreateNoWindow = True
             prsls.Start()
-            slsinfo = prsls.StandardOutput.ReadToEnd().Split(New Char() {" "}, 12)
-            Return slsinfo(slsinfo.Length - 1).TrimEnd
+            slsinfo = prsls.StandardOutput.ReadToEnd().Split(">")
+            Return slsinfo(slsinfo.Length - 1).Trim
         Catch ex As Exception
             Return String.Empty
         End Try
