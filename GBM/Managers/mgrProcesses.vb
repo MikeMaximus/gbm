@@ -85,17 +85,66 @@ Public Class mgrProcesses
         Next
     End Sub
 
+    'This function will only works correctly on Unix
+    Private Function GetUnixProcessArguments(ByVal prs As Process) As String()
+        Dim sArguments As String        
+        Try
+            sArguments = File.ReadAllText("/proc/" & prs.Id.ToString() & "/cmdline")
+            Return sArguments.Split(vbNullChar)
+        Catch ex As Exception
+            Return New String() {String.Empty}
+        End Try
+    End Function
+
+    'This function will only works correctly on Unix
+    Private Function GetUnixProcessWorkingDirectory(ByVal prs As Process) As String
+        Dim prsls As Process
+        Dim slsinfo As String()
+
+        'This is the best way I can think of to determine the end point of a symlink without doing even more crazy shit
+        Try
+            prsls = New Process
+            prsls.StartInfo.FileName = "/bin/bash"
+            prsls.StartInfo.Arguments = "-c ""ls -l /proc/" & prs.Id.ToString & " | grep cwd"""
+            prsls.StartInfo.UseShellExecute = False
+            prsls.StartInfo.RedirectStandardOutput = True
+            prsls.StartInfo.CreateNoWindow = True
+            prsls.Start()
+            slsinfo = prsls.StandardOutput.ReadToEnd().Split(" ")            
+            Return slsinfo(slsinfo.Length - 1).TrimEnd
+        Catch ex As Exception
+            Return String.Empty
+        End Try
+    End Function
+
     Public Function SearchRunningProcesses(ByVal hshScanList As Hashtable, ByRef bNeedsPath As Boolean, ByRef iErrorCode As Integer, ByVal bDebugMode As Boolean) As Boolean
         Dim prsList() As Process = Process.GetProcesses
         Dim sProcessCheck As String = String.Empty
         Dim sProcessList As String = String.Empty
+        Dim bWineProcess As Boolean = False
 
         For Each prsCurrent As Process In prsList
-
             'This needs to be wrapped due to issues with Mono.
             Try
                 sProcessCheck = prsCurrent.ProcessName
-                If bDebugMode Then sProcessList &= sProcessCheck & vbCrLf
+
+                'Unix Handler
+                'We need some special handling for Wine processes
+                If mgrCommon.IsUnix And sProcessCheck.ToLower = "wine-preloader" Then
+                    Dim sWinePath As String()
+                    'We can't use Path.GetFileName here, Wine uses the Windows seperator in arguments and the Unix version of the function expects a different one.
+                    sWinePath = GetUnixProcessArguments(prsCurrent)(0).Split("\")
+                    sProcessCheck = sWinePath(sWinePath.Length - 1).Replace(".exe", "")
+                    bWineProcess = True
+                Else
+                    bWineProcess = False
+                End If
+
+                If bDebugMode And mgrCommon.IsUnix Then
+                    sProcessList &= prsCurrent.Id & " " & prsCurrent.ProcessName & " " & GetUnixProcessArguments(prsCurrent)(0) & vbCrLf
+                ElseIf bDebugMode Then
+                    sProcessList &= prsCurrent.Id & " " & prsCurrent.ProcessName & vbCrLf
+                End If
             Catch ex As Exception
                 'Do Nothing
             End Try
@@ -113,7 +162,11 @@ Public Class mgrProcesses
 
                 If Not oGame.AbsolutePath Or oGame.Duplicate Then
                     Try
-                        oGame.ProcessPath = Path.GetDirectoryName(prsCurrent.MainModule.FileName)
+                        If Not bWineProcess Then
+                            oGame.ProcessPath = Path.GetDirectoryName(prsCurrent.MainModule.FileName)
+                        Else
+                            oGame.ProcessPath = GetUnixProcessWorkingDirectory(prsCurrent)
+                        End If
                     Catch exWin32 As System.ComponentModel.Win32Exception
                         'If an exception occurs the process is:
                         'Running as administrator and the app isn't.

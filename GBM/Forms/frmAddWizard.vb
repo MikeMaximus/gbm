@@ -83,7 +83,7 @@ Public Class frmAddWizard
         Dim sName As String = txtName.Text
         Dim sProcessFullPath As String = txtProcessPath.Text
         Dim sProcessPath As String = Path.GetDirectoryName(sProcessFullPath)
-        Dim sProcess As String        
+        Dim sProcess As String = Path.GetFileNameWithoutExtension(sProcessFullPath)
         Dim sProcessSummaryText As String = Path.GetFileName(sProcessFullPath) & " (" & sProcessPath & ")"
         Dim sSavePath As String = txtSavePath.Text
         Dim bIsAbsolute As Boolean = mgrPath.IsAbsolute(sSavePath)
@@ -98,13 +98,6 @@ Public Class frmAddWizard
 
         If Not bIsAbsolute Then
             sSavePath = mgrPath.DetermineRelativePath(sProcessPath, sSavePath)
-        End If
-
-        'Unix Handler
-        If mgrCommon.IsUnix Then
-            sProcess = Path.GetFileName(sProcessFullPath)
-        Else
-            sProcess = Path.GetFileNameWithoutExtension(sProcessFullPath)
         End If
 
         'Build Summary Listview

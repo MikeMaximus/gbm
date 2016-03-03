@@ -563,8 +563,8 @@ Public Class frmMain
             sMainCommand = sFullCommand.Split(cDelimters, 2)(0)
 
             'Parse Command
-            Select Case sMainCommand
-                Case "SQL"
+            Select Case sMainCommand.ToLower
+                Case "sql"
                     'Run a SQL command directly on any database
                     'Usage: SQL {Local or Remote} SQL Command
 
@@ -579,9 +579,9 @@ Public Class frmMain
                         Exit Select
                     End If
 
-                    If sCommand(1) = "Local" Then
+                    If sCommand(1).ToLower = "local" Then
                         oDatabase = New mgrSQLite(mgrSQLite.Database.Local)
-                    ElseIf sCommand(1) = "Remote" Then
+                    ElseIf sCommand(1).ToLower = "remote" Then
                         oDatabase = New mgrSQLite(mgrSQLite.Database.Remote)
                     Else
                         mgrCommon.ShowMessage(frmMain_ErrorCommandBadParam, New String() {sCommand(1), sCommand(0)}, MsgBoxStyle.Exclamation)
@@ -596,7 +596,7 @@ Public Class frmMain
                         mgrCommon.ShowMessage(frmMain_CommandFail, MsgBoxStyle.Exclamation)
                     End If
 
-                Case "DEBUG"
+                Case "debug"
                     'Enable or disable various debug modes
                     'Usage: DEBUG Mode {Enable or Disable} 
 
@@ -610,17 +610,17 @@ Public Class frmMain
                         Exit Select
                     End If
 
-                    If sCommand(2) = "Enable" Then
+                    If sCommand(2).ToLower = "enable" Then
                         bDebugEnable = True
-                    ElseIf sCommand(2) = "Disable" Then
+                    ElseIf sCommand(2).ToLower = "disable" Then
                         bDebugEnable = False
                     Else
                         mgrCommon.ShowMessage(frmMain_ErrorCommandBadParam, New String() {sCommand(1), sCommand(0)}, MsgBoxStyle.Exclamation)
                         Exit Select
                     End If
 
-                    Select Case sCommand(1)
-                        Case "Process"
+                    Select Case sCommand(1).ToLower
+                        Case "process"
                             bProcessDebugMode = bDebugEnable
                             mgrCommon.ShowMessage(frmMain_CommandSucess, MsgBoxStyle.Exclamation)
                     End Select

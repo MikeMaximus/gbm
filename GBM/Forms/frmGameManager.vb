@@ -942,7 +942,7 @@ Public Class frmGameManager
             oApp.ID = txtID.Text
         End If
         oApp.Name = mgrPath.ValidateForFileSystem(txtName.Text)
-        If Path.HasExtension(txtProcess.Text) And Not mgrCommon.IsUnix Then
+        If Path.HasExtension(txtProcess.Text) Then
             If txtProcess.Text.ToLower.EndsWith(".exe") Then
                 oApp.ProcessName = Path.GetFileNameWithoutExtension(txtProcess.Text)
             Else
