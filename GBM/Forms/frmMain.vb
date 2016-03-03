@@ -333,8 +333,16 @@ Public Class frmMain
         Dim fbBrowser As New OpenFileDialog
 
         fbBrowser.Title = mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName)
-        fbBrowser.DefaultExt = "ico"
-        fbBrowser.Filter = frmMain_IconFilter
+
+        'Unix Handler
+        If Not mgrCommon.IsUnix Then
+            fbBrowser.DefaultExt = "ico"
+            fbBrowser.Filter = frmMain_IconFilter
+        Else
+            fbBrowser.DefaultExt = "png"
+            fbBrowser.Filter = frmMain_PNGFilter
+        End If
+
         Try
             fbBrowser.InitialDirectory = IO.Path.GetDirectoryName(oProcess.FoundProcess.MainModule.FileName)
         Catch ex As Exception

@@ -201,6 +201,12 @@ Public Class mgrPath
         Dim oCustomVariable As clsPathVariable
 
 
+        For Each oCustomVariable In hshCustomVariables.Values
+            If sValue.Contains(oCustomVariable.FormattedName) Then
+                Return sValue.Replace(oCustomVariable.FormattedName, oCustomVariable.Path)
+            End If
+        Next
+
         If sValue.Contains("*appdatalocal*") Then
             Return sValue.Replace("*appdatalocal*", sAppDataLocal)
         End If
@@ -209,12 +215,13 @@ Public Class mgrPath
             Return sValue.Replace("*appdataroaming*", sAppDataRoaming)
         End If
 
+        'This needs to be tested last for Unix compatability
+        If sValue.Contains("*mydocs*") Then
+            Return sValue.Replace("*mydocs*", sMyDocs)
+        End If
+
         'Don't use these in Unix
         If Not mgrCommon.IsUnix Then
-            If sValue.Contains("*mydocs*") Then
-                Return sValue.Replace("*mydocs*", sMyDocs)
-            End If
-
             If sValue.Contains("*publicdocs*") Then
                 Return sValue.Replace("*publicdocs*", sPublicDocs)
             End If
@@ -223,12 +230,6 @@ Public Class mgrPath
                 Return sValue.Replace("*currentuser*", sCurrentUser)
             End If
         End If
-
-        For Each oCustomVariable In hshCustomVariables.Values
-            If sValue.Contains(oCustomVariable.FormattedName) Then
-                Return sValue.Replace(oCustomVariable.FormattedName, oCustomVariable.Path)
-            End If
-        Next
 
         Return sValue
     End Function
@@ -241,7 +242,12 @@ Public Class mgrPath
         Dim sCurrentUser As String = "*currentuser*"
         Dim oCustomVariable As clsPathVariable
 
-       
+        For Each oCustomVariable In hshCustomVariables.Values
+            If sValue.Contains(oCustomVariable.Path) Then
+                Return sValue.Replace(oCustomVariable.Path, oCustomVariable.FormattedName)
+            End If
+        Next
+
         If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) Then
             Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), sAppDataLocal)
         End If
@@ -250,12 +256,13 @@ Public Class mgrPath
             Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), sAppDataRoaming)
         End If
 
+        'This needs to be tested last for Unix compatability
+        If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) Then
+            Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), sMyDocs)
+        End If
+
         'Don't use these in Unix
         If Not mgrCommon.IsUnix Then
-            If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) Then
-                Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), sMyDocs)
-            End If
-
             If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments)) Then
                 Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), sPublicDocs)
             End If
@@ -264,12 +271,6 @@ Public Class mgrPath
                 Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), sCurrentUser)
             End If
         End If
-
-        For Each oCustomVariable In hshCustomVariables.Values
-            If sValue.Contains(oCustomVariable.Path) Then
-                Return sValue.Replace(oCustomVariable.Path, oCustomVariable.FormattedName)
-            End If
-        Next
 
         Return sValue
     End Function

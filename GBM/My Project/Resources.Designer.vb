@@ -2869,6 +2869,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to PNG files (*.png)|*.png.
+        '''</summary>
+        Friend ReadOnly Property frmMain_PNGFilter() As String
+            Get
+                Return ResourceManager.GetString("frmMain_PNGFilter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Remote Database Vacuum Completed: [PARAM] KB.
         '''</summary>
         Friend ReadOnly Property frmMain_RemoteCompactComplete() As String

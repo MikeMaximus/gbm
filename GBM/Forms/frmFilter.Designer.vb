@@ -99,7 +99,6 @@ Partial Class frmFilter
         '
         'optAll
         '
-        Me.optAll.AutoSize = True
         Me.optAll.Location = New System.Drawing.Point(77, 19)
         Me.optAll.Name = "optAll"
         Me.optAll.Size = New System.Drawing.Size(63, 17)
@@ -110,7 +109,6 @@ Partial Class frmFilter
         '
         'optAny
         '
-        Me.optAny.AutoSize = True
         Me.optAny.Checked = True
         Me.optAny.Location = New System.Drawing.Point(6, 19)
         Me.optAny.Name = "optAny"
@@ -213,7 +211,6 @@ Partial Class frmFilter
         '
         'optOr
         '
-        Me.optOr.AutoSize = True
         Me.optOr.Location = New System.Drawing.Point(56, 19)
         Me.optOr.Name = "optOr"
         Me.optOr.Size = New System.Drawing.Size(36, 17)
@@ -224,7 +221,6 @@ Partial Class frmFilter
         '
         'optAnd
         '
-        Me.optAnd.AutoSize = True
         Me.optAnd.Checked = True
         Me.optAnd.Location = New System.Drawing.Point(6, 19)
         Me.optAnd.Name = "optAnd"
@@ -302,11 +298,9 @@ Partial Class frmFilter
         Me.grpTagFilter.ResumeLayout(False)
         Me.grpTagFilter.PerformLayout()
         Me.grpTagOptions.ResumeLayout(False)
-        Me.grpTagOptions.PerformLayout()
         Me.grpGameFilter.ResumeLayout(False)
         Me.grpGameFilter.PerformLayout()
         Me.grpGameInfoOptions.ResumeLayout(False)
-        Me.grpGameInfoOptions.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -336,8 +336,14 @@ Public Class frmGameManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFileBrowser(frmGameManager_ChooseCustomIcon, "ico", _
-                                          frmGameManager_Icon, sDefaultFolder, False)
+        'Unix Handler
+        If Not mgrCommon.IsUnix Then
+            sNewPath = mgrCommon.OpenFileBrowser(frmGameManager_ChooseCustomIcon, "ico", _
+                                              frmGameManager_Icon, sDefaultFolder, False)
+        Else
+            sNewPath = mgrCommon.OpenFileBrowser(frmGameManager_ChooseCustomIcon, "png", _
+                                              "PNG", sDefaultFolder, False)
+        End If
 
         If sNewPath <> String.Empty Then
             txtIcon.Text = sNewPath

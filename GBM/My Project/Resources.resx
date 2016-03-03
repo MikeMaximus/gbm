@@ -1567,4 +1567,7 @@
   <data name="frmGameManager_ConfirmUnixImportWarning" xml:space="preserve">
     <value>You appear to be using a Unix based operating system.  The official list currently contains only Microsoft Windows game configurations.[BR][BR]Do you wish to continue?</value>
   </data>
+  <data name="frmMain_PNGFilter" xml:space="preserve">
+    <value>PNG files (*.png)|*.png</value>
+  </data>
 </root>
