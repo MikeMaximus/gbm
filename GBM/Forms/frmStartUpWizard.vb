@@ -98,6 +98,12 @@ Public Class frmStartUpWizard
     End Sub
 
     Private Sub DownloadSettings()
+        If mgrCommon.IsUnix Then
+            If mgrCommon.ShowMessage(frmGameManager_ConfirmUnixImportWarning, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                Exit Sub
+            End If
+        End If
+
         If mgrCommon.ShowMessage(frmStartUpWizard_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             If mgrMonitorList.DoImport(App_URLImport) Then
                 oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)

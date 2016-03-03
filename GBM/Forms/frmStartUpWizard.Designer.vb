@@ -96,11 +96,10 @@ Partial Class frmStartUpWizard
         '
         'llbManual
         '
-        Me.llbManual.AutoSize = True
         Me.llbManual.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.llbManual.Location = New System.Drawing.Point(14, 158)
         Me.llbManual.Name = "llbManual"
-        Me.llbManual.Size = New System.Drawing.Size(151, 13)
+        Me.llbManual.Size = New System.Drawing.Size(303, 13)
         Me.llbManual.TabIndex = 3
         Me.llbManual.TabStop = True
         Me.llbManual.Text = "Game Backup Monitor Manual"

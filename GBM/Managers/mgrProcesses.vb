@@ -85,13 +85,17 @@ Public Class mgrProcesses
         Next
     End Sub
 
-    Public Function SearchRunningProcesses(ByVal hshScanList As Hashtable, ByRef bNeedsPath As Boolean, ByRef iErrorCode As Integer) As Boolean
+    Public Function SearchRunningProcesses(ByVal hshScanList As Hashtable, ByRef bNeedsPath As Boolean, ByRef iErrorCode As Integer, ByVal bDebugMode As Boolean) As Boolean
         Dim prsList() As Process = Process.GetProcesses
         Dim sProcessCheck As String = String.Empty
+        Dim sProcessList As String = String.Empty
 
         For Each prsCurrent As Process In prsList
+
+            'This needs to be wrapped due to issues with Mono.
             Try
-                sProcessCheck = prsCurrent.ProcessName               
+                sProcessCheck = prsCurrent.ProcessName
+                If bDebugMode Then sProcessList &= sProcessCheck & vbCrLf
             Catch ex As Exception
                 'Do Nothing
             End Try
@@ -121,12 +125,12 @@ Public Class mgrProcesses
                             bNeedsPath = True
                             iErrorCode = 299
                         Else
-                            MsgBox(exWin32.Message & vbCrLf & exWin32.StackTrace)
+                            If bDebugMode Then mgrCommon.ShowMessage(exWin32.NativeErrorCode & " " & exWin32.Message & vbCrLf & vbCrLf & exWin32.StackTrace, MsgBoxStyle.Critical)
                             'A different failure occured,  drop out and continue to scan.
                             Return False
                         End If
                     Catch exAll As Exception
-                        MsgBox(exAll.Message & vbCrLf & exAll.StackTrace)
+                        If bDebugMode Then mgrCommon.ShowMessage(exAll.Message & vbCrLf & vbCrLf & exAll.StackTrace, MsgBoxStyle.Critical)
                         'A different failure occured,  drop out and continue to scan.
                         Return False
                     End Try
@@ -142,6 +146,8 @@ Public Class mgrProcesses
                 End If
             End If
         Next
+
+        If bDebugMode Then mgrCommon.SaveText(sProcessList, mgrPath.SettingsRoot & "/gbm_process_list.txt")
 
         Return False
     End Function

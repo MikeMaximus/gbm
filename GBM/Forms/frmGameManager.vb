@@ -597,7 +597,7 @@ Public Class frmGameManager
             mgrManifest.DoManifestDelete(CurrentBackupItem, mgrSQLite.Database.Remote)
 
             'Delete referenced backup file from the backup folder
-            If File.Exists(BackupFolder & CurrentBackupItem.FileName) Then My.Computer.FileSystem.DeleteFile(BackupFolder & CurrentBackupItem.FileName, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.SendToRecycleBin)
+            mgrCommon.DeleteFile(BackupFolder & CurrentBackupItem.FileName)
 
             'Check if using backup sub-directories (Probably not the best way to check for this)
             If CurrentBackupItem.FileName.StartsWith(CurrentBackupItem.Name & "\") Then
@@ -610,11 +610,11 @@ Public Class frmGameManager
                     If oDir.GetDirectories.Length > 0 Or oDir.GetFiles.Length > 0 Then
                         'Confirm
                         If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupFolderDelete, New String() {sSubDir, oDir.GetDirectories.Length, oDir.GetFiles.Length}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                            If Directory.Exists(sSubDir) Then My.Computer.FileSystem.DeleteDirectory(sSubDir, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.SendToRecycleBin)
+                            If Directory.Exists(sSubDir) Then mgrCommon.DeleteDirectory(sSubDir, True)
                         End If
                     Else
                         'Folder is empty,  delete the empty sub-folder
-                        If Directory.Exists(sSubDir) Then My.Computer.FileSystem.DeleteDirectory(sSubDir, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.SendToRecycleBin)
+                        If Directory.Exists(sSubDir) Then mgrCommon.DeleteDirectory(sSubDir)
                     End If
                 End If
             End If
@@ -942,7 +942,7 @@ Public Class frmGameManager
             oApp.ID = txtID.Text
         End If
         oApp.Name = mgrPath.ValidateForFileSystem(txtName.Text)
-        If Path.HasExtension(txtProcess.Text) Then
+        If Path.HasExtension(txtProcess.Text) And Not mgrCommon.IsUnix Then
             If txtProcess.Text.ToLower.EndsWith(".exe") Then
                 oApp.ProcessName = Path.GetFileNameWithoutExtension(txtProcess.Text)
             Else
@@ -1219,13 +1219,17 @@ Public Class frmGameManager
     End Sub
 
     Private Sub ImportOfficialGameList()
+        If mgrCommon.IsUnix Then
+            If mgrCommon.ShowMessage(frmGameManager_ConfirmUnixImportWarning, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                Exit Sub
+            End If
+        End If
 
         If mgrCommon.ShowMessage(frmGameManager_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             If mgrMonitorList.DoImport(App_URLImport) Then
                 LoadData()
             End If
         End If
-
     End Sub
 
     Private Sub SetForm()

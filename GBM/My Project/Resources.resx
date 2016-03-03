@@ -1564,4 +1564,7 @@
   <data name="App_ErrorUnixNotAvailable" xml:space="preserve">
     <value>This function is currently not available on a Unix based operating system.</value>
   </data>
+  <data name="frmGameManager_ConfirmUnixImportWarning" xml:space="preserve">
+    <value>You appear to be using a Unix based operating system.  The official list currently contains only Microsoft Windows game configurations.[BR][BR]Do you wish to continue?</value>
+  </data>
 </root>

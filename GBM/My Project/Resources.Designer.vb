@@ -1384,6 +1384,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to You appear to be using a Unix based operating system.  The official list currently contains only Microsoft Windows game configurations.[BR][BR]Do you wish to continue?.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ConfirmUnixImportWarning() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ConfirmUnixImportWarning", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor Export.
         '''</summary>
         Friend ReadOnly Property frmGameManager_DefaultExportFileName() As String

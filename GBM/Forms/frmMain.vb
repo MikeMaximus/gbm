@@ -37,6 +37,9 @@ Public Class frmMain
     Private sPriorCompany As String
     Private sPriorVersion As String
 
+    'Developer Debug Flags
+    Private bProcessDebugMode As Boolean = False
+
     WithEvents oFileWatcher As New System.IO.FileSystemWatcher
     WithEvents tmScanTimer As New Timer
 
@@ -562,6 +565,9 @@ Public Class frmMain
             'Parse Command
             Select Case sMainCommand
                 Case "SQL"
+                    'Run a SQL command directly on any database
+                    'Usage: SQL {Local or Remote} SQL Command
+
                     Dim oDatabase As mgrSQLite
                     Dim bSuccess As Boolean
 
@@ -590,6 +596,34 @@ Public Class frmMain
                         mgrCommon.ShowMessage(frmMain_CommandFail, MsgBoxStyle.Exclamation)
                     End If
 
+                Case "DEBUG"
+                    'Enable or disable various debug modes
+                    'Usage: DEBUG Mode {Enable or Disable} 
+
+                    sCommand = sFullCommand.Split(cDelimters, 3)
+
+                    Dim bDebugEnable As Boolean = False
+
+                    'Check Paramters
+                    If sCommand.Length < 3 Then
+                        mgrCommon.ShowMessage(frmMain_ErrorMissingParams, sCommand(0), MsgBoxStyle.Exclamation)
+                        Exit Select
+                    End If
+
+                    If sCommand(2) = "Enable" Then
+                        bDebugEnable = True
+                    ElseIf sCommand(2) = "Disable" Then
+                        bDebugEnable = False
+                    Else
+                        mgrCommon.ShowMessage(frmMain_ErrorCommandBadParam, New String() {sCommand(1), sCommand(0)}, MsgBoxStyle.Exclamation)
+                        Exit Select
+                    End If
+
+                    Select Case sCommand(1)
+                        Case "Process"
+                            bProcessDebugMode = bDebugEnable
+                            mgrCommon.ShowMessage(frmMain_CommandSucess, MsgBoxStyle.Exclamation)
+                    End Select
                 Case Else
                     mgrCommon.ShowMessage(frmMain_ErrorCommandInvalid, sMainCommand, MsgBoxStyle.Exclamation)
             End Select
@@ -1434,6 +1468,7 @@ Public Class frmMain
         If bShutdown = False Then
             e.Cancel = True
             If Not mgrCommon.IsUnix Then
+                bShowToggle = False
                 Me.Visible = False
                 Me.ShowInTaskbar = False
             End If
@@ -1447,7 +1482,7 @@ Public Class frmMain
         Dim iErrorCode As Integer = 0
         Dim sErrorMessage As String = String.Empty
 
-        If oProcess.SearchRunningProcesses(hshScanList, bNeedsPath, iErrorCode) Then
+        If oProcess.SearchRunningProcesses(hshScanList, bNeedsPath, iErrorCode, bProcessDebugMode) Then
             PauseScan()
 
             If bNeedsPath Then

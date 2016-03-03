@@ -134,12 +134,38 @@ Public Class mgrCommon
         oProcess.Start()
     End Sub
 
+    'Delete file based on OS type
+    Public Shared Sub DeleteFile(ByVal sPath As String, Optional ByVal bRecycle As Boolean = True)
+        If File.Exists(sPath) Then
+            If IsUnix() Then
+                File.Delete(sPath)
+            Else
+                If bRecycle Then
+                    My.Computer.FileSystem.DeleteFile(sPath, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.SendToRecycleBin)
+                Else
+                    File.Delete(sPath)
+                End If
+            End If
+        End If
+    End Sub
+
+    'Delete directory based on OS type
+    Public Shared Sub DeleteDirectory(ByVal sPath As String, Optional ByVal bRecursive As Boolean = False)
+        If Directory.Exists(sPath) Then
+            If IsUnix() Then
+                Directory.Delete(sPath, bRecursive)
+            Else
+                My.Computer.FileSystem.DeleteDirectory(sPath, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.SendToRecycleBin)
+            End If
+        End If
+    End Sub
+
     'Save string as text file
     Public Shared Sub SaveText(ByVal sText As String, ByVal sPath As String)
         Dim oStream As StreamWriter
 
         Try
-            If File.Exists(sPath) Then My.Computer.FileSystem.DeleteFile(sPath, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.SendToRecycleBin)
+            If File.Exists(sPath) Then DeleteFile(sPath, False)
             oStream = New StreamWriter(sPath)
             oStream.Write(sText)
             oStream.Flush()
