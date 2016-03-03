@@ -833,7 +833,14 @@ Public Class frmMain
     Private Sub ToggleLog()
         If bLogToggle = False Then
             txtLog.Visible = True
-            Me.Size = New System.Drawing.Size(Me.Size.Width, 440)
+
+            'Unix Handler
+            If mgrCommon.IsUnix Then
+                Me.Size = New System.Drawing.Size(Me.Size.Width, 440)
+            Else
+                Me.Size = New System.Drawing.Size(Me.Size.Width, 425)
+            End If
+
             bLogToggle = True
             btnLogToggle.Text = frmMain_btnToggleLog_Hide
             txtLog.Select(txtLog.TextLength, 0)

@@ -85,7 +85,7 @@ Public Class mgrProcesses
         Next
     End Sub
 
-    'This function will only works correctly on Unix
+    'This function will only work correctly on Unix
     Private Function GetUnixProcessArguments(ByVal prs As Process) As String()
         Dim sArguments As String        
         Try
@@ -96,8 +96,8 @@ Public Class mgrProcesses
         End Try
     End Function
 
-    'This function will only works correctly on Unix
-    Private Function GetUnixProcessWorkingDirectory(ByVal prs As Process) As String
+    'This function will only work correctly on Unix
+    Private Function GetUnixSymLinkDirectory(ByVal prs As Process) As String
         Dim prsls As Process
         Dim slsinfo As String()
 
@@ -110,7 +110,7 @@ Public Class mgrProcesses
             prsls.StartInfo.RedirectStandardOutput = True
             prsls.StartInfo.CreateNoWindow = True
             prsls.Start()
-            slsinfo = prsls.StandardOutput.ReadToEnd().Split(" ")            
+            slsinfo = prsls.StandardOutput.ReadToEnd().Split(New Char() {" "}, 12)
             Return slsinfo(slsinfo.Length - 1).TrimEnd
         Catch ex As Exception
             Return String.Empty
@@ -165,7 +165,7 @@ Public Class mgrProcesses
                         If Not bWineProcess Then
                             oGame.ProcessPath = Path.GetDirectoryName(prsCurrent.MainModule.FileName)
                         Else
-                            oGame.ProcessPath = GetUnixProcessWorkingDirectory(prsCurrent)
+                            oGame.ProcessPath = GetUnixSymLinkDirectory(prsCurrent)
                         End If
                     Catch exWin32 As System.ComponentModel.Win32Exception
                         'If an exception occurs the process is:

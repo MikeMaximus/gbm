@@ -390,7 +390,7 @@ Public Class frmGameManager
         lstGames.BeginUpdate()
         lstGames.DataSource = oList
         lstGames.EndUpdate()        
-
+        lstGames.ClearSelected()
         IsLoading = False
     End Sub
 
@@ -997,7 +997,6 @@ Public Class frmGameManager
             IsDirty = False
             LoadData()
             ModeChange()
-            lstGames.ClearSelected()
             If eCurrentMode = eModes.View Then lstGames.SelectedValue = oApp.ID
         End If
     End Sub
@@ -1034,13 +1033,15 @@ Public Class frmGameManager
     End Sub
 
     Private Sub SwitchApp()
-        If lstGames.SelectedItems.Count = 1 Then
-            eCurrentMode = eModes.View
-            FillData()
-            ModeChange()
-        ElseIf lstGames.SelectedItems.Count > 1 Then
-            eCurrentMode = eModes.MultiSelect
-            ModeChange()
+        If Not bIsLoading Then
+            If lstGames.SelectedItems.Count = 1 Then
+                eCurrentMode = eModes.View
+                FillData()
+                ModeChange()
+            ElseIf lstGames.SelectedItems.Count > 1 Then
+                eCurrentMode = eModes.MultiSelect
+                ModeChange()
+            End If
         End If
     End Sub
 
@@ -1312,6 +1313,7 @@ Public Class frmGameManager
         AssignDirtyHandlersMisc()
 
         LoadData(False)
+        ModeChange()
     End Sub
 
     Private Sub lstGames_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstGames.SelectedIndexChanged
