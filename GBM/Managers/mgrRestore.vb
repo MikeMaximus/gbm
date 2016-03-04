@@ -232,7 +232,11 @@ Public Class mgrRestore
             If bDoRestore Then
                 Try
                     If File.Exists(sBackupFile) Then
-                        prs7z.StartInfo.Arguments = "x """ & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -aoa -r"
+                        If mgrCommon.IsUnix Then
+                            prs7z.StartInfo.Arguments = "x """ & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -aoa -r"
+                        Else
+                            prs7z.StartInfo.Arguments = "x -bb1 -bt """ & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -aoa -r"
+                        End If
                         prs7z.StartInfo.FileName = mgrPath.Utility7zLocation
                         prs7z.StartInfo.UseShellExecute = False
                         prs7z.StartInfo.RedirectStandardOutput = True
@@ -262,14 +266,14 @@ Public Class mgrRestore
                         RaiseEvent UpdateLog(mgrRestore_ErrorNoBackup, True, ToolTipIcon.Error, True)
                     End If
 
-                    If bRestoreCompleted Then
-                        'Save Local Manifest
-                        If mgrManifest.DoManifestCheck(oBackupInfo.Name, mgrSQLite.Database.Local) Then
-                            mgrManifest.DoManifestUpdate(oBackupInfo, mgrSQLite.Database.Local)
-                        Else
-                            mgrManifest.DoManifestAdd(oBackupInfo, mgrSQLite.Database.Local)
+                        If bRestoreCompleted Then
+                            'Save Local Manifest
+                            If mgrManifest.DoManifestCheck(oBackupInfo.Name, mgrSQLite.Database.Local) Then
+                                mgrManifest.DoManifestUpdate(oBackupInfo, mgrSQLite.Database.Local)
+                            Else
+                                mgrManifest.DoManifestAdd(oBackupInfo, mgrSQLite.Database.Local)
+                            End If
                         End If
-                    End If
                 Catch ex As Exception
                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorOtherFailure, ex.Message), False, ToolTipIcon.Error, True)
                 End Try
