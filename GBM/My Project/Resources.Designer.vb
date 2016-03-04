@@ -2347,7 +2347,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An unexpected error occured while initializing GBM.[BR][BR][PARAM][BR][BR]The application will now exit..
+        '''  Looks up a localized string similar to An unexpected error occured while initializing GBM.[BR][BR][PARAM][BR][BR]Do you wish to continue anyway? (Not Recommended).
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorInitFailure() As String
             Get

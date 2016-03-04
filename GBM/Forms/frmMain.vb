@@ -1622,8 +1622,9 @@ Public Class frmMain
             HandleScan()
             CheckForNewBackups()
         Catch ex As Exception
-            mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message, MsgBoxStyle.Critical)
-            bInitFail = True
+            If mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                bInitFail = True
+            End If
         End Try
 
         'Unix Handler

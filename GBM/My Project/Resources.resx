@@ -1559,7 +1559,7 @@
     <value>The command [PARAM] requires more parameters.</value>
   </data>
   <data name="frmMain_ErrorInitFailure" xml:space="preserve">
-    <value>An unexpected error occured while initializing GBM.[BR][BR][PARAM][BR][BR]The application will now exit.</value>
+    <value>An unexpected error occured while initializing GBM.[BR][BR][PARAM][BR][BR]Do you wish to continue anyway? (Not Recommended)</value>
   </data>
   <data name="App_ErrorUnixNotAvailable" xml:space="preserve">
     <value>This function is currently not available on a Unix based operating system.</value>
