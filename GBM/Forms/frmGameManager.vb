@@ -442,8 +442,8 @@ Public Class frmGameManager
             End If
         Else
             If txtAppPath.Text <> String.Empty Then
-                If Directory.Exists(txtAppPath.Text & "\" & txtSavePath.Text) Then
-                    sRoot = txtAppPath.Text & "\" & txtSavePath.Text
+                If Directory.Exists(txtAppPath.Text & Path.DirectorySeparatorChar & txtSavePath.Text) Then
+                    sRoot = txtAppPath.Text & Path.DirectorySeparatorChar & txtSavePath.Text
                 End If
             End If
         End If
