@@ -28,7 +28,7 @@ Public Class mgrRestore
     Public Event UpdateRestoreInfo(oRestoreInfo As clsBackup)
     Public Event SetLastAction(sMessage As String)
 
-    Private Shared Sub DoPathOverride(ByRef oCheckBackup As clsBackup, ByVal oCheckGame As clsGame)
+    Public Shared Sub DoPathOverride(ByRef oCheckBackup As clsBackup, ByVal oCheckGame As clsGame)
         'Always override the manifest restore path with the current configuration path if possible
         If Not oCheckGame.Temporary Then
             If Path.IsPathRooted(oCheckGame.Path) Then

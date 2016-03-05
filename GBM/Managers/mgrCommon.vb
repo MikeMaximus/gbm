@@ -98,8 +98,8 @@ Public Class mgrCommon
         Dim sExemptList As String() = {"dosbox", "scummvm"}
         Dim bFound As Boolean = False
 
-        'frmFileFolderSearch is currently very buggy in Mono, this will disable all searches on Unix 
-        If IsUnix() Then
+        'We can't search if we don't have a configuration
+        If oGame.Temporary Then
             Return True
         End If
 

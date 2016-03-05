@@ -469,14 +469,14 @@ Public Class frmGameManager
 
         If Not CurrentBackupItem.AbsolutePath Then
             If CurrentGame.ProcessPath <> String.Empty Then
-                CurrentBackupItem.RelativeRestorePath = CurrentGame.ProcessPath & "\" & CurrentBackupItem.RestorePath
+                CurrentBackupItem.RelativeRestorePath = CurrentGame.ProcessPath & Path.DirectorySeparatorChar & CurrentBackupItem.RestorePath
             Else
                 sProcess = CurrentGame.TrueProcess
                 If mgrCommon.IsProcessNotSearchable(CurrentGame) Then bNoAuto = True
                 sRestorePath = mgrPath.ProcessPathSearch(CurrentBackupItem.Name, sProcess, mgrCommon.FormatString(frmGameManager_ErrorPathNotSet, CurrentBackupItem.Name), bNoAuto)
 
                 If sRestorePath <> String.Empty Then
-                    CurrentBackupItem.RelativeRestorePath = sRestorePath & "\" & CurrentBackupItem.RestorePath
+                    CurrentBackupItem.RelativeRestorePath = sRestorePath & Path.DirectorySeparatorChar & CurrentBackupItem.RestorePath
                     txtAppPath.Text = sRestorePath
                 Else
                     Return False
@@ -557,11 +557,8 @@ Public Class frmGameManager
                 txtFileSize.Text = frmGameManager_ErrorNoBackupExists
             End If
 
-            If oApp.Temporary Then
-                txtRestorePath.Text = CurrentBackupItem.RestorePath
-            Else
-                txtRestorePath.Text = oApp.Path
-            End If
+            mgrRestore.DoPathOverride(CurrentBackupItem, oApp)
+            txtRestorePath.Text = CurrentBackupItem.RestorePath
         Else
             txtCurrentBackup.Text = frmGameManager_Never
             txtFileSize.Text = String.Empty
@@ -611,7 +608,7 @@ Public Class frmGameManager
             mgrCommon.DeleteFile(BackupFolder & CurrentBackupItem.FileName)
 
             'Check if using backup sub-directories (Probably not the best way to check for this)
-            If CurrentBackupItem.FileName.StartsWith(CurrentBackupItem.Name & "\") Then
+            If CurrentBackupItem.FileName.StartsWith(CurrentBackupItem.Name & Path.DirectorySeparatorChar) Then
                 'Build sub-dir backup path
                 sSubDir = BackupFolder & CurrentBackupItem.Name
 
@@ -838,6 +835,7 @@ Public Class frmGameManager
                 btnAdd.Enabled = True
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
+                btnOpenRestorePath.Enabled = False
                 btnTags.Enabled = False
                 lblTags.Visible = False
                 btnInclude.Text = frmGameManager_btnInclude

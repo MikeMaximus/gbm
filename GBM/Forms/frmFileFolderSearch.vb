@@ -60,7 +60,7 @@ Public Class frmFileFolderSearch
         Try
             'Search Current Directory
             If dir.GetDirectories(sDirectoryName).Length > 0 Then
-                Return dir.FullName & "\" & sDirectoryName
+                Return dir.FullName & Path.DirectorySeparatorChar & sDirectoryName
             End If
 
             'Search Sub Directory
@@ -92,7 +92,7 @@ Public Class frmFileFolderSearch
         Try
             'Search Current Directory
             If dir.GetFiles(sFileName).Length > 0 Then
-                Return dir.FullName & "\" & sFileName
+                Return dir.FullName & Path.DirectorySeparatorChar & sFileName
             End If
 
             'Search Sub Directory
@@ -122,8 +122,6 @@ Public Class frmFileFolderSearch
     End Sub
 
     Private Sub Search(ByVal oDrive As DriveInfo)
-        pgbProgress.Style = ProgressBarStyle.Marquee
-        pgbProgress.MarqueeAnimationSpeed = 5
         oSearchDrive = oDrive.RootDirectory
         bwSearch.RunWorkerAsync()
         iCurrentDrive += 1
@@ -131,7 +129,6 @@ Public Class frmFileFolderSearch
 
     Private Sub EndSearch()
         Dim oResult As MsgBoxResult
-        pgbProgress.MarqueeAnimationSpeed = 0
 
         If FoundItem = "Cancel" Then FoundItem = String.Empty
 

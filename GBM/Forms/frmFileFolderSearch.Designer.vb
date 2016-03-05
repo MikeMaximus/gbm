@@ -22,23 +22,14 @@ Partial Class frmFileFolderSearch
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.pgbProgress = New System.Windows.Forms.ProgressBar()
         Me.txtCurrentLocation = New System.Windows.Forms.TextBox()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.bwSearch = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
-        'pgbProgress
-        '
-        Me.pgbProgress.Location = New System.Drawing.Point(12, 12)
-        Me.pgbProgress.MarqueeAnimationSpeed = 0
-        Me.pgbProgress.Name = "pgbProgress"
-        Me.pgbProgress.Size = New System.Drawing.Size(460, 23)
-        Me.pgbProgress.TabIndex = 0
-        '
         'txtCurrentLocation
         '
-        Me.txtCurrentLocation.Location = New System.Drawing.Point(12, 43)
+        Me.txtCurrentLocation.Location = New System.Drawing.Point(12, 12)
         Me.txtCurrentLocation.Name = "txtCurrentLocation"
         Me.txtCurrentLocation.ReadOnly = True
         Me.txtCurrentLocation.Size = New System.Drawing.Size(379, 20)
@@ -47,7 +38,7 @@ Partial Class frmFileFolderSearch
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(397, 41)
+        Me.btnCancel.Location = New System.Drawing.Point(397, 10)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 0
@@ -62,10 +53,9 @@ Partial Class frmFileFolderSearch
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(484, 77)
+        Me.ClientSize = New System.Drawing.Size(484, 46)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.txtCurrentLocation)
-        Me.Controls.Add(Me.pgbProgress)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -77,7 +67,6 @@ Partial Class frmFileFolderSearch
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents pgbProgress As System.Windows.Forms.ProgressBar
     Friend WithEvents txtCurrentLocation As System.Windows.Forms.TextBox
     Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents bwSearch As System.ComponentModel.BackgroundWorker

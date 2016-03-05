@@ -97,7 +97,7 @@ Public Class frmMain
         If oGame.AbsolutePath Then
             sStatus2 = oGame.Path
         Else
-            sStatus2 = oGame.ProcessPath & "\" & oGame.Path
+            sStatus2 = oGame.ProcessPath & System.IO.Path.DirectorySeparatorChar & oGame.Path
         End If
         sStatus3 = String.Empty
 
