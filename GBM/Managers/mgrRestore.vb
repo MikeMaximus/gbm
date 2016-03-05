@@ -28,35 +28,24 @@ Public Class mgrRestore
     Public Event UpdateRestoreInfo(oRestoreInfo As clsBackup)
     Public Event SetLastAction(sMessage As String)
 
-    Private Shared Function CheckForPathOverride(ByRef oCheckBackup As clsBackup, ByVal oCheckGame As clsGame) As Boolean
-        Dim oResult As MsgBoxResult
-
-        If oCheckBackup.RestorePath <> oCheckGame.Path Then
-            oResult = mgrCommon.ShowMessage(mgrRestore_ConfirmPathMismatch, oCheckBackup.CroppedName, MsgBoxStyle.YesNoCancel)
-            If oResult = MsgBoxResult.Yes Then
-                If Path.IsPathRooted(oCheckGame.Path) Then
-                    oCheckBackup.AbsolutePath = True
-                    oCheckBackup.RestorePath = oCheckGame.Path
-                Else
-                    oCheckBackup.RestorePath = oCheckGame.Path
-                End If
-            ElseIf oResult = MsgBoxResult.Cancel Then
-                Return False
+    Private Shared Sub DoPathOverride(ByRef oCheckBackup As clsBackup, ByVal oCheckGame As clsGame)
+        'Always override the manifest restore path with the current configuration path if possible
+        If Not oCheckGame.Temporary Then
+            If Path.IsPathRooted(oCheckGame.Path) Then
+                oCheckBackup.AbsolutePath = True
+                oCheckBackup.RestorePath = oCheckGame.Path
+            Else
+                oCheckBackup.RestorePath = oCheckGame.Path
             End If
         End If
-
-        Return True
-    End Function
+    End Sub
 
     Public Shared Function CheckPath(ByRef oRestoreInfo As clsBackup, ByVal oGame As clsGame, ByRef bTriggerReload As Boolean) As Boolean
         Dim sProcess As String
         Dim sRestorePath As String
         Dim bNoAuto As Boolean
 
-        'Before we do anything check if we need to override the current path
-        If Not CheckForPathOverride(oRestoreInfo, oGame) Then
-            Return False
-        End If
+        DoPathOverride(oRestoreInfo, oGame)
 
         If Not oRestoreInfo.AbsolutePath Then
             If oGame.ProcessPath <> String.Empty Then

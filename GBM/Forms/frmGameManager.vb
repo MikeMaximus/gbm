@@ -401,20 +401,20 @@ Public Class frmGameManager
     End Sub
 
     Private Sub OpenBackupFile()
-        'Unix Hanlder
-        If Not mgrCommon.IsUnix Then
-            Dim sFileName As String
-            sFileName = BackupFolder & CurrentBackupItem.FileName
+        Dim sFileName As String
+        Dim oProcessStartInfo As ProcessStartInfo
 
-            If File.Exists(sFileName) Then
-                Process.Start("explorer.exe", "/select," & sFileName)
-            Else
-                mgrCommon.ShowMessage(frmGameManager_ErrorNoBackupExists, MsgBoxStyle.Exclamation)
-            End If
+        sFileName = BackupFolder & CurrentBackupItem.FileName
+
+        If File.Exists(sFileName) Then
+            oProcessStartInfo = New ProcessStartInfo
+            oProcessStartInfo.FileName = sFileName
+            oProcessStartInfo.UseShellExecute = True
+            oProcessStartInfo.Verb = "open"
+            Process.Start(oProcessStartInfo)
         Else
-            mgrCommon.ShowMessage(App_ErrorUnixNotAvailable, MsgBoxStyle.Exclamation)
+            mgrCommon.ShowMessage(frmGameManager_ErrorNoBackupExists, MsgBoxStyle.Exclamation)
         End If
-
     End Sub
 
     Private Sub UpdateBuilderButtonLabel(ByVal sBuilderString As String, ByVal sLabel As String, ByVal btn As Button, ByVal bDirty As Boolean)
@@ -488,10 +488,10 @@ Public Class frmGameManager
     End Function
 
     Private Sub OpenRestorePath()
-        If Not mgrCommon.IsUnix Then
-            Dim sPath As String = String.Empty
+        Dim sPath As String = String.Empty
+        Dim oProcessStartInfo As ProcessStartInfo
 
-            If CurrentBackupItem.AbsolutePath Then
+        If CurrentBackupItem.AbsolutePath Then
                 sPath = CurrentBackupItem.RestorePath
             Else
                 If FindRestorePath() Then
@@ -499,13 +499,14 @@ Public Class frmGameManager
                 End If
             End If
 
-            If Directory.Exists(sPath) Then
-                Process.Start("explorer.exe", sPath)
-            Else
-                mgrCommon.ShowMessage(frmGameManager_ErrorNoRestorePathExists, MsgBoxStyle.Exclamation)
-            End If
+        If Directory.Exists(sPath) Then
+            oProcessStartInfo = New ProcessStartInfo
+            oProcessStartInfo.FileName = sPath
+            oProcessStartInfo.UseShellExecute = True
+            oProcessStartInfo.Verb = "open"
+            Process.Start(oProcessStartInfo)
         Else
-            mgrCommon.ShowMessage(App_ErrorUnixNotAvailable, MsgBoxStyle.Exclamation)
+            mgrCommon.ShowMessage(frmGameManager_ErrorNoRestorePathExists, MsgBoxStyle.Exclamation)
         End If
     End Sub
 
@@ -540,7 +541,6 @@ Public Class frmGameManager
         Dim oBackupInfo As clsBackup
         Dim sFileName As String
 
-
         If oRemoteBackupData.Contains(oApp.Name) Then
             CurrentBackupItem = DirectCast(oRemoteBackupData(oApp.Name), clsBackup)
             txtCurrentBackup.Text = mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {CurrentBackupItem.DateUpdated, CurrentBackupItem.UpdatedBy})
@@ -556,7 +556,12 @@ Public Class frmGameManager
             Else
                 txtFileSize.Text = frmGameManager_ErrorNoBackupExists
             End If
-            txtRestorePath.Text = CurrentBackupItem.RestorePath
+
+            If oApp.Temporary Then
+                txtRestorePath.Text = CurrentBackupItem.RestorePath
+            Else
+                txtRestorePath.Text = oApp.Path
+            End If
         Else
             txtCurrentBackup.Text = frmGameManager_Never
             txtFileSize.Text = String.Empty
