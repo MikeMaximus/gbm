@@ -33,10 +33,10 @@ Public Class mgrRestore
         If Not oCheckGame.Temporary Then
             If Path.IsPathRooted(oCheckGame.Path) Then
                 oCheckBackup.AbsolutePath = True
-                oCheckBackup.RestorePath = oCheckGame.Path
             Else
-                oCheckBackup.RestorePath = oCheckGame.Path
+                oCheckBackup.AbsolutePath = False
             End If
+            oCheckBackup.RestorePath = oCheckGame.Path
         End If
     End Sub
 
