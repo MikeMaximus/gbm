@@ -346,6 +346,7 @@ Public Class mgrPath
         Dim sFolder As String = String.Empty
         Dim bSearchFailed As Boolean = False
 
+        frmFind.GameName = sGameName
         frmFind.SearchItem = sProcess & ".*"
         frmFind.FolderSearch = False
 
@@ -366,13 +367,7 @@ Public Class mgrPath
             frmFind.ShowDialog()
 
             If frmFind.FoundItem <> String.Empty Then
-                sFolder = IO.Path.GetDirectoryName(frmFind.FoundItem)
-                sMessage = mgrCommon.FormatString(mgrPath_ConfirmPathCorrect, New String() {sGameName, sFolder})
-                If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    Return sFolder
-                Else
-                    sFolder = String.Empty
-                End If
+                Return frmFind.FoundItem
             Else
                 bSearchFailed = True
             End If
@@ -386,6 +381,8 @@ Public Class mgrPath
             If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 sFolder = SetManualgamePath()
             End If
+
+            frmFind.Dispose()
         End If
 
         Return sFolder
