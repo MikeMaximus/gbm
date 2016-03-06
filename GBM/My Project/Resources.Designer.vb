@@ -70,7 +70,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2015 Michael J. Seiferling.
+        '''  Looks up a localized string similar to [PARAM] Michael J. Seiferling.
         '''</summary>
         Friend ReadOnly Property App_Copyright() As String
             Get

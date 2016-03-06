@@ -644,7 +644,7 @@ Public Class frmMain
         Dim sVersion As String = My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor
         Dim sProcessType = [Enum].GetName(GetType(System.Reflection.ProcessorArchitecture), iProcessType)
         Dim sRevision As String = My.Application.Info.Version.Build & "." & My.Application.Info.Version.Revision
-        Dim sConstCopyright As String = Chr(169) & App_Copyright
+        Dim sConstCopyright As String = Chr(169) & mgrCommon.FormatString(App_Copyright, Now.Year.ToString)
 
         mgrCommon.ShowMessage(frmMain_About, New String() {sVersion, sProcessType, sRevision, sConstCopyright}, MsgBoxStyle.Information)
     End Sub
