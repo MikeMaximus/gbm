@@ -21,7 +21,6 @@ Public Class mgrCommon
         Try
             Dim request As WebRequest = WebRequest.Create(URL)
             Dim response As WebResponse = request.GetResponse()
-            response.Close()
         Catch ex As Exception
             Return False
         End Try

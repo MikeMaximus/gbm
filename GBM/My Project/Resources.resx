@@ -140,7 +140,7 @@
     <value>This will rebuild all databases and shrink them to an optimal size.[BR]This should only be used if your gbm.s3db files are becoming very large.[BR][BR]Do you wish to continue?</value>
   </data>
   <data name="App_Copyright" xml:space="preserve">
-    <value>[PARAM] Michael J. Seiferling</value>
+    <value>2015 Michael J. Seiferling</value>
   </data>
   <data name="frmMain_Exit" xml:space="preserve">
     <value>Are you sure you want to exit?  Your games will no longer be monitored.</value>
