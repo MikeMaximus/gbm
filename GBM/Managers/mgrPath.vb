@@ -39,6 +39,10 @@ Public Class mgrPath
 
     Shared ReadOnly Property Utility7zLocation As String
         Get
+            If mgrCommon.IsUnix Then
+                Return "/usr/bin/7za"
+            End If
+
             Select Case oReleaseType
                 Case ProcessorArchitecture.Amd64
                     Return Application.StartupPath & "/Utilities/x64/7za.exe"
@@ -91,7 +95,7 @@ Public Class mgrPath
             Return sRemoteDatabaseLocation
         End Get
         Set(value As String)
-            sRemoteDatabaseLocation = value & "\gbm.s3db"
+            sRemoteDatabaseLocation = value & "/gbm.s3db"
         End Set
     End Property
 
@@ -121,10 +125,14 @@ Public Class mgrPath
         Dim bDeep As Boolean        
         Dim cDS As Char = Path.DirectorySeparatorChar 'Set the directory seperator based on the OS
 
-        'If we are working with a case insenstive file system, use a uniform case. **Look into removing this completely**
-        If cDS <> "/" Then 'Checking the seperator to determine OS is better than messing with enumerations that weren't always supported 
+        If Not mgrCommon.IsUnix Then
+            'If we are working with a case insenstive file system, use a uniform case to reduce possible issues 
             sProcessPath = sProcessPath.ToLower
             sSavePath = sSavePath.ToLower
+        Else
+            'If we are on Unix trim the root off
+            sProcessPath = sProcessPath.TrimStart(cDS)
+            sSavePath = sSavePath.TrimStart(cDS)
         End If
 
         'We need to ensure we have a single trailing slash on the parameters
@@ -132,6 +140,7 @@ Public Class mgrPath
         sSavePath = sSavePath.TrimEnd(cDS)
         sProcessPath &= cDS
         sSavePath &= cDS
+
 
         'Determines the direction we need to go, we always want to be relative to the process location
         If sSavePath.Split(cDS).Length > sProcessPath.Split(cDS).Length Then
@@ -191,13 +200,12 @@ Public Class mgrPath
         Dim sCurrentUser As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
         Dim oCustomVariable As clsPathVariable
 
-        If sValue.Contains("*mydocs*") Then
-            Return sValue.Replace("*mydocs*", sMyDocs)
-        End If
 
-        If sValue.Contains("*publicdocs*") Then
-            Return sValue.Replace("*publicdocs*", sPublicDocs)
-        End If
+        For Each oCustomVariable In hshCustomVariables.Values
+            If sValue.Contains(oCustomVariable.FormattedName) Then
+                Return sValue.Replace(oCustomVariable.FormattedName, oCustomVariable.Path)
+            End If
+        Next
 
         If sValue.Contains("*appdatalocal*") Then
             Return sValue.Replace("*appdatalocal*", sAppDataLocal)
@@ -207,15 +215,21 @@ Public Class mgrPath
             Return sValue.Replace("*appdataroaming*", sAppDataRoaming)
         End If
 
-        If sValue.Contains("*currentuser*") Then
-            Return sValue.Replace("*currentuser*", sCurrentUser)
+        'This needs to be tested last for Unix compatability
+        If sValue.Contains("*mydocs*") Then
+            Return sValue.Replace("*mydocs*", sMyDocs)
         End If
 
-        For Each oCustomVariable In hshCustomVariables.Values
-            If sValue.Contains(oCustomVariable.FormattedName) Then
-                Return sValue.Replace(oCustomVariable.FormattedName, oCustomVariable.Path)
+        'Don't use these in Unix
+        If Not mgrCommon.IsUnix Then
+            If sValue.Contains("*publicdocs*") Then
+                Return sValue.Replace("*publicdocs*", sPublicDocs)
             End If
-        Next
+
+            If sValue.Contains("*currentuser*") Then
+                Return sValue.Replace("*currentuser*", sCurrentUser)
+            End If
+        End If
 
         Return sValue
     End Function
@@ -228,13 +242,11 @@ Public Class mgrPath
         Dim sCurrentUser As String = "*currentuser*"
         Dim oCustomVariable As clsPathVariable
 
-        If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) Then
-            Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), sMyDocs)
-        End If
-
-        If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments)) Then
-            Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), sPublicDocs)
-        End If
+        For Each oCustomVariable In hshCustomVariables.Values
+            If sValue.Contains(oCustomVariable.Path) Then
+                Return sValue.Replace(oCustomVariable.Path, oCustomVariable.FormattedName)
+            End If
+        Next
 
         If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) Then
             Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), sAppDataLocal)
@@ -244,15 +256,21 @@ Public Class mgrPath
             Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), sAppDataRoaming)
         End If
 
-        If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)) Then
-            Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), sCurrentUser)
+        'This needs to be tested last for Unix compatability
+        If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) Then
+            Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), sMyDocs)
         End If
 
-        For Each oCustomVariable In hshCustomVariables.Values
-            If sValue.Contains(oCustomVariable.Path) Then
-                Return sValue.Replace(oCustomVariable.Path, oCustomVariable.FormattedName)
+        'Don't use these in Unix
+        If Not mgrCommon.IsUnix Then
+            If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments)) Then
+                Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), sPublicDocs)
             End If
-        Next
+
+            If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)) Then
+                Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), sCurrentUser)
+            End If
+        End If
 
         Return sValue
     End Function
@@ -262,11 +280,16 @@ Public Class mgrPath
         Dim hshCustomVariables As Hashtable = mgrVariables.ReadVariables
         Dim oCustomVariable As clsPathVariable
 
-        hshFolders.Add(Guid.NewGuid.ToString, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
-        hshFolders.Add(Guid.NewGuid.ToString, Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments))
+
         hshFolders.Add(Guid.NewGuid.ToString, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData))
         hshFolders.Add(Guid.NewGuid.ToString, Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData))
-        hshFolders.Add(Guid.NewGuid.ToString, Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))
+
+        'Don't use these in Unix
+        If Not mgrCommon.IsUnix Then
+            hshFolders.Add(Guid.NewGuid.ToString, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
+            hshFolders.Add(Guid.NewGuid.ToString, Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments))
+            hshFolders.Add(Guid.NewGuid.ToString, Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))
+        End If
 
         'Load Custom Variables
         For Each oCustomVariable In hshCustomVariables.Values
@@ -323,6 +346,7 @@ Public Class mgrPath
         Dim sFolder As String = String.Empty
         Dim bSearchFailed As Boolean = False
 
+        frmFind.GameName = sGameName
         frmFind.SearchItem = sProcess & ".*"
         frmFind.FolderSearch = False
 
@@ -343,13 +367,7 @@ Public Class mgrPath
             frmFind.ShowDialog()
 
             If frmFind.FoundItem <> String.Empty Then
-                sFolder = IO.Path.GetDirectoryName(frmFind.FoundItem)
-                sMessage = mgrCommon.FormatString(mgrPath_ConfirmPathCorrect, New String() {sGameName, sFolder})
-                If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    Return sFolder
-                Else
-                    sFolder = String.Empty
-                End If
+                Return frmFind.FoundItem
             Else
                 bSearchFailed = True
             End If
@@ -363,6 +381,8 @@ Public Class mgrPath
             If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 sFolder = SetManualgamePath()
             End If
+
+            frmFind.Dispose()
         End If
 
         Return sFolder

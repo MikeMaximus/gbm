@@ -170,7 +170,6 @@ Partial Class frmIncludeExclude
         '
         'optFileTypes
         '
-        Me.optFileTypes.AutoSize = True
         Me.optFileTypes.Location = New System.Drawing.Point(6, 19)
         Me.optFileTypes.Name = "optFileTypes"
         Me.optFileTypes.Size = New System.Drawing.Size(73, 17)
@@ -181,7 +180,6 @@ Partial Class frmIncludeExclude
         '
         'optIndividualFiles
         '
-        Me.optIndividualFiles.AutoSize = True
         Me.optIndividualFiles.Location = New System.Drawing.Point(85, 19)
         Me.optIndividualFiles.Name = "optIndividualFiles"
         Me.optIndividualFiles.Size = New System.Drawing.Size(94, 17)
@@ -250,7 +248,6 @@ Partial Class frmIncludeExclude
         Me.Text = "Include / Exclude Builder"
         Me.cmsItems.ResumeLayout(False)
         Me.grpFileOptions.ResumeLayout(False)
-        Me.grpFileOptions.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

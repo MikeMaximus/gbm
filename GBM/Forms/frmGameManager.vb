@@ -34,7 +34,7 @@ Public Class frmGameManager
 
     Property BackupFolder As String
         Get
-            Return sBackupFolder & "\"
+            Return sBackupFolder & Path.DirectorySeparatorChar
         End Get
         Set(value As String)
             sBackupFolder = value
@@ -175,7 +175,7 @@ Public Class frmGameManager
                 sFileName = BackupFolder & oBackupItem.FileName
 
                 'Rename Backup File
-                sNewFileName = Path.GetDirectoryName(sFileName) & "\" & Path.GetFileName(sFileName).Replace(oOriginalApp.Name, oNewApp.Name)
+                sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(oOriginalApp.Name, oNewApp.Name)
                 If File.Exists(sFileName) Then
                     FileSystem.Rename(sFileName, sNewFileName)
                 End If
@@ -265,7 +265,7 @@ Public Class frmGameManager
             Next
         End If
 
-        lstGames.Items.Clear()
+        lstGames.DataSource = Nothing
         FormatAndFillList()
     End Sub
 
@@ -336,8 +336,14 @@ Public Class frmGameManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFileBrowser(frmGameManager_ChooseCustomIcon, "ico", _
-                                          frmGameManager_Icon, sDefaultFolder, False)
+        'Unix Handler
+        If Not mgrCommon.IsUnix Then
+            sNewPath = mgrCommon.OpenFileBrowser(frmGameManager_ChooseCustomIcon, "ico", _
+                                              frmGameManager_Icon, sDefaultFolder, False)
+        Else
+            sNewPath = mgrCommon.OpenFileBrowser(frmGameManager_ChooseCustomIcon, "png", _
+                                              "PNG", sDefaultFolder, False)
+        End If
 
         If sNewPath <> String.Empty Then
             txtIcon.Text = sNewPath
@@ -365,38 +371,50 @@ Public Class frmGameManager
 
     End Function
 
+    Public Shared Function CompareByName(sItem1 As KeyValuePair(Of String, String), sItem2 As KeyValuePair(Of String, String)) As Integer
+        Return String.Compare(sItem1.Value, sItem2.value)
+    End Function
+
     Private Sub FormatAndFillList()
         IsLoading = True
 
         Dim oApp As clsGame
         Dim oData As KeyValuePair(Of String, String)
+        Dim oList As New List(Of KeyValuePair(Of String, String))
 
         lstGames.ValueMember = "Key"
         lstGames.DisplayMember = "Value"
 
-        lstGames.BeginUpdate()
-
         For Each de As DictionaryEntry In AppData
             oApp = DirectCast(de.Value, clsGame)
-            oData = New KeyValuePair(Of String, String)(oApp.ID, oApp.Name)
-            lstGames.Items.Add(oData)
+            oData = New KeyValuePair(Of String, String)(oApp.ID, oApp.Name)            
+            oList.Add(oData)
         Next
 
-        lstGames.EndUpdate()
+        oList.Sort(AddressOf CompareByName)
 
+        lstGames.BeginUpdate()
+        lstGames.DataSource = oList
+        lstGames.EndUpdate()        
+        lstGames.ClearSelected()
         IsLoading = False
     End Sub
 
     Private Sub OpenBackupFile()
         Dim sFileName As String
+        Dim oProcessStartInfo As ProcessStartInfo
+
         sFileName = BackupFolder & CurrentBackupItem.FileName
 
         If File.Exists(sFileName) Then
-            Process.Start("explorer.exe", "/select," & sFileName)
+            oProcessStartInfo = New ProcessStartInfo
+            oProcessStartInfo.FileName = sFileName
+            oProcessStartInfo.UseShellExecute = True
+            oProcessStartInfo.Verb = "open"
+            Process.Start(oProcessStartInfo)
         Else
             mgrCommon.ShowMessage(frmGameManager_ErrorNoBackupExists, MsgBoxStyle.Exclamation)
         End If
-
     End Sub
 
     Private Sub UpdateBuilderButtonLabel(ByVal sBuilderString As String, ByVal sLabel As String, ByVal btn As Button, ByVal bDirty As Boolean)
@@ -424,8 +442,8 @@ Public Class frmGameManager
             End If
         Else
             If txtAppPath.Text <> String.Empty Then
-                If Directory.Exists(txtAppPath.Text & "\" & txtSavePath.Text) Then
-                    sRoot = txtAppPath.Text & "\" & txtSavePath.Text
+                If Directory.Exists(txtAppPath.Text & Path.DirectorySeparatorChar & txtSavePath.Text) Then
+                    sRoot = txtAppPath.Text & Path.DirectorySeparatorChar & txtSavePath.Text
                 End If
             End If
         End If
@@ -451,14 +469,14 @@ Public Class frmGameManager
 
         If Not CurrentBackupItem.AbsolutePath Then
             If CurrentGame.ProcessPath <> String.Empty Then
-                CurrentBackupItem.RelativeRestorePath = CurrentGame.ProcessPath & "\" & CurrentBackupItem.RestorePath
+                CurrentBackupItem.RelativeRestorePath = CurrentGame.ProcessPath & Path.DirectorySeparatorChar & CurrentBackupItem.RestorePath
             Else
                 sProcess = CurrentGame.TrueProcess
                 If mgrCommon.IsProcessNotSearchable(CurrentGame) Then bNoAuto = True
                 sRestorePath = mgrPath.ProcessPathSearch(CurrentBackupItem.Name, sProcess, mgrCommon.FormatString(frmGameManager_ErrorPathNotSet, CurrentBackupItem.Name), bNoAuto)
 
                 If sRestorePath <> String.Empty Then
-                    CurrentBackupItem.RelativeRestorePath = sRestorePath & "\" & CurrentBackupItem.RestorePath
+                    CurrentBackupItem.RelativeRestorePath = sRestorePath & Path.DirectorySeparatorChar & CurrentBackupItem.RestorePath
                     txtAppPath.Text = sRestorePath
                 Else
                     Return False
@@ -471,21 +489,25 @@ Public Class frmGameManager
 
     Private Sub OpenRestorePath()
         Dim sPath As String = String.Empty
+        Dim oProcessStartInfo As ProcessStartInfo
 
         If CurrentBackupItem.AbsolutePath Then
-            sPath = CurrentBackupItem.RestorePath
-        Else
-            If FindRestorePath() Then
-                sPath = CurrentBackupItem.RelativeRestorePath
+                sPath = CurrentBackupItem.RestorePath
+            Else
+                If FindRestorePath() Then
+                    sPath = CurrentBackupItem.RelativeRestorePath
+                End If
             End If
-        End If
 
         If Directory.Exists(sPath) Then
-            Process.Start("explorer.exe", sPath)
+            oProcessStartInfo = New ProcessStartInfo
+            oProcessStartInfo.FileName = sPath
+            oProcessStartInfo.UseShellExecute = True
+            oProcessStartInfo.Verb = "open"
+            Process.Start(oProcessStartInfo)
         Else
             mgrCommon.ShowMessage(frmGameManager_ErrorNoRestorePathExists, MsgBoxStyle.Exclamation)
         End If
-
     End Sub
 
     Private Sub OpenTags()
@@ -519,7 +541,6 @@ Public Class frmGameManager
         Dim oBackupInfo As clsBackup
         Dim sFileName As String
 
-
         If oRemoteBackupData.Contains(oApp.Name) Then
             CurrentBackupItem = DirectCast(oRemoteBackupData(oApp.Name), clsBackup)
             txtCurrentBackup.Text = mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {CurrentBackupItem.DateUpdated, CurrentBackupItem.UpdatedBy})
@@ -535,6 +556,8 @@ Public Class frmGameManager
             Else
                 txtFileSize.Text = frmGameManager_ErrorNoBackupExists
             End If
+
+            mgrRestore.DoPathOverride(CurrentBackupItem, oApp)
             txtRestorePath.Text = CurrentBackupItem.RestorePath
         Else
             txtCurrentBackup.Text = frmGameManager_Never
@@ -582,10 +605,10 @@ Public Class frmGameManager
             mgrManifest.DoManifestDelete(CurrentBackupItem, mgrSQLite.Database.Remote)
 
             'Delete referenced backup file from the backup folder
-            If File.Exists(BackupFolder & CurrentBackupItem.FileName) Then My.Computer.FileSystem.DeleteFile(BackupFolder & CurrentBackupItem.FileName, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.SendToRecycleBin)
+            mgrCommon.DeleteFile(BackupFolder & CurrentBackupItem.FileName)
 
             'Check if using backup sub-directories (Probably not the best way to check for this)
-            If CurrentBackupItem.FileName.StartsWith(CurrentBackupItem.Name & "\") Then
+            If CurrentBackupItem.FileName.StartsWith(CurrentBackupItem.Name & Path.DirectorySeparatorChar) Then
                 'Build sub-dir backup path
                 sSubDir = BackupFolder & CurrentBackupItem.Name
 
@@ -595,11 +618,11 @@ Public Class frmGameManager
                     If oDir.GetDirectories.Length > 0 Or oDir.GetFiles.Length > 0 Then
                         'Confirm
                         If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupFolderDelete, New String() {sSubDir, oDir.GetDirectories.Length, oDir.GetFiles.Length}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                            If Directory.Exists(sSubDir) Then My.Computer.FileSystem.DeleteDirectory(sSubDir, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.SendToRecycleBin)
+                            If Directory.Exists(sSubDir) Then mgrCommon.DeleteDirectory(sSubDir, True)
                         End If
                     Else
                         'Folder is empty,  delete the empty sub-folder
-                        If Directory.Exists(sSubDir) Then My.Computer.FileSystem.DeleteDirectory(sSubDir, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.SendToRecycleBin)
+                        If Directory.Exists(sSubDir) Then mgrCommon.DeleteDirectory(sSubDir)
                     End If
                 End If
             End If
@@ -812,6 +835,7 @@ Public Class frmGameManager
                 btnAdd.Enabled = True
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
+                btnOpenRestorePath.Enabled = False
                 btnTags.Enabled = False
                 lblTags.Visible = False
                 btnInclude.Text = frmGameManager_btnInclude
@@ -979,13 +1003,10 @@ Public Class frmGameManager
         End Select
 
         If bSuccess Then
-            Dim iSelected As Integer
             IsDirty = False
             LoadData()
-            iSelected = lstGames.Items.IndexOf(New KeyValuePair(Of String, String)(oApp.ID, oApp.Name))
-            If iSelected = -1 Then eCurrentMode = eModes.Disabled
             ModeChange()
-            If eCurrentMode = eModes.View Then lstGames.SelectedIndex = iSelected
+            If eCurrentMode = eModes.View Then lstGames.SelectedValue = oApp.ID
         End If
     End Sub
 
@@ -1021,13 +1042,15 @@ Public Class frmGameManager
     End Sub
 
     Private Sub SwitchApp()
-        If lstGames.SelectedItems.Count = 1 Then
-            eCurrentMode = eModes.View
-            FillData()
-            ModeChange()
-        ElseIf lstGames.SelectedItems.Count > 1 Then
-            eCurrentMode = eModes.MultiSelect
-            ModeChange()
+        If Not bIsLoading Then
+            If lstGames.SelectedItems.Count = 1 Then
+                eCurrentMode = eModes.View
+                FillData()
+                ModeChange()
+            ElseIf lstGames.SelectedItems.Count > 1 Then
+                eCurrentMode = eModes.MultiSelect
+                ModeChange()
+            End If
         End If
     End Sub
 
@@ -1206,13 +1229,17 @@ Public Class frmGameManager
     End Sub
 
     Private Sub ImportOfficialGameList()
+        If mgrCommon.IsUnix Then
+            If mgrCommon.ShowMessage(frmGameManager_ConfirmUnixImportWarning, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                Exit Sub
+            End If
+        End If
 
         If mgrCommon.ShowMessage(frmGameManager_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             If mgrMonitorList.DoImport(App_URLImport) Then
                 LoadData()
             End If
         End If
-
     End Sub
 
     Private Sub SetForm()
@@ -1293,6 +1320,9 @@ Public Class frmGameManager
         AssignDirtyHandlers(grpExtra.Controls)
         AssignDirtyHandlers(grpStats.Controls)
         AssignDirtyHandlersMisc()
+
+        LoadData(False)
+        ModeChange()
     End Sub
 
     Private Sub lstGames_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstGames.SelectedIndexChanged

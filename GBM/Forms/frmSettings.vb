@@ -113,6 +113,12 @@ Public Class frmSettings
         nudSupressBackupThreshold.Value = oSettings.SupressBackupThreshold
         nudSupressBackupThreshold.Enabled = chkSupressBackup.Checked
         cboCompression.SelectedValue = oSettings.CompressionLevel
+
+        'Unix Handler
+        If mgrCommon.IsUnix Then
+            chkStartToTray.Checked = False
+            chkStartWindows.Checked = False
+        End If
     End Sub
 
     Private Sub LoadCombos()
@@ -159,6 +165,12 @@ Public Class frmSettings
         chkMonitorOnStartup.Text = frmSettings_chkMonitorOnStartup
         grp7z.Text = frmSettings_grp7z
         lblCompression.Text = frmSettings_lblCompression
+
+        'Unix Handler
+        If mgrCommon.IsUnix Then                       
+            chkStartToTray.Enabled = False
+            chkStartWindows.Enabled = False
+        End If
     End Sub
 
     Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click

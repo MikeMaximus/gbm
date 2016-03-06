@@ -79,6 +79,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to This function is currently not available on a Unix based operating system..
+        '''</summary>
+        Friend ReadOnly Property App_ErrorUnixNotAvailable() As String
+            Get
+                Return ResourceManager.GetString("App_ErrorUnixNotAvailable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] KB.
         '''</summary>
         Friend ReadOnly Property App_KB() As String
@@ -1375,6 +1384,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to You appear to be using a Unix based operating system.  The official list currently contains only Microsoft Windows game configurations.[BR][BR]Do you wish to continue?.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ConfirmUnixImportWarning() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ConfirmUnixImportWarning", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor Export.
         '''</summary>
         Friend ReadOnly Property frmGameManager_DefaultExportFileName() As String
@@ -2212,7 +2230,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 7-Zip was not found in the Game Backup Monitor utilities folder.  The application cannot continue..
+        '''  Looks up a localized string similar to 7-Zip was not found.  The application cannot continue..
         '''</summary>
         Friend ReadOnly Property frmMain_Error7zip() As String
             Get
@@ -2329,7 +2347,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An unexpected error occured while initializing GBM.[BR][BR][PARAM][BR][BR]The application will now exit..
+        '''  Looks up a localized string similar to An unexpected error occured while initializing GBM.[BR][BR][PARAM][BR][BR]Do you wish to continue anyway? (Not Recommended).
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorInitFailure() As String
             Get
@@ -2847,6 +2865,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_NotScanning() As String
             Get
                 Return ResourceManager.GetString("frmMain_NotScanning", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to PNG files (*.png)|*.png.
+        '''</summary>
+        Friend ReadOnly Property frmMain_PNGFilter() As String
+            Get
+                Return ResourceManager.GetString("frmMain_PNGFilter", resourceCulture)
             End Get
         End Property
         
@@ -4016,7 +4043,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] files (*.[PARAM])|*.[PARAM].
+        '''  Looks up a localized string similar to [PARAM] files (*.[PARAM])|*.[PARAM]|All files (*.*)|*.*.
         '''</summary>
         Friend ReadOnly Property mgrCommon_FilesFilter() As String
             Get

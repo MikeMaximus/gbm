@@ -3,6 +3,7 @@ Imports System.IO
 
 Public Class frmFileFolderSearch
     Private sSearchItem As String
+    Private sGameName As String = String.Empty
     Private bIsFolder As Boolean
     Private sFoundItem As String
     Private oDrives As List(Of DriveInfo)
@@ -11,6 +12,15 @@ Public Class frmFileFolderSearch
     Dim bShutdown As Boolean = False
 
     Delegate Sub UpdateInfoCallBack(ByVal sCurrentFolder As String)
+
+    Public Property GameName As String
+        Get
+            Return sGameName
+        End Get
+        Set(value As String)
+            sGameName = value
+        End Set
+    End Property
 
     Public Property SearchItem As String
         Get
@@ -50,9 +60,15 @@ Public Class frmFileFolderSearch
 
     Private Function SearchDirectory(ByVal dir As DirectoryInfo, ByVal sDirectoryName As String) As String
         Dim sSubSearch As String = String.Empty
+        Dim sFoundItem As String = String.Empty
 
         If bwSearch.CancellationPending Then
             Return "Cancel"
+        End If
+
+        'Ignore Symlinks
+        If (dir.Attributes And FileAttributes.ReparsePoint) = FileAttributes.ReparsePoint Then
+            Return String.Empty
         End If
 
         UpdateInfo(dir.FullName)
@@ -60,7 +76,12 @@ Public Class frmFileFolderSearch
         Try
             'Search Current Directory
             If dir.GetDirectories(sDirectoryName).Length > 0 Then
-                Return dir.FullName & "\" & sDirectoryName
+                sFoundItem = dir.FullName & Path.DirectorySeparatorChar & sDirectoryName
+                If mgrCommon.ShowMessage(mgrPath_ConfirmPathCorrect, New String() {GameName, sFoundItem}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    Return sFoundItem
+                Else
+                    Return String.Empty
+                End If
             End If
 
             'Search Sub Directory
@@ -82,9 +103,15 @@ Public Class frmFileFolderSearch
 
     Private Function SearchFile(ByVal dir As DirectoryInfo, ByVal sFileName As String) As String
         Dim sSubSearch As String = String.Empty
+        Dim sFoundItem As String = String.Empty
 
         If bwSearch.CancellationPending Then
             Return "Cancel"
+        End If
+
+        'Ignore Symlinks
+        If (dir.Attributes And FileAttributes.ReparsePoint) = FileAttributes.ReparsePoint Then
+            Return String.Empty
         End If
 
         UpdateInfo(dir.FullName)
@@ -92,16 +119,22 @@ Public Class frmFileFolderSearch
         Try
             'Search Current Directory
             If dir.GetFiles(sFileName).Length > 0 Then
-                Return dir.FullName & "\" & sFileName
+                sFoundItem = Path.GetDirectoryName(dir.FullName & Path.DirectorySeparatorChar & sFileName)
+                If mgrCommon.ShowMessage(mgrPath_ConfirmPathCorrect, New String() {GameName, sFoundItem}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    Return sFoundItem
+                Else
+                    Return String.Empty
+                End If
             End If
 
             'Search Sub Directory
             Dim subdirs() As DirectoryInfo = dir.GetDirectories("*")
             For Each newDir As DirectoryInfo In subdirs
-                    sSubSearch = SearchFile(newDir, sFileName)
-                    If sSubSearch <> String.Empty Then
-                        Return sSubSearch
-                    End If
+                sSubSearch = SearchFile(newDir, sFileName)
+
+                If sSubSearch <> String.Empty Then
+                    Return sSubSearch
+                End If
             Next
         Catch e As System.UnauthorizedAccessException
             'Do Nothing
@@ -122,8 +155,6 @@ Public Class frmFileFolderSearch
     End Sub
 
     Private Sub Search(ByVal oDrive As DriveInfo)
-        pgbProgress.Style = ProgressBarStyle.Marquee
-        pgbProgress.MarqueeAnimationSpeed = 5
         oSearchDrive = oDrive.RootDirectory
         bwSearch.RunWorkerAsync()
         iCurrentDrive += 1
@@ -131,7 +162,6 @@ Public Class frmFileFolderSearch
 
     Private Sub EndSearch()
         Dim oResult As MsgBoxResult
-        pgbProgress.MarqueeAnimationSpeed = 0
 
         If FoundItem = "Cancel" Then FoundItem = String.Empty
 

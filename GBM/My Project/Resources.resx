@@ -194,7 +194,7 @@
     <value>[PARAM] is a 64-bit game, GBM cannot detect the required information to save your backup.</value>
   </data>
   <data name="frmMain_Error7zip" xml:space="preserve">
-    <value>7-Zip was not found in the Game Backup Monitor utilities folder.  The application cannot continue.</value>
+    <value>7-Zip was not found.  The application cannot continue.</value>
   </data>
   <data name="frmMain_ErrorAdminBackup" xml:space="preserve">
     <value>[PARAM] is running as Administrator and GBM is not, GBM cannot detect the required information to save your backup.</value>
@@ -1355,7 +1355,7 @@
     <value>Generating SHA-256 hash for [PARAM] backup file.</value>
   </data>
   <data name="mgrCommon_FilesFilter" xml:space="preserve">
-    <value>[PARAM] files (*.[PARAM])|*.[PARAM]</value>
+    <value>[PARAM] files (*.[PARAM])|*.[PARAM]|All files (*.*)|*.*</value>
   </data>
   <data name="mgrCommon_No" xml:space="preserve">
     <value>No</value>
@@ -1559,6 +1559,15 @@
     <value>The command [PARAM] requires more parameters.</value>
   </data>
   <data name="frmMain_ErrorInitFailure" xml:space="preserve">
-    <value>An unexpected error occured while initializing GBM.[BR][BR][PARAM][BR][BR]The application will now exit.</value>
+    <value>An unexpected error occured while initializing GBM.[BR][BR][PARAM][BR][BR]Do you wish to continue anyway? (Not Recommended)</value>
+  </data>
+  <data name="App_ErrorUnixNotAvailable" xml:space="preserve">
+    <value>This function is currently not available on a Unix based operating system.</value>
+  </data>
+  <data name="frmGameManager_ConfirmUnixImportWarning" xml:space="preserve">
+    <value>You appear to be using a Unix based operating system.  The official list currently contains only Microsoft Windows game configurations.[BR][BR]Do you wish to continue?</value>
+  </data>
+  <data name="frmMain_PNGFilter" xml:space="preserve">
+    <value>PNG files (*.png)|*.png</value>
   </data>
 </root>

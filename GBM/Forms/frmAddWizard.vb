@@ -178,7 +178,7 @@ Public Class frmAddWizard
             Return False
         End If
 
-        If Path.GetExtension(strPath.ToLower) <> ".exe" Then
+        If Path.GetExtension(strPath.ToLower) <> ".exe" And Not mgrCommon.IsUnix Then
             sErrorMessage = frmAddWizard_ErrorNotAProcess
             txtProcessPath.Focus()
             Return False

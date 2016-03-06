@@ -28,35 +28,24 @@ Public Class mgrRestore
     Public Event UpdateRestoreInfo(oRestoreInfo As clsBackup)
     Public Event SetLastAction(sMessage As String)
 
-    Private Shared Function CheckForPathOverride(ByRef oCheckBackup As clsBackup, ByVal oCheckGame As clsGame) As Boolean
-        Dim oResult As MsgBoxResult
-
-        If oCheckBackup.RestorePath <> oCheckGame.Path Then
-            oResult = mgrCommon.ShowMessage(mgrRestore_ConfirmPathMismatch, oCheckBackup.CroppedName, MsgBoxStyle.YesNoCancel)
-            If oResult = MsgBoxResult.Yes Then
-                If Path.IsPathRooted(oCheckGame.Path) Then
-                    oCheckBackup.AbsolutePath = True
-                    oCheckBackup.RestorePath = oCheckGame.Path
-                Else
-                    oCheckBackup.RestorePath = oCheckGame.Path
-                End If
-            ElseIf oResult = MsgBoxResult.Cancel Then
-                Return False
+    Public Shared Sub DoPathOverride(ByRef oCheckBackup As clsBackup, ByVal oCheckGame As clsGame)
+        'Always override the manifest restore path with the current configuration path if possible
+        If Not oCheckGame.Temporary Then
+            If Path.IsPathRooted(oCheckGame.Path) Then
+                oCheckBackup.AbsolutePath = True
+            Else
+                oCheckBackup.AbsolutePath = False
             End If
+            oCheckBackup.RestorePath = oCheckGame.Path
         End If
-
-        Return True
-    End Function
+    End Sub
 
     Public Shared Function CheckPath(ByRef oRestoreInfo As clsBackup, ByVal oGame As clsGame, ByRef bTriggerReload As Boolean) As Boolean
         Dim sProcess As String
         Dim sRestorePath As String
         Dim bNoAuto As Boolean
 
-        'Before we do anything check if we need to override the current path
-        If Not CheckForPathOverride(oRestoreInfo, oGame) Then
-            Return False
-        End If
+        DoPathOverride(oRestoreInfo, oGame)
 
         If Not oRestoreInfo.AbsolutePath Then
             If oGame.ProcessPath <> String.Empty Then
@@ -232,7 +221,11 @@ Public Class mgrRestore
             If bDoRestore Then
                 Try
                     If File.Exists(sBackupFile) Then
-                        prs7z.StartInfo.Arguments = "x """ & sBackupFile & """ -o""" & sExtractPath & "\"" -aoa -r"
+                        If mgrCommon.IsUnix Then
+                            prs7z.StartInfo.Arguments = "x """ & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -aoa -r"
+                        Else
+                            prs7z.StartInfo.Arguments = "x -bb1 -bt """ & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -aoa -r"
+                        End If
                         prs7z.StartInfo.FileName = mgrPath.Utility7zLocation
                         prs7z.StartInfo.UseShellExecute = False
                         prs7z.StartInfo.RedirectStandardOutput = True
@@ -262,14 +255,14 @@ Public Class mgrRestore
                         RaiseEvent UpdateLog(mgrRestore_ErrorNoBackup, True, ToolTipIcon.Error, True)
                     End If
 
-                    If bRestoreCompleted Then
-                        'Save Local Manifest
-                        If mgrManifest.DoManifestCheck(oBackupInfo.Name, mgrSQLite.Database.Local) Then
-                            mgrManifest.DoManifestUpdate(oBackupInfo, mgrSQLite.Database.Local)
-                        Else
-                            mgrManifest.DoManifestAdd(oBackupInfo, mgrSQLite.Database.Local)
+                        If bRestoreCompleted Then
+                            'Save Local Manifest
+                            If mgrManifest.DoManifestCheck(oBackupInfo.Name, mgrSQLite.Database.Local) Then
+                                mgrManifest.DoManifestUpdate(oBackupInfo, mgrSQLite.Database.Local)
+                            Else
+                                mgrManifest.DoManifestAdd(oBackupInfo, mgrSQLite.Database.Local)
+                            End If
                         End If
-                    End If
                 Catch ex As Exception
                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorOtherFailure, ex.Message), False, ToolTipIcon.Error, True)
                 End Try

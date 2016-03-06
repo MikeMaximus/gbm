@@ -41,7 +41,11 @@
 
     Property FileName As String
         Get
-            Return sFileName
+            If mgrCommon.IsUnix Then
+                Return sFileName.Replace("\", "/")
+            Else
+                Return sFileName.Replace("/", "\")
+            End If
         End Get
         Set(value As String)
             sFileName = value

@@ -117,7 +117,7 @@ Public Class mgrBackup
             End If
 
             If oSettings.CreateSubFolder Then
-                sBackupFile = sBackupFile & "\" & oGame.Name
+                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name
                 Try
                     If Not Directory.Exists(sBackupFile) Then
                         Directory.CreateDirectory(sBackupFile)
@@ -168,7 +168,12 @@ Public Class mgrBackup
                     End If
 
                     If Directory.Exists(sSavePath) Then
-                        prs7z.StartInfo.Arguments = "a -bb1 -bt -t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """ -r"
+                        'The Linux version of 7za doesn't support the new verbose parameters and fails out.  Just split this up for now until we have a better solution.
+                        If mgrCommon.IsUnix Then
+                            prs7z.StartInfo.Arguments = "a -t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """ -r"
+                        Else
+                            prs7z.StartInfo.Arguments = "a -bb1 -bt -t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """ -r"
+                        End If
                         prs7z.StartInfo.FileName = mgrPath.Utility7zLocation
                         prs7z.StartInfo.UseShellExecute = False
                         prs7z.StartInfo.RedirectStandardOutput = True
@@ -203,7 +208,7 @@ Public Class mgrBackup
                     If bBackupCompleted Then
                         If oSettings.CheckSum Then
                             RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_GenerateHash, oGame.Name), False, ToolTipIcon.Info, True)
-                            sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)                            
+                            sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
                         End If
 
                         If Not DoManifestUpdate(oGame, sBackupFile, dTimeStamp, sHash) Then

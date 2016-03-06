@@ -30,7 +30,7 @@ Public Class frmIncludeExclude
             Return sRootFolder
         End Get
         Set(value As String)
-            sRootFolder = value.TrimEnd("\")
+            sRootFolder = value.TrimEnd(Path.DirectorySeparatorChar)
         End Set
     End Property
 
@@ -52,7 +52,7 @@ Public Class frmIncludeExclude
 
                 If sFolders.Length <> 0 Then
                     For Each sFolder As String In sFolders
-                        oChild = New TreeNode(sFolder.Replace(sDirectory, String.Empty).TrimStart("\"), 0, 0)
+                        oChild = New TreeNode(sFolder.Replace(sDirectory, String.Empty).TrimStart(Path.DirectorySeparatorChar), 0, 0)
                         oChild.Name = sFolder
                         oChild.Tag = 0
                         oNode.Nodes.Add(oChild)
@@ -64,7 +64,7 @@ Public Class frmIncludeExclude
 
                 If sFiles.Length <> 0 Then
                     For Each sFile As String In sFiles
-                        oChild = New TreeNode(sFile.Replace(sDirectory, String.Empty).TrimStart("\"), 1, 1)
+                        oChild = New TreeNode(sFile.Replace(sDirectory, String.Empty).TrimStart(Path.DirectorySeparatorChar), 1, 1)
                         oChild.Tag = 1
                         oNode.Nodes.Add(oChild)
                     Next
@@ -195,7 +195,7 @@ Public Class frmIncludeExclude
                 If Path.GetFileName(txtRootFolder.Text) = sNewLabel Then
                     sFolderCheck = txtRootFolder.Text
                 Else
-                    sFolderCheck = txtRootFolder.Text & "\" & sNewLabel
+                    sFolderCheck = txtRootFolder.Text & Path.DirectorySeparatorChar & sNewLabel
                 End If
                 If Directory.Exists(sFolderCheck) Then
                     iType = 0

@@ -630,7 +630,6 @@ Partial Class frmGameManager
         Me.lstGames.Name = "lstGames"
         Me.lstGames.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.lstGames.Size = New System.Drawing.Size(228, 381)
-        Me.lstGames.Sorted = True
         Me.lstGames.TabIndex = 1
         '
         'btnCancel

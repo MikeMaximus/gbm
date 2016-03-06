@@ -29,12 +29,16 @@ Public Class frmMain
     Private bFirstRun As Boolean = False
     Private bProcessIsAdmin As Boolean = False
     Private bLogToggle As Boolean = False
+    Private bShowToggle As Boolean = True
     Private bAllowIcon As Boolean = False
     Private bAllowDetails As Boolean = False
     Private oPriorImage As Image
     Private sPriorPath As String
     Private sPriorCompany As String
     Private sPriorVersion As String
+
+    'Developer Debug Flags
+    Private bProcessDebugMode As Boolean = False
 
     WithEvents oFileWatcher As New System.IO.FileSystemWatcher
     WithEvents tmScanTimer As New Timer
@@ -93,7 +97,7 @@ Public Class frmMain
         If oGame.AbsolutePath Then
             sStatus2 = oGame.Path
         Else
-            sStatus2 = oGame.ProcessPath & "\" & oGame.Path
+            sStatus2 = oGame.ProcessPath & System.IO.Path.DirectorySeparatorChar & oGame.Path
         End If
         sStatus3 = String.Empty
 
@@ -329,8 +333,16 @@ Public Class frmMain
         Dim fbBrowser As New OpenFileDialog
 
         fbBrowser.Title = mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName)
-        fbBrowser.DefaultExt = "ico"
-        fbBrowser.Filter = frmMain_IconFilter
+
+        'Unix Handler
+        If Not mgrCommon.IsUnix Then
+            fbBrowser.DefaultExt = "ico"
+            fbBrowser.Filter = frmMain_IconFilter
+        Else
+            fbBrowser.DefaultExt = "png"
+            fbBrowser.Filter = frmMain_PNGFilter
+        End If
+
         Try
             fbBrowser.InitialDirectory = IO.Path.GetDirectoryName(oProcess.FoundProcess.MainModule.FileName)
         Catch ex As Exception
@@ -559,8 +571,11 @@ Public Class frmMain
             sMainCommand = sFullCommand.Split(cDelimters, 2)(0)
 
             'Parse Command
-            Select Case sMainCommand
-                Case "SQL"
+            Select Case sMainCommand.ToLower
+                Case "sql"
+                    'Run a SQL command directly on any database
+                    'Usage: SQL {Local or Remote} SQL Command
+
                     Dim oDatabase As mgrSQLite
                     Dim bSuccess As Boolean
 
@@ -572,9 +587,9 @@ Public Class frmMain
                         Exit Select
                     End If
 
-                    If sCommand(1) = "Local" Then
+                    If sCommand(1).ToLower = "local" Then
                         oDatabase = New mgrSQLite(mgrSQLite.Database.Local)
-                    ElseIf sCommand(1) = "Remote" Then
+                    ElseIf sCommand(1).ToLower = "remote" Then
                         oDatabase = New mgrSQLite(mgrSQLite.Database.Remote)
                     Else
                         mgrCommon.ShowMessage(frmMain_ErrorCommandBadParam, New String() {sCommand(1), sCommand(0)}, MsgBoxStyle.Exclamation)
@@ -589,6 +604,34 @@ Public Class frmMain
                         mgrCommon.ShowMessage(frmMain_CommandFail, MsgBoxStyle.Exclamation)
                     End If
 
+                Case "debug"
+                    'Enable or disable various debug modes
+                    'Usage: DEBUG Mode {Enable or Disable} 
+
+                    sCommand = sFullCommand.Split(cDelimters, 3)
+
+                    Dim bDebugEnable As Boolean = False
+
+                    'Check Paramters
+                    If sCommand.Length < 3 Then
+                        mgrCommon.ShowMessage(frmMain_ErrorMissingParams, sCommand(0), MsgBoxStyle.Exclamation)
+                        Exit Select
+                    End If
+
+                    If sCommand(2).ToLower = "enable" Then
+                        bDebugEnable = True
+                    ElseIf sCommand(2).ToLower = "disable" Then
+                        bDebugEnable = False
+                    Else
+                        mgrCommon.ShowMessage(frmMain_ErrorCommandBadParam, New String() {sCommand(1), sCommand(0)}, MsgBoxStyle.Exclamation)
+                        Exit Select
+                    End If
+
+                    Select Case sCommand(1).ToLower
+                        Case "process"
+                            bProcessDebugMode = bDebugEnable
+                            mgrCommon.ShowMessage(frmMain_CommandSucess, MsgBoxStyle.Exclamation)
+                    End Select
                 Case Else
                     mgrCommon.ShowMessage(frmMain_ErrorCommandInvalid, sMainCommand, MsgBoxStyle.Exclamation)
             End Select
@@ -798,26 +841,35 @@ Public Class frmMain
     Private Sub ToggleLog()
         If bLogToggle = False Then
             txtLog.Visible = True
-            Me.Size = New System.Drawing.Size(540, 425)
+
+            'Unix Handler
+            If mgrCommon.IsUnix Then
+                Me.Size = New System.Drawing.Size(Me.Size.Width, 440)
+            Else
+                Me.Size = New System.Drawing.Size(Me.Size.Width, 425)
+            End If
+
             bLogToggle = True
             btnLogToggle.Text = frmMain_btnToggleLog_Hide
             txtLog.Select(txtLog.TextLength, 0)
             txtLog.ScrollToCaret()
         Else
             txtLog.Visible = False
-            Me.Size = New System.Drawing.Size(540, 245)
+            Me.Size = New System.Drawing.Size(Me.Size.Width, 245)
             bLogToggle = False
             btnLogToggle.Text = frmMain_btnToggleLog_Show
         End If
     End Sub
 
     Private Sub ToggleState()
-        'Toggle State with Tray Clicks
-        If Me.Visible = False Then
+        'Toggle State with Tray Clicks        
+        If Not bShowToggle Then
+            bShowToggle = True
             Me.Visible = True
             Me.ShowInTaskbar = True
             Me.Focus()
         Else
+            bShowToggle = False
             Me.Visible = False
             Me.ShowInTaskbar = False
         End If
@@ -1080,7 +1132,7 @@ Public Class frmMain
         lblLastAction.Text = String.Empty
         pbTime.SizeMode = PictureBoxSizeMode.AutoSize
         pbTime.Image = Icon_Clock
-        Me.Size = New System.Drawing.Size(540, 245)
+        Me.Size = New System.Drawing.Size(Me.Size.Width, 245)
         AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
         ResetGameInfo()
     End Sub
@@ -1245,14 +1297,19 @@ Public Class frmMain
 
     'Functions to handle other features
     Private Sub RestartAsAdmin()
-        If mgrCommon.IsElevated Then
-            mgrCommon.ShowMessage(frmMain_ErrorAlreadyAdmin, MsgBoxStyle.Information)
-        Else
-            If mgrCommon.ShowMessage(frmMain_ConfirmRunAsAdmin, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                mgrCommon.RestartAsAdmin()
-                bShutdown = True
-                ShutdownApp(False)
+        'Unix Hanlder
+        If Not mgrCommon.IsUnix Then
+            If mgrCommon.IsElevated Then
+                mgrCommon.ShowMessage(frmMain_ErrorAlreadyAdmin, MsgBoxStyle.Information)
+            Else
+                If mgrCommon.ShowMessage(frmMain_ConfirmRunAsAdmin, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    mgrCommon.RestartAsAdmin()
+                    bShutdown = True
+                    ShutdownApp(False)
+                End If
             End If
+        Else
+            mgrCommon.ShowMessage(App_ErrorUnixNotAvailable, MsgBoxStyle.Exclamation)
         End If
     End Sub
 
@@ -1386,7 +1443,7 @@ Public Class frmMain
         ToggleLog()
     End Sub
 
-    Private Sub gMonStripSplitButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripStatusButton.ButtonClick
+    Private Sub gMonStripSplitStatusButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripStatusButton.Click
         ScanToggle()
     End Sub
 
@@ -1397,6 +1454,7 @@ Public Class frmMain
     End Sub
 
     Private Sub gMonTray_BalloonTipClicked(sender As System.Object, e As System.EventArgs) Handles gMonTray.BalloonTipClicked
+        bShowToggle = True
         Me.Visible = True
         Me.ShowInTaskbar = True
         Me.Focus()
@@ -1406,7 +1464,7 @@ Public Class frmMain
         OperationCancel()
     End Sub
 
-    Private Sub gMonStripAdminButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripAdminButton.ButtonClick
+    Private Sub gMonStripAdminButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripAdminButton.Click
         RestartAsAdmin()
     End Sub
 
@@ -1416,11 +1474,19 @@ Public Class frmMain
     End Sub
 
     Private Sub Main_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        'Intercept Exit & Minimize
+        'Unix Handler
+        If mgrCommon.IsUnix And Not bShutdown Then
+            ShutdownApp()
+        End If
+
+        'Intercept Exit
         If bShutdown = False Then
             e.Cancel = True
-            Me.Visible = False
-            Me.ShowInTaskbar = False            
+            If Not mgrCommon.IsUnix Then
+                bShowToggle = False
+                Me.Visible = False
+                Me.ShowInTaskbar = False
+            End If
         End If
     End Sub
 
@@ -1431,7 +1497,7 @@ Public Class frmMain
         Dim iErrorCode As Integer = 0
         Dim sErrorMessage As String = String.Empty
 
-        If oProcess.SearchRunningProcesses(hshScanList, bNeedsPath, iErrorCode) Then
+        If oProcess.SearchRunningProcesses(hshScanList, bNeedsPath, iErrorCode, bProcessDebugMode) Then
             PauseScan()
 
             If bNeedsPath Then
@@ -1534,7 +1600,6 @@ Public Class frmMain
     End Sub
 
     Private Sub Main_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-
         'Init
         Try
             SetForm()
@@ -1542,7 +1607,8 @@ Public Class frmMain
             LoadAndVerify()
             VerifyCustomPathVariables()
 
-            If oSettings.StartToTray Then
+            If oSettings.StartToTray And Not mgrCommon.IsUnix Then
+                bShowToggle = False
                 Me.Visible = False
                 Me.ShowInTaskbar = False
             End If
@@ -1554,25 +1620,30 @@ Public Class frmMain
             End If
 
             HandleScan()
-            CheckForNewBackups()            
-        Catch niex As NotImplementedException
-            'Ignore for Mono runtime tests
+            CheckForNewBackups()
         Catch ex As Exception
-            mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message, MsgBoxStyle.Critical)
-            bInitFail = True            
+            If mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                bInitFail = True
+            End If
         End Try
+
+        'Unix Handler
+        If mgrCommon.IsUnix Then            
+            Me.MinimizeBox = True
+        Else
+            Me.gMonTray.Visible = True
+        End If
 
     End Sub
 
     Private Sub frmMain_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-
-        If bFirstRun And Not bInitFail Then
-            OpenStartupWizard()
-        End If
-
         If bInitFail Then
             bShutdown = True
             Me.Close()
+        End If
+
+        If bFirstRun And Not bShutdown Then
+            OpenStartupWizard()
         End If
     End Sub
 
