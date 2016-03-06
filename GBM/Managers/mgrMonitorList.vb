@@ -234,6 +234,7 @@ Public Class mgrMonitorList
                 Cursor.Current = Cursors.Default
                 mgrCommon.ShowMessage(mgrMonitorList_ImportComplete, MsgBoxStyle.Information)
             End If
+            frm.Dispose()
         Else
             mgrCommon.ShowMessage(mgrMonitorList_ImportNothing, MsgBoxStyle.Information)
         End If
