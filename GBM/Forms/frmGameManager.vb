@@ -371,10 +371,6 @@ Public Class frmGameManager
 
     End Function
 
-    Public Shared Function CompareByName(sItem1 As KeyValuePair(Of String, String), sItem2 As KeyValuePair(Of String, String)) As Integer
-        Return String.Compare(sItem1.Value, sItem2.value)
-    End Function
-
     Private Sub FormatAndFillList()
         IsLoading = True
 
@@ -382,20 +378,19 @@ Public Class frmGameManager
         Dim oData As KeyValuePair(Of String, String)
         Dim oList As New List(Of KeyValuePair(Of String, String))
 
-        lstGames.ValueMember = "Key"
-        lstGames.DisplayMember = "Value"
-
         For Each de As DictionaryEntry In AppData
             oApp = DirectCast(de.Value, clsGame)
-            oData = New KeyValuePair(Of String, String)(oApp.ID, oApp.Name)            
+            oData = New KeyValuePair(Of String, String)(oApp.ID, oApp.Name)
             oList.Add(oData)
         Next
 
-        oList.Sort(AddressOf CompareByName)
+        oList.Sort(AddressOf mgrCommon.CompareByName)
 
         lstGames.BeginUpdate()
         lstGames.DataSource = oList
-        lstGames.EndUpdate()        
+        lstGames.ValueMember = "Key"
+        lstGames.DisplayMember = "Value"
+        lstGames.EndUpdate()
         lstGames.ClearSelected()
         IsLoading = False
     End Sub

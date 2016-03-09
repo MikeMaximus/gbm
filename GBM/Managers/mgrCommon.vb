@@ -251,6 +251,11 @@ Public Class mgrCommon
         Return sString
     End Function
 
+    'Compare function for list boxes
+    Public Shared Function CompareByName(sItem1 As KeyValuePair(Of String, String), sItem2 As KeyValuePair(Of String, String)) As Integer
+        Return String.Compare(sItem1.Value, sItem2.value)
+    End Function
+
     'Maintenance Only - Function for string management
     Public Shared Sub GetAllStrings(ByVal ctlParent As Control, ByRef sResource As String, ByRef sCode As String, ByVal sFormName As String)
         For Each ctl As Control In ctlParent.Controls

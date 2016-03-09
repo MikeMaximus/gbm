@@ -33,11 +33,9 @@ Partial Class frmAdvancedImport
         'lstGames
         '
         Me.lstGames.CheckOnClick = True
-        Me.lstGames.FormattingEnabled = True
         Me.lstGames.Location = New System.Drawing.Point(12, 30)
         Me.lstGames.Name = "lstGames"
         Me.lstGames.Size = New System.Drawing.Size(335, 334)
-        Me.lstGames.Sorted = True
         Me.lstGames.TabIndex = 1
         '
         'btnImport

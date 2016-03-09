@@ -26,15 +26,22 @@ Public Class frmAdvancedImport
     Private Sub LoadData()
         Dim oApp As clsGame
         Dim oData As KeyValuePair(Of String, String)
-
-        lstGames.ValueMember = "Key"
-        lstGames.DisplayMember = "Value"
+        Dim oList As New List(Of KeyValuePair(Of String, String))
 
         For Each de As DictionaryEntry In ImportData
             oApp = DirectCast(de.Value, clsGame)
             oData = New KeyValuePair(Of String, String)(oApp.CompoundKey, oApp.Name & " (" & oApp.TrueProcess & ")")
-            lstGames.Items.Add(oData)
+            oList.Add(oData)
         Next
+
+        oList.Sort(AddressOf mgrCommon.CompareByName)
+
+        lstGames.BeginUpdate()
+        lstGames.DataSource = oList
+        lstGames.ValueMember = "Key"
+        lstGames.DisplayMember = "Value"
+        lstGames.EndUpdate()
+        lstGames.ClearSelected()
     End Sub
 
     Private Sub SetForm()
