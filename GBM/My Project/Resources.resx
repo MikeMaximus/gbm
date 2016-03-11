@@ -212,7 +212,7 @@
     <value>[PARAM] backup was cancelled.</value>
   </data>
   <data name="frmMain_ErrorBackupSessionLength" xml:space="preserve">
-    <value>[PARAM] backup was cancelled due to session length.</value>
+    <value>[PARAM] backup was cancelled due to session length</value>
   </data>
   <data name="frmMain_ErrorBackupUnknownPath" xml:space="preserve">
     <value>[PARAM] backup was cancelled due to unknown path.</value>
@@ -872,7 +872,7 @@
     <value>Import Game Configurations</value>
   </data>
   <data name="frmAdvancedImport_NewConfigs" xml:space="preserve">
-    <value>[PARAM] new configurations available.</value>
+    <value>[PARAM] configurations available</value>
   </data>
   <data name="frmAdvancedImport_Selected" xml:space="preserve">
     <value>[PARAM] Selected</value>
@@ -1569,5 +1569,17 @@
   </data>
   <data name="frmMain_PNGFilter" xml:space="preserve">
     <value>PNG files (*.png)|*.png</value>
+  </data>
+  <data name="frmAdvancedImport_lblFilter" xml:space="preserve">
+    <value>Search:</value>
+  </data>
+  <data name="frmAdvancedImport_ColumnName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="frmAdvancedImport_ColumnProcess" xml:space="preserve">
+    <value>Process</value>
+  </data>
+  <data name="frmAdvancedImport_ColumnTags" xml:space="preserve">
+    <value>Tags</value>
   </data>
 </root>

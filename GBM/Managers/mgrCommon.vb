@@ -251,9 +251,13 @@ Public Class mgrCommon
         Return sString
     End Function
 
-    'Compare function for list boxes
-    Public Shared Function CompareByName(sItem1 As KeyValuePair(Of String, String), sItem2 As KeyValuePair(Of String, String)) As Integer
-        Return String.Compare(sItem1.Value, sItem2.value)
+    'Compare functions
+    Public Shared Function CompareImportTagsByName(oItem1 As Tag, oItem2 As Tag) As Integer
+        Return String.Compare(oItem1.Name, oItem2.Name)
+    End Function
+
+    Public Shared Function CompareByListBoxItemByValue(sItem1 As KeyValuePair(Of String, String), sItem2 As KeyValuePair(Of String, String)) As Integer
+        Return String.Compare(sItem1.Value, sItem2.Value)
     End Function
 
     'Maintenance Only - Function for string management

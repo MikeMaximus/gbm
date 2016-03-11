@@ -384,7 +384,7 @@ Public Class frmGameManager
             oList.Add(oData)
         Next
 
-        oList.Sort(AddressOf mgrCommon.CompareByName)
+        oList.Sort(AddressOf mgrCommon.CompareByListBoxItemByValue)
 
         lstGames.BeginUpdate()
         lstGames.DataSource = oList

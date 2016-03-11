@@ -727,6 +727,33 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Name.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_ColumnName() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_ColumnName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Process.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_ColumnProcess() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_ColumnProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Tags.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_ColumnTags() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_ColumnTags", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Import Game Configurations.
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_FormName() As String
@@ -736,7 +763,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] new configurations available..
+        '''  Looks up a localized string similar to Search:.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_lblFilter() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_lblFilter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] configurations available.
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_NewConfigs() As String
             Get
@@ -2284,7 +2320,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] backup was cancelled due to session length..
+        '''  Looks up a localized string similar to [PARAM] backup was cancelled due to session length.
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorBackupSessionLength() As String
             Get

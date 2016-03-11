@@ -3,8 +3,10 @@
 Public Class frmAdvancedImport
 
     Private hshImportData As Hashtable
+    Private hshFinalData As New Hashtable
     Private bSelectAll As Boolean = False
     Private bIsLoading As Boolean = False
+    Private WithEvents tmFilterTimer As Timer
 
     Public Property ImportData As Hashtable
         Set(value As Hashtable)
@@ -15,33 +17,67 @@ Public Class frmAdvancedImport
         End Get
     End Property
 
+    Public ReadOnly Property FinalData As Hashtable
+        Get
+            Return hshFinalData
+        End Get
+    End Property
+
+
     Private Sub SelectToggle()
+        Cursor.Current = Cursors.WaitCursor
+        lstGames.BeginUpdate()
         bSelectAll = Not bSelectAll
         For i As Integer = 0 To lstGames.Items.Count - 1
-            lstGames.SetItemChecked(i, bSelectAll)
+            lstGames.Items(i).Checked = bSelectAll            
         Next
+        lstGames.EndUpdate()
+        Cursor.Current = Cursors.Default
         UpdateSelected()
     End Sub
 
-    Private Sub LoadData()
+    Private Sub LoadData(Optional ByVal sFilter As String = "")
         Dim oApp As clsGame
-        Dim oData As KeyValuePair(Of String, String)
-        Dim oList As New List(Of KeyValuePair(Of String, String))
+        Dim oListViewItem As ListViewItem
+        Dim sTags As String
+
+
+        Cursor.Current = Cursors.WaitCursor
+        lstGames.BeginUpdate()
+
+        lstGames.Clear()
+
+        lstGames.Columns.Add(frmAdvancedImport_ColumnName, 215)
+        lstGames.Columns.Add(frmAdvancedImport_ColumnProcess, 130)
+        lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 190)
 
         For Each de As DictionaryEntry In ImportData
             oApp = DirectCast(de.Value, clsGame)
-            oData = New KeyValuePair(Of String, String)(oApp.CompoundKey, oApp.Name & " (" & oApp.TrueProcess & ")")
-            oList.Add(oData)
+            sTags = String.Empty
+            oApp.ImportTags.Sort(AddressOf mgrCommon.CompareImportTagsByName)
+            For Each oTag As Tag In oApp.ImportTags
+                sTags &= oTag.Name & ", "
+            Next            
+            sTags = sTags.TrimEnd(New Char() {",", " "})
+
+            oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.TrueProcess, sTags})
+            oListViewItem.Tag = oApp.CompoundKey
+            oListViewItem.Checked = bSelectAll
+
+            If sFilter = String.Empty Then
+                lstGames.Items.Add(oListViewItem)
+            Else
+                If oApp.Name.ToLower.Contains(sFilter.ToLower) Or oApp.TrueProcess.ToLower.Contains(sFilter.ToLower) Or sTags.ToLower.Contains(sFilter.ToLower) Then
+                    lstGames.Items.Add(oListViewItem)
+                End If
+            End If
         Next
 
-        oList.Sort(AddressOf mgrCommon.CompareByName)
-
-        lstGames.BeginUpdate()
-        lstGames.DataSource = oList
-        lstGames.ValueMember = "Key"
-        lstGames.DisplayMember = "Value"
+        lstGames.ListViewItemSorter = New ListViewItemComparer(0)
         lstGames.EndUpdate()
-        lstGames.ClearSelected()
+        UpdateSelected()
+        lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_NewConfigs, lstGames.Items.Count)
+        Cursor.Current = Cursors.Default
     End Sub
 
     Private Sub SetForm()
@@ -49,21 +85,24 @@ Public Class frmAdvancedImport
         Me.Text = frmAdvancedImport_FormName
 
         'Set Form Text
+        lblFilter.Text = frmAdvancedImport_lblFilter
         btnCancel.Text = frmAdvancedImport_btnCancel
         btnImport.Text = frmAdvancedImport_btnImport
 
         chkSelectAll.Checked = True
-        lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_NewConfigs, ImportData.Count)
+
+        'Init Filter Timer
+        tmFilterTimer = New Timer()
+        tmFilterTimer.Interval = 1000
+        tmFilterTimer.Enabled = False
     End Sub
 
     Private Sub BuildList()
-        Dim oData As KeyValuePair(Of String, String)
+        Dim oData As ListViewItem
 
-        For i As Integer = 0 To lstGames.Items.Count - 1
-            If Not lstGames.GetItemChecked(i) Then
-                oData = lstGames.Items(i)
-                ImportData.Remove(oData.Key)
-            End If
+        For i As Integer = 0 To lstGames.CheckedItems.Count - 1
+            oData = lstGames.Items(i)            
+            FinalData.Add(oData.Tag, ImportData(oData.Tag))
         Next
     End Sub
 
@@ -83,7 +122,7 @@ Public Class frmAdvancedImport
         If Not bIsLoading Then SelectToggle()
     End Sub
 
-    Private Sub lstGames_SelectedValueChanged(sender As Object, e As EventArgs) Handles lstGames.SelectedValueChanged
+    Private Sub lstGames_ItemChecked(sender As Object, e As ItemCheckedEventArgs) Handles lstGames.ItemChecked
         If Not bIsLoading Then UpdateSelected()
     End Sub
 
@@ -96,4 +135,40 @@ Public Class frmAdvancedImport
         If ImportData.Count > 0 Then Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
+
+    Private Sub lstGames_ColumnClick(sender As Object, e As ColumnClickEventArgs) Handles lstGames.ColumnClick
+        lstGames.ListViewItemSorter = New ListViewItemComparer(e.Column)        
+    End Sub
+
+    Private Sub txtFilter_TextChanged(sender As Object, e As EventArgs) Handles txtFilter.TextChanged
+        If Not tmFilterTimer.Enabled Then
+            tmFilterTimer.Enabled = True
+            tmFilterTimer.Start()
+        End If
+    End Sub
+
+    Private Sub tmFilterTimer_Tick(sender As Object, ByVal e As EventArgs) Handles tmFilterTimer.Tick
+        LoadData(txtFilter.Text)
+        tmFilterTimer.Stop()
+        tmFilterTimer.Enabled = False
+    End Sub
+End Class
+
+' Column Sorter
+Class ListViewItemComparer
+    Implements IComparer
+
+    Private col As Integer
+
+    Public Sub New()
+        col = 0
+    End Sub
+
+    Public Sub New(ByVal column As Integer)
+        col = column
+    End Sub
+
+    Public Function Compare(ByVal x As Object, ByVal y As Object) As Integer Implements IComparer.Compare
+        Return String.Compare(CType(x, ListViewItem).SubItems(col).Text, CType(y, ListViewItem).SubItems(col).Text)
+    End Function
 End Class

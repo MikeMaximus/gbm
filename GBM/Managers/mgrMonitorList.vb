@@ -228,8 +228,8 @@ Public Class mgrMonitorList
             If frm.ShowDialog() = DialogResult.OK Then
                 Cursor.Current = Cursors.WaitCursor
 
-                DoListAddUpdateSync(frm.ImportData)
-                mgrTags.DoTagAddImport(frm.ImportData)
+                DoListAddUpdateSync(frm.FinalData)
+                mgrTags.DoTagAddImport(frm.FinalData)
 
                 Cursor.Current = Cursors.Default
                 mgrCommon.ShowMessage(mgrMonitorList_ImportComplete, MsgBoxStyle.Information)
@@ -243,7 +243,7 @@ Public Class mgrMonitorList
 
     Public Shared Function DoImport(ByVal sPath As String) As Boolean
         If (sPath.IndexOf("http://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Or _
-           (sPath.IndexOf("https://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Then
+               (sPath.IndexOf("https://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Then
             If mgrCommon.CheckAddress(sPath) Then
                 ImportMonitorList(sPath, True)
                 Return True
