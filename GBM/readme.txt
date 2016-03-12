@@ -2,7 +2,7 @@ Game Backup Monitor v0.96 Preview Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-March 4, 2016
+March 12, 2016
 
 Disclaimer:
 
@@ -12,6 +12,12 @@ New in 0.96
 
 For more information regarding Linux support read the FAQ at http://mikemaximus.github.io/gbm-web/linux.html
 
+- (All) Overhauled the Import screen for better usability.  Added game tags, simple filtering, sorting and general fixes.</li>
+- (Linux) Fixed some bad code causing the "Official Import" connection to time out when making multiple connections in the same session.</li>
+- (Linux) Fixed cross-platform issues with opening backup files and restore locations from the Game Manager.</li>
+- (All) Backup files opened from the Game Manager will now open directly in the app they are associated with, like 7-Zip GUI or File Roller.</li>
+- (Linux) Fixed cross-platform issues with automatic file/folder searching.  It's now enabled on Linux. </li>
+- (All) GBM now restores saved games to the currently configured saved game path by default.  The stored manfiest location is only used when there's no configuration for the game.</li>
 - (Linux) Added Linux support via Mono!
 - (All) Replaced System.Data.SQLite with the Mono.Data.Sqlite for cross-platform support.
 - (Windows) Updated GBM's version of 7-Zip to 15.14 (2015-12-31)
