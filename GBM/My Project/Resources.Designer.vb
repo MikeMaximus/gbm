@@ -736,7 +736,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Process.
+        '''  Looks up a localized string similar to Monitored Process.
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_ColumnProcess() As String
             Get
@@ -754,6 +754,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Configurations ([PARAM]).
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_Configs() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_Configs", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [Filtered].
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_Filtered() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_Filtered", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Import Game Configurations.
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_FormName() As String
@@ -763,7 +781,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Search:.
+        '''  Looks up a localized string similar to Filter:.
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_lblFilter() As String
             Get
@@ -772,16 +790,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] configurations available.
-        '''</summary>
-        Friend ReadOnly Property frmAdvancedImport_NewConfigs() As String
-            Get
-                Return ResourceManager.GetString("frmAdvancedImport_NewConfigs", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to [PARAM] Selected.
+        '''  Looks up a localized string similar to Selected ([PARAM]).
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_Selected() As String
             Get

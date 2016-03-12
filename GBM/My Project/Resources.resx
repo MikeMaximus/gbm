@@ -871,11 +871,11 @@
   <data name="frmAdvancedImport_FormName" xml:space="preserve">
     <value>Import Game Configurations</value>
   </data>
-  <data name="frmAdvancedImport_NewConfigs" xml:space="preserve">
-    <value>[PARAM] configurations available</value>
+  <data name="frmAdvancedImport_Configs" xml:space="preserve">
+    <value>Configurations ([PARAM])</value>
   </data>
   <data name="frmAdvancedImport_Selected" xml:space="preserve">
-    <value>[PARAM] Selected</value>
+    <value>Selected ([PARAM])</value>
   </data>
   <data name="frmChooseGame_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>
@@ -1571,15 +1571,18 @@
     <value>PNG files (*.png)|*.png</value>
   </data>
   <data name="frmAdvancedImport_lblFilter" xml:space="preserve">
-    <value>Search:</value>
+    <value>Filter:</value>
   </data>
   <data name="frmAdvancedImport_ColumnName" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="frmAdvancedImport_ColumnProcess" xml:space="preserve">
-    <value>Process</value>
+    <value>Monitored Process</value>
   </data>
   <data name="frmAdvancedImport_ColumnTags" xml:space="preserve">
     <value>Tags</value>
+  </data>
+  <data name="frmAdvancedImport_Filtered" xml:space="preserve">
+    <value>[Filtered]</value>
   </data>
 </root>

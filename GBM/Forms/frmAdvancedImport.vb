@@ -6,6 +6,7 @@ Public Class frmAdvancedImport
     Private hshFinalData As New Hashtable
     Private bSelectAll As Boolean = False
     Private bIsLoading As Boolean = False
+    Private iCurrentSort As Integer = 0
     Private WithEvents tmFilterTimer As Timer
 
     Public Property ImportData As Hashtable
@@ -36,11 +37,20 @@ Public Class frmAdvancedImport
         UpdateSelected()
     End Sub
 
+    Private Sub SaveChecked(ByVal oItem As ListViewItem)
+        If oItem.Checked Then
+            FinalData.Add(oItem.Tag, ImportData(oItem.Tag))
+        Else
+            FinalData.Remove(oItem.Tag)
+        End If
+    End Sub
+
     Private Sub LoadData(Optional ByVal sFilter As String = "")
         Dim oApp As clsGame
         Dim oListViewItem As ListViewItem
         Dim sTags As String
-
+        Dim bAddItem As Boolean
+        Dim bResetSelectAll As Boolean = False
 
         Cursor.Current = Cursors.WaitCursor
         lstGames.BeginUpdate()
@@ -52,31 +62,59 @@ Public Class frmAdvancedImport
         lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 190)
 
         For Each de As DictionaryEntry In ImportData
+            bAddItem = False
             oApp = DirectCast(de.Value, clsGame)
             sTags = String.Empty
             oApp.ImportTags.Sort(AddressOf mgrCommon.CompareImportTagsByName)
             For Each oTag As Tag In oApp.ImportTags
                 sTags &= oTag.Name & ", "
-            Next            
+            Next
             sTags = sTags.TrimEnd(New Char() {",", " "})
 
             oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.TrueProcess, sTags})
             oListViewItem.Tag = oApp.CompoundKey
-            oListViewItem.Checked = bSelectAll
+
+            If FinalData.ContainsKey(oApp.CompoundKey) Then
+                oListViewItem.Checked = True
+            Else
+                oListViewItem.Checked = False
+            End If
 
             If sFilter = String.Empty Then
-                lstGames.Items.Add(oListViewItem)
+                bAddItem = True
             Else
                 If oApp.Name.ToLower.Contains(sFilter.ToLower) Or oApp.TrueProcess.ToLower.Contains(sFilter.ToLower) Or sTags.ToLower.Contains(sFilter.ToLower) Then
-                    lstGames.Items.Add(oListViewItem)
+                    bAddItem = True
                 End If
+            End If
+
+            If bAddItem Then
+                If oListViewItem.Checked Then bResetSelectAll = True
+                lstGames.Items.Add(oListViewItem)
             End If
         Next
 
-        lstGames.ListViewItemSorter = New ListViewItemComparer(0)
+        'Change the status of the "Select All" checkbox depending on the status of the items filter results.  Set loading flag so we don't trigger any events
+        bIsLoading = True
+        If Not bResetSelectAll And bSelectAll Then
+            bSelectAll = False
+            chkSelectAll.Checked = False
+        ElseIf bResetSelectAll And Not bSelectAll Then
+            bSelectAll = True
+            chkSelectAll.Checked = True
+        End If
+        bIsLoading = False
+
+        lstGames.ListViewItemSorter = New ListViewItemComparer(iCurrentSort)
         lstGames.EndUpdate()
         UpdateSelected()
-        lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_NewConfigs, lstGames.Items.Count)
+
+        If txtFilter.Text = String.Empty Then
+            lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_Configs, lstGames.Items.Count)
+        Else
+            lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_Configs, lstGames.Items.Count) & " " & frmAdvancedImport_Filtered
+        End If
+
         Cursor.Current = Cursors.Default
     End Sub
 
@@ -97,17 +135,8 @@ Public Class frmAdvancedImport
         tmFilterTimer.Enabled = False
     End Sub
 
-    Private Sub BuildList()
-        Dim oData As ListViewItem
-
-        For i As Integer = 0 To lstGames.CheckedItems.Count - 1
-            oData = lstGames.Items(i)            
-            FinalData.Add(oData.Tag, ImportData(oData.Tag))
-        Next
-    End Sub
-
     Private Sub UpdateSelected()
-        lblSelected.Text = mgrCommon.FormatString(frmAdvancedImport_Selected, lstGames.CheckedItems.Count)
+        lblSelected.Text = mgrCommon.FormatString(frmAdvancedImport_Selected, FinalData.Count)
     End Sub
 
     Private Sub frmAdvancedImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -123,7 +152,10 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub lstGames_ItemChecked(sender As Object, e As ItemCheckedEventArgs) Handles lstGames.ItemChecked
-        If Not bIsLoading Then UpdateSelected()
+        SaveChecked(e.Item)
+        If Not bIsLoading Then
+            UpdateSelected()
+        End If
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
@@ -131,13 +163,13 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
-        BuildList()
-        If ImportData.Count > 0 Then Me.DialogResult = Windows.Forms.DialogResult.OK
+        If FinalData.Count > 0 Then Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
 
     Private Sub lstGames_ColumnClick(sender As Object, e As ColumnClickEventArgs) Handles lstGames.ColumnClick
-        lstGames.ListViewItemSorter = New ListViewItemComparer(e.Column)        
+        iCurrentSort = e.Column
+        lstGames.ListViewItemSorter = New ListViewItemComparer(e.Column)
     End Sub
 
     Private Sub txtFilter_TextChanged(sender As Object, e As EventArgs) Handles txtFilter.TextChanged

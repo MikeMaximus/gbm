@@ -44,7 +44,7 @@ Partial Class frmAdvancedImport
         'chkSelectAll
         '
         Me.chkSelectAll.AutoSize = True
-        Me.chkSelectAll.Location = New System.Drawing.Point(15, 12)
+        Me.chkSelectAll.Location = New System.Drawing.Point(18, 12)
         Me.chkSelectAll.Name = "chkSelectAll"
         Me.chkSelectAll.Size = New System.Drawing.Size(15, 14)
         Me.chkSelectAll.TabIndex = 0
@@ -97,11 +97,12 @@ Partial Class frmAdvancedImport
         '
         'lblFilter
         '
-        Me.lblFilter.Location = New System.Drawing.Point(363, 12)
+        Me.lblFilter.Location = New System.Drawing.Point(307, 12)
         Me.lblFilter.Name = "lblFilter"
-        Me.lblFilter.Size = New System.Drawing.Size(47, 14)
+        Me.lblFilter.Size = New System.Drawing.Size(103, 14)
         Me.lblFilter.TabIndex = 0
-        Me.lblFilter.Text = "Search:"
+        Me.lblFilter.Text = "Filter:"
+        Me.lblFilter.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'frmAdvancedImport
         '
