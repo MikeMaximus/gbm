@@ -24,7 +24,6 @@ Public Class frmAdvancedImport
         End Get
     End Property
 
-
     Private Sub SelectToggle()
         Cursor.Current = Cursors.WaitCursor
         lstGames.BeginUpdate()
@@ -126,6 +125,7 @@ Public Class frmAdvancedImport
         lblFilter.Text = frmAdvancedImport_lblFilter
         btnCancel.Text = frmAdvancedImport_btnCancel
         btnImport.Text = frmAdvancedImport_btnImport
+        chkSelectAll.Text = frmAdvancedImport_chkSelectAll
 
         chkSelectAll.Checked = True
 

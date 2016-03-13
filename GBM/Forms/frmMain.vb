@@ -65,7 +65,8 @@ Public Class frmMain
         Else
             Dim sPattern As String = "h:mm tt"
             lblLastActionTitle.Visible = True
-            lblLastAction.Text = sMessage & " at " & TimeOfDay.ToString(sPattern)
+            lblLastActionTitle.Text = frmMain_lblLastActionTitle & " [" & TimeOfDay.ToString(sPattern) & "]"
+            lblLastAction.Text = sMessage
         End If
     End Sub
 
@@ -272,13 +273,13 @@ Public Class frmMain
         eCurrentOperation = eOperation.Backup
         OperationStarted(False)
 
-        If SupressBackup() Then
-            bDoBackup = False
-            UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupSessionLength, oProcess.GameInfo.Name), False)
-            SetLastAction(mgrCommon.FormatString(frmMain_ErrorBackupSessionLength, oProcess.GameInfo.CroppedName))
-            OperationEnded()
-        Else
-            If oProcess.GameInfo.MonitorOnly = False Then
+        If oProcess.GameInfo.MonitorOnly = False Then
+            If SupressBackup() Then
+                bDoBackup = False
+                UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupSessionLength, oProcess.GameInfo.Name), False)
+                SetLastAction(mgrCommon.FormatString(frmMain_ErrorBackupSessionLength, oProcess.GameInfo.CroppedName))
+                OperationEnded()
+            Else
                 If oSettings.DisableConfirmation Then
                     bDoBackup = True
                 Else
@@ -290,13 +291,13 @@ Public Class frmMain
                         SetLastAction(mgrCommon.FormatString(frmMain_ErrorBackupCancel, oProcess.GameInfo.CroppedName))
                         OperationEnded()
                     End If
-                End If
-            Else
-                bDoBackup = False
-                UpdateLog(mgrCommon.FormatString(frmMain_MonitorEnded, oProcess.GameInfo.Name), False)
-                SetLastAction(mgrCommon.FormatString(frmMain_MonitorEnded, oProcess.GameInfo.CroppedName))
-                OperationEnded()
+                End If            
             End If
+        Else
+            bDoBackup = False
+            UpdateLog(mgrCommon.FormatString(frmMain_MonitorEnded, oProcess.GameInfo.Name), False)
+            SetLastAction(mgrCommon.FormatString(frmMain_MonitorEnded, oProcess.GameInfo.CroppedName))
+            OperationEnded()
         End If
 
         If bDoBackup Then

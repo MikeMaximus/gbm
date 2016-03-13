@@ -212,7 +212,7 @@
     <value>[PARAM] backup was cancelled.</value>
   </data>
   <data name="frmMain_ErrorBackupSessionLength" xml:space="preserve">
-    <value>[PARAM] backup was cancelled due to session length</value>
+    <value>[PARAM] backup was cancelled due to session length.</value>
   </data>
   <data name="frmMain_ErrorBackupUnknownPath" xml:space="preserve">
     <value>[PARAM] backup was cancelled due to unknown path.</value>
@@ -1307,10 +1307,10 @@
     <value>Do you wish to manually set the game path? (Path will be saved)</value>
   </data>
   <data name="mgrBackup_ActionComplete" xml:space="preserve">
-    <value>[PARAM] backup completed</value>
+    <value>[PARAM] backup completed.</value>
   </data>
   <data name="mgrBackup_ActionFailed" xml:space="preserve">
-    <value>[PARAM] backup failed</value>
+    <value>[PARAM] backup failed.</value>
   </data>
   <data name="mgrBackup_BackupComplete" xml:space="preserve">
     <value>[PARAM] backup ([PARAM]) completed. </value>
@@ -1412,10 +1412,10 @@
     <value>[PARAM] was located in the following folder:[BR][BR][PARAM][BR][BR]Is this correct?</value>
   </data>
   <data name="mgrRestore_ActionComplete" xml:space="preserve">
-    <value>[PARAM] backup restored</value>
+    <value>[PARAM] backup restored.</value>
   </data>
   <data name="mgrRestore_ActionFailed" xml:space="preserve">
-    <value>[PARAM] restore failed</value>
+    <value>[PARAM] restore failed.</value>
   </data>
   <data name="mgrRestore_ConfirmCreatePath" xml:space="preserve">
     <value>The restore path [PARAM] does not exist.[BR][BR]Do you want to create the folder and continue?</value>
@@ -1584,5 +1584,8 @@
   </data>
   <data name="frmAdvancedImport_Filtered" xml:space="preserve">
     <value>[Filtered]</value>
+  </data>
+  <data name="frmAdvancedImport_chkSelectAll" xml:space="preserve">
+    <value>Select All</value>
   </data>
 </root>

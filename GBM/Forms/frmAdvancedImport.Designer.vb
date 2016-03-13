@@ -44,10 +44,11 @@ Partial Class frmAdvancedImport
         'chkSelectAll
         '
         Me.chkSelectAll.AutoSize = True
-        Me.chkSelectAll.Location = New System.Drawing.Point(18, 12)
+        Me.chkSelectAll.Location = New System.Drawing.Point(12, 12)
         Me.chkSelectAll.Name = "chkSelectAll"
-        Me.chkSelectAll.Size = New System.Drawing.Size(15, 14)
+        Me.chkSelectAll.Size = New System.Drawing.Size(70, 17)
         Me.chkSelectAll.TabIndex = 0
+        Me.chkSelectAll.Text = "Select All"
         Me.chkSelectAll.UseVisualStyleBackColor = True
         '
         'lblGames
@@ -81,9 +82,9 @@ Partial Class frmAdvancedImport
         '
         Me.lstGames.CheckBoxes = True
         Me.lstGames.FullRowSelect = True
-        Me.lstGames.Location = New System.Drawing.Point(12, 32)
+        Me.lstGames.Location = New System.Drawing.Point(12, 35)
         Me.lstGames.Name = "lstGames"
-        Me.lstGames.Size = New System.Drawing.Size(560, 332)
+        Me.lstGames.Size = New System.Drawing.Size(560, 329)
         Me.lstGames.TabIndex = 2
         Me.lstGames.UseCompatibleStateImageBehavior = False
         Me.lstGames.View = System.Windows.Forms.View.Details

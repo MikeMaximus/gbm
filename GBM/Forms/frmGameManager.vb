@@ -895,6 +895,51 @@ Public Class frmGameManager
         IsLoading = False
     End Sub
 
+    Private Sub FolderSaveModeChange()
+        If chkFolderSave.Checked Then
+            btnInclude.Enabled = False
+            If txtFileType.Text <> String.Empty Then
+                txtFileType.Text = String.Empty
+                UpdateBuilderButtonLabel(txtFileType.Text, frmGameManager_IncludeShortcut, btnInclude, False)
+            End If
+        Else
+            btnInclude.Enabled = True
+        End If
+    End Sub
+
+    Private Sub MonitorOnlyModeChange()
+        If chkMonitorOnly.Checked Then
+            txtSavePath.Text = String.Empty
+            chkFolderSave.Checked = True
+            chkTimeStamp.Checked = False
+
+            If txtFileType.Text <> String.Empty Then
+                txtFileType.Text = String.Empty
+                UpdateBuilderButtonLabel(txtFileType.Text, frmGameManager_IncludeShortcut, btnInclude, False)
+            End If
+            If txtExclude.Text <> String.Empty Then
+                txtExclude.Text = String.Empty
+                UpdateBuilderButtonLabel(txtExclude.Text, frmGameManager_ExcludeShortcut, btnExclude, False)
+            End If
+
+            lblSavePath.Enabled = False
+            btnSavePathBrowse.Enabled = False
+            txtSavePath.Enabled = False
+            chkFolderSave.Enabled = False
+            chkTimeStamp.Enabled = False
+            btnInclude.Enabled = False
+            btnExclude.Enabled = False
+        Else
+            lblSavePath.Enabled = True
+            btnSavePathBrowse.Enabled = True
+            txtSavePath.Enabled = True
+            chkFolderSave.Enabled = True
+            chkTimeStamp.Enabled = True
+            btnInclude.Enabled = True
+            btnExclude.Enabled = True
+        End If
+    End Sub
+
     Private Sub EditApp()
         eCurrentMode = eModes.Edit
         ModeChange()
@@ -1421,15 +1466,11 @@ Public Class frmGameManager
     End Sub
 
     Private Sub chkFolderSave_CheckedChanged(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged
-        If chkFolderSave.Checked Then
-            btnInclude.Enabled = False
-            If txtFileType.Text <> String.Empty Then
-                txtFileType.Text = String.Empty
-                UpdateBuilderButtonLabel(txtFileType.Text, frmGameManager_IncludeShortcut, btnInclude, False)
-            End If
-        Else
-            btnInclude.Enabled = True
-        End If
+        FolderSaveModeChange()
+    End Sub
+
+    Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkMonitorOnly.CheckedChanged
+        MonitorOnlyModeChange()
     End Sub
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
@@ -1447,4 +1488,5 @@ Public Class frmGameManager
     Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
         ExportGameList()
     End Sub
+
 End Class

@@ -727,6 +727,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Select All.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_chkSelectAll() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_chkSelectAll", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Name.
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_ColumnName() As String
@@ -2329,7 +2338,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] backup was cancelled due to session length.
+        '''  Looks up a localized string similar to [PARAM] backup was cancelled due to session length..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorBackupSessionLength() As String
             Get
@@ -3935,7 +3944,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] backup completed.
+        '''  Looks up a localized string similar to [PARAM] backup completed..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ActionComplete() As String
             Get
@@ -3944,7 +3953,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] backup failed.
+        '''  Looks up a localized string similar to [PARAM] backup failed..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ActionFailed() As String
             Get
@@ -4259,7 +4268,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] backup restored.
+        '''  Looks up a localized string similar to [PARAM] backup restored..
         '''</summary>
         Friend ReadOnly Property mgrRestore_ActionComplete() As String
             Get
@@ -4268,7 +4277,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] restore failed.
+        '''  Looks up a localized string similar to [PARAM] restore failed..
         '''</summary>
         Friend ReadOnly Property mgrRestore_ActionFailed() As String
             Get
