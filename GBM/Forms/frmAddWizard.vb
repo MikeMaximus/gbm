@@ -36,12 +36,10 @@ Public Class frmAddWizard
         btnNext.Text = frmAddWizard_btnNext
         btnBack.Text = frmAddWizard_btnBack
         lblStep1Title.Text = frmAddWizard_lblStep1Title
-        lblDrag1.Text = frmAddWizard_lblDrag1
         lblStep1Instructions.Text = frmAddWizard_lblStep1Instructions
         lblStep1Intro.Text = frmAddWizard_lblStep1Intro
         lblStep2Title.Text = frmAddWizard_lblStep2Title
         lblStep2Instructions.Text = frmAddWizard_lblStep2Instructions
-        lblDrag2.Text = frmAddWizard_lblDrag2
         btnProcessBrowse.Text = frmAddWizard_btnProcessBrowse
         lblStep2Intro.Text = frmAddWizard_lblStep2Intro
         lblStep3Title.Text = frmAddWizard_lblStep3Title
@@ -459,13 +457,13 @@ Public Class frmAddWizard
         SetForm()
     End Sub
 
-    Private Sub DropTarget_DragEnter(sender As Object, e As DragEventArgs) Handles lblDrag1.DragEnter, lblDrag2.DragEnter, txtName.DragEnter, txtProcessPath.DragEnter
+    Private Sub DropTarget_DragEnter(sender As Object, e As DragEventArgs) Handles txtName.DragEnter, txtProcessPath.DragEnter, lblStep1Instructions.DragEnter, lblStep2Instructions.DragEnter
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.Copy
         End If
     End Sub
 
-    Private Sub DropTarget_DragDrop(sender As Object, e As DragEventArgs) Handles lblDrag1.DragDrop, lblDrag2.DragDrop, txtName.DragDrop, txtProcessPath.DragDrop
+    Private Sub DropTarget_DragDrop(sender As Object, e As DragEventArgs) Handles txtName.DragDrop, txtProcessPath.DragDrop, lblStep1Instructions.DragDrop, lblStep2Instructions.DragDrop
         Dim oFiles() As String = e.Data.GetData(DataFormats.FileDrop)
         For Each sPath In oFiles
             ReadShortcut(sPath)

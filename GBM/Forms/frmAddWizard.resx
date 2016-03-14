@@ -117,4 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lblStep2Instructions.Text" xml:space="preserve">
+    <value>Some games use launchers.  Do not monitor launchers,  be sure to choose the game's actual exe file.  You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported.</value>
+  </data>
 </root>

@@ -64,9 +64,8 @@ Public Class frmMain
             Me.Invoke(d, New Object() {sMessage})
         Else
             Dim sPattern As String = "h:mm tt"
-            lblLastActionTitle.Visible = True
-            lblLastActionTitle.Text = frmMain_lblLastActionTitle & " [" & TimeOfDay.ToString(sPattern) & "]"
-            lblLastAction.Text = sMessage
+            lblLastActionTitle.Visible = True            
+            lblLastAction.Text = sMessage.TrimEnd(".") & " " & mgrCommon.FormatString(frmMain_AtTime, TimeOfDay.ToString(sPattern))
         End If
     End Sub
 

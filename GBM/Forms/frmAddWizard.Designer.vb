@@ -22,17 +22,16 @@ Partial Class frmAddWizard
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAddWizard))
         Me.tabWizard = New System.Windows.Forms.TabControl()
         Me.tbPage1 = New System.Windows.Forms.TabPage()
         Me.lblStep1Title = New System.Windows.Forms.Label()
-        Me.lblDrag1 = New System.Windows.Forms.Label()
         Me.lblStep1Instructions = New System.Windows.Forms.Label()
         Me.txtName = New System.Windows.Forms.TextBox()
         Me.lblStep1Intro = New System.Windows.Forms.Label()
         Me.tbPage2 = New System.Windows.Forms.TabPage()
         Me.lblStep2Title = New System.Windows.Forms.Label()
         Me.lblStep2Instructions = New System.Windows.Forms.Label()
-        Me.lblDrag2 = New System.Windows.Forms.Label()
         Me.btnProcessBrowse = New System.Windows.Forms.Button()
         Me.txtProcessPath = New System.Windows.Forms.TextBox()
         Me.lblStep2Intro = New System.Windows.Forms.Label()
@@ -95,7 +94,6 @@ Partial Class frmAddWizard
         '
         Me.tbPage1.BackColor = System.Drawing.SystemColors.Control
         Me.tbPage1.Controls.Add(Me.lblStep1Title)
-        Me.tbPage1.Controls.Add(Me.lblDrag1)
         Me.tbPage1.Controls.Add(Me.lblStep1Instructions)
         Me.tbPage1.Controls.Add(Me.txtName)
         Me.tbPage1.Controls.Add(Me.lblStep1Intro)
@@ -116,23 +114,16 @@ Partial Class frmAddWizard
         Me.lblStep1Title.TabIndex = 8
         Me.lblStep1Title.Text = "Game Name"
         '
-        'lblDrag1
-        '
-        Me.lblDrag1.AllowDrop = True
-        Me.lblDrag1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDrag1.Location = New System.Drawing.Point(14, 135)
-        Me.lblDrag1.Name = "lblDrag1"
-        Me.lblDrag1.Size = New System.Drawing.Size(303, 49)
-        Me.lblDrag1.TabIndex = 7
-        Me.lblDrag1.Text = "Drag a shortcut here to complete this step."
-        '
         'lblStep1Instructions
         '
+        Me.lblStep1Instructions.AllowDrop = True
         Me.lblStep1Instructions.Location = New System.Drawing.Point(14, 93)
         Me.lblStep1Instructions.Name = "lblStep1Instructions"
-        Me.lblStep1Instructions.Size = New System.Drawing.Size(303, 30)
+        Me.lblStep1Instructions.Size = New System.Drawing.Size(303, 85)
         Me.lblStep1Instructions.TabIndex = 6
-        Me.lblStep1Instructions.Text = "The name will be automatically filtered for length and invalid characters. "
+        Me.lblStep1Instructions.Text = "The name will be automatically filtered for length and invalid characters.  You m" & _
+    "ay drag and drop a shortcut here to complete this step, only Windows shortcuts a" & _
+    "re currently supported."
         '
         'txtName
         '
@@ -156,7 +147,6 @@ Partial Class frmAddWizard
         Me.tbPage2.BackColor = System.Drawing.SystemColors.Control
         Me.tbPage2.Controls.Add(Me.lblStep2Title)
         Me.tbPage2.Controls.Add(Me.lblStep2Instructions)
-        Me.tbPage2.Controls.Add(Me.lblDrag2)
         Me.tbPage2.Controls.Add(Me.btnProcessBrowse)
         Me.tbPage2.Controls.Add(Me.txtProcessPath)
         Me.tbPage2.Controls.Add(Me.lblStep2Intro)
@@ -179,22 +169,12 @@ Partial Class frmAddWizard
         '
         'lblStep2Instructions
         '
+        Me.lblStep2Instructions.AllowDrop = True
         Me.lblStep2Instructions.Location = New System.Drawing.Point(14, 93)
         Me.lblStep2Instructions.Name = "lblStep2Instructions"
-        Me.lblStep2Instructions.Size = New System.Drawing.Size(303, 29)
+        Me.lblStep2Instructions.Size = New System.Drawing.Size(303, 85)
         Me.lblStep2Instructions.TabIndex = 10
-        Me.lblStep2Instructions.Text = "Some games use launchers.  Do not monitor launchers,  be sure to choose the game'" & _
-    "s actual exe file."
-        '
-        'lblDrag2
-        '
-        Me.lblDrag2.AllowDrop = True
-        Me.lblDrag2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDrag2.Location = New System.Drawing.Point(14, 135)
-        Me.lblDrag2.Name = "lblDrag2"
-        Me.lblDrag2.Size = New System.Drawing.Size(336, 44)
-        Me.lblDrag2.TabIndex = 9
-        Me.lblDrag2.Text = "Drag a shortcut here to complete this step."
+        Me.lblStep2Instructions.Text = resources.GetString("lblStep2Instructions.Text")
         '
         'btnProcessBrowse
         '
@@ -578,12 +558,10 @@ Partial Class frmAddWizard
     Friend WithEvents tbPage3a As System.Windows.Forms.TabPage
     Friend WithEvents tbPage4 As System.Windows.Forms.TabPage
     Friend WithEvents tbPage5 As System.Windows.Forms.TabPage
-    Friend WithEvents lblDrag1 As System.Windows.Forms.Label
     Friend WithEvents lblStep1Instructions As System.Windows.Forms.Label
     Friend WithEvents txtName As System.Windows.Forms.TextBox
     Friend WithEvents lblStep1Intro As System.Windows.Forms.Label
     Friend WithEvents lblStep2Instructions As System.Windows.Forms.Label
-    Friend WithEvents lblDrag2 As System.Windows.Forms.Label
     Friend WithEvents btnProcessBrowse As System.Windows.Forms.Button
     Friend WithEvents txtProcessPath As System.Windows.Forms.TextBox
     Friend WithEvents lblStep2Intro As System.Windows.Forms.Label

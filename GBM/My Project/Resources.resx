@@ -772,12 +772,6 @@
   <data name="frmAddWizard_ItemsSelectedNone" xml:space="preserve">
     <value>0 item(s) selected</value>
   </data>
-  <data name="frmAddWizard_lblDrag1" xml:space="preserve">
-    <value>Drag a shortcut here to complete this step.</value>
-  </data>
-  <data name="frmAddWizard_lblDrag2" xml:space="preserve">
-    <value>Drag a shortcut here to complete this step.</value>
-  </data>
   <data name="frmAddWizard_lblExcludePath" xml:space="preserve">
     <value>Save Path</value>
   </data>
@@ -791,7 +785,7 @@
     <value>Saved Game Folder:</value>
   </data>
   <data name="frmAddWizard_lblStep1Instructions" xml:space="preserve">
-    <value>The name will be automatically filtered for length and invalid characters. </value>
+    <value>The name will be automatically filtered for length and invalid characters.  You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported.</value>
   </data>
   <data name="frmAddWizard_lblStep1Intro" xml:space="preserve">
     <value>Enter the name of the game to monitor:</value>
@@ -800,7 +794,7 @@
     <value>Game Name</value>
   </data>
   <data name="frmAddWizard_lblStep2Instructions" xml:space="preserve">
-    <value>Some games use launchers.  Do not monitor launchers,  be sure to choose the game's actual exe file.</value>
+    <value>Some games use launchers.  Do not monitor launchers,  be sure to choose the game's actual exe file.  You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported.</value>
   </data>
   <data name="frmAddWizard_lblStep2Intro" xml:space="preserve">
     <value>Choose the game's executable file or shortcut:</value>
@@ -1587,5 +1581,8 @@
   </data>
   <data name="frmAdvancedImport_chkSelectAll" xml:space="preserve">
     <value>Select All</value>
+  </data>
+  <data name="frmMain_AtTime" xml:space="preserve">
+    <value>at [PARAM].</value>
   </data>
 </root>

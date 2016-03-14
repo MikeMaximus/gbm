@@ -439,24 +439,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Drag a shortcut here to complete this step..
-        '''</summary>
-        Friend ReadOnly Property frmAddWizard_lblDrag1() As String
-            Get
-                Return ResourceManager.GetString("frmAddWizard_lblDrag1", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Drag a shortcut here to complete this step..
-        '''</summary>
-        Friend ReadOnly Property frmAddWizard_lblDrag2() As String
-            Get
-                Return ResourceManager.GetString("frmAddWizard_lblDrag2", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Save Path.
         '''</summary>
         Friend ReadOnly Property frmAddWizard_lblExcludePath() As String
@@ -493,7 +475,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The name will be automatically filtered for length and invalid characters. .
+        '''  Looks up a localized string similar to The name will be automatically filtered for length and invalid characters.  You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported..
         '''</summary>
         Friend ReadOnly Property frmAddWizard_lblStep1Instructions() As String
             Get
@@ -520,7 +502,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Some games use launchers.  Do not monitor launchers,  be sure to choose the game&apos;s actual exe file..
+        '''  Looks up a localized string similar to Some games use launchers.  Do not monitor launchers,  be sure to choose the game&apos;s actual exe file.  You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported..
         '''</summary>
         Friend ReadOnly Property frmAddWizard_lblStep2Instructions() As String
             Get
@@ -2118,6 +2100,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_About() As String
             Get
                 Return ResourceManager.GetString("frmMain_About", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to at [PARAM]..
+        '''</summary>
+        Friend ReadOnly Property frmMain_AtTime() As String
+            Get
+                Return ResourceManager.GetString("frmMain_AtTime", resourceCulture)
             End Get
         End Property
         
