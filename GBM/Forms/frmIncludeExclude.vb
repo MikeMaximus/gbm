@@ -205,7 +205,7 @@ Public Class frmIncludeExclude
             End If
         End If
 
-        oListItem.ImageIndex = iType        
+        oListItem.ImageIndex = iType
     End Sub
 
     Private Function CreateNewBuilderString() As String
@@ -329,7 +329,7 @@ Public Class frmIncludeExclude
     Private Sub cmsAdd_Click(sender As Object, e As EventArgs) Handles cmsAdd.Click
         Dim oNewItem As New ListViewItem(frmIncludeExclude_CustomItem, 1)
         oNewItem.Selected = True
-        lstBuilder.Items.Add(oNewItem)        
+        lstBuilder.Items.Add(oNewItem)
         lstBuilder.SelectedItems(0).BeginEdit()
     End Sub
 
@@ -338,7 +338,8 @@ Public Class frmIncludeExclude
             If lstBuilder.Items.ContainsKey(e.Label) Then
                 e.CancelEdit = True
             Else
-                IdentifyEntry(lstBuilder.Items(e.Item), e.Label)
+                'Unix Handler - Mono is unable to modify list items during an edit event without crashing
+                If Not mgrCommon.IsUnix Then IdentifyEntry(lstBuilder.Items(e.Item), e.Label)
             End If
         End If
     End Sub
