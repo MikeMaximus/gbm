@@ -64,7 +64,10 @@ Public Class frmFileFolderSearch
             Dim d As New UpdateInfoCallBack(AddressOf UpdateResults)
             Me.Invoke(d, New Object() {sItem})
         Else
-            lstResults.Items.Add(sItem)
+            'It's possible the same location will be searched twice when using Linux.  Filter out duplicate results
+            If Not lstResults.Items.Contains(sItem) Then
+                lstResults.Items.Add(sItem)
+            End If
         End If
     End Sub
 
