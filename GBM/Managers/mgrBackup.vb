@@ -85,6 +85,28 @@ Public Class mgrBackup
         End Try
     End Sub
 
+    Public Function CheckBackupPrereq(ByVal oGame As clsGame) As Boolean
+        Dim sBackupFile As String = oSettings.BackupFolder
+        If oSettings.CreateSubFolder Then sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name
+        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name & ".7z"
+
+        If mgrRestore.CheckManifest(oGame.Name) Then
+            If mgrCommon.ShowMessage(mgrBackup_ConfirmManifestConflict, oGame.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                RaiseEvent UpdateLog(mgrBackup_ErrorManifestConflict, False, ToolTipIcon.Error, True)
+                Return False
+            End If
+        End If
+
+        If oSettings.ShowOverwriteWarning And File.Exists(sBackupFile) And Not oGame.AppendTimeStamp Then
+            If mgrCommon.ShowMessage(mgrBackup_ConfirmOverwrite, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorOverwriteAbort, oGame.Name), False, ToolTipIcon.Error, True)
+                Return False
+            End If
+        End If
+
+        Return True
+    End Function
+
     Public Sub DoBackup(ByVal oBackupList As List(Of clsGame))
         Dim oGame As clsGame
         Dim bDoBackup As Boolean
@@ -109,13 +131,6 @@ Public Class mgrBackup
             CancelOperation = False
             RaiseEvent UpdateBackupInfo(oGame)
 
-            If mgrRestore.CheckManifest(oGame.Name) Then
-                If mgrCommon.ShowMessage(mgrBackup_ConfirmManifestConflict, oGame.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                    RaiseEvent UpdateLog(mgrBackup_ErrorManifestConflict, False, ToolTipIcon.Error, True)
-                    bDoBackup = False
-                End If
-            End If
-
             If oSettings.CreateSubFolder Then
                 sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name
                 Try
@@ -132,13 +147,6 @@ Public Class mgrBackup
                 sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name & sTimeStamp & ".7z"
             Else
                 sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name & ".7z"
-            End If
-
-            If oSettings.ShowOverwriteWarning And File.Exists(sBackupFile) Then
-                If mgrCommon.ShowMessage(mgrBackup_ConfirmOverwrite, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorOverwriteAbort, oGame.Name), False, ToolTipIcon.Error, True)
-                    bDoBackup = False
-                End If
             End If
 
             If bDoBackup Then

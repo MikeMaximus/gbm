@@ -161,20 +161,64 @@ Public Class mgrRestore
         Return slRemovedItems
     End Function
 
+    Public Function CheckRestorePrereq(ByVal oBackupInfo As clsBackup) As Boolean
+        Dim sHash As String
+        Dim sExtractPath As String
+        Dim sBackupFile As String = oSettings.BackupFolder & Path.DirectorySeparatorChar & oBackupInfo.FileName
+
+        If oBackupInfo.AbsolutePath Then
+            sExtractPath = oBackupInfo.RestorePath
+        Else
+            sExtractPath = oBackupInfo.RelativeRestorePath
+        End If
+
+        'Check if restore location exists, prompt to create if it doesn't.
+        If Not Directory.Exists(sExtractPath) Then
+            If mgrCommon.ShowMessage(mgrRestore_ConfirmCreatePath, sExtractPath, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                Try
+                    Directory.CreateDirectory(sExtractPath)
+                Catch ex As Exception
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorCreatePath, ex.Message), False, ToolTipIcon.Error, True)
+                    Return False
+                End Try
+            Else
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorNoPath, sExtractPath), False, ToolTipIcon.Error, True)
+                Return False
+            End If
+        End If
+
+        'Check file integrity
+        If oSettings.CheckSum Then
+            If oBackupInfo.CheckSum <> String.Empty Then
+                sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
+                If sHash <> oBackupInfo.CheckSum Then
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFailedCheck, oBackupInfo.Name), False, ToolTipIcon.Info, True)
+                    If mgrCommon.ShowMessage(mgrRestore_ConfirmFailedCheck, oBackupInfo.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                        RaiseEvent UpdateLog(mgrRestore_ErrorCheckAbort, False, ToolTipIcon.Info, True)
+                        Return False
+                    End If
+                Else
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_Verified, oBackupInfo.Name), False, ToolTipIcon.Info, True)
+                End If
+            Else
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_NoVerify, oBackupInfo.Name), False, ToolTipIcon.Info, True)
+            End If
+        End If
+
+        Return True
+    End Function
+
     Public Sub DoRestore(ByVal oRestoreList As List(Of clsBackup))
         Dim prs7z As Process
         Dim sBackupFile As String
         Dim sExtractPath As String
-        Dim bDoRestore As Boolean
         Dim bRestoreCompleted As Boolean
-        Dim sHash As String
 
         For Each oBackupInfo In oRestoreList
             'Init
             prs7z = New Process
             sBackupFile = oSettings.BackupFolder & Path.DirectorySeparatorChar & oBackupInfo.FileName
             sExtractPath = String.Empty
-            bDoRestore = True
             bRestoreCompleted = False
             CancelOperation = False
             RaiseEvent UpdateRestoreInfo(oBackupInfo)
@@ -185,94 +229,59 @@ Public Class mgrRestore
                 sExtractPath = oBackupInfo.RelativeRestorePath
             End If
 
-            'Check if restore location exists, prompt to create if it doesn't.
-            If Not Directory.Exists(sExtractPath) Then
-                If mgrCommon.ShowMessage(mgrRestore_ConfirmCreatePath, sExtractPath, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    Try
-                        Directory.CreateDirectory(sExtractPath)
-                    Catch ex As Exception
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorCreatePath, ex.Message), False, ToolTipIcon.Error, True)
-                        bDoRestore = False
-                    End Try
-                Else
-                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorNoPath, sExtractPath), False, ToolTipIcon.Error, True)
-                    bDoRestore = False
-                End If
-            End If
-
-            'Check file integrity
-            If oSettings.CheckSum Then
-                If oBackupInfo.CheckSum <> String.Empty Then
-                    sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
-                    If sHash <> oBackupInfo.CheckSum Then
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFailedCheck, oBackupInfo.Name), False, ToolTipIcon.Info, True)
-                        If mgrCommon.ShowMessage(mgrRestore_ConfirmFailedCheck, oBackupInfo.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                            RaiseEvent UpdateLog(mgrRestore_ErrorCheckAbort, False, ToolTipIcon.Info, True)
-                            bDoRestore = False
-                        End If
+            Try
+                If File.Exists(sBackupFile) Then
+                    If mgrCommon.IsUnix Then
+                        prs7z.StartInfo.Arguments = "x """ & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -aoa -r"
                     Else
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_Verified, oBackupInfo.Name), False, ToolTipIcon.Info, True)
+                        prs7z.StartInfo.Arguments = "x -bb1 -bt """ & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -aoa -r"
                     End If
-                Else
-                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_NoVerify, oBackupInfo.Name), False, ToolTipIcon.Info, True)
-                End If
-            End If
-
-            If bDoRestore Then
-                Try
-                    If File.Exists(sBackupFile) Then
-                        If mgrCommon.IsUnix Then
-                            prs7z.StartInfo.Arguments = "x """ & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -aoa -r"
+                    prs7z.StartInfo.FileName = mgrPath.Utility7zLocation
+                    prs7z.StartInfo.UseShellExecute = False
+                    prs7z.StartInfo.RedirectStandardOutput = True
+                    prs7z.StartInfo.CreateNoWindow = True
+                    prs7z.Start()
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreInProgress, sExtractPath), False, ToolTipIcon.Info, True)
+                    While Not prs7z.StandardOutput.EndOfStream
+                        If CancelOperation Then
+                            prs7z.Kill()
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFullAbort, oBackupInfo.Name), True, ToolTipIcon.Error, True)
+                            Exit While
+                        End If
+                        RaiseEvent UpdateLog(prs7z.StandardOutput.ReadLine, False, ToolTipIcon.Info, False)
+                    End While
+                    prs7z.WaitForExit()
+                    If Not CancelOperation Then
+                        If prs7z.ExitCode = 0 Then
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreComplete, oBackupInfo.Name), False, ToolTipIcon.Info, True)
+                            bRestoreCompleted = True
                         Else
-                            prs7z.StartInfo.Arguments = "x -bb1 -bt """ & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -aoa -r"
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreWarnings, oBackupInfo.Name), True, ToolTipIcon.Warning, True)
+                            bRestoreCompleted = False
                         End If
-                        prs7z.StartInfo.FileName = mgrPath.Utility7zLocation
-                        prs7z.StartInfo.UseShellExecute = False
-                        prs7z.StartInfo.RedirectStandardOutput = True
-                        prs7z.StartInfo.CreateNoWindow = True
-                        prs7z.Start()
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreInProgress, sExtractPath), False, ToolTipIcon.Info, True)
-                        While Not prs7z.StandardOutput.EndOfStream
-                            If CancelOperation Then
-                                prs7z.Kill()
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFullAbort, oBackupInfo.Name), True, ToolTipIcon.Error, True)
-                                Exit While
-                            End If
-                            RaiseEvent UpdateLog(prs7z.StandardOutput.ReadLine, False, ToolTipIcon.Info, False)
-                        End While
-                        prs7z.WaitForExit()
-                        If Not CancelOperation Then
-                            If prs7z.ExitCode = 0 Then
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreComplete, oBackupInfo.Name), False, ToolTipIcon.Info, True)
-                                bRestoreCompleted = True
-                            Else
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreWarnings, oBackupInfo.Name), True, ToolTipIcon.Warning, True)
-                                bRestoreCompleted = False
-                            End If
-                        End If
-                        prs7z.Dispose()
-                    Else
-                        RaiseEvent UpdateLog(mgrRestore_ErrorNoBackup, True, ToolTipIcon.Error, True)
                     End If
-
-                        If bRestoreCompleted Then
-                            'Save Local Manifest
-                            If mgrManifest.DoManifestCheck(oBackupInfo.Name, mgrSQLite.Database.Local) Then
-                                mgrManifest.DoManifestUpdate(oBackupInfo, mgrSQLite.Database.Local)
-                            Else
-                                mgrManifest.DoManifestAdd(oBackupInfo, mgrSQLite.Database.Local)
-                            End If
-                        End If
-                Catch ex As Exception
-                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorOtherFailure, ex.Message), False, ToolTipIcon.Error, True)
-                End Try
+                    prs7z.Dispose()
+                Else
+                    RaiseEvent UpdateLog(mgrRestore_ErrorNoBackup, True, ToolTipIcon.Error, True)
+                End If
 
                 If bRestoreCompleted Then
-                    RaiseEvent SetLastAction(mgrCommon.FormatString(mgrRestore_ActionComplete, oBackupInfo.CroppedName))
-                Else
-                    RaiseEvent SetLastAction(mgrCommon.FormatString(mgrRestore_ActionFailed, oBackupInfo.CroppedName))
+                    'Save Local Manifest
+                    If mgrManifest.DoManifestCheck(oBackupInfo.Name, mgrSQLite.Database.Local) Then
+                        mgrManifest.DoManifestUpdate(oBackupInfo, mgrSQLite.Database.Local)
+                    Else
+                        mgrManifest.DoManifestAdd(oBackupInfo, mgrSQLite.Database.Local)
+                    End If
                 End If
-            End If
+            Catch ex As Exception
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorOtherFailure, ex.Message), False, ToolTipIcon.Error, True)
+            End Try
+
+            If bRestoreCompleted Then
+                RaiseEvent SetLastAction(mgrCommon.FormatString(mgrRestore_ActionComplete, oBackupInfo.CroppedName))
+            Else
+                RaiseEvent SetLastAction(mgrCommon.FormatString(mgrRestore_ActionFailed, oBackupInfo.CroppedName))
+            End If            
         Next
     End Sub
 

@@ -146,15 +146,11 @@ Public Class frmMain
     End Sub
 
     Private Sub ExecuteBackup(ByVal oBackupList As List(Of clsGame))
-        'Init Backup Settings
-        oBackup.Settings = oSettings
         oBackup.DoBackup(oBackupList)
         OperationEnded()
     End Sub
 
-    Private Sub ExecuteRestore(ByVal oRestoreList As List(Of clsBackup))
-        'Init Restore Settings
-        oRestore.Settings = oSettings
+    Private Sub ExecuteRestore(ByVal oRestoreList As List(Of clsBackup))                
         oRestore.DoRestore(oRestoreList)
         OperationEnded()
     End Sub
@@ -165,18 +161,25 @@ Public Class frmMain
         Dim oReadyList As New List(Of clsBackup)
         Dim oRestoreInfo As clsBackup
         Dim bTriggerReload As Boolean = False
-
+        Dim bPathVerified As Boolean
         eCurrentOperation = eOperation.Restore
         OperationStarted()
 
         'Build Restore List
         For Each oGame In oRestoreList
+            bPathVerified = False
             oRestoreInfo = oBackupData(oGame.Name)
 
             If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload) Then
-                oReadyList.Add(oRestoreInfo)
+                bPathVerified = True
             Else
                 UpdateLog(mgrCommon.FormatString(frmMain_ErrorRestorePath, oRestoreInfo.Name), False, ToolTipIcon.Error, True)
+            End If
+
+            If bPathVerified Then
+                If oRestore.CheckRestorePrereq(oRestoreInfo) Then
+                    oReadyList.Add(oRestoreInfo)
+                End If
             End If
         Next
 
@@ -197,6 +200,7 @@ Public Class frmMain
     Private Sub RunManualBackup(ByVal oBackupList As List(Of clsGame))
         Dim oGame As clsGame
         Dim bNoAuto As Boolean
+        Dim bPathVerified As Boolean
         Dim oReadyList As New List(Of clsGame)
 
         eCurrentOperation = eOperation.Backup
@@ -205,6 +209,7 @@ Public Class frmMain
         'Build Backup List
         For Each oGame In oBackupList
             bNoAuto = False
+            bPathVerified = False
             gMonStripStatusButton.Enabled = False
 
             UpdateLog(mgrCommon.FormatString(frmMain_ManualBackup, oGame.Name), False)
@@ -216,12 +221,18 @@ Public Class frmMain
                 End If
 
                 If oGame.ProcessPath <> String.Empty Then
-                    oReadyList.Add(oGame)
+                    bPathVerified = True
                 Else
-                    UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oGame.Name), True, ToolTipIcon.Error, True)
+                    UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oGame.Name), False, ToolTipIcon.Error, True)
                 End If
             Else
-                oReadyList.Add(oGame)
+                bPathVerified = True
+            End If
+
+            If bPathVerified Then
+                If oBackup.CheckBackupPrereq(oGame) Then
+                    oReadyList.Add(oGame)
+                End If
             End If
         Next
 
@@ -290,7 +301,7 @@ Public Class frmMain
                         SetLastAction(mgrCommon.FormatString(frmMain_ErrorBackupCancel, oProcess.GameInfo.CroppedName))
                         OperationEnded()
                     End If
-                End If            
+                End If
             End If
         Else
             bDoBackup = False
@@ -300,11 +311,16 @@ Public Class frmMain
         End If
 
         If bDoBackup Then
-            'Run the backup
-            oReadyList.Add(oProcess.GameInfo)
-            Dim trd As New System.Threading.Thread(AddressOf ExecuteBackup)
-            trd.IsBackground = True
-            trd.Start(oReadyList)
+            If Not oBackup.CheckBackupPrereq(oProcess.GameInfo) Then                
+                SetLastAction(mgrCommon.FormatString(frmMain_ErrorBackupCancel, oProcess.GameInfo.CroppedName))
+                OperationEnded()
+            Else
+                'Run the backup
+                oReadyList.Add(oProcess.GameInfo)
+                Dim trd As New System.Threading.Thread(AddressOf ExecuteBackup)
+                trd.IsBackground = True
+                trd.Start(oReadyList)
+            End If            
         End If
     End Sub
 
@@ -684,6 +700,8 @@ Public Class frmMain
         PauseScan()
         If frm.ShowDialog() = Windows.Forms.DialogResult.OK Then
             oSettings = frm.Settings
+            oBackup.Settings = oSettings
+            oRestore.Settings = oSettings
             'Set Remote Database Location
             mgrPath.RemoteDatabaseLocation = oSettings.BackupFolder
             SetupSyncWatcher()
@@ -806,6 +824,8 @@ Public Class frmMain
 
         'Load Settings
         oSettings.LoadSettings()
+        oBackup.Settings = oSettings
+        oRestore.Settings = oSettings
 
         If Not bFirstRun Then
             'The application cannot continue if this fails

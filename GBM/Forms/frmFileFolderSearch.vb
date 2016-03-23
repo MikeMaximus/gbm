@@ -12,6 +12,7 @@ Public Class frmFileFolderSearch
     Dim bShutdown As Boolean = False
 
     Delegate Sub UpdateInfoCallBack(ByVal sCurrentFolder As String)
+    Delegate Sub UpdateResultsCallBack(ByVal sItem As String)
 
     Public Property GameName As String
         Get
@@ -58,6 +59,15 @@ Public Class frmFileFolderSearch
         End If
     End Sub
 
+    Private Sub UpdateResults(ByVal sItem As String)
+        If lstResults.InvokeRequired = True Then
+            Dim d As New UpdateInfoCallBack(AddressOf UpdateResults)
+            Me.Invoke(d, New Object() {sItem})
+        Else
+            lstResults.Items.Add(sItem)
+        End If
+    End Sub
+
     Private Function SearchDirectory(ByVal dir As DirectoryInfo, ByVal sDirectoryName As String) As String
         Dim sSubSearch As String = String.Empty
         Dim sFoundItem As String = String.Empty
@@ -77,11 +87,7 @@ Public Class frmFileFolderSearch
             'Search Current Directory
             If dir.GetDirectories(sDirectoryName).Length > 0 Then
                 sFoundItem = dir.FullName & Path.DirectorySeparatorChar & sDirectoryName
-                If mgrCommon.ShowMessage(mgrPath_ConfirmPathCorrect, New String() {GameName, sFoundItem}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    Return sFoundItem
-                Else
-                    Return String.Empty
-                End If
+                UpdateResults(sFoundItem)                
             End If
 
             'Search Sub Directory
@@ -90,7 +96,7 @@ Public Class frmFileFolderSearch
                 sSubSearch = SearchDirectory(newDir, sDirectoryName)
                 If sSubSearch <> String.Empty Then
                     Return sSubSearch
-                End If                
+                End If
             Next
         Catch e As System.UnauthorizedAccessException
             'Do Nothing
@@ -120,11 +126,7 @@ Public Class frmFileFolderSearch
             'Search Current Directory
             If dir.GetFiles(sFileName).Length > 0 Then
                 sFoundItem = Path.GetDirectoryName(dir.FullName & Path.DirectorySeparatorChar & sFileName)
-                If mgrCommon.ShowMessage(mgrPath_ConfirmPathCorrect, New String() {GameName, sFoundItem}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    Return sFoundItem
-                Else
-                    Return String.Empty
-                End If
+                UpdateResults(sFoundItem)
             End If
 
             'Search Sub Directory
@@ -166,16 +168,22 @@ Public Class frmFileFolderSearch
         If FoundItem = "Cancel" Then FoundItem = String.Empty
 
         If oDrives.Count > iCurrentDrive And FoundItem = String.Empty Then
-            oResult = mgrCommon.ShowMessage(frmFileFolderSearch_SwitchDrives, New String() {oSearchDrive.Root.ToString, oDrives(iCurrentDrive).RootDirectory.ToString}, MsgBoxStyle.YesNo)
+            oResult = mgrCommon.ShowMessage(frmFileFolderSearch_SwitchDrives, New String() {oDrives(iCurrentDrive).RootDirectory.ToString}, MsgBoxStyle.YesNo)
             If oResult = MsgBoxResult.Yes Then
                 Search(oDrives(iCurrentDrive))
-            Else
-                bShutdown = True
-                Me.Close()
             End If
         Else
+            SearchComplete()
+        End If
+    End Sub
+
+    Private Sub SearchComplete()
+        If lstResults.Items.Count = 0 Then
             bShutdown = True
             Me.Close()
+        Else
+            txtCurrentLocation.Text = frmFileFolderSearch_SearchComplete
+            lstResults.SelectedIndex = 0
         End If
     End Sub
 
@@ -184,6 +192,8 @@ Public Class frmFileFolderSearch
         Me.Text = frmFileFolderSearch_FormName
 
         'Set Form Text
+        lblResults.Text = frmFileFolderSearch_lblResults
+        btnOk.Text = frmFileFolderSearch_btnOk
         btnCancel.Text = frmFileFolderSearch_btnCancel
     End Sub
 
@@ -206,11 +216,29 @@ Public Class frmFileFolderSearch
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
-        bwSearch.CancelAsync()
+        If bwSearch.IsBusy Then
+            bwSearch.CancelAsync()
+        Else
+            bShutdown = True
+            Me.Close()
+        End If
     End Sub
 
     Private Sub frmFileFolderSearch_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         bwSearch.CancelAsync()
         If Not bShutdown Then e.Cancel = True
+    End Sub
+
+    Private Sub btnOk_Click(sender As Object, e As EventArgs) Handles btnOk.Click
+        Dim sItem As String
+
+        If lstResults.SelectedItems.Count = 1 Then
+            sItem = lstResults.SelectedItem.ToString
+            If mgrCommon.ShowMessage(mgrPath_ConfirmPathCorrect, New String() {GameName, sItem}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                FoundItem = sItem
+                bShutdown = True
+                Me.Close()
+            End If
+        End If
     End Sub
 End Class

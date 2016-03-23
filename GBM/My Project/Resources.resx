@@ -890,7 +890,7 @@
     <value>Search</value>
   </data>
   <data name="frmFileFolderSearch_SwitchDrives" xml:space="preserve">
-    <value>The location was not found on the [PARAM] drive.  Do you wish to search the [PARAM] drive?</value>
+    <value>Do you wish to search the [PARAM] drive?</value>
   </data>
   <data name="frmFilter_btnAdd" xml:space="preserve">
     <value>&gt;</value>
@@ -1584,5 +1584,14 @@
   </data>
   <data name="frmMain_AtTime" xml:space="preserve">
     <value>at [PARAM].</value>
+  </data>
+  <data name="frmFileFolderSearch_btnOk" xml:space="preserve">
+    <value>&amp;OK</value>
+  </data>
+  <data name="frmFileFolderSearch_lblResults" xml:space="preserve">
+    <value>Results:</value>
+  </data>
+  <data name="frmFileFolderSearch_SearchComplete" xml:space="preserve">
+    <value>Search Complete!</value>
   </data>
 </root>
