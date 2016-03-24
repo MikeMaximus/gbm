@@ -83,7 +83,7 @@ Partial Class frmFileFolderSearch
         '
         Me.cboDrive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDrive.FormattingEnabled = True
-        Me.cboDrive.Location = New System.Drawing.Point(12, 12)
+        Me.cboDrive.Location = New System.Drawing.Point(12, 13)
         Me.cboDrive.Name = "cboDrive"
         Me.cboDrive.Size = New System.Drawing.Size(85, 21)
         Me.cboDrive.TabIndex = 5
