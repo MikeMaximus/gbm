@@ -835,6 +835,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;OK.
+        '''</summary>
+        Friend ReadOnly Property frmFileFolderSearch_btnOk() As String
+            Get
+                Return ResourceManager.GetString("frmFileFolderSearch_btnOk", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Search.
         '''</summary>
         Friend ReadOnly Property frmFileFolderSearch_FormName() As String
@@ -844,7 +853,34 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The location was not found on the [PARAM] drive.  Do you wish to search the [PARAM] drive?.
+        '''  Looks up a localized string similar to Search Results.
+        '''</summary>
+        Friend ReadOnly Property frmFileFolderSearch_lblResults() As String
+            Get
+                Return ResourceManager.GetString("frmFileFolderSearch_lblResults", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Search Aborted!.
+        '''</summary>
+        Friend ReadOnly Property frmFileFolderSearch_SearchCancel() As String
+            Get
+                Return ResourceManager.GetString("frmFileFolderSearch_SearchCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Search Complete!.
+        '''</summary>
+        Friend ReadOnly Property frmFileFolderSearch_SearchComplete() As String
+            Get
+                Return ResourceManager.GetString("frmFileFolderSearch_SearchComplete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Do you wish to search the [PARAM] drive?.
         '''</summary>
         Friend ReadOnly Property frmFileFolderSearch_SwitchDrives() As String
             Get
