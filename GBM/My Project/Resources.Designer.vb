@@ -862,6 +862,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Search Aborted!.
+        '''</summary>
+        Friend ReadOnly Property frmFileFolderSearch_SearchCancel() As String
+            Get
+                Return ResourceManager.GetString("frmFileFolderSearch_SearchCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Search Complete!.
         '''</summary>
         Friend ReadOnly Property frmFileFolderSearch_SearchComplete() As String

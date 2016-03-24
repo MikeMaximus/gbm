@@ -1594,4 +1594,7 @@
   <data name="frmFileFolderSearch_SearchComplete" xml:space="preserve">
     <value>Search Complete!</value>
   </data>
+  <data name="frmFileFolderSearch_SearchCancel" xml:space="preserve">
+    <value>Search Aborted!</value>
+  </data>
 </root>

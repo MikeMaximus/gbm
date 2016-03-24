@@ -4,12 +4,21 @@ Imports System.IO
 Public Class frmFileFolderSearch
     Private sSearchItem As String
     Private sGameName As String = String.Empty
+    Private bIsLoading As Boolean
     Private bIsFolder As Boolean
     Private sFoundItem As String
     Private oDrives As List(Of DriveInfo)
-    Private iCurrentDrive As Integer
     Private oSearchDrive As DirectoryInfo
     Dim bShutdown As Boolean = False
+
+    Private Enum eStopStatus As Integer
+        Cancel = 1
+        ChangeDrive = 2
+        FoundResult = 3
+        FinishedDrive = 4
+    End Enum
+
+    Private iStopStatus As eStopStatus
 
     Delegate Sub UpdateInfoCallBack(ByVal sCurrentFolder As String)
     Delegate Sub UpdateResultsCallBack(ByVal sItem As String)
@@ -151,43 +160,58 @@ Public Class frmFileFolderSearch
     End Function
 
     Private Sub GetDrives()
+        Dim oComboItems As New List(Of KeyValuePair(Of Integer, String))
+        Dim iCount As Integer = 0
+
+        'cboDrive
+        cboDrive.ValueMember = "Key"
+        cboDrive.DisplayMember = "Value"
+
         oDrives = New List(Of DriveInfo)
         For Each oDrive As DriveInfo In My.Computer.FileSystem.Drives
             If oDrive.DriveType = IO.DriveType.Fixed Then
                 oDrives.Add(oDrive)
+                oComboItems.Add(New KeyValuePair(Of Integer, String)(iCount, oDrive.RootDirectory.ToString))
+                iCount += 1
             End If
         Next
+        cboDrive.DataSource = oComboItems
     End Sub
 
     Private Sub Search(ByVal oDrive As DriveInfo)
+        iStopStatus = eStopStatus.FinishedDrive
         oSearchDrive = oDrive.RootDirectory
         bwSearch.RunWorkerAsync()
-        iCurrentDrive += 1
     End Sub
 
     Private Sub EndSearch()
-        Dim oResult As MsgBoxResult
+        If FoundItem = "Cancel" Then FoundItem = String.Empty
 
-        If Not bShutdown Then
-            If FoundItem = "Cancel" Then FoundItem = String.Empty
-
-            If oDrives.Count > iCurrentDrive And FoundItem = String.Empty Then
-                oResult = mgrCommon.ShowMessage(frmFileFolderSearch_SwitchDrives, New String() {oDrives(iCurrentDrive).RootDirectory.ToString}, MsgBoxStyle.YesNo)
-                If oResult = MsgBoxResult.Yes Then
-                    Search(oDrives(iCurrentDrive))
+        Select Case iStopStatus
+            Case eStopStatus.Cancel
+                SearchComplete(frmFileFolderSearch_SearchCancel)
+            Case eStopStatus.ChangeDrive
+                Search(oDrives(cboDrive.SelectedValue))
+            Case eStopStatus.FinishedDrive
+                'Attempt to move onto the next drive it one exists and there's been no results
+                If oDrives.Count > 1 And lstResults.Items.Count = 0 Then
+                    If cboDrive.SelectedIndex = (cboDrive.Items.Count - 1) Then
+                        cboDrive.SelectedIndex = 0
+                    Else
+                        cboDrive.SelectedIndex = cboDrive.SelectedIndex + 1
+                    End If
+                Else
+                    SearchComplete(frmFileFolderSearch_SearchComplete)
                 End If
-            Else
-                SearchComplete()
-            End If
-        End If
+            Case eStopStatus.FoundResult                
+                bShutdown = True
+                Me.Close()
+        End Select
     End Sub
 
-    Private Sub SearchComplete()
-        If lstResults.Items.Count = 0 Then
-            bShutdown = True
-            Me.Close()
-        Else
-            txtCurrentLocation.Text = frmFileFolderSearch_SearchComplete
+    Private Sub SearchComplete(ByVal sStopMessage As String)
+        txtCurrentLocation.Text = sStopMessage
+        If lstResults.Items.Count > 0 Then
             lstResults.SelectedIndex = 0
         End If
     End Sub
@@ -203,9 +227,11 @@ Public Class frmFileFolderSearch
     End Sub
 
     Private Sub frmFileFolderSearch_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        bIsLoading = True
         SetForm()
         GetDrives()
-        Search(oDrives(iCurrentDrive))
+        bIsLoading = False
+        Search(oDrives(0))
     End Sub
 
     Private Sub bwSearch_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bwSearch.DoWork
@@ -222,6 +248,7 @@ Public Class frmFileFolderSearch
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         If bwSearch.IsBusy Then
+            iStopStatus = eStopStatus.Cancel
             bwSearch.CancelAsync()
         Else
             bShutdown = True
@@ -229,8 +256,7 @@ Public Class frmFileFolderSearch
         End If
     End Sub
 
-    Private Sub frmFileFolderSearch_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        bwSearch.CancelAsync()
+    Private Sub frmFileFolderSearch_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing        
         If Not bShutdown Then e.Cancel = True
     End Sub
 
@@ -241,8 +267,33 @@ Public Class frmFileFolderSearch
             sItem = lstResults.SelectedItem.ToString
             If mgrCommon.ShowMessage(mgrPath_ConfirmPathCorrect, New String() {GameName, sItem}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 FoundItem = sItem
-                bShutdown = True
-                Me.Close()
+                If bwSearch.IsBusy Then
+                    iStopStatus = eStopStatus.FoundResult
+                    bwSearch.CancelAsync()
+                Else
+                    bShutdown = True
+                    Me.Close()
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub cboDrive_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboDrive.SelectedIndexChanged
+        If Not bIsLoading Then
+            Dim oResult As MsgBoxResult
+
+            oResult = mgrCommon.ShowMessage(frmFileFolderSearch_SwitchDrives, New String() {oDrives(cboDrive.SelectedValue).RootDirectory.ToString}, MsgBoxStyle.YesNo)
+
+            If oResult = MsgBoxResult.Yes Then
+                If bwSearch.IsBusy Then
+                    iStopStatus = eStopStatus.ChangeDrive
+                    bwSearch.CancelAsync()
+                Else
+                    Search(oDrives(cboDrive.SelectedValue))
+                End If
+            Else
+                iStopStatus = eStopStatus.FinishedDrive
+                SearchComplete(frmFileFolderSearch_SearchCancel)
             End If
         End If
     End Sub
