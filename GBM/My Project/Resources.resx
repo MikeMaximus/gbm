@@ -1589,7 +1589,7 @@
     <value>&amp;OK</value>
   </data>
   <data name="frmFileFolderSearch_lblResults" xml:space="preserve">
-    <value>Results:</value>
+    <value>Search Results</value>
   </data>
   <data name="frmFileFolderSearch_SearchComplete" xml:space="preserve">
     <value>Search Complete!</value>

@@ -842,7 +842,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFileFolderSearch_btnOk", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to Search.
         '''</summary>
@@ -851,16 +851,16 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFileFolderSearch_FormName", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
-        '''  Looks up a localized string similar to Results:.
+        '''  Looks up a localized string similar to Search Results.
         '''</summary>
         Friend ReadOnly Property frmFileFolderSearch_lblResults() As String
             Get
                 Return ResourceManager.GetString("frmFileFolderSearch_lblResults", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to Search Complete!.
         '''</summary>
@@ -869,7 +869,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFileFolderSearch_SearchComplete", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to Do you wish to search the [PARAM] drive?.
         '''</summary>
@@ -878,7 +878,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("frmFileFolderSearch_SwitchDrives", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to &gt;.
         '''</summary>

@@ -71,12 +71,12 @@ Partial Class frmFileFolderSearch
         '
         'lblResults
         '
-        Me.lblResults.AutoSize = True
         Me.lblResults.Location = New System.Drawing.Point(9, 36)
         Me.lblResults.Name = "lblResults"
-        Me.lblResults.Size = New System.Drawing.Size(45, 13)
+        Me.lblResults.Size = New System.Drawing.Size(463, 13)
         Me.lblResults.TabIndex = 1
-        Me.lblResults.Text = "Results:"
+        Me.lblResults.Text = "Search Results"
+        Me.lblResults.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'frmFileFolderSearch
         '

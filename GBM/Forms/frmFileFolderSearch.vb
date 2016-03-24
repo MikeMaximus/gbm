@@ -168,15 +168,17 @@ Public Class frmFileFolderSearch
     Private Sub EndSearch()
         Dim oResult As MsgBoxResult
 
-        If FoundItem = "Cancel" Then FoundItem = String.Empty
+        If Not bShutdown Then
+            If FoundItem = "Cancel" Then FoundItem = String.Empty
 
-        If oDrives.Count > iCurrentDrive And FoundItem = String.Empty Then
-            oResult = mgrCommon.ShowMessage(frmFileFolderSearch_SwitchDrives, New String() {oDrives(iCurrentDrive).RootDirectory.ToString}, MsgBoxStyle.YesNo)
-            If oResult = MsgBoxResult.Yes Then
-                Search(oDrives(iCurrentDrive))
+            If oDrives.Count > iCurrentDrive And FoundItem = String.Empty Then
+                oResult = mgrCommon.ShowMessage(frmFileFolderSearch_SwitchDrives, New String() {oDrives(iCurrentDrive).RootDirectory.ToString}, MsgBoxStyle.YesNo)
+                If oResult = MsgBoxResult.Yes Then
+                    Search(oDrives(iCurrentDrive))
+                End If
+            Else
+                SearchComplete()
             End If
-        Else
-            SearchComplete()
         End If
     End Sub
 

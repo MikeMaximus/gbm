@@ -335,6 +335,10 @@ Public Class frmIncludeExclude
 
     Private Sub lstBuilder_AfterLabelEdit(sender As Object, e As LabelEditEventArgs) Handles lstBuilder.AfterLabelEdit
         If Not e.Label Is Nothing Then
+            If e.Label = String.Empty Then
+                e.CancelEdit = True
+            End If
+
             If lstBuilder.Items.ContainsKey(e.Label) Then
                 e.CancelEdit = True
             Else
