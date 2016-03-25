@@ -1,8 +1,8 @@
-Game Backup Monitor v0.96 Preview Readme
+Game Backup Monitor v0.96 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-March 12, 2016
+March 24, 2016
 
 Disclaimer:
 
@@ -12,6 +12,8 @@ New in 0.96
 
 For more information regarding Linux support read the FAQ at http://mikemaximus.github.io/gbm-web/linux.html
 
+- (All) Modified backup and restore logic for better usability when doing batch operations and to fix Mono related issues.
+- (All) Overhauled the Search screen for better usability and to fix Mono related issues.
 - (All) Overhauled the Import screen for better usability.  Added game tags, simple filtering, sorting and general fixes.
 - (Linux) Fixed some bad code causing the "Official Import" connection to time out when making multiple connections in the same session.
 - (Linux) Fixed cross-platform issues with opening backup files and restore locations from the Game Manager.
@@ -31,7 +33,7 @@ The entire version history of GBM releases is available at http://mikemaximus.gi
 
 Important Upgrade Information:
 
-A very small percentage of users may experience the following error message after upgrading to this version:
+If you've used a pre-release of v0.96, you may experience the following error message after installing this version.
 
 Column 'CompressionLevel' does not belong to table Table.
 
