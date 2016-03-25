@@ -203,7 +203,8 @@ Public Class frmFileFolderSearch
                 Else
                     SearchComplete(frmFileFolderSearch_SearchComplete)
                 End If
-            Case eStopStatus.FoundResult                
+            Case eStopStatus.FoundResult
+                FoundItem = lstResults.SelectedItem.ToString
                 bShutdown = True
                 Me.Close()
         End Select
@@ -256,7 +257,7 @@ Public Class frmFileFolderSearch
         End If
     End Sub
 
-    Private Sub frmFileFolderSearch_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing        
+    Private Sub frmFileFolderSearch_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If Not bShutdown Then e.Cancel = True
     End Sub
 
@@ -266,11 +267,11 @@ Public Class frmFileFolderSearch
         If lstResults.SelectedItems.Count = 1 Then
             sItem = lstResults.SelectedItem.ToString
             If mgrCommon.ShowMessage(mgrPath_ConfirmPathCorrect, New String() {GameName, sItem}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                FoundItem = sItem
                 If bwSearch.IsBusy Then
                     iStopStatus = eStopStatus.FoundResult
                     bwSearch.CancelAsync()
                 Else
+                    FoundItem = sItem
                     bShutdown = True
                     Me.Close()
                 End If
