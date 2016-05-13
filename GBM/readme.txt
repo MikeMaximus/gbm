@@ -1,12 +1,16 @@
-Game Backup Monitor v0.96 Readme
+Game Backup Monitor v0.96.5977 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-March 24, 2016
+May 13, 2016
 
 Disclaimer:
 
 This is beta release software.  You may still encounter some bugs.
+
+New in 0.96.5977
+
+- (Windows) Updated GBM's version of 7-Zip to 16.00 (2016-05-10)
 
 New in 0.96
 
