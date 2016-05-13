@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -90,13 +90,13 @@
     <PlatformTarget>x64</PlatformTarget>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup>    
+  <PropertyGroup>
     <PostBuildEvent Condition="$(Platform)==x64">echo Running x64 Post Build Event... 
     COPY /Y "$(SolutionDir)\GBM\x64\sqlite3.dll" .
     RMDIR /S /Q Utilities\x86</PostBuildEvent>
     <PostBuildEvent Condition="$(Platform)==x86">echo Running x86 Post Build Event... 
     COPY /Y "$(SolutionDir)\GBM\x86\sqlite3.dll" .
-    RMDIR /S /Q Utilities\x64</PostBuildEvent>    
+    RMDIR /S /Q Utilities\x64</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Data.Sqlite, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
@@ -329,19 +329,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="References\Mono.Data.Sqlite.dll" />
-    <Content Include="x86\sqlite3.dll" />
-    <None Include="Resources\gbm.ico" />
-    <Content Include="Resources\Admin.png" />
-    <Content Include="Resources\Clock.png" />
-    <Content Include="Resources\file.ico" />
-    <Content Include="Resources\folder.ico" />
-    <Content Include="Resources\GBM_Tray_Detected.ico" />
-    <Content Include="Resources\GBM_Tray_Ready.ico" />
-    <Content Include="Resources\GBM_Tray_Stopped.ico" />
-    <Content Include="Resources\Inbox.png" />
-    <Content Include="Resources\type.ico" />
-    <Content Include="Resources\User.png" />
-    <Content Include="x64\sqlite3.dll" />
     <Content Include="Utilities\x64\7za.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -360,6 +347,19 @@
     <Content Include="Utilities\x86\7zxa.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="x86\sqlite3.dll" />
+    <None Include="Resources\gbm.ico" />
+    <Content Include="Resources\Admin.png" />
+    <Content Include="Resources\Clock.png" />
+    <Content Include="Resources\file.ico" />
+    <Content Include="Resources\folder.ico" />
+    <Content Include="Resources\GBM_Tray_Detected.ico" />
+    <Content Include="Resources\GBM_Tray_Ready.ico" />
+    <Content Include="Resources\GBM_Tray_Stopped.ico" />
+    <Content Include="Resources\Inbox.png" />
+    <Content Include="Resources\type.ico" />
+    <Content Include="Resources\User.png" />
+    <Content Include="x64\sqlite3.dll" />
     <None Include="Resources\Stopped.png" />
     <None Include="Resources\Detected.png" />
     <None Include="Resources\Ready.png" />
