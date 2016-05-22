@@ -3058,6 +3058,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Executable.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_7zaFileType() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_7zaFileType", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Locate 7-Zip Console (7za).
+        '''</summary>
+        Friend ReadOnly Property frmSettings_Browse7za() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_Browse7za", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Choose a backup folder:.
         '''</summary>
         Friend ReadOnly Property frmSettings_BrowseFolder() As String
@@ -3081,6 +3099,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_btnCancel() As String
             Get
                 Return ResourceManager.GetString("frmSettings_btnCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Use &amp;Defaults.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_btnDefaults() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_btnDefaults", resourceCulture)
             End Get
         End Property
         
@@ -3238,11 +3265,56 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Sync game list data with backup folder.
+        '''  Looks up a localized string similar to Enable Syncing.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkSync() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkSync", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to All Data (Not Recommened).
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkSyncAllData() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkSyncAllData", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Configuration.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkSyncConfig() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkSyncConfig", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game Information.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkSyncGameInfo() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkSyncGameInfo", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Hours.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkSyncHours() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkSyncHours", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Tags.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkSyncTags() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkSyncTags", resourceCulture)
             End Get
         End Property
         
@@ -3252,6 +3324,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_chkTimeTracking() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkTimeTracking", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Unable to retrieve 7z product information!.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_Error7zInfo() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_Error7zInfo", resourceCulture)
             End Get
         End Property
         
@@ -3310,6 +3391,33 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Sync Game Data.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grpSync() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grpSync", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Sync Options.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grpSyncOptions() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grpSyncOptions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Arguments:.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_lblArguments() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_lblArguments", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup Folder:.
         '''</summary>
         Friend ReadOnly Property frmSettings_lblBackupFolder() As String
@@ -3324,6 +3432,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_lblCompression() As String
             Get
                 Return ResourceManager.GetString("frmSettings_lblCompression", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Location:.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_lblLocation() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_lblLocation", resourceCulture)
             End Get
         End Property
         

@@ -1106,7 +1106,7 @@
     <value>Backup only when session time exceeds</value>
   </data>
   <data name="frmSettings_chkSync" xml:space="preserve">
-    <value>Sync game list data with backup folder</value>
+    <value>Enable Syncing</value>
   </data>
   <data name="frmSettings_chkTimeTracking" xml:space="preserve">
     <value>Enable time tracking</value>
@@ -1596,5 +1596,44 @@
   </data>
   <data name="frmFileFolderSearch_SearchCancel" xml:space="preserve">
     <value>Search Aborted!</value>
+  </data>
+  <data name="frmSettings_btnDefaults" xml:space="preserve">
+    <value>Use &amp;Defaults</value>
+  </data>
+  <data name="frmSettings_chkSyncAllData" xml:space="preserve">
+    <value>All Data (Not Recommened)</value>
+  </data>
+  <data name="frmSettings_chkSyncConfig" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="frmSettings_chkSyncGameInfo" xml:space="preserve">
+    <value>Game Information</value>
+  </data>
+  <data name="frmSettings_chkSyncHours" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="frmSettings_chkSyncTags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="frmSettings_Error7zInfo" xml:space="preserve">
+    <value>Unable to retrieve 7z product information!</value>
+  </data>
+  <data name="frmSettings_grpSync" xml:space="preserve">
+    <value>Sync Game Data</value>
+  </data>
+  <data name="frmSettings_grpSyncOptions" xml:space="preserve">
+    <value>Sync Options</value>
+  </data>
+  <data name="frmSettings_lblArguments" xml:space="preserve">
+    <value>Arguments:</value>
+  </data>
+  <data name="frmSettings_lblLocation" xml:space="preserve">
+    <value>Location:</value>
+  </data>
+  <data name="frmSettings_7zaFileType" xml:space="preserve">
+    <value>Executable</value>
+  </data>
+  <data name="frmSettings_Browse7za" xml:space="preserve">
+    <value>Locate 7-Zip Console (7za)</value>
   </data>
 </root>

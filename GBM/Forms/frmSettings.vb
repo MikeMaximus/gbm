@@ -40,6 +40,31 @@ Public Class frmSettings
         End If
     End Sub
 
+    Private Sub HandleSyncState()
+        If chkSync.Checked Then
+            grpSyncOptions.Enabled = True
+        Else
+            grpSyncOptions.Enabled = False
+        End If
+    End Sub
+
+    Private Sub HandleSyncAllDataState()
+        If chkSyncAllData.Checked Then
+            For Each chk As CheckBox In grpSyncOptions.Controls
+                If Not chk Is chkSyncAllData Then
+                    chk.Checked = False
+                    chk.Enabled = False
+                End If
+            Next
+        Else
+            For Each chk As CheckBox In grpSyncOptions.Controls
+                If Not chk Is chkSyncAllData Then
+                    chk.Enabled = True
+                End If
+            Next
+        End If
+    End Sub
+
     Private Function ValidateSettings() As Boolean
 
         'Only modify registry key when the value changed
@@ -96,6 +121,16 @@ Public Class frmSettings
         End If
     End Function
 
+    Private Sub Get7zInfo()
+        Try
+            Dim oFileInfo As FileVersionInfo = FileVersionInfo.GetVersionInfo(mgrPath.Utility7zLocation)
+            lbl7zProduct.Text = oFileInfo.FileDescription & " " & oFileInfo.ProductVersion
+            lbl7zCopyright.Text = oFileInfo.LegalCopyright
+        Catch ex As Exception
+            lbl7zProduct.Text = mgrCommon.FormatString(frmSettings_Error7zInfo)
+        End Try
+    End Sub
+
     Private Sub LoadSettings()
         chkStartWindows.Checked = oSettings.StartWithWindows
         chkMonitorOnStartup.Checked = oSettings.MonitorOnStartup
@@ -119,6 +154,9 @@ Public Class frmSettings
             chkStartToTray.Checked = False
             chkStartWindows.Checked = False
         End If
+
+        'Retrieve 7z Info
+        Get7zInfo()
     End Sub
 
     Private Sub LoadCombos()
@@ -165,6 +203,16 @@ Public Class frmSettings
         chkMonitorOnStartup.Text = frmSettings_chkMonitorOnStartup
         grp7z.Text = frmSettings_grp7z
         lblCompression.Text = frmSettings_lblCompression
+        grpSync.Text = frmSettings_grpSync
+        grpSyncOptions.Text = frmSettings_grpSyncOptions
+        chkSyncConfig.Text = frmSettings_chkSyncConfig
+        chkSyncGameInfo.Text = frmSettings_chkSyncGameInfo
+        chkSyncHours.Text = frmSettings_chkSyncHours
+        chkSyncTags.Text = frmSettings_chkSyncTags
+        chkSyncAllData.Text = frmSettings_chkSyncAllData
+        btnDefaults.Text = frmSettings_btnDefaults
+        lblArguments.Text = frmSettings_lblArguments
+        lblLocation.Text = frmSettings_lblLocation
 
         'Unix Handler
         If mgrCommon.IsUnix Then                       
@@ -203,7 +251,22 @@ Public Class frmSettings
         If sNewFolder <> String.Empty Then txtBackupFolder.Text = sNewFolder
     End Sub
 
+    Private Sub btn7zLocation_Click(sender As Object, e As EventArgs) Handles btn7zLocation.Click
+        Dim sNewLocation As String
+        sNewLocation = mgrCommon.OpenFileBrowser(frmSettings_Browse7za, "exe", frmSettings_7zaFileType, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
+        If sNewLocation <> String.Empty Then txt7zLocation.Text = sNewLocation
+    End Sub
+
     Private Sub chkSupressBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkSupressBackup.CheckedChanged
         nudSupressBackupThreshold.Enabled = chkSupressBackup.Checked
     End Sub
+
+    Private Sub chkSync_CheckedChanged(sender As Object, e As EventArgs) Handles chkSync.CheckedChanged
+        HandleSyncState()
+    End Sub
+
+    Private Sub chkSyncAllData_CheckedChanged(sender As Object, e As EventArgs) Handles chkSyncAllData.CheckedChanged
+        HandleSyncAllDataState()
+    End Sub
+
 End Class
