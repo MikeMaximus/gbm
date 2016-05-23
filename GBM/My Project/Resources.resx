@@ -1601,7 +1601,7 @@
     <value>Set &amp;Defaults</value>
   </data>
   <data name="frmSettings_chkSyncAll" xml:space="preserve">
-    <value>All Data (Not Recommened)</value>
+    <value>All Data (Not Recommended)</value>
   </data>
   <data name="frmSettings_chkSyncGameConfigs" xml:space="preserve">
     <value>Game Configurations</value>
@@ -1610,7 +1610,7 @@
     <value>Game Information</value>
   </data>
   <data name="frmSettings_chkSyncHours" xml:space="preserve">
-    <value>Hours</value>
+    <value>Game Time</value>
   </data>
   <data name="frmSettings_chkSyncTags" xml:space="preserve">
     <value>Tags</value>

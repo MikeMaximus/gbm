@@ -169,7 +169,7 @@ Partial Class frmSettings
         '
         'btnBackupFolder
         '
-        Me.btnBackupFolder.Location = New System.Drawing.Point(318, 23)
+        Me.btnBackupFolder.Location = New System.Drawing.Point(327, 24)
         Me.btnBackupFolder.Name = "btnBackupFolder"
         Me.btnBackupFolder.Size = New System.Drawing.Size(27, 20)
         Me.btnBackupFolder.TabIndex = 2
@@ -187,9 +187,9 @@ Partial Class frmSettings
         '
         'txtBackupFolder
         '
-        Me.txtBackupFolder.Location = New System.Drawing.Point(88, 24)
+        Me.txtBackupFolder.Location = New System.Drawing.Point(110, 24)
         Me.txtBackupFolder.Name = "txtBackupFolder"
-        Me.txtBackupFolder.Size = New System.Drawing.Size(224, 20)
+        Me.txtBackupFolder.Size = New System.Drawing.Size(211, 20)
         Me.txtBackupFolder.TabIndex = 1
         '
         'btnSave
@@ -459,9 +459,9 @@ Partial Class frmSettings
         Me.chkSyncHours.AutoSize = True
         Me.chkSyncHours.Location = New System.Drawing.Point(6, 65)
         Me.chkSyncHours.Name = "chkSyncHours"
-        Me.chkSyncHours.Size = New System.Drawing.Size(54, 17)
+        Me.chkSyncHours.Size = New System.Drawing.Size(80, 17)
         Me.chkSyncHours.TabIndex = 2
-        Me.chkSyncHours.Text = "Hours"
+        Me.chkSyncHours.Text = "Game Time"
         Me.chkSyncHours.UseVisualStyleBackColor = True
         '
         'btnDefaults

@@ -3283,7 +3283,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to All Data (Not Recommened).
+        '''  Looks up a localized string similar to All Data (Not Recommended).
         '''</summary>
         Friend ReadOnly Property frmSettings_chkSyncAll() As String
             Get
@@ -3310,7 +3310,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Hours.
+        '''  Looks up a localized string similar to Game Time.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkSyncHours() As String
             Get
