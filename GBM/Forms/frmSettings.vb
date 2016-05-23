@@ -1,4 +1,5 @@
 ﻿Imports GBM.My.Resources
+Imports System.IO
 
 Public Class frmSettings
     Dim bShutdown As Boolean = False
@@ -83,10 +84,13 @@ Public Class frmSettings
         oSettings.SupressBackup = chkSupressBackup.Checked
         oSettings.SupressBackupThreshold = nudSupressBackupThreshold.Value
         oSettings.CompressionLevel = cboCompression.SelectedValue
-        oSettings.Custom7zArguments = txt7zArguments.Text
 
-        'TODO: Add Custom Location Validation!
-        oSettings.Custom7zLocation = txt7zLocation.Text
+        If oSettings.Custom7zArguments <> txt7zArguments.Text.Trim And txt7zArguments.Text.Trim <> String.Empty Then
+            mgrCommon.ShowMessage(frmSettings_WarningArguments, MsgBoxStyle.Exclamation)
+        End If
+
+        oSettings.Custom7zArguments = txt7zArguments.Text.Trim
+        oSettings.Custom7zLocation = txt7zLocation.Text.Trim
 
         'We need to clear all checksums its turned off
         If chkCheckSum.Checked = False And oSettings.CheckSum = True Then
@@ -105,7 +109,7 @@ Public Class frmSettings
         oSettings.SyncTags = chkSyncTags.Checked
         oSettings.SyncAll = chkSyncAll.Checked
 
-        If IO.Directory.Exists(txtBackupFolder.Text) Then
+        If Directory.Exists(txtBackupFolder.Text) Then
             If oSettings.BackupFolder <> txtBackupFolder.Text Then
                 If chkSync.Checked Then bBackupLocationChanged = True
             End If
@@ -115,8 +119,15 @@ Public Class frmSettings
             Return False
         End If
 
-        If oSettings.Custom7zArguments <> String.Empty Then
-            mgrCommon.ShowMessage(frmSettings_WarningArguments, MsgBoxStyle.Exclamation)
+        If oSettings.Custom7zLocation <> String.Empty Then
+            If File.Exists(oSettings.Custom7zLocation) Then
+                If Path.GetFileNameWithoutExtension(oSettings.Custom7zLocation) <> "7za" Then
+                    mgrCommon.ShowMessage(frmSettings_WarningLocation, MsgBoxStyle.Exclamation)
+                End If
+            Else
+                mgrCommon.ShowMessage(frmSettings_ErrorLocation, oSettings.Custom7zLocation, MsgBoxStyle.Critical)
+                Return False
+            End If
         End If
 
         Return True
@@ -137,7 +148,7 @@ Public Class frmSettings
         Try
             'Use default when no custom location is set
             If sLocation = String.Empty Then
-                sLocation = mgrPath.Utility7zLocation
+                sLocation = mgrPath.Default7zLocation
             End If
 
             'Get info
@@ -146,7 +157,15 @@ Public Class frmSettings
             lbl7zCopyright.Text = oFileInfo.LegalCopyright
         Catch ex As Exception
             lbl7zProduct.Text = mgrCommon.FormatString(frmSettings_Error7zInfo)
+            lbl7zCopyright.Text = String.Empty
         End Try
+    End Sub
+
+    Private Sub SetDefaults()
+        If mgrCommon.ShowMessage(frmSettings_ConfirmDefaults, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            oSettings = New mgrSettings
+            LoadSettings()
+        End If
     End Sub
 
     Private Sub LoadSettings()
@@ -298,6 +317,10 @@ Public Class frmSettings
     End Sub
 
     Private Sub txt7zLocation_Leave(sender As Object, e As EventArgs) Handles txt7zLocation.Leave
-        Get7zInfo(txt7zLocation.Text)
+        Get7zInfo(txt7zLocation.Text.Trim)
+    End Sub
+
+    Private Sub btnDefaults_Click(sender As Object, e As EventArgs) Handles btnDefaults.Click
+        SetDefaults()
     End Sub
 End Class

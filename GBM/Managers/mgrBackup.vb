@@ -169,20 +169,15 @@ Public Class mgrBackup
                 BuildFileList(sSavePath, oGame.ExcludeList, mgrPath.ExcludeFileLocation)
 
                 Try
-                    'Need to delete any prior archive if it exists, the 7za utility does not support overwriting or deleting existing archives.
-                    'If we let 7za update existing archives it will lead to excessive bloat with games that routinely add and remove files with many different file names.
-                    If File.Exists(sBackupFile) Then
-                        File.Delete(sBackupFile)
-                    End If
-
                     If Directory.Exists(sSavePath) Then
-                        'The Linux version of 7za doesn't support the new verbose parameters and fails out.  Just split this up for now until we have a better solution.
-                        If mgrCommon.IsUnix Then
-                            prs7z.StartInfo.Arguments = "a -t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """ -r"
-                        Else
-                            prs7z.StartInfo.Arguments = "a -bb1 -bt -t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """ -r"
+                        'Need to delete any prior archive if it exists, the 7za utility does not support overwriting or deleting existing archives.
+                        'If we let 7za update existing archives it will lead to excessive bloat with games that routinely add and remove files with many different file names.
+                        If File.Exists(sBackupFile) Then
+                            File.Delete(sBackupFile)
                         End If
-                        prs7z.StartInfo.FileName = mgrPath.Utility7zLocation
+
+                        prs7z.StartInfo.Arguments = "a" & oSettings.Prepared7zArguments & "-t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """ -r"
+                        prs7z.StartInfo.FileName = oSettings.Utility7zLocation
                         prs7z.StartInfo.UseShellExecute = False
                         prs7z.StartInfo.RedirectStandardOutput = True
                         prs7z.StartInfo.CreateNoWindow = True

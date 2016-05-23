@@ -231,12 +231,8 @@ Public Class mgrRestore
 
             Try
                 If File.Exists(sBackupFile) Then
-                    If mgrCommon.IsUnix Then
-                        prs7z.StartInfo.Arguments = "x """ & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -aoa -r"
-                    Else
-                        prs7z.StartInfo.Arguments = "x -bb1 -bt """ & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -aoa -r"
-                    End If
-                    prs7z.StartInfo.FileName = mgrPath.Utility7zLocation
+                    prs7z.StartInfo.Arguments = "x" & oSettings.Prepared7zArguments & """" & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -aoa -r"
+                    prs7z.StartInfo.FileName = oSettings.Utility7zLocation
                     prs7z.StartInfo.UseShellExecute = False
                     prs7z.StartInfo.RedirectStandardOutput = True
                     prs7z.StartInfo.CreateNoWindow = True

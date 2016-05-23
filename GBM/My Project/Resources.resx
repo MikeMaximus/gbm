@@ -1637,6 +1637,18 @@
     <value>Locate 7-Zip Console (7za)</value>
   </data>
   <data name="frmSettings_WarningArguments" xml:space="preserve">
-    <value>Custom 7-Zip arguments can cause backup or restore operations to fail.[BR][BR]If problems occur, clear the arguments and refer to the GBM manual.</value>
+    <value>Invalid or poorly formatted 7-Zip arguments can cause backup or restore operations to fail.[BR][BR]If problems occur, clear the arguments and refer to the GBM manual.</value>
+  </data>
+  <data name="frmMain_Error7zCustom" xml:space="preserve">
+    <value>The custom 7-Zip utility could not be found at:[BR][BR][PARAM][BR][BR]Please check your settings, the default 7-Zip utility will be used.</value>
+  </data>
+  <data name="frmSettings_ConfirmDefaults" xml:space="preserve">
+    <value>Do you want to revert all settings to their defaults?</value>
+  </data>
+  <data name="frmSettings_ErrorLocation" xml:space="preserve">
+    <value>The custom 7-Zip location [PARAM] does not exist.</value>
+  </data>
+  <data name="frmSettings_WarningLocation" xml:space="preserve">
+    <value>You have chosen a custom utility that does not appear to be 7-Zip Console (7za).  GBM only supports the use of 7-Zip.</value>
   </data>
 </root>

@@ -37,7 +37,7 @@ Public Class mgrPath
         End Get
     End Property
 
-    Shared ReadOnly Property Utility7zLocation As String
+    Shared ReadOnly Property Default7zLocation As String
         Get
             If mgrCommon.IsUnix Then
                 Return "/usr/bin/7za"

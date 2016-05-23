@@ -811,13 +811,6 @@ Public Class frmMain
 
     Private Sub LoadAndVerify()
 
-        'The application cannot continue if this fails
-        If Not oBackup.CheckForUtilities(mgrPath.Utility7zLocation) Then
-            mgrCommon.ShowMessage(frmMain_Error7zip, MsgBoxStyle.Critical)
-            bShutdown = True
-            Me.Close()
-        End If
-
         'Local Database Check
         VerifyDBVersion(mgrSQLite.Database.Local)
         LocalDatabaseCheck()
@@ -853,6 +846,20 @@ Public Class frmMain
             If Not VerifyStartWithWindows() Then
                 UpdateLog(frmMain_ErrorAppLocationChanged, False, ToolTipIcon.Info)
             End If
+        End If
+
+        'Check for any custom 7z utility and display a warning if it's missing
+        If oSettings.Custom7zLocation <> String.Empty Then
+            If Not oBackup.CheckForUtilities(oSettings.Custom7zLocation) Then
+                mgrCommon.ShowMessage(frmMain_Error7zCustom, oSettings.Custom7zLocation, MsgBoxStyle.Exclamation)
+            End If
+        End If
+
+        'If the default utility is missing we cannot continue
+        If Not oBackup.CheckForUtilities(mgrPath.Default7zLocation) Then
+            mgrCommon.ShowMessage(frmMain_Error7zip, MsgBoxStyle.Critical)
+            bShutdown = True
+            Me.Close()
         End If
 
     End Sub

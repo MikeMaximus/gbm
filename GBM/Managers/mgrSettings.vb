@@ -204,6 +204,21 @@ Public Class mgrSettings
         End Set
     End Property
 
+    ReadOnly Property Prepared7zArguments As String
+        Get
+            'Prepare custom 7z arguments
+            Dim sPreparedArguments As String
+            If s7zArguments <> String.Empty Then
+                'Surround the arguments with spaces to be inserted into command
+                sPreparedArguments = " " & s7zArguments & " "
+            Else
+                'The command always needs at least one space inserted
+                sPreparedArguments = " "
+            End If
+            Return sPreparedArguments
+        End Get
+    End Property
+
     Property Custom7zLocation As String
         Get
             Return s7zLocation
@@ -211,6 +226,22 @@ Public Class mgrSettings
         Set(value As String)
             s7zLocation = value
         End Set
+    End Property
+
+    ReadOnly Property Utility7zLocation As String
+        Get
+            'Return default utility when custom setting is not used
+            If s7zLocation = String.Empty Then
+                Return mgrPath.Default7zLocation
+            Else
+                'Check if custom utility is available, if not use the default utility
+                If File.Exists(s7zLocation) Then
+                    Return s7zLocation
+                Else
+                    Return mgrPath.Default7zLocation
+                End If
+            End If
+        End Get
     End Property
 
     Property BackupFolder As String

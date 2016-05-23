@@ -2311,6 +2311,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The custom 7-Zip utility could not be found at:[BR][BR][PARAM][BR][BR]Please check your settings, the default 7-Zip utility will be used..
+        '''</summary>
+        Friend ReadOnly Property frmMain_Error7zCustom() As String
+            Get
+                Return ResourceManager.GetString("frmMain_Error7zCustom", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to 7-Zip was not found.  The application cannot continue..
         '''</summary>
         Friend ReadOnly Property frmMain_Error7zip() As String
@@ -3328,6 +3337,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Do you want to revert all settings to their defaults?.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_ConfirmDefaults() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_ConfirmDefaults", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Unable to retrieve 7z product information!.
         '''</summary>
         Friend ReadOnly Property frmSettings_Error7zInfo() As String
@@ -3342,6 +3360,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_ErrorBackupFolder() As String
             Get
                 Return ResourceManager.GetString("frmSettings_ErrorBackupFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The custom 7-Zip location [PARAM] does not exist..
+        '''</summary>
+        Friend ReadOnly Property frmSettings_ErrorLocation() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_ErrorLocation", resourceCulture)
             End Get
         End Property
         
@@ -3454,11 +3481,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Custom 7-Zip arguments can cause backup or restore operations to fail.[BR][BR]If problems occur, clear the arguments and refer to the GBM manual..
+        '''  Looks up a localized string similar to Invalid or poorly formatted 7-Zip arguments can cause backup or restore operations to fail.[BR][BR]If problems occur, clear the arguments and refer to the GBM manual..
         '''</summary>
         Friend ReadOnly Property frmSettings_WarningArguments() As String
             Get
                 Return ResourceManager.GetString("frmSettings_WarningArguments", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to You have chosen a custom utility that does not appear to be 7-Zip Console (7za).  GBM only supports the use of 7-Zip..
+        '''</summary>
+        Friend ReadOnly Property frmSettings_WarningLocation() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_WarningLocation", resourceCulture)
             End Get
         End Property
         
