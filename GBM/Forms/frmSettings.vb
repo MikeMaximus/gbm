@@ -42,23 +42,22 @@ Public Class frmSettings
 
     Private Sub HandleSyncState()
         If chkSync.Checked Then
-            grpSyncOptions.Enabled = True
+            grpSyncData.Enabled = True
         Else
-            grpSyncOptions.Enabled = False
+            grpSyncData.Enabled = False
         End If
     End Sub
 
     Private Sub HandleSyncAllDataState()
-        If chkSyncAllData.Checked Then
-            For Each chk As CheckBox In grpSyncOptions.Controls
-                If Not chk Is chkSyncAllData Then
-                    chk.Checked = False
+        If chkSyncAll.Checked Then
+            For Each chk As CheckBox In grpSyncData.Controls
+                If Not chk Is chkSyncAll Then
                     chk.Enabled = False
                 End If
             Next
         Else
-            For Each chk As CheckBox In grpSyncOptions.Controls
-                If Not chk Is chkSyncAllData Then
+            For Each chk As CheckBox In grpSyncData.Controls
+                If Not chk Is chkSyncAll Then
                     chk.Enabled = True
                 End If
             Next
@@ -84,6 +83,10 @@ Public Class frmSettings
         oSettings.SupressBackup = chkSupressBackup.Checked
         oSettings.SupressBackupThreshold = nudSupressBackupThreshold.Value
         oSettings.CompressionLevel = cboCompression.SelectedValue
+        oSettings.Custom7zArguments = txt7zArguments.Text
+
+        'TODO: Add Custom Location Validation!
+        oSettings.Custom7zLocation = txt7zLocation.Text
 
         'We need to clear all checksums its turned off
         If chkCheckSum.Checked = False And oSettings.CheckSum = True Then
@@ -96,6 +99,11 @@ Public Class frmSettings
             bBackupLocationChanged = True
         End If
         oSettings.Sync = chkSync.Checked
+        oSettings.SyncGameConfigs = chkSyncGameConfigs.Checked
+        oSettings.SyncGameInfo = chkSyncGameInfo.Checked
+        oSettings.SyncHours = chkSyncHours.Checked
+        oSettings.SyncTags = chkSyncTags.Checked
+        oSettings.SyncAll = chkSyncAll.Checked
 
         If IO.Directory.Exists(txtBackupFolder.Text) Then
             If oSettings.BackupFolder <> txtBackupFolder.Text Then
@@ -105,6 +113,10 @@ Public Class frmSettings
         Else
             mgrCommon.ShowMessage(frmSettings_ErrorBackupFolder, MsgBoxStyle.Exclamation)
             Return False
+        End If
+
+        If oSettings.Custom7zArguments <> String.Empty Then
+            mgrCommon.ShowMessage(frmSettings_WarningArguments, MsgBoxStyle.Exclamation)
         End If
 
         Return True
@@ -121,9 +133,15 @@ Public Class frmSettings
         End If
     End Function
 
-    Private Sub Get7zInfo()
+    Private Sub Get7zInfo(ByVal sLocation As String)
         Try
-            Dim oFileInfo As FileVersionInfo = FileVersionInfo.GetVersionInfo(mgrPath.Utility7zLocation)
+            'Use default when no custom location is set
+            If sLocation = String.Empty Then
+                sLocation = mgrPath.Utility7zLocation
+            End If
+
+            'Get info
+            Dim oFileInfo As FileVersionInfo = FileVersionInfo.GetVersionInfo(sLocation)
             lbl7zProduct.Text = oFileInfo.FileDescription & " " & oFileInfo.ProductVersion
             lbl7zCopyright.Text = oFileInfo.LegalCopyright
         Catch ex As Exception
@@ -142,12 +160,19 @@ Public Class frmSettings
         chkRestoreOnLaunch.Checked = oSettings.RestoreOnLaunch
         txtBackupFolder.Text = oSettings.BackupFolder
         chkSync.Checked = oSettings.Sync
+        chkSyncGameConfigs.Checked = oSettings.SyncGameConfigs
+        chkSyncGameInfo.Checked = oSettings.SyncGameInfo
+        chkSyncHours.Checked = oSettings.SyncHours
+        chkSyncTags.Checked = oSettings.SyncTags
+        chkSyncAll.Checked = oSettings.SyncAll
         chkCheckSum.Checked = oSettings.CheckSum
         chkTimeTracking.Checked = oSettings.TimeTracking
         chkSupressBackup.Checked = oSettings.SupressBackup
         nudSupressBackupThreshold.Value = oSettings.SupressBackupThreshold
         nudSupressBackupThreshold.Enabled = chkSupressBackup.Checked
         cboCompression.SelectedValue = oSettings.CompressionLevel
+        txt7zArguments.Text = oSettings.Custom7zArguments
+        txt7zLocation.Text = oSettings.Custom7zLocation
 
         'Unix Handler
         If mgrCommon.IsUnix Then
@@ -156,7 +181,7 @@ Public Class frmSettings
         End If
 
         'Retrieve 7z Info
-        Get7zInfo()
+        Get7zInfo(oSettings.Custom7zLocation)
     End Sub
 
     Private Sub LoadCombos()
@@ -204,18 +229,18 @@ Public Class frmSettings
         grp7z.Text = frmSettings_grp7z
         lblCompression.Text = frmSettings_lblCompression
         grpSync.Text = frmSettings_grpSync
-        grpSyncOptions.Text = frmSettings_grpSyncOptions
-        chkSyncConfig.Text = frmSettings_chkSyncConfig
+        grpSyncData.Text = frmSettings_grpSyncOptions
+        chkSyncGameConfigs.Text = frmSettings_chkSyncGameConfigs
         chkSyncGameInfo.Text = frmSettings_chkSyncGameInfo
         chkSyncHours.Text = frmSettings_chkSyncHours
         chkSyncTags.Text = frmSettings_chkSyncTags
-        chkSyncAllData.Text = frmSettings_chkSyncAllData
+        chkSyncAll.Text = frmSettings_chkSyncAll
         btnDefaults.Text = frmSettings_btnDefaults
         lblArguments.Text = frmSettings_lblArguments
         lblLocation.Text = frmSettings_lblLocation
 
         'Unix Handler
-        If mgrCommon.IsUnix Then                       
+        If mgrCommon.IsUnix Then
             chkStartToTray.Enabled = False
             chkStartWindows.Enabled = False
         End If
@@ -254,7 +279,10 @@ Public Class frmSettings
     Private Sub btn7zLocation_Click(sender As Object, e As EventArgs) Handles btn7zLocation.Click
         Dim sNewLocation As String
         sNewLocation = mgrCommon.OpenFileBrowser(frmSettings_Browse7za, "exe", frmSettings_7zaFileType, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
-        If sNewLocation <> String.Empty Then txt7zLocation.Text = sNewLocation
+        If sNewLocation <> String.Empty Then
+            txt7zLocation.Text = sNewLocation
+            Get7zInfo(txt7zLocation.Text)
+        End If
     End Sub
 
     Private Sub chkSupressBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkSupressBackup.CheckedChanged
@@ -265,8 +293,11 @@ Public Class frmSettings
         HandleSyncState()
     End Sub
 
-    Private Sub chkSyncAllData_CheckedChanged(sender As Object, e As EventArgs) Handles chkSyncAllData.CheckedChanged
+    Private Sub chkSyncAllData_CheckedChanged(sender As Object, e As EventArgs) Handles chkSyncAll.CheckedChanged
         HandleSyncAllDataState()
     End Sub
 
+    Private Sub txt7zLocation_Leave(sender As Object, e As EventArgs) Handles txt7zLocation.Leave
+        Get7zInfo(txt7zLocation.Text)
+    End Sub
 End Class

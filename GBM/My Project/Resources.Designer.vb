@@ -3103,7 +3103,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Use &amp;Defaults.
+        '''  Looks up a localized string similar to Set &amp;Defaults.
         '''</summary>
         Friend ReadOnly Property frmSettings_btnDefaults() As String
             Get
@@ -3276,18 +3276,18 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to All Data (Not Recommened).
         '''</summary>
-        Friend ReadOnly Property frmSettings_chkSyncAllData() As String
+        Friend ReadOnly Property frmSettings_chkSyncAll() As String
             Get
-                Return ResourceManager.GetString("frmSettings_chkSyncAllData", resourceCulture)
+                Return ResourceManager.GetString("frmSettings_chkSyncAll", resourceCulture)
             End Get
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Configuration.
+        '''  Looks up a localized string similar to Game Configurations.
         '''</summary>
-        Friend ReadOnly Property frmSettings_chkSyncConfig() As String
+        Friend ReadOnly Property frmSettings_chkSyncGameConfigs() As String
             Get
-                Return ResourceManager.GetString("frmSettings_chkSyncConfig", resourceCulture)
+                Return ResourceManager.GetString("frmSettings_chkSyncGameConfigs", resourceCulture)
             End Get
         End Property
         
@@ -3355,7 +3355,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 7z Options.
+        '''  Looks up a localized string similar to 7-Zip Options.
         '''</summary>
         Friend ReadOnly Property frmSettings_grp7z() As String
             Get
@@ -3391,7 +3391,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Sync Game Data.
+        '''  Looks up a localized string similar to Sync Options.
         '''</summary>
         Friend ReadOnly Property frmSettings_grpSync() As String
             Get
@@ -3400,7 +3400,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Sync Options.
+        '''  Looks up a localized string similar to Sync Data.
         '''</summary>
         Friend ReadOnly Property frmSettings_grpSyncOptions() As String
             Get
@@ -3409,7 +3409,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Arguments:.
+        '''  Looks up a localized string similar to Custom Arguments:.
         '''</summary>
         Friend ReadOnly Property frmSettings_lblArguments() As String
             Get
@@ -3436,7 +3436,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Location:.
+        '''  Looks up a localized string similar to Custom Location:.
         '''</summary>
         Friend ReadOnly Property frmSettings_lblLocation() As String
             Get
@@ -3450,6 +3450,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_lblMinutes() As String
             Get
                 Return ResourceManager.GetString("frmSettings_lblMinutes", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Custom 7-Zip arguments can cause backup or restore operations to fail.[BR][BR]If problems occur, clear the arguments and refer to the GBM manual..
+        '''</summary>
+        Friend ReadOnly Property frmSettings_WarningArguments() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_WarningArguments", resourceCulture)
             End Get
         End Property
         

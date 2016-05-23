@@ -10,11 +10,18 @@ Public Class mgrSettings
     Private bShowOverwriteWarning As Boolean = True
     Private bRestoreOnLaunch As Boolean = False
     Private bSync As Boolean = True
+    Private bSyncGameConfigs As Boolean = True
+    Private bSyncGameInfo As Boolean = False
+    Private bSyncHours As Boolean = True
+    Private bSyncTags As Boolean = True
+    Private bSyncAll As Boolean = False
     Private bCheckSum As Boolean = True
     Private bTimeTracking As Boolean = True
     Private bSupressBackup As Boolean = False
     Private iSupressBackupThreshold As Integer = 10
     Private iCompressionLevel As Integer = 5
+    Private s7zArguments As String = String.Empty
+    Private s7zLocation As String = String.Empty
     Private sBackupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).TrimEnd(New Char() {"\", "/"})
 
     Property StartWithWindows As Boolean
@@ -98,6 +105,51 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Property SyncGameConfigs As Boolean
+        Get
+            Return bSyncGameConfigs
+        End Get
+        Set(value As Boolean)
+            bSyncGameConfigs = value
+        End Set
+    End Property
+
+    Property SyncGameInfo As Boolean
+        Get
+            Return bSyncGameInfo
+        End Get
+        Set(value As Boolean)
+            bSyncGameInfo = value
+        End Set
+    End Property
+
+    Property SyncHours As Boolean
+        Get
+            Return bSyncHours
+        End Get
+        Set(value As Boolean)
+            bSyncHours = value
+        End Set
+    End Property
+
+    Property SyncTags As Boolean
+        Get
+            Return bSyncTags
+        End Get
+        Set(value As Boolean)
+            bSyncTags = value
+        End Set
+    End Property
+
+    Property SyncAll As Boolean
+        Get
+            Return bSyncAll
+        End Get
+        Set(value As Boolean)
+            bSyncAll = value
+        End Set
+    End Property
+
     Property CheckSum As Boolean
         Get
             Return bCheckSum
@@ -143,6 +195,24 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Property Custom7zArguments As String
+        Get
+            Return s7zArguments
+        End Get
+        Set(value As String)
+            s7zArguments = value
+        End Set
+    End Property
+
+    Property Custom7zLocation As String
+        Get
+            Return s7zLocation
+        End Get
+        Set(value As String)
+            s7zLocation = value
+        End Set
+    End Property
+
     Property BackupFolder As String
         Get
             Return sBackupFolder
@@ -162,7 +232,8 @@ Public Class mgrSettings
 
         sSQL = "INSERT INTO settings VALUES (1, @MonitorOnStartup, @StartToTray, @ShowDetectionToolTips, @DisableConfirmation, "
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @Sync, @CheckSum, @StartWithWindows, "
-        sSQL &= "@TimeTracking, @SupressBackup, @SupressBackupThreshold, @CompressionLevel)"
+        sSQL &= "@TimeTracking, @SupressBackup, @SupressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
+        sSQL &= "@SyncGameConfigs, @SyncGameInfo, @SyncHours, @SyncTags, @SyncAll)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -179,6 +250,13 @@ Public Class mgrSettings
         hshParams.Add("SupressBackup", SupressBackup)
         hshParams.Add("SupressBackupThreshold", SupressBackupThreshold)
         hshParams.Add("CompressionLevel", CompressionLevel)
+        hshParams.Add("Custom7zArguments", Custom7zArguments)
+        hshParams.Add("Custom7zLocation", Custom7zLocation)
+        hshParams.Add("SyncGameConfigs", SyncGameConfigs)
+        hshParams.Add("SyncGameInfo", SyncGameInfo)
+        hshParams.Add("SyncHours", SyncHours)
+        hshParams.Add("SyncTags", SyncTags)
+        hshParams.Add("SyncAll", SyncAll)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -209,6 +287,13 @@ Public Class mgrSettings
             SupressBackup = CBool(dr("SupressBackup"))
             SupressBackupThreshold = CInt(dr("SupressBackupThreshold"))
             CompressionLevel = CInt(dr("CompressionLevel"))
+            If Not IsDBNull(dr("Custom7zArguments")) Then Custom7zArguments = CStr(dr("Custom7zArguments"))
+            If Not IsDBNull(dr("Custom7zLocation")) Then Custom7zLocation = CStr(dr("Custom7zLocation"))
+            SyncGameConfigs = CBool(dr("SyncGameConfigs"))
+            SyncGameInfo = CBool(dr("SyncGameInfo"))
+            SyncHours = CBool(dr("SyncHours"))
+            SyncTags = CBool(dr("SyncTags"))
+            SyncAll = CBool(dr("SyncAll"))
         Next
 
         oDatabase.Disconnect()

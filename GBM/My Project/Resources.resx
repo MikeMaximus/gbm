@@ -1526,7 +1526,7 @@
     <value>Ultra</value>
   </data>
   <data name="frmSettings_grp7z" xml:space="preserve">
-    <value>7z Options</value>
+    <value>7-Zip Options</value>
   </data>
   <data name="frmSettings_lblCompression" xml:space="preserve">
     <value>Compression:</value>
@@ -1598,13 +1598,13 @@
     <value>Search Aborted!</value>
   </data>
   <data name="frmSettings_btnDefaults" xml:space="preserve">
-    <value>Use &amp;Defaults</value>
+    <value>Set &amp;Defaults</value>
   </data>
-  <data name="frmSettings_chkSyncAllData" xml:space="preserve">
+  <data name="frmSettings_chkSyncAll" xml:space="preserve">
     <value>All Data (Not Recommened)</value>
   </data>
-  <data name="frmSettings_chkSyncConfig" xml:space="preserve">
-    <value>Configuration</value>
+  <data name="frmSettings_chkSyncGameConfigs" xml:space="preserve">
+    <value>Game Configurations</value>
   </data>
   <data name="frmSettings_chkSyncGameInfo" xml:space="preserve">
     <value>Game Information</value>
@@ -1619,21 +1619,24 @@
     <value>Unable to retrieve 7z product information!</value>
   </data>
   <data name="frmSettings_grpSync" xml:space="preserve">
-    <value>Sync Game Data</value>
-  </data>
-  <data name="frmSettings_grpSyncOptions" xml:space="preserve">
     <value>Sync Options</value>
   </data>
+  <data name="frmSettings_grpSyncOptions" xml:space="preserve">
+    <value>Sync Data</value>
+  </data>
   <data name="frmSettings_lblArguments" xml:space="preserve">
-    <value>Arguments:</value>
+    <value>Custom Arguments:</value>
   </data>
   <data name="frmSettings_lblLocation" xml:space="preserve">
-    <value>Location:</value>
+    <value>Custom Location:</value>
   </data>
   <data name="frmSettings_7zaFileType" xml:space="preserve">
     <value>Executable</value>
   </data>
   <data name="frmSettings_Browse7za" xml:space="preserve">
     <value>Locate 7-Zip Console (7za)</value>
+  </data>
+  <data name="frmSettings_WarningArguments" xml:space="preserve">
+    <value>Custom 7-Zip arguments can cause backup or restore operations to fail.[BR][BR]If problems occur, clear the arguments and refer to the GBM manual.</value>
   </data>
 </root>

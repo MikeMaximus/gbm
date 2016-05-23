@@ -73,7 +73,9 @@ Public Class mgrSQLite
             sSql = "CREATE TABLE settings (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, " &
                    "DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, " &
                    "BackupFolder TEXT NOT NULL, Sync BOOLEAN NOT NULL, CheckSum BOOLEAN NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
-                   "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL);"
+                   "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
+                   "Custom7zLocation TEXT, SyncGameConfigs BOOLEAN NOT NULL, SyncGameInfo BOOLEAN NOT NULL, SyncHours BOOLEAN NOT NULL, SyncTags BOOLEAN NOT NULL, " &
+                   "SyncAll BOOLEAN NOT NULL);"
 
             'Add Tables (Monitor List)
             sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
@@ -525,6 +527,34 @@ Public Class mgrSQLite
                 BackupDB("v95")
 
                 sSQL = "PRAGMA user_version=96"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '0.97 Upgrade
+        If GetDatabaseVersion() < 97 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v96")
+
+                'Add new setting                
+                sSQL = "ALTER TABLE settings ADD COLUMN Custom7zArguments TEXT;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN Custom7zLocation TEXT;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN SyncGameConfigs BOOLEAN NOT NULL DEFAULT 1;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN SyncGameInfo BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN SyncHours BOOLEAN NOT NULL DEFAULT 1;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN SyncTags BOOLEAN NOT NULL DEFAULT 1;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN SyncAll BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "PRAGMA user_version=97"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v96")
+
+                sSQL = "PRAGMA user_version=97"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If

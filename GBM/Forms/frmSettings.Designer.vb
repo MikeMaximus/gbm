@@ -55,10 +55,10 @@ Partial Class frmSettings
         Me.cboCompression = New System.Windows.Forms.ComboBox()
         Me.lblCompression = New System.Windows.Forms.Label()
         Me.grpSync = New System.Windows.Forms.GroupBox()
-        Me.grpSyncOptions = New System.Windows.Forms.GroupBox()
+        Me.grpSyncData = New System.Windows.Forms.GroupBox()
         Me.chkSyncTags = New System.Windows.Forms.CheckBox()
-        Me.chkSyncAllData = New System.Windows.Forms.CheckBox()
-        Me.chkSyncConfig = New System.Windows.Forms.CheckBox()
+        Me.chkSyncAll = New System.Windows.Forms.CheckBox()
+        Me.chkSyncGameConfigs = New System.Windows.Forms.CheckBox()
         Me.chkSyncGameInfo = New System.Windows.Forms.CheckBox()
         Me.chkSyncHours = New System.Windows.Forms.CheckBox()
         Me.btnDefaults = New System.Windows.Forms.Button()
@@ -68,7 +68,7 @@ Partial Class frmSettings
         CType(Me.nudSupressBackupThreshold, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grp7z.SuspendLayout()
         Me.grpSync.SuspendLayout()
-        Me.grpSyncOptions.SuspendLayout()
+        Me.grpSyncData.SuspendLayout()
         Me.SuspendLayout()
         '
         'chkMonitorOnStartup
@@ -100,7 +100,7 @@ Partial Class frmSettings
         Me.grpGeneral.Controls.Add(Me.chkMonitorOnStartup)
         Me.grpGeneral.Location = New System.Drawing.Point(12, 12)
         Me.grpGeneral.Name = "grpGeneral"
-        Me.grpGeneral.Size = New System.Drawing.Size(360, 165)
+        Me.grpGeneral.Size = New System.Drawing.Size(215, 165)
         Me.grpGeneral.TabIndex = 0
         Me.grpGeneral.TabStop = False
         Me.grpGeneral.Text = "General"
@@ -160,7 +160,7 @@ Partial Class frmSettings
         Me.grpPaths.Controls.Add(Me.btnBackupFolder)
         Me.grpPaths.Controls.Add(Me.lblBackupFolder)
         Me.grpPaths.Controls.Add(Me.txtBackupFolder)
-        Me.grpPaths.Location = New System.Drawing.Point(377, 326)
+        Me.grpPaths.Location = New System.Drawing.Point(233, 326)
         Me.grpPaths.Name = "grpPaths"
         Me.grpPaths.Size = New System.Drawing.Size(360, 60)
         Me.grpPaths.TabIndex = 3
@@ -195,7 +195,7 @@ Partial Class frmSettings
         'btnSave
         '
         Me.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnSave.Location = New System.Drawing.Point(581, 392)
+        Me.btnSave.Location = New System.Drawing.Point(437, 392)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
         Me.btnSave.TabIndex = 5
@@ -205,7 +205,7 @@ Partial Class frmSettings
         'btnCancel
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(662, 392)
+        Me.btnCancel.Location = New System.Drawing.Point(518, 392)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 6
@@ -222,7 +222,7 @@ Partial Class frmSettings
         Me.grpBackup.Controls.Add(Me.chkOverwriteWarning)
         Me.grpBackup.Controls.Add(Me.chkCreateFolder)
         Me.grpBackup.Controls.Add(Me.chkBackupConfirm)
-        Me.grpBackup.Location = New System.Drawing.Point(378, 12)
+        Me.grpBackup.Location = New System.Drawing.Point(233, 12)
         Me.grpBackup.Name = "grpBackup"
         Me.grpBackup.Size = New System.Drawing.Size(360, 165)
         Me.grpBackup.TabIndex = 2
@@ -307,7 +307,7 @@ Partial Class frmSettings
         Me.grp7z.Controls.Add(Me.lbl7zProduct)
         Me.grp7z.Controls.Add(Me.cboCompression)
         Me.grp7z.Controls.Add(Me.lblCompression)
-        Me.grp7z.Location = New System.Drawing.Point(377, 183)
+        Me.grp7z.Location = New System.Drawing.Point(233, 183)
         Me.grp7z.Name = "grp7z"
         Me.grp7z.Size = New System.Drawing.Size(360, 137)
         Me.grp7z.TabIndex = 3
@@ -325,9 +325,9 @@ Partial Class frmSettings
         '
         'txt7zLocation
         '
-        Me.txt7zLocation.Location = New System.Drawing.Point(88, 70)
+        Me.txt7zLocation.Location = New System.Drawing.Point(110, 70)
         Me.txt7zLocation.Name = "txt7zLocation"
-        Me.txt7zLocation.Size = New System.Drawing.Size(233, 20)
+        Me.txt7zLocation.Size = New System.Drawing.Size(211, 20)
         Me.txt7zLocation.TabIndex = 5
         '
         'lblLocation
@@ -335,15 +335,15 @@ Partial Class frmSettings
         Me.lblLocation.AutoSize = True
         Me.lblLocation.Location = New System.Drawing.Point(6, 73)
         Me.lblLocation.Name = "lblLocation"
-        Me.lblLocation.Size = New System.Drawing.Size(51, 13)
+        Me.lblLocation.Size = New System.Drawing.Size(89, 13)
         Me.lblLocation.TabIndex = 4
-        Me.lblLocation.Text = "Location:"
+        Me.lblLocation.Text = "Custom Location:"
         '
         'txt7zArguments
         '
-        Me.txt7zArguments.Location = New System.Drawing.Point(88, 44)
+        Me.txt7zArguments.Location = New System.Drawing.Point(110, 44)
         Me.txt7zArguments.Name = "txt7zArguments"
-        Me.txt7zArguments.Size = New System.Drawing.Size(266, 20)
+        Me.txt7zArguments.Size = New System.Drawing.Size(244, 20)
         Me.txt7zArguments.TabIndex = 3
         '
         'lblArguments
@@ -351,9 +351,9 @@ Partial Class frmSettings
         Me.lblArguments.AutoSize = True
         Me.lblArguments.Location = New System.Drawing.Point(6, 47)
         Me.lblArguments.Name = "lblArguments"
-        Me.lblArguments.Size = New System.Drawing.Size(60, 13)
+        Me.lblArguments.Size = New System.Drawing.Size(98, 13)
         Me.lblArguments.TabIndex = 2
-        Me.lblArguments.Text = "Arguments:"
+        Me.lblArguments.Text = "Custom Arguments:"
         '
         'lbl7zCopyright
         '
@@ -375,9 +375,9 @@ Partial Class frmSettings
         '
         Me.cboCompression.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCompression.FormattingEnabled = True
-        Me.cboCompression.Location = New System.Drawing.Point(88, 17)
+        Me.cboCompression.Location = New System.Drawing.Point(110, 17)
         Me.cboCompression.Name = "cboCompression"
-        Me.cboCompression.Size = New System.Drawing.Size(266, 21)
+        Me.cboCompression.Size = New System.Drawing.Size(244, 21)
         Me.cboCompression.TabIndex = 1
         '
         'lblCompression
@@ -391,28 +391,28 @@ Partial Class frmSettings
         '
         'grpSync
         '
-        Me.grpSync.Controls.Add(Me.grpSyncOptions)
+        Me.grpSync.Controls.Add(Me.grpSyncData)
         Me.grpSync.Controls.Add(Me.chkSync)
         Me.grpSync.Location = New System.Drawing.Point(12, 183)
         Me.grpSync.Name = "grpSync"
-        Me.grpSync.Size = New System.Drawing.Size(359, 203)
+        Me.grpSync.Size = New System.Drawing.Size(215, 203)
         Me.grpSync.TabIndex = 1
         Me.grpSync.TabStop = False
-        Me.grpSync.Text = "Sync Game Data"
+        Me.grpSync.Text = "Sync Options"
         '
-        'grpSyncOptions
+        'grpSyncData
         '
-        Me.grpSyncOptions.Controls.Add(Me.chkSyncTags)
-        Me.grpSyncOptions.Controls.Add(Me.chkSyncAllData)
-        Me.grpSyncOptions.Controls.Add(Me.chkSyncConfig)
-        Me.grpSyncOptions.Controls.Add(Me.chkSyncGameInfo)
-        Me.grpSyncOptions.Controls.Add(Me.chkSyncHours)
-        Me.grpSyncOptions.Location = New System.Drawing.Point(6, 47)
-        Me.grpSyncOptions.Name = "grpSyncOptions"
-        Me.grpSyncOptions.Size = New System.Drawing.Size(347, 140)
-        Me.grpSyncOptions.TabIndex = 1
-        Me.grpSyncOptions.TabStop = False
-        Me.grpSyncOptions.Text = "Sync Options"
+        Me.grpSyncData.Controls.Add(Me.chkSyncTags)
+        Me.grpSyncData.Controls.Add(Me.chkSyncAll)
+        Me.grpSyncData.Controls.Add(Me.chkSyncGameConfigs)
+        Me.grpSyncData.Controls.Add(Me.chkSyncGameInfo)
+        Me.grpSyncData.Controls.Add(Me.chkSyncHours)
+        Me.grpSyncData.Location = New System.Drawing.Point(6, 47)
+        Me.grpSyncData.Name = "grpSyncData"
+        Me.grpSyncData.Size = New System.Drawing.Size(194, 140)
+        Me.grpSyncData.TabIndex = 1
+        Me.grpSyncData.TabStop = False
+        Me.grpSyncData.Text = "Sync Data"
         '
         'chkSyncTags
         '
@@ -424,25 +424,25 @@ Partial Class frmSettings
         Me.chkSyncTags.Text = "Tags"
         Me.chkSyncTags.UseVisualStyleBackColor = True
         '
-        'chkSyncAllData
+        'chkSyncAll
         '
-        Me.chkSyncAllData.AutoSize = True
-        Me.chkSyncAllData.Location = New System.Drawing.Point(6, 111)
-        Me.chkSyncAllData.Name = "chkSyncAllData"
-        Me.chkSyncAllData.Size = New System.Drawing.Size(164, 17)
-        Me.chkSyncAllData.TabIndex = 4
-        Me.chkSyncAllData.Text = "All Data (Not Recommended)"
-        Me.chkSyncAllData.UseVisualStyleBackColor = True
+        Me.chkSyncAll.AutoSize = True
+        Me.chkSyncAll.Location = New System.Drawing.Point(6, 111)
+        Me.chkSyncAll.Name = "chkSyncAll"
+        Me.chkSyncAll.Size = New System.Drawing.Size(164, 17)
+        Me.chkSyncAll.TabIndex = 4
+        Me.chkSyncAll.Text = "All Data (Not Recommended)"
+        Me.chkSyncAll.UseVisualStyleBackColor = True
         '
-        'chkSyncConfig
+        'chkSyncGameConfigs
         '
-        Me.chkSyncConfig.AutoSize = True
-        Me.chkSyncConfig.Location = New System.Drawing.Point(6, 19)
-        Me.chkSyncConfig.Name = "chkSyncConfig"
-        Me.chkSyncConfig.Size = New System.Drawing.Size(88, 17)
-        Me.chkSyncConfig.TabIndex = 0
-        Me.chkSyncConfig.Text = "Configuration"
-        Me.chkSyncConfig.UseVisualStyleBackColor = True
+        Me.chkSyncGameConfigs.AutoSize = True
+        Me.chkSyncGameConfigs.Location = New System.Drawing.Point(6, 19)
+        Me.chkSyncGameConfigs.Name = "chkSyncGameConfigs"
+        Me.chkSyncGameConfigs.Size = New System.Drawing.Size(124, 17)
+        Me.chkSyncGameConfigs.TabIndex = 0
+        Me.chkSyncGameConfigs.Text = "Game Configurations"
+        Me.chkSyncGameConfigs.UseVisualStyleBackColor = True
         '
         'chkSyncGameInfo
         '
@@ -470,14 +470,14 @@ Partial Class frmSettings
         Me.btnDefaults.Name = "btnDefaults"
         Me.btnDefaults.Size = New System.Drawing.Size(110, 23)
         Me.btnDefaults.TabIndex = 4
-        Me.btnDefaults.Text = "Use &Defaults"
+        Me.btnDefaults.Text = "Set &Defaults"
         Me.btnDefaults.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(749, 426)
+        Me.ClientSize = New System.Drawing.Size(604, 426)
         Me.Controls.Add(Me.grpSync)
         Me.Controls.Add(Me.btnDefaults)
         Me.Controls.Add(Me.grp7z)
@@ -505,8 +505,8 @@ Partial Class frmSettings
         Me.grp7z.PerformLayout()
         Me.grpSync.ResumeLayout(False)
         Me.grpSync.PerformLayout()
-        Me.grpSyncOptions.ResumeLayout(False)
-        Me.grpSyncOptions.PerformLayout()
+        Me.grpSyncData.ResumeLayout(False)
+        Me.grpSyncData.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -538,7 +538,7 @@ Partial Class frmSettings
     Friend WithEvents lbl7zProduct As Label
     Friend WithEvents lbl7zCopyright As Label
     Friend WithEvents grpSync As GroupBox
-    Friend WithEvents chkSyncConfig As CheckBox
+    Friend WithEvents chkSyncGameConfigs As CheckBox
     Friend WithEvents btn7zLocation As Button
     Friend WithEvents txt7zLocation As TextBox
     Friend WithEvents lblLocation As Label
@@ -547,7 +547,7 @@ Partial Class frmSettings
     Friend WithEvents chkSyncHours As CheckBox
     Friend WithEvents chkSyncGameInfo As CheckBox
     Friend WithEvents btnDefaults As Button
-    Friend WithEvents grpSyncOptions As GroupBox
-    Friend WithEvents chkSyncAllData As CheckBox
+    Friend WithEvents grpSyncData As GroupBox
+    Friend WithEvents chkSyncAll As CheckBox
     Friend WithEvents chkSyncTags As CheckBox
 End Class
