@@ -3274,7 +3274,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enable Syncing.
+        '''  Looks up a localized string similar to Enable syncing.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkSync() As String
             Get
@@ -3301,7 +3301,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Unable to retrieve 7z product information!.
+        '''  Looks up a localized string similar to Unable to retrieve 7-Zip information!.
         '''</summary>
         Friend ReadOnly Property frmSettings_Error7zInfo() As String
             Get

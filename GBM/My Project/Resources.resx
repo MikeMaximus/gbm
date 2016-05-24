@@ -1106,7 +1106,7 @@
     <value>Backup only when session time exceeds</value>
   </data>
   <data name="frmSettings_chkSync" xml:space="preserve">
-    <value>Enable Syncing</value>
+    <value>Enable syncing</value>
   </data>
   <data name="frmSettings_chkTimeTracking" xml:space="preserve">
     <value>Enable time tracking</value>
@@ -1601,7 +1601,7 @@
     <value>Set &amp;Defaults</value>
   </data>
   <data name="frmSettings_Error7zInfo" xml:space="preserve">
-    <value>Unable to retrieve 7z product information!</value>
+    <value>Unable to retrieve 7-Zip information!</value>
   </data>
   <data name="frmSettings_lblArguments" xml:space="preserve">
     <value>Custom Arguments:</value>

@@ -50,10 +50,10 @@ Partial Class frmSettings
         Me.lblLocation = New System.Windows.Forms.Label()
         Me.txt7zArguments = New System.Windows.Forms.TextBox()
         Me.lblArguments = New System.Windows.Forms.Label()
-        Me.lbl7zCopyright = New System.Windows.Forms.Label()
-        Me.lbl7zProduct = New System.Windows.Forms.Label()
         Me.cboCompression = New System.Windows.Forms.ComboBox()
         Me.lblCompression = New System.Windows.Forms.Label()
+        Me.lbl7zCopyright = New System.Windows.Forms.Label()
+        Me.lbl7zProduct = New System.Windows.Forms.Label()
         Me.btnDefaults = New System.Windows.Forms.Button()
         Me.grpGeneral.SuspendLayout()
         Me.grpPaths.SuspendLayout()
@@ -112,9 +112,9 @@ Partial Class frmSettings
         Me.chkSync.AutoSize = True
         Me.chkSync.Location = New System.Drawing.Point(6, 134)
         Me.chkSync.Name = "chkSync"
-        Me.chkSync.Size = New System.Drawing.Size(100, 17)
+        Me.chkSync.Size = New System.Drawing.Size(98, 17)
         Me.chkSync.TabIndex = 0
-        Me.chkSync.Text = "Enable Syncing"
+        Me.chkSync.Text = "Enable syncing"
         Me.chkSync.UseVisualStyleBackColor = True
         '
         'chkStartWindows
@@ -345,22 +345,6 @@ Partial Class frmSettings
         Me.lblArguments.TabIndex = 2
         Me.lblArguments.Text = "Custom Arguments:"
         '
-        'lbl7zCopyright
-        '
-        Me.lbl7zCopyright.Location = New System.Drawing.Point(375, 265)
-        Me.lbl7zCopyright.Name = "lbl7zCopyright"
-        Me.lbl7zCopyright.Size = New System.Drawing.Size(363, 20)
-        Me.lbl7zCopyright.TabIndex = 8
-        Me.lbl7zCopyright.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'lbl7zProduct
-        '
-        Me.lbl7zProduct.Location = New System.Drawing.Point(375, 246)
-        Me.lbl7zProduct.Name = "lbl7zProduct"
-        Me.lbl7zProduct.Size = New System.Drawing.Size(363, 20)
-        Me.lbl7zProduct.TabIndex = 7
-        Me.lbl7zProduct.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
         'cboCompression
         '
         Me.cboCompression.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -378,6 +362,22 @@ Partial Class frmSettings
         Me.lblCompression.Size = New System.Drawing.Size(70, 13)
         Me.lblCompression.TabIndex = 0
         Me.lblCompression.Text = "Compression:"
+        '
+        'lbl7zCopyright
+        '
+        Me.lbl7zCopyright.Location = New System.Drawing.Point(375, 265)
+        Me.lbl7zCopyright.Name = "lbl7zCopyright"
+        Me.lbl7zCopyright.Size = New System.Drawing.Size(363, 20)
+        Me.lbl7zCopyright.TabIndex = 8
+        Me.lbl7zCopyright.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lbl7zProduct
+        '
+        Me.lbl7zProduct.Location = New System.Drawing.Point(375, 246)
+        Me.lbl7zProduct.Name = "lbl7zProduct"
+        Me.lbl7zProduct.Size = New System.Drawing.Size(363, 20)
+        Me.lbl7zProduct.TabIndex = 7
+        Me.lbl7zProduct.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'btnDefaults
         '
