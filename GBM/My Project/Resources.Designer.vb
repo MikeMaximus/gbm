@@ -3283,51 +3283,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to All Data (Not Recommended).
-        '''</summary>
-        Friend ReadOnly Property frmSettings_chkSyncAll() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_chkSyncAll", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Game Configurations.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_chkSyncGameConfigs() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_chkSyncGameConfigs", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Game Information.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_chkSyncGameInfo() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_chkSyncGameInfo", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Game Time.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_chkSyncHours() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_chkSyncHours", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Tags.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_chkSyncTags() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_chkSyncTags", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Enable time tracking.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkTimeTracking() As String
@@ -3414,24 +3369,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_grpPaths() As String
             Get
                 Return ResourceManager.GetString("frmSettings_grpPaths", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Sync Options.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_grpSync() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_grpSync", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Sync Data.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_grpSyncOptions() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_grpSyncOptions", resourceCulture)
             End Get
         End Property
         

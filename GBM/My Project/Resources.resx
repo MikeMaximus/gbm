@@ -1600,29 +1600,8 @@
   <data name="frmSettings_btnDefaults" xml:space="preserve">
     <value>Set &amp;Defaults</value>
   </data>
-  <data name="frmSettings_chkSyncAll" xml:space="preserve">
-    <value>All Data (Not Recommended)</value>
-  </data>
-  <data name="frmSettings_chkSyncGameConfigs" xml:space="preserve">
-    <value>Game Configurations</value>
-  </data>
-  <data name="frmSettings_chkSyncGameInfo" xml:space="preserve">
-    <value>Game Information</value>
-  </data>
-  <data name="frmSettings_chkSyncHours" xml:space="preserve">
-    <value>Game Time</value>
-  </data>
-  <data name="frmSettings_chkSyncTags" xml:space="preserve">
-    <value>Tags</value>
-  </data>
   <data name="frmSettings_Error7zInfo" xml:space="preserve">
     <value>Unable to retrieve 7z product information!</value>
-  </data>
-  <data name="frmSettings_grpSync" xml:space="preserve">
-    <value>Sync Options</value>
-  </data>
-  <data name="frmSettings_grpSyncOptions" xml:space="preserve">
-    <value>Sync Data</value>
   </data>
   <data name="frmSettings_lblArguments" xml:space="preserve">
     <value>Custom Arguments:</value>

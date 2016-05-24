@@ -41,30 +41,6 @@ Public Class frmSettings
         End If
     End Sub
 
-    Private Sub HandleSyncState()
-        If chkSync.Checked Then
-            grpSyncData.Enabled = True
-        Else
-            grpSyncData.Enabled = False
-        End If
-    End Sub
-
-    Private Sub HandleSyncAllDataState()
-        If chkSyncAll.Checked Then
-            For Each chk As CheckBox In grpSyncData.Controls
-                If Not chk Is chkSyncAll Then
-                    chk.Enabled = False
-                End If
-            Next
-        Else
-            For Each chk As CheckBox In grpSyncData.Controls
-                If Not chk Is chkSyncAll Then
-                    chk.Enabled = True
-                End If
-            Next
-        End If
-    End Sub
-
     Private Function ValidateSettings() As Boolean
 
         'Only modify registry key when the value changed
@@ -103,11 +79,6 @@ Public Class frmSettings
             bBackupLocationChanged = True
         End If
         oSettings.Sync = chkSync.Checked
-        oSettings.SyncGameConfigs = chkSyncGameConfigs.Checked
-        oSettings.SyncGameInfo = chkSyncGameInfo.Checked
-        oSettings.SyncHours = chkSyncHours.Checked
-        oSettings.SyncTags = chkSyncTags.Checked
-        oSettings.SyncAll = chkSyncAll.Checked
 
         If Directory.Exists(txtBackupFolder.Text) Then
             If oSettings.BackupFolder <> txtBackupFolder.Text Then
@@ -179,11 +150,6 @@ Public Class frmSettings
         chkRestoreOnLaunch.Checked = oSettings.RestoreOnLaunch
         txtBackupFolder.Text = oSettings.BackupFolder
         chkSync.Checked = oSettings.Sync
-        chkSyncGameConfigs.Checked = oSettings.SyncGameConfigs
-        chkSyncGameInfo.Checked = oSettings.SyncGameInfo
-        chkSyncHours.Checked = oSettings.SyncHours
-        chkSyncTags.Checked = oSettings.SyncTags
-        chkSyncAll.Checked = oSettings.SyncAll
         chkCheckSum.Checked = oSettings.CheckSum
         chkTimeTracking.Checked = oSettings.TimeTracking
         chkSupressBackup.Checked = oSettings.SupressBackup
@@ -247,13 +213,6 @@ Public Class frmSettings
         chkMonitorOnStartup.Text = frmSettings_chkMonitorOnStartup
         grp7z.Text = frmSettings_grp7z
         lblCompression.Text = frmSettings_lblCompression
-        grpSync.Text = frmSettings_grpSync
-        grpSyncData.Text = frmSettings_grpSyncOptions
-        chkSyncGameConfigs.Text = frmSettings_chkSyncGameConfigs
-        chkSyncGameInfo.Text = frmSettings_chkSyncGameInfo
-        chkSyncHours.Text = frmSettings_chkSyncHours
-        chkSyncTags.Text = frmSettings_chkSyncTags
-        chkSyncAll.Text = frmSettings_chkSyncAll
         btnDefaults.Text = frmSettings_btnDefaults
         lblArguments.Text = frmSettings_lblArguments
         lblLocation.Text = frmSettings_lblLocation
@@ -306,14 +265,6 @@ Public Class frmSettings
 
     Private Sub chkSupressBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkSupressBackup.CheckedChanged
         nudSupressBackupThreshold.Enabled = chkSupressBackup.Checked
-    End Sub
-
-    Private Sub chkSync_CheckedChanged(sender As Object, e As EventArgs) Handles chkSync.CheckedChanged
-        HandleSyncState()
-    End Sub
-
-    Private Sub chkSyncAllData_CheckedChanged(sender As Object, e As EventArgs) Handles chkSyncAll.CheckedChanged
-        HandleSyncAllDataState()
     End Sub
 
     Private Sub txt7zLocation_Leave(sender As Object, e As EventArgs) Handles txt7zLocation.Leave

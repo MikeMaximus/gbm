@@ -74,8 +74,7 @@ Public Class mgrSQLite
                    "DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, " &
                    "BackupFolder TEXT NOT NULL, Sync BOOLEAN NOT NULL, CheckSum BOOLEAN NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
                    "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
-                   "Custom7zLocation TEXT, SyncGameConfigs BOOLEAN NOT NULL, SyncGameInfo BOOLEAN NOT NULL, SyncHours BOOLEAN NOT NULL, SyncTags BOOLEAN NOT NULL, " &
-                   "SyncAll BOOLEAN NOT NULL);"
+                   "Custom7zLocation TEXT);"
 
             'Add Tables (Monitor List)
             sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
