@@ -113,7 +113,7 @@ Partial Class frmSettings
         Me.chkSync.Location = New System.Drawing.Point(6, 134)
         Me.chkSync.Name = "chkSync"
         Me.chkSync.Size = New System.Drawing.Size(98, 17)
-        Me.chkSync.TabIndex = 0
+        Me.chkSync.TabIndex = 5
         Me.chkSync.Text = "Enable syncing"
         Me.chkSync.UseVisualStyleBackColor = True
         '
@@ -300,7 +300,7 @@ Partial Class frmSettings
         Me.grp7z.Location = New System.Drawing.Point(12, 183)
         Me.grp7z.Name = "grp7z"
         Me.grp7z.Size = New System.Drawing.Size(360, 102)
-        Me.grp7z.TabIndex = 3
+        Me.grp7z.TabIndex = 1
         Me.grp7z.TabStop = False
         Me.grp7z.Text = "7z Options"
         '
@@ -309,7 +309,7 @@ Partial Class frmSettings
         Me.btn7zLocation.Location = New System.Drawing.Point(327, 70)
         Me.btn7zLocation.Name = "btn7zLocation"
         Me.btn7zLocation.Size = New System.Drawing.Size(27, 20)
-        Me.btn7zLocation.TabIndex = 6
+        Me.btn7zLocation.TabIndex = 5
         Me.btn7zLocation.Text = "..."
         Me.btn7zLocation.UseVisualStyleBackColor = True
         '
@@ -318,7 +318,7 @@ Partial Class frmSettings
         Me.txt7zLocation.Location = New System.Drawing.Point(110, 70)
         Me.txt7zLocation.Name = "txt7zLocation"
         Me.txt7zLocation.Size = New System.Drawing.Size(211, 20)
-        Me.txt7zLocation.TabIndex = 5
+        Me.txt7zLocation.TabIndex = 4
         '
         'lblLocation
         '
