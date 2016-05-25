@@ -540,11 +540,6 @@ Public Class mgrSQLite
                 'Add new setting                
                 sSQL = "ALTER TABLE settings ADD COLUMN Custom7zArguments TEXT;"
                 sSQL &= "ALTER TABLE settings ADD COLUMN Custom7zLocation TEXT;"
-                sSQL &= "ALTER TABLE settings ADD COLUMN SyncGameConfigs BOOLEAN NOT NULL DEFAULT 1;"
-                sSQL &= "ALTER TABLE settings ADD COLUMN SyncGameInfo BOOLEAN NOT NULL DEFAULT 0;"
-                sSQL &= "ALTER TABLE settings ADD COLUMN SyncHours BOOLEAN NOT NULL DEFAULT 1;"
-                sSQL &= "ALTER TABLE settings ADD COLUMN SyncTags BOOLEAN NOT NULL DEFAULT 1;"
-                sSQL &= "ALTER TABLE settings ADD COLUMN SyncAll BOOLEAN NOT NULL DEFAULT 0;"
                 sSQL &= "PRAGMA user_version=97"
 
                 RunParamQuery(sSQL, New Hashtable)
