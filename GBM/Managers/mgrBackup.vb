@@ -170,38 +170,43 @@ Public Class mgrBackup
 
                 Try
                     If Directory.Exists(sSavePath) Then
-                        'Need to delete any prior archive if it exists, the 7za utility does not support overwriting or deleting existing archives.
-                        'If we let 7za update existing archives it will lead to excessive bloat with games that routinely add and remove files with many different file names.
-                        If File.Exists(sBackupFile) Then
-                            File.Delete(sBackupFile)
-                        End If
+                        If Settings.Is7zUtilityValid Then
+                            'Need to delete any prior archive if it exists, the 7za utility does not support overwriting or deleting existing archives.
+                            'If we let 7za update existing archives it will lead to excessive bloat with games that routinely add and remove files with many different file names.
+                            If File.Exists(sBackupFile) Then
+                                File.Delete(sBackupFile)
+                            End If
 
-                        prs7z.StartInfo.Arguments = "a" & oSettings.Prepared7zArguments & "-t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """ -r"
-                        prs7z.StartInfo.FileName = oSettings.Utility7zLocation
-                        prs7z.StartInfo.UseShellExecute = False
-                        prs7z.StartInfo.RedirectStandardOutput = True
-                        prs7z.StartInfo.CreateNoWindow = True
-                        prs7z.Start()
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupInProgress, sSavePath), False, ToolTipIcon.Info, True)
-                        While Not prs7z.StandardOutput.EndOfStream
-                            If CancelOperation Then
-                                prs7z.Kill()
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorFullAbort, oGame.Name), True, ToolTipIcon.Error, True)
-                                Exit While
+                            prs7z.StartInfo.Arguments = "a" & oSettings.Prepared7zArguments & "-t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """ -r"
+                            prs7z.StartInfo.FileName = oSettings.Utility7zLocation
+                            prs7z.StartInfo.UseShellExecute = False
+                            prs7z.StartInfo.RedirectStandardOutput = True
+                            prs7z.StartInfo.CreateNoWindow = True
+                            prs7z.Start()
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupInProgress, sSavePath), False, ToolTipIcon.Info, True)
+                            While Not prs7z.StandardOutput.EndOfStream
+                                If CancelOperation Then
+                                    prs7z.Kill()
+                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorFullAbort, oGame.Name), True, ToolTipIcon.Error, True)
+                                    Exit While
+                                End If
+                                RaiseEvent UpdateLog(prs7z.StandardOutput.ReadLine, False, ToolTipIcon.Info, False)
+                            End While
+                            prs7z.WaitForExit()
+                            If Not CancelOperation Then
+                                If prs7z.ExitCode = 0 Then
+                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupComplete, New String() {oGame.Name, mgrCommon.GetFileSize(sBackupFile)}), False, ToolTipIcon.Info, True)
+                                    bBackupCompleted = True
+                                Else
+                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupWarnings, oGame.Name), True, ToolTipIcon.Warning, True)
+                                    bBackupCompleted = False
+                                End If
                             End If
-                            RaiseEvent UpdateLog(prs7z.StandardOutput.ReadLine, False, ToolTipIcon.Info, False)
-                        End While
-                        prs7z.WaitForExit()
-                        If Not CancelOperation Then
-                            If prs7z.ExitCode = 0 Then
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupComplete, New String() {oGame.Name, mgrCommon.GetFileSize(sBackupFile)}), False, ToolTipIcon.Info, True)
-                                bBackupCompleted = True
-                            Else
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupWarnings, oGame.Name), True, ToolTipIcon.Warning, True)
-                                bBackupCompleted = False
-                            End If
+                            prs7z.Dispose()
+                        Else
+                            RaiseEvent UpdateLog(App_Invalid7zDetected, True, ToolTipIcon.Error, True)
+                            bBackupCompleted = False
                         End If
-                        prs7z.Dispose()
                     Else
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorNoSavePath, oGame.Name), True, ToolTipIcon.Error, True)
                         bBackupCompleted = False

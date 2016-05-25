@@ -5,6 +5,23 @@ Imports System.Security.Principal
 
 Public Class mgrCommon
 
+    'These need to be updated when upgrading the packaged 7z utility
+    Private Shared sUtility64Hash As String = "05ACEE3BAC0C6C4E396116EF27B953F992DE8D28DD14D317977F45692304C318" 'v16.02 7za.exe x64
+    Private Shared sUtility32Hash As String = "7AA7056DB4348229A288EEF49027B94C0D8D1A3C3AEDC6FA89B640334C7B37E9" 'v16.02 7za.exe x86
+
+    Public Shared ReadOnly Property UtilityHash As String
+        Get
+            Select Case mgrPath.ReleaseType
+                Case 64
+                    Return sUtility64Hash
+                Case 32
+                    Return sUtility32Hash
+                Case Else
+                    Return sUtility32Hash
+            End Select
+        End Get
+    End Property
+
     Public Shared ReadOnly Property BuildVersion As Integer
         Get
             Return My.Application.Info.Version.Build

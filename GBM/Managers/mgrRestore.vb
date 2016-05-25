@@ -231,32 +231,37 @@ Public Class mgrRestore
 
             Try
                 If File.Exists(sBackupFile) Then
-                    prs7z.StartInfo.Arguments = "x" & oSettings.Prepared7zArguments & """" & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -aoa -r"
-                    prs7z.StartInfo.FileName = oSettings.Utility7zLocation
-                    prs7z.StartInfo.UseShellExecute = False
-                    prs7z.StartInfo.RedirectStandardOutput = True
-                    prs7z.StartInfo.CreateNoWindow = True
-                    prs7z.Start()
-                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreInProgress, sExtractPath), False, ToolTipIcon.Info, True)
-                    While Not prs7z.StandardOutput.EndOfStream
-                        If CancelOperation Then
-                            prs7z.Kill()
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFullAbort, oBackupInfo.Name), True, ToolTipIcon.Error, True)
-                            Exit While
+                    If Settings.Is7zUtilityValid Then
+                        prs7z.StartInfo.Arguments = "x" & oSettings.Prepared7zArguments & """" & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -aoa -r"
+                        prs7z.StartInfo.FileName = oSettings.Utility7zLocation
+                        prs7z.StartInfo.UseShellExecute = False
+                        prs7z.StartInfo.RedirectStandardOutput = True
+                        prs7z.StartInfo.CreateNoWindow = True
+                        prs7z.Start()
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreInProgress, sExtractPath), False, ToolTipIcon.Info, True)
+                        While Not prs7z.StandardOutput.EndOfStream
+                            If CancelOperation Then
+                                prs7z.Kill()
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFullAbort, oBackupInfo.Name), True, ToolTipIcon.Error, True)
+                                Exit While
+                            End If
+                            RaiseEvent UpdateLog(prs7z.StandardOutput.ReadLine, False, ToolTipIcon.Info, False)
+                        End While
+                        prs7z.WaitForExit()
+                        If Not CancelOperation Then
+                            If prs7z.ExitCode = 0 Then
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreComplete, oBackupInfo.Name), False, ToolTipIcon.Info, True)
+                                bRestoreCompleted = True
+                            Else
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreWarnings, oBackupInfo.Name), True, ToolTipIcon.Warning, True)
+                                bRestoreCompleted = False
+                            End If
                         End If
-                        RaiseEvent UpdateLog(prs7z.StandardOutput.ReadLine, False, ToolTipIcon.Info, False)
-                    End While
-                    prs7z.WaitForExit()
-                    If Not CancelOperation Then
-                        If prs7z.ExitCode = 0 Then
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreComplete, oBackupInfo.Name), False, ToolTipIcon.Info, True)
-                            bRestoreCompleted = True
-                        Else
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreWarnings, oBackupInfo.Name), True, ToolTipIcon.Warning, True)
-                            bRestoreCompleted = False
-                        End If
+                        prs7z.Dispose()
+                    Else
+                        RaiseEvent UpdateLog(App_Invalid7zDetected, True, ToolTipIcon.Error, True)
+                        bRestoreCompleted = False
                     End If
-                    prs7z.Dispose()
                 Else
                     RaiseEvent UpdateLog(mgrRestore_ErrorNoBackup, True, ToolTipIcon.Error, True)
                 End If

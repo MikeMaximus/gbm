@@ -178,6 +178,23 @@ Public Class mgrSettings
         End Set
     End Property
 
+    ReadOnly Property Is7zUtilityValid As Boolean
+        Get
+            'We don't use a packaged 7za on Unix, assume valid.
+            If mgrCommon.IsUnix Then
+                Return True
+            End If
+
+            If s7zLocation = String.Empty Then
+                'Verify stored hash of the default utility if we're using it
+                Return mgrCommon.UtilityHash = mgrHash.Generate_SHA256_Hash(mgrPath.Default7zLocation)
+            Else
+                'When using a custom utility assume it's valid, we have no way to be sure.
+                Return True
+            End If
+        End Get
+    End Property
+
     ReadOnly Property Utility7zLocation As String
         Get
             'Return default utility when custom setting is not used

@@ -88,6 +88,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to 7-Zip (7za.exe) failed to be validated and has been prevented from running.  The application may be corrupted or has been modified by another application.  Verify your PC&apos;s security and re-install GBM to solve this problem..
+        '''</summary>
+        Friend ReadOnly Property App_Invalid7zDetected() As String
+            Get
+                Return ResourceManager.GetString("App_Invalid7zDetected", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] KB.
         '''</summary>
         Friend ReadOnly Property App_KB() As String

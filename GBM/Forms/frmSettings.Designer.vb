@@ -187,7 +187,7 @@ Partial Class frmSettings
         'btnSave
         '
         Me.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnSave.Location = New System.Drawing.Point(586, 305)
+        Me.btnSave.Location = New System.Drawing.Point(586, 326)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
         Me.btnSave.TabIndex = 5
@@ -197,7 +197,7 @@ Partial Class frmSettings
         'btnCancel
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(667, 305)
+        Me.btnCancel.Location = New System.Drawing.Point(667, 326)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 6
@@ -295,11 +295,13 @@ Partial Class frmSettings
         Me.grp7z.Controls.Add(Me.lblLocation)
         Me.grp7z.Controls.Add(Me.txt7zArguments)
         Me.grp7z.Controls.Add(Me.lblArguments)
+        Me.grp7z.Controls.Add(Me.lbl7zCopyright)
         Me.grp7z.Controls.Add(Me.cboCompression)
         Me.grp7z.Controls.Add(Me.lblCompression)
+        Me.grp7z.Controls.Add(Me.lbl7zProduct)
         Me.grp7z.Location = New System.Drawing.Point(12, 183)
         Me.grp7z.Name = "grp7z"
-        Me.grp7z.Size = New System.Drawing.Size(360, 102)
+        Me.grp7z.Size = New System.Drawing.Size(360, 137)
         Me.grp7z.TabIndex = 1
         Me.grp7z.TabStop = False
         Me.grp7z.Text = "7z Options"
@@ -365,23 +367,23 @@ Partial Class frmSettings
         '
         'lbl7zCopyright
         '
-        Me.lbl7zCopyright.Location = New System.Drawing.Point(375, 265)
+        Me.lbl7zCopyright.Location = New System.Drawing.Point(6, 110)
         Me.lbl7zCopyright.Name = "lbl7zCopyright"
-        Me.lbl7zCopyright.Size = New System.Drawing.Size(363, 20)
+        Me.lbl7zCopyright.Size = New System.Drawing.Size(348, 17)
         Me.lbl7zCopyright.TabIndex = 8
-        Me.lbl7zCopyright.TextAlign = System.Drawing.ContentAlignment.TopRight
+        Me.lbl7zCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lbl7zProduct
         '
-        Me.lbl7zProduct.Location = New System.Drawing.Point(375, 246)
+        Me.lbl7zProduct.Location = New System.Drawing.Point(6, 93)
         Me.lbl7zProduct.Name = "lbl7zProduct"
-        Me.lbl7zProduct.Size = New System.Drawing.Size(363, 20)
+        Me.lbl7zProduct.Size = New System.Drawing.Size(348, 17)
         Me.lbl7zProduct.TabIndex = 7
-        Me.lbl7zProduct.TextAlign = System.Drawing.ContentAlignment.TopRight
+        Me.lbl7zProduct.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'btnDefaults
         '
-        Me.btnDefaults.Location = New System.Drawing.Point(12, 305)
+        Me.btnDefaults.Location = New System.Drawing.Point(12, 326)
         Me.btnDefaults.Name = "btnDefaults"
         Me.btnDefaults.Size = New System.Drawing.Size(110, 23)
         Me.btnDefaults.TabIndex = 4
@@ -392,15 +394,13 @@ Partial Class frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(749, 336)
+        Me.ClientSize = New System.Drawing.Size(749, 361)
         Me.Controls.Add(Me.btnDefaults)
         Me.Controls.Add(Me.grp7z)
         Me.Controls.Add(Me.grpBackup)
         Me.Controls.Add(Me.grpPaths)
         Me.Controls.Add(Me.btnCancel)
-        Me.Controls.Add(Me.lbl7zCopyright)
         Me.Controls.Add(Me.btnSave)
-        Me.Controls.Add(Me.lbl7zProduct)
         Me.Controls.Add(Me.grpGeneral)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False

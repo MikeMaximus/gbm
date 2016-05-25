@@ -1630,4 +1630,7 @@
   <data name="frmSettings_WarningLocation" xml:space="preserve">
     <value>You have chosen a custom utility that does not appear to be 7-Zip Console (7za).  GBM only supports the use of 7-Zip.</value>
   </data>
+  <data name="App_Invalid7zDetected" xml:space="preserve">
+    <value>7-Zip (7za.exe) is invalid and has been prevented from running.</value>
+  </data>
 </root>
