@@ -24,6 +24,8 @@ Public Class frmMain
     Private bCancelledByUser As Boolean = False
     Private bShutdown As Boolean = False
     Private bInitFail As Boolean = False
+    Private bPathDetectionFailure As Boolean = False
+    Private sPathDetectionError As String = String.Empty
     Private bMenuEnabled As Boolean = True
     Private bLockdown As Boolean = True
     Private bFirstRun As Boolean = False
@@ -1520,7 +1522,6 @@ Public Class frmMain
     Private Sub ScanTimerEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmScanTimer.Tick
         Dim bNeedsPath As Boolean = False
         Dim bContinue As Boolean = True
-        Dim bAskForRestart As Boolean = False
         Dim iErrorCode As Integer = 0
         Dim sErrorMessage As String = String.Empty
 
@@ -1532,39 +1533,24 @@ Public Class frmMain
                 If iErrorCode = 5 Then
                     If oProcess.Duplicate Then
                         sErrorMessage = mgrCommon.FormatString(frmMain_ErrorMultiAdmin)
-                        mgrCommon.ShowMessage(sErrorMessage, MsgBoxStyle.Exclamation)
-                        bAskForRestart = True
+                        UpdateLog(sErrorMessage, True, ToolTipIcon.Warning, True)
                     Else
                         If Not CheckForSavedPath() Then
-                            sErrorMessage = mgrCommon.FormatString(frmMain_ErrorAdminBackup, oProcess.GameInfo.Name)
-                            oProcess.GameInfo.ProcessPath = mgrPath.ProcessPathSearch(oProcess.GameInfo.Name, oProcess.GameInfo.ProcessName, sErrorMessage)
-                            If oProcess.GameInfo.ProcessPath <> String.Empty Then
-                                'Update and reload
-                                mgrMonitorList.DoListUpdate(oProcess.GameInfo)
-                                LoadGameSettings()
-                                bContinue = True
-                            End If
-                        Else
-                            bContinue = True
+                            bPathDetectionFailure = True
+                            sPathDetectionError = mgrCommon.FormatString(frmMain_ErrorAdminBackup, oProcess.GameInfo.Name)
                         End If
+                        bContinue = True
                     End If
                 ElseIf iErrorCode = 299 Then
                     If oProcess.Duplicate Then
                         sErrorMessage = mgrCommon.FormatString(frmMain_ErrorMulti64)
-                        mgrCommon.ShowMessage(sErrorMessage, MsgBoxStyle.Exclamation)
+                        UpdateLog(sErrorMessage, True, ToolTipIcon.Warning, True)
                     Else
                         If Not CheckForSavedPath() Then
-                            sErrorMessage = mgrCommon.FormatString(frmMain_Error64Backup, oProcess.GameInfo.Name)
-                            oProcess.GameInfo.ProcessPath = mgrPath.ProcessPathSearch(oProcess.GameInfo.Name, oProcess.GameInfo.ProcessName, sErrorMessage)
-                            If oProcess.GameInfo.ProcessPath <> String.Empty Then
-                                'Update and reload
-                                mgrMonitorList.DoListUpdate(oProcess.GameInfo)
-                                LoadGameSettings()
-                                bContinue = True
-                            End If
-                        Else
-                            bContinue = True
+                            bPathDetectionFailure = True
+                            sPathDetectionError = mgrCommon.FormatString(frmMain_Error64Backup, oProcess.GameInfo.Name)
                         End If
+                        bContinue = True
                     End If
                 End If
             End If
@@ -1584,9 +1570,6 @@ Public Class frmMain
                 bwMonitor.RunWorkerAsync()
             Else
                 StopScan()
-                If bAskForRestart Then
-                    RestartAsAdmin()
-                End If
             End If
         End If
     End Sub
@@ -1607,21 +1590,44 @@ Public Class frmMain
     End Sub
 
     Private Sub bwMain_RunWorkerCompleted(sender As System.Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwMonitor.RunWorkerCompleted
+        Dim bContinue As Boolean = True
         oProcess.EndTime = Now
 
         If Not bCancelledByUser Then
-            If DoMultiGameCheck() Then
-                UpdateLog(mgrCommon.FormatString(frmMain_GameEnded, oProcess.GameInfo.Name), False)
-                If oSettings.TimeTracking Then HandleTimeSpent()
-                RunBackup()
-            Else
-                UpdateLog(frmMain_UnknownGameEnded, False)
-                oProcess.GameInfo = Nothing
-                ResetGameInfo()
-                ResumeScan()
+            'Check if we failed to detect the game path
+            If bPathDetectionFailure Then
+                oProcess.GameInfo.ProcessPath = mgrPath.ProcessPathSearch(oProcess.GameInfo.Name, oProcess.GameInfo.ProcessName, sPathDetectionError)
+                If oProcess.GameInfo.ProcessPath <> String.Empty Then
+                    'Update and reload
+                    mgrMonitorList.DoListUpdate(oProcess.GameInfo)
+                    LoadGameSettings()
+                Else
+                    bContinue = False
+                    If oSettings.TimeTracking Then HandleTimeSpent()
+                    UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oProcess.GameInfo.Name), False)
+                    oProcess.GameInfo = Nothing
+                    ResetGameInfo()
+                    ResumeScan()
+                End If
+            End If
+
+            If bContinue Then
+                If DoMultiGameCheck() Then
+                    UpdateLog(mgrCommon.FormatString(frmMain_GameEnded, oProcess.GameInfo.Name), False)
+                    If oSettings.TimeTracking Then HandleTimeSpent()
+                    RunBackup()
+                Else
+                    UpdateLog(frmMain_UnknownGameEnded, False)
+                    oProcess.GameInfo = Nothing
+                    ResetGameInfo()
+                    ResumeScan()
+                End If
             End If
         End If
 
+        'Reset globals
+        bPathDetectionFailure = False
+        sPathDetectionError = String.Empty
         bCancelledByUser = False
         oProcess.StartTime = Now : oProcess.EndTime = Now
     End Sub

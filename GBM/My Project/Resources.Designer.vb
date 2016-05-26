@@ -88,7 +88,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 7-Zip (7za.exe) failed to be validated and has been prevented from running.  The application may be corrupted or has been modified by another application.  Verify your PC&apos;s security and re-install GBM to solve this problem..
+        '''  Looks up a localized string similar to 7-Zip (7za.exe) is invalid and has been prevented from running..
         '''</summary>
         Friend ReadOnly Property App_Invalid7zDetected() As String
             Get
@@ -2338,7 +2338,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] is running as Administrator and GBM is not, GBM cannot detect the required information to save your backup..
+        '''  Looks up a localized string similar to [PARAM] was running as Administrator and GBM is not, GBM cannot detect the required information to save your backup..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorAdminBackup() As String
             Get
@@ -2464,7 +2464,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Multiple possible 64-bit games have been detected, GBM cannot detect the path to identify your game or save your backup.[BR][BR]Please install the 64-bit version of GBM to detect and backup this game properly..
+        '''  Looks up a localized string similar to Install the 64-bit version of GBM to detect the last running game..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorMulti64() As String
             Get
@@ -2473,7 +2473,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Multiple possible games have been detected running as Administrator and GBM is not, GBM cannot detect the path to identify your game or save your backup.[BR][BR]Please run GBM as Administrator to properly detect and backup this game..
+        '''  Looks up a localized string similar to Restart GBM as Administrator to detect the last running game..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorMultiAdmin() As String
             Get
@@ -3310,15 +3310,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Unable to retrieve 7-Zip information!.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_Error7zInfo() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_Error7zInfo", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to The backup folder does not exist.  Please choose a valid backup folder..
         '''</summary>
         Friend ReadOnly Property frmSettings_ErrorBackupFolder() As String
@@ -3423,6 +3414,51 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_lblMinutes() As String
             Get
                 Return ResourceManager.GetString("frmSettings_lblMinutes", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to GBM is using a custom 7-Zip utility, it cannot be verified..
+        '''</summary>
+        Friend ReadOnly Property frmSettings_ttUtilityStatus_Custom7z() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_ttUtilityStatus_Custom7z", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to GBM could not verify the custom 7-Zip utility..
+        '''</summary>
+        Friend ReadOnly Property frmSettings_ttUtilityStatus_Failure7z() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_ttUtilityStatus_Failure7z", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to GBM&apos;s default 7-Zip utility has failed verification, it cannot be used..
+        '''</summary>
+        Friend ReadOnly Property frmSettings_ttUtilityStatus_Invalid7z() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_ttUtilityStatus_Invalid7z", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 7-Zip Status.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_ttUtilityStatus_Title() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_ttUtilityStatus_Title", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to GBM is using the default 7-Zip utility, it has been verified..
+        '''</summary>
+        Friend ReadOnly Property frmSettings_ttUtilityStatus_Valid7z() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_ttUtilityStatus_Valid7z", resourceCulture)
             End Get
         End Property
         
@@ -4615,6 +4651,36 @@ Namespace My.Resources
         Friend ReadOnly Property mgrXML_ErrorImportFailure() As String
             Get
                 Return ResourceManager.GetString("mgrXML_ErrorImportFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Utility_Custom() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Utility_Custom", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Utility_Invalid() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Utility_Invalid", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Utility_Valid() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Utility_Valid", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
     End Module

@@ -22,6 +22,7 @@ Partial Class frmSettings
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
         Me.chkBackupConfirm = New System.Windows.Forms.CheckBox()
         Me.grpGeneral = New System.Windows.Forms.GroupBox()
@@ -45,21 +46,24 @@ Partial Class frmSettings
         Me.chkOverwriteWarning = New System.Windows.Forms.CheckBox()
         Me.chkCreateFolder = New System.Windows.Forms.CheckBox()
         Me.grp7z = New System.Windows.Forms.GroupBox()
+        Me.pbUtilityStatus = New System.Windows.Forms.PictureBox()
         Me.btn7zLocation = New System.Windows.Forms.Button()
         Me.txt7zLocation = New System.Windows.Forms.TextBox()
         Me.lblLocation = New System.Windows.Forms.Label()
         Me.txt7zArguments = New System.Windows.Forms.TextBox()
         Me.lblArguments = New System.Windows.Forms.Label()
+        Me.lbl7zCopyright = New System.Windows.Forms.Label()
         Me.cboCompression = New System.Windows.Forms.ComboBox()
         Me.lblCompression = New System.Windows.Forms.Label()
-        Me.lbl7zCopyright = New System.Windows.Forms.Label()
         Me.lbl7zProduct = New System.Windows.Forms.Label()
         Me.btnDefaults = New System.Windows.Forms.Button()
+        Me.ttUtilityStatus = New System.Windows.Forms.ToolTip(Me.components)
         Me.grpGeneral.SuspendLayout()
         Me.grpPaths.SuspendLayout()
         Me.grpBackup.SuspendLayout()
         CType(Me.nudSupressBackupThreshold, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grp7z.SuspendLayout()
+        CType(Me.pbUtilityStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'chkMonitorOnStartup
@@ -290,6 +294,7 @@ Partial Class frmSettings
         '
         'grp7z
         '
+        Me.grp7z.Controls.Add(Me.pbUtilityStatus)
         Me.grp7z.Controls.Add(Me.btn7zLocation)
         Me.grp7z.Controls.Add(Me.txt7zLocation)
         Me.grp7z.Controls.Add(Me.lblLocation)
@@ -305,6 +310,15 @@ Partial Class frmSettings
         Me.grp7z.TabIndex = 1
         Me.grp7z.TabStop = False
         Me.grp7z.Text = "7z Options"
+        '
+        'pbUtilityStatus
+        '
+        Me.pbUtilityStatus.Location = New System.Drawing.Point(319, 93)
+        Me.pbUtilityStatus.Name = "pbUtilityStatus"
+        Me.pbUtilityStatus.Size = New System.Drawing.Size(35, 35)
+        Me.pbUtilityStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pbUtilityStatus.TabIndex = 7
+        Me.pbUtilityStatus.TabStop = False
         '
         'btn7zLocation
         '
@@ -347,6 +361,15 @@ Partial Class frmSettings
         Me.lblArguments.TabIndex = 2
         Me.lblArguments.Text = "Custom Arguments:"
         '
+        'lbl7zCopyright
+        '
+        Me.lbl7zCopyright.AutoEllipsis = True
+        Me.lbl7zCopyright.Location = New System.Drawing.Point(9, 110)
+        Me.lbl7zCopyright.Name = "lbl7zCopyright"
+        Me.lbl7zCopyright.Size = New System.Drawing.Size(301, 17)
+        Me.lbl7zCopyright.TabIndex = 8
+        Me.lbl7zCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'cboCompression
         '
         Me.cboCompression.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -365,19 +388,12 @@ Partial Class frmSettings
         Me.lblCompression.TabIndex = 0
         Me.lblCompression.Text = "Compression:"
         '
-        'lbl7zCopyright
-        '
-        Me.lbl7zCopyright.Location = New System.Drawing.Point(6, 110)
-        Me.lbl7zCopyright.Name = "lbl7zCopyright"
-        Me.lbl7zCopyright.Size = New System.Drawing.Size(348, 17)
-        Me.lbl7zCopyright.TabIndex = 8
-        Me.lbl7zCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'lbl7zProduct
         '
+        Me.lbl7zProduct.AutoEllipsis = True
         Me.lbl7zProduct.Location = New System.Drawing.Point(6, 93)
         Me.lbl7zProduct.Name = "lbl7zProduct"
-        Me.lbl7zProduct.Size = New System.Drawing.Size(348, 17)
+        Me.lbl7zProduct.Size = New System.Drawing.Size(304, 17)
         Me.lbl7zProduct.TabIndex = 7
         Me.lbl7zProduct.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -419,6 +435,7 @@ Partial Class frmSettings
         CType(Me.nudSupressBackupThreshold, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grp7z.ResumeLayout(False)
         Me.grp7z.PerformLayout()
+        CType(Me.pbUtilityStatus, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -455,4 +472,6 @@ Partial Class frmSettings
     Friend WithEvents txt7zArguments As TextBox
     Friend WithEvents lblArguments As Label
     Friend WithEvents btnDefaults As Button
+    Friend WithEvents pbUtilityStatus As PictureBox
+    Friend WithEvents ttUtilityStatus As ToolTip
 End Class
