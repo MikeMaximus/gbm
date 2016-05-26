@@ -18,8 +18,9 @@ Public Class frmGameManager
     Private bIsDirty As Boolean = False
     Private bIsLoading As Boolean = False
     Private oCurrentTagFilters As New List(Of clsTag)
-    Private oCurrentStringFilters As New Hashtable    
+    Private oCurrentStringFilters As New Hashtable
     Private eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.NoFilter
+    Private WithEvents tmFilterTimer As Timer
 
     Private Enum eModes As Integer
         View = 1
@@ -377,11 +378,19 @@ Public Class frmGameManager
         Dim oApp As clsGame
         Dim oData As KeyValuePair(Of String, String)
         Dim oList As New List(Of KeyValuePair(Of String, String))
+        Dim sFilter As String = txtQuickFilter.Text
 
         For Each de As DictionaryEntry In AppData
             oApp = DirectCast(de.Value, clsGame)
             oData = New KeyValuePair(Of String, String)(oApp.ID, oApp.Name)
-            oList.Add(oData)
+            'Apply the quick filter if applicable
+            If sFilter = String.Empty Then
+                oList.Add(oData)
+            Else
+                If oApp.Name.ToLower.Contains(sFilter.ToLower) Then
+                    oList.Add(oData)
+                End If
+            End If
         Next
 
         oList.Sort(AddressOf mgrCommon.CompareByListBoxItemByValue)
@@ -749,6 +758,8 @@ Public Class frmGameManager
             Case eModes.Add
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
+                lblQuickFilter.Enabled = False
+                txtQuickFilter.Enabled = False
                 grpConfig.Enabled = True
                 chkMonitorOnly.Enabled = True
                 grpExtra.Enabled = True
@@ -781,6 +792,8 @@ Public Class frmGameManager
             Case eModes.Edit
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
+                lblQuickFilter.Enabled = False
+                txtQuickFilter.Enabled = False
                 grpConfig.Enabled = True
                 chkEnabled.Enabled = True
                 chkMonitorOnly.Enabled = True
@@ -803,6 +816,8 @@ Public Class frmGameManager
             Case eModes.View
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
+                lblQuickFilter.Enabled = True
+                txtQuickFilter.Enabled = True
                 grpConfig.Enabled = True
                 chkEnabled.Enabled = True
                 chkMonitorOnly.Enabled = True
@@ -820,6 +835,8 @@ Public Class frmGameManager
             Case eModes.ViewTemp
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
+                lblQuickFilter.Enabled = True
+                txtQuickFilter.Enabled = True
                 grpConfig.Enabled = False
                 chkEnabled.Enabled = False
                 chkMonitorOnly.Enabled = False
@@ -840,6 +857,8 @@ Public Class frmGameManager
             Case eModes.Disabled
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
+                lblQuickFilter.Enabled = True
+                txtQuickFilter.Enabled = True
                 WipeControls(grpConfig.Controls)
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
@@ -865,6 +884,8 @@ Public Class frmGameManager
                 btnExport.Enabled = True
             Case eModes.MultiSelect
                 lstGames.Enabled = True
+                lblQuickFilter.Enabled = True
+                txtQuickFilter.Enabled = True
                 WipeControls(grpConfig.Controls)
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
@@ -1333,6 +1354,12 @@ Public Class frmGameManager
         btnAdd.Text = frmGameManager_btnAdd
         cmsOfficial.Text = frmGameManager_cmsOfficial
         cmsFile.Text = frmGameManager_cmsFile
+        lblQuickFilter.Text = frmGameManager_lblQuickFilter
+
+        'Init Filter Timer
+        tmFilterTimer = New Timer()
+        tmFilterTimer.Interval = 1000
+        tmFilterTimer.Enabled = False
     End Sub
 
     Private Sub frmGameManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -1487,6 +1514,20 @@ Public Class frmGameManager
 
     Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
         ExportGameList()
+    End Sub
+
+    Private Sub txtQuickFilter_TextChanged(sender As Object, e As EventArgs) Handles txtQuickFilter.TextChanged
+        If Not tmFilterTimer.Enabled Then
+            tmFilterTimer.Enabled = True
+            tmFilterTimer.Start()
+        End If
+    End Sub
+
+    Private Sub tmFilterTimer_Tick(sender As Object, ByVal e As EventArgs) Handles tmFilterTimer.Tick
+        lstGames.DataSource = Nothing
+        FormatAndFillList()
+        tmFilterTimer.Stop()
+        tmFilterTimer.Enabled = False
     End Sub
 
 End Class

@@ -1753,6 +1753,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Quick Filter:.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblQuickFilter() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblQuickFilter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Restore Path:.
         '''</summary>
         Friend ReadOnly Property frmGameManager_lblRestorePath() As String

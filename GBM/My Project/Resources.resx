@@ -1654,4 +1654,7 @@
   <data name="frmSettings_ttUtilityStatus_Valid7z" xml:space="preserve">
     <value>GBM is using the default 7-Zip utility, it has been verified.</value>
   </data>
+  <data name="frmGameManager_lblQuickFilter" xml:space="preserve">
+    <value>Quick Filter:</value>
+  </data>
 </root>

@@ -89,6 +89,8 @@ Partial Class frmGameManager
         Me.cmsImport = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsOfficial = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsFile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.txtQuickFilter = New System.Windows.Forms.TextBox()
+        Me.lblQuickFilter = New System.Windows.Forms.Label()
         Me.grpConfig.SuspendLayout()
         Me.grpExtra.SuspendLayout()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -105,7 +107,7 @@ Partial Class frmGameManager
         Me.btnAdd.Location = New System.Drawing.Point(12, 526)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(30, 23)
-        Me.btnAdd.TabIndex = 2
+        Me.btnAdd.TabIndex = 4
         Me.btnAdd.Text = "+"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
@@ -116,7 +118,7 @@ Partial Class frmGameManager
         Me.btnDelete.Location = New System.Drawing.Point(48, 526)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(30, 23)
-        Me.btnDelete.TabIndex = 3
+        Me.btnDelete.TabIndex = 5
         Me.btnDelete.Text = "-"
         Me.btnDelete.UseVisualStyleBackColor = True
         '
@@ -126,7 +128,7 @@ Partial Class frmGameManager
         Me.btnBackup.Location = New System.Drawing.Point(616, 525)
         Me.btnBackup.Name = "btnBackup"
         Me.btnBackup.Size = New System.Drawing.Size(75, 23)
-        Me.btnBackup.TabIndex = 16
+        Me.btnBackup.TabIndex = 18
         Me.btnBackup.Text = "&Backup"
         Me.btnBackup.UseVisualStyleBackColor = True
         '
@@ -136,7 +138,7 @@ Partial Class frmGameManager
         Me.btnClose.Location = New System.Drawing.Point(697, 525)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 17
+        Me.btnClose.TabIndex = 19
         Me.btnClose.Text = "C&lose"
         Me.btnClose.UseVisualStyleBackColor = True
         '
@@ -162,7 +164,7 @@ Partial Class frmGameManager
         Me.grpConfig.Location = New System.Drawing.Point(247, 12)
         Me.grpConfig.Name = "grpConfig"
         Me.grpConfig.Size = New System.Drawing.Size(525, 157)
-        Me.grpConfig.TabIndex = 6
+        Me.grpConfig.TabIndex = 8
         Me.grpConfig.TabStop = False
         Me.grpConfig.Text = "Configuration"
         '
@@ -304,7 +306,7 @@ Partial Class frmGameManager
         Me.chkMonitorOnly.Location = New System.Drawing.Point(362, 340)
         Me.chkMonitorOnly.Name = "chkMonitorOnly"
         Me.chkMonitorOnly.Size = New System.Drawing.Size(145, 17)
-        Me.chkMonitorOnly.TabIndex = 9
+        Me.chkMonitorOnly.TabIndex = 11
         Me.chkMonitorOnly.Text = "Monitor only (No backup)"
         Me.chkMonitorOnly.UseVisualStyleBackColor = True
         '
@@ -328,7 +330,7 @@ Partial Class frmGameManager
         Me.grpExtra.Location = New System.Drawing.Point(247, 175)
         Me.grpExtra.Name = "grpExtra"
         Me.grpExtra.Size = New System.Drawing.Size(525, 155)
-        Me.grpExtra.TabIndex = 7
+        Me.grpExtra.TabIndex = 9
         Me.grpExtra.TabStop = False
         Me.grpExtra.Text = "Game Information"
         '
@@ -459,7 +461,7 @@ Partial Class frmGameManager
         Me.btnTags.Location = New System.Drawing.Point(535, 336)
         Me.btnTags.Name = "btnTags"
         Me.btnTags.Size = New System.Drawing.Size(75, 23)
-        Me.btnTags.TabIndex = 10
+        Me.btnTags.TabIndex = 12
         Me.btnTags.Text = "Tags..."
         Me.btnTags.UseVisualStyleBackColor = True
         '
@@ -481,7 +483,7 @@ Partial Class frmGameManager
         Me.grpStats.Location = New System.Drawing.Point(247, 365)
         Me.grpStats.Name = "grpStats"
         Me.grpStats.Size = New System.Drawing.Size(525, 154)
-        Me.grpStats.TabIndex = 13
+        Me.grpStats.TabIndex = 15
         Me.grpStats.TabStop = False
         Me.grpStats.Text = "Backup Information"
         '
@@ -599,7 +601,7 @@ Partial Class frmGameManager
         Me.btnMarkAsRestored.Location = New System.Drawing.Point(429, 525)
         Me.btnMarkAsRestored.Name = "btnMarkAsRestored"
         Me.btnMarkAsRestored.Size = New System.Drawing.Size(100, 23)
-        Me.btnMarkAsRestored.TabIndex = 14
+        Me.btnMarkAsRestored.TabIndex = 16
         Me.btnMarkAsRestored.Text = "&Mark as Restored"
         Me.btnMarkAsRestored.UseVisualStyleBackColor = True
         '
@@ -609,7 +611,7 @@ Partial Class frmGameManager
         Me.btnRestore.Location = New System.Drawing.Point(535, 525)
         Me.btnRestore.Name = "btnRestore"
         Me.btnRestore.Size = New System.Drawing.Size(75, 23)
-        Me.btnRestore.TabIndex = 15
+        Me.btnRestore.TabIndex = 17
         Me.btnRestore.Text = "&Restore"
         Me.btnRestore.UseVisualStyleBackColor = True
         '
@@ -619,18 +621,18 @@ Partial Class frmGameManager
         Me.btnSave.Location = New System.Drawing.Point(616, 336)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 11
+        Me.btnSave.TabIndex = 13
         Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'lstGames
         '
         Me.lstGames.FormattingEnabled = True
-        Me.lstGames.Location = New System.Drawing.Point(12, 138)
+        Me.lstGames.Location = New System.Drawing.Point(12, 160)
         Me.lstGames.Name = "lstGames"
         Me.lstGames.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstGames.Size = New System.Drawing.Size(228, 381)
-        Me.lstGames.TabIndex = 1
+        Me.lstGames.Size = New System.Drawing.Size(228, 355)
+        Me.lstGames.TabIndex = 3
         '
         'btnCancel
         '
@@ -638,7 +640,7 @@ Partial Class frmGameManager
         Me.btnCancel.Location = New System.Drawing.Point(697, 336)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 12
+        Me.btnCancel.TabIndex = 14
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
@@ -648,7 +650,7 @@ Partial Class frmGameManager
         Me.chkEnabled.Location = New System.Drawing.Point(247, 340)
         Me.chkEnabled.Name = "chkEnabled"
         Me.chkEnabled.Size = New System.Drawing.Size(109, 17)
-        Me.chkEnabled.TabIndex = 8
+        Me.chkEnabled.TabIndex = 10
         Me.chkEnabled.Text = "Monitor this game"
         Me.chkEnabled.UseVisualStyleBackColor = True
         '
@@ -714,7 +716,7 @@ Partial Class frmGameManager
         Me.btnImport.Location = New System.Drawing.Point(84, 526)
         Me.btnImport.Name = "btnImport"
         Me.btnImport.Size = New System.Drawing.Size(75, 23)
-        Me.btnImport.TabIndex = 4
+        Me.btnImport.TabIndex = 6
         Me.btnImport.Text = "&Import"
         Me.btnImport.UseVisualStyleBackColor = True
         '
@@ -723,7 +725,7 @@ Partial Class frmGameManager
         Me.btnExport.Location = New System.Drawing.Point(165, 526)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.Size = New System.Drawing.Size(75, 23)
-        Me.btnExport.TabIndex = 5
+        Me.btnExport.TabIndex = 7
         Me.btnExport.Text = "&Export"
         Me.btnExport.UseVisualStyleBackColor = True
         '
@@ -746,11 +748,29 @@ Partial Class frmGameManager
         Me.cmsFile.Size = New System.Drawing.Size(117, 22)
         Me.cmsFile.Text = "&File..."
         '
+        'txtQuickFilter
+        '
+        Me.txtQuickFilter.Location = New System.Drawing.Point(80, 134)
+        Me.txtQuickFilter.Name = "txtQuickFilter"
+        Me.txtQuickFilter.Size = New System.Drawing.Size(160, 20)
+        Me.txtQuickFilter.TabIndex = 2
+        '
+        'lblQuickFilter
+        '
+        Me.lblQuickFilter.AutoSize = True
+        Me.lblQuickFilter.Location = New System.Drawing.Point(12, 137)
+        Me.lblQuickFilter.Name = "lblQuickFilter"
+        Me.lblQuickFilter.Size = New System.Drawing.Size(63, 13)
+        Me.lblQuickFilter.TabIndex = 1
+        Me.lblQuickFilter.Text = "Quick Filter:"
+        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 561)
+        Me.Controls.Add(Me.lblQuickFilter)
+        Me.Controls.Add(Me.txtQuickFilter)
         Me.Controls.Add(Me.btnExport)
         Me.Controls.Add(Me.btnImport)
         Me.Controls.Add(Me.grpFilter)
@@ -857,4 +877,6 @@ Partial Class frmGameManager
     Friend WithEvents cmsImport As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents cmsOfficial As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmsFile As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents txtQuickFilter As TextBox
+    Friend WithEvents lblQuickFilter As Label
 End Class
