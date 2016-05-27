@@ -117,41 +117,45 @@ Public Class frmSettings
 
     Private Sub Get7zInfo(ByVal sLocation As String)
         Dim bDefault As Boolean = False
-        Try
-            'Use default when no custom location is set
-            If sLocation = String.Empty Then
-                sLocation = mgrPath.Default7zLocation
-                bDefault = True
-            End If
 
-            'Get info
-            Dim oFileInfo As FileVersionInfo = FileVersionInfo.GetVersionInfo(sLocation)
-            lbl7zProduct.Text = oFileInfo.FileDescription & " " & oFileInfo.ProductVersion
-            lbl7zCopyright.Text = oFileInfo.LegalCopyright
-
-            'Set Status
-            If bDefault Then
-                If oSettings.Is7zUtilityValid Then
-                    pbUtilityStatus.Image = Utility_Valid
-                    ttUtilityStatus.ToolTipTitle = frmSettings_ttUtilityStatus_Title
-                    ttUtilityStatus.SetToolTip(pbUtilityStatus, frmSettings_ttUtilityStatus_Valid7z)
-                Else
-                    pbUtilityStatus.Image = Utility_Invalid
-                    ttUtilityStatus.ToolTipTitle = frmSettings_ttUtilityStatus_Title
-                    ttUtilityStatus.SetToolTip(pbUtilityStatus, frmSettings_ttUtilityStatus_Invalid7z)
+        'Ignore this function when on Unix
+        If Not mgrCommon.IsUnix Then
+            Try
+                'Use default when no custom location is set
+                If sLocation = String.Empty Then
+                    sLocation = mgrPath.Default7zLocation
+                    bDefault = True
                 End If
-            Else
-                pbUtilityStatus.Image = Utility_Custom
+
+                'Get info
+                Dim oFileInfo As FileVersionInfo = FileVersionInfo.GetVersionInfo(sLocation)
+                lbl7zProduct.Text = oFileInfo.FileDescription & " " & oFileInfo.ProductVersion
+                lbl7zCopyright.Text = oFileInfo.LegalCopyright
+
+                'Set Status
+                If bDefault Then
+                    If oSettings.Is7zUtilityValid Then
+                        pbUtilityStatus.Image = Utility_Valid
+                        ttUtilityStatus.ToolTipTitle = frmSettings_ttUtilityStatus_Title
+                        ttUtilityStatus.SetToolTip(pbUtilityStatus, frmSettings_ttUtilityStatus_Valid7z)
+                    Else
+                        pbUtilityStatus.Image = Utility_Invalid
+                        ttUtilityStatus.ToolTipTitle = frmSettings_ttUtilityStatus_Title
+                        ttUtilityStatus.SetToolTip(pbUtilityStatus, frmSettings_ttUtilityStatus_Invalid7z)
+                    End If
+                Else
+                    pbUtilityStatus.Image = Utility_Custom
+                    ttUtilityStatus.ToolTipTitle = frmSettings_ttUtilityStatus_Title
+                    ttUtilityStatus.SetToolTip(pbUtilityStatus, frmSettings_ttUtilityStatus_Custom7z)
+                End If
+            Catch ex As Exception
+                lbl7zProduct.Text = String.Empty
+                lbl7zCopyright.Text = String.Empty
+                pbUtilityStatus.Image = Utility_Invalid
                 ttUtilityStatus.ToolTipTitle = frmSettings_ttUtilityStatus_Title
-                ttUtilityStatus.SetToolTip(pbUtilityStatus, frmSettings_ttUtilityStatus_Custom7z)
-            End If
-        Catch ex As Exception
-            lbl7zProduct.Text = String.Empty
-            lbl7zCopyright.Text = String.Empty
-            pbUtilityStatus.Image = Utility_Invalid
-            ttUtilityStatus.ToolTipTitle = frmSettings_ttUtilityStatus_Title
-            ttUtilityStatus.SetToolTip(pbUtilityStatus, frmSettings_ttUtilityStatus_Failure7z)
-        End Try
+                ttUtilityStatus.SetToolTip(pbUtilityStatus, frmSettings_ttUtilityStatus_Failure7z)
+            End Try
+        End If
     End Sub
 
     Private Sub SetDefaults()

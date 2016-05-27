@@ -1530,4 +1530,7 @@ Public Class frmGameManager
         tmFilterTimer.Enabled = False
     End Sub
 
+    Private Sub frmGameManager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        txtQuickFilter.Focus()
+    End Sub
 End Class
