@@ -566,7 +566,7 @@
     <value>A game with this exact name and process already exists.</value>
   </data>
   <data name="frmGameManager_ErrorNoBackupData" xml:space="preserve">
-    <value>The selected game(s) have no backup data.</value>
+    <value>The selected game(s) have no backup data or can't be restored with their current configuration.</value>
   </data>
   <data name="frmGameManager_ErrorNoBackupExists" xml:space="preserve">
     <value>The backup file does not exist.</value>
@@ -1656,5 +1656,8 @@
   </data>
   <data name="frmGameManager_lblQuickFilter" xml:space="preserve">
     <value>Quick Filter:</value>
+  </data>
+  <data name="frmGameManager_ErrorNoValidBackup" xml:space="preserve">
+    <value>A backup cannot be run on the selected game(s) with their current configuration.</value>
   </data>
 </root>

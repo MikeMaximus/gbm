@@ -884,8 +884,8 @@ Public Class frmGameManager
                 btnExport.Enabled = True
             Case eModes.MultiSelect
                 lstGames.Enabled = True
-                lblQuickFilter.Enabled = True
-                txtQuickFilter.Enabled = True
+                lblQuickFilter.Enabled = False
+                txtQuickFilter.Enabled = False
                 WipeControls(grpConfig.Controls)
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
@@ -1202,27 +1202,34 @@ Public Class frmGameManager
         Dim oData As KeyValuePair(Of String, String)
         Dim sMsg As String = String.Empty
         Dim oGame As clsGame
+        Dim bDoBackup As Boolean = False
 
         If lstGames.SelectedItems.Count > 0 Then
             BackupList.Clear()
 
             For Each oData In lstGames.SelectedItems
                 oGame = DirectCast(AppData(oData.Key), clsGame)
-                BackupList.Add(oGame)
+                'Filter out any games set to monitor only
+                If Not oGame.MonitorOnly Then BackupList.Add(oGame)
             Next
 
             If BackupList.Count = 1 Then
+                bDoBackup = True
                 sMsg = mgrCommon.FormatString(frmGameManager_ConfirmBackup, BackupList(0).Name)
             ElseIf BackupList.Count > 1 Then
+                bDoBackup = True
                 sMsg = mgrCommon.FormatString(frmGameManager_ConfirmMultiBackup, BackupList.Count)
+            Else
+                mgrCommon.ShowMessage(frmGameManager_ErrorNoValidBackup, MsgBoxStyle.Information)
             End If
 
-            If mgrCommon.ShowMessage(sMsg, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                TriggerBackup = True
-                Me.Close()
+            If bDoBackup Then
+                If mgrCommon.ShowMessage(sMsg, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    TriggerBackup = True
+                    Me.Close()
+                End If
             End If
         End If
-
     End Sub
 
     Private Sub TriggerSelectedRestore()
@@ -1237,7 +1244,8 @@ Public Class frmGameManager
             For Each oData In lstGames.SelectedItems
                 If oRemoteBackupData.Contains(oData.Value) Then
                     oGame = DirectCast(AppData(oData.Key), clsGame)
-                    RestoreList.Add(oGame)
+                    'Filter out any games set to monitor only
+                    If Not oGame.MonitorOnly Then RestoreList.Add(oGame)
                 End If
             Next
 
@@ -1255,7 +1263,6 @@ Public Class frmGameManager
                 mgrCommon.ShowMessage(frmGameManager_ErrorNoBackupData, MsgBoxStyle.Information)
             End If
 
-            'We need this check in case a bunch of games with no backups are multi-selected
             If bDoRestore Then
                 If mgrCommon.ShowMessage(sMsg, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     TriggerRestore = True

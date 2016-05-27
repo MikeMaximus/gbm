@@ -1492,7 +1492,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The selected game(s) have no backup data..
+        '''  Looks up a localized string similar to The selected game(s) have no backup data or can&apos;t be restored with their current configuration..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ErrorNoBackupData() As String
             Get
@@ -1524,6 +1524,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ErrorNoRestorePathExists() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ErrorNoRestorePathExists", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to A backup cannot be run on the selected game(s) with their current configuration..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ErrorNoValidBackup() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ErrorNoValidBackup", resourceCulture)
             End Get
         End Property
         
