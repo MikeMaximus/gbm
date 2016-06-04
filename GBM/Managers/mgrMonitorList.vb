@@ -71,7 +71,7 @@ Public Class mgrMonitorList
         sSQL &= "VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, "
         sSQL &= "@TimeStamp, @ExcludeList, (SELECT ProcessPath FROM monitorlist WHERE MonitorID=@ID), "
         sSQL &= "(SELECT Icon FROM monitorlist WHERE MonitorID=@ID), @Hours, (SELECT Version FROM monitorlist WHERE MonitorID=@ID), "
-        sSQL &= "(SELECT Company FROM monitorlist WHERE MonitorID=@ID), COALESCE((SELECT Enabled FROM monitorlist WHERE MonitorID=@ID),1), @MonitorOnly);"
+        sSQL &= "(SELECT Company FROM monitorlist WHERE MonitorID=@ID), COALESCE((SELECT Enabled FROM monitorlist WHERE MonitorID=@ID),1), COALESCE((SELECT MonitorOnly FROM monitorlist WHERE MonitorID=@ID),0));"
 
         For Each oGame As clsGame In hshGames.Values
             hshParams = New Hashtable
@@ -87,7 +87,6 @@ Public Class mgrMonitorList
             hshParams.Add("TimeStamp", oGame.AppendTimeStamp)
             hshParams.Add("ExcludeList", oGame.ExcludeList)
             hshParams.Add("Hours", oGame.Hours)
-            hshParams.Add("MonitorOnly", oGame.MonitorOnly)
 
             oParamList.Add(hshParams)
         Next
@@ -157,6 +156,7 @@ Public Class mgrMonitorList
 
         If bToRemote Then
             DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Remote)
+
         Else
             DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Local)
         End If

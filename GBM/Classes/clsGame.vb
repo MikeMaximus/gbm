@@ -227,6 +227,7 @@
             If ID <> oGame.ID Then
                 Return False
             End If
+
             If Name <> oGame.Name Then
                 Return False
             End If
@@ -252,9 +253,6 @@
                 Return False
             End If
             If Hours <> oGame.Hours Then
-                Return False
-            End If
-            If MonitorOnly <> oGame.MonitorOnly Then
                 Return False
             End If
             Return True
