@@ -53,10 +53,6 @@ Public Class frmSyncFields
     Private Sub frmSyncFields_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetForm()
         LoadForm()
-        Dim sResources As String = String.Empty
-        Dim sCode As String = String.Empty
-        mgrCommon.GetAllStrings(Me, sResources, sCode, "frmSyncFields")
-        Clipboard.SetText(sResources & vbCrLf & vbCrLf & sCode)
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
