@@ -1361,7 +1361,7 @@
     <value>Would you like to apply a filter to your export?</value>
   </data>
   <data name="mgrMonitorList_ConfirmExistingData" xml:space="preserve">
-    <value>GBM data already exists in the backup folder.[BR][BR]Do you want to make your local game list the new master game list in this folder? (Recommended)[BR][BR]Choosing No will sync your local game list to the current master game list in this folder.</value>
+    <value>The sync settings have changed and data already exists in the backup folder.[BR][BR]Do you want to make your current game data on this PC the new master game data in this folder? (Highly Recommended)[BR][BR]Choosing No will sync your game data on this PC to the current master game data in this folder.</value>
   </data>
   <data name="mgrMonitorList_ExportComplete" xml:space="preserve">
     <value>Export Complete.  [PARAM] item(s) have been exported.</value>
@@ -1659,5 +1659,38 @@
   </data>
   <data name="frmGameManager_ErrorNoValidBackup" xml:space="preserve">
     <value>A backup cannot be run on the selected game(s) with their current configuration.</value>
+  </data>
+  <data name="frmSettings_btnOptionalFields" xml:space="preserve">
+    <value>Choose &amp;Optional Fields...</value>
+  </data>
+  <data name="frmSyncFields_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmSyncFields_btnSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmSyncFields_chkCompany" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="frmSyncFields_chkGamePath" xml:space="preserve">
+    <value>Game Path (Not Recommended)</value>
+  </data>
+  <data name="frmSyncFields_chkIcon" xml:space="preserve">
+    <value>Icon (Not Recommended)</value>
+  </data>
+  <data name="frmSyncFields_chkMonitorGame" xml:space="preserve">
+    <value>Monitor this game</value>
+  </data>
+  <data name="frmSyncFields_chkTimeStamp" xml:space="preserve">
+    <value>Time stamp each backup</value>
+  </data>
+  <data name="frmSyncFields_chkVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="frmSyncFields_FormName" xml:space="preserve">
+    <value>Optional Sync Fields</value>
+  </data>
+  <data name="frmSyncFields_grpFields" xml:space="preserve">
+    <value>Available Fields</value>
   </data>
 </root>

@@ -157,6 +157,14 @@ Public Class mgrCommon
         oProcess.Start()
     End Sub
 
+    Public Shared Function SetSyncField(ByVal eSyncFields As clsGame.eOptionalSyncFields, ByVal eSyncField As clsGame.eOptionalSyncFields) As clsGame.eOptionalSyncFields
+        Return eSyncFields Or eSyncField
+    End Function
+
+    Public Shared Function RemoveSyncField(ByVal eSyncFields As clsGame.eOptionalSyncFields, ByVal eSyncField As clsGame.eOptionalSyncFields) As clsGame.eOptionalSyncFields
+        Return eSyncFields And (Not eSyncField)
+    End Function
+
     'Delete file based on OS type
     Public Shared Sub DeleteFile(ByVal sPath As String, Optional ByVal bRecycle As Boolean = True)
         If File.Exists(sPath) Then

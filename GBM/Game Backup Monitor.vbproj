@@ -195,6 +195,12 @@
       <DependentUpon>frmMain.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmSyncFields.Designer.vb">
+      <DependentUpon>frmSyncFields.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSyncFields.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmTags.Designer.vb">
       <DependentUpon>frmTags.vb</DependentUpon>
     </Compile>
@@ -272,6 +278,9 @@
     <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSyncFields.resx">
+      <DependentUpon>frmSyncFields.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmTags.resx">
       <DependentUpon>frmTags.vb</DependentUpon>

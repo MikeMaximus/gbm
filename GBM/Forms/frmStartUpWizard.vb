@@ -66,7 +66,7 @@ Public Class frmStartUpWizard
         If oDatabase.CheckDB() Then
             'Make sure database is the latest version
             oDatabase.DatabaseUpgrade()
-            mgrMonitorList.SyncMonitorLists(False)
+            mgrMonitorList.SyncMonitorLists(oSettings.SyncFields, False)
             mgrCommon.ShowMessage(frmStartUpWizard_ExistingData, MsgBoxStyle.Information)
         End If
     End Sub
@@ -107,7 +107,7 @@ Public Class frmStartUpWizard
         If mgrCommon.ShowMessage(frmStartUpWizard_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             If mgrMonitorList.DoImport(App_URLImport) Then
                 oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
-                If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
+                If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
             End If
         End If
     End Sub
@@ -122,7 +122,7 @@ Public Class frmStartUpWizard
         frm.GameData = oGameData
         frm.ShowDialog()
         LoadGameSettings()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
+        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
     End Sub
 
     Private Sub OpenMonitorList()
@@ -131,7 +131,7 @@ Public Class frmStartUpWizard
         frm.DisableExternalFunctions = True
         frm.ShowDialog()
         LoadGameSettings()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
+        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
     End Sub
 
     Private Function ValidateBackupPath(ByVal strPath As String, ByRef sErrorMessage As String) As Boolean

@@ -556,7 +556,7 @@ Public Class frmMain
         End If
 
         mgrMonitorList.DoListUpdate(oProcess.GameInfo)
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
+        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
 
         UpdateTimeSpent(dCurrentHours, oProcess.TimeSpent.TotalHours)
     End Sub
@@ -671,7 +671,7 @@ Public Class frmMain
         Dim frm As New frmTags
         PauseScan()
         frm.ShowDialog()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
+        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
         ResumeScan()
     End Sub
 
@@ -682,7 +682,7 @@ Public Class frmMain
         frm.PendingRestores = bPendingRestores
         frm.ShowDialog()
         LoadGameSettings()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
+        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
         ResumeScan()
 
         'Handle backup trigger
@@ -718,7 +718,7 @@ Public Class frmMain
         frm.GameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
         frm.ShowDialog()
         LoadGameSettings()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
+        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
         ResumeScan()
     End Sub
 
@@ -727,7 +727,7 @@ Public Class frmMain
         PauseScan()
         frm.ShowDialog()
         mgrPath.CustomVariablesReload()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists()
+        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
         ResumeScan()
     End Sub
 
@@ -798,7 +798,7 @@ Public Class frmMain
 
     Private Sub SyncGameSettings()
         'Sync Monitor List
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(False)
+        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields, False)
     End Sub
 
     Private Sub LocalDatabaseCheck()
@@ -1243,7 +1243,7 @@ Public Class frmMain
                 oSettings.BackupFolder = sBackupPath
                 oSettings.SaveSettings()
                 oSettings.LoadSettings()
-                If oSettings.Sync Then mgrMonitorList.HandleBackupLocationChange()
+                If oSettings.Sync Then mgrMonitorList.HandleBackupLocationChange(oSettings)
             End If
             Return True
         Else

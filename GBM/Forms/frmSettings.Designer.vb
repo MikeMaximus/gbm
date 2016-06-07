@@ -58,6 +58,7 @@ Partial Class frmSettings
         Me.lbl7zProduct = New System.Windows.Forms.Label()
         Me.btnDefaults = New System.Windows.Forms.Button()
         Me.ttUtilityStatus = New System.Windows.Forms.ToolTip(Me.components)
+        Me.btnOptionalFields = New System.Windows.Forms.Button()
         Me.grpGeneral.SuspendLayout()
         Me.grpPaths.SuspendLayout()
         Me.grpBackup.SuspendLayout()
@@ -88,6 +89,7 @@ Partial Class frmSettings
         '
         'grpGeneral
         '
+        Me.grpGeneral.Controls.Add(Me.btnOptionalFields)
         Me.grpGeneral.Controls.Add(Me.chkTimeTracking)
         Me.grpGeneral.Controls.Add(Me.chkSync)
         Me.grpGeneral.Controls.Add(Me.chkStartWindows)
@@ -406,6 +408,16 @@ Partial Class frmSettings
         Me.btnDefaults.Text = "Set &Defaults"
         Me.btnDefaults.UseVisualStyleBackColor = True
         '
+        'btnOptionalFields
+        '
+        Me.btnOptionalFields.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.btnOptionalFields.Location = New System.Drawing.Point(110, 130)
+        Me.btnOptionalFields.Name = "btnOptionalFields"
+        Me.btnOptionalFields.Size = New System.Drawing.Size(134, 23)
+        Me.btnOptionalFields.TabIndex = 6
+        Me.btnOptionalFields.Text = "Choose &Optional Fields..."
+        Me.btnOptionalFields.UseVisualStyleBackColor = True
+        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -474,4 +486,5 @@ Partial Class frmSettings
     Friend WithEvents btnDefaults As Button
     Friend WithEvents pbUtilityStatus As PictureBox
     Friend WithEvents ttUtilityStatus As ToolTip
+    Friend WithEvents btnOptionalFields As Button
 End Class

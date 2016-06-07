@@ -3148,6 +3148,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Choose &amp;Optional Fields....
+        '''</summary>
+        Friend ReadOnly Property frmSettings_btnOptionalFields() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_btnOptionalFields", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Save.
         '''</summary>
         Friend ReadOnly Property frmSettings_btnSave() As String
@@ -3760,6 +3769,96 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Cancel.
+        '''</summary>
+        Friend ReadOnly Property frmSyncFields_btnCancel() As String
+            Get
+                Return ResourceManager.GetString("frmSyncFields_btnCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Save.
+        '''</summary>
+        Friend ReadOnly Property frmSyncFields_btnSave() As String
+            Get
+                Return ResourceManager.GetString("frmSyncFields_btnSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Company.
+        '''</summary>
+        Friend ReadOnly Property frmSyncFields_chkCompany() As String
+            Get
+                Return ResourceManager.GetString("frmSyncFields_chkCompany", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game Path (Not Recommended).
+        '''</summary>
+        Friend ReadOnly Property frmSyncFields_chkGamePath() As String
+            Get
+                Return ResourceManager.GetString("frmSyncFields_chkGamePath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Icon (Not Recommended).
+        '''</summary>
+        Friend ReadOnly Property frmSyncFields_chkIcon() As String
+            Get
+                Return ResourceManager.GetString("frmSyncFields_chkIcon", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Monitor this game.
+        '''</summary>
+        Friend ReadOnly Property frmSyncFields_chkMonitorGame() As String
+            Get
+                Return ResourceManager.GetString("frmSyncFields_chkMonitorGame", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Time stamp each backup.
+        '''</summary>
+        Friend ReadOnly Property frmSyncFields_chkTimeStamp() As String
+            Get
+                Return ResourceManager.GetString("frmSyncFields_chkTimeStamp", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Version.
+        '''</summary>
+        Friend ReadOnly Property frmSyncFields_chkVersion() As String
+            Get
+                Return ResourceManager.GetString("frmSyncFields_chkVersion", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Optional Sync Fields.
+        '''</summary>
+        Friend ReadOnly Property frmSyncFields_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmSyncFields_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Available Fields.
+        '''</summary>
+        Friend ReadOnly Property frmSyncFields_grpFields() As String
+            Get
+                Return ResourceManager.GetString("frmSyncFields_grpFields", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to +.
         '''</summary>
         Friend ReadOnly Property frmTags_btnAdd() As String
@@ -4322,7 +4421,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to GBM data already exists in the backup folder.[BR][BR]Do you want to make your local game list the new master game list in this folder? (Recommended)[BR][BR]Choosing No will sync your local game list to the current master game list in this folder..
+        '''  Looks up a localized string similar to The sync settings have changed and data already exists in the backup folder.[BR][BR]Do you want to make your current game data on this PC the new master game data in this folder? (Highly Recommended)[BR][BR]Choosing No will sync your game data on this PC to the current master game data in this folder..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ConfirmExistingData() As String
             Get

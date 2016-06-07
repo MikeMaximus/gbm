@@ -19,6 +19,16 @@
     Private bTempGame As Boolean = False
     Private oImportTags As New List(Of Tag)
 
+    <Flags()> Public Enum eOptionalSyncFields
+        None = 0
+        GamePath = 1
+        Company = 2
+        Version = 4
+        Icon = 16
+        TimeStamp = 32
+        MonitorGame = 64
+    End Enum
+
     Property ID As String
         Set(value As String)
             sGameID = value
@@ -43,7 +53,6 @@
             End If
         End Get
     End Property
-
 
     Property Name As String
         Set(value As String)
@@ -219,11 +228,12 @@
         End Set
     End Property
 
-    Public Function SyncEquals(obj As Object) As Boolean
+    Public Function SyncEquals(obj As Object, eSyncFields As eOptionalSyncFields) As Boolean
         Dim oGame As clsGame = TryCast(obj, clsGame)
         If oGame Is Nothing Then
             Return False
         Else
+            'Core Sync Fields
             If ID <> oGame.ID Then
                 Return False
             End If
@@ -256,6 +266,38 @@
             End If
             If MonitorOnly <> oGame.MonitorOnly Then
                 Return False
+            End If
+
+            'Optional Sync Fields
+            If (eSyncFields And eOptionalSyncFields.Company) = eOptionalSyncFields.Company Then
+                If Company <> oGame.Company Then
+                    Return False
+                End If
+            End If
+            If (eSyncFields And eOptionalSyncFields.GamePath) = eOptionalSyncFields.GamePath Then
+                If ProcessPath <> oGame.ProcessPath Then
+                    Return False
+                End If
+            End If
+            If (eSyncFields And eOptionalSyncFields.Icon) = eOptionalSyncFields.Icon Then
+                If Icon <> oGame.Icon Then
+                    Return False
+                End If
+            End If
+            If (eSyncFields And eOptionalSyncFields.MonitorGame) = eOptionalSyncFields.MonitorGame Then
+                If Enabled <> oGame.Enabled Then
+                    Return False
+                End If
+            End If
+            If (eSyncFields And eOptionalSyncFields.TimeStamp) = eOptionalSyncFields.TimeStamp Then
+                If AppendTimeStamp <> oGame.AppendTimeStamp Then
+                    Return False
+                End If
+            End If
+            If (eSyncFields And eOptionalSyncFields.Version) = eOptionalSyncFields.Version Then
+                If Version <> oGame.Version Then
+                    Return False
+                End If
             End If
             Return True
         End If

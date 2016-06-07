@@ -10,7 +10,7 @@ Public Class mgrMonitorList
 
     Public Shared Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
 
-    Public Shared Sub HandleBackupLocationChange()
+    Public Shared Sub HandleBackupLocationChange(ByVal oSettings As mgrSettings)
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
         Dim iGameCount As Integer
 
@@ -25,15 +25,15 @@ Public Class mgrMonitorList
             'If the remote database actually contains a list, then ask what to do
             If iGameCount > 0 Then
                 If mgrCommon.ShowMessage(mgrMonitorList_ConfirmExistingData, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    mgrMonitorList.SyncMonitorLists()
+                    mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
                 Else
-                    mgrMonitorList.SyncMonitorLists(False)
+                    mgrMonitorList.SyncMonitorLists(oSettings.SyncFields, False)
                 End If
             Else
-                mgrMonitorList.SyncMonitorLists()
+                mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
             End If
         Else
-            mgrMonitorList.SyncMonitorLists()
+            mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
         End If
     End Sub
 
@@ -61,22 +61,63 @@ Public Class mgrMonitorList
         End If
     End Sub
 
-    Public Shared Sub DoListAddUpdateSync(ByVal hshGames As Hashtable, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+    Public Shared Sub DoListAddUpdateSync(ByVal hshGames As Hashtable, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local,
+                                          Optional ByVal eSyncFields As clsGame.eOptionalSyncFields = clsGame.eOptionalSyncFields.None)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
         Dim hshParams As Hashtable
         Dim oParamList As New List(Of Hashtable)
 
+        'Handle Optional Sync Fields
+        Dim sGamePath As String
+        Dim sIcon As String
+        Dim sVersion As String
+        Dim sCompany As String
+        Dim sMonitorGame As String
+        Dim sTimeStamp As String
+
+        'Setup SQL for optional fields
+        If (eSyncFields And clsGame.eOptionalSyncFields.Company) = clsGame.eOptionalSyncFields.Company Then
+            sCompany = "@Company"
+        Else
+            sCompany = "(SELECT Company FROM monitorlist WHERE MonitorID=@ID)"
+        End If
+        If (eSyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then
+            sGamePath = "@ProcessPath"
+        Else
+            sGamePath = "(SELECT ProcessPath FROM monitorlist WHERE MonitorID=@ID)"
+        End If
+        If (eSyncFields And clsGame.eOptionalSyncFields.Icon) = clsGame.eOptionalSyncFields.Icon Then
+            sIcon = "@Icon"
+        Else
+            sIcon = "(SELECT Icon FROM monitorlist WHERE MonitorID=@ID)"
+        End If
+        If (eSyncFields And clsGame.eOptionalSyncFields.MonitorGame) = clsGame.eOptionalSyncFields.MonitorGame Then
+            sMonitorGame = "@Enabled"
+        Else
+            sMonitorGame = "COALESCE((SELECT Enabled FROM monitorlist WHERE MonitorID=@ID),1)"
+        End If
+        If (eSyncFields And clsGame.eOptionalSyncFields.TimeStamp) = clsGame.eOptionalSyncFields.TimeStamp Then
+            sTimeStamp = "@TimeStamp"
+        Else
+            sTimeStamp = "COALESCE((SELECT TimeStamp FROM monitorlist WHERE MonitorID=@ID),0)"
+        End If
+        If (eSyncFields And clsGame.eOptionalSyncFields.Version) = clsGame.eOptionalSyncFields.Version Then
+            sVersion = "@Version"
+        Else
+            sVersion = "(SELECT Version FROM monitorlist WHERE MonitorID=@ID)"
+        End If
+
         sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly) "
         sSQL &= "VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, "
-        sSQL &= "@TimeStamp, @ExcludeList, (SELECT ProcessPath FROM monitorlist WHERE MonitorID=@ID), "
-        sSQL &= "(SELECT Icon FROM monitorlist WHERE MonitorID=@ID), @Hours, (SELECT Version FROM monitorlist WHERE MonitorID=@ID), "
-        sSQL &= "(SELECT Company FROM monitorlist WHERE MonitorID=@ID), COALESCE((SELECT Enabled FROM monitorlist WHERE MonitorID=@ID),1), @MonitorOnly);"
+        sSQL &= sTimeStamp & ", @ExcludeList, " & sGamePath & ", "
+        sSQL &= sIcon & ", @Hours, " & sVersion & ", "
+        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly);"
 
         For Each oGame As clsGame In hshGames.Values
             hshParams = New Hashtable
 
-            'Parameters
+            'Core Parameters
             hshParams.Add("ID", oGame.ID)
             hshParams.Add("Name", oGame.Name)
             hshParams.Add("Process", oGame.TrueProcess)
@@ -84,10 +125,29 @@ Public Class mgrMonitorList
             hshParams.Add("AbsolutePath", oGame.AbsolutePath)
             hshParams.Add("FolderSave", oGame.FolderSave)
             hshParams.Add("FileType", oGame.FileType)
-            hshParams.Add("TimeStamp", oGame.AppendTimeStamp)
             hshParams.Add("ExcludeList", oGame.ExcludeList)
             hshParams.Add("Hours", oGame.Hours)
             hshParams.Add("MonitorOnly", oGame.MonitorOnly)
+
+            'Optional Parameters
+            If (eSyncFields And clsGame.eOptionalSyncFields.Company) = clsGame.eOptionalSyncFields.Company Then
+                hshParams.Add("Company", oGame.Company)
+            End If
+            If (eSyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then
+                hshParams.Add("ProcessPath", oGame.ProcessPath)
+            End If
+            If (eSyncFields And clsGame.eOptionalSyncFields.Icon) = clsGame.eOptionalSyncFields.Icon Then
+                hshParams.Add("Icon", oGame.Icon)
+            End If
+            If (eSyncFields And clsGame.eOptionalSyncFields.MonitorGame) = clsGame.eOptionalSyncFields.MonitorGame Then
+                hshParams.Add("Enabled", oGame.Enabled)
+            End If
+            If (eSyncFields And clsGame.eOptionalSyncFields.TimeStamp) = clsGame.eOptionalSyncFields.TimeStamp Then
+                hshParams.Add("TimeStamp", oGame.AppendTimeStamp)
+            End If
+            If (eSyncFields And clsGame.eOptionalSyncFields.Version) = clsGame.eOptionalSyncFields.Version Then
+                hshParams.Add("Version", oGame.Version)
+            End If
 
             oParamList.Add(hshParams)
         Next
@@ -118,7 +178,7 @@ Public Class mgrMonitorList
         oDatabase.RunMassParamQuery(sSQL, oParamList)
     End Sub
 
-    Public Shared Sub SyncMonitorLists(Optional ByVal bToRemote As Boolean = True)
+    Public Shared Sub SyncMonitorLists(ByVal eSyncFields As clsGame.eOptionalSyncFields, Optional ByVal bToRemote As Boolean = True)
         Dim hshCompareFrom As Hashtable
         Dim hshCompareTo As Hashtable
         Dim hshSyncItems As Hashtable
@@ -149,16 +209,16 @@ Public Class mgrMonitorList
         For Each oFromItem In hshCompareFrom.Values
             If hshCompareTo.Contains(oFromItem.CompoundKey) Then
                 oToItem = DirectCast(hshCompareTo(oFromItem.CompoundKey), clsGame)
-                If oFromItem.SyncEquals(oToItem) Then
+                If oFromItem.SyncEquals(oToItem, eSyncFields) Then
                     hshSyncItems.Remove(oFromItem.CompoundKey)
                 End If
             End If
         Next
 
         If bToRemote Then
-            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Remote)
+            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Remote, eSyncFields)
         Else
-            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Local)
+            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Local, eSyncFields)
         End If
 
         'Sync Tags

@@ -3,8 +3,9 @@ Imports System.IO
 
 Public Class frmSettings
     Dim bShutdown As Boolean = False
-    Dim bBackupLocationChanged As Boolean = False
+    Dim bSyncSettingsChanged As Boolean = False
     Dim bCheckSumDisabled As Boolean = False
+    Dim eCurrentSyncFields As clsGame.eOptionalSyncFields
     Private oSettings As mgrSettings
 
     Property Settings As mgrSettings
@@ -13,15 +14,6 @@ Public Class frmSettings
         End Get
         Set(value As mgrSettings)
             oSettings = value
-        End Set
-    End Property
-
-    Private Property BackupLocationChanged As Boolean
-        Get
-            Return bBackupLocationChanged
-        End Get
-        Set(value As Boolean)
-            bBackupLocationChanged = value
         End Set
     End Property
 
@@ -76,13 +68,13 @@ Public Class frmSettings
 
         'Turning syncing from off to on is the same as changing the backup folder
         If chkSync.Checked = True And oSettings.Sync = False Then
-            bBackupLocationChanged = True
+            bSyncSettingsChanged = True
         End If
         oSettings.Sync = chkSync.Checked
 
         If Directory.Exists(txtBackupFolder.Text) Then
             If oSettings.BackupFolder <> txtBackupFolder.Text Then
-                If chkSync.Checked Then bBackupLocationChanged = True
+                If chkSync.Checked Then bSyncSettingsChanged = True
             End If
             oSettings.BackupFolder = txtBackupFolder.Text
         Else
@@ -101,13 +93,18 @@ Public Class frmSettings
             End If
         End If
 
+        'We must trigger a sync if optional fields have changed
+        If Settings.Sync And (eCurrentSyncFields <> Settings.SyncFields) Then
+            bSyncSettingsChanged = True
+        End If
+
         Return True
     End Function
 
     Private Function SaveSettings() As Boolean
         If ValidateSettings() Then
             oSettings.SaveSettings()
-            If BackupLocationChanged Then mgrMonitorList.HandleBackupLocationChange()
+            If bSyncSettingsChanged Then mgrMonitorList.HandleBackupLocationChange(Settings)
             If bCheckSumDisabled Then mgrManifest.DoManifestHashWipe()
             Return True
         Else
@@ -184,6 +181,7 @@ Public Class frmSettings
         cboCompression.SelectedValue = oSettings.CompressionLevel
         txt7zArguments.Text = oSettings.Custom7zArguments
         txt7zLocation.Text = oSettings.Custom7zLocation
+        eCurrentSyncFields = oSettings.SyncFields
 
         'Unix Handler
         If mgrCommon.IsUnix Then
@@ -193,6 +191,9 @@ Public Class frmSettings
 
         'Retrieve 7z Info
         Get7zInfo(oSettings.Custom7zLocation)
+
+        'Toggle Sync Button
+        ToggleSyncButton()
     End Sub
 
     Private Sub LoadCombos()
@@ -210,6 +211,23 @@ Public Class frmSettings
         oComboItems.Add(New KeyValuePair(Of Integer, String)(9, frmSettings_cboCompression_Ultra))
 
         cboCompression.DataSource = oComboItems
+    End Sub
+
+    Private Sub ToggleSyncButton()
+        If chkSync.Checked Then
+            btnOptionalFields.Enabled = True
+        Else
+            btnOptionalFields.Enabled = False
+        End If
+    End Sub
+
+    Private Sub OpenOptionalFields()
+        Dim frm As New frmSyncFields
+        frm.SyncFields = Settings.SyncFields
+        frm.ShowDialog()
+        If frm.DialogResult = DialogResult.OK Then
+            Settings.SyncFields = frm.SyncFields
+        End If
     End Sub
 
     Private Sub SetForm()
@@ -242,6 +260,7 @@ Public Class frmSettings
         btnDefaults.Text = frmSettings_btnDefaults
         lblArguments.Text = frmSettings_lblArguments
         lblLocation.Text = frmSettings_lblLocation
+        btnOptionalFields.Text = frmSettings_btnOptionalFields
 
         'Unix Handler
         If mgrCommon.IsUnix Then
@@ -299,5 +318,13 @@ Public Class frmSettings
 
     Private Sub btnDefaults_Click(sender As Object, e As EventArgs) Handles btnDefaults.Click
         SetDefaults()
+    End Sub
+
+    Private Sub btnOptionalFields_Click(sender As Object, e As EventArgs) Handles btnOptionalFields.Click
+        OpenOptionalFields()
+    End Sub
+
+    Private Sub chkSync_CheckedChanged(sender As Object, e As EventArgs) Handles chkSync.CheckedChanged
+        ToggleSyncButton()
     End Sub
 End Class
