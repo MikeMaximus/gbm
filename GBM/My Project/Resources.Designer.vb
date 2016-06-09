@@ -2842,7 +2842,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The session log has been cleared due to size and auto-saved to [PARAM]..
+        '''  Looks up a localized string similar to The session log reached maximum length and has been cleared ..
+        '''</summary>
+        Friend ReadOnly Property frmMain_LogAutoClear() As String
+            Get
+                Return ResourceManager.GetString("frmMain_LogAutoClear", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The session log reached maximum length and has been auto-saved to [PARAM]..
         '''</summary>
         Friend ReadOnly Property frmMain_LogAutoSave() As String
             Get
@@ -3216,6 +3225,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_cboCompression_Ultra() As String
             Get
                 Return ResourceManager.GetString("frmSettings_cboCompression_Ultra", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Autosave log when max length is exceeded.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkAutoSaveLog() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkAutoSaveLog", resourceCulture)
             End Get
         End Property
         

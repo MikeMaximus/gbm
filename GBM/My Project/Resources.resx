@@ -1499,7 +1499,7 @@
     <value>&amp;Log</value>
   </data>
   <data name="frmMain_LogAutoSave" xml:space="preserve">
-    <value>The session log has been cleared due to size and auto-saved to [PARAM].</value>
+    <value>The session log reached maximum length and has been auto-saved to [PARAM].</value>
   </data>
   <data name="frmMain_Text" xml:space="preserve">
     <value>Text</value>
@@ -1692,5 +1692,11 @@
   </data>
   <data name="frmSyncFields_grpFields" xml:space="preserve">
     <value>Available Fields</value>
+  </data>
+  <data name="frmMain_LogAutoClear" xml:space="preserve">
+    <value>The session log reached maximum length and has been cleared .</value>
+  </data>
+  <data name="frmSettings_chkAutoSaveLog" xml:space="preserve">
+    <value>Autosave log when max length is exceeded</value>
   </data>
 </root>

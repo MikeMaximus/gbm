@@ -44,6 +44,7 @@ Public Class frmSettings
         oSettings.MonitorOnStartup = chkMonitorOnStartup.Checked
         oSettings.StartToTray = chkStartToTray.Checked
         oSettings.ShowDetectionToolTips = chkShowDetectionTips.Checked
+        oSettings.AutoSaveLog = chkAutoSaveLog.Checked
         oSettings.DisableConfirmation = chkBackupConfirm.Checked
         oSettings.CreateSubFolder = chkCreateFolder.Checked
         oSettings.ShowOverwriteWarning = chkOverwriteWarning.Checked
@@ -167,6 +168,7 @@ Public Class frmSettings
         chkMonitorOnStartup.Checked = oSettings.MonitorOnStartup
         chkStartToTray.Checked = oSettings.StartToTray
         chkShowDetectionTips.Checked = oSettings.ShowDetectionToolTips
+        chkAutoSaveLog.Checked = oSettings.AutoSaveLog
         chkBackupConfirm.Checked = oSettings.DisableConfirmation
         chkCreateFolder.Checked = oSettings.CreateSubFolder
         chkOverwriteWarning.Checked = oSettings.ShowOverwriteWarning
@@ -253,6 +255,7 @@ Public Class frmSettings
         chkStartWindows.Text = frmSettings_chkStartWindows
         chkSync.Text = frmSettings_chkSync
         chkShowDetectionTips.Text = frmSettings_chkShowDetectionTips
+        chkAutoSaveLog.Text = frmSettings_chkAutoSaveLog
         chkStartToTray.Text = frmSettings_chkStartToTray
         chkMonitorOnStartup.Text = frmSettings_chkMonitorOnStartup
         grp7z.Text = frmSettings_grp7z

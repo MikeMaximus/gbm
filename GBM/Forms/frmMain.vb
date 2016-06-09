@@ -1050,12 +1050,17 @@ Public Class frmMain
             Dim d As New UpdateLogCallBack(AddressOf UpdateLog)
             Me.Invoke(d, New Object() {sLogUpdate, bTrayUpdate, objIcon, bTimeStamp})
         Else
-            'Auto save and clear the log if we are approaching the limit
-            If txtLog.TextLength > 16770000 Then
-                Dim sLogFile As String = mgrPath.LogFileLocation
-                mgrCommon.SaveText(txtLog.Text, sLogFile)
-                txtLog.Clear()
-                txtLog.AppendText("[" & Date.Now & "] " & mgrCommon.FormatString(frmMain_LogAutoSave, sLogFile))
+            'Auto save and/or clear the log if we are approaching the limit
+            If txtLog.TextLength > 262144 Then
+                If oSettings.AutoSaveLog Then
+                    Dim sLogFile As String = mgrPath.LogFileLocation
+                    mgrCommon.SaveText(txtLog.Text, sLogFile)
+                    txtLog.Clear()
+                    txtLog.AppendText("[" & Date.Now & "] " & mgrCommon.FormatString(frmMain_LogAutoSave, sLogFile))
+                Else
+                    txtLog.Clear()
+                    txtLog.AppendText("[" & Date.Now & "] " & frmMain_LogAutoClear)
+                End If
             End If
 
             'We shouldn't allow any one message to be greater than 255 characters if that same message is pushed to the tray icon

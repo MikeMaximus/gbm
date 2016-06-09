@@ -5,11 +5,11 @@ Imports System.Reflection
 
 Public Class mgrPath
     'Important Note: Any changes to sSettingsRoot & sDBLocation need to be mirrored in frmMain.vb -> VerifyGameDataPath
-    Private Shared sSettingsRoot As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "/gbm"
-    Private Shared sDBLocation As String = sSettingsRoot & "/gbm.s3db"
-    Private Shared sIncludeFile As String = sSettingsRoot & "/gbm_include.txt"
-    Private Shared sExcludeFile As String = sSettingsRoot & "/gbm_exclude.txt"
-    Private Shared sLogFile As String = sSettingsRoot & "/gbm_log_" & Date.Now.ToString("dd-MM-yyyy-HH-mm-ss") & ".txt"
+    Private Shared sSettingsRoot As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
+    Private Shared sDBLocation As String = sSettingsRoot & Path.DirectorySeparatorChar & "gbm.s3db"
+    Private Shared sIncludeFile As String = sSettingsRoot & Path.DirectorySeparatorChar & "gbm_include.txt"
+    Private Shared sExcludeFile As String = sSettingsRoot & Path.DirectorySeparatorChar & "gbm_exclude.txt"
+    Private Shared sLogFile As String = sSettingsRoot & Path.DirectorySeparatorChar & "gbm_log_" & Date.Now.ToString("dd-MM-yyyy-HH-mm-ss") & ".txt"
     Private Shared sRemoteDatabaseLocation As String
     Private Shared hshCustomVariables As Hashtable
     Private Shared oReleaseType As ProcessorArchitecture = AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
@@ -45,18 +45,18 @@ Public Class mgrPath
 
             Select Case oReleaseType
                 Case ProcessorArchitecture.Amd64
-                    Return Application.StartupPath & "/Utilities/x64/7za.exe"
+                    Return Application.StartupPath & "\Utilities\x64\7za.exe"
                 Case ProcessorArchitecture.IA64
-                    Return Application.StartupPath & "/Utilities/x64/7za.exe"
+                    Return Application.StartupPath & "\Utilities\x64\7za.exe"
                 Case ProcessorArchitecture.MSIL
-                    Return Application.StartupPath & "/Utilities/x86/7za.exe"
+                    Return Application.StartupPath & "\Utilities\x86\7za.exe"
                 Case ProcessorArchitecture.X86
-                    Return Application.StartupPath & "/Utilities/x86/7za.exe"
+                    Return Application.StartupPath & "\Utilities\x86\7za.exe"
                 Case ProcessorArchitecture.None
-                    Return Application.StartupPath & "/Utilities/x86/7za.exe"
+                    Return Application.StartupPath & "\Utilities\x86\7za.exe"
             End Select
 
-            Return Application.StartupPath & "/Utilities/x86/7za.exe"
+            Return Application.StartupPath & "\Utilities\x86\7za.exe"
         End Get
     End Property
 
@@ -95,7 +95,7 @@ Public Class mgrPath
             Return sRemoteDatabaseLocation
         End Get
         Set(value As String)
-            sRemoteDatabaseLocation = value & "/gbm.s3db"
+            sRemoteDatabaseLocation = value & Path.DirectorySeparatorChar & "gbm.s3db"
         End Set
     End Property
 

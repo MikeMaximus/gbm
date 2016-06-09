@@ -26,6 +26,8 @@ Partial Class frmSettings
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
         Me.chkBackupConfirm = New System.Windows.Forms.CheckBox()
         Me.grpGeneral = New System.Windows.Forms.GroupBox()
+        Me.chkAutoSaveLog = New System.Windows.Forms.CheckBox()
+        Me.btnOptionalFields = New System.Windows.Forms.Button()
         Me.chkTimeTracking = New System.Windows.Forms.CheckBox()
         Me.chkSync = New System.Windows.Forms.CheckBox()
         Me.chkStartWindows = New System.Windows.Forms.CheckBox()
@@ -58,7 +60,6 @@ Partial Class frmSettings
         Me.lbl7zProduct = New System.Windows.Forms.Label()
         Me.btnDefaults = New System.Windows.Forms.Button()
         Me.ttUtilityStatus = New System.Windows.Forms.ToolTip(Me.components)
-        Me.btnOptionalFields = New System.Windows.Forms.Button()
         Me.grpGeneral.SuspendLayout()
         Me.grpPaths.SuspendLayout()
         Me.grpBackup.SuspendLayout()
@@ -89,6 +90,7 @@ Partial Class frmSettings
         '
         'grpGeneral
         '
+        Me.grpGeneral.Controls.Add(Me.chkAutoSaveLog)
         Me.grpGeneral.Controls.Add(Me.btnOptionalFields)
         Me.grpGeneral.Controls.Add(Me.chkTimeTracking)
         Me.grpGeneral.Controls.Add(Me.chkSync)
@@ -98,15 +100,35 @@ Partial Class frmSettings
         Me.grpGeneral.Controls.Add(Me.chkMonitorOnStartup)
         Me.grpGeneral.Location = New System.Drawing.Point(12, 12)
         Me.grpGeneral.Name = "grpGeneral"
-        Me.grpGeneral.Size = New System.Drawing.Size(360, 165)
+        Me.grpGeneral.Size = New System.Drawing.Size(360, 187)
         Me.grpGeneral.TabIndex = 0
         Me.grpGeneral.TabStop = False
         Me.grpGeneral.Text = "General"
         '
+        'chkAutoSaveLog
+        '
+        Me.chkAutoSaveLog.AutoSize = True
+        Me.chkAutoSaveLog.Location = New System.Drawing.Point(6, 111)
+        Me.chkAutoSaveLog.Name = "chkAutoSaveLog"
+        Me.chkAutoSaveLog.Size = New System.Drawing.Size(231, 17)
+        Me.chkAutoSaveLog.TabIndex = 7
+        Me.chkAutoSaveLog.Text = "Autosave log when max length is exceeded"
+        Me.chkAutoSaveLog.UseVisualStyleBackColor = True
+        '
+        'btnOptionalFields
+        '
+        Me.btnOptionalFields.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.btnOptionalFields.Location = New System.Drawing.Point(110, 153)
+        Me.btnOptionalFields.Name = "btnOptionalFields"
+        Me.btnOptionalFields.Size = New System.Drawing.Size(134, 23)
+        Me.btnOptionalFields.TabIndex = 6
+        Me.btnOptionalFields.Text = "Choose &Optional Fields..."
+        Me.btnOptionalFields.UseVisualStyleBackColor = True
+        '
         'chkTimeTracking
         '
         Me.chkTimeTracking.AutoSize = True
-        Me.chkTimeTracking.Location = New System.Drawing.Point(6, 111)
+        Me.chkTimeTracking.Location = New System.Drawing.Point(6, 134)
         Me.chkTimeTracking.Name = "chkTimeTracking"
         Me.chkTimeTracking.Size = New System.Drawing.Size(122, 17)
         Me.chkTimeTracking.TabIndex = 4
@@ -116,7 +138,7 @@ Partial Class frmSettings
         'chkSync
         '
         Me.chkSync.AutoSize = True
-        Me.chkSync.Location = New System.Drawing.Point(6, 134)
+        Me.chkSync.Location = New System.Drawing.Point(6, 157)
         Me.chkSync.Name = "chkSync"
         Me.chkSync.Size = New System.Drawing.Size(98, 17)
         Me.chkSync.TabIndex = 5
@@ -158,7 +180,7 @@ Partial Class frmSettings
         Me.grpPaths.Controls.Add(Me.btnBackupFolder)
         Me.grpPaths.Controls.Add(Me.lblBackupFolder)
         Me.grpPaths.Controls.Add(Me.txtBackupFolder)
-        Me.grpPaths.Location = New System.Drawing.Point(378, 183)
+        Me.grpPaths.Location = New System.Drawing.Point(12, 205)
         Me.grpPaths.Name = "grpPaths"
         Me.grpPaths.Size = New System.Drawing.Size(360, 60)
         Me.grpPaths.TabIndex = 3
@@ -306,7 +328,7 @@ Partial Class frmSettings
         Me.grp7z.Controls.Add(Me.cboCompression)
         Me.grp7z.Controls.Add(Me.lblCompression)
         Me.grp7z.Controls.Add(Me.lbl7zProduct)
-        Me.grp7z.Location = New System.Drawing.Point(12, 183)
+        Me.grp7z.Location = New System.Drawing.Point(378, 183)
         Me.grp7z.Name = "grp7z"
         Me.grp7z.Size = New System.Drawing.Size(360, 137)
         Me.grp7z.TabIndex = 1
@@ -408,16 +430,6 @@ Partial Class frmSettings
         Me.btnDefaults.Text = "Set &Defaults"
         Me.btnDefaults.UseVisualStyleBackColor = True
         '
-        'btnOptionalFields
-        '
-        Me.btnOptionalFields.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnOptionalFields.Location = New System.Drawing.Point(110, 130)
-        Me.btnOptionalFields.Name = "btnOptionalFields"
-        Me.btnOptionalFields.Size = New System.Drawing.Size(134, 23)
-        Me.btnOptionalFields.TabIndex = 6
-        Me.btnOptionalFields.Text = "Choose &Optional Fields..."
-        Me.btnOptionalFields.UseVisualStyleBackColor = True
-        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -487,4 +499,5 @@ Partial Class frmSettings
     Friend WithEvents pbUtilityStatus As PictureBox
     Friend WithEvents ttUtilityStatus As ToolTip
     Friend WithEvents btnOptionalFields As Button
+    Friend WithEvents chkAutoSaveLog As CheckBox
 End Class

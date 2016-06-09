@@ -19,6 +19,7 @@ Public Class mgrSettings
     Private s7zLocation As String = String.Empty
     Private sBackupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).TrimEnd(New Char() {"\", "/"})
     Private eSyncFields As clsGame.eOptionalSyncFields = clsGame.eOptionalSyncFields.None Or clsGame.eOptionalSyncFields.TimeStamp
+    Private bAutoSaveLog As Boolean = False
 
     Property StartWithWindows As Boolean
         Get
@@ -230,6 +231,15 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Property AutoSaveLog As Boolean
+        Get
+            Return bAutoSaveLog
+        End Get
+        Set(value As Boolean)
+            bAutoSaveLog = value
+        End Set
+    End Property
+
     Private Sub SaveFromClass()
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSQL As String
@@ -241,7 +251,7 @@ Public Class mgrSettings
         sSQL = "INSERT INTO settings VALUES (1, @MonitorOnStartup, @StartToTray, @ShowDetectionToolTips, @DisableConfirmation, "
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @Sync, @CheckSum, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SupressBackup, @SupressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
-        sSQL &= "@SyncFields)"
+        sSQL &= "@SyncFields,@AutoSaveLog)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -261,6 +271,7 @@ Public Class mgrSettings
         hshParams.Add("Custom7zArguments", Custom7zArguments)
         hshParams.Add("Custom7zLocation", Custom7zLocation)
         hshParams.Add("SyncFields", SyncFields)
+        hshParams.Add("AutoSaveLog", AutoSaveLog)
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
@@ -293,6 +304,7 @@ Public Class mgrSettings
             If Not IsDBNull(dr("Custom7zArguments")) Then Custom7zArguments = CStr(dr("Custom7zArguments"))
             If Not IsDBNull(dr("Custom7zLocation")) Then Custom7zLocation = CStr(dr("Custom7zLocation"))
             SyncFields = CInt(dr("SyncFields"))
+            AutoSaveLog = CBool(dr("AutoSaveLog"))
         Next
 
         oDatabase.Disconnect()
