@@ -2842,7 +2842,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The session log reached maximum length and has been cleared ..
+        '''  Looks up a localized string similar to The session log reached maximum length and has been cleared..
         '''</summary>
         Friend ReadOnly Property frmMain_LogAutoClear() As String
             Get

@@ -1694,7 +1694,7 @@
     <value>Available Fields</value>
   </data>
   <data name="frmMain_LogAutoClear" xml:space="preserve">
-    <value>The session log reached maximum length and has been cleared .</value>
+    <value>The session log reached maximum length and has been cleared.</value>
   </data>
   <data name="frmSettings_chkAutoSaveLog" xml:space="preserve">
     <value>Autosave log when max length is exceeded</value>
