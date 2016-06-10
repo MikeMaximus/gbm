@@ -338,9 +338,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="References\Mono.Data.Sqlite.dll" />
-    <Content Include="Resources\custom_7z.png" />
-    <Content Include="Resources\valid_7z.png" />
-    <Content Include="Resources\warning_7z.png" />
     <Content Include="Utilities\x64\7za.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

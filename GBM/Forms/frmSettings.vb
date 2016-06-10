@@ -86,7 +86,7 @@ Public Class frmSettings
         If oSettings.Custom7zLocation <> String.Empty Then
             If File.Exists(oSettings.Custom7zLocation) Then
                 If Path.GetFileNameWithoutExtension(oSettings.Custom7zLocation) <> "7za" Then
-                    mgrCommon.ShowMessage(frmSettings_WarningLocation, MsgBoxStyle.Exclamation)
+                    mgrCommon.ShowMessage(frmSettings_WarningLocation, MsgBoxStyle.Critical)
                 End If
             Else
                 mgrCommon.ShowMessage(frmSettings_ErrorLocation, oSettings.Custom7zLocation, MsgBoxStyle.Critical)
@@ -113,12 +113,19 @@ Public Class frmSettings
         End If
     End Function
 
-    Private Sub Get7zInfo(ByVal sLocation As String)
+    Private Sub GetUtilityInfo(ByVal sLocation As String)
         Dim bDefault As Boolean = False
+        Dim sFileDescription As String
+        Dim sVersion As String
+        Dim sCopyright As String
 
-        'Ignore this function when on Unix
-        If Not mgrCommon.IsUnix Then
+        'Ignore this function when on Unix and hide the information data
+        If mgrCommon.IsUnix Then
+            grp7zInformation.Visible = False
+        Else
             Try
+                grp7zInformation.Visible = True
+
                 'Use default when no custom location is set
                 If sLocation = String.Empty Then
                     sLocation = mgrPath.Default7zLocation
@@ -127,31 +134,29 @@ Public Class frmSettings
 
                 'Get info
                 Dim oFileInfo As FileVersionInfo = FileVersionInfo.GetVersionInfo(sLocation)
-                lbl7zProduct.Text = oFileInfo.FileDescription & " " & oFileInfo.ProductVersion
-                lbl7zCopyright.Text = oFileInfo.LegalCopyright
 
-                'Set Status
-                If bDefault Then
-                    If oSettings.Is7zUtilityValid Then
-                        pbUtilityStatus.Image = Utility_Valid
-                        ttUtilityStatus.ToolTipTitle = frmSettings_ttUtilityStatus_Title
-                        ttUtilityStatus.SetToolTip(pbUtilityStatus, frmSettings_ttUtilityStatus_Valid7z)
-                    Else
-                        pbUtilityStatus.Image = Utility_Invalid
-                        ttUtilityStatus.ToolTipTitle = frmSettings_ttUtilityStatus_Title
-                        ttUtilityStatus.SetToolTip(pbUtilityStatus, frmSettings_ttUtilityStatus_Invalid7z)
-                    End If
+                If oFileInfo.FileDescription = String.Empty Then
+                    sFileDescription = App_NotAvailable
                 Else
-                    pbUtilityStatus.Image = Utility_Custom
-                    ttUtilityStatus.ToolTipTitle = frmSettings_ttUtilityStatus_Title
-                    ttUtilityStatus.SetToolTip(pbUtilityStatus, frmSettings_ttUtilityStatus_Custom7z)
+                    sFileDescription = oFileInfo.FileDescription
                 End If
+
+                If oFileInfo.ProductVersion = String.Empty Then
+                    sVersion = App_NotAvailable
+                Else
+                    sVersion = oFileInfo.ProductVersion
+                End If
+
+                If oFileInfo.LegalCopyright = String.Empty Then
+                    sCopyright = App_NotAvailable
+                Else
+                    sCopyright = oFileInfo.LegalCopyright
+                End If
+
+                lbl7zProduct.Text = sFileDescription & " - " & sVersion
+                lbl7zCopyright.Text = sCopyright
             Catch ex As Exception
-                lbl7zProduct.Text = String.Empty
-                lbl7zCopyright.Text = String.Empty
-                pbUtilityStatus.Image = Utility_Invalid
-                ttUtilityStatus.ToolTipTitle = frmSettings_ttUtilityStatus_Title
-                ttUtilityStatus.SetToolTip(pbUtilityStatus, frmSettings_ttUtilityStatus_Failure7z)
+                grp7zInformation.Visible = False
             End Try
         End If
     End Sub
@@ -192,7 +197,7 @@ Public Class frmSettings
         End If
 
         'Retrieve 7z Info
-        Get7zInfo(oSettings.Custom7zLocation)
+        GetUtilityInfo(oSettings.Custom7zLocation)
 
         'Toggle Sync Button
         ToggleSyncButton()
@@ -200,6 +205,7 @@ Public Class frmSettings
 
     Private Sub LoadCombos()
         Dim oComboItems As New List(Of KeyValuePair(Of Integer, String))
+        Dim oSettingsItems As New List(Of KeyValuePair(Of Integer, String))
 
         'cboCompression
         cboCompression.ValueMember = "Key"
@@ -213,6 +219,19 @@ Public Class frmSettings
         oComboItems.Add(New KeyValuePair(Of Integer, String)(9, frmSettings_cboCompression_Ultra))
 
         cboCompression.DataSource = oComboItems
+
+        'lstSettings
+        lstSettings.ValueMember = "Key"
+        lstSettings.DisplayMember = "Value"
+
+        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(0, frmSettings_lstSettings_General))
+        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(1, frmSettings_lstSettings_BackupRestore))
+        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(2, frmSettings_lstSettings_7z))
+
+        lstSettings.DataSource = oSettingsItems
+
+        'Select Default
+        lstSettings.SelectedIndex = 0
     End Sub
 
     Private Sub ToggleSyncButton()
@@ -229,6 +248,27 @@ Public Class frmSettings
         frm.ShowDialog()
         If frm.DialogResult = DialogResult.OK Then
             Settings.SyncFields = frm.SyncFields
+        End If
+    End Sub
+
+    Private Sub ChangePanel()
+        If lstSettings.SelectedItems.Count > 0 Then
+            Dim oSettingsItem As KeyValuePair(Of Integer, String) = lstSettings.SelectedItems(0)
+
+            Select Case oSettingsItem.Key
+                Case 0
+                    pnlGeneral.Visible = True
+                    pnlBackup.Visible = False
+                    pnl7z.Visible = False
+                Case 1
+                    pnlGeneral.Visible = False
+                    pnlBackup.Visible = True
+                    pnl7z.Visible = False
+                Case 2
+                    pnlGeneral.Visible = False
+                    pnlBackup.Visible = False
+                    pnl7z.Visible = True
+            End Select
         End If
     End Sub
 
@@ -250,7 +290,8 @@ Public Class frmSettings
         grpPaths.Text = frmSettings_grpPaths
         btnBackupFolder.Text = frmSettings_btnBackupFolder
         lblBackupFolder.Text = frmSettings_lblBackupFolder
-        grpGeneral.Text = frmSettings_grpGeneral
+        grpStartup.Text = frmSettings_grpStartup
+        grpGameData.Text = frmSettings_grpGameData
         chkTimeTracking.Text = frmSettings_chkTimeTracking
         chkStartWindows.Text = frmSettings_chkStartWindows
         chkSync.Text = frmSettings_chkSync
@@ -258,7 +299,9 @@ Public Class frmSettings
         chkAutoSaveLog.Text = frmSettings_chkAutoSaveLog
         chkStartToTray.Text = frmSettings_chkStartToTray
         chkMonitorOnStartup.Text = frmSettings_chkMonitorOnStartup
-        grp7z.Text = frmSettings_grp7z
+        grp7zGeneral.Text = frmSettings_grp7zGeneral
+        grp7zAdvanced.Text = frmSettings_grp7zAdvanced
+        grp7zInformation.Text = frmSettings_grp7zInformation
         lblCompression.Text = frmSettings_lblCompression
         btnDefaults.Text = frmSettings_btnDefaults
         lblArguments.Text = frmSettings_lblArguments
@@ -270,6 +313,11 @@ Public Class frmSettings
             chkStartToTray.Enabled = False
             chkStartWindows.Enabled = False
         End If
+
+        'Handle Panels
+        pnlGeneral.Visible = False
+        pnlBackup.Visible = False
+        pnl7z.Visible = False
     End Sub
 
     Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click
@@ -307,7 +355,7 @@ Public Class frmSettings
         sNewLocation = mgrCommon.OpenFileBrowser(frmSettings_Browse7za, "exe", frmSettings_7zaFileType, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
         If sNewLocation <> String.Empty Then
             txt7zLocation.Text = sNewLocation
-            Get7zInfo(txt7zLocation.Text)
+            GetUtilityInfo(txt7zLocation.Text)
         End If
     End Sub
 
@@ -316,7 +364,7 @@ Public Class frmSettings
     End Sub
 
     Private Sub txt7zLocation_Leave(sender As Object, e As EventArgs) Handles txt7zLocation.Leave
-        Get7zInfo(txt7zLocation.Text.Trim)
+        GetUtilityInfo(txt7zLocation.Text.Trim)
     End Sub
 
     Private Sub btnDefaults_Click(sender As Object, e As EventArgs) Handles btnDefaults.Click
@@ -329,5 +377,9 @@ Public Class frmSettings
 
     Private Sub chkSync_CheckedChanged(sender As Object, e As EventArgs) Handles chkSync.CheckedChanged
         ToggleSyncButton()
+    End Sub
+
+    Private Sub lstSettings_SelectedValueChanged(sender As Object, e As EventArgs) Handles lstSettings.SelectedValueChanged
+        ChangePanel()
     End Sub
 End Class

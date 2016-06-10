@@ -1120,8 +1120,8 @@
   <data name="frmSettings_grpBackup" xml:space="preserve">
     <value>Backup and Restore</value>
   </data>
-  <data name="frmSettings_grpGeneral" xml:space="preserve">
-    <value>General</value>
+  <data name="frmSettings_grpStartup" xml:space="preserve">
+    <value>Startup</value>
   </data>
   <data name="frmSettings_grpPaths" xml:space="preserve">
     <value>Paths</value>
@@ -1525,8 +1525,8 @@
   <data name="frmSettings_cboCompression_Ultra" xml:space="preserve">
     <value>Ultra</value>
   </data>
-  <data name="frmSettings_grp7z" xml:space="preserve">
-    <value>7-Zip Options</value>
+  <data name="frmSettings_grp7zGeneral" xml:space="preserve">
+    <value>General</value>
   </data>
   <data name="frmSettings_lblCompression" xml:space="preserve">
     <value>Compression:</value>
@@ -1625,34 +1625,10 @@
     <value>The custom 7-Zip location [PARAM] does not exist.</value>
   </data>
   <data name="frmSettings_WarningLocation" xml:space="preserve">
-    <value>You have chosen a custom utility that does not appear to be 7-Zip Console (7za).  GBM only supports the use of 7-Zip.</value>
+    <value>You have chosen a custom utility that does not appear to be 7-Zip. [BR][BR]GBM only supports the use of 7-Zip Console (7za).</value>
   </data>
   <data name="App_Invalid7zDetected" xml:space="preserve">
     <value>7-Zip (7za.exe) is invalid and has been prevented from running.</value>
-  </data>
-  <data name="Utility_Custom" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\custom_7z.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Utility_Valid" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\valid_7z.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Utility_Invalid" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\warning_7z.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmSettings_ttUtilityStatus_Custom7z" xml:space="preserve">
-    <value>GBM is using a custom 7-Zip utility, it cannot be verified.</value>
-  </data>
-  <data name="frmSettings_ttUtilityStatus_Failure7z" xml:space="preserve">
-    <value>GBM could not verify the custom 7-Zip utility.</value>
-  </data>
-  <data name="frmSettings_ttUtilityStatus_Invalid7z" xml:space="preserve">
-    <value>GBM's default 7-Zip utility has failed verification, it cannot be used.</value>
-  </data>
-  <data name="frmSettings_ttUtilityStatus_Title" xml:space="preserve">
-    <value>7-Zip Status</value>
-  </data>
-  <data name="frmSettings_ttUtilityStatus_Valid7z" xml:space="preserve">
-    <value>GBM is using the default 7-Zip utility, it has been verified.</value>
   </data>
   <data name="frmGameManager_lblQuickFilter" xml:space="preserve">
     <value>Quick Filter:</value>
@@ -1698,5 +1674,26 @@
   </data>
   <data name="frmSettings_chkAutoSaveLog" xml:space="preserve">
     <value>Autosave log when max length is exceeded</value>
+  </data>
+  <data name="frmSettings_grpGameData" xml:space="preserve">
+    <value>Game Data</value>
+  </data>
+  <data name="frmSettings_lstSettings_7z" xml:space="preserve">
+    <value>7-Zip</value>
+  </data>
+  <data name="frmSettings_lstSettings_BackupRestore" xml:space="preserve">
+    <value>Backup and Restore</value>
+  </data>
+  <data name="frmSettings_lstSettings_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="frmSettings_grp7zAdvanced" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="frmSettings_grp7zInformation" xml:space="preserve">
+    <value>Utility Information</value>
+  </data>
+  <data name="App_NotAvailable" xml:space="preserve">
+    <value>N/A</value>
   </data>
 </root>

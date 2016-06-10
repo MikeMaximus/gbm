@@ -133,6 +133,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to N/A.
+        '''</summary>
+        Friend ReadOnly Property App_NotAvailable() As String
+            Get
+                Return ResourceManager.GetString("App_NotAvailable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to http://mikemaximus.github.io/gbm-web/GBM_Official.xml.
         '''</summary>
         Friend ReadOnly Property App_URLImport() As String
@@ -3382,11 +3391,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 7-Zip Options.
+        '''  Looks up a localized string similar to Advanced.
         '''</summary>
-        Friend ReadOnly Property frmSettings_grp7z() As String
+        Friend ReadOnly Property frmSettings_grp7zAdvanced() As String
             Get
-                Return ResourceManager.GetString("frmSettings_grp7z", resourceCulture)
+                Return ResourceManager.GetString("frmSettings_grp7zAdvanced", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to General.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grp7zGeneral() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grp7zGeneral", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Utility Information.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grp7zInformation() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grp7zInformation", resourceCulture)
             End Get
         End Property
         
@@ -3400,11 +3427,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to General.
+        '''  Looks up a localized string similar to Game Data.
         '''</summary>
-        Friend ReadOnly Property frmSettings_grpGeneral() As String
+        Friend ReadOnly Property frmSettings_grpGameData() As String
             Get
-                Return ResourceManager.GetString("frmSettings_grpGeneral", resourceCulture)
+                Return ResourceManager.GetString("frmSettings_grpGameData", resourceCulture)
             End Get
         End Property
         
@@ -3414,6 +3441,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_grpPaths() As String
             Get
                 Return ResourceManager.GetString("frmSettings_grpPaths", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Startup.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grpStartup() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grpStartup", resourceCulture)
             End Get
         End Property
         
@@ -3463,47 +3499,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to GBM is using a custom 7-Zip utility, it cannot be verified..
+        '''  Looks up a localized string similar to 7-Zip.
         '''</summary>
-        Friend ReadOnly Property frmSettings_ttUtilityStatus_Custom7z() As String
+        Friend ReadOnly Property frmSettings_lstSettings_7z() As String
             Get
-                Return ResourceManager.GetString("frmSettings_ttUtilityStatus_Custom7z", resourceCulture)
+                Return ResourceManager.GetString("frmSettings_lstSettings_7z", resourceCulture)
             End Get
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to GBM could not verify the custom 7-Zip utility..
+        '''  Looks up a localized string similar to Backup and Restore.
         '''</summary>
-        Friend ReadOnly Property frmSettings_ttUtilityStatus_Failure7z() As String
+        Friend ReadOnly Property frmSettings_lstSettings_BackupRestore() As String
             Get
-                Return ResourceManager.GetString("frmSettings_ttUtilityStatus_Failure7z", resourceCulture)
+                Return ResourceManager.GetString("frmSettings_lstSettings_BackupRestore", resourceCulture)
             End Get
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to GBM&apos;s default 7-Zip utility has failed verification, it cannot be used..
+        '''  Looks up a localized string similar to General.
         '''</summary>
-        Friend ReadOnly Property frmSettings_ttUtilityStatus_Invalid7z() As String
+        Friend ReadOnly Property frmSettings_lstSettings_General() As String
             Get
-                Return ResourceManager.GetString("frmSettings_ttUtilityStatus_Invalid7z", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to 7-Zip Status.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_ttUtilityStatus_Title() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_ttUtilityStatus_Title", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to GBM is using the default 7-Zip utility, it has been verified..
-        '''</summary>
-        Friend ReadOnly Property frmSettings_ttUtilityStatus_Valid7z() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_ttUtilityStatus_Valid7z", resourceCulture)
+                Return ResourceManager.GetString("frmSettings_lstSettings_General", resourceCulture)
             End Get
         End Property
         
@@ -3517,7 +3535,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to You have chosen a custom utility that does not appear to be 7-Zip Console (7za).  GBM only supports the use of 7-Zip..
+        '''  Looks up a localized string similar to You have chosen a custom utility that does not appear to be 7-Zip. [BR][BR]GBM only supports the use of 7-Zip Console (7za)..
         '''</summary>
         Friend ReadOnly Property frmSettings_WarningLocation() As String
             Get
@@ -4786,36 +4804,6 @@ Namespace My.Resources
         Friend ReadOnly Property mgrXML_ErrorImportFailure() As String
             Get
                 Return ResourceManager.GetString("mgrXML_ErrorImportFailure", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property Utility_Custom() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("Utility_Custom", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property Utility_Invalid() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("Utility_Invalid", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property Utility_Valid() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("Utility_Valid", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
     End Module
