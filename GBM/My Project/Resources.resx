@@ -1691,7 +1691,7 @@
     <value>Advanced</value>
   </data>
   <data name="frmSettings_grp7zInformation" xml:space="preserve">
-    <value>Utility Information</value>
+    <value>Version Information</value>
   </data>
   <data name="App_NotAvailable" xml:space="preserve">
     <value>N/A</value>

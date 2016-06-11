@@ -3409,7 +3409,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Utility Information.
+        '''  Looks up a localized string similar to Version Information.
         '''</summary>
         Friend ReadOnly Property frmSettings_grp7zInformation() As String
             Get
