@@ -3418,11 +3418,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Backup and Restore.
+        '''  Looks up a localized string similar to Folders.
         '''</summary>
-        Friend ReadOnly Property frmSettings_grpBackup() As String
+        Friend ReadOnly Property frmSettings_grpFolderOptions() As String
             Get
-                Return ResourceManager.GetString("frmSettings_grpBackup", resourceCulture)
+                Return ResourceManager.GetString("frmSettings_grpFolderOptions", resourceCulture)
             End Get
         End Property
         
@@ -3432,15 +3432,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_grpGameData() As String
             Get
                 Return ResourceManager.GetString("frmSettings_grpGameData", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Paths.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_grpPaths() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_grpPaths", resourceCulture)
             End Get
         End Property
         

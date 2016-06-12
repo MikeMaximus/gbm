@@ -1117,14 +1117,11 @@
   <data name="frmSettings_FormName" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="frmSettings_grpBackup" xml:space="preserve">
-    <value>Backup and Restore</value>
-  </data>
   <data name="frmSettings_grpStartup" xml:space="preserve">
     <value>Startup</value>
   </data>
-  <data name="frmSettings_grpPaths" xml:space="preserve">
-    <value>Paths</value>
+  <data name="frmSettings_grpFolderOptions" xml:space="preserve">
+    <value>Folders</value>
   </data>
   <data name="frmSettings_lblBackupFolder" xml:space="preserve">
     <value>Backup Folder:</value>

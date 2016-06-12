@@ -277,7 +277,6 @@ Public Class frmSettings
         Me.Text = frmSettings_FormName
 
         'Set Form Text
-        grpBackup.Text = frmSettings_grpBackup
         lblMinutes.Text = frmSettings_lblMinutes
         chkSupressBackup.Text = frmSettings_chkSupressBackup
         chkCheckSum.Text = frmSettings_chkCheckSum
@@ -287,7 +286,7 @@ Public Class frmSettings
         chkBackupConfirm.Text = frmSettings_chkBackupConfirm
         btnCancel.Text = frmSettings_btnCancel
         btnSave.Text = frmSettings_btnSave
-        grpPaths.Text = frmSettings_grpPaths
+        grpFolderOptions.Text = frmSettings_grpFolderOptions
         btnBackupFolder.Text = frmSettings_btnBackupFolder
         lblBackupFolder.Text = frmSettings_lblBackupFolder
         grpStartup.Text = frmSettings_grpStartup
