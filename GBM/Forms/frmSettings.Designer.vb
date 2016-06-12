@@ -478,7 +478,7 @@ Partial Class frmSettings
         Me.lstSettings.Location = New System.Drawing.Point(12, 12)
         Me.lstSettings.Name = "lstSettings"
         Me.lstSettings.Size = New System.Drawing.Size(162, 303)
-        Me.lstSettings.TabIndex = 7
+        Me.lstSettings.TabIndex = 0
         '
         'frmSettings
         '
@@ -489,9 +489,9 @@ Partial Class frmSettings
         Me.Controls.Add(Me.btnDefaults)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
+        Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.pnlBackup)
         Me.Controls.Add(Me.pnlGeneral)
-        Me.Controls.Add(Me.pnl7z)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
