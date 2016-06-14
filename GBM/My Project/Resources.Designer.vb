@@ -3517,7 +3517,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Invalid or poorly formatted 7-Zip arguments can cause backup or restore operations to fail.[BR][BR]If problems occur, clear the arguments and refer to the GBM manual..
+        '''  Looks up a localized string similar to Invalid or poorly formatted 7-Zip arguments can cause backup or restore operations to fail.[BR][BR]If problems occur, clear the custom arguments and try again..
         '''</summary>
         Friend ReadOnly Property frmSettings_WarningArguments() As String
             Get

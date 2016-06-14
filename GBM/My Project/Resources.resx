@@ -1610,7 +1610,7 @@
     <value>Locate 7-Zip Console (7za)</value>
   </data>
   <data name="frmSettings_WarningArguments" xml:space="preserve">
-    <value>Invalid or poorly formatted 7-Zip arguments can cause backup or restore operations to fail.[BR][BR]If problems occur, clear the arguments and refer to the GBM manual.</value>
+    <value>Invalid or poorly formatted 7-Zip arguments can cause backup or restore operations to fail.[BR][BR]If problems occur, clear the custom arguments and try again.</value>
   </data>
   <data name="frmMain_Error7zCustom" xml:space="preserve">
     <value>The custom 7-Zip utility could not be found at:[BR][BR][PARAM][BR][BR]Please check your settings, the default 7-Zip utility will be used.</value>

@@ -331,12 +331,6 @@ Public Class frmSettings
         Me.Close()
     End Sub
 
-    Private Sub frmSettings_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        If bShutdown = False Then
-            e.Cancel = True
-        End If
-    End Sub
-
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         SetForm()
         LoadCombos()
