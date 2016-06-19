@@ -1297,14 +1297,16 @@ Public Class frmGameManager
     End Sub
 
     Private Sub ImportOfficialGameList()
+        Dim sImportURL As String
+
         If mgrCommon.IsUnix Then
-            If mgrCommon.ShowMessage(frmGameManager_ConfirmUnixImportWarning, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                Exit Sub
-            End If
+            sImportURL = App_URLImportLinux
+        Else
+            sImportURL = App_URLImport
         End If
 
         If mgrCommon.ShowMessage(frmGameManager_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(App_URLImport) Then
+            If mgrMonitorList.DoImport(sImportURL) Then
                 LoadData()
             End If
         End If

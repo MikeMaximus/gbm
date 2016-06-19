@@ -1555,9 +1555,6 @@
   <data name="App_ErrorUnixNotAvailable" xml:space="preserve">
     <value>This function is currently not available on a Unix based operating system.</value>
   </data>
-  <data name="frmGameManager_ConfirmUnixImportWarning" xml:space="preserve">
-    <value>You appear to be using a Unix based operating system.  The official list currently contains only Microsoft Windows game configurations.[BR][BR]Do you wish to continue?</value>
-  </data>
   <data name="frmMain_PNGFilter" xml:space="preserve">
     <value>PNG files (*.png)|*.png</value>
   </data>
@@ -1692,5 +1689,8 @@
   </data>
   <data name="App_NotAvailable" xml:space="preserve">
     <value>N/A</value>
+  </data>
+  <data name="App_URLImportLinux" xml:space="preserve">
+    <value>http://mikemaximus.github.io/gbm-web/GBM_Official_Linux.xml</value>
   </data>
 </root>

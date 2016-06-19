@@ -151,6 +151,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to http://mikemaximus.github.io/gbm-web/GBM_Official_Linux.xml.
+        '''</summary>
+        Friend ReadOnly Property App_URLImportLinux() As String
+            Get
+                Return ResourceManager.GetString("App_URLImportLinux", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to http://mikemaximus.github.io/gbm-web/manual.html.
         '''</summary>
         Friend ReadOnly Property App_URLManual() As String
@@ -1470,15 +1479,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ConfirmRestoreAnyway() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ConfirmRestoreAnyway", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to You appear to be using a Unix based operating system.  The official list currently contains only Microsoft Windows game configurations.[BR][BR]Do you wish to continue?.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_ConfirmUnixImportWarning() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_ConfirmUnixImportWarning", resourceCulture)
             End Get
         End Property
         
