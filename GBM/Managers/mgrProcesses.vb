@@ -130,9 +130,9 @@ Public Class mgrProcesses
 
                 'Unix Handler
                 'We need some special handling for Wine processes
-                If mgrCommon.IsUnix And sProcessCheck.ToLower = "wine-preloader" Then
+                If mgrCommon.IsUnix And (sProcessCheck.ToLower = "wine-preloader" Or sProcessCheck.ToLower = "wine64-preloader") Then
                     Dim sWinePath As String()
-                    'We can't use Path.GetFileName here, Wine uses the Windows seperator in arguments and the Unix version of the function expects a different one.
+                    'We can't use Path.GetFileName here, Wine uses the Windows seperator in arguments and Mono expects a different one in Unix.
                     sWinePath = GetUnixProcessArguments(prsCurrent)(0).Split("\")
                     sProcessCheck = sWinePath(sWinePath.Length - 1).Replace(".exe", "")
                     bWineProcess = True
