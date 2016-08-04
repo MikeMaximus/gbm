@@ -81,7 +81,6 @@ Public Class frmAddWizard
         Dim sName As String = txtName.Text
         Dim sProcessFullPath As String = txtProcessPath.Text
         Dim sProcessPath As String = Path.GetDirectoryName(sProcessFullPath)
-        Dim sProcess As String = Path.GetFileNameWithoutExtension(sProcessFullPath)
         Dim sProcessSummaryText As String = Path.GetFileName(sProcessFullPath) & " (" & sProcessPath & ")"
         Dim sSavePath As String = txtSavePath.Text
         Dim bIsAbsolute As Boolean = mgrPath.IsAbsolute(sSavePath)
@@ -89,10 +88,22 @@ Public Class frmAddWizard
         Dim bTimeStamp As Boolean = chkTimeStamp.Checked
         Dim sFileType As String = txtFileTypes.Text
         Dim sExcludeList As String = txtExcludeList.Text
+        Dim sProcess As String
         Dim sItem As String()
         Dim sItems As String()
         Dim sValues As String()
         Dim lstItem As ListViewItem
+
+        'Handle Process
+        If Path.HasExtension(sProcessFullPath) Then
+            If sProcessFullPath.ToLower.EndsWith(".exe") Then
+                sProcess = Path.GetFileNameWithoutExtension(sProcessFullPath)
+            Else
+                sProcess = Path.GetFileName(sProcessFullPath)
+            End If
+        Else
+            sProcess = Path.GetFileName(sProcessFullPath)
+        End If
 
         If Not bIsAbsolute Then
             sSavePath = mgrPath.DetermineRelativePath(sProcessPath, sSavePath)
