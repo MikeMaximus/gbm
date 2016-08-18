@@ -1694,7 +1694,7 @@
     <value>http://mikemaximus.github.io/gbm-web/GBM_Official_Linux.xml</value>
   </data>
   <data name="frmGameManager_BrowseBackup" xml:space="preserve">
-    <value>Choose a [PARAM] backup file</value>
+    <value>Choose a new [PARAM] backup file</value>
   </data>
   <data name="frmGameManager_BrowseBackupType" xml:space="preserve">
     <value>7-Zip</value>
@@ -1709,7 +1709,7 @@
     <value>Do you want to restore [PARAM] now?</value>
   </data>
   <data name="frmGameManager_ErrorBackupChangeFileName" xml:space="preserve">
-    <value>[PARAM] is already the current backup file for [PARAM].</value>
+    <value>[PARAM] is already the current backup file.</value>
   </data>
   <data name="frmGameManager_ErrorBackupChangePath" xml:space="preserve">
     <value>You cannot choose a file located outside the current [PARAM] backup folder.</value>

@@ -1157,7 +1157,7 @@ Public Class frmGameManager
 
         sNewBackup = mgrCommon.OpenFileBrowser(mgrCommon.FormatString(frmGameManager_BrowseBackup, CurrentGame.CroppedName), "7z", frmGameManager_BrowseBackupType, sBackupPath, False)
 
-        'Check that a selection was made and that it's not already the current file
+        'Check that a selection was made
         If sNewBackup <> String.Empty Then
             sNewBackupFile = Path.GetFileName(sNewBackup)
             sNewBackupPath = Path.GetDirectoryName(sNewBackup)
@@ -1165,8 +1165,9 @@ Public Class frmGameManager
             'The new file must be located in the current backup folder for the selected game
             If sNewBackupPath <> sBackupPath Then
                 mgrCommon.ShowMessage(frmGameManager_ErrorBackupChangePath, CurrentGame.CroppedName, MsgBoxStyle.Exclamation)
+            'Check that the selection is a new file
             ElseIf sNewBackupFile = sBackupFile Then
-                mgrCommon.ShowMessage(frmGameManager_ErrorBackupChangeFileName, New String() {sNewBackupFile, CurrentGame.CroppedName}, MsgBoxStyle.Exclamation)
+                mgrCommon.ShowMessage(frmGameManager_ErrorBackupChangeFileName, sNewBackupFile, MsgBoxStyle.Exclamation)
             Else
                 'Verify that the user still wants to continue
                 If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupChange, New String() {sNewBackupFile, CurrentGame.CroppedName}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then

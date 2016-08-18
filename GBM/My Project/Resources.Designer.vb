@@ -1078,7 +1078,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Choose a [PARAM] backup file.
+        '''  Looks up a localized string similar to Choose a new [PARAM] backup file.
         '''</summary>
         Friend ReadOnly Property frmGameManager_BrowseBackup() As String
             Get
@@ -1537,7 +1537,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] is already the current backup file for [PARAM]..
+        '''  Looks up a localized string similar to [PARAM] is already the current backup file..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ErrorBackupChangeFileName() As String
             Get
