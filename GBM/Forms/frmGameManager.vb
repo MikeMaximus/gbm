@@ -218,7 +218,7 @@ Public Class frmGameManager
                 frm.ShowDialog()
                 oCurrentTagFilters = frm.TagFilters
                 oCurrentStringFilters = frm.StringFilters
-                eCurrentFilter = frm.FilterType                
+                eCurrentFilter = frm.FilterType
             End If
         Else
             oCurrentTagFilters.Clear()
@@ -281,7 +281,7 @@ Public Class frmGameManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFileBrowser(frmGameManager_ChooseExe, "exe", _
+        sNewPath = mgrCommon.OpenFileBrowser(frmGameManager_ChooseExe, "exe",
                                           frmGameManager_Executable, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then
@@ -339,10 +339,10 @@ Public Class frmGameManager
 
         'Unix Handler
         If Not mgrCommon.IsUnix Then
-            sNewPath = mgrCommon.OpenFileBrowser(frmGameManager_ChooseCustomIcon, "ico", _
+            sNewPath = mgrCommon.OpenFileBrowser(frmGameManager_ChooseCustomIcon, "ico",
                                               frmGameManager_Icon, sDefaultFolder, False)
         Else
-            sNewPath = mgrCommon.OpenFileBrowser(frmGameManager_ChooseCustomIcon, "png", _
+            sNewPath = mgrCommon.OpenFileBrowser(frmGameManager_ChooseCustomIcon, "png",
                                               "PNG", sDefaultFolder, False)
         End If
 
@@ -496,12 +496,12 @@ Public Class frmGameManager
         Dim oProcessStartInfo As ProcessStartInfo
 
         If CurrentBackupItem.AbsolutePath Then
-                sPath = CurrentBackupItem.RestorePath
-            Else
-                If FindRestorePath() Then
-                    sPath = CurrentBackupItem.RelativeRestorePath
-                End If
+            sPath = CurrentBackupItem.RestorePath
+        Else
+            If FindRestorePath() Then
+                sPath = CurrentBackupItem.RelativeRestorePath
             End If
+        End If
 
         If Directory.Exists(sPath) Then
             oProcessStartInfo = New ProcessStartInfo
@@ -553,23 +553,25 @@ Public Class frmGameManager
             btnOpenBackupFile.Enabled = True
             btnOpenRestorePath.Enabled = True
             btnRestore.Enabled = True
+            btnChangeBackup.Enabled = True
             btnDeleteBackup.Enabled = True
 
             If File.Exists(sFileName) Then
-                txtFileSize.Text = mgrCommon.GetFileSize(sFileName)
+                txtFileInfo.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.GetFileSize(sFileName) & ")"
             Else
-                txtFileSize.Text = frmGameManager_ErrorNoBackupExists
+                txtFileInfo.Text = frmGameManager_ErrorNoBackupExists
             End If
 
             mgrRestore.DoPathOverride(CurrentBackupItem, oApp)
             txtRestorePath.Text = CurrentBackupItem.RestorePath
         Else
             txtCurrentBackup.Text = frmGameManager_Never
-            txtFileSize.Text = String.Empty
+            txtFileInfo.Text = String.Empty
             txtRestorePath.Text = String.Empty
             btnOpenBackupFile.Enabled = False
             btnOpenRestorePath.Enabled = False
             btnRestore.Enabled = False
+            btnChangeBackup.Enabled = False
             btnDeleteBackup.Enabled = False
         End If
 
@@ -777,6 +779,7 @@ Public Class frmGameManager
                 btnBackup.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnRestore.Enabled = False
+                btnChangeBackup.Enabled = False
                 btnDeleteBackup.Enabled = False
                 btnOpenBackupFile.Enabled = False
                 btnOpenRestorePath.Enabled = False
@@ -806,6 +809,7 @@ Public Class frmGameManager
                 btnBackup.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnRestore.Enabled = False
+                btnChangeBackup.Enabled = False
                 btnDeleteBackup.Enabled = False
                 btnOpenBackupFile.Enabled = False
                 btnOpenRestorePath.Enabled = False
@@ -1143,6 +1147,52 @@ Public Class frmGameManager
         Return True
     End Function
 
+    Private Sub ChangeBackup()
+        Dim sNewBackup As String
+        Dim sNewBackupFile As String
+        Dim sNewBackupPath As String
+        Dim sBackupPath As String = Path.GetDirectoryName(BackupFolder & CurrentBackupItem.FileName)
+        Dim sBackupFile As String = Path.GetFileName(BackupFolder & CurrentBackupItem.FileName)
+        Dim oBackup As clsBackup = oCurrentBackupItem
+
+        sNewBackup = mgrCommon.OpenFileBrowser(mgrCommon.FormatString(frmGameManager_BrowseBackup, CurrentGame.CroppedName), "7z", frmGameManager_BrowseBackupType, sBackupPath, False)
+
+        'Check that a selection was made and that it's not already the current file
+        If sNewBackup <> String.Empty Then
+            sNewBackupFile = Path.GetFileName(sNewBackup)
+            sNewBackupPath = Path.GetDirectoryName(sNewBackup)
+
+            'The new file must be located in the current backup folder for the selected game
+            If sNewBackupPath <> sBackupPath Then
+                mgrCommon.ShowMessage(frmGameManager_ErrorBackupChangePath, CurrentGame.CroppedName, MsgBoxStyle.Exclamation)
+            ElseIf sNewBackupFile = sBackupFile Then
+                mgrCommon.ShowMessage(frmGameManager_ErrorBackupChangeFileName, New String() {sNewBackupFile, CurrentGame.CroppedName}, MsgBoxStyle.Exclamation)
+            Else
+                'Verify that the user still wants to continue
+                If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupChange, New String() {sNewBackupFile, CurrentGame.CroppedName}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    'Set the new file
+                    oBackup.FileName = oBackup.FileName.Replace(Path.GetFileName(oBackup.FileName), sNewBackupFile)
+                    'Clear the checksum (old checksums aren't stored)
+                    oBackup.CheckSum = String.Empty
+                    'Reset date
+                    oBackup.DateUpdated = Date.Now
+                    mgrManifest.DoManifestUpdate(oBackup, mgrSQLite.Database.Remote)
+                    'Refresh backup data and GUI
+                    bIsLoading = True
+                    LoadBackupData()
+                    GetBackupInfo(CurrentGame)
+                    bIsLoading = False
+                    'Check if we want to restore immediately after changing
+                    If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupChangeRestore, sNewBackupFile, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                        TriggerSelectedRestore(False)
+                    End If
+                End If
+
+            End If
+        End If
+
+    End Sub
+
     Private Sub MarkAsRestored()
         Dim oData As KeyValuePair(Of String, String)
         Dim oGameBackup As clsBackup
@@ -1198,7 +1248,7 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Sub TriggerSelectedBackup()
+    Private Sub TriggerSelectedBackup(Optional ByVal bPrompt As Boolean = True)
         Dim oData As KeyValuePair(Of String, String)
         Dim sMsg As String = String.Empty
         Dim oGame As clsGame
@@ -1224,7 +1274,12 @@ Public Class frmGameManager
             End If
 
             If bDoBackup Then
-                If mgrCommon.ShowMessage(sMsg, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                If bPrompt Then
+                    If mgrCommon.ShowMessage(sMsg, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                        TriggerBackup = True
+                        Me.Close()
+                    End If
+                Else
                     TriggerBackup = True
                     Me.Close()
                 End If
@@ -1232,7 +1287,7 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Sub TriggerSelectedRestore()
+    Private Sub TriggerSelectedRestore(Optional ByVal bPrompt As Boolean = True)
         Dim oData As KeyValuePair(Of String, String)
         Dim sMsg As String = String.Empty
         Dim oGame As clsGame
@@ -1264,7 +1319,12 @@ Public Class frmGameManager
             End If
 
             If bDoRestore Then
-                If mgrCommon.ShowMessage(sMsg, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                If bPrompt Then
+                    If mgrCommon.ShowMessage(sMsg, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                        TriggerRestore = True
+                        Me.Close()
+                    End If
+                Else
                     TriggerRestore = True
                     Me.Close()
                 End If
@@ -1337,8 +1397,9 @@ Public Class frmGameManager
         lblRestorePath.Text = frmGameManager_lblRestorePath
         btnOpenRestorePath.Text = frmGameManager_btnOpenRestorePath
         btnOpenBackupFile.Text = frmGameManager_btnOpenBackupFile
+        btnChangeBackup.Text = frmGameManager_btnChangeBackup
         btnDeleteBackup.Text = frmGameManager_btnDeleteBackup
-        lblFileSize.Text = frmGameManager_lblFileSize
+        lblBackupFile.Text = frmGameManager_lblBackupFile
         lblCurrentBackup.Text = frmGameManager_lblCurrentBackup
         lblLastBackup.Text = frmGameManager_lblLastBackup
         btnIconBrowse.Text = frmGameManager_btnIconBrowse
@@ -1474,6 +1535,10 @@ Public Class frmGameManager
         DeleteBackup()
     End Sub
 
+    Private Sub btnChangeBackup_Click(sender As Object, e As EventArgs) Handles btnChangeBackup.Click
+        ChangeBackup()
+    End Sub
+
     Private Sub btnMarkAsRestored_Click(sender As Object, e As EventArgs) Handles btnMarkAsRestored.Click
         MarkAsRestored()
     End Sub
@@ -1542,4 +1607,5 @@ Public Class frmGameManager
     Private Sub frmGameManager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         txtQuickFilter.Focus()
     End Sub
+
 End Class

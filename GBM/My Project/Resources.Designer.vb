@@ -1078,6 +1078,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Choose a [PARAM] backup file.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_BrowseBackup() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_BrowseBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 7-Zip.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_BrowseBackupType() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_BrowseBackupType", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to +.
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnAdd() As String
@@ -1110,6 +1128,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_btnCancel() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_btnCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Change Backup File.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_btnChangeBackup() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_btnChangeBackup", resourceCulture)
             End Get
         End Property
         
@@ -1375,6 +1402,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] will be the new backup file for [PARAM].[BR][BR]Is this correct?.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ConfirmBackupChange() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ConfirmBackupChange", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Do you want to restore [PARAM] now?.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ConfirmBackupChangeRestore() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ConfirmBackupChangeRestore", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to This will delete the backup file and all records of this backup.  This cannot be undone. [BR][BR]Do you want to remove the data for [PARAM]?.
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmBackupDelete() As String
@@ -1488,6 +1533,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_DefaultExportFileName() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_DefaultExportFileName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] is already the current backup file for [PARAM]..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ErrorBackupChangeFileName() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ErrorBackupChangeFileName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to You cannot choose a file located outside the current [PARAM] backup folder..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ErrorBackupChangePath() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ErrorBackupChangePath", resourceCulture)
             End Get
         End Property
         
@@ -1690,6 +1753,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backup File:.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblBackupFile() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblBackupFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Company:.
         '''</summary>
         Friend ReadOnly Property frmGameManager_lblCompany() As String
@@ -1704,15 +1776,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_lblCurrentBackup() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_lblCurrentBackup", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Backup Size:.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_lblFileSize() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_lblFileSize", resourceCulture)
             End Get
         End Property
         
