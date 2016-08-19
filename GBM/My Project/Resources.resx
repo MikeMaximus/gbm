@@ -431,7 +431,7 @@
     <value>[PARAM] MB</value>
   </data>
   <data name="frmGameManager_BackupTimeAndName" xml:space="preserve">
-    <value>[PARAM] by [PARAM]</value>
+    <value>[PARAM] ([PARAM])</value>
   </data>
   <data name="frmGameManager_btnAdd" xml:space="preserve">
     <value>+</value>
@@ -616,8 +616,8 @@
   <data name="frmGameManager_lblCompany" xml:space="preserve">
     <value>Company:</value>
   </data>
-  <data name="frmGameManager_lblCurrentBackup" xml:space="preserve">
-    <value>Current Backup:</value>
+  <data name="frmGameManager_lblLatestbackup" xml:space="preserve">
+    <value>Latest Backup:</value>
   </data>
   <data name="frmGameManager_lblBackupFile" xml:space="preserve">
     <value>Backup File:</value>
@@ -631,8 +631,8 @@
   <data name="frmGameManager_lblIcon" xml:space="preserve">
     <value>Icon:</value>
   </data>
-  <data name="frmGameManager_lblLastBackup" xml:space="preserve">
-    <value>Local Backup:</value>
+  <data name="frmGameManager_lblCurrentBackup" xml:space="preserve">
+    <value>Current Backup:</value>
   </data>
   <data name="frmGameManager_lblName" xml:space="preserve">
     <value>Name:</value>

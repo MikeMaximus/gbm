@@ -1069,7 +1069,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] by [PARAM].
+        '''  Looks up a localized string similar to [PARAM] ([PARAM]).
         '''</summary>
         Friend ReadOnly Property frmGameManager_BackupTimeAndName() As String
             Get
@@ -1807,11 +1807,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Local Backup:.
+        '''  Looks up a localized string similar to Latest Backup:.
         '''</summary>
-        Friend ReadOnly Property frmGameManager_lblLastBackup() As String
+        Friend ReadOnly Property frmGameManager_lblLatestbackup() As String
             Get
-                Return ResourceManager.GetString("frmGameManager_lblLastBackup", resourceCulture)
+                Return ResourceManager.GetString("frmGameManager_lblLatestbackup", resourceCulture)
             End Get
         End Property
         

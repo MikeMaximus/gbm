@@ -63,17 +63,12 @@ Partial Class frmGameManager
         Me.grpStats = New System.Windows.Forms.GroupBox()
         Me.lblRestorePath = New System.Windows.Forms.Label()
         Me.btnChangeBackup = New System.Windows.Forms.Button()
-        Me.txtRestorePath = New System.Windows.Forms.TextBox()
         Me.btnOpenRestorePath = New System.Windows.Forms.Button()
         Me.btnOpenBackupFile = New System.Windows.Forms.Button()
-        Me.txtFileInfo = New System.Windows.Forms.TextBox()
         Me.btnDeleteBackup = New System.Windows.Forms.Button()
         Me.lblBackupFile = New System.Windows.Forms.Label()
-        Me.lblSync = New System.Windows.Forms.Label()
-        Me.txtCurrentBackup = New System.Windows.Forms.TextBox()
+        Me.lblLatestBackup = New System.Windows.Forms.Label()
         Me.lblCurrentBackup = New System.Windows.Forms.Label()
-        Me.txtLocalBackup = New System.Windows.Forms.TextBox()
-        Me.lblLastBackup = New System.Windows.Forms.Label()
         Me.btnMarkAsRestored = New System.Windows.Forms.Button()
         Me.btnRestore = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
@@ -92,6 +87,10 @@ Partial Class frmGameManager
         Me.cmsFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtQuickFilter = New System.Windows.Forms.TextBox()
         Me.lblQuickFilter = New System.Windows.Forms.Label()
+        Me.lblLatestBackupData = New System.Windows.Forms.Label()
+        Me.lblCurrentBackupData = New System.Windows.Forms.Label()
+        Me.lblBackupFileData = New System.Windows.Forms.Label()
+        Me.lblRestorePathData = New System.Windows.Forms.Label()
         Me.grpConfig.SuspendLayout()
         Me.grpExtra.SuspendLayout()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -469,19 +468,18 @@ Partial Class frmGameManager
         'grpStats
         '
         Me.grpStats.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpStats.Controls.Add(Me.lblRestorePathData)
+        Me.grpStats.Controls.Add(Me.lblBackupFileData)
+        Me.grpStats.Controls.Add(Me.lblCurrentBackupData)
+        Me.grpStats.Controls.Add(Me.lblLatestBackupData)
         Me.grpStats.Controls.Add(Me.lblRestorePath)
         Me.grpStats.Controls.Add(Me.btnChangeBackup)
-        Me.grpStats.Controls.Add(Me.txtRestorePath)
         Me.grpStats.Controls.Add(Me.btnOpenRestorePath)
         Me.grpStats.Controls.Add(Me.btnOpenBackupFile)
-        Me.grpStats.Controls.Add(Me.txtFileInfo)
         Me.grpStats.Controls.Add(Me.btnDeleteBackup)
         Me.grpStats.Controls.Add(Me.lblBackupFile)
-        Me.grpStats.Controls.Add(Me.lblSync)
-        Me.grpStats.Controls.Add(Me.txtCurrentBackup)
+        Me.grpStats.Controls.Add(Me.lblLatestBackup)
         Me.grpStats.Controls.Add(Me.lblCurrentBackup)
-        Me.grpStats.Controls.Add(Me.txtLocalBackup)
-        Me.grpStats.Controls.Add(Me.lblLastBackup)
         Me.grpStats.Location = New System.Drawing.Point(247, 365)
         Me.grpStats.Name = "grpStats"
         Me.grpStats.Size = New System.Drawing.Size(525, 154)
@@ -504,25 +502,16 @@ Partial Class frmGameManager
         Me.btnChangeBackup.Location = New System.Drawing.Point(129, 125)
         Me.btnChangeBackup.Name = "btnChangeBackup"
         Me.btnChangeBackup.Size = New System.Drawing.Size(114, 23)
-        Me.btnChangeBackup.TabIndex = 11
+        Me.btnChangeBackup.TabIndex = 9
         Me.btnChangeBackup.Text = "&Change Backup File"
         Me.btnChangeBackup.UseVisualStyleBackColor = True
-        '
-        'txtRestorePath
-        '
-        Me.txtRestorePath.Location = New System.Drawing.Point(96, 99)
-        Me.txtRestorePath.Name = "txtRestorePath"
-        Me.txtRestorePath.ReadOnly = True
-        Me.txtRestorePath.Size = New System.Drawing.Size(387, 20)
-        Me.txtRestorePath.TabIndex = 8
-        Me.txtRestorePath.TabStop = False
         '
         'btnOpenRestorePath
         '
         Me.btnOpenRestorePath.Location = New System.Drawing.Point(369, 125)
         Me.btnOpenRestorePath.Name = "btnOpenRestorePath"
         Me.btnOpenRestorePath.Size = New System.Drawing.Size(114, 23)
-        Me.btnOpenRestorePath.TabIndex = 13
+        Me.btnOpenRestorePath.TabIndex = 11
         Me.btnOpenRestorePath.Text = "O&pen Restore Path"
         Me.btnOpenRestorePath.UseVisualStyleBackColor = True
         '
@@ -531,25 +520,16 @@ Partial Class frmGameManager
         Me.btnOpenBackupFile.Location = New System.Drawing.Point(249, 125)
         Me.btnOpenBackupFile.Name = "btnOpenBackupFile"
         Me.btnOpenBackupFile.Size = New System.Drawing.Size(114, 23)
-        Me.btnOpenBackupFile.TabIndex = 12
+        Me.btnOpenBackupFile.TabIndex = 10
         Me.btnOpenBackupFile.Text = "&Open Backup File"
         Me.btnOpenBackupFile.UseVisualStyleBackColor = True
-        '
-        'txtFileInfo
-        '
-        Me.txtFileInfo.Location = New System.Drawing.Point(96, 74)
-        Me.txtFileInfo.Name = "txtFileInfo"
-        Me.txtFileInfo.ReadOnly = True
-        Me.txtFileInfo.Size = New System.Drawing.Size(387, 20)
-        Me.txtFileInfo.TabIndex = 7
-        Me.txtFileInfo.TabStop = False
         '
         'btnDeleteBackup
         '
         Me.btnDeleteBackup.Location = New System.Drawing.Point(9, 125)
         Me.btnDeleteBackup.Name = "btnDeleteBackup"
         Me.btnDeleteBackup.Size = New System.Drawing.Size(114, 23)
-        Me.btnDeleteBackup.TabIndex = 10
+        Me.btnDeleteBackup.TabIndex = 8
         Me.btnDeleteBackup.Text = "&Delete Backup"
         Me.btnDeleteBackup.UseVisualStyleBackColor = True
         '
@@ -562,52 +542,23 @@ Partial Class frmGameManager
         Me.lblBackupFile.TabIndex = 2
         Me.lblBackupFile.Text = "Backup File:"
         '
-        'lblSync
+        'lblLatestBackup
         '
-        Me.lblSync.AutoSize = True
-        Me.lblSync.Location = New System.Drawing.Point(457, 0)
-        Me.lblSync.Name = "lblSync"
-        Me.lblSync.Size = New System.Drawing.Size(62, 13)
-        Me.lblSync.TabIndex = 4
-        Me.lblSync.Text = "Up to Date!"
-        Me.lblSync.TextAlign = System.Drawing.ContentAlignment.TopRight
-        Me.lblSync.Visible = False
-        '
-        'txtCurrentBackup
-        '
-        Me.txtCurrentBackup.Location = New System.Drawing.Point(96, 24)
-        Me.txtCurrentBackup.Name = "txtCurrentBackup"
-        Me.txtCurrentBackup.ReadOnly = True
-        Me.txtCurrentBackup.Size = New System.Drawing.Size(387, 20)
-        Me.txtCurrentBackup.TabIndex = 5
-        Me.txtCurrentBackup.TabStop = False
+        Me.lblLatestBackup.AutoSize = True
+        Me.lblLatestBackup.Location = New System.Drawing.Point(6, 27)
+        Me.lblLatestBackup.Name = "lblLatestBackup"
+        Me.lblLatestBackup.Size = New System.Drawing.Size(79, 13)
+        Me.lblLatestBackup.TabIndex = 0
+        Me.lblLatestBackup.Text = "Latest Backup:"
         '
         'lblCurrentBackup
         '
         Me.lblCurrentBackup.AutoSize = True
-        Me.lblCurrentBackup.Location = New System.Drawing.Point(6, 27)
+        Me.lblCurrentBackup.Location = New System.Drawing.Point(6, 53)
         Me.lblCurrentBackup.Name = "lblCurrentBackup"
         Me.lblCurrentBackup.Size = New System.Drawing.Size(84, 13)
-        Me.lblCurrentBackup.TabIndex = 0
+        Me.lblCurrentBackup.TabIndex = 1
         Me.lblCurrentBackup.Text = "Current Backup:"
-        '
-        'txtLocalBackup
-        '
-        Me.txtLocalBackup.Location = New System.Drawing.Point(96, 50)
-        Me.txtLocalBackup.Name = "txtLocalBackup"
-        Me.txtLocalBackup.ReadOnly = True
-        Me.txtLocalBackup.Size = New System.Drawing.Size(387, 20)
-        Me.txtLocalBackup.TabIndex = 6
-        Me.txtLocalBackup.TabStop = False
-        '
-        'lblLastBackup
-        '
-        Me.lblLastBackup.AutoSize = True
-        Me.lblLastBackup.Location = New System.Drawing.Point(6, 53)
-        Me.lblLastBackup.Name = "lblLastBackup"
-        Me.lblLastBackup.Size = New System.Drawing.Size(76, 13)
-        Me.lblLastBackup.TabIndex = 1
-        Me.lblLastBackup.Text = "Local Backup:"
         '
         'btnMarkAsRestored
         '
@@ -778,6 +729,46 @@ Partial Class frmGameManager
         Me.lblQuickFilter.TabIndex = 1
         Me.lblQuickFilter.Text = "Quick Filter:"
         '
+        'lblLatestBackupData
+        '
+        Me.lblLatestBackupData.AutoEllipsis = True
+        Me.lblLatestBackupData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblLatestBackupData.Location = New System.Drawing.Point(96, 23)
+        Me.lblLatestBackupData.Name = "lblLatestBackupData"
+        Me.lblLatestBackupData.Size = New System.Drawing.Size(387, 20)
+        Me.lblLatestBackupData.TabIndex = 4
+        Me.lblLatestBackupData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblCurrentBackupData
+        '
+        Me.lblCurrentBackupData.AutoEllipsis = True
+        Me.lblCurrentBackupData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblCurrentBackupData.Location = New System.Drawing.Point(96, 49)
+        Me.lblCurrentBackupData.Name = "lblCurrentBackupData"
+        Me.lblCurrentBackupData.Size = New System.Drawing.Size(387, 20)
+        Me.lblCurrentBackupData.TabIndex = 5
+        Me.lblCurrentBackupData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblBackupFileData
+        '
+        Me.lblBackupFileData.AutoEllipsis = True
+        Me.lblBackupFileData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblBackupFileData.Location = New System.Drawing.Point(96, 73)
+        Me.lblBackupFileData.Name = "lblBackupFileData"
+        Me.lblBackupFileData.Size = New System.Drawing.Size(387, 20)
+        Me.lblBackupFileData.TabIndex = 6
+        Me.lblBackupFileData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblRestorePathData
+        '
+        Me.lblRestorePathData.AutoEllipsis = True
+        Me.lblRestorePathData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblRestorePathData.Location = New System.Drawing.Point(96, 98)
+        Me.lblRestorePathData.Name = "lblRestorePathData"
+        Me.lblRestorePathData.Size = New System.Drawing.Size(387, 20)
+        Me.lblRestorePathData.TabIndex = 7
+        Me.lblRestorePathData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -862,13 +853,9 @@ Partial Class frmGameManager
     Friend WithEvents btnIconBrowse As System.Windows.Forms.Button
     Friend WithEvents txtIcon As System.Windows.Forms.TextBox
     Friend WithEvents txtID As System.Windows.Forms.TextBox
-    Friend WithEvents txtCurrentBackup As System.Windows.Forms.TextBox
+    Friend WithEvents lblLatestBackup As System.Windows.Forms.Label
     Friend WithEvents lblCurrentBackup As System.Windows.Forms.Label
-    Friend WithEvents txtLocalBackup As System.Windows.Forms.TextBox
-    Friend WithEvents lblLastBackup As System.Windows.Forms.Label
-    Friend WithEvents lblSync As System.Windows.Forms.Label
     Friend WithEvents chkEnabled As System.Windows.Forms.CheckBox
-    Friend WithEvents txtFileInfo As System.Windows.Forms.TextBox
     Friend WithEvents lblBackupFile As System.Windows.Forms.Label
     Friend WithEvents btnMarkAsRestored As System.Windows.Forms.Button
     Friend WithEvents btnRestore As System.Windows.Forms.Button
@@ -885,7 +872,6 @@ Partial Class frmGameManager
     Friend WithEvents btnInclude As System.Windows.Forms.Button
     Friend WithEvents btnExclude As System.Windows.Forms.Button
     Friend WithEvents lblRestorePath As Label
-    Friend WithEvents txtRestorePath As TextBox
     Friend WithEvents btnImport As System.Windows.Forms.Button
     Friend WithEvents btnExport As System.Windows.Forms.Button
     Friend WithEvents cmsImport As System.Windows.Forms.ContextMenuStrip
@@ -894,4 +880,8 @@ Partial Class frmGameManager
     Friend WithEvents txtQuickFilter As TextBox
     Friend WithEvents lblQuickFilter As Label
     Friend WithEvents btnChangeBackup As Button
+    Friend WithEvents lblLatestBackupData As Label
+    Friend WithEvents lblCurrentBackupData As Label
+    Friend WithEvents lblRestorePathData As Label
+    Friend WithEvents lblBackupFileData As Label
 End Class

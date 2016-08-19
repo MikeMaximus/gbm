@@ -547,7 +547,8 @@ Public Class frmGameManager
 
         If oRemoteBackupData.Contains(oApp.Name) Then
             CurrentBackupItem = DirectCast(oRemoteBackupData(oApp.Name), clsBackup)
-            txtCurrentBackup.Text = mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {CurrentBackupItem.DateUpdated, CurrentBackupItem.UpdatedBy})
+            lblLatestBackupData.Text = mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {CurrentBackupItem.DateUpdated, CurrentBackupItem.UpdatedBy})
+            lblLatestBackupData.ForeColor = Color.Green
             sFileName = BackupFolder & CurrentBackupItem.FileName
 
             btnOpenBackupFile.Enabled = True
@@ -557,17 +558,17 @@ Public Class frmGameManager
             btnDeleteBackup.Enabled = True
 
             If File.Exists(sFileName) Then
-                txtFileInfo.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.GetFileSize(sFileName) & ")"
+                lblBackupFileData.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.GetFileSize(sFileName) & ")"
             Else
-                txtFileInfo.Text = frmGameManager_ErrorNoBackupExists
+                lblBackupFileData.Text = frmGameManager_ErrorNoBackupExists
             End If
 
             mgrRestore.DoPathOverride(CurrentBackupItem, oApp)
-            txtRestorePath.Text = CurrentBackupItem.RestorePath
+            lblRestorePathData.Text = CurrentBackupItem.RestorePath
         Else
-            txtCurrentBackup.Text = frmGameManager_Never
-            txtFileInfo.Text = String.Empty
-            txtRestorePath.Text = String.Empty
+            lblLatestBackupData.Text = frmGameManager_Never
+            lblBackupFileData.Text = String.Empty
+            lblRestorePathData.Text = String.Empty
             btnOpenBackupFile.Enabled = False
             btnOpenRestorePath.Enabled = False
             btnRestore.Enabled = False
@@ -577,26 +578,24 @@ Public Class frmGameManager
 
         If oLocalBackupData.Contains(oApp.Name) Then
             oBackupInfo = DirectCast(oLocalBackupData(oApp.Name), clsBackup)
-            txtLocalBackup.Text = mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {oBackupInfo.DateUpdated, oBackupInfo.UpdatedBy})
+            lblCurrentBackupData.Text = mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {oBackupInfo.DateUpdated, oBackupInfo.UpdatedBy})
         Else
-            txtLocalBackup.Text = frmGameManager_Never
+            lblCurrentBackupData.Text = frmGameManager_Never
         End If
 
-        If txtCurrentBackup.Text = frmGameManager_Never And txtLocalBackup.Text = frmGameManager_Never Then
-            lblSync.Visible = False
+        If lblLatestBackupData.Text = frmGameManager_Never And lblCurrentBackupData.Text = frmGameManager_Never Then
             btnMarkAsRestored.Enabled = False
-        ElseIf txtCurrentBackup.Text = frmGameManager_Never And txtLocalBackup.Text <> frmGameManager_Never Then
-            lblSync.Visible = False
+            lblLatestBackupData.ForeColor = Color.Black
+            lblCurrentBackupData.ForeColor = Color.Black
+        ElseIf lblLatestBackupData.Text = frmGameManager_Never And lblCurrentBackupData.Text <> frmGameManager_Never Then
             btnMarkAsRestored.Enabled = False
-        ElseIf txtCurrentBackup.Text <> txtLocalBackup.Text Then
-            lblSync.ForeColor = Color.Red
-            lblSync.Text = frmGameManager_OutofSync
-            lblSync.Visible = True
+            lblLatestBackupData.ForeColor = Color.Black
+            lblCurrentBackupData.ForeColor = Color.Red
+        ElseIf lblLatestBackupData.Text <> lblCurrentBackupData.Text Then
+            lblCurrentBackupData.ForeColor = Color.Red
             btnMarkAsRestored.Enabled = True
         Else
-            lblSync.ForeColor = Color.Green
-            lblSync.Text = frmGameManager_UpToDate
-            lblSync.Visible = True
+            lblCurrentBackupData.ForeColor = Color.Green
             btnMarkAsRestored.Enabled = False
         End If
 
@@ -731,9 +730,6 @@ Public Class frmGameManager
                 AddHandler DirectCast(ctl, NumericUpDown).ValueChanged, AddressOf DirtyCheck_ValueChanged
             End If
         Next
-
-        'Exemptions
-        RemoveHandler txtRestorePath.TextChanged, AddressOf DirtyCheck_ValueChanged
     End Sub
 
     Private Sub AssignDirtyHandlersMisc()
@@ -783,7 +779,6 @@ Public Class frmGameManager
                 btnDeleteBackup.Enabled = False
                 btnOpenBackupFile.Enabled = False
                 btnOpenRestorePath.Enabled = False
-                lblSync.Visible = False
                 chkEnabled.Checked = True
                 chkMonitorOnly.Checked = False
                 btnTags.Enabled = False
@@ -867,7 +862,6 @@ Public Class frmGameManager
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
                 pbIcon.Image = Icon_Unknown
-                lblSync.Visible = False
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
                 grpConfig.Enabled = False
@@ -894,7 +888,6 @@ Public Class frmGameManager
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
                 pbIcon.Image = Icon_Unknown
-                lblSync.Visible = False
                 btnSave.Enabled = True
                 btnCancel.Enabled = False
                 grpConfig.Enabled = False
@@ -1401,8 +1394,8 @@ Public Class frmGameManager
         btnChangeBackup.Text = frmGameManager_btnChangeBackup
         btnDeleteBackup.Text = frmGameManager_btnDeleteBackup
         lblBackupFile.Text = frmGameManager_lblBackupFile
+        lblLatestBackup.Text = frmGameManager_lblLatestbackup
         lblCurrentBackup.Text = frmGameManager_lblCurrentBackup
-        lblLastBackup.Text = frmGameManager_lblLastBackup
         btnIconBrowse.Text = frmGameManager_btnIconBrowse
         lblVersion.Text = frmGameManager_lblVersion
         lblCompany.Text = frmGameManager_lblCompany
