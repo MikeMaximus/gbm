@@ -61,6 +61,10 @@ Partial Class frmGameManager
         Me.lblHours = New System.Windows.Forms.Label()
         Me.btnTags = New System.Windows.Forms.Button()
         Me.grpStats = New System.Windows.Forms.GroupBox()
+        Me.lblRestorePathData = New System.Windows.Forms.Label()
+        Me.lblBackupFileData = New System.Windows.Forms.Label()
+        Me.lblCurrentBackupData = New System.Windows.Forms.Label()
+        Me.lblLatestBackupData = New System.Windows.Forms.Label()
         Me.lblRestorePath = New System.Windows.Forms.Label()
         Me.btnChangeBackup = New System.Windows.Forms.Button()
         Me.btnOpenRestorePath = New System.Windows.Forms.Button()
@@ -87,10 +91,6 @@ Partial Class frmGameManager
         Me.cmsFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtQuickFilter = New System.Windows.Forms.TextBox()
         Me.lblQuickFilter = New System.Windows.Forms.Label()
-        Me.lblLatestBackupData = New System.Windows.Forms.Label()
-        Me.lblCurrentBackupData = New System.Windows.Forms.Label()
-        Me.lblBackupFileData = New System.Windows.Forms.Label()
-        Me.lblRestorePathData = New System.Windows.Forms.Label()
         Me.grpConfig.SuspendLayout()
         Me.grpExtra.SuspendLayout()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -487,6 +487,50 @@ Partial Class frmGameManager
         Me.grpStats.TabStop = False
         Me.grpStats.Text = "Backup Information"
         '
+        'lblRestorePathData
+        '
+        Me.lblRestorePathData.AutoEllipsis = True
+        Me.lblRestorePathData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblRestorePathData.Location = New System.Drawing.Point(96, 98)
+        Me.lblRestorePathData.Name = "lblRestorePathData"
+        Me.lblRestorePathData.Size = New System.Drawing.Size(387, 20)
+        Me.lblRestorePathData.TabIndex = 7
+        Me.lblRestorePathData.Tag = "wipe"
+        Me.lblRestorePathData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblBackupFileData
+        '
+        Me.lblBackupFileData.AutoEllipsis = True
+        Me.lblBackupFileData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblBackupFileData.Location = New System.Drawing.Point(96, 73)
+        Me.lblBackupFileData.Name = "lblBackupFileData"
+        Me.lblBackupFileData.Size = New System.Drawing.Size(387, 20)
+        Me.lblBackupFileData.TabIndex = 6
+        Me.lblBackupFileData.Tag = "wipe"
+        Me.lblBackupFileData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblCurrentBackupData
+        '
+        Me.lblCurrentBackupData.AutoEllipsis = True
+        Me.lblCurrentBackupData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblCurrentBackupData.Location = New System.Drawing.Point(96, 49)
+        Me.lblCurrentBackupData.Name = "lblCurrentBackupData"
+        Me.lblCurrentBackupData.Size = New System.Drawing.Size(387, 20)
+        Me.lblCurrentBackupData.TabIndex = 5
+        Me.lblCurrentBackupData.Tag = "wipe"
+        Me.lblCurrentBackupData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblLatestBackupData
+        '
+        Me.lblLatestBackupData.AutoEllipsis = True
+        Me.lblLatestBackupData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblLatestBackupData.Location = New System.Drawing.Point(96, 23)
+        Me.lblLatestBackupData.Name = "lblLatestBackupData"
+        Me.lblLatestBackupData.Size = New System.Drawing.Size(387, 20)
+        Me.lblLatestBackupData.TabIndex = 4
+        Me.lblLatestBackupData.Tag = "wipe"
+        Me.lblLatestBackupData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'lblRestorePath
         '
         Me.lblRestorePath.AutoSize = True
@@ -728,46 +772,6 @@ Partial Class frmGameManager
         Me.lblQuickFilter.Size = New System.Drawing.Size(63, 13)
         Me.lblQuickFilter.TabIndex = 1
         Me.lblQuickFilter.Text = "Quick Filter:"
-        '
-        'lblLatestBackupData
-        '
-        Me.lblLatestBackupData.AutoEllipsis = True
-        Me.lblLatestBackupData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblLatestBackupData.Location = New System.Drawing.Point(96, 23)
-        Me.lblLatestBackupData.Name = "lblLatestBackupData"
-        Me.lblLatestBackupData.Size = New System.Drawing.Size(387, 20)
-        Me.lblLatestBackupData.TabIndex = 4
-        Me.lblLatestBackupData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblCurrentBackupData
-        '
-        Me.lblCurrentBackupData.AutoEllipsis = True
-        Me.lblCurrentBackupData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblCurrentBackupData.Location = New System.Drawing.Point(96, 49)
-        Me.lblCurrentBackupData.Name = "lblCurrentBackupData"
-        Me.lblCurrentBackupData.Size = New System.Drawing.Size(387, 20)
-        Me.lblCurrentBackupData.TabIndex = 5
-        Me.lblCurrentBackupData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblBackupFileData
-        '
-        Me.lblBackupFileData.AutoEllipsis = True
-        Me.lblBackupFileData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblBackupFileData.Location = New System.Drawing.Point(96, 73)
-        Me.lblBackupFileData.Name = "lblBackupFileData"
-        Me.lblBackupFileData.Size = New System.Drawing.Size(387, 20)
-        Me.lblBackupFileData.TabIndex = 6
-        Me.lblBackupFileData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblRestorePathData
-        '
-        Me.lblRestorePathData.AutoEllipsis = True
-        Me.lblRestorePathData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblRestorePathData.Location = New System.Drawing.Point(96, 98)
-        Me.lblRestorePathData.Name = "lblRestorePathData"
-        Me.lblRestorePathData.Size = New System.Drawing.Size(387, 20)
-        Me.lblRestorePathData.TabIndex = 7
-        Me.lblRestorePathData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'frmGameManager
         '

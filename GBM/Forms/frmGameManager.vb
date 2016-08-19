@@ -743,6 +743,8 @@ Public Class frmGameManager
                 DirectCast(ctl, TextBox).Text = String.Empty
             ElseIf TypeOf ctl Is CheckBox Then
                 DirectCast(ctl, CheckBox).Checked = False
+            ElseIf TypeOf ctl Is Label Then
+                If ctl.Tag = "wipe" Then DirectCast(ctl, Label).Text = String.Empty
             ElseIf TypeOf ctl Is NumericUpDown Then
                 DirectCast(ctl, NumericUpDown).Value = 0
             End If
