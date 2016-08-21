@@ -142,8 +142,8 @@ Public Class frmGameManager
     End Property
 
     Private Sub LoadBackupData()
-        oRemoteBackupData = mgrManifest.ReadManifest(mgrSQLite.Database.Remote)
-        oLocalBackupData = mgrManifest.ReadManifest(mgrSQLite.Database.Local)
+        oRemoteBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
+        oLocalBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Local)
     End Sub
 
     Private Function ConvertToRelativePath(ByVal sSavePath As String, ByVal sAppPath As String) As String
@@ -160,48 +160,54 @@ Public Class frmGameManager
     End Function
 
     Private Sub CheckManifestandUpdate(ByVal oOriginalApp As clsGame, ByVal oNewApp As clsGame)
-        Dim oBackupItem As clsBackup
+        Dim oBackupItems As List(Of clsBackup)
         Dim sDirectory As String
         Dim sNewDirectory As String
         Dim sFileName As String
         Dim sNewFileName As String
 
-        'If there is a name change,  check and update the manifest
+        'If there is a name change, check and update the manifest
         If oNewApp.Name <> oOriginalApp.Name Then
             'Local
-            If mgrManifest.DoManifestCheck(oOriginalApp.Name, mgrSQLite.Database.Local) Then
-                oBackupItem = mgrManifest.DoManifestGetByName(oOriginalApp.Name, mgrSQLite.Database.Local)
+            If mgrManifest.DoManifestNameCheck(oOriginalApp.Name, mgrSQLite.Database.Local) Then
+                oBackupItems = mgrManifest.DoManifestGetByName(oOriginalApp.Name, mgrSQLite.Database.Local)
 
-                'Rename Current Backup File & Folder
-                sFileName = BackupFolder & oBackupItem.FileName
+                For Each oBackupItem As clsBackup In oBackupItems
+                    'Rename Current Backup File & Folder
+                    sFileName = BackupFolder & oBackupItem.FileName
 
-                'Rename Backup File
-                sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(oOriginalApp.Name, oNewApp.Name)
-                If File.Exists(sFileName) Then
-                    FileSystem.Rename(sFileName, sNewFileName)
-                End If
-
-                'Rename Directory
-                sDirectory = Path.GetDirectoryName(sFileName)
-                sNewDirectory = sDirectory.Replace(oOriginalApp.Name, oNewApp.Name)
-                If sDirectory <> sNewDirectory Then
-                    If Directory.Exists(sDirectory) Then
-                        FileSystem.Rename(sDirectory, sNewDirectory)
+                    'Rename Backup File
+                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(oOriginalApp.Name, oNewApp.Name)
+                    If File.Exists(sFileName) Then
+                        FileSystem.Rename(sFileName, sNewFileName)
                     End If
-                End If
 
-                oBackupItem.Name = oNewApp.Name
-                oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.Name, oNewApp.Name)
-                mgrManifest.DoManifestNameUpdate(oOriginalApp.Name, oBackupItem, mgrSQLite.Database.Local)
-                oLocalBackupData = mgrManifest.ReadManifest(mgrSQLite.Database.Local)
+                    'Rename Directory
+                    sDirectory = Path.GetDirectoryName(sFileName)
+                    sNewDirectory = sDirectory.Replace(oOriginalApp.Name, oNewApp.Name)
+                    If sDirectory <> sNewDirectory Then
+                        If Directory.Exists(sDirectory) Then
+                            FileSystem.Rename(sDirectory, sNewDirectory)
+                        End If
+                    End If
+
+                    oBackupItem.Name = oNewApp.Name
+                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.Name, oNewApp.Name)
+                    mgrManifest.DoManifestNameUpdate(oOriginalApp.Name, oBackupItem, mgrSQLite.Database.Local)
+                Next
+                oLocalBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Local)
             End If
+
             'Remote
-            If mgrManifest.DoManifestCheck(oOriginalApp.Name, mgrSQLite.Database.Remote) Then
-                oBackupItem = mgrManifest.DoManifestGetByName(oOriginalApp.Name, mgrSQLite.Database.Remote)
-                oBackupItem.Name = oNewApp.Name
-                oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.Name, oNewApp.Name)
-                mgrManifest.DoManifestNameUpdate(oOriginalApp.Name, oBackupItem, mgrSQLite.Database.Remote)
-                oRemoteBackupData = mgrManifest.ReadManifest(mgrSQLite.Database.Remote)
+            If mgrManifest.DoManifestNameCheck(oOriginalApp.Name, mgrSQLite.Database.Remote) Then
+                oBackupItems = mgrManifest.DoManifestGetByName(oOriginalApp.Name, mgrSQLite.Database.Remote)
+
+                For Each oBackupItem As clsBackup In oBackupItems
+                    oBackupItem.Name = oNewApp.Name
+                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.Name, oNewApp.Name)
+                    mgrManifest.DoManifestNameUpdate(oOriginalApp.Name, oBackupItem, mgrSQLite.Database.Remote)
+                Next
+                oRemoteBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
             End If
         End If
     End Sub
@@ -606,8 +612,8 @@ Public Class frmGameManager
         Dim sSubDir As String
 
         If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupDelete, CurrentBackupItem.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            mgrManifest.DoManifestDelete(CurrentBackupItem, mgrSQLite.Database.Local)
-            mgrManifest.DoManifestDelete(CurrentBackupItem, mgrSQLite.Database.Remote)
+            mgrManifest.DoManifestDeletebyID(CurrentBackupItem, mgrSQLite.Database.Local)
+            mgrManifest.DoManifestDeletebyID(CurrentBackupItem, mgrSQLite.Database.Remote)
 
             'Delete referenced backup file from the backup folder
             mgrCommon.DeleteFile(BackupFolder & CurrentBackupItem.FileName)
@@ -1172,7 +1178,7 @@ Public Class frmGameManager
                     oBackup.CheckSum = String.Empty
                     'Reset date
                     oBackup.DateUpdated = Date.Now
-                    mgrManifest.DoManifestUpdate(oBackup, mgrSQLite.Database.Remote)
+                    mgrManifest.DoManifestUpdateByID(oBackup, mgrSQLite.Database.Remote)
                     'Refresh backup data and GUI
                     bIsLoading = True
                     LoadBackupData()
@@ -1206,8 +1212,8 @@ Public Class frmGameManager
             If oMarkList.Count = 1 Then
                 If mgrCommon.ShowMessage(frmGameManager_ConfirmMark, oMarkList(0).Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     bWasUpdated = True
-                    If mgrManifest.DoManifestCheck(oMarkList(0).Name, mgrSQLite.Database.Local) Then
-                        mgrManifest.DoManifestUpdate(oMarkList(0), mgrSQLite.Database.Local)
+                    If mgrManifest.DoManifestCheck(oMarkList(0).Name, oMarkList(0).FileName, mgrSQLite.Database.Local) Then
+                        mgrManifest.DoManifestUpdateByID(oMarkList(0), mgrSQLite.Database.Local)
                     Else
                         mgrManifest.DoManifestAdd(oMarkList(0), mgrSQLite.Database.Local)
                     End If
@@ -1216,8 +1222,8 @@ Public Class frmGameManager
                 If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiMark, oMarkList.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     bWasUpdated = True
                     For Each oGameBackup In oMarkList
-                        If mgrManifest.DoManifestCheck(oGameBackup.Name, mgrSQLite.Database.Local) Then
-                            mgrManifest.DoManifestUpdate(oGameBackup, mgrSQLite.Database.Local)
+                        If mgrManifest.DoManifestCheck(oGameBackup.Name, oGameBackup.FileName, mgrSQLite.Database.Local) Then
+                            mgrManifest.DoManifestUpdateByID(oGameBackup, mgrSQLite.Database.Local)
                         Else
                             mgrManifest.DoManifestAdd(oGameBackup, mgrSQLite.Database.Local)
                         End If

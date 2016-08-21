@@ -50,15 +50,15 @@ Public Class mgrBackup
         oItem.CheckSum = sCheckSum
 
         'Save Remote Manifest
-        If mgrManifest.DoManifestCheck(oItem.Name, mgrSQLite.Database.Remote) Then
-            mgrManifest.DoManifestUpdate(oItem, mgrSQLite.Database.Remote)
+        If mgrManifest.DoManifestCheck(oItem.Name, oItem.FileName, mgrSQLite.Database.Remote) Then
+            mgrManifest.DoManifestUpdateByID(oItem, mgrSQLite.Database.Remote)
         Else
             mgrManifest.DoManifestAdd(oItem, mgrSQLite.Database.Remote)
         End If
 
         'Save Local Manifest
-        If mgrManifest.DoManifestCheck(oItem.Name, mgrSQLite.Database.Local) Then
-            mgrManifest.DoManifestUpdate(oItem, mgrSQLite.Database.Local)
+        If mgrManifest.DoManifestCheck(oItem.Name, oItem.FileName, mgrSQLite.Database.Local) Then
+            mgrManifest.DoManifestUpdateByID(oItem, mgrSQLite.Database.Local)
         Else
             mgrManifest.DoManifestAdd(oItem, mgrSQLite.Database.Local)
         End If

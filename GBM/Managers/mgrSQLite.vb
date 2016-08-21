@@ -92,7 +92,7 @@ Public Class mgrSQLite
             sSql &= "CREATE TABLE variables (VariableID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
 
             'Add Tables (Local Manifest)
-            sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, " &
+            sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, " &
                    "AbsolutePath BOOLEAN NOT NULL, DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
 
             'Set Version
@@ -111,7 +111,7 @@ Public Class mgrSQLite
 
         Try
             'Create the DB
-            SQLiteConnection.CreateFile(sDatabaseLocation)
+            SqliteConnection.CreateFile(sDatabaseLocation)
 
             'Add Tables (Remote Monitor List)
             sSql = "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
@@ -120,7 +120,7 @@ Public Class mgrSQLite
                    "PRIMARY KEY(Name, Process));"
 
             'Add Tables (Remote Manifest)
-            sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, " &
+            sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, " &
                    "AbsolutePath BOOLEAN NOT NULL, DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
 
             'Add Tables (Remote Tags)
@@ -155,7 +155,7 @@ Public Class mgrSQLite
 
     Public Sub Connect()
         If CheckDB() Then
-            db = New SQLiteConnection(sConnectString)
+            db = New SqliteConnection(sConnectString)
             db.Open()
         Else
             CreateDB()
@@ -167,18 +167,18 @@ Public Class mgrSQLite
         db.Close()
     End Sub
 
-    Private Sub BuildParams(ByRef command As SQLiteCommand, ByRef hshParams As Hashtable)
+    Private Sub BuildParams(ByRef command As SqliteCommand, ByRef hshParams As Hashtable)
         For Each de As DictionaryEntry In hshParams
             command.Parameters.AddWithValue(de.Key, de.Value)
         Next
     End Sub
 
     Public Function RunParamQuery(ByVal sSQL As String, ByVal hshParams As Hashtable) As Boolean
-        Dim trans As SQLiteTransaction
-        Dim command As SQLiteCommand
+        Dim trans As SqliteTransaction
+        Dim command As SqliteCommand
 
         Connect()
-        command = New SQLiteCommand(sSQL, db)
+        command = New SqliteCommand(sSQL, db)
         BuildParams(command, hshParams)
         trans = db.BeginTransaction()
 
@@ -198,11 +198,11 @@ Public Class mgrSQLite
     End Function
 
     Public Function RunMassParamQuery(ByVal sSQL As String, ByVal oParamList As List(Of Hashtable)) As Boolean
-        Dim trans As SQLiteTransaction
-        Dim command As SQLiteCommand
+        Dim trans As SqliteTransaction
+        Dim command As SqliteCommand
 
         Connect()
-        command = New SQLiteCommand(sSQL, db)
+        command = New SqliteCommand(sSQL, db)
         trans = db.BeginTransaction()
 
         Try
@@ -224,12 +224,12 @@ Public Class mgrSQLite
     End Function
 
     Public Function ReadParamData(ByVal sSQL As String, ByVal hshParams As Hashtable) As DataSet
-        Dim adapter As SQLiteDataAdapter
-        Dim command As SQLiteCommand
+        Dim adapter As SqliteDataAdapter
+        Dim command As SqliteCommand
         Dim oData As New DataSet
 
         Connect()
-        command = New SQLiteCommand(sSQL, db)
+        command = New SqliteCommand(sSQL, db)
         BuildParams(command, hshParams)
 
         Try
@@ -553,6 +553,42 @@ Public Class mgrSQLite
                 sSQL = "PRAGMA user_version=97"
 
                 RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '0.98 Upgrade
+        If GetDatabaseVersion() < 98 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v97")
+
+                'Overhaul Manifest Table
+                sSQL = "CREATE TABLE manifest_new (ManifestID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, AbsolutePath BOOLEAN NOT NULL, DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+                sSQL &= "INSERT INTO manifest_new (ManifestID, Name, FileName, RestorePath, AbsolutePath, DateUpdated, UpdatedBy) "
+                sSQL &= "SELECT ManifestID, Name, FileName, RestorePath, AbsolutePath, DateUpdated, UpdatedBy FROM manifest;"
+                sSQL &= "DROP TABLE manifest; ALTER TABLE manifest_new RENAME TO manifest;"
+                sSQL &= "PRAGMA user_version=98"
+
+                RunParamQuery(sSQL, New Hashtable)
+
+                'Run a compact
+                CompactDatabase()
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v97")
+
+                'Overhaul Manifest Table
+                sSQL = "CREATE TABLE manifest_new (ManifestID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, AbsolutePath BOOLEAN NOT NULL, DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+                sSQL &= "INSERT INTO manifest_new (ManifestID, Name, FileName, RestorePath, AbsolutePath, DateUpdated, UpdatedBy) "
+                sSQL &= "SELECT ManifestID, Name, FileName, RestorePath, AbsolutePath, DateUpdated, UpdatedBy FROM manifest;"
+                sSQL &= "DROP TABLE manifest; ALTER TABLE manifest_new RENAME TO manifest;"
+                sSQL &= "PRAGMA user_version=98"
+
+                RunParamQuery(sSQL, New Hashtable)
+
+                'Run a compact
+                CompactDatabase()
             End If
         End If
 

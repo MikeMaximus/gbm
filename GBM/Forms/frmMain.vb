@@ -158,7 +158,7 @@ Public Class frmMain
     End Sub
 
     Private Sub RunRestore(ByVal oRestoreList As List(Of clsGame))
-        Dim oBackupData As SortedList = mgrManifest.ReadManifest(mgrSQLite.Database.Remote)
+        Dim oBackupData As SortedList = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
         Dim oGame As clsGame
         Dim oReadyList As New List(Of clsBackup)
         Dim oRestoreInfo As clsBackup
