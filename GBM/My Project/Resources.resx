@@ -503,7 +503,7 @@
     <value>Monitor only</value>
   </data>
   <data name="frmGameManager_chkTimeStamp" xml:space="preserve">
-    <value>Timestamp each backup</value>
+    <value>Save multiple backups</value>
   </data>
   <data name="frmGameManager_ChooseCustomIcon" xml:space="preserve">
     <value>Choose a custom icon for the game</value>
@@ -527,7 +527,7 @@
     <value>Are you sure you want to run a backup for [PARAM]?  This will close the form.</value>
   </data>
   <data name="frmGameManager_ConfirmBackupDelete" xml:space="preserve">
-    <value>This will delete the backup file and all records of this backup.  This cannot be undone. [BR][BR]Do you want to remove the data for [PARAM]?</value>
+    <value>This will delete the selected backup file.  This cannot be undone. [BR][BR]Do you want to delete [PARAM]?</value>
   </data>
   <data name="frmGameManager_ConfirmBackupFolderDelete" xml:space="preserve">
     <value>The backup folder [PARAM] still contains [PARAM] directories and [PARAM] files.[BR][BR]Do you want to delete the contents and remove the sub-folder for this game?</value>
@@ -616,8 +616,8 @@
   <data name="frmGameManager_lblCompany" xml:space="preserve">
     <value>Company:</value>
   </data>
-  <data name="frmGameManager_lblLatestbackup" xml:space="preserve">
-    <value>Latest Backup:</value>
+  <data name="frmGameManager_lblRemote" xml:space="preserve">
+    <value>Backup Data:</value>
   </data>
   <data name="frmGameManager_lblBackupFile" xml:space="preserve">
     <value>Backup File:</value>
@@ -631,8 +631,8 @@
   <data name="frmGameManager_lblIcon" xml:space="preserve">
     <value>Icon:</value>
   </data>
-  <data name="frmGameManager_lblCurrentBackup" xml:space="preserve">
-    <value>Current Backup:</value>
+  <data name="frmGameManager_lblLocalData" xml:space="preserve">
+    <value>Local Data:</value>
   </data>
   <data name="frmGameManager_lblName" xml:space="preserve">
     <value>Name:</value>
@@ -1652,7 +1652,7 @@
     <value>Monitor this game</value>
   </data>
   <data name="frmSyncFields_chkTimeStamp" xml:space="preserve">
-    <value>Time stamp each backup</value>
+    <value>Save multiple backups</value>
   </data>
   <data name="frmSyncFields_chkVersion" xml:space="preserve">
     <value>Version</value>
@@ -1713,5 +1713,11 @@
   </data>
   <data name="frmGameManager_ErrorBackupChangePath" xml:space="preserve">
     <value>You cannot choose a file located outside the current [PARAM] backup folder.</value>
+  </data>
+  <data name="frmGameManager_lblLimit" xml:space="preserve">
+    <value>Backup Limit</value>
+  </data>
+  <data name="mgrBackup_BackupLimitExceeded" xml:space="preserve">
+    <value>[PARAM] backup limit ([PARAM]) exceeded. [PARAM] was automatically removed.</value>
   </data>
 </root>

@@ -75,6 +75,7 @@ Public Class mgrMonitorList
         Dim sCompany As String
         Dim sMonitorGame As String
         Dim sTimeStamp As String
+        Dim sBackupLimit As String
 
         'Setup SQL for optional fields
         If (eSyncFields And clsGame.eOptionalSyncFields.Company) = clsGame.eOptionalSyncFields.Company Then
@@ -99,8 +100,10 @@ Public Class mgrMonitorList
         End If
         If (eSyncFields And clsGame.eOptionalSyncFields.TimeStamp) = clsGame.eOptionalSyncFields.TimeStamp Then
             sTimeStamp = "@TimeStamp"
+            sBackupLimit = "@BackupLimit"
         Else
             sTimeStamp = "COALESCE((SELECT TimeStamp FROM monitorlist WHERE MonitorID=@ID),0)"
+            sBackupLimit = "(SELECT BackupLimit FROM monitorlist WHERE MonitorID=@ID),0)"
         End If
         If (eSyncFields And clsGame.eOptionalSyncFields.Version) = clsGame.eOptionalSyncFields.Version Then
             sVersion = "@Version"
@@ -108,11 +111,11 @@ Public Class mgrMonitorList
             sVersion = "(SELECT Version FROM monitorlist WHERE MonitorID=@ID)"
         End If
 
-        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly) "
+        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit) "
         sSQL &= "VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, "
         sSQL &= sTimeStamp & ", @ExcludeList, " & sGamePath & ", "
         sSQL &= sIcon & ", @Hours, " & sVersion & ", "
-        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly);"
+        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, " & sBackupLimit & ");"
 
         For Each oGame As clsGame In hshGames.Values
             hshParams = New Hashtable
@@ -144,6 +147,7 @@ Public Class mgrMonitorList
             End If
             If (eSyncFields And clsGame.eOptionalSyncFields.TimeStamp) = clsGame.eOptionalSyncFields.TimeStamp Then
                 hshParams.Add("TimeStamp", oGame.AppendTimeStamp)
+                hshParams.Add("BackupLimit", oGame.BackupLimit)
             End If
             If (eSyncFields And clsGame.eOptionalSyncFields.Version) = clsGame.eOptionalSyncFields.Version Then
                 hshParams.Add("Version", oGame.Version)
@@ -329,9 +333,9 @@ Public Class mgrMonitorList
 
         Select Case eFilterType
             Case frmFilter.eFilterType.NoFilter
-                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist ORDER BY Name Asc"
+                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit FROM monitorlist ORDER BY Name Asc"
             Case frmFilter.eFilterType.FieldAnd, frmFilter.eFilterType.FieldOr
-                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist"
+                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit FROM monitorlist"
 
                 If hshStringFilters.Count > 0 Then
                     sSQL &= " WHERE ("
@@ -353,7 +357,7 @@ Public Class mgrMonitorList
                 End If
                 sSQL &= " ORDER BY Name Asc"
             Case frmFilter.eFilterType.AnyTag
-                sSQL = "SELECT DISTINCT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist "
+                sSQL = "SELECT DISTINCT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit FROM monitorlist "
                 sSQL &= "NATURAL JOIN gametags WHERE gametags.TagID IN ("
 
                 For Each oTag As clsTag In oTagFilters
@@ -365,7 +369,7 @@ Public Class mgrMonitorList
                 sSQL = sSQL.TrimEnd(",")
                 sSQL &= ") ORDER BY Name Asc"
             Case frmFilter.eFilterType.AllTags
-                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist WHERE MonitorID IN "
+                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit FROM monitorlist WHERE MonitorID IN "
 
                 For Each oTag As clsTag In oTagFilters
                     sSQL &= "(SELECT MonitorID FROM gametags WHERE monitorlist.MonitorID = gametags.MonitorID And TagID = @TagID" & iCounter & ")"
@@ -378,7 +382,7 @@ Public Class mgrMonitorList
 
                 sSQL &= " ORDER BY Name Asc"
             Case frmFilter.eFilterType.NoTags
-                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist WHERE MonitorID NOT IN (SELECT MonitorID FROM gametags) ORDER BY Name Asc"
+                sSQL = "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit FROM monitorlist WHERE MonitorID NOT IN (SELECT MonitorID FROM gametags) ORDER BY Name Asc"
         End Select
 
         Return sSQL
@@ -416,6 +420,7 @@ Public Class mgrMonitorList
             If Not IsDBNull(dr("Company")) Then oGame.Company = CStr(dr("Company"))
             oGame.Enabled = CBool(dr("Enabled"))
             oGame.MonitorOnly = CBool(dr("MonitorOnly"))
+            oGame.BackupLimit = CInt(dr("BackupLimit"))
 
             hshList.Add(oGame.ID, oGame)
         Next
@@ -482,6 +487,7 @@ Public Class mgrMonitorList
             If Not IsDBNull(dr("Company")) Then oGame.Company = CStr(dr("Company"))
             oGame.Enabled = CBool(dr("Enabled"))
             oGame.MonitorOnly = CBool(dr("MonitorOnly"))
+            oGame.BackupLimit = CInt(dr("BackupLimit"))
 
             Select Case eListType
                 Case eListTypes.FullList
@@ -506,7 +512,7 @@ Public Class mgrMonitorList
         Dim hshParams As New Hashtable
 
         sSQL = "INSERT INTO monitorlist VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, @TimeStamp, "
-        sSQL &= "@ExcludeList, @ProcessPath, @Icon, @Hours, @Version, @Company, @Enabled, @MonitorOnly)"
+        sSQL &= "@ExcludeList, @ProcessPath, @Icon, @Hours, @Version, @Company, @Enabled, @MonitorOnly, @BackupLimit)"
 
         'Parameters
         hshParams.Add("ID", oGame.ID)
@@ -525,6 +531,7 @@ Public Class mgrMonitorList
         hshParams.Add("Company", oGame.Company)
         hshParams.Add("Enabled", oGame.Enabled)
         hshParams.Add("MonitorOnly", oGame.MonitorOnly)
+        hshParams.Add("BackupLimit", oGame.BackupLimit)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
 
@@ -537,7 +544,7 @@ Public Class mgrMonitorList
 
         sSQL = "UPDATE monitorlist SET Name=@Name, Process=@Process, Path=@Path, AbsolutePath=@AbsolutePath, FolderSave=@FolderSave, "
         sSQL &= "FileType=@FileType, TimeStamp=@TimeStamp, ExcludeList=@ExcludeList, ProcessPath=@ProcessPath, Icon=@Icon, "
-        sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly WHERE MonitorID=@ID"
+        sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit WHERE MonitorID=@ID"
 
         'Parameters
         hshParams.Add("Name", oGame.Name)
@@ -556,6 +563,7 @@ Public Class mgrMonitorList
         hshParams.Add("Enabled", oGame.Enabled)
         hshParams.Add("MonitorOnly", oGame.MonitorOnly)
         hshParams.Add("ID", oGame.ID)
+        hshParams.Add("BackupLimit", oGame.BackupLimit)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
 
@@ -667,6 +675,7 @@ Public Class mgrMonitorList
             If Not IsDBNull(dr("Company")) Then oGame.Company = CStr(dr("Company"))
             oGame.Enabled = CBool(dr("Enabled"))
             oGame.MonitorOnly = CBool(dr("MonitorOnly"))
+            oGame.BackupLimit = CInt(dr("BackupLimit"))
         Next
 
         Return oGame
@@ -706,6 +715,7 @@ Public Class mgrMonitorList
             If Not IsDBNull(dr("Company")) Then oGame.Company = CStr(dr("Company"))
             oGame.Enabled = CBool(dr("Enabled"))
             oGame.MonitorOnly = CBool(dr("MonitorOnly"))
+            oGame.BackupLimit = CInt(dr("BackupLimit"))
             hshGames.Add(iCounter, oGame)
             iCounter += 1
         Next

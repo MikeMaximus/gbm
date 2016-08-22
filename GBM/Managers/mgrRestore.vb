@@ -268,8 +268,8 @@ Public Class mgrRestore
 
                 If bRestoreCompleted Then
                     'Save Local Manifest
-                    If mgrManifest.DoManifestCheck(oBackupInfo.Name, oBackupInfo.FileName, mgrSQLite.Database.Local) Then
-                        mgrManifest.DoManifestUpdateByID(oBackupInfo, mgrSQLite.Database.Local)
+                    If mgrManifest.DoGlobalManifestCheck(oBackupInfo.Name, mgrSQLite.Database.Local) Then
+                        mgrManifest.DoManifestUpdateByName(oBackupInfo, mgrSQLite.Database.Local)
                     Else
                         mgrManifest.DoManifestAdd(oBackupInfo, mgrSQLite.Database.Local)
                     End If

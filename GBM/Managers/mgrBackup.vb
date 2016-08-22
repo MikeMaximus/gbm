@@ -50,15 +50,15 @@ Public Class mgrBackup
         oItem.CheckSum = sCheckSum
 
         'Save Remote Manifest
-        If mgrManifest.DoManifestCheck(oItem.Name, oItem.FileName, mgrSQLite.Database.Remote) Then
+        If mgrManifest.DoSpecificManifestCheck(oItem.Name, oItem.FileName, mgrSQLite.Database.Remote) Then
             mgrManifest.DoManifestUpdateByID(oItem, mgrSQLite.Database.Remote)
         Else
             mgrManifest.DoManifestAdd(oItem, mgrSQLite.Database.Remote)
         End If
 
         'Save Local Manifest
-        If mgrManifest.DoManifestCheck(oItem.Name, oItem.FileName, mgrSQLite.Database.Local) Then
-            mgrManifest.DoManifestUpdateByID(oItem, mgrSQLite.Database.Local)
+        If mgrManifest.DoGlobalManifestCheck(oItem.Name, mgrSQLite.Database.Local) Then
+            mgrManifest.DoManifestUpdateByName(oItem, mgrSQLite.Database.Local)
         Else
             mgrManifest.DoManifestAdd(oItem, mgrSQLite.Database.Local)
         End If
@@ -107,6 +107,33 @@ Public Class mgrBackup
         Return True
     End Function
 
+    Private Sub CheckOldBackups(ByVal oGame As clsGame, ByVal sBackupPath As String)
+        Dim oGameBackups As List(Of clsBackup) = mgrManifest.DoManifestGetByName(oGame.Name, mgrSQLite.Database.Remote)
+        Dim oGameBackup As clsBackup
+        Dim sOldBackup As String
+        Dim iBackupCount As Integer = oGameBackups.Count
+        Dim iDelCount As Integer
+
+        'If we've hit or exceeded the maximum backup limit
+        If oGameBackups.Count >= oGame.BackupLimit Then
+            'How many do we need to delete
+            iDelCount = (oGameBackups.Count - oGame.BackupLimit) + 1
+
+            'Delete the oldest backup(s) (Manifest entry and backup file)
+            For i = 1 To iDelCount
+                oGameBackup = oGameBackups(oGameBackups.Count - i)
+                sOldBackup = sBackupPath & Path.DirectorySeparatorChar & oGameBackup.FileName
+
+                mgrManifest.DoManifestDeletebyID(oGameBackup, mgrSQLite.Database.Remote)
+                mgrManifest.DoManifestDeletebyID(oGameBackup, mgrSQLite.Database.Local)
+                If File.Exists(sOldBackup) Then
+                    mgrCommon.DeleteFile(sOldBackup)
+                End If
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupLimitExceeded, New String() {oGame.Name, oGame.BackupLimit, Path.GetFileName(sOldBackup)}), False, ToolTipIcon.Info, True)
+            Next
+        End If
+    End Sub
+
     Public Sub DoBackup(ByVal oBackupList As List(Of clsGame))
         Dim oGame As clsGame
         Dim bDoBackup As Boolean
@@ -144,6 +171,7 @@ Public Class mgrBackup
             End If
 
             If oGame.AppendTimeStamp Then
+                CheckOldBackups(oGame, sBackupFile)
                 sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name & sTimeStamp & ".7z"
             Else
                 sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name & ".7z"

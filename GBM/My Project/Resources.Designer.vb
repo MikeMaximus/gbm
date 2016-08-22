@@ -1312,7 +1312,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Timestamp each backup.
+        '''  Looks up a localized string similar to Save multiple backups.
         '''</summary>
         Friend ReadOnly Property frmGameManager_chkTimeStamp() As String
             Get
@@ -1420,7 +1420,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to This will delete the backup file and all records of this backup.  This cannot be undone. [BR][BR]Do you want to remove the data for [PARAM]?.
+        '''  Looks up a localized string similar to This will delete the selected backup file.  This cannot be undone. [BR][BR]Do you want to delete [PARAM]?.
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmBackupDelete() As String
             Get
@@ -1771,15 +1771,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Current Backup:.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_lblCurrentBackup() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_lblCurrentBackup", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Game Path:.
         '''</summary>
         Friend ReadOnly Property frmGameManager_lblGamePath() As String
@@ -1807,11 +1798,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Latest Backup:.
+        '''  Looks up a localized string similar to Backup Limit.
         '''</summary>
-        Friend ReadOnly Property frmGameManager_lblLatestbackup() As String
+        Friend ReadOnly Property frmGameManager_lblLimit() As String
             Get
-                Return ResourceManager.GetString("frmGameManager_lblLatestbackup", resourceCulture)
+                Return ResourceManager.GetString("frmGameManager_lblLimit", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Local Data:.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblLocalData() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblLocalData", resourceCulture)
             End Get
         End Property
         
@@ -1839,6 +1839,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_lblQuickFilter() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_lblQuickFilter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backup Data:.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblRemote() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblRemote", resourceCulture)
             End Get
         End Property
         
@@ -3913,7 +3922,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Time stamp each backup.
+        '''  Looks up a localized string similar to Save multiple backups.
         '''</summary>
         Friend ReadOnly Property frmSyncFields_chkTimeStamp() As String
             Get
@@ -4354,6 +4363,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_BackupInProgress() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_BackupInProgress", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] backup limit ([PARAM]) exceeded. [PARAM] was automatically removed..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_BackupLimitExceeded() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_BackupLimitExceeded", resourceCulture)
             End Get
         End Property
         
