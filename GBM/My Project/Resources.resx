@@ -1715,7 +1715,7 @@
     <value>Backup Limit</value>
   </data>
   <data name="mgrBackup_BackupLimitExceeded" xml:space="preserve">
-    <value>[PARAM] backup limit ([PARAM]) exceeded. [PARAM] was automatically removed.</value>
+    <value>[PARAM] was automatically removed.</value>
   </data>
   <data name="frmGameManager_cmsDeleteAll" xml:space="preserve">
     <value>&amp;All Files</value>

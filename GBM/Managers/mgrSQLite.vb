@@ -589,7 +589,7 @@ Public Class mgrSQLite
                 sSQL &= "DROP TABLE manifest; ALTER TABLE manifest_new RENAME TO manifest;"
 
                 'Add backup limit field
-                sSQL = "ALTER TABLE monitorlist ADD COLUMN BackupLimit INTEGER NOT NULL DEFAULT 2;"
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN BackupLimit INTEGER NOT NULL DEFAULT 5;"
 
                 sSQL &= "PRAGMA user_version=98"
 

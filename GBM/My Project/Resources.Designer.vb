@@ -4385,7 +4385,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] backup limit ([PARAM]) exceeded. [PARAM] was automatically removed..
+        '''  Looks up a localized string similar to [PARAM] was automatically removed..
         '''</summary>
         Friend ReadOnly Property mgrBackup_BackupLimitExceeded() As String
             Get

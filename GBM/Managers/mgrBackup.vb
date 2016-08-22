@@ -129,7 +129,7 @@ Public Class mgrBackup
                 If File.Exists(sOldBackup) Then
                     mgrCommon.DeleteFile(sOldBackup)
                 End If
-                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupLimitExceeded, New String() {oGame.Name, oGame.BackupLimit, Path.GetFileName(sOldBackup)}), False, ToolTipIcon.Info, True)
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupLimitExceeded, Path.GetFileName(sOldBackup)), False, ToolTipIcon.Info, True)
             Next
         End If
     End Sub
