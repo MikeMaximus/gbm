@@ -116,7 +116,7 @@
         Return oBackupItem
     End Function
 
-    Public Shared Function DoSpecificManifestCheck(ByVal sName As String, ByVal sFileName As String, ByVal iSelectDB As mgrSQLite.Database) As Boolean
+    Public Shared Function DoSpecificManifestCheck(ByRef oItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database) As Boolean
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
         Dim sSQL As String
@@ -125,12 +125,15 @@
         sSQL = "SELECT * from manifest "
         sSQL &= "WHERE Name = @Name AND FileName = @FileName"
 
-        hshParams.Add("Name", sName)
-        hshParams.Add("FileName", sFileName)
+        hshParams.Add("Name", oItem.Name)
+        hshParams.Add("FileName", oItem.FileName)
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
         If oData.Tables(0).Rows.Count > 0 Then
+            For Each dr As DataRow In oData.Tables(0).Rows
+                oItem.ID = CStr(dr("ManifestID"))
+            Next
             Return True
         Else
             Return False

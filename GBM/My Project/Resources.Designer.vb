@@ -1375,6 +1375,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;All Files.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsDeleteAll() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsDeleteAll", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Selected File.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsDeleteOne() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsDeleteOne", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;File....
         '''</summary>
         Friend ReadOnly Property frmGameManager_cmsFile() As String
@@ -1429,11 +1447,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The backup folder [PARAM] still contains [PARAM] directories and [PARAM] files.[BR][BR]Do you want to delete the contents and remove the sub-folder for this game?.
+        '''  Looks up a localized string similar to This will delete all backup files for [PARAM].  This cannot be undone. [BR][BR]Do you want to continue?.
         '''</summary>
-        Friend ReadOnly Property frmGameManager_ConfirmBackupFolderDelete() As String
+        Friend ReadOnly Property frmGameManager_ConfirmBackupDeleteAll() As String
             Get
-                Return ResourceManager.GetString("frmGameManager_ConfirmBackupFolderDelete", resourceCulture)
+                Return ResourceManager.GetString("frmGameManager_ConfirmBackupDeleteAll", resourceCulture)
             End Get
         End Property
         

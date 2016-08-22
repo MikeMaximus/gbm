@@ -637,9 +637,36 @@ Public Class frmGameManager
 
     End Sub
 
+    Private Sub DeleteAllBackups()
+        Dim oBackupData As List(Of clsBackup)
+        Dim oBackup As clsBackup
+
+        If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupDeleteAll, CurrentGame.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            oBackupData = mgrManifest.DoManifestGetByName(CurrentGame.Name, mgrSQLite.Database.Remote)
+
+            For Each oBackup In oBackupData
+                'Delete the specific remote manifest entry
+                mgrManifest.DoManifestDeletebyID(oBackup, mgrSQLite.Database.Remote)
+                'Delete referenced backup file from the backup folder
+                mgrCommon.DeleteFile(BackupFolder & oBackup.FileName)
+            Next
+
+            'Delete local manifest entry
+            mgrManifest.DoManifestDeletebyName(CurrentBackupItem, mgrSQLite.Database.Local)
+
+            LoadBackupData()
+
+            If oCurrentGame.Temporary Then
+                LoadData()
+                eCurrentMode = eModes.Disabled
+                ModeChange()
+            Else
+                FillData()
+            End If
+        End If
+    End Sub
+
     Private Sub DeleteBackup()
-        'Dim oDir As DirectoryInfo
-        'Dim sSubDir As String
 
         If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupDelete, Path.GetFileName(CurrentBackupItem.FileName), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             'Delete the specific remote manifest entry
@@ -652,26 +679,6 @@ Public Class frmGameManager
 
             'Delete referenced backup file from the backup folder
             mgrCommon.DeleteFile(BackupFolder & CurrentBackupItem.FileName)
-
-            'Check if using backup sub-directories (Probably not the best way to check for this)
-            'If CurrentBackupItem.FileName.StartsWith(CurrentBackupItem.Name & Path.DirectorySeparatorChar) Then
-            '    'Build sub-dir backup path
-            '    sSubDir = BackupFolder & CurrentBackupItem.Name
-
-            '    If Directory.Exists(sSubDir) Then
-            '        'Check if there's any sub-directories or files remaining
-            '        oDir = New DirectoryInfo(sSubDir)
-            '        If oDir.GetDirectories.Length > 0 Or oDir.GetFiles.Length > 0 Then
-            '            'Confirm
-            '            If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupFolderDelete, New String() {sSubDir, oDir.GetDirectories.Length, oDir.GetFiles.Length}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            '                If Directory.Exists(sSubDir) Then mgrCommon.DeleteDirectory(sSubDir, True)
-            '            End If
-            '        Else
-            '            'Folder is empty,  delete the empty sub-folder
-            '            If Directory.Exists(sSubDir) Then mgrCommon.DeleteDirectory(sSubDir)
-            '        End If
-            '    End If
-            'End If
 
             LoadBackupData()
 
@@ -1008,6 +1015,7 @@ Public Class frmGameManager
             lblLimit.Visible = True
         Else
             nudLimit.Visible = False
+            nudLimit.Value = nudLimit.Minimum
             lblLimit.Visible = False
         End If
     End Sub
@@ -1300,7 +1308,8 @@ Public Class frmGameManager
             RestoreList.Clear()
 
             If lstGames.SelectedItems.Count = 1 Then
-                RestoreList.Add(CurrentGame, CurrentBackupItem)
+                'Filter out any games set to monitor only
+                If Not CurrentGame.MonitorOnly Then RestoreList.Add(CurrentGame, CurrentBackupItem)
             Else
                 For Each oData In lstGames.SelectedItems
                     If oRemoteBackupData.Contains(oData.Value) Then
@@ -1437,6 +1446,8 @@ Public Class frmGameManager
         cmsFile.Text = frmGameManager_cmsFile
         lblQuickFilter.Text = frmGameManager_lblQuickFilter
         lblLimit.Text = frmGameManager_lblLimit
+        cmsDeleteOne.Text = frmGameManager_cmsDeleteOne
+        cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
 
         'Init Filter Timer
         tmFilterTimer = New Timer()
@@ -1544,7 +1555,19 @@ Public Class frmGameManager
     End Sub
 
     Private Sub btnDeleteBackup_Click(sender As Object, e As EventArgs) Handles btnDeleteBackup.Click
+        If cboRemoteBackup.Items.Count > 1 Then
+            cmsDeleteBackup.Show(btnDeleteBackup, New Drawing.Point(109, 11), ToolStripDropDownDirection.AboveRight)
+        Else
+            DeleteBackup()
+        End If
+    End Sub
+
+    Private Sub cmsDeleteOne_Click(sender As Object, e As EventArgs) Handles cmsDeleteOne.Click
         DeleteBackup()
+    End Sub
+
+    Private Sub cmsDeleteAll_Click(sender As Object, e As EventArgs) Handles cmsDeleteAll.Click
+        DeleteAllBackups()
     End Sub
 
     Private Sub btnMarkAsRestored_Click(sender As Object, e As EventArgs) Handles btnMarkAsRestored.Click

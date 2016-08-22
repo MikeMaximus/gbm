@@ -529,9 +529,6 @@
   <data name="frmGameManager_ConfirmBackupDelete" xml:space="preserve">
     <value>This will delete the selected backup file.  This cannot be undone. [BR][BR]Do you want to delete [PARAM]?</value>
   </data>
-  <data name="frmGameManager_ConfirmBackupFolderDelete" xml:space="preserve">
-    <value>The backup folder [PARAM] still contains [PARAM] directories and [PARAM] files.[BR][BR]Do you want to delete the contents and remove the sub-folder for this game?</value>
-  </data>
   <data name="frmGameManager_ConfirmGameDelete" xml:space="preserve">
     <value>Are you sure you want to delete [PARAM]?  This cannot be undone.[BR][BR]This will not delete any backup files that already exist for this game.</value>
   </data>
@@ -1719,5 +1716,14 @@
   </data>
   <data name="mgrBackup_BackupLimitExceeded" xml:space="preserve">
     <value>[PARAM] backup limit ([PARAM]) exceeded. [PARAM] was automatically removed.</value>
+  </data>
+  <data name="frmGameManager_cmsDeleteAll" xml:space="preserve">
+    <value>&amp;All Files</value>
+  </data>
+  <data name="frmGameManager_cmsDeleteOne" xml:space="preserve">
+    <value>&amp;Selected File</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackupDeleteAll" xml:space="preserve">
+    <value>This will delete all backup files for [PARAM].  This cannot be undone. [BR][BR]Do you want to continue?</value>
   </data>
 </root>

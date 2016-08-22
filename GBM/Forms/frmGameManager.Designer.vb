@@ -92,6 +92,9 @@ Partial Class frmGameManager
         Me.cmsFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtQuickFilter = New System.Windows.Forms.TextBox()
         Me.lblQuickFilter = New System.Windows.Forms.Label()
+        Me.cmsDeleteBackup = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmsDeleteOne = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -100,6 +103,7 @@ Partial Class frmGameManager
         Me.grpStats.SuspendLayout()
         Me.grpFilter.SuspendLayout()
         Me.cmsImport.SuspendLayout()
+        Me.cmsDeleteBackup.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnAdd
@@ -785,6 +789,25 @@ Partial Class frmGameManager
         Me.lblQuickFilter.TabIndex = 1
         Me.lblQuickFilter.Text = "Quick Filter:"
         '
+        'cmsDeleteBackup
+        '
+        Me.cmsDeleteBackup.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsDeleteOne, Me.cmsDeleteAll})
+        Me.cmsDeleteBackup.Name = "cmsDeleteBackup"
+        Me.cmsDeleteBackup.ShowImageMargin = False
+        Me.cmsDeleteBackup.Size = New System.Drawing.Size(128, 70)
+        '
+        'cmsDeleteOne
+        '
+        Me.cmsDeleteOne.Name = "cmsDeleteOne"
+        Me.cmsDeleteOne.Size = New System.Drawing.Size(127, 22)
+        Me.cmsDeleteOne.Text = "&Selected File"
+        '
+        'cmsDeleteAll
+        '
+        Me.cmsDeleteAll.Name = "cmsDeleteAll"
+        Me.cmsDeleteAll.Size = New System.Drawing.Size(127, 22)
+        Me.cmsDeleteAll.Text = "&All Files"
+        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -829,6 +852,7 @@ Partial Class frmGameManager
         Me.grpFilter.ResumeLayout(False)
         Me.grpFilter.PerformLayout()
         Me.cmsImport.ResumeLayout(False)
+        Me.cmsDeleteBackup.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -902,4 +926,7 @@ Partial Class frmGameManager
     Friend WithEvents lblLimit As Label
     Friend WithEvents nudLimit As NumericUpDown
     Friend WithEvents cboRemoteBackup As ComboBox
+    Friend WithEvents cmsDeleteBackup As ContextMenuStrip
+    Friend WithEvents cmsDeleteOne As ToolStripMenuItem
+    Friend WithEvents cmsDeleteAll As ToolStripMenuItem
 End Class
