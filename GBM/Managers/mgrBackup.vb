@@ -107,7 +107,7 @@ Public Class mgrBackup
         Return True
     End Function
 
-    Private Sub CheckOldBackups(ByVal oGame As clsGame, ByVal sBackupPath As String)
+    Private Sub CheckOldBackups(ByVal oGame As clsGame)
         Dim oGameBackups As List(Of clsBackup) = mgrManifest.DoManifestGetByName(oGame.Name, mgrSQLite.Database.Remote)
         Dim oGameBackup As clsBackup
         Dim sOldBackup As String
@@ -122,7 +122,7 @@ Public Class mgrBackup
             'Delete the oldest backup(s) (Manifest entry and backup file)
             For i = 1 To iDelCount
                 oGameBackup = oGameBackups(oGameBackups.Count - i)
-                sOldBackup = sBackupPath & Path.DirectorySeparatorChar & oGameBackup.FileName
+                sOldBackup = Settings.BackupFolder & Path.DirectorySeparatorChar & oGameBackup.FileName
 
                 mgrManifest.DoManifestDeletebyID(oGameBackup, mgrSQLite.Database.Remote)
                 mgrManifest.DoManifestDeletebyID(oGameBackup, mgrSQLite.Database.Local)
@@ -171,7 +171,7 @@ Public Class mgrBackup
             End If
 
             If oGame.AppendTimeStamp Then
-                CheckOldBackups(oGame, sBackupFile)
+                CheckOldBackups(oGame)
                 sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name & sTimeStamp & ".7z"
             Else
                 sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name & ".7z"
