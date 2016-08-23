@@ -66,6 +66,8 @@ Partial Class frmAddWizard
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnNext = New System.Windows.Forms.Button()
         Me.btnBack = New System.Windows.Forms.Button()
+        Me.lblLimit = New System.Windows.Forms.Label()
+        Me.nudLimit = New System.Windows.Forms.NumericUpDown()
         Me.tabWizard.SuspendLayout()
         Me.tbPage1.SuspendLayout()
         Me.tbPage2.SuspendLayout()
@@ -73,6 +75,7 @@ Partial Class frmAddWizard
         Me.tbPage3a.SuspendLayout()
         Me.tbPage4.SuspendLayout()
         Me.tbPage5.SuspendLayout()
+        CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'tabWizard
@@ -121,8 +124,8 @@ Partial Class frmAddWizard
         Me.lblStep1Instructions.Name = "lblStep1Instructions"
         Me.lblStep1Instructions.Size = New System.Drawing.Size(303, 85)
         Me.lblStep1Instructions.TabIndex = 6
-        Me.lblStep1Instructions.Text = "The name will be automatically filtered for length and invalid characters.  You m" & _
-    "ay drag and drop a shortcut here to complete this step, only Windows shortcuts a" & _
+        Me.lblStep1Instructions.Text = "The name will be automatically filtered for length and invalid characters.  You m" &
+    "ay drag and drop a shortcut here to complete this step, only Windows shortcuts a" &
     "re currently supported."
         '
         'txtName
@@ -205,6 +208,8 @@ Partial Class frmAddWizard
         'tbPage3
         '
         Me.tbPage3.BackColor = System.Drawing.SystemColors.Control
+        Me.tbPage3.Controls.Add(Me.lblLimit)
+        Me.tbPage3.Controls.Add(Me.nudLimit)
         Me.tbPage3.Controls.Add(Me.lblStep3Title)
         Me.tbPage3.Controls.Add(Me.lblStep3Instructions)
         Me.tbPage3.Controls.Add(Me.chkTimeStamp)
@@ -230,32 +235,32 @@ Partial Class frmAddWizard
         '
         'lblStep3Instructions
         '
-        Me.lblStep3Instructions.Location = New System.Drawing.Point(14, 116)
+        Me.lblStep3Instructions.Location = New System.Drawing.Point(14, 139)
         Me.lblStep3Instructions.Name = "lblStep3Instructions"
         Me.lblStep3Instructions.Size = New System.Drawing.Size(303, 42)
         Me.lblStep3Instructions.TabIndex = 9
-        Me.lblStep3Instructions.Text = "If you're unsure of exactly which files to backup,  make sure Save Entire Folder " & _
-    "is checked.  You can also time stamp your backup files to make incremental backu" & _
-    "ps."
+        Me.lblStep3Instructions.Text = "If you're unsure of exactly which files to backup,  make sure Save entire folder " &
+    "is checked.  You can also choose to save multiple backups and set a limit on how" &
+    " many to keep."
         '
         'chkTimeStamp
         '
         Me.chkTimeStamp.AutoSize = True
-        Me.chkTimeStamp.Location = New System.Drawing.Point(139, 87)
+        Me.chkTimeStamp.Location = New System.Drawing.Point(18, 108)
         Me.chkTimeStamp.Name = "chkTimeStamp"
-        Me.chkTimeStamp.Size = New System.Drawing.Size(122, 17)
+        Me.chkTimeStamp.Size = New System.Drawing.Size(133, 17)
         Me.chkTimeStamp.TabIndex = 8
-        Me.chkTimeStamp.Text = "Time Stamp Backup"
+        Me.chkTimeStamp.Text = "Save multiple backups"
         Me.chkTimeStamp.UseVisualStyleBackColor = True
         '
         'chkFolderSave
         '
         Me.chkFolderSave.AutoSize = True
-        Me.chkFolderSave.Location = New System.Drawing.Point(17, 87)
+        Me.chkFolderSave.Location = New System.Drawing.Point(18, 87)
         Me.chkFolderSave.Name = "chkFolderSave"
-        Me.chkFolderSave.Size = New System.Drawing.Size(113, 17)
+        Me.chkFolderSave.Size = New System.Drawing.Size(109, 17)
         Me.chkFolderSave.TabIndex = 7
-        Me.chkFolderSave.Text = "Save Entire Folder"
+        Me.chkFolderSave.Text = "Save entire folder"
         Me.chkFolderSave.UseVisualStyleBackColor = True
         '
         'btnSaveBrowse
@@ -352,7 +357,7 @@ Partial Class frmAddWizard
         Me.lblStep3aInstructions.Name = "lblStep3aInstructions"
         Me.lblStep3aInstructions.Size = New System.Drawing.Size(303, 56)
         Me.lblStep3aInstructions.TabIndex = 5
-        Me.lblStep3aInstructions.Text = "Choose any file types, specific files  or folders you wish to include in the back" & _
+        Me.lblStep3aInstructions.Text = "Choose any file types, specific files  or folders you wish to include in the back" &
     "up.  If you're unsure, go back a step and choose to save the entire folder. "
         '
         'txtFileTypes
@@ -434,7 +439,7 @@ Partial Class frmAddWizard
         Me.lblStep4Instructions.Name = "lblStep4Instructions"
         Me.lblStep4Instructions.Size = New System.Drawing.Size(303, 59)
         Me.lblStep4Instructions.TabIndex = 5
-        Me.lblStep4Instructions.Text = "Choose any file types, specific files  or folders you wish to exclude from the ba" & _
+        Me.lblStep4Instructions.Text = "Choose any file types, specific files  or folders you wish to exclude from the ba" &
     "ckup.  You may choose multiple items to exclude.  This step can be skipped."
         '
         'txtExcludeList
@@ -516,6 +521,27 @@ Partial Class frmAddWizard
         Me.btnBack.Text = "&Back"
         Me.btnBack.UseVisualStyleBackColor = True
         '
+        'lblLimit
+        '
+        Me.lblLimit.AutoSize = True
+        Me.lblLimit.Location = New System.Drawing.Point(203, 109)
+        Me.lblLimit.Name = "lblLimit"
+        Me.lblLimit.Size = New System.Drawing.Size(68, 13)
+        Me.lblLimit.TabIndex = 15
+        Me.lblLimit.Text = "Backup Limit"
+        Me.lblLimit.Visible = False
+        '
+        'nudLimit
+        '
+        Me.nudLimit.Location = New System.Drawing.Point(157, 107)
+        Me.nudLimit.Minimum = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.nudLimit.Name = "nudLimit"
+        Me.nudLimit.Size = New System.Drawing.Size(40, 20)
+        Me.nudLimit.TabIndex = 14
+        Me.nudLimit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.nudLimit.Value = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.nudLimit.Visible = False
+        '
         'frmAddWizard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -545,6 +571,7 @@ Partial Class frmAddWizard
         Me.tbPage4.PerformLayout()
         Me.tbPage5.ResumeLayout(False)
         Me.tbPage5.PerformLayout()
+        CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -591,4 +618,6 @@ Partial Class frmAddWizard
     Friend WithEvents lblExcludePath As Label
     Friend WithEvents lblIncludePathTitle As Label
     Friend WithEvents lblExcludePathTitle As Label
+    Friend WithEvents lblLimit As Label
+    Friend WithEvents nudLimit As NumericUpDown
 End Class

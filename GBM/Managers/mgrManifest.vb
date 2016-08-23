@@ -115,6 +115,7 @@
         Return oBackupItem
     End Function
 
+    'This should only be used to update specific entries in the remote manifest
     Public Shared Function DoSpecificManifestCheck(ByRef oItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database) As Boolean
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
@@ -140,6 +141,7 @@
 
     End Function
 
+    'This should only be used to update entries in the local manifest
     Public Shared Function DoGlobalManifestCheck(ByVal sName As String, ByVal iSelectDB As mgrSQLite.Database) As Boolean
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet

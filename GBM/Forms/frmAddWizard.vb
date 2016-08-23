@@ -46,6 +46,7 @@ Public Class frmAddWizard
         lblStep3Instructions.Text = frmAddWizard_lblStep3Instructions
         chkTimeStamp.Text = frmAddWizard_chkTimeStamp
         chkFolderSave.Text = frmAddWizard_chkFolderSave
+        lblLimit.Text = frmAddWizard_lblLimit
         btnSaveBrowse.Text = frmAddWizard_btnSaveBrowse
         lblStep3Intro.Text = frmAddWizard_lblStep3Intro
         lblIncludePathTitle.Text = frmAddWizard_lblIncludePathTitle
@@ -68,6 +69,28 @@ Public Class frmAddWizard
         StepHandler()
     End Sub
 
+    Private Sub ShowHideLimit()
+        If chkTimeStamp.Checked Then
+            nudLimit.Visible = True
+            lblLimit.Visible = True
+            nudLimit.Value = 5
+        Else
+            nudLimit.Visible = False
+            nudLimit.Value = nudLimit.Minimum
+            lblLimit.Visible = False
+        End If
+    End Sub
+
+    Private Function ShowSummaryLimit(ByVal bTimeStamp As Boolean, ByVal iLimit As Integer) As String
+        Dim sLimit As String = String.Empty
+
+        If bTimeStamp Then
+            Return mgrCommon.BooleanYesNo(bTimeStamp) & " (" & iLimit & ")"
+        Else
+            Return mgrCommon.BooleanYesNo(bTimeStamp)
+        End If
+    End Function
+
     Private Function StringEmptyText(ByVal sString As String) As String
         If sString = String.Empty Then
             Return frmAddWizard_None
@@ -86,6 +109,7 @@ Public Class frmAddWizard
         Dim bIsAbsolute As Boolean = mgrPath.IsAbsolute(sSavePath)
         Dim bFolderBackup As Boolean = chkFolderSave.Checked
         Dim bTimeStamp As Boolean = chkTimeStamp.Checked
+        Dim iLimit As Integer = nudLimit.Value
         Dim sFileType As String = txtFileTypes.Text
         Dim sExcludeList As String = txtExcludeList.Text
         Dim sProcess As String
@@ -117,7 +141,7 @@ Public Class frmAddWizard
         lstSummary.Columns(1).Width = 210
 
         sItems = {frmAddWizard_Summary_Name, frmAddWizard_Summary_Process, frmAddWizard_Summary_AbsolutePath, frmAddWizard_Summary_SavePath, frmAddWizard_Summary_FolderSave, frmAddWizard_Summary_Timestamp, frmAddWizard_Summary_Include, frmAddWizard_Summary_Exclude}
-        sValues = {sName, sProcessSummaryText, mgrCommon.BooleanYesNo(bIsAbsolute), sSavePath, mgrCommon.BooleanYesNo(bFolderBackup), mgrCommon.BooleanYesNo(bTimeStamp), StringEmptyText(sFileType), StringEmptyText(sExcludeList)}
+        sValues = {sName, sProcessSummaryText, mgrCommon.BooleanYesNo(bIsAbsolute), sSavePath, mgrCommon.BooleanYesNo(bFolderBackup), ShowSummaryLimit(bTimeStamp, iLimit), StringEmptyText(sFileType), StringEmptyText(sExcludeList)}
 
         For i = 0 To sItems.Length - 1
             sItem = {sItems(i), sValues(i)}
@@ -133,6 +157,7 @@ Public Class frmAddWizard
         oGame.FolderSave = bFolderBackup
         oGame.FileType = sFileType
         oGame.AppendTimeStamp = bTimeStamp
+        oGame.BackupLimit = iLimit
         oGame.ExcludeList = sExcludeList
 
         Return oGame
@@ -501,6 +526,10 @@ Public Class frmAddWizard
         txtFileTypes.Clear()
     End Sub
 
+    Private Sub chkTimeStamp_CheckedChanged(sender As Object, e As EventArgs) Handles chkTimeStamp.CheckedChanged
+        ShowHideLimit()
+    End Sub
+
     Private Sub btnInclude_Click(sender As Object, e As EventArgs) Handles btnInclude.Click
         OpenBuilder(frmAddWizard_Include, txtFileTypes)
         UpdateBuilderLabel(txtFileTypes.Text, lblFileTypes)
@@ -510,4 +539,6 @@ Public Class frmAddWizard
         OpenBuilder(frmAddWizard_Exclude, txtExcludeList)
         UpdateBuilderLabel(txtExcludeList.Text, lblExclude)
     End Sub
+
+
 End Class

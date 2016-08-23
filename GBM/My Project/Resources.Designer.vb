@@ -259,7 +259,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Save Entire Folder.
+        '''  Looks up a localized string similar to Save entire folder.
         '''</summary>
         Friend ReadOnly Property frmAddWizard_chkFolderSave() As String
             Get
@@ -268,7 +268,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Time Stamp Backup.
+        '''  Looks up a localized string similar to Save multiple backups.
         '''</summary>
         Friend ReadOnly Property frmAddWizard_chkTimeStamp() As String
             Get
@@ -502,6 +502,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backup Limit.
+        '''</summary>
+        Friend ReadOnly Property frmAddWizard_lblLimit() As String
+            Get
+                Return ResourceManager.GetString("frmAddWizard_lblLimit", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to The name will be automatically filtered for length and invalid characters.  You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported..
         '''</summary>
         Friend ReadOnly Property frmAddWizard_lblStep1Instructions() As String
@@ -574,7 +583,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to If you&apos;re unsure of exactly which files to backup,  make sure Save Entire Folder is checked.  You can also time stamp your backup files to make incremental backups..
+        '''  Looks up a localized string similar to If you&apos;re unsure of exactly which files to backup,  make sure Save entire folder is checked.  You can also choose to save multiple backups and set a limit on how many to keep..
         '''</summary>
         Friend ReadOnly Property frmAddWizard_lblStep3Instructions() As String
             Get
@@ -709,7 +718,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Timestamp.
+        '''  Looks up a localized string similar to Multiple Backups.
         '''</summary>
         Friend ReadOnly Property frmAddWizard_Summary_Timestamp() As String
             Get

@@ -10,57 +10,261 @@ Public Class mgrMonitorList
 
     Public Shared Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
 
-    Public Shared Sub HandleBackupLocationChange(ByVal oSettings As mgrSettings)
-        Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
-        Dim iGameCount As Integer
+    Private Shared Function MapToObject(ByVal dr As DataRow) As clsGame
+        Dim oGame As New clsGame
 
-        'Check if a remote database already exists in the new backup location
-        If oDatabase.CheckDB() Then
-            'Make sure database is the latest version
-            oDatabase.DatabaseUpgrade()
+        oGame.ID = CStr(dr("MonitorID"))
+        oGame.Name = CStr(dr("Name"))
+        oGame.ProcessName = CStr(dr("Process"))
+        If Not IsDBNull(dr("Path")) Then oGame.Path = CStr(dr("Path"))
+        oGame.AbsolutePath = CBool(dr("AbsolutePath"))
+        oGame.FolderSave = CBool(dr("FolderSave"))
+        If Not IsDBNull(dr("FileType")) Then oGame.FileType = CStr(dr("FileType"))
+        oGame.AppendTimeStamp = CBool(dr("TimeStamp"))
+        If Not IsDBNull(dr("ExcludeList")) Then oGame.ExcludeList = CStr(dr("ExcludeList"))
+        If Not IsDBNull(dr("ProcessPath")) Then oGame.ProcessPath = CStr(dr("ProcessPath"))
+        If Not IsDBNull(dr("Icon")) Then oGame.Icon = CStr(dr("Icon"))
+        oGame.Hours = CDbl(dr("Hours"))
+        If Not IsDBNull(dr("Version")) Then oGame.Version = CStr(dr("Version"))
+        If Not IsDBNull(dr("Company")) Then oGame.Company = CStr(dr("Company"))
+        oGame.Enabled = CBool(dr("Enabled"))
+        oGame.MonitorOnly = CBool(dr("MonitorOnly"))
+        oGame.BackupLimit = CInt(dr("BackupLimit"))
 
-            'See if the remote database is empty
-            iGameCount = mgrMonitorList.ReadList(eListTypes.FullList, mgrSQLite.Database.Remote).Count
+        Return oGame
+    End Function
 
-            'If the remote database actually contains a list, then ask what to do
-            If iGameCount > 0 Then
-                If mgrCommon.ShowMessage(mgrMonitorList_ConfirmExistingData, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
-                Else
-                    mgrMonitorList.SyncMonitorLists(oSettings.SyncFields, False)
-                End If
-            Else
-                mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
-            End If
+    Private Shared Function SetCoreParameters(ByVal oGame As clsGame) As Hashtable
+        Dim hshParams As New Hashtable
+
+        hshParams.Add("ID", oGame.ID)
+        hshParams.Add("Name", oGame.Name)
+        hshParams.Add("Process", oGame.TrueProcess)
+        hshParams.Add("Path", oGame.TruePath)
+        hshParams.Add("AbsolutePath", oGame.AbsolutePath)
+        hshParams.Add("FolderSave", oGame.FolderSave)
+        hshParams.Add("FileType", oGame.FileType)
+        hshParams.Add("TimeStamp", oGame.AppendTimeStamp)
+        hshParams.Add("ExcludeList", oGame.ExcludeList)
+        hshParams.Add("ProcessPath", oGame.ProcessPath)
+        hshParams.Add("Icon", oGame.Icon)
+        hshParams.Add("Hours", oGame.Hours)
+        hshParams.Add("Version", oGame.Version)
+        hshParams.Add("Company", oGame.Company)
+        hshParams.Add("Enabled", oGame.Enabled)
+        hshParams.Add("MonitorOnly", oGame.MonitorOnly)
+        hshParams.Add("BackupLimit", oGame.BackupLimit)
+
+        Return hshParams
+    End Function
+
+    Public Shared Function ReadList(ByVal eListType As eListTypes, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim oData As DataSet
+        Dim sSQL As String
+        Dim hshList As New Hashtable
+        Dim hshDupeList As New Hashtable
+        Dim oGame As clsGame
+
+        sSQL = "Select * from monitorlist ORDER BY Name Asc"
+        oData = oDatabase.ReadParamData(sSQL, New Hashtable)
+
+        For Each dr As DataRow In oData.Tables(0).Rows
+            oGame = MapToObject(dr)
+            Select Case eListType
+                Case eListTypes.FullList
+                    'Don't wrap this, if it fails there's a problem with the database
+                    hshList.Add(oGame.ProcessName & ":" & oGame.Name, oGame)
+                Case eListTypes.ScanList
+                    If hshList.Contains(oGame.ProcessName) Then
+                        DirectCast(hshList.Item(oGame.ProcessName), clsGame).Duplicate = True
+                        oGame.ProcessName = oGame.ProcessName & ":" & oGame.Name
+                        oGame.Duplicate = True
+                    End If
+                    If oGame.Enabled Then hshList.Add(oGame.ProcessName, oGame)
+            End Select
+        Next
+
+        Return hshList
+    End Function
+
+    Public Shared Sub DoListAdd(ByVal oGame As clsGame, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim hshParams As Hashtable
+
+        sSQL = "INSERT INTO monitorlist VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, @TimeStamp, "
+        sSQL &= "@ExcludeList, @ProcessPath, @Icon, @Hours, @Version, @Company, @Enabled, @MonitorOnly, @BackupLimit)"
+
+        'Parameters
+        hshParams = SetCoreParameters(oGame)
+
+        oDatabase.RunParamQuery(sSQL, hshParams)
+
+    End Sub
+
+    Public Shared Sub DoListUpdate(ByVal oGame As clsGame, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim hshParams As Hashtable
+
+        sSQL = "UPDATE monitorlist SET Name=@Name, Process=@Process, Path=@Path, AbsolutePath=@AbsolutePath, FolderSave=@FolderSave, "
+        sSQL &= "FileType=@FileType, TimeStamp=@TimeStamp, ExcludeList=@ExcludeList, ProcessPath=@ProcessPath, Icon=@Icon, "
+        sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit WHERE MonitorID=@ID"
+
+        'Parameters
+        hshParams = SetCoreParameters(oGame)
+
+        oDatabase.RunParamQuery(sSQL, hshParams)
+
+    End Sub
+
+    Public Shared Sub DoListUpdateMulti(ByVal sMonitorIDs As List(Of String), ByVal oGame As clsGame, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim hshParams As New Hashtable
+        Dim iCounter As Integer
+
+        sSQL = "UPDATE monitorlist SET Enabled=@Enabled, MonitorOnly=@MonitorOnly WHERE MonitorID IN ("
+
+        'Parameters
+        hshParams.Add("Enabled", oGame.Enabled)
+        hshParams.Add("MonitorOnly", oGame.MonitorOnly)
+
+        For Each s As String In sMonitorIDs
+            sSQL &= "@MonitorID" & iCounter & ","
+            hshParams.Add("MonitorID" & iCounter, s)
+            iCounter += 1
+        Next
+
+        sSQL = sSQL.TrimEnd(",")
+        sSQL &= ")"
+
+        oDatabase.RunParamQuery(sSQL, hshParams)
+
+    End Sub
+
+    Public Shared Sub DoListDelete(ByVal sMonitorID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim hshParams As New Hashtable
+
+        sSQL = "DELETE FROM gametags "
+        sSQL &= "WHERE MonitorID = @MonitorID;"
+        sSQL &= "DELETE FROM monitorlist "
+        sSQL &= "WHERE MonitorID = @MonitorID;"
+
+        hshParams.Add("MonitorID", sMonitorID)
+
+        oDatabase.RunParamQuery(sSQL, hshParams)
+
+    End Sub
+
+    Public Shared Sub DoListDeleteMulti(ByVal sMonitorIDs As List(Of String), Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim hshParams As New Hashtable
+        Dim iCounter As Integer
+
+        sSQL = "DELETE FROM gametags "
+        sSQL &= "WHERE MonitorID IN ("
+
+        For Each s As String In sMonitorIDs
+            sSQL &= "@MonitorID" & iCounter & ","
+            hshParams.Add("MonitorID" & iCounter, s)
+            iCounter += 1
+        Next
+
+        sSQL = sSQL.TrimEnd(",")
+        sSQL &= ");"
+
+        sSQL &= "DELETE FROM monitorlist "
+        sSQL &= "WHERE MonitorID IN ("
+
+        For Each s As String In sMonitorIDs
+            sSQL &= "@MonitorID" & iCounter & ","
+            hshParams.Add("MonitorID" & iCounter, s)
+            iCounter += 1
+        Next
+
+        sSQL = sSQL.TrimEnd(",")
+        sSQL &= ");"
+
+        oDatabase.RunParamQuery(sSQL, hshParams)
+    End Sub
+
+    Public Shared Function DoListGetbyID(ByVal iMonitorID As Integer, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As clsGame
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim oData As DataSet
+        Dim oGame As New clsGame
+        Dim hshParams As New Hashtable
+
+        sSQL = "SELECT * from monitorlist "
+        sSQL &= "WHERE MonitorID = @MonitorID"
+
+        hshParams.Add("MonitorID", iMonitorID)
+
+        oData = oDatabase.ReadParamData(sSQL, hshParams)
+
+        For Each dr As DataRow In oData.Tables(0).Rows
+            oGame = MapToObject(dr)
+        Next
+
+        Return oGame
+    End Function
+
+    Public Shared Function DoListGetbyName(ByVal sName As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim oData As DataSet
+        Dim oGame As New clsGame
+        Dim hshGames As New Hashtable
+        Dim hshParams As New Hashtable
+        Dim iCounter As Integer = 0
+
+        sSQL = "SELECT * from monitorlist "
+        sSQL &= "WHERE Name = @Name"
+
+        hshParams.Add("Name", sName)
+
+        oData = oDatabase.ReadParamData(sSQL, hshParams)
+
+        For Each dr As DataRow In oData.Tables(0).Rows
+            oGame = MapToObject(dr)
+            hshGames.Add(iCounter, oGame)
+            iCounter += 1
+        Next
+
+        Return hshGames
+    End Function
+
+    Public Shared Function DoDuplicateListCheck(ByVal sName As String, ByVal sProcess As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local, Optional ByVal sExcludeID As String = "") As Boolean
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim oData As DataSet
+        Dim hshParams As New Hashtable
+
+        sSQL = "SELECT * FROM monitorlist WHERE Name = @Name AND Process= @Process"
+
+        hshParams.Add("Name", sName)
+        hshParams.Add("Process", sProcess)
+
+        If sExcludeID <> String.Empty Then
+            sSQL &= " AND MonitorID <> @MonitorID"
+            hshParams.Add("MonitorID", sExcludeID)
+        End If
+
+        oData = oDatabase.ReadParamData(sSQL, hshParams)
+
+        If oData.Tables(0).Rows.Count > 0 Then
+            Return True
         Else
-            mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+            Return False
         End If
-    End Sub
+    End Function
 
-    Public Shared Sub ExportMonitorList(ByVal sLocation As String)
-        Dim oList As List(Of Game)
-        Dim bSuccess As Boolean = False
-        Dim oTagFilters As New List(Of clsTag)
-        Dim oStringFilters As New Hashtable
-        Dim eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.NoFilter
-
-        If mgrCommon.ShowMessage(mgrMonitorList_ConfirmApplyFilter, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            Dim frm As New frmFilter
-            frm.ShowDialog()
-            oTagFilters = frm.TagFilters
-            oStringFilters = frm.StringFilters
-            eCurrentFilter = frm.FilterType
-        End If
-
-        oList = ReadListForExport(oTagFilters, oStringFilters, eCurrentFilter)
-
-        bSuccess = mgrXML.SerializeAndExport(oList, sLocation)
-
-        If bSuccess Then
-            mgrCommon.ShowMessage(mgrMonitorList_ExportComplete, oList.Count, MsgBoxStyle.Information)
-        End If
-    End Sub
-
+    'Sync Functions
     Public Shared Sub DoListAddUpdateSync(ByVal hshGames As Hashtable, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local,
                                           Optional ByVal eSyncFields As clsGame.eOptionalSyncFields = clsGame.eOptionalSyncFields.None)
         Dim oDatabase As New mgrSQLite(iSelectDB)
@@ -260,73 +464,7 @@ Public Class mgrMonitorList
         Application.DoEvents()
     End Sub
 
-    Private Shared Sub ImportMonitorList(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False)
-        Dim hshCompareFrom As Hashtable
-        Dim hshCompareTo As Hashtable
-        Dim hshSyncItems As Hashtable
-        Dim oFromItem As clsGame
-        Dim oToItem As clsGame
-
-        Cursor.Current = Cursors.WaitCursor
-
-        'Add / Update Sync
-        hshCompareFrom = mgrXML.ReadMonitorList(sLocation, bWebRead)
-        hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
-
-        hshSyncItems = hshCompareFrom.Clone
-
-        For Each oFromItem In hshCompareFrom.Values
-            If hshCompareTo.Contains(oFromItem.CompoundKey) Then
-                oToItem = DirectCast(hshCompareTo(oFromItem.CompoundKey), clsGame)
-                If oFromItem.CoreEquals(oToItem) Then
-                    hshSyncItems.Remove(oFromItem.CompoundKey)
-                End If
-            End If
-        Next
-
-        Cursor.Current = Cursors.Default
-
-        If hshSyncItems.Count > 0 Then
-            Dim frm As New frmAdvancedImport
-            frm.ImportData = hshSyncItems
-            If frm.ShowDialog() = DialogResult.OK Then
-                Cursor.Current = Cursors.WaitCursor
-
-                DoListAddUpdateSync(frm.FinalData)
-                mgrTags.DoTagAddImport(frm.FinalData)
-
-                Cursor.Current = Cursors.Default
-                mgrCommon.ShowMessage(mgrMonitorList_ImportComplete, MsgBoxStyle.Information)
-            End If
-        Else
-            mgrCommon.ShowMessage(mgrMonitorList_ImportNothing, MsgBoxStyle.Information)
-        End If
-
-        Application.DoEvents()
-    End Sub
-
-    Public Shared Function DoImport(ByVal sPath As String) As Boolean
-        If (sPath.IndexOf("http://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Or _
-               (sPath.IndexOf("https://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Then
-            If mgrCommon.CheckAddress(sPath) Then
-                ImportMonitorList(sPath, True)
-                Return True
-            Else
-                mgrCommon.ShowMessage(mgrMonitorList_WebNoReponse, sPath, MsgBoxStyle.Exclamation)
-                Return False
-            End If
-        Else
-            If File.Exists(sPath) Then
-                ImportMonitorList(sPath)
-                Return True
-            Else
-                mgrCommon.ShowMessage(mgrMonitorList_FileNotFound, sPath, MsgBoxStyle.Exclamation)
-                Return False
-            End If
-        End If
-        Return True
-    End Function
-
+    'Filter Functions
     Private Shared Function BuildFilterQuery(ByVal oTagFilters As List(Of clsTag), ByVal hshStringFilters As Hashtable, eFilterType As frmFilter.eFilterType, ByRef hshParams As Hashtable) As String
         Dim sSQL As String = String.Empty
         Dim iCounter As Integer = 0
@@ -403,24 +541,7 @@ Public Class mgrMonitorList
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
         For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = New clsGame
-            oGame.ID = CStr(dr("MonitorID"))
-            oGame.Name = CStr(dr("Name"))
-            oGame.ProcessName = CStr(dr("Process"))
-            If Not IsDBNull(dr("Path")) Then oGame.Path = CStr(dr("Path"))
-            oGame.AbsolutePath = CBool(dr("AbsolutePath"))
-            oGame.FolderSave = CBool(dr("FolderSave"))
-            If Not IsDBNull(dr("FileType")) Then oGame.FileType = CStr(dr("FileType"))
-            oGame.AppendTimeStamp = CBool(dr("TimeStamp"))
-            If Not IsDBNull(dr("ExcludeList")) Then oGame.ExcludeList = CStr(dr("ExcludeList"))
-            If Not IsDBNull(dr("ProcessPath")) Then oGame.ProcessPath = CStr(dr("ProcessPath"))
-            If Not IsDBNull(dr("Icon")) Then oGame.Icon = CStr(dr("Icon"))
-            oGame.Hours = CDbl(dr("Hours"))
-            If Not IsDBNull(dr("Version")) Then oGame.Version = CStr(dr("Version"))
-            If Not IsDBNull(dr("Company")) Then oGame.Company = CStr(dr("Company"))
-            oGame.Enabled = CBool(dr("Enabled"))
-            oGame.MonitorOnly = CBool(dr("MonitorOnly"))
-            oGame.BackupLimit = CInt(dr("BackupLimit"))
+            oGame = MapToObject(dr)
 
             hshList.Add(oGame.ID, oGame)
         Next
@@ -428,6 +549,8 @@ Public Class mgrMonitorList
         Return hshList
     End Function
 
+
+    'Import / Export Functions
     Public Shared Function ReadListForExport(ByVal oTagFilters As List(Of clsTag), ByVal hshStringFilters As Hashtable, ByVal eFilterType As frmFilter.eFilterType, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As List(Of Game)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
@@ -458,294 +581,122 @@ Public Class mgrMonitorList
         Return oList
     End Function
 
-    Public Shared Function ReadList(ByVal eListType As eListTypes, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim oData As DataSet
-        Dim sSQL As String
-        Dim hshList As New Hashtable
-        Dim hshDupeList As New Hashtable
-        Dim oGame As clsGame
-
-        sSQL = "Select * from monitorlist ORDER BY Name Asc"
-        oData = oDatabase.ReadParamData(sSQL, New Hashtable)
-
-        For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = New clsGame
-            oGame.ID = CStr(dr("MonitorID"))
-            oGame.Name = CStr(dr("Name"))
-            oGame.ProcessName = CStr(dr("Process"))
-            If Not IsDBNull(dr("Path")) Then oGame.Path = CStr(dr("Path"))
-            oGame.AbsolutePath = CBool(dr("AbsolutePath"))
-            oGame.FolderSave = CBool(dr("FolderSave"))
-            If Not IsDBNull(dr("FileType")) Then oGame.FileType = CStr(dr("FileType"))
-            oGame.AppendTimeStamp = CBool(dr("TimeStamp"))
-            If Not IsDBNull(dr("ExcludeList")) Then oGame.ExcludeList = CStr(dr("ExcludeList"))
-            If Not IsDBNull(dr("ProcessPath")) Then oGame.ProcessPath = CStr(dr("ProcessPath"))
-            If Not IsDBNull(dr("Icon")) Then oGame.Icon = CStr(dr("Icon"))
-            oGame.Hours = CDbl(dr("Hours"))
-            If Not IsDBNull(dr("Version")) Then oGame.Version = CStr(dr("Version"))
-            If Not IsDBNull(dr("Company")) Then oGame.Company = CStr(dr("Company"))
-            oGame.Enabled = CBool(dr("Enabled"))
-            oGame.MonitorOnly = CBool(dr("MonitorOnly"))
-            oGame.BackupLimit = CInt(dr("BackupLimit"))
-
-            Select Case eListType
-                Case eListTypes.FullList
-                    'Don't wrap this, if it fails there's a problem with the database
-                    hshList.Add(oGame.ProcessName & ":" & oGame.Name, oGame)
-                Case eListTypes.ScanList
-                    If hshList.Contains(oGame.ProcessName) Then
-                        DirectCast(hshList.Item(oGame.ProcessName), clsGame).Duplicate = True
-                        oGame.ProcessName = oGame.ProcessName & ":" & oGame.Name
-                        oGame.Duplicate = True
-                    End If
-                    If oGame.Enabled Then hshList.Add(oGame.ProcessName, oGame)
-            End Select
-        Next
-
-        Return hshList
-    End Function
-
-    Public Shared Sub DoListAdd(ByVal oGame As clsGame, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
-        Dim hshParams As New Hashtable
-
-        sSQL = "INSERT INTO monitorlist VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, @TimeStamp, "
-        sSQL &= "@ExcludeList, @ProcessPath, @Icon, @Hours, @Version, @Company, @Enabled, @MonitorOnly, @BackupLimit)"
-
-        'Parameters
-        hshParams.Add("ID", oGame.ID)
-        hshParams.Add("Name", oGame.Name)
-        hshParams.Add("Process", oGame.TrueProcess)
-        hshParams.Add("Path", oGame.TruePath)
-        hshParams.Add("AbsolutePath", oGame.AbsolutePath)
-        hshParams.Add("FolderSave", oGame.FolderSave)
-        hshParams.Add("FileType", oGame.FileType)
-        hshParams.Add("TimeStamp", oGame.AppendTimeStamp)
-        hshParams.Add("ExcludeList", oGame.ExcludeList)
-        hshParams.Add("ProcessPath", oGame.ProcessPath)
-        hshParams.Add("Icon", oGame.Icon)
-        hshParams.Add("Hours", oGame.Hours)
-        hshParams.Add("Version", oGame.Version)
-        hshParams.Add("Company", oGame.Company)
-        hshParams.Add("Enabled", oGame.Enabled)
-        hshParams.Add("MonitorOnly", oGame.MonitorOnly)
-        hshParams.Add("BackupLimit", oGame.BackupLimit)
-
-        oDatabase.RunParamQuery(sSQL, hshParams)
-
-    End Sub
-
-    Public Shared Sub DoListUpdate(ByVal oGame As clsGame, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
-        Dim hshParams As New Hashtable
-
-        sSQL = "UPDATE monitorlist SET Name=@Name, Process=@Process, Path=@Path, AbsolutePath=@AbsolutePath, FolderSave=@FolderSave, "
-        sSQL &= "FileType=@FileType, TimeStamp=@TimeStamp, ExcludeList=@ExcludeList, ProcessPath=@ProcessPath, Icon=@Icon, "
-        sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit WHERE MonitorID=@ID"
-
-        'Parameters
-        hshParams.Add("Name", oGame.Name)
-        hshParams.Add("Process", oGame.TrueProcess)
-        hshParams.Add("Path", oGame.TruePath)
-        hshParams.Add("AbsolutePath", oGame.AbsolutePath)
-        hshParams.Add("FolderSave", oGame.FolderSave)
-        hshParams.Add("FileType", oGame.FileType)
-        hshParams.Add("TimeStamp", oGame.AppendTimeStamp)
-        hshParams.Add("ExcludeList", oGame.ExcludeList)
-        hshParams.Add("ProcessPath", oGame.ProcessPath)
-        hshParams.Add("Icon", oGame.Icon)
-        hshParams.Add("Hours", oGame.Hours)
-        hshParams.Add("Version", oGame.Version)
-        hshParams.Add("Company", oGame.Company)
-        hshParams.Add("Enabled", oGame.Enabled)
-        hshParams.Add("MonitorOnly", oGame.MonitorOnly)
-        hshParams.Add("ID", oGame.ID)
-        hshParams.Add("BackupLimit", oGame.BackupLimit)
-
-        oDatabase.RunParamQuery(sSQL, hshParams)
-
-    End Sub
-
-    Public Shared Sub DoListUpdateMulti(ByVal sMonitorIDs As List(Of String), ByVal oGame As clsGame, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
-        Dim hshParams As New Hashtable
-        Dim iCounter As Integer
-
-        sSQL = "UPDATE monitorlist SET Enabled=@Enabled, MonitorOnly=@MonitorOnly WHERE MonitorID IN ("
-
-        'Parameters
-        hshParams.Add("Enabled", oGame.Enabled)
-        hshParams.Add("MonitorOnly", oGame.MonitorOnly)
-
-        For Each s As String In sMonitorIDs
-            sSQL &= "@MonitorID" & iCounter & ","
-            hshParams.Add("MonitorID" & iCounter, s)
-            iCounter += 1
-        Next
-
-        sSQL = sSQL.TrimEnd(",")
-        sSQL &= ")"
-
-        oDatabase.RunParamQuery(sSQL, hshParams)
-
-    End Sub
-
-    Public Shared Sub DoListDelete(ByVal sMonitorID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
-        Dim hshParams As New Hashtable
-
-        sSQL = "DELETE FROM gametags "
-        sSQL &= "WHERE MonitorID = @MonitorID;"
-        sSQL &= "DELETE FROM monitorlist "
-        sSQL &= "WHERE MonitorID = @MonitorID;"
-
-        hshParams.Add("MonitorID", sMonitorID)
-
-        oDatabase.RunParamQuery(sSQL, hshParams)
-
-    End Sub
-
-    Public Shared Sub DoListDeleteMulti(ByVal sMonitorIDs As List(Of String), Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
-        Dim hshParams As New Hashtable
-        Dim iCounter As Integer
-
-        sSQL = "DELETE FROM gametags "
-        sSQL &= "WHERE MonitorID IN ("
-
-        For Each s As String In sMonitorIDs
-            sSQL &= "@MonitorID" & iCounter & ","
-            hshParams.Add("MonitorID" & iCounter, s)
-            iCounter += 1
-        Next
-
-        sSQL = sSQL.TrimEnd(",")
-        sSQL &= ");"
-
-        sSQL &= "DELETE FROM monitorlist "
-        sSQL &= "WHERE MonitorID IN ("
-
-        For Each s As String In sMonitorIDs
-            sSQL &= "@MonitorID" & iCounter & ","
-            hshParams.Add("MonitorID" & iCounter, s)
-            iCounter += 1
-        Next
-
-        sSQL = sSQL.TrimEnd(",")
-        sSQL &= ");"
-
-        oDatabase.RunParamQuery(sSQL, hshParams)
-    End Sub
-
-    Public Shared Function DoListGetbyID(ByVal iMonitorID As Integer, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As clsGame
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
-        Dim oData As DataSet
-        Dim oGame As New clsGame
-        Dim hshParams As New Hashtable
-
-        sSQL = "SELECT * from monitorlist "
-        sSQL &= "WHERE MonitorID = @MonitorID"
-
-        hshParams.Add("MonitorID", iMonitorID)
-
-        oData = oDatabase.ReadParamData(sSQL, hshParams)
-
-        For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = New clsGame
-            oGame.ID = CStr(dr("MonitorID"))
-            oGame.Name = CStr(dr("Name"))
-            oGame.ProcessName = CStr(dr("Process"))
-            If Not IsDBNull(dr("Path")) Then oGame.Path = CStr(dr("Path"))
-            oGame.AbsolutePath = CBool(dr("AbsolutePath"))
-            oGame.FolderSave = CBool(dr("FolderSave"))
-            If Not IsDBNull(dr("FileType")) Then oGame.FileType = CStr(dr("FileType"))
-            oGame.AppendTimeStamp = CBool(dr("TimeStamp"))
-            If Not IsDBNull(dr("ExcludeList")) Then oGame.ExcludeList = CStr(dr("ExcludeList"))
-            If Not IsDBNull(dr("ProcessPath")) Then oGame.ProcessPath = CStr(dr("ProcessPath"))
-            If Not IsDBNull(dr("Icon")) Then oGame.Icon = CStr(dr("Icon"))
-            oGame.Hours = CDbl(dr("Hours"))
-            If Not IsDBNull(dr("Version")) Then oGame.Version = CStr(dr("Version"))
-            If Not IsDBNull(dr("Company")) Then oGame.Company = CStr(dr("Company"))
-            oGame.Enabled = CBool(dr("Enabled"))
-            oGame.MonitorOnly = CBool(dr("MonitorOnly"))
-            oGame.BackupLimit = CInt(dr("BackupLimit"))
-        Next
-
-        Return oGame
-    End Function
-
-    Public Shared Function DoListGetbyName(ByVal sName As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
-        Dim oData As DataSet
-        Dim oGame As New clsGame
-        Dim hshGames As New Hashtable
-        Dim hshParams As New Hashtable
-        Dim iCounter As Integer = 0
-
-        sSQL = "SELECT * from monitorlist "
-        sSQL &= "WHERE Name = @Name"
-
-        hshParams.Add("Name", sName)
-
-        oData = oDatabase.ReadParamData(sSQL, hshParams)
-
-        For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = New clsGame
-            oGame.ID = CStr(dr("MonitorID"))
-            oGame.Name = CStr(dr("Name"))
-            oGame.ProcessName = CStr(dr("Process"))
-            If Not IsDBNull(dr("Path")) Then oGame.Path = CStr(dr("Path"))
-            oGame.AbsolutePath = CBool(dr("AbsolutePath"))
-            oGame.FolderSave = CBool(dr("FolderSave"))
-            If Not IsDBNull(dr("FileType")) Then oGame.FileType = CStr(dr("FileType"))
-            oGame.AppendTimeStamp = CBool(dr("TimeStamp"))
-            If Not IsDBNull(dr("ExcludeList")) Then oGame.ExcludeList = CStr(dr("ExcludeList"))
-            If Not IsDBNull(dr("ProcessPath")) Then oGame.ProcessPath = CStr(dr("ProcessPath"))
-            If Not IsDBNull(dr("Icon")) Then oGame.Icon = CStr(dr("Icon"))
-            oGame.Hours = CDbl(dr("Hours"))
-            If Not IsDBNull(dr("Version")) Then oGame.Version = CStr(dr("Version"))
-            If Not IsDBNull(dr("Company")) Then oGame.Company = CStr(dr("Company"))
-            oGame.Enabled = CBool(dr("Enabled"))
-            oGame.MonitorOnly = CBool(dr("MonitorOnly"))
-            oGame.BackupLimit = CInt(dr("BackupLimit"))
-            hshGames.Add(iCounter, oGame)
-            iCounter += 1
-        Next
-
-        Return hshGames
-    End Function
-
-    Public Shared Function DoDuplicateListCheck(ByVal sName As String, ByVal sProcess As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local, Optional ByVal sExcludeID As String = "") As Boolean
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
-        Dim oData As DataSet
-        Dim hshParams As New Hashtable
-
-        sSQL = "SELECT * FROM monitorlist WHERE Name = @Name AND Process= @Process"
-
-        hshParams.Add("Name", sName)
-        hshParams.Add("Process", sProcess)
-
-        If sExcludeID <> String.Empty Then
-            sSQL &= " AND MonitorID <> @MonitorID"
-            hshParams.Add("MonitorID", sExcludeID)
-        End If
-
-        oData = oDatabase.ReadParamData(sSQL, hshParams)
-
-        If oData.Tables(0).Rows.Count > 0 Then
-            Return True
+    Public Shared Function DoImport(ByVal sPath As String) As Boolean
+        If (sPath.IndexOf("http://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Or
+               (sPath.IndexOf("https://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Then
+            If mgrCommon.CheckAddress(sPath) Then
+                ImportMonitorList(sPath, True)
+                Return True
+            Else
+                mgrCommon.ShowMessage(mgrMonitorList_WebNoReponse, sPath, MsgBoxStyle.Exclamation)
+                Return False
+            End If
         Else
-            Return False
+            If File.Exists(sPath) Then
+                ImportMonitorList(sPath)
+                Return True
+            Else
+                mgrCommon.ShowMessage(mgrMonitorList_FileNotFound, sPath, MsgBoxStyle.Exclamation)
+                Return False
+            End If
         End If
+        Return True
     End Function
 
+    Private Shared Sub ImportMonitorList(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False)
+        Dim hshCompareFrom As Hashtable
+        Dim hshCompareTo As Hashtable
+        Dim hshSyncItems As Hashtable
+        Dim oFromItem As clsGame
+        Dim oToItem As clsGame
+
+        Cursor.Current = Cursors.WaitCursor
+
+        'Add / Update Sync
+        hshCompareFrom = mgrXML.ReadMonitorList(sLocation, bWebRead)
+        hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
+
+        hshSyncItems = hshCompareFrom.Clone
+
+        For Each oFromItem In hshCompareFrom.Values
+            If hshCompareTo.Contains(oFromItem.CompoundKey) Then
+                oToItem = DirectCast(hshCompareTo(oFromItem.CompoundKey), clsGame)
+                If oFromItem.CoreEquals(oToItem) Then
+                    hshSyncItems.Remove(oFromItem.CompoundKey)
+                End If
+            End If
+        Next
+
+        Cursor.Current = Cursors.Default
+
+        If hshSyncItems.Count > 0 Then
+            Dim frm As New frmAdvancedImport
+            frm.ImportData = hshSyncItems
+            If frm.ShowDialog() = DialogResult.OK Then
+                Cursor.Current = Cursors.WaitCursor
+
+                DoListAddUpdateSync(frm.FinalData)
+                mgrTags.DoTagAddImport(frm.FinalData)
+
+                Cursor.Current = Cursors.Default
+                mgrCommon.ShowMessage(mgrMonitorList_ImportComplete, MsgBoxStyle.Information)
+            End If
+        Else
+            mgrCommon.ShowMessage(mgrMonitorList_ImportNothing, MsgBoxStyle.Information)
+        End If
+
+        Application.DoEvents()
+    End Sub
+
+    Public Shared Sub ExportMonitorList(ByVal sLocation As String)
+        Dim oList As List(Of Game)
+        Dim bSuccess As Boolean = False
+        Dim oTagFilters As New List(Of clsTag)
+        Dim oStringFilters As New Hashtable
+        Dim eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.NoFilter
+
+        If mgrCommon.ShowMessage(mgrMonitorList_ConfirmApplyFilter, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            Dim frm As New frmFilter
+            frm.ShowDialog()
+            oTagFilters = frm.TagFilters
+            oStringFilters = frm.StringFilters
+            eCurrentFilter = frm.FilterType
+        End If
+
+        oList = ReadListForExport(oTagFilters, oStringFilters, eCurrentFilter)
+
+        bSuccess = mgrXML.SerializeAndExport(oList, sLocation)
+
+        If bSuccess Then
+            mgrCommon.ShowMessage(mgrMonitorList_ExportComplete, oList.Count, MsgBoxStyle.Information)
+        End If
+    End Sub
+
+    'Other Functions
+    Public Shared Sub HandleBackupLocationChange(ByVal oSettings As mgrSettings)
+        Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
+        Dim iGameCount As Integer
+
+        'Check if a remote database already exists in the new backup location
+        If oDatabase.CheckDB() Then
+            'Make sure database is the latest version
+            oDatabase.DatabaseUpgrade()
+
+            'See if the remote database is empty
+            iGameCount = mgrMonitorList.ReadList(eListTypes.FullList, mgrSQLite.Database.Remote).Count
+
+            'If the remote database actually contains a list, then ask what to do
+            If iGameCount > 0 Then
+                If mgrCommon.ShowMessage(mgrMonitorList_ConfirmExistingData, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+                Else
+                    mgrMonitorList.SyncMonitorLists(oSettings.SyncFields, False)
+                End If
+            Else
+                mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+            End If
+        Else
+            mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        End If
+    End Sub
 End Class

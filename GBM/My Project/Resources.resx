@@ -701,10 +701,10 @@
     <value>...</value>
   </data>
   <data name="frmAddWizard_chkFolderSave" xml:space="preserve">
-    <value>Save Entire Folder</value>
+    <value>Save entire folder</value>
   </data>
   <data name="frmAddWizard_chkTimeStamp" xml:space="preserve">
-    <value>Time Stamp Backup</value>
+    <value>Save multiple backups</value>
   </data>
   <data name="frmAddWizard_ChooseProcess" xml:space="preserve">
     <value>Choose exe file that starts the game</value>
@@ -806,7 +806,7 @@
     <value>Choose Files to Backup</value>
   </data>
   <data name="frmAddWizard_lblStep3Instructions" xml:space="preserve">
-    <value>If you're unsure of exactly which files to backup,  make sure Save Entire Folder is checked.  You can also time stamp your backup files to make incremental backups.</value>
+    <value>If you're unsure of exactly which files to backup,  make sure Save entire folder is checked.  You can also choose to save multiple backups and set a limit on how many to keep.</value>
   </data>
   <data name="frmAddWizard_lblStep3Intro" xml:space="preserve">
     <value>Choose the location of your game's save files:</value>
@@ -851,7 +851,7 @@
     <value>Save Path</value>
   </data>
   <data name="frmAddWizard_Summary_Timestamp" xml:space="preserve">
-    <value>Timestamp</value>
+    <value>Multiple Backups</value>
   </data>
   <data name="frmAdvancedImport_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>
@@ -1725,5 +1725,8 @@
   </data>
   <data name="frmGameManager_ConfirmBackupDeleteAll" xml:space="preserve">
     <value>This will delete all backup files for [PARAM].  This cannot be undone. [BR][BR]Do you want to continue?</value>
+  </data>
+  <data name="frmAddWizard_lblLimit" xml:space="preserve">
+    <value>Backup Limit</value>
   </data>
 </root>

@@ -1,26 +1,44 @@
 ﻿Public Class mgrTags
 
+    Private Shared Function MapToObject(ByVal dr As DataRow) As clsTag
+        Dim oTag As New clsTag
+
+        oTag.ID = CStr(dr("TagID"))
+        oTag.Name = CStr(dr("Name"))
+
+        Return oTag
+    End Function
+
+    Private Shared Function SetCoreParameters(ByVal oTag As clsTag) As Hashtable
+        Dim hshParams As New Hashtable
+
+        hshParams.Add("ID", oTag.ID)
+        hshParams.Add("Name", oTag.Name)
+
+        Return hshParams
+    End Function
+
     Public Shared Sub DoTagAdd(ByVal oTag As clsTag, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
-        Dim hshParams As New Hashtable
+        Dim hshParams As Hashtable
 
         sSQL = "INSERT INTO tags VALUES (@ID, @Name)"
-        hshParams.Add("ID", oTag.ID)
-        hshParams.Add("Name", oTag.Name)
+
+        hshParams = SetCoreParameters(oTag)
+
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
     Public Shared Sub DoTagUpdate(ByVal oTag As clsTag, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
-        Dim hshParams As New Hashtable
+        Dim hshParams As Hashtable
 
         sSQL = "UPDATE tags SET Name=@Name "
         sSQL &= "WHERE TagID = @ID"
 
-        hshParams.Add("Name", oTag.Name)
-        hshParams.Add("ID", oTag.ID)
+        hshParams = SetCoreParameters(oTag)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
 
@@ -57,9 +75,7 @@
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
         For Each dr As DataRow In oData.Tables(0).Rows
-            oTag = New clsTag
-            oTag.ID = CStr(dr("TagID"))
-            oTag.Name = CStr(dr("Name"))
+            oTag = MapToObject(dr)
         Next
 
         Return oTag
@@ -80,9 +96,7 @@
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
         For Each dr As DataRow In oData.Tables(0).Rows
-            oTag = New clsTag
-            oTag.ID = CStr(dr("TagID"))
-            oTag.Name = CStr(dr("Name"))
+            oTag = MapToObject(dr)
         Next
 
         Return oTag
@@ -124,9 +138,7 @@
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
 
         For Each dr As DataRow In oData.Tables(0).Rows
-            oTag = New clsTag
-            oTag.ID = CStr(dr("TagID"))
-            oTag.Name = CStr(dr("Name"))
+            oTag = MapToObject(dr)
             hshList.Add(oTag.Name, oTag)
         Next
 

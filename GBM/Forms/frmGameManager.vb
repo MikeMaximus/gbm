@@ -171,7 +171,7 @@ Public Class frmGameManager
             'Local
             If mgrManifest.DoManifestNameCheck(oOriginalApp.Name, mgrSQLite.Database.Local) Then
                 oBackupItems = mgrManifest.DoManifestGetByName(oOriginalApp.Name, mgrSQLite.Database.Local)
-
+                'The local manifest will only have one entry per game, therefore this runs only once
                 For Each oBackupItem As clsBackup In oBackupItems
                     'Rename Current Backup File & Folder
                     sFileName = BackupFolder & oBackupItem.FileName
@@ -1013,6 +1013,7 @@ Public Class frmGameManager
         If chkTimeStamp.Checked Then
             nudLimit.Visible = True
             lblLimit.Visible = True
+            nudLimit.Value = 5
         Else
             nudLimit.Visible = False
             nudLimit.Value = nudLimit.Minimum
