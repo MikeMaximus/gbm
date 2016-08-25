@@ -259,7 +259,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Save Entire Folder.
+        '''  Looks up a localized string similar to Save entire folder.
         '''</summary>
         Friend ReadOnly Property frmAddWizard_chkFolderSave() As String
             Get
@@ -268,7 +268,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Time Stamp Backup.
+        '''  Looks up a localized string similar to Save multiple backups.
         '''</summary>
         Friend ReadOnly Property frmAddWizard_chkTimeStamp() As String
             Get
@@ -502,6 +502,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backup Limit.
+        '''</summary>
+        Friend ReadOnly Property frmAddWizard_lblLimit() As String
+            Get
+                Return ResourceManager.GetString("frmAddWizard_lblLimit", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to The name will be automatically filtered for length and invalid characters.  You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported..
         '''</summary>
         Friend ReadOnly Property frmAddWizard_lblStep1Instructions() As String
@@ -574,7 +583,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to If you&apos;re unsure of exactly which files to backup,  make sure Save Entire Folder is checked.  You can also time stamp your backup files to make incremental backups..
+        '''  Looks up a localized string similar to If you&apos;re unsure of exactly which files to backup,  make sure Save entire folder is checked.  You can also choose to save multiple backups and set a limit on how many to keep..
         '''</summary>
         Friend ReadOnly Property frmAddWizard_lblStep3Instructions() As String
             Get
@@ -709,7 +718,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Timestamp.
+        '''  Looks up a localized string similar to Multiple Backups.
         '''</summary>
         Friend ReadOnly Property frmAddWizard_Summary_Timestamp() As String
             Get
@@ -1312,7 +1321,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Timestamp each backup.
+        '''  Looks up a localized string similar to Save multiple backups.
         '''</summary>
         Friend ReadOnly Property frmGameManager_chkTimeStamp() As String
             Get
@@ -1375,6 +1384,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;All Files.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsDeleteAll() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsDeleteAll", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Selected File.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsDeleteOne() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsDeleteOne", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;File....
         '''</summary>
         Friend ReadOnly Property frmGameManager_cmsFile() As String
@@ -1420,7 +1447,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to This will delete the backup file and all records of this backup.  This cannot be undone. [BR][BR]Do you want to remove the data for [PARAM]?.
+        '''  Looks up a localized string similar to This will delete the selected backup file.  This cannot be undone. [BR][BR]Do you want to delete [PARAM]?.
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmBackupDelete() As String
             Get
@@ -1429,11 +1456,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The backup folder [PARAM] still contains [PARAM] directories and [PARAM] files.[BR][BR]Do you want to delete the contents and remove the sub-folder for this game?.
+        '''  Looks up a localized string similar to This will delete all backup files for [PARAM].  This cannot be undone. [BR][BR]Do you want to continue?.
         '''</summary>
-        Friend ReadOnly Property frmGameManager_ConfirmBackupFolderDelete() As String
+        Friend ReadOnly Property frmGameManager_ConfirmBackupDeleteAll() As String
             Get
-                Return ResourceManager.GetString("frmGameManager_ConfirmBackupFolderDelete", resourceCulture)
+                Return ResourceManager.GetString("frmGameManager_ConfirmBackupDeleteAll", resourceCulture)
             End Get
         End Property
         
@@ -1771,15 +1798,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Current Backup:.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_lblCurrentBackup() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_lblCurrentBackup", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Game Path:.
         '''</summary>
         Friend ReadOnly Property frmGameManager_lblGamePath() As String
@@ -1807,11 +1825,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Latest Backup:.
+        '''  Looks up a localized string similar to Backup Limit.
         '''</summary>
-        Friend ReadOnly Property frmGameManager_lblLatestbackup() As String
+        Friend ReadOnly Property frmGameManager_lblLimit() As String
             Get
-                Return ResourceManager.GetString("frmGameManager_lblLatestbackup", resourceCulture)
+                Return ResourceManager.GetString("frmGameManager_lblLimit", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Local Data:.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblLocalData() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblLocalData", resourceCulture)
             End Get
         End Property
         
@@ -1843,6 +1870,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backup Data:.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblRemote() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblRemote", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Restore Path:.
         '''</summary>
         Friend ReadOnly Property frmGameManager_lblRestorePath() As String
@@ -1870,11 +1906,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Never.
+        '''  Looks up a localized string similar to None.
         '''</summary>
-        Friend ReadOnly Property frmGameManager_Never() As String
+        Friend ReadOnly Property frmGameManager_None() As String
             Get
-                Return ResourceManager.GetString("frmGameManager_Never", resourceCulture)
+                Return ResourceManager.GetString("frmGameManager_None", resourceCulture)
             End Get
         End Property
         
@@ -1920,6 +1956,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_OutofSync() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_OutofSync", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Unknown.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_Unknown() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_Unknown", resourceCulture)
             End Get
         End Property
         
@@ -3913,7 +3958,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Time stamp each backup.
+        '''  Looks up a localized string similar to Save multiple backups.
         '''</summary>
         Friend ReadOnly Property frmSyncFields_chkTimeStamp() As String
             Get
@@ -4354,6 +4399,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_BackupInProgress() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_BackupInProgress", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] was automatically removed..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_BackupLimitExceeded() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_BackupLimitExceeded", resourceCulture)
             End Get
         End Property
         

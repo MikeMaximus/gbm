@@ -104,9 +104,9 @@ Partial Class frmSyncFields
         Me.chkTimeStamp.AutoSize = True
         Me.chkTimeStamp.Location = New System.Drawing.Point(6, 19)
         Me.chkTimeStamp.Name = "chkTimeStamp"
-        Me.chkTimeStamp.Size = New System.Drawing.Size(146, 17)
+        Me.chkTimeStamp.Size = New System.Drawing.Size(133, 17)
         Me.chkTimeStamp.TabIndex = 0
-        Me.chkTimeStamp.Text = "Time stamp each backup"
+        Me.chkTimeStamp.Text = "Save multiple backups"
         Me.chkTimeStamp.UseVisualStyleBackColor = True
         '
         'btnCancel

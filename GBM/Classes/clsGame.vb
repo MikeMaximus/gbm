@@ -7,6 +7,7 @@
     Private bFolderSave As Boolean = False
     Private sFileType As String = String.Empty
     Private bAppendTimeStamp As Boolean = False
+    Private iBackupLimit As Integer = 2
     Private sExcludeList As String = String.Empty
     Private sProcessPath As String = String.Empty
     Private sIcon As String = String.Empty
@@ -114,6 +115,15 @@
         End Get
         Set(value As Boolean)
             bAppendTimeStamp = value
+        End Set
+    End Property
+
+    Property BackupLimit As Integer
+        Get
+            Return iBackupLimit
+        End Get
+        Set(value As Integer)
+            iBackupLimit = value
         End Set
     End Property
 
@@ -291,6 +301,9 @@
             End If
             If (eSyncFields And eOptionalSyncFields.TimeStamp) = eOptionalSyncFields.TimeStamp Then
                 If AppendTimeStamp <> oGame.AppendTimeStamp Then
+                    Return False
+                End If
+                If BackupLimit <> oGame.BackupLimit Then
                     Return False
                 End If
             End If

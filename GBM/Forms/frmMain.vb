@@ -157,8 +157,7 @@ Public Class frmMain
         OperationEnded()
     End Sub
 
-    Private Sub RunRestore(ByVal oRestoreList As List(Of clsGame))
-        Dim oBackupData As SortedList = mgrManifest.ReadManifest(mgrSQLite.Database.Remote)
+    Private Sub RunRestore(ByVal oRestoreList As Hashtable)
         Dim oGame As clsGame
         Dim oReadyList As New List(Of clsBackup)
         Dim oRestoreInfo As clsBackup
@@ -168,9 +167,10 @@ Public Class frmMain
         OperationStarted()
 
         'Build Restore List
-        For Each oGame In oRestoreList
+        For Each de As DictionaryEntry In oRestoreList
             bPathVerified = False
-            oRestoreInfo = oBackupData(oGame.Name)
+            oGame = DirectCast(de.Key, clsGame)
+            oRestoreInfo = DirectCast(de.Value, clsBackup)
 
             If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload) Then
                 bPathVerified = True

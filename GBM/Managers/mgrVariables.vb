@@ -1,5 +1,25 @@
 ﻿Public Class mgrVariables
 
+    Private Shared Function MapToObject(ByVal dr As DataRow) As clsPathVariable
+        Dim oCustomVariable As New clsPathVariable
+
+        oCustomVariable.ID = CStr(dr("VariableID"))
+        oCustomVariable.Name = CStr(dr("Name"))
+        oCustomVariable.Path = CStr(dr("Path"))
+
+        Return oCustomVariable
+    End Function
+
+    Private Shared Function SetCoreParameters(ByVal oCustomVariable As clsPathVariable) As Hashtable
+        Dim hshParams As New Hashtable
+
+        hshParams.Add("ID", oCustomVariable.ID)
+        hshParams.Add("Name", oCustomVariable.Name)
+        hshParams.Add("Path", oCustomVariable.Path)
+
+        Return hshParams
+    End Function
+
     Public Shared Sub DoPathUpdate(ByVal sOld As String, ByVal sNew As String)
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSQL As String
@@ -15,26 +35,22 @@
     Public Shared Sub DoVariableAdd(ByVal oCustomVariable As clsPathVariable)
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSQL As String
-        Dim hshParams As New Hashtable
+        Dim hshParams As Hashtable
 
         sSQL = "INSERT INTO variables VALUES (@ID, @Name, @Path)"
-        hshParams.Add("ID", oCustomVariable.ID)
-        hshParams.Add("Name", oCustomVariable.Name)
-        hshParams.Add("Path", oCustomVariable.Path)
+        hshParams = SetCoreParameters(oCustomVariable)
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
     Public Shared Sub DoVariableUpdate(ByVal oCustomVariable As clsPathVariable)
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSQL As String
-        Dim hshParams As New Hashtable
+        Dim hshParams As Hashtable
 
         sSQL = "UPDATE variables SET Name=@Name, Path = @Path "
         sSQL &= "WHERE VariableID = @ID"
 
-        hshParams.Add("Name", oCustomVariable.Name)
-        hshParams.Add("Path", oCustomVariable.Path)
-        hshParams.Add("ID", oCustomVariable.ID)
+        hshParams = SetCoreParameters(oCustomVariable)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
 
@@ -69,10 +85,7 @@
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
         For Each dr As DataRow In oData.Tables(0).Rows
-            oCustomVariable = New clsPathVariable
-            oCustomVariable.ID = CStr(dr("VariableID"))
-            oCustomVariable.Name = CStr(dr("Name"))
-            oCustomVariable.Path = CStr(dr("Path"))
+            oCustomVariable = MapToObject(dr)
         Next
 
         Return oCustomVariable
@@ -93,10 +106,7 @@
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
         For Each dr As DataRow In oData.Tables(0).Rows
-            oCustomVariable = New clsPathVariable
-            oCustomVariable.ID = CStr(dr("VariableID"))
-            oCustomVariable.Name = CStr(dr("Name"))
-            oCustomVariable.Path = CStr(dr("Path"))
+            oCustomVariable = MapToObject(dr)
         Next
 
         Return oCustomVariable
@@ -138,10 +148,7 @@
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
 
         For Each dr As DataRow In oData.Tables(0).Rows
-            oCustomVariable = New clsPathVariable
-            oCustomVariable.ID = CStr(dr("VariableID"))
-            oCustomVariable.Name = CStr(dr("Name"))
-            oCustomVariable.Path = CStr(dr("Path"))
+            oCustomVariable = MapToObject(dr)
             hshList.Add(oCustomVariable.Name, oCustomVariable)
         Next
 
