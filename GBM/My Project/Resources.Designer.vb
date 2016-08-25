@@ -1906,11 +1906,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Never.
+        '''  Looks up a localized string similar to None.
         '''</summary>
-        Friend ReadOnly Property frmGameManager_Never() As String
+        Friend ReadOnly Property frmGameManager_None() As String
             Get
-                Return ResourceManager.GetString("frmGameManager_Never", resourceCulture)
+                Return ResourceManager.GetString("frmGameManager_None", resourceCulture)
             End Get
         End Property
         
@@ -1956,6 +1956,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_OutofSync() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_OutofSync", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Unknown.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_Unknown() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_Unknown", resourceCulture)
             End Get
         End Property
         

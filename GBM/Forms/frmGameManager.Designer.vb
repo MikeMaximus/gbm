@@ -794,18 +794,18 @@ Partial Class frmGameManager
         Me.cmsDeleteBackup.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsDeleteOne, Me.cmsDeleteAll})
         Me.cmsDeleteBackup.Name = "cmsDeleteBackup"
         Me.cmsDeleteBackup.ShowImageMargin = False
-        Me.cmsDeleteBackup.Size = New System.Drawing.Size(128, 70)
+        Me.cmsDeleteBackup.Size = New System.Drawing.Size(115, 48)
         '
         'cmsDeleteOne
         '
         Me.cmsDeleteOne.Name = "cmsDeleteOne"
-        Me.cmsDeleteOne.Size = New System.Drawing.Size(127, 22)
+        Me.cmsDeleteOne.Size = New System.Drawing.Size(114, 22)
         Me.cmsDeleteOne.Text = "&Selected File"
         '
         'cmsDeleteAll
         '
         Me.cmsDeleteAll.Name = "cmsDeleteAll"
-        Me.cmsDeleteAll.Size = New System.Drawing.Size(127, 22)
+        Me.cmsDeleteAll.Size = New System.Drawing.Size(114, 22)
         Me.cmsDeleteAll.Text = "&All Files"
         '
         'frmGameManager

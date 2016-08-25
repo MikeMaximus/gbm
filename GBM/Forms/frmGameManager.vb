@@ -573,12 +573,15 @@ Public Class frmGameManager
         Dim oCurrentBackups As List(Of clsBackup)
         Dim sFileName As String
         Dim oComboItems As New List(Of KeyValuePair(Of String, String))
+        Dim bLocalData As Boolean = False
+        Dim bRemoteData As Boolean = False
 
         'cboRemoteBackup
         cboRemoteBackup.ValueMember = "Key"
         cboRemoteBackup.DisplayMember = "Value"
 
         If oRemoteBackupData.Contains(oApp.Name) Then
+            bRemoteData = True
             oCurrentBackups = mgrManifest.DoManifestGetByName(oApp.Name, mgrSQLite.Database.Remote)
 
             For Each oCurrentBackup In oCurrentBackups
@@ -603,7 +606,7 @@ Public Class frmGameManager
             mgrRestore.DoPathOverride(CurrentBackupItem, oApp)
             lblRestorePathData.Text = CurrentBackupItem.RestorePath
         Else
-            oComboItems.Add(New KeyValuePair(Of String, String)(String.Empty, frmGameManager_Never))
+            oComboItems.Add(New KeyValuePair(Of String, String)(String.Empty, frmGameManager_None))
             lblBackupFileData.Text = String.Empty
             lblRestorePathData.Text = String.Empty
             btnOpenBackupFile.Enabled = False
@@ -615,16 +618,17 @@ Public Class frmGameManager
         cboRemoteBackup.DataSource = oComboItems
 
         If oLocalBackupData.Contains(oApp.Name) Then
+            bLocalData = True
             oBackupInfo = DirectCast(oLocalBackupData(oApp.Name), clsBackup)
             lblLocalBackupData.Text = mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {oBackupInfo.DateUpdated, oBackupInfo.UpdatedBy})
         Else
-            lblLocalBackupData.Text = frmGameManager_Never
+            lblLocalBackupData.Text = frmGameManager_Unknown
         End If
 
-        If oComboItems(0).Value = frmGameManager_Never And lblLocalBackupData.Text = frmGameManager_Never Then
+        If Not bRemoteData And Not bLocalData Then
             btnMarkAsRestored.Enabled = False
             lblLocalBackupData.ForeColor = Color.Black
-        ElseIf oComboItems(0).Value = frmGameManager_Never And lblLocalBackupData.Text <> frmGameManager_Never Then
+        ElseIf Not bRemoteData And bLocalData Then
             btnMarkAsRestored.Enabled = False
             lblLocalBackupData.ForeColor = Color.Red
         ElseIf oComboItems(0).Value <> lblLocalBackupData.Text Then

@@ -646,8 +646,8 @@
   <data name="frmGameManager_lblVersion" xml:space="preserve">
     <value>Version:</value>
   </data>
-  <data name="frmGameManager_Never" xml:space="preserve">
-    <value>Never</value>
+  <data name="frmGameManager_None" xml:space="preserve">
+    <value>None</value>
   </data>
   <data name="frmGameManager_optAllGames" xml:space="preserve">
     <value>All</value>
@@ -1728,5 +1728,8 @@
   </data>
   <data name="frmAddWizard_lblLimit" xml:space="preserve">
     <value>Backup Limit</value>
+  </data>
+  <data name="frmGameManager_Unknown" xml:space="preserve">
+    <value>Unknown</value>
   </data>
 </root>
