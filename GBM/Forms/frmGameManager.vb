@@ -653,6 +653,8 @@ Public Class frmGameManager
                 mgrManifest.DoManifestDeletebyID(oBackup, mgrSQLite.Database.Remote)
                 'Delete referenced backup file from the backup folder
                 mgrCommon.DeleteFile(BackupFolder & oBackup.FileName)
+                'Check for sub-directory and delete if empty (we need to do this every pass just in case the user had a mix of settings at one point)
+                mgrCommon.DeleteDirectoryByBackup(BackupFolder, oBackup)
             Next
 
             'Delete local manifest entry
@@ -671,7 +673,6 @@ Public Class frmGameManager
     End Sub
 
     Private Sub DeleteBackup()
-
         If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupDelete, Path.GetFileName(CurrentBackupItem.FileName), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             'Delete the specific remote manifest entry
             mgrManifest.DoManifestDeletebyID(CurrentBackupItem, mgrSQLite.Database.Remote)
@@ -683,6 +684,9 @@ Public Class frmGameManager
 
             'Delete referenced backup file from the backup folder
             mgrCommon.DeleteFile(BackupFolder & CurrentBackupItem.FileName)
+
+            'Check for sub-directory and delete if empty
+            mgrCommon.DeleteDirectoryByBackup(BackupFolder, CurrentBackupItem)
 
             LoadBackupData()
 

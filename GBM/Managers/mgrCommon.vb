@@ -191,6 +191,24 @@ Public Class mgrCommon
         End If
     End Sub
 
+    'Delete a sub-folder based on the provided backup information
+    Public Shared Sub DeleteDirectoryByBackup(ByVal sBackupFolder As String, ByVal oBackup As clsBackup)
+        Dim oDir As DirectoryInfo
+        Dim sDir As String = sBackupFolder & oBackup.Name
+
+        'Delete sub directory if it's empty
+        If oBackup.FileName.StartsWith(oBackup.Name & Path.DirectorySeparatorChar) Then
+            If Directory.Exists(sDir) Then
+                'Check if there's any sub-directories or files remaining
+                oDir = New DirectoryInfo(sDir)
+                If oDir.GetDirectories.Length = 0 And oDir.GetFiles.Length = 0 Then
+                    'Folder is empty,  delete the empty sub-folder
+                    If Directory.Exists(sDir) Then DeleteDirectory(sDir)
+                End If
+            End If
+        End If
+    End Sub
+
     'Save string as text file
     Public Shared Sub SaveText(ByVal sText As String, ByVal sPath As String)
         Dim oStream As StreamWriter

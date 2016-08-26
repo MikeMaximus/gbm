@@ -193,7 +193,6 @@ Partial Class frmGameManager
         Me.nudLimit.Name = "nudLimit"
         Me.nudLimit.Size = New System.Drawing.Size(40, 20)
         Me.nudLimit.TabIndex = 12
-        Me.nudLimit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.nudLimit.Value = New Decimal(New Integer() {2, 0, 0, 0})
         Me.nudLimit.Visible = False
         '

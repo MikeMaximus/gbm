@@ -159,6 +159,7 @@ Public Class frmAddWizard
         oGame.AppendTimeStamp = bTimeStamp
         oGame.BackupLimit = iLimit
         oGame.ExcludeList = sExcludeList
+        oGame.ProcessPath = sProcessPath
 
         Return oGame
     End Function

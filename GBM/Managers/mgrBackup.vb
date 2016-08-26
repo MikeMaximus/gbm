@@ -126,9 +126,9 @@ Public Class mgrBackup
 
                 mgrManifest.DoManifestDeletebyID(oGameBackup, mgrSQLite.Database.Remote)
                 mgrManifest.DoManifestDeletebyID(oGameBackup, mgrSQLite.Database.Local)
-                If File.Exists(sOldBackup) Then
-                    mgrCommon.DeleteFile(sOldBackup)
-                End If
+                mgrCommon.DeleteFile(sOldBackup)
+                mgrCommon.DeleteDirectoryByBackup(Settings.BackupFolder & Path.DirectorySeparatorChar, oGameBackup)
+
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupLimitExceeded, Path.GetFileName(sOldBackup)), False, ToolTipIcon.Info, True)
             Next
         End If

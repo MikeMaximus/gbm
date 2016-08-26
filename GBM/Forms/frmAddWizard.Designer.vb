@@ -36,6 +36,8 @@ Partial Class frmAddWizard
         Me.txtProcessPath = New System.Windows.Forms.TextBox()
         Me.lblStep2Intro = New System.Windows.Forms.Label()
         Me.tbPage3 = New System.Windows.Forms.TabPage()
+        Me.lblLimit = New System.Windows.Forms.Label()
+        Me.nudLimit = New System.Windows.Forms.NumericUpDown()
         Me.lblStep3Title = New System.Windows.Forms.Label()
         Me.lblStep3Instructions = New System.Windows.Forms.Label()
         Me.chkTimeStamp = New System.Windows.Forms.CheckBox()
@@ -66,16 +68,14 @@ Partial Class frmAddWizard
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnNext = New System.Windows.Forms.Button()
         Me.btnBack = New System.Windows.Forms.Button()
-        Me.lblLimit = New System.Windows.Forms.Label()
-        Me.nudLimit = New System.Windows.Forms.NumericUpDown()
         Me.tabWizard.SuspendLayout()
         Me.tbPage1.SuspendLayout()
         Me.tbPage2.SuspendLayout()
         Me.tbPage3.SuspendLayout()
+        CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tbPage3a.SuspendLayout()
         Me.tbPage4.SuspendLayout()
         Me.tbPage5.SuspendLayout()
-        CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'tabWizard
@@ -222,6 +222,26 @@ Partial Class frmAddWizard
         Me.tbPage3.Size = New System.Drawing.Size(362, 194)
         Me.tbPage3.TabIndex = 2
         Me.tbPage3.Text = "TabPage3"
+        '
+        'lblLimit
+        '
+        Me.lblLimit.AutoSize = True
+        Me.lblLimit.Location = New System.Drawing.Point(203, 109)
+        Me.lblLimit.Name = "lblLimit"
+        Me.lblLimit.Size = New System.Drawing.Size(68, 13)
+        Me.lblLimit.TabIndex = 15
+        Me.lblLimit.Text = "Backup Limit"
+        Me.lblLimit.Visible = False
+        '
+        'nudLimit
+        '
+        Me.nudLimit.Location = New System.Drawing.Point(157, 107)
+        Me.nudLimit.Minimum = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.nudLimit.Name = "nudLimit"
+        Me.nudLimit.Size = New System.Drawing.Size(40, 20)
+        Me.nudLimit.TabIndex = 14
+        Me.nudLimit.Value = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.nudLimit.Visible = False
         '
         'lblStep3Title
         '
@@ -521,27 +541,6 @@ Partial Class frmAddWizard
         Me.btnBack.Text = "&Back"
         Me.btnBack.UseVisualStyleBackColor = True
         '
-        'lblLimit
-        '
-        Me.lblLimit.AutoSize = True
-        Me.lblLimit.Location = New System.Drawing.Point(203, 109)
-        Me.lblLimit.Name = "lblLimit"
-        Me.lblLimit.Size = New System.Drawing.Size(68, 13)
-        Me.lblLimit.TabIndex = 15
-        Me.lblLimit.Text = "Backup Limit"
-        Me.lblLimit.Visible = False
-        '
-        'nudLimit
-        '
-        Me.nudLimit.Location = New System.Drawing.Point(157, 107)
-        Me.nudLimit.Minimum = New Decimal(New Integer() {2, 0, 0, 0})
-        Me.nudLimit.Name = "nudLimit"
-        Me.nudLimit.Size = New System.Drawing.Size(40, 20)
-        Me.nudLimit.TabIndex = 14
-        Me.nudLimit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.nudLimit.Value = New Decimal(New Integer() {2, 0, 0, 0})
-        Me.nudLimit.Visible = False
-        '
         'frmAddWizard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -565,13 +564,13 @@ Partial Class frmAddWizard
         Me.tbPage2.PerformLayout()
         Me.tbPage3.ResumeLayout(False)
         Me.tbPage3.PerformLayout()
+        CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tbPage3a.ResumeLayout(False)
         Me.tbPage3a.PerformLayout()
         Me.tbPage4.ResumeLayout(False)
         Me.tbPage4.PerformLayout()
         Me.tbPage5.ResumeLayout(False)
         Me.tbPage5.PerformLayout()
-        CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
