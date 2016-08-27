@@ -813,6 +813,13 @@ Public Class frmMain
 
     Private Sub LoadAndVerify()
 
+        'If the default utility is missing we cannot continue
+        If Not oBackup.CheckForUtilities(mgrPath.Default7zLocation) Then
+            mgrCommon.ShowMessage(frmMain_Error7zip, MsgBoxStyle.Critical)
+            bInitFail = True
+            Exit Sub
+        End If
+
         'Local Database Check
         VerifyDBVersion(mgrSQLite.Database.Local)
         LocalDatabaseCheck()
@@ -825,8 +832,8 @@ Public Class frmMain
         If Not bFirstRun Then
             'The application cannot continue if this fails
             If Not VerifyBackupLocation() Then
-                bShutdown = True
-                Me.Close()
+                bInitFail = True
+                Exit Sub
             End If
 
             'Remote Database Check
@@ -855,13 +862,6 @@ Public Class frmMain
             If Not oBackup.CheckForUtilities(oSettings.Custom7zLocation) Then
                 mgrCommon.ShowMessage(frmMain_Error7zCustom, oSettings.Custom7zLocation, MsgBoxStyle.Exclamation)
             End If
-        End If
-
-        'If the default utility is missing we cannot continue
-        If Not oBackup.CheckForUtilities(mgrPath.Default7zLocation) Then
-            mgrCommon.ShowMessage(frmMain_Error7zip, MsgBoxStyle.Critical)
-            bShutdown = True
-            Me.Close()
         End If
 
     End Sub
@@ -1643,35 +1643,36 @@ Public Class frmMain
             SetForm()
             VerifyGameDataPath()
             LoadAndVerify()
-            VerifyCustomPathVariables()
+            If Not bInitFail Then
+                VerifyCustomPathVariables()
 
-            If oSettings.StartToTray And Not mgrCommon.IsUnix Then
-                bShowToggle = False
-                Me.Visible = False
-                Me.ShowInTaskbar = False
+                If oSettings.StartToTray And Not mgrCommon.IsUnix Then
+                    bShowToggle = False
+                    Me.Visible = False
+                    Me.ShowInTaskbar = False
+                End If
+
+                If oSettings.MonitorOnStartup Then
+                    eCurrentStatus = eStatus.Stopped
+                Else
+                    eCurrentStatus = eStatus.Running
+                End If
+
+                HandleScan()
+                CheckForNewBackups()
+
+                'Unix Handler
+                If mgrCommon.IsUnix Then
+                    Me.MinimizeBox = True
+                Else
+                    Me.gMonTray.Visible = True
+                End If
             End If
-
-            If oSettings.MonitorOnStartup Then
-                eCurrentStatus = eStatus.Stopped
-            Else
-                eCurrentStatus = eStatus.Running
-            End If
-
-            HandleScan()
-            CheckForNewBackups()
         Catch ex As Exception
             If mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                 bInitFail = True
             End If
         End Try
-
-        'Unix Handler
-        If mgrCommon.IsUnix Then            
-            Me.MinimizeBox = True
-        Else
-            Me.gMonTray.Visible = True
-        End If
-
     End Sub
 
     Private Sub frmMain_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
