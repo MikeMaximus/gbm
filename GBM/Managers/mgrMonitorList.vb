@@ -307,7 +307,7 @@ Public Class mgrMonitorList
             sBackupLimit = "@BackupLimit"
         Else
             sTimeStamp = "COALESCE((SELECT TimeStamp FROM monitorlist WHERE MonitorID=@ID),0)"
-            sBackupLimit = "(SELECT BackupLimit FROM monitorlist WHERE MonitorID=@ID),0)"
+            sBackupLimit = "COALESCE((SELECT BackupLimit FROM monitorlist WHERE MonitorID=@ID),2)"
         End If
         If (eSyncFields And clsGame.eOptionalSyncFields.Version) = clsGame.eOptionalSyncFields.Version Then
             sVersion = "@Version"
