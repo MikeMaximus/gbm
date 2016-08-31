@@ -333,9 +333,9 @@ Partial Class frmGameManager
         Me.chkMonitorOnly.AutoSize = True
         Me.chkMonitorOnly.Location = New System.Drawing.Point(362, 340)
         Me.chkMonitorOnly.Name = "chkMonitorOnly"
-        Me.chkMonitorOnly.Size = New System.Drawing.Size(145, 17)
+        Me.chkMonitorOnly.Size = New System.Drawing.Size(83, 17)
         Me.chkMonitorOnly.TabIndex = 11
-        Me.chkMonitorOnly.Text = "Monitor only (No backup)"
+        Me.chkMonitorOnly.Text = "Monitor only"
         Me.chkMonitorOnly.UseVisualStyleBackColor = True
         '
         'grpExtra

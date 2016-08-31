@@ -984,39 +984,6 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Sub MonitorOnlyModeChange()
-        If chkMonitorOnly.Checked Then
-            txtSavePath.Text = String.Empty
-            chkFolderSave.Checked = True
-            chkTimeStamp.Checked = False
-
-            If txtFileType.Text <> String.Empty Then
-                txtFileType.Text = String.Empty
-                UpdateBuilderButtonLabel(txtFileType.Text, frmGameManager_IncludeShortcut, btnInclude, False)
-            End If
-            If txtExclude.Text <> String.Empty Then
-                txtExclude.Text = String.Empty
-                UpdateBuilderButtonLabel(txtExclude.Text, frmGameManager_ExcludeShortcut, btnExclude, False)
-            End If
-
-            lblSavePath.Enabled = False
-            btnSavePathBrowse.Enabled = False
-            txtSavePath.Enabled = False
-            chkFolderSave.Enabled = False
-            chkTimeStamp.Enabled = False
-            btnInclude.Enabled = False
-            btnExclude.Enabled = False
-        Else
-            lblSavePath.Enabled = True
-            btnSavePathBrowse.Enabled = True
-            txtSavePath.Enabled = True
-            chkFolderSave.Enabled = True
-            chkTimeStamp.Enabled = True
-            btnInclude.Enabled = True
-            btnExclude.Enabled = True
-        End If
-    End Sub
-
     Private Sub TimeStampModeChange()
         If chkTimeStamp.Checked Then
             nudLimit.Visible = True
@@ -1278,8 +1245,7 @@ Public Class frmGameManager
 
             For Each oData In lstGames.SelectedItems
                 oGame = DirectCast(AppData(oData.Key), clsGame)
-                'Filter out any games set to monitor only
-                If Not oGame.MonitorOnly Then BackupList.Add(oGame)
+                BackupList.Add(oGame)
             Next
 
             If BackupList.Count = 1 Then
@@ -1317,15 +1283,13 @@ Public Class frmGameManager
             RestoreList.Clear()
 
             If lstGames.SelectedItems.Count = 1 Then
-                'Filter out any games set to monitor only
-                If Not CurrentGame.MonitorOnly Then RestoreList.Add(CurrentGame, CurrentBackupItem)
+                RestoreList.Add(CurrentGame, CurrentBackupItem)
             Else
                 For Each oData In lstGames.SelectedItems
                     If oRemoteBackupData.Contains(oData.Value) Then
                         oGame = DirectCast(AppData(oData.Key), clsGame)
                         oBackup = DirectCast(oRemoteBackupData(oData.Value), clsBackup)
-                        'Filter out any games set to monitor only
-                        If Not oGame.MonitorOnly Then RestoreList.Add(oGame, oBackup)
+                        RestoreList.Add(oGame, oBackup)
                     End If
                 Next
             End If
@@ -1608,10 +1572,6 @@ Public Class frmGameManager
 
     Private Sub chkFolderSave_CheckedChanged(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged
         FolderSaveModeChange()
-    End Sub
-
-    Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkMonitorOnly.CheckedChanged
-        MonitorOnlyModeChange()
     End Sub
 
     Private Sub chkTimeStamp_CheckedChanged(sender As Object, e As EventArgs) Handles chkTimeStamp.CheckedChanged

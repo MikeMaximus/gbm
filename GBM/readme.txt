@@ -12,6 +12,7 @@ New in 0.98
 
 - (Linux) 64-bit games running in Wine will now be properly detected.
 - (Linux) Add Game Wizard will no longer remove all extensions when selecting an executable.
+- (All) Using "Monitor Only" no longer puts anys limitations on the game configuration or available features.
 - (All) Redesigned GBM's ability to manage multiple backups per game.
 	- The "Timestamp each backup" option has been renamed "Save multiple backups".
 	- You can limit the amount of backups you keep for each game by setting a limit (2 to 100).
