@@ -10,14 +10,17 @@ This is beta release software.  You may still encounter some bugs.
 
 New in 0.98
 
-- (Linux) 64-bit games running in Wine will now be properly detected.
-- (Linux) Add Game Wizard will no longer remove all extensions when selecting an executable.
-- (All) Using "Monitor Only" no longer puts anys limitations on the game configuration or available features.
 - (All) Redesigned GBM's ability to manage multiple backups per game.
 	- The "Timestamp each backup" option has been renamed "Save multiple backups".
 	- You can limit the amount of backups you keep for each game by setting a limit (2 to 100).
 	- GBM will keep your backup folder clean by automatically deleting old backups as limits are reached or modified.
-	- The Game Manager now allows you to browse and manage all of your backups for each game, not just the latest.
+	- The Game Manager now allows you to browse and manage ALL backups for each game, not just the latest backup.
+- (All) Using "Monitor Only" no longer puts anys limitations on the game configuration or available features.
+- (Windows Installer) The installer will now properly go into upgrade mode if a prior version of GBM is installed.  Note: 32-bit and 64-bit qualify as different versions.
+- (Windows Installer) The installer will now create an uninstall entry in Add/Remove Programs (Apps & Features).
+- (Linux) 64-bit games running in Wine will now be properly detected.
+- (Linux) Add Game Wizard will no longer remove all extensions when selecting an executable.
+- (Linux) GBM now prefers to use an absolute path when creating Linux game configurations.
 
 Important Upgrade Information:
 
