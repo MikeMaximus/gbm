@@ -229,7 +229,7 @@ Partial Class frmMain
         Me.txtLog.Name = "txtLog"
         Me.txtLog.ReadOnly = True
         Me.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtLog.Size = New System.Drawing.Size(500, 177)
+        Me.txtLog.Size = New System.Drawing.Size(500, 186)
         Me.txtLog.TabIndex = 10
         Me.txtLog.TabStop = False
         '
@@ -538,7 +538,6 @@ Partial Class frmMain
         Me.Controls.Add(Me.gMonStatusStrip)
         Me.Controls.Add(Me.gMonMainMenu)
         Me.Controls.Add(Me.txtLog)
-        Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True

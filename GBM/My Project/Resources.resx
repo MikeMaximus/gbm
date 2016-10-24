@@ -122,7 +122,7 @@
     <value>..\Resources\Admin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="frmMain_About" xml:space="preserve">
-    <value>Game Backup Monitor[BR]Version: [PARAM] Beta ([PARAM])[BR]Build: [PARAM][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details.</value>
+    <value>Game Backup Monitor[BR]Version: [PARAM] ([PARAM])[BR]Build: [PARAM][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details.</value>
   </data>
   <data name="frmMain_ManifestAreadyClean" xml:space="preserve">
     <value>The local manifest is clean.</value>

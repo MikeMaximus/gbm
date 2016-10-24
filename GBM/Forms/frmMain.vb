@@ -38,6 +38,8 @@ Public Class frmMain
     Private sPriorPath As String
     Private sPriorCompany As String
     Private sPriorVersion As String
+    Private iFormHeight As Integer
+    Private iLogSpacer As Integer
 
     'Developer Debug Flags
     Private bProcessDebugMode As Boolean = False
@@ -870,21 +872,14 @@ Public Class frmMain
     Private Sub ToggleLog()
         If bLogToggle = False Then
             txtLog.Visible = True
-
-            'Unix Handler
-            If mgrCommon.IsUnix Then
-                Me.Size = New System.Drawing.Size(Me.Size.Width, 440)
-            Else
-                Me.Size = New System.Drawing.Size(Me.Size.Width, 425)
-            End If
-
+            Me.Size = New System.Drawing.Size(Me.Size.Width, iFormHeight)
             bLogToggle = True
             btnLogToggle.Text = frmMain_btnToggleLog_Hide
             txtLog.Select(txtLog.TextLength, 0)
             txtLog.ScrollToCaret()
         Else
             txtLog.Visible = False
-            Me.Size = New System.Drawing.Size(Me.Size.Width, 245)
+            Me.Size = New System.Drawing.Size(Me.Size.Width, Me.Size.Height - (txtLog.Height + iLogSpacer))
             bLogToggle = False
             btnLogToggle.Text = frmMain_btnToggleLog_Show
         End If
@@ -1166,7 +1161,9 @@ Public Class frmMain
         lblLastAction.Text = String.Empty
         pbTime.SizeMode = PictureBoxSizeMode.AutoSize
         pbTime.Image = Icon_Clock
-        Me.Size = New System.Drawing.Size(Me.Size.Width, 245)
+        iFormHeight = Me.Size.Height
+        iLogSpacer = gMonStatusStrip.Location.Y - (txtLog.Location.Y + txtLog.Height)
+        Me.Size = New System.Drawing.Size(Me.Size.Width, Me.Size.Height - (txtLog.Height + iLogSpacer))
         AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
         ResetGameInfo()
     End Sub
