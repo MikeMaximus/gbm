@@ -161,12 +161,6 @@ Public Class mgrRestore
         Return slRemovedItems
     End Function
 
-    Private Sub CleanFolder(ByVal sExtractPath As String)
-        If Directory.Exists(sExtractPath) Then
-
-        End If
-    End Sub
-
     Public Function CheckRestorePrereq(ByVal oBackupInfo As clsBackup, ByVal bCleanFolder As Boolean) As Boolean
         Dim sHash As String
         Dim sExtractPath As String
@@ -198,8 +192,8 @@ Public Class mgrRestore
             End If
         End If
 
-            'Check file integrity
-            If oSettings.CheckSum Then
+        'Check file integrity
+        If oSettings.CheckSum Then
             If oBackupInfo.CheckSum <> String.Empty Then
                 sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
                 If sHash <> oBackupInfo.CheckSum Then
