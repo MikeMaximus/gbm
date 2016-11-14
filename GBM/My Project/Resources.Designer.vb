@@ -1294,6 +1294,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Clean folder on restore.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_chkCleanFolder() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_chkCleanFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Monitor this game.
         '''</summary>
         Friend ReadOnly Property frmGameManager_chkEnabled() As String

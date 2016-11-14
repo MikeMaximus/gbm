@@ -30,7 +30,7 @@ Public Class mgrCommon
 
     Public Shared ReadOnly Property AppVersion As Integer
         Get
-            Return (My.Application.Info.Version.Major * 100) + My.Application.Info.Version.Minor
+            Return (My.Application.Info.Version.Major * 100) + (My.Application.Info.Version.Minor * 10) + My.Application.Info.Version.Build
         End Get
     End Property
 

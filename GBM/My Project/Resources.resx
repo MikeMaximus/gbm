@@ -1732,4 +1732,7 @@
   <data name="frmGameManager_Unknown" xml:space="preserve">
     <value>Unknown</value>
   </data>
+  <data name="frmGameManager_chkCleanFolder" xml:space="preserve">
+    <value>Clean folder on restore</value>
+  </data>
 </root>

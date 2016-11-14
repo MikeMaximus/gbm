@@ -161,7 +161,13 @@ Public Class mgrRestore
         Return slRemovedItems
     End Function
 
-    Public Function CheckRestorePrereq(ByVal oBackupInfo As clsBackup) As Boolean
+    Private Sub CleanFolder(ByVal sExtractPath As String)
+        If Directory.Exists(sExtractPath) Then
+
+        End If
+    End Sub
+
+    Public Function CheckRestorePrereq(ByVal oBackupInfo As clsBackup, ByVal bCleanFolder As Boolean) As Boolean
         Dim sHash As String
         Dim sExtractPath As String
         Dim sBackupFile As String = oSettings.BackupFolder & Path.DirectorySeparatorChar & oBackupInfo.FileName
@@ -185,10 +191,15 @@ Public Class mgrRestore
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorNoPath, sExtractPath), False, ToolTipIcon.Error, True)
                 Return False
             End If
+        Else
+            If bCleanFolder Then
+                mgrCommon.DeleteDirectory(sExtractPath, True)
+                Directory.CreateDirectory(sExtractPath)
+            End If
         End If
 
-        'Check file integrity
-        If oSettings.CheckSum Then
+            'Check file integrity
+            If oSettings.CheckSum Then
             If oBackupInfo.CheckSum <> String.Empty Then
                 sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
                 If sHash <> oBackupInfo.CheckSum Then
@@ -282,7 +293,7 @@ Public Class mgrRestore
                 RaiseEvent SetLastAction(mgrCommon.FormatString(mgrRestore_ActionComplete, oBackupInfo.CroppedName))
             Else
                 RaiseEvent SetLastAction(mgrCommon.FormatString(mgrRestore_ActionFailed, oBackupInfo.CroppedName))
-            End If            
+            End If
         Next
     End Sub
 

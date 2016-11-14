@@ -470,6 +470,7 @@ Public Class frmGameManager
         frm.ShowDialog()
 
         txtBox.Text = frm.BuilderString
+        VerifyCleanFolder()
     End Sub
 
     Private Function FindRestorePath() As Boolean
@@ -714,6 +715,7 @@ Public Class frmGameManager
         txtFileType.Text = oApp.FileType
         txtExclude.Text = oApp.ExcludeList
         chkFolderSave.Checked = oApp.FolderSave
+        chkCleanFolder.Checked = oApp.CleanFolder
         chkTimeStamp.Checked = oApp.AppendTimeStamp
         nudLimit.Value = oApp.BackupLimit
         chkEnabled.Checked = oApp.Enabled
@@ -826,6 +828,7 @@ Public Class frmGameManager
                 WipeControls(grpConfig.Controls)
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
+                chkCleanFolder.Enabled = False
                 pbIcon.Image = Icon_Unknown
                 chkEnabled.Enabled = True
                 chkMonitorOnly.Enabled = True
@@ -982,6 +985,7 @@ Public Class frmGameManager
         Else
             btnInclude.Enabled = True
         End If
+        VerifyCleanFolder()
     End Sub
 
     Private Sub TimeStampModeChange()
@@ -993,6 +997,17 @@ Public Class frmGameManager
             nudLimit.Visible = False
             nudLimit.Value = nudLimit.Minimum
             lblLimit.Visible = False
+        End If
+    End Sub
+
+    Private Sub VerifyCleanFolder()
+        If Not bIsLoading Then
+            If chkFolderSave.Checked = True And txtExclude.Text = String.Empty And txtSavePath.Text <> String.Empty Then
+                chkCleanFolder.Enabled = True
+            Else
+                chkCleanFolder.Checked = False
+                chkCleanFolder.Enabled = False
+            End If
         End If
     End Sub
 
@@ -1062,6 +1077,7 @@ Public Class frmGameManager
         oApp.FileType = txtFileType.Text
         oApp.ExcludeList = txtExclude.Text
         oApp.FolderSave = chkFolderSave.Checked
+        oApp.CleanFolder = chkCleanFolder.Checked
         oApp.AppendTimeStamp = chkTimeStamp.Checked
         oApp.BackupLimit = nudLimit.Value
         oApp.Enabled = chkEnabled.Checked
@@ -1144,6 +1160,7 @@ Public Class frmGameManager
                 eCurrentMode = eModes.View
                 FillData()
                 ModeChange()
+                VerifyCleanFolder()
             ElseIf lstGames.SelectedItems.Count > 1 Then
                 eCurrentMode = eModes.MultiSelect
                 ModeChange()
@@ -1411,6 +1428,7 @@ Public Class frmGameManager
         lblName.Text = frmGameManager_lblName
         chkTimeStamp.Text = frmGameManager_chkTimeStamp
         chkFolderSave.Text = frmGameManager_chkFolderSave
+        chkCleanFolder.Text = frmGameManager_chkCleanFolder
         btnBackup.Text = frmGameManager_btnBackup
         btnClose.Text = frmGameManager_btnClose
         btnDelete.Text = frmGameManager_btnDelete
@@ -1607,6 +1625,10 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub txtSavePath_TextChanged(sender As Object, e As EventArgs) Handles txtSavePath.TextChanged
+        VerifyCleanFolder()
+    End Sub
+
     Private Sub tmFilterTimer_Tick(sender As Object, ByVal e As EventArgs) Handles tmFilterTimer.Tick
         lstGames.DataSource = Nothing
         FormatAndFillList()
@@ -1617,5 +1639,4 @@ Public Class frmGameManager
     Private Sub frmGameManager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         txtQuickFilter.Focus()
     End Sub
-
 End Class

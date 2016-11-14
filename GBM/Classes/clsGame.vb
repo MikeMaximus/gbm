@@ -8,6 +8,7 @@
     Private sFileType As String = String.Empty
     Private bAppendTimeStamp As Boolean = False
     Private iBackupLimit As Integer = 2
+    Private bCleanFolder As Boolean = False
     Private sExcludeList As String = String.Empty
     Private sProcessPath As String = String.Empty
     Private sIcon As String = String.Empty
@@ -124,6 +125,15 @@
         End Get
         Set(value As Integer)
             iBackupLimit = value
+        End Set
+    End Property
+
+    Property CleanFolder As Boolean
+        Get
+            Return bCleanFolder
+        End Get
+        Set(value As Boolean)
+            bCleanFolder = value
         End Set
     End Property
 
@@ -266,6 +276,9 @@
                 Return False
             End If
             If FolderSave <> oGame.FolderSave Then
+                Return False
+            End If
+            If CleanFolder <> oGame.CleanFolder Then
                 Return False
             End If
             If AppendTimeStamp <> oGame.AppendTimeStamp Then
