@@ -1585,7 +1585,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
-        cmsImport.Show(btnImport, New Drawing.Point(70, 11), ToolStripDropDownDirection.AboveRight)
+        cmsImport.Show(btnImport, New Drawing.Point(btnImport.Size.Width - 10, btnImport.Size.Height - 14), ToolStripDropDownDirection.AboveRight)
     End Sub
 
     Private Sub cmsOfficial_Click(sender As Object, e As EventArgs) Handles cmsOfficial.Click

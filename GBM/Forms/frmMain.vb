@@ -661,9 +661,9 @@ Public Class frmMain
 
     Private Sub OpenAbout()
         Dim iProcessType As System.Reflection.ProcessorArchitecture = System.Reflection.AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
-        Dim sVersion As String = My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor
+        Dim sVersion As String = My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Build
         Dim sProcessType = [Enum].GetName(GetType(System.Reflection.ProcessorArchitecture), iProcessType)
-        Dim sRevision As String = My.Application.Info.Version.Build & "." & My.Application.Info.Version.Revision
+        Dim sRevision As String = My.Application.Info.Version.Revision
         Dim sConstCopyright As String = Chr(169) & mgrCommon.FormatString(App_Copyright, Now.Year.ToString)
 
         mgrCommon.ShowMessage(frmMain_About, New String() {sVersion, sProcessType, sRevision, sConstCopyright}, MsgBoxStyle.Information)
