@@ -226,6 +226,8 @@ Public Class frmIncludeExclude
         sNewString = InputBox(frmIncludeExclude_RawEditInfo, mgrCommon.FormatString(frmIncludeExclude_RawEditTitle, FormName), sCurrentString)
         If sNewString <> String.Empty Then
             ParseBuilderString(sNewString)
+        Else
+            lstBuilder.Clear()
         End If
     End Sub
 

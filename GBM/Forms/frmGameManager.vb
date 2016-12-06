@@ -1547,7 +1547,7 @@ Public Class frmGameManager
 
     Private Sub btnDeleteBackup_Click(sender As Object, e As EventArgs) Handles btnDeleteBackup.Click
         If cboRemoteBackup.Items.Count > 1 Then
-            cmsDeleteBackup.Show(btnDeleteBackup, New Drawing.Point(109, 11), ToolStripDropDownDirection.AboveRight)
+            cmsDeleteBackup.Show(btnDeleteBackup, New Drawing.Point(btnDeleteBackup.Size.Width - Math.Floor(btnDeleteBackup.Size.Width * 0.1), btnDeleteBackup.Size.Height - Math.Floor(btnDeleteBackup.Size.Height * 0.5)), ToolStripDropDownDirection.AboveRight)
         Else
             DeleteBackup()
         End If
@@ -1603,7 +1603,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
-        cmsImport.Show(btnImport, New Drawing.Point(70, 11), ToolStripDropDownDirection.AboveRight)
+        cmsImport.Show(btnImport, New Drawing.Point(btnImport.Size.Width - Math.Floor(btnImport.Size.Width * 0.1), btnImport.Size.Height - Math.Floor(btnImport.Size.Height * 0.5)), ToolStripDropDownDirection.AboveRight)
     End Sub
 
     Private Sub cmsOfficial_Click(sender As Object, e As EventArgs) Handles cmsOfficial.Click
