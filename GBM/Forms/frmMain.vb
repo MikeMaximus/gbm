@@ -889,6 +889,7 @@ Public Class frmMain
         'Toggle State with Tray Clicks        
         If Not bShowToggle Then
             bShowToggle = True
+            Me.Refresh()
             Me.Visible = True
             Me.ShowInTaskbar = True
             Me.Focus()
