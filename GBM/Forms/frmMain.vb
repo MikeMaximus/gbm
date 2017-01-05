@@ -652,6 +652,12 @@ Public Class frmMain
                             bProcessDebugMode = bDebugEnable
                             mgrCommon.ShowMessage(frmMain_CommandSucess, MsgBoxStyle.Exclamation)
                     End Select
+
+                Case "refresh"
+                    'Redraw the main form
+                    Me.Refresh()
+                    mgrCommon.ShowMessage(frmMain_CommandSucess, MsgBoxStyle.Exclamation)
+
                 Case Else
                     mgrCommon.ShowMessage(frmMain_ErrorCommandInvalid, sMainCommand, MsgBoxStyle.Exclamation)
             End Select
@@ -889,7 +895,6 @@ Public Class frmMain
         'Toggle State with Tray Clicks        
         If Not bShowToggle Then
             bShowToggle = True
-            Me.Refresh()
             Me.Visible = True
             Me.ShowInTaskbar = True
             Me.Focus()
