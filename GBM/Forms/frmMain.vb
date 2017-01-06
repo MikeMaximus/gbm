@@ -653,11 +653,6 @@ Public Class frmMain
                             mgrCommon.ShowMessage(frmMain_CommandSucess, MsgBoxStyle.Exclamation)
                     End Select
 
-                Case "refresh"
-                    'Redraw the main form
-                    Me.Refresh()
-                    mgrCommon.ShowMessage(frmMain_CommandSucess, MsgBoxStyle.Exclamation)
-
                 Case Else
                     mgrCommon.ShowMessage(frmMain_ErrorCommandInvalid, sMainCommand, MsgBoxStyle.Exclamation)
             End Select
