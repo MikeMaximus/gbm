@@ -40,12 +40,14 @@ Public Class frmMain
     Private sPriorVersion As String
     Private iFormHeight As Integer
     Private iLogSpacer As Integer
+    Private iRestoreTimeOut As Integer
 
     'Developer Debug Flags
     Private bProcessDebugMode As Boolean = False
 
     WithEvents oFileWatcher As New System.IO.FileSystemWatcher
     WithEvents tmScanTimer As New Timer
+    WithEvents tmRestoreCheck As New Timer
 
     Public WithEvents oProcess As New mgrProcesses
     Public WithEvents oBackup As New mgrBackup
@@ -53,6 +55,7 @@ Public Class frmMain
     Public hshScanList As Hashtable
     Public oSettings As New mgrSettings
 
+    Delegate Sub UpdateNotifierCallBack(ByVal iCount As Integer)
     Delegate Sub UpdateLogCallBack(ByVal sLogUpdate As String, ByVal bTrayUpdate As Boolean, ByVal objIcon As System.Windows.Forms.ToolTipIcon, ByVal bTimeStamp As Boolean)
     Delegate Sub WorkingGameInfoCallBack(ByVal sTitle As String, ByVal sStatus1 As String, ByVal sStatus2 As String, ByVal sStatus3 As String)
     Delegate Sub UpdateStatusCallBack(ByVal sStatus As String)
@@ -328,15 +331,17 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub CheckRestore()
-        Dim slRestoreData As SortedList = mgrRestore.CompareManifests()
-        Dim sNotification As String
-
-        If slRestoreData.Count > 0 Then
-            If slRestoreData.Count > 1 Then
-                sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationMulti, slRestoreData.Count)
+    Private Sub UpdateNotifier(ByVal iCount As Integer)
+        'Thread Safe
+        If Me.InvokeRequired = True Then
+            Dim d As New UpdateNotifierCallBack(AddressOf UpdateNotifier)
+            Me.Invoke(d, New Object() {iCount})
+        Else
+            Dim sNotification As String
+            If iCount > 1 Then
+                sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationMulti, iCount)
             Else
-                sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationSingle, slRestoreData.Count)
+                sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationSingle, iCount)
             End If
             gMonNotification.Image = Icon_Inbox
             gMonTrayNotification.Image = Icon_Inbox
@@ -344,6 +349,90 @@ Public Class frmMain
             gMonTrayNotification.Text = sNotification
             gMonNotification.Visible = True
             gMonTrayNotification.Visible = True
+        End If
+    End Sub
+
+    Private Sub StartRestoreCheck()
+        iRestoreTimeOut = -1
+        tmRestoreCheck.Interval = 60000
+        tmRestoreCheck.Enabled = True
+        tmRestoreCheck.Start()
+        AutoRestoreCheck()
+    End Sub
+
+    Private Sub AutoRestoreCheck()
+        Dim slRestoreData As SortedList = mgrRestore.CompareManifests()
+        Dim sNotReady As New List(Of String)
+        Dim sNotInstalled As New List(Of String)
+        Dim oBackup As clsBackup
+        Dim sFileName As String
+        Dim sExtractPath As String
+        Dim bFinished As Boolean = True
+
+        'Bail out and shut down the timer if there's nothing to do
+        If slRestoreData.Count = 0 Then
+            tmRestoreCheck.Stop()
+            tmRestoreCheck.Enabled = False
+            Exit Sub
+        End If
+
+        'Increment Timer
+        iRestoreTimeOut += 1
+
+        'Check backup files
+        For Each de As DictionaryEntry In slRestoreData
+            oBackup = DirectCast(de.Value, clsBackup)
+
+            'Check if backup file is ready to restore
+            sFileName = oSettings.BackupFolder & IO.Path.DirectorySeparatorChar & oBackup.FileName
+            If mgrHash.Generate_SHA256_Hash(sFileName) <> oBackup.CheckSum Then
+                sNotReady.Add(de.Key)
+                bFinished = False
+            End If
+
+            'Check if the restore location exists,  if not we assume the game is not installed and should be auto-marked.
+            If oBackup.AbsolutePath Then
+                sExtractPath = oBackup.RestorePath
+            Else
+                sExtractPath = oBackup.RelativeRestorePath
+            End If
+            If Not IO.Directory.Exists(sExtractPath) Then
+                If mgrManifest.DoGlobalManifestCheck(de.Key, mgrSQLite.Database.Local) Then
+                    mgrManifest.DoManifestUpdateByName(de.Value, mgrSQLite.Database.Local)
+                Else
+                    mgrManifest.DoManifestAdd(de.Value, mgrSQLite.Database.Local)
+                End If
+                sNotInstalled.Add(de.Key)
+            End If
+        Next
+
+        'Remove any backup files that are not ready
+        For Each s As String In sNotReady
+            slRestoreData.Remove(s)
+            UpdateLog(mgrCommon.FormatString(frmMain_RestoreNotReady, s), False, ToolTipIcon.Info, True)
+        Next
+
+        'Remove any backup files that should not be automatically restored
+        For Each s As String In sNotInstalled
+            slRestoreData.Remove(s)
+            UpdateLog(mgrCommon.FormatString(frmMain_AutoMarked, s), False, ToolTipIcon.Info, True)
+        Next
+
+        'When backup files are ready update the notifier
+        If slRestoreData.Count > 0 Then
+            UpdateNotifier(slRestoreData.Count)
+        End If
+
+        'Shutdown if we are finished
+        If bFinished Then
+            tmRestoreCheck.Stop()
+            tmRestoreCheck.Enabled = False
+        End If
+
+        'Time out after 15 minutes
+        If iRestoreTimeOut = 15 Then
+            tmRestoreCheck.Stop()
+            tmRestoreCheck.Enabled = False
         End If
     End Sub
 
@@ -758,7 +847,7 @@ Public Class frmMain
 
     Private Sub CheckForNewBackups()
         If oSettings.RestoreOnLaunch Then
-            CheckRestore()
+            StartRestoreCheck()
         End If
     End Sub
 
@@ -1100,6 +1189,9 @@ Public Class frmMain
     End Sub
 
     Private Sub SetForm()
+        'Disable Autosize in Linux (Mono prevents manual resizing when this is enabled)
+        If mgrCommon.IsUnix Then Me.AutoSize = False
+
         'Set Form Name
         Me.Name = App_NameLong
 
@@ -1520,6 +1612,10 @@ Public Class frmMain
                 Me.ShowInTaskbar = False
             End If
         End If
+    End Sub
+
+    Private Sub AutoRestoreEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmRestoreCheck.Tick
+        AutoRestoreCheck()
     End Sub
 
     Private Sub ScanTimerEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmScanTimer.Tick

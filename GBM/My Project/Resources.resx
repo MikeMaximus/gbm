@@ -1735,4 +1735,10 @@
   <data name="frmGameManager_chkCleanFolder" xml:space="preserve">
     <value>Clean folder on restore</value>
   </data>
+  <data name="frmMain_AutoMarked" xml:space="preserve">
+    <value>The saved game folder for [PARAM] does not exist, the backup has been automatically marked as restored.</value>
+  </data>
+  <data name="frmMain_RestoreNotReady" xml:space="preserve">
+    <value>The backup file for [PARAM] is not ready to restore.</value>
+  </data>
 </root>

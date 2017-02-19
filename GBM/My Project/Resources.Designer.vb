@@ -2302,6 +2302,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The saved game folder for [PARAM] does not exist, the backup has been automatically marked as restored..
+        '''</summary>
+        Friend ReadOnly Property frmMain_AutoMarked() As String
+            Get
+                Return ResourceManager.GetString("frmMain_AutoMarked", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup in Progress....
         '''</summary>
         Friend ReadOnly Property frmMain_BackupInProgress() As String
@@ -3153,6 +3162,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_RestoreInProgress() As String
             Get
                 Return ResourceManager.GetString("frmMain_RestoreInProgress", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The backup file for [PARAM] is not ready to restore..
+        '''</summary>
+        Friend ReadOnly Property frmMain_RestoreNotReady() As String
+            Get
+                Return ResourceManager.GetString("frmMain_RestoreNotReady", resourceCulture)
             End Get
         End Property
         

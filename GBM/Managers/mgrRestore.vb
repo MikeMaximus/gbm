@@ -96,8 +96,6 @@ Public Class mgrRestore
         If bLocal And bRemote Then
             'Compare
             If oRemoteItem.DateUpdated > oLocalItem.DateUpdated Then
-                oRemoteItem.LastDateUpdated = oLocalItem.DateUpdated
-                oRemoteItem.LastUpdatedBy = oLocalItem.UpdatedBy
                 Return True
             End If
         End If
@@ -126,16 +124,14 @@ Public Class mgrRestore
 
                 If oItem.DateUpdated > oLocalItem.DateUpdated Then
                     oLocalItem.FileName = oItem.FileName
-                    oLocalItem.LastDateUpdated = oItem.DateUpdated
-                    oLocalItem.LastUpdatedBy = oItem.UpdatedBy
+                    oLocalItem.DateUpdated = oItem.DateUpdated
+                    oLocalItem.UpdatedBy = oItem.UpdatedBy
                     slRestoreItems.Add(oLocalItem.Name, oLocalItem)
                 End If
             Else
                 oLocalItem = oItem
-                oLocalItem.LastDateUpdated = oItem.DateUpdated
-                oLocalItem.LastUpdatedBy = oItem.UpdatedBy
-                oLocalItem.DateUpdated = Nothing
-                oLocalItem.UpdatedBy = Nothing
+                oLocalItem.DateUpdated = oItem.DateUpdated
+                oLocalItem.UpdatedBy = oItem.UpdatedBy
                 slRestoreItems.Add(oLocalItem.Name, oLocalItem)
             End If
         Next
