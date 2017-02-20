@@ -287,10 +287,10 @@
     <value>Multiple Games Detected</value>
   </data>
   <data name="frmMain_NewSaveNotificationMulti" xml:space="preserve">
-    <value>[PARAM] New Saves Pending</value>
+    <value>[PARAM] New Backups Pending</value>
   </data>
   <data name="frmMain_NewSaveNotificationSingle" xml:space="preserve">
-    <value>[PARAM] New Save Pending</value>
+    <value>[PARAM] New Backup Pending</value>
   </data>
   <data name="frmMain_NoDetails" xml:space="preserve">
     <value>Game details are unavailable.</value>
@@ -1087,8 +1087,8 @@
   <data name="frmSettings_chkOverwriteWarning" xml:space="preserve">
     <value>Show overwrite warning</value>
   </data>
-  <data name="frmSettings_chkRestoreOnLaunch" xml:space="preserve">
-    <value>Notify when there are new backup files to restore</value>
+  <data name="frmSettings_chkRestoreNotify" xml:space="preserve">
+    <value>Notify about new backups to restore</value>
   </data>
   <data name="frmSettings_chkShowDetectionTips" xml:space="preserve">
     <value>Show detection notifications</value>
@@ -1740,5 +1740,23 @@
   </data>
   <data name="frmMain_RestoreNotReady" xml:space="preserve">
     <value>The backup file for [PARAM] is not ready to restore.</value>
+  </data>
+  <data name="frmSettings_chkAutoMark" xml:space="preserve">
+    <value>Automatically mark backups as restored when appropriate</value>
+  </data>
+  <data name="frmSettings_grpBackupHandling" xml:space="preserve">
+    <value>Backup Handling</value>
+  </data>
+  <data name="frmSettings_chkAutoRestore" xml:space="preserve">
+    <value>Automatically restore new backups</value>
+  </data>
+  <data name="frmMain_AutoRestoreFailure" xml:space="preserve">
+    <value>[PARAM] has multiple configurations and cannot be automatically restored.</value>
+  </data>
+  <data name="frmMain_RestoreNotificationMulti" xml:space="preserve">
+    <value>[PARAM] New Backups Restored</value>
+  </data>
+  <data name="frmMain_RestoreNotificationSingle" xml:space="preserve">
+    <value>[PARAM] New Backup Restored</value>
   </data>
 </root>

@@ -123,16 +123,10 @@ Public Class mgrRestore
                 oLocalItem = DirectCast(slLocalManifest(oItem.Name), clsBackup)
 
                 If oItem.DateUpdated > oLocalItem.DateUpdated Then
-                    oLocalItem.FileName = oItem.FileName
-                    oLocalItem.DateUpdated = oItem.DateUpdated
-                    oLocalItem.UpdatedBy = oItem.UpdatedBy
-                    slRestoreItems.Add(oLocalItem.Name, oLocalItem)
+                    slRestoreItems.Add(oItem.Name, oItem)
                 End If
             Else
-                oLocalItem = oItem
-                oLocalItem.DateUpdated = oItem.DateUpdated
-                oLocalItem.UpdatedBy = oItem.UpdatedBy
-                slRestoreItems.Add(oLocalItem.Name, oLocalItem)
+                slRestoreItems.Add(oItem.Name, oItem)
             End If
         Next
 

@@ -55,7 +55,7 @@ Public Class frmMain
     Public hshScanList As Hashtable
     Public oSettings As New mgrSettings
 
-    Delegate Sub UpdateNotifierCallBack(ByVal iCount As Integer)
+    Delegate Sub UpdateNotifierCallBack(ByVal iCount As Integer, ByVal bRestored As Boolean)
     Delegate Sub UpdateLogCallBack(ByVal sLogUpdate As String, ByVal bTrayUpdate As Boolean, ByVal objIcon As System.Windows.Forms.ToolTipIcon, ByVal bTimeStamp As Boolean)
     Delegate Sub WorkingGameInfoCallBack(ByVal sTitle As String, ByVal sStatus1 As String, ByVal sStatus2 As String, ByVal sStatus3 As String)
     Delegate Sub UpdateStatusCallBack(ByVal sStatus As String)
@@ -331,17 +331,25 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub UpdateNotifier(ByVal iCount As Integer)
+    Private Sub UpdateNotifier(ByVal iCount As Integer, ByVal bRestored As Boolean)
         'Thread Safe
         If Me.InvokeRequired = True Then
             Dim d As New UpdateNotifierCallBack(AddressOf UpdateNotifier)
-            Me.Invoke(d, New Object() {iCount})
+            Me.Invoke(d, New Object() {iCount, bRestored})
         Else
             Dim sNotification As String
             If iCount > 1 Then
-                sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationMulti, iCount)
+                If bRestored Then
+                    sNotification = mgrCommon.FormatString(frmMain_RestoreNotificationMulti, iCount)
+                Else
+                    sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationMulti, iCount)
+                End If
             Else
-                sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationSingle, iCount)
+                If bRestored Then
+                    sNotification = mgrCommon.FormatString(frmMain_RestoreNotificationSingle, iCount)
+                Else
+                    sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationSingle, iCount)
+                End If
             End If
             gMonNotification.Image = Icon_Inbox
             gMonTrayNotification.Image = Icon_Inbox
@@ -368,8 +376,10 @@ Public Class frmMain
         Dim sFileName As String
         Dim sExtractPath As String
         Dim bFinished As Boolean = True
+        Dim hshRestore As Hashtable
+        Dim hshGames As Hashtable
 
-        'Bail out and shut down the timer if there's nothing to do
+        'Shut down the timer and bail out if there's nothing to do
         If slRestoreData.Count = 0 Then
             tmRestoreCheck.Stop()
             tmRestoreCheck.Enabled = False
@@ -391,18 +401,20 @@ Public Class frmMain
             End If
 
             'Check if the restore location exists,  if not we assume the game is not installed and should be auto-marked.
-            If oBackup.AbsolutePath Then
-                sExtractPath = oBackup.RestorePath
-            Else
-                sExtractPath = oBackup.RelativeRestorePath
-            End If
-            If Not IO.Directory.Exists(sExtractPath) Then
-                If mgrManifest.DoGlobalManifestCheck(de.Key, mgrSQLite.Database.Local) Then
-                    mgrManifest.DoManifestUpdateByName(de.Value, mgrSQLite.Database.Local)
+            If oSettings.AutoMark Then
+                If oBackup.AbsolutePath Then
+                    sExtractPath = oBackup.RestorePath
                 Else
-                    mgrManifest.DoManifestAdd(de.Value, mgrSQLite.Database.Local)
+                    sExtractPath = oBackup.RelativeRestorePath
                 End If
-                sNotInstalled.Add(de.Key)
+                If Not IO.Directory.Exists(sExtractPath) Then
+                    If mgrManifest.DoGlobalManifestCheck(de.Key, mgrSQLite.Database.Local) Then
+                        mgrManifest.DoManifestUpdateByName(de.Value, mgrSQLite.Database.Local)
+                    Else
+                        mgrManifest.DoManifestAdd(de.Value, mgrSQLite.Database.Local)
+                    End If
+                    sNotInstalled.Add(de.Key)
+                End If
             End If
         Next
 
@@ -418,9 +430,27 @@ Public Class frmMain
             UpdateLog(mgrCommon.FormatString(frmMain_AutoMarked, s), False, ToolTipIcon.Info, True)
         Next
 
-        'When backup files are ready update the notifier
-        If slRestoreData.Count > 0 Then
-            UpdateNotifier(slRestoreData.Count)
+        'Automatically restore backup files
+        If oSettings.AutoRestore Then
+            If slRestoreData.Count > 0 Then
+                hshRestore = New Hashtable
+                For Each de As DictionaryEntry In slRestoreData
+                    hshGames = mgrMonitorList.DoListGetbyName(de.Key)
+                    If hshGames.Count = 1 Then
+                        hshRestore.Add(hshGames(0), de.Value)
+                    Else
+                        UpdateLog(mgrCommon.FormatString(frmMain_AutoRestoreFailure, de.Key), False, ToolTipIcon.Info, True)
+                    End If
+                Next
+                RunRestore(hshRestore)
+            End If
+        End If
+
+        'Update the notifier
+        If oSettings.RestoreOnLaunch Then
+            If slRestoreData.Count > 0 Then
+                UpdateNotifier(slRestoreData.Count, oSettings.AutoMark)
+            End If
         End If
 
         'Shutdown if we are finished
@@ -846,7 +876,7 @@ Public Class frmMain
     End Sub
 
     Private Sub CheckForNewBackups()
-        If oSettings.RestoreOnLaunch Then
+        If oSettings.RestoreOnLaunch Or oSettings.AutoRestore Or oSettings.AutoMark Then
             StartRestoreCheck()
         End If
     End Sub

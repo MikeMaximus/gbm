@@ -9,6 +9,8 @@ Public Class mgrSettings
     Private bCreateSubFolder As Boolean = False
     Private bShowOverwriteWarning As Boolean = True
     Private bRestoreOnLaunch As Boolean = False
+    Private bAutoRestore As Boolean = False
+    Private bAutoMark As Boolean = False
     Private bSync As Boolean = True
     Private bCheckSum As Boolean = True
     Private bTimeTracking As Boolean = True
@@ -90,6 +92,24 @@ Public Class mgrSettings
         End Get
         Set(value As Boolean)
             bRestoreOnLaunch = value
+        End Set
+    End Property
+
+    Property AutoRestore As Boolean
+        Get
+            Return bAutoRestore
+        End Get
+        Set(value As Boolean)
+            bAutoRestore = value
+        End Set
+    End Property
+
+    Property AutoMark As Boolean
+        Get
+            Return bAutoMark
+        End Get
+        Set(value As Boolean)
+            bAutoMark = value
         End Set
     End Property
 
@@ -251,7 +271,7 @@ Public Class mgrSettings
         sSQL = "INSERT INTO settings VALUES (1, @MonitorOnStartup, @StartToTray, @ShowDetectionToolTips, @DisableConfirmation, "
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @Sync, @CheckSum, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SupressBackup, @SupressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
-        sSQL &= "@SyncFields,@AutoSaveLog)"
+        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -272,6 +292,8 @@ Public Class mgrSettings
         hshParams.Add("Custom7zLocation", Custom7zLocation)
         hshParams.Add("SyncFields", SyncFields)
         hshParams.Add("AutoSaveLog", AutoSaveLog)
+        hshParams.Add("AutoRestore", AutoRestore)
+        hshParams.Add("AutoMark", AutoMark)
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
@@ -305,6 +327,8 @@ Public Class mgrSettings
             If Not IsDBNull(dr("Custom7zLocation")) Then Custom7zLocation = CStr(dr("Custom7zLocation"))
             SyncFields = CInt(dr("SyncFields"))
             AutoSaveLog = CBool(dr("AutoSaveLog"))
+            AutoRestore = CBool(dr("AutoRestore"))
+            AutoMark = CBool(dr("AutoMark"))
         Next
 
         oDatabase.Disconnect()

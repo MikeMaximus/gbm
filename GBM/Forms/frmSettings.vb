@@ -48,7 +48,9 @@ Public Class frmSettings
         oSettings.DisableConfirmation = chkBackupConfirm.Checked
         oSettings.CreateSubFolder = chkCreateFolder.Checked
         oSettings.ShowOverwriteWarning = chkOverwriteWarning.Checked
-        oSettings.RestoreOnLaunch = chkRestoreOnLaunch.Checked
+        oSettings.RestoreOnLaunch = chkRestoreNotify.Checked
+        oSettings.AutoRestore = chkAutoRestore.Checked
+        oSettings.AutoMark = chkAutoMark.Checked
         oSettings.TimeTracking = chkTimeTracking.Checked
         oSettings.SupressBackup = chkSupressBackup.Checked
         oSettings.SupressBackupThreshold = nudSupressBackupThreshold.Value
@@ -177,7 +179,9 @@ Public Class frmSettings
         chkBackupConfirm.Checked = oSettings.DisableConfirmation
         chkCreateFolder.Checked = oSettings.CreateSubFolder
         chkOverwriteWarning.Checked = oSettings.ShowOverwriteWarning
-        chkRestoreOnLaunch.Checked = oSettings.RestoreOnLaunch
+        chkRestoreNotify.Checked = oSettings.RestoreOnLaunch
+        chkAutoRestore.Checked = oSettings.AutoRestore
+        chkAutoMark.Checked = oSettings.AutoMark
         txtBackupFolder.Text = oSettings.BackupFolder
         chkSync.Checked = oSettings.Sync
         chkCheckSum.Checked = oSettings.CheckSum
@@ -280,7 +284,10 @@ Public Class frmSettings
         lblMinutes.Text = frmSettings_lblMinutes
         chkSupressBackup.Text = frmSettings_chkSupressBackup
         chkCheckSum.Text = frmSettings_chkCheckSum
-        chkRestoreOnLaunch.Text = frmSettings_chkRestoreOnLaunch
+        grpBackupHandling.Text = frmSettings_grpBackupHandling
+        chkRestoreNotify.Text = frmSettings_chkRestoreNotify
+        chkAutoRestore.Text = frmSettings_chkAutoRestore
+        chkAutoMark.Text = frmSettings_chkAutoMark
         chkOverwriteWarning.Text = frmSettings_chkOverwriteWarning
         chkCreateFolder.Text = frmSettings_chkCreateFolder
         chkBackupConfirm.Text = frmSettings_chkBackupConfirm
@@ -352,7 +359,7 @@ Public Class frmSettings
         End If
     End Sub
 
-    Private Sub chkSupressBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkSupressBackup.CheckedChanged
+    Private Sub chkSupressBackup_CheckedChanged(sender As Object, e As EventArgs)
         nudSupressBackupThreshold.Enabled = chkSupressBackup.Checked
     End Sub
 
@@ -375,4 +382,5 @@ Public Class frmSettings
     Private Sub lstSettings_SelectedValueChanged(sender As Object, e As EventArgs) Handles lstSettings.SelectedValueChanged
         ChangePanel()
     End Sub
+
 End Class
