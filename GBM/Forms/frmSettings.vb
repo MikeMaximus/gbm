@@ -359,7 +359,7 @@ Public Class frmSettings
         End If
     End Sub
 
-    Private Sub chkSupressBackup_CheckedChanged(sender As Object, e As EventArgs)
+    Private Sub chkSupressBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkSupressBackup.CheckedChanged
         nudSupressBackupThreshold.Enabled = chkSupressBackup.Checked
     End Sub
 
