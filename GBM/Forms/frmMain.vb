@@ -341,14 +341,18 @@ Public Class frmMain
             If iCount > 1 Then
                 If bRestored Then
                     sNotification = mgrCommon.FormatString(frmMain_RestoreNotificationMulti, iCount)
+                    gMonNotification.Tag = 1
                 Else
                     sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationMulti, iCount)
+                    gMonNotification.Tag = 0
                 End If
             Else
                 If bRestored Then
                     sNotification = mgrCommon.FormatString(frmMain_RestoreNotificationSingle, iCount)
+                    gMonNotification.Tag = 1
                 Else
                     sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationSingle, iCount)
+                    gMonNotification.Tag = 0
                 End If
             End If
             gMonNotification.Image = Icon_Inbox
@@ -372,6 +376,7 @@ Public Class frmMain
         Dim slRestoreData As SortedList = mgrRestore.CompareManifests()
         Dim sNotReady As New List(Of String)
         Dim sNotInstalled As New List(Of String)
+        Dim sNoCheckSum As New List(Of String)
         Dim oBackup As clsBackup
         Dim sFileName As String
         Dim sExtractPath As String
@@ -394,27 +399,31 @@ Public Class frmMain
             oBackup = DirectCast(de.Value, clsBackup)
 
             'Check if backup file is ready to restore
-            sFileName = oSettings.BackupFolder & IO.Path.DirectorySeparatorChar & oBackup.FileName
-            If mgrHash.Generate_SHA256_Hash(sFileName) <> oBackup.CheckSum Then
-                sNotReady.Add(de.Key)
-                bFinished = False
+            If oBackup.CheckSum <> String.Empty Then
+                sFileName = oSettings.BackupFolder & IO.Path.DirectorySeparatorChar & oBackup.FileName
+                If mgrHash.Generate_SHA256_Hash(sFileName) <> oBackup.CheckSum Then
+                    sNotReady.Add(de.Key)
+                    bFinished = False
+                End If
+            Else
+                sNoCheckSum.Add(de.Key)
             End If
 
             'Check if the restore location exists,  if not we assume the game is not installed and should be auto-marked.
-            If oSettings.AutoMark Then
-                If oBackup.AbsolutePath Then
-                    sExtractPath = oBackup.RestorePath
-                Else
-                    sExtractPath = oBackup.RelativeRestorePath
-                End If
-                If Not IO.Directory.Exists(sExtractPath) Then
+            If oBackup.AbsolutePath Then
+                sExtractPath = oBackup.RestorePath
+            Else
+                sExtractPath = oBackup.RelativeRestorePath
+            End If
+            If Not IO.Directory.Exists(sExtractPath) Then
+                If oSettings.AutoMark Then
                     If mgrManifest.DoGlobalManifestCheck(de.Key, mgrSQLite.Database.Local) Then
                         mgrManifest.DoManifestUpdateByName(de.Value, mgrSQLite.Database.Local)
                     Else
                         mgrManifest.DoManifestAdd(de.Value, mgrSQLite.Database.Local)
                     End If
-                    sNotInstalled.Add(de.Key)
                 End If
+                sNotInstalled.Add(de.Key)
             End If
         Next
 
@@ -427,7 +436,15 @@ Public Class frmMain
         'Remove any backup files that should not be automatically restored
         For Each s As String In sNotInstalled
             slRestoreData.Remove(s)
-            UpdateLog(mgrCommon.FormatString(frmMain_AutoMarked, s), False, ToolTipIcon.Info, True)
+            If oSettings.AutoMark Then
+                UpdateLog(mgrCommon.FormatString(frmMain_AutoMark, s), False, ToolTipIcon.Info, True)
+            Else
+                UpdateLog(mgrCommon.FormatString(frmMain_NoAutoMark, s), False, ToolTipIcon.Info, True)
+            End If
+        Next
+        For Each s As String In sNoCheckSum
+            slRestoreData.Remove(s)
+            UpdateLog(mgrCommon.FormatString(frmMain_NoCheckSum, s), False, ToolTipIcon.Info, True)
         Next
 
         'Automatically restore backup files
@@ -449,7 +466,7 @@ Public Class frmMain
         'Update the notifier
         If oSettings.RestoreOnLaunch Then
             If slRestoreData.Count > 0 Then
-                UpdateNotifier(slRestoreData.Count, oSettings.AutoMark)
+                UpdateNotifier(slRestoreData.Count, oSettings.AutoRestore)
             End If
         End If
 
@@ -911,10 +928,12 @@ Public Class frmMain
 
     Private Sub HandleSyncWatcher() Handles oFileWatcher.Changed
         If oSettings.Sync Then
+            StopSyncWatcher()
             UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
             SyncGameSettings()
             LoadGameSettings()
             CheckForNewBackups()
+            StartSyncWatcher()
         End If
     End Sub
 
@@ -1590,7 +1609,9 @@ Public Class frmMain
     Private Sub gMonNotification_Click(sender As Object, e As EventArgs) Handles gMonNotification.Click, gMonTrayNotification.Click
         gMonNotification.Visible = False
         gMonTrayNotification.Visible = False
-        OpenGameManager(True)
+        If gMonNotification.Tag = 0 Then
+            OpenGameManager(True)
+        End If
     End Sub
 
     Private Sub btnLogToggle_Click(sender As Object, e As EventArgs) Handles btnLogToggle.Click
