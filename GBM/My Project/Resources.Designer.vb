@@ -2302,7 +2302,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The saved game folder for [PARAM] does not exist, the backup has been automatically marked as restored..
+        '''  Looks up a localized string similar to The saved game folder for [PARAM] does not exist or could not be determined, the backup has been automatically marked as restored..
         '''</summary>
         Friend ReadOnly Property frmMain_AutoMark() As String
             Get
@@ -3103,7 +3103,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The saved game folder for [PARAM] does not exist, this backup has been skipped..
+        '''  Looks up a localized string similar to The saved game folder for [PARAM] does not exist or could not be determined, this backup has been skipped..
         '''</summary>
         Friend ReadOnly Property frmMain_NoAutoMark() As String
             Get

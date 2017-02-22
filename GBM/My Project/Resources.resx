@@ -1736,7 +1736,7 @@
     <value>Clean folder on restore</value>
   </data>
   <data name="frmMain_AutoMark" xml:space="preserve">
-    <value>The saved game folder for [PARAM] does not exist, the backup has been automatically marked as restored.</value>
+    <value>The saved game folder for [PARAM] does not exist or could not be determined, the backup has been automatically marked as restored.</value>
   </data>
   <data name="frmMain_RestoreNotReady" xml:space="preserve">
     <value>The backup file for [PARAM] is not ready to restore.</value>
@@ -1760,7 +1760,7 @@
     <value>[PARAM] New Backup Restored</value>
   </data>
   <data name="frmMain_NoAutoMark" xml:space="preserve">
-    <value>The saved game folder for [PARAM] does not exist, this backup has been skipped.</value>
+    <value>The saved game folder for [PARAM] does not exist or could not be determined, this backup has been skipped.</value>
   </data>
   <data name="frmMain_NoCheckSum" xml:space="preserve">
     <value>The backup file for [PARAM] has no checksum,  it cannot be automatically restored.</value>

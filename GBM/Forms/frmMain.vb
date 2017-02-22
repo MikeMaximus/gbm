@@ -1,4 +1,5 @@
 ﻿Imports GBM.My.Resources
+Imports System.IO
 
 'Name: frmMain
 'Description: Game Backup Monitor Main Screen
@@ -45,7 +46,7 @@ Public Class frmMain
     'Developer Debug Flags
     Private bProcessDebugMode As Boolean = False
 
-    WithEvents oFileWatcher As New System.IO.FileSystemWatcher
+    WithEvents oFileWatcher As New FileSystemWatcher
     WithEvents tmScanTimer As New Timer
     WithEvents tmRestoreCheck As New Timer
 
@@ -82,7 +83,7 @@ Public Class frmMain
         Dim sStatus3 As String
 
         'Build Info
-        sStatus1 = IO.Path.GetFileName(oRestoreInfo.FileName)
+        sStatus1 = Path.GetFileName(oRestoreInfo.FileName)
         sStatus2 = mgrCommon.FormatString(frmMain_UpdatedBy, New String() {oRestoreInfo.UpdatedBy, oRestoreInfo.DateUpdated})
         If oRestoreInfo.AbsolutePath Then
             sStatus3 = oRestoreInfo.RestorePath
@@ -104,7 +105,7 @@ Public Class frmMain
         If oGame.AbsolutePath Then
             sStatus2 = oGame.Path
         Else
-            sStatus2 = oGame.ProcessPath & System.IO.Path.DirectorySeparatorChar & oGame.Path
+            sStatus2 = oGame.ProcessPath & Path.DirectorySeparatorChar & oGame.Path
         End If
         sStatus3 = String.Empty
 
@@ -383,6 +384,7 @@ Public Class frmMain
         Dim bFinished As Boolean = True
         Dim hshRestore As Hashtable
         Dim hshGames As Hashtable
+        Dim oGame As clsGame
 
         'Shut down the timer and bail out if there's nothing to do
         If slRestoreData.Count = 0 Then
@@ -400,7 +402,7 @@ Public Class frmMain
 
             'Check if backup file is ready to restore
             If oBackup.CheckSum <> String.Empty Then
-                sFileName = oSettings.BackupFolder & IO.Path.DirectorySeparatorChar & oBackup.FileName
+                sFileName = oSettings.BackupFolder & Path.DirectorySeparatorChar & oBackup.FileName
                 If mgrHash.Generate_SHA256_Hash(sFileName) <> oBackup.CheckSum Then
                     sNotReady.Add(de.Key)
                     bFinished = False
@@ -413,9 +415,17 @@ Public Class frmMain
             If oBackup.AbsolutePath Then
                 sExtractPath = oBackup.RestorePath
             Else
+                hshGames = mgrMonitorList.DoListGetbyName(de.Key)
+                If hshGames.Count = 1 Then
+                    oGame = DirectCast(hshGames(0), clsGame)
+                    If oGame.ProcessPath <> String.Empty Then
+                        oBackup.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oBackup.RestorePath
+                    End If
+                End If
                 sExtractPath = oBackup.RelativeRestorePath
             End If
-            If Not IO.Directory.Exists(sExtractPath) Then
+
+            If Not Directory.Exists(sExtractPath) Then
                 If oSettings.AutoMark Then
                     If mgrManifest.DoGlobalManifestCheck(de.Key, mgrSQLite.Database.Local) Then
                         mgrManifest.DoManifestUpdateByName(de.Value, mgrSQLite.Database.Local)
@@ -454,7 +464,8 @@ Public Class frmMain
                 For Each de As DictionaryEntry In slRestoreData
                     hshGames = mgrMonitorList.DoListGetbyName(de.Key)
                     If hshGames.Count = 1 Then
-                        hshRestore.Add(hshGames(0), de.Value)
+                        oGame = DirectCast(hshGames(0), clsGame)
+                        hshRestore.Add(oGame, de.Value)
                     Else
                         UpdateLog(mgrCommon.FormatString(frmMain_AutoRestoreFailure, de.Key), False, ToolTipIcon.Info, True)
                     End If
@@ -500,7 +511,7 @@ Public Class frmMain
         End If
 
         Try
-            fbBrowser.InitialDirectory = IO.Path.GetDirectoryName(oProcess.FoundProcess.MainModule.FileName)
+            fbBrowser.InitialDirectory = Path.GetDirectoryName(oProcess.FoundProcess.MainModule.FileName)
         Catch ex As Exception
             fbBrowser.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         End Try
@@ -508,7 +519,7 @@ Public Class frmMain
 
         If fbBrowser.ShowDialog() = Windows.Forms.DialogResult.OK Then
             sIcon = fbBrowser.FileName
-            If IO.File.Exists(sIcon) Then
+            If File.Exists(sIcon) Then
                 oProcess.GameInfo.Icon = sIcon
                 pbIcon.Image = Image.FromFile(sIcon)
                 mgrMonitorList.DoListUpdate(oProcess.GameInfo)
@@ -599,7 +610,7 @@ Public Class frmMain
             End Try
 
             'Check for a custom icon & details            
-            If IO.File.Exists(oProcess.GameInfo.Icon) Then
+            If File.Exists(oProcess.GameInfo.Icon) Then
                 pbIcon.Image = Image.FromFile(oProcess.GameInfo.Icon)
             End If
             If sFileName = String.Empty Then
@@ -922,7 +933,7 @@ Public Class frmMain
         If oSettings.Sync Then
             oFileWatcher.Path = oSettings.BackupFolder
             oFileWatcher.Filter = "gbm.s3db"
-            oFileWatcher.NotifyFilter = IO.NotifyFilters.LastWrite
+            oFileWatcher.NotifyFilter = NotifyFilters.LastWrite
         End If
     End Sub
 
@@ -1400,9 +1411,9 @@ Public Class frmMain
         Dim sSettingsRoot As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "/gbm"
         Dim sDBLocation As String = sSettingsRoot & "/gbm.s3db"
 
-        If Not IO.Directory.Exists(sSettingsRoot) Then
+        If Not Directory.Exists(sSettingsRoot) Then
             Try
-                IO.Directory.CreateDirectory(sSettingsRoot)
+                Directory.CreateDirectory(sSettingsRoot)
             Catch ex As Exception
                 mgrCommon.ShowMessage(frmMain_ErrorSettingsFolder, ex.Message, MsgBoxStyle.Critical)
                 bShutdown = True
@@ -1410,7 +1421,7 @@ Public Class frmMain
             End Try
         End If
 
-        If Not IO.File.Exists(sDBLocation) Then bFirstRun = True
+        If Not File.Exists(sDBLocation) Then bFirstRun = True
     End Sub
 
     Private Sub VerifyDBVersion(ByVal iDB As mgrSQLite.Database)
