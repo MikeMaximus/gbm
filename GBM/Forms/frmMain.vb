@@ -47,8 +47,10 @@ Public Class frmMain
     Private bProcessDebugMode As Boolean = False
 
     WithEvents oFileWatcher As New FileSystemWatcher
+
+    'Timers - There may only be one System.Windows.Forms.Timer and it must be tmScanTimer.
     WithEvents tmScanTimer As New Timer
-    WithEvents tmRestoreCheck As New Timer
+    WithEvents tmRestoreCheck As New System.Timers.Timer
 
     Public WithEvents oProcess As New mgrProcesses
     Public WithEvents oBackup As New mgrBackup
@@ -368,7 +370,7 @@ Public Class frmMain
     Private Sub StartRestoreCheck()
         iRestoreTimeOut = -1
         tmRestoreCheck.Interval = 60000
-        tmRestoreCheck.Enabled = True
+        tmRestoreCheck.AutoReset = True
         tmRestoreCheck.Start()
         AutoRestoreCheck()
     End Sub
@@ -389,7 +391,6 @@ Public Class frmMain
         'Shut down the timer and bail out if there's nothing to do
         If slRestoreData.Count = 0 Then
             tmRestoreCheck.Stop()
-            tmRestoreCheck.Enabled = False
             Exit Sub
         End If
 
@@ -484,13 +485,11 @@ Public Class frmMain
         'Shutdown if we are finished
         If bFinished Then
             tmRestoreCheck.Stop()
-            tmRestoreCheck.Enabled = False
         End If
 
         'Time out after 15 minutes
         If iRestoreTimeOut = 15 Then
             tmRestoreCheck.Stop()
-            tmRestoreCheck.Enabled = False
         End If
     End Sub
 
@@ -1676,8 +1675,10 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub AutoRestoreEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmRestoreCheck.Tick
-        AutoRestoreCheck()
+    Private Sub AutoRestoreEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmRestoreCheck.Elapsed
+        If eCurrentStatus <> eStatus.Paused Then
+            AutoRestoreCheck()
+        End If
     End Sub
 
     Private Sub ScanTimerEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmScanTimer.Tick
