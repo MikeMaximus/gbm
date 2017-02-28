@@ -28,6 +28,7 @@ Partial Class frmGameManager
         Me.btnBackup = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.grpConfig = New System.Windows.Forms.GroupBox()
+        Me.chkCleanFolder = New System.Windows.Forms.CheckBox()
         Me.lblLimit = New System.Windows.Forms.Label()
         Me.nudLimit = New System.Windows.Forms.NumericUpDown()
         Me.btnExclude = New System.Windows.Forms.Button()
@@ -95,7 +96,6 @@ Partial Class frmGameManager
         Me.cmsDeleteBackup = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsDeleteOne = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
-        Me.chkCleanFolder = New System.Windows.Forms.CheckBox()
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -177,6 +177,16 @@ Partial Class frmGameManager
         Me.grpConfig.TabIndex = 8
         Me.grpConfig.TabStop = False
         Me.grpConfig.Text = "Configuration"
+        '
+        'chkCleanFolder
+        '
+        Me.chkCleanFolder.AutoSize = True
+        Me.chkCleanFolder.Location = New System.Drawing.Point(329, 101)
+        Me.chkCleanFolder.Name = "chkCleanFolder"
+        Me.chkCleanFolder.Size = New System.Drawing.Size(136, 17)
+        Me.chkCleanFolder.TabIndex = 11
+        Me.chkCleanFolder.Text = "Delete folder on restore"
+        Me.chkCleanFolder.UseVisualStyleBackColor = True
         '
         'lblLimit
         '
@@ -720,10 +730,10 @@ Partial Class frmGameManager
         Me.optPendingRestores.AutoSize = True
         Me.optPendingRestores.Location = New System.Drawing.Point(6, 64)
         Me.optPendingRestores.Name = "optPendingRestores"
-        Me.optPendingRestores.Size = New System.Drawing.Size(122, 17)
+        Me.optPendingRestores.Size = New System.Drawing.Size(134, 17)
         Me.optPendingRestores.TabIndex = 2
         Me.optPendingRestores.TabStop = True
-        Me.optPendingRestores.Text = "New Saves Pending"
+        Me.optPendingRestores.Text = "New Backups Pending"
         Me.optPendingRestores.UseVisualStyleBackColor = True
         '
         'optAllGames
@@ -808,16 +818,6 @@ Partial Class frmGameManager
         Me.cmsDeleteAll.Name = "cmsDeleteAll"
         Me.cmsDeleteAll.Size = New System.Drawing.Size(114, 22)
         Me.cmsDeleteAll.Text = "&All Files"
-        '
-        'chkCleanFolder
-        '
-        Me.chkCleanFolder.AutoSize = True
-        Me.chkCleanFolder.Location = New System.Drawing.Point(329, 101)
-        Me.chkCleanFolder.Name = "chkCleanFolder"
-        Me.chkCleanFolder.Size = New System.Drawing.Size(132, 17)
-        Me.chkCleanFolder.TabIndex = 11
-        Me.chkCleanFolder.Text = "Clean folder on restore"
-        Me.chkCleanFolder.UseVisualStyleBackColor = True
         '
         'frmGameManager
         '

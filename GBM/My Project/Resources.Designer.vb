@@ -3418,7 +3418,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Automatically mark backups as restored when appropriate.
+        '''  Looks up a localized string similar to Automatically mark new backups as restored when appropriate.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkAutoMark() As String
             Get
@@ -3490,7 +3490,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Notify about new backups to restore.
+        '''  Looks up a localized string similar to Display notifications about new backups.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkRestoreNotify() As String
             Get

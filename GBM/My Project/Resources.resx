@@ -1088,7 +1088,7 @@
     <value>Show overwrite warning</value>
   </data>
   <data name="frmSettings_chkRestoreNotify" xml:space="preserve">
-    <value>Notify about new backups to restore</value>
+    <value>Display notifications about new backups</value>
   </data>
   <data name="frmSettings_chkShowDetectionTips" xml:space="preserve">
     <value>Show detection notifications</value>
@@ -1742,7 +1742,7 @@
     <value>The backup file for [PARAM] is not ready to restore.</value>
   </data>
   <data name="frmSettings_chkAutoMark" xml:space="preserve">
-    <value>Automatically mark backups as restored when appropriate</value>
+    <value>Automatically mark new backups as restored when appropriate</value>
   </data>
   <data name="frmSettings_grpBackupHandling" xml:space="preserve">
     <value>Backup Handling</value>
