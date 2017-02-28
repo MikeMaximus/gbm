@@ -659,7 +659,7 @@
     <value>Custom</value>
   </data>
   <data name="frmGameManager_optPendingRestores" xml:space="preserve">
-    <value>New Saves Pending</value>
+    <value>New Backups Pending</value>
   </data>
   <data name="frmGameManager_OutofSync" xml:space="preserve">
     <value>Out of Sync</value>
@@ -1733,7 +1733,7 @@
     <value>Unknown</value>
   </data>
   <data name="frmGameManager_chkCleanFolder" xml:space="preserve">
-    <value>Clean folder on restore</value>
+    <value>Delete folder on restore</value>
   </data>
   <data name="frmMain_AutoMark" xml:space="preserve">
     <value>The saved game folder for [PARAM] does not exist or could not be determined, the backup has been automatically marked as restored.</value>

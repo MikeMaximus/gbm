@@ -1294,7 +1294,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Clean folder on restore.
+        '''  Looks up a localized string similar to Delete folder on restore.
         '''</summary>
         Friend ReadOnly Property frmGameManager_chkCleanFolder() As String
             Get
@@ -1951,7 +1951,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to New Saves Pending.
+        '''  Looks up a localized string similar to New Backups Pending.
         '''</summary>
         Friend ReadOnly Property frmGameManager_optPendingRestores() As String
             Get
