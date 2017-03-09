@@ -3454,15 +3454,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Verify backup files with a checksum.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_chkCheckSum() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_chkCheckSum", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Create a sub-folder for each game.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkCreateFolder() As String

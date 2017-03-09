@@ -4,7 +4,6 @@ Imports System.IO
 Public Class frmSettings
     Dim bShutdown As Boolean = False
     Dim bSyncSettingsChanged As Boolean = False
-    Dim bCheckSumDisabled As Boolean = False
     Dim eCurrentSyncFields As clsGame.eOptionalSyncFields
     Private oSettings As mgrSettings
 
@@ -63,12 +62,6 @@ Public Class frmSettings
         oSettings.Custom7zArguments = txt7zArguments.Text.Trim
         oSettings.Custom7zLocation = txt7zLocation.Text.Trim
 
-        'We need to clear all checksums its turned off
-        If chkCheckSum.Checked = False And oSettings.CheckSum = True Then
-            bCheckSumDisabled = True
-        End If
-        oSettings.CheckSum = chkCheckSum.Checked
-
         'Turning syncing from off to on is the same as changing the backup folder
         If chkSync.Checked = True And oSettings.Sync = False Then
             bSyncSettingsChanged = True
@@ -108,7 +101,6 @@ Public Class frmSettings
         If ValidateSettings() Then
             oSettings.SaveSettings()
             If bSyncSettingsChanged Then mgrMonitorList.HandleBackupLocationChange(Settings)
-            If bCheckSumDisabled Then mgrManifest.DoManifestHashWipe()
             Return True
         Else
             Return False
@@ -184,7 +176,6 @@ Public Class frmSettings
         chkAutoMark.Checked = oSettings.AutoMark
         txtBackupFolder.Text = oSettings.BackupFolder
         chkSync.Checked = oSettings.Sync
-        chkCheckSum.Checked = oSettings.CheckSum
         chkTimeTracking.Checked = oSettings.TimeTracking
         chkSupressBackup.Checked = oSettings.SupressBackup
         nudSupressBackupThreshold.Value = oSettings.SupressBackupThreshold
@@ -283,7 +274,6 @@ Public Class frmSettings
         'Set Form Text
         lblMinutes.Text = frmSettings_lblMinutes
         chkSupressBackup.Text = frmSettings_chkSupressBackup
-        chkCheckSum.Text = frmSettings_chkCheckSum
         grpBackupHandling.Text = frmSettings_grpBackupHandling
         chkRestoreNotify.Text = frmSettings_chkRestoreNotify
         chkAutoRestore.Text = frmSettings_chkAutoRestore

@@ -242,10 +242,10 @@ Public Class mgrBackup
 
                     'Write Main Manifest
                     If bBackupCompleted Then
-                        If oSettings.CheckSum Then
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_GenerateHash, oGame.Name), False, ToolTipIcon.Info, True)
-                            sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
-                        End If
+
+                        'Generate checksum for new backup
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_GenerateHash, oGame.Name), False, ToolTipIcon.Info, True)
+                        sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
 
                         If Not DoManifestUpdate(oGame, sBackupFile, dTimeStamp, sHash) Then
                             RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorManifestFailure, oGame.Name), True, ToolTipIcon.Error, True)

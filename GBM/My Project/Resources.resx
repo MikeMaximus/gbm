@@ -1075,9 +1075,6 @@
   <data name="frmSettings_chkBackupConfirm" xml:space="preserve">
     <value>Disable backup confirmation</value>
   </data>
-  <data name="frmSettings_chkCheckSum" xml:space="preserve">
-    <value>Verify backup files with a checksum</value>
-  </data>
   <data name="frmSettings_chkCreateFolder" xml:space="preserve">
     <value>Create a sub-folder for each game</value>
   </data>

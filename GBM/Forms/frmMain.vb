@@ -394,84 +394,96 @@ Public Class frmMain
             Exit Sub
         End If
 
-        'Increment Timer
-        iRestoreTimeOut += 1
+        If oSettings.AutoMark Or oSettings.AutoRestore Then
+            'Increment Timer
+            iRestoreTimeOut += 1
 
-        'Check backup files
-        For Each de As DictionaryEntry In slRestoreData
-            oBackup = DirectCast(de.Value, clsBackup)
+            'Check backup files
+            For Each de As DictionaryEntry In slRestoreData
+                oBackup = DirectCast(de.Value, clsBackup)
 
-            'Check if backup file is ready to restore
-            If oBackup.CheckSum <> String.Empty Then
-                sFileName = oSettings.BackupFolder & Path.DirectorySeparatorChar & oBackup.FileName
-                If mgrHash.Generate_SHA256_Hash(sFileName) <> oBackup.CheckSum Then
-                    sNotReady.Add(de.Key)
-                    bFinished = False
-                End If
-            Else
-                sNoCheckSum.Add(de.Key)
-            End If
-
-            'Check if the restore location exists,  if not we assume the game is not installed and should be auto-marked.
-            If oBackup.AbsolutePath Then
-                sExtractPath = oBackup.RestorePath
-            Else
-                hshGames = mgrMonitorList.DoListGetbyName(de.Key)
-                If hshGames.Count = 1 Then
-                    oGame = DirectCast(hshGames(0), clsGame)
-                    If oGame.ProcessPath <> String.Empty Then
-                        oBackup.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oBackup.RestorePath
+                'Check if backup file is ready to restore
+                If oBackup.CheckSum <> String.Empty Then
+                    sFileName = oSettings.BackupFolder & Path.DirectorySeparatorChar & oBackup.FileName
+                    If mgrHash.Generate_SHA256_Hash(sFileName) <> oBackup.CheckSum Then
+                        sNotReady.Add(de.Key)
+                        bFinished = False
                     End If
+                Else
+                    sNoCheckSum.Add(de.Key)
                 End If
-                sExtractPath = oBackup.RelativeRestorePath
-            End If
 
-            If Not Directory.Exists(sExtractPath) Then
-                If oSettings.AutoMark Then
-                    If mgrManifest.DoGlobalManifestCheck(de.Key, mgrSQLite.Database.Local) Then
-                        mgrManifest.DoManifestUpdateByName(de.Value, mgrSQLite.Database.Local)
-                    Else
-                        mgrManifest.DoManifestAdd(de.Value, mgrSQLite.Database.Local)
-                    End If
-                End If
-                sNotInstalled.Add(de.Key)
-            End If
-        Next
-
-        'Remove any backup files that are not ready
-        For Each s As String In sNotReady
-            slRestoreData.Remove(s)
-            UpdateLog(mgrCommon.FormatString(frmMain_RestoreNotReady, s), False, ToolTipIcon.Info, True)
-        Next
-
-        'Remove any backup files that should not be automatically restored
-        For Each s As String In sNotInstalled
-            slRestoreData.Remove(s)
-            If oSettings.AutoMark Then
-                UpdateLog(mgrCommon.FormatString(frmMain_AutoMark, s), False, ToolTipIcon.Info, True)
-            Else
-                UpdateLog(mgrCommon.FormatString(frmMain_NoAutoMark, s), False, ToolTipIcon.Info, True)
-            End If
-        Next
-        For Each s As String In sNoCheckSum
-            slRestoreData.Remove(s)
-            UpdateLog(mgrCommon.FormatString(frmMain_NoCheckSum, s), False, ToolTipIcon.Info, True)
-        Next
-
-        'Automatically restore backup files
-        If oSettings.AutoRestore Then
-            If slRestoreData.Count > 0 Then
-                hshRestore = New Hashtable
-                For Each de As DictionaryEntry In slRestoreData
+                'Check if the restore location exists,  if not we assume the game is not installed and should be auto-marked.
+                If oBackup.AbsolutePath Then
+                    sExtractPath = oBackup.RestorePath
+                Else
                     hshGames = mgrMonitorList.DoListGetbyName(de.Key)
                     If hshGames.Count = 1 Then
                         oGame = DirectCast(hshGames(0), clsGame)
-                        hshRestore.Add(oGame, de.Value)
-                    Else
-                        UpdateLog(mgrCommon.FormatString(frmMain_AutoRestoreFailure, de.Key), False, ToolTipIcon.Info, True)
+                        If oGame.ProcessPath <> String.Empty Then
+                            oBackup.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oBackup.RestorePath
+                        End If
                     End If
-                Next
-                RunRestore(hshRestore)
+                    sExtractPath = oBackup.RelativeRestorePath
+                End If
+
+                If Not Directory.Exists(sExtractPath) Then
+                    If oSettings.AutoMark Then
+                        If mgrManifest.DoGlobalManifestCheck(de.Key, mgrSQLite.Database.Local) Then
+                            mgrManifest.DoManifestUpdateByName(de.Value, mgrSQLite.Database.Local)
+                        Else
+                            mgrManifest.DoManifestAdd(de.Value, mgrSQLite.Database.Local)
+                        End If
+                    End If
+                    sNotInstalled.Add(de.Key)
+                End If
+            Next
+
+            'Remove any backup files that are not ready
+            For Each s As String In sNotReady
+                slRestoreData.Remove(s)
+                UpdateLog(mgrCommon.FormatString(frmMain_RestoreNotReady, s), False, ToolTipIcon.Info, True)
+            Next
+
+            'Remove any backup files that should not be automatically restored
+            For Each s As String In sNotInstalled
+                slRestoreData.Remove(s)
+                If oSettings.AutoMark Then
+                    UpdateLog(mgrCommon.FormatString(frmMain_AutoMark, s), False, ToolTipIcon.Info, True)
+                Else
+                    UpdateLog(mgrCommon.FormatString(frmMain_NoAutoMark, s), False, ToolTipIcon.Info, True)
+                End If
+            Next
+            For Each s As String In sNoCheckSum
+                slRestoreData.Remove(s)
+                UpdateLog(mgrCommon.FormatString(frmMain_NoCheckSum, s), False, ToolTipIcon.Info, True)
+            Next
+
+            'Automatically restore backup files
+            If oSettings.AutoRestore Then
+                If slRestoreData.Count > 0 Then
+                    hshRestore = New Hashtable
+                    For Each de As DictionaryEntry In slRestoreData
+                        hshGames = mgrMonitorList.DoListGetbyName(de.Key)
+                        If hshGames.Count = 1 Then
+                            oGame = DirectCast(hshGames(0), clsGame)
+                            hshRestore.Add(oGame, de.Value)
+                        Else
+                            UpdateLog(mgrCommon.FormatString(frmMain_AutoRestoreFailure, de.Key), False, ToolTipIcon.Info, True)
+                        End If
+                    Next
+                    RunRestore(hshRestore)
+                End If
+            End If
+
+            'Shutdown if we are finished
+            If bFinished Then
+                tmRestoreCheck.Stop()
+            End If
+
+            'Time out after 15 minutes
+            If iRestoreTimeOut = 15 Then
+                tmRestoreCheck.Stop()
             End If
         End If
 
@@ -480,16 +492,6 @@ Public Class frmMain
             If slRestoreData.Count > 0 Then
                 UpdateNotifier(slRestoreData.Count, oSettings.AutoRestore)
             End If
-        End If
-
-        'Shutdown if we are finished
-        If bFinished Then
-            tmRestoreCheck.Stop()
-        End If
-
-        'Time out after 15 minutes
-        If iRestoreTimeOut = 15 Then
-            tmRestoreCheck.Stop()
         End If
     End Sub
 

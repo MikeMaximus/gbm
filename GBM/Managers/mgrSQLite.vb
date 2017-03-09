@@ -72,7 +72,7 @@ Public Class mgrSQLite
             'Add Tables (Settings)
             sSql = "CREATE TABLE settings (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, " &
                    "DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, " &
-                   "BackupFolder TEXT NOT NULL, Sync BOOLEAN NOT NULL, CheckSum BOOLEAN NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
+                   "BackupFolder TEXT NOT NULL, Sync BOOLEAN NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
                    "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
                    "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL);"
 
@@ -606,8 +606,21 @@ Public Class mgrSQLite
                 'Backup DB before starting
                 BackupDB("v98")
 
+                'Remove checksum field                
+                sSQL = "CREATE TABLE settings_new (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, " &
+                        "DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, " &
+                        "BackupFolder TEXT NOT NULL, Sync BOOLEAN NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
+                        "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
+                        "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL);"
+                sSQL &= "INSERT INTO settings_new (SettingsID, MonitorOnStartup, StartToTray, ShowDetectionToolTips, DisableConfirmation, CreateSubFolder, " &
+                        "ShowOverwriteWarning, RestoreOnLaunch, BackupFolder, Sync, StartWithWindows, TimeTracking,  SupressBackup, SupressBackupThreshold, " &
+                        "CompressionLevel, Custom7zArguments, Custom7zLocation, SyncFields, AutoSaveLog) " &
+                        "SELECT SettingsID, MonitorOnStartup, StartToTray, ShowDetectionToolTips, DisableConfirmation, CreateSubFolder, " &
+                        "ShowOverwriteWarning, RestoreOnLaunch, BackupFolder, Sync, StartWithWindows, TimeTracking,  SupressBackup, SupressBackupThreshold, " &
+                        "CompressionLevel, Custom7zArguments, Custom7zLocation, SyncFields, AutoSaveLog FROM settings;" &
+                        "DROP TABLE settings; ALTER TABLE settings_new RENAME TO settings;"
                 'Add new field(s)
-                sSQL = "ALTER TABLE monitorlist ADD COLUMN CleanFolder BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE monitorlist ADD COLUMN CleanFolder BOOLEAN NOT NULL DEFAULT 0;"
                 sSQL &= "ALTER TABLE settings ADD COLUMN AutoRestore BOOLEAN NOT NULL DEFAULT 0;"
                 sSQL &= "ALTER TABLE settings ADD COLUMN AutoMark BOOLEAN NOT NULL DEFAULT 0;"
                 sSQL &= "PRAGMA user_version=101"

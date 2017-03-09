@@ -183,22 +183,21 @@ Public Class mgrRestore
         End If
 
         'Check file integrity
-        If oSettings.CheckSum Then
-            If oBackupInfo.CheckSum <> String.Empty Then
-                sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
-                If sHash <> oBackupInfo.CheckSum Then
-                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFailedCheck, oBackupInfo.Name), False, ToolTipIcon.Info, True)
-                    If mgrCommon.ShowMessage(mgrRestore_ConfirmFailedCheck, oBackupInfo.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                        RaiseEvent UpdateLog(mgrRestore_ErrorCheckAbort, False, ToolTipIcon.Info, True)
-                        Return False
-                    End If
-                Else
-                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_Verified, oBackupInfo.Name), False, ToolTipIcon.Info, True)
+        If oBackupInfo.CheckSum <> String.Empty Then
+            sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
+            If sHash <> oBackupInfo.CheckSum Then
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFailedCheck, oBackupInfo.Name), False, ToolTipIcon.Info, True)
+                If mgrCommon.ShowMessage(mgrRestore_ConfirmFailedCheck, oBackupInfo.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                    RaiseEvent UpdateLog(mgrRestore_ErrorCheckAbort, False, ToolTipIcon.Info, True)
+                    Return False
                 End If
             Else
-                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_NoVerify, oBackupInfo.Name), False, ToolTipIcon.Info, True)
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_Verified, oBackupInfo.Name), False, ToolTipIcon.Info, True)
             End If
+        Else
+            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_NoVerify, oBackupInfo.Name), False, ToolTipIcon.Info, True)
         End If
+
 
         Return True
     End Function
