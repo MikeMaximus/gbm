@@ -9,8 +9,9 @@ Public Class mgrSettings
     Private bCreateSubFolder As Boolean = False
     Private bShowOverwriteWarning As Boolean = True
     Private bRestoreOnLaunch As Boolean = False
+    Private bAutoRestore As Boolean = False
+    Private bAutoMark As Boolean = False
     Private bSync As Boolean = True
-    Private bCheckSum As Boolean = True
     Private bTimeTracking As Boolean = True
     Private bSupressBackup As Boolean = False
     Private iSupressBackupThreshold As Integer = 10
@@ -93,21 +94,30 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Property AutoRestore As Boolean
+        Get
+            Return bAutoRestore
+        End Get
+        Set(value As Boolean)
+            bAutoRestore = value
+        End Set
+    End Property
+
+    Property AutoMark As Boolean
+        Get
+            Return bAutoMark
+        End Get
+        Set(value As Boolean)
+            bAutoMark = value
+        End Set
+    End Property
+
     Property Sync As Boolean
         Get
             Return bSync
         End Get
         Set(value As Boolean)
             bSync = value
-        End Set
-    End Property
-
-    Property CheckSum As Boolean
-        Get
-            Return bCheckSum
-        End Get
-        Set(value As Boolean)
-            bCheckSum = value
         End Set
     End Property
 
@@ -249,9 +259,9 @@ Public Class mgrSettings
         oDatabase.RunParamQuery(sSQL, New Hashtable)
 
         sSQL = "INSERT INTO settings VALUES (1, @MonitorOnStartup, @StartToTray, @ShowDetectionToolTips, @DisableConfirmation, "
-        sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @Sync, @CheckSum, @StartWithWindows, "
+        sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @Sync, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SupressBackup, @SupressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
-        sSQL &= "@SyncFields,@AutoSaveLog)"
+        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -262,7 +272,6 @@ Public Class mgrSettings
         hshParams.Add("RestoreOnLaunch", RestoreOnLaunch)
         hshParams.Add("BackupFolder", BackupFolder)
         hshParams.Add("Sync", Sync)
-        hshParams.Add("CheckSum", CheckSum)
         hshParams.Add("StartWithWindows", StartWithWindows)
         hshParams.Add("TimeTracking", TimeTracking)
         hshParams.Add("SupressBackup", SupressBackup)
@@ -272,6 +281,8 @@ Public Class mgrSettings
         hshParams.Add("Custom7zLocation", Custom7zLocation)
         hshParams.Add("SyncFields", SyncFields)
         hshParams.Add("AutoSaveLog", AutoSaveLog)
+        hshParams.Add("AutoRestore", AutoRestore)
+        hshParams.Add("AutoMark", AutoMark)
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
@@ -295,7 +306,6 @@ Public Class mgrSettings
             RestoreOnLaunch = CBool(dr("RestoreOnLaunch"))
             BackupFolder = CStr(dr("BackupFolder"))
             Sync = CBool(dr("Sync"))
-            CheckSum = CBool(dr("CheckSum"))
             StartWithWindows = CBool(dr("StartWithWindows"))
             TimeTracking = CBool(dr("TimeTracking"))
             SupressBackup = CBool(dr("SupressBackup"))
@@ -305,6 +315,8 @@ Public Class mgrSettings
             If Not IsDBNull(dr("Custom7zLocation")) Then Custom7zLocation = CStr(dr("Custom7zLocation"))
             SyncFields = CInt(dr("SyncFields"))
             AutoSaveLog = CBool(dr("AutoSaveLog"))
+            AutoRestore = CBool(dr("AutoRestore"))
+            AutoMark = CBool(dr("AutoMark"))
         Next
 
         oDatabase.Disconnect()

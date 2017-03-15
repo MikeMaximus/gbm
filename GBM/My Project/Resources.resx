@@ -287,10 +287,10 @@
     <value>Multiple Games Detected</value>
   </data>
   <data name="frmMain_NewSaveNotificationMulti" xml:space="preserve">
-    <value>[PARAM] New Saves Pending</value>
+    <value>[PARAM] New Backups Pending</value>
   </data>
   <data name="frmMain_NewSaveNotificationSingle" xml:space="preserve">
-    <value>[PARAM] New Save Pending</value>
+    <value>[PARAM] New Backup Pending</value>
   </data>
   <data name="frmMain_NoDetails" xml:space="preserve">
     <value>Game details are unavailable.</value>
@@ -659,7 +659,7 @@
     <value>Custom</value>
   </data>
   <data name="frmGameManager_optPendingRestores" xml:space="preserve">
-    <value>New Saves Pending</value>
+    <value>New Backups Pending</value>
   </data>
   <data name="frmGameManager_OutofSync" xml:space="preserve">
     <value>Out of Sync</value>
@@ -1075,9 +1075,6 @@
   <data name="frmSettings_chkBackupConfirm" xml:space="preserve">
     <value>Disable backup confirmation</value>
   </data>
-  <data name="frmSettings_chkCheckSum" xml:space="preserve">
-    <value>Verify backup files with a checksum</value>
-  </data>
   <data name="frmSettings_chkCreateFolder" xml:space="preserve">
     <value>Create a sub-folder for each game</value>
   </data>
@@ -1087,8 +1084,8 @@
   <data name="frmSettings_chkOverwriteWarning" xml:space="preserve">
     <value>Show overwrite warning</value>
   </data>
-  <data name="frmSettings_chkRestoreOnLaunch" xml:space="preserve">
-    <value>Notify when there are new backup files to restore</value>
+  <data name="frmSettings_chkRestoreNotify" xml:space="preserve">
+    <value>Display notifications about new backups</value>
   </data>
   <data name="frmSettings_chkShowDetectionTips" xml:space="preserve">
     <value>Show detection notifications</value>
@@ -1731,5 +1728,38 @@
   </data>
   <data name="frmGameManager_Unknown" xml:space="preserve">
     <value>Unknown</value>
+  </data>
+  <data name="frmGameManager_chkCleanFolder" xml:space="preserve">
+    <value>Delete folder on restore</value>
+  </data>
+  <data name="frmMain_AutoMark" xml:space="preserve">
+    <value>The saved game folder for [PARAM] does not exist or could not be determined, the backup has been automatically marked as restored.</value>
+  </data>
+  <data name="frmMain_RestoreNotReady" xml:space="preserve">
+    <value>The backup file for [PARAM] is not ready to restore.</value>
+  </data>
+  <data name="frmSettings_chkAutoMark" xml:space="preserve">
+    <value>Automatically mark new backups as restored when appropriate</value>
+  </data>
+  <data name="frmSettings_grpBackupHandling" xml:space="preserve">
+    <value>Backup Handling</value>
+  </data>
+  <data name="frmSettings_chkAutoRestore" xml:space="preserve">
+    <value>Automatically restore new backups</value>
+  </data>
+  <data name="frmMain_AutoRestoreFailure" xml:space="preserve">
+    <value>[PARAM] has multiple configurations and cannot be automatically restored.</value>
+  </data>
+  <data name="frmMain_RestoreNotificationMulti" xml:space="preserve">
+    <value>[PARAM] New Backups Restored</value>
+  </data>
+  <data name="frmMain_RestoreNotificationSingle" xml:space="preserve">
+    <value>[PARAM] New Backup Restored</value>
+  </data>
+  <data name="frmMain_NoAutoMark" xml:space="preserve">
+    <value>The saved game folder for [PARAM] does not exist or could not be determined, this backup has been skipped.</value>
+  </data>
+  <data name="frmMain_NoCheckSum" xml:space="preserve">
+    <value>The backup file for [PARAM] has no checksum,  it cannot be automatically restored.</value>
   </data>
 </root>

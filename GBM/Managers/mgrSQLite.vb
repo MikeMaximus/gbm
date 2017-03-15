@@ -72,15 +72,15 @@ Public Class mgrSQLite
             'Add Tables (Settings)
             sSql = "CREATE TABLE settings (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, " &
                    "DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, " &
-                   "BackupFolder TEXT NOT NULL, Sync BOOLEAN NOT NULL, CheckSum BOOLEAN NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
+                   "BackupFolder TEXT NOT NULL, Sync BOOLEAN NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
                    "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
-                   "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL);"
+                   "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL);"
 
             'Add Tables (Monitor List)
             sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
                    "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, PRIMARY KEY(Name, Process));"
+                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, PRIMARY KEY(Name, Process));"
 
             'Add Tables (Tags)
             sSql &= "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
@@ -117,7 +117,7 @@ Public Class mgrSQLite
             sSql = "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
                    "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, PRIMARY KEY(Name, Process));"
+                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, PRIMARY KEY(Name, Process));"
 
             'Add Tables (Remote Manifest)
             sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, " &
@@ -597,6 +597,45 @@ Public Class mgrSQLite
 
                 'Run a compact
                 CompactDatabase()
+            End If
+        End If
+
+        '1.01 Upgrade
+        If GetDatabaseVersion() < 101 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v98")
+
+                'Remove checksum field                
+                sSQL = "CREATE TABLE settings_new (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, " &
+                        "DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, " &
+                        "BackupFolder TEXT NOT NULL, Sync BOOLEAN NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
+                        "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
+                        "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL);"
+                sSQL &= "INSERT INTO settings_new (SettingsID, MonitorOnStartup, StartToTray, ShowDetectionToolTips, DisableConfirmation, CreateSubFolder, " &
+                        "ShowOverwriteWarning, RestoreOnLaunch, BackupFolder, Sync, StartWithWindows, TimeTracking,  SupressBackup, SupressBackupThreshold, " &
+                        "CompressionLevel, Custom7zArguments, Custom7zLocation, SyncFields, AutoSaveLog) " &
+                        "SELECT SettingsID, MonitorOnStartup, StartToTray, ShowDetectionToolTips, DisableConfirmation, CreateSubFolder, " &
+                        "ShowOverwriteWarning, RestoreOnLaunch, BackupFolder, Sync, StartWithWindows, TimeTracking,  SupressBackup, SupressBackupThreshold, " &
+                        "CompressionLevel, Custom7zArguments, Custom7zLocation, SyncFields, AutoSaveLog FROM settings;" &
+                        "DROP TABLE settings; ALTER TABLE settings_new RENAME TO settings;"
+                'Add new field(s)
+                sSQL &= "ALTER TABLE monitorlist ADD COLUMN CleanFolder BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN AutoRestore BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN AutoMark BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "PRAGMA user_version=101"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v98")
+
+                'Add new field(s)
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN CleanFolder BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "PRAGMA user_version=101"
+
+                RunParamQuery(sSQL, New Hashtable)
             End If
         End If
 

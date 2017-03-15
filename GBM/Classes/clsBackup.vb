@@ -7,8 +7,6 @@
     Private sRelativeRestorePath As String = String.Empty
     Private dDateUpdated As DateTime = Date.Now
     Private sUpdatedBy As String = String.Empty
-    Private dLastDateUpdated As DateTime = Date.Now
-    Private sLastUpdatedBy As String = String.Empty
     Private sCheckSum As String = String.Empty
 
     Property ID As String
@@ -106,24 +104,6 @@
         End Get
         Set(value As String)
             sUpdatedBy = value
-        End Set
-    End Property
-
-    Property LastDateUpdated As DateTime
-        Get
-            Return dLastDateUpdated
-        End Get
-        Set(value As DateTime)
-            dLastDateUpdated = value
-        End Set
-    End Property
-
-    Property LastUpdatedBy As String
-        Get
-            Return sLastUpdatedBy
-        End Get
-        Set(value As String)
-            sLastUpdatedBy = value
         End Set
     End Property
 

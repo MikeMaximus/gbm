@@ -523,6 +523,7 @@ Partial Class frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(524, 401)
         Me.Controls.Add(Me.pbTime)
         Me.Controls.Add(Me.lblStatus3)

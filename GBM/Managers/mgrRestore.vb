@@ -96,8 +96,6 @@ Public Class mgrRestore
         If bLocal And bRemote Then
             'Compare
             If oRemoteItem.DateUpdated > oLocalItem.DateUpdated Then
-                oRemoteItem.LastDateUpdated = oLocalItem.DateUpdated
-                oRemoteItem.LastUpdatedBy = oLocalItem.UpdatedBy
                 Return True
             End If
         End If
@@ -125,18 +123,10 @@ Public Class mgrRestore
                 oLocalItem = DirectCast(slLocalManifest(oItem.Name), clsBackup)
 
                 If oItem.DateUpdated > oLocalItem.DateUpdated Then
-                    oLocalItem.FileName = oItem.FileName
-                    oLocalItem.LastDateUpdated = oItem.DateUpdated
-                    oLocalItem.LastUpdatedBy = oItem.UpdatedBy
-                    slRestoreItems.Add(oLocalItem.Name, oLocalItem)
+                    slRestoreItems.Add(oItem.Name, oItem)
                 End If
             Else
-                oLocalItem = oItem
-                oLocalItem.LastDateUpdated = oItem.DateUpdated
-                oLocalItem.LastUpdatedBy = oItem.UpdatedBy
-                oLocalItem.DateUpdated = Nothing
-                oLocalItem.UpdatedBy = Nothing
-                slRestoreItems.Add(oLocalItem.Name, oLocalItem)
+                slRestoreItems.Add(oItem.Name, oItem)
             End If
         Next
 
@@ -161,7 +151,7 @@ Public Class mgrRestore
         Return slRemovedItems
     End Function
 
-    Public Function CheckRestorePrereq(ByVal oBackupInfo As clsBackup) As Boolean
+    Public Function CheckRestorePrereq(ByVal oBackupInfo As clsBackup, ByVal bCleanFolder As Boolean) As Boolean
         Dim sHash As String
         Dim sExtractPath As String
         Dim sBackupFile As String = oSettings.BackupFolder & Path.DirectorySeparatorChar & oBackupInfo.FileName
@@ -185,25 +175,29 @@ Public Class mgrRestore
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorNoPath, sExtractPath), False, ToolTipIcon.Error, True)
                 Return False
             End If
+        Else
+            If bCleanFolder Then
+                mgrCommon.DeleteDirectory(sExtractPath, True)
+                Directory.CreateDirectory(sExtractPath)
+            End If
         End If
 
         'Check file integrity
-        If oSettings.CheckSum Then
-            If oBackupInfo.CheckSum <> String.Empty Then
-                sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
-                If sHash <> oBackupInfo.CheckSum Then
-                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFailedCheck, oBackupInfo.Name), False, ToolTipIcon.Info, True)
-                    If mgrCommon.ShowMessage(mgrRestore_ConfirmFailedCheck, oBackupInfo.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                        RaiseEvent UpdateLog(mgrRestore_ErrorCheckAbort, False, ToolTipIcon.Info, True)
-                        Return False
-                    End If
-                Else
-                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_Verified, oBackupInfo.Name), False, ToolTipIcon.Info, True)
+        If oBackupInfo.CheckSum <> String.Empty Then
+            sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
+            If sHash <> oBackupInfo.CheckSum Then
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFailedCheck, oBackupInfo.Name), False, ToolTipIcon.Info, True)
+                If mgrCommon.ShowMessage(mgrRestore_ConfirmFailedCheck, oBackupInfo.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                    RaiseEvent UpdateLog(mgrRestore_ErrorCheckAbort, False, ToolTipIcon.Info, True)
+                    Return False
                 End If
             Else
-                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_NoVerify, oBackupInfo.Name), False, ToolTipIcon.Info, True)
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_Verified, oBackupInfo.Name), False, ToolTipIcon.Info, True)
             End If
+        Else
+            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_NoVerify, oBackupInfo.Name), False, ToolTipIcon.Info, True)
         End If
+
 
         Return True
     End Function
@@ -282,7 +276,7 @@ Public Class mgrRestore
                 RaiseEvent SetLastAction(mgrCommon.FormatString(mgrRestore_ActionComplete, oBackupInfo.CroppedName))
             Else
                 RaiseEvent SetLastAction(mgrCommon.FormatString(mgrRestore_ActionFailed, oBackupInfo.CroppedName))
-            End If            
+            End If
         Next
     End Sub
 

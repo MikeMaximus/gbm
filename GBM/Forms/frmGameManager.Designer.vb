@@ -28,6 +28,7 @@ Partial Class frmGameManager
         Me.btnBackup = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.grpConfig = New System.Windows.Forms.GroupBox()
+        Me.chkCleanFolder = New System.Windows.Forms.CheckBox()
         Me.lblLimit = New System.Windows.Forms.Label()
         Me.nudLimit = New System.Windows.Forms.NumericUpDown()
         Me.btnExclude = New System.Windows.Forms.Button()
@@ -151,6 +152,7 @@ Partial Class frmGameManager
         'grpConfig
         '
         Me.grpConfig.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpConfig.Controls.Add(Me.chkCleanFolder)
         Me.grpConfig.Controls.Add(Me.lblLimit)
         Me.grpConfig.Controls.Add(Me.nudLimit)
         Me.grpConfig.Controls.Add(Me.btnExclude)
@@ -176,13 +178,23 @@ Partial Class frmGameManager
         Me.grpConfig.TabStop = False
         Me.grpConfig.Text = "Configuration"
         '
+        'chkCleanFolder
+        '
+        Me.chkCleanFolder.AutoSize = True
+        Me.chkCleanFolder.Location = New System.Drawing.Point(329, 101)
+        Me.chkCleanFolder.Name = "chkCleanFolder"
+        Me.chkCleanFolder.Size = New System.Drawing.Size(136, 17)
+        Me.chkCleanFolder.TabIndex = 11
+        Me.chkCleanFolder.Text = "Delete folder on restore"
+        Me.chkCleanFolder.UseVisualStyleBackColor = True
+        '
         'lblLimit
         '
         Me.lblLimit.AutoSize = True
         Me.lblLimit.Location = New System.Drawing.Point(375, 130)
         Me.lblLimit.Name = "lblLimit"
         Me.lblLimit.Size = New System.Drawing.Size(68, 13)
-        Me.lblLimit.TabIndex = 13
+        Me.lblLimit.TabIndex = 14
         Me.lblLimit.Text = "Backup Limit"
         Me.lblLimit.Visible = False
         '
@@ -192,7 +204,7 @@ Partial Class frmGameManager
         Me.nudLimit.Minimum = New Decimal(New Integer() {2, 0, 0, 0})
         Me.nudLimit.Name = "nudLimit"
         Me.nudLimit.Size = New System.Drawing.Size(40, 20)
-        Me.nudLimit.TabIndex = 12
+        Me.nudLimit.TabIndex = 13
         Me.nudLimit.Value = New Decimal(New Integer() {2, 0, 0, 0})
         Me.nudLimit.Visible = False
         '
@@ -293,7 +305,7 @@ Partial Class frmGameManager
         Me.chkTimeStamp.Location = New System.Drawing.Point(190, 129)
         Me.chkTimeStamp.Name = "chkTimeStamp"
         Me.chkTimeStamp.Size = New System.Drawing.Size(133, 17)
-        Me.chkTimeStamp.TabIndex = 11
+        Me.chkTimeStamp.TabIndex = 12
         Me.chkTimeStamp.Text = "Save multiple backups"
         Me.chkTimeStamp.UseVisualStyleBackColor = True
         '
@@ -718,10 +730,10 @@ Partial Class frmGameManager
         Me.optPendingRestores.AutoSize = True
         Me.optPendingRestores.Location = New System.Drawing.Point(6, 64)
         Me.optPendingRestores.Name = "optPendingRestores"
-        Me.optPendingRestores.Size = New System.Drawing.Size(122, 17)
+        Me.optPendingRestores.Size = New System.Drawing.Size(134, 17)
         Me.optPendingRestores.TabIndex = 2
         Me.optPendingRestores.TabStop = True
-        Me.optPendingRestores.Text = "New Saves Pending"
+        Me.optPendingRestores.Text = "New Backups Pending"
         Me.optPendingRestores.UseVisualStyleBackColor = True
         '
         'optAllGames
@@ -928,4 +940,5 @@ Partial Class frmGameManager
     Friend WithEvents cmsDeleteBackup As ContextMenuStrip
     Friend WithEvents cmsDeleteOne As ToolStripMenuItem
     Friend WithEvents cmsDeleteAll As ToolStripMenuItem
+    Friend WithEvents chkCleanFolder As CheckBox
 End Class

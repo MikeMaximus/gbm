@@ -1,4 +1,5 @@
 ﻿Imports GBM.My.Resources
+Imports System.IO
 
 'Name: frmMain
 'Description: Game Backup Monitor Main Screen
@@ -40,12 +41,16 @@ Public Class frmMain
     Private sPriorVersion As String
     Private iFormHeight As Integer
     Private iLogSpacer As Integer
+    Private iRestoreTimeOut As Integer
 
     'Developer Debug Flags
     Private bProcessDebugMode As Boolean = False
 
-    WithEvents oFileWatcher As New System.IO.FileSystemWatcher
+    WithEvents oFileWatcher As New FileSystemWatcher
+
+    'Timers - There may only be one System.Windows.Forms.Timer and it must be tmScanTimer.
     WithEvents tmScanTimer As New Timer
+    WithEvents tmRestoreCheck As New System.Timers.Timer
 
     Public WithEvents oProcess As New mgrProcesses
     Public WithEvents oBackup As New mgrBackup
@@ -53,6 +58,7 @@ Public Class frmMain
     Public hshScanList As Hashtable
     Public oSettings As New mgrSettings
 
+    Delegate Sub UpdateNotifierCallBack(ByVal iCount As Integer, ByVal bRestored As Boolean)
     Delegate Sub UpdateLogCallBack(ByVal sLogUpdate As String, ByVal bTrayUpdate As Boolean, ByVal objIcon As System.Windows.Forms.ToolTipIcon, ByVal bTimeStamp As Boolean)
     Delegate Sub WorkingGameInfoCallBack(ByVal sTitle As String, ByVal sStatus1 As String, ByVal sStatus2 As String, ByVal sStatus3 As String)
     Delegate Sub UpdateStatusCallBack(ByVal sStatus As String)
@@ -79,7 +85,7 @@ Public Class frmMain
         Dim sStatus3 As String
 
         'Build Info
-        sStatus1 = IO.Path.GetFileName(oRestoreInfo.FileName)
+        sStatus1 = Path.GetFileName(oRestoreInfo.FileName)
         sStatus2 = mgrCommon.FormatString(frmMain_UpdatedBy, New String() {oRestoreInfo.UpdatedBy, oRestoreInfo.DateUpdated})
         If oRestoreInfo.AbsolutePath Then
             sStatus3 = oRestoreInfo.RestorePath
@@ -101,7 +107,7 @@ Public Class frmMain
         If oGame.AbsolutePath Then
             sStatus2 = oGame.Path
         Else
-            sStatus2 = oGame.ProcessPath & System.IO.Path.DirectorySeparatorChar & oGame.Path
+            sStatus2 = oGame.ProcessPath & Path.DirectorySeparatorChar & oGame.Path
         End If
         sStatus3 = String.Empty
 
@@ -181,7 +187,7 @@ Public Class frmMain
             End If
 
             If bPathVerified Then
-                If oRestore.CheckRestorePrereq(oRestoreInfo) Then
+                If oRestore.CheckRestorePrereq(oRestoreInfo, oGame.CleanFolder) Then
                     oReadyList.Add(oRestoreInfo)
                 End If
             End If
@@ -328,15 +334,29 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub CheckRestore()
-        Dim slRestoreData As SortedList = mgrRestore.CompareManifests()
-        Dim sNotification As String
-
-        If slRestoreData.Count > 0 Then
-            If slRestoreData.Count > 1 Then
-                sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationMulti, slRestoreData.Count)
+    Private Sub UpdateNotifier(ByVal iCount As Integer, ByVal bRestored As Boolean)
+        'Thread Safe
+        If Me.InvokeRequired = True Then
+            Dim d As New UpdateNotifierCallBack(AddressOf UpdateNotifier)
+            Me.Invoke(d, New Object() {iCount, bRestored})
+        Else
+            Dim sNotification As String
+            If iCount > 1 Then
+                If bRestored Then
+                    sNotification = mgrCommon.FormatString(frmMain_RestoreNotificationMulti, iCount)
+                    gMonNotification.Tag = 1
+                Else
+                    sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationMulti, iCount)
+                    gMonNotification.Tag = 0
+                End If
             Else
-                sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationSingle, slRestoreData.Count)
+                If bRestored Then
+                    sNotification = mgrCommon.FormatString(frmMain_RestoreNotificationSingle, iCount)
+                    gMonNotification.Tag = 1
+                Else
+                    sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationSingle, iCount)
+                    gMonNotification.Tag = 0
+                End If
             End If
             gMonNotification.Image = Icon_Inbox
             gMonTrayNotification.Image = Icon_Inbox
@@ -344,6 +364,134 @@ Public Class frmMain
             gMonTrayNotification.Text = sNotification
             gMonNotification.Visible = True
             gMonTrayNotification.Visible = True
+        End If
+    End Sub
+
+    Private Sub StartRestoreCheck()
+        iRestoreTimeOut = -1
+        tmRestoreCheck.Interval = 60000
+        tmRestoreCheck.AutoReset = True
+        tmRestoreCheck.Start()
+        AutoRestoreCheck()
+    End Sub
+
+    Private Sub AutoRestoreCheck()
+        Dim slRestoreData As SortedList = mgrRestore.CompareManifests()
+        Dim sNotReady As New List(Of String)
+        Dim sNotInstalled As New List(Of String)
+        Dim sNoCheckSum As New List(Of String)
+        Dim oBackup As clsBackup
+        Dim sFileName As String
+        Dim sExtractPath As String
+        Dim bFinished As Boolean = True
+        Dim hshRestore As Hashtable
+        Dim hshGames As Hashtable
+        Dim oGame As clsGame
+
+        'Shut down the timer and bail out if there's nothing to do
+        If slRestoreData.Count = 0 Then
+            tmRestoreCheck.Stop()
+            Exit Sub
+        End If
+
+        If oSettings.AutoMark Or oSettings.AutoRestore Then
+            'Increment Timer
+            iRestoreTimeOut += 1
+
+            'Check backup files
+            For Each de As DictionaryEntry In slRestoreData
+                oBackup = DirectCast(de.Value, clsBackup)
+
+                'Check if backup file is ready to restore
+                If oBackup.CheckSum <> String.Empty Then
+                    sFileName = oSettings.BackupFolder & Path.DirectorySeparatorChar & oBackup.FileName
+                    If mgrHash.Generate_SHA256_Hash(sFileName) <> oBackup.CheckSum Then
+                        sNotReady.Add(de.Key)
+                        bFinished = False
+                    End If
+                Else
+                    sNoCheckSum.Add(de.Key)
+                End If
+
+                'Check if the restore location exists,  if not we assume the game is not installed and should be auto-marked.
+                If oBackup.AbsolutePath Then
+                    sExtractPath = oBackup.RestorePath
+                Else
+                    hshGames = mgrMonitorList.DoListGetbyName(de.Key)
+                    If hshGames.Count = 1 Then
+                        oGame = DirectCast(hshGames(0), clsGame)
+                        If oGame.ProcessPath <> String.Empty Then
+                            oBackup.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oBackup.RestorePath
+                        End If
+                    End If
+                    sExtractPath = oBackup.RelativeRestorePath
+                End If
+
+                If Not Directory.Exists(sExtractPath) Then
+                    If oSettings.AutoMark Then
+                        If mgrManifest.DoGlobalManifestCheck(de.Key, mgrSQLite.Database.Local) Then
+                            mgrManifest.DoManifestUpdateByName(de.Value, mgrSQLite.Database.Local)
+                        Else
+                            mgrManifest.DoManifestAdd(de.Value, mgrSQLite.Database.Local)
+                        End If
+                    End If
+                    sNotInstalled.Add(de.Key)
+                End If
+            Next
+
+            'Remove any backup files that are not ready
+            For Each s As String In sNotReady
+                slRestoreData.Remove(s)
+                UpdateLog(mgrCommon.FormatString(frmMain_RestoreNotReady, s), False, ToolTipIcon.Info, True)
+            Next
+
+            'Remove any backup files that should not be automatically restored
+            For Each s As String In sNotInstalled
+                slRestoreData.Remove(s)
+                If oSettings.AutoMark Then
+                    UpdateLog(mgrCommon.FormatString(frmMain_AutoMark, s), False, ToolTipIcon.Info, True)
+                Else
+                    UpdateLog(mgrCommon.FormatString(frmMain_NoAutoMark, s), False, ToolTipIcon.Info, True)
+                End If
+            Next
+            For Each s As String In sNoCheckSum
+                slRestoreData.Remove(s)
+                UpdateLog(mgrCommon.FormatString(frmMain_NoCheckSum, s), False, ToolTipIcon.Info, True)
+            Next
+
+            'Automatically restore backup files
+            If oSettings.AutoRestore Then
+                If slRestoreData.Count > 0 Then
+                    hshRestore = New Hashtable
+                    For Each de As DictionaryEntry In slRestoreData
+                        hshGames = mgrMonitorList.DoListGetbyName(de.Key)
+                        If hshGames.Count = 1 Then
+                            oGame = DirectCast(hshGames(0), clsGame)
+                            hshRestore.Add(oGame, de.Value)
+                        Else
+                            UpdateLog(mgrCommon.FormatString(frmMain_AutoRestoreFailure, de.Key), False, ToolTipIcon.Info, True)
+                        End If
+                    Next
+                    RunRestore(hshRestore)
+                End If
+            End If
+
+            'Shutdown if we are finished
+            If bFinished Then
+                tmRestoreCheck.Stop()
+            End If
+
+            'Time out after 15 minutes
+            If iRestoreTimeOut = 15 Then
+                tmRestoreCheck.Stop()
+            End If
+        End If
+
+        'Update the notifier
+        If oSettings.RestoreOnLaunch Then
+            If slRestoreData.Count > 0 Then
+                UpdateNotifier(slRestoreData.Count, oSettings.AutoRestore)
+            End If
         End If
     End Sub
 
@@ -364,7 +512,7 @@ Public Class frmMain
         End If
 
         Try
-            fbBrowser.InitialDirectory = IO.Path.GetDirectoryName(oProcess.FoundProcess.MainModule.FileName)
+            fbBrowser.InitialDirectory = Path.GetDirectoryName(oProcess.FoundProcess.MainModule.FileName)
         Catch ex As Exception
             fbBrowser.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         End Try
@@ -372,7 +520,7 @@ Public Class frmMain
 
         If fbBrowser.ShowDialog() = Windows.Forms.DialogResult.OK Then
             sIcon = fbBrowser.FileName
-            If IO.File.Exists(sIcon) Then
+            If File.Exists(sIcon) Then
                 oProcess.GameInfo.Icon = sIcon
                 pbIcon.Image = Image.FromFile(sIcon)
                 mgrMonitorList.DoListUpdate(oProcess.GameInfo)
@@ -463,7 +611,7 @@ Public Class frmMain
             End Try
 
             'Check for a custom icon & details            
-            If IO.File.Exists(oProcess.GameInfo.Icon) Then
+            If File.Exists(oProcess.GameInfo.Icon) Then
                 pbIcon.Image = Image.FromFile(oProcess.GameInfo.Icon)
             End If
             If sFileName = String.Empty Then
@@ -652,6 +800,7 @@ Public Class frmMain
                             bProcessDebugMode = bDebugEnable
                             mgrCommon.ShowMessage(frmMain_CommandSucess, MsgBoxStyle.Exclamation)
                     End Select
+
                 Case Else
                     mgrCommon.ShowMessage(frmMain_ErrorCommandInvalid, sMainCommand, MsgBoxStyle.Exclamation)
             End Select
@@ -663,7 +812,7 @@ Public Class frmMain
         Dim iProcessType As System.Reflection.ProcessorArchitecture = System.Reflection.AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
         Dim sVersion As String = My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Build
         Dim sProcessType = [Enum].GetName(GetType(System.Reflection.ProcessorArchitecture), iProcessType)
-        Dim sRevision As String = My.Application.Info.Version.Revision
+        Dim sRevision As String = File.GetLastWriteTime(Application.ExecutablePath).ToString
         Dim sConstCopyright As String = Chr(169) & mgrCommon.FormatString(App_Copyright, Now.Year.ToString)
 
         mgrCommon.ShowMessage(frmMain_About, New String() {sVersion, sProcessType, sRevision, sConstCopyright}, MsgBoxStyle.Information)
@@ -756,8 +905,8 @@ Public Class frmMain
     End Sub
 
     Private Sub CheckForNewBackups()
-        If oSettings.RestoreOnLaunch Then
-            CheckRestore()
+        If oSettings.RestoreOnLaunch Or oSettings.AutoRestore Or oSettings.AutoMark Then
+            StartRestoreCheck()
         End If
     End Sub
 
@@ -785,16 +934,18 @@ Public Class frmMain
         If oSettings.Sync Then
             oFileWatcher.Path = oSettings.BackupFolder
             oFileWatcher.Filter = "gbm.s3db"
-            oFileWatcher.NotifyFilter = IO.NotifyFilters.LastWrite
+            oFileWatcher.NotifyFilter = NotifyFilters.LastWrite
         End If
     End Sub
 
     Private Sub HandleSyncWatcher() Handles oFileWatcher.Changed
         If oSettings.Sync Then
+            StopSyncWatcher()
             UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
             SyncGameSettings()
             LoadGameSettings()
             CheckForNewBackups()
+            StartSyncWatcher()
         End If
     End Sub
 
@@ -1099,6 +1250,9 @@ Public Class frmMain
     End Sub
 
     Private Sub SetForm()
+        'Disable Autosize in Linux (Mono prevents manual resizing when this is enabled)
+        If mgrCommon.IsUnix Then Me.AutoSize = False
+
         'Set Form Name
         Me.Name = App_NameLong
 
@@ -1258,9 +1412,9 @@ Public Class frmMain
         Dim sSettingsRoot As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "/gbm"
         Dim sDBLocation As String = sSettingsRoot & "/gbm.s3db"
 
-        If Not IO.Directory.Exists(sSettingsRoot) Then
+        If Not Directory.Exists(sSettingsRoot) Then
             Try
-                IO.Directory.CreateDirectory(sSettingsRoot)
+                Directory.CreateDirectory(sSettingsRoot)
             Catch ex As Exception
                 mgrCommon.ShowMessage(frmMain_ErrorSettingsFolder, ex.Message, MsgBoxStyle.Critical)
                 bShutdown = True
@@ -1268,7 +1422,7 @@ Public Class frmMain
             End Try
         End If
 
-        If Not IO.File.Exists(sDBLocation) Then bFirstRun = True
+        If Not File.Exists(sDBLocation) Then bFirstRun = True
     End Sub
 
     Private Sub VerifyDBVersion(ByVal iDB As mgrSQLite.Database)
@@ -1467,7 +1621,9 @@ Public Class frmMain
     Private Sub gMonNotification_Click(sender As Object, e As EventArgs) Handles gMonNotification.Click, gMonTrayNotification.Click
         gMonNotification.Visible = False
         gMonTrayNotification.Visible = False
-        OpenGameManager(True)
+        If gMonNotification.Tag = 0 Then
+            OpenGameManager(True)
+        End If
     End Sub
 
     Private Sub btnLogToggle_Click(sender As Object, e As EventArgs) Handles btnLogToggle.Click
@@ -1518,6 +1674,12 @@ Public Class frmMain
                 Me.Visible = False
                 Me.ShowInTaskbar = False
             End If
+        End If
+    End Sub
+
+    Private Sub AutoRestoreEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmRestoreCheck.Elapsed
+        If eCurrentStatus <> eStatus.Paused Then
+            AutoRestoreCheck()
         End If
     End Sub
 

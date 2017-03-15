@@ -1294,6 +1294,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Delete folder on restore.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_chkCleanFolder() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_chkCleanFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Monitor this game.
         '''</summary>
         Friend ReadOnly Property frmGameManager_chkEnabled() As String
@@ -1942,7 +1951,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to New Saves Pending.
+        '''  Looks up a localized string similar to New Backups Pending.
         '''</summary>
         Friend ReadOnly Property frmGameManager_optPendingRestores() As String
             Get
@@ -2289,6 +2298,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_AtTime() As String
             Get
                 Return ResourceManager.GetString("frmMain_AtTime", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The saved game folder for [PARAM] does not exist or could not be determined, the backup has been automatically marked as restored..
+        '''</summary>
+        Friend ReadOnly Property frmMain_AutoMark() As String
+            Get
+                Return ResourceManager.GetString("frmMain_AutoMark", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] has multiple configurations and cannot be automatically restored..
+        '''</summary>
+        Friend ReadOnly Property frmMain_AutoRestoreFailure() As String
+            Get
+                Return ResourceManager.GetString("frmMain_AutoRestoreFailure", resourceCulture)
             End Get
         End Property
         
@@ -3058,7 +3085,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] New Saves Pending.
+        '''  Looks up a localized string similar to [PARAM] New Backups Pending.
         '''</summary>
         Friend ReadOnly Property frmMain_NewSaveNotificationMulti() As String
             Get
@@ -3067,11 +3094,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] New Save Pending.
+        '''  Looks up a localized string similar to [PARAM] New Backup Pending.
         '''</summary>
         Friend ReadOnly Property frmMain_NewSaveNotificationSingle() As String
             Get
                 Return ResourceManager.GetString("frmMain_NewSaveNotificationSingle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The saved game folder for [PARAM] does not exist or could not be determined, this backup has been skipped..
+        '''</summary>
+        Friend ReadOnly Property frmMain_NoAutoMark() As String
+            Get
+                Return ResourceManager.GetString("frmMain_NoAutoMark", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The backup file for [PARAM] has no checksum,  it cannot be automatically restored..
+        '''</summary>
+        Friend ReadOnly Property frmMain_NoCheckSum() As String
+            Get
+                Return ResourceManager.GetString("frmMain_NoCheckSum", resourceCulture)
             End Get
         End Property
         
@@ -3144,6 +3189,33 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_RestoreInProgress() As String
             Get
                 Return ResourceManager.GetString("frmMain_RestoreInProgress", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] New Backups Restored.
+        '''</summary>
+        Friend ReadOnly Property frmMain_RestoreNotificationMulti() As String
+            Get
+                Return ResourceManager.GetString("frmMain_RestoreNotificationMulti", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] New Backup Restored.
+        '''</summary>
+        Friend ReadOnly Property frmMain_RestoreNotificationSingle() As String
+            Get
+                Return ResourceManager.GetString("frmMain_RestoreNotificationSingle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The backup file for [PARAM] is not ready to restore..
+        '''</summary>
+        Friend ReadOnly Property frmMain_RestoreNotReady() As String
+            Get
+                Return ResourceManager.GetString("frmMain_RestoreNotReady", resourceCulture)
             End Get
         End Property
         
@@ -3346,6 +3418,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Automatically mark new backups as restored when appropriate.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkAutoMark() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkAutoMark", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Automatically restore new backups.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkAutoRestore() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkAutoRestore", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Autosave log when max length is exceeded.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkAutoSaveLog() As String
@@ -3360,15 +3450,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_chkBackupConfirm() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkBackupConfirm", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Verify backup files with a checksum.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_chkCheckSum() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_chkCheckSum", resourceCulture)
             End Get
         End Property
         
@@ -3400,11 +3481,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Notify when there are new backup files to restore.
+        '''  Looks up a localized string similar to Display notifications about new backups.
         '''</summary>
-        Friend ReadOnly Property frmSettings_chkRestoreOnLaunch() As String
+        Friend ReadOnly Property frmSettings_chkRestoreNotify() As String
             Get
-                Return ResourceManager.GetString("frmSettings_chkRestoreOnLaunch", resourceCulture)
+                Return ResourceManager.GetString("frmSettings_chkRestoreNotify", resourceCulture)
             End Get
         End Property
         
@@ -3522,6 +3603,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_grp7zInformation() As String
             Get
                 Return ResourceManager.GetString("frmSettings_grp7zInformation", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backup Handling.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grpBackupHandling() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grpBackupHandling", resourceCulture)
             End Get
         End Property
         
