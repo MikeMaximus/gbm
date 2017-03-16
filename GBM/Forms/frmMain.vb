@@ -919,34 +919,28 @@ Public Class frmMain
     End Sub
 
     Private Sub StartSyncWatcher()
-        If oSettings.Sync Then
-            oFileWatcher.EnableRaisingEvents = True
-        End If
+        oFileWatcher.EnableRaisingEvents = True
     End Sub
 
     Private Sub StopSyncWatcher()
-        If oSettings.Sync Then
-            oFileWatcher.EnableRaisingEvents = False
-        End If
+        oFileWatcher.EnableRaisingEvents = False
     End Sub
 
     Private Sub SetupSyncWatcher()
-        If oSettings.Sync Then
-            oFileWatcher.Path = oSettings.BackupFolder
-            oFileWatcher.Filter = "gbm.s3db"
-            oFileWatcher.NotifyFilter = NotifyFilters.LastWrite
-        End If
+        oFileWatcher.Path = oSettings.BackupFolder
+        oFileWatcher.Filter = "gbm.s3db"
+        oFileWatcher.NotifyFilter = NotifyFilters.LastWrite
     End Sub
 
     Private Sub HandleSyncWatcher() Handles oFileWatcher.Changed
+        StopSyncWatcher()
         If oSettings.Sync Then
-            StopSyncWatcher()
             UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
             SyncGameSettings()
             LoadGameSettings()
-            CheckForNewBackups()
-            StartSyncWatcher()
         End If
+        CheckForNewBackups()
+        StartSyncWatcher()
     End Sub
 
     Private Sub SyncGameSettings()
