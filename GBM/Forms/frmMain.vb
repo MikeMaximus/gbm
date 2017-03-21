@@ -414,16 +414,18 @@ Public Class frmMain
                 End If
 
                 'Check if the restore location exists,  if not we assume the game is not installed and should be auto-marked.
+                hshGames = mgrMonitorList.DoListGetbyName(de.Key)
+                If hshGames.Count = 1 Then
+                    oGame = DirectCast(hshGames(0), clsGame)
+                    mgrRestore.DoPathOverride(oBackup, oGame)
+                    If oGame.ProcessPath <> String.Empty Then
+                        oBackup.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oBackup.RestorePath
+                    End If
+                End If
+
                 If oBackup.AbsolutePath Then
                     sExtractPath = oBackup.RestorePath
                 Else
-                    hshGames = mgrMonitorList.DoListGetbyName(de.Key)
-                    If hshGames.Count = 1 Then
-                        oGame = DirectCast(hshGames(0), clsGame)
-                        If oGame.ProcessPath <> String.Empty Then
-                            oBackup.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oBackup.RestorePath
-                        End If
-                    End If
                     sExtractPath = oBackup.RelativeRestorePath
                 End If
 
