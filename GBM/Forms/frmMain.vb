@@ -51,6 +51,7 @@ Public Class frmMain
     'Timers - There may only be one System.Windows.Forms.Timer and it must be tmScanTimer.
     WithEvents tmScanTimer As New Timer
     WithEvents tmRestoreCheck As New System.Timers.Timer
+    WithEvents tmFileWatcherQueue As New System.Timers.Timer
 
     Public WithEvents oProcess As New mgrProcesses
     Public WithEvents oBackup As New mgrBackup
@@ -933,9 +934,16 @@ Public Class frmMain
         oFileWatcher.Path = oSettings.BackupFolder
         oFileWatcher.Filter = "gbm.s3db"
         oFileWatcher.NotifyFilter = NotifyFilters.LastWrite
+
     End Sub
 
-    Private Sub HandleSyncWatcher() Handles oFileWatcher.Changed
+    Private Sub QueueSyncWatcher() Handles oFileWatcher.Changed
+        tmFileWatcherQueue.Enabled = True
+        tmFileWatcherQueue.Interval = 30000
+        tmFileWatcherQueue.Start()
+    End Sub
+
+    Private Sub HandleSyncWatcher() Handles tmFileWatcherQueue.Elapsed
         StopSyncWatcher()
         If oSettings.Sync Then
             UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
@@ -944,6 +952,7 @@ Public Class frmMain
         End If
         CheckForNewBackups()
         StartSyncWatcher()
+        tmFileWatcherQueue.Enabled = False
     End Sub
 
     Private Sub SyncGameSettings()
