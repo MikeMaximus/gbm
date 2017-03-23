@@ -3193,7 +3193,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] New Backups Restored.
+        '''  Looks up a localized string similar to [PARAM] new saved game backups are being automatically restored..
         '''</summary>
         Friend ReadOnly Property frmMain_RestoreNotificationMulti() As String
             Get
@@ -3202,7 +3202,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] New Backup Restored.
+        '''  Looks up a localized string similar to A new saved game backup for [PARAM] is being automatically restored..
         '''</summary>
         Friend ReadOnly Property frmMain_RestoreNotificationSingle() As String
             Get

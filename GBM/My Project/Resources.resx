@@ -1751,10 +1751,10 @@
     <value>[PARAM] has multiple configurations and cannot be automatically restored.</value>
   </data>
   <data name="frmMain_RestoreNotificationMulti" xml:space="preserve">
-    <value>[PARAM] New Backups Restored</value>
+    <value>[PARAM] new saved game backups are being automatically restored.</value>
   </data>
   <data name="frmMain_RestoreNotificationSingle" xml:space="preserve">
-    <value>[PARAM] New Backup Restored</value>
+    <value>A new saved game backup for [PARAM] is being automatically restored.</value>
   </data>
   <data name="frmMain_NoAutoMark" xml:space="preserve">
     <value>The saved game folder for [PARAM] does not exist or could not be determined, this backup has been skipped.</value>

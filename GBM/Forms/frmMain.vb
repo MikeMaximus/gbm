@@ -58,7 +58,7 @@ Public Class frmMain
     Public hshScanList As Hashtable
     Public oSettings As New mgrSettings
 
-    Delegate Sub UpdateNotifierCallBack(ByVal iCount As Integer, ByVal bRestored As Boolean)
+    Delegate Sub UpdateNotifierCallBack(ByVal iCount As Integer)
     Delegate Sub UpdateLogCallBack(ByVal sLogUpdate As String, ByVal bTrayUpdate As Boolean, ByVal objIcon As System.Windows.Forms.ToolTipIcon, ByVal bTimeStamp As Boolean)
     Delegate Sub WorkingGameInfoCallBack(ByVal sTitle As String, ByVal sStatus1 As String, ByVal sStatus2 As String, ByVal sStatus3 As String)
     Delegate Sub UpdateStatusCallBack(ByVal sStatus As String)
@@ -334,29 +334,17 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub UpdateNotifier(ByVal iCount As Integer, ByVal bRestored As Boolean)
+    Private Sub UpdateNotifier(ByVal iCount As Integer)
         'Thread Safe
         If Me.InvokeRequired = True Then
             Dim d As New UpdateNotifierCallBack(AddressOf UpdateNotifier)
-            Me.Invoke(d, New Object() {iCount, bRestored})
+            Me.Invoke(d, New Object() {iCount})
         Else
             Dim sNotification As String
             If iCount > 1 Then
-                If bRestored Then
-                    sNotification = mgrCommon.FormatString(frmMain_RestoreNotificationMulti, iCount)
-                    gMonNotification.Tag = 1
-                Else
-                    sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationMulti, iCount)
-                    gMonNotification.Tag = 0
-                End If
+                sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationMulti, iCount)
             Else
-                If bRestored Then
-                    sNotification = mgrCommon.FormatString(frmMain_RestoreNotificationSingle, iCount)
-                    gMonNotification.Tag = 1
-                Else
-                    sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationSingle, iCount)
-                    gMonNotification.Tag = 0
-                End If
+                sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationSingle, iCount)
             End If
             gMonNotification.Image = Icon_Inbox
             gMonTrayNotification.Image = Icon_Inbox
@@ -387,6 +375,7 @@ Public Class frmMain
         Dim hshRestore As Hashtable
         Dim hshGames As Hashtable
         Dim oGame As clsGame
+        Dim sGame As String
 
         'Shut down the timer and bail out if there's nothing to do
         If slRestoreData.Count = 0 Then
@@ -465,18 +454,30 @@ Public Class frmMain
             If oSettings.AutoRestore Then
                 If slRestoreData.Count > 0 Then
                     hshRestore = New Hashtable
+                    sGame = String.Empty
                     For Each de As DictionaryEntry In slRestoreData
                         hshGames = mgrMonitorList.DoListGetbyName(de.Key)
                         If hshGames.Count = 1 Then
                             oGame = DirectCast(hshGames(0), clsGame)
+                            sGame = oGame.CroppedName
                             hshRestore.Add(oGame, de.Value)
                         Else
                             UpdateLog(mgrCommon.FormatString(frmMain_AutoRestoreFailure, de.Key), False, ToolTipIcon.Info, True)
                         End If
                     Next
+
+                    'Handle notifications
+                    If oSettings.RestoreOnLaunch Then
+                        If slRestoreData.Count > 1 Then
+                            UpdateLog(mgrCommon.FormatString(frmMain_RestoreNotificationMulti, slRestoreData.Count), True, ToolTipIcon.Info, True)
+                        Else
+                            UpdateLog(mgrCommon.FormatString(frmMain_RestoreNotificationSingle, sGame), True, ToolTipIcon.Info, True)
+                        End If
+                    End If
+
                     RunRestore(hshRestore)
+                    End If
                 End If
-            End If
 
             'Shutdown if we are finished
             If bFinished Then
@@ -489,10 +490,10 @@ Public Class frmMain
             End If
         End If
 
-        'Update the notifier
-        If oSettings.RestoreOnLaunch Then
+        'Update the menu notifier if we aren't using auto restore
+        If oSettings.RestoreOnLaunch And Not oSettings.AutoRestore Then
             If slRestoreData.Count > 0 Then
-                UpdateNotifier(slRestoreData.Count, oSettings.AutoRestore)
+                UpdateNotifier(slRestoreData.Count)
             End If
         End If
     End Sub
@@ -1224,7 +1225,7 @@ Public Class frmMain
             txtLog.ScrollToCaret()
             gMonTray.BalloonTipText = sLogUpdate
             gMonTray.BalloonTipIcon = objIcon
-            If bTrayUpdate Then gMonTray.ShowBalloonTip(5000)
+            If bTrayUpdate Then gMonTray.ShowBalloonTip(10000)
         End If
         Application.DoEvents()
     End Sub
@@ -1617,9 +1618,7 @@ Public Class frmMain
     Private Sub gMonNotification_Click(sender As Object, e As EventArgs) Handles gMonNotification.Click, gMonTrayNotification.Click
         gMonNotification.Visible = False
         gMonTrayNotification.Visible = False
-        If gMonNotification.Tag = 0 Then
-            OpenGameManager(True)
-        End If
+        OpenGameManager(True)
     End Sub
 
     Private Sub btnLogToggle_Click(sender As Object, e As EventArgs) Handles btnLogToggle.Click
