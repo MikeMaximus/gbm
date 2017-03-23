@@ -938,7 +938,7 @@ Public Class frmMain
     End Sub
 
     Private Sub QueueSyncWatcher() Handles oFileWatcher.Changed
-        tmFileWatcherQueue.Enabled = True
+        tmFileWatcherQueue.Stop()
         tmFileWatcherQueue.Interval = 30000
         tmFileWatcherQueue.Start()
     End Sub
@@ -952,7 +952,6 @@ Public Class frmMain
         End If
         CheckForNewBackups()
         StartSyncWatcher()
-        tmFileWatcherQueue.Enabled = False
     End Sub
 
     Private Sub SyncGameSettings()
