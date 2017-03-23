@@ -14,6 +14,7 @@ New in 1.01
 	- This option is used for games that change the file names of their saves, which results in a mix of old and new saved games if the old saves aren't deleted first.
 	- This option has limitations and is not part of official configurations or import/export features.
 - (All) The "Verify backup files with a checksum" option has been removed.  This feature is now baked into GBM and cannot be disabled.
+- (All) GBM will now behave consistently across different configurations (such as LAN) when performing sync operations.
 - (Windows) Fixed rare issue related to DPI display scaling.
 
 Read the "Settings" and "The Game Manager" sections of the manual (http://mikemaximus.github.io/gbm-web/manual.html) for more details on how the new features work and their limitations.
