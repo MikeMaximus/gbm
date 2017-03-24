@@ -939,11 +939,13 @@ Public Class frmMain
 
     Private Sub QueueSyncWatcher() Handles oFileWatcher.Changed
         tmFileWatcherQueue.Stop()
+        tmFileWatcherQueue.AutoReset = False
         tmFileWatcherQueue.Interval = 30000
         tmFileWatcherQueue.Start()
     End Sub
 
     Private Sub HandleSyncWatcher() Handles tmFileWatcherQueue.Elapsed
+        tmFileWatcherQueue.Stop()
         StopSyncWatcher()
         If oSettings.Sync Then
             UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
