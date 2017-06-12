@@ -1118,8 +1118,16 @@ Public Class frmGameManager
         If bSuccess Then
             IsDirty = False
             LoadData()
-            ModeChange()
-            If eCurrentMode = eModes.View Then lstGames.SelectedValue = oApp.ID
+            If eCurrentMode = eModes.View Then
+                lstGames.SelectedValue = oApp.ID
+            Else
+                ModeChange()
+            End If
+            'If the addition doesn't match the current filter we should go into disabled mode as it can't be selected to view
+            If lstGames.SelectedIndex = -1 Then
+                eCurrentMode = eModes.Disabled
+                ModeChange()
+            End If
         End If
     End Sub
 
