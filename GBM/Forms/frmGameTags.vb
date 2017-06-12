@@ -2,8 +2,10 @@
 
 Public Class frmGameTags
 
-    Dim sMonitorIDs As List(Of String)
-    Dim sGameName As String = String.Empty
+    Private sMonitorIDs As List(Of String)
+    Private sGameName As String = String.Empty
+    Private bNewMode As Boolean = False
+    Private oTagList As List(Of KeyValuePair(Of String, String))
 
     Public Property IDList As List(Of String)
         Get
@@ -23,6 +25,25 @@ Public Class frmGameTags
         End Set
     End Property
 
+    Public Property NewMode As Boolean
+        Get
+            Return bNewMode
+        End Get
+        Set(value As Boolean)
+            bNewMode = value
+        End Set
+    End Property
+
+    Public Property TagList As List(Of KeyValuePair(Of String, String))
+        Get
+            Return oTagList
+        End Get
+        Set(value As List(Of KeyValuePair(Of String, String)))
+            oTagList = value
+        End Set
+    End Property
+
+
     Private Sub AddTag()
         Dim oData As KeyValuePair(Of String, String)
         Dim oTags As List(Of KeyValuePair(Of String, String))
@@ -40,7 +61,7 @@ Public Class frmGameTags
                 oGameTags.Add(oGameTag)
             Next
 
-            mgrGameTags.DoGameTagAddBatch(oGameTags)
+            If Not bNewMode Then mgrGameTags.DoGameTagAddBatch(oGameTags)
 
             lstGameTags.Items.Add(oData)
             lstTags.Items.Remove(oData)
@@ -60,7 +81,7 @@ Public Class frmGameTags
                     oGameTags.Add(oGameTag)
                 Next
 
-                mgrGameTags.DoGameTagAddBatch(oGameTags)
+                If Not bNewMode Then mgrGameTags.DoGameTagAddBatch(oGameTags)
 
                 lstGameTags.Items.Add(kp)
                 lstTags.Items.Remove(kp)
@@ -86,12 +107,12 @@ Public Class frmGameTags
                 oGameTags.Add(oGameTag)
             Next
 
-            mgrGameTags.DoGameTagDelete(oGameTags)
+            If Not bNewMode Then mgrGameTags.DoGameTagDelete(oGameTags)
 
             lstGameTags.Items.Remove(oData)
-            lstTags.Items.Add(oData)
-        ElseIf lstGameTags.SelectedItems.Count > 1 Then
-            oTags = New List(Of KeyValuePair(Of String, String))
+                lstTags.Items.Add(oData)
+            ElseIf lstGameTags.SelectedItems.Count > 1 Then
+                oTags = New List(Of KeyValuePair(Of String, String))
 
             For Each oData In lstGameTags.SelectedItems
                 oTags.Add(oData)
@@ -106,7 +127,7 @@ Public Class frmGameTags
                     oGameTags.Add(oGameTag)
                 Next
 
-                mgrGameTags.DoGameTagDelete(oGameTags)
+                If Not bNewMode Then mgrGameTags.DoGameTagDelete(oGameTags)
 
                 lstGameTags.Items.Remove(kp)
                 lstTags.Items.Add(kp)
@@ -121,16 +142,8 @@ Public Class frmGameTags
         Dim oTag As clsTag
         Dim oData As KeyValuePair(Of String, String)
 
-        'Handle Data
+        'Load Tags
         hshTags = mgrTags.ReadTags()
-        hshGameTags = mgrGameTags.GetTagsByGameMulti(IDList)
-
-        For Each de As DictionaryEntry In hshGameTags
-            oTag = DirectCast(de.Value, clsTag)
-            If hshTags.ContainsKey(oTag.Name) Then
-                hshTags.Remove(oTag.Name)
-            End If
-        Next
 
         'Handle Lists
         lstTags.Items.Clear()
@@ -141,11 +154,32 @@ Public Class frmGameTags
         lstGameTags.ValueMember = "Key"
         lstGameTags.DisplayMember = "Value"
 
-        For Each de As DictionaryEntry In hshGameTags
-            oTag = DirectCast(de.Value, clsTag)
-            oData = New KeyValuePair(Of String, String)(oTag.ID, oTag.Name)
-            lstGameTags.Items.Add(oData)
-        Next
+        If bNewMode Then
+            For Each kp As KeyValuePair(Of String, String) In oTagList
+                If hshTags.ContainsKey(kp.Value) Then
+                    hshTags.Remove(kp.Value)
+                End If
+            Next
+
+            For Each kp As KeyValuePair(Of String, String) In oTagList
+                lstGameTags.Items.Add(kp)
+            Next
+        Else
+            hshGameTags = mgrGameTags.GetTagsByGameMulti(IDList)
+
+            For Each de As DictionaryEntry In hshGameTags
+                oTag = DirectCast(de.Value, clsTag)
+                If hshTags.ContainsKey(oTag.Name) Then
+                    hshTags.Remove(oTag.Name)
+                End If
+            Next
+
+            For Each de As DictionaryEntry In hshGameTags
+                oTag = DirectCast(de.Value, clsTag)
+                oData = New KeyValuePair(Of String, String)(oTag.ID, oTag.Name)
+                lstGameTags.Items.Add(oData)
+            Next
+        End If
 
         For Each de As DictionaryEntry In hshTags
             oTag = DirectCast(de.Value, clsTag)
@@ -153,6 +187,14 @@ Public Class frmGameTags
             lstTags.Items.Add(oData)
         Next
 
+    End Sub
+
+    Private Sub BuildTagList()
+        Dim oData As KeyValuePair(Of String, String)
+        oTagList.Clear()
+        For Each oData In lstGameTags.Items
+            oTagList.Add(oData)
+        Next
     End Sub
 
     Private Sub OpenTags()
@@ -185,6 +227,7 @@ Public Class frmGameTags
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+        If bNewMode Then BuildTagList()
         Me.Close()
     End Sub
 

@@ -7,6 +7,7 @@ Public Class frmGameManager
     Private bPendingRestores As Boolean = False
     Private oCurrentBackupItem As clsBackup
     Private oCurrentGame As clsGame
+    Private oTagsToSave As New List(Of KeyValuePair(Of String, String))
     Private bDisableExternalFunctions As Boolean = False
     Private bTriggerBackup As Boolean = False
     Private bTriggerRestore As Boolean = False
@@ -526,26 +527,41 @@ Public Class frmGameManager
         Dim oApp As clsGame
         Dim sMonitorIDs As New List(Of String)
 
-        For Each oData In lstGames.SelectedItems
-            oApp = DirectCast(AppData(oData.Key), clsGame)
-            sMonitorIDs.Add(oApp.ID)
-        Next
-
-        frm.IDList = sMonitorIDs
-        frm.GameName = CurrentGame.Name
-        frm.ShowDialog()
-
-        'Only update visible tags if one item is selected
-        If lstGames.SelectedItems.Count = 1 Then FillTags(CurrentGame.ID)
-
-        'If a tag filter is enabled, reload list to reflect changes
-        If optCustom.Checked Then
-            LoadData()
+        If eCurrentMode = eModes.Add Then
+            'Use a dummy ID
+            sMonitorIDs.Add(Guid.NewGuid.ToString)
+            frm.GameName = txtName.Text
+            frm.NewMode = True
+            frm.TagList = oTagsToSave
+        Else
+            For Each oData In lstGames.SelectedItems
+                oApp = DirectCast(AppData(oData.Key), clsGame)
+                sMonitorIDs.Add(oApp.ID)
+            Next
+            frm.GameName = CurrentGame.Name
+            frm.NewMode = False
         End If
 
-        'If the selected game(s) no longer match the filter, disable the form
-        If lstGames.SelectedIndex = -1 Then eCurrentMode = eModes.Disabled
-        ModeChange()
+        frm.IDList = sMonitorIDs
+        frm.ShowDialog()
+
+        If eCurrentMode = eModes.Add Then
+            oTagsToSave = frm.TagList
+            FillTagsbyList(frm.TagList)
+        Else
+            'Only update visible tags if one item is selected
+            If lstGames.SelectedItems.Count = 1 Then FillTagsbyID(CurrentGame.ID)
+
+            'If a tag filter is enabled, reload list to reflect changes
+            If optCustom.Checked Then
+                LoadData()
+            End If
+
+            'If the selected game(s) no longer match the filter, disable the form
+            If lstGames.SelectedIndex = -1 Then eCurrentMode = eModes.Disabled
+            ModeChange()
+        End If
+
     End Sub
 
     Private Sub UpdateBackupInfo(ByVal sManifestID As String)
@@ -731,7 +747,7 @@ Public Class frmGameManager
         txtVersion.Text = oApp.Version
         txtIcon.Text = oApp.Icon
 
-        FillTags(oData.Key)
+        FillTagsbyID(oData.Key)
 
         'Icon
         If IO.File.Exists(oApp.Icon) Then
@@ -756,7 +772,7 @@ Public Class frmGameManager
         IsLoading = False
     End Sub
 
-    Private Sub FillTags(ByVal sID As String)
+    Private Sub FillTagsbyID(ByVal sID As String)
         Dim hshTags As Hashtable
         Dim oTag As clsTag
         Dim sTags As String = String.Empty
@@ -767,6 +783,17 @@ Public Class frmGameManager
         For Each de As DictionaryEntry In hshTags
             oTag = DirectCast(de.Value, clsTag)
             sTags &= "#" & oTag.Name & ", "
+        Next
+
+        lblTags.Text = sTags.TrimEnd(cTrim)
+    End Sub
+
+    Private Sub FillTagsbyList(ByVal oList As List(Of KeyValuePair(Of String, String)))
+        Dim sTags As String = String.Empty
+        Dim cTrim() As Char = {",", " "}
+
+        For Each kp As KeyValuePair(Of String, String) In oList
+            sTags &= "#" & kp.Value & ", "
         Next
 
         lblTags.Text = sTags.TrimEnd(cTrim)
@@ -817,6 +844,7 @@ Public Class frmGameManager
 
         Select Case eCurrentMode
             Case eModes.Add
+                oTagsToSave.Clear()
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
                 lblQuickFilter.Enabled = False
@@ -844,8 +872,9 @@ Public Class frmGameManager
                 btnOpenRestorePath.Enabled = False
                 chkEnabled.Checked = True
                 chkMonitorOnly.Checked = False
-                btnTags.Enabled = False
-                lblTags.Visible = False
+                btnTags.Enabled = True
+                lblTags.Text = String.Empty
+                lblTags.Visible = True
                 btnInclude.Text = frmGameManager_btnInclude
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = False
@@ -1053,6 +1082,22 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub SaveTags(ByVal sID As String)
+        Dim oGameTag As clsGameTag
+        Dim oGameTags As List(Of clsGameTag)
+
+        If oTagsToSave.Count > 0 Then
+            oGameTags = New List(Of clsGameTag)
+            For Each kp As KeyValuePair(Of String, String) In oTagsToSave
+                oGameTag = New clsGameTag
+                oGameTag.MonitorID = sID
+                oGameTag.TagID = kp.Key
+                oGameTags.Add(oGameTag)
+            Next
+            mgrGameTags.DoGameTagAddBatch(oGameTags)
+        End If
+    End Sub
+
     Private Sub SaveApp()
         Dim oData As KeyValuePair(Of String, String)
         Dim oApp As New clsGame
@@ -1093,6 +1138,7 @@ Public Class frmGameManager
                 If CoreValidatation(oApp) Then
                     bSuccess = True
                     mgrMonitorList.DoListAdd(oApp)
+                    SaveTags(oApp.ID)
                     eCurrentMode = eModes.View
                 End If
             Case eModes.Edit
