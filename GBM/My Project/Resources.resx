@@ -424,12 +424,6 @@
   <data name="App_ConfirmDirty" xml:space="preserve">
     <value>There are unsaved changes on this form.  Do you want to save?</value>
   </data>
-  <data name="App_KB" xml:space="preserve">
-    <value>[PARAM] KB</value>
-  </data>
-  <data name="App_MB" xml:space="preserve">
-    <value>[PARAM] MB</value>
-  </data>
   <data name="frmGameManager_BackupTimeAndName" xml:space="preserve">
     <value>[PARAM] ([PARAM])</value>
   </data>
@@ -1761,5 +1755,32 @@
   </data>
   <data name="frmMain_NoCheckSum" xml:space="preserve">
     <value>The backup file for [PARAM] has no checksum,  it cannot be automatically restored.</value>
+  </data>
+  <data name="mgrBackup_ConfirmDiskSpace" xml:space="preserve">
+    <value>You may not have enough disk space available to perform a backup.[BR][BR]Do you want to continue anyway?</value>
+  </data>
+  <data name="mgrBackup_ErrorDiskSpace" xml:space="preserve">
+    <value>Backup aborted due to lack of disk space.</value>
+  </data>
+  <data name="mgrCommon_AvailableDiskSpace" xml:space="preserve">
+    <value>Available Disk Space: [PARAM]</value>
+  </data>
+  <data name="mgrCommon_GB" xml:space="preserve">
+    <value>[PARAM] GB</value>
+  </data>
+  <data name="mgrCommon_KB" xml:space="preserve">
+    <value>[PARAM] KB</value>
+  </data>
+  <data name="mgrCommon_MB" xml:space="preserve">
+    <value>[PARAM] MB</value>
+  </data>
+  <data name="mgrCommon_PB" xml:space="preserve">
+    <value>[PARAM] PB</value>
+  </data>
+  <data name="mgrCommon_SavedGameFolderSize" xml:space="preserve">
+    <value>[PARAM] Save Folder Size: [PARAM]</value>
+  </data>
+  <data name="mgrCommon_TB" xml:space="preserve">
+    <value>[PARAM] TB</value>
   </data>
 </root>

@@ -165,6 +165,77 @@ Public Class mgrCommon
         Return eSyncFields And (Not eSyncField)
     End Function
 
+    'Get a file size
+    Public Shared Function GetFileSize(ByVal sFile As String) As Long
+        Dim oFileInfo As FileInfo
+        Dim dFileSize As Long = 0
+
+        Try
+            oFileInfo = New FileInfo(sFile)
+            dFileSize = oFileInfo.Length
+        Catch ex As Exception
+            'Do Nothing
+        End Try
+
+        Return dFileSize
+    End Function
+
+    'Calculate the current size of a folder
+    Public Shared Function GetFolderSize(ByVal sPath As String)
+        Dim oFolder As DirectoryInfo
+        Dim lSize As Long = 0
+
+        Try
+            oFolder = New DirectoryInfo(sPath)
+
+            'Files
+            For Each fi As FileInfo In oFolder.GetFiles
+                lSize += fi.Length
+            Next
+
+            'Sub Folders
+            For Each di As DirectoryInfo In oFolder.GetDirectories
+                lSize += GetFolderSize(di.FullName)
+            Next
+        Catch
+            'Do Nothing
+        End Try
+
+        Return lSize
+    End Function
+
+    'Format Disk Space Amounts
+    Public Shared Function FormatDiskSpace(ByVal lSize As Long)
+
+        Select Case lSize
+            Case >= 1125899906842624
+                Return FormatString(mgrCommon_PB, Math.Round(lSize / 1125899906842624, 2))
+            Case >= 1099511627776
+                Return FormatString(mgrCommon_TB, Math.Round(lSize / 1099511627776, 2))
+            Case >= 1073741824
+                Return FormatString(mgrCommon_GB, Math.Round(lSize / 1073741824, 2))
+            Case >= 1048576
+                Return FormatString(mgrCommon_MB, Math.Round(lSize / 1048576, 2))
+            Case >= 1024
+                Return FormatString(mgrCommon_KB, Math.Round(lSize / 1024, 2))
+        End Select
+
+        Return lSize
+    End Function
+
+    'Get available disk space on a drive
+    Public Shared Function GetAvailableDiskSpace(ByVal sPath As String) As Long
+        Dim oDrive As DriveInfo
+        Dim lAvailableSpace As Long = 0
+        Try
+            oDrive = New DriveInfo(Path.GetPathRoot(sPath))
+            lAvailableSpace = oDrive.AvailableFreeSpace
+        Catch
+            'Do Nothing
+        End Try
+        Return lAvailableSpace
+    End Function
+
     'Delete file based on OS type
     Public Shared Sub DeleteFile(ByVal sPath As String, Optional ByVal bRecycle As Boolean = True)
         If File.Exists(sPath) Then
@@ -223,24 +294,6 @@ Public Class mgrCommon
             ShowMessage(mgrCommon_ErrorWritingTextFile, ex.Message, MsgBoxStyle.Critical)
         End Try
     End Sub
-
-    'Get a file size
-    Public Shared Function GetFileSize(ByVal sFile As String) As String
-        Dim oFileInfo As FileInfo
-        Dim dFileSize As Double
-
-        Try
-            oFileInfo = New FileInfo(sFile)
-            dFileSize = oFileInfo.Length
-            If dFileSize > 1048576 Then
-                Return FormatString(App_MB, Math.Round(dFileSize / 1048576, 2).ToString)
-            Else
-                Return FormatString(App_KB, Math.Round(dFileSize / 1024, 2).ToString)
-            End If
-        Catch ex As Exception
-            Return String.Empty
-        End Try
-    End Function
 
     'Handles no extra parameters
     Public Shared Function ShowMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult

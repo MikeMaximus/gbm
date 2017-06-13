@@ -97,24 +97,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] KB.
-        '''</summary>
-        Friend ReadOnly Property App_KB() As String
-            Get
-                Return ResourceManager.GetString("App_KB", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to [PARAM] MB.
-        '''</summary>
-        Friend ReadOnly Property App_MB() As String
-            Get
-                Return ResourceManager.GetString("App_MB", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor.
         '''</summary>
         Friend ReadOnly Property App_NameLong() As String
@@ -4511,6 +4493,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to You may not have enough disk space available to perform a backup.[BR][BR]Do you want to continue anyway?.
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ConfirmDiskSpace() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ConfirmDiskSpace", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to The manifest shows the backup folder contains a backup for [PARAM] that has not been restored on this computer.[BR][BR]Do you want to overwrite this file anyway?.
         '''</summary>
         Friend ReadOnly Property mgrBackup_ConfirmManifestConflict() As String
@@ -4525,6 +4516,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_ConfirmOverwrite() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ConfirmOverwrite", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backup aborted due to lack of disk space..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorDiskSpace() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorDiskSpace", resourceCulture)
             End Get
         End Property
         
@@ -4610,6 +4610,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Available Disk Space: [PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_AvailableDiskSpace() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_AvailableDiskSpace", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to An error has occured writing the text file.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_ErrorWritingTextFile() As String
@@ -4628,11 +4637,65 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] GB.
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_GB() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_GB", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] KB.
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_KB() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_KB", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] MB.
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_MB() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_MB", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to No.
         '''</summary>
         Friend ReadOnly Property mgrCommon_No() As String
             Get
                 Return ResourceManager.GetString("mgrCommon_No", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] PB.
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_PB() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_PB", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] Save Folder Size: [PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_SavedGameFolderSize() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_SavedGameFolderSize", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] TB.
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_TB() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_TB", resourceCulture)
             End Get
         End Property
         

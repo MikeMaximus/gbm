@@ -87,8 +87,24 @@ Public Class mgrBackup
 
     Public Function CheckBackupPrereq(ByVal oGame As clsGame) As Boolean
         Dim sBackupFile As String = oSettings.BackupFolder
+        Dim lAvailableSpace As Long = mgrCommon.GetAvailableDiskSpace(sBackupFile)
+        Dim lFolderSize As Long = mgrCommon.GetFolderSize(oGame.Path)
+
         If oSettings.CreateSubFolder Then sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name
         sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name & ".7z"
+
+        'Show Available Space
+        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_AvailableDiskSpace, mgrCommon.FormatDiskSpace(lAvailableSpace)), False, ToolTipIcon.Info, True)
+
+        'Show Save Folder Size
+        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_SavedGameFolderSize, New String() {oGame.Name, mgrCommon.FormatDiskSpace(lFolderSize)}), False, ToolTipIcon.Info, True)
+
+        If lFolderSize >= lAvailableSpace Then
+            If mgrCommon.ShowMessage(mgrBackup_ConfirmDiskSpace, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                RaiseEvent UpdateLog(mgrBackup_ErrorDiskSpace, False, ToolTipIcon.Error, True)
+                Return False
+            End If
+        End If
 
         If mgrRestore.CheckManifest(oGame.Name) Then
             If mgrCommon.ShowMessage(mgrBackup_ConfirmManifestConflict, oGame.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
@@ -223,7 +239,7 @@ Public Class mgrBackup
                             prs7z.WaitForExit()
                             If Not CancelOperation Then
                                 If prs7z.ExitCode = 0 Then
-                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupComplete, New String() {oGame.Name, mgrCommon.GetFileSize(sBackupFile)}), False, ToolTipIcon.Info, True)
+                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupComplete, New String() {oGame.Name, mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sBackupFile))}), False, ToolTipIcon.Info, True)
                                     bBackupCompleted = True
                                 Else
                                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupWarnings, oGame.Name), True, ToolTipIcon.Warning, True)

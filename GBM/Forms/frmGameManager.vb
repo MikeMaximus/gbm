@@ -583,7 +583,7 @@ Public Class frmGameManager
             sFileName = BackupFolder & CurrentBackupItem.FileName
 
             If File.Exists(sFileName) Then
-                lblBackupFileData.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.GetFileSize(sFileName) & ")"
+                lblBackupFileData.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sFileName)) & ")"
             Else
                 lblBackupFileData.Text = frmGameManager_ErrorNoBackupExists
             End If
@@ -625,7 +625,7 @@ Public Class frmGameManager
             btnDeleteBackup.Enabled = True
 
             If File.Exists(sFileName) Then
-                lblBackupFileData.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.GetFileSize(sFileName) & ")"
+                lblBackupFileData.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sFileName)) & ")"
             Else
                 lblBackupFileData.Text = frmGameManager_ErrorNoBackupExists
             End If
