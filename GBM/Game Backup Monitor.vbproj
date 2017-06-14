@@ -121,6 +121,7 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\clsSavedPath.vb" />
     <Compile Include="Classes\XML Serialize Classes\Tag.vb" />
     <Compile Include="Classes\XML Serialize Classes\Game.vb" />
     <Compile Include="Classes\clsGameTag.vb" />
@@ -220,6 +221,7 @@
     <Compile Include="Managers\mgrMonitorList.vb" />
     <Compile Include="Managers\mgrPath.vb" />
     <Compile Include="Managers\mgrRestore.vb" />
+    <Compile Include="Managers\mgrSavedPath.vb" />
     <Compile Include="Managers\mgrSettings.vb" />
     <Compile Include="Managers\mgrBackup.vb" />
     <Compile Include="Managers\mgrSQLite.vb" />

@@ -425,8 +425,8 @@ Public Class frmAddWizard
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFileBrowser(frmAddWizard_ChooseProcess, "exe",
-                                          frmAddWizard_Executable, sDefaultFolder, False)
+        sNewPath = mgrCommon.OpenFileBrowser("Wizard_Process_Path", frmAddWizard_ChooseProcess, "exe",
+                                          frmAddWizard_Executable, sDefaultFolder, False, False)
 
         If sNewPath <> String.Empty Then txtProcessPath.Text = sNewPath
     End Sub
@@ -442,7 +442,7 @@ Public Class frmAddWizard
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser(frmAddWizard_ChooseSavePath, sDefaultFolder, False)
+        sNewPath = mgrCommon.OpenFolderBrowser("Wizard_Save_Path", frmAddWizard_ChooseSavePath, sDefaultFolder, False, False)
 
         If sNewPath <> String.Empty Then txtSavePath.Text = sNewPath
     End Sub

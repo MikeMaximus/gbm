@@ -76,6 +76,9 @@ Public Class mgrSQLite
                    "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
                    "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL);"
 
+            'Add Tables (SavedPath)
+            sSql &= "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
+
             'Add Tables (Monitor List)
             sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
@@ -634,6 +637,28 @@ Public Class mgrSQLite
                 'Add new field(s)
                 sSQL = "ALTER TABLE monitorlist ADD COLUMN CleanFolder BOOLEAN NOT NULL DEFAULT 0;"
                 sSQL &= "PRAGMA user_version=101"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '1.02 Upgrade
+        If GetDatabaseVersion() < 102 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v101")
+
+                'Add Table (SavedPath)
+                sSQL = "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
+                sSQL &= "PRAGMA user_version=102"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v101")
+
+                sSQL = "PRAGMA user_version=102"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If

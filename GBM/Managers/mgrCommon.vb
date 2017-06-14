@@ -61,30 +61,66 @@ Public Class mgrCommon
         End If
     End Function
 
-    Public Shared Function SaveFileBrowser(ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String, ByVal sDefaultFile As String) As String
+    Public Shared Function SaveFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
+                                           ByVal sDefaultFile As String, Optional ByVal bSavedPath As Boolean = True) As String
         Dim fbBrowser As New SaveFileDialog
+        Dim oSavedPath As New clsSavedPath
+
         fbBrowser.Title = sTitle
         fbBrowser.DefaultExt = sExtension
         fbBrowser.Filter = FormatString(mgrCommon_FilesFilter, New String() {sFileType, sExtension, sExtension})
-        fbBrowser.InitialDirectory = sDefaultFolder
         fbBrowser.FileName = sDefaultFile
+        fbBrowser.InitialDirectory = sDefaultFolder
 
-        If fbBrowser.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            Return fbBrowser.FileName
+        If bSavedPath Then
+            oSavedPath = mgrSavedPath.GetPathByName(sName)
+            If oSavedPath.Path <> String.Empty Then
+                If Directory.Exists(oSavedPath.Path) Then
+                    fbBrowser.InitialDirectory = oSavedPath.Path
+                End If
+            End If
         End If
 
-        Return String.Empty
+        If fbBrowser.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            If bSavedPath Then
+                oSavedPath.PathName = sName
+                oSavedPath.Path = Path.GetDirectoryName(fbBrowser.FileName)
+                mgrSavedPath.AddUpdatePath(oSavedPath)
+            End If
+
+            Return fbBrowser.FileName
+            End If
+
+            Return String.Empty
     End Function
 
-    Public Shared Function OpenFileBrowser(ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String, ByVal bMulti As Boolean) As String
+    Public Shared Function OpenFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
+                                           ByVal bMulti As Boolean, Optional ByVal bSavedPath As Boolean = True) As String
         Dim fbBrowser As New OpenFileDialog
+        Dim oSavedPath As New clsSavedPath
+
         fbBrowser.Title = sTitle
         fbBrowser.DefaultExt = sExtension
         fbBrowser.Filter = FormatString(mgrCommon_FilesFilter, New String() {sFileType, sExtension, sExtension})
-        fbBrowser.InitialDirectory = sDefaultFolder
         fbBrowser.Multiselect = bMulti
+        fbBrowser.InitialDirectory = sDefaultFolder
+
+        If bSavedPath Then
+            oSavedPath = mgrSavedPath.GetPathByName(sName)
+            If oSavedPath.Path <> String.Empty Then
+                If Directory.Exists(oSavedPath.Path) Then
+                    fbBrowser.InitialDirectory = oSavedPath.Path
+                End If
+            End If
+        End If
 
         If fbBrowser.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            If bSavedPath Then
+                oSavedPath.PathName = sName
+                oSavedPath.Path = Path.GetDirectoryName(fbBrowser.FileName)
+                mgrSavedPath.AddUpdatePath(oSavedPath)
+            End If
+
             If bMulti Then
                 Dim sFileNames As String = String.Empty
                 For Each sFileName As String In fbBrowser.FileNames
@@ -100,12 +136,31 @@ Public Class mgrCommon
         Return String.Empty
     End Function
 
-    Public Shared Function OpenFolderBrowser(ByVal sTitle As String, ByVal sDefaultFolder As String, ByVal bEnableNewFolder As Boolean) As String
+    Public Shared Function OpenFolderBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sDefaultFolder As String, ByVal bEnableNewFolder As Boolean,
+                                             Optional ByVal bSavedPath As Boolean = True) As String
         Dim fbBrowser As New FolderBrowserDialog
+        Dim oSavedPath As New clsSavedPath
+
         fbBrowser.Description = sTitle
         fbBrowser.SelectedPath = sDefaultFolder
         fbBrowser.ShowNewFolderButton = bEnableNewFolder
+
+        If bSavedPath Then
+            oSavedPath = mgrSavedPath.GetPathByName(sName)
+            If oSavedPath.Path <> String.Empty Then
+                If Directory.Exists(oSavedPath.Path) Then
+                    fbBrowser.SelectedPath = oSavedPath.Path
+                End If
+            End If
+        End If
+
         If fbBrowser.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            If bSavedPath Then
+                oSavedPath.PathName = sName
+                oSavedPath.Path = fbBrowser.SelectedPath
+                mgrSavedPath.AddUpdatePath(oSavedPath)
+            End If
+
             Return fbBrowser.SelectedPath
         End If
 

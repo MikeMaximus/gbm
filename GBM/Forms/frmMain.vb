@@ -1249,7 +1249,7 @@ Public Class frmMain
     Private Sub SaveLog()
         Dim sLocation As String
 
-        sLocation = mgrCommon.SaveFileBrowser(frmMain_ChooseLogFile, "txt", frmMain_Text, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmMain_DefaultLogFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
+        sLocation = mgrCommon.SaveFileBrowser("Log_File", frmMain_ChooseLogFile, "txt", frmMain_Text, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmMain_DefaultLogFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
 
         If sLocation <> String.Empty Then
             mgrCommon.SaveText(txtLog.Text, sLocation)

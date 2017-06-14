@@ -335,7 +335,7 @@ Public Class mgrPath
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
         Dim sNewPath As String
 
-        sNewPath = mgrCommon.OpenFolderBrowser(mgrPath_ChoosePath, sDefaultFolder, False)
+        sNewPath = mgrCommon.OpenFolderBrowser("Manual_Game_Location", mgrPath_ChoosePath, sDefaultFolder, False)
 
         Return sNewPath
     End Function

@@ -54,7 +54,7 @@ Public Class frmVariableManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser(frmVariableManager_PathBrowse, sDefaultFolder, False)
+        sNewPath = mgrCommon.OpenFolderBrowser("VM_Path", frmVariableManager_PathBrowse, sDefaultFolder, False, False)
 
         If sNewPath <> String.Empty Then txtPath.Text = sNewPath
     End Sub

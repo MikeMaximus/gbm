@@ -336,13 +336,13 @@ Public Class frmSettings
 
     Private Sub btnBackupFolder_Click(sender As System.Object, e As System.EventArgs) Handles btnBackupFolder.Click
         Dim sNewFolder As String
-        sNewFolder = mgrCommon.OpenFolderBrowser(frmSettings_BrowseFolder, oSettings.BackupFolder, True)
+        sNewFolder = mgrCommon.OpenFolderBrowser("Settings_Backup_Path", frmSettings_BrowseFolder, oSettings.BackupFolder, True, False)
         If sNewFolder <> String.Empty Then txtBackupFolder.Text = sNewFolder
     End Sub
 
     Private Sub btn7zLocation_Click(sender As Object, e As EventArgs) Handles btn7zLocation.Click
         Dim sNewLocation As String
-        sNewLocation = mgrCommon.OpenFileBrowser(frmSettings_Browse7za, "exe", frmSettings_7zaFileType, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
+        sNewLocation = mgrCommon.OpenFileBrowser("7z_Browse", frmSettings_Browse7za, "exe", frmSettings_7zaFileType, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
         If sNewLocation <> String.Empty Then
             txt7zLocation.Text = sNewLocation
             GetUtilityInfo(txt7zLocation.Text)
