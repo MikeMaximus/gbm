@@ -156,13 +156,16 @@ Public Class frmGameTags
 
         If bNewMode Then
             For Each kp As KeyValuePair(Of String, String) In oTagList
+                'We need to be sure the tags still exist if the "Setup Tags" form was used
                 If hshTags.ContainsKey(kp.Value) Then
-                    hshTags.Remove(kp.Value)
+                    lstGameTags.Items.Add(kp)
                 End If
             Next
 
             For Each kp As KeyValuePair(Of String, String) In oTagList
-                lstGameTags.Items.Add(kp)
+                If hshTags.ContainsKey(kp.Value) Then
+                    hshTags.Remove(kp.Value)
+                End If
             Next
         Else
             hshGameTags = mgrGameTags.GetTagsByGameMulti(IDList)
@@ -240,6 +243,7 @@ Public Class frmGameTags
     End Sub
 
     Private Sub btnOpenTags_Click(sender As Object, e As EventArgs) Handles btnOpenTags.Click
+        If bNewMode Then BuildTagList()
         OpenTags()
     End Sub
 End Class
