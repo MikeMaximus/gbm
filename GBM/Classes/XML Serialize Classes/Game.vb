@@ -1,6 +1,7 @@
 ﻿Public Class Game
     Private sGameName As String
     Private sProcessName As String
+    Private sParameter As String
     Private sPath As String
     Private bAbsolutePath As Boolean
     Private bFolderSave As Boolean
@@ -23,6 +24,15 @@
         End Set
         Get
             Return sProcessName
+        End Get
+    End Property
+
+    Property Parameter As String
+        Set(value As String)
+            sParameter = value
+        End Set
+        Get
+            Return sParameter
         End Get
     End Property
 

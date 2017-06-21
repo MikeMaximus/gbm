@@ -1783,4 +1783,7 @@
   <data name="mgrCommon_TB" xml:space="preserve">
     <value>[PARAM] TB</value>
   </data>
+  <data name="frmGameManager_lblParameter" xml:space="preserve">
+    <value>Parameter:</value>
+  </data>
 </root>

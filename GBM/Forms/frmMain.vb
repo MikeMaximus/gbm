@@ -532,7 +532,7 @@ Public Class frmMain
 
     Private Sub ResetGameInfo(Optional ByVal bKeepInfo As Boolean = False)
         If bKeepInfo And Not oProcess.GameInfo Is Nothing Then
-            lblGameTitle.Text = mgrCommon.FormatString(frmMain_LastGame, oProcess.GameInfo.CroppedName)
+            lblGameTitle.Text = mgrCommon.FormatString(frmMain_LastGame, oProcess.GameInfo.Name)
             pbIcon.Image = oPriorImage
             lblStatus1.Text = sPriorPath
             lblStatus2.Text = sPriorCompany
@@ -597,7 +597,7 @@ Public Class frmMain
         Else
             bAllowIcon = True
             bAllowDetails = True
-            lblGameTitle.Text = oProcess.GameInfo.CroppedName
+            lblGameTitle.Text = oProcess.GameInfo.Name
 
             Try
                 Dim ic As Icon = System.Drawing.Icon.ExtractAssociatedIcon(oProcess.FoundProcess.MainModule.FileName)
@@ -1448,6 +1448,17 @@ Public Class frmMain
 
     End Function
 
+    Private Function CheckForParametersDuplicate() As Boolean
+        For Each o As clsGame In oProcess.DuplicateList
+            If o.Parameter <> String.Empty And oProcess.FullCommand.Contains(o.Parameter) Then
+                oProcess.GameInfo = o
+                oProcess.Duplicate = False
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
     Private Sub CheckForSavedDuplicate()
         For Each o As clsGame In oProcess.DuplicateList
             If o.ProcessPath.ToLower = oProcess.GameInfo.ProcessPath.ToLower Then
@@ -1699,20 +1710,20 @@ Public Class frmMain
             End If
 
             If bContinue = True Then
-                CheckForSavedDuplicate()
+                If Not CheckForParametersDuplicate() Then CheckForSavedDuplicate()
                 If oProcess.Duplicate Then
-                    UpdateLog(frmMain_MultipleGamesDetected, oSettings.ShowDetectionToolTips)
-                    UpdateStatus(frmMain_MultipleGamesDetected)
-                    SetGameInfo(True)
+                        UpdateLog(frmMain_MultipleGamesDetected, oSettings.ShowDetectionToolTips)
+                        UpdateStatus(frmMain_MultipleGamesDetected)
+                        SetGameInfo(True)
+                    Else
+                        UpdateLog(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.Name), oSettings.ShowDetectionToolTips)
+                        UpdateStatus(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.CroppedName))
+                        SetGameInfo()
+                    End If
+                    oProcess.StartTime = Now
+                    bwMonitor.RunWorkerAsync()
                 Else
-                    UpdateLog(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.Name), oSettings.ShowDetectionToolTips)
-                    UpdateStatus(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.CroppedName))
-                    SetGameInfo()
-                End If
-                oProcess.StartTime = Now
-                bwMonitor.RunWorkerAsync()
-            Else
-                StopScan()
+                    StopScan()
             End If
         End If
     End Sub
@@ -1831,7 +1842,7 @@ Public Class frmMain
     End Sub
 
     'This event handler lets the user clear focus from the log by clicking anywhere on the form.
-    'Due to txtLog being the only focusable control in most cases, it's impossible for it to lose focus unless force a focus change.
+    'Due to txtLog being the only focusable control in most cases, it's impossible for it to lose focus unless a change is forced.
     Private Sub ClearLogFocus(sender As Object, e As EventArgs) Handles MyBase.Click, lblGameTitle.Click, lblStatus1.Click, lblStatus2.Click,
         lblStatus3.Click, pbTime.Click, lblTimeSpent.Click, lblLastActionTitle.Click, lblLastAction.Click, gMonMainMenu.Click, gMonStatusStrip.Click
         'Move focus to first label

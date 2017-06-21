@@ -1843,6 +1843,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Parameter:.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblParameter() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblParameter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Process:.
         '''</summary>
         Friend ReadOnly Property frmGameManager_lblProcess() As String

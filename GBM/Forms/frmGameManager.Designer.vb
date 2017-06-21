@@ -96,6 +96,8 @@ Partial Class frmGameManager
         Me.cmsDeleteBackup = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsDeleteOne = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
+        Me.lblParameter = New System.Windows.Forms.Label()
+        Me.txtParameter = New System.Windows.Forms.TextBox()
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -152,6 +154,8 @@ Partial Class frmGameManager
         'grpConfig
         '
         Me.grpConfig.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpConfig.Controls.Add(Me.txtParameter)
+        Me.grpConfig.Controls.Add(Me.lblParameter)
         Me.grpConfig.Controls.Add(Me.chkCleanFolder)
         Me.grpConfig.Controls.Add(Me.lblLimit)
         Me.grpConfig.Controls.Add(Me.nudLimit)
@@ -247,7 +251,7 @@ Partial Class frmGameManager
         '
         'btnProcessBrowse
         '
-        Me.btnProcessBrowse.Location = New System.Drawing.Point(489, 45)
+        Me.btnProcessBrowse.Location = New System.Drawing.Point(225, 44)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
         Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnProcessBrowse.TabIndex = 5
@@ -330,7 +334,7 @@ Partial Class frmGameManager
         '
         Me.txtProcess.Location = New System.Drawing.Point(69, 45)
         Me.txtProcess.Name = "txtProcess"
-        Me.txtProcess.Size = New System.Drawing.Size(414, 20)
+        Me.txtProcess.Size = New System.Drawing.Size(150, 20)
         Me.txtProcess.TabIndex = 4
         '
         'txtName
@@ -819,6 +823,22 @@ Partial Class frmGameManager
         Me.cmsDeleteAll.Size = New System.Drawing.Size(114, 22)
         Me.cmsDeleteAll.Text = "&All Files"
         '
+        'lblParameter
+        '
+        Me.lblParameter.AutoSize = True
+        Me.lblParameter.Location = New System.Drawing.Point(269, 48)
+        Me.lblParameter.Name = "lblParameter"
+        Me.lblParameter.Size = New System.Drawing.Size(58, 13)
+        Me.lblParameter.TabIndex = 15
+        Me.lblParameter.Text = "Parameter:"
+        '
+        'txtParameter
+        '
+        Me.txtParameter.Location = New System.Drawing.Point(333, 45)
+        Me.txtParameter.Name = "txtParameter"
+        Me.txtParameter.Size = New System.Drawing.Size(150, 20)
+        Me.txtParameter.TabIndex = 16
+        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -941,4 +961,6 @@ Partial Class frmGameManager
     Friend WithEvents cmsDeleteOne As ToolStripMenuItem
     Friend WithEvents cmsDeleteAll As ToolStripMenuItem
     Friend WithEvents chkCleanFolder As CheckBox
+    Friend WithEvents txtParameter As TextBox
+    Friend WithEvents lblParameter As Label
 End Class

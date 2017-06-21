@@ -1,6 +1,5 @@
-﻿Imports System.Diagnostics
-Imports System.IO
-Imports System.Threading
+﻿Imports System.IO
+Imports System.Management
 
 Public Class mgrProcesses
 
@@ -11,6 +10,7 @@ Public Class mgrProcesses
     Private oDuplicateGames As New ArrayList
     Private bDuplicates As Boolean
     Private bVerified As Boolean = False
+    Private sFullCommand As String = String.Empty
 
     Property FoundProcess As Process
         Get
@@ -72,6 +72,15 @@ Public Class mgrProcesses
         End Set
     End Property
 
+    Property FullCommand As String
+        Get
+            Return sFullCommand
+        End Get
+        Set(value As String)
+            sFullCommand = value
+        End Set
+    End Property
+
     Private Sub VerifyDuplicate(oGame As clsGame, hshScanList As Hashtable)
         Dim sProcess As String
         bDuplicates = True
@@ -83,6 +92,30 @@ Public Class mgrProcesses
                 oDuplicateGames.Add(o.ShallowCopy)
             End If
         Next
+    End Sub
+
+    'This function will only work correctly on Windows
+    Private Sub GetWindowsCommand(ByVal prs As Process)
+        FullCommand = String.Empty
+        Try
+            Using searcher As New ManagementObjectSearcher("SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + prs.Id.ToString)
+                For Each o As ManagementObject In searcher.Get()
+                    FullCommand &= o("CommandLine") & " "
+                Next
+            End Using
+        Catch ex As Exception
+            'Do Nothing
+        End Try
+    End Sub
+
+    'This function will only work correctly on Unix
+    Private Sub GetUnixCommand(ByVal prs As Process)
+        FullCommand = String.Empty
+        Try
+            FullCommand = File.ReadAllText("/proc/" & prs.Id.ToString() & "/cmdline").Replace(vbNullChar, " ")
+        Catch ex As Exception
+            'Do Nothing
+        End Try
     End Sub
 
     'This function will only work correctly on Unix
@@ -153,11 +186,21 @@ Public Class mgrProcesses
                 prsFoundProcess = prsCurrent
                 oGame = DirectCast(hshScanList.Item(sProcessCheck), clsGame).ShallowCopy
 
+                If mgrCommon.IsUnix Then
+                    GetUnixCommand(prsCurrent)
+                Else
+                    GetWindowsCommand(prsCurrent)
+                End If
+
                 If oGame.Duplicate = True Then
                     VerifyDuplicate(oGame, hshScanList)
                 Else
                     bDuplicates = False
                     oDuplicateGames.Clear()
+                End If
+
+                If oGame.Parameter <> String.Empty And Not oGame.Duplicate And Not FullCommand.Contains(oGame.Parameter) Then
+                    Return False
                 End If
 
                 If Not oGame.AbsolutePath Or oGame.Duplicate Then

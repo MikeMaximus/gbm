@@ -434,6 +434,9 @@ Partial Class frmMain
         '
         'lblGameTitle
         '
+        Me.lblGameTitle.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblGameTitle.AutoEllipsis = True
         Me.lblGameTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGameTitle.Location = New System.Drawing.Point(66, 36)
         Me.lblGameTitle.Name = "lblGameTitle"
@@ -443,6 +446,8 @@ Partial Class frmMain
         '
         'lblLastAction
         '
+        Me.lblLastAction.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblLastAction.AutoEllipsis = True
         Me.lblLastAction.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblLastAction.Location = New System.Drawing.Point(12, 165)
@@ -483,6 +488,8 @@ Partial Class frmMain
         '
         'lblStatus1
         '
+        Me.lblStatus1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblStatus1.AutoEllipsis = True
         Me.lblStatus1.Location = New System.Drawing.Point(66, 58)
         Me.lblStatus1.Name = "lblStatus1"
@@ -491,6 +498,8 @@ Partial Class frmMain
         '
         'lblStatus2
         '
+        Me.lblStatus2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblStatus2.AutoEllipsis = True
         Me.lblStatus2.Location = New System.Drawing.Point(66, 74)
         Me.lblStatus2.Name = "lblStatus2"
@@ -499,6 +508,8 @@ Partial Class frmMain
         '
         'lblStatus3
         '
+        Me.lblStatus3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblStatus3.AutoEllipsis = True
         Me.lblStatus3.Location = New System.Drawing.Point(66, 90)
         Me.lblStatus3.Name = "lblStatus3"
