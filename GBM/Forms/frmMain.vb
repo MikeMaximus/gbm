@@ -39,8 +39,6 @@ Public Class frmMain
     Private sPriorPath As String
     Private sPriorCompany As String
     Private sPriorVersion As String
-    Private iFormHeight As Integer
-    Private iLogSpacer As Integer
     Private iRestoreTimeOut As Integer
 
     'Developer Debug Flags
@@ -1027,22 +1025,6 @@ Public Class frmMain
     End Sub
 
     'Functions that handle buttons, menus and other GUI features on this form
-    Private Sub ToggleLog()
-        If bLogToggle = False Then
-            txtLog.Visible = True
-            Me.Size = New System.Drawing.Size(Me.Size.Width, iFormHeight)
-            bLogToggle = True
-            btnLogToggle.Text = frmMain_btnToggleLog_Hide
-            txtLog.Select(txtLog.TextLength, 0)
-            txtLog.ScrollToCaret()
-        Else
-            txtLog.Visible = False
-            Me.Size = New System.Drawing.Size(Me.Size.Width, Me.Size.Height - (txtLog.Height + iLogSpacer))
-            bLogToggle = False
-            btnLogToggle.Text = frmMain_btnToggleLog_Show
-        End If
-    End Sub
-
     Private Sub ToggleState()
         'Toggle State with Tray Clicks        
         If Not bShowToggle Then
@@ -1257,8 +1239,8 @@ Public Class frmMain
     End Sub
 
     Private Sub SetForm()
-        'Disable Autosize in Linux (Mono prevents manual resizing when this is enabled)
-        If mgrCommon.IsUnix Then Me.AutoSize = False
+        'Set Minimum Size
+        Me.MinimumSize = New Size(Me.Size.Width, Me.Size.Height - txtLog.Size.Height)
 
         'Set Form Name
         Me.Name = App_NameLong
@@ -1317,14 +1299,10 @@ Public Class frmMain
             gMonStripAdminButton.ToolTipText = frmMain_RunningAsNormal
         End If
         btnCancelOperation.Visible = False
-        txtLog.Visible = False
         lblLastActionTitle.Visible = False
         lblLastAction.Text = String.Empty
         pbTime.SizeMode = PictureBoxSizeMode.AutoSize
         pbTime.Image = Icon_Clock
-        iFormHeight = Me.Size.Height
-        iLogSpacer = gMonStatusStrip.Location.Y - (txtLog.Location.Y + txtLog.Height)
-        Me.Size = New System.Drawing.Size(Me.Size.Width, Me.Size.Height - (txtLog.Height + iLogSpacer))
         AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
         ResetGameInfo()
     End Sub
@@ -1631,10 +1609,6 @@ Public Class frmMain
         OpenGameManager(True)
     End Sub
 
-    Private Sub btnLogToggle_Click(sender As Object, e As EventArgs) Handles btnLogToggle.Click
-        ToggleLog()
-    End Sub
-
     Private Sub gMonStripSplitStatusButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripStatusButton.Click
         ScanToggle()
     End Sub
@@ -1848,10 +1822,6 @@ Public Class frmMain
         If bFirstRun And Not bShutdown Then
             OpenStartupWizard()
         End If
-    End Sub
-
-    Private Sub txtGameInfo_Enter(sender As Object, e As EventArgs)
-        btnLogToggle.Focus()
     End Sub
 
     Private Sub frmMain_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown

@@ -75,7 +75,6 @@ Partial Class frmMain
         Me.gMonHelpAbout = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonNotification = New System.Windows.Forms.ToolStripMenuItem()
         Me.pbIcon = New System.Windows.Forms.PictureBox()
-        Me.btnLogToggle = New System.Windows.Forms.Button()
         Me.lblGameTitle = New System.Windows.Forms.Label()
         Me.lblLastAction = New System.Windows.Forms.Label()
         Me.lblLastActionTitle = New System.Windows.Forms.Label()
@@ -222,6 +221,9 @@ Partial Class frmMain
         '
         'txtLog
         '
+        Me.txtLog.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtLog.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtLog.Location = New System.Drawing.Point(12, 184)
         Me.txtLog.MaxLength = 524288
@@ -430,15 +432,6 @@ Partial Class frmMain
         Me.pbIcon.TabIndex = 9
         Me.pbIcon.TabStop = False
         '
-        'btnLogToggle
-        '
-        Me.btnLogToggle.Location = New System.Drawing.Point(437, 155)
-        Me.btnLogToggle.Name = "btnLogToggle"
-        Me.btnLogToggle.Size = New System.Drawing.Size(75, 23)
-        Me.btnLogToggle.TabIndex = 7
-        Me.btnLogToggle.Text = "Show &Log"
-        Me.btnLogToggle.UseVisualStyleBackColor = True
-        '
         'lblGameTitle
         '
         Me.lblGameTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -480,7 +473,8 @@ Partial Class frmMain
         '
         'btnCancelOperation
         '
-        Me.btnCancelOperation.Location = New System.Drawing.Point(437, 126)
+        Me.btnCancelOperation.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCancelOperation.Location = New System.Drawing.Point(437, 155)
         Me.btnCancelOperation.Name = "btnCancelOperation"
         Me.btnCancelOperation.Size = New System.Drawing.Size(75, 23)
         Me.btnCancelOperation.TabIndex = 6
@@ -523,7 +517,6 @@ Partial Class frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(524, 401)
         Me.Controls.Add(Me.pbTime)
         Me.Controls.Add(Me.lblStatus3)
@@ -534,16 +527,13 @@ Partial Class frmMain
         Me.Controls.Add(Me.lblLastActionTitle)
         Me.Controls.Add(Me.lblLastAction)
         Me.Controls.Add(Me.lblGameTitle)
-        Me.Controls.Add(Me.btnLogToggle)
         Me.Controls.Add(Me.pbIcon)
         Me.Controls.Add(Me.gMonStatusStrip)
         Me.Controls.Add(Me.gMonMainMenu)
         Me.Controls.Add(Me.txtLog)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.gMonMainMenu
-        Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmMain"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
@@ -586,7 +576,6 @@ Partial Class frmMain
     Friend WithEvents gMonTraySetupGameManager As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTraySetupCustomVariables As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents pbIcon As System.Windows.Forms.PictureBox
-    Friend WithEvents btnLogToggle As System.Windows.Forms.Button
     Friend WithEvents lblGameTitle As System.Windows.Forms.Label
     Friend WithEvents lblLastAction As System.Windows.Forms.Label
     Friend WithEvents lblLastActionTitle As System.Windows.Forms.Label
