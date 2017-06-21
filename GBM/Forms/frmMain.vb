@@ -73,7 +73,7 @@ Public Class frmMain
             Me.Invoke(d, New Object() {sMessage})
         Else
             Dim sPattern As String = "h:mm tt"
-            lblLastActionTitle.Visible = True            
+            lblLastActionTitle.Visible = True
             lblLastAction.Text = sMessage.TrimEnd(".") & " " & mgrCommon.FormatString(frmMain_AtTime, TimeOfDay.ToString(sPattern))
         End If
     End Sub
@@ -159,7 +159,7 @@ Public Class frmMain
         OperationEnded()
     End Sub
 
-    Private Sub ExecuteRestore(ByVal oRestoreList As List(Of clsBackup))                
+    Private Sub ExecuteRestore(ByVal oRestoreList As List(Of clsBackup))
         oRestore.DoRestore(oRestoreList)
         OperationEnded()
     End Sub
@@ -320,7 +320,7 @@ Public Class frmMain
         End If
 
         If bDoBackup Then
-            If Not oBackup.CheckBackupPrereq(oProcess.GameInfo) Then                
+            If Not oBackup.CheckBackupPrereq(oProcess.GameInfo) Then
                 SetLastAction(mgrCommon.FormatString(frmMain_ErrorBackupCancel, oProcess.GameInfo.CroppedName))
                 OperationEnded()
             Else
@@ -329,7 +329,7 @@ Public Class frmMain
                 Dim trd As New System.Threading.Thread(AddressOf ExecuteBackup)
                 trd.IsBackground = True
                 trd.Start(oReadyList)
-            End If            
+            End If
         End If
     End Sub
 
@@ -475,8 +475,8 @@ Public Class frmMain
                     End If
 
                     RunRestore(hshRestore)
-                    End If
                 End If
+            End If
 
             'Shutdown if we are finished
             If bFinished Then
@@ -1828,6 +1828,14 @@ Public Class frmMain
         If e.KeyCode = Keys.Oemtilde AndAlso e.Modifiers = Keys.Control Then
             OpenDevConsole()
         End If
+    End Sub
+
+    'This event handler lets the user clear focus from the log by clicking anywhere on the form.
+    'Due to txtLog being the only focusable control in most cases, it's impossible for it to lose focus unless force a focus change.
+    Private Sub ClearLogFocus(sender As Object, e As EventArgs) Handles MyBase.Click, lblGameTitle.Click, lblStatus1.Click, lblStatus2.Click,
+        lblStatus3.Click, pbTime.Click, lblTimeSpent.Click, lblLastActionTitle.Click, lblLastAction.Click, gMonMainMenu.Click, gMonStatusStrip.Click
+        'Move focus to first label
+        lblGameTitle.Focus()
     End Sub
 
 End Class
