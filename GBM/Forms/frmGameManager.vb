@@ -1259,6 +1259,13 @@ Public Class frmGameManager
             Return False
         End If
 
+        If oApp.Parameter <> String.Empty Then
+            If mgrMonitorList.DoDuplicateParameterCheck(oApp.ProcessName, oApp.Parameter, , oApp.ID) Then
+                mgrCommon.ShowMessage(frmGameManager_ErrorProcessParameterDupe, MsgBoxStyle.Exclamation)
+                Return False
+            End If
+        End If
+
         Return True
     End Function
 

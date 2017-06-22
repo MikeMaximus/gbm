@@ -1636,6 +1636,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to A game with this exact process and parameter already exists..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ErrorProcessParameterDupe() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ErrorProcessParameterDupe", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to You must enter a valid game name..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ErrorValidName() As String
