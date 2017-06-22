@@ -2275,7 +2275,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Game Backup Monitor[BR]Version: [PARAM] ([PARAM])[BR]Build: [PARAM][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details..
+        '''  Looks up a localized string similar to Game Backup Monitor[BR]Version: [PARAM] ([PARAM])[BR]Build: [PARAM][BR]SQLite: [PARAM][BR][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details..
         '''</summary>
         Friend ReadOnly Property frmMain_About() As String
             Get

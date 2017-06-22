@@ -678,6 +678,10 @@ Public Class mgrSQLite
         Return Math.Round(oFileInfo.Length / 1024, 2)
     End Function
 
+    Public Function ReportVersion() As String
+        Return SqliteConnection.SQLiteVersion
+    End Function
+
     Public Sub CompactDatabase()
         Dim sSQL As String
         Dim command As SQLiteCommand
