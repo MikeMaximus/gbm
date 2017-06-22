@@ -1,22 +1,24 @@
-Game Backup Monitor v1.01 Readme
+Game Backup Monitor v1.02 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-April 1, 2017
+July 1, 2017
 
-New in 1.01
+New in 1.02
 
-- (All) Added features to automatically handle new backup files.
-	- Automatically restore new backup files when they are detected.
-	- Automatically mark new backup files as restored if the game isn't installed on the current PC.
-	- These new features are available in the "Backup and Restore" section of the Settings.  They are optional and disabled by default.
-- (All) Added new configuration option to delete saved game folder on restore
-	- This option is used for games that change the file names of their saves, which results in a mix of old and new saved games if the old saves aren't deleted first.
-	- This option has limitations and is not part of official configurations or import/export features.
-- (All) The "Verify backup files with a checksum" option has been removed.  This feature is now baked into GBM and cannot be disabled.
-- (All) GBM will now behave consistently across different configurations (such as LAN) when performing sync operations.
-- (Windows) Fixed rare issue related to DPI display scaling.
-
-Read the "Settings" and "The Game Manager" sections of the manual (http://mikemaximus.github.io/gbm-web/manual.html) for more details on how the new features work and their limitations.
+- (Windows) Upgraded SQLite to 3.19.3.
+- (All) The SQLite version is displayed on the "About" screen.
+- (All) Added the ability to detect command parameters.
+	- Use parameter detection for better detection of games running in emulators or interpreters like DOSBox.
+	- This is an advanced optional feature and is not available in the "Add Game Wizard", please read the manual for more details.
+- (All) Added the ability to resize and maximize the main program window.
+	- The log is now displayed by default and resizes with the window.
+	- The "Show/Hide Log" button has been removed due to technical issues with this change.
+	- The minimum window size will let you easily hide the log as in past versions.
+- (All) The last browse location in various dialogs is now saved, such as when using the Import/Export feature.
+- (All) Available disk space is checked before attempting a backup.  The log now displays available disk space and save folder size.
+- (Linux) Using the keyboard to navigate the game list in the Game Manager now works correctly.
+- (All) Tags can now be added to a new game configuration before saving on the Game Manager.
+- (All) Fixed various issues when adding new game configurations while using filters on the Game Manager.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
