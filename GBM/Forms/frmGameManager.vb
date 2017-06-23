@@ -737,6 +737,7 @@ Public Class frmGameManager
         txtID.Text = oApp.ID
         txtName.Text = oApp.Name
         txtProcess.Text = oApp.TrueProcess
+        txtParameter.Text = oApp.Parameter
         txtSavePath.Text = oApp.Path
         txtFileType.Text = oApp.FileType
         txtExclude.Text = oApp.ExcludeList
@@ -1126,6 +1127,7 @@ Public Class frmGameManager
         Else
             oApp.ProcessName = txtProcess.Text
         End If
+        oApp.Parameter = txtParameter.Text
         oApp.Path = txtSavePath.Text
         'Only do a simple root check here in case the user doesn't really understand creating a proper configuration
         oApp.AbsolutePath = Path.IsPathRooted(txtSavePath.Text)
@@ -1255,6 +1257,13 @@ Public Class frmGameManager
             mgrCommon.ShowMessage(frmGameManager_ErrorGameDupe, MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
+        End If
+
+        If oApp.Parameter <> String.Empty Then
+            If mgrMonitorList.DoDuplicateParameterCheck(oApp.ProcessName, oApp.Parameter, , oApp.ID) Then
+                mgrCommon.ShowMessage(frmGameManager_ErrorProcessParameterDupe, MsgBoxStyle.Exclamation)
+                Return False
+            End If
         End If
 
         Return True
@@ -1489,6 +1498,7 @@ Public Class frmGameManager
         btnProcessBrowse.Text = frmGameManager_btnProcessBrowse
         lblSavePath.Text = frmGameManager_lblSavePath
         lblProcess.Text = frmGameManager_lblProcess
+        lblParameter.Text = frmGameManager_lblParameter
         lblName.Text = frmGameManager_lblName
         chkTimeStamp.Text = frmGameManager_chkTimeStamp
         chkFolderSave.Text = frmGameManager_chkFolderSave

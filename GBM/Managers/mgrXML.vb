@@ -28,6 +28,7 @@ Public Class mgrXML
             oGame.FolderSave = g.FolderSave
             oGame.FileType = g.FileType
             oGame.ExcludeList = g.ExcludeList
+            oGame.Parameter = g.Parameter
             For Each t As Tag In g.Tags
                 oGame.ImportTags.Add(t)
             Next

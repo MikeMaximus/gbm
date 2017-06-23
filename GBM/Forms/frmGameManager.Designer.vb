@@ -28,6 +28,8 @@ Partial Class frmGameManager
         Me.btnBackup = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.grpConfig = New System.Windows.Forms.GroupBox()
+        Me.txtParameter = New System.Windows.Forms.TextBox()
+        Me.lblParameter = New System.Windows.Forms.Label()
         Me.chkCleanFolder = New System.Windows.Forms.CheckBox()
         Me.lblLimit = New System.Windows.Forms.Label()
         Me.nudLimit = New System.Windows.Forms.NumericUpDown()
@@ -152,6 +154,8 @@ Partial Class frmGameManager
         'grpConfig
         '
         Me.grpConfig.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpConfig.Controls.Add(Me.txtParameter)
+        Me.grpConfig.Controls.Add(Me.lblParameter)
         Me.grpConfig.Controls.Add(Me.chkCleanFolder)
         Me.grpConfig.Controls.Add(Me.lblLimit)
         Me.grpConfig.Controls.Add(Me.nudLimit)
@@ -178,13 +182,29 @@ Partial Class frmGameManager
         Me.grpConfig.TabStop = False
         Me.grpConfig.Text = "Configuration"
         '
+        'txtParameter
+        '
+        Me.txtParameter.Location = New System.Drawing.Point(333, 45)
+        Me.txtParameter.Name = "txtParameter"
+        Me.txtParameter.Size = New System.Drawing.Size(150, 20)
+        Me.txtParameter.TabIndex = 7
+        '
+        'lblParameter
+        '
+        Me.lblParameter.AutoSize = True
+        Me.lblParameter.Location = New System.Drawing.Point(269, 48)
+        Me.lblParameter.Name = "lblParameter"
+        Me.lblParameter.Size = New System.Drawing.Size(58, 13)
+        Me.lblParameter.TabIndex = 6
+        Me.lblParameter.Text = "Parameter:"
+        '
         'chkCleanFolder
         '
         Me.chkCleanFolder.AutoSize = True
         Me.chkCleanFolder.Location = New System.Drawing.Point(329, 101)
         Me.chkCleanFolder.Name = "chkCleanFolder"
         Me.chkCleanFolder.Size = New System.Drawing.Size(136, 17)
-        Me.chkCleanFolder.TabIndex = 11
+        Me.chkCleanFolder.TabIndex = 13
         Me.chkCleanFolder.Text = "Delete folder on restore"
         Me.chkCleanFolder.UseVisualStyleBackColor = True
         '
@@ -194,7 +214,7 @@ Partial Class frmGameManager
         Me.lblLimit.Location = New System.Drawing.Point(375, 130)
         Me.lblLimit.Name = "lblLimit"
         Me.lblLimit.Size = New System.Drawing.Size(68, 13)
-        Me.lblLimit.TabIndex = 14
+        Me.lblLimit.TabIndex = 16
         Me.lblLimit.Text = "Backup Limit"
         Me.lblLimit.Visible = False
         '
@@ -204,7 +224,7 @@ Partial Class frmGameManager
         Me.nudLimit.Minimum = New Decimal(New Integer() {2, 0, 0, 0})
         Me.nudLimit.Name = "nudLimit"
         Me.nudLimit.Size = New System.Drawing.Size(40, 20)
-        Me.nudLimit.TabIndex = 13
+        Me.nudLimit.TabIndex = 15
         Me.nudLimit.Value = New Decimal(New Integer() {2, 0, 0, 0})
         Me.nudLimit.Visible = False
         '
@@ -213,7 +233,7 @@ Partial Class frmGameManager
         Me.btnExclude.Location = New System.Drawing.Point(9, 125)
         Me.btnExclude.Name = "btnExclude"
         Me.btnExclude.Size = New System.Drawing.Size(175, 23)
-        Me.btnExclude.TabIndex = 9
+        Me.btnExclude.TabIndex = 11
         Me.btnExclude.Text = "E&xclude Items..."
         Me.btnExclude.UseVisualStyleBackColor = True
         '
@@ -222,7 +242,7 @@ Partial Class frmGameManager
         Me.btnInclude.Location = New System.Drawing.Point(9, 97)
         Me.btnInclude.Name = "btnInclude"
         Me.btnInclude.Size = New System.Drawing.Size(175, 23)
-        Me.btnInclude.TabIndex = 8
+        Me.btnInclude.TabIndex = 10
         Me.btnInclude.Text = "In&clude Items..."
         Me.btnInclude.UseVisualStyleBackColor = True
         '
@@ -241,13 +261,13 @@ Partial Class frmGameManager
         Me.btnSavePathBrowse.Location = New System.Drawing.Point(489, 71)
         Me.btnSavePathBrowse.Name = "btnSavePathBrowse"
         Me.btnSavePathBrowse.Size = New System.Drawing.Size(30, 20)
-        Me.btnSavePathBrowse.TabIndex = 7
+        Me.btnSavePathBrowse.TabIndex = 9
         Me.btnSavePathBrowse.Text = "..."
         Me.btnSavePathBrowse.UseVisualStyleBackColor = True
         '
         'btnProcessBrowse
         '
-        Me.btnProcessBrowse.Location = New System.Drawing.Point(489, 45)
+        Me.btnProcessBrowse.Location = New System.Drawing.Point(225, 44)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
         Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnProcessBrowse.TabIndex = 5
@@ -305,7 +325,7 @@ Partial Class frmGameManager
         Me.chkTimeStamp.Location = New System.Drawing.Point(190, 129)
         Me.chkTimeStamp.Name = "chkTimeStamp"
         Me.chkTimeStamp.Size = New System.Drawing.Size(133, 17)
-        Me.chkTimeStamp.TabIndex = 12
+        Me.chkTimeStamp.TabIndex = 14
         Me.chkTimeStamp.Text = "Save multiple backups"
         Me.chkTimeStamp.UseVisualStyleBackColor = True
         '
@@ -315,7 +335,7 @@ Partial Class frmGameManager
         Me.chkFolderSave.Location = New System.Drawing.Point(190, 101)
         Me.chkFolderSave.Name = "chkFolderSave"
         Me.chkFolderSave.Size = New System.Drawing.Size(109, 17)
-        Me.chkFolderSave.TabIndex = 10
+        Me.chkFolderSave.TabIndex = 12
         Me.chkFolderSave.Text = "Save entire folder"
         Me.chkFolderSave.UseVisualStyleBackColor = True
         '
@@ -324,13 +344,13 @@ Partial Class frmGameManager
         Me.txtSavePath.Location = New System.Drawing.Point(69, 71)
         Me.txtSavePath.Name = "txtSavePath"
         Me.txtSavePath.Size = New System.Drawing.Size(414, 20)
-        Me.txtSavePath.TabIndex = 6
+        Me.txtSavePath.TabIndex = 8
         '
         'txtProcess
         '
         Me.txtProcess.Location = New System.Drawing.Point(69, 45)
         Me.txtProcess.Name = "txtProcess"
-        Me.txtProcess.Size = New System.Drawing.Size(414, 20)
+        Me.txtProcess.Size = New System.Drawing.Size(150, 20)
         Me.txtProcess.TabIndex = 4
         '
         'txtName
@@ -941,4 +961,6 @@ Partial Class frmGameManager
     Friend WithEvents cmsDeleteOne As ToolStripMenuItem
     Friend WithEvents cmsDeleteAll As ToolStripMenuItem
     Friend WithEvents chkCleanFolder As CheckBox
+    Friend WithEvents txtParameter As TextBox
+    Friend WithEvents lblParameter As Label
 End Class

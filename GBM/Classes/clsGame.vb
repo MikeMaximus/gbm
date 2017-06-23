@@ -2,6 +2,7 @@
     Private sGameID As String = Guid.NewGuid.ToString
     Private sGameName As String = String.Empty
     Private sProcessName As String = String.Empty
+    Private sParameter As String = String.Empty
     Private sPath As String = String.Empty
     Private bAbsolutePath As Boolean = False
     Private bFolderSave As Boolean = False
@@ -71,6 +72,15 @@
         End Set
         Get
             Return sProcessName
+        End Get
+    End Property
+
+    Property Parameter As String
+        Set(value As String)
+            sParameter = value
+        End Set
+        Get
+            Return sParameter
         End Get
     End Property
 
@@ -261,6 +271,9 @@
                 Return False
             End If
             If ProcessName <> oGame.ProcessName Then
+                Return False
+            End If
+            If Parameter <> oGame.Parameter Then
                 Return False
             End If
             If Path <> oGame.Path Then

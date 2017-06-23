@@ -39,8 +39,6 @@ Public Class frmMain
     Private sPriorPath As String
     Private sPriorCompany As String
     Private sPriorVersion As String
-    Private iFormHeight As Integer
-    Private iLogSpacer As Integer
     Private iRestoreTimeOut As Integer
 
     'Developer Debug Flags
@@ -75,7 +73,7 @@ Public Class frmMain
             Me.Invoke(d, New Object() {sMessage})
         Else
             Dim sPattern As String = "h:mm tt"
-            lblLastActionTitle.Visible = True            
+            lblLastActionTitle.Visible = True
             lblLastAction.Text = sMessage.TrimEnd(".") & " " & mgrCommon.FormatString(frmMain_AtTime, TimeOfDay.ToString(sPattern))
         End If
     End Sub
@@ -161,7 +159,7 @@ Public Class frmMain
         OperationEnded()
     End Sub
 
-    Private Sub ExecuteRestore(ByVal oRestoreList As List(Of clsBackup))                
+    Private Sub ExecuteRestore(ByVal oRestoreList As List(Of clsBackup))
         oRestore.DoRestore(oRestoreList)
         OperationEnded()
     End Sub
@@ -322,7 +320,7 @@ Public Class frmMain
         End If
 
         If bDoBackup Then
-            If Not oBackup.CheckBackupPrereq(oProcess.GameInfo) Then                
+            If Not oBackup.CheckBackupPrereq(oProcess.GameInfo) Then
                 SetLastAction(mgrCommon.FormatString(frmMain_ErrorBackupCancel, oProcess.GameInfo.CroppedName))
                 OperationEnded()
             Else
@@ -331,7 +329,7 @@ Public Class frmMain
                 Dim trd As New System.Threading.Thread(AddressOf ExecuteBackup)
                 trd.IsBackground = True
                 trd.Start(oReadyList)
-            End If            
+            End If
         End If
     End Sub
 
@@ -477,8 +475,8 @@ Public Class frmMain
                     End If
 
                     RunRestore(hshRestore)
-                    End If
                 End If
+            End If
 
             'Shutdown if we are finished
             If bFinished Then
@@ -534,7 +532,7 @@ Public Class frmMain
 
     Private Sub ResetGameInfo(Optional ByVal bKeepInfo As Boolean = False)
         If bKeepInfo And Not oProcess.GameInfo Is Nothing Then
-            lblGameTitle.Text = mgrCommon.FormatString(frmMain_LastGame, oProcess.GameInfo.CroppedName)
+            lblGameTitle.Text = mgrCommon.FormatString(frmMain_LastGame, oProcess.GameInfo.Name)
             pbIcon.Image = oPriorImage
             lblStatus1.Text = sPriorPath
             lblStatus2.Text = sPriorCompany
@@ -599,7 +597,7 @@ Public Class frmMain
         Else
             bAllowIcon = True
             bAllowDetails = True
-            lblGameTitle.Text = oProcess.GameInfo.CroppedName
+            lblGameTitle.Text = oProcess.GameInfo.Name
 
             Try
                 Dim ic As Icon = System.Drawing.Icon.ExtractAssociatedIcon(oProcess.FoundProcess.MainModule.FileName)
@@ -817,9 +815,11 @@ Public Class frmMain
         Dim sVersion As String = My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Build
         Dim sProcessType = [Enum].GetName(GetType(System.Reflection.ProcessorArchitecture), iProcessType)
         Dim sRevision As String = My.Application.Info.Version.Revision
+        Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
+        Dim sSqliteVersion As String = oDatabase.ReportVersion
         Dim sConstCopyright As String = Chr(169) & mgrCommon.FormatString(App_Copyright, Now.Year.ToString)
 
-        mgrCommon.ShowMessage(frmMain_About, New String() {sVersion, sProcessType, sRevision, sConstCopyright}, MsgBoxStyle.Information)
+        mgrCommon.ShowMessage(frmMain_About, New String() {sVersion, sProcessType, sRevision, sSqliteVersion, sConstCopyright}, MsgBoxStyle.Information)
     End Sub
 
     Private Sub OpenTags()
@@ -1027,22 +1027,6 @@ Public Class frmMain
     End Sub
 
     'Functions that handle buttons, menus and other GUI features on this form
-    Private Sub ToggleLog()
-        If bLogToggle = False Then
-            txtLog.Visible = True
-            Me.Size = New System.Drawing.Size(Me.Size.Width, iFormHeight)
-            bLogToggle = True
-            btnLogToggle.Text = frmMain_btnToggleLog_Hide
-            txtLog.Select(txtLog.TextLength, 0)
-            txtLog.ScrollToCaret()
-        Else
-            txtLog.Visible = False
-            Me.Size = New System.Drawing.Size(Me.Size.Width, Me.Size.Height - (txtLog.Height + iLogSpacer))
-            bLogToggle = False
-            btnLogToggle.Text = frmMain_btnToggleLog_Show
-        End If
-    End Sub
-
     Private Sub ToggleState()
         'Toggle State with Tray Clicks        
         If Not bShowToggle Then
@@ -1257,8 +1241,8 @@ Public Class frmMain
     End Sub
 
     Private Sub SetForm()
-        'Disable Autosize in Linux (Mono prevents manual resizing when this is enabled)
-        If mgrCommon.IsUnix Then Me.AutoSize = False
+        'Set Minimum Size
+        Me.MinimumSize = New Size(Me.Size.Width, Me.Size.Height - txtLog.Size.Height)
 
         'Set Form Name
         Me.Name = App_NameLong
@@ -1317,14 +1301,10 @@ Public Class frmMain
             gMonStripAdminButton.ToolTipText = frmMain_RunningAsNormal
         End If
         btnCancelOperation.Visible = False
-        txtLog.Visible = False
         lblLastActionTitle.Visible = False
         lblLastAction.Text = String.Empty
         pbTime.SizeMode = PictureBoxSizeMode.AutoSize
         pbTime.Image = Icon_Clock
-        iFormHeight = Me.Size.Height
-        iLogSpacer = gMonStatusStrip.Location.Y - (txtLog.Location.Y + txtLog.Height)
-        Me.Size = New System.Drawing.Size(Me.Size.Width, Me.Size.Height - (txtLog.Height + iLogSpacer))
         AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
         ResetGameInfo()
     End Sub
@@ -1470,9 +1450,20 @@ Public Class frmMain
 
     End Function
 
+    Private Function CheckForParametersDuplicate() As Boolean
+        For Each o As clsGame In oProcess.DuplicateList
+            If o.Parameter <> String.Empty And oProcess.FullCommand.Contains(o.Parameter) Then
+                oProcess.GameInfo = o
+                oProcess.Duplicate = False
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
     Private Sub CheckForSavedDuplicate()
         For Each o As clsGame In oProcess.DuplicateList
-            If o.ProcessPath.ToLower = oProcess.GameInfo.ProcessPath.ToLower Then
+            If o.ProcessPath.ToLower = oProcess.GameInfo.ProcessPath.ToLower And o.Parameter = String.Empty Then
                 oProcess.GameInfo = o
                 oProcess.Duplicate = False
             End If
@@ -1631,10 +1622,6 @@ Public Class frmMain
         OpenGameManager(True)
     End Sub
 
-    Private Sub btnLogToggle_Click(sender As Object, e As EventArgs) Handles btnLogToggle.Click
-        ToggleLog()
-    End Sub
-
     Private Sub gMonStripSplitStatusButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripStatusButton.Click
         ScanToggle()
     End Sub
@@ -1725,20 +1712,20 @@ Public Class frmMain
             End If
 
             If bContinue = True Then
-                CheckForSavedDuplicate()
+                If Not CheckForParametersDuplicate() Then CheckForSavedDuplicate()
                 If oProcess.Duplicate Then
-                    UpdateLog(frmMain_MultipleGamesDetected, oSettings.ShowDetectionToolTips)
-                    UpdateStatus(frmMain_MultipleGamesDetected)
-                    SetGameInfo(True)
+                        UpdateLog(frmMain_MultipleGamesDetected, oSettings.ShowDetectionToolTips)
+                        UpdateStatus(frmMain_MultipleGamesDetected)
+                        SetGameInfo(True)
+                    Else
+                        UpdateLog(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.Name), oSettings.ShowDetectionToolTips)
+                        UpdateStatus(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.CroppedName))
+                        SetGameInfo()
+                    End If
+                    oProcess.StartTime = Now
+                    bwMonitor.RunWorkerAsync()
                 Else
-                    UpdateLog(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.Name), oSettings.ShowDetectionToolTips)
-                    UpdateStatus(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.CroppedName))
-                    SetGameInfo()
-                End If
-                oProcess.StartTime = Now
-                bwMonitor.RunWorkerAsync()
-            Else
-                StopScan()
+                    StopScan()
             End If
         End If
     End Sub
@@ -1850,14 +1837,18 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub txtGameInfo_Enter(sender As Object, e As EventArgs)
-        btnLogToggle.Focus()
-    End Sub
-
     Private Sub frmMain_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Oemtilde AndAlso e.Modifiers = Keys.Control Then
             OpenDevConsole()
         End If
+    End Sub
+
+    'This event handler lets the user clear focus from the log by clicking anywhere on the form.
+    'Due to txtLog being the only focusable control in most cases, it's impossible for it to lose focus unless a change is forced.
+    Private Sub ClearLogFocus(sender As Object, e As EventArgs) Handles MyBase.Click, lblGameTitle.Click, lblStatus1.Click, lblStatus2.Click,
+        lblStatus3.Click, pbTime.Click, lblTimeSpent.Click, lblLastActionTitle.Click, lblLastAction.Click, gMonMainMenu.Click, gMonStatusStrip.Click
+        'Move focus to first label
+        lblGameTitle.Focus()
     End Sub
 
 End Class

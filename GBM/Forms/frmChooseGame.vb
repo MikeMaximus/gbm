@@ -30,8 +30,10 @@ Public Class frmChooseGame
         lstGameBox.DisplayMember = "Value"
 
         For Each o As clsGame In Process.DuplicateList
-            lstGameBox.Items.Add(New KeyValuePair(Of String, String)(o.ID, o.Name))
-            oGamesHash.Add(o.ID, o)
+            If o.Parameter = String.Empty Then
+                lstGameBox.Items.Add(New KeyValuePair(Of String, String)(o.ID, o.Name))
+                oGamesHash.Add(o.ID, o)
+            End If
         Next
 
         lstGameBox.SelectedIndex = 0

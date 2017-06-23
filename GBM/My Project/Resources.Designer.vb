@@ -1636,6 +1636,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to A game with this exact process and parameter already exists..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ErrorProcessParameterDupe() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ErrorProcessParameterDupe", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to You must enter a valid game name..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ErrorValidName() As String
@@ -1839,6 +1848,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_lblName() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_lblName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Parameter:.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblParameter() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblParameter", resourceCulture)
             End Get
         End Property
         
@@ -2266,7 +2284,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Game Backup Monitor[BR]Version: [PARAM] ([PARAM])[BR]Build: [PARAM][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details..
+        '''  Looks up a localized string similar to Game Backup Monitor[BR]Version: [PARAM] ([PARAM])[BR]Build: [PARAM][BR]SQLite: [PARAM][BR][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details..
         '''</summary>
         Friend ReadOnly Property frmMain_About() As String
             Get
