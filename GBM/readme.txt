@@ -10,7 +10,8 @@ New in 1.02
 - (All) The SQLite version is displayed on the "About" screen.
 - (All) Added the ability to detect command parameters.
 	- Use parameter detection for better detection of games running in emulators or interpreters like DOSBox.
-	- This is an advanced optional feature and is not available in the "Add Game Wizard", please read the manual for more details.
+	- This is an advanced optional feature and is not available in the "Add Game Wizard", please read the manual (http://mikemaximus.github.io/gbm-web/manual.html) for more details.	
+	- (Linux) Please note that Wine detection is still handled automatically by GBM and only requires a Windows process name.  But this feature does work with Wine if you need to detect parameters!
 - (All) Added the ability to resize and maximize the main program window.
 	- The log is now displayed by default and resizes with the window.
 	- The "Show/Hide Log" button has been removed due to technical issues with this change.
