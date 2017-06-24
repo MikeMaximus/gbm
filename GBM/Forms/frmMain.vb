@@ -40,6 +40,7 @@ Public Class frmMain
     Private sPriorCompany As String
     Private sPriorVersion As String
     Private iRestoreTimeOut As Integer
+    Private wState As FormWindowState = FormWindowState.Normal
 
     'Developer Debug Flags
     Private bProcessDebugMode As Boolean = False
@@ -1031,12 +1032,13 @@ Public Class frmMain
         'Toggle State with Tray Clicks        
         If Not bShowToggle Then
             bShowToggle = True
-            Me.Visible = True
+            Me.WindowState = wState
             Me.ShowInTaskbar = True
             Me.Focus()
         Else
             bShowToggle = False
-            Me.Visible = False
+            wState = Me.WindowState
+            Me.WindowState = FormWindowState.Minimized
             Me.ShowInTaskbar = False
         End If
     End Sub
@@ -1663,7 +1665,8 @@ Public Class frmMain
             e.Cancel = True
             If Not mgrCommon.IsUnix Then
                 bShowToggle = False
-                Me.Visible = False
+                wState = Me.WindowState
+                Me.WindowState = FormWindowState.Minimized
                 Me.ShowInTaskbar = False
             End If
         End If
