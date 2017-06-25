@@ -81,18 +81,31 @@ Public Class mgrProcesses
         End Set
     End Property
 
-    Private Sub VerifyDuplicate(oGame As clsGame, hshScanList As Hashtable)
+    Private Function HandleDuplicates(hshScanList As Hashtable) As Boolean
         Dim sProcess As String
         bDuplicates = True
         oDuplicateGames.Clear()
+
         For Each o As clsGame In hshScanList.Values
             sProcess = o.ProcessName.Split(":")(0)
 
             If o.Duplicate = True And sProcess = oGame.TrueProcess Then
-                oDuplicateGames.Add(o.ShallowCopy)
+                If o.Parameter <> String.Empty And FullCommand.Contains(o.Parameter) Then
+                    oGame = o.ShallowCopy
+                    Return True
+                ElseIf o.Parameter = String.Empty Then
+                    oDuplicateGames.Add(o.ShallowCopy)
+                End If
             End If
         Next
-    End Sub
+
+        If oDuplicateGames.Count = 1 Then
+            oGame = DirectCast(oDuplicateGames(0), clsGame).ShallowCopy
+            Return True
+        End If
+
+        Return False
+    End Function
 
     'This function will only work correctly on Windows
     Private Sub GetWindowsCommand(ByVal prs As Process)
@@ -193,15 +206,18 @@ Public Class mgrProcesses
                 End If
 
                 If oGame.Duplicate = True Then
-                    VerifyDuplicate(oGame, hshScanList)
+                    If HandleDuplicates(hshScanList) Then
+                        bDuplicates = False
+                        oDuplicateGames.Clear()
+                    End If
                 Else
                     bDuplicates = False
                     oDuplicateGames.Clear()
                 End If
 
-                If oGame.Parameter <> String.Empty And Not oGame.Duplicate And Not FullCommand.Contains(oGame.Parameter) Then
-                    Return False
-                End If
+                If Duplicate And DuplicateList.Count = 0 Then Return False
+
+                If oGame.Parameter <> String.Empty And Not Duplicate And Not FullCommand.Contains(oGame.Parameter) Then Return False
 
                 If Not oGame.AbsolutePath Or oGame.Duplicate Then
                     Try

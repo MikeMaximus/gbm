@@ -1452,17 +1452,6 @@ Public Class frmMain
 
     End Function
 
-    Private Function CheckForParametersDuplicate() As Boolean
-        For Each o As clsGame In oProcess.DuplicateList
-            If o.Parameter <> String.Empty And oProcess.FullCommand.Contains(o.Parameter) Then
-                oProcess.GameInfo = o
-                oProcess.Duplicate = False
-                Return True
-            End If
-        Next
-        Return False
-    End Function
-
     Private Sub CheckForSavedDuplicate()
         For Each o As clsGame In oProcess.DuplicateList
             If o.ProcessPath.ToLower = oProcess.GameInfo.ProcessPath.ToLower And o.Parameter = String.Empty Then
@@ -1715,7 +1704,7 @@ Public Class frmMain
             End If
 
             If bContinue = True Then
-                If Not CheckForParametersDuplicate() Then CheckForSavedDuplicate()
+                CheckForSavedDuplicate()
                 If oProcess.Duplicate Then
                         UpdateLog(frmMain_MultipleGamesDetected, oSettings.ShowDetectionToolTips)
                         UpdateStatus(frmMain_MultipleGamesDetected)
