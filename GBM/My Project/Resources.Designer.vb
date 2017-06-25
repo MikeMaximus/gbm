@@ -4637,6 +4637,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] B.
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_B() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_B", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to An error has occured writing the text file.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_ErrorWritingTextFile() As String

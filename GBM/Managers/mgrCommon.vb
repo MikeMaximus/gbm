@@ -250,7 +250,9 @@ Public Class mgrCommon
 
             'Sub Folders
             For Each di As DirectoryInfo In oFolder.GetDirectories
-                lSize += GetFolderSize(di.FullName)
+                If Not ((di.Attributes And FileAttributes.ReparsePoint) = FileAttributes.ReparsePoint) Then
+                    lSize += GetFolderSize(di.FullName)
+                End If
             Next
         Catch
             'Do Nothing
@@ -273,6 +275,8 @@ Public Class mgrCommon
                 Return FormatString(mgrCommon_MB, Math.Round(lSize / 1048576, 2))
             Case >= 1024
                 Return FormatString(mgrCommon_KB, Math.Round(lSize / 1024, 2))
+            Case >= 0
+                Return FormatString(mgrCommon_B, lSize)
         End Select
 
         Return lSize

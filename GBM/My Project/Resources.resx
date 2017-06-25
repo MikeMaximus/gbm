@@ -1789,4 +1789,7 @@
   <data name="frmGameManager_ErrorProcessParameterDupe" xml:space="preserve">
     <value>A game with this exact process and parameter already exists.</value>
   </data>
+  <data name="mgrCommon_B" xml:space="preserve">
+    <value>[PARAM] B</value>
+  </data>
 </root>
