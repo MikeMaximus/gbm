@@ -1177,7 +1177,7 @@ Public Class frmGameManager
             IsDirty = False
             LoadData()
             If eCurrentMode = eModes.View Then
-                lstGames.SelectedValue = oApp.ID
+                lstGames.SelectedItem = New KeyValuePair(Of String, String)(oApp.ID, oApp.Name)
             Else
                 ModeChange()
             End If
