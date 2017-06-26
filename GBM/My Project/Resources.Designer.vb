@@ -4457,6 +4457,33 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] backup failed due to a malformed command..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_7zCommandFailure() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_7zCommandFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] backup failed due to an error..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_7zFatalError() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_7zFatalError", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] backup completed with warnings..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_7zWarnings() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_7zWarnings", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] backup completed..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ActionComplete() As String
@@ -4498,15 +4525,6 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_BackupLimitExceeded() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_BackupLimitExceeded", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to [PARAM] backup finished with warnings or errors..
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_BackupWarnings() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_BackupWarnings", resourceCulture)
             End Get
         End Property
         

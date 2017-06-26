@@ -1297,8 +1297,8 @@
   <data name="mgrBackup_BackupInProgress" xml:space="preserve">
     <value>Backup of [PARAM] in progress...</value>
   </data>
-  <data name="mgrBackup_BackupWarnings" xml:space="preserve">
-    <value>[PARAM] backup finished with warnings or errors.</value>
+  <data name="mgrBackup_7zWarnings" xml:space="preserve">
+    <value>[PARAM] backup completed with warnings.</value>
   </data>
   <data name="mgrBackup_ConfirmManifestConflict" xml:space="preserve">
     <value>The manifest shows the backup folder contains a backup for [PARAM] that has not been restored on this computer.[BR][BR]Do you want to overwrite this file anyway?</value>
@@ -1791,5 +1791,11 @@
   </data>
   <data name="mgrCommon_B" xml:space="preserve">
     <value>[PARAM] B</value>
+  </data>
+  <data name="mgrBackup_7zCommandFailure" xml:space="preserve">
+    <value>[PARAM] backup failed due to a malformed command.</value>
+  </data>
+  <data name="mgrBackup_7zFatalError" xml:space="preserve">
+    <value>[PARAM] backup failed due to an error.</value>
   </data>
 </root>

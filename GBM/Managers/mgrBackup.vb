@@ -238,13 +238,20 @@ Public Class mgrBackup
                             End While
                             prs7z.WaitForExit()
                             If Not CancelOperation Then
-                                If prs7z.ExitCode = 0 Then
-                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupComplete, New String() {oGame.Name, mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sBackupFile))}), False, ToolTipIcon.Info, True)
-                                    bBackupCompleted = True
-                                Else
-                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupWarnings, oGame.Name), True, ToolTipIcon.Warning, True)
-                                    bBackupCompleted = False
-                                End If
+                                Select Case prs7z.ExitCode
+                                    Case 0
+                                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupComplete, New String() {oGame.Name, mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sBackupFile))}), False, ToolTipIcon.Info, True)
+                                        bBackupCompleted = True
+                                    Case 1
+                                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_7zWarnings, oGame.Name), True, ToolTipIcon.Warning, True)
+                                        bBackupCompleted = True
+                                    Case 2
+                                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_7zFatalError, oGame.Name), True, ToolTipIcon.Error, True)
+                                        bBackupCompleted = False
+                                    Case 7
+                                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_7zCommandFailure, oGame.Name), True, ToolTipIcon.Error, True)
+                                        bBackupCompleted = False
+                                End Select
                             End If
                             prs7z.Dispose()
                         Else
