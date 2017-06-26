@@ -258,6 +258,26 @@
         End Set
     End Property
 
+    ReadOnly Property IncludeArray As String()
+        Get
+            If FileType = String.Empty Then
+                Return New String() {}
+            Else
+                Return FileType.Split(":")
+            End If
+        End Get
+    End Property
+
+    ReadOnly Property ExcludeArray As String()
+        Get
+            If ExcludeList = String.Empty Then
+                Return New String() {}
+            Else
+                Return ExcludeList.Split(":")
+            End If
+        End Get
+    End Property
+
     Public Function SyncEquals(obj As Object, eSyncFields As eOptionalSyncFields) As Boolean
         Dim oGame As clsGame = TryCast(obj, clsGame)
         If oGame Is Nothing Then

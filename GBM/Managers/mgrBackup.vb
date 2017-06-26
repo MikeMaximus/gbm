@@ -88,7 +88,7 @@ Public Class mgrBackup
     Public Function CheckBackupPrereq(ByVal oGame As clsGame) As Boolean
         Dim sBackupFile As String = oSettings.BackupFolder
         Dim lAvailableSpace As Long = mgrCommon.GetAvailableDiskSpace(sBackupFile)
-        Dim lFolderSize As Long = mgrCommon.GetFolderSize(oGame.Path)
+        Dim lFolderSize As Long = mgrCommon.GetFolderSize(oGame.Path, oGame.IncludeArray, oGame.ExcludeArray)
 
         If oSettings.CreateSubFolder Then sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name
         sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name & ".7z"

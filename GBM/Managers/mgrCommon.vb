@@ -2,6 +2,7 @@
 Imports System.Net
 Imports System.IO
 Imports System.Security.Principal
+Imports System.Text.RegularExpressions
 
 Public Class mgrCommon
 
@@ -235,23 +236,62 @@ Public Class mgrCommon
         Return dFileSize
     End Function
 
+    Public Shared Function WildcardToRegex(ByVal sPattern As String) As String
+        Dim sRegEx As String
+        sRegEx = sPattern.Replace("*", ".*")
+        sRegEx = sRegEx.Replace("?", ".")
+        Return sRegEx
+    End Function
+
+    Public Shared Function CompareValueToArrayRegEx(ByVal sValue As String, ByVal sValues As String()) As Boolean
+        For Each se As String In sValues
+            If Regex.IsMatch(sValue, WildcardToRegex(se)) Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
     'Calculate the current size of a folder
-    Public Shared Function GetFolderSize(ByVal sPath As String)
+    Public Shared Function GetFolderSize(ByVal sPath As String, ByVal sInclude As String(), ByVal sExclude As String())
         Dim oFolder As DirectoryInfo
+        Dim bInclude As Boolean
+        Dim bExclude As Boolean
         Dim lSize As Long = 0
 
         Try
             oFolder = New DirectoryInfo(sPath)
 
             'Files
-            For Each fi As FileInfo In oFolder.GetFiles
-                lSize += fi.Length
+            For Each fi As FileInfo In oFolder.EnumerateFiles()
+                If sInclude.Length > 0 Then
+                    bInclude = CompareValueToArrayRegEx(fi.Name, sInclude) Or CompareValueToArrayRegEx(Path.GetDirectoryName(sPath), sInclude)
+                Else
+                    bInclude = True
+                End If
+
+                If sExclude.Length > 0 Then
+                    bExclude = CompareValueToArrayRegEx(fi.Name, sExclude) Or CompareValueToArrayRegEx(Path.GetDirectoryName(sPath), sExclude)
+                Else
+                    bExclude = False
+                End If
+
+                If bInclude And Not bExclude Then
+                    lSize += fi.Length
+                End If
             Next
 
             'Sub Folders
-            For Each di As DirectoryInfo In oFolder.GetDirectories
+            For Each di As DirectoryInfo In oFolder.EnumerateDirectories()
                 If Not ((di.Attributes And FileAttributes.ReparsePoint) = FileAttributes.ReparsePoint) Then
-                    lSize += GetFolderSize(di.FullName)
+                    If sExclude.Length > 0 Then
+                        bExclude = CompareValueToArrayRegEx(di.Name, sExclude)
+                    Else
+                        bExclude = False
+                    End If
+                    If Not bExclude Then
+                        lSize += GetFolderSize(di.FullName, sInclude, sExclude)
+                    End If
                 End If
             Next
         Catch
