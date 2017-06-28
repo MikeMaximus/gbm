@@ -1649,16 +1649,21 @@ Public Class frmMain
             ShutdownApp()
         End If
 
-        'Intercept Exit
-        If bShutdown = False Then
-            e.Cancel = True
-            If Not mgrCommon.IsUnix Then
-                bShowToggle = False
-                wState = Me.WindowState
-                Me.WindowState = FormWindowState.Minimized
-                Me.ShowInTaskbar = False
-            End If
-        End If
+        Select Case e.CloseReason
+            Case CloseReason.UserClosing
+                If bShutdown = False Then
+                    e.Cancel = True
+                    If Not mgrCommon.IsUnix Then
+                        bShowToggle = False
+                        wState = Me.WindowState
+                        Me.WindowState = FormWindowState.Minimized
+                        Me.ShowInTaskbar = False
+                    End If
+                End If
+            Case CloseReason.TaskManagerClosing, CloseReason.WindowsShutDown
+                'Do nothing and let the app close without warning
+        End Select
+
     End Sub
 
     Private Sub AutoRestoreEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmRestoreCheck.Elapsed
