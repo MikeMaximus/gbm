@@ -145,19 +145,18 @@ Public Class mgrProcesses
     'This function will only work correctly on Unix
     Private Function GetUnixSymLinkDirectory(ByVal prs As Process) As String
         Dim prsls As Process
-        Dim slsinfo As String()
+        Dim slsinfo As String
 
-        'This is the best way I can think of to determine the end point of a symlink without doing even more crazy shit
         Try
             prsls = New Process
-            prsls.StartInfo.FileName = "/bin/bash"
-            prsls.StartInfo.Arguments = "-c ""ls -l /proc/" & prs.Id.ToString & " | grep cwd"""
+            prsls.StartInfo.FileName = "/bin/readlink"
+            prsls.StartInfo.Arguments = "-f /proc/" & prs.Id.ToString & "/cwd"
             prsls.StartInfo.UseShellExecute = False
             prsls.StartInfo.RedirectStandardOutput = True
             prsls.StartInfo.CreateNoWindow = True
             prsls.Start()
-            slsinfo = prsls.StandardOutput.ReadToEnd().Split(">")
-            Return slsinfo(slsinfo.Length - 1).Trim
+            slsinfo = prsls.StandardOutput.ReadToEnd()
+            Return slsinfo.Trim()
         Catch ex As Exception
             Return String.Empty
         End Try

@@ -21,5 +21,7 @@ New in 1.02
 - (Linux) Using the keyboard to navigate the game list in the Game Manager now works correctly.
 - (All) Tags can now be added to a new game configuration before saving on the Game Manager.
 - (All) Fixed various issues when adding new game configurations while using filters on the Game Manager.
+- (All) Added better handling of 7-Zip warnings and errors.
+- (Linux) GBM now requires the "readlink" utility to properly handle Wine games.  However bash, ls and grep are no longer required.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
