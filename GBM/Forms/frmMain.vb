@@ -1032,6 +1032,7 @@ Public Class frmMain
         'Toggle State with Tray Clicks        
         If Not bShowToggle Then
             bShowToggle = True
+            Me.Visible = True
             Me.WindowState = wState
             Me.ShowInTaskbar = True
             Me.Focus()
@@ -1040,6 +1041,7 @@ Public Class frmMain
             wState = Me.WindowState
             Me.WindowState = FormWindowState.Minimized
             Me.ShowInTaskbar = False
+            Me.Visible = False
         End If
     End Sub
 
@@ -1658,6 +1660,7 @@ Public Class frmMain
                         wState = Me.WindowState
                         Me.WindowState = FormWindowState.Minimized
                         Me.ShowInTaskbar = False
+                        Me.Visible = False
                     End If
                 End If
             Case CloseReason.TaskManagerClosing, CloseReason.WindowsShutDown
