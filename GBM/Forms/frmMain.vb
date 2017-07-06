@@ -1132,7 +1132,7 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub ToggleMenuEnable()
+    Private Sub ToggleMenuEnable(Optional ByVal bGameDetected As Boolean = False)
         If bMenuEnabled Then
             ToggleMenuItems(False, gMonFile)
             ToggleMenuItems(False, gMonSetup)
@@ -1144,6 +1144,10 @@ Public Class frmMain
             gMonNotification.Enabled = False
             gMonTrayNotification.Enabled = False
             gMonTraySettings.Enabled = False
+            If Not bGameDetected Then
+                gMonTrayMon.Enabled = False
+                gMonTrayShow.Enabled = False
+            End If
             bMenuEnabled = False
         Else
             ToggleMenuItems(True, gMonFile)
@@ -1156,6 +1160,8 @@ Public Class frmMain
             gMonNotification.Enabled = True
             gMonTrayNotification.Enabled = True
             gMonTraySettings.Enabled = True
+            gMonTrayMon.Enabled = True
+            gMonTrayShow.Enabled = True
             bMenuEnabled = True
         End If
     End Sub
@@ -1338,7 +1344,7 @@ Public Class frmMain
         ToggleMenuText()
     End Sub
 
-    Private Sub PauseScan()
+    Private Sub PauseScan(Optional ByVal bGameDetected As Boolean = False)
         If eCurrentStatus = eStatus.Running Then
             StopSyncWatcher()
             tmScanTimer.Stop()
@@ -1348,7 +1354,7 @@ Public Class frmMain
             gMonTray.Icon = GBM_Tray_Detected
         End If
         ToggleMenuText()
-        ToggleMenuEnable()
+        ToggleMenuEnable(bGameDetected)
     End Sub
 
     Private Sub ResumeScan()
@@ -1682,7 +1688,7 @@ Public Class frmMain
         Dim sErrorMessage As String = String.Empty
 
         If oProcess.SearchRunningProcesses(hshScanList, bNeedsPath, iErrorCode, bProcessDebugMode) Then
-            PauseScan()
+            PauseScan(True)
 
             If bNeedsPath Then
                 bContinue = False
