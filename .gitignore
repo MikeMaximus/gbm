@@ -5,6 +5,8 @@
 *.suo
 *.user
 *.sln.docstates
+slnx.*
+VSWorkspaceState.json
 
 # Build results
 [Dd]ebug/
@@ -186,3 +188,5 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
