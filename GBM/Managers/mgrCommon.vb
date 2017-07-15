@@ -323,7 +323,7 @@ Public Class mgrCommon
     End Function
 
     'Get available disk space on a drive (Unix)
-    Private Shared Function GetAvailableDiskSpaceLinux(ByVal sPath As String) As Long
+    Private Shared Function GetAvailableDiskSpaceUnix(ByVal sPath As String) As Long
         Dim prsdf As Process
         Dim sOutput As String
         Dim sAvailableSpace As String
@@ -343,7 +343,6 @@ Public Class mgrCommon
         Catch
             Return 0
         End Try
-        Return 0
     End Function
 
     'Get available disk space on a drive (Windows)
@@ -362,7 +361,7 @@ Public Class mgrCommon
     'Get available disk space on a drive 
     Public Shared Function GetAvailableDiskSpace(ByVal sPath As String) As Long
         If IsUnix() Then
-            Return GetAvailableDiskSpaceLinux(sPath)
+            Return GetAvailableDiskSpaceUnix(sPath)
         Else
             Return GetAvailableDiskSpaceWindows(sPath)
         End If
