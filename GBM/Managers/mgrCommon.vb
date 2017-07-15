@@ -322,8 +322,32 @@ Public Class mgrCommon
         Return lSize
     End Function
 
-    'Get available disk space on a drive
-    Public Shared Function GetAvailableDiskSpace(ByVal sPath As String) As Long
+    'Get available disk space on a drive (Unix)
+    Private Shared Function GetAvailableDiskSpaceLinux(ByVal sPath As String) As Long
+        Dim prsdf As Process
+        Dim sOutput As String
+        Dim sAvailableSpace As String
+        Try
+            prsdf = New Process
+            prsdf.StartInfo.FileName = "/bin/df"
+            prsdf.StartInfo.Arguments = sPath
+            prsdf.StartInfo.UseShellExecute = False
+            prsdf.StartInfo.RedirectStandardOutput = True
+            prsdf.StartInfo.CreateNoWindow = True
+            prsdf.Start()
+            sOutput = prsdf.StandardOutput.ReadToEnd
+            'Parse df output to grab "Available" value
+            sAvailableSpace = sOutput.Split(vbLf)(1).Split(New Char() {" "}, StringSplitOptions.RemoveEmptyEntries)(3)
+            'Return value in bytes
+            Return CLng(sAvailableSpace) * 1024
+        Catch
+            Return 0
+        End Try
+        Return 0
+    End Function
+
+    'Get available disk space on a drive (Windows)
+    Private Shared Function GetAvailableDiskSpaceWindows(ByVal sPath As String) As Long
         Dim oDrive As DriveInfo
         Dim lAvailableSpace As Long = 0
         Try
@@ -333,6 +357,15 @@ Public Class mgrCommon
             'Do Nothing
         End Try
         Return lAvailableSpace
+    End Function
+
+    'Get available disk space on a drive 
+    Public Shared Function GetAvailableDiskSpace(ByVal sPath As String) As Long
+        If IsUnix() Then
+            Return GetAvailableDiskSpaceLinux(sPath)
+        Else
+            Return GetAvailableDiskSpaceWindows(sPath)
+        End If
     End Function
 
     'Delete file based on OS type
