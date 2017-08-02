@@ -170,6 +170,15 @@ Public Class mgrSQLite
         db.Close()
     End Sub
 
+    Private Sub RollBack(ByRef trans As SqliteTransaction)
+        Try
+            trans.Rollback()
+        Catch
+            'SQLite may or may not perform an auto-rollback when certain failures occur, such as disk full or out of memory.
+            'Multiple rollbacks will cause an exception, therefore lets just do nothing when that happens.
+        End Try
+    End Sub
+
     Private Sub BuildParams(ByRef command As SqliteCommand, ByRef hshParams As Hashtable)
         For Each de As DictionaryEntry In hshParams
             command.Parameters.AddWithValue(de.Key, de.Value)
@@ -189,7 +198,7 @@ Public Class mgrSQLite
             command.ExecuteNonQuery()
             trans.Commit()
         Catch ex As Exception
-            trans.Rollback()
+            RollBack(trans)
             mgrCommon.ShowMessage(mgrSQLite_ErrorQueryFailure, New String() {sSQL, ex.Message}, MsgBoxStyle.Exclamation)
             Return False
         Finally
@@ -215,7 +224,7 @@ Public Class mgrSQLite
             Next
             trans.Commit()
         Catch ex As Exception
-            trans.Rollback()
+            RollBack(trans)
             mgrCommon.ShowMessage(mgrSQLite_ErrorQueryFailure, New String() {sSQL, ex.Message}, MsgBoxStyle.Exclamation)
             Return False
         Finally
