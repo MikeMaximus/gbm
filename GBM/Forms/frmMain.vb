@@ -1037,11 +1037,15 @@ Public Class frmMain
             Me.ShowInTaskbar = True
             Me.Focus()
         Else
-            bShowToggle = False
-            wState = Me.WindowState
-            Me.WindowState = FormWindowState.Minimized
-            Me.ShowInTaskbar = False
-            Me.Visible = False
+            If Me.CanFocus Then
+                bShowToggle = False
+                wState = Me.WindowState
+                Me.WindowState = FormWindowState.Minimized
+                Me.ShowInTaskbar = False
+                Me.Visible = False
+            Else
+                gMonTray.ShowBalloonTip(5000, App_NameLong, App_ErrorFocus, ToolTipIcon.Info)
+            End If
         End If
     End Sub
 
@@ -1147,6 +1151,7 @@ Public Class frmMain
             If Not bGameDetected Then
                 gMonTrayMon.Enabled = False
                 gMonTrayShow.Enabled = False
+                gMonTrayExit.Enabled = False
             End If
             bMenuEnabled = False
         Else
@@ -1162,6 +1167,7 @@ Public Class frmMain
             gMonTraySettings.Enabled = True
             gMonTrayMon.Enabled = True
             gMonTrayShow.Enabled = True
+            gMonTrayExit.Enabled = True
             bMenuEnabled = True
         End If
     End Sub
@@ -1629,13 +1635,6 @@ Public Class frmMain
         If bAllowIcon Then
             SetIcon()
         End If
-    End Sub
-
-    Private Sub gMonTray_BalloonTipClicked(sender As System.Object, e As System.EventArgs) Handles gMonTray.BalloonTipClicked
-        bShowToggle = True
-        Me.Visible = True
-        Me.ShowInTaskbar = True
-        Me.Focus()
     End Sub
 
     Private Sub btnCancelOperation_Click(sender As Object, e As EventArgs) Handles btnCancelOperation.Click

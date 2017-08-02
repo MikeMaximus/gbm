@@ -79,6 +79,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to GBM is busy with an open window on your desktop..
+        '''</summary>
+        Friend ReadOnly Property App_ErrorFocus() As String
+            Get
+                Return ResourceManager.GetString("App_ErrorFocus", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to This function is currently not available on a Unix based operating system..
         '''</summary>
         Friend ReadOnly Property App_ErrorUnixNotAvailable() As String

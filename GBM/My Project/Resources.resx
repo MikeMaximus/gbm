@@ -1798,4 +1798,7 @@
   <data name="mgrBackup_7zFatalError" xml:space="preserve">
     <value>[PARAM] backup failed due to an error.</value>
   </data>
+  <data name="App_ErrorFocus" xml:space="preserve">
+    <value>GBM is busy with an open window on your desktop.</value>
+  </data>
 </root>
