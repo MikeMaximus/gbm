@@ -67,49 +67,49 @@ Public Class frmSyncFields
 
     Private Sub chkTimeStamp_CheckedChanged(sender As Object, e As EventArgs) Handles chkTimeStamp.CheckedChanged
         If chkTimeStamp.Checked Then
-            SyncFields = mgrCommon.SetSyncField(SyncFields, clsGame.eOptionalSyncFields.TimeStamp)
+            SyncFields = clsGame.SetSyncField(SyncFields, clsGame.eOptionalSyncFields.TimeStamp)
         Else
-            SyncFields = mgrCommon.RemoveSyncField(SyncFields, clsGame.eOptionalSyncFields.TimeStamp)
+            SyncFields = clsGame.RemoveSyncField(SyncFields, clsGame.eOptionalSyncFields.TimeStamp)
         End If
     End Sub
 
     Private Sub chkGamePath_CheckedChanged(sender As Object, e As EventArgs) Handles chkGamePath.CheckedChanged
         If chkGamePath.Checked Then
-            SyncFields = mgrCommon.SetSyncField(SyncFields, clsGame.eOptionalSyncFields.GamePath)
+            SyncFields = clsGame.SetSyncField(SyncFields, clsGame.eOptionalSyncFields.GamePath)
         Else
-            SyncFields = mgrCommon.RemoveSyncField(SyncFields, clsGame.eOptionalSyncFields.GamePath)
+            SyncFields = clsGame.RemoveSyncField(SyncFields, clsGame.eOptionalSyncFields.GamePath)
         End If
     End Sub
 
     Private Sub chkCompany_CheckedChanged(sender As Object, e As EventArgs) Handles chkCompany.CheckedChanged
         If chkCompany.Checked Then
-            SyncFields = mgrCommon.SetSyncField(SyncFields, clsGame.eOptionalSyncFields.Company)
+            SyncFields = clsGame.SetSyncField(SyncFields, clsGame.eOptionalSyncFields.Company)
         Else
-            SyncFields = mgrCommon.RemoveSyncField(SyncFields, clsGame.eOptionalSyncFields.Company)
+            SyncFields = clsGame.RemoveSyncField(SyncFields, clsGame.eOptionalSyncFields.Company)
         End If
     End Sub
 
     Private Sub chkVersion_CheckedChanged(sender As Object, e As EventArgs) Handles chkVersion.CheckedChanged
         If chkVersion.Checked Then
-            SyncFields = mgrCommon.SetSyncField(SyncFields, clsGame.eOptionalSyncFields.Version)
+            SyncFields = clsGame.SetSyncField(SyncFields, clsGame.eOptionalSyncFields.Version)
         Else
-            SyncFields = mgrCommon.RemoveSyncField(SyncFields, clsGame.eOptionalSyncFields.Version)
+            SyncFields = clsGame.RemoveSyncField(SyncFields, clsGame.eOptionalSyncFields.Version)
         End If
     End Sub
 
     Private Sub chkIcon_CheckedChanged(sender As Object, e As EventArgs) Handles chkIcon.CheckedChanged
         If chkIcon.Checked Then
-            SyncFields = mgrCommon.SetSyncField(SyncFields, clsGame.eOptionalSyncFields.Icon)
+            SyncFields = clsGame.SetSyncField(SyncFields, clsGame.eOptionalSyncFields.Icon)
         Else
-            SyncFields = mgrCommon.RemoveSyncField(SyncFields, clsGame.eOptionalSyncFields.Icon)
+            SyncFields = clsGame.RemoveSyncField(SyncFields, clsGame.eOptionalSyncFields.Icon)
         End If
     End Sub
 
     Private Sub chkMonitorGame_CheckedChanged(sender As Object, e As EventArgs) Handles chkMonitorGame.CheckedChanged
         If chkMonitorGame.Checked Then
-            SyncFields = mgrCommon.SetSyncField(SyncFields, clsGame.eOptionalSyncFields.MonitorGame)
+            SyncFields = clsGame.SetSyncField(SyncFields, clsGame.eOptionalSyncFields.MonitorGame)
         Else
-            SyncFields = mgrCommon.RemoveSyncField(SyncFields, clsGame.eOptionalSyncFields.MonitorGame)
+            SyncFields = clsGame.RemoveSyncField(SyncFields, clsGame.eOptionalSyncFields.MonitorGame)
         End If
     End Sub
 End Class

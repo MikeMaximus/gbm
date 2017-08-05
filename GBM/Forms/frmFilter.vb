@@ -9,53 +9,9 @@ Public Class frmFilter
         NoTags = 4
     End Enum
 
-    Public Class clsFilter
-
-        Private sID As String
-        Private sField As String
-        Private oData As Object
-        Private bAndOperator As Boolean
-
-        Public Property ID As String
-            Get
-                Return sID
-            End Get
-            Set(value As String)
-                sID = value
-            End Set
-        End Property
-
-        Public Property Field As String
-            Get
-                Return sField
-            End Get
-            Set(value As String)
-                sField = value
-            End Set
-        End Property
-
-        Public Property Data As Object
-            Get
-                Return oData
-            End Get
-            Set(value As Object)
-                oData = value
-            End Set
-        End Property
-
-        Public Property AndOperator As Boolean
-            Get
-                Return bAndOperator
-            End Get
-            Set(value As Boolean)
-                bAndOperator = value
-            End Set
-        End Property
-
-    End Class
-
     Dim oTagFilters As New List(Of clsTag)
-    Dim oGameFilters As New List(Of clsFilter)
+    Dim oGameFilters As New List(Of clsGameFilter)
+    Dim oValidFields As New List(Of clsGameFilterField)
     Dim eCurrentFilterType As eFilterType = eFilterType.BaseFilter
     Dim bSortAsc As Boolean = True
     Dim sSortField As String = "Name"
@@ -63,34 +19,49 @@ Public Class frmFilter
     Dim bShutdown As Boolean = False
     Dim iParameterIndex As Integer = 0
 
-    Public ReadOnly Property GameFilters As List(Of clsFilter)
+    Public Property GameFilters As List(Of clsGameFilter)
         Get
             Return oGameFilters
         End Get
+        Set(value As List(Of clsGameFilter))
+            oGameFilters = value
+        End Set
     End Property
 
-    Public ReadOnly Property TagFilters As List(Of clsTag)
+    Public Property TagFilters As List(Of clsTag)
         Get
             Return oTagFilters
         End Get
+        Set(value As List(Of clsTag))
+            oTagFilters = value
+        End Set
     End Property
 
-    Public ReadOnly Property FilterType As eFilterType
+    Public Property FilterType As eFilterType
         Get
             Return eCurrentFilterType
         End Get
+        Set(value As eFilterType)
+            eCurrentFilterType = value
+        End Set
     End Property
 
-    Public ReadOnly Property SortAsc As Boolean
+    Public Property SortAsc As Boolean
         Get
             Return bSortAsc
         End Get
+        Set(value As Boolean)
+            bSortAsc = value
+        End Set
     End Property
 
-    Public ReadOnly Property SortField As String
+    Public Property SortField As String
         Get
             Return sSortField
         End Get
+        Set(value As String)
+            sSortField = value
+        End Set
     End Property
 
     Private Sub AddTag()
@@ -139,7 +110,154 @@ Public Class frmFilter
 
     End Sub
 
-    Private Sub LoadData()
+    Private Sub LoadFilterFields()
+        Dim oField As clsGameFilterField
+
+        'Name
+        oField = New clsGameFilterField
+        oField.FieldName = "Name"
+        oField.FriendlyFieldName = frmFilter_FieldName
+        oField.Type = clsGameFilterField.eDataType.fString
+        oField.Status = clsGameFilterField.eFieldStatus.ValidSort
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Process
+        oField = New clsGameFilterField
+        oField.FieldName = "Process"
+        oField.FriendlyFieldName = frmFilter_FieldProcess
+        oField.Type = clsGameFilterField.eDataType.fString
+        oField.Status = clsGameFilterField.eFieldStatus.ValidSort
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Parameter
+        oField = New clsGameFilterField
+        oField.FieldName = "Parameter"
+        oField.FriendlyFieldName = frmFilter_FieldParameter
+        oField.Type = clsGameFilterField.eDataType.fString
+        oField.Status = clsGameFilterField.eFieldStatus.ValidSort
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Save Path
+        oField = New clsGameFilterField
+        oField.FieldName = "Path"
+        oField.FriendlyFieldName = frmFilter_FieldPath
+        oField.Type = clsGameFilterField.eDataType.fString
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Include Items
+        oField = New clsGameFilterField
+        oField.FieldName = "FileType"
+        oField.FriendlyFieldName = frmFilter_FieldFileType
+        oField.Type = clsGameFilterField.eDataType.fString
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Exclude Items
+        oField = New clsGameFilterField
+        oField.FieldName = "ExcludeList"
+        oField.FriendlyFieldName = frmFilter_FieldExcludeList
+        oField.Type = clsGameFilterField.eDataType.fString
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Save Entire Folder
+        oField = New clsGameFilterField
+        oField.FieldName = "FolderSave"
+        oField.FriendlyFieldName = frmFilter_FieldFolderSave
+        oField.Type = clsGameFilterField.eDataType.fBool
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Delete Folder on Restore
+        oField = New clsGameFilterField
+        oField.FieldName = "CleanFolder"
+        oField.FriendlyFieldName = frmFilter_FieldCleanFolder
+        oField.Type = clsGameFilterField.eDataType.fBool
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Save Multiple Backups
+        oField = New clsGameFilterField
+        oField.FieldName = "TimeStamp"
+        oField.FriendlyFieldName = frmFilter_FieldTimeStamp
+        oField.Type = clsGameFilterField.eDataType.fBool
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Backup Limit
+        oField = New clsGameFilterField
+        oField.FieldName = "BackupLimit"
+        oField.FriendlyFieldName = frmFilter_FieldBackupLimit
+        oField.Type = clsGameFilterField.eDataType.fNumeric
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Game Path
+        oField = New clsGameFilterField
+        oField.FieldName = "ProcessPath"
+        oField.FriendlyFieldName = frmFilter_FieldProcessPath
+        oField.Type = clsGameFilterField.eDataType.fString
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Company
+        oField = New clsGameFilterField
+        oField.FieldName = "Company"
+        oField.FriendlyFieldName = frmFilter_FieldCompany
+        oField.Type = clsGameFilterField.eDataType.fString
+        oField.Status = clsGameFilterField.eFieldStatus.ValidSort
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Version
+        oField = New clsGameFilterField
+        oField.FieldName = "Version"
+        oField.FriendlyFieldName = frmFilter_FieldVersion
+        oField.Type = clsGameFilterField.eDataType.fString
+        oField.Status = clsGameFilterField.eFieldStatus.ValidSort
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Icon
+        oField = New clsGameFilterField
+        oField.FieldName = "Icon"
+        oField.FriendlyFieldName = frmFilter_FieldIcon
+        oField.Type = clsGameFilterField.eDataType.fString
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Hours
+        oField = New clsGameFilterField
+        oField.FieldName = "Hours"
+        oField.FriendlyFieldName = frmFilter_FieldHours
+        oField.Type = clsGameFilterField.eDataType.fNumeric
+        oField.Status = clsGameFilterField.eFieldStatus.ValidSort
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Enabled
+        oField = New clsGameFilterField
+        oField.FieldName = "Enabled"
+        oField.FriendlyFieldName = frmFilter_FieldEnabled
+        oField.Type = clsGameFilterField.eDataType.fBool
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Monitor Only
+        oField = New clsGameFilterField
+        oField.FieldName = "MonitorOnly"
+        oField.FriendlyFieldName = frmFilter_FieldMonitorOnly
+        oField.Type = clsGameFilterField.eDataType.fBool
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+    End Sub
+
+    Private Sub LoadTagData()
         Dim oTag As clsTag
         Dim oData As KeyValuePair(Of String, String)
 
@@ -152,6 +270,7 @@ Public Class frmFilter
 
         lstTags.ValueMember = "Key"
         lstTags.DisplayMember = "Value"
+
         lstTagFilter.ValueMember = "Key"
         lstTagFilter.DisplayMember = "Value"
 
@@ -163,30 +282,121 @@ Public Class frmFilter
 
     End Sub
 
-    Private Sub AddFilter()
-        Dim oFilter As New clsFilter
-        Dim sFilter As String
+    Private Sub LoadExistingFilters()
+        Dim sFilter As String = String.Empty
+        Dim oListTag As KeyValuePair(Of String, String)
 
-        lstFilter.ValueMember = "Key"
-        lstFilter.DisplayMember = "Value"
+        'Game Filters
+        If oGameFilters.Count > 0 Then
+            chkGameInfo.Checked = True
+            For Each oFilter As clsGameFilter In oGameFilters
+                Select Case oFilter.Field.Type
+                    Case clsGameFilterField.eDataType.fString
+                        sFilter = oFilter.Field.FriendlyFieldName & " " & frmFilter_lstFilterContains & " """ & oFilter.Data & """ / "
+                    Case clsGameFilterField.eDataType.fNumeric
+                        oFilter.NumericOperator = DirectCast(cboNumericOps.SelectedValue, clsGameFilter.eNumericOperators)
+                        sFilter = oFilter.Field.FriendlyFieldName & " " & oFilter.NumericOperatorAsString & " " & oFilter.Data & " / "
+                    Case clsGameFilterField.eDataType.fBool
+                        sFilter = oFilter.Field.FriendlyFieldName & " = " & oFilter.Data & " / "
+                End Select
+
+                If oFilter.NextBoolOperator Then
+                    sFilter &= frmFilter_optAnd
+                Else
+                    sFilter &= frmFilter_optOr
+                End If
+
+                iParameterIndex += 1
+
+                lstFilter.Items.Add(New KeyValuePair(Of clsGameFilter, String)(oFilter, sFilter))
+            Next
+        End If
+
+        'Tag Filters
+        If oTagFilters.Count > 0 Then
+            chkTag.Checked = True
+            For Each oTag As clsTag In oTagFilters
+                oListTag = New KeyValuePair(Of String, String)(oTag.ID, oTag.Name)
+                lstTagFilter.Items.Add(oListTag)
+                lstTags.Items.Remove(oListTag)
+            Next
+
+            If eCurrentFilterType = eFilterType.AllTags Then
+                optAll.Checked = True
+            Else
+                optAny.Checked = True
+            End If
+        End If
+
+        'Sorting
+        cboSortField.SelectedValue = sSortField
+        If bSortAsc Then
+            optSortAsc.Checked = True
+        Else
+            optSortDesc.Checked = True
+        End If
+
+    End Sub
+
+    Private Sub ChangeFilterMode()
+        Dim oFilterType As clsGameFilterField.eDataType = DirectCast(cboFilterField.SelectedValue, clsGameFilterField).Type
+
+        'Reset
+        cboNumericOps.SelectedIndex = 0
+        cboBoolFilter.SelectedIndex = 0
+        numFilter.Value = 0
+        txtStringFilter.Text = String.Empty
+
+        'Reset Visibilty
+        cboBoolFilter.Visible = False
+        cboNumericOps.Visible = False
+        numFilter.Visible = False
+        txtStringFilter.Visible = False
+
+        'Set Visiblity
+        Select Case oFilterType
+            Case clsGameFilterField.eDataType.fString
+                txtStringFilter.Visible = True
+            Case clsGameFilterField.eDataType.fNumeric
+                cboNumericOps.Visible = True
+                numFilter.Visible = True
+                txtStringFilter.Visible = False
+            Case clsGameFilterField.eDataType.fBool
+                cboBoolFilter.Visible = True
+        End Select
+
+    End Sub
+
+    Private Sub AddFilter()
+        Dim oFilter As New clsGameFilter
+        Dim sFilter As String = String.Empty
 
         'Build Filter
         oFilter.ID = "PARAM" & iParameterIndex
         oFilter.Field = cboFilterField.SelectedValue
-        oFilter.Data = txtFilterData.Text
-        oFilter.AndOperator = optAnd.Checked
+        oFilter.NextBoolOperator = optAnd.Checked
 
-        oGameFilters.Add(oFilter)
+        Select Case oFilter.Field.Type
+            Case clsGameFilterField.eDataType.fString
+                oFilter.Data = txtStringFilter.Text
+                sFilter = oFilter.Field.FriendlyFieldName & " " & frmFilter_lstFilterContains & " """ & oFilter.Data & """ / "
+            Case clsGameFilterField.eDataType.fNumeric
+                oFilter.Data = numFilter.Value
+                oFilter.NumericOperator = DirectCast(cboNumericOps.SelectedValue, clsGameFilter.eNumericOperators)
+                sFilter = oFilter.Field.FriendlyFieldName & " " & oFilter.NumericOperatorAsString & " " & oFilter.Data & " / "
+            Case clsGameFilterField.eDataType.fBool
+                oFilter.Data = cboBoolFilter.SelectedValue
+                sFilter = oFilter.Field.FriendlyFieldName & " = " & oFilter.Data & " / "
+        End Select
 
-        'Build String
-        sFilter = oFilter.Field & " / " & oFilter.Data & " / "
-        If oFilter.AndOperator Then
+        If oFilter.NextBoolOperator Then
             sFilter &= frmFilter_optAnd
         Else
             sFilter &= frmFilter_optOr
         End If
 
-        lstFilter.Items.Add(New KeyValuePair(Of clsFilter, String)(oFilter, sFilter))
+        oGameFilters.Add(oFilter)
+        lstFilter.Items.Add(New KeyValuePair(Of clsGameFilter, String)(oFilter, sFilter))
 
         iParameterIndex += 1
     End Sub
@@ -196,7 +406,7 @@ Public Class frmFilter
 
         If lstFilter.SelectedIndex <> -1 Then
             oFilter = lstFilter.SelectedItem
-            oGameFilters.Remove(DirectCast(oFilter, KeyValuePair(Of clsFilter, String)).Key)
+            oGameFilters.Remove(DirectCast(oFilter, KeyValuePair(Of clsGameFilter, String)).Key)
             lstFilter.Items.Remove(oFilter)
         End If
 
@@ -214,6 +424,7 @@ Public Class frmFilter
 
         If chkTag.Checked Then
             'Set Tags
+            TagFilters.Clear()
             For Each oData In lstTagFilter.Items
                 oTag = DirectCast(hshTags(oData.Value), clsTag)
                 TagFilters.Add(oTag)
@@ -241,18 +452,41 @@ Public Class frmFilter
     End Sub
 
     Private Sub LoadCombos()
-        Dim oFilterFields As New List(Of KeyValuePair(Of String, String))
+        Dim oFilterFields As New List(Of KeyValuePair(Of clsGameFilterField, String))
         Dim oSortFields As New List(Of KeyValuePair(Of String, String))
+        Dim oNumericOperators As New List(Of KeyValuePair(Of clsGameFilter.eNumericOperators, String))
+        Dim oBoolOperators As New List(Of KeyValuePair(Of Boolean, String))
+
+        'cboBoolFilter
+        cboBoolFilter.ValueMember = "Key"
+        cboBoolFilter.DisplayMember = "Value"
+
+        oBoolOperators.Add(New KeyValuePair(Of Boolean, String)(True, frmFilter_cboBoolFilterEnabled))
+        oBoolOperators.Add(New KeyValuePair(Of Boolean, String)(False, frmFilter_cboBoolFilterDisabled))
+
+        cboBoolFilter.DataSource = oBoolOperators
+
+        'cboNumericOps
+        cboNumericOps.ValueMember = "Key"
+        cboNumericOps.DisplayMember = "Value"
+
+        oNumericOperators.Add(New KeyValuePair(Of clsGameFilter.eNumericOperators, String)(clsGameFilter.eNumericOperators.Equals, "="))
+        oNumericOperators.Add(New KeyValuePair(Of clsGameFilter.eNumericOperators, String)(clsGameFilter.eNumericOperators.Greater, ">"))
+        oNumericOperators.Add(New KeyValuePair(Of clsGameFilter.eNumericOperators, String)(clsGameFilter.eNumericOperators.Lesser, "<"))
+        oNumericOperators.Add(New KeyValuePair(Of clsGameFilter.eNumericOperators, String)(clsGameFilter.eNumericOperators.GreaterEquals, ">="))
+        oNumericOperators.Add(New KeyValuePair(Of clsGameFilter.eNumericOperators, String)(clsGameFilter.eNumericOperators.LesserEquals, "<="))
+
+        cboNumericOps.DataSource = oNumericOperators
 
         'cboFilterField
         cboFilterField.ValueMember = "Key"
         cboFilterField.DisplayMember = "Value"
 
-        oFilterFields.Add(New KeyValuePair(Of String, String)("Name", frmFilter_FieldName))
-        oFilterFields.Add(New KeyValuePair(Of String, String)("Process", frmFilter_FieldProcess))
-        oFilterFields.Add(New KeyValuePair(Of String, String)("Parameter", frmFilter_FieldParameter))
-        oFilterFields.Add(New KeyValuePair(Of String, String)("Company", frmFilter_FieldCompany))
-        oFilterFields.Add(New KeyValuePair(Of String, String)("Version", frmFilter_FieldVersion))
+        For Each oField As clsGameFilterField In oValidFields
+            If oField.CheckStatus(clsGameFilterField.eFieldStatus.ValidFilter) Then
+                oFilterFields.Add(New KeyValuePair(Of clsGameFilterField, String)(oField, oField.FriendlyFieldName))
+            End If
+        Next
 
         cboFilterField.DataSource = oFilterFields
 
@@ -260,16 +494,16 @@ Public Class frmFilter
         cboSortField.ValueMember = "Key"
         cboSortField.DisplayMember = "Value"
 
-        oSortFields.Add(New KeyValuePair(Of String, String)("Name", frmFilter_FieldName))
-        oSortFields.Add(New KeyValuePair(Of String, String)("Process", frmFilter_FieldProcess))
-        oSortFields.Add(New KeyValuePair(Of String, String)("Parameter", frmFilter_FieldParameter))
-        oSortFields.Add(New KeyValuePair(Of String, String)("Company", frmFilter_FieldCompany))
-        oSortFields.Add(New KeyValuePair(Of String, String)("Version", frmFilter_FieldVersion))
-        oSortFields.Add(New KeyValuePair(Of String, String)("Hours", frmFilter_FieldHours))
+        For Each oField As clsGameFilterField In oValidFields
+            If oField.CheckStatus(clsGameFilterField.eFieldStatus.ValidSort) Then
+                oSortFields.Add(New KeyValuePair(Of String, String)(oField.FieldName, oField.FriendlyFieldName))
+            End If
+        Next
 
         cboSortField.DataSource = oSortFields
 
         'Select Defaults
+        cboNumericOps.SelectedIndex = 0
         cboFilterField.SelectedIndex = 0
         cboSortField.SelectedIndex = 0
     End Sub
@@ -281,7 +515,7 @@ Public Class frmFilter
         'Set Form Text
         optOr.Text = frmFilter_optOr
         optAnd.Text = frmFilter_optAnd
-        grpGameInfoOptions.Text = frmFilter_grpGameInfoOptions
+        grpNextFilterOperator.Text = frmFilter_grpNextFilterOperator
         optAll.Text = frmFilter_optAll
         optAny.Text = frmFilter_optAny
         lblGameTags.Text = frmFilter_lblGameTags
@@ -293,7 +527,7 @@ Public Class frmFilter
         chkTag.Text = frmFilter_chkTag
         chkGameInfo.Text = frmFilter_chkGameInfo
         grpSorting.Text = frmFilter_grpSorting
-        lblOrderBy.Text = frmFilter_lblOrderBy
+        lblSortFields.Text = frmFilter_lblSortsFields
         optSortAsc.Text = frmFilter_optSortAsc
         optSortDesc.Text = frmFilter_optSortDesc
         btnAddFilter.Text = frmFilter_btnAddFilter
@@ -301,17 +535,24 @@ Public Class frmFilter
         lblCurrentFilters.Text = frmFilter_lblCurrentFilters
         lblFields.Text = frmFilter_lblFields
         lblFilterData.Text = frmFilter_lblFilterData
+        grpSortOptions.Text = frmFilter_grpSortOptions
 
         'Defaults
         optSortAsc.Checked = True
         grpGameFilter.Enabled = False
         grpTagFilter.Enabled = False
+
+        'Init Game Filter        
+        lstFilter.ValueMember = "Key"
+        lstFilter.DisplayMember = "Value"
     End Sub
 
     Private Sub frmGameTags_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetForm()
+        LoadFilterFields()
         LoadCombos()
-        LoadData()
+        LoadTagData()
+        LoadExistingFilters()
     End Sub
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
@@ -339,6 +580,8 @@ Public Class frmFilter
             grpGameFilter.Enabled = True
         Else
             grpGameFilter.Enabled = False
+            oGameFilters.Clear()
+            lstFilter.Items.Clear()
         End If
     End Sub
 
@@ -347,6 +590,8 @@ Public Class frmFilter
             grpTagFilter.Enabled = True
         Else
             grpTagFilter.Enabled = False
+            oTagFilters.Clear()
+            LoadTagData()
         End If
     End Sub
 
@@ -357,4 +602,9 @@ Public Class frmFilter
     Private Sub btnRemoveFilter_Click(sender As Object, e As EventArgs) Handles btnRemoveFilter.Click
         RemoveFilter()
     End Sub
+
+    Private Sub cboFilterField_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboFilterField.SelectedIndexChanged
+        ChangeFilterMode()
+    End Sub
+
 End Class

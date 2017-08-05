@@ -237,14 +237,6 @@ Public Class mgrCommon
         oProcess.Start()
     End Sub
 
-    Public Shared Function SetSyncField(ByVal eSyncFields As clsGame.eOptionalSyncFields, ByVal eSyncField As clsGame.eOptionalSyncFields) As clsGame.eOptionalSyncFields
-        Return eSyncFields Or eSyncField
-    End Function
-
-    Public Shared Function RemoveSyncField(ByVal eSyncFields As clsGame.eOptionalSyncFields, ByVal eSyncField As clsGame.eOptionalSyncFields) As clsGame.eOptionalSyncFields
-        Return eSyncFields And (Not eSyncField)
-    End Function
-
     'Get a file size
     Public Shared Function GetFileSize(ByVal sFile As String) As Long
         Dim oFileInfo As FileInfo

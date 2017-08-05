@@ -1006,8 +1006,8 @@
   <data name="frmIncludeExclude_ToolTipTitle" xml:space="preserve">
     <value>Saved Game Explorer</value>
   </data>
-  <data name="frmFilter_grpGameInfoOptions" xml:space="preserve">
-    <value>Options</value>
+  <data name="frmFilter_grpNextFilterOperator" xml:space="preserve">
+    <value>Next Filter</value>
   </data>
   <data name="frmFilter_grpTagOptions" xml:space="preserve">
     <value>Options</value>
@@ -1795,9 +1795,6 @@
   <data name="frmFilter_grpSorting" xml:space="preserve">
     <value>Sorting</value>
   </data>
-  <data name="frmFilter_lblOrderBy" xml:space="preserve">
-    <value>Order By:</value>
-  </data>
   <data name="frmFilter_optSortAsc" xml:space="preserve">
     <value>Ascending</value>
   </data>
@@ -1836,5 +1833,56 @@
   </data>
   <data name="frmFilter_lblFilterData" xml:space="preserve">
     <value>Filter</value>
+  </data>
+  <data name="frmFilter_cboBoolFilterDisabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="frmFilter_cboBoolFilterEnabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="frmFilter_FieldBackupLimit" xml:space="preserve">
+    <value>Backup Limit *</value>
+  </data>
+  <data name="frmFilter_FieldCleanFolder" xml:space="preserve">
+    <value>Delete Folder on Restore</value>
+  </data>
+  <data name="frmFilter_FieldEnabled" xml:space="preserve">
+    <value>Monitor Game</value>
+  </data>
+  <data name="frmFilter_FieldExcludeList" xml:space="preserve">
+    <value>Exclude Items</value>
+  </data>
+  <data name="frmFilter_FieldFileType" xml:space="preserve">
+    <value>Include Items</value>
+  </data>
+  <data name="frmFilter_FieldFolderSave" xml:space="preserve">
+    <value>Save Entire Folder</value>
+  </data>
+  <data name="frmFilter_FieldIcon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="frmFilter_FieldMonitorOnly" xml:space="preserve">
+    <value>Monitor Only</value>
+  </data>
+  <data name="frmFilter_FieldPath" xml:space="preserve">
+    <value>Save Path *</value>
+  </data>
+  <data name="frmFilter_FieldProcessPath" xml:space="preserve">
+    <value>Game Path</value>
+  </data>
+  <data name="frmFilter_FieldTimeStamp" xml:space="preserve">
+    <value>Save Multiple Backups</value>
+  </data>
+  <data name="frmFilter_lblSortsFields" xml:space="preserve">
+    <value>Available Fields</value>
+  </data>
+  <data name="frmFilter_lblWarning" xml:space="preserve">
+    <value>* Indicates a field that may give unexpected results.</value>
+  </data>
+  <data name="frmFilter_lstFilterContains" xml:space="preserve">
+    <value>contains</value>
+  </data>
+  <data name="frmFilter_grpSortOptions" xml:space="preserve">
+    <value>Sort Options</value>
   </data>
 </root>

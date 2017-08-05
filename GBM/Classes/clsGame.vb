@@ -406,4 +406,12 @@ Public Class clsGame
         Return sProcessName
     End Function
 
+    Public Shared Function SetSyncField(ByVal eSyncFields As eOptionalSyncFields, ByVal eSyncField As eOptionalSyncFields) As eOptionalSyncFields
+        Return eSyncFields Or eSyncField
+    End Function
+
+    Public Shared Function RemoveSyncField(ByVal eSyncFields As eOptionalSyncFields, ByVal eSyncField As eOptionalSyncFields) As eOptionalSyncFields
+        Return eSyncFields And (Not eSyncField)
+    End Function
+
 End Class

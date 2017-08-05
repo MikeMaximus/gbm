@@ -497,7 +497,7 @@ Public Class mgrMonitorList
     End Sub
 
     'Filter Functions
-    Private Shared Function BuildFilterQuery(ByVal oTagFilters As List(Of clsTag), ByVal oFilters As List(Of frmFilter.clsFilter), ByVal eFilterType As frmFilter.eFilterType, ByVal bSortAsc As Boolean,
+    Private Shared Function BuildFilterQuery(ByVal oTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter), ByVal eFilterType As frmFilter.eFilterType, ByVal bSortAsc As Boolean,
                                              ByVal sSortField As String, ByRef hshParams As Hashtable) As String
         Dim sSQL As String = String.Empty
         Dim iCounter As Integer = 0
@@ -540,7 +540,7 @@ Public Class mgrMonitorList
                 sSQL = "SELECT " & sBaseSelect & " WHERE MonitorID NOT IN (SELECT MonitorID FROM gametags)"
         End Select
 
-        'Handle String Filters
+        'Handle Other Filters
         If oFilters.Count > 0 Then
             If eFilterType = frmFilter.eFilterType.BaseFilter Then
                 sSQL &= " WHERE ("
@@ -549,12 +549,22 @@ Public Class mgrMonitorList
             End If
 
             iCounter = 0
-            For Each oFilter As frmFilter.clsFilter In oFilters
-                sSQL &= oFilter.Field & " LIKE @" & oFilter.ID
-                hshParams.Add(oFilter.ID, "%" & oFilter.Data & "%")
+            For Each oFilter As clsGameFilter In oFilters
+                Select Case oFilter.Field.Type
+                    Case clsGameFilterField.eDataType.fString
+                        sSQL &= oFilter.Field.FieldName & " LIKE @" & oFilter.ID
+                        hshParams.Add(oFilter.ID, "%" & oFilter.Data & "%")
+                    Case clsGameFilterField.eDataType.fNumeric
+                        sSQL &= oFilter.Field.FieldName & " " & oFilter.NumericOperatorAsString & " @" & oFilter.ID
+                        hshParams.Add(oFilter.ID, oFilter.Data)
+                    Case clsGameFilterField.eDataType.fBool
+                        sSQL &= oFilter.Field.FieldName & " = @" & oFilter.ID
+                        hshParams.Add(oFilter.ID, oFilter.Data)
+                End Select
+
                 iCounter += 1
                 If iCounter <> oFilters.Count Then
-                    If oFilter.AndOperator Then
+                    If oFilter.NextBoolOperator Then
                         sSQL &= " AND "
                     Else
                         sSQL &= " OR "
@@ -567,12 +577,11 @@ Public Class mgrMonitorList
         'Handle Sorting
         sSQL &= sSort
 
-
         Return sSQL
 
     End Function
 
-    Public Shared Function ReadFilteredList(ByVal oTagFilters As List(Of clsTag), ByVal oFilters As List(Of frmFilter.clsFilter), ByVal eFilterType As frmFilter.eFilterType, ByVal bSortAsc As Boolean,
+    Public Shared Function ReadFilteredList(ByVal oTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter), ByVal eFilterType As frmFilter.eFilterType, ByVal bSortAsc As Boolean,
                                             ByVal sSortField As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As OrderedDictionary
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
@@ -597,7 +606,7 @@ Public Class mgrMonitorList
 
 
     'Import / Export Functions
-    Public Shared Function ReadListForExport(ByVal oTagFilters As List(Of clsTag), ByVal oFilters As List(Of frmFilter.clsFilter), ByVal eFilterType As frmFilter.eFilterType, ByVal bSortAsc As Boolean,
+    Public Shared Function ReadListForExport(ByVal oTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter), ByVal eFilterType As frmFilter.eFilterType, ByVal bSortAsc As Boolean,
                                              ByVal sSortField As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As List(Of Game)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
@@ -700,7 +709,7 @@ Public Class mgrMonitorList
         Dim oList As List(Of Game)
         Dim bSuccess As Boolean = False
         Dim oTagFilters As New List(Of clsTag)
-        Dim oFilters As New List(Of frmFilter.clsFilter)
+        Dim oFilters As New List(Of clsGameFilter)
         Dim eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.BaseFilter
         Dim bSortAsc As Boolean = True
         Dim sSortField As String = "Name"

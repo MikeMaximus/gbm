@@ -20,7 +20,7 @@ Public Class frmGameManager
     Private bIsDirty As Boolean = False
     Private bIsLoading As Boolean = False
     Private oCurrentTagFilters As New List(Of clsTag)
-    Private oCurrentFilters As New List(Of frmFilter.clsFilter)
+    Private oCurrentFilters As New List(Of clsGameFilter)
     Private eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.BaseFilter
     Private bCurrentSortAsc As Boolean = True
     Private sCurrentSortField As String = "Name"
@@ -225,7 +225,14 @@ Public Class frmGameManager
         If optCustom.Checked Then
             If Not bRetainFilter Then
                 frm = New frmFilter
+                frm.TagFilters = oCurrentTagFilters
+                frm.GameFilters = oCurrentFilters
+                frm.FilterType = eCurrentFilter
+                frm.SortAsc = bCurrentSortAsc
+                frm.SortField = sCurrentSortField
+
                 frm.ShowDialog()
+
                 oCurrentTagFilters = frm.TagFilters
                 oCurrentFilters = frm.GameFilters
                 eCurrentFilter = frm.FilterType
