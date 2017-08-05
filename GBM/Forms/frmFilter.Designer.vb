@@ -30,19 +30,18 @@ Partial Class frmFilter
         Me.lblTags = New System.Windows.Forms.Label()
         Me.btnRemove = New System.Windows.Forms.Button()
         Me.btnAdd = New System.Windows.Forms.Button()
-        Me.lstFilter = New System.Windows.Forms.ListBox()
+        Me.lstTagFilter = New System.Windows.Forms.ListBox()
         Me.lstTags = New System.Windows.Forms.ListBox()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.grpGameFilter = New System.Windows.Forms.GroupBox()
+        Me.btnRemoveFilter = New System.Windows.Forms.Button()
+        Me.lstFilter = New System.Windows.Forms.ListBox()
+        Me.btnAddFilter = New System.Windows.Forms.Button()
+        Me.cboFilterField = New System.Windows.Forms.ComboBox()
         Me.grpGameInfoOptions = New System.Windows.Forms.GroupBox()
         Me.optOr = New System.Windows.Forms.RadioButton()
         Me.optAnd = New System.Windows.Forms.RadioButton()
-        Me.txtCompany = New System.Windows.Forms.TextBox()
-        Me.lblCompany = New System.Windows.Forms.Label()
-        Me.txtProcess = New System.Windows.Forms.TextBox()
-        Me.lblProcess = New System.Windows.Forms.Label()
-        Me.lblName = New System.Windows.Forms.Label()
-        Me.txtName = New System.Windows.Forms.TextBox()
+        Me.txtFilterData = New System.Windows.Forms.TextBox()
         Me.grpSorting = New System.Windows.Forms.GroupBox()
         Me.optSortDesc = New System.Windows.Forms.RadioButton()
         Me.optSortAsc = New System.Windows.Forms.RadioButton()
@@ -50,6 +49,9 @@ Partial Class frmFilter
         Me.lblOrderBy = New System.Windows.Forms.Label()
         Me.chkTag = New System.Windows.Forms.CheckBox()
         Me.chkGameInfo = New System.Windows.Forms.CheckBox()
+        Me.lblFields = New System.Windows.Forms.Label()
+        Me.lblFilterData = New System.Windows.Forms.Label()
+        Me.lblCurrentFilters = New System.Windows.Forms.Label()
         Me.grpTagFilter.SuspendLayout()
         Me.grpTagOptions.SuspendLayout()
         Me.grpGameFilter.SuspendLayout()
@@ -64,11 +66,11 @@ Partial Class frmFilter
         Me.grpTagFilter.Controls.Add(Me.lblTags)
         Me.grpTagFilter.Controls.Add(Me.btnRemove)
         Me.grpTagFilter.Controls.Add(Me.btnAdd)
-        Me.grpTagFilter.Controls.Add(Me.lstFilter)
+        Me.grpTagFilter.Controls.Add(Me.lstTagFilter)
         Me.grpTagFilter.Controls.Add(Me.lstTags)
-        Me.grpTagFilter.Location = New System.Drawing.Point(12, 213)
+        Me.grpTagFilter.Location = New System.Drawing.Point(12, 253)
         Me.grpTagFilter.Name = "grpTagFilter"
-        Me.grpTagFilter.Size = New System.Drawing.Size(385, 265)
+        Me.grpTagFilter.Size = New System.Drawing.Size(385, 198)
         Me.grpTagFilter.TabIndex = 3
         Me.grpTagFilter.TabStop = False
         '
@@ -76,7 +78,7 @@ Partial Class frmFilter
         '
         Me.grpTagOptions.Controls.Add(Me.optAll)
         Me.grpTagOptions.Controls.Add(Me.optAny)
-        Me.grpTagOptions.Location = New System.Drawing.Point(6, 211)
+        Me.grpTagOptions.Location = New System.Drawing.Point(6, 146)
         Me.grpTagOptions.Name = "grpTagOptions"
         Me.grpTagOptions.Size = New System.Drawing.Size(150, 46)
         Me.grpTagOptions.TabIndex = 6
@@ -124,7 +126,7 @@ Partial Class frmFilter
         '
         'btnRemove
         '
-        Me.btnRemove.Location = New System.Drawing.Point(162, 122)
+        Me.btnRemove.Location = New System.Drawing.Point(162, 88)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(61, 23)
         Me.btnRemove.TabIndex = 3
@@ -133,22 +135,22 @@ Partial Class frmFilter
         '
         'btnAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(162, 93)
+        Me.btnAdd.Location = New System.Drawing.Point(162, 59)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(61, 23)
         Me.btnAdd.TabIndex = 2
         Me.btnAdd.Text = ">"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
-        'lstFilter
+        'lstTagFilter
         '
-        Me.lstFilter.FormattingEnabled = True
-        Me.lstFilter.Location = New System.Drawing.Point(229, 32)
-        Me.lstFilter.Name = "lstFilter"
-        Me.lstFilter.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstFilter.Size = New System.Drawing.Size(150, 173)
-        Me.lstFilter.Sorted = True
-        Me.lstFilter.TabIndex = 5
+        Me.lstTagFilter.FormattingEnabled = True
+        Me.lstTagFilter.Location = New System.Drawing.Point(229, 32)
+        Me.lstTagFilter.Name = "lstTagFilter"
+        Me.lstTagFilter.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
+        Me.lstTagFilter.Size = New System.Drawing.Size(150, 108)
+        Me.lstTagFilter.Sorted = True
+        Me.lstTagFilter.TabIndex = 5
         '
         'lstTags
         '
@@ -156,13 +158,13 @@ Partial Class frmFilter
         Me.lstTags.Location = New System.Drawing.Point(6, 32)
         Me.lstTags.Name = "lstTags"
         Me.lstTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstTags.Size = New System.Drawing.Size(150, 173)
+        Me.lstTags.Size = New System.Drawing.Size(150, 108)
         Me.lstTags.Sorted = True
         Me.lstTags.TabIndex = 1
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(322, 551)
+        Me.btnOK.Location = New System.Drawing.Point(322, 526)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 23)
         Me.btnOK.TabIndex = 5
@@ -171,27 +173,64 @@ Partial Class frmFilter
         '
         'grpGameFilter
         '
+        Me.grpGameFilter.Controls.Add(Me.lblCurrentFilters)
+        Me.grpGameFilter.Controls.Add(Me.lblFilterData)
+        Me.grpGameFilter.Controls.Add(Me.lblFields)
+        Me.grpGameFilter.Controls.Add(Me.btnRemoveFilter)
+        Me.grpGameFilter.Controls.Add(Me.lstFilter)
+        Me.grpGameFilter.Controls.Add(Me.btnAddFilter)
+        Me.grpGameFilter.Controls.Add(Me.cboFilterField)
         Me.grpGameFilter.Controls.Add(Me.grpGameInfoOptions)
-        Me.grpGameFilter.Controls.Add(Me.txtCompany)
-        Me.grpGameFilter.Controls.Add(Me.lblCompany)
-        Me.grpGameFilter.Controls.Add(Me.txtProcess)
-        Me.grpGameFilter.Controls.Add(Me.lblProcess)
-        Me.grpGameFilter.Controls.Add(Me.lblName)
-        Me.grpGameFilter.Controls.Add(Me.txtName)
+        Me.grpGameFilter.Controls.Add(Me.txtFilterData)
         Me.grpGameFilter.Location = New System.Drawing.Point(12, 35)
         Me.grpGameFilter.Name = "grpGameFilter"
-        Me.grpGameFilter.Size = New System.Drawing.Size(385, 150)
+        Me.grpGameFilter.Size = New System.Drawing.Size(385, 189)
         Me.grpGameFilter.TabIndex = 1
         Me.grpGameFilter.TabStop = False
+        '
+        'btnRemoveFilter
+        '
+        Me.btnRemoveFilter.Location = New System.Drawing.Point(259, 153)
+        Me.btnRemoveFilter.Name = "btnRemoveFilter"
+        Me.btnRemoveFilter.Size = New System.Drawing.Size(75, 23)
+        Me.btnRemoveFilter.TabIndex = 8
+        Me.btnRemoveFilter.Text = "Remove"
+        Me.btnRemoveFilter.UseVisualStyleBackColor = True
+        '
+        'lstFilter
+        '
+        Me.lstFilter.FormattingEnabled = True
+        Me.lstFilter.Location = New System.Drawing.Point(6, 81)
+        Me.lstFilter.Name = "lstFilter"
+        Me.lstFilter.Size = New System.Drawing.Size(247, 95)
+        Me.lstFilter.TabIndex = 6
+        '
+        'btnAddFilter
+        '
+        Me.btnAddFilter.Location = New System.Drawing.Point(304, 34)
+        Me.btnAddFilter.Name = "btnAddFilter"
+        Me.btnAddFilter.Size = New System.Drawing.Size(75, 23)
+        Me.btnAddFilter.TabIndex = 4
+        Me.btnAddFilter.Text = "Add"
+        Me.btnAddFilter.UseVisualStyleBackColor = True
+        '
+        'cboFilterField
+        '
+        Me.cboFilterField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboFilterField.FormattingEnabled = True
+        Me.cboFilterField.Location = New System.Drawing.Point(6, 36)
+        Me.cboFilterField.Name = "cboFilterField"
+        Me.cboFilterField.Size = New System.Drawing.Size(121, 21)
+        Me.cboFilterField.TabIndex = 1
         '
         'grpGameInfoOptions
         '
         Me.grpGameInfoOptions.Controls.Add(Me.optOr)
         Me.grpGameInfoOptions.Controls.Add(Me.optAnd)
-        Me.grpGameInfoOptions.Location = New System.Drawing.Point(14, 97)
+        Me.grpGameInfoOptions.Location = New System.Drawing.Point(259, 81)
         Me.grpGameInfoOptions.Name = "grpGameInfoOptions"
         Me.grpGameInfoOptions.Size = New System.Drawing.Size(106, 46)
-        Me.grpGameInfoOptions.TabIndex = 6
+        Me.grpGameInfoOptions.TabIndex = 7
         Me.grpGameInfoOptions.TabStop = False
         Me.grpGameInfoOptions.Text = "Options"
         '
@@ -216,53 +255,12 @@ Partial Class frmFilter
         Me.optAnd.Text = "And"
         Me.optAnd.UseVisualStyleBackColor = True
         '
-        'txtCompany
+        'txtFilterData
         '
-        Me.txtCompany.Location = New System.Drawing.Point(70, 71)
-        Me.txtCompany.Name = "txtCompany"
-        Me.txtCompany.Size = New System.Drawing.Size(309, 20)
-        Me.txtCompany.TabIndex = 5
-        '
-        'lblCompany
-        '
-        Me.lblCompany.AutoSize = True
-        Me.lblCompany.Location = New System.Drawing.Point(11, 74)
-        Me.lblCompany.Name = "lblCompany"
-        Me.lblCompany.Size = New System.Drawing.Size(54, 13)
-        Me.lblCompany.TabIndex = 4
-        Me.lblCompany.Text = "Company:"
-        '
-        'txtProcess
-        '
-        Me.txtProcess.Location = New System.Drawing.Point(70, 45)
-        Me.txtProcess.Name = "txtProcess"
-        Me.txtProcess.Size = New System.Drawing.Size(309, 20)
-        Me.txtProcess.TabIndex = 3
-        '
-        'lblProcess
-        '
-        Me.lblProcess.AutoSize = True
-        Me.lblProcess.Location = New System.Drawing.Point(11, 48)
-        Me.lblProcess.Name = "lblProcess"
-        Me.lblProcess.Size = New System.Drawing.Size(48, 13)
-        Me.lblProcess.TabIndex = 2
-        Me.lblProcess.Text = "Process:"
-        '
-        'lblName
-        '
-        Me.lblName.AutoSize = True
-        Me.lblName.Location = New System.Drawing.Point(11, 22)
-        Me.lblName.Name = "lblName"
-        Me.lblName.Size = New System.Drawing.Size(38, 13)
-        Me.lblName.TabIndex = 0
-        Me.lblName.Text = "Name:"
-        '
-        'txtName
-        '
-        Me.txtName.Location = New System.Drawing.Point(70, 19)
-        Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(309, 20)
-        Me.txtName.TabIndex = 1
+        Me.txtFilterData.Location = New System.Drawing.Point(133, 36)
+        Me.txtFilterData.Name = "txtFilterData"
+        Me.txtFilterData.Size = New System.Drawing.Size(165, 20)
+        Me.txtFilterData.TabIndex = 3
         '
         'grpSorting
         '
@@ -270,7 +268,7 @@ Partial Class frmFilter
         Me.grpSorting.Controls.Add(Me.optSortAsc)
         Me.grpSorting.Controls.Add(Me.cboSortField)
         Me.grpSorting.Controls.Add(Me.lblOrderBy)
-        Me.grpSorting.Location = New System.Drawing.Point(12, 484)
+        Me.grpSorting.Location = New System.Drawing.Point(12, 457)
         Me.grpSorting.Name = "grpSorting"
         Me.grpSorting.Size = New System.Drawing.Size(385, 61)
         Me.grpSorting.TabIndex = 4
@@ -280,7 +278,7 @@ Partial Class frmFilter
         'optSortDesc
         '
         Me.optSortDesc.AutoSize = True
-        Me.optSortDesc.Location = New System.Drawing.Point(297, 26)
+        Me.optSortDesc.Location = New System.Drawing.Point(271, 26)
         Me.optSortDesc.Name = "optSortDesc"
         Me.optSortDesc.Size = New System.Drawing.Size(82, 17)
         Me.optSortDesc.TabIndex = 3
@@ -291,7 +289,7 @@ Partial Class frmFilter
         'optSortAsc
         '
         Me.optSortAsc.AutoSize = True
-        Me.optSortAsc.Location = New System.Drawing.Point(216, 26)
+        Me.optSortAsc.Location = New System.Drawing.Point(190, 26)
         Me.optSortAsc.Name = "optSortAsc"
         Me.optSortAsc.Size = New System.Drawing.Size(75, 17)
         Me.optSortAsc.TabIndex = 2
@@ -305,7 +303,7 @@ Partial Class frmFilter
         Me.cboSortField.FormattingEnabled = True
         Me.cboSortField.Location = New System.Drawing.Point(63, 25)
         Me.cboSortField.Name = "cboSortField"
-        Me.cboSortField.Size = New System.Drawing.Size(147, 21)
+        Me.cboSortField.Size = New System.Drawing.Size(121, 21)
         Me.cboSortField.TabIndex = 1
         '
         'lblOrderBy
@@ -320,32 +318,59 @@ Partial Class frmFilter
         'chkTag
         '
         Me.chkTag.AutoSize = True
-        Me.chkTag.Location = New System.Drawing.Point(12, 192)
+        Me.chkTag.Location = New System.Drawing.Point(12, 230)
         Me.chkTag.Name = "chkTag"
         Me.chkTag.Size = New System.Drawing.Size(45, 17)
-        Me.chkTag.TabIndex = 6
+        Me.chkTag.TabIndex = 2
         Me.chkTag.Text = "Tag"
         Me.chkTag.UseVisualStyleBackColor = True
         '
         'chkGameInfo
         '
         Me.chkGameInfo.AutoSize = True
-        Me.chkGameInfo.Location = New System.Drawing.Point(12, 14)
+        Me.chkGameInfo.Location = New System.Drawing.Point(12, 12)
         Me.chkGameInfo.Name = "chkGameInfo"
         Me.chkGameInfo.Size = New System.Drawing.Size(109, 17)
-        Me.chkGameInfo.TabIndex = 7
+        Me.chkGameInfo.TabIndex = 0
         Me.chkGameInfo.Text = "Game Information"
         Me.chkGameInfo.UseVisualStyleBackColor = True
+        '
+        'lblFields
+        '
+        Me.lblFields.AutoSize = True
+        Me.lblFields.Location = New System.Drawing.Point(26, 20)
+        Me.lblFields.Name = "lblFields"
+        Me.lblFields.Size = New System.Drawing.Size(80, 13)
+        Me.lblFields.TabIndex = 0
+        Me.lblFields.Text = "Available Fields"
+        '
+        'lblFilterData
+        '
+        Me.lblFilterData.AutoSize = True
+        Me.lblFilterData.Location = New System.Drawing.Point(199, 20)
+        Me.lblFilterData.Name = "lblFilterData"
+        Me.lblFilterData.Size = New System.Drawing.Size(32, 13)
+        Me.lblFilterData.TabIndex = 2
+        Me.lblFilterData.Text = "Filter "
+        '
+        'lblCurrentFilters
+        '
+        Me.lblCurrentFilters.AutoSize = True
+        Me.lblCurrentFilters.Location = New System.Drawing.Point(94, 65)
+        Me.lblCurrentFilters.Name = "lblCurrentFilters"
+        Me.lblCurrentFilters.Size = New System.Drawing.Size(71, 13)
+        Me.lblCurrentFilters.TabIndex = 5
+        Me.lblCurrentFilters.Text = "Current Filters"
         '
         'frmFilter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(409, 586)
-        Me.Controls.Add(Me.chkGameInfo)
-        Me.Controls.Add(Me.chkTag)
+        Me.ClientSize = New System.Drawing.Size(409, 561)
         Me.Controls.Add(Me.grpSorting)
+        Me.Controls.Add(Me.chkTag)
         Me.Controls.Add(Me.grpGameFilter)
+        Me.Controls.Add(Me.chkGameInfo)
         Me.Controls.Add(Me.grpTagFilter)
         Me.Controls.Add(Me.btnOK)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -375,16 +400,11 @@ Partial Class frmFilter
     Friend WithEvents lblTags As System.Windows.Forms.Label
     Friend WithEvents btnRemove As System.Windows.Forms.Button
     Friend WithEvents btnAdd As System.Windows.Forms.Button
-    Friend WithEvents lstFilter As System.Windows.Forms.ListBox
+    Friend WithEvents lstTagFilter As System.Windows.Forms.ListBox
     Friend WithEvents lstTags As System.Windows.Forms.ListBox
     Friend WithEvents btnOK As System.Windows.Forms.Button
     Friend WithEvents grpGameFilter As System.Windows.Forms.GroupBox
-    Friend WithEvents txtProcess As System.Windows.Forms.TextBox
-    Friend WithEvents lblProcess As System.Windows.Forms.Label
-    Friend WithEvents lblName As System.Windows.Forms.Label
-    Friend WithEvents txtName As System.Windows.Forms.TextBox
-    Friend WithEvents txtCompany As System.Windows.Forms.TextBox
-    Friend WithEvents lblCompany As System.Windows.Forms.Label
+    Friend WithEvents txtFilterData As System.Windows.Forms.TextBox
     Friend WithEvents grpGameInfoOptions As System.Windows.Forms.GroupBox
     Friend WithEvents optOr As System.Windows.Forms.RadioButton
     Friend WithEvents optAnd As System.Windows.Forms.RadioButton
@@ -395,4 +415,11 @@ Partial Class frmFilter
     Friend WithEvents lblOrderBy As Label
     Friend WithEvents chkTag As CheckBox
     Friend WithEvents chkGameInfo As CheckBox
+    Friend WithEvents cboFilterField As ComboBox
+    Friend WithEvents lstFilter As ListBox
+    Friend WithEvents btnAddFilter As Button
+    Friend WithEvents btnRemoveFilter As Button
+    Friend WithEvents lblCurrentFilters As Label
+    Friend WithEvents lblFilterData As Label
+    Friend WithEvents lblFields As Label
 End Class

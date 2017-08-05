@@ -20,7 +20,7 @@ Public Class frmGameManager
     Private bIsDirty As Boolean = False
     Private bIsLoading As Boolean = False
     Private oCurrentTagFilters As New List(Of clsTag)
-    Private oCurrentStringFilters As New Hashtable
+    Private oCurrentFilters As New List(Of frmFilter.clsFilter)
     Private eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.BaseFilter
     Private bCurrentSortAsc As Boolean = True
     Private sCurrentSortField As String = "Name"
@@ -227,20 +227,20 @@ Public Class frmGameManager
                 frm = New frmFilter
                 frm.ShowDialog()
                 oCurrentTagFilters = frm.TagFilters
-                oCurrentStringFilters = frm.StringFilters
+                oCurrentFilters = frm.GameFilters
                 eCurrentFilter = frm.FilterType
                 bCurrentSortAsc = frm.SortAsc
                 sCurrentSortField = frm.SortField
             End If
         Else
             oCurrentTagFilters.Clear()
-            oCurrentStringFilters.Clear()
+            oCurrentFilters.Clear()
             eCurrentFilter = frmFilter.eFilterType.BaseFilter
             bCurrentSortAsc = True
             sCurrentSortField = "Name"
         End If
 
-        GameData = mgrMonitorList.ReadFilteredList(oCurrentTagFilters, oCurrentStringFilters, eCurrentFilter, bCurrentSortAsc, sCurrentSortField)
+        GameData = mgrMonitorList.ReadFilteredList(oCurrentTagFilters, oCurrentFilters, eCurrentFilter, bCurrentSortAsc, sCurrentSortField)
 
         If optPendingRestores.Checked Then
             oRestoreData = mgrRestore.CompareManifests
@@ -1550,6 +1550,9 @@ Public Class frmGameManager
         AssignDirtyHandlers(grpExtra.Controls)
         AssignDirtyHandlers(grpStats.Controls)
         AssignDirtyHandlersMisc()
+
+        LoadData(False)
+        ModeChange()
     End Sub
 
     Private Sub lstGames_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstGames.SelectedIndexChanged

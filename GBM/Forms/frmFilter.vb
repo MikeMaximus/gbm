@@ -9,17 +9,63 @@ Public Class frmFilter
         NoTags = 4
     End Enum
 
+    Public Class clsFilter
+
+        Private sID As String
+        Private sField As String
+        Private oData As Object
+        Private bAndOperator As Boolean
+
+        Public Property ID As String
+            Get
+                Return sID
+            End Get
+            Set(value As String)
+                sID = value
+            End Set
+        End Property
+
+        Public Property Field As String
+            Get
+                Return sField
+            End Get
+            Set(value As String)
+                sField = value
+            End Set
+        End Property
+
+        Public Property Data As Object
+            Get
+                Return oData
+            End Get
+            Set(value As Object)
+                oData = value
+            End Set
+        End Property
+
+        Public Property AndOperator As Boolean
+            Get
+                Return bAndOperator
+            End Get
+            Set(value As Boolean)
+                bAndOperator = value
+            End Set
+        End Property
+
+    End Class
+
     Dim oTagFilters As New List(Of clsTag)
-    Dim hshStringFilters As New Hashtable
+    Dim oGameFilters As New List(Of clsFilter)
     Dim eCurrentFilterType As eFilterType = eFilterType.BaseFilter
     Dim bSortAsc As Boolean = True
     Dim sSortField As String = "Name"
     Dim hshTags As New Hashtable
     Dim bShutdown As Boolean = False
+    Dim iParameterIndex As Integer = 0
 
-    Public ReadOnly Property StringFilters As Hashtable
+    Public ReadOnly Property GameFilters As List(Of clsFilter)
         Get
-            Return hshStringFilters
+            Return oGameFilters
         End Get
     End Property
 
@@ -53,7 +99,7 @@ Public Class frmFilter
 
         If lstTags.SelectedItems.Count = 1 Then
             oData = lstTags.SelectedItems(0)
-            lstFilter.Items.Add(oData)
+            lstTagFilter.Items.Add(oData)
             lstTags.Items.Remove(oData)
         ElseIf lstTags.SelectedItems.Count > 1 Then
             oTags = New List(Of KeyValuePair(Of String, String))
@@ -63,7 +109,7 @@ Public Class frmFilter
             Next
 
             For Each kp As KeyValuePair(Of String, String) In oTags
-                lstFilter.Items.Add(kp)
+                lstTagFilter.Items.Add(kp)
                 lstTags.Items.Remove(kp)
             Next
         End If
@@ -74,19 +120,19 @@ Public Class frmFilter
         Dim oData As KeyValuePair(Of String, String)
         Dim oTags As List(Of KeyValuePair(Of String, String))
 
-        If lstFilter.SelectedItems.Count = 1 Then
-            oData = lstFilter.SelectedItems(0)
-            lstFilter.Items.Remove(oData)
+        If lstTagFilter.SelectedItems.Count = 1 Then
+            oData = lstTagFilter.SelectedItems(0)
+            lstTagFilter.Items.Remove(oData)
             lstTags.Items.Add(oData)
-        ElseIf lstFilter.SelectedItems.Count > 1 Then
+        ElseIf lstTagFilter.SelectedItems.Count > 1 Then
             oTags = New List(Of KeyValuePair(Of String, String))
 
-            For Each oData In lstFilter.SelectedItems
+            For Each oData In lstTagFilter.SelectedItems
                 oTags.Add(oData)
             Next
 
             For Each kp As KeyValuePair(Of String, String) In oTags
-                lstFilter.Items.Remove(kp)
+                lstTagFilter.Items.Remove(kp)
                 lstTags.Items.Add(kp)
             Next
         End If
@@ -102,18 +148,57 @@ Public Class frmFilter
 
         'Handle Lists
         lstTags.Items.Clear()
-        lstFilter.Items.Clear()
+        lstTagFilter.Items.Clear()
 
         lstTags.ValueMember = "Key"
         lstTags.DisplayMember = "Value"
-        lstFilter.ValueMember = "Key"
-        lstFilter.DisplayMember = "Value"
+        lstTagFilter.ValueMember = "Key"
+        lstTagFilter.DisplayMember = "Value"
 
         For Each de As DictionaryEntry In hshTags
             oTag = DirectCast(de.Value, clsTag)
             oData = New KeyValuePair(Of String, String)(oTag.ID, oTag.Name)
             lstTags.Items.Add(oData)
         Next
+
+    End Sub
+
+    Private Sub AddFilter()
+        Dim oFilter As New clsFilter
+        Dim sFilter As String
+
+        lstFilter.ValueMember = "Key"
+        lstFilter.DisplayMember = "Value"
+
+        'Build Filter
+        oFilter.ID = "PARAM" & iParameterIndex
+        oFilter.Field = cboFilterField.SelectedValue
+        oFilter.Data = txtFilterData.Text
+        oFilter.AndOperator = optAnd.Checked
+
+        oGameFilters.Add(oFilter)
+
+        'Build String
+        sFilter = oFilter.Field & " / " & oFilter.Data & " / "
+        If oFilter.AndOperator Then
+            sFilter &= frmFilter_optAnd
+        Else
+            sFilter &= frmFilter_optOr
+        End If
+
+        lstFilter.Items.Add(New KeyValuePair(Of clsFilter, String)(oFilter, sFilter))
+
+        iParameterIndex += 1
+    End Sub
+
+    Private Sub RemoveFilter()
+        Dim oFilter As Object
+
+        If lstFilter.SelectedIndex <> -1 Then
+            oFilter = lstFilter.SelectedItem
+            oGameFilters.Remove(DirectCast(oFilter, KeyValuePair(Of clsFilter, String)).Key)
+            lstFilter.Items.Remove(oFilter)
+        End If
 
     End Sub
 
@@ -125,22 +210,11 @@ Public Class frmFilter
         If chkGameInfo.Checked Then
             'Set Filter Type
             eCurrentFilterType = eFilterType.BaseFilter
-
-            'Set String Filter
-            If txtName.Text <> String.Empty Then
-                hshStringFilters.Add("Name", txtName.Text)
-            End If
-            If txtProcess.Text <> String.Empty Then
-                hshStringFilters.Add("Process", txtProcess.Text)
-            End If
-            If txtCompany.Text <> String.Empty Then
-                hshStringFilters.Add("Company", txtCompany.Text)
-            End If
         End If
 
         If chkTag.Checked Then
             'Set Tags
-            For Each oData In lstFilter.Items
+            For Each oData In lstTagFilter.Items
                 oTag = DirectCast(hshTags(oData.Value), clsTag)
                 TagFilters.Add(oTag)
             Next
@@ -167,20 +241,36 @@ Public Class frmFilter
     End Sub
 
     Private Sub LoadCombos()
+        Dim oFilterFields As New List(Of KeyValuePair(Of String, String))
         Dim oSortFields As New List(Of KeyValuePair(Of String, String))
+
+        'cboFilterField
+        cboFilterField.ValueMember = "Key"
+        cboFilterField.DisplayMember = "Value"
+
+        oFilterFields.Add(New KeyValuePair(Of String, String)("Name", frmFilter_FieldName))
+        oFilterFields.Add(New KeyValuePair(Of String, String)("Process", frmFilter_FieldProcess))
+        oFilterFields.Add(New KeyValuePair(Of String, String)("Parameter", frmFilter_FieldParameter))
+        oFilterFields.Add(New KeyValuePair(Of String, String)("Company", frmFilter_FieldCompany))
+        oFilterFields.Add(New KeyValuePair(Of String, String)("Version", frmFilter_FieldVersion))
+
+        cboFilterField.DataSource = oFilterFields
 
         'cboSortField
         cboSortField.ValueMember = "Key"
         cboSortField.DisplayMember = "Value"
 
-        oSortFields.Add(New KeyValuePair(Of String, String)("Name", frmFilter_SortName))
-        oSortFields.Add(New KeyValuePair(Of String, String)("Process", frmFilter_SortProcess))
-        oSortFields.Add(New KeyValuePair(Of String, String)("Company", frmFilter_SortCompany))
-        oSortFields.Add(New KeyValuePair(Of String, String)("Hours", frmFilter_SortHours))
+        oSortFields.Add(New KeyValuePair(Of String, String)("Name", frmFilter_FieldName))
+        oSortFields.Add(New KeyValuePair(Of String, String)("Process", frmFilter_FieldProcess))
+        oSortFields.Add(New KeyValuePair(Of String, String)("Parameter", frmFilter_FieldParameter))
+        oSortFields.Add(New KeyValuePair(Of String, String)("Company", frmFilter_FieldCompany))
+        oSortFields.Add(New KeyValuePair(Of String, String)("Version", frmFilter_FieldVersion))
+        oSortFields.Add(New KeyValuePair(Of String, String)("Hours", frmFilter_FieldHours))
 
         cboSortField.DataSource = oSortFields
 
-        'Select Default
+        'Select Defaults
+        cboFilterField.SelectedIndex = 0
         cboSortField.SelectedIndex = 0
     End Sub
 
@@ -191,9 +281,6 @@ Public Class frmFilter
         'Set Form Text
         optOr.Text = frmFilter_optOr
         optAnd.Text = frmFilter_optAnd
-        lblCompany.Text = frmFilter_lblCompany
-        lblProcess.Text = frmFilter_lblProcess
-        lblName.Text = frmFilter_lblName
         grpGameInfoOptions.Text = frmFilter_grpGameInfoOptions
         optAll.Text = frmFilter_optAll
         optAny.Text = frmFilter_optAny
@@ -209,6 +296,11 @@ Public Class frmFilter
         lblOrderBy.Text = frmFilter_lblOrderBy
         optSortAsc.Text = frmFilter_optSortAsc
         optSortDesc.Text = frmFilter_optSortDesc
+        btnAddFilter.Text = frmFilter_btnAddFilter
+        btnRemoveFilter.Text = frmFilter_btnRemoveFilter
+        lblCurrentFilters.Text = frmFilter_lblCurrentFilters
+        lblFields.Text = frmFilter_lblFields
+        lblFilterData.Text = frmFilter_lblFilterData
 
         'Defaults
         optSortAsc.Checked = True
@@ -256,5 +348,13 @@ Public Class frmFilter
         Else
             grpTagFilter.Enabled = False
         End If
+    End Sub
+
+    Private Sub btnAddFilter_Click(sender As Object, e As EventArgs) Handles btnAddFilter.Click
+        AddFilter()
+    End Sub
+
+    Private Sub btnRemoveFilter_Click(sender As Object, e As EventArgs) Handles btnRemoveFilter.Click
+        RemoveFilter()
     End Sub
 End Class

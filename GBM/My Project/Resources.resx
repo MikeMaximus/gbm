@@ -895,17 +895,8 @@
   <data name="frmFilter_FormName" xml:space="preserve">
     <value>Custom Filter</value>
   </data>
-  <data name="frmFilter_lblCompany" xml:space="preserve">
-    <value>Company:</value>
-  </data>
   <data name="frmFilter_lblGameTags" xml:space="preserve">
     <value>Current Filter</value>
-  </data>
-  <data name="frmFilter_lblName" xml:space="preserve">
-    <value>Name:</value>
-  </data>
-  <data name="frmFilter_lblProcess" xml:space="preserve">
-    <value>Process:</value>
   </data>
   <data name="frmFilter_lblTags" xml:space="preserve">
     <value>Available Tags</value>
@@ -1813,16 +1804,37 @@
   <data name="frmFilter_optSortDesc" xml:space="preserve">
     <value>Descending</value>
   </data>
-  <data name="frmFilter_SortCompany" xml:space="preserve">
+  <data name="frmFilter_FieldCompany" xml:space="preserve">
     <value>Company</value>
   </data>
-  <data name="frmFilter_SortHours" xml:space="preserve">
-    <value>Time Played</value>
+  <data name="frmFilter_FieldHours" xml:space="preserve">
+    <value>Hours</value>
   </data>
-  <data name="frmFilter_SortName" xml:space="preserve">
+  <data name="frmFilter_FieldName" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="frmFilter_SortProcess" xml:space="preserve">
+  <data name="frmFilter_FieldProcess" xml:space="preserve">
     <value>Process</value>
+  </data>
+  <data name="frmFilter_btnAddFilter" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="frmFilter_btnRemoveFilter" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="frmFilter_FieldParameter" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="frmFilter_FieldVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="frmFilter_lblCurrentFilters" xml:space="preserve">
+    <value>Current Filters</value>
+  </data>
+  <data name="frmFilter_lblFields" xml:space="preserve">
+    <value>Available Fields</value>
+  </data>
+  <data name="frmFilter_lblFilterData" xml:space="preserve">
+    <value>Filter</value>
   </data>
 </root>
