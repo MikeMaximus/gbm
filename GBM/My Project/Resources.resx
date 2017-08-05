@@ -1801,4 +1801,28 @@
   <data name="App_ErrorFocus" xml:space="preserve">
     <value>GBM is busy with an open window on your desktop.</value>
   </data>
+  <data name="frmFilter_grpSorting" xml:space="preserve">
+    <value>Sorting</value>
+  </data>
+  <data name="frmFilter_lblOrderBy" xml:space="preserve">
+    <value>Order By:</value>
+  </data>
+  <data name="frmFilter_optSortAsc" xml:space="preserve">
+    <value>Ascending</value>
+  </data>
+  <data name="frmFilter_optSortDesc" xml:space="preserve">
+    <value>Descending</value>
+  </data>
+  <data name="frmFilter_SortCompany" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="frmFilter_SortHours" xml:space="preserve">
+    <value>Time Played</value>
+  </data>
+  <data name="frmFilter_SortName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="frmFilter_SortProcess" xml:space="preserve">
+    <value>Process</value>
+  </data>
 </root>

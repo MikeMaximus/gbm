@@ -1,4 +1,5 @@
 ﻿Imports GBM.My.Resources
+Imports System.Collections.Specialized
 Imports System.IO
 
 Public Class frmGameManager
@@ -13,7 +14,7 @@ Public Class frmGameManager
     Private bTriggerRestore As Boolean = False
     Private oBackupList As New List(Of clsGame)
     Private oRestoreList As New Hashtable
-    Private oAppData As Hashtable
+    Private oGameData As OrderedDictionary
     Private oLocalBackupData As SortedList
     Private oRemoteBackupData As SortedList
     Private bIsDirty As Boolean = False
@@ -21,6 +22,8 @@ Public Class frmGameManager
     Private oCurrentTagFilters As New List(Of clsTag)
     Private oCurrentStringFilters As New Hashtable
     Private eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.NoFilter
+    Private bCurrentSortAsc As Boolean = True
+    Private sCurrentSortField As String = "Name"
     Private WithEvents tmFilterTimer As Timer
 
     Private Enum eModes As Integer
@@ -70,12 +73,12 @@ Public Class frmGameManager
         End Set
     End Property
 
-    Private Property AppData As Hashtable
+    Private Property GameData As OrderedDictionary
         Get
-            Return oAppData
+            Return oGameData
         End Get
-        Set(value As Hashtable)
-            oAppData = value
+        Set(value As OrderedDictionary)
+            oGameData = value
         End Set
     End Property
 
@@ -226,37 +229,41 @@ Public Class frmGameManager
                 oCurrentTagFilters = frm.TagFilters
                 oCurrentStringFilters = frm.StringFilters
                 eCurrentFilter = frm.FilterType
+                bCurrentSortAsc = frm.SortAsc
+                sCurrentSortField = frm.SortField
             End If
         Else
             oCurrentTagFilters.Clear()
             oCurrentStringFilters.Clear()
             eCurrentFilter = frmFilter.eFilterType.NoFilter
+            bCurrentSortAsc = True
+            sCurrentSortField = "Name"
         End If
 
-        AppData = mgrMonitorList.ReadFilteredList(oCurrentTagFilters, oCurrentStringFilters, eCurrentFilter)
+        GameData = mgrMonitorList.ReadFilteredList(oCurrentTagFilters, oCurrentStringFilters, eCurrentFilter, bCurrentSortAsc, sCurrentSortField)
 
         If optPendingRestores.Checked Then
             oRestoreData = mgrRestore.CompareManifests
 
             'Only show games with data to restore
-            Dim oTemporaryList As Hashtable = AppData.Clone
+            Dim oTemporaryList As OrderedDictionary = mgrCommon.GenericClone(GameData)
             For Each de As DictionaryEntry In oTemporaryList
                 oGame = DirectCast(de.Value, clsGame)
                 If Not oRestoreData.ContainsKey(oGame.Name) Then
-                    AppData.Remove(de.Key)
+                    GameData.Remove(de.Key)
                 Else
                     oRestoreData.Remove(oGame.Name)
                 End If
             Next
         ElseIf optBackupData.Checked Then
             'Only show games with backup data
-            Dim oTemporaryList As Hashtable = AppData.Clone
+            Dim oTemporaryList As OrderedDictionary = mgrCommon.GenericClone(GameData)
             oRestoreData = oRemoteBackupData.Clone
 
             For Each de As DictionaryEntry In oTemporaryList
                 oGame = DirectCast(de.Value, clsGame)
                 If Not oRemoteBackupData.ContainsKey(oGame.Name) Then
-                    AppData.Remove(de.Key)
+                    GameData.Remove(de.Key)
                 Else
                     oRestoreData.Remove(oGame.Name)
                 End If
@@ -269,7 +276,7 @@ Public Class frmGameManager
                 oGame = New clsGame
                 oGame.Name = oBackup.Name
                 oGame.Temporary = True
-                AppData.Add(oGame.ID, oGame)
+                GameData.Add(oGame.ID, oGame)
             Next
         End If
 
@@ -387,7 +394,7 @@ Public Class frmGameManager
         Dim oList As New List(Of KeyValuePair(Of String, String))
         Dim sFilter As String = txtQuickFilter.Text
 
-        For Each de As DictionaryEntry In AppData
+        For Each de As DictionaryEntry In GameData
             oApp = DirectCast(de.Value, clsGame)
             oData = New KeyValuePair(Of String, String)(oApp.ID, oApp.Name)
             'Apply the quick filter if applicable
@@ -399,8 +406,6 @@ Public Class frmGameManager
                 End If
             End If
         Next
-
-        oList.Sort(AddressOf mgrCommon.CompareByListBoxItemByValue)
 
         lstGames.BeginUpdate()
         lstGames.ValueMember = "Key"
@@ -545,7 +550,7 @@ Public Class frmGameManager
             frm.TagList = oTagsToSave
         Else
             For Each oData In lstGames.SelectedItems
-                oApp = DirectCast(AppData(oData.Key), clsGame)
+                oApp = DirectCast(GameData(oData.Key), clsGame)
                 sMonitorIDs.Add(oApp.ID)
             Next
             frm.GameName = CurrentGame.Name
@@ -731,7 +736,7 @@ Public Class frmGameManager
         IsLoading = True
 
         Dim oData As KeyValuePair(Of String, String) = lstGames.SelectedItems(0)
-        Dim oApp As clsGame = DirectCast(AppData(oData.Key), clsGame)
+        Dim oApp As clsGame = DirectCast(GameData(oData.Key), clsGame)
 
         'Core
         txtID.Text = oApp.ID
@@ -1195,7 +1200,7 @@ Public Class frmGameManager
 
         If lstGames.SelectedItems.Count = 1 Then
             oData = lstGames.SelectedItems(0)
-            oApp = DirectCast(AppData(oData.Key), clsGame)
+            oApp = DirectCast(GameData(oData.Key), clsGame)
 
             If mgrCommon.ShowMessage(frmGameManager_ConfirmGameDelete, oApp.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDelete(oApp.ID)
@@ -1207,7 +1212,7 @@ Public Class frmGameManager
             Dim sMonitorIDs As New List(Of String)
 
             For Each oData In lstGames.SelectedItems
-                oApp = DirectCast(AppData(oData.Key), clsGame)
+                oApp = DirectCast(GameData(oData.Key), clsGame)
                 sMonitorIDs.Add(oApp.ID)
             Next
 
@@ -1334,7 +1339,7 @@ Public Class frmGameManager
             BackupList.Clear()
 
             For Each oData In lstGames.SelectedItems
-                oGame = DirectCast(AppData(oData.Key), clsGame)
+                oGame = DirectCast(GameData(oData.Key), clsGame)
                 BackupList.Add(oGame)
             Next
 
@@ -1377,7 +1382,7 @@ Public Class frmGameManager
             Else
                 For Each oData In lstGames.SelectedItems
                     If oRemoteBackupData.Contains(oData.Value) Then
-                        oGame = DirectCast(AppData(oData.Key), clsGame)
+                        oGame = DirectCast(GameData(oData.Key), clsGame)
                         oBackup = DirectCast(oRemoteBackupData(oData.Value), clsBackup)
                         RestoreList.Add(oGame, oBackup)
                     End If

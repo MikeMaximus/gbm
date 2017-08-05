@@ -14,6 +14,8 @@ Public Class frmFilter
     Dim oTagFilters As New List(Of clsTag)
     Dim hshStringFilters As New Hashtable
     Dim eCurrentFilterType As eFilterType = eFilterType.AnyTag
+    Dim bSortAsc As Boolean = True
+    Dim sSortField As String = "Name"
     Dim hshTags As New Hashtable
     Dim bShutdown As Boolean = False
 
@@ -32,6 +34,18 @@ Public Class frmFilter
     Public ReadOnly Property FilterType As eFilterType
         Get
             Return eCurrentFilterType
+        End Get
+    End Property
+
+    Public ReadOnly Property SortAsc As Boolean
+        Get
+            Return bSortAsc
+        End Get
+    End Property
+
+    Public ReadOnly Property SortField As String
+        Get
+            Return sSortField
         End Get
     End Property
 
@@ -145,6 +159,33 @@ Public Class frmFilter
             End If
         End If
 
+        'Sorting
+        If optSortAsc.Checked Then
+            bSortAsc = True
+        Else
+            bSortAsc = False
+        End If
+
+        sSortField = cboSortField.SelectedValue
+
+    End Sub
+
+    Private Sub LoadCombos()
+        Dim oSortFields As New List(Of KeyValuePair(Of String, String))
+
+        'cboSortField
+        cboSortField.ValueMember = "Key"
+        cboSortField.DisplayMember = "Value"
+
+        oSortFields.Add(New KeyValuePair(Of String, String)("Name", frmFilter_SortName))
+        oSortFields.Add(New KeyValuePair(Of String, String)("Process", frmFilter_SortProcess))
+        oSortFields.Add(New KeyValuePair(Of String, String)("Company", frmFilter_SortCompany))
+        oSortFields.Add(New KeyValuePair(Of String, String)("Hours", frmFilter_SortHours))
+
+        cboSortField.DataSource = oSortFields
+
+        'Select Default
+        cboSortField.SelectedIndex = 0
     End Sub
 
     Private Sub SetForm()
@@ -168,10 +209,18 @@ Public Class frmFilter
         grpTagOptions.Text = frmFilter_grpTagOptions
         optTag.Text = frmFilter_optTag
         optGameInfo.Text = frmFilter_optGameInfo
+        grpSorting.Text = frmFilter_grpSorting
+        lblOrderBy.Text = frmFilter_lblOrderBy
+        optSortAsc.Text = frmFilter_optSortAsc
+        optSortDesc.Text = frmFilter_optSortDesc
+
+        'Defaults
+        optSortAsc.Checked = True
     End Sub
 
     Private Sub frmGameTags_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetForm()
+        LoadCombos()
         optGameInfo.Checked = True
         LoadData()
     End Sub

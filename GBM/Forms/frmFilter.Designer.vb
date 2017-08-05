@@ -45,10 +45,16 @@ Partial Class frmFilter
         Me.lblProcess = New System.Windows.Forms.Label()
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtName = New System.Windows.Forms.TextBox()
+        Me.grpSorting = New System.Windows.Forms.GroupBox()
+        Me.lblOrderBy = New System.Windows.Forms.Label()
+        Me.cboSortField = New System.Windows.Forms.ComboBox()
+        Me.optSortAsc = New System.Windows.Forms.RadioButton()
+        Me.optSortDesc = New System.Windows.Forms.RadioButton()
         Me.grpTagFilter.SuspendLayout()
         Me.grpTagOptions.SuspendLayout()
         Me.grpGameFilter.SuspendLayout()
         Me.grpGameInfoOptions.SuspendLayout()
+        Me.grpSorting.SuspendLayout()
         Me.SuspendLayout()
         '
         'optGameInfo
@@ -176,10 +182,10 @@ Partial Class frmFilter
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(322, 484)
+        Me.btnOK.Location = New System.Drawing.Point(322, 551)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 23)
-        Me.btnOK.TabIndex = 4
+        Me.btnOK.TabIndex = 5
         Me.btnOK.Text = "&OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
@@ -278,11 +284,65 @@ Partial Class frmFilter
         Me.txtName.Size = New System.Drawing.Size(309, 20)
         Me.txtName.TabIndex = 1
         '
+        'grpSorting
+        '
+        Me.grpSorting.Controls.Add(Me.optSortDesc)
+        Me.grpSorting.Controls.Add(Me.optSortAsc)
+        Me.grpSorting.Controls.Add(Me.cboSortField)
+        Me.grpSorting.Controls.Add(Me.lblOrderBy)
+        Me.grpSorting.Location = New System.Drawing.Point(12, 484)
+        Me.grpSorting.Name = "grpSorting"
+        Me.grpSorting.Size = New System.Drawing.Size(385, 61)
+        Me.grpSorting.TabIndex = 4
+        Me.grpSorting.TabStop = False
+        Me.grpSorting.Text = "Sorting"
+        '
+        'lblOrderBy
+        '
+        Me.lblOrderBy.AutoSize = True
+        Me.lblOrderBy.Location = New System.Drawing.Point(6, 28)
+        Me.lblOrderBy.Name = "lblOrderBy"
+        Me.lblOrderBy.Size = New System.Drawing.Size(51, 13)
+        Me.lblOrderBy.TabIndex = 0
+        Me.lblOrderBy.Text = "Order By:"
+        '
+        'cboSortField
+        '
+        Me.cboSortField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboSortField.FormattingEnabled = True
+        Me.cboSortField.Location = New System.Drawing.Point(63, 25)
+        Me.cboSortField.Name = "cboSortField"
+        Me.cboSortField.Size = New System.Drawing.Size(147, 21)
+        Me.cboSortField.TabIndex = 1
+        '
+        'optSortAsc
+        '
+        Me.optSortAsc.AutoSize = True
+        Me.optSortAsc.Location = New System.Drawing.Point(216, 26)
+        Me.optSortAsc.Name = "optSortAsc"
+        Me.optSortAsc.Size = New System.Drawing.Size(75, 17)
+        Me.optSortAsc.TabIndex = 2
+        Me.optSortAsc.TabStop = True
+        Me.optSortAsc.Text = "Ascending"
+        Me.optSortAsc.UseVisualStyleBackColor = True
+        '
+        'optSortDesc
+        '
+        Me.optSortDesc.AutoSize = True
+        Me.optSortDesc.Location = New System.Drawing.Point(297, 26)
+        Me.optSortDesc.Name = "optSortDesc"
+        Me.optSortDesc.Size = New System.Drawing.Size(82, 17)
+        Me.optSortDesc.TabIndex = 3
+        Me.optSortDesc.TabStop = True
+        Me.optSortDesc.Text = "Descending"
+        Me.optSortDesc.UseVisualStyleBackColor = True
+        '
         'frmFilter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(409, 516)
+        Me.ClientSize = New System.Drawing.Size(409, 586)
+        Me.Controls.Add(Me.grpSorting)
         Me.Controls.Add(Me.grpGameFilter)
         Me.Controls.Add(Me.grpTagFilter)
         Me.Controls.Add(Me.btnOK)
@@ -301,6 +361,8 @@ Partial Class frmFilter
         Me.grpGameFilter.ResumeLayout(False)
         Me.grpGameFilter.PerformLayout()
         Me.grpGameInfoOptions.ResumeLayout(False)
+        Me.grpSorting.ResumeLayout(False)
+        Me.grpSorting.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -328,4 +390,9 @@ Partial Class frmFilter
     Friend WithEvents grpGameInfoOptions As System.Windows.Forms.GroupBox
     Friend WithEvents optOr As System.Windows.Forms.RadioButton
     Friend WithEvents optAnd As System.Windows.Forms.RadioButton
+    Friend WithEvents grpSorting As GroupBox
+    Friend WithEvents optSortDesc As RadioButton
+    Friend WithEvents optSortAsc As RadioButton
+    Friend WithEvents cboSortField As ComboBox
+    Friend WithEvents lblOrderBy As Label
 End Class
