@@ -4,7 +4,6 @@
     Private oField As clsGameFilterField
     Private oData As Object
     Private eNumericOperator As eNumericOperators = eNumericOperators.Equals
-    Private bNextBoolOperator As Boolean
 
     Public Enum eNumericOperators
         Equals = 1
@@ -38,15 +37,6 @@
         End Get
         Set(value As Object)
             oData = value
-        End Set
-    End Property
-
-    Public Property NextBoolOperator As Boolean
-        Get
-            Return bNextBoolOperator
-        End Get
-        Set(value As Boolean)
-            bNextBoolOperator = value
         End Set
     End Property
 

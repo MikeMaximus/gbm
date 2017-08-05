@@ -13,6 +13,7 @@ Public Class frmFilter
     Dim oGameFilters As New List(Of clsGameFilter)
     Dim oValidFields As New List(Of clsGameFilterField)
     Dim eCurrentFilterType As eFilterType = eFilterType.BaseFilter
+    Dim bAndOperator As Boolean = True
     Dim bSortAsc As Boolean = True
     Dim sSortField As String = "Name"
     Dim hshTags As New Hashtable
@@ -43,6 +44,15 @@ Public Class frmFilter
         End Get
         Set(value As eFilterType)
             eCurrentFilterType = value
+        End Set
+    End Property
+
+    Public Property AndOperator As Boolean
+        Get
+            Return bAndOperator
+        End Get
+        Set(value As Boolean)
+            bAndOperator = value
         End Set
     End Property
 
@@ -287,24 +297,23 @@ Public Class frmFilter
         Dim oListTag As KeyValuePair(Of String, String)
 
         'Game Filters
+        If bAndOperator Then
+            optAnd.Checked = True
+        Else
+            optOr.Checked = True
+        End If
+
         If oGameFilters.Count > 0 Then
             chkGameInfo.Checked = True
             For Each oFilter As clsGameFilter In oGameFilters
                 Select Case oFilter.Field.Type
                     Case clsGameFilterField.eDataType.fString
-                        sFilter = oFilter.Field.FriendlyFieldName & " " & frmFilter_lstFilterContains & " """ & oFilter.Data & """ / "
+                        sFilter = oFilter.Field.FriendlyFieldName & " " & frmFilter_lstFilterContains & " """ & oFilter.Data & """"
                     Case clsGameFilterField.eDataType.fNumeric
-                        oFilter.NumericOperator = DirectCast(cboNumericOps.SelectedValue, clsGameFilter.eNumericOperators)
-                        sFilter = oFilter.Field.FriendlyFieldName & " " & oFilter.NumericOperatorAsString & " " & oFilter.Data & " / "
+                        sFilter = oFilter.Field.FriendlyFieldName & " " & oFilter.NumericOperatorAsString & " " & oFilter.Data
                     Case clsGameFilterField.eDataType.fBool
-                        sFilter = oFilter.Field.FriendlyFieldName & " = " & oFilter.Data & " / "
+                        sFilter = oFilter.Field.FriendlyFieldName & " = " & oFilter.Data
                 End Select
-
-                If oFilter.NextBoolOperator Then
-                    sFilter &= frmFilter_optAnd
-                Else
-                    sFilter &= frmFilter_optOr
-                End If
 
                 iParameterIndex += 1
 
@@ -374,26 +383,19 @@ Public Class frmFilter
         'Build Filter
         oFilter.ID = "PARAM" & iParameterIndex
         oFilter.Field = cboFilterField.SelectedValue
-        oFilter.NextBoolOperator = optAnd.Checked
 
         Select Case oFilter.Field.Type
             Case clsGameFilterField.eDataType.fString
                 oFilter.Data = txtStringFilter.Text
-                sFilter = oFilter.Field.FriendlyFieldName & " " & frmFilter_lstFilterContains & " """ & oFilter.Data & """ / "
+                sFilter = oFilter.Field.FriendlyFieldName & " " & frmFilter_lstFilterContains & " """ & oFilter.Data & """"
             Case clsGameFilterField.eDataType.fNumeric
                 oFilter.Data = numFilter.Value
                 oFilter.NumericOperator = DirectCast(cboNumericOps.SelectedValue, clsGameFilter.eNumericOperators)
-                sFilter = oFilter.Field.FriendlyFieldName & " " & oFilter.NumericOperatorAsString & " " & oFilter.Data & " / "
+                sFilter = oFilter.Field.FriendlyFieldName & " " & oFilter.NumericOperatorAsString & " " & oFilter.Data
             Case clsGameFilterField.eDataType.fBool
                 oFilter.Data = cboBoolFilter.SelectedValue
-                sFilter = oFilter.Field.FriendlyFieldName & " = " & oFilter.Data & " / "
+                sFilter = oFilter.Field.FriendlyFieldName & " = " & oFilter.Data
         End Select
-
-        If oFilter.NextBoolOperator Then
-            sFilter &= frmFilter_optAnd
-        Else
-            sFilter &= frmFilter_optOr
-        End If
 
         oGameFilters.Add(oFilter)
         lstFilter.Items.Add(New KeyValuePair(Of clsGameFilter, String)(oFilter, sFilter))
@@ -418,8 +420,9 @@ Public Class frmFilter
 
 
         If chkGameInfo.Checked Then
-            'Set Filter Type
+            'Set Filter Type(s)
             eCurrentFilterType = eFilterType.BaseFilter
+            bAndOperator = optAnd.Checked
         End If
 
         If chkTag.Checked Then
@@ -515,7 +518,7 @@ Public Class frmFilter
         'Set Form Text
         optOr.Text = frmFilter_optOr
         optAnd.Text = frmFilter_optAnd
-        grpNextFilterOperator.Text = frmFilter_grpNextFilterOperator
+        grpFilterType.Text = frmFilter_grpFilterType
         optAll.Text = frmFilter_optAll
         optAny.Text = frmFilter_optAny
         lblGameTags.Text = frmFilter_lblGameTags
@@ -538,6 +541,7 @@ Public Class frmFilter
         grpSortOptions.Text = frmFilter_grpSortOptions
 
         'Defaults
+        optAnd.Checked = True
         optSortAsc.Checked = True
         grpGameFilter.Enabled = False
         grpTagFilter.Enabled = False
@@ -579,6 +583,7 @@ Public Class frmFilter
         If chkGameInfo.Checked Then
             grpGameFilter.Enabled = True
         Else
+            optAnd.Checked = True
             grpGameFilter.Enabled = False
             oGameFilters.Clear()
             lstFilter.Items.Clear()

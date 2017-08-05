@@ -22,6 +22,7 @@ Public Class frmGameManager
     Private oCurrentTagFilters As New List(Of clsTag)
     Private oCurrentFilters As New List(Of clsGameFilter)
     Private eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.BaseFilter
+    Private bCurrentAndOperator As Boolean = True
     Private bCurrentSortAsc As Boolean = True
     Private sCurrentSortField As String = "Name"
     Private WithEvents tmFilterTimer As Timer
@@ -225,9 +226,11 @@ Public Class frmGameManager
         If optCustom.Checked Then
             If Not bRetainFilter Then
                 frm = New frmFilter
+
                 frm.TagFilters = oCurrentTagFilters
                 frm.GameFilters = oCurrentFilters
                 frm.FilterType = eCurrentFilter
+                frm.AndOperator = bCurrentAndOperator
                 frm.SortAsc = bCurrentSortAsc
                 frm.SortField = sCurrentSortField
 
@@ -236,6 +239,7 @@ Public Class frmGameManager
                 oCurrentTagFilters = frm.TagFilters
                 oCurrentFilters = frm.GameFilters
                 eCurrentFilter = frm.FilterType
+                bCurrentAndOperator = frm.AndOperator
                 bCurrentSortAsc = frm.SortAsc
                 sCurrentSortField = frm.SortField
             End If
@@ -247,7 +251,7 @@ Public Class frmGameManager
             sCurrentSortField = "Name"
         End If
 
-        GameData = mgrMonitorList.ReadFilteredList(oCurrentTagFilters, oCurrentFilters, eCurrentFilter, bCurrentSortAsc, sCurrentSortField)
+        GameData = mgrMonitorList.ReadFilteredList(oCurrentTagFilters, oCurrentFilters, eCurrentFilter, bCurrentAndOperator, bCurrentSortAsc, sCurrentSortField)
 
         If optPendingRestores.Checked Then
             oRestoreData = mgrRestore.CompareManifests

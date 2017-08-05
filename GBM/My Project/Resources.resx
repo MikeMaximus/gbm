@@ -1006,8 +1006,8 @@
   <data name="frmIncludeExclude_ToolTipTitle" xml:space="preserve">
     <value>Saved Game Explorer</value>
   </data>
-  <data name="frmFilter_grpNextFilterOperator" xml:space="preserve">
-    <value>Next Filter</value>
+  <data name="frmFilter_grpFilterType" xml:space="preserve">
+    <value>Filter Type</value>
   </data>
   <data name="frmFilter_grpTagOptions" xml:space="preserve">
     <value>Options</value>

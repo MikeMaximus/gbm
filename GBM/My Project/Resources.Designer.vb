@@ -1159,11 +1159,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Next Filter.
+        '''  Looks up a localized string similar to Filter Type.
         '''</summary>
-        Friend ReadOnly Property frmFilter_grpNextFilterOperator() As String
+        Friend ReadOnly Property frmFilter_grpFilterType() As String
             Get
-                Return ResourceManager.GetString("frmFilter_grpNextFilterOperator", resourceCulture)
+                Return ResourceManager.GetString("frmFilter_grpFilterType", resourceCulture)
             End Get
         End Property
         

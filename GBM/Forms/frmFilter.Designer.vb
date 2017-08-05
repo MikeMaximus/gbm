@@ -44,7 +44,7 @@ Partial Class frmFilter
         Me.lstFilter = New System.Windows.Forms.ListBox()
         Me.btnAddFilter = New System.Windows.Forms.Button()
         Me.cboFilterField = New System.Windows.Forms.ComboBox()
-        Me.grpNextFilterOperator = New System.Windows.Forms.GroupBox()
+        Me.grpFilterType = New System.Windows.Forms.GroupBox()
         Me.optOr = New System.Windows.Forms.RadioButton()
         Me.optAnd = New System.Windows.Forms.RadioButton()
         Me.txtStringFilter = New System.Windows.Forms.TextBox()
@@ -61,7 +61,7 @@ Partial Class frmFilter
         Me.grpTagOptions.SuspendLayout()
         Me.grpGameFilter.SuspendLayout()
         CType(Me.numFilter, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.grpNextFilterOperator.SuspendLayout()
+        Me.grpFilterType.SuspendLayout()
         Me.grpSorting.SuspendLayout()
         Me.grpSortOptions.SuspendLayout()
         Me.SuspendLayout()
@@ -190,7 +190,7 @@ Partial Class frmFilter
         Me.grpGameFilter.Controls.Add(Me.lstFilter)
         Me.grpGameFilter.Controls.Add(Me.btnAddFilter)
         Me.grpGameFilter.Controls.Add(Me.cboFilterField)
-        Me.grpGameFilter.Controls.Add(Me.grpNextFilterOperator)
+        Me.grpGameFilter.Controls.Add(Me.grpFilterType)
         Me.grpGameFilter.Controls.Add(Me.txtStringFilter)
         Me.grpGameFilter.Location = New System.Drawing.Point(12, 35)
         Me.grpGameFilter.Name = "grpGameFilter"
@@ -287,16 +287,16 @@ Partial Class frmFilter
         Me.cboFilterField.Size = New System.Drawing.Size(150, 21)
         Me.cboFilterField.TabIndex = 1
         '
-        'grpNextFilterOperator
+        'grpFilterType
         '
-        Me.grpNextFilterOperator.Controls.Add(Me.optOr)
-        Me.grpNextFilterOperator.Controls.Add(Me.optAnd)
-        Me.grpNextFilterOperator.Location = New System.Drawing.Point(259, 81)
-        Me.grpNextFilterOperator.Name = "grpNextFilterOperator"
-        Me.grpNextFilterOperator.Size = New System.Drawing.Size(106, 46)
-        Me.grpNextFilterOperator.TabIndex = 8
-        Me.grpNextFilterOperator.TabStop = False
-        Me.grpNextFilterOperator.Text = "Next Filter"
+        Me.grpFilterType.Controls.Add(Me.optOr)
+        Me.grpFilterType.Controls.Add(Me.optAnd)
+        Me.grpFilterType.Location = New System.Drawing.Point(259, 81)
+        Me.grpFilterType.Name = "grpFilterType"
+        Me.grpFilterType.Size = New System.Drawing.Size(106, 46)
+        Me.grpFilterType.TabIndex = 8
+        Me.grpFilterType.TabStop = False
+        Me.grpFilterType.Text = "Filter Type"
         '
         'optOr
         '
@@ -443,7 +443,7 @@ Partial Class frmFilter
         Me.grpGameFilter.ResumeLayout(False)
         Me.grpGameFilter.PerformLayout()
         CType(Me.numFilter, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.grpNextFilterOperator.ResumeLayout(False)
+        Me.grpFilterType.ResumeLayout(False)
         Me.grpSorting.ResumeLayout(False)
         Me.grpSorting.PerformLayout()
         Me.grpSortOptions.ResumeLayout(False)
@@ -465,7 +465,7 @@ Partial Class frmFilter
     Friend WithEvents btnOK As System.Windows.Forms.Button
     Friend WithEvents grpGameFilter As System.Windows.Forms.GroupBox
     Friend WithEvents txtStringFilter As System.Windows.Forms.TextBox
-    Friend WithEvents grpNextFilterOperator As System.Windows.Forms.GroupBox
+    Friend WithEvents grpFilterType As System.Windows.Forms.GroupBox
     Friend WithEvents optOr As System.Windows.Forms.RadioButton
     Friend WithEvents optAnd As System.Windows.Forms.RadioButton
     Friend WithEvents grpSorting As GroupBox
