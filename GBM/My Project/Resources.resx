@@ -919,13 +919,13 @@
   <data name="frmFilter_optAny" xml:space="preserve">
     <value>Any Tag</value>
   </data>
-  <data name="frmFilter_optGameInfo" xml:space="preserve">
+  <data name="frmFilter_chkGameInfo" xml:space="preserve">
     <value>Game Information</value>
   </data>
   <data name="frmFilter_optOr" xml:space="preserve">
     <value>Or</value>
   </data>
-  <data name="frmFilter_optTag" xml:space="preserve">
+  <data name="frmFilter_chkTag" xml:space="preserve">
     <value>Tag</value>
   </data>
   <data name="frmGameTags_btnAdd" xml:space="preserve">

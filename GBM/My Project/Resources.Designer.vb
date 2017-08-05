@@ -943,6 +943,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Game Information.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_chkGameInfo() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_chkGameInfo", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Tag.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_chkTag() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_chkTag", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Custom Filter.
         '''</summary>
         Friend ReadOnly Property frmFilter_FormName() As String
@@ -1060,15 +1078,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Game Information.
-        '''</summary>
-        Friend ReadOnly Property frmFilter_optGameInfo() As String
-            Get
-                Return ResourceManager.GetString("frmFilter_optGameInfo", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Or.
         '''</summary>
         Friend ReadOnly Property frmFilter_optOr() As String
@@ -1092,15 +1101,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmFilter_optSortDesc() As String
             Get
                 Return ResourceManager.GetString("frmFilter_optSortDesc", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Tag.
-        '''</summary>
-        Friend ReadOnly Property frmFilter_optTag() As String
-            Get
-                Return ResourceManager.GetString("frmFilter_optTag", resourceCulture)
             End Get
         End Property
         

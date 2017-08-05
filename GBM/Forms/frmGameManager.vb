@@ -21,7 +21,7 @@ Public Class frmGameManager
     Private bIsLoading As Boolean = False
     Private oCurrentTagFilters As New List(Of clsTag)
     Private oCurrentStringFilters As New Hashtable
-    Private eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.NoFilter
+    Private eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.BaseFilter
     Private bCurrentSortAsc As Boolean = True
     Private sCurrentSortField As String = "Name"
     Private WithEvents tmFilterTimer As Timer
@@ -235,7 +235,7 @@ Public Class frmGameManager
         Else
             oCurrentTagFilters.Clear()
             oCurrentStringFilters.Clear()
-            eCurrentFilter = frmFilter.eFilterType.NoFilter
+            eCurrentFilter = frmFilter.eFilterType.BaseFilter
             bCurrentSortAsc = True
             sCurrentSortField = "Name"
         End If
@@ -1550,9 +1550,6 @@ Public Class frmGameManager
         AssignDirtyHandlers(grpExtra.Controls)
         AssignDirtyHandlers(grpStats.Controls)
         AssignDirtyHandlersMisc()
-
-        LoadData(False)
-        ModeChange()
     End Sub
 
     Private Sub lstGames_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstGames.SelectedIndexChanged

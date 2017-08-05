@@ -511,30 +511,8 @@ Public Class mgrMonitorList
         End If
 
         Select Case eFilterType
-            Case frmFilter.eFilterType.NoFilter
-                sSQL = "SELECT " & sBaseSelect & sSort
-            Case frmFilter.eFilterType.FieldAnd, frmFilter.eFilterType.FieldOr
+            Case frmFilter.eFilterType.BaseFilter
                 sSQL = "SELECT " & sBaseSelect
-
-                If hshStringFilters.Count > 0 Then
-                    sSQL &= " WHERE ("
-                    For Each de As DictionaryEntry In hshStringFilters
-                        sSQL &= de.Key & " LIKE @" & de.Key
-                        hshParams.Add(de.Key, "%" & de.Value.ToString & "%")
-                        iCounter += 1
-                        If iCounter <> hshStringFilters.Count Then
-                            Select Case eFilterType
-                                Case frmFilter.eFilterType.FieldAnd
-                                    sSQL &= " AND "
-                                Case frmFilter.eFilterType.FieldOr
-                                    sSQL &= " OR "
-                            End Select
-                        End If
-
-                    Next
-                    sSQL &= ")"
-                End If
-                sSQL &= sSort
             Case frmFilter.eFilterType.AnyTag
                 sSQL = "SELECT DISTINCT " & sBaseSelect
                 sSQL &= " NATURAL JOIN gametags WHERE gametags.TagID IN ("
@@ -546,7 +524,7 @@ Public Class mgrMonitorList
                 Next
 
                 sSQL = sSQL.TrimEnd(",")
-                sSQL &= ")" & sSort
+                sSQL &= ")"
             Case frmFilter.eFilterType.AllTags
                 sSQL = "SELECT " & sBaseSelect & " WHERE MonitorID IN "
 
@@ -558,11 +536,39 @@ Public Class mgrMonitorList
                     hshParams.Add("TagID" & iCounter, oTag.ID)
                     iCounter += 1
                 Next
-
-                sSQL &= sSort
             Case frmFilter.eFilterType.NoTags
-                sSQL = "SELECT " & sBaseSelect & " WHERE MonitorID NOT IN (SELECT MonitorID FROM gametags)" & sSort
+                sSQL = "SELECT " & sBaseSelect & " WHERE MonitorID NOT IN (SELECT MonitorID FROM gametags)"
         End Select
+
+        'Handle String Filters
+        If hshStringFilters.Count > 0 Then
+            If eFilterType = frmFilter.eFilterType.BaseFilter Then
+                sSQL &= " WHERE ("
+            Else
+                sSQL &= " AND ("
+            End If
+
+            iCounter = 0
+            For Each de As DictionaryEntry In hshStringFilters
+                sSQL &= de.Key & " LIKE @" & de.Key
+                hshParams.Add(de.Key, "%" & de.Value.ToString & "%")
+                iCounter += 1
+                If iCounter <> hshStringFilters.Count Then
+                    'Select Case eFilterType
+                    'Case frmFilter.eFilterType.FieldAnd
+                    'sSQL &= " AND "
+                    'Case frmFilter.eFilterType.FieldOr
+                    sSQL &= " OR "
+                    'End Select
+                End If
+
+            Next
+            sSQL &= ")"
+        End If
+
+        'Handle Sorting
+        sSQL &= sSort
+
 
         Return sSQL
 
@@ -697,7 +703,7 @@ Public Class mgrMonitorList
         Dim bSuccess As Boolean = False
         Dim oTagFilters As New List(Of clsTag)
         Dim oStringFilters As New Hashtable
-        Dim eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.NoFilter
+        Dim eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.BaseFilter
         Dim bSortAsc As Boolean = True
         Dim sSortField As String = "Name"
 

@@ -22,8 +22,6 @@ Partial Class frmFilter
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.optGameInfo = New System.Windows.Forms.RadioButton()
-        Me.optTag = New System.Windows.Forms.RadioButton()
         Me.grpTagFilter = New System.Windows.Forms.GroupBox()
         Me.grpTagOptions = New System.Windows.Forms.GroupBox()
         Me.optAll = New System.Windows.Forms.RadioButton()
@@ -46,36 +44,18 @@ Partial Class frmFilter
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtName = New System.Windows.Forms.TextBox()
         Me.grpSorting = New System.Windows.Forms.GroupBox()
-        Me.lblOrderBy = New System.Windows.Forms.Label()
-        Me.cboSortField = New System.Windows.Forms.ComboBox()
-        Me.optSortAsc = New System.Windows.Forms.RadioButton()
         Me.optSortDesc = New System.Windows.Forms.RadioButton()
+        Me.optSortAsc = New System.Windows.Forms.RadioButton()
+        Me.cboSortField = New System.Windows.Forms.ComboBox()
+        Me.lblOrderBy = New System.Windows.Forms.Label()
+        Me.chkTag = New System.Windows.Forms.CheckBox()
+        Me.chkGameInfo = New System.Windows.Forms.CheckBox()
         Me.grpTagFilter.SuspendLayout()
         Me.grpTagOptions.SuspendLayout()
         Me.grpGameFilter.SuspendLayout()
         Me.grpGameInfoOptions.SuspendLayout()
         Me.grpSorting.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'optGameInfo
-        '
-        Me.optGameInfo.AutoSize = True
-        Me.optGameInfo.Location = New System.Drawing.Point(12, 12)
-        Me.optGameInfo.Name = "optGameInfo"
-        Me.optGameInfo.Size = New System.Drawing.Size(108, 17)
-        Me.optGameInfo.TabIndex = 0
-        Me.optGameInfo.Text = "Game Information"
-        Me.optGameInfo.UseVisualStyleBackColor = True
-        '
-        'optTag
-        '
-        Me.optTag.AutoSize = True
-        Me.optTag.Location = New System.Drawing.Point(12, 190)
-        Me.optTag.Name = "optTag"
-        Me.optTag.Size = New System.Drawing.Size(44, 17)
-        Me.optTag.TabIndex = 2
-        Me.optTag.Text = "Tag"
-        Me.optTag.UseVisualStyleBackColor = True
         '
         'grpTagFilter
         '
@@ -297,23 +277,16 @@ Partial Class frmFilter
         Me.grpSorting.TabStop = False
         Me.grpSorting.Text = "Sorting"
         '
-        'lblOrderBy
+        'optSortDesc
         '
-        Me.lblOrderBy.AutoSize = True
-        Me.lblOrderBy.Location = New System.Drawing.Point(6, 28)
-        Me.lblOrderBy.Name = "lblOrderBy"
-        Me.lblOrderBy.Size = New System.Drawing.Size(51, 13)
-        Me.lblOrderBy.TabIndex = 0
-        Me.lblOrderBy.Text = "Order By:"
-        '
-        'cboSortField
-        '
-        Me.cboSortField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboSortField.FormattingEnabled = True
-        Me.cboSortField.Location = New System.Drawing.Point(63, 25)
-        Me.cboSortField.Name = "cboSortField"
-        Me.cboSortField.Size = New System.Drawing.Size(147, 21)
-        Me.cboSortField.TabIndex = 1
+        Me.optSortDesc.AutoSize = True
+        Me.optSortDesc.Location = New System.Drawing.Point(297, 26)
+        Me.optSortDesc.Name = "optSortDesc"
+        Me.optSortDesc.Size = New System.Drawing.Size(82, 17)
+        Me.optSortDesc.TabIndex = 3
+        Me.optSortDesc.TabStop = True
+        Me.optSortDesc.Text = "Descending"
+        Me.optSortDesc.UseVisualStyleBackColor = True
         '
         'optSortAsc
         '
@@ -326,28 +299,55 @@ Partial Class frmFilter
         Me.optSortAsc.Text = "Ascending"
         Me.optSortAsc.UseVisualStyleBackColor = True
         '
-        'optSortDesc
+        'cboSortField
         '
-        Me.optSortDesc.AutoSize = True
-        Me.optSortDesc.Location = New System.Drawing.Point(297, 26)
-        Me.optSortDesc.Name = "optSortDesc"
-        Me.optSortDesc.Size = New System.Drawing.Size(82, 17)
-        Me.optSortDesc.TabIndex = 3
-        Me.optSortDesc.TabStop = True
-        Me.optSortDesc.Text = "Descending"
-        Me.optSortDesc.UseVisualStyleBackColor = True
+        Me.cboSortField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboSortField.FormattingEnabled = True
+        Me.cboSortField.Location = New System.Drawing.Point(63, 25)
+        Me.cboSortField.Name = "cboSortField"
+        Me.cboSortField.Size = New System.Drawing.Size(147, 21)
+        Me.cboSortField.TabIndex = 1
+        '
+        'lblOrderBy
+        '
+        Me.lblOrderBy.AutoSize = True
+        Me.lblOrderBy.Location = New System.Drawing.Point(6, 28)
+        Me.lblOrderBy.Name = "lblOrderBy"
+        Me.lblOrderBy.Size = New System.Drawing.Size(51, 13)
+        Me.lblOrderBy.TabIndex = 0
+        Me.lblOrderBy.Text = "Order By:"
+        '
+        'chkTag
+        '
+        Me.chkTag.AutoSize = True
+        Me.chkTag.Location = New System.Drawing.Point(12, 192)
+        Me.chkTag.Name = "chkTag"
+        Me.chkTag.Size = New System.Drawing.Size(45, 17)
+        Me.chkTag.TabIndex = 6
+        Me.chkTag.Text = "Tag"
+        Me.chkTag.UseVisualStyleBackColor = True
+        '
+        'chkGameInfo
+        '
+        Me.chkGameInfo.AutoSize = True
+        Me.chkGameInfo.Location = New System.Drawing.Point(12, 14)
+        Me.chkGameInfo.Name = "chkGameInfo"
+        Me.chkGameInfo.Size = New System.Drawing.Size(109, 17)
+        Me.chkGameInfo.TabIndex = 7
+        Me.chkGameInfo.Text = "Game Information"
+        Me.chkGameInfo.UseVisualStyleBackColor = True
         '
         'frmFilter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(409, 586)
+        Me.Controls.Add(Me.chkGameInfo)
+        Me.Controls.Add(Me.chkTag)
         Me.Controls.Add(Me.grpSorting)
         Me.Controls.Add(Me.grpGameFilter)
         Me.Controls.Add(Me.grpTagFilter)
         Me.Controls.Add(Me.btnOK)
-        Me.Controls.Add(Me.optTag)
-        Me.Controls.Add(Me.optGameInfo)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -367,8 +367,6 @@ Partial Class frmFilter
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents optGameInfo As System.Windows.Forms.RadioButton
-    Friend WithEvents optTag As System.Windows.Forms.RadioButton
     Friend WithEvents grpTagFilter As System.Windows.Forms.GroupBox
     Friend WithEvents grpTagOptions As System.Windows.Forms.GroupBox
     Friend WithEvents optAll As System.Windows.Forms.RadioButton
@@ -395,4 +393,6 @@ Partial Class frmFilter
     Friend WithEvents optSortAsc As RadioButton
     Friend WithEvents cboSortField As ComboBox
     Friend WithEvents lblOrderBy As Label
+    Friend WithEvents chkTag As CheckBox
+    Friend WithEvents chkGameInfo As CheckBox
 End Class

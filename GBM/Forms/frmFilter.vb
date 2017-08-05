@@ -3,17 +3,15 @@
 Public Class frmFilter
 
     Public Enum eFilterType As Integer
-        NoFilter = 1
+        BaseFilter = 1
         AnyTag = 2
         AllTags = 3
         NoTags = 4
-        FieldAnd = 5
-        FieldOr = 6
     End Enum
 
     Dim oTagFilters As New List(Of clsTag)
     Dim hshStringFilters As New Hashtable
-    Dim eCurrentFilterType As eFilterType = eFilterType.AnyTag
+    Dim eCurrentFilterType As eFilterType = eFilterType.BaseFilter
     Dim bSortAsc As Boolean = True
     Dim sSortField As String = "Name"
     Dim hshTags As New Hashtable
@@ -124,13 +122,9 @@ Public Class frmFilter
         Dim oTag As clsTag
 
 
-        If optGameInfo.Checked Then
+        If chkGameInfo.Checked Then
             'Set Filter Type
-            If optAnd.Checked Then
-                eCurrentFilterType = eFilterType.FieldAnd
-            Else
-                eCurrentFilterType = eFilterType.FieldOr
-            End If
+            eCurrentFilterType = eFilterType.BaseFilter
 
             'Set String Filter
             If txtName.Text <> String.Empty Then
@@ -142,7 +136,9 @@ Public Class frmFilter
             If txtCompany.Text <> String.Empty Then
                 hshStringFilters.Add("Company", txtCompany.Text)
             End If
-        Else
+        End If
+
+        If chkTag.Checked Then
             'Set Tags
             For Each oData In lstFilter.Items
                 oTag = DirectCast(hshTags(oData.Value), clsTag)
@@ -207,8 +203,8 @@ Public Class frmFilter
         btnAdd.Text = frmFilter_btnAdd
         btnOK.Text = frmFilter_btnOK
         grpTagOptions.Text = frmFilter_grpTagOptions
-        optTag.Text = frmFilter_optTag
-        optGameInfo.Text = frmFilter_optGameInfo
+        chkTag.Text = frmFilter_chkTag
+        chkGameInfo.Text = frmFilter_chkGameInfo
         grpSorting.Text = frmFilter_grpSorting
         lblOrderBy.Text = frmFilter_lblOrderBy
         optSortAsc.Text = frmFilter_optSortAsc
@@ -216,12 +212,13 @@ Public Class frmFilter
 
         'Defaults
         optSortAsc.Checked = True
+        grpGameFilter.Enabled = False
+        grpTagFilter.Enabled = False
     End Sub
 
     Private Sub frmGameTags_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetForm()
         LoadCombos()
-        optGameInfo.Checked = True
         LoadData()
     End Sub
 
@@ -245,13 +242,19 @@ Public Class frmFilter
         End If
     End Sub
 
-    Private Sub optGameInfo_Click(sender As Object, e As EventArgs) Handles optGameInfo.Click, optTag.Click
-        If optGameInfo.Checked = True Then
+    Private Sub chkGameInfo_CheckedChanged(sender As Object, e As EventArgs) Handles chkGameInfo.CheckedChanged
+        If chkGameInfo.Checked Then
             grpGameFilter.Enabled = True
-            grpTagFilter.Enabled = False
         Else
             grpGameFilter.Enabled = False
+        End If
+    End Sub
+
+    Private Sub chkTag_CheckedChanged(sender As Object, e As EventArgs) Handles chkTag.CheckedChanged
+        If chkTag.Checked Then
             grpTagFilter.Enabled = True
+        Else
+            grpTagFilter.Enabled = False
         End If
     End Sub
 End Class
