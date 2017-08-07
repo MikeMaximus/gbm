@@ -18,7 +18,6 @@ Public Class frmFilter
     Dim sSortField As String = "Name"
     Dim hshTags As New Hashtable
     Dim bShutdown As Boolean = False
-    Dim iParameterIndex As Integer = 0
 
     Public Property GameFilters As List(Of clsGameFilter)
         Get
@@ -315,8 +314,6 @@ Public Class frmFilter
                         sFilter = oFilter.Field.FriendlyFieldName & " = " & oFilter.Data
                 End Select
 
-                iParameterIndex += 1
-
                 lstFilter.Items.Add(New KeyValuePair(Of clsGameFilter, String)(oFilter, sFilter))
             Next
         End If
@@ -381,7 +378,7 @@ Public Class frmFilter
         Dim sFilter As String = String.Empty
 
         'Build Filter
-        oFilter.ID = "PARAM" & iParameterIndex
+        oFilter.ID = Guid.NewGuid.ToString.Split("-")(0)
         oFilter.Field = cboFilterField.SelectedValue
 
         Select Case oFilter.Field.Type
@@ -400,7 +397,6 @@ Public Class frmFilter
         oGameFilters.Add(oFilter)
         lstFilter.Items.Add(New KeyValuePair(Of clsGameFilter, String)(oFilter, sFilter))
 
-        iParameterIndex += 1
     End Sub
 
     Private Sub RemoveFilter()
