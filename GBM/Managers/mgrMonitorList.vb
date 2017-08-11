@@ -630,6 +630,7 @@ Public Class mgrMonitorList
             oGame.FolderSave = CBool(dr("FolderSave"))
             If Not IsDBNull(dr("FileType")) Then oGame.FileType = CStr(dr("FileType"))
             If Not IsDBNull(dr("ExcludeList")) Then oGame.ExcludeList = CStr(dr("ExcludeList"))
+            oGame.MonitorOnly = CBool(dr("MonitorOnly"))
             If Not IsDBNull(dr("Parameter")) Then oGame.Parameter = CStr(dr("Parameter"))
             oGame.Tags = mgrGameTags.GetTagsByGameForExport(sID)
             oList.Add(oGame)

@@ -866,6 +866,26 @@ Public Class frmGameManager
         Next
     End Sub
 
+    Private Sub MonitorOnlyModeHandler()
+        If chkMonitorOnly.Checked Then
+            chkFolderSave.Enabled = False
+            chkCleanFolder.Enabled = False
+            chkTimeStamp.Enabled = False
+            lblSavePath.Enabled = False
+            txtSavePath.Enabled = False
+            btnInclude.Enabled = False
+            btnExclude.Enabled = False
+        Else
+            chkFolderSave.Enabled = True
+            chkCleanFolder.Enabled = True
+            chkTimeStamp.Enabled = True
+            lblSavePath.Enabled = True
+            txtSavePath.Enabled = True
+            btnInclude.Enabled = True
+            btnExclude.Enabled = True
+        End If
+    End Sub
+
     Private Sub ModeChange()
         IsLoading = True
 
@@ -1263,7 +1283,7 @@ Public Class frmGameManager
             Return False
         End If
 
-        If chkFolderSave.Checked = False And txtFileType.Text = String.Empty Then
+        If (chkFolderSave.Checked = False And txtFileType.Text = String.Empty) And Not chkMonitorOnly.Checked Then
             mgrCommon.ShowMessage(frmGameManager_ErrorNoItems, MsgBoxStyle.Exclamation)
             btnInclude.Focus()
             Return False
@@ -1351,7 +1371,7 @@ Public Class frmGameManager
 
             For Each oData In lstGames.SelectedItems
                 oGame = DirectCast(GameData(oData.Key), clsGame)
-                BackupList.Add(oGame)
+                If Not oGame.MonitorOnly Then BackupList.Add(oGame)
             Next
 
             If BackupList.Count = 1 Then
@@ -1728,5 +1748,9 @@ Public Class frmGameManager
 
     Private Sub frmGameManager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         txtQuickFilter.Focus()
+    End Sub
+
+    Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkMonitorOnly.CheckedChanged
+        MonitorOnlyModeHandler()
     End Sub
 End Class
