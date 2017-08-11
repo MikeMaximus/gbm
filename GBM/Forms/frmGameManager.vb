@@ -1062,6 +1062,7 @@ Public Class frmGameManager
             btnInclude.Enabled = True
             btnExclude.Enabled = True
         End If
+        VerifyCleanFolder()
     End Sub
 
     Private Sub TimeStampModeChange()
@@ -1078,7 +1079,7 @@ Public Class frmGameManager
 
     Private Sub VerifyCleanFolder()
         If Not bIsLoading Then
-            If chkFolderSave.Checked = True And txtExclude.Text = String.Empty And txtSavePath.Text <> String.Empty And Not chkMonitorOnly.Checked Then
+            If (chkFolderSave.Checked = True And txtExclude.Text = String.Empty And txtSavePath.Text <> String.Empty) And Not chkMonitorOnly.Checked Then
                 chkCleanFolder.Enabled = True
             Else
                 chkCleanFolder.Checked = False
