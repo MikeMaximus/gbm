@@ -866,28 +866,6 @@ Public Class frmGameManager
         Next
     End Sub
 
-    Private Sub MonitorOnlyModeHandler()
-        If chkMonitorOnly.Checked Then
-            chkFolderSave.Enabled = False
-            chkCleanFolder.Enabled = False
-            chkTimeStamp.Enabled = False
-            lblSavePath.Enabled = False
-            txtSavePath.Enabled = False
-            btnSavePathBrowse.Enabled = False
-            btnInclude.Enabled = False
-            btnExclude.Enabled = False
-        Else
-            chkFolderSave.Enabled = True
-            chkCleanFolder.Enabled = True
-            chkTimeStamp.Enabled = True
-            lblSavePath.Enabled = True
-            txtSavePath.Enabled = True
-            btnSavePathBrowse.Enabled = True
-            btnInclude.Enabled = True
-            btnExclude.Enabled = True
-        End If
-    End Sub
-
     Private Sub ModeChange()
         IsLoading = True
 
@@ -1064,6 +1042,28 @@ Public Class frmGameManager
             btnInclude.Enabled = True
         End If
         VerifyCleanFolder()
+    End Sub
+
+    Private Sub MonitorOnlyModeChange()
+        If chkMonitorOnly.Checked Then
+            chkFolderSave.Enabled = False
+            chkCleanFolder.Enabled = False
+            chkTimeStamp.Enabled = False
+            lblSavePath.Enabled = False
+            txtSavePath.Enabled = False
+            btnSavePathBrowse.Enabled = False
+            btnInclude.Enabled = False
+            btnExclude.Enabled = False
+        Else
+            chkFolderSave.Enabled = True
+            chkCleanFolder.Enabled = True
+            chkTimeStamp.Enabled = True
+            lblSavePath.Enabled = True
+            txtSavePath.Enabled = True
+            btnSavePathBrowse.Enabled = True
+            btnInclude.Enabled = True
+            btnExclude.Enabled = True
+        End If
     End Sub
 
     Private Sub TimeStampModeChange()
@@ -1417,7 +1417,7 @@ Public Class frmGameManager
                     If oRemoteBackupData.Contains(oData.Value) Then
                         oGame = DirectCast(GameData(oData.Key), clsGame)
                         oBackup = DirectCast(oRemoteBackupData(oData.Value), clsBackup)
-                        RestoreList.Add(oGame, oBackup)
+                        If Not oGame.MonitorOnly Then RestoreList.Add(oGame, oBackup)
                     End If
                 Next
             End If
@@ -1753,6 +1753,6 @@ Public Class frmGameManager
     End Sub
 
     Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkMonitorOnly.CheckedChanged
-        MonitorOnlyModeHandler()
+        MonitorOnlyModeChange()
     End Sub
 End Class
