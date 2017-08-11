@@ -873,6 +873,7 @@ Public Class frmGameManager
             chkTimeStamp.Enabled = False
             lblSavePath.Enabled = False
             txtSavePath.Enabled = False
+            btnSavePathBrowse.Enabled = False
             btnInclude.Enabled = False
             btnExclude.Enabled = False
         Else
@@ -881,6 +882,7 @@ Public Class frmGameManager
             chkTimeStamp.Enabled = True
             lblSavePath.Enabled = True
             txtSavePath.Enabled = True
+            btnSavePathBrowse.Enabled = True
             btnInclude.Enabled = True
             btnExclude.Enabled = True
         End If
