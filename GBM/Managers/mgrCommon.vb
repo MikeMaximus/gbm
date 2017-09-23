@@ -269,13 +269,15 @@ Public Class mgrCommon
     End Function
 
     'Calculate the current size of a folder
-    Public Shared Function GetFolderSize(ByVal sPath As String, ByVal sInclude As String(), ByVal sExclude As String())
+    Public Shared Function GetFolderSize(ByVal sPath As String, ByVal sInclude As String(), ByVal sExclude As String()) As Long
         Dim oFolder As DirectoryInfo
         Dim bInclude As Boolean
         Dim bExclude As Boolean
         Dim lSize As Long = 0
 
         Try
+            If Not Directory.Exists(sPath) Then Return lSize
+
             oFolder = New DirectoryInfo(sPath)
 
             'Files

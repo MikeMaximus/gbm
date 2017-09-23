@@ -1044,6 +1044,27 @@ Public Class frmGameManager
         VerifyCleanFolder()
     End Sub
 
+    Private Sub MonitorOnlyModeChange()
+        If chkMonitorOnly.Checked Then
+            chkFolderSave.Enabled = False
+            chkTimeStamp.Enabled = False
+            lblSavePath.Enabled = False
+            txtSavePath.Enabled = False
+            btnSavePathBrowse.Enabled = False
+            btnInclude.Enabled = False
+            btnExclude.Enabled = False
+        Else
+            chkFolderSave.Enabled = True
+            chkTimeStamp.Enabled = True
+            lblSavePath.Enabled = True
+            txtSavePath.Enabled = True
+            btnSavePathBrowse.Enabled = True
+            btnInclude.Enabled = True
+            btnExclude.Enabled = True
+        End If
+        VerifyCleanFolder()
+    End Sub
+
     Private Sub TimeStampModeChange()
         If chkTimeStamp.Checked Then
             nudLimit.Visible = True
@@ -1058,7 +1079,7 @@ Public Class frmGameManager
 
     Private Sub VerifyCleanFolder()
         If Not bIsLoading Then
-            If chkFolderSave.Checked = True And txtExclude.Text = String.Empty And txtSavePath.Text <> String.Empty Then
+            If (chkFolderSave.Checked = True And txtExclude.Text = String.Empty And txtSavePath.Text <> String.Empty) And Not chkMonitorOnly.Checked Then
                 chkCleanFolder.Enabled = True
             Else
                 chkCleanFolder.Checked = False
@@ -1263,7 +1284,7 @@ Public Class frmGameManager
             Return False
         End If
 
-        If chkFolderSave.Checked = False And txtFileType.Text = String.Empty Then
+        If (chkFolderSave.Checked = False And txtFileType.Text = String.Empty) And Not chkMonitorOnly.Checked Then
             mgrCommon.ShowMessage(frmGameManager_ErrorNoItems, MsgBoxStyle.Exclamation)
             btnInclude.Focus()
             Return False
@@ -1351,7 +1372,7 @@ Public Class frmGameManager
 
             For Each oData In lstGames.SelectedItems
                 oGame = DirectCast(GameData(oData.Key), clsGame)
-                BackupList.Add(oGame)
+                If Not oGame.MonitorOnly Then BackupList.Add(oGame)
             Next
 
             If BackupList.Count = 1 Then
@@ -1388,17 +1409,14 @@ Public Class frmGameManager
         If lstGames.SelectedItems.Count > 0 Then
             RestoreList.Clear()
 
-            If lstGames.SelectedItems.Count = 1 Then
-                RestoreList.Add(CurrentGame, CurrentBackupItem)
-            Else
-                For Each oData In lstGames.SelectedItems
-                    If oRemoteBackupData.Contains(oData.Value) Then
-                        oGame = DirectCast(GameData(oData.Key), clsGame)
-                        oBackup = DirectCast(oRemoteBackupData(oData.Value), clsBackup)
-                        RestoreList.Add(oGame, oBackup)
-                    End If
-                Next
-            End If
+
+            For Each oData In lstGames.SelectedItems
+                If oRemoteBackupData.Contains(oData.Value) Then
+                    oGame = DirectCast(GameData(oData.Key), clsGame)
+                    oBackup = DirectCast(oRemoteBackupData(oData.Value), clsBackup)
+                    If Not oGame.MonitorOnly Then RestoreList.Add(oGame, oBackup)
+                End If
+            Next
 
             If RestoreList.Count = 1 Then
                 bDoRestore = True
@@ -1728,5 +1746,9 @@ Public Class frmGameManager
 
     Private Sub frmGameManager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         txtQuickFilter.Focus()
+    End Sub
+
+    Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkMonitorOnly.CheckedChanged
+        MonitorOnlyModeChange()
     End Sub
 End Class
