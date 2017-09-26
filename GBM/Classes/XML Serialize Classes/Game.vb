@@ -7,6 +7,7 @@
     Private bFolderSave As Boolean
     Private sFileType As String
     Private sExcludeList As String
+    Private bMonitorOnly As Boolean
     Private oTags As List(Of Tag)
 
     Property Name As String
@@ -78,6 +79,15 @@
         End Set
         Get
             Return sExcludeList
+        End Get
+    End Property
+
+    Property MonitorOnly As Boolean
+        Set(value As Boolean)
+            bMonitorOnly = value
+        End Set
+        Get
+            Return bMonitorOnly
         End Get
     End Property
 

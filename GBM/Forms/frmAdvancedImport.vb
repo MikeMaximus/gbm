@@ -1,10 +1,11 @@
 ﻿Imports GBM.My.Resources
+Imports System.IO
 
 Public Class frmAdvancedImport
 
     Private hshImportData As Hashtable
     Private hshFinalData As New Hashtable
-    Private bSelectAll As Boolean = False
+    Private bSelectAll As Boolean = True
     Private bIsLoading As Boolean = False
     Private iCurrentSort As Integer = 0
     Private WithEvents tmFilterTimer As Timer
@@ -44,7 +45,7 @@ Public Class frmAdvancedImport
         End If
     End Sub
 
-    Private Sub LoadData(Optional ByVal sFilter As String = "")
+    Private Sub LoadData(Optional ByVal sFilter As String = "", Optional ByVal bAutoDetect As Boolean = False)
         Dim oApp As clsGame
         Dim oListViewItem As ListViewItem
         Dim sTags As String
@@ -77,6 +78,19 @@ Public Class frmAdvancedImport
                 oListViewItem.Checked = True
             Else
                 oListViewItem.Checked = False
+            End If
+
+            If bAutoDetect Then
+                If oApp.AbsolutePath Then
+                    If Directory.Exists(oApp.Path) Then
+                        oListViewItem.Checked = True
+                        SaveChecked(oListViewItem)
+                    Else
+                        oListViewItem.Checked = False
+                    End If
+                Else
+                    oListViewItem.Checked = False
+                End If
             End If
 
             If sFilter = String.Empty Then
@@ -142,8 +156,7 @@ Public Class frmAdvancedImport
     Private Sub frmAdvancedImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         bIsLoading = True
         SetForm()
-        LoadData()
-        SelectToggle()
+        LoadData(String.Empty, True)
         bIsLoading = False
     End Sub
 
@@ -184,6 +197,7 @@ Public Class frmAdvancedImport
         tmFilterTimer.Stop()
         tmFilterTimer.Enabled = False
     End Sub
+
 End Class
 
 ' Column Sorter

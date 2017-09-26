@@ -1,4 +1,5 @@
-﻿Public Class Tag
+﻿<Serializable()>
+Public Class Tag
     Private sTagName As String
 
     Property Name As String

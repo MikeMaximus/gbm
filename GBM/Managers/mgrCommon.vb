@@ -3,6 +3,8 @@ Imports System.Net
 Imports System.IO
 Imports System.Security.Principal
 Imports System.Text.RegularExpressions
+Imports System.Runtime.Serialization
+Imports System.Runtime.Serialization.Formatters.Binary
 
 Public Class mgrCommon
 
@@ -34,6 +36,28 @@ Public Class mgrCommon
             Return (My.Application.Info.Version.Major * 100) + (My.Application.Info.Version.Minor * 10) + My.Application.Info.Version.Build
         End Get
     End Property
+
+    'Source - https://stackoverflow.com/questions/18873152/deep-copy-of-ordereddictionary
+    Public Shared Function GenericClone(ByVal oOriginal As Object) As Object
+        'Construct a temporary memory stream
+        Dim oStream As MemoryStream = New MemoryStream()
+
+        'Construct a serialization formatter that does all the hard work
+        Dim oFormatter As BinaryFormatter = New BinaryFormatter()
+
+        'This line Is explained in the "Streaming Contexts" section
+        oFormatter.Context = New StreamingContext(StreamingContextStates.Clone)
+
+        'Serialize the object graph into the memory stream
+        oFormatter.Serialize(oStream, oOriginal)
+
+        'Seek back to the start of the memory stream before deserializing
+        oStream.Position = 0
+
+        'Deserialize the graph into a New set of objects
+        'Return the root of the graph (deep copy) to the caller
+        Return oFormatter.Deserialize(oStream)
+    End Function
 
     Public Shared Function CheckAddress(ByVal URL As String) As Boolean
         Try
@@ -213,14 +237,6 @@ Public Class mgrCommon
         oProcess.Start()
     End Sub
 
-    Public Shared Function SetSyncField(ByVal eSyncFields As clsGame.eOptionalSyncFields, ByVal eSyncField As clsGame.eOptionalSyncFields) As clsGame.eOptionalSyncFields
-        Return eSyncFields Or eSyncField
-    End Function
-
-    Public Shared Function RemoveSyncField(ByVal eSyncFields As clsGame.eOptionalSyncFields, ByVal eSyncField As clsGame.eOptionalSyncFields) As clsGame.eOptionalSyncFields
-        Return eSyncFields And (Not eSyncField)
-    End Function
-
     'Get a file size
     Public Shared Function GetFileSize(ByVal sFile As String) As Long
         Dim oFileInfo As FileInfo
@@ -253,13 +269,15 @@ Public Class mgrCommon
     End Function
 
     'Calculate the current size of a folder
-    Public Shared Function GetFolderSize(ByVal sPath As String, ByVal sInclude As String(), ByVal sExclude As String())
+    Public Shared Function GetFolderSize(ByVal sPath As String, ByVal sInclude As String(), ByVal sExclude As String()) As Long
         Dim oFolder As DirectoryInfo
         Dim bInclude As Boolean
         Dim bExclude As Boolean
         Dim lSize As Long = 0
 
         Try
+            If Not Directory.Exists(sPath) Then Return lSize
+
             oFolder = New DirectoryInfo(sPath)
 
             'Files

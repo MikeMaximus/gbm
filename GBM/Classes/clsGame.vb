@@ -1,4 +1,5 @@
-﻿Public Class clsGame
+﻿<Serializable()>
+Public Class clsGame
     Private sGameID As String = Guid.NewGuid.ToString
     Private sGameName As String = String.Empty
     Private sProcessName As String = String.Empty
@@ -201,7 +202,7 @@
         End Set
     End Property
 
-    Property Enabled As Boolean        
+    Property Enabled As Boolean
         Get
             Return bEnabled
         End Get
@@ -210,7 +211,7 @@
         End Set
     End Property
 
-    Property MonitorOnly As Boolean        
+    Property MonitorOnly As Boolean
         Get
             Return bMonitorOnly
         End Get
@@ -403,6 +404,14 @@
         End If
 
         Return sProcessName
+    End Function
+
+    Public Shared Function SetSyncField(ByVal eSyncFields As eOptionalSyncFields, ByVal eSyncField As eOptionalSyncFields) As eOptionalSyncFields
+        Return eSyncFields Or eSyncField
+    End Function
+
+    Public Shared Function RemoveSyncField(ByVal eSyncFields As eOptionalSyncFields, ByVal eSyncField As eOptionalSyncFields) As eOptionalSyncFields
+        Return eSyncFields And (Not eSyncField)
     End Function
 
 End Class

@@ -895,17 +895,8 @@
   <data name="frmFilter_FormName" xml:space="preserve">
     <value>Custom Filter</value>
   </data>
-  <data name="frmFilter_lblCompany" xml:space="preserve">
-    <value>Company:</value>
-  </data>
   <data name="frmFilter_lblGameTags" xml:space="preserve">
     <value>Current Filter</value>
-  </data>
-  <data name="frmFilter_lblName" xml:space="preserve">
-    <value>Name:</value>
-  </data>
-  <data name="frmFilter_lblProcess" xml:space="preserve">
-    <value>Process:</value>
   </data>
   <data name="frmFilter_lblTags" xml:space="preserve">
     <value>Available Tags</value>
@@ -914,18 +905,18 @@
     <value>All Tags</value>
   </data>
   <data name="frmFilter_optAnd" xml:space="preserve">
-    <value>And</value>
+    <value>All</value>
   </data>
   <data name="frmFilter_optAny" xml:space="preserve">
     <value>Any Tag</value>
   </data>
-  <data name="frmFilter_optGameInfo" xml:space="preserve">
+  <data name="frmFilter_chkGameInfo" xml:space="preserve">
     <value>Game Information</value>
   </data>
   <data name="frmFilter_optOr" xml:space="preserve">
-    <value>Or</value>
+    <value>Any</value>
   </data>
-  <data name="frmFilter_optTag" xml:space="preserve">
+  <data name="frmFilter_chkTag" xml:space="preserve">
     <value>Tag</value>
   </data>
   <data name="frmGameTags_btnAdd" xml:space="preserve">
@@ -1015,8 +1006,8 @@
   <data name="frmIncludeExclude_ToolTipTitle" xml:space="preserve">
     <value>Saved Game Explorer</value>
   </data>
-  <data name="frmFilter_grpGameInfoOptions" xml:space="preserve">
-    <value>Options</value>
+  <data name="frmFilter_grpFilterType" xml:space="preserve">
+    <value>Filter Type</value>
   </data>
   <data name="frmFilter_grpTagOptions" xml:space="preserve">
     <value>Options</value>
@@ -1800,5 +1791,98 @@
   </data>
   <data name="App_ErrorFocus" xml:space="preserve">
     <value>GBM is busy with an open window on your desktop.</value>
+  </data>
+  <data name="frmFilter_grpSorting" xml:space="preserve">
+    <value>Sorting</value>
+  </data>
+  <data name="frmFilter_optSortAsc" xml:space="preserve">
+    <value>Ascending</value>
+  </data>
+  <data name="frmFilter_optSortDesc" xml:space="preserve">
+    <value>Descending</value>
+  </data>
+  <data name="frmFilter_FieldCompany" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="frmFilter_FieldHours" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="frmFilter_FieldName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="frmFilter_FieldProcess" xml:space="preserve">
+    <value>Process</value>
+  </data>
+  <data name="frmFilter_btnAddFilter" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="frmFilter_btnRemoveFilter" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="frmFilter_FieldParameter" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="frmFilter_FieldVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="frmFilter_lblCurrentFilters" xml:space="preserve">
+    <value>Current Filters</value>
+  </data>
+  <data name="frmFilter_lblFields" xml:space="preserve">
+    <value>Available Fields</value>
+  </data>
+  <data name="frmFilter_lblFilterData" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="frmFilter_cboBoolFilterDisabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="frmFilter_cboBoolFilterEnabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="frmFilter_FieldBackupLimit" xml:space="preserve">
+    <value>Backup Limit *</value>
+  </data>
+  <data name="frmFilter_FieldCleanFolder" xml:space="preserve">
+    <value>Delete Folder on Restore</value>
+  </data>
+  <data name="frmFilter_FieldEnabled" xml:space="preserve">
+    <value>Monitor Game</value>
+  </data>
+  <data name="frmFilter_FieldExcludeList" xml:space="preserve">
+    <value>Exclude Items</value>
+  </data>
+  <data name="frmFilter_FieldFileType" xml:space="preserve">
+    <value>Include Items</value>
+  </data>
+  <data name="frmFilter_FieldFolderSave" xml:space="preserve">
+    <value>Save Entire Folder</value>
+  </data>
+  <data name="frmFilter_FieldIcon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="frmFilter_FieldMonitorOnly" xml:space="preserve">
+    <value>Monitor Only</value>
+  </data>
+  <data name="frmFilter_FieldPath" xml:space="preserve">
+    <value>Save Path *</value>
+  </data>
+  <data name="frmFilter_FieldProcessPath" xml:space="preserve">
+    <value>Game Path</value>
+  </data>
+  <data name="frmFilter_FieldTimeStamp" xml:space="preserve">
+    <value>Save Multiple Backups</value>
+  </data>
+  <data name="frmFilter_lblSortsFields" xml:space="preserve">
+    <value>Available Fields</value>
+  </data>
+  <data name="frmFilter_lblWarning" xml:space="preserve">
+    <value>* Indicates a field that may give unexpected results.</value>
+  </data>
+  <data name="frmFilter_lstFilterContains" xml:space="preserve">
+    <value>contains</value>
+  </data>
+  <data name="frmFilter_grpSortOptions" xml:space="preserve">
+    <value>Sort Options</value>
   </data>
 </root>
