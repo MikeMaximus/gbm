@@ -13,7 +13,7 @@ Public Class frmFilter
     Dim oGameFilters As New List(Of clsGameFilter)
     Dim oValidFields As New List(Of clsGameFilterField)
     Dim eCurrentFilterType As eFilterType = eFilterType.BaseFilter
-    Dim bAndOperator As Boolean = True
+    Dim bAndOperator As Boolean = False
     Dim bSortAsc As Boolean = True
     Dim sSortField As String = "Name"
     Dim hshTags As New Hashtable
@@ -537,7 +537,7 @@ Public Class frmFilter
         grpSortOptions.Text = frmFilter_grpSortOptions
 
         'Defaults
-        optAnd.Checked = True
+        optOr.Checked = True
         optSortAsc.Checked = True
         grpGameFilter.Enabled = False
         grpTagFilter.Enabled = False
@@ -579,7 +579,7 @@ Public Class frmFilter
         If chkGameInfo.Checked Then
             grpGameFilter.Enabled = True
         Else
-            optAnd.Checked = True
+            optOr.Checked = True
             grpGameFilter.Enabled = False
             oGameFilters.Clear()
             lstFilter.Items.Clear()

@@ -293,30 +293,29 @@ Partial Class frmFilter
         Me.grpFilterType.Controls.Add(Me.optAnd)
         Me.grpFilterType.Location = New System.Drawing.Point(259, 81)
         Me.grpFilterType.Name = "grpFilterType"
-        Me.grpFilterType.Size = New System.Drawing.Size(106, 46)
+        Me.grpFilterType.Size = New System.Drawing.Size(105, 46)
         Me.grpFilterType.TabIndex = 8
         Me.grpFilterType.TabStop = False
         Me.grpFilterType.Text = "Filter Type"
         '
         'optOr
         '
-        Me.optOr.Location = New System.Drawing.Point(56, 19)
+        Me.optOr.Checked = True
+        Me.optOr.Location = New System.Drawing.Point(6, 19)
         Me.optOr.Name = "optOr"
-        Me.optOr.Size = New System.Drawing.Size(36, 17)
-        Me.optOr.TabIndex = 1
+        Me.optOr.Size = New System.Drawing.Size(44, 17)
+        Me.optOr.TabIndex = 0
         Me.optOr.TabStop = True
-        Me.optOr.Text = "Or"
+        Me.optOr.Text = "Any"
         Me.optOr.UseVisualStyleBackColor = True
         '
         'optAnd
         '
-        Me.optAnd.Checked = True
-        Me.optAnd.Location = New System.Drawing.Point(6, 19)
+        Me.optAnd.Location = New System.Drawing.Point(56, 19)
         Me.optAnd.Name = "optAnd"
         Me.optAnd.Size = New System.Drawing.Size(44, 17)
-        Me.optAnd.TabIndex = 0
-        Me.optAnd.TabStop = True
-        Me.optAnd.Text = "And"
+        Me.optAnd.TabIndex = 1
+        Me.optAnd.Text = "All"
         Me.optAnd.UseVisualStyleBackColor = True
         '
         'txtStringFilter

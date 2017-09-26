@@ -84,6 +84,7 @@ Public Class frmAdvancedImport
                 If oApp.AbsolutePath Then
                     If Directory.Exists(oApp.Path) Then
                         oListViewItem.Checked = True
+                        SaveChecked(oListViewItem)
                     Else
                         oListViewItem.Checked = False
                     End If

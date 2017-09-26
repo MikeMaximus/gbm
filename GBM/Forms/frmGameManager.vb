@@ -22,7 +22,7 @@ Public Class frmGameManager
     Private oCurrentTagFilters As New List(Of clsTag)
     Private oCurrentFilters As New List(Of clsGameFilter)
     Private eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.BaseFilter
-    Private bCurrentAndOperator As Boolean = True
+    Private bCurrentAndOperator As Boolean = False
     Private bCurrentSortAsc As Boolean = True
     Private sCurrentSortField As String = "Name"
     Private WithEvents tmFilterTimer As Timer

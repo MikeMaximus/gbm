@@ -1276,7 +1276,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to And.
+        '''  Looks up a localized string similar to All.
         '''</summary>
         Friend ReadOnly Property frmFilter_optAnd() As String
             Get
@@ -1294,7 +1294,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Or.
+        '''  Looks up a localized string similar to Any.
         '''</summary>
         Friend ReadOnly Property frmFilter_optOr() As String
             Get

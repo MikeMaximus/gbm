@@ -905,7 +905,7 @@
     <value>All Tags</value>
   </data>
   <data name="frmFilter_optAnd" xml:space="preserve">
-    <value>And</value>
+    <value>All</value>
   </data>
   <data name="frmFilter_optAny" xml:space="preserve">
     <value>Any Tag</value>
@@ -914,7 +914,7 @@
     <value>Game Information</value>
   </data>
   <data name="frmFilter_optOr" xml:space="preserve">
-    <value>Or</value>
+    <value>Any</value>
   </data>
   <data name="frmFilter_chkTag" xml:space="preserve">
     <value>Tag</value>
