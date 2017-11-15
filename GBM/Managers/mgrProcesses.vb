@@ -167,8 +167,11 @@ Public Class mgrProcesses
         Dim sProcessCheck As String = String.Empty
         Dim sProcessList As String = String.Empty
         Dim bWineProcess As Boolean = False
+        Dim bPass As Boolean
 
         For Each prsCurrent As Process In prsList
+            bPass = False
+
             'This needs to be wrapped due to issues with Mono.
             Try
                 sProcessCheck = prsCurrent.ProcessName
@@ -194,9 +197,11 @@ Public Class mgrProcesses
                 'Do Nothing
             End Try
 
+            'Detection Pass 1
             If hshScanList.ContainsKey(sProcessCheck) Then
                 prsFoundProcess = prsCurrent
                 oGame = DirectCast(hshScanList.Item(sProcessCheck), clsGame).ShallowCopy
+                bPass = True
 
                 If mgrCommon.IsUnix Then
                     GetUnixCommand(prsCurrent)
@@ -214,10 +219,15 @@ Public Class mgrProcesses
                     oDuplicateGames.Clear()
                 End If
 
-                If Duplicate And DuplicateList.Count = 0 Then Return False
+                If Duplicate And DuplicateList.Count = 0 Then bPass = False
 
-                If oGame.Parameter <> String.Empty And Not Duplicate And Not FullCommand.Contains(oGame.Parameter) Then Return False
+                If oGame.Parameter <> String.Empty And Not Duplicate And Not FullCommand.Contains(oGame.Parameter) Then bPass = False
 
+            End If
+
+            'Detection Pass 2
+            If bPass Then
+                'Determine the process path if we need it
                 If Not oGame.AbsolutePath Or oGame.Duplicate Then
                     Try
                         If Not bWineProcess Then
@@ -238,12 +248,12 @@ Public Class mgrProcesses
                         Else
                             If bDebugMode Then mgrCommon.ShowMessage(exWin32.NativeErrorCode & " " & exWin32.Message & vbCrLf & vbCrLf & exWin32.StackTrace, MsgBoxStyle.Critical)
                             'A different failure occured,  drop out and continue to scan.
-                            Return False
+                            bPass = False
                         End If
                     Catch exAll As Exception
                         If bDebugMode Then mgrCommon.ShowMessage(exAll.Message & vbCrLf & vbCrLf & exAll.StackTrace, MsgBoxStyle.Critical)
                         'A different failure occured,  drop out and continue to scan.
-                        Return False
+                        bPass = False
                     End Try
                 End If
 
