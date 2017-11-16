@@ -33,6 +33,7 @@ Public Class mgrMonitorList
         oGame.BackupLimit = CInt(dr("BackupLimit"))
         oGame.CleanFolder = CBool(dr("CleanFolder"))
         If Not IsDBNull(dr("Parameter")) Then oGame.Parameter = CStr(dr("Parameter"))
+        If Not IsDBNull(dr("Comments")) Then oGame.Comments = CStr(dr("Comments"))
 
         Return oGame
     End Function
@@ -59,6 +60,7 @@ Public Class mgrMonitorList
         hshParams.Add("BackupLimit", oGame.BackupLimit)
         hshParams.Add("CleanFolder", oGame.CleanFolder)
         hshParams.Add("Parameter", oGame.Parameter)
+        hshParams.Add("Comments", oGame.Comments)
 
         Return hshParams
     End Function
@@ -99,7 +101,7 @@ Public Class mgrMonitorList
         Dim hshParams As Hashtable
 
         sSQL = "INSERT INTO monitorlist VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, @TimeStamp, "
-        sSQL &= "@ExcludeList, @ProcessPath, @Icon, @Hours, @Version, @Company, @Enabled, @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter)"
+        sSQL &= "@ExcludeList, @ProcessPath, @Icon, @Hours, @Version, @Company, @Enabled, @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter, @Comments)"
 
         'Parameters
         hshParams = SetCoreParameters(oGame)
@@ -115,7 +117,7 @@ Public Class mgrMonitorList
 
         sSQL = "UPDATE monitorlist SET Name=@Name, Process=@Process, Path=@Path, AbsolutePath=@AbsolutePath, FolderSave=@FolderSave, "
         sSQL &= "FileType=@FileType, TimeStamp=@TimeStamp, ExcludeList=@ExcludeList, ProcessPath=@ProcessPath, Icon=@Icon, "
-        sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit, CleanFolder=@CleanFolder, Parameter=@Parameter WHERE MonitorID=@ID"
+        sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit, CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments WHERE MonitorID=@ID"
 
         'Parameters
         hshParams = SetCoreParameters(oGame)
@@ -367,6 +369,7 @@ Public Class mgrMonitorList
             hshParams.Add("MonitorOnly", oGame.MonitorOnly)
             hshParams.Add("CleanFolder", oGame.CleanFolder)
             hshParams.Add("Parameter", oGame.Parameter)
+            hshParams.Add("Comments", oGame.Comments)
 
             'Optional Parameters
             If (eSyncFields And clsGame.eOptionalSyncFields.Company) = clsGame.eOptionalSyncFields.Company Then
@@ -501,7 +504,7 @@ Public Class mgrMonitorList
                                              ByVal bSortAsc As Boolean, ByVal sSortField As String, ByRef hshParams As Hashtable) As String
         Dim sSQL As String = String.Empty
         Dim iCounter As Integer = 0
-        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter FROM monitorlist"
+        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments FROM monitorlist"
         Dim sSort As String = " ORDER BY " & sSortField
 
         If bSortAsc Then
@@ -632,6 +635,7 @@ Public Class mgrMonitorList
             If Not IsDBNull(dr("ExcludeList")) Then oGame.ExcludeList = CStr(dr("ExcludeList"))
             oGame.MonitorOnly = CBool(dr("MonitorOnly"))
             If Not IsDBNull(dr("Parameter")) Then oGame.Parameter = CStr(dr("Parameter"))
+            If Not IsDBNull(dr("Comments")) Then oGame.Comments = CStr(dr("Comments"))
             oGame.Tags = mgrGameTags.GetTagsByGameForExport(sID)
             oList.Add(oGame)
         Next

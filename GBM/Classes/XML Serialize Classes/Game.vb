@@ -8,6 +8,7 @@
     Private sFileType As String
     Private sExcludeList As String
     Private bMonitorOnly As Boolean
+    Private sComments As String
     Private oTags As List(Of Tag)
 
     Property Name As String
@@ -88,6 +89,15 @@
         End Set
         Get
             Return bMonitorOnly
+        End Get
+    End Property
+
+    Property Comments As String
+        Set(value As String)
+            sComments = value
+        End Set
+        Get
+            Return sComments
         End Get
     End Property
 

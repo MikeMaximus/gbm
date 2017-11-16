@@ -714,6 +714,17 @@ Public Class frmMain
         UpdateTimeSpent(dCurrentHours, oProcess.TimeSpent.TotalHours)
     End Sub
 
+    Private Sub HandleSession()
+        Dim oSession As New clsSession
+
+        'Record Session
+        oSession.MonitorID = oProcess.GameInfo.ID
+        oSession.SessionStart = oProcess.StartTime
+        oSession.SessionEnd = oProcess.EndTime
+
+        mgrSessions.AddSession(oSession)
+    End Sub
+
     Private Function SupressBackup() As Boolean
         Dim iSession As Integer
         If oSettings.SupressBackup Then
@@ -1764,7 +1775,10 @@ Public Class frmMain
                     LoadGameSettings()
                 Else
                     bContinue = False
-                    If oSettings.TimeTracking Then HandleTimeSpent()
+                    If oSettings.TimeTracking Then
+                        HandleTimeSpent()
+                        HandleSession()
+                    End If
                     UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oProcess.GameInfo.Name), False)
                     oProcess.GameInfo = Nothing
                     ResetGameInfo()
@@ -1775,7 +1789,10 @@ Public Class frmMain
             If bContinue Then
                 If DoMultiGameCheck() Then
                     UpdateLog(mgrCommon.FormatString(frmMain_GameEnded, oProcess.GameInfo.Name), False)
-                    If oSettings.TimeTracking Then HandleTimeSpent()
+                    If oSettings.TimeTracking Then
+                        HandleTimeSpent()
+                        HandleSession()
+                    End If
                     RunBackup()
                 Else
                     UpdateLog(frmMain_UnknownGameEnded, False)

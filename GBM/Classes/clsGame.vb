@@ -19,6 +19,7 @@ Public Class clsGame
     Private sCompany As String = String.Empty
     Private bEnabled As Boolean = True
     Private bMonitorOnly As Boolean = False
+    Private sComments As String = String.Empty
     Private bDuplicate As Boolean = False
     Private bTempGame As Boolean = False
     Private oImportTags As New List(Of Tag)
@@ -220,6 +221,15 @@ Public Class clsGame
         End Set
     End Property
 
+    Property Comments As String
+        Get
+            Return sComments
+        End Get
+        Set(value As String)
+            sComments = value
+        End Set
+    End Property
+
     Property Duplicate As Boolean
         Get
             Return bDuplicate
@@ -322,6 +332,9 @@ Public Class clsGame
                 Return False
             End If
             If MonitorOnly <> oGame.MonitorOnly Then
+                Return False
+            End If
+            If Comments <> oGame.Comments Then
                 Return False
             End If
 

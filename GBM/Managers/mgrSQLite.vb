@@ -83,7 +83,7 @@ Public Class mgrSQLite
             sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
                    "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, PRIMARY KEY(Name, Process));"
+                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, PRIMARY KEY(Name, Process));"
 
             'Add Tables (Tags)
             sSql &= "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
@@ -120,7 +120,7 @@ Public Class mgrSQLite
             sSql = "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
                    "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, PRIMARY KEY(Name, Process));"
+                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, PRIMARY KEY(Name, Process));"
 
             'Add Tables (Remote Manifest)
             sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, " &
@@ -131,6 +131,10 @@ Public Class mgrSQLite
 
             'Add Tables (Remote Game Tags)
             sSql &= "CREATE TABLE gametags (TagID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(TagID, MonitorID)); "
+
+            'Add Tables (Sessions)
+            sSql &= "CREATE TABLE sessions (MonitorID TEXT NOT NULL, Start INTEGER NOT NULL, End INTEGER NOT NULL, " &
+                    "ComputerName TEXT NOT NULL, PRIMARY KEY(MonitorID, Start));"
 
             'Set Version
             sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
@@ -675,6 +679,36 @@ Public Class mgrSQLite
                 sSQL = "ALTER TABLE monitorlist ADD COLUMN Parameter TEXT;"
 
                 sSQL &= "PRAGMA user_version=102"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '1.05 Upgrade
+        If GetDatabaseVersion() < 105 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v102")
+
+                'Add new field(s)
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN Comments TEXT;"
+
+                sSQL &= "PRAGMA user_version=105"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v102")
+
+                'Add Tables (Sessions)
+                sSQL = "CREATE TABLE sessions (MonitorID TEXT NOT NULL, Start INTEGER NOT NULL, End INTEGER NOT NULL, " &
+                   "ComputerName TEXT NOT NULL, PRIMARY KEY(MonitorID, Start));"
+
+                'Add new field(s)
+                sSQL &= "ALTER TABLE monitorlist ADD COLUMN Comments TEXT;"
+
+                sSQL &= "PRAGMA user_version=105"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If
