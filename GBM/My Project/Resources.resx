@@ -1900,4 +1900,7 @@
   <data name="frmSession_Name" xml:space="preserve">
     <value>Sessions</value>
   </data>
+  <data name="frmFilter_FieldComments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
 </root>

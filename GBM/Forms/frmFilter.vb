@@ -205,6 +205,14 @@ Public Class frmFilter
         oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
         oValidFields.Add(oField)
 
+        'Comments
+        oField = New clsGameFilterField
+        oField.FieldName = "Comments"
+        oField.FriendlyFieldName = frmFilter_FieldComments
+        oField.Type = clsGameFilterField.eDataType.fString
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
         'Game Path
         oField = New clsGameFilterField
         oField.FieldName = "ProcessPath"

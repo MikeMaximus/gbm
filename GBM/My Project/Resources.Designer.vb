@@ -1015,6 +1015,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Comments.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_FieldComments() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_FieldComments", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Company.
         '''</summary>
         Friend ReadOnly Property frmFilter_FieldCompany() As String
