@@ -1885,4 +1885,19 @@
   <data name="frmFilter_grpSortOptions" xml:space="preserve">
     <value>Sort Options</value>
   </data>
+  <data name="frmGameManager_btnSessions" xml:space="preserve">
+    <value>&amp;View Sessions...</value>
+  </data>
+  <data name="frmSession_ColumnComputerName" xml:space="preserve">
+    <value>Computer Name</value>
+  </data>
+  <data name="frmSession_ColumnEnd" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="frmSession_ColumnStart" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="frmSession_Name" xml:space="preserve">
+    <value>Sessions</value>
+  </data>
 </root>

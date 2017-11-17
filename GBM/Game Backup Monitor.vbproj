@@ -169,6 +169,12 @@
     <Compile Include="Forms\frmIncludeExclude.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmSession.Designer.vb">
+      <DependentUpon>frmSession.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSession.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmStartUpWizard.Designer.vb">
       <DependentUpon>frmStartUpWizard.vb</DependentUpon>
     </Compile>
@@ -268,6 +274,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmIncludeExclude.resx">
       <DependentUpon>frmIncludeExclude.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSession.resx">
+      <DependentUpon>frmSession.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmStartUpWizard.resx">
       <DependentUpon>frmStartUpWizard.vb</DependentUpon>

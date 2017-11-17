@@ -347,11 +347,11 @@ Public Class mgrMonitorList
             sVersion = "(SELECT Version FROM monitorlist WHERE MonitorID=@ID)"
         End If
 
-        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter) "
+        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments) "
         sSQL &= "VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, "
         sSQL &= sTimeStamp & ", @ExcludeList, " & sGamePath & ", "
         sSQL &= sIcon & ", @Hours, " & sVersion & ", "
-        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, " & sBackupLimit & ", @CleanFolder, @Parameter);"
+        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, " & sBackupLimit & ", @CleanFolder, @Parameter, @Comments);"
 
         For Each oGame As clsGame In hshGames.Values
             hshParams = New Hashtable

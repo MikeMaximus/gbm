@@ -761,6 +761,7 @@ Public Class frmGameManager
         chkCleanFolder.Checked = oApp.CleanFolder
         chkTimeStamp.Checked = oApp.AppendTimeStamp
         nudLimit.Value = oApp.BackupLimit
+        txtComments.Text = oApp.Comments
         chkEnabled.Checked = oApp.Enabled
         chkMonitorOnly.Checked = oApp.MonitorOnly
 
@@ -906,6 +907,7 @@ Public Class frmGameManager
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = False
                 btnExport.Enabled = False
+                btnSessions.Enabled = False
             Case eModes.Edit
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
@@ -930,6 +932,7 @@ Public Class frmGameManager
                 lblTags.Visible = True
                 btnImport.Enabled = False
                 btnExport.Enabled = False
+                btnSessions.Enabled = False
             Case eModes.View
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -949,6 +952,7 @@ Public Class frmGameManager
                 lblTags.Visible = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
+                btnSessions.Enabled = True
             Case eModes.ViewTemp
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -971,6 +975,7 @@ Public Class frmGameManager
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = True
                 btnExport.Enabled = True
+                btnSessions.Enabled = False
             Case eModes.Disabled
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -998,6 +1003,7 @@ Public Class frmGameManager
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = True
                 btnExport.Enabled = True
+                btnSessions.Enabled = False
             Case eModes.MultiSelect
                 lstGames.Enabled = True
                 lblQuickFilter.Enabled = False
@@ -1024,6 +1030,7 @@ Public Class frmGameManager
                 lblTags.Visible = False
                 btnImport.Enabled = True
                 btnExport.Enabled = True
+                btnSessions.Enabled = False
         End Select
 
         lstGames.Focus()
@@ -1174,6 +1181,7 @@ Public Class frmGameManager
         oApp.CleanFolder = chkCleanFolder.Checked
         oApp.AppendTimeStamp = chkTimeStamp.Checked
         oApp.BackupLimit = nudLimit.Value
+        oApp.Comments = txtComments.Text
         oApp.Enabled = chkEnabled.Checked
         oApp.MonitorOnly = chkMonitorOnly.Checked
         oApp.ProcessPath = txtAppPath.Text
@@ -1547,6 +1555,7 @@ Public Class frmGameManager
         lblLimit.Text = frmGameManager_lblLimit
         cmsDeleteOne.Text = frmGameManager_cmsDeleteOne
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
+        btnSessions.Text = frmGameManager_btnSessions
 
         'Init Filter Timer
         tmFilterTimer = New Timer()
@@ -1724,6 +1733,12 @@ Public Class frmGameManager
 
     Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
         ExportGameList()
+    End Sub
+
+    Private Sub btnSessions_Click(sender As Object, e As EventArgs) Handles btnSessions.Click
+        Dim frm As New frmSession
+        frm.Game = CurrentGame
+        frm.ShowDialog()
     End Sub
 
     Private Sub txtQuickFilter_TextChanged(sender As Object, e As EventArgs) Handles txtQuickFilter.TextChanged

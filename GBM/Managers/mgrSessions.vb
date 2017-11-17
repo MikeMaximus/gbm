@@ -34,4 +34,16 @@
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
+    Public Shared Function GetSessionsByGame(ByVal sMonitorID As String) As DataSet
+        Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
+        Dim sSQL As String
+        Dim hshParams As New Hashtable
+
+        sSQL = "SELECT Start, End, ComputerName FROM sessions WHERE MonitorID = @MonitorID;"
+
+        hshParams.Add("MonitorID", sMonitorID)
+
+        Return oDatabase.ReadParamData(sSQL, hshParams)
+    End Function
+
 End Class
