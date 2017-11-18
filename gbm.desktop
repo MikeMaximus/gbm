@@ -8,7 +8,7 @@ Comment[de]=Beobachtet Spiele und sichert ihre Spielstände
 
 Path=/usr/local/bin
 TryExec=mono
-Exec=gbm
+Exec=mono gbm
 Terminal=false
 
 Icon=gbm
