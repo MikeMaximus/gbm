@@ -283,13 +283,13 @@ Public Class mgrCommon
             'Files
             For Each fi As FileInfo In oFolder.EnumerateFiles()
                 If sInclude.Length > 0 Then
-                    bInclude = CompareValueToArrayRegEx(fi.Name, sInclude) Or CompareValueToArrayRegEx(Path.GetDirectoryName(sPath), sInclude)
+                    bInclude = CompareValueToArrayRegEx(fi.Name, sInclude) Or CompareValueToArrayRegEx(fi.DirectoryName, sInclude)
                 Else
                     bInclude = True
                 End If
 
                 If sExclude.Length > 0 Then
-                    bExclude = CompareValueToArrayRegEx(fi.Name, sExclude) Or CompareValueToArrayRegEx(Path.GetDirectoryName(sPath), sExclude)
+                    bExclude = CompareValueToArrayRegEx(fi.Name, sExclude) Or CompareValueToArrayRegEx(fi.DirectoryName, sExclude)
                 Else
                     bExclude = False
                 End If

@@ -85,13 +85,37 @@ Public Class mgrBackup
         End Try
     End Sub
 
+    Private Function VerifySavePath(ByVal oGame As clsGame) As String
+        Dim sSavePath As String
+
+        If oGame.AbsolutePath = False Then
+            If oGame.Path <> String.Empty Then
+                sSavePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oGame.Path
+            Else
+                sSavePath = oGame.ProcessPath
+            End If
+        Else
+            sSavePath = oGame.Path
+        End If
+
+        Return sSavePath
+    End Function
+
     Public Function CheckBackupPrereq(ByVal oGame As clsGame) As Boolean
         Dim sBackupFile As String = oSettings.BackupFolder
-        Dim lAvailableSpace As Long = mgrCommon.GetAvailableDiskSpace(sBackupFile)
-        Dim lFolderSize As Long = mgrCommon.GetFolderSize(oGame.Path, oGame.IncludeArray, oGame.ExcludeArray)
+        Dim sSavePath As String
+        Dim lAvailableSpace As Long
+        Dim lFolderSize As Long
 
         If oSettings.CreateSubFolder Then sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name
         sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.Name & ".7z"
+
+        'Verify saved game path
+        sSavePath = VerifySavePath(oGame)
+
+        'Calculate space
+        lAvailableSpace = mgrCommon.GetAvailableDiskSpace(sBackupFile)
+        lFolderSize = mgrCommon.GetFolderSize(sSavePath, oGame.IncludeArray, oGame.ExcludeArray)
 
         'Show Available Space
         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_AvailableDiskSpace, mgrCommon.FormatDiskSpace(lAvailableSpace)), False, ToolTipIcon.Info, True)
@@ -194,15 +218,8 @@ Public Class mgrBackup
             End If
 
             If bDoBackup Then
-                If oGame.AbsolutePath = False Then
-                    If oGame.Path <> String.Empty Then
-                        sSavePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oGame.Path
-                    Else
-                        sSavePath = oGame.ProcessPath
-                    End If
-                Else
-                    sSavePath = oGame.Path
-                End If
+
+                sSavePath = VerifySavePath(oGame)
 
                 If oGame.FolderSave = True Then
                     BuildFileList(sSavePath, "*", mgrPath.IncludeFileLocation)
