@@ -11,7 +11,9 @@ ifndef XDGUTILS
 	$(error "xdg-desktop-menu is not available, please install xdg-utils")
 endif
 #rename it in a way, it can easily started from terminal
-	install GBM.exe /usr/local/bin/gbm;
+	install gbm.sh /usr/local/bin/gbm;
+	install -d /usr/local/share/gbm;
+	install GBM.exe /usr/local/share/gbm/;
 #install icon in different sizes
 	$(foreach size,$(ICONSIZES),xdg-icon-resource install --mode system --novendor --noupdate --size $(size) gbm_$(size)x$(size).png gbm;$(\n))
 	xdg-icon-resource forceupdate --mode system;
@@ -23,6 +25,7 @@ ifndef XDGUTILS
 	$(error "xdg-desktop-menu is not available, please install xdg-utils")
 endif
 	rm /usr/local/bin/gbm;
+	rm -r /usr/local/share/gbm/;
 	$(foreach size,$(ICONSIZES),xdg-icon-resource uninstall --mode system --novendor --noupdate --size $(size) gbm;$(\n))
 	xdg-icon-resource forceupdate --mode system;
 	xdg-desktop-menu uninstall --mode system --novendor gbm.desktop;
