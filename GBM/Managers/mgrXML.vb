@@ -46,38 +46,60 @@ Public Class mgrXML
         Return hshList
     End Function
 
-    Public Shared Function ImportandDeserialize(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False) As List(Of Game)
+    Private Shared Function ReadImportData(ByVal sLocation As String, ByVal bWebRead As Boolean)
         Dim oReader As StreamReader
         Dim oWebClient As WebClient
+
+        If bWebRead Then
+            oWebClient = New WebClient
+            oReader = New StreamReader(oWebClient.OpenRead(sLocation))
+        Else
+            oReader = New StreamReader(sLocation)
+        End If
+
+        Return oReader
+    End Function
+
+    Public Shared Function ImportandDeserialize(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False) As List(Of Game)
+        Dim oReader As StreamReader
         Dim oSerializer As XmlSerializer
-        Dim oList As New List(Of Game)
+        Dim oExportData As New ExportData
+        Dim oConfigurations As New List(Of Game)
 
         Try
-            If bWebRead Then
-                oWebClient = New WebClient
-                oReader = New StreamReader(oWebClient.OpenRead(sLocation))
+            oReader = ReadImportData(sLocation, bWebRead)
+            oSerializer = New XmlSerializer(oExportData.GetType(), New XmlRootAttribute("gbm"))
+            oExportData = oSerializer.Deserialize(oReader)
+            oReader.Close()
+
+            'Compatability Mode
+            If oExportData.Information.AppVer = 0 Then
+                oReader = ReadImportData(sLocation, bWebRead)
+                oSerializer = New XmlSerializer(oConfigurations.GetType(), New XmlRootAttribute("gbm"))
+                oConfigurations = oSerializer.Deserialize(oReader)
+                oReader.Close()
             Else
-                oReader = New StreamReader(sLocation)
+                oConfigurations = oExportData.Configurations
             End If
 
-            oSerializer = New XmlSerializer(oList.GetType(), New XmlRootAttribute("gbm"))
-            oList = oSerializer.Deserialize(oReader)
-            oReader.Close()
         Catch ex As Exception
             mgrCommon.ShowMessage(mgrXML_ErrorImportFailure, ex.Message, MsgBoxStyle.Exclamation)
         End Try
 
-        Return oList
+        Return oConfigurations
     End Function
 
     Public Shared Function SerializeAndExport(ByVal oList As List(Of Game), ByVal sLocation As String) As Boolean
         Dim oSerializer As XmlSerializer
         Dim oWriter As StreamWriter
+        Dim oExportInformation = New ExportInformation(mgrCommon.DateToUnix(Now), mgrCommon.AppVersion)
+        Dim oExportData As ExportData
 
         Try
-            oSerializer = New XmlSerializer(oList.GetType(), New XmlRootAttribute("gbm"))
+            oExportData = New ExportData(oExportInformation, oList)
+            oSerializer = New XmlSerializer(oExportData.GetType(), New XmlRootAttribute("gbm"))
             oWriter = New StreamWriter(sLocation)
-            oSerializer.Serialize(oWriter.BaseStream, oList)
+            oSerializer.Serialize(oWriter.BaseStream, oExportData)
             oWriter.Flush()
             oWriter.Close()
             Return True
