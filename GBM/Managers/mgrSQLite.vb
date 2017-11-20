@@ -132,10 +132,6 @@ Public Class mgrSQLite
             'Add Tables (Remote Game Tags)
             sSql &= "CREATE TABLE gametags (TagID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(TagID, MonitorID)); "
 
-            'Add Tables (Sessions)
-            sSql &= "CREATE TABLE sessions (MonitorID TEXT NOT NULL, Start INTEGER NOT NULL, End INTEGER NOT NULL, " &
-                    "ComputerName TEXT NOT NULL, PRIMARY KEY(MonitorID, Start));"
-
             'Set Version
             sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
 
@@ -701,12 +697,8 @@ Public Class mgrSQLite
                 'Backup DB before starting
                 BackupDB("v102")
 
-                'Add Tables (Sessions)
-                sSQL = "CREATE TABLE sessions (MonitorID TEXT NOT NULL, Start INTEGER NOT NULL, End INTEGER NOT NULL, " &
-                   "ComputerName TEXT NOT NULL, PRIMARY KEY(MonitorID, Start));"
-
                 'Add new field(s)
-                sSQL &= "ALTER TABLE monitorlist ADD COLUMN Comments TEXT;"
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN Comments TEXT;"
 
                 sSQL &= "PRAGMA user_version=105"
 

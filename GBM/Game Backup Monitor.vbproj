@@ -125,7 +125,6 @@
     <Compile Include="Classes\clsGameFilter.vb" />
     <Compile Include="Classes\clsGameFilterField.vb" />
     <Compile Include="Classes\clsSavedPath.vb" />
-    <Compile Include="Classes\clsSession.vb" />
     <Compile Include="Classes\XML Serialize Classes\ExportData.vb" />
     <Compile Include="Classes\XML Serialize Classes\ExportInformation.vb" />
     <Compile Include="Classes\XML Serialize Classes\Tag.vb" />
@@ -169,12 +168,6 @@
       <DependentUpon>frmIncludeExclude.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmIncludeExclude.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmSession.Designer.vb">
-      <DependentUpon>frmSession.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmSession.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmStartUpWizard.Designer.vb">
@@ -234,7 +227,6 @@
     <Compile Include="Managers\mgrPath.vb" />
     <Compile Include="Managers\mgrRestore.vb" />
     <Compile Include="Managers\mgrSavedPath.vb" />
-    <Compile Include="Managers\mgrSessions.vb" />
     <Compile Include="Managers\mgrSettings.vb" />
     <Compile Include="Managers\mgrBackup.vb" />
     <Compile Include="Managers\mgrSQLite.vb" />
@@ -276,9 +268,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmIncludeExclude.resx">
       <DependentUpon>frmIncludeExclude.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmSession.resx">
-      <DependentUpon>frmSession.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmStartUpWizard.resx">
       <DependentUpon>frmStartUpWizard.vb</DependentUpon>

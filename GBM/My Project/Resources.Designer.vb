@@ -1537,15 +1537,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;View Sessions....
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_btnSessions() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_btnSessions", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Tags....
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnTags() As String
@@ -3567,42 +3558,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_UpdatedBy() As String
             Get
                 Return ResourceManager.GetString("frmMain_UpdatedBy", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Computer Name.
-        '''</summary>
-        Friend ReadOnly Property frmSession_ColumnComputerName() As String
-            Get
-                Return ResourceManager.GetString("frmSession_ColumnComputerName", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to End.
-        '''</summary>
-        Friend ReadOnly Property frmSession_ColumnEnd() As String
-            Get
-                Return ResourceManager.GetString("frmSession_ColumnEnd", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Start.
-        '''</summary>
-        Friend ReadOnly Property frmSession_ColumnStart() As String
-            Get
-                Return ResourceManager.GetString("frmSession_ColumnStart", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Sessions.
-        '''</summary>
-        Friend ReadOnly Property frmSession_Name() As String
-            Get
-                Return ResourceManager.GetString("frmSession_Name", resourceCulture)
             End Get
         End Property
         
