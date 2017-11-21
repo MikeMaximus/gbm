@@ -393,6 +393,7 @@ Public Class frmFilter
         cboBoolFilter.SelectedIndex = 0
         numFilter.Value = 0
         txtStringFilter.Text = String.Empty
+        chkNot.Checked = False
 
         'Reset Visibilty
         cboBoolFilter.Visible = False
