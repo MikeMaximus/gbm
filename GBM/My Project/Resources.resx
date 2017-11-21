@@ -883,20 +883,20 @@
   <data name="frmFileFolderSearch_SwitchDrives" xml:space="preserve">
     <value>Do you wish to search the [PARAM] drive?</value>
   </data>
-  <data name="frmFilter_btnAdd" xml:space="preserve">
-    <value>&gt;</value>
+  <data name="frmFilter_btnIncludeAdd" xml:space="preserve">
+    <value>&lt;</value>
   </data>
   <data name="frmFilter_btnOK" xml:space="preserve">
     <value>&amp;OK</value>
   </data>
-  <data name="frmFilter_btnRemove" xml:space="preserve">
-    <value>&lt;</value>
+  <data name="frmFilter_btnIncludeRemove" xml:space="preserve">
+    <value>&gt;</value>
   </data>
   <data name="frmFilter_FormName" xml:space="preserve">
     <value>Custom Filter</value>
   </data>
-  <data name="frmFilter_lblGameTags" xml:space="preserve">
-    <value>Current Filter</value>
+  <data name="frmFilter_lblIncludeTags" xml:space="preserve">
+    <value>Include Tags</value>
   </data>
   <data name="frmFilter_lblTags" xml:space="preserve">
     <value>Available Tags</value>
@@ -1010,7 +1010,7 @@
     <value>Filter Type</value>
   </data>
   <data name="frmFilter_grpTagOptions" xml:space="preserve">
-    <value>Options</value>
+    <value>Include Options</value>
   </data>
   <data name="frmGameManager_grpConfig" xml:space="preserve">
     <value>Configuration</value>
@@ -1887,5 +1887,17 @@
   </data>
   <data name="frmFilter_FieldComments" xml:space="preserve">
     <value>Comments</value>
+  </data>
+  <data name="frmFilter_btnExcludeAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmFilter_btnExcludeRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmFilter_lblExcludeTags" xml:space="preserve">
+    <value>Exclude Tags</value>
+  </data>
+  <data name="frmFilter_lblNot" xml:space="preserve">
+    <value>Not</value>
   </data>
 </root>

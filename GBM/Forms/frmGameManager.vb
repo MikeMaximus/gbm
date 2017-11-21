@@ -19,7 +19,8 @@ Public Class frmGameManager
     Private oRemoteBackupData As SortedList
     Private bIsDirty As Boolean = False
     Private bIsLoading As Boolean = False
-    Private oCurrentTagFilters As New List(Of clsTag)
+    Private oCurrentIncludeTagFilters As New List(Of clsTag)
+    Private oCurrentExcludeTagFilters As New List(Of clsTag)
     Private oCurrentFilters As New List(Of clsGameFilter)
     Private eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.BaseFilter
     Private bCurrentAndOperator As Boolean = False
@@ -227,7 +228,8 @@ Public Class frmGameManager
             If Not bRetainFilter Then
                 frm = New frmFilter
 
-                frm.TagFilters = oCurrentTagFilters
+                frm.IncludeTagFilters = oCurrentIncludeTagFilters
+                frm.ExcludeTagFilters = oCurrentExcludeTagFilters
                 frm.GameFilters = oCurrentFilters
                 frm.FilterType = eCurrentFilter
                 frm.AndOperator = bCurrentAndOperator
@@ -236,7 +238,8 @@ Public Class frmGameManager
 
                 frm.ShowDialog()
 
-                oCurrentTagFilters = frm.TagFilters
+                oCurrentIncludeTagFilters = frm.IncludeTagFilters
+                oCurrentExcludeTagFilters = frm.ExcludeTagFilters
                 oCurrentFilters = frm.GameFilters
                 eCurrentFilter = frm.FilterType
                 bCurrentAndOperator = frm.AndOperator
@@ -244,14 +247,15 @@ Public Class frmGameManager
                 sCurrentSortField = frm.SortField
             End If
         Else
-            oCurrentTagFilters.Clear()
+            oCurrentIncludeTagFilters.Clear()
+            oCurrentExcludeTagFilters.Clear()
             oCurrentFilters.Clear()
             eCurrentFilter = frmFilter.eFilterType.BaseFilter
             bCurrentSortAsc = True
             sCurrentSortField = "Name"
         End If
 
-        GameData = mgrMonitorList.ReadFilteredList(oCurrentTagFilters, oCurrentFilters, eCurrentFilter, bCurrentAndOperator, bCurrentSortAsc, sCurrentSortField)
+        GameData = mgrMonitorList.ReadFilteredList(oCurrentIncludeTagFilters, oCurrentExcludeTagFilters, oCurrentFilters, eCurrentFilter, bCurrentAndOperator, bCurrentSortAsc, sCurrentSortField)
 
         If optPendingRestores.Checked Then
             oRestoreData = mgrRestore.CompareManifests

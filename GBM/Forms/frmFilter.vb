@@ -9,7 +9,8 @@ Public Class frmFilter
         NoTags = 4
     End Enum
 
-    Dim oTagFilters As New List(Of clsTag)
+    Dim oIncludeTagFilters As New List(Of clsTag)
+    Dim oExcludeTagFilters As New List(Of clsTag)
     Dim oGameFilters As New List(Of clsGameFilter)
     Dim oValidFields As New List(Of clsGameFilterField)
     Dim eCurrentFilterType As eFilterType = eFilterType.BaseFilter
@@ -28,12 +29,21 @@ Public Class frmFilter
         End Set
     End Property
 
-    Public Property TagFilters As List(Of clsTag)
+    Public Property IncludeTagFilters As List(Of clsTag)
         Get
-            Return oTagFilters
+            Return oIncludeTagFilters
         End Get
         Set(value As List(Of clsTag))
-            oTagFilters = value
+            oIncludeTagFilters = value
+        End Set
+    End Property
+
+    Public Property ExcludeTagFilters As List(Of clsTag)
+        Get
+            Return oExcludeTagFilters
+        End Get
+        Set(value As List(Of clsTag))
+            oExcludeTagFilters = value
         End Set
     End Property
 
@@ -73,13 +83,13 @@ Public Class frmFilter
         End Set
     End Property
 
-    Private Sub AddTag()
+    Private Sub AddTag(ByRef lst As ListBox)
         Dim oData As KeyValuePair(Of String, String)
         Dim oTags As List(Of KeyValuePair(Of String, String))
 
         If lstTags.SelectedItems.Count = 1 Then
             oData = lstTags.SelectedItems(0)
-            lstTagFilter.Items.Add(oData)
+            lst.Items.Add(oData)
             lstTags.Items.Remove(oData)
         ElseIf lstTags.SelectedItems.Count > 1 Then
             oTags = New List(Of KeyValuePair(Of String, String))
@@ -89,30 +99,30 @@ Public Class frmFilter
             Next
 
             For Each kp As KeyValuePair(Of String, String) In oTags
-                lstTagFilter.Items.Add(kp)
+                lst.Items.Add(kp)
                 lstTags.Items.Remove(kp)
             Next
         End If
 
     End Sub
 
-    Private Sub RemoveTag()
+    Private Sub RemoveTag(ByRef lst As ListBox)
         Dim oData As KeyValuePair(Of String, String)
         Dim oTags As List(Of KeyValuePair(Of String, String))
 
-        If lstTagFilter.SelectedItems.Count = 1 Then
-            oData = lstTagFilter.SelectedItems(0)
-            lstTagFilter.Items.Remove(oData)
+        If lst.SelectedItems.Count = 1 Then
+            oData = lst.SelectedItems(0)
+            lst.Items.Remove(oData)
             lstTags.Items.Add(oData)
-        ElseIf lstTagFilter.SelectedItems.Count > 1 Then
+        ElseIf lst.SelectedItems.Count > 1 Then
             oTags = New List(Of KeyValuePair(Of String, String))
 
-            For Each oData In lstTagFilter.SelectedItems
+            For Each oData In lst.SelectedItems
                 oTags.Add(oData)
             Next
 
             For Each kp As KeyValuePair(Of String, String) In oTags
-                lstTagFilter.Items.Remove(kp)
+                lst.Items.Remove(kp)
                 lstTags.Items.Add(kp)
             Next
         End If
@@ -283,13 +293,17 @@ Public Class frmFilter
 
         'Handle Lists
         lstTags.Items.Clear()
-        lstTagFilter.Items.Clear()
+        lstIncludeTags.Items.Clear()
+        lstExcludeTags.Items.Clear()
 
         lstTags.ValueMember = "Key"
         lstTags.DisplayMember = "Value"
 
-        lstTagFilter.ValueMember = "Key"
-        lstTagFilter.DisplayMember = "Value"
+        lstIncludeTags.ValueMember = "Key"
+        lstIncludeTags.DisplayMember = "Value"
+
+        lstExcludeTags.ValueMember = "Key"
+        lstExcludeTags.DisplayMember = "Value"
 
         For Each de As DictionaryEntry In hshTags
             oTag = DirectCast(de.Value, clsTag)
@@ -322,16 +336,35 @@ Public Class frmFilter
                         sFilter = oFilter.Field.FriendlyFieldName & " = " & oFilter.Data
                 End Select
 
+                If oFilter.NotCondition Then
+                    sFilter &= " (" & frmFilter_lblNot & ")"
+                End If
+
                 lstFilter.Items.Add(New KeyValuePair(Of clsGameFilter, String)(oFilter, sFilter))
             Next
         End If
 
         'Tag Filters
-        If oTagFilters.Count > 0 Then
+        If oIncludeTagFilters.Count > 0 Then
             chkTag.Checked = True
-            For Each oTag As clsTag In oTagFilters
+            For Each oTag As clsTag In oIncludeTagFilters
                 oListTag = New KeyValuePair(Of String, String)(oTag.ID, oTag.Name)
-                lstTagFilter.Items.Add(oListTag)
+                lstIncludeTags.Items.Add(oListTag)
+                lstTags.Items.Remove(oListTag)
+            Next
+
+            If eCurrentFilterType = eFilterType.AllTags Then
+                optAll.Checked = True
+            Else
+                optAny.Checked = True
+            End If
+        End If
+
+        If oExcludeTagFilters.Count > 0 Then
+            chkTag.Checked = True
+            For Each oTag As clsTag In oExcludeTagFilters
+                oListTag = New KeyValuePair(Of String, String)(oTag.ID, oTag.Name)
+                lstExcludeTags.Items.Add(oListTag)
                 lstTags.Items.Remove(oListTag)
             Next
 
@@ -402,6 +435,13 @@ Public Class frmFilter
                 sFilter = oFilter.Field.FriendlyFieldName & " = " & oFilter.Data
         End Select
 
+        If chkNot.Checked Then
+            oFilter.NotCondition = True
+            sFilter &= " (" & frmFilter_lblNot & ")"
+        Else
+            oFilter.NotCondition = False
+        End If
+
         oGameFilters.Add(oFilter)
         lstFilter.Items.Add(New KeyValuePair(Of clsGameFilter, String)(oFilter, sFilter))
 
@@ -431,14 +471,19 @@ Public Class frmFilter
 
         If chkTag.Checked Then
             'Set Tags
-            TagFilters.Clear()
-            For Each oData In lstTagFilter.Items
+            IncludeTagFilters.Clear()
+            For Each oData In lstIncludeTags.Items
                 oTag = DirectCast(hshTags(oData.Value), clsTag)
-                TagFilters.Add(oTag)
+                IncludeTagFilters.Add(oTag)
+            Next
+            ExcludeTagFilters.Clear()
+            For Each oData In lstExcludeTags.Items
+                oTag = DirectCast(hshTags(oData.Value), clsTag)
+                ExcludeTagFilters.Add(oTag)
             Next
 
             'Set Filter Type
-            If TagFilters.Count = 0 Then
+            If IncludeTagFilters.Count = 0 And ExcludeTagFilters.Count = 0 Then
                 eCurrentFilterType = eFilterType.NoTags
             ElseIf optAll.Checked Then
                 eCurrentFilterType = eFilterType.AllTags
@@ -525,10 +570,13 @@ Public Class frmFilter
         grpFilterType.Text = frmFilter_grpFilterType
         optAll.Text = frmFilter_optAll
         optAny.Text = frmFilter_optAny
-        lblGameTags.Text = frmFilter_lblGameTags
+        lblIncludeTags.Text = frmFilter_lblIncludeTags
+        lblExcludeTags.Text = frmFilter_lblExcludeTags
         lblTags.Text = frmFilter_lblTags
-        btnRemove.Text = frmFilter_btnRemove
-        btnAdd.Text = frmFilter_btnAdd
+        btnIncludeRemove.Text = frmFilter_btnIncludeRemove
+        btnIncludeAdd.Text = frmFilter_btnIncludeAdd
+        btnExcludeRemove.Text = frmFilter_btnExcludeRemove
+        btnExcludeAdd.Text = frmFilter_btnExcludeAdd
         btnOK.Text = frmFilter_btnOK
         grpTagOptions.Text = frmFilter_grpTagOptions
         chkTag.Text = frmFilter_chkTag
@@ -569,12 +617,20 @@ Public Class frmFilter
         Me.Close()
     End Sub
 
-    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        AddTag()
+    Private Sub btnIncludeAdd_Click(sender As Object, e As EventArgs) Handles btnIncludeAdd.Click
+        AddTag(lstIncludeTags)
     End Sub
 
-    Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
-        RemoveTag()
+    Private Sub btnExcludeAdd_Click(sender As Object, e As EventArgs) Handles btnExcludeAdd.Click
+        AddTag(lstExcludeTags)
+    End Sub
+
+    Private Sub btnExcludeRemove_Click(sender As Object, e As EventArgs) Handles btnExcludeRemove.Click
+        RemoveTag(lstExcludeTags)
+    End Sub
+
+    Private Sub btnIncludeRemove_Click(sender As Object, e As EventArgs) Handles btnIncludeRemove.Click
+        RemoveTag(lstIncludeTags)
     End Sub
 
     Private Sub frmFilter_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -599,7 +655,7 @@ Public Class frmFilter
             grpTagFilter.Enabled = True
         Else
             grpTagFilter.Enabled = False
-            oTagFilters.Clear()
+            oIncludeTagFilters.Clear()
             LoadTagData()
         End If
     End Sub

@@ -500,8 +500,9 @@ Public Class mgrMonitorList
     End Sub
 
     'Filter Functions
-    Private Shared Function BuildFilterQuery(ByVal oTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter), ByVal eFilterType As frmFilter.eFilterType, ByVal bAndOperator As Boolean,
-                                             ByVal bSortAsc As Boolean, ByVal sSortField As String, ByRef hshParams As Hashtable) As String
+    Private Shared Function BuildFilterQuery(ByVal oIncludeTagFilters As List(Of clsTag), ByVal oExcludeTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter),
+                                             ByVal eFilterType As frmFilter.eFilterType, ByVal bAndOperator As Boolean, ByVal bSortAsc As Boolean, ByVal sSortField As String,
+                                             ByRef hshParams As Hashtable) As String
         Dim sSQL As String = String.Empty
         Dim iCounter As Integer = 0
         Dim sBaseSelect As String = "MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments FROM monitorlist"
@@ -517,28 +518,87 @@ Public Class mgrMonitorList
             Case frmFilter.eFilterType.BaseFilter
                 sSQL = "SELECT " & sBaseSelect
             Case frmFilter.eFilterType.AnyTag
-                sSQL = "SELECT DISTINCT " & sBaseSelect
-                sSQL &= " NATURAL JOIN gametags WHERE gametags.TagID IN ("
 
-                For Each oTag As clsTag In oTagFilters
-                    sSQL &= "@TagID" & iCounter & ","
-                    hshParams.Add("TagID" & iCounter, oTag.ID)
-                    iCounter += 1
-                Next
+                If oExcludeTagFilters.Count > 0 And oIncludeTagFilters.Count = 0 Then
+                    sSQL = "SELECT " & sBaseSelect
 
-                sSQL = sSQL.TrimEnd(",")
-                sSQL &= ")"
-            Case frmFilter.eFilterType.AllTags
-                sSQL = "SELECT " & sBaseSelect & " WHERE MonitorID IN "
+                    sSQL &= " WHERE MonitorID NOT IN (SELECT MonitorID FROM monitorlist NATURAL JOIN gametags WHERE gametags.TagID IN ("
 
-                For Each oTag As clsTag In oTagFilters
-                    sSQL &= "(SELECT MonitorID FROM gametags WHERE monitorlist.MonitorID = gametags.MonitorID And TagID = @TagID" & iCounter & ")"
-                    If iCounter <> oTagFilters.Count - 1 Then
-                        sSQL &= " AND MonitorID IN "
+                    For Each oTag As clsTag In oExcludeTagFilters
+                        sSQL &= "@TagID" & iCounter & ","
+                        hshParams.Add("TagID" & iCounter, oTag.ID)
+                        iCounter += 1
+                    Next
+
+                    sSQL = sSQL.TrimEnd(",")
+                    sSQL &= "))"
+                Else
+                    sSQL = "SELECT DISTINCT " & sBaseSelect
+
+                    sSQL &= " NATURAL JOIN gametags WHERE gametags.TagID IN ("
+
+                    For Each oTag As clsTag In oIncludeTagFilters
+                        sSQL &= "@TagID" & iCounter & ","
+                        hshParams.Add("TagID" & iCounter, oTag.ID)
+                        iCounter += 1
+                    Next
+
+                    sSQL = sSQL.TrimEnd(",")
+                    sSQL &= ")"
+
+                    If oExcludeTagFilters.Count > 0 Then
+                        sSQL &= " AND MonitorID NOT IN (SELECT MonitorID FROM monitorlist NATURAL JOIN gametags WHERE gametags.TagID IN ("
+
+                        For Each oTag As clsTag In oExcludeTagFilters
+                            sSQL &= "@TagID" & iCounter & ","
+                            hshParams.Add("TagID" & iCounter, oTag.ID)
+                            iCounter += 1
+                        Next
+
+                        sSQL = sSQL.TrimEnd(",")
+                        sSQL &= "))"
                     End If
-                    hshParams.Add("TagID" & iCounter, oTag.ID)
-                    iCounter += 1
-                Next
+                End If
+
+            Case frmFilter.eFilterType.AllTags
+
+                If oExcludeTagFilters.Count > 0 And oIncludeTagFilters.Count = 0 Then
+                    sSQL = "SELECT " & sBaseSelect & " WHERE MonitorID NOT IN "
+
+                    For Each oTag As clsTag In oExcludeTagFilters
+                        sSQL &= "(SELECT MonitorID FROM gametags WHERE monitorlist.MonitorID = gametags.MonitorID And TagID = @TagID" & iCounter & ")"
+                        If iCounter <> oExcludeTagFilters.Count - 1 Then
+                            sSQL &= " AND MonitorID IN "
+                        End If
+                        hshParams.Add("TagID" & iCounter, oTag.ID)
+                        iCounter += 1
+                    Next
+                Else
+                    sSQL = "SELECT " & sBaseSelect & " WHERE MonitorID IN "
+
+                    For Each oTag As clsTag In oIncludeTagFilters
+                        sSQL &= "(SELECT MonitorID FROM gametags WHERE monitorlist.MonitorID = gametags.MonitorID And TagID = @TagID" & iCounter & ")"
+                        If iCounter <> oIncludeTagFilters.Count - 1 Then
+                            sSQL &= " AND MonitorID IN "
+                        End If
+                        hshParams.Add("TagID" & iCounter, oTag.ID)
+                        iCounter += 1
+                    Next
+
+                    If oExcludeTagFilters.Count > 0 Then
+                        sSQL &= " AND MonitorID NOT IN (SELECT MonitorID FROM monitorlist NATURAL JOIN gametags WHERE gametags.TagID IN ("
+
+                        For Each oTag As clsTag In oExcludeTagFilters
+                            sSQL &= "@TagID" & iCounter & ","
+                            hshParams.Add("TagID" & iCounter, oTag.ID)
+                            iCounter += 1
+                        Next
+
+                        sSQL = sSQL.TrimEnd(",")
+                        sSQL &= "))"
+                    End If
+                End If
+
             Case frmFilter.eFilterType.NoTags
                 sSQL = "SELECT " & sBaseSelect & " WHERE MonitorID NOT IN (SELECT MonitorID FROM gametags)"
         End Select
@@ -553,6 +613,10 @@ Public Class mgrMonitorList
 
             iCounter = 0
             For Each oFilter As clsGameFilter In oFilters
+                If oFilter.NotCondition Then
+                    sSQL &= " NOT "
+                End If
+
                 Select Case oFilter.Field.Type
                     Case clsGameFilterField.eDataType.fString
                         sSQL &= oFilter.Field.FieldName & " LIKE @" & oFilter.ID
@@ -584,7 +648,7 @@ Public Class mgrMonitorList
 
     End Function
 
-    Public Shared Function ReadFilteredList(ByVal oTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter), ByVal eFilterType As frmFilter.eFilterType, ByVal bAndOperator As Boolean,
+    Public Shared Function ReadFilteredList(ByVal oIncludeTagFilters As List(Of clsTag), ByVal oExcludeTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter), ByVal eFilterType As frmFilter.eFilterType, ByVal bAndOperator As Boolean,
                                             ByVal bSortAsc As Boolean, ByVal sSortField As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As OrderedDictionary
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
@@ -594,7 +658,7 @@ Public Class mgrMonitorList
         Dim hshParams As New Hashtable
         Dim iCounter As Integer = 0
 
-        sSQL = BuildFilterQuery(oTagFilters, oFilters, eFilterType, bAndOperator, bSortAsc, sSortField, hshParams)
+        sSQL = BuildFilterQuery(oIncludeTagFilters, oExcludeTagFilters, oFilters, eFilterType, bAndOperator, bSortAsc, sSortField, hshParams)
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
@@ -609,7 +673,7 @@ Public Class mgrMonitorList
 
 
     'Import / Export Functions
-    Public Shared Function ReadListForExport(ByVal oTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter), ByVal eFilterType As frmFilter.eFilterType, ByVal bAndOperator As Boolean,
+    Public Shared Function ReadListForExport(ByVal oIncludeTagFilters As List(Of clsTag), ByVal oExcludeTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter), ByVal eFilterType As frmFilter.eFilterType, ByVal bAndOperator As Boolean,
                                              ByVal bSortAsc As Boolean, ByVal sSortField As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As List(Of Game)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
@@ -619,7 +683,7 @@ Public Class mgrMonitorList
         Dim oGame As Game
         Dim hshParams As New Hashtable
 
-        sSQL = BuildFilterQuery(oTagFilters, oFilters, eFilterType, bAndOperator, bSortAsc, sSortField, hshParams)
+        sSQL = BuildFilterQuery(oIncludeTagFilters, oExcludeTagFilters, oFilters, eFilterType, bAndOperator, bSortAsc, sSortField, hshParams)
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
@@ -713,7 +777,8 @@ Public Class mgrMonitorList
     Public Shared Sub ExportMonitorList(ByVal sLocation As String)
         Dim oList As List(Of Game)
         Dim bSuccess As Boolean = False
-        Dim oTagFilters As New List(Of clsTag)
+        Dim oIncludeTagFilters As New List(Of clsTag)
+        Dim oExcludeTagFilters As New List(Of clsTag)
         Dim oFilters As New List(Of clsGameFilter)
         Dim eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.BaseFilter
         Dim bAndOperator As Boolean = True
@@ -723,7 +788,8 @@ Public Class mgrMonitorList
         If mgrCommon.ShowMessage(mgrMonitorList_ConfirmApplyFilter, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             Dim frm As New frmFilter
             frm.ShowDialog()
-            oTagFilters = frm.TagFilters
+            oIncludeTagFilters = frm.IncludeTagFilters
+            oExcludeTagFilters = frm.ExcludeTagFilters
             oFilters = frm.GameFilters
             eCurrentFilter = frm.FilterType
             bAndOperator = frm.AndOperator
@@ -731,7 +797,7 @@ Public Class mgrMonitorList
             sSortField = frm.SortField
         End If
 
-        oList = ReadListForExport(oTagFilters, oFilters, eCurrentFilter, bAndOperator, bSortAsc, sSortField)
+        oList = ReadListForExport(oIncludeTagFilters, oExcludeTagFilters, oFilters, eCurrentFilter, bAndOperator, bSortAsc, sSortField)
 
         bSuccess = mgrXML.SerializeAndExport(oList, sLocation)
 

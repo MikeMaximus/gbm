@@ -916,15 +916,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &gt;.
-        '''</summary>
-        Friend ReadOnly Property frmFilter_btnAdd() As String
-            Get
-                Return ResourceManager.GetString("frmFilter_btnAdd", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Add.
         '''</summary>
         Friend ReadOnly Property frmFilter_btnAddFilter() As String
@@ -934,20 +925,47 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;OK.
+        '''  Looks up a localized string similar to &gt;.
         '''</summary>
-        Friend ReadOnly Property frmFilter_btnOK() As String
+        Friend ReadOnly Property frmFilter_btnExcludeAdd() As String
             Get
-                Return ResourceManager.GetString("frmFilter_btnOK", resourceCulture)
+                Return ResourceManager.GetString("frmFilter_btnExcludeAdd", resourceCulture)
             End Get
         End Property
         
         '''<summary>
         '''  Looks up a localized string similar to &lt;.
         '''</summary>
-        Friend ReadOnly Property frmFilter_btnRemove() As String
+        Friend ReadOnly Property frmFilter_btnExcludeRemove() As String
             Get
-                Return ResourceManager.GetString("frmFilter_btnRemove", resourceCulture)
+                Return ResourceManager.GetString("frmFilter_btnExcludeRemove", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &lt;.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_btnIncludeAdd() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_btnIncludeAdd", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &gt;.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_btnIncludeRemove() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_btnIncludeRemove", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;OK.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_btnOK() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_btnOK", resourceCulture)
             End Get
         End Property
         
@@ -1195,7 +1213,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Options.
+        '''  Looks up a localized string similar to Include Options.
         '''</summary>
         Friend ReadOnly Property frmFilter_grpTagOptions() As String
             Get
@@ -1209,6 +1227,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmFilter_lblCurrentFilters() As String
             Get
                 Return ResourceManager.GetString("frmFilter_lblCurrentFilters", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Exclude Tags.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_lblExcludeTags() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_lblExcludeTags", resourceCulture)
             End Get
         End Property
         
@@ -1231,11 +1258,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Current Filter.
+        '''  Looks up a localized string similar to Include Tags.
         '''</summary>
-        Friend ReadOnly Property frmFilter_lblGameTags() As String
+        Friend ReadOnly Property frmFilter_lblIncludeTags() As String
             Get
-                Return ResourceManager.GetString("frmFilter_lblGameTags", resourceCulture)
+                Return ResourceManager.GetString("frmFilter_lblIncludeTags", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Not.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_lblNot() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_lblNot", resourceCulture)
             End Get
         End Property
         
