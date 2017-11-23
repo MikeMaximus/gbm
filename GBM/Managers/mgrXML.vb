@@ -92,7 +92,7 @@ Public Class mgrXML
     Public Shared Function SerializeAndExport(ByVal oList As List(Of Game), ByVal sLocation As String) As Boolean
         Dim oSerializer As XmlSerializer
         Dim oWriter As StreamWriter
-        Dim oExportInformation = New ExportInformation(mgrCommon.DateToUnix(Now), mgrCommon.AppVersion)
+        Dim oExportInformation = New ExportInformation(mgrCommon.DateToUnix(Now), oList.Count, mgrCommon.AppVersion)
         Dim oExportData As ExportData
 
         Try
