@@ -30,6 +30,7 @@ Partial Class frmAdvancedImport
         Me.lstGames = New System.Windows.Forms.ListView()
         Me.txtFilter = New System.Windows.Forms.TextBox()
         Me.lblFilter = New System.Windows.Forms.Label()
+        Me.lblInfo = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'btnImport
@@ -44,7 +45,7 @@ Partial Class frmAdvancedImport
         'chkSelectAll
         '
         Me.chkSelectAll.AutoSize = True
-        Me.chkSelectAll.Location = New System.Drawing.Point(12, 12)
+        Me.chkSelectAll.Location = New System.Drawing.Point(12, 11)
         Me.chkSelectAll.Name = "chkSelectAll"
         Me.chkSelectAll.Size = New System.Drawing.Size(70, 17)
         Me.chkSelectAll.TabIndex = 0
@@ -98,18 +99,29 @@ Partial Class frmAdvancedImport
         '
         'lblFilter
         '
-        Me.lblFilter.Location = New System.Drawing.Point(307, 12)
+        Me.lblFilter.Location = New System.Drawing.Point(371, 12)
         Me.lblFilter.Name = "lblFilter"
-        Me.lblFilter.Size = New System.Drawing.Size(103, 14)
+        Me.lblFilter.Size = New System.Drawing.Size(39, 14)
         Me.lblFilter.TabIndex = 0
         Me.lblFilter.Text = "Filter:"
         Me.lblFilter.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lblInfo
+        '
+        Me.lblInfo.AutoEllipsis = True
+        Me.lblInfo.Location = New System.Drawing.Point(88, 12)
+        Me.lblInfo.Name = "lblInfo"
+        Me.lblInfo.Size = New System.Drawing.Size(277, 14)
+        Me.lblInfo.TabIndex = 0
+        Me.lblInfo.Text = "Import Information"
+        Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'frmAdvancedImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(584, 411)
+        Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.lblFilter)
         Me.Controls.Add(Me.txtFilter)
         Me.Controls.Add(Me.lstGames)
@@ -137,4 +149,5 @@ Partial Class frmAdvancedImport
     Friend WithEvents lstGames As System.Windows.Forms.ListView
     Friend WithEvents txtFilter As System.Windows.Forms.TextBox
     Friend WithEvents lblFilter As System.Windows.Forms.Label
+    Friend WithEvents lblInfo As Label
 End Class

@@ -813,14 +813,13 @@ Public Class frmMain
 
     Private Sub OpenAbout()
         Dim iProcessType As System.Reflection.ProcessorArchitecture = System.Reflection.AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
-        Dim sVersion As String = My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Build
         Dim sProcessType = [Enum].GetName(GetType(System.Reflection.ProcessorArchitecture), iProcessType)
         Dim sRevision As String = My.Application.Info.Version.Revision
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSqliteVersion As String = oDatabase.ReportVersion
         Dim sConstCopyright As String = Chr(169) & mgrCommon.FormatString(App_Copyright, Now.Year.ToString)
 
-        mgrCommon.ShowMessage(frmMain_About, New String() {sVersion, sProcessType, sRevision, sSqliteVersion, sConstCopyright}, MsgBoxStyle.Information)
+        mgrCommon.ShowMessage(frmMain_About, New String() {mgrCommon.DisplayAppVersion, sProcessType, sRevision, sSqliteVersion, sConstCopyright}, MsgBoxStyle.Information)
     End Sub
 
     Private Sub OpenTags()

@@ -3,12 +3,22 @@ Imports System.IO
 
 Public Class frmAdvancedImport
 
+    Private oImportInfo As ExportInformation
     Private hshImportData As Hashtable
     Private hshFinalData As New Hashtable
     Private bSelectAll As Boolean = True
     Private bIsLoading As Boolean = False
     Private iCurrentSort As Integer = 0
     Private WithEvents tmFilterTimer As Timer
+
+    Public Property ImportInfo As ExportInformation
+        Set(value As ExportInformation)
+            oImportInfo = value
+        End Set
+        Get
+            Return oImportInfo
+        End Get
+    End Property
 
     Public Property ImportData As Hashtable
         Set(value As Hashtable)
@@ -140,6 +150,13 @@ Public Class frmAdvancedImport
         btnCancel.Text = frmAdvancedImport_btnCancel
         btnImport.Text = frmAdvancedImport_btnImport
         chkSelectAll.Text = frmAdvancedImport_chkSelectAll
+
+        'Import Information
+        If ImportInfo.Exported <> 0 Then
+            lblInfo.Text = mgrCommon.FormatString(frmAdvancedImport_lblInfo, New String() {mgrCommon.UnixToDate(ImportInfo.Exported).Date, mgrCommon.DisplayAppVersion})
+        Else
+            lblInfo.Text = String.Empty
+        End If
 
         chkSelectAll.Checked = True
 

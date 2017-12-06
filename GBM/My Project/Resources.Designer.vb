@@ -808,6 +808,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Last Update: [PARAM] (v[PARAM]).
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_lblInfo() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_lblInfo", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Selected ([PARAM]).
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_Selected() As String

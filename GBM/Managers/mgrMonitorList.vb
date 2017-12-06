@@ -735,11 +735,12 @@ Public Class mgrMonitorList
         Dim hshSyncItems As Hashtable
         Dim oFromItem As clsGame
         Dim oToItem As clsGame
+        Dim oExportInfo As New ExportInformation
 
         Cursor.Current = Cursors.WaitCursor
 
         'Add / Update Sync
-        hshCompareFrom = mgrXML.ReadMonitorList(sLocation, bWebRead)
+        hshCompareFrom = mgrXML.ReadMonitorList(sLocation, oExportInfo, bWebRead)
         hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
 
         hshSyncItems = hshCompareFrom.Clone
@@ -757,6 +758,7 @@ Public Class mgrMonitorList
 
         If hshSyncItems.Count > 0 Then
             Dim frm As New frmAdvancedImport
+            frm.ImportInfo = oExportInfo
             frm.ImportData = hshSyncItems
             If frm.ShowDialog() = DialogResult.OK Then
                 Cursor.Current = Cursors.WaitCursor
