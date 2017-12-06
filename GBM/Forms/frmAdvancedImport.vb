@@ -145,18 +145,16 @@ Public Class frmAdvancedImport
         'Set Form Name
         Me.Text = frmAdvancedImport_FormName
 
+        'Add configuration date to title if applicable
+        If ImportInfo.Exported <> 0 Then
+            Me.Text &= " [" & mgrCommon.UnixToDate(ImportInfo.Exported).Date & "]"
+        End If
+
         'Set Form Text
         lblFilter.Text = frmAdvancedImport_lblFilter
         btnCancel.Text = frmAdvancedImport_btnCancel
         btnImport.Text = frmAdvancedImport_btnImport
         chkSelectAll.Text = frmAdvancedImport_chkSelectAll
-
-        'Import Information
-        If ImportInfo.Exported <> 0 Then
-            lblInfo.Text = mgrCommon.FormatString(frmAdvancedImport_lblInfo, New String() {mgrCommon.UnixToDate(ImportInfo.Exported).Date, mgrCommon.DisplayAppVersion})
-        Else
-            lblInfo.Text = String.Empty
-        End If
 
         chkSelectAll.Checked = True
 

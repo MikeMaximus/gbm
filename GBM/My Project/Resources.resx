@@ -1900,7 +1900,4 @@
   <data name="frmFilter_lblNot" xml:space="preserve">
     <value>Not</value>
   </data>
-  <data name="frmAdvancedImport_lblInfo" xml:space="preserve">
-    <value>Last Update: [PARAM] (v[PARAM])</value>
-  </data>
 </root>

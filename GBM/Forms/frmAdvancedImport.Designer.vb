@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmAdvancedImport
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmAdvancedImport
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.btnImport = New System.Windows.Forms.Button()
         Me.chkSelectAll = New System.Windows.Forms.CheckBox()
@@ -30,7 +30,6 @@ Partial Class frmAdvancedImport
         Me.lstGames = New System.Windows.Forms.ListView()
         Me.txtFilter = New System.Windows.Forms.TextBox()
         Me.lblFilter = New System.Windows.Forms.Label()
-        Me.lblInfo = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'btnImport
@@ -106,22 +105,11 @@ Partial Class frmAdvancedImport
         Me.lblFilter.Text = "Filter:"
         Me.lblFilter.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
-        'lblInfo
-        '
-        Me.lblInfo.AutoEllipsis = True
-        Me.lblInfo.Location = New System.Drawing.Point(88, 12)
-        Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(277, 14)
-        Me.lblInfo.TabIndex = 0
-        Me.lblInfo.Text = "Import Information"
-        Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
         'frmAdvancedImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(584, 411)
-        Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.lblFilter)
         Me.Controls.Add(Me.txtFilter)
         Me.Controls.Add(Me.lstGames)
@@ -149,5 +137,4 @@ Partial Class frmAdvancedImport
     Friend WithEvents lstGames As System.Windows.Forms.ListView
     Friend WithEvents txtFilter As System.Windows.Forms.TextBox
     Friend WithEvents lblFilter As System.Windows.Forms.Label
-    Friend WithEvents lblInfo As Label
 End Class
