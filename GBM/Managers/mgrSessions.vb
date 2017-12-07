@@ -22,8 +22,8 @@
         Return hshParams
     End Function
 
-    Public Shared Sub AddSession(ByVal oSession As clsSession)
-        Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
+    Public Shared Sub AddSession(ByVal oSession As clsSession, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
         Dim hshParams As Hashtable
 
@@ -34,8 +34,8 @@
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
-    Public Shared Function GetSessionsByGame(ByVal sMonitorID As String) As DataSet
-        Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
+    Public Shared Function GetSessionsByGame(ByVal sMonitorID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As DataSet
+        Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
         Dim hshParams As New Hashtable
 
