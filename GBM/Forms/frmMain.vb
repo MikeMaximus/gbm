@@ -878,6 +878,13 @@ Public Class frmMain
         ResumeScan()
     End Sub
 
+    Private Sub OpenSessions()
+        Dim frm As New frmSessions
+        PauseScan()
+        frm.ShowDialog()
+        ResumeScan()
+    End Sub
+
     Private Sub OpenGameWizard()
         Dim frm As New frmAddWizard
         PauseScan()
@@ -1287,6 +1294,7 @@ Public Class frmMain
         gMonToolsCleanMan.Text = frmMain_gMonToolsCleanMan
         gMonToolsCompact.Text = frmMain_gMonToolsCompact
         gMonToolsLog.Text = frmMain_gMonToolsLog
+        gMonToolsSessions.Text = frmMain_gMonToolsSessions
         gMonLogClear.Text = frmMain_gMonLogClear
         gMonLogSave.Text = frmMain_gMonLogSave
         gMonHelp.Text = frmMain_gMonHelp
@@ -1308,6 +1316,7 @@ Public Class frmMain
         gMonTrayToolsCleanMan.Text = frmMain_gMonToolsCleanMan
         gMonTrayToolsCompact.Text = frmMain_gMonToolsCompact
         gMonTrayToolsLog.Text = frmMain_gMonToolsLog
+        gMonTrayToolsSessions.Text = frmMain_gMonToolsSessions
         gMonTrayLogClear.Text = frmMain_gMonLogClear
         gMonTrayLogSave.Text = frmMain_gMonLogSave
         gMonTrayExit.Text = frmMain_gMonFileExit
@@ -1629,6 +1638,10 @@ Public Class frmMain
 
     Private Sub gMonLogSave_Click(sender As Object, e As EventArgs) Handles gMonLogSave.Click, gMonTrayLogSave.Click
         SaveLog()
+    End Sub
+
+    Private Sub gMonToolsSessions_Click(sender As Object, e As EventArgs) Handles gMonToolsSessions.Click, gMonTrayToolsSessions.Click
+        OpenSessions()
     End Sub
 
     Private Sub gMonNotification_Click(sender As Object, e As EventArgs) Handles gMonNotification.Click, gMonTrayNotification.Click

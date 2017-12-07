@@ -1900,4 +1900,19 @@
   <data name="frmFilter_lblNot" xml:space="preserve">
     <value>Not</value>
   </data>
+  <data name="frmMain_gMonToolsSessions" xml:space="preserve">
+    <value>&amp;Session Viewer...</value>
+  </data>
+  <data name="frmSessions_ColumnEnd" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="frmSessions_ColumnGameName" xml:space="preserve">
+    <value>Game</value>
+  </data>
+  <data name="frmSessions_ColumnStart" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="frmSessions_Name" xml:space="preserve">
+    <value>Session Viewer</value>
+  </data>
 </root>

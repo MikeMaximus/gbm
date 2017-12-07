@@ -68,6 +68,7 @@ Partial Class frmMain
         Me.gMonToolsLog = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonLogClear = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonLogSave = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonToolsSessions = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonHelpWebSite = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonHelpManual = New System.Windows.Forms.ToolStripMenuItem()
@@ -84,6 +85,7 @@ Partial Class frmMain
         Me.lblStatus2 = New System.Windows.Forms.Label()
         Me.lblStatus3 = New System.Windows.Forms.Label()
         Me.pbTime = New System.Windows.Forms.PictureBox()
+        Me.gMonTrayToolsSessions = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayMenu.SuspendLayout()
         Me.gMonStatusStrip.SuspendLayout()
         Me.gMonMainMenu.SuspendLayout()
@@ -103,7 +105,7 @@ Partial Class frmMain
         '
         Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayNotification, Me.gMonTrayShow, Me.gMonTraySep2, Me.gMonTrayMon, Me.gMonTraySettings, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTraySep1, Me.gMonTrayExit})
         Me.gMonTrayMenu.Name = "gMonTrayMenu"
-        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 170)
+        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 192)
         '
         'gMonTrayNotification
         '
@@ -168,7 +170,7 @@ Partial Class frmMain
         '
         'gMonTrayTools
         '
-        Me.gMonTrayTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayToolsCleanMan, Me.gMonTrayToolsCompact, Me.gMonTrayToolsLog})
+        Me.gMonTrayTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayToolsCleanMan, Me.gMonTrayToolsCompact, Me.gMonTrayToolsLog, Me.gMonTrayToolsSessions})
         Me.gMonTrayTools.Name = "gMonTrayTools"
         Me.gMonTrayTools.Size = New System.Drawing.Size(161, 22)
         Me.gMonTrayTools.Text = "&Tools"
@@ -195,13 +197,13 @@ Partial Class frmMain
         'gMonTrayLogClear
         '
         Me.gMonTrayLogClear.Name = "gMonTrayLogClear"
-        Me.gMonTrayLogClear.Size = New System.Drawing.Size(101, 22)
+        Me.gMonTrayLogClear.Size = New System.Drawing.Size(152, 22)
         Me.gMonTrayLogClear.Text = "&Clear"
         '
         'gMonTrayLogSave
         '
         Me.gMonTrayLogSave.Name = "gMonTrayLogSave"
-        Me.gMonTrayLogSave.Size = New System.Drawing.Size(101, 22)
+        Me.gMonTrayLogSave.Size = New System.Drawing.Size(152, 22)
         Me.gMonTrayLogSave.Text = "&Save"
         '
         'gMonTraySep1
@@ -348,7 +350,7 @@ Partial Class frmMain
         '
         'gMonTools
         '
-        Me.gMonTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonToolsCleanMan, Me.gMonToolsCompact, Me.gMonToolsLog})
+        Me.gMonTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonToolsCleanMan, Me.gMonToolsCompact, Me.gMonToolsLog, Me.gMonToolsSessions})
         Me.gMonTools.Name = "gMonTools"
         Me.gMonTools.Size = New System.Drawing.Size(47, 20)
         Me.gMonTools.Text = "&Tools"
@@ -383,6 +385,12 @@ Partial Class frmMain
         Me.gMonLogSave.Name = "gMonLogSave"
         Me.gMonLogSave.Size = New System.Drawing.Size(101, 22)
         Me.gMonLogSave.Text = "&Save"
+        '
+        'gMonToolsSessions
+        '
+        Me.gMonToolsSessions.Name = "gMonToolsSessions"
+        Me.gMonToolsSessions.Size = New System.Drawing.Size(184, 22)
+        Me.gMonToolsSessions.Text = "&Session Viewer..."
         '
         'gMonHelp
         '
@@ -524,6 +532,12 @@ Partial Class frmMain
         Me.pbTime.TabIndex = 18
         Me.pbTime.TabStop = False
         '
+        'gMonTrayToolsSessions
+        '
+        Me.gMonTrayToolsSessions.Name = "gMonTrayToolsSessions"
+        Me.gMonTrayToolsSessions.Size = New System.Drawing.Size(184, 22)
+        Me.gMonTrayToolsSessions.Text = "&Session Viewer..."
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -621,4 +635,6 @@ Partial Class frmMain
     Friend WithEvents gMonTrayLogSave As ToolStripMenuItem
     Friend WithEvents gMonStripAdminButton As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents gMonStripStatusButton As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents gMonToolsSessions As ToolStripMenuItem
+    Friend WithEvents gMonTrayToolsSessions As ToolStripMenuItem
 End Class
