@@ -70,6 +70,7 @@ Partial Class frmSessions
         '
         'dtpStart
         '
+        Me.dtpStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtpStart.Location = New System.Drawing.Point(384, 6)
         Me.dtpStart.Name = "dtpStart"
         Me.dtpStart.Size = New System.Drawing.Size(175, 20)
@@ -77,6 +78,7 @@ Partial Class frmSessions
         '
         'dtpEnd
         '
+        Me.dtpEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtpEnd.Location = New System.Drawing.Point(597, 6)
         Me.dtpEnd.Name = "dtpEnd"
         Me.dtpEnd.Size = New System.Drawing.Size(175, 20)
@@ -84,6 +86,7 @@ Partial Class frmSessions
         '
         'lblTo
         '
+        Me.lblTo.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblTo.Location = New System.Drawing.Point(565, 9)
         Me.lblTo.Name = "lblTo"
         Me.lblTo.Size = New System.Drawing.Size(26, 17)
@@ -123,6 +126,7 @@ Partial Class frmSessions
         '
         'lblDateRange
         '
+        Me.lblDateRange.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblDateRange.AutoSize = True
         Me.lblDateRange.Location = New System.Drawing.Point(310, 9)
         Me.lblDateRange.Name = "lblDateRange"
@@ -147,6 +151,7 @@ Partial Class frmSessions
         Me.Controls.Add(Me.txtFilter)
         Me.Name = "frmSessions"
         Me.ShowIcon = False
+        Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Session Viewer"
         CType(Me.dgSessions, System.ComponentModel.ISupportInitialize).EndInit()
