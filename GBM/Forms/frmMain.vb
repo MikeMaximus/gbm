@@ -881,6 +881,9 @@ Public Class frmMain
     Private Sub OpenSessions()
         Dim frm As New frmSessions
         PauseScan()
+        If oSettings.SessionTracking = False Then
+            mgrCommon.ShowMessage(frmMain_WarningSessionsDisabled, MsgBoxStyle.Exclamation)
+        End If
         If mgrSessions.CountRows > 0 Then
             frm.ShowDialog()
         Else
@@ -1791,10 +1794,8 @@ Public Class frmMain
                     LoadGameSettings()
                 Else
                     bContinue = False
-                    If oSettings.TimeTracking Then
-                        HandleTimeSpent()
-                        HandleSession()
-                    End If
+                    If oSettings.TimeTracking Then HandleTimeSpent()
+                    If oSettings.SessionTracking Then HandleSession()
                     UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oProcess.GameInfo.Name), False)
                     oProcess.GameInfo = Nothing
                     ResetGameInfo()
@@ -1805,10 +1806,8 @@ Public Class frmMain
             If bContinue Then
                 If DoMultiGameCheck() Then
                     UpdateLog(mgrCommon.FormatString(frmMain_GameEnded, oProcess.GameInfo.Name), False)
-                    If oSettings.TimeTracking Then
-                        HandleTimeSpent()
-                        HandleSession()
-                    End If
+                    If oSettings.TimeTracking Then HandleTimeSpent()
+                    If oSettings.SessionTracking Then HandleSession()
                     RunBackup()
                 Else
                     UpdateLog(frmMain_UnknownGameEnded, False)

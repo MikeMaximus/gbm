@@ -51,6 +51,7 @@ Public Class frmSettings
         oSettings.AutoRestore = chkAutoRestore.Checked
         oSettings.AutoMark = chkAutoMark.Checked
         oSettings.TimeTracking = chkTimeTracking.Checked
+        oSettings.SessionTracking = chkSessionTracking.Checked
         oSettings.SupressBackup = chkSupressBackup.Checked
         oSettings.SupressBackupThreshold = nudSupressBackupThreshold.Value
         oSettings.CompressionLevel = cboCompression.SelectedValue
@@ -177,6 +178,7 @@ Public Class frmSettings
         txtBackupFolder.Text = oSettings.BackupFolder
         chkSync.Checked = oSettings.Sync
         chkTimeTracking.Checked = oSettings.TimeTracking
+        chkSessionTracking.Checked = oSettings.SessionTracking
         chkSupressBackup.Checked = oSettings.SupressBackup
         nudSupressBackupThreshold.Value = oSettings.SupressBackupThreshold
         nudSupressBackupThreshold.Enabled = chkSupressBackup.Checked
@@ -289,6 +291,7 @@ Public Class frmSettings
         grpStartup.Text = frmSettings_grpStartup
         grpGameData.Text = frmSettings_grpGameData
         chkTimeTracking.Text = frmSettings_chkTimeTracking
+        chkSessionTracking.Text = frmSettings_chkSessionTracking
         chkStartWindows.Text = frmSettings_chkStartWindows
         chkSync.Text = frmSettings_chkSync
         chkShowDetectionTips.Text = frmSettings_chkShowDetectionTips

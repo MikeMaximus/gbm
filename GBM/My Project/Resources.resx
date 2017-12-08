@@ -1939,4 +1939,10 @@
   <data name="frmSessions_lblFilter" xml:space="preserve">
     <value>Game Filter:</value>
   </data>
+  <data name="frmMain_WarningSessionsDisabled" xml:space="preserve">
+    <value>Session tracking is currently disabled.[BR][BR]Enable session tracking in Settings if you'd like to track data for individual gaming sessions.</value>
+  </data>
+  <data name="frmSettings_chkSessionTracking" xml:space="preserve">
+    <value>Enable session tracking</value>
+  </data>
 </root>

@@ -3616,6 +3616,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Session tracking is currently disabled.[BR][BR]Enable session tracking in Settings if you&apos;d like to track data for individual gaming sessions..
+        '''</summary>
+        Friend ReadOnly Property frmMain_WarningSessionsDisabled() As String
+            Get
+                Return ResourceManager.GetString("frmMain_WarningSessionsDisabled", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Close.
         '''</summary>
         Friend ReadOnly Property frmSessions_btnClose() As String
@@ -3909,6 +3918,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_chkRestoreNotify() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkRestoreNotify", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Enable session tracking.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkSessionTracking() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkSessionTracking", resourceCulture)
             End Get
         End Property
         
