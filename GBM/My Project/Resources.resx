@@ -1945,4 +1945,7 @@
   <data name="frmSettings_chkSessionTracking" xml:space="preserve">
     <value>Enable session tracking</value>
   </data>
+  <data name="frmMain_ErrorAlreadyRunning" xml:space="preserve">
+    <value>An instance of Game Backup Monitor is already running.</value>
+  </data>
 </root>

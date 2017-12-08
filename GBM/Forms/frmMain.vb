@@ -1826,36 +1826,50 @@ Public Class frmMain
     End Sub
 
     Private Sub Main_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Dim oMutex As New System.Threading.Mutex
+        Dim bNewInstance As Boolean
+
         'Init
         Try
-            SetForm()
-            VerifyGameDataPath()
-            LoadAndVerify()
-            If Not bInitFail Then
-                VerifyCustomPathVariables()
+            oMutex = New System.Threading.Mutex(True, "GameBackupMonitor", bNewInstance)
 
-                If oSettings.StartToTray And Not mgrCommon.IsUnix Then
-                    bShowToggle = False
-                    Me.Visible = False
-                    Me.ShowInTaskbar = False
-                End If
+            'Ensure only one instance is running
+            If Not bNewInstance Then
+                mgrCommon.ShowMessage(frmMain_ErrorAlreadyRunning, MsgBoxStyle.Exclamation)
+                ShutdownApp(False)
+            Else
+                SetForm()
+                VerifyGameDataPath()
+                LoadAndVerify()
+                If Not bInitFail Then
+                    VerifyCustomPathVariables()
 
-                If oSettings.MonitorOnStartup Then
-                    eCurrentStatus = eStatus.Stopped
-                Else
-                    eCurrentStatus = eStatus.Running
-                End If
+                    If oSettings.StartToTray And Not mgrCommon.IsUnix Then
+                        bShowToggle = False
+                        Me.Visible = False
+                        Me.ShowInTaskbar = False
+                    End If
 
-                HandleScan()
-                CheckForNewBackups()
+                    If oSettings.MonitorOnStartup Then
+                        eCurrentStatus = eStatus.Stopped
+                    Else
+                        eCurrentStatus = eStatus.Running
+                    End If
 
-                'Unix Handler
-                If mgrCommon.IsUnix Then
-                    Me.MinimizeBox = True
-                Else
-                    Me.gMonTray.Visible = True
+                    HandleScan()
+                    CheckForNewBackups()
+
+                    'Unix Handler
+                    If mgrCommon.IsUnix Then
+                        Me.MinimizeBox = True
+                    Else
+                        Me.gMonTray.Visible = True
+                    End If
+
+                    GC.KeepAlive(oMutex)
                 End If
             End If
+
         Catch ex As Exception
             If mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                 bInitFail = True
