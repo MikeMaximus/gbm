@@ -66,10 +66,15 @@ Public Class frmSessions
         dtpEnd.Format = DateTimePickerFormat.Custom
         dtpStart.CustomFormat = sDateTimeFormat
         dtpEnd.CustomFormat = sDateTimeFormat
-        dtpStart.MinDate = dtMinDate
-        dtpStart.MaxDate = dtMaxDate
-        dtpEnd.MinDate = dtMinDate
-        dtpEnd.MaxDate = dtMaxDate
+
+        'Setting max or min dates breaks the control in Mono
+        If Not mgrCommon.IsUnix Then
+            dtpStart.MinDate = dtMinDate
+            dtpStart.MaxDate = dtMaxDate
+            dtpEnd.MinDate = dtMinDate
+            dtpEnd.MaxDate = dtMaxDate
+        End If
+
         dtpStart.Value = dtMinDate
         dtpEnd.Value = dtMaxDate
 

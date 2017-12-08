@@ -13,7 +13,7 @@ Public Class mgrSettings
     Private bAutoMark As Boolean = False
     Private bSync As Boolean = True
     Private bTimeTracking As Boolean = True
-    Private bSessionTracking As Boolean = True
+    Private bSessionTracking As Boolean = False
     Private bSupressBackup As Boolean = False
     Private iSupressBackupThreshold As Integer = 10
     Private iCompressionLevel As Integer = 5
