@@ -23,5 +23,9 @@ All Platforms:
 Windows Only:
 
 - Only one instance of GBM can now be running.
+
+Linux Only:
+
+- Added makefile for easy Linux installation.  Thanks basxto!
 	
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
