@@ -261,6 +261,27 @@ Public Class mgrSQLite
         Return oData
     End Function
 
+    Public Function ReadSingleValue(ByVal sSQL As String, ByVal hshParams As Hashtable) As Object
+
+        Dim command As SqliteCommand
+        Dim oResult As New Object
+
+        Connect()
+        Command = New SqliteCommand(sSQL, db)
+        BuildParams(command, hshParams)
+
+        Try
+            oResult = command.ExecuteScalar()
+        Catch ex As Exception
+            mgrCommon.ShowMessage(mgrSQLite_ErrorQueryFailure, New String() {sSQL, ex.Message}, MsgBoxStyle.Information)
+        Finally
+            command.Dispose()
+            Disconnect()
+        End Try
+
+        Return oResult
+    End Function
+
     Private Function GetDatabaseVersion() As Integer
         Dim sSQL As String
         Dim iVer As Integer

@@ -2950,6 +2950,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to There is currently no session data to display..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorNoSessions() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorNoSessions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] uses a relative path and has never been detected on this computer..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorRelativePath() As String
@@ -3607,6 +3616,33 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Close.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_btnClose() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_btnClose", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Delete Session.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_btnDelete() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_btnDelete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Reset Filters.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_btnReset() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_btnReset", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to End.
         '''</summary>
         Friend ReadOnly Property frmSessions_ColumnEnd() As String
@@ -3625,11 +3661,47 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to MonitorID.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_ColumnMonitorID() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_ColumnMonitorID", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Start.
         '''</summary>
         Friend ReadOnly Property frmSessions_ColumnStart() As String
             Get
                 Return ResourceManager.GetString("frmSessions_ColumnStart", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to delete the selected session(s)?  This cannot be undone..
+        '''</summary>
+        Friend ReadOnly Property frmSessions_ConfirmDelete() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_ConfirmDelete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Date Range:.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_lblDateRange() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_lblDateRange", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game Filter:.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_lblFilter() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_lblFilter", resourceCulture)
             End Get
         End Property
         

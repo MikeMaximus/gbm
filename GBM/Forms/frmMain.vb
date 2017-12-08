@@ -881,7 +881,11 @@ Public Class frmMain
     Private Sub OpenSessions()
         Dim frm As New frmSessions
         PauseScan()
-        frm.ShowDialog()
+        If mgrSessions.CountRows > 0 Then
+            frm.ShowDialog()
+        Else
+            mgrCommon.ShowMessage(frmMain_ErrorNoSessions, MsgBoxStyle.Information)
+        End If
         ResumeScan()
     End Sub
 

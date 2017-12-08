@@ -1915,4 +1915,28 @@
   <data name="frmSessions_Name" xml:space="preserve">
     <value>Session Viewer</value>
   </data>
+  <data name="frmMain_ErrorNoSessions" xml:space="preserve">
+    <value>There is currently no session data to display.</value>
+  </data>
+  <data name="frmSessions_btnClose" xml:space="preserve">
+    <value>&amp;Close</value>
+  </data>
+  <data name="frmSessions_btnDelete" xml:space="preserve">
+    <value>&amp;Delete Session</value>
+  </data>
+  <data name="frmSessions_btnReset" xml:space="preserve">
+    <value>&amp;Reset Filters</value>
+  </data>
+  <data name="frmSessions_ColumnMonitorID" xml:space="preserve">
+    <value>MonitorID</value>
+  </data>
+  <data name="frmSessions_ConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete the selected session(s)?  This cannot be undone.</value>
+  </data>
+  <data name="frmSessions_lblDateRange" xml:space="preserve">
+    <value>Date Range:</value>
+  </data>
+  <data name="frmSessions_lblFilter" xml:space="preserve">
+    <value>Game Filter:</value>
+  </data>
 </root>
