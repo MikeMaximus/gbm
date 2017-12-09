@@ -6,7 +6,7 @@ Imports System.Net
 
 Public Class mgrXML
 
-    Public Shared Function ReadMonitorList(ByVal sLocation As String, ByRef oExportInfo As ExportInformation, Optional ByVal bWebRead As Boolean = False) As Hashtable
+    Public Shared Function ReadMonitorList(ByVal sLocation As String, ByRef oExportInfo As ExportData, Optional ByVal bWebRead As Boolean = False) As Hashtable
         Dim oList As List(Of Game)
         Dim hshList As New Hashtable
         Dim hshDupeList As New Hashtable
@@ -21,7 +21,7 @@ Public Class mgrXML
 
         oExportData = ImportandDeserialize(sLocation, bWebRead)
         oList = oExportData.Configurations
-        oExportInfo = oExportData.Information
+        oExportInfo = oExportData
 
         For Each g As Game In oList
             oGame = New clsGame
@@ -76,7 +76,7 @@ Public Class mgrXML
             oReader.Close()
 
             'Compatability Mode
-            If oExportData.Information.AppVer = 0 Then
+            If oExportData.AppVer = 0 Then
                 oReader = ReadImportData(sLocation, bWebRead)
                 oSerializer = New XmlSerializer(GetType(List(Of Game)), New XmlRootAttribute("gbm"))
                 oExportData.Configurations = oSerializer.Deserialize(oReader)
@@ -93,12 +93,11 @@ Public Class mgrXML
     Public Shared Function SerializeAndExport(ByVal oList As List(Of Game), ByVal sLocation As String) As Boolean
         Dim oSerializer As XmlSerializer
         Dim oWriter As StreamWriter
-        Dim oExportInformation = New ExportInformation(mgrCommon.DateToUnix(Now), oList.Count, mgrCommon.AppVersion)
         Dim oExportData As ExportData
 
         Try
-            oExportData = New ExportData(oExportInformation, oList)
-            oSerializer = New XmlSerializer(oExportData.GetType(), New XmlRootAttribute("gbm"))
+            oExportData = New ExportData(mgrCommon.DateToUnix(Now), oList.Count, mgrCommon.AppVersion, oList)
+            oSerializer = New XmlSerializer(oExportData.GetType())
             oWriter = New StreamWriter(sLocation)
             oSerializer.Serialize(oWriter.BaseStream, oExportData)
             oWriter.Flush()

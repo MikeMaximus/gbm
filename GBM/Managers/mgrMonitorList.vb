@@ -158,6 +158,10 @@ Public Class mgrMonitorList
 
         sSQL = "DELETE FROM gametags "
         sSQL &= "WHERE MonitorID = @MonitorID;"
+        If iSelectDB = mgrSQLite.Database.Local Then
+            sSQL &= "DELETE FROM sessions "
+            sSQL &= "WHERE MonitorID = @MonitorID;"
+        End If
         sSQL &= "DELETE FROM monitorlist "
         sSQL &= "WHERE MonitorID = @MonitorID;"
 
@@ -184,6 +188,20 @@ Public Class mgrMonitorList
 
         sSQL = sSQL.TrimEnd(",")
         sSQL &= ");"
+
+        If iSelectDB = mgrSQLite.Database.Local Then
+            sSQL &= "DELETE FROM sessions "
+            sSQL &= "WHERE MonitorID IN ("
+
+            For Each s As String In sMonitorIDs
+                sSQL &= "@MonitorID" & iCounter & ","
+                hshParams.Add("MonitorID" & iCounter, s)
+                iCounter += 1
+            Next
+
+            sSQL = sSQL.TrimEnd(",")
+            sSQL &= ");"
+        End If
 
         sSQL &= "DELETE FROM monitorlist "
         sSQL &= "WHERE MonitorID IN ("
@@ -407,6 +425,10 @@ Public Class mgrMonitorList
 
         sSQL = "DELETE FROM gametags "
         sSQL &= "WHERE MonitorID = @MonitorID;"
+        If iSelectDB = mgrSQLite.Database.Local Then
+            sSQL &= "DELETE FROM sessions "
+            sSQL &= "WHERE MonitorID = @MonitorID;"
+        End If
         sSQL &= "DELETE FROM monitorlist "
         sSQL &= "WHERE Name = @Name AND Process= @Process;"
 
@@ -735,7 +757,7 @@ Public Class mgrMonitorList
         Dim hshSyncItems As Hashtable
         Dim oFromItem As clsGame
         Dim oToItem As clsGame
-        Dim oExportInfo As New ExportInformation
+        Dim oExportInfo As New ExportData
 
         Cursor.Current = Cursors.WaitCursor
 

@@ -1825,16 +1825,20 @@ Public Class frmMain
         oProcess.StartTime = Now : oProcess.EndTime = Now
     End Sub
 
-    Private Sub Main_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        Dim oMutex As New System.Threading.Mutex
-        Dim bNewInstance As Boolean
+    Private Function IsGBMRunning() As Boolean
+        Dim prsList() As Process = Process.GetProcessesByName("GBM")
+        If prsList.Length > 1 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 
+    Private Sub Main_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         'Init
         Try
-            oMutex = New System.Threading.Mutex(True, "GameBackupMonitor", bNewInstance)
-
             'Ensure only one instance is running
-            If Not bNewInstance Then
+            If IsGBMRunning() Then
                 mgrCommon.ShowMessage(frmMain_ErrorAlreadyRunning, MsgBoxStyle.Exclamation)
                 ShutdownApp(False)
             Else
@@ -1865,8 +1869,6 @@ Public Class frmMain
                     Else
                         Me.gMonTray.Visible = True
                     End If
-
-                    GC.KeepAlive(oMutex)
                 End If
             End If
 

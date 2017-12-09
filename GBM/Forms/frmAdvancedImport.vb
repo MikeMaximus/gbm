@@ -3,7 +3,7 @@ Imports System.IO
 
 Public Class frmAdvancedImport
 
-    Private oImportInfo As ExportInformation
+    Private oImportData As ExportData
     Private hshImportData As Hashtable
     Private hshFinalData As New Hashtable
     Private bSelectAll As Boolean = True
@@ -11,12 +11,12 @@ Public Class frmAdvancedImport
     Private iCurrentSort As Integer = 0
     Private WithEvents tmFilterTimer As Timer
 
-    Public Property ImportInfo As ExportInformation
-        Set(value As ExportInformation)
-            oImportInfo = value
+    Public Property ImportInfo As ExportData
+        Set(value As ExportData)
+            oImportData = value
         End Set
         Get
-            Return oImportInfo
+            Return oImportData
         End Get
     End Property
 

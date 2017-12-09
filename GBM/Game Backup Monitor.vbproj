@@ -127,7 +127,6 @@
     <Compile Include="Classes\clsSavedPath.vb" />
     <Compile Include="Classes\clsSession.vb" />
     <Compile Include="Classes\XML Serialize Classes\ExportData.vb" />
-    <Compile Include="Classes\XML Serialize Classes\ExportInformation.vb" />
     <Compile Include="Classes\XML Serialize Classes\Tag.vb" />
     <Compile Include="Classes\XML Serialize Classes\Game.vb" />
     <Compile Include="Classes\clsGameTag.vb" />
