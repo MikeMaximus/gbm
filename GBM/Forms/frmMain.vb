@@ -1825,53 +1825,37 @@ Public Class frmMain
         oProcess.StartTime = Now : oProcess.EndTime = Now
     End Sub
 
-    Private Function IsGBMRunning() As Boolean
-        Dim prsList() As Process = Process.GetProcessesByName("GBM")
-        If prsList.Length > 1 Then
-            Return True
-        Else
-            Return False
-        End If
-    End Function
-
     Private Sub Main_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         'Init
         Try
-            'Ensure only one instance is running
-            If IsGBMRunning() Then
-                mgrCommon.ShowMessage(frmMain_ErrorAlreadyRunning, MsgBoxStyle.Exclamation)
-                ShutdownApp(False)
-            Else
-                SetForm()
-                VerifyGameDataPath()
-                LoadAndVerify()
-                If Not bInitFail Then
-                    VerifyCustomPathVariables()
+            SetForm()
+            VerifyGameDataPath()
+            LoadAndVerify()
+            If Not bInitFail Then
+                VerifyCustomPathVariables()
 
-                    If oSettings.StartToTray And Not mgrCommon.IsUnix Then
-                        bShowToggle = False
-                        Me.Visible = False
-                        Me.ShowInTaskbar = False
-                    End If
+                If oSettings.StartToTray And Not mgrCommon.IsUnix Then
+                    bShowToggle = False
+                    Me.Visible = False
+                    Me.ShowInTaskbar = False
+                End If
 
-                    If oSettings.MonitorOnStartup Then
-                        eCurrentStatus = eStatus.Stopped
-                    Else
-                        eCurrentStatus = eStatus.Running
-                    End If
+                If oSettings.MonitorOnStartup Then
+                    eCurrentStatus = eStatus.Stopped
+                Else
+                    eCurrentStatus = eStatus.Running
+                End If
 
-                    HandleScan()
-                    CheckForNewBackups()
+                HandleScan()
+                CheckForNewBackups()
 
-                    'Unix Handler
-                    If mgrCommon.IsUnix Then
-                        Me.MinimizeBox = True
-                    Else
-                        Me.gMonTray.Visible = True
-                    End If
+                'Unix Handler
+                If mgrCommon.IsUnix Then
+                    Me.MinimizeBox = True
+                Else
+                    Me.gMonTray.Visible = True
                 End If
             End If
-
         Catch ex As Exception
             If mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                 bInitFail = True

@@ -2833,15 +2833,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An instance of Game Backup Monitor is already running..
-        '''</summary>
-        Friend ReadOnly Property frmMain_ErrorAlreadyRunning() As String
-            Get
-                Return ResourceManager.GetString("frmMain_ErrorAlreadyRunning", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to GBM is running from a new location, the Windows startup entry has been updated..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorAppLocationChanged() As String
