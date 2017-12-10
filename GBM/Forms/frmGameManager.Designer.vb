@@ -28,6 +28,8 @@ Partial Class frmGameManager
         Me.btnBackup = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.grpConfig = New System.Windows.Forms.GroupBox()
+        Me.lblComments = New System.Windows.Forms.Label()
+        Me.txtComments = New System.Windows.Forms.TextBox()
         Me.txtParameter = New System.Windows.Forms.TextBox()
         Me.lblParameter = New System.Windows.Forms.Label()
         Me.chkCleanFolder = New System.Windows.Forms.CheckBox()
@@ -98,9 +100,6 @@ Partial Class frmGameManager
         Me.cmsDeleteBackup = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsDeleteOne = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btnSessions = New System.Windows.Forms.Button()
-        Me.txtComments = New System.Windows.Forms.TextBox()
-        Me.lblComments = New System.Windows.Forms.Label()
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -140,7 +139,7 @@ Partial Class frmGameManager
         Me.btnBackup.Location = New System.Drawing.Point(616, 586)
         Me.btnBackup.Name = "btnBackup"
         Me.btnBackup.Size = New System.Drawing.Size(75, 23)
-        Me.btnBackup.TabIndex = 19
+        Me.btnBackup.TabIndex = 18
         Me.btnBackup.Text = "&Backup"
         Me.btnBackup.UseVisualStyleBackColor = True
         '
@@ -150,7 +149,7 @@ Partial Class frmGameManager
         Me.btnClose.Location = New System.Drawing.Point(697, 586)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 20
+        Me.btnClose.TabIndex = 19
         Me.btnClose.Text = "C&lose"
         Me.btnClose.UseVisualStyleBackColor = True
         '
@@ -186,6 +185,24 @@ Partial Class frmGameManager
         Me.grpConfig.TabIndex = 8
         Me.grpConfig.TabStop = False
         Me.grpConfig.Text = "Configuration"
+        '
+        'lblComments
+        '
+        Me.lblComments.AutoSize = True
+        Me.lblComments.Location = New System.Drawing.Point(7, 157)
+        Me.lblComments.Name = "lblComments"
+        Me.lblComments.Size = New System.Drawing.Size(59, 13)
+        Me.lblComments.TabIndex = 18
+        Me.lblComments.Text = "Comments:"
+        '
+        'txtComments
+        '
+        Me.txtComments.Location = New System.Drawing.Point(70, 154)
+        Me.txtComments.Multiline = True
+        Me.txtComments.Name = "txtComments"
+        Me.txtComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtComments.Size = New System.Drawing.Size(413, 54)
+        Me.txtComments.TabIndex = 17
         '
         'txtParameter
         '
@@ -662,7 +679,7 @@ Partial Class frmGameManager
         Me.btnMarkAsRestored.Location = New System.Drawing.Point(429, 586)
         Me.btnMarkAsRestored.Name = "btnMarkAsRestored"
         Me.btnMarkAsRestored.Size = New System.Drawing.Size(100, 23)
-        Me.btnMarkAsRestored.TabIndex = 17
+        Me.btnMarkAsRestored.TabIndex = 16
         Me.btnMarkAsRestored.Text = "&Mark as Restored"
         Me.btnMarkAsRestored.UseVisualStyleBackColor = True
         '
@@ -672,7 +689,7 @@ Partial Class frmGameManager
         Me.btnRestore.Location = New System.Drawing.Point(535, 586)
         Me.btnRestore.Name = "btnRestore"
         Me.btnRestore.Size = New System.Drawing.Size(75, 23)
-        Me.btnRestore.TabIndex = 18
+        Me.btnRestore.TabIndex = 17
         Me.btnRestore.Text = "&Restore"
         Me.btnRestore.UseVisualStyleBackColor = True
         '
@@ -698,7 +715,7 @@ Partial Class frmGameManager
         'btnCancel
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancel.Location = New System.Drawing.Point(697, 392)
+        Me.btnCancel.Location = New System.Drawing.Point(697, 394)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 14
@@ -844,39 +861,11 @@ Partial Class frmGameManager
         Me.cmsDeleteAll.Size = New System.Drawing.Size(114, 22)
         Me.cmsDeleteAll.Text = "&All Files"
         '
-        'btnSessions
-        '
-        Me.btnSessions.Location = New System.Drawing.Point(323, 586)
-        Me.btnSessions.Name = "btnSessions"
-        Me.btnSessions.Size = New System.Drawing.Size(100, 23)
-        Me.btnSessions.TabIndex = 12
-        Me.btnSessions.Text = "&View Sessions..."
-        Me.btnSessions.UseVisualStyleBackColor = True
-        '
-        'txtComments
-        '
-        Me.txtComments.Location = New System.Drawing.Point(70, 154)
-        Me.txtComments.Multiline = True
-        Me.txtComments.Name = "txtComments"
-        Me.txtComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtComments.Size = New System.Drawing.Size(413, 54)
-        Me.txtComments.TabIndex = 17
-        '
-        'lblComments
-        '
-        Me.lblComments.AutoSize = True
-        Me.lblComments.Location = New System.Drawing.Point(7, 157)
-        Me.lblComments.Name = "lblComments"
-        Me.lblComments.Size = New System.Drawing.Size(59, 13)
-        Me.lblComments.TabIndex = 18
-        Me.lblComments.Text = "Comments:"
-        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 621)
-        Me.Controls.Add(Me.btnSessions)
         Me.Controls.Add(Me.lblQuickFilter)
         Me.Controls.Add(Me.txtQuickFilter)
         Me.Controls.Add(Me.btnExport)
@@ -996,7 +985,6 @@ Partial Class frmGameManager
     Friend WithEvents chkCleanFolder As CheckBox
     Friend WithEvents txtParameter As TextBox
     Friend WithEvents lblParameter As Label
-    Friend WithEvents btnSessions As Button
     Friend WithEvents lblComments As Label
     Friend WithEvents txtComments As TextBox
 End Class

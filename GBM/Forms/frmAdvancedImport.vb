@@ -3,12 +3,22 @@ Imports System.IO
 
 Public Class frmAdvancedImport
 
+    Private oImportData As ExportData
     Private hshImportData As Hashtable
     Private hshFinalData As New Hashtable
     Private bSelectAll As Boolean = True
     Private bIsLoading As Boolean = False
     Private iCurrentSort As Integer = 0
     Private WithEvents tmFilterTimer As Timer
+
+    Public Property ImportInfo As ExportData
+        Set(value As ExportData)
+            oImportData = value
+        End Set
+        Get
+            Return oImportData
+        End Get
+    End Property
 
     Public Property ImportData As Hashtable
         Set(value As Hashtable)
@@ -134,6 +144,11 @@ Public Class frmAdvancedImport
     Private Sub SetForm()
         'Set Form Name
         Me.Text = frmAdvancedImport_FormName
+
+        'Add configuration date to title if applicable
+        If ImportInfo.Exported <> 0 Then
+            Me.Text &= " [" & mgrCommon.UnixToDate(ImportInfo.Exported).Date & "]"
+        End If
 
         'Set Form Text
         lblFilter.Text = frmAdvancedImport_lblFilter

@@ -1,20 +1,31 @@
-Game Backup Monitor v1.04 Readme
+Game Backup Monitor v1.0.5 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-September 26, 2017
+December 8, 2017
 
-New in 1.04
+New in 1.0.5
 
-- (All) The import feature now detects most saved games currently on your PC and automatically selects configurations for you.
-- (All) The Game Manager's "Custom Filter" feature has received a major overhaul:
-	- More fields are now available for use.
-	- Added the ability to combine different filters.
-	- Added the ability to set a sort field and order.
-	- The current filter is now saved when the Custom Filter window is closed and re-opened.
-- (All) The "Monitor Only" feature has been updated.  This feature allows tracking play time for games that do not require a backup, such as MMOs or CCGs.
-	- The Game Manager now disables and ignores validation on fields that aren't needed for a Monitor Only configuration.
-	- Monitor Only is now included in the XML Import / Export.
-	- Monitor Only configurations may now be included in the official game lists.
+All Platforms:
+
+- You can now add Comments to a game configuration.
+- You can now exclude tags and use negative filters on the Game Manager.
+- Fixed a bug causing backup size calculations to be incorrect when including sub-folders in a configuration.
+- Fixed a bug causing GBM to calculate the backup size of an incorrect location when using a relative path configuration.  This could cause very long delays when a backup was running.
+- XML export files now contain the date, version and amount of configurations.  The Import window will now display the date of the XML file in the title bar if applicable.
+- Fixed a bug causing games not to be detected if more than one copy of the process was running.
+- GBM can now save statistical data from each detected gaming session:	
+	- This feature records the start and end time of each detected gaming session.  In future versions more data may be available.	
+	- You can view session data using the new "Session Viewer" available in the Tools menu.
+	- This feature is disabled by default.  It can be enabled on the Setting screen.
+	- Session data is stored locally,  it is currently not synced with the backup folder.
+
+Windows Only:
+
+- Only one instance of GBM can now be running.
+
+Linux Only:
+
+- Added makefile for easy Linux installation.  Thanks basxto!
 	
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

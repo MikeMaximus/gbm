@@ -883,20 +883,20 @@
   <data name="frmFileFolderSearch_SwitchDrives" xml:space="preserve">
     <value>Do you wish to search the [PARAM] drive?</value>
   </data>
-  <data name="frmFilter_btnAdd" xml:space="preserve">
-    <value>&gt;</value>
+  <data name="frmFilter_btnIncludeAdd" xml:space="preserve">
+    <value>&lt;</value>
   </data>
   <data name="frmFilter_btnOK" xml:space="preserve">
     <value>&amp;OK</value>
   </data>
-  <data name="frmFilter_btnRemove" xml:space="preserve">
-    <value>&lt;</value>
+  <data name="frmFilter_btnIncludeRemove" xml:space="preserve">
+    <value>&gt;</value>
   </data>
   <data name="frmFilter_FormName" xml:space="preserve">
     <value>Custom Filter</value>
   </data>
-  <data name="frmFilter_lblGameTags" xml:space="preserve">
-    <value>Current Filter</value>
+  <data name="frmFilter_lblIncludeTags" xml:space="preserve">
+    <value>Include Tags</value>
   </data>
   <data name="frmFilter_lblTags" xml:space="preserve">
     <value>Available Tags</value>
@@ -1010,7 +1010,7 @@
     <value>Filter Type</value>
   </data>
   <data name="frmFilter_grpTagOptions" xml:space="preserve">
-    <value>Options</value>
+    <value>Include Options</value>
   </data>
   <data name="frmGameManager_grpConfig" xml:space="preserve">
     <value>Configuration</value>
@@ -1885,22 +1885,64 @@
   <data name="frmFilter_grpSortOptions" xml:space="preserve">
     <value>Sort Options</value>
   </data>
-  <data name="frmGameManager_btnSessions" xml:space="preserve">
-    <value>&amp;View Sessions...</value>
-  </data>
-  <data name="frmSession_ColumnComputerName" xml:space="preserve">
-    <value>Computer Name</value>
-  </data>
-  <data name="frmSession_ColumnEnd" xml:space="preserve">
-    <value>End</value>
-  </data>
-  <data name="frmSession_ColumnStart" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="frmSession_Name" xml:space="preserve">
-    <value>Sessions</value>
-  </data>
   <data name="frmFilter_FieldComments" xml:space="preserve">
     <value>Comments</value>
+  </data>
+  <data name="frmFilter_btnExcludeAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmFilter_btnExcludeRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmFilter_lblExcludeTags" xml:space="preserve">
+    <value>Exclude Tags</value>
+  </data>
+  <data name="frmFilter_lblNot" xml:space="preserve">
+    <value>Not</value>
+  </data>
+  <data name="frmMain_gMonToolsSessions" xml:space="preserve">
+    <value>&amp;Session Viewer...</value>
+  </data>
+  <data name="frmSessions_ColumnEnd" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="frmSessions_ColumnGameName" xml:space="preserve">
+    <value>Game</value>
+  </data>
+  <data name="frmSessions_ColumnStart" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="frmSessions_Name" xml:space="preserve">
+    <value>Session Viewer</value>
+  </data>
+  <data name="frmMain_ErrorNoSessions" xml:space="preserve">
+    <value>There is currently no session data to display.</value>
+  </data>
+  <data name="frmSessions_btnClose" xml:space="preserve">
+    <value>&amp;Close</value>
+  </data>
+  <data name="frmSessions_btnDelete" xml:space="preserve">
+    <value>&amp;Delete Session</value>
+  </data>
+  <data name="frmSessions_btnReset" xml:space="preserve">
+    <value>&amp;Reset Filters</value>
+  </data>
+  <data name="frmSessions_ColumnMonitorID" xml:space="preserve">
+    <value>MonitorID</value>
+  </data>
+  <data name="frmSessions_ConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete the selected session(s)?  This cannot be undone.</value>
+  </data>
+  <data name="frmSessions_lblDateRange" xml:space="preserve">
+    <value>Date Range:</value>
+  </data>
+  <data name="frmSessions_lblFilter" xml:space="preserve">
+    <value>Game Filter:</value>
+  </data>
+  <data name="frmMain_WarningSessionsDisabled" xml:space="preserve">
+    <value>Session tracking is currently disabled.[BR][BR]Enable session tracking in Settings if you'd like to track data for individual gaming sessions.</value>
+  </data>
+  <data name="frmSettings_chkSessionTracking" xml:space="preserve">
+    <value>Enable session tracking</value>
   </data>
 </root>

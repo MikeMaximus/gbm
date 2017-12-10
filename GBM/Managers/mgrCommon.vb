@@ -37,6 +37,12 @@ Public Class mgrCommon
         End Get
     End Property
 
+    Public Shared ReadOnly Property DisplayAppVersion As String
+        Get
+            Return My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Build
+        End Get
+    End Property
+
     'Source - https://stackoverflow.com/questions/18873152/deep-copy-of-ordereddictionary
     Public Shared Function GenericClone(ByVal oOriginal As Object) As Object
         'Construct a temporary memory stream

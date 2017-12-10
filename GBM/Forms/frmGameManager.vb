@@ -19,7 +19,8 @@ Public Class frmGameManager
     Private oRemoteBackupData As SortedList
     Private bIsDirty As Boolean = False
     Private bIsLoading As Boolean = False
-    Private oCurrentTagFilters As New List(Of clsTag)
+    Private oCurrentIncludeTagFilters As New List(Of clsTag)
+    Private oCurrentExcludeTagFilters As New List(Of clsTag)
     Private oCurrentFilters As New List(Of clsGameFilter)
     Private eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.BaseFilter
     Private bCurrentAndOperator As Boolean = False
@@ -227,7 +228,8 @@ Public Class frmGameManager
             If Not bRetainFilter Then
                 frm = New frmFilter
 
-                frm.TagFilters = oCurrentTagFilters
+                frm.IncludeTagFilters = oCurrentIncludeTagFilters
+                frm.ExcludeTagFilters = oCurrentExcludeTagFilters
                 frm.GameFilters = oCurrentFilters
                 frm.FilterType = eCurrentFilter
                 frm.AndOperator = bCurrentAndOperator
@@ -236,7 +238,8 @@ Public Class frmGameManager
 
                 frm.ShowDialog()
 
-                oCurrentTagFilters = frm.TagFilters
+                oCurrentIncludeTagFilters = frm.IncludeTagFilters
+                oCurrentExcludeTagFilters = frm.ExcludeTagFilters
                 oCurrentFilters = frm.GameFilters
                 eCurrentFilter = frm.FilterType
                 bCurrentAndOperator = frm.AndOperator
@@ -244,14 +247,15 @@ Public Class frmGameManager
                 sCurrentSortField = frm.SortField
             End If
         Else
-            oCurrentTagFilters.Clear()
+            oCurrentIncludeTagFilters.Clear()
+            oCurrentExcludeTagFilters.Clear()
             oCurrentFilters.Clear()
             eCurrentFilter = frmFilter.eFilterType.BaseFilter
             bCurrentSortAsc = True
             sCurrentSortField = "Name"
         End If
 
-        GameData = mgrMonitorList.ReadFilteredList(oCurrentTagFilters, oCurrentFilters, eCurrentFilter, bCurrentAndOperator, bCurrentSortAsc, sCurrentSortField)
+        GameData = mgrMonitorList.ReadFilteredList(oCurrentIncludeTagFilters, oCurrentExcludeTagFilters, oCurrentFilters, eCurrentFilter, bCurrentAndOperator, bCurrentSortAsc, sCurrentSortField)
 
         If optPendingRestores.Checked Then
             oRestoreData = mgrRestore.CompareManifests
@@ -907,7 +911,6 @@ Public Class frmGameManager
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = False
                 btnExport.Enabled = False
-                btnSessions.Enabled = False
             Case eModes.Edit
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
@@ -932,7 +935,6 @@ Public Class frmGameManager
                 lblTags.Visible = True
                 btnImport.Enabled = False
                 btnExport.Enabled = False
-                btnSessions.Enabled = False
             Case eModes.View
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -952,7 +954,6 @@ Public Class frmGameManager
                 lblTags.Visible = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
-                btnSessions.Enabled = True
             Case eModes.ViewTemp
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -975,7 +976,6 @@ Public Class frmGameManager
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = True
                 btnExport.Enabled = True
-                btnSessions.Enabled = False
             Case eModes.Disabled
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -1003,7 +1003,6 @@ Public Class frmGameManager
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = True
                 btnExport.Enabled = True
-                btnSessions.Enabled = False
             Case eModes.MultiSelect
                 lstGames.Enabled = True
                 lblQuickFilter.Enabled = False
@@ -1030,7 +1029,6 @@ Public Class frmGameManager
                 lblTags.Visible = False
                 btnImport.Enabled = True
                 btnExport.Enabled = True
-                btnSessions.Enabled = False
         End Select
 
         lstGames.Focus()
@@ -1555,7 +1553,6 @@ Public Class frmGameManager
         lblLimit.Text = frmGameManager_lblLimit
         cmsDeleteOne.Text = frmGameManager_cmsDeleteOne
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
-        btnSessions.Text = frmGameManager_btnSessions
 
         'Init Filter Timer
         tmFilterTimer = New Timer()
@@ -1733,12 +1730,6 @@ Public Class frmGameManager
 
     Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
         ExportGameList()
-    End Sub
-
-    Private Sub btnSessions_Click(sender As Object, e As EventArgs) Handles btnSessions.Click
-        Dim frm As New frmSession
-        frm.Game = CurrentGame
-        frm.ShowDialog()
     End Sub
 
     Private Sub txtQuickFilter_TextChanged(sender As Object, e As EventArgs) Handles txtQuickFilter.TextChanged

@@ -824,14 +824,13 @@ Public Class frmMain
 
     Private Sub OpenAbout()
         Dim iProcessType As System.Reflection.ProcessorArchitecture = System.Reflection.AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
-        Dim sVersion As String = My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Build
         Dim sProcessType = [Enum].GetName(GetType(System.Reflection.ProcessorArchitecture), iProcessType)
         Dim sRevision As String = My.Application.Info.Version.Revision
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSqliteVersion As String = oDatabase.ReportVersion
         Dim sConstCopyright As String = Chr(169) & mgrCommon.FormatString(App_Copyright, Now.Year.ToString)
 
-        mgrCommon.ShowMessage(frmMain_About, New String() {sVersion, sProcessType, sRevision, sSqliteVersion, sConstCopyright}, MsgBoxStyle.Information)
+        mgrCommon.ShowMessage(frmMain_About, New String() {mgrCommon.DisplayAppVersion, sProcessType, sRevision, sSqliteVersion, sConstCopyright}, MsgBoxStyle.Information)
     End Sub
 
     Private Sub OpenTags()
@@ -875,6 +874,20 @@ Public Class frmMain
             mgrPath.RemoteDatabaseLocation = oSettings.BackupFolder
             SetupSyncWatcher()
             LoadGameSettings()
+        End If
+        ResumeScan()
+    End Sub
+
+    Private Sub OpenSessions()
+        Dim frm As New frmSessions
+        PauseScan()
+        If oSettings.SessionTracking = False Then
+            mgrCommon.ShowMessage(frmMain_WarningSessionsDisabled, MsgBoxStyle.Exclamation)
+        End If
+        If mgrSessions.CountRows > 0 Then
+            frm.ShowDialog()
+        Else
+            mgrCommon.ShowMessage(frmMain_ErrorNoSessions, MsgBoxStyle.Information)
         End If
         ResumeScan()
     End Sub
@@ -1288,6 +1301,7 @@ Public Class frmMain
         gMonToolsCleanMan.Text = frmMain_gMonToolsCleanMan
         gMonToolsCompact.Text = frmMain_gMonToolsCompact
         gMonToolsLog.Text = frmMain_gMonToolsLog
+        gMonToolsSessions.Text = frmMain_gMonToolsSessions
         gMonLogClear.Text = frmMain_gMonLogClear
         gMonLogSave.Text = frmMain_gMonLogSave
         gMonHelp.Text = frmMain_gMonHelp
@@ -1309,6 +1323,7 @@ Public Class frmMain
         gMonTrayToolsCleanMan.Text = frmMain_gMonToolsCleanMan
         gMonTrayToolsCompact.Text = frmMain_gMonToolsCompact
         gMonTrayToolsLog.Text = frmMain_gMonToolsLog
+        gMonTrayToolsSessions.Text = frmMain_gMonToolsSessions
         gMonTrayLogClear.Text = frmMain_gMonLogClear
         gMonTrayLogSave.Text = frmMain_gMonLogSave
         gMonTrayExit.Text = frmMain_gMonFileExit
@@ -1632,6 +1647,10 @@ Public Class frmMain
         SaveLog()
     End Sub
 
+    Private Sub gMonToolsSessions_Click(sender As Object, e As EventArgs) Handles gMonToolsSessions.Click, gMonTrayToolsSessions.Click
+        OpenSessions()
+    End Sub
+
     Private Sub gMonNotification_Click(sender As Object, e As EventArgs) Handles gMonNotification.Click, gMonTrayNotification.Click
         gMonNotification.Visible = False
         gMonTrayNotification.Visible = False
@@ -1775,10 +1794,8 @@ Public Class frmMain
                     LoadGameSettings()
                 Else
                     bContinue = False
-                    If oSettings.TimeTracking Then
-                        HandleTimeSpent()
-                        HandleSession()
-                    End If
+                    If oSettings.TimeTracking Then HandleTimeSpent()
+                    If oSettings.SessionTracking Then HandleSession()
                     UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oProcess.GameInfo.Name), False)
                     oProcess.GameInfo = Nothing
                     ResetGameInfo()
@@ -1789,10 +1806,8 @@ Public Class frmMain
             If bContinue Then
                 If DoMultiGameCheck() Then
                     UpdateLog(mgrCommon.FormatString(frmMain_GameEnded, oProcess.GameInfo.Name), False)
-                    If oSettings.TimeTracking Then
-                        HandleTimeSpent()
-                        HandleSession()
-                    End If
+                    If oSettings.TimeTracking Then HandleTimeSpent()
+                    If oSettings.SessionTracking Then HandleSession()
                     RunBackup()
                 Else
                     UpdateLog(frmMain_UnknownGameEnded, False)

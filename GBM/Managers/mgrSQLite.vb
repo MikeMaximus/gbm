@@ -74,7 +74,7 @@ Public Class mgrSQLite
                    "DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, " &
                    "BackupFolder TEXT NOT NULL, Sync BOOLEAN NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
                    "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
-                   "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL);"
+                   "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL, SessionTracking BOOLEAN NOT NULL);"
 
             'Add Tables (SavedPath)
             sSql &= "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
@@ -97,6 +97,9 @@ Public Class mgrSQLite
             'Add Tables (Local Manifest)
             sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, " &
                    "AbsolutePath BOOLEAN NOT NULL, DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+
+            'Add Tables (Sessions)
+            sSql &= "CREATE TABLE sessions (MonitorID TEXT NOT NULL, Start INTEGER NOT NULL, End INTEGER NOT NULL, PRIMARY KEY(MonitorID, Start));"
 
             'Set Version
             sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
@@ -131,10 +134,6 @@ Public Class mgrSQLite
 
             'Add Tables (Remote Game Tags)
             sSql &= "CREATE TABLE gametags (TagID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(TagID, MonitorID)); "
-
-            'Add Tables (Sessions)
-            sSql &= "CREATE TABLE sessions (MonitorID TEXT NOT NULL, Start INTEGER NOT NULL, End INTEGER NOT NULL, " &
-                    "ComputerName TEXT NOT NULL, PRIMARY KEY(MonitorID, Start));"
 
             'Set Version
             sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
@@ -260,6 +259,27 @@ Public Class mgrSQLite
         End Try
 
         Return oData
+    End Function
+
+    Public Function ReadSingleValue(ByVal sSQL As String, ByVal hshParams As Hashtable) As Object
+
+        Dim command As SqliteCommand
+        Dim oResult As New Object
+
+        Connect()
+        Command = New SqliteCommand(sSQL, db)
+        BuildParams(command, hshParams)
+
+        Try
+            oResult = command.ExecuteScalar()
+        Catch ex As Exception
+            mgrCommon.ShowMessage(mgrSQLite_ErrorQueryFailure, New String() {sSQL, ex.Message}, MsgBoxStyle.Information)
+        Finally
+            command.Dispose()
+            Disconnect()
+        End Try
+
+        Return oResult
     End Function
 
     Private Function GetDatabaseVersion() As Integer
@@ -690,8 +710,12 @@ Public Class mgrSQLite
                 'Backup DB before starting
                 BackupDB("v102")
 
+                'Add Tables (Sessions)
+                sSQL = "CREATE TABLE sessions (MonitorID TEXT NOT NULL, Start INTEGER NOT NULL, End INTEGER NOT NULL, PRIMARY KEY(MonitorID, Start));"
+
                 'Add new field(s)
-                sSQL = "ALTER TABLE monitorlist ADD COLUMN Comments TEXT;"
+                sSQL &= "ALTER TABLE monitorlist ADD COLUMN Comments TEXT;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN SessionTracking BOOLEAN DEFAULT 0;"
 
                 sSQL &= "PRAGMA user_version=105"
 
@@ -701,12 +725,8 @@ Public Class mgrSQLite
                 'Backup DB before starting
                 BackupDB("v102")
 
-                'Add Tables (Sessions)
-                sSQL = "CREATE TABLE sessions (MonitorID TEXT NOT NULL, Start INTEGER NOT NULL, End INTEGER NOT NULL, " &
-                   "ComputerName TEXT NOT NULL, PRIMARY KEY(MonitorID, Start));"
-
                 'Add new field(s)
-                sSQL &= "ALTER TABLE monitorlist ADD COLUMN Comments TEXT;"
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN Comments TEXT;"
 
                 sSQL &= "PRAGMA user_version=105"
 

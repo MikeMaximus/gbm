@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmAdvancedImport
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmAdvancedImport
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.btnImport = New System.Windows.Forms.Button()
         Me.chkSelectAll = New System.Windows.Forms.CheckBox()
@@ -44,7 +44,7 @@ Partial Class frmAdvancedImport
         'chkSelectAll
         '
         Me.chkSelectAll.AutoSize = True
-        Me.chkSelectAll.Location = New System.Drawing.Point(12, 12)
+        Me.chkSelectAll.Location = New System.Drawing.Point(12, 11)
         Me.chkSelectAll.Name = "chkSelectAll"
         Me.chkSelectAll.Size = New System.Drawing.Size(70, 17)
         Me.chkSelectAll.TabIndex = 0
@@ -98,9 +98,9 @@ Partial Class frmAdvancedImport
         '
         'lblFilter
         '
-        Me.lblFilter.Location = New System.Drawing.Point(307, 12)
+        Me.lblFilter.Location = New System.Drawing.Point(371, 12)
         Me.lblFilter.Name = "lblFilter"
-        Me.lblFilter.Size = New System.Drawing.Size(103, 14)
+        Me.lblFilter.Size = New System.Drawing.Size(39, 14)
         Me.lblFilter.TabIndex = 0
         Me.lblFilter.Text = "Filter:"
         Me.lblFilter.TextAlign = System.Drawing.ContentAlignment.TopRight

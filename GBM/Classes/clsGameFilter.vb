@@ -2,6 +2,7 @@
 
     Private sID As String
     Private oField As clsGameFilterField
+    Private bNot As Boolean
     Private oData As Object
     Private eNumericOperator As eNumericOperators = eNumericOperators.Equals
 
@@ -28,6 +29,15 @@
         End Get
         Set(value As clsGameFilterField)
             oField = value
+        End Set
+    End Property
+
+    Public Property NotCondition As Boolean
+        Get
+            Return bNot
+        End Get
+        Set(value As Boolean)
+            bNot = value
         End Set
     End Property
 

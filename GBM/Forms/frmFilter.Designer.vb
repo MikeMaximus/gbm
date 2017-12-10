@@ -23,17 +23,23 @@ Partial Class frmFilter
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.grpTagFilter = New System.Windows.Forms.GroupBox()
+        Me.lblExcludeTags = New System.Windows.Forms.Label()
+        Me.btnExcludeRemove = New System.Windows.Forms.Button()
+        Me.btnExcludeAdd = New System.Windows.Forms.Button()
+        Me.lstExcludeTags = New System.Windows.Forms.ListBox()
         Me.grpTagOptions = New System.Windows.Forms.GroupBox()
         Me.optAll = New System.Windows.Forms.RadioButton()
         Me.optAny = New System.Windows.Forms.RadioButton()
-        Me.lblGameTags = New System.Windows.Forms.Label()
+        Me.lblIncludeTags = New System.Windows.Forms.Label()
         Me.lblTags = New System.Windows.Forms.Label()
-        Me.btnRemove = New System.Windows.Forms.Button()
-        Me.btnAdd = New System.Windows.Forms.Button()
-        Me.lstTagFilter = New System.Windows.Forms.ListBox()
+        Me.btnIncludeRemove = New System.Windows.Forms.Button()
+        Me.btnIncludeAdd = New System.Windows.Forms.Button()
+        Me.lstIncludeTags = New System.Windows.Forms.ListBox()
         Me.lstTags = New System.Windows.Forms.ListBox()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.grpGameFilter = New System.Windows.Forms.GroupBox()
+        Me.lblNot = New System.Windows.Forms.Label()
+        Me.chkNot = New System.Windows.Forms.CheckBox()
         Me.cboBoolFilter = New System.Windows.Forms.ComboBox()
         Me.numFilter = New System.Windows.Forms.NumericUpDown()
         Me.cboNumericOps = New System.Windows.Forms.ComboBox()
@@ -68,18 +74,59 @@ Partial Class frmFilter
         '
         'grpTagFilter
         '
+        Me.grpTagFilter.Controls.Add(Me.lblExcludeTags)
+        Me.grpTagFilter.Controls.Add(Me.btnExcludeRemove)
+        Me.grpTagFilter.Controls.Add(Me.btnExcludeAdd)
+        Me.grpTagFilter.Controls.Add(Me.lstExcludeTags)
         Me.grpTagFilter.Controls.Add(Me.grpTagOptions)
-        Me.grpTagFilter.Controls.Add(Me.lblGameTags)
+        Me.grpTagFilter.Controls.Add(Me.lblIncludeTags)
         Me.grpTagFilter.Controls.Add(Me.lblTags)
-        Me.grpTagFilter.Controls.Add(Me.btnRemove)
-        Me.grpTagFilter.Controls.Add(Me.btnAdd)
-        Me.grpTagFilter.Controls.Add(Me.lstTagFilter)
+        Me.grpTagFilter.Controls.Add(Me.btnIncludeRemove)
+        Me.grpTagFilter.Controls.Add(Me.btnIncludeAdd)
+        Me.grpTagFilter.Controls.Add(Me.lstIncludeTags)
         Me.grpTagFilter.Controls.Add(Me.lstTags)
         Me.grpTagFilter.Location = New System.Drawing.Point(12, 236)
         Me.grpTagFilter.Name = "grpTagFilter"
-        Me.grpTagFilter.Size = New System.Drawing.Size(385, 198)
+        Me.grpTagFilter.Size = New System.Drawing.Size(410, 198)
         Me.grpTagFilter.TabIndex = 3
         Me.grpTagFilter.TabStop = False
+        '
+        'lblExcludeTags
+        '
+        Me.lblExcludeTags.AutoSize = True
+        Me.lblExcludeTags.Location = New System.Drawing.Point(313, 16)
+        Me.lblExcludeTags.Name = "lblExcludeTags"
+        Me.lblExcludeTags.Size = New System.Drawing.Size(72, 13)
+        Me.lblExcludeTags.TabIndex = 10
+        Me.lblExcludeTags.Text = "Exclude Tags"
+        '
+        'btnExcludeRemove
+        '
+        Me.btnExcludeRemove.Location = New System.Drawing.Point(261, 91)
+        Me.btnExcludeRemove.Name = "btnExcludeRemove"
+        Me.btnExcludeRemove.Size = New System.Drawing.Size(31, 23)
+        Me.btnExcludeRemove.TabIndex = 9
+        Me.btnExcludeRemove.Text = "<"
+        Me.btnExcludeRemove.UseVisualStyleBackColor = True
+        '
+        'btnExcludeAdd
+        '
+        Me.btnExcludeAdd.Location = New System.Drawing.Point(261, 62)
+        Me.btnExcludeAdd.Name = "btnExcludeAdd"
+        Me.btnExcludeAdd.Size = New System.Drawing.Size(31, 23)
+        Me.btnExcludeAdd.TabIndex = 8
+        Me.btnExcludeAdd.Text = ">"
+        Me.btnExcludeAdd.UseVisualStyleBackColor = True
+        '
+        'lstExcludeTags
+        '
+        Me.lstExcludeTags.FormattingEnabled = True
+        Me.lstExcludeTags.Location = New System.Drawing.Point(298, 32)
+        Me.lstExcludeTags.Name = "lstExcludeTags"
+        Me.lstExcludeTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
+        Me.lstExcludeTags.Size = New System.Drawing.Size(103, 108)
+        Me.lstExcludeTags.Sorted = True
+        Me.lstExcludeTags.TabIndex = 7
         '
         'grpTagOptions
         '
@@ -113,65 +160,65 @@ Partial Class frmFilter
         Me.optAny.Text = "Any Tag"
         Me.optAny.UseVisualStyleBackColor = True
         '
-        'lblGameTags
+        'lblIncludeTags
         '
-        Me.lblGameTags.AutoSize = True
-        Me.lblGameTags.Location = New System.Drawing.Point(271, 16)
-        Me.lblGameTags.Name = "lblGameTags"
-        Me.lblGameTags.Size = New System.Drawing.Size(66, 13)
-        Me.lblGameTags.TabIndex = 4
-        Me.lblGameTags.Text = "Current Filter"
+        Me.lblIncludeTags.AutoSize = True
+        Me.lblIncludeTags.Location = New System.Drawing.Point(23, 16)
+        Me.lblIncludeTags.Name = "lblIncludeTags"
+        Me.lblIncludeTags.Size = New System.Drawing.Size(69, 13)
+        Me.lblIncludeTags.TabIndex = 4
+        Me.lblIncludeTags.Text = "Include Tags"
         '
         'lblTags
         '
         Me.lblTags.AutoSize = True
-        Me.lblTags.Location = New System.Drawing.Point(43, 16)
+        Me.lblTags.Location = New System.Drawing.Point(165, 16)
         Me.lblTags.Name = "lblTags"
         Me.lblTags.Size = New System.Drawing.Size(77, 13)
         Me.lblTags.TabIndex = 0
         Me.lblTags.Text = "Available Tags"
         '
-        'btnRemove
+        'btnIncludeRemove
         '
-        Me.btnRemove.Location = New System.Drawing.Point(162, 88)
-        Me.btnRemove.Name = "btnRemove"
-        Me.btnRemove.Size = New System.Drawing.Size(61, 23)
-        Me.btnRemove.TabIndex = 3
-        Me.btnRemove.Text = "<"
-        Me.btnRemove.UseVisualStyleBackColor = True
+        Me.btnIncludeRemove.Location = New System.Drawing.Point(115, 91)
+        Me.btnIncludeRemove.Name = "btnIncludeRemove"
+        Me.btnIncludeRemove.Size = New System.Drawing.Size(31, 23)
+        Me.btnIncludeRemove.TabIndex = 3
+        Me.btnIncludeRemove.Text = ">"
+        Me.btnIncludeRemove.UseVisualStyleBackColor = True
         '
-        'btnAdd
+        'btnIncludeAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(162, 59)
-        Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(61, 23)
-        Me.btnAdd.TabIndex = 2
-        Me.btnAdd.Text = ">"
-        Me.btnAdd.UseVisualStyleBackColor = True
+        Me.btnIncludeAdd.Location = New System.Drawing.Point(115, 62)
+        Me.btnIncludeAdd.Name = "btnIncludeAdd"
+        Me.btnIncludeAdd.Size = New System.Drawing.Size(31, 23)
+        Me.btnIncludeAdd.TabIndex = 2
+        Me.btnIncludeAdd.Text = "<"
+        Me.btnIncludeAdd.UseVisualStyleBackColor = True
         '
-        'lstTagFilter
+        'lstIncludeTags
         '
-        Me.lstTagFilter.FormattingEnabled = True
-        Me.lstTagFilter.Location = New System.Drawing.Point(229, 32)
-        Me.lstTagFilter.Name = "lstTagFilter"
-        Me.lstTagFilter.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstTagFilter.Size = New System.Drawing.Size(150, 108)
-        Me.lstTagFilter.Sorted = True
-        Me.lstTagFilter.TabIndex = 5
+        Me.lstIncludeTags.FormattingEnabled = True
+        Me.lstIncludeTags.Location = New System.Drawing.Point(6, 32)
+        Me.lstIncludeTags.Name = "lstIncludeTags"
+        Me.lstIncludeTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
+        Me.lstIncludeTags.Size = New System.Drawing.Size(103, 108)
+        Me.lstIncludeTags.Sorted = True
+        Me.lstIncludeTags.TabIndex = 5
         '
         'lstTags
         '
         Me.lstTags.FormattingEnabled = True
-        Me.lstTags.Location = New System.Drawing.Point(6, 32)
+        Me.lstTags.Location = New System.Drawing.Point(152, 32)
         Me.lstTags.Name = "lstTags"
         Me.lstTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstTags.Size = New System.Drawing.Size(150, 108)
+        Me.lstTags.Size = New System.Drawing.Size(103, 108)
         Me.lstTags.Sorted = True
         Me.lstTags.TabIndex = 1
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(322, 526)
+        Me.btnOK.Location = New System.Drawing.Point(347, 526)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 23)
         Me.btnOK.TabIndex = 6
@@ -180,6 +227,8 @@ Partial Class frmFilter
         '
         'grpGameFilter
         '
+        Me.grpGameFilter.Controls.Add(Me.lblNot)
+        Me.grpGameFilter.Controls.Add(Me.chkNot)
         Me.grpGameFilter.Controls.Add(Me.cboBoolFilter)
         Me.grpGameFilter.Controls.Add(Me.numFilter)
         Me.grpGameFilter.Controls.Add(Me.cboNumericOps)
@@ -194,15 +243,33 @@ Partial Class frmFilter
         Me.grpGameFilter.Controls.Add(Me.txtStringFilter)
         Me.grpGameFilter.Location = New System.Drawing.Point(12, 35)
         Me.grpGameFilter.Name = "grpGameFilter"
-        Me.grpGameFilter.Size = New System.Drawing.Size(385, 172)
+        Me.grpGameFilter.Size = New System.Drawing.Size(410, 172)
         Me.grpGameFilter.TabIndex = 1
         Me.grpGameFilter.TabStop = False
+        '
+        'lblNot
+        '
+        Me.lblNot.AutoSize = True
+        Me.lblNot.Location = New System.Drawing.Point(161, 20)
+        Me.lblNot.Name = "lblNot"
+        Me.lblNot.Size = New System.Drawing.Size(24, 13)
+        Me.lblNot.TabIndex = 11
+        Me.lblNot.Text = "Not"
+        '
+        'chkNot
+        '
+        Me.chkNot.AutoSize = True
+        Me.chkNot.Location = New System.Drawing.Point(166, 39)
+        Me.chkNot.Name = "chkNot"
+        Me.chkNot.Size = New System.Drawing.Size(15, 14)
+        Me.chkNot.TabIndex = 10
+        Me.chkNot.UseVisualStyleBackColor = True
         '
         'cboBoolFilter
         '
         Me.cboBoolFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboBoolFilter.FormattingEnabled = True
-        Me.cboBoolFilter.Location = New System.Drawing.Point(162, 36)
+        Me.cboBoolFilter.Location = New System.Drawing.Point(187, 36)
         Me.cboBoolFilter.Name = "cboBoolFilter"
         Me.cboBoolFilter.Size = New System.Drawing.Size(136, 21)
         Me.cboBoolFilter.TabIndex = 3
@@ -210,7 +277,7 @@ Partial Class frmFilter
         'numFilter
         '
         Me.numFilter.DecimalPlaces = 1
-        Me.numFilter.Location = New System.Drawing.Point(233, 37)
+        Me.numFilter.Location = New System.Drawing.Point(258, 37)
         Me.numFilter.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
         Me.numFilter.Name = "numFilter"
         Me.numFilter.Size = New System.Drawing.Size(65, 20)
@@ -220,7 +287,7 @@ Partial Class frmFilter
         '
         Me.cboNumericOps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboNumericOps.FormattingEnabled = True
-        Me.cboNumericOps.Location = New System.Drawing.Point(162, 36)
+        Me.cboNumericOps.Location = New System.Drawing.Point(188, 36)
         Me.cboNumericOps.Name = "cboNumericOps"
         Me.cboNumericOps.Size = New System.Drawing.Size(65, 21)
         Me.cboNumericOps.TabIndex = 3
@@ -237,7 +304,7 @@ Partial Class frmFilter
         'lblFilterData
         '
         Me.lblFilterData.AutoSize = True
-        Me.lblFilterData.Location = New System.Drawing.Point(214, 20)
+        Me.lblFilterData.Location = New System.Drawing.Point(239, 20)
         Me.lblFilterData.Name = "lblFilterData"
         Me.lblFilterData.Size = New System.Drawing.Size(32, 13)
         Me.lblFilterData.TabIndex = 2
@@ -271,7 +338,7 @@ Partial Class frmFilter
         '
         'btnAddFilter
         '
-        Me.btnAddFilter.Location = New System.Drawing.Point(304, 34)
+        Me.btnAddFilter.Location = New System.Drawing.Point(329, 34)
         Me.btnAddFilter.Name = "btnAddFilter"
         Me.btnAddFilter.Size = New System.Drawing.Size(75, 23)
         Me.btnAddFilter.TabIndex = 5
@@ -320,7 +387,7 @@ Partial Class frmFilter
         '
         'txtStringFilter
         '
-        Me.txtStringFilter.Location = New System.Drawing.Point(162, 36)
+        Me.txtStringFilter.Location = New System.Drawing.Point(187, 36)
         Me.txtStringFilter.Name = "txtStringFilter"
         Me.txtStringFilter.Size = New System.Drawing.Size(136, 20)
         Me.txtStringFilter.TabIndex = 3
@@ -332,7 +399,7 @@ Partial Class frmFilter
         Me.grpSorting.Controls.Add(Me.cboSortField)
         Me.grpSorting.Location = New System.Drawing.Point(12, 440)
         Me.grpSorting.Name = "grpSorting"
-        Me.grpSorting.Size = New System.Drawing.Size(385, 80)
+        Me.grpSorting.Size = New System.Drawing.Size(410, 80)
         Me.grpSorting.TabIndex = 4
         Me.grpSorting.TabStop = False
         Me.grpSorting.Text = "Sorting"
@@ -421,7 +488,7 @@ Partial Class frmFilter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(409, 561)
+        Me.ClientSize = New System.Drawing.Size(434, 561)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.grpSorting)
         Me.Controls.Add(Me.chkTag)
@@ -455,11 +522,11 @@ Partial Class frmFilter
     Friend WithEvents grpTagOptions As System.Windows.Forms.GroupBox
     Friend WithEvents optAll As System.Windows.Forms.RadioButton
     Friend WithEvents optAny As System.Windows.Forms.RadioButton
-    Friend WithEvents lblGameTags As System.Windows.Forms.Label
+    Friend WithEvents lblIncludeTags As System.Windows.Forms.Label
     Friend WithEvents lblTags As System.Windows.Forms.Label
-    Friend WithEvents btnRemove As System.Windows.Forms.Button
-    Friend WithEvents btnAdd As System.Windows.Forms.Button
-    Friend WithEvents lstTagFilter As System.Windows.Forms.ListBox
+    Friend WithEvents btnIncludeRemove As System.Windows.Forms.Button
+    Friend WithEvents btnIncludeAdd As System.Windows.Forms.Button
+    Friend WithEvents lstIncludeTags As System.Windows.Forms.ListBox
     Friend WithEvents lstTags As System.Windows.Forms.ListBox
     Friend WithEvents btnOK As System.Windows.Forms.Button
     Friend WithEvents grpGameFilter As System.Windows.Forms.GroupBox
@@ -486,4 +553,10 @@ Partial Class frmFilter
     Friend WithEvents lblSortFields As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents grpSortOptions As GroupBox
+    Friend WithEvents lblExcludeTags As Label
+    Friend WithEvents btnExcludeRemove As Button
+    Friend WithEvents btnExcludeAdd As Button
+    Friend WithEvents lstExcludeTags As ListBox
+    Friend WithEvents lblNot As Label
+    Friend WithEvents chkNot As CheckBox
 End Class

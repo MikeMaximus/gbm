@@ -916,15 +916,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &gt;.
-        '''</summary>
-        Friend ReadOnly Property frmFilter_btnAdd() As String
-            Get
-                Return ResourceManager.GetString("frmFilter_btnAdd", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Add.
         '''</summary>
         Friend ReadOnly Property frmFilter_btnAddFilter() As String
@@ -934,20 +925,47 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;OK.
+        '''  Looks up a localized string similar to &gt;.
         '''</summary>
-        Friend ReadOnly Property frmFilter_btnOK() As String
+        Friend ReadOnly Property frmFilter_btnExcludeAdd() As String
             Get
-                Return ResourceManager.GetString("frmFilter_btnOK", resourceCulture)
+                Return ResourceManager.GetString("frmFilter_btnExcludeAdd", resourceCulture)
             End Get
         End Property
         
         '''<summary>
         '''  Looks up a localized string similar to &lt;.
         '''</summary>
-        Friend ReadOnly Property frmFilter_btnRemove() As String
+        Friend ReadOnly Property frmFilter_btnExcludeRemove() As String
             Get
-                Return ResourceManager.GetString("frmFilter_btnRemove", resourceCulture)
+                Return ResourceManager.GetString("frmFilter_btnExcludeRemove", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &lt;.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_btnIncludeAdd() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_btnIncludeAdd", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &gt;.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_btnIncludeRemove() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_btnIncludeRemove", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;OK.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_btnOK() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_btnOK", resourceCulture)
             End Get
         End Property
         
@@ -1195,7 +1213,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Options.
+        '''  Looks up a localized string similar to Include Options.
         '''</summary>
         Friend ReadOnly Property frmFilter_grpTagOptions() As String
             Get
@@ -1209,6 +1227,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmFilter_lblCurrentFilters() As String
             Get
                 Return ResourceManager.GetString("frmFilter_lblCurrentFilters", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Exclude Tags.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_lblExcludeTags() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_lblExcludeTags", resourceCulture)
             End Get
         End Property
         
@@ -1231,11 +1258,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Current Filter.
+        '''  Looks up a localized string similar to Include Tags.
         '''</summary>
-        Friend ReadOnly Property frmFilter_lblGameTags() As String
+        Friend ReadOnly Property frmFilter_lblIncludeTags() As String
             Get
-                Return ResourceManager.GetString("frmFilter_lblGameTags", resourceCulture)
+                Return ResourceManager.GetString("frmFilter_lblIncludeTags", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Not.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_lblNot() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_lblNot", resourceCulture)
             End Get
         End Property
         
@@ -1533,15 +1569,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_btnSavePathBrowse() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_btnSavePathBrowse", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to &amp;View Sessions....
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_btnSessions() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_btnSessions", resourceCulture)
             End Get
         End Property
         
@@ -2923,6 +2950,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to There is currently no session data to display..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorNoSessions() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorNoSessions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] uses a relative path and has never been detected on this computer..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorRelativePath() As String
@@ -3207,6 +3243,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_gMonToolsLog() As String
             Get
                 Return ResourceManager.GetString("frmMain_gMonToolsLog", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Session Viewer....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonToolsSessions() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonToolsSessions", resourceCulture)
             End Get
         End Property
         
@@ -3571,38 +3616,110 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Computer Name.
+        '''  Looks up a localized string similar to Session tracking is currently disabled.[BR][BR]Enable session tracking in Settings if you&apos;d like to track data for individual gaming sessions..
         '''</summary>
-        Friend ReadOnly Property frmSession_ColumnComputerName() As String
+        Friend ReadOnly Property frmMain_WarningSessionsDisabled() As String
             Get
-                Return ResourceManager.GetString("frmSession_ColumnComputerName", resourceCulture)
+                Return ResourceManager.GetString("frmMain_WarningSessionsDisabled", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Close.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_btnClose() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_btnClose", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Delete Session.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_btnDelete() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_btnDelete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Reset Filters.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_btnReset() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_btnReset", resourceCulture)
             End Get
         End Property
         
         '''<summary>
         '''  Looks up a localized string similar to End.
         '''</summary>
-        Friend ReadOnly Property frmSession_ColumnEnd() As String
+        Friend ReadOnly Property frmSessions_ColumnEnd() As String
             Get
-                Return ResourceManager.GetString("frmSession_ColumnEnd", resourceCulture)
+                Return ResourceManager.GetString("frmSessions_ColumnEnd", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_ColumnGameName() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_ColumnGameName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to MonitorID.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_ColumnMonitorID() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_ColumnMonitorID", resourceCulture)
             End Get
         End Property
         
         '''<summary>
         '''  Looks up a localized string similar to Start.
         '''</summary>
-        Friend ReadOnly Property frmSession_ColumnStart() As String
+        Friend ReadOnly Property frmSessions_ColumnStart() As String
             Get
-                Return ResourceManager.GetString("frmSession_ColumnStart", resourceCulture)
+                Return ResourceManager.GetString("frmSessions_ColumnStart", resourceCulture)
             End Get
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Sessions.
+        '''  Looks up a localized string similar to Are you sure you want to delete the selected session(s)?  This cannot be undone..
         '''</summary>
-        Friend ReadOnly Property frmSession_Name() As String
+        Friend ReadOnly Property frmSessions_ConfirmDelete() As String
             Get
-                Return ResourceManager.GetString("frmSession_Name", resourceCulture)
+                Return ResourceManager.GetString("frmSessions_ConfirmDelete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Date Range:.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_lblDateRange() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_lblDateRange", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game Filter:.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_lblFilter() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_lblFilter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Session Viewer.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_Name() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_Name", resourceCulture)
             End Get
         End Property
         
@@ -3801,6 +3918,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_chkRestoreNotify() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkRestoreNotify", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Enable session tracking.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkSessionTracking() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkSessionTracking", resourceCulture)
             End Get
         End Property
         

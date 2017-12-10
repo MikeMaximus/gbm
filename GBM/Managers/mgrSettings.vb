@@ -13,6 +13,7 @@ Public Class mgrSettings
     Private bAutoMark As Boolean = False
     Private bSync As Boolean = True
     Private bTimeTracking As Boolean = True
+    Private bSessionTracking As Boolean = False
     Private bSupressBackup As Boolean = False
     Private iSupressBackupThreshold As Integer = 10
     Private iCompressionLevel As Integer = 5
@@ -127,6 +128,15 @@ Public Class mgrSettings
         End Get
         Set(value As Boolean)
             bTimeTracking = value
+        End Set
+    End Property
+
+    Property SessionTracking As Boolean
+        Get
+            Return bSessionTracking
+        End Get
+        Set(value As Boolean)
+            bSessionTracking = value
         End Set
     End Property
 
@@ -261,7 +271,7 @@ Public Class mgrSettings
         sSQL = "INSERT INTO settings VALUES (1, @MonitorOnStartup, @StartToTray, @ShowDetectionToolTips, @DisableConfirmation, "
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @Sync, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SupressBackup, @SupressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
-        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark)"
+        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -283,6 +293,7 @@ Public Class mgrSettings
         hshParams.Add("AutoSaveLog", AutoSaveLog)
         hshParams.Add("AutoRestore", AutoRestore)
         hshParams.Add("AutoMark", AutoMark)
+        hshParams.Add("SessionTracking", SessionTracking)
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
@@ -317,6 +328,7 @@ Public Class mgrSettings
             AutoSaveLog = CBool(dr("AutoSaveLog"))
             AutoRestore = CBool(dr("AutoRestore"))
             AutoMark = CBool(dr("AutoMark"))
+            SessionTracking = CBool(dr("SessionTracking"))
         Next
 
         oDatabase.Disconnect()
