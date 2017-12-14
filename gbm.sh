@@ -1,7 +1,10 @@
 #!/bin/sh -e
 #check for all dependencies
-for prog in {mono,readlink,df,7za,libsqlite3};do
+for prog in {mono,readlink,df,7za};do
     [ -n "`whereis -b ${prog} | cut -sd' ' -f2`" ] || (echo "Please install ${prog}" && exit 1);
+done
+for lib in libsqlite3;do
+    [ -n "`ldconfig -p | grep ${lib}`" ] || (echo "Please install ${lib}" && exit 1);
 done
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 echo "Located in ${DIR}";
