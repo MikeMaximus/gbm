@@ -6,17 +6,17 @@ done
 for lib in libsqlite3;do
     [ -n "`ldconfig -p | grep ${lib}`" ] || (echo "Please install ${lib}" && exit 1);
 done
-DIR="$( cd "$( dirname "$(pwd)/$0" )" && pwd )";
-echo "Located in ${DIR}";
-GBMPATH='./';
+dir="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+echo "Located in ${dir}";
+gbmpath='./';
 #locate GBM.exe
-if [ "${DIR}" = '/bin' ] && [ -s '/usr/share/gbm/GBM.exe' ]; then
-    GBMPATH='/usr/share/gbm/';
-elif [ "${DIR}" = '/usr/local/bin' ] && [ -s '/usr/local/share/gbm/GBM.exe' ]; then
-    GBMPATH='/usr/local/share/gbm/';
+if [ "${dir}" = '/bin' ] && [ -s '/usr/share/gbm/GBM.exe' ]; then
+    gbmpath='/usr/share/gbm/';
+elif [ "${dir}" = '/usr/local/bin' ] && [ -s '/usr/local/share/gbm/GBM.exe' ]; then
+    gbmpath='/usr/local/share/gbm/';
 elif [ ! -s './GBM.exe' ]; then
     echo 'GBM.exe not found';
     exit 2;
 fi
-mono --desktop ${GBMPATH}'GBM.exe' "$@";
+mono --desktop ${gbmpath}'GBM.exe' "$@";
 exit $?;
