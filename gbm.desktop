@@ -6,9 +6,8 @@ Name=Game Backup Monitor
 Comment=Monitors games and backs up their savegames
 Comment[de]=Beobachtet Spiele und sichert ihre Spielstände
 
-Path=/usr/local/bin
 TryExec=mono
-Exec=mono gbm
+Exec=gbm
 Terminal=false
 
 Icon=gbm
