@@ -3958,7 +3958,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Backup only when session time exceeds.
+        '''  Looks up a localized string similar to Ignore sessions shorter than.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkSupressBackup() As String
             Get

@@ -715,14 +715,18 @@ Public Class frmMain
     End Sub
 
     Private Sub HandleSession()
-        Dim oSession As New clsSession
+        Dim oSession As clsSession
+        Dim iSession As Integer = Math.Ceiling(oProcess.TimeSpent.TotalMinutes)
 
-        'Record Session
-        oSession.MonitorID = oProcess.GameInfo.ID
-        oSession.SessionStart = oProcess.StartTime
-        oSession.SessionEnd = oProcess.EndTime
+        If iSession > oSettings.SupressBackupThreshold Then
+            'Record Session
+            oSession = New clsSession
+            oSession.MonitorID = oProcess.GameInfo.ID
+            oSession.SessionStart = oProcess.StartTime
+            oSession.SessionEnd = oProcess.EndTime
 
-        mgrSessions.AddSession(oSession)
+            mgrSessions.AddSession(oSession)
+        End If
     End Sub
 
     Private Function SupressBackup() As Boolean

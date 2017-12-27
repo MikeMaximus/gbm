@@ -1082,7 +1082,7 @@
     <value>Start with Windows</value>
   </data>
   <data name="frmSettings_chkSupressBackup" xml:space="preserve">
-    <value>Backup only when session time exceeds</value>
+    <value>Ignore sessions shorter than</value>
   </data>
   <data name="frmSettings_chkSync" xml:space="preserve">
     <value>Enable syncing</value>
