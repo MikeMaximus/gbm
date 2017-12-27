@@ -57,7 +57,12 @@ Public Class frmSessions
     Private Sub ResetFilterFields()
         Dim dtMinDate As DateTime = mgrSessions.GetMinimumDateTime
         Dim dtMaxDate As DateTime = mgrSessions.GetMaximumDateTime
+        Dim dtRecent As DateTime = dtMaxDate.Subtract(TimeSpan.FromDays(7))
         Dim sDateTimeFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern & " " & CultureInfo.CurrentCulture.DateTimeFormat.LongTimePattern
+
+        If dtRecent < dtMinDate Then
+            dtRecent = dtMinDate
+        End If
 
         bInitFinished = False
 
@@ -75,7 +80,7 @@ Public Class frmSessions
             dtpEnd.MaxDate = dtMaxDate
         End If
 
-        dtpStart.Value = dtMinDate
+        dtpStart.Value = dtRecent
         dtpEnd.Value = dtMaxDate
 
         'Init Text Filter
