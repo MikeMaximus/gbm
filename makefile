@@ -38,7 +38,7 @@ endif
 deb: DESTDIR := packages/gbm
 deb: PREFIX := usr
 deb: install
-	cd packages;dpkg-deb --build gbm
+	cd deb-package;dpkg-deb --build gbm
 
 gbm_%.png: gbm.ico
 ifndef IMGMAGICK
