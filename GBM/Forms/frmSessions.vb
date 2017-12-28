@@ -116,8 +116,8 @@ Public Class frmSessions
         For Each dgvRow As DataGridViewRow In dgSessions.SelectedRows
             oSession = New clsSession
             oSession.MonitorID = dgvRow.Cells(0).Value
-            oSession.SessionStart = dgvRow.Cells(2).Value
-            oSession.SessionEnd = dgvRow.Cells(3).Value
+            oSession.SessionStart = dgvRow.Cells(iStartDisplayCol).Value
+            oSession.SessionEnd = dgvRow.Cells(iEndDisplayCol).Value
             oSessions.Add(oSession)
         Next
 
