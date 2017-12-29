@@ -35,7 +35,7 @@ ifeq ($(DESTDIR),)
 endif
 
 #must be root
-deb: DESTDIR := packages/gbm
+deb: DESTDIR := deb-package/gbm
 deb: PREFIX := usr
 deb: install
 	cd deb-package;dpkg-deb --build gbm
