@@ -1,0 +1,9 @@
+Package: gbm
+Architecture: all
+Maintainer: Sebastian Riedel <git@basxto.de>
+Priority: optional
+Version: 1.0.5
+Homepage: https://mikemaximus.github.io/gbm-web/
+Bugs: https://github.com/MikeMaximus/gbm/issues
+Depends: mono-vbnc, libsqlite3-0, p7zip-full
+Description: Automatically backup your saved games!

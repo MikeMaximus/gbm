@@ -34,6 +34,12 @@ ifeq ($(DESTDIR),)
 		-xdg-desktop-menu forceupdate --mode system;
 endif
 
+#must be root
+deb: DESTDIR := packages/gbm
+deb: PREFIX := usr
+deb: install
+	cd deb-package;dpkg-deb --build gbm
+
 gbm_%.png: gbm.ico
 ifndef IMGMAGICK
 	$(error "convert is not available, please install imagemagick")

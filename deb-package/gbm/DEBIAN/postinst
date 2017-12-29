@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+XDG_DESKTOP_MENU="`which xdg-desktop-menu 2> /dev/null`"
+XDG_ICON_RESOURCE="`which xdg-icon-resource 2> /dev/null`"
+
+if [ -x "$XDG_DESKTOP_MENU" ]; then
+    xdg-desktop-menu forceupdate --mode system;
+fi
+
+if [ -x "$XDG_ICON_RESOURCE" ]; then
+    xdg-icon-resource forceupdate --mode system;
+fi
