@@ -4156,6 +4156,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Please note that GBM will not &quot;Start with Windows&quot; as Administrator.[BR][BR]See the Online Manual in the Help menu for details..
+        '''</summary>
+        Friend ReadOnly Property frmSettings_WarningAdminStart() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_WarningAdminStart", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Invalid or poorly formatted 7-Zip arguments can cause backup or restore operations to fail.[BR][BR]If problems occur, clear the custom arguments and try again..
         '''</summary>
         Friend ReadOnly Property frmSettings_WarningArguments() As String

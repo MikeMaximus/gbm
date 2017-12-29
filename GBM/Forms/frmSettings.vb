@@ -34,6 +34,11 @@ Public Class frmSettings
 
     Private Function ValidateSettings() As Boolean
 
+        'Show Start with Windows warning if running as admin
+        If chkStartWindows.Checked And mgrCommon.IsElevated Then
+            mgrCommon.ShowMessage(frmSettings_WarningAdminStart, MsgBoxStyle.Exclamation)
+        End If
+
         'Only modify registry key when the value changed
         If chkStartWindows.Checked <> oSettings.StartWithWindows Then
             HandleRegistryUpdate(chkStartWindows.Checked)

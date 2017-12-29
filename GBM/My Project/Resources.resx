@@ -1945,4 +1945,7 @@
   <data name="frmSettings_chkSessionTracking" xml:space="preserve">
     <value>Enable session tracking</value>
   </data>
+  <data name="frmSettings_WarningAdminStart" xml:space="preserve">
+    <value>Please note that GBM will not "Start with Windows" as Administrator.[BR][BR]See the Online Manual in the Help menu for details.</value>
+  </data>
 </root>
