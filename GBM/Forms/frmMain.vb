@@ -294,7 +294,7 @@ Public Class frmMain
         OperationStarted(False)
 
         If oProcess.GameInfo.MonitorOnly = False Then
-            If SupressBackup() Then
+            If SupressSession() Then
                 bDoBackup = False
                 UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupSessionLength, oProcess.GameInfo.Name), False)
                 SetLastAction(mgrCommon.FormatString(frmMain_ErrorBackupSessionLength, oProcess.GameInfo.CroppedName))
@@ -716,9 +716,8 @@ Public Class frmMain
 
     Private Sub HandleSession()
         Dim oSession As clsSession
-        Dim iSession As Integer = Math.Ceiling(oProcess.TimeSpent.TotalMinutes)
 
-        If iSession > oSettings.SupressBackupThreshold Then
+        If Not SupressSession() Then
             'Record Session
             oSession = New clsSession
             oSession.MonitorID = oProcess.GameInfo.ID
@@ -729,7 +728,7 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Function SupressBackup() As Boolean
+    Private Function SupressSession() As Boolean
         Dim iSession As Integer
         If oSettings.SupressBackup Then
             iSession = Math.Ceiling(oProcess.TimeSpent.TotalMinutes)
