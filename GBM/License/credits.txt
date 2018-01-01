@@ -1,5 +1,12 @@
 Game Backup Monitor would like to credit the following people/organizations:
 
-7-zip - Igor Pavlov
+Contributors:
+
+Michael J. Seiferling (MikeMaximus) - Design, Programming and Windows Game Configuration Maintainer.
+Sebastian Riedel (basxto) - Linux Packaging, Installation and Game Configuration Maintainer.
+
+Special Thanks:
+
+7-Zip - Igor Pavlov
 Sixpack Status Icons - JankoAtWarpSpeed.com
 Primo Icon Set - webdesignerdepot.com
