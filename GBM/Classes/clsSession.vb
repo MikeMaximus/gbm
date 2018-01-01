@@ -1,9 +1,8 @@
 ﻿Public Class clsSession
 
     Private sMonitorID As String
-    Private dStart As DateTime
-    Private dEnd As DateTime
-    Private sComputerName As String = My.Computer.Name
+    Private iStart As Int64
+    Private iEnd As Int64
 
     Public Property MonitorID As String
         Set(value As String)
@@ -14,31 +13,45 @@
         End Get
     End Property
 
-    Public Property SessionStart As DateTime
+    Public Property SessionStart As Int64
+        Set(value As Int64)
+            iStart = value
+        End Set
+        Get
+            Return iStart
+        End Get
+    End Property
+
+    Public WriteOnly Property SessionStartFromDate As DateTime
         Set(value As DateTime)
-            dStart = value
+            iStart = mgrCommon.DateToUnix(value)
         End Set
+    End Property
+
+    Public ReadOnly Property SessionStartFormatted As DateTime
         Get
-            Return dStart
+            Return mgrCommon.UnixToDate(iStart)
         End Get
     End Property
 
-    Public Property SessionEnd As DateTime
+    Public Property SessionEnd As Int64
+        Set(value As Int64)
+            iEnd = value
+        End Set
+        Get
+            Return iEnd
+        End Get
+    End Property
+
+    Public WriteOnly Property SessionEndFromDate As DateTime
         Set(value As DateTime)
-            dEnd = value
+            iEnd = mgrCommon.DateToUnix(value)
         End Set
-        Get
-            Return dEnd
-        End Get
     End Property
 
-    Public Property ComputerName As String
-        Set(value As String)
-            sComputerName = value
-        End Set
+    Public ReadOnly Property SessionEndFormatted As DateTime
         Get
-            Return sComputerName
+            Return mgrCommon.UnixToDate(iEnd)
         End Get
     End Property
-
 End Class

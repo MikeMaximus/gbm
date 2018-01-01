@@ -7,19 +7,26 @@ Public Class frmSessions
     Private bInitFinished As Boolean = False
     Private WithEvents tmFilterTimer As Timer
     Private bStartSortAsc As Boolean = True
-    Private iStartSortCol As Integer = 2
-    Private iStartDisplayCol As Integer = 3
+    Private iStartDataCol As Integer
+    Private iStartDisplayCol As Integer
     Private bEndSortAsc As Boolean = True
-    Private iEndSortCol As Integer = 4
-    Private iEndDisplayCol As Integer = 5
+    Private iEndDataCol As Integer
+    Private iEndDisplayCol As Integer
 
     Private Sub FormatGrid()
+        'Build Columns
         dgSessions.Columns.Add("MonitorID", frmSessions_ColumnMonitorID)
         dgSessions.Columns.Add("Name", frmSessions_ColumnGameName)
         dgSessions.Columns.Add("StartUnix", frmSessions_ColumnStart)
         dgSessions.Columns.Add("Start", frmSessions_ColumnStart)
         dgSessions.Columns.Add("EndUnix", frmSessions_ColumnEnd)
         dgSessions.Columns.Add("End", frmSessions_ColumnEnd)
+
+        'Get Column Indexes
+        iStartDataCol = dgSessions.Columns.IndexOf(dgSessions.Columns("StartUnix"))
+        iStartDisplayCol = dgSessions.Columns.IndexOf(dgSessions.Columns("Start"))
+        iEndDataCol = dgSessions.Columns.IndexOf(dgSessions.Columns("EndUnix"))
+        iEndDisplayCol = dgSessions.Columns.IndexOf(dgSessions.Columns("End"))
 
         'Set Sorting
         dgSessions.Columns("Start").SortMode = DataGridViewColumnSortMode.Programmatic
@@ -116,8 +123,8 @@ Public Class frmSessions
         For Each dgvRow As DataGridViewRow In dgSessions.SelectedRows
             oSession = New clsSession
             oSession.MonitorID = dgvRow.Cells(0).Value
-            oSession.SessionStart = dgvRow.Cells(iStartDisplayCol).Value
-            oSession.SessionEnd = dgvRow.Cells(iEndDisplayCol).Value
+            oSession.SessionStart = CInt(dgvRow.Cells(iStartDataCol).Value)
+            oSession.SessionEnd = CInt(dgvRow.Cells(iEndDataCol).Value)
             oSessions.Add(oSession)
         Next
 
@@ -151,10 +158,10 @@ Public Class frmSessions
         Select Case iCol
             Case iStartDisplayCol
                 bStartSortAsc = Not bStartSortAsc
-                dgSessions.Sort(dgSessions.Columns(iStartSortCol), GetSortOrder(bStartSortAsc, iCol))
+                dgSessions.Sort(dgSessions.Columns(iCol), GetSortOrder(bStartSortAsc, iCol))
             Case iEndDisplayCol
                 bEndSortAsc = Not bEndSortAsc
-                dgSessions.Sort(dgSessions.Columns(iEndSortCol), GetSortOrder(bEndSortAsc, iCol))
+                dgSessions.Sort(dgSessions.Columns(iCol), GetSortOrder(bEndSortAsc, iCol))
         End Select
     End Sub
 

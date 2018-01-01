@@ -4,8 +4,8 @@
         Dim oSession As New clsSession
 
         oSession.MonitorID = CStr(dr("MonitorID"))
-        oSession.SessionStart = mgrCommon.UnixToDate(CInt(dr("Start")))
-        oSession.SessionEnd = mgrCommon.UnixToDate(CInt(dr("End")))
+        oSession.SessionStart = CInt(dr("Start"))
+        oSession.SessionEnd = CInt(dr("End"))
 
         Return oSession
     End Function
@@ -14,8 +14,8 @@
         Dim hshParams As New Hashtable
 
         hshParams.Add("MonitorID", oSession.MonitorID)
-        hshParams.Add("Start", mgrCommon.DateToUnix(oSession.SessionStart))
-        hshParams.Add("End", mgrCommon.DateToUnix(oSession.SessionEnd))
+        hshParams.Add("Start", oSession.SessionStart)
+        hshParams.Add("End", oSession.SessionEnd)
 
         Return hshParams
     End Function
@@ -80,7 +80,7 @@
         For Each oSession As clsSession In oSessions
             hshParams = New Hashtable
             hshParams.Add("MonitorID", oSession.MonitorID)
-            hshParams.Add("Start", mgrCommon.DateToUnix(oSession.SessionStart))
+            hshParams.Add("Start", oSession.SessionStart)
             oParamList.Add(hshParams)
         Next
 

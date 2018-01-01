@@ -722,8 +722,8 @@ Public Class frmMain
             'Record Session
             oSession = New clsSession
             oSession.MonitorID = oProcess.GameInfo.ID
-            oSession.SessionStart = oProcess.StartTime
-            oSession.SessionEnd = oProcess.EndTime
+            oSession.SessionStartFromDate = oProcess.StartTime
+            oSession.SessionEndFromDate = oProcess.EndTime
 
             mgrSessions.AddSession(oSession)
         End If
