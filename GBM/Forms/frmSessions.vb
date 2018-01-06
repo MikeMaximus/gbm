@@ -205,7 +205,7 @@ Public Class frmSessions
         If dgSessions.SelectedRows.Count > 0 Then
             If mgrCommon.ShowMessage(frmSessions_ConfirmDelete, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 DeleteSession()
-                Reset()
+                LoadData()
             End If
         End If
     End Sub
