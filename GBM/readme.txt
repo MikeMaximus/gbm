@@ -1,31 +1,33 @@
-Game Backup Monitor v1.0.5 Readme
+Game Backup Monitor v1.0.6 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-December 8, 2017
+January 15, 2018
 
-New in 1.0.5
+New in 1.0.6
 
 All Platforms:
 
-- You can now add Comments to a game configuration.
-- You can now exclude tags and use negative filters on the Game Manager.
-- Fixed a bug causing backup size calculations to be incorrect when including sub-folders in a configuration.
-- Fixed a bug causing GBM to calculate the backup size of an incorrect location when using a relative path configuration.  This could cause very long delays when a backup was running.
-- XML export files now contain the date, version and amount of configurations.  The Import window will now display the date of the XML file in the title bar if applicable.
-- Fixed a bug causing games not to be detected if more than one copy of the process was running.
-- GBM can now save statistical data from each detected gaming session:	
-	- This feature records the start and end time of each detected gaming session.  In future versions more data may be available.	
-	- You can view session data using the new "Session Viewer" available in the Tools menu.
-	- This feature is disabled by default.  It can be enabled on the Setting screen.
-	- Session data is stored locally,  it is currently not synced with the backup folder.
-
+- Session Viewer Updates
+	- The viewer now defaults to show seven days from the last recorded session, instead of all sessions.
+	- Fixed issues with date sorting, it will now sort correctly regardless of format.
+	- The recording of short sessions can now be ignored using a setting.
+- Changed setting "Backup only when session time exceeds XX minutes" to "Ignore sessions shorter than XX minutes".
+	- This setting is now used to ignore recording sessions times (when enabled) in addition to ignoring a backup.
+	- This setting has been moved to the "General" section.
+	- This change requires no update from the user, it will function exactly as it did before.
+	
 Windows Only:
 
-- Only one instance of GBM can now be running.
+- A warning is now displayed if the "Start with Windows" setting is enabled while GBM is running as administrator.
+	- GBM currently will not "Start with Windows" as administrator when this setting is enabled.
+	- Please see http://mikemaximus.github.io/gbm-web/gbm_task_scheduler.html for a work-around.
 
 Linux Only:
 
-- Added makefile for easy Linux installation.  Thanks basxto!
+- Enhanced makefile and added start script for Linux installations (basxto)
+- GBM is now available on the archlinux user repository. https://aur.archlinux.org/packages/gbm/ (basxto)
+- GBM is now available as a deb package for installation. (basxto)
+
 	
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
