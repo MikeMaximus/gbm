@@ -12,6 +12,8 @@ Public Class frmSessions
     Private bEndSortAsc As Boolean = True
     Private iEndDataCol As Integer
     Private iEndDisplayCol As Integer
+    Private bHoursSortAsc As Boolean = True
+    Private iHoursCol As Integer
 
     Private Sub FormatGrid()
         'Build Columns
@@ -28,10 +30,12 @@ Public Class frmSessions
         iStartDisplayCol = dgSessions.Columns.IndexOf(dgSessions.Columns("Start"))
         iEndDataCol = dgSessions.Columns.IndexOf(dgSessions.Columns("EndUnix"))
         iEndDisplayCol = dgSessions.Columns.IndexOf(dgSessions.Columns("End"))
+        iHoursCol = dgSessions.Columns.IndexOf(dgSessions.Columns("Hours"))
 
         'Set Sorting
         dgSessions.Columns("Start").SortMode = DataGridViewColumnSortMode.Programmatic
         dgSessions.Columns("End").SortMode = DataGridViewColumnSortMode.Programmatic
+        dgSessions.Columns("Hours").SortMode = DataGridViewColumnSortMode.Programmatic
 
         'Hide Columns
         dgSessions.Columns("MonitorID").Visible = False
@@ -147,6 +151,7 @@ Public Class frmSessions
     Private Sub ClearManualSortGlyphs()
         dgSessions.Columns(iStartDisplayCol).HeaderCell.SortGlyphDirection = SortOrder.None
         dgSessions.Columns(iEndDisplayCol).HeaderCell.SortGlyphDirection = SortOrder.None
+        dgSessions.Columns(iHoursCol).HeaderCell.SortGlyphDirection = SortOrder.None
     End Sub
 
     Private Function GetSortOrder(ByVal bToggle As Boolean, ByVal iCol As Integer) As ListSortDirection
@@ -173,6 +178,15 @@ Public Class frmSessions
             Case iEndDisplayCol
                 bEndSortAsc = Not bEndSortAsc
                 dgSessions.Sort(dgSessions.Columns(iEndDataCol), GetSortOrder(bEndSortAsc, iCol))
+            Case iHoursCol
+                bHoursSortAsc = Not bHoursSortAsc
+                If bHoursSortAsc Then
+                    dgSessions.Sort(New RowComparer(SortOrder.Ascending, iHoursCol))
+                    dgSessions.Columns(iHoursCol).HeaderCell.SortGlyphDirection = SortOrder.Ascending
+                Else
+                    dgSessions.Sort(New RowComparer(SortOrder.Descending, iHoursCol))
+                    dgSessions.Columns(iHoursCol).HeaderCell.SortGlyphDirection = SortOrder.Descending
+                End If
         End Select
     End Sub
 
@@ -224,4 +238,33 @@ Public Class frmSessions
     Private Sub dgSessions_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgSessions.ColumnHeaderMouseClick
         HandleSort(e.ColumnIndex)
     End Sub
+
+    Private Class RowComparer
+        Implements System.Collections.IComparer
+
+        Private sortOrderModifier As Integer = 1
+        Private iSortCol As Integer = 0
+
+        Public Sub New(ByVal sortOrder As SortOrder, ByVal iCol As Integer)
+            iSortCol = iCol
+
+            If sortOrder = SortOrder.Descending Then
+                sortOrderModifier = -1
+            ElseIf sortOrder = SortOrder.Ascending Then
+                sortOrderModifier = 1
+            End If
+        End Sub
+
+        Public Function Compare(ByVal x As Object, ByVal y As Object) As Integer _
+            Implements System.Collections.IComparer.Compare
+
+            Dim DataGridViewRow1 As DataGridViewRow = CType(x, DataGridViewRow)
+            Dim DataGridViewRow2 As DataGridViewRow = CType(y, DataGridViewRow)
+
+            Dim CompareResult As Integer = If(CDec(DataGridViewRow1.Cells(iSortCol).Value) < CDec(DataGridViewRow2.Cells(iSortCol).Value), -1, 1)
+
+            Return CompareResult * sortOrderModifier
+        End Function
+    End Class
+
 End Class
