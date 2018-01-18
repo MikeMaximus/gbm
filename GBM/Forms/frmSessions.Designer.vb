@@ -32,6 +32,7 @@ Partial Class frmSessions
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.lblDateRange = New System.Windows.Forms.Label()
+        Me.lblTotalHours = New System.Windows.Forms.Label()
         CType(Me.dgSessions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -134,11 +135,23 @@ Partial Class frmSessions
         Me.lblDateRange.TabIndex = 9
         Me.lblDateRange.Text = "Date Range:"
         '
+        'lblTotalHours
+        '
+        Me.lblTotalHours.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblTotalHours.Location = New System.Drawing.Point(118, 531)
+        Me.lblTotalHours.Name = "lblTotalHours"
+        Me.lblTotalHours.Size = New System.Drawing.Size(467, 13)
+        Me.lblTotalHours.TabIndex = 0
+        Me.lblTotalHours.Text = "Total Hours:"
+        Me.lblTotalHours.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
         'frmSessions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 561)
+        Me.Controls.Add(Me.lblTotalHours)
         Me.Controls.Add(Me.lblDateRange)
         Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnDelete)
@@ -170,4 +183,5 @@ Partial Class frmSessions
     Friend WithEvents btnDelete As Button
     Friend WithEvents btnClose As Button
     Friend WithEvents lblDateRange As Label
+    Friend WithEvents lblTotalHours As Label
 End Class

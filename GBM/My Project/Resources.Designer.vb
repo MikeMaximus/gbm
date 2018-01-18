@@ -3670,6 +3670,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Hours.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_ColumnHours() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_ColumnHours", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to MonitorID.
         '''</summary>
         Friend ReadOnly Property frmSessions_ColumnMonitorID() As String
@@ -3711,6 +3720,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSessions_lblFilter() As String
             Get
                 Return ResourceManager.GetString("frmSessions_lblFilter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Total Hours: [PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmSessions_lblTotalHours() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_lblTotalHours", resourceCulture)
             End Get
         End Property
         

@@ -21,6 +21,7 @@ Public Class frmSessions
         dgSessions.Columns.Add("Start", frmSessions_ColumnStart)
         dgSessions.Columns.Add("EndUnix", frmSessions_ColumnEnd)
         dgSessions.Columns.Add("End", frmSessions_ColumnEnd)
+        dgSessions.Columns.Add("Hours", frmSessions_ColumnHours)
 
         'Get Column Indexes
         iStartDataCol = dgSessions.Columns.IndexOf(dgSessions.Columns("StartUnix"))
@@ -41,6 +42,10 @@ Public Class frmSessions
     Private Sub LoadData()
         Dim oData As DataSet
         Dim sFilter As String
+        Dim dStart As DateTime
+        Dim dEnd As DateTime
+        Dim iHours As Double
+        Dim iTotalHours As Double
 
         If txtFilter.Text = String.Empty Then
             oData = mgrSessions.GetSessionRange(dtpStart.Value, dtpEnd.Value)
@@ -52,8 +57,14 @@ Public Class frmSessions
         dgSessions.Rows.Clear()
 
         For Each dr As DataRow In oData.Tables(0).Rows
-            dgSessions.Rows.Add(New Object() {dr("MonitorID"), dr("Name"), dr("Start"), mgrCommon.UnixToDate(dr("Start")), dr("End"), mgrCommon.UnixToDate(dr("End"))})
+            dStart = mgrCommon.UnixToDate(dr("Start"))
+            dEnd = mgrCommon.UnixToDate(dr("End"))
+            iHours = Math.Round(dEnd.Subtract(dStart).TotalHours, 2)
+            iTotalHours += iHours
+            dgSessions.Rows.Add(New Object() {dr("MonitorID"), dr("Name"), dr("Start"), dStart, dr("End"), dEnd, iHours})
         Next
+
+        lblTotalHours.Text = mgrCommon.FormatString(frmSessions_lblTotalHours, iTotalHours)
 
         dgSessions.AutoResizeColumns()
     End Sub
