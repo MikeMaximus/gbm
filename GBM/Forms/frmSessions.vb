@@ -158,10 +158,10 @@ Public Class frmSessions
         Select Case iCol
             Case iStartDisplayCol
                 bStartSortAsc = Not bStartSortAsc
-                dgSessions.Sort(dgSessions.Columns(iCol), GetSortOrder(bStartSortAsc, iCol))
+                dgSessions.Sort(dgSessions.Columns(iStartDataCol), GetSortOrder(bStartSortAsc, iCol))
             Case iEndDisplayCol
                 bEndSortAsc = Not bEndSortAsc
-                dgSessions.Sort(dgSessions.Columns(iCol), GetSortOrder(bEndSortAsc, iCol))
+                dgSessions.Sort(dgSessions.Columns(iEndDataCol), GetSortOrder(bEndSortAsc, iCol))
         End Select
     End Sub
 
