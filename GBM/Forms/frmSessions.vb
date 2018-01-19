@@ -154,39 +154,27 @@ Public Class frmSessions
         dgSessions.Columns(iHoursCol).HeaderCell.SortGlyphDirection = SortOrder.None
     End Sub
 
-    Private Function GetSortOrder(ByVal bToggle As Boolean, ByVal iCol As Integer) As ListSortDirection
-        Dim oSortType As ListSortDirection
-
+    Private Sub DoSort(ByRef bToggle As Boolean, ByVal iCol As Integer, ByVal iType As RowCompareHelper.iDataType)
+        bToggle = Not bToggle
         If bToggle Then
-            oSortType = ListSortDirection.Ascending
+            dgSessions.Sort(New RowCompareHelper(SortOrder.Ascending, iCol, iType))
             dgSessions.Columns(iCol).HeaderCell.SortGlyphDirection = SortOrder.Ascending
         Else
-            oSortType = ListSortDirection.Descending
+            dgSessions.Sort(New RowCompareHelper(SortOrder.Descending, iCol, iType))
             dgSessions.Columns(iCol).HeaderCell.SortGlyphDirection = SortOrder.Descending
         End If
-
-        Return oSortType
-    End Function
+    End Sub
 
     Private Sub HandleSort(ByVal iCol As Integer)
         ClearManualSortGlyphs()
 
         Select Case iCol
             Case iStartDisplayCol
-                bStartSortAsc = Not bStartSortAsc
-                dgSessions.Sort(dgSessions.Columns(iStartDataCol), GetSortOrder(bStartSortAsc, iCol))
+                DoSort(bStartSortAsc, iStartDisplayCol, RowCompareHelper.iDataType.DateTimeType)
             Case iEndDisplayCol
-                bEndSortAsc = Not bEndSortAsc
-                dgSessions.Sort(dgSessions.Columns(iEndDataCol), GetSortOrder(bEndSortAsc, iCol))
+                DoSort(bEndSortAsc, iEndDisplayCol, RowCompareHelper.iDataType.DateTimeType)
             Case iHoursCol
-                bHoursSortAsc = Not bHoursSortAsc
-                If bHoursSortAsc Then
-                    dgSessions.Sort(New RowComparer(SortOrder.Ascending, iHoursCol))
-                    dgSessions.Columns(iHoursCol).HeaderCell.SortGlyphDirection = SortOrder.Ascending
-                Else
-                    dgSessions.Sort(New RowComparer(SortOrder.Descending, iHoursCol))
-                    dgSessions.Columns(iHoursCol).HeaderCell.SortGlyphDirection = SortOrder.Descending
-                End If
+                DoSort(bHoursSortAsc, iHoursCol, RowCompareHelper.iDataType.DecimalType)
         End Select
     End Sub
 
@@ -239,31 +227,51 @@ Public Class frmSessions
         HandleSort(e.ColumnIndex)
     End Sub
 
-    Private Class RowComparer
+    'The Mono version of the DataGridView control automatically treats all data as a string for sorting purposes.
+    'This class manually handles column sorting by data type.
+    Private Class RowCompareHelper
         Implements System.Collections.IComparer
 
-        Private sortOrderModifier As Integer = 1
-        Private iSortCol As Integer = 0
+        'We need to manually define data types as the column ValueType doesn't work in Mono either.
+        Public Enum iDataType As Integer
+            StringType = 1
+            DateTimeType = 2
+            IntType = 3
+            DecimalType = 4
+        End Enum
 
-        Public Sub New(ByVal sortOrder As SortOrder, ByVal iCol As Integer)
+        Private iSortOrderModifier As Integer = 1
+        Private iSortCol As Integer = 0
+        Private iDataTypeCol As iDataType = iDataType.StringType
+
+        Public Sub New(ByVal sortOrder As SortOrder, ByVal iCol As Integer, ByVal iType As iDataType)
             iSortCol = iCol
+            iDataTypeCol = iType
 
             If sortOrder = SortOrder.Descending Then
-                sortOrderModifier = -1
+                iSortOrderModifier = -1
             ElseIf sortOrder = SortOrder.Ascending Then
-                sortOrderModifier = 1
+                iSortOrderModifier = 1
             End If
         End Sub
 
-        Public Function Compare(ByVal x As Object, ByVal y As Object) As Integer _
-            Implements System.Collections.IComparer.Compare
+        Public Function Compare(ByVal x As Object, ByVal y As Object) As Integer Implements System.Collections.IComparer.Compare
+            Dim iCompareResult As Integer
+            Dim dgRow1 As DataGridViewRow = CType(x, DataGridViewRow)
+            Dim dgRow2 As DataGridViewRow = CType(y, DataGridViewRow)
 
-            Dim DataGridViewRow1 As DataGridViewRow = CType(x, DataGridViewRow)
-            Dim DataGridViewRow2 As DataGridViewRow = CType(y, DataGridViewRow)
+            Select Case iDataTypeCol
+                Case iDataType.DecimalType
+                    iCompareResult = If(CDec(dgRow1.Cells(iSortCol).Value) < CDec(dgRow2.Cells(iSortCol).Value), -1, 1)
+                Case iDataType.IntType
+                    iCompareResult = If(CInt(dgRow1.Cells(iSortCol).Value) < CInt(dgRow2.Cells(iSortCol).Value), -1, 1)
+                Case iDataType.StringType
+                    iCompareResult = String.Compare(CStr(dgRow1.Cells(iSortCol).Value), CStr(dgRow2.Cells(iSortCol).Value))
+                Case iDataType.DateTimeType
+                    iCompareResult = Date.Compare(CDate(dgRow1.Cells(iSortCol).Value), CDate(dgRow2.Cells(iSortCol).Value))
+            End Select
 
-            Dim CompareResult As Integer = If(CDec(DataGridViewRow1.Cells(iSortCol).Value) < CDec(DataGridViewRow2.Cells(iSortCol).Value), -1, 1)
-
-            Return CompareResult * sortOrderModifier
+            Return iCompareResult * iSortOrderModifier
         End Function
     End Class
 
