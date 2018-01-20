@@ -43,7 +43,7 @@ Partial Class frmSessions
         Me.lblFilter.Location = New System.Drawing.Point(12, 9)
         Me.lblFilter.Name = "lblFilter"
         Me.lblFilter.Size = New System.Drawing.Size(63, 13)
-        Me.lblFilter.TabIndex = 0
+        Me.lblFilter.TabIndex = 1
         Me.lblFilter.Text = "Game Filter:"
         '
         'txtFilter
@@ -102,7 +102,7 @@ Partial Class frmSessions
         Me.btnReset.Location = New System.Drawing.Point(591, 526)
         Me.btnReset.Name = "btnReset"
         Me.btnReset.Size = New System.Drawing.Size(100, 23)
-        Me.btnReset.TabIndex = 2
+        Me.btnReset.TabIndex = 10
         Me.btnReset.Text = "&Reset Filters"
         Me.btnReset.UseVisualStyleBackColor = True
         '
@@ -122,7 +122,7 @@ Partial Class frmSessions
         Me.btnClose.Location = New System.Drawing.Point(697, 526)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 8
+        Me.btnClose.TabIndex = 11
         Me.btnClose.Text = "&Close"
         Me.btnClose.UseVisualStyleBackColor = True
         '
@@ -133,7 +133,7 @@ Partial Class frmSessions
         Me.lblDateRange.Location = New System.Drawing.Point(310, 9)
         Me.lblDateRange.Name = "lblDateRange"
         Me.lblDateRange.Size = New System.Drawing.Size(68, 13)
-        Me.lblDateRange.TabIndex = 9
+        Me.lblDateRange.TabIndex = 2
         Me.lblDateRange.Text = "Date Range:"
         '
         'lblTotalHours
@@ -143,7 +143,7 @@ Partial Class frmSessions
         Me.lblTotalHours.Location = New System.Drawing.Point(118, 531)
         Me.lblTotalHours.Name = "lblTotalHours"
         Me.lblTotalHours.Size = New System.Drawing.Size(361, 13)
-        Me.lblTotalHours.TabIndex = 0
+        Me.lblTotalHours.TabIndex = 8
         Me.lblTotalHours.Text = "Total Hours:"
         Me.lblTotalHours.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
@@ -153,7 +153,7 @@ Partial Class frmSessions
         Me.btnExport.Location = New System.Drawing.Point(485, 526)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.Size = New System.Drawing.Size(100, 23)
-        Me.btnExport.TabIndex = 10
+        Me.btnExport.TabIndex = 9
         Me.btnExport.Text = "&Export Grid"
         Me.btnExport.UseVisualStyleBackColor = True
         '
