@@ -3625,6 +3625,105 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Cancel.
+        '''</summary>
+        Friend ReadOnly Property frmSessionExport_btnCancel() As String
+            Get
+                Return ResourceManager.GetString("frmSessionExport_btnCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Export.
+        '''</summary>
+        Friend ReadOnly Property frmSessionExport_btnExport() As String
+            Get
+                Return ResourceManager.GetString("frmSessionExport_btnExport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Export Column Headers (CSV).
+        '''</summary>
+        Friend ReadOnly Property frmSessionExport_chkCSVHeaders() As String
+            Get
+                Return ResourceManager.GetString("frmSessionExport_chkCSVHeaders", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Session Export Options.
+        '''</summary>
+        Friend ReadOnly Property frmSessionExport_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmSessionExport_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Date Type.
+        '''</summary>
+        Friend ReadOnly Property frmSessionExport_grpDateType() As String
+            Get
+                Return ResourceManager.GetString("frmSessionExport_grpDateType", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Export Type.
+        '''</summary>
+        Friend ReadOnly Property frmSessionExport_grpExportType() As String
+            Get
+                Return ResourceManager.GetString("frmSessionExport_grpExportType", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Other Options.
+        '''</summary>
+        Friend ReadOnly Property frmSessionExport_grpOptions() As String
+            Get
+                Return ResourceManager.GetString("frmSessionExport_grpOptions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to CSV.
+        '''</summary>
+        Friend ReadOnly Property frmSessionExport_optCSV() As String
+            Get
+                Return ResourceManager.GetString("frmSessionExport_optCSV", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Current Locale.
+        '''</summary>
+        Friend ReadOnly Property frmSessionExport_optCurrentLocale() As String
+            Get
+                Return ResourceManager.GetString("frmSessionExport_optCurrentLocale", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Unix Timestamp.
+        '''</summary>
+        Friend ReadOnly Property frmSessionExport_optUnix() As String
+            Get
+                Return ResourceManager.GetString("frmSessionExport_optUnix", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to XML.
+        '''</summary>
+        Friend ReadOnly Property frmSessionExport_optXML() As String
+            Get
+                Return ResourceManager.GetString("frmSessionExport_optXML", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Close.
         '''</summary>
         Friend ReadOnly Property frmSessions_btnClose() As String
@@ -3643,11 +3742,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Export Grid.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_btnExport() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_btnExport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Reset Filters.
         '''</summary>
         Friend ReadOnly Property frmSessions_btnReset() As String
             Get
                 Return ResourceManager.GetString("frmSessions_btnReset", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Choose a location for the export file.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_ChooseExportLocation() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_ChooseExportLocation", resourceCulture)
             End Get
         End Property
         
@@ -3706,6 +3823,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to CSV.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_CSV() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_CSV", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game Session Export.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_DefaultExportFileName() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_DefaultExportFileName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Date Range:.
         '''</summary>
         Friend ReadOnly Property frmSessions_lblDateRange() As String
@@ -3738,6 +3873,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSessions_Name() As String
             Get
                 Return ResourceManager.GetString("frmSessions_Name", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to XML.
+        '''</summary>
+        Friend ReadOnly Property frmSessions_XML() As String
+            Get
+                Return ResourceManager.GetString("frmSessions_XML", resourceCulture)
             End Get
         End Property
         
@@ -5524,6 +5668,24 @@ Namespace My.Resources
         Friend ReadOnly Property mgrRestore_Verified() As String
             Get
                 Return ResourceManager.GetString("mgrRestore_Verified", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error occured exporting the session data.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrSessions_ErrorExportFailure() As String
+            Get
+                Return ResourceManager.GetString("mgrSessions_ErrorExportFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The data has been exported successfully..
+        '''</summary>
+        Friend ReadOnly Property mgrSessions_ExportSuccess() As String
+            Get
+                Return ResourceManager.GetString("mgrSessions_ExportSuccess", resourceCulture)
             End Get
         End Property
         

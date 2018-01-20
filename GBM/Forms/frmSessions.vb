@@ -48,8 +48,8 @@ Public Class frmSessions
         Dim sFilter As String
         Dim dStart As DateTime
         Dim dEnd As DateTime
-        Dim iHours As Double
-        Dim iTotalHours As Double
+        Dim dHours As Double
+        Dim dTotalHours As Double
 
         If txtFilter.Text = String.Empty Then
             oData = mgrSessions.GetSessionRange(dtpStart.Value, dtpEnd.Value)
@@ -63,12 +63,12 @@ Public Class frmSessions
         For Each dr As DataRow In oData.Tables(0).Rows
             dStart = mgrCommon.UnixToDate(dr("Start"))
             dEnd = mgrCommon.UnixToDate(dr("End"))
-            iHours = Math.Round(dEnd.Subtract(dStart).TotalHours, 2)
-            iTotalHours += iHours
-            dgSessions.Rows.Add(New Object() {dr("MonitorID"), dr("Name"), dr("Start"), dStart, dr("End"), dEnd, iHours})
+            dHours = Math.Round(dEnd.Subtract(dStart).TotalHours, 2)
+            dTotalHours += dHours
+            dgSessions.Rows.Add(New Object() {dr("MonitorID"), dr("Name"), dr("Start"), dStart, dr("End"), dEnd, dHours})
         Next
 
-        lblTotalHours.Text = mgrCommon.FormatString(frmSessions_lblTotalHours, iTotalHours)
+        lblTotalHours.Text = mgrCommon.FormatString(frmSessions_lblTotalHours, dTotalHours)
 
         dgSessions.AutoResizeColumns()
     End Sub
@@ -178,6 +178,30 @@ Public Class frmSessions
         End Select
     End Sub
 
+    Private Sub ExportGrid()
+        Dim frm As New frmSessionExport
+        Dim sLocation As String
+
+        frm.ShowDialog()
+
+        If frm.DialogResult = DialogResult.OK Then
+
+            If frm.XML Then
+                sLocation = mgrCommon.SaveFileBrowser("Session_Export", frmSessions_ChooseExportLocation, "xml", frmSessions_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmSessions_DefaultExportFileName)
+            Else
+                sLocation = mgrCommon.SaveFileBrowser("Session_Export", frmSessions_ChooseExportLocation, "csv", frmSessions_CSV, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmSessions_DefaultExportFileName)
+            End If
+
+            If sLocation <> String.Empty Then
+                If frm.XML Then
+                    mgrSessions.ExportAsXML(sLocation, frm.Unix, dgSessions)
+                Else
+                    mgrSessions.ExportAsCSV(sLocation, frm.Unix, frm.Headers, dgSessions)
+                End If
+            End If
+        End If
+    End Sub
+
     Private Sub frmSession_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetForm()
         ResetFilterFields()
@@ -221,6 +245,10 @@ Public Class frmSessions
                 LoadData()
             End If
         End If
+    End Sub
+
+    Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
+        ExportGrid()
     End Sub
 
     Private Sub dgSessions_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgSessions.ColumnHeaderMouseClick

@@ -1954,4 +1954,58 @@
   <data name="frmSessions_lblTotalHours" xml:space="preserve">
     <value>Total Hours: [PARAM]</value>
   </data>
+  <data name="frmSessions_ChooseExportLocation" xml:space="preserve">
+    <value>Choose a location for the export file</value>
+  </data>
+  <data name="frmSessions_CSV" xml:space="preserve">
+    <value>CSV</value>
+  </data>
+  <data name="frmSessions_DefaultExportFileName" xml:space="preserve">
+    <value>Game Session Export</value>
+  </data>
+  <data name="frmSessions_XML" xml:space="preserve">
+    <value>XML</value>
+  </data>
+  <data name="mgrSessions_ErrorExportFailure" xml:space="preserve">
+    <value>An error occured exporting the session data.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrSessions_ExportSuccess" xml:space="preserve">
+    <value>The data has been exported successfully.</value>
+  </data>
+  <data name="frmSessionExport_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmSessionExport_btnExport" xml:space="preserve">
+    <value>&amp;Export</value>
+  </data>
+  <data name="frmSessionExport_chkCSVHeaders" xml:space="preserve">
+    <value>Export Column Headers (CSV)</value>
+  </data>
+  <data name="frmSessionExport_FormName" xml:space="preserve">
+    <value>Session Export Options</value>
+  </data>
+  <data name="frmSessionExport_grpDateType" xml:space="preserve">
+    <value>Date Type</value>
+  </data>
+  <data name="frmSessionExport_grpExportType" xml:space="preserve">
+    <value>Export Type</value>
+  </data>
+  <data name="frmSessionExport_grpOptions" xml:space="preserve">
+    <value>Other Options</value>
+  </data>
+  <data name="frmSessionExport_optCSV" xml:space="preserve">
+    <value>CSV</value>
+  </data>
+  <data name="frmSessionExport_optCurrentLocale" xml:space="preserve">
+    <value>Current Locale</value>
+  </data>
+  <data name="frmSessionExport_optUnix" xml:space="preserve">
+    <value>Unix Timestamp</value>
+  </data>
+  <data name="frmSessionExport_optXML" xml:space="preserve">
+    <value>XML</value>
+  </data>
+  <data name="frmSessions_btnExport" xml:space="preserve">
+    <value>&amp;Export Grid</value>
+  </data>
 </root>

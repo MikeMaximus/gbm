@@ -33,6 +33,7 @@ Partial Class frmSessions
         Me.btnClose = New System.Windows.Forms.Button()
         Me.lblDateRange = New System.Windows.Forms.Label()
         Me.lblTotalHours = New System.Windows.Forms.Label()
+        Me.btnExport = New System.Windows.Forms.Button()
         CType(Me.dgSessions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -141,16 +142,27 @@ Partial Class frmSessions
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblTotalHours.Location = New System.Drawing.Point(118, 531)
         Me.lblTotalHours.Name = "lblTotalHours"
-        Me.lblTotalHours.Size = New System.Drawing.Size(467, 13)
+        Me.lblTotalHours.Size = New System.Drawing.Size(361, 13)
         Me.lblTotalHours.TabIndex = 0
         Me.lblTotalHours.Text = "Total Hours:"
         Me.lblTotalHours.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'btnExport
+        '
+        Me.btnExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnExport.Location = New System.Drawing.Point(485, 526)
+        Me.btnExport.Name = "btnExport"
+        Me.btnExport.Size = New System.Drawing.Size(100, 23)
+        Me.btnExport.TabIndex = 10
+        Me.btnExport.Text = "&Export Grid"
+        Me.btnExport.UseVisualStyleBackColor = True
         '
         'frmSessions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 561)
+        Me.Controls.Add(Me.btnExport)
         Me.Controls.Add(Me.lblTotalHours)
         Me.Controls.Add(Me.lblDateRange)
         Me.Controls.Add(Me.btnClose)
@@ -184,4 +196,5 @@ Partial Class frmSessions
     Friend WithEvents btnClose As Button
     Friend WithEvents lblDateRange As Label
     Friend WithEvents lblTotalHours As Label
+    Friend WithEvents btnExport As Button
 End Class

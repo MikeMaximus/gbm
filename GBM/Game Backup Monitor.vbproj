@@ -127,6 +127,7 @@
     <Compile Include="Classes\clsSavedPath.vb" />
     <Compile Include="Classes\clsSession.vb" />
     <Compile Include="Classes\XML Serialize Classes\ExportData.vb" />
+    <Compile Include="Classes\XML Serialize Classes\Session.vb" />
     <Compile Include="Classes\XML Serialize Classes\Tag.vb" />
     <Compile Include="Classes\XML Serialize Classes\Game.vb" />
     <Compile Include="Classes\clsGameTag.vb" />
@@ -168,6 +169,12 @@
       <DependentUpon>frmIncludeExclude.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmIncludeExclude.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSessionExport.Designer.vb">
+      <DependentUpon>frmSessionExport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSessionExport.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmSessions.Designer.vb">
@@ -275,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmIncludeExclude.resx">
       <DependentUpon>frmIncludeExclude.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSessionExport.resx">
+      <DependentUpon>frmSessionExport.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSessions.resx">
       <DependentUpon>frmSessions.vb</DependentUpon>

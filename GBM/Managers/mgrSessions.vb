@@ -1,4 +1,9 @@
-﻿Public Class mgrSessions
+﻿Imports GBM.My.Resources
+Imports System.IO
+Imports System.Xml.Serialization
+
+
+Public Class mgrSessions
 
     Private Shared Function MapToObject(ByVal dr As DataRow) As clsSession
         Dim oSession As New clsSession
@@ -123,4 +128,102 @@
 
         Return iRowCount
     End Function
+
+    Public Shared Function ExportAsCSV(ByVal sLocation As String, ByVal bUnixTime As Boolean, ByVal bHeaders As Boolean, ByRef dg As DataGridView) As Boolean
+        Dim oWriter As StreamWriter
+        Dim sHeader As String
+        Dim sCurrentRow As String
+        Dim oBannedColumns As New List(Of DataGridViewColumn)
+
+        Try
+            oWriter = New StreamWriter(sLocation)
+
+            'Ban Columns
+            oBannedColumns.Add(dg.Columns("MonitorID"))
+
+            If bUnixTime Then
+                oBannedColumns.Add(dg.Columns("Start"))
+                oBannedColumns.Add(dg.Columns("End"))
+            Else
+                oBannedColumns.Add(dg.Columns("StartUnix"))
+                oBannedColumns.Add(dg.Columns("EndUnix"))
+            End If
+
+            'Handle Headers
+            If bHeaders Then
+                sHeader = String.Empty
+                For Each dgCol As DataGridViewColumn In dg.Columns
+                    If Not oBannedColumns.Contains(dgCol) Then
+                        sHeader &= dgCol.HeaderText & ","
+                    End If
+                Next
+                sHeader = sHeader.TrimEnd(",")
+
+                oWriter.WriteLine(sHeader)
+            End If
+
+            'Handle Rows
+            For Each dgRow As DataGridViewRow In dg.Rows
+                sCurrentRow = String.Empty
+                For Each dgCell As DataGridViewCell In dgRow.Cells
+                    If Not oBannedColumns.Contains(dg.Columns(dgCell.ColumnIndex)) Then
+                        sCurrentRow &= dgCell.Value.ToString & ","
+                    End If
+                Next
+                sCurrentRow = sCurrentRow.TrimEnd(",")
+                oWriter.WriteLine(sCurrentRow)
+            Next
+
+            'Finish up
+            oWriter.Flush()
+            oWriter.Close()
+
+            mgrCommon.ShowMessage(mgrSessions_ExportSuccess, MsgBoxStyle.Information)
+            Return True
+        Catch ex As Exception
+            mgrCommon.ShowMessage(mgrSessions_ErrorExportFailure, ex.Message, MsgBoxStyle.Exclamation)
+            Return False
+        End Try
+    End Function
+
+    Public Shared Function ExportAsXML(ByVal sLocation As String, ByVal bUnixTime As Boolean, ByRef dg As DataGridView) As Boolean
+        Dim oSerializer As XmlSerializer
+        Dim oWriter As StreamWriter
+        Dim oCurrentSession As Session
+        Dim oSessions As New List(Of Session)
+        Dim oBannedColumns As New List(Of DataGridViewColumn)
+
+        Try
+            'Format data for export
+            For Each dgRow As DataGridViewRow In dg.Rows
+                oCurrentSession = New Session
+                oCurrentSession.GameName = dgRow.Cells("Name").Value.ToString
+                If bUnixTime Then
+                    oCurrentSession.StartDate = dgRow.Cells("StartUnix").Value.ToString
+                    oCurrentSession.EndDate = dgRow.Cells("EndUnix").Value.ToString
+                Else
+                    oCurrentSession.StartDate = dgRow.Cells("Start").Value.ToString
+                    oCurrentSession.EndDate = dgRow.Cells("End").Value.ToString
+                End If
+                oCurrentSession.Hours = dgRow.Cells("Hours").Value.ToString
+                oSessions.Add(oCurrentSession)
+            Next
+
+            'Serialize
+            oSerializer = New XmlSerializer(oSessions.GetType, New XmlRootAttribute("Sessions"))
+            oWriter = New StreamWriter(sLocation)
+            oSerializer.Serialize(oWriter.BaseStream, oSessions)
+
+            'Finish up
+            oWriter.Flush()
+            oWriter.Close()
+
+            mgrCommon.ShowMessage(mgrSessions_ExportSuccess, MsgBoxStyle.Information)
+            Return True
+        Catch ex As Exception
+            mgrCommon.ShowMessage(mgrSessions_ErrorExportFailure, ex.Message, MsgBoxStyle.Exclamation)
+            Return False
+        End Try
+    End Function
+
 End Class
