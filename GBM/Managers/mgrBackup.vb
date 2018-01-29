@@ -114,7 +114,7 @@ Public Class mgrBackup
         sSavePath = VerifySavePath(oGame)
 
         'Calculate space
-        lAvailableSpace = mgrCommon.GetAvailableDiskSpace(sBackupFile)
+        lAvailableSpace = mgrCommon.GetAvailableDiskSpace(oSettings.BackupFolder)
         lFolderSize = mgrCommon.GetFolderSize(sSavePath, oGame.IncludeArray, oGame.ExcludeArray)
 
         'Show Available Space
