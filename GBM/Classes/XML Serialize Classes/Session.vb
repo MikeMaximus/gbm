@@ -5,7 +5,7 @@ Public Class Session
     Private sGame As String
     Private sStart As String
     Private sEnd As String
-    Private dHours As Double
+    Private sHours As String
 
     <XmlElement("Game")>
     Public Property GameName As String
@@ -38,12 +38,12 @@ Public Class Session
     End Property
 
     <XmlElement("Hours")>
-    Public Property Hours As Double
-        Set(value As Double)
-            dHours = value
+    Public Property Hours As String
+        Set(value As String)
+            sHours = value
         End Set
         Get
-            Return dHours
+            Return sHours
         End Get
     End Property
 End Class

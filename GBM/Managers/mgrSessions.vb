@@ -1,6 +1,7 @@
 ﻿Imports GBM.My.Resources
 Imports System.IO
 Imports System.Xml.Serialization
+Imports System.Globalization
 
 
 Public Class mgrSessions
@@ -133,12 +134,21 @@ Public Class mgrSessions
         Dim oWriter As StreamWriter
         Dim sHeader As String
         Dim sCurrentRow As String
+        Dim dDecimal As Decimal
         Dim oBannedColumns As New List(Of DataGridViewColumn)
+        Dim oDecimalColumns As New List(Of DataGridViewColumn)
+        Dim oNfi As New NumberFormatInfo
+
+        'We want to force a specific decimal seperator when exporting CSV files due to certain regions using a comma.
+        oNfi.NumberDecimalSeparator = "."
 
         Try
             oWriter = New StreamWriter(sLocation)
 
-            'Ban Columns
+            'Set Decimal Columns
+            oDecimalColumns.Add(dg.Columns("Hours"))
+
+            'Set Ban Columns
             oBannedColumns.Add(dg.Columns("MonitorID"))
 
             If bUnixTime Then
@@ -167,11 +177,23 @@ Public Class mgrSessions
                 sCurrentRow = String.Empty
                 For Each dgCell As DataGridViewCell In dgRow.Cells
                     If Not oBannedColumns.Contains(dg.Columns(dgCell.ColumnIndex)) Then
-                        sCurrentRow &= dgCell.Value.ToString & ","
+                        If oDecimalColumns.Contains(dg.Columns(dgCell.ColumnIndex)) Then
+                            dDecimal = CDec(dgCell.Value)
+                            sCurrentRow &= dDecimal.ToString(oNfi) & ","
+                        Else
+                            sCurrentRow &= dgCell.Value.ToString & ","
+                        End If
+
                     End If
                 Next
                 sCurrentRow = sCurrentRow.TrimEnd(",")
-                oWriter.WriteLine(sCurrentRow)
+
+                'Don't write a LF on the last row
+                If dg.Rows.Count = (dgRow.Index + 1) Then
+                    oWriter.Write(sCurrentRow)
+                Else
+                    oWriter.WriteLine(sCurrentRow)
+                End If
             Next
 
             'Finish up
