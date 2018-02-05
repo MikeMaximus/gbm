@@ -1105,6 +1105,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Regular Expression.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_FieldIsRegEx() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_FieldIsRegEx", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Monitor Only.
         '''</summary>
         Friend ReadOnly Property frmFilter_FieldMonitorOnly() As String
@@ -1618,6 +1627,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Regular Expression.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_chkRegEx() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_chkRegEx", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Save multiple backups.
         '''</summary>
         Friend ReadOnly Property frmGameManager_chkTimeStamp() As String
@@ -2091,6 +2109,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_lblBackupFile() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_lblBackupFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Comments:.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblComments() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblComments", resourceCulture)
             End Get
         End Property
         

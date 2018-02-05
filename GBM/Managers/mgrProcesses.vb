@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Management
+Imports System.Text.RegularExpressions
 
 Public Class mgrProcesses
 
@@ -162,6 +163,27 @@ Public Class mgrProcesses
         End Try
     End Function
 
+    Private Function IsMatch(ByRef oGame As clsGame, ByRef sProcessCheck As String) As Boolean
+        Dim oProcessRegEx As Regex
+
+        If oGame.IsRegEx Then
+            Try
+                oProcessRegEx = New Regex(oGame.ProcessName)
+                If oProcessRegEx.IsMatch(sProcessCheck) Then
+                    Return True
+                End If
+            Catch
+                'Ignore malformed regular expressions
+            End Try
+        Else
+            If oGame.ProcessName = sProcessCheck Then
+                Return True
+            End If
+        End If
+
+        Return False
+    End Function
+
     Public Function SearchRunningProcesses(ByVal hshScanList As Hashtable, ByRef bNeedsPath As Boolean, ByRef iErrorCode As Integer, ByVal bDebugMode As Boolean) As Boolean
         Dim prsList() As Process = Process.GetProcesses
         Dim sProcessCheck As String = String.Empty
@@ -198,32 +220,33 @@ Public Class mgrProcesses
             End Try
 
             'Detection Pass 1
-            If hshScanList.ContainsKey(sProcessCheck) Then
-                prsFoundProcess = prsCurrent
-                oGame = DirectCast(hshScanList.Item(sProcessCheck), clsGame).ShallowCopy
-                bPass = True
+            For Each oCurrentGame As clsGame In hshScanList.Values
+                If IsMatch(oCurrentGame, sProcessCheck) Then
+                    prsFoundProcess = prsCurrent
+                    oGame = oCurrentGame.ShallowCopy
+                    bPass = True
 
-                If mgrCommon.IsUnix Then
-                    GetUnixCommand(prsCurrent)
-                Else
-                    GetWindowsCommand(prsCurrent)
-                End If
+                    If mgrCommon.IsUnix Then
+                        GetUnixCommand(prsCurrent)
+                    Else
+                        GetWindowsCommand(prsCurrent)
+                    End If
 
-                If oGame.Duplicate = True Then
-                    If HandleDuplicates(hshScanList) Then
+                    If oGame.Duplicate = True Then
+                        If HandleDuplicates(hshScanList) Then
+                            bDuplicates = False
+                            oDuplicateGames.Clear()
+                        End If
+                    Else
                         bDuplicates = False
                         oDuplicateGames.Clear()
                     End If
-                Else
-                    bDuplicates = False
-                    oDuplicateGames.Clear()
+
+                    If Duplicate And DuplicateList.Count = 0 Then bPass = False
+
+                    If oGame.Parameter <> String.Empty And Not Duplicate And Not FullCommand.Contains(oGame.Parameter) Then bPass = False
                 End If
-
-                If Duplicate And DuplicateList.Count = 0 Then bPass = False
-
-                If oGame.Parameter <> String.Empty And Not Duplicate And Not FullCommand.Contains(oGame.Parameter) Then bPass = False
-
-            End If
+            Next
 
             'Detection Pass 2
             If bPass Then

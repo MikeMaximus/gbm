@@ -2008,4 +2008,13 @@
   <data name="frmSessions_btnExport" xml:space="preserve">
     <value>&amp;Export Grid</value>
   </data>
+  <data name="frmFilter_FieldIsRegEx" xml:space="preserve">
+    <value>Regular Expression</value>
+  </data>
+  <data name="frmGameManager_chkRegEx" xml:space="preserve">
+    <value>Regular Expression</value>
+  </data>
+  <data name="frmGameManager_lblComments" xml:space="preserve">
+    <value>Comments:</value>
+  </data>
 </root>

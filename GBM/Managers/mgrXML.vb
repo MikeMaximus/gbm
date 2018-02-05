@@ -35,6 +35,7 @@ Public Class mgrXML
             oGame.MonitorOnly = g.MonitorOnly
             oGame.Parameter = g.Parameter
             oGame.Comments = g.Comments
+            oGame.IsRegEx = g.IsRegEx
             For Each t As Tag In g.Tags
                 oGame.ImportTags.Add(t)
             Next

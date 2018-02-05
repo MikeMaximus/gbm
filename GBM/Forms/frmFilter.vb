@@ -223,6 +223,14 @@ Public Class frmFilter
         oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
         oValidFields.Add(oField)
 
+        'IsRegEx
+        oField = New clsGameFilterField
+        oField.FieldName = "IsRegEx"
+        oField.FriendlyFieldName = frmFilter_FieldIsRegEx
+        oField.Type = clsGameFilterField.eDataType.fBool
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
         'Game Path
         oField = New clsGameFilterField
         oField.FieldName = "ProcessPath"

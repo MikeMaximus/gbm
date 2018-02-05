@@ -83,7 +83,7 @@ Public Class mgrSQLite
             sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
                    "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, PRIMARY KEY(Name, Process));"
+                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, PRIMARY KEY(Name, Process));"
 
             'Add Tables (Tags)
             sSql &= "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
@@ -123,7 +123,7 @@ Public Class mgrSQLite
             sSql = "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
                    "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, PRIMARY KEY(Name, Process));"
+                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, PRIMARY KEY(Name, Process));"
 
             'Add Tables (Remote Manifest)
             sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, " &
@@ -734,6 +734,31 @@ Public Class mgrSQLite
             End If
         End If
 
+        '1.08 Upgrade
+        If GetDatabaseVersion() < 108 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v105")
+
+                'Add new field(s)
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN IsRegEx BOOLEAN NOT NULL DEFAULT 0;"
+
+                sSQL &= "PRAGMA user_version=108"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v105")
+
+                'Add new field(s)
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN IsRegEx BOOLEAN NOT NULL DEFAULT 0;"
+
+                sSQL &= "PRAGMA user_version=108"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
     End Sub
 
     Public Function GetDBSize() As Long

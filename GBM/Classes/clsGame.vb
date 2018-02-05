@@ -20,6 +20,7 @@ Public Class clsGame
     Private bEnabled As Boolean = True
     Private bMonitorOnly As Boolean = False
     Private sComments As String = String.Empty
+    Private bIsRegEx As Boolean = False
     Private bDuplicate As Boolean = False
     Private bTempGame As Boolean = False
     Private oImportTags As New List(Of Tag)
@@ -230,6 +231,15 @@ Public Class clsGame
         End Set
     End Property
 
+    Property IsRegEx As Boolean
+        Get
+            Return bIsRegEx
+        End Get
+        Set(value As Boolean)
+            bIsRegEx = value
+        End Set
+    End Property
+
     Property Duplicate As Boolean
         Get
             Return bDuplicate
@@ -335,6 +345,9 @@ Public Class clsGame
                 Return False
             End If
             If Comments <> oGame.Comments Then
+                Return False
+            End If
+            If IsRegEx <> oGame.IsRegEx Then
                 Return False
             End If
 

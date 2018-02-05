@@ -9,6 +9,7 @@
     Private sExcludeList As String
     Private bMonitorOnly As Boolean
     Private sComments As String
+    Private bIsRegEx As Boolean
     Private oTags As List(Of Tag)
 
     Property Name As String
@@ -98,6 +99,15 @@
         End Set
         Get
             Return sComments
+        End Get
+    End Property
+
+    Property IsRegEx As Boolean
+        Set(value As Boolean)
+            bIsRegEx = value
+        End Set
+        Get
+            Return bIsRegEx
         End Get
     End Property
 

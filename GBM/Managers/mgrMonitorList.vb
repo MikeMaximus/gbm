@@ -34,6 +34,7 @@ Public Class mgrMonitorList
         oGame.CleanFolder = CBool(dr("CleanFolder"))
         If Not IsDBNull(dr("Parameter")) Then oGame.Parameter = CStr(dr("Parameter"))
         If Not IsDBNull(dr("Comments")) Then oGame.Comments = CStr(dr("Comments"))
+        oGame.IsRegEx = CBool(dr("IsRegEx"))
 
         Return oGame
     End Function
@@ -61,6 +62,7 @@ Public Class mgrMonitorList
         hshParams.Add("CleanFolder", oGame.CleanFolder)
         hshParams.Add("Parameter", oGame.Parameter)
         hshParams.Add("Comments", oGame.Comments)
+        hshParams.Add("IsRegEx", oGame.IsRegEx)
 
         Return hshParams
     End Function
@@ -101,7 +103,8 @@ Public Class mgrMonitorList
         Dim hshParams As Hashtable
 
         sSQL = "INSERT INTO monitorlist VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, @TimeStamp, "
-        sSQL &= "@ExcludeList, @ProcessPath, @Icon, @Hours, @Version, @Company, @Enabled, @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter, @Comments)"
+        sSQL &= "@ExcludeList, @ProcessPath, @Icon, @Hours, @Version, @Company, @Enabled, @MonitorOnly, @BackupLimit, @CleanFolder, "
+        sSQL &= "@Parameter, @Comments, @IsRegEx)"
 
         'Parameters
         hshParams = SetCoreParameters(oGame)
@@ -117,7 +120,8 @@ Public Class mgrMonitorList
 
         sSQL = "UPDATE monitorlist SET Name=@Name, Process=@Process, Path=@Path, AbsolutePath=@AbsolutePath, FolderSave=@FolderSave, "
         sSQL &= "FileType=@FileType, TimeStamp=@TimeStamp, ExcludeList=@ExcludeList, ProcessPath=@ProcessPath, Icon=@Icon, "
-        sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit, CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments WHERE MonitorID=@ID"
+        sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit, "
+        sSQL &= "CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments, IsRegEx=@IsRegEx WHERE MonitorID=@ID"
 
         'Parameters
         hshParams = SetCoreParameters(oGame)
@@ -365,11 +369,11 @@ Public Class mgrMonitorList
             sVersion = "(SELECT Version FROM monitorlist WHERE MonitorID=@ID)"
         End If
 
-        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments) "
+        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx) "
         sSQL &= "VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, "
         sSQL &= sTimeStamp & ", @ExcludeList, " & sGamePath & ", "
         sSQL &= sIcon & ", @Hours, " & sVersion & ", "
-        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, " & sBackupLimit & ", @CleanFolder, @Parameter, @Comments);"
+        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, " & sBackupLimit & ", @CleanFolder, @Parameter, @Comments, @IsRegEx);"
 
         For Each oGame As clsGame In hshGames.Values
             hshParams = New Hashtable
@@ -388,6 +392,7 @@ Public Class mgrMonitorList
             hshParams.Add("CleanFolder", oGame.CleanFolder)
             hshParams.Add("Parameter", oGame.Parameter)
             hshParams.Add("Comments", oGame.Comments)
+            hshParams.Add("IsRegEx", oGame.IsRegEx)
 
             'Optional Parameters
             If (eSyncFields And clsGame.eOptionalSyncFields.Company) = clsGame.eOptionalSyncFields.Company Then
@@ -527,7 +532,7 @@ Public Class mgrMonitorList
                                              ByRef hshParams As Hashtable) As String
         Dim sSQL As String = String.Empty
         Dim iCounter As Integer = 0
-        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments FROM monitorlist"
+        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx FROM monitorlist"
         Dim sSort As String = " ORDER BY " & sSortField
 
         If bSortAsc Then
@@ -722,6 +727,7 @@ Public Class mgrMonitorList
             oGame.MonitorOnly = CBool(dr("MonitorOnly"))
             If Not IsDBNull(dr("Parameter")) Then oGame.Parameter = CStr(dr("Parameter"))
             If Not IsDBNull(dr("Comments")) Then oGame.Comments = CStr(dr("Comments"))
+            oGame.IsRegEx = CBool(dr("IsRegEx"))
             oGame.Tags = mgrGameTags.GetTagsByGameForExport(sID)
             oList.Add(oGame)
         Next

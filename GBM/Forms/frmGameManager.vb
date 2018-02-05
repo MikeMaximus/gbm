@@ -757,6 +757,7 @@ Public Class frmGameManager
         txtID.Text = oApp.ID
         txtName.Text = oApp.Name
         txtProcess.Text = oApp.TrueProcess
+        chkRegEx.Checked = oApp.IsRegEx
         txtParameter.Text = oApp.Parameter
         txtSavePath.Text = oApp.Path
         txtFileType.Text = oApp.FileType
@@ -1180,6 +1181,7 @@ Public Class frmGameManager
         oApp.AppendTimeStamp = chkTimeStamp.Checked
         oApp.BackupLimit = nudLimit.Value
         oApp.Comments = txtComments.Text
+        oApp.IsRegEx = chkRegEx.Checked
         oApp.Enabled = chkEnabled.Checked
         oApp.MonitorOnly = chkMonitorOnly.Checked
         oApp.ProcessPath = txtAppPath.Text
@@ -1553,6 +1555,8 @@ Public Class frmGameManager
         lblLimit.Text = frmGameManager_lblLimit
         cmsDeleteOne.Text = frmGameManager_cmsDeleteOne
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
+        lblComments.Text = frmGameManager_lblComments
+        chkRegEx.Text = frmGameManager_chkRegEx
 
         'Init Filter Timer
         tmFilterTimer = New Timer()
