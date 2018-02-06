@@ -2017,4 +2017,10 @@
   <data name="frmGameManager_lblComments" xml:space="preserve">
     <value>Comments:</value>
   </data>
+  <data name="AppURL_RegExr" xml:space="preserve">
+    <value>http://regexr.com/?expression=[PARAM]&amp;text=test</value>
+  </data>
+  <data name="frmGameManager_ErrorRegExFailure" xml:space="preserve">
+    <value>The process is not a a valid regular expression.[BR][BR]Would you like help validating and testing your regular expression? [BR][BR]This will open your web browser and requires the internet.</value>
+  </data>
 </root>

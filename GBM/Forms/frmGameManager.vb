@@ -1311,6 +1311,15 @@ Public Class frmGameManager
             End If
         End If
 
+        If oApp.IsRegEx Then
+            If Not mgrCommon.IsRegExValid(oApp.ProcessName) Then
+                If mgrCommon.ShowMessage(frmGameManager_ErrorRegExFailure, MsgBoxStyle.Exclamation, MsgBoxStyle.YesNoCancel) = MsgBoxResult.Yes Then
+                    Process.Start(mgrCommon.FormatString(AppURL_RegExr, oApp.ProcessName))
+                End If
+                Return False
+            End If
+        End If
+
         Return True
     End Function
 

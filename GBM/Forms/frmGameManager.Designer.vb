@@ -245,7 +245,7 @@ Partial Class frmGameManager
         'lblLimit
         '
         Me.lblLimit.AutoSize = True
-        Me.lblLimit.Location = New System.Drawing.Point(376, 160)
+        Me.lblLimit.Location = New System.Drawing.Point(376, 157)
         Me.lblLimit.Name = "lblLimit"
         Me.lblLimit.Size = New System.Drawing.Size(68, 13)
         Me.lblLimit.TabIndex = 17

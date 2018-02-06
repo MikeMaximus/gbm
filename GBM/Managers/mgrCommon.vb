@@ -274,6 +274,16 @@ Public Class mgrCommon
         Return False
     End Function
 
+    Public Shared Function IsRegExValid(ByVal sPattern As String) As Boolean
+        Dim oRegEx As Regex
+        Try
+            oRegEx = New Regex(sPattern)
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+
     'Calculate the current size of a folder
     Public Shared Function GetFolderSize(ByVal sPath As String, ByVal sInclude As String(), ByVal sExclude As String()) As Long
         Dim oFolder As DirectoryInfo

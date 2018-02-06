@@ -164,16 +164,13 @@ Public Class mgrProcesses
     End Function
 
     Private Function IsMatch(ByRef oGame As clsGame, ByRef sProcessCheck As String) As Boolean
-        Dim oProcessRegEx As Regex
-
         If oGame.IsRegEx Then
             Try
-                oProcessRegEx = New Regex(oGame.ProcessName)
-                If oProcessRegEx.IsMatch(sProcessCheck) Then
+                If Regex.IsMatch(sProcessCheck, oGame.ProcessName) Then
                     Return True
                 End If
             Catch
-                'Ignore malformed regular expressions
+                'Ignore malformed regular expressions that may have passed validation
             End Try
         Else
             If oGame.ProcessName = sProcessCheck Then

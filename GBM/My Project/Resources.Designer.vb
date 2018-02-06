@@ -178,6 +178,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to http://regexr.com/?expression=[PARAM]&amp;text=test.
+        '''</summary>
+        Friend ReadOnly Property AppURL_RegExr() As String
+            Get
+                Return ResourceManager.GetString("AppURL_RegExr", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Back.
         '''</summary>
         Friend ReadOnly Property frmAddWizard_btnBack() As String
@@ -1965,6 +1974,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ErrorProcessParameterDupe() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ErrorProcessParameterDupe", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The process is not a a valid regular expression.[BR][BR]Would you like help validating and testing your regular expression? [BR][BR]This will open your web browser and requires the internet..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ErrorRegExFailure() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ErrorRegExFailure", resourceCulture)
             End Get
         End Property
         
