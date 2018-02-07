@@ -229,6 +229,8 @@ Public Class mgrProcesses
                         GetWindowsCommand(prsCurrent)
                     End If
 
+                    FullCommand = FullCommand.Substring(prsCurrent.ProcessName.Length).Trim
+
                     If oGame.Duplicate = True Then
                         If HandleDuplicates(hshScanList) Then
                             bDuplicates = False
