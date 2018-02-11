@@ -191,7 +191,7 @@ Partial Class frmGameManager
         'chkRegEx
         '
         Me.chkRegEx.AutoSize = True
-        Me.chkRegEx.Location = New System.Drawing.Point(402, 47)
+        Me.chkRegEx.Location = New System.Drawing.Point(402, 46)
         Me.chkRegEx.Name = "chkRegEx"
         Me.chkRegEx.Size = New System.Drawing.Size(117, 17)
         Me.chkRegEx.TabIndex = 5
@@ -301,7 +301,7 @@ Partial Class frmGameManager
         '
         'btnProcessBrowse
         '
-        Me.btnProcessBrowse.Location = New System.Drawing.Point(366, 43)
+        Me.btnProcessBrowse.Location = New System.Drawing.Point(366, 44)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
         Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnProcessBrowse.TabIndex = 4
@@ -311,7 +311,7 @@ Partial Class frmGameManager
         'lblSavePath
         '
         Me.lblSavePath.AutoSize = True
-        Me.lblSavePath.Location = New System.Drawing.Point(7, 100)
+        Me.lblSavePath.Location = New System.Drawing.Point(7, 101)
         Me.lblSavePath.Name = "lblSavePath"
         Me.lblSavePath.Size = New System.Drawing.Size(60, 13)
         Me.lblSavePath.TabIndex = 8
@@ -320,7 +320,7 @@ Partial Class frmGameManager
         'lblProcess
         '
         Me.lblProcess.AutoSize = True
-        Me.lblProcess.Location = New System.Drawing.Point(6, 48)
+        Me.lblProcess.Location = New System.Drawing.Point(7, 47)
         Me.lblProcess.Name = "lblProcess"
         Me.lblProcess.Size = New System.Drawing.Size(48, 13)
         Me.lblProcess.TabIndex = 2
@@ -329,7 +329,7 @@ Partial Class frmGameManager
         'lblName
         '
         Me.lblName.AutoSize = True
-        Me.lblName.Location = New System.Drawing.Point(6, 22)
+        Me.lblName.Location = New System.Drawing.Point(7, 22)
         Me.lblName.Name = "lblName"
         Me.lblName.Size = New System.Drawing.Size(38, 13)
         Me.lblName.TabIndex = 0
