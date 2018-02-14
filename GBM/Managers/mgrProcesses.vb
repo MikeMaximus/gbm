@@ -91,10 +91,7 @@ Public Class mgrProcesses
             sProcess = o.ProcessName.Split(":")(0)
 
             If o.Duplicate = True And (sProcess = oGame.TrueProcess Or Regex.IsMatch(sProcess, oGame.TrueProcess)) Then
-                If o.Parameter <> String.Empty And FullCommand.Contains(o.Parameter) Then
-                    oGame = o.ShallowCopy
-                    Return True
-                ElseIf o.Parameter = String.Empty Then
+                If (o.Parameter <> String.Empty And FullCommand.Contains(o.Parameter)) Or (o.Parameter = String.Empty And FullCommand = String.Empty) Then
                     oDuplicateGames.Add(o.ShallowCopy)
                 End If
             End If
@@ -163,6 +160,24 @@ Public Class mgrProcesses
         End Try
     End Function
 
+    Private Function IsMatch(ByRef oGame As clsGame, ByRef sProcessCheck As String) As Boolean
+        If oGame.IsRegEx Then
+            Try
+                If Regex.IsMatch(sProcessCheck, oGame.ProcessName) Then
+                    Return True
+                End If
+            Catch
+                'Ignore malformed regular expressions that may have passed validation
+            End Try
+        Else
+            If oGame.ProcessName = sProcessCheck Then
+                Return True
+            End If
+        End If
+
+        Return False
+    End Function
+
     Public Function SearchRunningProcesses(ByVal hshScanList As Hashtable, ByRef bNeedsPath As Boolean, ByRef iErrorCode As Integer, ByVal bDebugMode As Boolean) As Boolean
         Dim prsList() As Process = Process.GetProcesses
         Dim sProcessCheck As String = String.Empty
@@ -200,7 +215,7 @@ Public Class mgrProcesses
 
             'Detection Pass 1
             For Each oCurrentGame As clsGame In hshScanList.Values
-                If mgrCommon.IsMatch(oCurrentGame, sProcessCheck) Then
+                If IsMatch(oCurrentGame, sProcessCheck) Then
                     prsFoundProcess = prsCurrent
                     oGame = oCurrentGame.ShallowCopy
                     bPass = True

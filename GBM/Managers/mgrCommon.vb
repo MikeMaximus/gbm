@@ -258,24 +258,6 @@ Public Class mgrCommon
         Return dFileSize
     End Function
 
-    Public Shared Function IsMatch(ByRef oGame As clsGame, ByRef sProcessCheck As String) As Boolean
-        If oGame.IsRegEx Then
-            Try
-                If Regex.IsMatch(sProcessCheck, oGame.ProcessName) Then
-                    Return True
-                End If
-            Catch
-                'Ignore malformed regular expressions that may have passed validation
-            End Try
-        Else
-            If oGame.ProcessName = sProcessCheck Then
-                Return True
-            End If
-        End If
-
-        Return False
-    End Function
-
     Public Shared Function WildcardToRegex(ByVal sPattern As String) As String
         Dim sRegEx As String
         sRegEx = sPattern.Replace("*", ".*")

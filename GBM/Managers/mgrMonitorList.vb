@@ -1,4 +1,5 @@
 ﻿Imports GBM.My.Resources
+Imports System.Text.RegularExpressions
 Imports System.Collections.Specialized
 Imports System.IO
 
@@ -88,7 +89,7 @@ Public Class mgrMonitorList
                 Case eListTypes.ScanList
                     For Each de As DictionaryEntry In hshList
                         oCompareGame = DirectCast(de.Value, clsGame)
-                        If mgrCommon.IsMatch(oCompareGame, oGame.ProcessName) Then
+                        If Regex.IsMatch(oGame.ProcessName, oCompareGame.ProcessName) Or (oGame.ProcessName = oCompareGame.ProcessName) Then
                             DirectCast(hshList.Item(oCompareGame.ProcessName), clsGame).Duplicate = True
                             oGame.ProcessName = oGame.ProcessName & ":" & oGame.Name
                             oGame.Duplicate = True
