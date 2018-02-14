@@ -74,6 +74,7 @@ Public Class mgrMonitorList
         Dim hshList As New Hashtable
         Dim hshDupeList As New Hashtable
         Dim oGame As clsGame
+        Dim oCompareGame As clsGame
 
         sSQL = "Select * from monitorlist ORDER BY Name Asc"
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
@@ -85,11 +86,14 @@ Public Class mgrMonitorList
                     'Don't wrap this, if it fails there's a problem with the database
                     hshList.Add(oGame.ProcessName & ":" & oGame.Name, oGame)
                 Case eListTypes.ScanList
-                    If hshList.Contains(oGame.ProcessName) Then
-                        DirectCast(hshList.Item(oGame.ProcessName), clsGame).Duplicate = True
-                        oGame.ProcessName = oGame.ProcessName & ":" & oGame.Name
-                        oGame.Duplicate = True
-                    End If
+                    For Each de As DictionaryEntry In hshList
+                        oCompareGame = DirectCast(de.Value, clsGame)
+                        If mgrCommon.IsMatch(oCompareGame, oGame.ProcessName) Then
+                            DirectCast(hshList.Item(oCompareGame.ProcessName), clsGame).Duplicate = True
+                            oGame.ProcessName = oGame.ProcessName & ":" & oGame.Name
+                            oGame.Duplicate = True
+                        End If
+                    Next
                     If oGame.Enabled Then hshList.Add(oGame.ProcessName, oGame)
             End Select
         Next
