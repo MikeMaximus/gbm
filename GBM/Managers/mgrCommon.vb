@@ -430,10 +430,10 @@ Public Class mgrCommon
     'Delete a sub-folder based on the provided backup information
     Public Shared Sub DeleteDirectoryByBackup(ByVal sBackupFolder As String, ByVal oBackup As clsBackup)
         Dim oDir As DirectoryInfo
-        Dim sDir As String = sBackupFolder & oBackup.Name
+        Dim sDir As String = sBackupFolder & oBackup.SafeName
 
         'Delete sub directory if it's empty
-        If oBackup.FileName.StartsWith(oBackup.Name & Path.DirectorySeparatorChar) Then
+        If oBackup.FileName.StartsWith(oBackup.SafeName & Path.DirectorySeparatorChar) Then
             If Directory.Exists(sDir) Then
                 'Check if there's any sub-directories or files remaining
                 oDir = New DirectoryInfo(sDir)

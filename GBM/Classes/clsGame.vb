@@ -46,7 +46,7 @@ Public Class clsGame
 
     ReadOnly Property CompoundKey As String
         Get
-            Return ProcessName & ":" & Name
+            Return ProcessName & ":" & SafeName
         End Get
     End Property
 
@@ -66,6 +66,12 @@ Public Class clsGame
         End Set
         Get
             Return sGameName
+        End Get
+    End Property
+
+    ReadOnly Property SafeName As String
+        Get
+            Return mgrPath.ValidateForFileSystem(sGameName)
         End Get
     End Property
 

@@ -195,10 +195,7 @@ Public Class frmAddWizard
     End Sub
 
     Private Function ValidateName(ByVal strName As String, ByRef sErrorMessage As String) As Boolean
-        If txtName.Text <> String.Empty Then
-            txtName.Text = mgrPath.ValidateForFileSystem(txtName.Text)
-            Return True
-        Else
+        If txtName.Text.Trim = String.Empty Then
             sErrorMessage = frmAddWizard_ErrorValidName
             txtName.Focus()
             Return False
@@ -207,7 +204,7 @@ Public Class frmAddWizard
     End Function
 
     Private Function ValidateProcessPath(ByVal strPath As String, ByRef sErrorMessage As String) As Boolean
-        If strPath = String.Empty Then
+        If strPath.Trim = String.Empty Then
             sErrorMessage = frmAddWizard_ErrorValidProcess
             txtProcessPath.Focus()
             Return False
@@ -235,7 +232,7 @@ Public Class frmAddWizard
     End Function
 
     Private Function ValidateSavePath(ByVal strPath As String, ByRef sErrorMessage As String) As Boolean
-        If strPath = String.Empty Then
+        If strPath.Trim = String.Empty Then
             sErrorMessage = frmAddWizard_ErrorValidSavePath
             txtSavePath.Focus()
             Return False
@@ -257,7 +254,7 @@ Public Class frmAddWizard
     End Function
 
     Private Function ValidateSaveType(ByVal strSaveType As String, ByRef sErrorMessage As String)
-        If strSaveType = String.Empty Then
+        If strSaveType.Trim = String.Empty Then
             sErrorMessage = frmAddWizard_ErrorValidSaveType
             txtFileTypes.Focus()
             Return False
@@ -268,7 +265,7 @@ Public Class frmAddWizard
 
     Private Sub DoSave()
         Dim hshDupeCheck As New Hashtable
-        Dim sNewGame As String = oGameToSave.ProcessName & ":" & oGameToSave.Name
+        Dim sNewGame As String = oGameToSave.ProcessName & ":" & oGameToSave.SafeName
 
         For Each o As clsGame In GameData.Values
             hshDupeCheck.Add(o.CompoundKey, String.Empty)

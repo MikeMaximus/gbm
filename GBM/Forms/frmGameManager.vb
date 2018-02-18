@@ -183,14 +183,14 @@ Public Class frmGameManager
                     sFileName = BackupFolder & oBackupItem.FileName
 
                     'Rename Backup File
-                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(oOriginalApp.Name, oNewApp.Name)
+                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(oOriginalApp.SafeName, oNewApp.SafeName)
                     If File.Exists(sFileName) Then
                         FileSystem.Rename(sFileName, sNewFileName)
                     End If
 
                     'Rename Directory
                     sDirectory = Path.GetDirectoryName(sFileName)
-                    sNewDirectory = sDirectory.Replace(oOriginalApp.Name, oNewApp.Name)
+                    sNewDirectory = sDirectory.Replace(oOriginalApp.SafeName, oNewApp.SafeName)
                     If sDirectory <> sNewDirectory Then
                         If Directory.Exists(sDirectory) Then
                             FileSystem.Rename(sDirectory, sNewDirectory)
@@ -198,7 +198,7 @@ Public Class frmGameManager
                     End If
 
                     oBackupItem.Name = oNewApp.Name
-                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.Name, oNewApp.Name)
+                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.SafeName, oNewApp.SafeName)
                     mgrManifest.DoManifestUpdateByID(oBackupItem, mgrSQLite.Database.Local)
                 Next
                 oLocalBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Local)
@@ -210,7 +210,7 @@ Public Class frmGameManager
 
                 For Each oBackupItem As clsBackup In oBackupItems
                     oBackupItem.Name = oNewApp.Name
-                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.Name, oNewApp.Name)
+                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.SafeName, oNewApp.SafeName)
                     mgrManifest.DoManifestUpdateByID(oBackupItem, mgrSQLite.Database.Remote)
                 Next
                 oRemoteBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
@@ -1160,7 +1160,7 @@ Public Class frmGameManager
         If txtID.Text <> String.Empty Then
             oApp.ID = txtID.Text
         End If
-        oApp.Name = mgrPath.ValidateForFileSystem(txtName.Text)
+        oApp.Name = txtName.Text
         If Path.HasExtension(txtProcess.Text) Then
             If txtProcess.Text.ToLower.EndsWith(".exe") Then
                 oApp.ProcessName = Path.GetFileNameWithoutExtension(txtProcess.Text)
@@ -1280,13 +1280,13 @@ Public Class frmGameManager
     End Sub
 
     Private Function CoreValidatation(ByVal oApp As clsGame) As Boolean
-        If txtName.Text = String.Empty Then
+        If txtName.Text.Trim = String.Empty Then
             mgrCommon.ShowMessage(frmGameManager_ErrorValidName, MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
         End If
 
-        If txtProcess.Text = String.Empty Then
+        If txtProcess.Text.Trim = String.Empty Then
             mgrCommon.ShowMessage(frmGameManager_ErrorValidProcess, MsgBoxStyle.Exclamation)
             txtProcess.Focus()
             Return False

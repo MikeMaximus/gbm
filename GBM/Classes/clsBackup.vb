@@ -27,6 +27,12 @@
         End Set
     End Property
 
+    ReadOnly Property SafeName As String
+        Get
+            Return mgrPath.ValidateForFileSystem(sName)
+        End Get
+    End Property
+
     ReadOnly Property CroppedName As String
         Get
             If Name.Length > 40 Then

@@ -85,13 +85,13 @@ Public Class mgrMonitorList
             Select Case eListType
                 Case eListTypes.FullList
                     'Don't wrap this, if it fails there's a problem with the database
-                    hshList.Add(oGame.ProcessName & ":" & oGame.Name, oGame)
+                    hshList.Add(oGame.ProcessName & ":" & oGame.SafeName, oGame)
                 Case eListTypes.ScanList
                     For Each de As DictionaryEntry In hshList
                         oCompareGame = DirectCast(de.Value, clsGame)
                         If Regex.IsMatch(oGame.ProcessName, oCompareGame.ProcessName) Or (oGame.ProcessName = oCompareGame.ProcessName) Then
                             DirectCast(hshList.Item(oCompareGame.ProcessName), clsGame).Duplicate = True
-                            oGame.ProcessName = oGame.ProcessName & ":" & oGame.Name
+                            oGame.ProcessName = oGame.ProcessName & ":" & oGame.SafeName
                             oGame.Duplicate = True
                         End If
                     Next
