@@ -1497,7 +1497,7 @@ Public Class frmMain
 
     Private Sub CheckForSavedDuplicate()
         For Each o As clsGame In oProcess.DuplicateList
-            If o.ProcessPath.ToLower = oProcess.GameInfo.ProcessPath.ToLower And o.Parameter = String.Empty Then
+            If o.ProcessPath.ToLower = oProcess.GameInfo.ProcessPath.ToLower Then
                 oProcess.GameInfo = o
                 oProcess.Duplicate = False
             End If

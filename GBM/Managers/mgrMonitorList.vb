@@ -76,6 +76,7 @@ Public Class mgrMonitorList
         Dim hshDupeList As New Hashtable
         Dim oGame As clsGame
         Dim oCompareGame As clsGame
+        Dim bIsDupe As Boolean
 
         sSQL = "Select * from monitorlist ORDER BY Name Asc"
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
@@ -88,8 +89,32 @@ Public Class mgrMonitorList
                     hshList.Add(oGame.ProcessName & ":" & oGame.SafeName, oGame)
                 Case eListTypes.ScanList
                     For Each de As DictionaryEntry In hshList
+                        bIsDupe = False
                         oCompareGame = DirectCast(de.Value, clsGame)
-                        If Regex.IsMatch(oGame.ProcessName, oCompareGame.ProcessName) Or (oGame.ProcessName = oCompareGame.ProcessName) Then
+
+                        If oCompareGame.IsRegEx Then
+                            If oGame.IsRegEx Then
+                                If oCompareGame.ProcessName = oGame.ProcessName Then
+                                    bIsDupe = True
+                                End If
+                            Else
+                                If Regex.IsMatch(oGame.ProcessName, oCompareGame.ProcessName) Then
+                                    bIsDupe = True
+                                End If
+                            End If
+                        Else
+                            If oGame.IsRegEx Then
+                                If Regex.IsMatch(oCompareGame.ProcessName, oGame.ProcessName) Then
+                                    bIsDupe = True
+                                End If
+                            Else
+                                If oGame.ProcessName = oCompareGame.ProcessName Then
+                                    bIsDupe = True
+                                End If
+                            End If
+                        End If
+
+                        If bIsDupe Then
                             DirectCast(hshList.Item(oCompareGame.ProcessName), clsGame).Duplicate = True
                             oGame.ProcessName = oGame.ProcessName & ":" & oGame.SafeName
                             oGame.Duplicate = True

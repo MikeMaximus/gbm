@@ -84,18 +84,42 @@ Public Class mgrProcesses
 
     Private Function HandleDuplicates(hshScanList As Hashtable) As Boolean
         Dim sProcess As String
+        Dim sParameter As String = String.Empty
+        Dim bParameter As Boolean = False
+        Dim oInitialDupes As New ArrayList
+
         bDuplicates = True
         oDuplicateGames.Clear()
 
+
         For Each o As clsGame In hshScanList.Values
             sProcess = o.ProcessName.Split(":")(0)
-
             If o.Duplicate = True And (sProcess = oGame.TrueProcess Or Regex.IsMatch(sProcess, oGame.TrueProcess)) Then
-                If (o.Parameter <> String.Empty And FullCommand.Contains(o.Parameter)) Or (o.Parameter = String.Empty And FullCommand = String.Empty) Then
-                    oDuplicateGames.Add(o.ShallowCopy)
-                End If
+                oInitialDupes.Add(o.ShallowCopy)
             End If
         Next
+
+        For Each o As clsGame In oInitialDupes
+            If (o.Parameter <> String.Empty And FullCommand.Contains(o.Parameter)) Then
+                sParameter = o.Parameter
+                bParameter = True
+                Exit For
+            End If
+        Next
+
+        If bParameter Then
+            For Each o As clsGame In oInitialDupes
+                If (o.Parameter = sParameter) Then
+                    oDuplicateGames.Add(o.ShallowCopy)
+                End If
+            Next
+        Else
+            For Each o As clsGame In oInitialDupes
+                If (o.Parameter = String.Empty) Then
+                    oDuplicateGames.Add(o.ShallowCopy)
+                End If
+            Next
+        End If
 
         If oDuplicateGames.Count = 1 Then
             oGame = DirectCast(oDuplicateGames(0), clsGame).ShallowCopy
@@ -131,7 +155,7 @@ Public Class mgrProcesses
 
     'This function will only work correctly on Unix
     Private Function GetUnixProcessArguments(ByVal prs As Process) As String()
-        Dim sArguments As String        
+        Dim sArguments As String
         Try
             sArguments = File.ReadAllText("/proc/" & prs.Id.ToString() & "/cmdline")
             Return sArguments.Split(vbNullChar)
@@ -225,8 +249,6 @@ Public Class mgrProcesses
                     Else
                         GetWindowsCommand(prsCurrent)
                     End If
-
-                    FullCommand = FullCommand.Substring(prsCurrent.ProcessName.Length).Trim
 
                     If oGame.Duplicate = True Then
                         If HandleDuplicates(hshScanList) Then
