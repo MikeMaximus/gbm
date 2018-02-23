@@ -1,8 +1,6 @@
 ﻿Imports GBM.My.Resources
 Imports System.IO
 Imports System.Xml.Serialization
-Imports System.Globalization
-
 
 Public Class mgrSessions
 
@@ -130,23 +128,37 @@ Public Class mgrSessions
         Return iRowCount
     End Function
 
+    Private Shared Function EscapeCSV(ByVal sItem As String) As String
+        Dim bEnclose As Boolean = False
+
+        If sItem.Contains("""") Then
+            sItem = sItem.Replace("""", """""")
+            bEnclose = True
+        End If
+
+        If sItem.Contains(",") Then
+            bEnclose = True
+        End If
+
+        If sItem.Contains(vbCrLf) Or sItem.Contains(vbCr) Or sItem.Contains(vbLf) Then
+            bEnclose = True
+        End If
+
+        If bEnclose Then
+            sItem = """" & sItem & """"
+        End If
+
+        Return sItem
+    End Function
+
     Public Shared Function ExportAsCSV(ByVal sLocation As String, ByVal bUnixTime As Boolean, ByVal bHeaders As Boolean, ByRef dg As DataGridView) As Boolean
         Dim oWriter As StreamWriter
         Dim sHeader As String
         Dim sCurrentRow As String
-        Dim dDecimal As Decimal
         Dim oBannedColumns As New List(Of DataGridViewColumn)
-        Dim oDecimalColumns As New List(Of DataGridViewColumn)
-        Dim oNfi As New NumberFormatInfo
-
-        'We want to force a specific decimal seperator when exporting CSV files due to certain regions using a comma.
-        oNfi.NumberDecimalSeparator = "."
 
         Try
             oWriter = New StreamWriter(sLocation)
-
-            'Set Decimal Columns
-            oDecimalColumns.Add(dg.Columns("Hours"))
 
             'Set Ban Columns
             oBannedColumns.Add(dg.Columns("MonitorID"))
@@ -177,13 +189,7 @@ Public Class mgrSessions
                 sCurrentRow = String.Empty
                 For Each dgCell As DataGridViewCell In dgRow.Cells
                     If Not oBannedColumns.Contains(dg.Columns(dgCell.ColumnIndex)) Then
-                        If oDecimalColumns.Contains(dg.Columns(dgCell.ColumnIndex)) Then
-                            dDecimal = CDec(dgCell.Value)
-                            sCurrentRow &= dDecimal.ToString(oNfi) & ","
-                        Else
-                            sCurrentRow &= dgCell.Value.ToString & ","
-                        End If
-
+                        sCurrentRow &= EscapeCSV(dgCell.Value.ToString) & ","
                     End If
                 Next
                 sCurrentRow = sCurrentRow.TrimEnd(",")
