@@ -1,6 +1,6 @@
 #!/bin/sh -e
 #check for all dependencies
-for prog in mono readlink df 7za;do
+for prog in mono readlink df 7za notify-send;do
     [ -n "`whereis -b ${prog} | cut -sd' ' -f2`" ] || (echo "Please install ${prog}" && exit 1);
 done
 for lib in libsqlite3;do

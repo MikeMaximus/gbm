@@ -1225,6 +1225,11 @@ Public Class frmMain
     End Sub
 
     Public Sub UpdateLog(sLogUpdate As String, Optional bTrayUpdate As Boolean = True, Optional objIcon As System.Windows.Forms.ToolTipIcon = ToolTipIcon.Info, Optional bTimeStamp As Boolean = True) Handles oBackup.UpdateLog, oRestore.UpdateLog
+        Dim prsNotify As Process
+        Dim sUrgency As String
+        Dim sIconLocation As String
+        Dim sNotifyArgs As String
+
         'Thread Safe (If one control requires an invoke assume they all do)
         If txtLog.InvokeRequired = True Then
             Dim d As New UpdateLogCallBack(AddressOf UpdateLog)
@@ -1260,9 +1265,45 @@ Public Class frmMain
 
             txtLog.Select(txtLog.TextLength, 0)
             txtLog.ScrollToCaret()
-            gMonTray.BalloonTipText = sLogUpdate
-            gMonTray.BalloonTipIcon = objIcon
-            If bTrayUpdate Then gMonTray.ShowBalloonTip(10000)
+
+            If bTrayUpdate Then
+                If mgrCommon.IsUnix Then
+                    'Build args for notify-send
+                    Select Case objIcon
+                        Case ToolTipIcon.Error
+                            sUrgency = "critical"
+                        Case ToolTipIcon.Warning
+                            sUrgency = "normal"
+                        Case ToolTipIcon.Info
+                            sUrgency = "low"
+                        Case Else
+                            sUrgency = "low"
+                    End Select
+
+                    sIconLocation = "/usr/share/icons/hicolor/256x256/apps/gbm.png"
+                    sNotifyArgs = "-i " & sIconLocation & " -u " & sUrgency & " -t 10000 """ & App_NameLong & """ """ & sLogUpdate.Replace("""", "\""") & """"
+
+                    Try
+                        'Execute notify-send
+                        prsNotify = New Process
+                        prsNotify.StartInfo.FileName = "/usr/bin/notify-send"
+                        prsNotify.StartInfo.Arguments = sNotifyArgs
+                        prsNotify.StartInfo.UseShellExecute = False
+                        prsNotify.StartInfo.RedirectStandardOutput = True
+                        prsNotify.StartInfo.CreateNoWindow = True
+                        prsNotify.Start()
+                    Catch ex As Exception
+                        'Show default notification style
+                        gMonTray.BalloonTipText = sLogUpdate
+                        gMonTray.BalloonTipIcon = objIcon
+                        gMonTray.ShowBalloonTip(10000)
+                    End Try
+                Else
+                    gMonTray.BalloonTipText = sLogUpdate
+                    gMonTray.BalloonTipIcon = objIcon
+                    gMonTray.ShowBalloonTip(10000)
+                End If
+            End If
         End If
         Application.DoEvents()
     End Sub
