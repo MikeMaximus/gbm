@@ -183,14 +183,14 @@ Public Class frmGameManager
                     sFileName = BackupFolder & oBackupItem.FileName
 
                     'Rename Backup File
-                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(oOriginalApp.SafeName, oNewApp.SafeName)
+                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(oOriginalApp.FileSafeName, oNewApp.FileSafeName)
                     If File.Exists(sFileName) And Not sFileName = sNewFileName Then
                         FileSystem.Rename(sFileName, sNewFileName)
                     End If
 
                     'Rename Directory
                     sDirectory = Path.GetDirectoryName(sFileName)
-                    sNewDirectory = sDirectory.Replace(oOriginalApp.SafeName, oNewApp.SafeName)
+                    sNewDirectory = sDirectory.Replace(oOriginalApp.FileSafeName, oNewApp.FileSafeName)
                     If sDirectory <> sNewDirectory Then
                         If Directory.Exists(sDirectory) And Not sDirectory = sNewDirectory Then
                             FileSystem.Rename(sDirectory, sNewDirectory)
@@ -198,7 +198,7 @@ Public Class frmGameManager
                     End If
 
                     oBackupItem.Name = oNewApp.Name
-                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.SafeName, oNewApp.SafeName)
+                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.FileSafeName, oNewApp.FileSafeName)
                     mgrManifest.DoManifestUpdateByID(oBackupItem, mgrSQLite.Database.Local)
                 Next
                 oLocalBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Local)
@@ -210,7 +210,7 @@ Public Class frmGameManager
 
                 For Each oBackupItem As clsBackup In oBackupItems
                     oBackupItem.Name = oNewApp.Name
-                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.SafeName, oNewApp.SafeName)
+                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.FileSafeName, oNewApp.FileSafeName)
                     mgrManifest.DoManifestUpdateByID(oBackupItem, mgrSQLite.Database.Remote)
                 Next
                 oRemoteBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)

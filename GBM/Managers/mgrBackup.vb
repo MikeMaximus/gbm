@@ -107,8 +107,8 @@ Public Class mgrBackup
         Dim lAvailableSpace As Long
         Dim lFolderSize As Long
 
-        If oSettings.CreateSubFolder Then sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.SafeName
-        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.SafeName & ".7z"
+        If oSettings.CreateSubFolder Then sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.FileSafeName
+        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.FileSafeName & ".7z"
 
         'Verify saved game path
         sSavePath = VerifySavePath(oGame)
@@ -199,7 +199,7 @@ Public Class mgrBackup
             RaiseEvent UpdateBackupInfo(oGame)
 
             If oSettings.CreateSubFolder Then
-                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.SafeName
+                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.FileSafeName
                 Try
                     If Not Directory.Exists(sBackupFile) Then
                         Directory.CreateDirectory(sBackupFile)
@@ -212,9 +212,9 @@ Public Class mgrBackup
 
             If oGame.AppendTimeStamp Then
                 CheckOldBackups(oGame)
-                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.SafeName & sTimeStamp & ".7z"
+                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.FileSafeName & sTimeStamp & ".7z"
             Else
-                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.SafeName & ".7z"
+                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.FileSafeName & ".7z"
             End If
 
             If bDoBackup Then

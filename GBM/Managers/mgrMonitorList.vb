@@ -86,7 +86,7 @@ Public Class mgrMonitorList
             Select Case eListType
                 Case eListTypes.FullList
                     'Don't wrap this, if it fails there's a problem with the database
-                    hshList.Add(oGame.ProcessName & ":" & oGame.SafeName, oGame)
+                    hshList.Add(oGame.ProcessName & ":" & oGame.KeySafeName, oGame)
                 Case eListTypes.ScanList
                     For Each de As DictionaryEntry In hshList
                         bIsDupe = False
@@ -116,7 +116,7 @@ Public Class mgrMonitorList
 
                         If bIsDupe Then
                             DirectCast(hshList.Item(oCompareGame.ProcessName), clsGame).Duplicate = True
-                            oGame.ProcessName = oGame.ProcessName & ":" & oGame.SafeName
+                            oGame.ProcessName = oGame.ProcessName & ":" & oGame.KeySafeName
                             oGame.Duplicate = True
                         End If
                     Next

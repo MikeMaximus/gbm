@@ -42,7 +42,7 @@ Public Class mgrXML
 
             'This should be wrapped just in case we get some bad data
             Try
-                hshList.Add(oGame.ProcessName & ":" & oGame.SafeName, oGame)
+                hshList.Add(oGame.ProcessName & ":" & oGame.KeySafeName, oGame)
             Catch e As Exception
                 'Do Nothing
             End Try
