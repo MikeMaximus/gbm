@@ -1292,7 +1292,7 @@ Public Class frmMain
                         prsNotify.StartInfo.RedirectStandardOutput = True
                         prsNotify.StartInfo.CreateNoWindow = True
                         prsNotify.Start()
-                    Catch ex As Exception
+                    Catch
                         'Show default notification style
                         gMonTray.BalloonTipText = sLogUpdate
                         gMonTray.BalloonTipIcon = objIcon
