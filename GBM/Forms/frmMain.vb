@@ -1228,7 +1228,6 @@ Public Class frmMain
         Dim prsNotify As Process
         Dim bNotifyFailed As Boolean
         Dim sUrgency As String
-        Dim sIconLocation As String
         Dim sNotifyArgs As String
 
         'Thread Safe (If one control requires an invoke assume they all do)
@@ -1281,8 +1280,7 @@ Public Class frmMain
                             sUrgency = "low"
                     End Select
 
-                    sIconLocation = "/usr/share/icons/hicolor/256x256/apps/gbm.png"
-                    sNotifyArgs = "-i " & sIconLocation & " -u " & sUrgency & " -t 10000 """ & App_NameLong & """ """ & sLogUpdate.Replace("""", "\""") & """"
+                    sNotifyArgs = "-i gbm " & "-u " & sUrgency & " """ & App_NameLong & """ """ & sLogUpdate.Replace("""", "\""") & """"
 
                     Try
                         'Execute notify-send
