@@ -1226,6 +1226,7 @@ Public Class frmMain
 
     Public Sub UpdateLog(sLogUpdate As String, Optional bTrayUpdate As Boolean = True, Optional objIcon As System.Windows.Forms.ToolTipIcon = ToolTipIcon.Info, Optional bTimeStamp As Boolean = True) Handles oBackup.UpdateLog, oRestore.UpdateLog
         Dim prsNotify As Process
+        Dim bNotifyFailed As Boolean
         Dim sUrgency As String
         Dim sIconLocation As String
         Dim sNotifyArgs As String
@@ -1292,13 +1293,19 @@ Public Class frmMain
                         prsNotify.StartInfo.RedirectStandardOutput = True
                         prsNotify.StartInfo.CreateNoWindow = True
                         prsNotify.Start()
+                        prsNotify.WaitForExit()
+                        Select Case prsNotify.ExitCode
+                            Case 0
+                                bNotifyFailed = False
+                            Case Else
+                                bNotifyFailed = True
+                        End Select
                     Catch
-                        'Show default notification style
-                        gMonTray.BalloonTipText = sLogUpdate
-                        gMonTray.BalloonTipIcon = objIcon
-                        gMonTray.ShowBalloonTip(10000)
+                        bNotifyFailed = True
                     End Try
-                Else
+                End If
+
+                If Not mgrCommon.IsUnix Or bNotifyFailed Then
                     gMonTray.BalloonTipText = sLogUpdate
                     gMonTray.BalloonTipIcon = objIcon
                     gMonTray.ShowBalloonTip(10000)
