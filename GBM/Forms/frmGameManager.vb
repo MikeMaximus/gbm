@@ -184,7 +184,7 @@ Public Class frmGameManager
 
                     'Rename Backup File
                     sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(oOriginalApp.SafeName, oNewApp.SafeName)
-                    If File.Exists(sFileName) Then
+                    If File.Exists(sFileName) And Not sFileName = sNewFileName Then
                         FileSystem.Rename(sFileName, sNewFileName)
                     End If
 
@@ -192,7 +192,7 @@ Public Class frmGameManager
                     sDirectory = Path.GetDirectoryName(sFileName)
                     sNewDirectory = sDirectory.Replace(oOriginalApp.SafeName, oNewApp.SafeName)
                     If sDirectory <> sNewDirectory Then
-                        If Directory.Exists(sDirectory) Then
+                        If Directory.Exists(sDirectory) And Not sDirectory = sNewDirectory Then
                             FileSystem.Rename(sDirectory, sNewDirectory)
                         End If
                     End If
