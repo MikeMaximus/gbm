@@ -173,45 +173,45 @@ Public Class frmGameManager
         Dim sNewFileName As String
 
         'If there is a name change, check and update the manifest
-        If oNewApp.Name <> oOriginalApp.Name Then
+        If oNewApp.ID <> oOriginalApp.ID Then
             'Local
-            If mgrManifest.DoManifestNameCheck(oOriginalApp.Name, mgrSQLite.Database.Local) Then
-                oBackupItems = mgrManifest.DoManifestGetByName(oOriginalApp.Name, mgrSQLite.Database.Local)
+            If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Local) Then
+                oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Local)
                 'The local manifest will only have one entry per game, therefore this runs only once
                 For Each oBackupItem As clsBackup In oBackupItems
                     'Rename Current Backup File & Folder
                     sFileName = BackupFolder & oBackupItem.FileName
 
                     'Rename Backup File
-                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(oOriginalApp.FileSafeName, oNewApp.FileSafeName)
+                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(oOriginalApp.ID, oNewApp.ID)
                     If File.Exists(sFileName) And Not sFileName = sNewFileName Then
                         FileSystem.Rename(sFileName, sNewFileName)
                     End If
 
                     'Rename Directory
                     sDirectory = Path.GetDirectoryName(sFileName)
-                    sNewDirectory = sDirectory.Replace(oOriginalApp.FileSafeName, oNewApp.FileSafeName)
+                    sNewDirectory = sDirectory.Replace(oOriginalApp.ID, oNewApp.ID)
                     If sDirectory <> sNewDirectory Then
                         If Directory.Exists(sDirectory) And Not sDirectory = sNewDirectory Then
                             FileSystem.Rename(sDirectory, sNewDirectory)
                         End If
                     End If
 
-                    oBackupItem.Name = oNewApp.Name
-                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.FileSafeName, oNewApp.FileSafeName)
-                    mgrManifest.DoManifestUpdateByID(oBackupItem, mgrSQLite.Database.Local)
+                    oBackupItem.MonitorID = oNewApp.ID
+                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.ID, oNewApp.ID)
+                    mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Local)
                 Next
                 oLocalBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Local)
             End If
 
             'Remote
-            If mgrManifest.DoManifestNameCheck(oOriginalApp.Name, mgrSQLite.Database.Remote) Then
-                oBackupItems = mgrManifest.DoManifestGetByName(oOriginalApp.Name, mgrSQLite.Database.Remote)
+            If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Remote) Then
+                oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Remote)
 
                 For Each oBackupItem As clsBackup In oBackupItems
-                    oBackupItem.Name = oNewApp.Name
-                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.FileSafeName, oNewApp.FileSafeName)
-                    mgrManifest.DoManifestUpdateByID(oBackupItem, mgrSQLite.Database.Remote)
+                    oBackupItem.MonitorID = oNewApp.ID
+                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.ID, oNewApp.ID)
+                    mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Remote)
                 Next
                 oRemoteBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
             End If
@@ -221,7 +221,6 @@ Public Class frmGameManager
     Private Sub LoadData(Optional ByVal bRetainFilter As Boolean = True)
         Dim oRestoreData As New SortedList
         Dim oGame As clsGame
-        Dim oBackup As clsBackup
         Dim frm As frmFilter
 
         If optCustom.Checked Then
@@ -264,10 +263,10 @@ Public Class frmGameManager
             Dim oTemporaryList As OrderedDictionary = mgrCommon.GenericClone(GameData)
             For Each de As DictionaryEntry In oTemporaryList
                 oGame = DirectCast(de.Value, clsGame)
-                If Not oRestoreData.ContainsKey(oGame.Name) Then
+                If Not oRestoreData.ContainsKey(oGame.ID) Then
                     GameData.Remove(de.Key)
                 Else
-                    oRestoreData.Remove(oGame.Name)
+                    oRestoreData.Remove(oGame.ID)
                 End If
             Next
         ElseIf optBackupData.Checked Then
@@ -277,21 +276,11 @@ Public Class frmGameManager
 
             For Each de As DictionaryEntry In oTemporaryList
                 oGame = DirectCast(de.Value, clsGame)
-                If Not oRemoteBackupData.ContainsKey(oGame.Name) Then
+                If Not oRemoteBackupData.ContainsKey(oGame.ID) Then
                     GameData.Remove(de.Key)
                 Else
-                    oRestoreData.Remove(oGame.Name)
+                    oRestoreData.Remove(oGame.ID)
                 End If
-            Next
-        End If
-
-        'Handle any orphaned backup files and add them to list
-        If oRestoreData.Count <> 0 Then
-            For Each oBackup In oRestoreData.Values
-                oGame = New clsGame
-                oGame.Name = oBackup.Name
-                oGame.Temporary = True
-                GameData.Add(oGame.ID, oGame)
             Next
         End If
 
@@ -598,7 +587,7 @@ Public Class frmGameManager
         Dim sFileName As String
 
         If sManifestID <> String.Empty Then
-            CurrentBackupItem = mgrManifest.DoManifestGetByID(sManifestID, mgrSQLite.Database.Remote)
+            CurrentBackupItem = mgrManifest.DoManifestGetByManifestID(sManifestID, mgrSQLite.Database.Remote)
 
             sFileName = BackupFolder & CurrentBackupItem.FileName
 
@@ -608,7 +597,6 @@ Public Class frmGameManager
                 lblBackupFileData.Text = frmGameManager_ErrorNoBackupExists
             End If
 
-            mgrRestore.DoPathOverride(CurrentBackupItem, CurrentGame)
             lblRestorePathData.Text = CurrentBackupItem.RestorePath
         End If
 
@@ -627,15 +615,15 @@ Public Class frmGameManager
         cboRemoteBackup.ValueMember = "Key"
         cboRemoteBackup.DisplayMember = "Value"
 
-        If oRemoteBackupData.Contains(oApp.Name) Then
+        If oRemoteBackupData.Contains(oApp.ID) Then
             bRemoteData = True
-            oCurrentBackups = mgrManifest.DoManifestGetByName(oApp.Name, mgrSQLite.Database.Remote)
+            oCurrentBackups = mgrManifest.DoManifestGetByMonitorID(oApp.ID, mgrSQLite.Database.Remote)
 
             For Each oCurrentBackup In oCurrentBackups
-                oComboItems.Add(New KeyValuePair(Of String, String)(oCurrentBackup.ID, mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {oCurrentBackup.DateUpdated, oCurrentBackup.UpdatedBy})))
+                oComboItems.Add(New KeyValuePair(Of String, String)(oCurrentBackup.ManifestID, mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {oCurrentBackup.DateUpdated, oCurrentBackup.UpdatedBy})))
             Next
 
-            CurrentBackupItem = DirectCast(oRemoteBackupData(oApp.Name), clsBackup)
+            CurrentBackupItem = DirectCast(oRemoteBackupData(oApp.ID), clsBackup)
 
             sFileName = BackupFolder & CurrentBackupItem.FileName
 
@@ -650,7 +638,6 @@ Public Class frmGameManager
                 lblBackupFileData.Text = frmGameManager_ErrorNoBackupExists
             End If
 
-            mgrRestore.DoPathOverride(CurrentBackupItem, oApp)
             lblRestorePathData.Text = CurrentBackupItem.RestorePath
         Else
             oComboItems.Add(New KeyValuePair(Of String, String)(String.Empty, frmGameManager_None))
@@ -664,9 +651,9 @@ Public Class frmGameManager
 
         cboRemoteBackup.DataSource = oComboItems
 
-        If oLocalBackupData.Contains(oApp.Name) Then
+        If oLocalBackupData.Contains(oApp.ID) Then
             bLocalData = True
-            oBackupInfo = DirectCast(oLocalBackupData(oApp.Name), clsBackup)
+            oBackupInfo = DirectCast(oLocalBackupData(oApp.ID), clsBackup)
             lblLocalBackupData.Text = mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {oBackupInfo.DateUpdated, oBackupInfo.UpdatedBy})
         Else
             lblLocalBackupData.Text = frmGameManager_Unknown
@@ -693,11 +680,11 @@ Public Class frmGameManager
         Dim oBackup As clsBackup
 
         If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupDeleteAll, CurrentGame.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            oBackupData = mgrManifest.DoManifestGetByName(CurrentGame.Name, mgrSQLite.Database.Remote)
+            oBackupData = mgrManifest.DoManifestGetByMonitorID(CurrentGame.ID, mgrSQLite.Database.Remote)
 
             For Each oBackup In oBackupData
                 'Delete the specific remote manifest entry
-                mgrManifest.DoManifestDeletebyID(oBackup, mgrSQLite.Database.Remote)
+                mgrManifest.DoManifestDeletebyManifestID(oBackup, mgrSQLite.Database.Remote)
                 'Delete referenced backup file from the backup folder
                 mgrCommon.DeleteFile(BackupFolder & oBackup.FileName)
                 'Check for sub-directory and delete if empty (we need to do this every pass just in case the user had a mix of settings at one point)
@@ -705,28 +692,21 @@ Public Class frmGameManager
             Next
 
             'Delete local manifest entry
-            mgrManifest.DoManifestDeletebyName(CurrentBackupItem, mgrSQLite.Database.Local)
+            mgrManifest.DoManifestDeletebyMonitorID(CurrentBackupItem, mgrSQLite.Database.Local)
 
             LoadBackupData()
-
-            If oCurrentGame.Temporary Then
-                LoadData()
-                eCurrentMode = eModes.Disabled
-                ModeChange()
-            Else
-                FillData()
-            End If
+            FillData()
         End If
     End Sub
 
     Private Sub DeleteBackup()
         If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupDelete, Path.GetFileName(CurrentBackupItem.FileName), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             'Delete the specific remote manifest entry
-            mgrManifest.DoManifestDeletebyID(CurrentBackupItem, mgrSQLite.Database.Remote)
+            mgrManifest.DoManifestDeleteByManifestID(CurrentBackupItem, mgrSQLite.Database.Remote)
 
             'If a remote manifest entry no longer exists for this game, delete the local entry
-            If Not mgrManifest.DoGlobalManifestCheck(CurrentBackupItem.Name, mgrSQLite.Database.Remote) Then
-                mgrManifest.DoManifestDeletebyName(CurrentBackupItem, mgrSQLite.Database.Local)
+            If Not mgrManifest.DoManifestCheck(CurrentBackupItem.MonitorID, mgrSQLite.Database.Remote) Then
+                mgrManifest.DoManifestDeleteByMonitorID(CurrentBackupItem, mgrSQLite.Database.Local)
             End If
 
             'Delete referenced backup file from the backup folder
@@ -736,14 +716,7 @@ Public Class frmGameManager
             mgrCommon.DeleteDirectoryByBackup(BackupFolder, CurrentBackupItem)
 
             LoadBackupData()
-
-            If oCurrentGame.Temporary Then
-                LoadData()
-                eCurrentMode = eModes.Disabled
-                ModeChange()
-            Else
-                FillData()
-            End If
+            FillData()
         End If
     End Sub
 
@@ -795,12 +768,6 @@ Public Class frmGameManager
 
         'Set Current
         CurrentGame = oApp
-
-        'Change view to temporary if we only have backup data for the game
-        If CurrentGame.Temporary Then
-            eCurrentMode = eModes.ViewTemp
-            ModeChange()
-        End If
 
         IsLoading = False
     End Sub
@@ -1340,8 +1307,8 @@ Public Class frmGameManager
             If oMarkList.Count = 1 Then
                 If mgrCommon.ShowMessage(frmGameManager_ConfirmMark, oMarkList(0).Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     bWasUpdated = True
-                    If mgrManifest.DoGlobalManifestCheck(oMarkList(0).Name, mgrSQLite.Database.Local) Then
-                        mgrManifest.DoManifestUpdateByName(oMarkList(0), mgrSQLite.Database.Local)
+                    If mgrManifest.DoManifestCheck(oMarkList(0).MonitorID, mgrSQLite.Database.Local) Then
+                        mgrManifest.DoManifestUpdateByMonitorID(oMarkList(0), mgrSQLite.Database.Local)
                     Else
                         mgrManifest.DoManifestAdd(oMarkList(0), mgrSQLite.Database.Local)
                     End If
@@ -1350,8 +1317,8 @@ Public Class frmGameManager
                 If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiMark, oMarkList.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     bWasUpdated = True
                     For Each oGameBackup In oMarkList
-                        If mgrManifest.DoGlobalManifestCheck(oGameBackup.Name, mgrSQLite.Database.Local) Then
-                            mgrManifest.DoManifestUpdateByName(oGameBackup, mgrSQLite.Database.Local)
+                        If mgrManifest.DoManifestCheck(oGameBackup.MonitorID, mgrSQLite.Database.Local) Then
+                            mgrManifest.DoManifestUpdateByMonitorID(oGameBackup, mgrSQLite.Database.Local)
                         Else
                             mgrManifest.DoManifestAdd(oGameBackup, mgrSQLite.Database.Local)
                         End If
@@ -1428,9 +1395,9 @@ Public Class frmGameManager
 
 
             For Each oData In lstGames.SelectedItems
-                If oRemoteBackupData.Contains(oData.Value) Then
+                If oRemoteBackupData.Contains(oData.Key) Then
                     oGame = DirectCast(GameData(oData.Key), clsGame)
-                    oBackup = DirectCast(oRemoteBackupData(oData.Value), clsBackup)
+                    oBackup = DirectCast(oRemoteBackupData(oData.Key), clsBackup)
                     If Not oGame.MonitorOnly Then RestoreList.Add(oGame, oBackup)
                 End If
             Next

@@ -86,7 +86,7 @@ Public Class mgrMonitorList
             Select Case eListType
                 Case eListTypes.FullList
                     'Don't wrap this, if it fails there's a problem with the database
-                    hshList.Add(oGame.ProcessName & ":" & oGame.KeySafeName, oGame)
+                    hshList.Add(oGame.CompoundKey, oGame)
                 Case eListTypes.ScanList
                     For Each de As DictionaryEntry In hshList
                         bIsDupe = False
@@ -116,7 +116,7 @@ Public Class mgrMonitorList
 
                         If bIsDupe Then
                             DirectCast(hshList.Item(oCompareGame.ProcessName), clsGame).Duplicate = True
-                            oGame.ProcessName = oGame.ProcessName & ":" & oGame.KeySafeName
+                            oGame.ProcessName = oGame.CompoundKey
                             oGame.Duplicate = True
                         End If
                     Next
@@ -190,7 +190,9 @@ Public Class mgrMonitorList
         Dim sSQL As String
         Dim hshParams As New Hashtable
 
-        sSQL = "DELETE FROM gametags "
+        sSQL = "DELETE FROM manifest "
+        sSQL &= "WHERE MonitorID = @MonitorID;"
+        sSQL &= "DELETE FROM gametags "
         sSQL &= "WHERE MonitorID = @MonitorID;"
         If iSelectDB = mgrSQLite.Database.Local Then
             sSQL &= "DELETE FROM sessions "
@@ -211,7 +213,19 @@ Public Class mgrMonitorList
         Dim hshParams As New Hashtable
         Dim iCounter As Integer
 
-        sSQL = "DELETE FROM gametags "
+        sSQL = "DELETE FROM manifest "
+        sSQL &= "WHERE MonitorID IN ("
+
+        For Each s As String In sMonitorIDs
+            sSQL &= "@MonitorID" & iCounter & ","
+            hshParams.Add("MonitorID" & iCounter, s)
+            iCounter += 1
+        Next
+
+        sSQL = sSQL.TrimEnd(",")
+        sSQL &= ");"
+
+        sSQL &= "DELETE FROM gametags "
         sSQL &= "WHERE MonitorID IN ("
 
         For Each s As String In sMonitorIDs

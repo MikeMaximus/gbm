@@ -265,7 +265,7 @@ Public Class frmAddWizard
 
     Private Sub DoSave()
         Dim hshDupeCheck As New Hashtable
-        Dim sNewGame As String = oGameToSave.ProcessName & ":" & oGameToSave.KeySafeName
+        Dim sNewGame As String = oGameToSave.CompoundKey
 
         For Each o As clsGame In GameData.Values
             hshDupeCheck.Add(o.CompoundKey, String.Empty)

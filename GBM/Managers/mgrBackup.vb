@@ -40,25 +40,23 @@ Public Class mgrBackup
         Dim oItem As New clsBackup
 
         'Create manifest item
-        oItem.Name = oGameInfo.Name
+        oItem.MonitorID = oGameInfo.ID
         'Keep the path relative to the manifest location
         oItem.FileName = sBackupFile.Replace(Path.GetDirectoryName(mgrPath.RemoteDatabaseLocation) & Path.DirectorySeparatorChar, "")
-        oItem.RestorePath = oGameInfo.TruePath
-        oItem.AbsolutePath = oGameInfo.AbsolutePath
         oItem.DateUpdated = dTimeStamp
         oItem.UpdatedBy = My.Computer.Name
         oItem.CheckSum = sCheckSum
 
         'Save Remote Manifest
         If mgrManifest.DoSpecificManifestCheck(oItem, mgrSQLite.Database.Remote) Then
-            mgrManifest.DoManifestUpdateByID(oItem, mgrSQLite.Database.Remote)
+            mgrManifest.DoManifestUpdateByManifestID(oItem, mgrSQLite.Database.Remote)
         Else
             mgrManifest.DoManifestAdd(oItem, mgrSQLite.Database.Remote)
         End If
 
         'Save Local Manifest
-        If mgrManifest.DoGlobalManifestCheck(oItem.Name, mgrSQLite.Database.Local) Then
-            mgrManifest.DoManifestUpdateByName(oItem, mgrSQLite.Database.Local)
+        If mgrManifest.DoManifestCheck(oItem.MonitorID, mgrSQLite.Database.Local) Then
+            mgrManifest.DoManifestUpdateByMonitorID(oItem, mgrSQLite.Database.Local)
         Else
             mgrManifest.DoManifestAdd(oItem, mgrSQLite.Database.Local)
         End If
@@ -107,8 +105,8 @@ Public Class mgrBackup
         Dim lAvailableSpace As Long
         Dim lFolderSize As Long
 
-        If oSettings.CreateSubFolder Then sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.FileSafeName
-        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.FileSafeName & ".7z"
+        If oSettings.CreateSubFolder Then sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.ID
+        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.ID & ".7z"
 
         'Verify saved game path
         sSavePath = VerifySavePath(oGame)
@@ -130,7 +128,7 @@ Public Class mgrBackup
             End If
         End If
 
-        If mgrRestore.CheckManifest(oGame.Name) Then
+        If mgrRestore.CheckManifest(oGame.ID) Then
             If mgrCommon.ShowMessage(mgrBackup_ConfirmManifestConflict, oGame.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                 RaiseEvent UpdateLog(mgrBackup_ErrorManifestConflict, False, ToolTipIcon.Error, True)
                 Return False
@@ -148,7 +146,7 @@ Public Class mgrBackup
     End Function
 
     Private Sub CheckOldBackups(ByVal oGame As clsGame)
-        Dim oGameBackups As List(Of clsBackup) = mgrManifest.DoManifestGetByName(oGame.Name, mgrSQLite.Database.Remote)
+        Dim oGameBackups As List(Of clsBackup) = mgrManifest.DoManifestGetByMonitorID(oGame.ID, mgrSQLite.Database.Remote)
         Dim oGameBackup As clsBackup
         Dim sOldBackup As String
         Dim iBackupCount As Integer = oGameBackups.Count
@@ -164,8 +162,8 @@ Public Class mgrBackup
                 oGameBackup = oGameBackups(oGameBackups.Count - i)
                 sOldBackup = Settings.BackupFolder & Path.DirectorySeparatorChar & oGameBackup.FileName
 
-                mgrManifest.DoManifestDeletebyID(oGameBackup, mgrSQLite.Database.Remote)
-                mgrManifest.DoManifestDeletebyID(oGameBackup, mgrSQLite.Database.Local)
+                mgrManifest.DoManifestDeleteByManifestID(oGameBackup, mgrSQLite.Database.Remote)
+                mgrManifest.DoManifestDeleteByManifestID(oGameBackup, mgrSQLite.Database.Local)
                 mgrCommon.DeleteFile(sOldBackup)
                 mgrCommon.DeleteDirectoryByBackup(Settings.BackupFolder & Path.DirectorySeparatorChar, oGameBackup)
 
@@ -199,7 +197,7 @@ Public Class mgrBackup
             RaiseEvent UpdateBackupInfo(oGame)
 
             If oSettings.CreateSubFolder Then
-                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.FileSafeName
+                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.ID
                 Try
                     If Not Directory.Exists(sBackupFile) Then
                         Directory.CreateDirectory(sBackupFile)
@@ -212,9 +210,9 @@ Public Class mgrBackup
 
             If oGame.AppendTimeStamp Then
                 CheckOldBackups(oGame)
-                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.FileSafeName & sTimeStamp & ".7z"
+                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.ID & sTimeStamp & ".7z"
             Else
-                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.FileSafeName & ".7z"
+                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.ID & ".7z"
             End If
 
             If bDoBackup Then

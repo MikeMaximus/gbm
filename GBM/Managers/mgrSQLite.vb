@@ -80,10 +80,10 @@ Public Class mgrSQLite
             sSql &= "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
 
             'Add Tables (Monitor List)
-            sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
+            sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
                    "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, PRIMARY KEY(Name, Process));"
+                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL);"
 
             'Add Tables (Tags)
             sSql &= "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
@@ -95,8 +95,8 @@ Public Class mgrSQLite
             sSql &= "CREATE TABLE variables (VariableID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
 
             'Add Tables (Local Manifest)
-            sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, " &
-                   "AbsolutePath BOOLEAN NOT NULL, DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+            sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL PRIMARY KEY, MonitorID TEXT NOT NULL, FileName TEXT NOT NULL, " &
+                   "DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
 
             'Add Tables (Sessions)
             sSql &= "CREATE TABLE sessions (MonitorID TEXT NOT NULL, Start INTEGER NOT NULL, End INTEGER NOT NULL, PRIMARY KEY(MonitorID, Start));"
@@ -120,14 +120,14 @@ Public Class mgrSQLite
             SqliteConnection.CreateFile(sDatabaseLocation)
 
             'Add Tables (Remote Monitor List)
-            sSql = "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
+            sSql = "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
                    "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, PRIMARY KEY(Name, Process));"
+                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL);"
 
             'Add Tables (Remote Manifest)
-            sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, " &
-                   "AbsolutePath BOOLEAN NOT NULL, DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+            sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL PRIMARY KEY, MonitorID TEXT NOT NULL, FileName TEXT NOT NULL, " &
+                   "DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
 
             'Add Tables (Remote Tags)
             sSql &= "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
@@ -267,7 +267,7 @@ Public Class mgrSQLite
         Dim oResult As New Object
 
         Connect()
-        Command = New SqliteCommand(sSQL, db)
+        command = New SqliteCommand(sSQL, db)
         BuildParams(command, hshParams)
 
         Try
@@ -755,6 +755,58 @@ Public Class mgrSQLite
                 sSQL = "ALTER TABLE monitorlist ADD COLUMN IsRegEx BOOLEAN NOT NULL DEFAULT 0;"
 
                 sSQL &= "PRAGMA user_version=108"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '1.10 Upgrade
+        If GetDatabaseVersion() < 110 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v108")
+
+                'Overhaul Tables
+                sSQL = "CREATE TABLE monitorlist_new (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
+                   "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
+                   "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
+                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL);"
+                sSQL &= "INSERT INTO monitorlist_new (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, " &
+                   "ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx)" &
+                   "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, " &
+                   "ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx FROM monitorlist;" &
+                   "DROP TABLE monitorlist; ALTER TABLE monitorlist_new RENAME TO monitorlist;"
+                sSQL &= "CREATE TABLE manifest_new (ManifestID TEXT NOT NULL PRIMARY KEY, MonitorID TEXT NOT NULL, FileName TEXT NOT NULL, " &
+                   "DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+                sSQL &= "INSERT INTO manifest_new (ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum) " &
+                   "SELECT ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum FROM manifest NATURAL JOIN monitorlist;" &
+                   "DROP TABLE manifest; ALTER TABLE manifest_new RENAME TO manifest;"
+
+                sSQL &= "PRAGMA user_version=110"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v108")
+
+                'Overhaul Tables
+                sSQL = "CREATE TABLE monitorlist_new (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
+                   "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
+                   "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
+                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL);"
+                sSQL &= "INSERT INTO monitorlist_new (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, " &
+                   "ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx)" &
+                   "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, " &
+                   "ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx FROM monitorlist;" &
+                   "DROP TABLE monitorlist; ALTER TABLE monitorlist_new RENAME TO monitorlist;"
+                sSQL &= "CREATE TABLE manifest_new (ManifestID TEXT NOT NULL PRIMARY KEY, MonitorID TEXT NOT NULL, FileName TEXT NOT NULL, " &
+                   "DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+                sSQL &= "INSERT INTO manifest_new (ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum) " &
+                   "SELECT ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum FROM manifest NATURAL JOIN monitorlist;" &
+                   "DROP TABLE manifest; ALTER TABLE manifest_new RENAME TO manifest;"
+
+                sSQL &= "PRAGMA user_version=110"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If

@@ -406,7 +406,6 @@ Public Class frmMain
                 hshGames = mgrMonitorList.DoListGetbyName(de.Key)
                 If hshGames.Count = 1 Then
                     oGame = DirectCast(hshGames(0), clsGame)
-                    mgrRestore.DoPathOverride(oBackup, oGame)
                     If oGame.ProcessPath <> String.Empty Then
                         oBackup.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oBackup.RestorePath
                     End If
@@ -420,8 +419,8 @@ Public Class frmMain
 
                 If Not Directory.Exists(sExtractPath) Then
                     If oSettings.AutoMark Then
-                        If mgrManifest.DoGlobalManifestCheck(de.Key, mgrSQLite.Database.Local) Then
-                            mgrManifest.DoManifestUpdateByName(de.Value, mgrSQLite.Database.Local)
+                        If mgrManifest.DoManifestCheck(de.Key, mgrSQLite.Database.Local) Then
+                            mgrManifest.DoManifestUpdateByMonitorID(de.Value, mgrSQLite.Database.Local)
                         Else
                             mgrManifest.DoManifestAdd(de.Value, mgrSQLite.Database.Local)
                         End If

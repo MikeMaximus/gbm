@@ -22,7 +22,6 @@ Public Class clsGame
     Private sComments As String = String.Empty
     Private bIsRegEx As Boolean = False
     Private bDuplicate As Boolean = False
-    Private bTempGame As Boolean = False
     Private oImportTags As New List(Of Tag)
 
     <Flags()> Public Enum eOptionalSyncFields
@@ -37,7 +36,7 @@ Public Class clsGame
 
     Property ID As String
         Set(value As String)
-            sGameID = value
+            sGameID = mgrPath.ValidateForFileSystem(value)
         End Set
         Get
             Return sGameID
@@ -46,7 +45,7 @@ Public Class clsGame
 
     ReadOnly Property CompoundKey As String
         Get
-            Return ProcessName & ":" & KeySafeName
+            Return ProcessName & ":" & ID
         End Get
     End Property
 
@@ -66,18 +65,6 @@ Public Class clsGame
         End Set
         Get
             Return sGameName
-        End Get
-    End Property
-
-    ReadOnly Property FileSafeName As String
-        Get
-            Return mgrPath.ValidateForFileSystem(sGameName)
-        End Get
-    End Property
-
-    ReadOnly Property KeySafeName As String
-        Get
-            Return sGameName.Replace(":", "_")
         End Get
     End Property
 
@@ -273,15 +260,6 @@ Public Class clsGame
         End Get
     End Property
 
-    Property Temporary As Boolean
-        Get
-            Return bTempGame
-        End Get
-        Set(value As Boolean)
-            bTempGame = value
-        End Set
-    End Property
-
     Property ImportTags As List(Of Tag)
         Get
             Return oImportTags
@@ -406,7 +384,7 @@ Public Class clsGame
         If oGame Is Nothing Then
             Return False
         Else
-            If Name <> oGame.Name Then
+            If ID <> oGame.ID Then
                 Return False
             End If
             If ProcessName <> oGame.ProcessName Then

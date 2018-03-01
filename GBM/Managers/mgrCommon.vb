@@ -202,11 +202,6 @@ Public Class mgrCommon
         Dim sExemptList As String() = {"dosbox", "scummvm"}
         Dim bFound As Boolean = False
 
-        'We can't search if we don't have a configuration
-        If oGame.Temporary Then
-            Return True
-        End If
-
         For Each s As String In sExemptList
             If oGame.ProcessName.ToLower.Contains(s) Then bFound = True
         Next
@@ -430,10 +425,10 @@ Public Class mgrCommon
     'Delete a sub-folder based on the provided backup information
     Public Shared Sub DeleteDirectoryByBackup(ByVal sBackupFolder As String, ByVal oBackup As clsBackup)
         Dim oDir As DirectoryInfo
-        Dim sDir As String = sBackupFolder & oBackup.SafeName
+        Dim sDir As String = sBackupFolder & oBackup.MonitorID
 
         'Delete sub directory if it's empty
-        If oBackup.FileName.StartsWith(oBackup.SafeName & Path.DirectorySeparatorChar) Then
+        If oBackup.FileName.StartsWith(oBackup.MonitorID & Path.DirectorySeparatorChar) Then
             If Directory.Exists(sDir) Then
                 'Check if there's any sub-directories or files remaining
                 oDir = New DirectoryInfo(sDir)
