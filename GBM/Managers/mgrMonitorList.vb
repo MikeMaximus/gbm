@@ -287,7 +287,7 @@ Public Class mgrMonitorList
         Return oGame
     End Function
 
-    Public Shared Function DoListGetbyName(ByVal sName As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
+    Public Shared Function DoListGetbyMonitorID(ByVal sMonitorID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
         Dim oData As DataSet
@@ -297,9 +297,9 @@ Public Class mgrMonitorList
         Dim iCounter As Integer = 0
 
         sSQL = "SELECT * from monitorlist "
-        sSQL &= "WHERE Name = @Name"
+        sSQL &= "WHERE MonitorID = @MonitorID"
 
-        hshParams.Add("Name", sName)
+        hshParams.Add("MonitorID", sMonitorID)
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 

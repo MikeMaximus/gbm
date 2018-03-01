@@ -28,6 +28,17 @@ Public Class mgrRestore
     Public Event UpdateRestoreInfo(oRestoreInfo As clsBackup)
     Public Event SetLastAction(sMessage As String)
 
+    'This should only be needed by the Game Manager after v1.1.0
+    Public Shared Sub DoPathOverride(ByRef oCheckBackup As clsBackup, ByVal oCheckGame As clsGame)
+        If Path.IsPathRooted(oCheckGame.Path) Then
+            oCheckBackup.AbsolutePath = True
+        Else
+            oCheckBackup.AbsolutePath = False
+        End If
+
+        oCheckBackup.RestorePath = oCheckGame.Path
+    End Sub
+
     Public Shared Function CheckPath(ByRef oRestoreInfo As clsBackup, ByVal oGame As clsGame, ByRef bTriggerReload As Boolean) As Boolean
         Dim sProcess As String
         Dim sRestorePath As String

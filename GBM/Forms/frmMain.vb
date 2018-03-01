@@ -365,9 +365,9 @@ Public Class frmMain
 
     Private Sub AutoRestoreCheck()
         Dim slRestoreData As SortedList = mgrRestore.CompareManifests()
-        Dim sNotReady As New List(Of String)
-        Dim sNotInstalled As New List(Of String)
-        Dim sNoCheckSum As New List(Of String)
+        Dim oNotReady As New List(Of clsBackup)
+        Dim oNotInstalled As New List(Of clsBackup)
+        Dim oNoCheckSum As New List(Of clsBackup)
         Dim oBackup As clsBackup
         Dim sFileName As String
         Dim sExtractPath As String
@@ -395,15 +395,15 @@ Public Class frmMain
                 If oBackup.CheckSum <> String.Empty Then
                     sFileName = oSettings.BackupFolder & Path.DirectorySeparatorChar & oBackup.FileName
                     If mgrHash.Generate_SHA256_Hash(sFileName) <> oBackup.CheckSum Then
-                        sNotReady.Add(de.Key)
+                        oNotReady.Add(oBackup)
                         bFinished = False
                     End If
                 Else
-                    sNoCheckSum.Add(de.Key)
+                    oNoCheckSum.Add(oBackup)
                 End If
 
                 'Check if the restore location exists,  if not we assume the game is not installed and should be auto-marked.
-                hshGames = mgrMonitorList.DoListGetbyName(de.Key)
+                hshGames = mgrMonitorList.DoListGetbyMonitorID(de.Key)
                 If hshGames.Count = 1 Then
                     oGame = DirectCast(hshGames(0), clsGame)
                     If oGame.ProcessPath <> String.Empty Then
@@ -425,28 +425,28 @@ Public Class frmMain
                             mgrManifest.DoManifestAdd(de.Value, mgrSQLite.Database.Local)
                         End If
                     End If
-                    sNotInstalled.Add(de.Key)
+                    oNotInstalled.Add(oBackup)
                 End If
             Next
 
             'Remove any backup files that are not ready
-            For Each s As String In sNotReady
-                slRestoreData.Remove(s)
-                UpdateLog(mgrCommon.FormatString(frmMain_RestoreNotReady, s), False, ToolTipIcon.Info, True)
+            For Each o As clsBackup In oNotReady
+                slRestoreData.Remove(o.MonitorID)
+                UpdateLog(mgrCommon.FormatString(frmMain_RestoreNotReady, o.Name), False, ToolTipIcon.Info, True)
             Next
 
             'Remove any backup files that should not be automatically restored
-            For Each s As String In sNotInstalled
-                slRestoreData.Remove(s)
+            For Each o As clsBackup In oNotInstalled
+                slRestoreData.Remove(o.MonitorID)
                 If oSettings.AutoMark Then
-                    UpdateLog(mgrCommon.FormatString(frmMain_AutoMark, s), False, ToolTipIcon.Info, True)
+                    UpdateLog(mgrCommon.FormatString(frmMain_AutoMark, o.Name), False, ToolTipIcon.Info, True)
                 Else
-                    UpdateLog(mgrCommon.FormatString(frmMain_NoAutoMark, s), False, ToolTipIcon.Info, True)
+                    UpdateLog(mgrCommon.FormatString(frmMain_NoAutoMark, o.Name), False, ToolTipIcon.Info, True)
                 End If
             Next
-            For Each s As String In sNoCheckSum
-                slRestoreData.Remove(s)
-                UpdateLog(mgrCommon.FormatString(frmMain_NoCheckSum, s), False, ToolTipIcon.Info, True)
+            For Each o As clsBackup In oNoCheckSum
+                slRestoreData.Remove(o.MonitorID)
+                UpdateLog(mgrCommon.FormatString(frmMain_NoCheckSum, o.Name), False, ToolTipIcon.Info, True)
             Next
 
             'Automatically restore backup files
@@ -455,13 +455,14 @@ Public Class frmMain
                     hshRestore = New Hashtable
                     sGame = String.Empty
                     For Each de As DictionaryEntry In slRestoreData
-                        hshGames = mgrMonitorList.DoListGetbyName(de.Key)
+                        oBackup = DirectCast(de.Value, clsBackup)
+                        hshGames = mgrMonitorList.DoListGetbyMonitorID(de.Key)
                         If hshGames.Count = 1 Then
                             oGame = DirectCast(hshGames(0), clsGame)
                             sGame = oGame.CroppedName
                             hshRestore.Add(oGame, de.Value)
                         Else
-                            UpdateLog(mgrCommon.FormatString(frmMain_AutoRestoreFailure, de.Key), False, ToolTipIcon.Info, True)
+                            UpdateLog(mgrCommon.FormatString(frmMain_AutoRestoreFailure, oBackup.Name), False, ToolTipIcon.Info, True)
                         End If
                     Next
 

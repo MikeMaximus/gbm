@@ -172,7 +172,7 @@ Public Class frmGameManager
         Dim sFileName As String
         Dim sNewFileName As String
 
-        'If there is a name change, check and update the manifest
+        'If there is an ID change, check and update the manifest
         If oNewApp.ID <> oOriginalApp.ID Then
             'Local
             If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Local) Then
@@ -625,6 +625,9 @@ Public Class frmGameManager
 
             CurrentBackupItem = DirectCast(oRemoteBackupData(oApp.ID), clsBackup)
 
+            'Override Path
+            CurrentBackupItem.RestorePath = oApp.Path
+
             sFileName = BackupFolder & CurrentBackupItem.FileName
 
             btnOpenBackupFile.Enabled = True
@@ -638,6 +641,7 @@ Public Class frmGameManager
                 lblBackupFileData.Text = frmGameManager_ErrorNoBackupExists
             End If
 
+            mgrRestore.DoPathOverride(CurrentBackupItem, oApp)
             lblRestorePathData.Text = CurrentBackupItem.RestorePath
         Else
             oComboItems.Add(New KeyValuePair(Of String, String)(String.Empty, frmGameManager_None))
