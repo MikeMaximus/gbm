@@ -430,6 +430,28 @@ Public Class frmGameManager
         IsLoading = False
     End Sub
 
+    Private Sub OpenGameIDEdit()
+        Dim sCurrentID As String
+        Dim sNewID As String
+
+        If txtID.Text = String.Empty Then
+            txtID.Text = Guid.NewGuid.ToString
+        End If
+
+        sCurrentID = txtID.Text
+
+        sNewID = InputBox(frmGameManager_GameIDEditInfo, frmGameManager_GameIDEditTitle, sCurrentID)
+
+        If sNewID <> String.Empty Then
+            txtID.Text = sNewID
+
+            If sCurrentID <> sNewID Then
+                UpdateGenericButtonLabel(frmGameManager_btnGameID, btnGameID, True)
+            End If
+        End If
+
+    End Sub
+
     Private Sub OpenBackupFile()
         Dim sFileName As String
         Dim oProcessStartInfo As ProcessStartInfo
@@ -455,6 +477,16 @@ Public Class frmGameManager
         Else
             btn.Text = sLabel & " " & frmGameManager_Items
         End If
+
+        If bDirty Then
+            btn.Font = New Font(FontFamily.GenericSansSerif, 8.25, FontStyle.Bold)
+        Else
+            btn.Font = New Font(FontFamily.GenericSansSerif, 8.25, FontStyle.Regular)
+        End If
+    End Sub
+
+    Private Sub UpdateGenericButtonLabel(ByVal sLabel As String, ByVal btn As Button, ByVal bDirty As Boolean)
+        btn.Text = sLabel
 
         If bDirty Then
             btn.Font = New Font(FontFamily.GenericSansSerif, 8.25, FontStyle.Bold)
@@ -750,6 +782,7 @@ Public Class frmGameManager
         'Update Buttons
         UpdateBuilderButtonLabel(oApp.FileType, frmGameManager_IncludeShortcut, btnInclude, False)
         UpdateBuilderButtonLabel(oApp.ExcludeList, frmGameManager_ExcludeShortcut, btnExclude, False)
+        UpdateGenericButtonLabel(frmGameManager_btnGameID, btnGameID, False)
 
         'Extra
         txtAppPath.Text = oApp.ProcessPath
@@ -975,6 +1008,9 @@ Public Class frmGameManager
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = True
                 btnExport.Enabled = True
+                UpdateGenericButtonLabel(frmGameManager_IncludeShortcut, btnInclude, False)
+                UpdateGenericButtonLabel(frmGameManager_ExcludeShortcut, btnExclude, False)
+                UpdateGenericButtonLabel(frmGameManager_btnGameID, btnGameID, False)
             Case eModes.MultiSelect
                 lstGames.Enabled = True
                 lblQuickFilter.Enabled = False
@@ -1163,17 +1199,17 @@ Public Class frmGameManager
 
         Select Case eCurrentMode
             Case eModes.Add
-                If CoreValidatation(oApp) Then
+                If CoreValidatation(oApp, True) Then
                     bSuccess = True
                     mgrMonitorList.DoListAdd(oApp)
                     SaveTags(oApp.ID)
                     eCurrentMode = eModes.View
                 End If
             Case eModes.Edit
-                If CoreValidatation(oApp) Then
+                If CoreValidatation(oApp, False) Then
                     bSuccess = True
-                    mgrMonitorList.DoListUpdate(oApp)
                     CheckManifestandUpdate(oCurrentGame, oApp)
+                    mgrMonitorList.DoListUpdate(oApp, CurrentGame.ID)
                     eCurrentMode = eModes.View
                 End If
             Case eModes.MultiSelect
@@ -1250,7 +1286,15 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Function CoreValidatation(ByVal oApp As clsGame) As Boolean
+    Private Function CoreValidatation(ByVal oApp As clsGame, ByVal bNewGame As Boolean) As Boolean
+        Dim sCurrentID As String
+
+        If bNewGame Then
+            sCurrentID = String.Empty
+        Else
+            sCurrentID = CurrentGame.ID
+        End If
+
         If txtName.Text.Trim = String.Empty Then
             mgrCommon.ShowMessage(frmGameManager_ErrorValidName, MsgBoxStyle.Exclamation)
             txtName.Focus()
@@ -1269,14 +1313,14 @@ Public Class frmGameManager
             Return False
         End If
 
-        If mgrMonitorList.DoDuplicateListCheck(oApp.Name, oApp.ProcessName, , oApp.ID) Then
-            mgrCommon.ShowMessage(frmGameManager_ErrorGameDupe, MsgBoxStyle.Exclamation)
+        If mgrMonitorList.DoDuplicateListCheck(oApp.ID, , sCurrentID) Then
+            mgrCommon.ShowMessage(frmGameManager_ErrorGameDupe, oApp.ID, MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
         End If
 
         If oApp.Parameter <> String.Empty Then
-            If mgrMonitorList.DoDuplicateParameterCheck(oApp.ProcessName, oApp.Parameter, , oApp.ID) Then
+            If mgrMonitorList.DoDuplicateParameterCheck(oApp.ProcessName, oApp.Parameter, , sCurrentID) Then
                 mgrCommon.ShowMessage(frmGameManager_ErrorProcessParameterDupe, MsgBoxStyle.Exclamation)
                 Return False
             End If
@@ -1537,6 +1581,7 @@ Public Class frmGameManager
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
         lblComments.Text = frmGameManager_lblComments
         chkRegEx.Text = frmGameManager_chkRegEx
+        btnGameID.Text = frmGameManager_btnGameID
 
         'Init Filter Timer
         tmFilterTimer = New Timer()
@@ -1714,6 +1759,10 @@ Public Class frmGameManager
 
     Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
         ExportGameList()
+    End Sub
+
+    Private Sub btnGameID_Click(sender As Object, e As EventArgs) Handles btnGameID.Click
+        OpenGameIDEdit()
     End Sub
 
     Private Sub txtQuickFilter_TextChanged(sender As Object, e As EventArgs) Handles txtQuickFilter.TextChanged

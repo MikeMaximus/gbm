@@ -142,18 +142,23 @@ Public Class mgrMonitorList
 
     End Sub
 
-    Public Shared Sub DoListUpdate(ByVal oGame As clsGame, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+    Public Shared Sub DoListUpdate(ByVal oGame As clsGame, Optional ByVal sQueryID As String = "", Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "UPDATE monitorlist SET Name=@Name, Process=@Process, Path=@Path, AbsolutePath=@AbsolutePath, FolderSave=@FolderSave, "
+        sSQL = "UPDATE monitorlist SET MonitorID=@ID, Name=@Name, Process=@Process, Path=@Path, AbsolutePath=@AbsolutePath, FolderSave=@FolderSave, "
         sSQL &= "FileType=@FileType, TimeStamp=@TimeStamp, ExcludeList=@ExcludeList, ProcessPath=@ProcessPath, Icon=@Icon, "
         sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit, "
-        sSQL &= "CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments, IsRegEx=@IsRegEx WHERE MonitorID=@ID"
+        sSQL &= "CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments, IsRegEx=@IsRegEx WHERE MonitorID=@QueryID"
 
         'Parameters
         hshParams = SetCoreParameters(oGame)
+        If sQueryID <> String.Empty Then
+            hshParams.Add("QueryID", sQueryID)
+        Else
+            hshParams.Add("QueryID", oGame.ID)
+        End If
 
         oDatabase.RunParamQuery(sSQL, hshParams)
 
@@ -295,7 +300,7 @@ Public Class mgrMonitorList
         Dim hshParams As New Hashtable
         Dim iCounter As Integer = 0
 
-        sSQL = "SELECT * from monitorlist "
+        sSQL = "SELECT * FROM monitorlist "
         sSQL &= "WHERE MonitorID = @MonitorID"
 
         hshParams.Add("MonitorID", sMonitorID)
@@ -311,20 +316,19 @@ Public Class mgrMonitorList
         Return hshGames
     End Function
 
-    Public Shared Function DoDuplicateListCheck(ByVal sName As String, ByVal sProcess As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local, Optional ByVal sExcludeID As String = "") As Boolean
+    Public Shared Function DoDuplicateListCheck(ByVal sMonitorID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local, Optional ByVal sExcludeID As String = "") As Boolean
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
         Dim oData As DataSet
         Dim hshParams As New Hashtable
 
-        sSQL = "SELECT * FROM monitorlist WHERE Name = @Name AND Process= @Process"
+        sSQL = "SELECT * FROM monitorlist WHERE MonitorID = @MonitorID"
 
-        hshParams.Add("Name", sName)
-        hshParams.Add("Process", sProcess)
+        hshParams.Add("MonitorID", sMonitorID)
 
         If sExcludeID <> String.Empty Then
-            sSQL &= " AND MonitorID <> @MonitorID"
-            hshParams.Add("MonitorID", sExcludeID)
+            sSQL &= " AND MonitorID <> @QueryID"
+            hshParams.Add("QueryID", sExcludeID)
         End If
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
@@ -478,13 +482,11 @@ Public Class mgrMonitorList
             sSQL &= "WHERE MonitorID = @MonitorID;"
         End If
         sSQL &= "DELETE FROM monitorlist "
-        sSQL &= "WHERE Name = @Name AND Process= @Process;"
+        sSQL &= "WHERE MonitorID = @MonitorID;"
 
         For Each oGame As clsGame In hshGames.Values
             hshParams = New Hashtable
             hshParams.Add("MonitorID", oGame.ID)
-            hshParams.Add("Name", oGame.Name)
-            hshParams.Add("Process", oGame.TrueProcess)
             oParamList.Add(hshParams)
         Next
 

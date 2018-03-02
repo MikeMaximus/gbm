@@ -264,22 +264,11 @@ Public Class frmAddWizard
     End Function
 
     Private Sub DoSave()
-        Dim hshDupeCheck As New Hashtable
-        Dim sNewGame As String = oGameToSave.CompoundKey
-
-        For Each o As clsGame In GameData.Values
-            hshDupeCheck.Add(o.CompoundKey, String.Empty)
-        Next
-
-        If hshDupeCheck.Contains(sNewGame) Then
-            mgrCommon.ShowMessage(frmAddWizard_ErrorGameDupe, MsgBoxStyle.Exclamation)
-        Else
-            mgrMonitorList.DoListAdd(oGameToSave)
-            If mgrCommon.ShowMessage(frmAddWizard_ConfirmSaveTags, New String() {oGameToSave.Name, oGameToSave.Name}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                OpenTags(oGameToSave)
-            End If
-            Me.Close()
+        mgrMonitorList.DoListAdd(oGameToSave)
+        If mgrCommon.ShowMessage(frmAddWizard_ConfirmSaveTags, New String() {oGameToSave.Name, oGameToSave.Name}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            OpenTags(oGameToSave)
         End If
+        Me.Close()
     End Sub
 
     Private Sub ValidateBack()
