@@ -38,7 +38,6 @@ Public Class frmStartUpWizard
         llbManual.Text = frmStartUpWizard_llbManual
         lblStep1Title.Text = frmStartUpWizard_lblStep1Title
         lblStep1Instructions.Text = frmStartUpWizard_lblStep1Instructions
-        chkSync.Text = frmStartUpWizard_chkSync
         chkCreateFolder.Text = frmStartUpWizard_chkCreateFolder
         lblStep2Title.Text = frmStartUpWizard_lblStep2Title
         lblStep2Instructions.Text = frmStartUpWizard_lblStep2Instructions
@@ -80,7 +79,6 @@ Public Class frmStartUpWizard
             Case eSteps.Step2
                 txtBackupPath.Text = oSettings.BackupFolder
                 chkCreateFolder.Checked = oSettings.CreateSubFolder
-                chkSync.Checked = oSettings.Sync
                 btnBack.Enabled = True
                 btnNext.Enabled = True
                 tabWizard.SelectTab(1)
@@ -109,7 +107,7 @@ Public Class frmStartUpWizard
         If mgrCommon.ShowMessage(frmStartUpWizard_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             If mgrMonitorList.DoImport(sImportURL) Then
                 oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
-                If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+                mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
             End If
         End If
     End Sub
@@ -124,16 +122,16 @@ Public Class frmStartUpWizard
         frm.GameData = oGameData
         frm.ShowDialog()
         LoadGameSettings()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
     End Sub
 
     Private Sub OpenMonitorList()
         Dim frm As New frmGameManager
-        frm.BackupFolder = oSettings.BackupFolder
+        frm.Settings = oSettings
         frm.DisableExternalFunctions = True
         frm.ShowDialog()
         LoadGameSettings()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
     End Sub
 
     Private Function ValidateBackupPath(ByVal strPath As String, ByRef sErrorMessage As String) As Boolean
@@ -183,10 +181,9 @@ Public Class frmStartUpWizard
                 If ValidateBackupPath(txtBackupPath.Text, sErrorMessage) Then
                     oSettings.BackupFolder = txtBackupPath.Text
                     oSettings.CreateSubFolder = chkCreateFolder.Checked
-                    oSettings.Sync = chkSync.Checked
                     oSettings.SaveSettings()
                     oSettings.LoadSettings()
-                    If oSettings.Sync Then CheckSync()
+                    CheckSync()
                     eCurrentStep = eSteps.Step3
                 Else
                     bError = True

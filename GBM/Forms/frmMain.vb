@@ -709,7 +709,7 @@ Public Class frmMain
         End If
 
         mgrMonitorList.DoListUpdate(oProcess.GameInfo)
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
 
         UpdateTimeSpent(dCurrentHours, oProcess.TimeSpent.TotalHours)
     End Sub
@@ -840,18 +840,17 @@ Public Class frmMain
         Dim frm As New frmTags
         PauseScan()
         frm.ShowDialog()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
         ResumeScan()
     End Sub
 
     Private Sub OpenGameManager(Optional ByVal bPendingRestores As Boolean = False)
         Dim frm As New frmGameManager
         PauseScan()
-        frm.BackupFolder = oSettings.BackupFolder
+        frm.Settings = oSettings
         frm.PendingRestores = bPendingRestores
         frm.ShowDialog()
         LoadGameSettings()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
         ResumeScan()
 
         'Handle backup trigger
@@ -901,7 +900,7 @@ Public Class frmMain
         frm.GameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
         frm.ShowDialog()
         LoadGameSettings()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
         ResumeScan()
     End Sub
 
@@ -910,7 +909,7 @@ Public Class frmMain
         PauseScan()
         frm.ShowDialog()
         mgrPath.CustomVariablesReload()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
         ResumeScan()
     End Sub
 
@@ -975,18 +974,18 @@ Public Class frmMain
     Private Sub HandleSyncWatcher() Handles tmFileWatcherQueue.Elapsed
         tmFileWatcherQueue.Stop()
         StopSyncWatcher()
-        If oSettings.Sync Then
-            UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
-            SyncGameSettings()
-            LoadGameSettings()
-        End If
+
+        UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
+        SyncGameSettings()
+        LoadGameSettings()
+
         CheckForNewBackups()
         StartSyncWatcher()
     End Sub
 
     Private Sub SyncGameSettings()
         'Sync Monitor List
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields, False)
+        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields, False)
     End Sub
 
     Private Sub LocalDatabaseCheck()
@@ -1477,7 +1476,7 @@ Public Class frmMain
                 oSettings.BackupFolder = sBackupPath
                 oSettings.SaveSettings()
                 oSettings.LoadSettings()
-                If oSettings.Sync Then mgrMonitorList.HandleBackupLocationChange(oSettings)
+                mgrMonitorList.HandleBackupLocationChange(oSettings)
             End If
             Return True
         Else

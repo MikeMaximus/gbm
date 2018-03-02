@@ -1084,9 +1084,6 @@
   <data name="frmSettings_chkSupressBackup" xml:space="preserve">
     <value>Ignore sessions shorter than</value>
   </data>
-  <data name="frmSettings_chkSync" xml:space="preserve">
-    <value>Enable syncing</value>
-  </data>
   <data name="frmSettings_chkTimeTracking" xml:space="preserve">
     <value>Enable time tracking</value>
   </data>
@@ -1135,9 +1132,6 @@
   <data name="frmStartUpWizard_chkCreateFolder" xml:space="preserve">
     <value>Create a sub-folder for each game</value>
   </data>
-  <data name="frmStartUpWizard_chkSync" xml:space="preserve">
-    <value>Import any existing GBM data in the backup folder</value>
-  </data>
   <data name="frmStartUpWizard_ConfirmOfficialImport" xml:space="preserve">
     <value>Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection.</value>
   </data>
@@ -1166,7 +1160,7 @@
     <value>Welcome to GBM</value>
   </data>
   <data name="frmStartUpWizard_lblStep2Instructions" xml:space="preserve">
-    <value>GBM will store all your backup files along with a manifest database (gbm.s3db) in this location. </value>
+    <value>GBM will store all your backup files along with a manifest database (gbm.s3db) in this location.  Any existing GBM data in this folder will be automatically imported.</value>
   </data>
   <data name="frmStartUpWizard_lblStep2Intro" xml:space="preserve">
     <value>Choose where GBM saves your backup files:</value>
@@ -1610,7 +1604,7 @@
     <value>A backup cannot be run on the selected game(s) with their current configuration.</value>
   </data>
   <data name="frmSettings_btnOptionalFields" xml:space="preserve">
-    <value>Choose &amp;Optional Fields...</value>
+    <value>Choose &amp;Optional Sync Fields...</value>
   </data>
   <data name="frmSyncFields_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>

@@ -4,6 +4,7 @@ Imports System.IO
 
 Public Class frmGameManager
 
+    Private oSettings As mgrSettings
     Private sBackupFolder As String
     Private bPendingRestores As Boolean = False
     Private oCurrentBackupItem As clsBackup
@@ -39,12 +40,12 @@ Public Class frmGameManager
 
     Private eCurrentMode As eModes = eModes.Disabled
 
-    Property BackupFolder As String
+    Property Settings As mgrSettings
         Get
-            Return sBackupFolder & Path.DirectorySeparatorChar
+            Return oSettings
         End Get
-        Set(value As String)
-            sBackupFolder = value
+        Set(value As mgrSettings)
+            oSettings = value
         End Set
     End Property
 
@@ -72,6 +73,15 @@ Public Class frmGameManager
         End Get
         Set(value As clsGame)
             oCurrentGame = value
+        End Set
+    End Property
+
+    Private Property BackupFolder As String
+        Get
+            Return Settings.BackupFolder & Path.DirectorySeparatorChar
+        End Get
+        Set(value As String)
+            sBackupFolder = value
         End Set
     End Property
 
@@ -201,7 +211,6 @@ Public Class frmGameManager
                     oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.ID, oNewApp.ID)
                     mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Local)
                 Next
-                oLocalBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Local)
             End If
 
             'Remote
@@ -213,7 +222,6 @@ Public Class frmGameManager
                     oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.ID, oNewApp.ID)
                     mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Remote)
                 Next
-                oRemoteBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
             End If
         End If
     End Sub
@@ -657,9 +665,6 @@ Public Class frmGameManager
 
             CurrentBackupItem = DirectCast(oRemoteBackupData(oApp.ID), clsBackup)
 
-            'Override Path
-            CurrentBackupItem.RestorePath = oApp.Path
-
             sFileName = BackupFolder & CurrentBackupItem.FileName
 
             btnOpenBackupFile.Enabled = True
@@ -673,7 +678,6 @@ Public Class frmGameManager
                 lblBackupFileData.Text = frmGameManager_ErrorNoBackupExists
             End If
 
-            mgrRestore.DoPathOverride(CurrentBackupItem, oApp)
             lblRestorePathData.Text = CurrentBackupItem.RestorePath
         Else
             oComboItems.Add(New KeyValuePair(Of String, String)(String.Empty, frmGameManager_None))
@@ -1226,6 +1230,8 @@ Public Class frmGameManager
         End Select
 
         If bSuccess Then
+            mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
+            LoadBackupData()
             IsDirty = False
             LoadData()
             If eCurrentMode = eModes.View Then
@@ -1251,6 +1257,7 @@ Public Class frmGameManager
 
             If mgrCommon.ShowMessage(frmGameManager_ConfirmGameDelete, oApp.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDelete(oApp.ID)
+                mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
                 LoadData()
                 eCurrentMode = eModes.Disabled
                 ModeChange()
@@ -1265,6 +1272,7 @@ Public Class frmGameManager
 
             If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiGameDelete, sMonitorIDs.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDeleteMulti(sMonitorIDs)
+                mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
                 LoadData()
                 eCurrentMode = eModes.Disabled
                 ModeChange()

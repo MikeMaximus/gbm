@@ -68,15 +68,9 @@ Public Class frmSettings
         oSettings.Custom7zArguments = txt7zArguments.Text.Trim
         oSettings.Custom7zLocation = txt7zLocation.Text.Trim
 
-        'Turning syncing from off to on is the same as changing the backup folder
-        If chkSync.Checked = True And oSettings.Sync = False Then
-            bSyncSettingsChanged = True
-        End If
-        oSettings.Sync = chkSync.Checked
-
         If Directory.Exists(txtBackupFolder.Text) Then
             If oSettings.BackupFolder <> txtBackupFolder.Text Then
-                If chkSync.Checked Then bSyncSettingsChanged = True
+                bSyncSettingsChanged = True
             End If
             oSettings.BackupFolder = txtBackupFolder.Text
         Else
@@ -96,7 +90,7 @@ Public Class frmSettings
         End If
 
         'We must trigger a sync if optional fields have changed
-        If Settings.Sync And (eCurrentSyncFields <> Settings.SyncFields) Then
+        If eCurrentSyncFields <> Settings.SyncFields Then
             bSyncSettingsChanged = True
         End If
 
@@ -181,7 +175,6 @@ Public Class frmSettings
         chkAutoRestore.Checked = oSettings.AutoRestore
         chkAutoMark.Checked = oSettings.AutoMark
         txtBackupFolder.Text = oSettings.BackupFolder
-        chkSync.Checked = oSettings.Sync
         chkTimeTracking.Checked = oSettings.TimeTracking
         chkSessionTracking.Checked = oSettings.SessionTracking
         chkSupressBackup.Checked = oSettings.SupressBackup
@@ -201,8 +194,6 @@ Public Class frmSettings
         'Retrieve 7z Info
         GetUtilityInfo(oSettings.Custom7zLocation)
 
-        'Toggle Sync Button
-        ToggleSyncButton()
     End Sub
 
     Private Sub LoadCombos()
@@ -234,14 +225,6 @@ Public Class frmSettings
 
         'Select Default
         lstSettings.SelectedIndex = 0
-    End Sub
-
-    Private Sub ToggleSyncButton()
-        If chkSync.Checked Then
-            btnOptionalFields.Enabled = True
-        Else
-            btnOptionalFields.Enabled = False
-        End If
     End Sub
 
     Private Sub OpenOptionalFields()
@@ -298,7 +281,6 @@ Public Class frmSettings
         chkTimeTracking.Text = frmSettings_chkTimeTracking
         chkSessionTracking.Text = frmSettings_chkSessionTracking
         chkStartWindows.Text = frmSettings_chkStartWindows
-        chkSync.Text = frmSettings_chkSync
         chkShowDetectionTips.Text = frmSettings_chkShowDetectionTips
         chkAutoSaveLog.Text = frmSettings_chkAutoSaveLog
         chkStartToTray.Text = frmSettings_chkStartToTray
@@ -371,10 +353,6 @@ Public Class frmSettings
 
     Private Sub btnOptionalFields_Click(sender As Object, e As EventArgs) Handles btnOptionalFields.Click
         OpenOptionalFields()
-    End Sub
-
-    Private Sub chkSync_CheckedChanged(sender As Object, e As EventArgs) Handles chkSync.CheckedChanged
-        ToggleSyncButton()
     End Sub
 
     Private Sub lstSettings_SelectedValueChanged(sender As Object, e As EventArgs) Handles lstSettings.SelectedValueChanged

@@ -11,7 +11,6 @@ Public Class mgrSettings
     Private bRestoreOnLaunch As Boolean = False
     Private bAutoRestore As Boolean = False
     Private bAutoMark As Boolean = False
-    Private bSync As Boolean = True
     Private bTimeTracking As Boolean = True
     Private bSessionTracking As Boolean = False
     Private bSupressBackup As Boolean = False
@@ -110,15 +109,6 @@ Public Class mgrSettings
         End Get
         Set(value As Boolean)
             bAutoMark = value
-        End Set
-    End Property
-
-    Property Sync As Boolean
-        Get
-            Return bSync
-        End Get
-        Set(value As Boolean)
-            bSync = value
         End Set
     End Property
 
@@ -269,7 +259,7 @@ Public Class mgrSettings
         oDatabase.RunParamQuery(sSQL, New Hashtable)
 
         sSQL = "INSERT INTO settings VALUES (1, @MonitorOnStartup, @StartToTray, @ShowDetectionToolTips, @DisableConfirmation, "
-        sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @Sync, @StartWithWindows, "
+        sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SupressBackup, @SupressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
         sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking)"
 
@@ -281,7 +271,6 @@ Public Class mgrSettings
         hshParams.Add("ShowOverwriteWarning", ShowOverwriteWarning)
         hshParams.Add("RestoreOnLaunch", RestoreOnLaunch)
         hshParams.Add("BackupFolder", BackupFolder)
-        hshParams.Add("Sync", Sync)
         hshParams.Add("StartWithWindows", StartWithWindows)
         hshParams.Add("TimeTracking", TimeTracking)
         hshParams.Add("SupressBackup", SupressBackup)
@@ -316,7 +305,6 @@ Public Class mgrSettings
             ShowOverwriteWarning = CBool(dr("ShowOverwriteWarning"))
             RestoreOnLaunch = CBool(dr("RestoreOnLaunch"))
             BackupFolder = CStr(dr("BackupFolder"))
-            Sync = CBool(dr("Sync"))
             StartWithWindows = CBool(dr("StartWithWindows"))
             TimeTracking = CBool(dr("TimeTracking"))
             SupressBackup = CBool(dr("SupressBackup"))

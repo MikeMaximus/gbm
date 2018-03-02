@@ -4012,7 +4012,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Choose &amp;Optional Fields....
+        '''  Looks up a localized string similar to Choose &amp;Optional Sync Fields....
         '''</summary>
         Friend ReadOnly Property frmSettings_btnOptionalFields() As String
             Get
@@ -4197,15 +4197,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_chkSupressBackup() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkSupressBackup", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Enable syncing.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_chkSync() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_chkSync", resourceCulture)
             End Get
         End Property
         
@@ -4498,15 +4489,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Import any existing GBM data in the backup folder.
-        '''</summary>
-        Friend ReadOnly Property frmStartUpWizard_chkSync() As String
-            Get
-                Return ResourceManager.GetString("frmStartUpWizard_chkSync", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection..
         '''</summary>
         Friend ReadOnly Property frmStartUpWizard_ConfirmOfficialImport() As String
@@ -4588,7 +4570,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to GBM will store all your backup files along with a manifest database (gbm.s3db) in this location. .
+        '''  Looks up a localized string similar to GBM will store all your backup files along with a manifest database (gbm.s3db) in this location.  Any existing GBM data in this folder will be automatically imported..
         '''</summary>
         Friend ReadOnly Property frmStartUpWizard_lblStep2Instructions() As String
             Get
