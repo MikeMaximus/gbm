@@ -37,7 +37,9 @@ Public Class clsGame
 
     Property ID As String
         Set(value As String)
-            sGameID = mgrPath.ValidateForFileSystem(value)
+            If Not value Is Nothing Then
+                sGameID = mgrPath.ValidateForFileSystem(value)
+            End If
         End Set
         Get
             Return sGameID
