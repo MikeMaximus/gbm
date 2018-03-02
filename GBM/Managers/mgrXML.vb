@@ -25,6 +25,7 @@ Public Class mgrXML
 
         For Each g As Game In oList
             oGame = New clsGame
+            oGame.ID = g.ID
             oGame.Name = g.Name
             oGame.ProcessName = g.ProcessName
             oGame.AbsolutePath = g.AbsolutePath
@@ -42,7 +43,7 @@ Public Class mgrXML
 
             'This should be wrapped just in case we get some bad data
             Try
-                hshList.Add(oGame.CompoundKey, oGame)
+                hshList.Add(oGame.ID, oGame)
             Catch e As Exception
                 'Do Nothing
             End Try

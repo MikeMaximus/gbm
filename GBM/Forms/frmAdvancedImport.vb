@@ -82,9 +82,9 @@ Public Class frmAdvancedImport
             sTags = sTags.TrimEnd(New Char() {",", " "})
 
             oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.TrueProcess, sTags})
-            oListViewItem.Tag = oApp.CompoundKey
+            oListViewItem.Tag = oApp.ID
 
-            If FinalData.ContainsKey(oApp.CompoundKey) Then
+            If FinalData.ContainsKey(oApp.ID) Then
                 oListViewItem.Checked = True
             Else
                 oListViewItem.Checked = False
@@ -101,6 +101,11 @@ Public Class frmAdvancedImport
                 Else
                     oListViewItem.Checked = False
                 End If
+            End If
+
+            If oApp.ImportUpdate Then
+                oListViewItem.ForeColor = Color.Red
+                oListViewItem.Checked = True
             End If
 
             If sFilter = String.Empty Then

@@ -78,15 +78,14 @@ Public Class mgrMonitorList
         Dim oCompareGame As clsGame
         Dim bIsDupe As Boolean
 
-        sSQL = "Select * from monitorlist ORDER BY Name Asc"
+        sSQL = "Select * FROM monitorlist ORDER BY Name Asc"
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oGame = MapToObject(dr)
             Select Case eListType
                 Case eListTypes.FullList
-                    'Don't wrap this, if it fails there's a problem with the database
-                    hshList.Add(oGame.CompoundKey, oGame)
+                    hshList.Add(oGame.ID, oGame)
                 Case eListTypes.ScanList
                     For Each de As DictionaryEntry In hshList
                         bIsDupe = False
@@ -521,10 +520,10 @@ Public Class mgrMonitorList
         hshSyncItems = hshCompareFrom.Clone
 
         For Each oFromItem In hshCompareFrom.Values
-            If hshCompareTo.Contains(oFromItem.CompoundKey) Then
-                oToItem = DirectCast(hshCompareTo(oFromItem.CompoundKey), clsGame)
+            If hshCompareTo.Contains(oFromItem.ID) Then
+                oToItem = DirectCast(hshCompareTo(oFromItem.ID), clsGame)
                 If oFromItem.SyncEquals(oToItem, eSyncFields) Then
-                    hshSyncItems.Remove(oFromItem.CompoundKey)
+                    hshSyncItems.Remove(oFromItem.ID)
                 End If
             End If
         Next
@@ -551,10 +550,10 @@ Public Class mgrMonitorList
         hshDeleteItems = hshCompareTo.Clone
 
         For Each oToItem In hshCompareTo.Values
-            If hshCompareFrom.Contains(oToItem.CompoundKey) Then
-                oFromItem = DirectCast(hshCompareFrom(oToItem.CompoundKey), clsGame)
+            If hshCompareFrom.Contains(oToItem.ID) Then
+                oFromItem = DirectCast(hshCompareFrom(oToItem.ID), clsGame)
                 If oToItem.MinimalEquals(oFromItem) Then
-                    hshDeleteItems.Remove(oToItem.CompoundKey)
+                    hshDeleteItems.Remove(oToItem.ID)
                 End If
             End If
         Next
@@ -749,7 +748,6 @@ Public Class mgrMonitorList
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
         Dim sSQL As String = String.Empty
-        Dim sID As String
         Dim oList As New List(Of Game)
         Dim oGame As Game
         Dim hshParams As New Hashtable
@@ -760,7 +758,7 @@ Public Class mgrMonitorList
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oGame = New Game
-            sID = CStr(dr("MonitorID"))
+            oGame.ID = CStr(dr("MonitorID"))
             oGame.Name = CStr(dr("Name"))
             oGame.ProcessName = CStr(dr("Process"))
             If Not IsDBNull(dr("Path")) Then oGame.Path = CStr(dr("Path"))
@@ -772,7 +770,7 @@ Public Class mgrMonitorList
             If Not IsDBNull(dr("Parameter")) Then oGame.Parameter = CStr(dr("Parameter"))
             If Not IsDBNull(dr("Comments")) Then oGame.Comments = CStr(dr("Comments"))
             oGame.IsRegEx = CBool(dr("IsRegEx"))
-            oGame.Tags = mgrGameTags.GetTagsByGameForExport(sID)
+            oGame.Tags = mgrGameTags.GetTagsByGameForExport(oGame.ID)
             oList.Add(oGame)
         Next
 
@@ -818,10 +816,14 @@ Public Class mgrMonitorList
         hshSyncItems = hshCompareFrom.Clone
 
         For Each oFromItem In hshCompareFrom.Values
-            If hshCompareTo.Contains(oFromItem.CompoundKey) Then
-                oToItem = DirectCast(hshCompareTo(oFromItem.CompoundKey), clsGame)
-                If oFromItem.CoreEquals(oToItem) Then
-                    hshSyncItems.Remove(oFromItem.CompoundKey)
+            If hshCompareTo.Contains(oFromItem.ID) Then
+                oToItem = DirectCast(hshCompareTo(oFromItem.ID), clsGame)
+                If oFromItem.MinimalEquals(oToItem) Then
+                    If oFromItem.CoreEquals(oToItem) Then
+                        hshSyncItems.Remove(oFromItem.ID)
+                    Else
+                        DirectCast(hshSyncItems(oFromItem.ID), clsGame).ImportUpdate = True
+                    End If
                 End If
             End If
         Next
