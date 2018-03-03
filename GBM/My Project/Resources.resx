@@ -2023,4 +2023,7 @@
   <data name="frmGameManager_GameIDEditTitle" xml:space="preserve">
     <value>Edit Game ID</value>
   </data>
+  <data name="frmFilter_FieldGameID" xml:space="preserve">
+    <value>Game ID</value>
+  </data>
 </root>
