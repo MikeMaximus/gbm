@@ -1,10 +1,10 @@
-Game Backup Monitor v1.0.8 Pre-Release Readme
+Game Backup Monitor v1.1.0 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-February 24, 2018
+March 3rd, 2018
 
-New in 1.0.8
+New in 1.1.0
 
 Disclaimer:
 
@@ -14,14 +14,23 @@ Disclaimer:
 
 All Platforms:
 
+- Core Design Changes (Game Configuration)	
+	- Game ID is now exposed to the user and can be changed.  This feature is mainly for developer and contributer usage.
+	- Game ID is generated automatically by GBM or acquired from an import, the user doesn't need to set it unless they want to.
+	- Game ID is now used to name game backup files and folders.
+	- Game Name can now contain any character.
+	- When a game is deleted via Game Manager (or sync), all backup manifest entries for that particular game are now deleted. The backup files themselves are not.
+- Core Design Changes (Features)
+	- The "Enable Sync" feature is now mandatory and the option been removed from Settings.
+	- The "Clean Local Manifest" feature has been removed.  It is no longer required because manfiest entries can no longer be orphaned.  Existing orphaned entries will be removed during the v1.1.0 database upgrade.
+- Import / Export Changes
+	- When importing a game list, GBM now uses the Game ID to determine if a game is new or has an updated configuration.
+	- Games with an updated configuration are identified by red text.
 - Added Regular Expression support for game detection
 	- This feature allows GBM to detect games based on a pattern instead of a single process name.
 	- This allows GBM to better support games that run from multiple executables and games that use interpreters or emulators.
 	- Use the new "Regular Expression" checkbox on the Game Manager and enter the pattern in the "Process" field.
 	- GBM will validate patterns and offer to help troubleshoot (using regexr.com) when validation fails.
-- Changed how GBM handles game and file names
-	- You may now use any character in the configuration name of a game. For example, Kingdom Come: "Deliverance" is now a valid game name.
-	- These characters are still stripped when a folder or filename is created, using the above example the backup folder and file name would be Kingdom Come Deliverance.
 - Updated session CSV export to adhere to RFC 4180.  It now handles commas, quotes and line breaks correctly.
 
 Windows Only:
@@ -33,5 +42,10 @@ Linux Only:
 - GBM now uses notify-send (libnotify) if it's available to display notifications on Linux.
 	- Mono style notifications will be displayed if notify-send is not available.
 	- The GBM icon will be displayed on notifications if it's been installed to the correct location (via makefile or deb).
+
+Known Issues:
+
+- After upgrading to v1.1.0, backup manifest entries and files created with prior versions are not overwritten when a new backup is created.
+
 	
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
