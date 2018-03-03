@@ -801,6 +801,11 @@ Public Class mgrSQLite
                 'Backup DB before starting
                 BackupDB("v108")
 
+                'The remote manifest now requires a synced monitorlist to function.  We need to force a sync for users that had it disabled, otherwise their manifest will be lost.
+                Dim oSettings As New mgrSettings
+                oSettings.LoadSettings()
+                mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+
                 'Overhaul Tables
                 sSQL = "CREATE TABLE monitorlist_new (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
