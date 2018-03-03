@@ -1346,7 +1346,6 @@ Public Class frmMain
         gMonSetupCustomVariables.Text = frmMain_gMonSetupCustomVariables
         gMonSetupTags.Text = frmMain_gMonSetupTags
         gMonTools.Text = frmMain_gMonTools
-        gMonToolsCleanMan.Text = frmMain_gMonToolsCleanMan
         gMonToolsCompact.Text = frmMain_gMonToolsCompact
         gMonToolsLog.Text = frmMain_gMonToolsLog
         gMonToolsSessions.Text = frmMain_gMonToolsSessions
@@ -1368,7 +1367,6 @@ Public Class frmMain
         gMonTraySetupCustomVariables.Text = frmMain_gMonSetupCustomVariables
         gMonTraySetupTags.Text = frmMain_gMonSetupTags
         gMonTrayTools.Text = frmMain_gMonTools
-        gMonTrayToolsCleanMan.Text = frmMain_gMonToolsCleanMan
         gMonTrayToolsCompact.Text = frmMain_gMonToolsCompact
         gMonTrayToolsLog.Text = frmMain_gMonToolsLog
         gMonTrayToolsSessions.Text = frmMain_gMonToolsSessions
@@ -1575,29 +1573,6 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub CleanLocalManifest()
-        Dim slItems As SortedList
-
-        PauseScan()
-
-        If mgrCommon.ShowMessage(frmMain_ConfirmManifestClean, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-
-            slItems = mgrRestore.SyncLocalManifest()
-
-            If slItems.Count > 0 Then
-                For Each oItem As clsBackup In slItems.Values
-                    UpdateLog(mgrCommon.FormatString(frmMain_ManifestRemovedEntry, oItem.Name), False)
-                Next
-                mgrCommon.ShowMessage(frmMain_ManifestTotalRemoved, slItems.Count, MsgBoxStyle.Information)
-            Else
-                mgrCommon.ShowMessage(frmMain_ManifestAreadyClean, MsgBoxStyle.Information)
-            End If
-        End If
-
-        ResumeScan()
-
-    End Sub
-
     Private Sub CompactDatabases()
         Dim oLocalDatabase As mgrSQLite
         Dim oRemoteDatabase As mgrSQLite
@@ -1649,10 +1624,6 @@ Public Class frmMain
 
     Private Sub SetupGameManager_Click(sender As Object, e As EventArgs) Handles gMonSetupGameManager.Click, gMonTraySetupGameManager.Click
         OpenGameManager()
-    End Sub
-
-    Private Sub gMonToolsSync_Click(sender As Object, e As EventArgs) Handles gMonTrayToolsCleanMan.Click, gMonToolsCleanMan.Click
-        CleanLocalManifest()
     End Sub
 
     Private Sub gMonToolsCompact_Click(sender As Object, e As EventArgs) Handles gMonToolsCompact.Click, gMonTrayToolsCompact.Click

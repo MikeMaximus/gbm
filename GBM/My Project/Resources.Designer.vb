@@ -3292,15 +3292,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Clea&amp;n Local Manifest.
-        '''</summary>
-        Friend ReadOnly Property frmMain_gMonToolsCleanMan() As String
-            Get
-                Return ResourceManager.GetString("frmMain_gMonToolsCleanMan", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to &amp;Compact Databases.
         '''</summary>
         Friend ReadOnly Property frmMain_gMonToolsCompact() As String

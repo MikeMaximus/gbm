@@ -475,7 +475,9 @@ Public Class mgrMonitorList
         Dim hshParams As Hashtable
         Dim oParamList As New List(Of Hashtable)
 
-        sSQL = "DELETE FROM gametags "
+        sSQL = "DELETE FROM manifest "
+        sSQL &= "WHERE MonitorID = @MonitorID;"
+        sSQL &= "DELETE FROM gametags "
         sSQL &= "WHERE MonitorID = @MonitorID;"
         If iSelectDB = mgrSQLite.Database.Local Then
             sSQL &= "DELETE FROM sessions "

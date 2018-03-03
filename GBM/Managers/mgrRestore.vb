@@ -119,24 +119,6 @@ Public Class mgrRestore
         Return slRestoreItems
     End Function
 
-    Public Shared Function SyncLocalManifest() As SortedList
-        Dim slLocalManifest As SortedList
-        Dim slRemoteManifest As SortedList
-        Dim slRemovedItems As New SortedList
-
-        slLocalManifest = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Local)
-        slRemoteManifest = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
-
-        For Each oItem As clsBackup In slLocalManifest.Values
-            If Not slRemoteManifest.Contains(oItem.MonitorID) Then
-                slRemovedItems.Add(oItem.MonitorID, oItem)
-                mgrManifest.DoManifestDeleteByMonitorID(oItem, mgrSQLite.Database.Local)
-            End If
-        Next
-
-        Return slRemovedItems
-    End Function
-
     Public Function CheckRestorePrereq(ByVal oBackupInfo As clsBackup, ByVal bCleanFolder As Boolean) As Boolean
         Dim sHash As String
         Dim sExtractPath As String

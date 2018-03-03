@@ -406,9 +406,6 @@
   <data name="frmMain_gMonTools" xml:space="preserve">
     <value>&amp;Tools</value>
   </data>
-  <data name="frmMain_gMonToolsCleanMan" xml:space="preserve">
-    <value>Clea&amp;n Local Manifest</value>
-  </data>
   <data name="frmMain_gMonToolsCompact" xml:space="preserve">
     <value>&amp;Compact Databases</value>
   </data>
