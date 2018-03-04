@@ -114,25 +114,22 @@
         Return oBackupItem
     End Function
 
-    'This should only be used to update specific entries in the remote manifest
-    Public Shared Function DoSpecificManifestCheck(ByRef oItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database) As Boolean
+    Public Shared Function DoUpdateLatestManifest(ByRef oItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database) As Boolean
         Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim oData As DataSet
+        Dim oData As Object
         Dim sSQL As String
         Dim hshParams As New Hashtable
 
-        sSQL = "SELECT * FROM manifest NATURAL JOIN monitorlist "
-        sSQL &= "WHERE MonitorID = @MonitorID AND FileName = @FileName"
+        sSQL = "SELECT ManifestID FROM manifest NATURAL JOIN monitorlist "
+        sSQL &= "WHERE MonitorID = @MonitorID ORDER BY DateUpdated DESC LIMIT 1"
 
         hshParams.Add("MonitorID", oItem.MonitorID)
-        hshParams.Add("FileName", oItem.FileName)
 
-        oData = oDatabase.ReadParamData(sSQL, hshParams)
+        oData = oDatabase.ReadSingleValue(sSQL, hshParams)
 
-        If oData.Tables(0).Rows.Count > 0 Then
-            For Each dr As DataRow In oData.Tables(0).Rows
-                oItem.ManifestID = CStr(dr("ManifestID"))
-            Next
+        If Not oData Is Nothing Then
+            oItem.ManifestID = CStr(oData)
+            DoManifestUpdateByManifestID(oItem, mgrSQLite.Database.Remote)
             Return True
         Else
             Return False

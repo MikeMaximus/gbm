@@ -48,10 +48,12 @@ Public Class mgrBackup
         oItem.CheckSum = sCheckSum
 
         'Save Remote Manifest
-        If mgrManifest.DoSpecificManifestCheck(oItem, mgrSQLite.Database.Remote) Then
-            mgrManifest.DoManifestUpdateByManifestID(oItem, mgrSQLite.Database.Remote)
+        If Not oGameInfo.AppendTimeStamp Then
+            If Not mgrManifest.DoUpdateLatestManifest(oItem, mgrSQLite.Database.Remote) Then
+                mgrManifest.DoManifestAdd(oItem, mgrSQLite.Database.Remote)
+            End If
         Else
-            mgrManifest.DoManifestAdd(oItem, mgrSQLite.Database.Remote)
+                mgrManifest.DoManifestAdd(oItem, mgrSQLite.Database.Remote)
         End If
 
         'Save Local Manifest

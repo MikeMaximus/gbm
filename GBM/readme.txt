@@ -42,10 +42,5 @@ Linux Only:
 - GBM now uses notify-send (libnotify) if it's available to display notifications on Linux.
 	- Mono style notifications will be displayed if notify-send is not available.
 	- The GBM icon will be displayed on notifications if it's been installed to the correct location (via makefile or deb).
-
-Known Issues:
-
-- After upgrading to v1.1.0, backup manifest entries and files created with prior versions are not overwritten when a new backup is created.
-
 	
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
