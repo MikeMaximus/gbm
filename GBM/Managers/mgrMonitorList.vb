@@ -152,6 +152,7 @@ Public Class mgrMonitorList
         sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit, "
         sSQL &= "CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments, IsRegEx=@IsRegEx WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE gametags SET MonitorID=@ID WHERE MonitorID=@QueryID;"
+        sSQL &= "UPDATE sessions SET MonitorID=@ID WHERE MonitorID=@QueryID;"
 
         'Parameters
         hshParams = SetCoreParameters(oGame)

@@ -45,8 +45,8 @@ Linux Only:
 
 Known Issues:
 
-- If one or more Game IDs are changed on one computer and these changes are synced to another PC sharing the same backup folder, the local backup manifest data for the changed game(s) on that PC will be reset.
-	- This is intended behavior.
-	- If "Backup Handling" options are enabled in Settings, GBM will see any backups for the changed game(s) as new and will handle them accordingly.
-	
+- If one or more Game IDs are changed on one computer and these changes are synced to another PC sharing the same backup folder:
+	- The local session data on that PC for the changed game(s) will be lost.
+	- The local backup manifest data for the changed game(s) on that PC will be reset.  GBM will see any backups for the changed game(s) as new and will handle them accordingly.
+
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
