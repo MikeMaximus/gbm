@@ -42,5 +42,11 @@ Linux Only:
 - GBM now uses notify-send (libnotify) if it's available to display notifications on Linux.
 	- Mono style notifications will be displayed if notify-send is not available.
 	- The GBM icon will be displayed on notifications if it's been installed to the correct location (via makefile or deb).
+
+Known Issues:
+
+- If one or more Game IDs are changed on one computer and these changes are synced to another PC sharing the same backup folder, the local backup manifest data for the changed game(s) on that PC will be reset.
+	- This is intended behavior.
+	- If "Backup Handling" options are enabled in Settings, GBM will see any backups for the changed game(s) as new and will handle them accordingly.
 	
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
