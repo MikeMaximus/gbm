@@ -899,10 +899,10 @@ Public Class mgrMonitorList
             If Not hshCompareTo.Contains(oFromItem.ID) Then
                 For Each oToItem In hshCompareTo.Values
                     'Strip all special characters and compare names
-                    If Regex.Replace(oToItem.Name, "[^\w]+", "") = Regex.Replace(oFromItem.Name, "[^\w]+", "") Then
+                    If Regex.Replace(oToItem.Name, "[^\w]+", "").ToLower = Regex.Replace(oFromItem.Name, "[^\w]+", "").ToLower Then
                         'Ignore games with duplicate names
                         If Not hshSyncIDs.Contains(oFromItem.ID) Then
-                            hshSyncIDs.Add(oToItem.ID, oFromItem.ID)
+                            hshSyncIDs.Add(oFromItem.ID, oToItem.ID)
                         End If
                     End If
                 Next
@@ -911,8 +911,8 @@ Public Class mgrMonitorList
 
         For Each de As DictionaryEntry In hshSyncIDs
             hshParams = New Hashtable
-            hshParams.Add("MonitorID", CStr(de.Value))
-            hshParams.Add("QueryID", CStr(de.Key))
+            hshParams.Add("MonitorID", CStr(de.Key))
+            hshParams.Add("QueryID", CStr(de.Value))
             oParamList.Add(hshParams)
         Next
 

@@ -20,6 +20,7 @@ All Platforms:
 	- Game ID is now used to name game backup files and folders.
 	- Game Name can now contain any character.
 	- When a game is deleted via Game Manager (or sync), all backup manifest entries for that particular game are now deleted. The backup files themselves are not.
+	- The Game Manager now syncs changes to the remote database immediately, instead of only when closed.
 - Core Design Changes (Features)
 	- The "Enable Sync" feature is now mandatory and the option been removed from Settings.
 	- The "Clean Local Manifest" feature has been removed.  It is no longer required because manfiest entries can no longer be orphaned.  Existing orphaned entries will be removed during the v1.1.0 database upgrade.
