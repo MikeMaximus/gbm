@@ -5438,6 +5438,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to GBM now uses a unique identifier for each game.  For the import feature to work as intended, your existing game configurations need to use the same identifiers.[BR][BR]Do you want to sync your game identifiers? (Recommened).
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_ConfirmGameIDSync() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_ConfirmGameIDSync", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to This file cannot be used to sync game indentifiers.  It was created with an older version of GBM..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_ErrorGameIDVerFailure() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_ErrorGameIDVerFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Export Complete.  [PARAM] item(s) have been exported..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ExportComplete() As String
@@ -5470,6 +5488,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrMonitorList_ImportNothing() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_ImportNothing", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to This export file was created with a version of GBM prior to 1.1.0 and does not contain unique game identifiers.[BR][BR]Do you still want to import configurations from this file? (Not Recommended).
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_ImportVersionWarning() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_ImportVersionWarning", resourceCulture)
             End Get
         End Property
         

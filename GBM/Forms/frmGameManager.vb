@@ -1497,7 +1497,9 @@ Public Class frmGameManager
 
         If sLocation <> String.Empty Then
             If mgrMonitorList.DoImport(sLocation) Then
+                mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
                 LoadData()
+                LoadBackupData()
             End If
         End If
 
@@ -1525,7 +1527,9 @@ Public Class frmGameManager
 
         If mgrCommon.ShowMessage(frmGameManager_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             If mgrMonitorList.DoImport(sImportURL) Then
+                mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
                 LoadData()
+                LoadBackupData()
             End If
         End If
     End Sub

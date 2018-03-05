@@ -8,9 +8,9 @@ New in 1.1.0
 
 Disclaimer:
 
-1.  This is pre-release software intended for testing. 
-2.  Database files from this version (gbm.s3db) may not be compatible with the full release.  GBM makes automatic backups of your database files if you need to revert to a prior version.
-3.  Do not make external links to this release, it will be available for a limited time.
+Version 1.1.0 makes fundamental changes to how GBM works with game configurations and backup data.  Please read the changes below carefully.
+
+I've done my best to make sure the upgrade process is seamless and allows everyone to continue using their existing data and configurations.
 
 All Platforms:
 

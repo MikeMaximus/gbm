@@ -163,7 +163,6 @@ Public Class mgrMonitorList
         End If
 
         oDatabase.RunParamQuery(sSQL, hshParams)
-
     End Sub
 
     Public Shared Sub DoListUpdateMulti(ByVal sMonitorIDs As List(Of String), ByVal oGame As clsGame, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
@@ -787,6 +786,9 @@ Public Class mgrMonitorList
         If (sPath.IndexOf("http://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Or
                (sPath.IndexOf("https://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Then
             If mgrCommon.CheckAddress(sPath) Then
+                If mgrCommon.ShowMessage(mgrMonitorList_ConfirmGameIDSync, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    ImportSyncGameID(sPath, True)
+                End If
                 ImportMonitorList(sPath, True)
                 Return True
             Else
@@ -795,6 +797,9 @@ Public Class mgrMonitorList
             End If
         Else
             If File.Exists(sPath) Then
+                If mgrCommon.ShowMessage(mgrMonitorList_ConfirmGameIDSync, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    ImportSyncGameID(sPath)
+                End If
                 ImportMonitorList(sPath)
                 Return True
             Else
@@ -815,8 +820,14 @@ Public Class mgrMonitorList
 
         Cursor.Current = Cursors.WaitCursor
 
-        'Add / Update Sync
         hshCompareFrom = mgrXML.ReadMonitorList(sLocation, oExportInfo, bWebRead)
+
+        If oExportInfo.AppVer < 110 Then
+            If mgrCommon.ShowMessage(mgrMonitorList_ImportVersionWarning, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                Exit Sub
+            End If
+        End If
+
         hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
 
         hshSyncItems = hshCompareFrom.Clone
@@ -829,7 +840,11 @@ Public Class mgrMonitorList
                         hshSyncItems.Remove(oFromItem.ID)
                     Else
                         DirectCast(hshSyncItems(oFromItem.ID), clsGame).ImportUpdate = True
+                        'These fields need to be set via the object or they will be lost when the configuration is updated
+                        DirectCast(hshSyncItems(oFromItem.ID), clsGame).Hours = oToItem.Hours
+                        DirectCast(hshSyncItems(oFromItem.ID), clsGame).CleanFolder = oToItem.CleanFolder
                     End If
+
                 End If
             End If
         Next
@@ -854,6 +869,65 @@ Public Class mgrMonitorList
         End If
 
         Application.DoEvents()
+    End Sub
+
+    Private Shared Sub ImportSyncGameID(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False)
+        Dim oLocalDatabase As New mgrSQLite(mgrSQLite.Database.Local)
+        Dim oRemoteDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
+        Dim sSQL As String
+        Dim hshParams As Hashtable
+        Dim oParamList As New List(Of Hashtable)
+        Dim hshCompareFrom As Hashtable
+        Dim hshCompareTo As Hashtable
+        Dim hshSyncIDs As New Hashtable
+        Dim oFromItem As clsGame
+        Dim oToItem As clsGame
+        Dim oExportInfo As New ExportData
+
+        Cursor.Current = Cursors.WaitCursor
+
+        hshCompareFrom = mgrXML.ReadMonitorList(sLocation, oExportInfo, bWebRead)
+
+        If oExportInfo.AppVer < 110 Then
+            mgrCommon.ShowMessage(mgrMonitorList_ErrorGameIDVerFailure, MsgBoxStyle.Exclamation)
+            Exit Sub
+        End If
+
+        hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
+
+        For Each oFromItem In hshCompareFrom.Values
+            If Not hshCompareTo.Contains(oFromItem.ID) Then
+                For Each oToItem In hshCompareTo.Values
+                    'Strip all special characters and compare names
+                    If Regex.Replace(oToItem.Name, "[^\w]+", "") = Regex.Replace(oFromItem.Name, "[^\w]+", "") Then
+                        'Ignore games with duplicate names
+                        If Not hshSyncIDs.Contains(oFromItem.ID) Then
+                            hshSyncIDs.Add(oToItem.ID, oFromItem.ID)
+                        End If
+                    End If
+                Next
+            End If
+        Next
+
+        For Each de As DictionaryEntry In hshSyncIDs
+            hshParams = New Hashtable
+            hshParams.Add("MonitorID", CStr(de.Value))
+            hshParams.Add("QueryID", CStr(de.Key))
+            oParamList.Add(hshParams)
+        Next
+
+        sSQL = "UPDATE monitorlist SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
+        sSQL &= "UPDATE gametags SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
+        sSQL &= "UPDATE manifest SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
+
+        oRemoteDatabase.RunMassParamQuery(sSQL, oParamList)
+
+        sSQL &= "UPDATE sessions SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
+
+        oLocalDatabase.RunMassParamQuery(sSQL, oParamList)
+
+        Cursor.Current = Cursors.Default
+
     End Sub
 
     Public Shared Sub ExportMonitorList(ByVal sLocation As String)
