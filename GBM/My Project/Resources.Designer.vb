@@ -5438,11 +5438,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to GBM now uses a unique identifier for each game.  For the import feature to work as intended, your existing game configurations need to use the same identifiers.[BR][BR]Do you want to sync your game identifiers? (Recommened).
+        '''  Looks up a localized string similar to Do you want to sync your local game ids with this export file? (Not Recommended) [BR][BR]You should only do this if you&apos;re managing your own game configurations..
         '''</summary>
-        Friend ReadOnly Property mgrMonitorList_ConfirmGameIDSync() As String
+        Friend ReadOnly Property mgrMonitorList_ConfirmFileGameIDSync() As String
             Get
-                Return ResourceManager.GetString("mgrMonitorList_ConfirmGameIDSync", resourceCulture)
+                Return ResourceManager.GetString("mgrMonitorList_ConfirmFileGameIDSync", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Do you want to sync your local game ids with the official game list? (Recommended)[BR][BR]This allows you to easily keep your game configurations up to date if they change in the future..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_ConfirmOfficialGameIDSync() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_ConfirmOfficialGameIDSync", resourceCulture)
             End Get
         End Property
         

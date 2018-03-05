@@ -782,11 +782,20 @@ Public Class mgrMonitorList
         Return oList
     End Function
 
-    Public Shared Function DoImport(ByVal sPath As String) As Boolean
+    Public Shared Function DoImport(ByVal sPath As String, ByVal bOfficial As Boolean) As Boolean
+        Dim sWarning As String
+
+        'Set Warning Message
+        If bOfficial Then
+            sWarning = mgrMonitorList_ConfirmOfficialGameIDSync
+        Else
+            sWarning = mgrMonitorList_ConfirmFileGameIDSync
+        End If
+
         If (sPath.IndexOf("http://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Or
                (sPath.IndexOf("https://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Then
             If mgrCommon.CheckAddress(sPath) Then
-                If mgrCommon.ShowMessage(mgrMonitorList_ConfirmGameIDSync, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                If mgrCommon.ShowMessage(sWarning, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     ImportSyncGameID(sPath, True)
                 End If
                 ImportMonitorList(sPath, True)
@@ -797,7 +806,7 @@ Public Class mgrMonitorList
             End If
         Else
             If File.Exists(sPath) Then
-                If mgrCommon.ShowMessage(mgrMonitorList_ConfirmGameIDSync, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                If mgrCommon.ShowMessage(sWarning, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     ImportSyncGameID(sPath)
                 End If
                 ImportMonitorList(sPath)

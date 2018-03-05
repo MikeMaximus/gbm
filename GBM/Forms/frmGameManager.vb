@@ -1496,7 +1496,7 @@ Public Class frmGameManager
         sLocation = mgrCommon.OpenFileBrowser("XML_Import", frmGameManager_ChooseImportXML, "xml", frmGameManager_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
 
         If sLocation <> String.Empty Then
-            If mgrMonitorList.DoImport(sLocation) Then
+            If mgrMonitorList.DoImport(sLocation, False) Then
                 mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
                 LoadData()
                 LoadBackupData()
@@ -1526,7 +1526,7 @@ Public Class frmGameManager
         End If
 
         If mgrCommon.ShowMessage(frmGameManager_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(sImportURL) Then
+            If mgrMonitorList.DoImport(sImportURL, True) Then
                 mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
                 LoadData()
                 LoadBackupData()
