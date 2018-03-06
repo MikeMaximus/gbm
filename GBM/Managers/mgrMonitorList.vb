@@ -782,21 +782,47 @@ Public Class mgrMonitorList
         Return oList
     End Function
 
-    Public Shared Function DoImport(ByVal sPath As String, ByVal bOfficial As Boolean) As Boolean
+    Public Shared Function SyncGameIDs(ByVal sPath As String, ByRef oSettings As mgrSettings, ByVal bOfficial As Boolean) As Boolean
         Dim sWarning As String
 
-        'Set Warning Message
         If bOfficial Then
-            sWarning = mgrMonitorList_ConfirmOfficialGameIDSync
+            If (oSettings.SupressMessages And mgrSettings.eSupressMessages.GameIDSync) = mgrSettings.eSupressMessages.GameIDSync Then
+                sWarning = mgrMonitorList_ConfirmOfficialGameIDSync
+            Else
+                sWarning = mgrMonitorList_ConfirmInitialOfficialGameIDSync
+                oSettings.SupressMessages = oSettings.SetMessageField(oSettings.SupressMessages, mgrSettings.eSupressMessages.GameIDSync)
+                oSettings.SaveSettings()
+            End If
         Else
-            sWarning = mgrMonitorList_ConfirmFileGameIDSync
+                sWarning = mgrMonitorList_ConfirmFileGameIDSync
         End If
 
-        If (sPath.IndexOf("http://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Or
-               (sPath.IndexOf("https://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Then
+        If mgrCommon.ShowMessage(sWarning, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If mgrCommon.IsAddress(sPath) Then
+                If mgrCommon.CheckAddress(sPath) Then
+                    DoGameIDSync(sPath, True)
+                Else
+                    mgrCommon.ShowMessage(mgrMonitorList_WebNoReponse, sPath, MsgBoxStyle.Exclamation)
+                    Return False
+                End If
+            Else
+                If File.Exists(sPath) Then
+                    DoGameIDSync(sPath)
+                Else
+                    mgrCommon.ShowMessage(mgrMonitorList_FileNotFound, sPath, MsgBoxStyle.Exclamation)
+                    Return False
+                End If
+            End If
+        End If
+
+        Return True
+    End Function
+
+    Public Shared Function DoImport(ByVal sPath As String, ByVal bOfficial As Boolean, ByRef oSettings As mgrSettings, Optional ByVal bStartUpWizard As Boolean = False) As Boolean
+        If mgrCommon.IsAddress(sPath) Then
             If mgrCommon.CheckAddress(sPath) Then
-                If mgrCommon.ShowMessage(sWarning, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    ImportSyncGameID(sPath, True)
+                If bOfficial And Not bStartUpWizard And Not ((oSettings.SupressMessages And mgrSettings.eSupressMessages.GameIDSync) = mgrSettings.eSupressMessages.GameIDSync) Then
+                    SyncGameIDs(sPath, oSettings, True)
                 End If
                 ImportMonitorList(sPath, True)
                 Return True
@@ -806,9 +832,6 @@ Public Class mgrMonitorList
             End If
         Else
             If File.Exists(sPath) Then
-                If mgrCommon.ShowMessage(sWarning, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    ImportSyncGameID(sPath)
-                End If
                 ImportMonitorList(sPath)
                 Return True
             Else
@@ -880,7 +903,7 @@ Public Class mgrMonitorList
         Application.DoEvents()
     End Sub
 
-    Private Shared Sub ImportSyncGameID(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False)
+    Private Shared Sub DoGameIDSync(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False)
         Dim oLocalDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim oRemoteDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
         Dim sSQL As String

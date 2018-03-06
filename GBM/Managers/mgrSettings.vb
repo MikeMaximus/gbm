@@ -20,7 +20,13 @@ Public Class mgrSettings
     Private s7zLocation As String = String.Empty
     Private sBackupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).TrimEnd(New Char() {"\", "/"})
     Private eSyncFields As clsGame.eOptionalSyncFields = clsGame.eOptionalSyncFields.None Or clsGame.eOptionalSyncFields.TimeStamp
+    Private eMessages As eSupressMessages = eSupressMessages.None
     Private bAutoSaveLog As Boolean = False
+
+    <Flags()> Public Enum eSupressMessages
+        None = 0
+        GameIDSync = 1
+    End Enum
 
     Property StartWithWindows As Boolean
         Get
@@ -250,6 +256,15 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Property SupressMessages As eSupressMessages
+        Get
+            Return eMessages
+        End Get
+        Set(value As eSupressMessages)
+            eMessages = value
+        End Set
+    End Property
+
     Private Sub SaveFromClass()
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSQL As String
@@ -261,7 +276,7 @@ Public Class mgrSettings
         sSQL = "INSERT INTO settings VALUES (1, @MonitorOnStartup, @StartToTray, @ShowDetectionToolTips, @DisableConfirmation, "
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SupressBackup, @SupressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
-        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking)"
+        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SupressMessages)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -283,6 +298,7 @@ Public Class mgrSettings
         hshParams.Add("AutoRestore", AutoRestore)
         hshParams.Add("AutoMark", AutoMark)
         hshParams.Add("SessionTracking", SessionTracking)
+        hshParams.Add("SupressMessages", SupressMessages)
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
@@ -317,6 +333,7 @@ Public Class mgrSettings
             AutoRestore = CBool(dr("AutoRestore"))
             AutoMark = CBool(dr("AutoMark"))
             SessionTracking = CBool(dr("SessionTracking"))
+            SupressMessages = CInt(dr("SupressMessages"))
         Next
 
         oDatabase.Disconnect()
@@ -335,4 +352,13 @@ Public Class mgrSettings
         'Set Remote Manifest Location        
         mgrPath.RemoteDatabaseLocation = Me.BackupFolder
     End Sub
+
+    Public Function SetMessageField(ByVal eMessages As eSupressMessages, ByVal eMessage As eSupressMessages) As eSupressMessages
+        Return eMessages Or eMessage
+    End Function
+
+    Public Function RemoveMessageField(ByVal eMessages As eSupressMessages, ByVal eMessage As eSupressMessages) As eSupressMessages
+        Return eMessages And (Not eMessage)
+    End Function
+
 End Class

@@ -65,9 +65,16 @@ Public Class mgrCommon
         Return oFormatter.Deserialize(oStream)
     End Function
 
-    Public Shared Function CheckAddress(ByVal URL As String) As Boolean
+    Public Shared Function IsAddress(ByVal sURL As String) As Boolean
+        If (sURL.IndexOf("http://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Or (sURL.IndexOf("https://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Then
+            Return True
+        End If
+        Return False
+    End Function
+
+    Public Shared Function CheckAddress(ByVal sURL As String) As Boolean
         Try
-            Dim request As WebRequest = WebRequest.Create(URL)
+            Dim request As WebRequest = WebRequest.Create(sURL)
             Dim response As WebResponse = request.GetResponse()
             response.Close()
         Catch ex As Exception

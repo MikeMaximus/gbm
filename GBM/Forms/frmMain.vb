@@ -988,6 +988,26 @@ Public Class frmMain
         mgrMonitorList.SyncMonitorLists(oSettings.SyncFields, False)
     End Sub
 
+    Private Sub SyncGameIDs(ByVal bOfficial As Boolean)
+        Dim sLocation As String
+
+        If mgrCommon.IsUnix Then
+            sLocation = App_URLImportLinux
+        Else
+            sLocation = App_URLImport
+        End If
+
+        If bOfficial Then
+            mgrMonitorList.SyncGameIDs(sLocation, oSettings, True)
+        Else
+            sLocation = mgrCommon.OpenFileBrowser("XML_Import", frmGameManager_ChooseImportXML, "xml", frmGameManager_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
+
+            If sLocation <> String.Empty Then
+                mgrMonitorList.SyncGameIDs(sLocation, oSettings, False)
+            End If
+        End If
+    End Sub
+
     Private Sub LocalDatabaseCheck()
         Dim oLocalDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         oLocalDatabase.DatabaseUpgrade()
@@ -1349,6 +1369,9 @@ Public Class frmMain
         gMonToolsCompact.Text = frmMain_gMonToolsCompact
         gMonToolsLog.Text = frmMain_gMonToolsLog
         gMonToolsSessions.Text = frmMain_gMonToolsSessions
+        gMonToolsSyncGameID.Text = frmMain_gMonToolsSyncGameID
+        gMonToolsSyncGameIDOfficial.Text = frmMain_gMonToolsSyncGameIDOfficial
+        gMonToolsSyncGameIDFile.Text = frmMain_gMonToolsSyncGameIDFile
         gMonLogClear.Text = frmMain_gMonLogClear
         gMonLogSave.Text = frmMain_gMonLogSave
         gMonHelp.Text = frmMain_gMonHelp
@@ -1370,6 +1393,9 @@ Public Class frmMain
         gMonTrayToolsCompact.Text = frmMain_gMonToolsCompact
         gMonTrayToolsLog.Text = frmMain_gMonToolsLog
         gMonTrayToolsSessions.Text = frmMain_gMonToolsSessions
+        gMonTrayToolsSyncGameID.Text = frmMain_gMonToolsSyncGameID
+        gMonTrayToolsSyncGameIDOfficial.Text = frmMain_gMonToolsSyncGameIDOfficial
+        gMonTrayToolsSyncGameIDFile.Text = frmMain_gMonToolsSyncGameIDFile
         gMonTrayLogClear.Text = frmMain_gMonLogClear
         gMonTrayLogSave.Text = frmMain_gMonLogSave
         gMonTrayExit.Text = frmMain_gMonFileExit
@@ -1907,4 +1933,11 @@ Public Class frmMain
         lblGameTitle.Focus()
     End Sub
 
+    Private Sub gMonToolsSyncGameIDOfficial_Click(sender As Object, e As EventArgs) Handles gMonToolsSyncGameIDOfficial.Click, gMonTrayToolsSyncGameIDOfficial.Click
+        SyncGameIDs(True)
+    End Sub
+
+    Private Sub gMonToolsSyncGameIDFile_Click(sender As Object, e As EventArgs) Handles gMonToolsSyncGameIDFile.Click, gMonTrayToolsSyncGameIDFile.Click
+        SyncGameIDs(False)
+    End Sub
 End Class

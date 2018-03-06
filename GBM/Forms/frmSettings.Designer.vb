@@ -65,6 +65,7 @@ Partial Class frmSettings
         Me.grpGameData = New System.Windows.Forms.GroupBox()
         Me.chkSessionTracking = New System.Windows.Forms.CheckBox()
         Me.lstSettings = New System.Windows.Forms.ListBox()
+        Me.btnResetMessages = New System.Windows.Forms.Button()
         Me.grpStartup.SuspendLayout()
         Me.grpFolderOptions.SuspendLayout()
         Me.grp7zGeneral.SuspendLayout()
@@ -507,11 +508,21 @@ Partial Class frmSettings
         Me.lstSettings.Size = New System.Drawing.Size(162, 303)
         Me.lstSettings.TabIndex = 0
         '
+        'btnResetMessages
+        '
+        Me.btnResetMessages.Location = New System.Drawing.Point(128, 321)
+        Me.btnResetMessages.Name = "btnResetMessages"
+        Me.btnResetMessages.Size = New System.Drawing.Size(110, 23)
+        Me.btnResetMessages.TabIndex = 7
+        Me.btnResetMessages.Text = "&Reset Warnings"
+        Me.btnResetMessages.UseVisualStyleBackColor = True
+        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(554, 361)
+        Me.Controls.Add(Me.btnResetMessages)
         Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlBackup)
         Me.Controls.Add(Me.pnl7z)
@@ -592,4 +603,5 @@ Partial Class frmSettings
     Friend WithEvents lblMinutes As Label
     Friend WithEvents nudSupressBackupThreshold As NumericUpDown
     Friend WithEvents chkSupressBackup As CheckBox
+    Friend WithEvents btnResetMessages As Button
 End Class

@@ -3328,6 +3328,33 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to S&amp;ync Game IDs.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonToolsSyncGameID() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonToolsSyncGameID", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;File....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonToolsSyncGameIDFile() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonToolsSyncGameIDFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Official List....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonToolsSyncGameIDOfficial() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonToolsSyncGameIDOfficial", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Show / Hide.
         '''</summary>
         Friend ReadOnly Property frmMain_gMonTrayShow() As String
@@ -4021,6 +4048,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Reset Warnings.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_btnResetMessages() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_btnResetMessages", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Save.
         '''</summary>
         Friend ReadOnly Property frmSettings_btnSave() As String
@@ -4215,6 +4251,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_ConfirmDefaults() As String
             Get
                 Return ResourceManager.GetString("frmSettings_ConfirmDefaults", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Do you want to reset all hidden warnings and messages?.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_ConfirmMessageReset() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_ConfirmMessageReset", resourceCulture)
             End Get
         End Property
         
@@ -5438,7 +5483,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Do you want to sync your local game ids with this export file? (Not Recommended) [BR][BR]You should only do this if you&apos;re managing your own game configurations..
+        '''  Looks up a localized string similar to Do you want to sync your identifiers with this export file?[BR][BR]You should only do this if you&apos;re managing your own game configurations..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ConfirmFileGameIDSync() As String
             Get
@@ -5447,7 +5492,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Do you want to sync your local game ids with the official game list? (Recommended)[BR][BR]This allows you to easily keep your game configurations up to date if they change in the future..
+        '''  Looks up a localized string similar to GBM now uses a unique identifier for each game.  For the import feature to work as intended, your existing game configurations should use the same identifiers.[BR][BR]Do you want to sync your identifiers with the official list?[BR][BR]This warning will only be displayed once, but the option is available anytime from the &quot;Tools&quot; menu..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_ConfirmInitialOfficialGameIDSync() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_ConfirmInitialOfficialGameIDSync", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Do you want to sync your identifiers with the official game list?.
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ConfirmOfficialGameIDSync() As String
             Get

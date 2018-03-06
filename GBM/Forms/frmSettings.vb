@@ -162,6 +162,12 @@ Public Class frmSettings
         End If
     End Sub
 
+    Private Sub ResetMessages()
+        If mgrCommon.ShowMessage(frmSettings_ConfirmMessageReset, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            oSettings.SupressMessages = mgrSettings.eSupressMessages.None
+        End If
+    End Sub
+
     Private Sub LoadSettings()
         chkStartWindows.Checked = oSettings.StartWithWindows
         chkMonitorOnStartup.Checked = oSettings.MonitorOnStartup
@@ -293,6 +299,7 @@ Public Class frmSettings
         lblArguments.Text = frmSettings_lblArguments
         lblLocation.Text = frmSettings_lblLocation
         btnOptionalFields.Text = frmSettings_btnOptionalFields
+        btnResetMessages.Text = frmSettings_btnResetMessages
 
         'Unix Handler
         If mgrCommon.IsUnix Then
@@ -351,6 +358,10 @@ Public Class frmSettings
         SetDefaults()
     End Sub
 
+    Private Sub btnResetMessages_Click(sender As Object, e As EventArgs) Handles btnResetMessages.Click
+        ResetMessages()
+    End Sub
+
     Private Sub btnOptionalFields_Click(sender As Object, e As EventArgs) Handles btnOptionalFields.Click
         OpenOptionalFields()
     End Sub
@@ -358,5 +369,4 @@ Public Class frmSettings
     Private Sub lstSettings_SelectedValueChanged(sender As Object, e As EventArgs) Handles lstSettings.SelectedValueChanged
         ChangePanel()
     End Sub
-
 End Class
