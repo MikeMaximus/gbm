@@ -1354,8 +1354,8 @@ Public Class frmGameManager
 
         If lstGames.SelectedItems.Count > 0 Then
             For Each oData In lstGames.SelectedItems
-                If oRemoteBackupData.Contains(oData.Value) Then
-                    oGameBackup = DirectCast(oRemoteBackupData(oData.Value), clsBackup)
+                If oRemoteBackupData.Contains(oData.Key) Then
+                    oGameBackup = DirectCast(oRemoteBackupData(oData.Key), clsBackup)
                     oMarkList.Add(oGameBackup)
                 End If
             Next
