@@ -22,11 +22,17 @@ All Platforms:
 	- When a game is deleted via Game Manager (or sync), all backup manifest entries for that particular game are now deleted. The backup files themselves are not.
 	- The Game Manager now syncs changes to the remote database immediately, instead of only when closed.
 - Core Design Changes (Features)
+	- Added the ability to display messages that can be supressed.  These messages can be reset via the Settings screen.
 	- The "Enable Sync" feature is now mandatory and the option been removed from Settings.
-	- The "Clean Local Manifest" feature has been removed.  It is no longer required because manfiest entries can no longer be orphaned.  Existing orphaned entries will be removed during the v1.1.0 database upgrade.
+	- The "Clean Local Manifest" feature has been removed.  It is not required because manfiest entries are no longer orphaned by design.  Existing orphaned entries will be removed during the v1.1.0 database upgrade.
+	- Added "Sync Game IDs" feature.  This allows the user to update their game configuration identifiers to match the official list or an export file.
+		- The sync is based on similarly named game configurations, therefore it's not 100% effective.  Some data may be missed and require manual changes.
+		- This is mainly an optional upgrade tool for users with existing data from older versions.				
 - Import / Export Changes
-	- When importing a game list, GBM now uses the Game ID to determine if a game is new or has an updated configuration.
-	- Games with an updated configuration are identified by red text.
+	- GBM will offer to "Sync Game IDs" when importing from the official list after upgrading to v1.1.0.  
+		- This offer only appears once and only appears for users that have upgraded from an older version.
+	- GBM now uses the Game ID to determine if a game is new or has an updated configuration.
+	- Added icons to the import list to indicate a "New" or "Updated" game.
 - Added Regular Expression support for game detection
 	- This feature allows GBM to detect games based on a pattern instead of a single process name.
 	- This allows GBM to better support games that run from multiple executables and games that use interpreters or emulators.
@@ -49,5 +55,6 @@ Known Issues:
 - If one or more Game IDs are changed on one computer and these changes are synced to another PC sharing the same backup folder:
 	- The local session data on that PC for the changed game(s) will be lost.
 	- The local backup manifest data for the changed game(s) on that PC will be reset.  GBM will see any backups for the changed game(s) as new and will handle them accordingly.
+- If the "Create a sub-folder..." option is enabled, GBM may leave empty folders when backups are updated or deleted.  This only only applies to folders created with a prior version of GBM.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
