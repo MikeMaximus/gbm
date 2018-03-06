@@ -991,6 +991,8 @@ Public Class frmMain
     Private Sub SyncGameIDs(ByVal bOfficial As Boolean)
         Dim sLocation As String
 
+        PauseScan()
+
         If mgrCommon.IsUnix Then
             sLocation = App_URLImportLinux
         Else
@@ -1006,6 +1008,8 @@ Public Class frmMain
                 mgrMonitorList.SyncGameIDs(sLocation, oSettings, False)
             End If
         End If
+
+        ResumeScan()
     End Sub
 
     Private Sub LocalDatabaseCheck()

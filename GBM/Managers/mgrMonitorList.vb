@@ -960,6 +960,8 @@ Public Class mgrMonitorList
 
         Cursor.Current = Cursors.Default
 
+        mgrCommon.ShowMessage(mgrMonitorList_GameIDSyncCompleted, hshSyncIDs.Count.ToString, MsgBoxStyle.Information)
+
     End Sub
 
     Public Shared Sub ExportMonitorList(ByVal sLocation As String)

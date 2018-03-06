@@ -5557,6 +5557,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Sync Complete.[BR][BR][PARAM] game configurations were matched and updated..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_GameIDSyncCompleted() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_GameIDSyncCompleted", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Import Complete..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ImportComplete() As String
