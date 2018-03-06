@@ -608,6 +608,9 @@ Public Class frmGameManager
             oTagsToSave = frm.TagList
             FillTagsbyList(frm.TagList)
         Else
+            'Sync
+            mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
+
             'Only update visible tags if one item is selected
             If lstGames.SelectedItems.Count = 1 Then FillTagsbyID(CurrentGame.ID)
 
