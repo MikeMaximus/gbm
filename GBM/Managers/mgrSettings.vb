@@ -265,6 +265,11 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Sub New()
+        'The GameIDsync message should be supressed on all new databases
+        SetMessageField(SupressMessages, eSupressMessages.GameIDSync)
+    End Sub
+
     Private Sub SaveFromClass()
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSQL As String
