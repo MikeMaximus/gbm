@@ -27,17 +27,17 @@ Public Class mgrSQLite
         End Select
     End Sub
 
-    Private Sub BackupDB(ByVal sLastVer As String)
+    Public Sub BackupDB(ByVal sDescription As String, Optional ByVal bOverwrite As Boolean = False)
         Dim sNewFile As String = String.Empty
 
         Try
             Select Case eDatabase
                 Case Database.Local
-                    sNewFile = mgrPath.DatabaseLocation & "." & sLastVer & ".bak"
-                    File.Copy(mgrPath.DatabaseLocation, sNewFile, False)
+                    sNewFile = mgrPath.DatabaseLocation & "." & sDescription & ".bak"
+                    File.Copy(mgrPath.DatabaseLocation, sNewFile, bOverwrite)
                 Case Database.Remote
-                    sNewFile = mgrPath.RemoteDatabaseLocation & "." & sLastVer & ".bak"
-                    File.Copy(mgrPath.RemoteDatabaseLocation, sNewFile, False)
+                    sNewFile = mgrPath.RemoteDatabaseLocation & "." & sDescription & ".bak"
+                    File.Copy(mgrPath.RemoteDatabaseLocation, sNewFile, bOverwrite)
             End Select
         Catch ex As Exception
             mgrCommon.ShowMessage(mgrSQLite_ErrorBackupFailure, New String() {sNewFile, ex.Message}, MsgBoxStyle.Exclamation)
@@ -75,7 +75,7 @@ Public Class mgrSQLite
                    "BackupFolder TEXT NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
                    "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
                    "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL, SessionTracking BOOLEAN NOT NULL, " &
-                   "SupressMessages INTEGER NOT NULL);"
+                   "SupressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL);"
 
             'Add Tables (SavedPath)
             sSql &= "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
@@ -773,12 +773,12 @@ Public Class mgrSQLite
                    "BackupFolder TEXT NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
                    "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
                    "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL, SessionTracking BOOLEAN NOT NULL, " &
-                   "SupressMessages INTEGER NOT NULL);"
+                   "SupressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL);"
                 sSQL &= "INSERT INTO settings_new(SettingsID, MonitorOnStartup, StartToTray, ShowDetectionToolTips, DisableConfirmation, CreateSubFolder, ShowOverwriteWarning, RestoreOnLaunch, " &
                    "BackupFolder, StartWithWindows, TimeTracking, SupressBackup, SupressBackupThreshold, CompressionLevel, Custom7zArguments, Custom7zLocation, SyncFields, AutoSaveLog, " &
                     "AutoRestore, AutoMark, SessionTracking, SupressMessages) SELECT SettingsID, MonitorOnStartup, StartToTray, ShowDetectionToolTips, DisableConfirmation, CreateSubFolder, ShowOverwriteWarning, RestoreOnLaunch, " &
                    "BackupFolder, StartWithWindows, TimeTracking, SupressBackup, SupressBackupThreshold, CompressionLevel, Custom7zArguments, Custom7zLocation, SyncFields, AutoSaveLog, " &
-                    "AutoRestore, AutoMark, SessionTracking, 0 FROM settings;" &
+                    "AutoRestore, AutoMark, SessionTracking, 0, 1 FROM settings;" &
                     "DROP TABLE settings; ALTER TABLE settings_new RENAME TO settings;"
                 sSQL &= "CREATE TABLE monitorlist_new (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &

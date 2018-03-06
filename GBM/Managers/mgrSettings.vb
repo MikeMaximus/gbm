@@ -22,6 +22,7 @@ Public Class mgrSettings
     Private eSyncFields As clsGame.eOptionalSyncFields = clsGame.eOptionalSyncFields.None Or clsGame.eOptionalSyncFields.TimeStamp
     Private eMessages As eSupressMessages = eSupressMessages.None
     Private bAutoSaveLog As Boolean = False
+    Private bBackupOnLaunch As Boolean = True
 
     <Flags()> Public Enum eSupressMessages
         None = 0
@@ -265,6 +266,15 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Property BackupOnLaunch As Boolean
+        Get
+            Return bBackupOnLaunch
+        End Get
+        Set(value As Boolean)
+            bBackupOnLaunch = value
+        End Set
+    End Property
+
     Sub New()
         'The GameIDsync message should be supressed on all new databases
         SetMessageField(SupressMessages, eSupressMessages.GameIDSync)
@@ -281,7 +291,7 @@ Public Class mgrSettings
         sSQL = "INSERT INTO settings VALUES (1, @MonitorOnStartup, @StartToTray, @ShowDetectionToolTips, @DisableConfirmation, "
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SupressBackup, @SupressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
-        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SupressMessages)"
+        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SupressMessages, @BackupOnLaunch)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -304,6 +314,7 @@ Public Class mgrSettings
         hshParams.Add("AutoMark", AutoMark)
         hshParams.Add("SessionTracking", SessionTracking)
         hshParams.Add("SupressMessages", SupressMessages)
+        hshParams.Add("BackupOnLaunch", BackupOnLaunch)
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
@@ -339,6 +350,7 @@ Public Class mgrSettings
             AutoMark = CBool(dr("AutoMark"))
             SessionTracking = CBool(dr("SessionTracking"))
             SupressMessages = CInt(dr("SupressMessages"))
+            BackupOnLaunch = CBool(dr("BackupOnLaunch"))
         Next
 
         oDatabase.Disconnect()

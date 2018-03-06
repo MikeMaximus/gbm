@@ -8,9 +8,9 @@ New in 1.1.0
 
 Disclaimer:
 
-Version 1.1.0 makes fundamental changes to how GBM works with game configurations and backup data.  Please read the changes below carefully.
+Version 1.1.0 makes fundamental changes to how GBM works with game configurations and backup data, in addition to many other changes.  Please read the changes below carefully before upgrading.
 
-I've done my best to make sure the upgrade process is seamless and allows everyone to continue using their existing data and configurations.
+I've done my best to make sure the upgrade process allows everyone to continue using their existing data and configurations.
 
 All Platforms:
 
@@ -21,7 +21,10 @@ All Platforms:
 	- Game Name can now contain any character.
 	- When a game is deleted via Game Manager (or sync), all backup manifest entries for that particular game are now deleted. The backup files themselves are not.
 	- The Game Manager now syncs changes to the remote database immediately, instead of only when closed.
-- Core Design Changes (Features)
+- Feature Changes
+	- Added "Backup GBM data files on launch" to the settings.  A long overdue feature, this will backup both the remote and local databases (as gbm.s3db.launch.bak) each time GBM starts.  
+		- This new setting is enabled by default.
+		- Only one backup is kept, the prior one will be overwritten.
 	- Added the ability to display messages that can be supressed.  These messages can be reset via the Settings screen.
 	- The "Enable Sync" feature is now mandatory and the option been removed from Settings.
 	- The "Clean Local Manifest" feature has been removed.  It is not required because manfiest entries are no longer orphaned by design.  Existing orphaned entries will be removed during the v1.1.0 database upgrade.
@@ -55,6 +58,5 @@ Known Issues:
 - If one or more Game IDs are changed on one computer and these changes are synced to another PC sharing the same backup folder:
 	- The local session data on that PC for the changed game(s) will be lost.
 	- The local backup manifest data for the changed game(s) on that PC will be reset.  GBM will see any backups for the changed game(s) as new and will handle them accordingly.
-- If the "Create a sub-folder..." option is enabled, GBM may leave empty folders when backups are updated or deleted.  This only only applies to folders created with a prior version of GBM.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

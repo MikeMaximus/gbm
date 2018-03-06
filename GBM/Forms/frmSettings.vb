@@ -47,6 +47,7 @@ Public Class frmSettings
 
         oSettings.MonitorOnStartup = chkMonitorOnStartup.Checked
         oSettings.StartToTray = chkStartToTray.Checked
+        oSettings.BackupOnLaunch = chkBackupOnLaunch.Checked
         oSettings.ShowDetectionToolTips = chkShowDetectionTips.Checked
         oSettings.AutoSaveLog = chkAutoSaveLog.Checked
         oSettings.DisableConfirmation = chkBackupConfirm.Checked
@@ -172,6 +173,7 @@ Public Class frmSettings
         chkStartWindows.Checked = oSettings.StartWithWindows
         chkMonitorOnStartup.Checked = oSettings.MonitorOnStartup
         chkStartToTray.Checked = oSettings.StartToTray
+        chkBackupOnLaunch.Checked = oSettings.BackupOnLaunch
         chkShowDetectionTips.Checked = oSettings.ShowDetectionToolTips
         chkAutoSaveLog.Checked = oSettings.AutoSaveLog
         chkBackupConfirm.Checked = oSettings.DisableConfirmation
@@ -300,6 +302,7 @@ Public Class frmSettings
         lblLocation.Text = frmSettings_lblLocation
         btnOptionalFields.Text = frmSettings_btnOptionalFields
         btnResetMessages.Text = frmSettings_btnResetMessages
+        chkBackupOnLaunch.Text = frmSettings_chkBackupOnLaunch
 
         'Unix Handler
         If mgrCommon.IsUnix Then

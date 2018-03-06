@@ -61,6 +61,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to launch.
+        '''</summary>
+        Friend ReadOnly Property App_BackupOnLaunchFileDescription() As String
+            Get
+                Return ResourceManager.GetString("App_BackupOnLaunchFileDescription", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to There are unsaved changes on this form.  Do you want to save?.
         '''</summary>
         Friend ReadOnly Property App_ConfirmDirty() As String
@@ -4152,6 +4161,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_chkBackupConfirm() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkBackupConfirm", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backup GBM data files on launch.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkBackupOnLaunch() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkBackupOnLaunch", resourceCulture)
             End Get
         End Property
         

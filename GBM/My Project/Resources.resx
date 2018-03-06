@@ -2065,4 +2065,10 @@
   <data name="mgrMonitorList_GameIDSyncCompleted" xml:space="preserve">
     <value>Sync Complete.[BR][BR][PARAM] game configurations were matched and updated.</value>
   </data>
+  <data name="App_BackupOnLaunchFileDescription" xml:space="preserve">
+    <value>launch</value>
+  </data>
+  <data name="frmSettings_chkBackupOnLaunch" xml:space="preserve">
+    <value>Backup GBM data files on launch</value>
+  </data>
 </root>

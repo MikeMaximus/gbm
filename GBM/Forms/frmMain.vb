@@ -1022,6 +1022,13 @@ Public Class frmMain
         oRemoteDatabase.DatabaseUpgrade()
     End Sub
 
+    Private Sub BackupDatabases()
+        Dim oLocalDatabase As New mgrSQLite(mgrSQLite.Database.Local)
+        Dim oRemoteDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
+        oLocalDatabase.BackupDB(App_BackupOnLaunchFileDescription, True)
+        oRemoteDatabase.BackupDB(App_BackupOnLaunchFileDescription, True)
+    End Sub
+
     Private Sub LoadAndVerify()
 
         'If the default utility is missing we cannot continue
@@ -1050,6 +1057,11 @@ Public Class frmMain
             'Remote Database Check
             VerifyDBVersion(mgrSQLite.Database.Remote)
             RemoteDatabaseCheck()
+
+            'Backup GBM data
+            If oSettings.BackupOnLaunch Then
+                BackupDatabases()
+            End If
 
             'Sync Game Settings
             SyncGameSettings()
