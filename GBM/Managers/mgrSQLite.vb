@@ -776,7 +776,7 @@ Public Class mgrSQLite
                    "SupressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL);"
                 sSQL &= "INSERT INTO settings_new(SettingsID, MonitorOnStartup, StartToTray, ShowDetectionToolTips, DisableConfirmation, CreateSubFolder, ShowOverwriteWarning, RestoreOnLaunch, " &
                    "BackupFolder, StartWithWindows, TimeTracking, SupressBackup, SupressBackupThreshold, CompressionLevel, Custom7zArguments, Custom7zLocation, SyncFields, AutoSaveLog, " &
-                    "AutoRestore, AutoMark, SessionTracking, SupressMessages) SELECT SettingsID, MonitorOnStartup, StartToTray, ShowDetectionToolTips, DisableConfirmation, CreateSubFolder, ShowOverwriteWarning, RestoreOnLaunch, " &
+                    "AutoRestore, AutoMark, SessionTracking, SupressMessages, BackupOnLaunch) SELECT SettingsID, MonitorOnStartup, StartToTray, ShowDetectionToolTips, DisableConfirmation, CreateSubFolder, ShowOverwriteWarning, RestoreOnLaunch, " &
                    "BackupFolder, StartWithWindows, TimeTracking, SupressBackup, SupressBackupThreshold, CompressionLevel, Custom7zArguments, Custom7zLocation, SyncFields, AutoSaveLog, " &
                     "AutoRestore, AutoMark, SessionTracking, 0, 1 FROM settings;" &
                     "DROP TABLE settings; ALTER TABLE settings_new RENAME TO settings;"
