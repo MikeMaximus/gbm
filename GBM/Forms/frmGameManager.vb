@@ -1330,13 +1330,6 @@ Public Class frmGameManager
             Return False
         End If
 
-        If oApp.Parameter <> String.Empty Then
-            If mgrMonitorList.DoDuplicateParameterCheck(oApp.ProcessName, oApp.Parameter, , sCurrentID) Then
-                mgrCommon.ShowMessage(frmGameManager_ErrorProcessParameterDupe, MsgBoxStyle.Exclamation)
-                Return False
-            End If
-        End If
-
         If oApp.IsRegEx Then
             If Not mgrCommon.IsRegExValid(oApp.ProcessName) Then
                 If mgrCommon.ShowMessage(frmGameManager_ErrorRegExFailure, MsgBoxStyle.Exclamation, MsgBoxStyle.YesNoCancel) = MsgBoxResult.Yes Then

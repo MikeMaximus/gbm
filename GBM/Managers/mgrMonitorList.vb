@@ -341,31 +341,6 @@ Public Class mgrMonitorList
         End If
     End Function
 
-    Public Shared Function DoDuplicateParameterCheck(ByVal sProcess As String, ByVal sParameter As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local, Optional ByVal sExcludeID As String = "") As Boolean
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
-        Dim oData As DataSet
-        Dim hshParams As New Hashtable
-
-        sSQL = "SELECT * FROM monitorlist WHERE Process = @Process AND Parameter = @Parameter"
-
-        hshParams.Add("Process", sProcess)
-        hshParams.Add("Parameter", sParameter)
-
-        If sExcludeID <> String.Empty Then
-            sSQL &= " AND MonitorID <> @MonitorID"
-            hshParams.Add("MonitorID", sExcludeID)
-        End If
-
-        oData = oDatabase.ReadParamData(sSQL, hshParams)
-
-        If oData.Tables(0).Rows.Count > 0 Then
-            Return True
-        Else
-            Return False
-        End If
-    End Function
-
     'Sync Functions
     Public Shared Sub DoListAddUpdateSync(ByVal hshGames As Hashtable, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local,
                                           Optional ByVal eSyncFields As clsGame.eOptionalSyncFields = clsGame.eOptionalSyncFields.None)
