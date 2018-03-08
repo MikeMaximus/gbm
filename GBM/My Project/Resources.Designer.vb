@@ -106,6 +106,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Error: [PARAM].
+        '''</summary>
+        Friend ReadOnly Property App_GenericError() As String
+            Get
+                Return ResourceManager.GetString("App_GenericError", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to 7-Zip (7za.exe) is invalid and has been prevented from running..
         '''</summary>
         Friend ReadOnly Property App_Invalid7zDetected() As String
@@ -2385,6 +2394,78 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to &gt;.
         '''</summary>
+        Friend ReadOnly Property frmGameProcesses_btnAdd() As String
+            Get
+                Return ResourceManager.GetString("frmGameProcesses_btnAdd", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Close.
+        '''</summary>
+        Friend ReadOnly Property frmGameProcesses_btnClose() As String
+            Get
+                Return ResourceManager.GetString("frmGameProcesses_btnClose", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Process &amp;Manager....
+        '''</summary>
+        Friend ReadOnly Property frmGameProcesses_btnOpenProcesses() As String
+            Get
+                Return ResourceManager.GetString("frmGameProcesses_btnOpenProcesses", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &lt;.
+        '''</summary>
+        Friend ReadOnly Property frmGameProcesses_btnRemove() As String
+            Get
+                Return ResourceManager.GetString("frmGameProcesses_btnRemove", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Edit Processes for Multiple Games.
+        '''</summary>
+        Friend ReadOnly Property frmGameProcesses_FormNameMulti() As String
+            Get
+                Return ResourceManager.GetString("frmGameProcesses_FormNameMulti", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Edit Processes for [PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmGameProcesses_FormNameSingle() As String
+            Get
+                Return ResourceManager.GetString("frmGameProcesses_FormNameSingle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Current Processes.
+        '''</summary>
+        Friend ReadOnly Property frmGameProcesses_lblGameProccesses() As String
+            Get
+                Return ResourceManager.GetString("frmGameProcesses_lblGameProccesses", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Available Processes.
+        '''</summary>
+        Friend ReadOnly Property frmGameProcesses_lblProcesses() As String
+            Get
+                Return ResourceManager.GetString("frmGameProcesses_lblProcesses", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &gt;.
+        '''</summary>
         Friend ReadOnly Property frmGameTags_btnAdd() As String
             Get
                 Return ResourceManager.GetString("frmGameTags_btnAdd", resourceCulture)
@@ -2995,6 +3076,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An error occured when attempting to end a process associated with [PARAM]..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorEndChildProcess() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorEndChildProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to An unexpected error occured while initializing GBM.[BR][BR][PARAM][BR][BR]Do you wish to continue anyway? (Not Recommended).
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorInitFailure() As String
@@ -3063,6 +3153,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_ErrorSettingsFolder() As String
             Get
                 Return ResourceManager.GetString("frmMain_ErrorSettingsFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error occured when attempting to start a process associated with [PARAM]..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorStartChildProcess() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorStartChildProcess", resourceCulture)
             End Get
         End Property
         
@@ -3261,6 +3360,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_gMonSetupGameManager() As String
             Get
                 Return ResourceManager.GetString("frmMain_gMonSetupGameManager", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Process &amp;Manager....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonSetupProcessManager() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonSetupProcessManager", resourceCulture)
             End Get
         End Property
         
@@ -3720,6 +3828,168 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_WarningSessionsDisabled() As String
             Get
                 Return ResourceManager.GetString("frmMain_WarningSessionsDisabled", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to +.
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_btnAdd() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_btnAdd", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Cancel.
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_btnCancel() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_btnCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to C&amp;lose.
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_btnClose() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_btnClose", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to -.
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_btnDelete() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_btnDelete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to ....
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_btnProcessBrowse() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_btnProcessBrowse", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Save.
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_btnSave() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_btnSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Kill process when game is closed..
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_chkKillProcess() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_chkKillProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Choose a file that starts the process.
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_ChooseProcess() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_ChooseProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to delete [PARAM]?  This cannot be undone..
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_ConfirmDelete() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_ConfirmDelete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to A process with this name already exists..
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_ErrorDupe() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_ErrorDupe", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The process does not exist..
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_ErrorPathNotFound() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_ErrorPathNotFound", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to You must enter a valid name for this process..
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_ErrorValidName() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_ErrorValidName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to You must choose a valid process..
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_ErrorValidPath() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_ErrorValidPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Executable.
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_Executable() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_Executable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Process Manager.
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Configuration.
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_grpProcess() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_grpProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Name:.
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_lblName() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_lblName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Path:.
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_lblPath() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_lblPath", resourceCulture)
             End Get
         End Property
         

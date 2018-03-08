@@ -2,7 +2,7 @@
 Imports System.Management
 Imports System.Text.RegularExpressions
 
-Public Class mgrProcesses
+Public Class mgrProcessDetection
 
     Private prsFoundProcess As Process
     Private dStartTime As DateTime = Now, dEndTime As DateTime = Now

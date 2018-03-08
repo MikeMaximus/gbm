@@ -28,6 +28,7 @@ Partial Class frmGameManager
         Me.btnBackup = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.grpConfig = New System.Windows.Forms.GroupBox()
+        Me.btnGameID = New System.Windows.Forms.Button()
         Me.chkRegEx = New System.Windows.Forms.CheckBox()
         Me.lblComments = New System.Windows.Forms.Label()
         Me.txtComments = New System.Windows.Forms.TextBox()
@@ -101,7 +102,7 @@ Partial Class frmGameManager
         Me.cmsDeleteBackup = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsDeleteOne = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btnGameID = New System.Windows.Forms.Button()
+        Me.btnProcesses = New System.Windows.Forms.Button()
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -189,6 +190,15 @@ Partial Class frmGameManager
         Me.grpConfig.TabIndex = 8
         Me.grpConfig.TabStop = False
         Me.grpConfig.Text = "Configuration"
+        '
+        'btnGameID
+        '
+        Me.btnGameID.Location = New System.Drawing.Point(402, 17)
+        Me.btnGameID.Name = "btnGameID"
+        Me.btnGameID.Size = New System.Drawing.Size(117, 23)
+        Me.btnGameID.TabIndex = 2
+        Me.btnGameID.Text = "&Game ID..."
+        Me.btnGameID.UseVisualStyleBackColor = True
         '
         'chkRegEx
         '
@@ -875,20 +885,21 @@ Partial Class frmGameManager
         Me.cmsDeleteAll.Size = New System.Drawing.Size(114, 22)
         Me.cmsDeleteAll.Text = "&All Files"
         '
-        'btnGameID
+        'btnProcesses
         '
-        Me.btnGameID.Location = New System.Drawing.Point(402, 17)
-        Me.btnGameID.Name = "btnGameID"
-        Me.btnGameID.Size = New System.Drawing.Size(117, 23)
-        Me.btnGameID.TabIndex = 2
-        Me.btnGameID.Text = "&Game ID..."
-        Me.btnGameID.UseVisualStyleBackColor = True
+        Me.btnProcesses.Location = New System.Drawing.Point(454, 437)
+        Me.btnProcesses.Name = "btnProcesses"
+        Me.btnProcesses.Size = New System.Drawing.Size(75, 23)
+        Me.btnProcesses.TabIndex = 20
+        Me.btnProcesses.Text = "Processes..."
+        Me.btnProcesses.UseVisualStyleBackColor = True
         '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 661)
+        Me.Controls.Add(Me.btnProcesses)
         Me.Controls.Add(Me.lblQuickFilter)
         Me.Controls.Add(Me.txtQuickFilter)
         Me.Controls.Add(Me.btnExport)
@@ -1012,4 +1023,5 @@ Partial Class frmGameManager
     Friend WithEvents txtComments As TextBox
     Friend WithEvents chkRegEx As CheckBox
     Friend WithEvents btnGameID As Button
+    Friend WithEvents btnProcesses As Button
 End Class

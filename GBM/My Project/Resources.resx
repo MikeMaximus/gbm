@@ -2068,4 +2068,94 @@
   <data name="frmSettings_chkBackupOnLaunch" xml:space="preserve">
     <value>Backup GBM data files on launch</value>
   </data>
+  <data name="frmMain_ErrorEndChildProcess" xml:space="preserve">
+    <value>An error occured when attempting to end a process associated with [PARAM].</value>
+  </data>
+  <data name="frmMain_ErrorStartChildProcess" xml:space="preserve">
+    <value>An error occured when attempting to start a process associated with [PARAM].</value>
+  </data>
+  <data name="frmProcessManager_btnAdd" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="frmProcessManager_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmProcessManager_btnClose" xml:space="preserve">
+    <value>C&amp;lose</value>
+  </data>
+  <data name="frmProcessManager_btnDelete" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="frmProcessManager_btnProcessBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmProcessManager_btnSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmProcessManager_ConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete [PARAM]?  This cannot be undone.</value>
+  </data>
+  <data name="frmProcessManager_ErrorDupe" xml:space="preserve">
+    <value>A process with this name already exists.</value>
+  </data>
+  <data name="frmProcessManager_ErrorPathNotFound" xml:space="preserve">
+    <value>The process does not exist.</value>
+  </data>
+  <data name="frmProcessManager_ErrorValidName" xml:space="preserve">
+    <value>You must enter a valid name for this process.</value>
+  </data>
+  <data name="frmProcessManager_ErrorValidPath" xml:space="preserve">
+    <value>You must choose a valid process.</value>
+  </data>
+  <data name="frmProcessManager_FormName" xml:space="preserve">
+    <value>Process Manager</value>
+  </data>
+  <data name="frmProcessManager_grpProcess" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="frmProcessManager_lblName" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="frmProcessManager_lblPath" xml:space="preserve">
+    <value>Path:</value>
+  </data>
+  <data name="frmMain_gMonSetupProcessManager" xml:space="preserve">
+    <value>Process &amp;Manager...</value>
+  </data>
+  <data name="frmProcessManager_ChooseProcess" xml:space="preserve">
+    <value>Choose a file that starts the process</value>
+  </data>
+  <data name="frmProcessManager_Executable" xml:space="preserve">
+    <value>Executable</value>
+  </data>
+  <data name="frmProcessManager_chkKillProcess" xml:space="preserve">
+    <value>Kill process when game is closed.</value>
+  </data>
+  <data name="frmGameProcesses_btnAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmGameProcesses_btnClose" xml:space="preserve">
+    <value>&amp;Close</value>
+  </data>
+  <data name="frmGameProcesses_btnOpenProcesses" xml:space="preserve">
+    <value>Process &amp;Manager...</value>
+  </data>
+  <data name="frmGameProcesses_btnRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmGameProcesses_FormNameMulti" xml:space="preserve">
+    <value>Edit Processes for Multiple Games</value>
+  </data>
+  <data name="frmGameProcesses_FormNameSingle" xml:space="preserve">
+    <value>Edit Processes for [PARAM]</value>
+  </data>
+  <data name="frmGameProcesses_lblGameProccesses" xml:space="preserve">
+    <value>Current Processes</value>
+  </data>
+  <data name="frmGameProcesses_lblProcesses" xml:space="preserve">
+    <value>Available Processes</value>
+  </data>
+  <data name="App_GenericError" xml:space="preserve">
+    <value>Error: [PARAM]</value>
+  </data>
 </root>

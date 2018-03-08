@@ -10,6 +10,7 @@ Public Class frmGameManager
     Private oCurrentBackupItem As clsBackup
     Private oCurrentGame As clsGame
     Private oTagsToSave As New List(Of KeyValuePair(Of String, String))
+    Private oProcessesToSave As New List(Of KeyValuePair(Of String, String))
     Private bDisableExternalFunctions As Boolean = False
     Private bTriggerBackup As Boolean = False
     Private bTriggerRestore As Boolean = False
@@ -35,7 +36,6 @@ Public Class frmGameManager
         Add = 3
         Disabled = 4
         MultiSelect = 5
-        ViewTemp = 6
     End Enum
 
     Private eCurrentMode As eModes = eModes.Disabled
@@ -581,6 +581,36 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub OpenProcesses()
+        Dim frm As New frmGameProcesses
+        Dim oApp As clsGame
+        Dim sMonitorIDS As New List(Of String)
+
+        If eCurrentMode = eModes.Add Then
+            'Use a dummy ID
+            sMonitorIDS.Add(Guid.NewGuid.ToString)
+            frm.GameName = txtName.Text
+            frm.NewMode = True
+            frm.ProcessList = oProcessesToSave
+        Else
+            For Each oData In lstGames.SelectedItems
+                oApp = DirectCast(GameData(oData.Key), clsGame)
+                sMonitorIDS.Add(oApp.ID)
+            Next
+            frm.GameName = CurrentGame.Name
+            frm.NewMode = False
+        End If
+
+        frm.IDList = sMonitorIDS
+        frm.ShowDialog()
+
+        If eCurrentMode = eModes.Add Then
+            oProcessesToSave = frm.ProcessList
+        Else
+            ModeChange()
+        End If
+    End Sub
+
     Private Sub OpenTags()
         Dim frm As New frmGameTags
         Dim oApp As clsGame
@@ -917,6 +947,7 @@ Public Class frmGameManager
                 chkEnabled.Checked = True
                 chkMonitorOnly.Checked = False
                 btnTags.Enabled = True
+                btnProcesses.Enabled = True
                 lblTags.Text = String.Empty
                 lblTags.Visible = True
                 btnInclude.Text = frmGameManager_btnInclude
@@ -944,6 +975,7 @@ Public Class frmGameManager
                 btnOpenBackupFile.Enabled = False
                 btnOpenRestorePath.Enabled = False
                 btnTags.Enabled = True
+                btnProcesses.Enabled = True
                 lblTags.Visible = True
                 btnImport.Enabled = False
                 btnExport.Enabled = False
@@ -963,29 +995,8 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 btnBackup.Enabled = True
                 btnTags.Enabled = True
+                btnProcesses.Enabled = True
                 lblTags.Visible = True
-                btnImport.Enabled = True
-                btnExport.Enabled = True
-            Case eModes.ViewTemp
-                grpFilter.Enabled = True
-                lstGames.Enabled = True
-                lblQuickFilter.Enabled = True
-                txtQuickFilter.Enabled = True
-                grpConfig.Enabled = False
-                chkEnabled.Enabled = False
-                chkMonitorOnly.Enabled = False
-                grpExtra.Enabled = False
-                grpStats.Enabled = True
-                btnSave.Enabled = False
-                btnCancel.Enabled = False
-                btnAdd.Enabled = True
-                btnDelete.Enabled = False
-                btnBackup.Enabled = False
-                btnOpenRestorePath.Enabled = False
-                btnTags.Enabled = False
-                lblTags.Visible = False
-                btnInclude.Text = frmGameManager_btnInclude
-                btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = True
                 btnExport.Enabled = True
             Case eModes.Disabled
@@ -1010,6 +1021,7 @@ Public Class frmGameManager
                 btnRestore.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnTags.Enabled = False
+                btnProcesses.Enabled = False
                 lblTags.Visible = False
                 btnInclude.Text = frmGameManager_btnInclude
                 btnExclude.Text = frmGameManager_btnExclude
@@ -1041,6 +1053,7 @@ Public Class frmGameManager
                 btnRestore.Enabled = True
                 btnMarkAsRestored.Enabled = True
                 btnTags.Enabled = True
+                btnProcesses.Enabled = True
                 lblTags.Visible = False
                 btnImport.Enabled = True
                 btnExport.Enabled = True
@@ -1150,6 +1163,22 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub SaveProcesses(ByVal sID As String)
+        Dim oGameProcess As clsGameProcess
+        Dim oGameProcesses As List(Of clsGameProcess)
+
+        If oProcessesToSave.Count > 0 Then
+            oGameProcesses = New List(Of clsGameProcess)
+            For Each kp As KeyValuePair(Of String, String) In oProcessesToSave
+                oGameProcess = New clsGameProcess
+                oGameProcess.MonitorID = sID
+                oGameProcess.ProcessID = kp.Key
+                oGameProcesses.Add(oGameProcess)
+            Next
+            mgrGameProcesses.DoGameProcessAddBatch(oGameProcesses)
+        End If
+    End Sub
+
     Private Sub SaveTags(ByVal sID As String)
         Dim oGameTag As clsGameTag
         Dim oGameTags As List(Of clsGameTag)
@@ -1210,6 +1239,7 @@ Public Class frmGameManager
                     bSuccess = True
                     mgrMonitorList.DoListAdd(oApp)
                     SaveTags(oApp.ID)
+                    SaveProcesses(oApp.ID)
                     eCurrentMode = eModes.View
                 End If
             Case eModes.Edit
@@ -1694,6 +1724,10 @@ Public Class frmGameManager
 
     Private Sub btnTags_Click(sender As Object, e As EventArgs) Handles btnTags.Click
         OpenTags()
+    End Sub
+
+    Private Sub btnProcesses_Click(sender As Object, e As EventArgs) Handles btnProcesses.Click
+        OpenProcesses()
     End Sub
 
     Private Sub btnDeleteBackup_Click(sender As Object, e As EventArgs) Handles btnDeleteBackup.Click

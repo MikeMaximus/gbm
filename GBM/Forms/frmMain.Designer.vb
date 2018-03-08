@@ -36,6 +36,7 @@ Partial Class frmMain
         Me.gMonTraySetupGameManager = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetupCustomVariables = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetupTags = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTraySetupProcessManager = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayTools = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayToolsCompact = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayToolsLog = New System.Windows.Forms.ToolStripMenuItem()
@@ -65,6 +66,7 @@ Partial Class frmMain
         Me.gMonSetupAddWizard = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSetupCustomVariables = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSetupTags = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonSetupProcessManager = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTools = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonToolsCompact = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonToolsLog = New System.Windows.Forms.ToolStripMenuItem()
@@ -143,7 +145,7 @@ Partial Class frmMain
         '
         'gMonTraySetup
         '
-        Me.gMonTraySetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTraySetupAddWizard, Me.gMonTraySetupGameManager, Me.gMonTraySetupCustomVariables, Me.gMonTraySetupTags})
+        Me.gMonTraySetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTraySetupAddWizard, Me.gMonTraySetupGameManager, Me.gMonTraySetupCustomVariables, Me.gMonTraySetupTags, Me.gMonTraySetupProcessManager})
         Me.gMonTraySetup.Name = "gMonTraySetup"
         Me.gMonTraySetup.Size = New System.Drawing.Size(161, 22)
         Me.gMonTraySetup.Text = "&Setup"
@@ -171,6 +173,12 @@ Partial Class frmMain
         Me.gMonTraySetupTags.Name = "gMonTraySetupTags"
         Me.gMonTraySetupTags.Size = New System.Drawing.Size(201, 22)
         Me.gMonTraySetupTags.Text = "&Tags..."
+        '
+        'gMonTraySetupProcessManager
+        '
+        Me.gMonTraySetupProcessManager.Name = "gMonTraySetupProcessManager"
+        Me.gMonTraySetupProcessManager.Size = New System.Drawing.Size(201, 22)
+        Me.gMonTraySetupProcessManager.Text = "Process &Manager..."
         '
         'gMonTrayTools
         '
@@ -342,7 +350,7 @@ Partial Class frmMain
         '
         'gMonSetup
         '
-        Me.gMonSetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonSetupGameManager, Me.gMonSetupAddWizard, Me.gMonSetupCustomVariables, Me.gMonSetupTags})
+        Me.gMonSetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonSetupGameManager, Me.gMonSetupAddWizard, Me.gMonSetupCustomVariables, Me.gMonSetupTags, Me.gMonSetupProcessManager})
         Me.gMonSetup.Name = "gMonSetup"
         Me.gMonSetup.Size = New System.Drawing.Size(49, 20)
         Me.gMonSetup.Text = "&Setup"
@@ -370,6 +378,12 @@ Partial Class frmMain
         Me.gMonSetupTags.Name = "gMonSetupTags"
         Me.gMonSetupTags.Size = New System.Drawing.Size(201, 22)
         Me.gMonSetupTags.Text = "&Tags..."
+        '
+        'gMonSetupProcessManager
+        '
+        Me.gMonSetupProcessManager.Name = "gMonSetupProcessManager"
+        Me.gMonSetupProcessManager.Size = New System.Drawing.Size(201, 22)
+        Me.gMonSetupProcessManager.Text = "Process &Manager..."
         '
         'gMonTools
         '
@@ -419,13 +433,13 @@ Partial Class frmMain
         'gMonToolsSyncGameIDOfficial
         '
         Me.gMonToolsSyncGameIDOfficial.Name = "gMonToolsSyncGameIDOfficial"
-        Me.gMonToolsSyncGameIDOfficial.Size = New System.Drawing.Size(152, 22)
+        Me.gMonToolsSyncGameIDOfficial.Size = New System.Drawing.Size(142, 22)
         Me.gMonToolsSyncGameIDOfficial.Text = "&Official List..."
         '
         'gMonToolsSyncGameIDFile
         '
         Me.gMonToolsSyncGameIDFile.Name = "gMonToolsSyncGameIDFile"
-        Me.gMonToolsSyncGameIDFile.Size = New System.Drawing.Size(152, 22)
+        Me.gMonToolsSyncGameIDFile.Size = New System.Drawing.Size(142, 22)
         Me.gMonToolsSyncGameIDFile.Text = "&File..."
         '
         'gMonHelp
@@ -671,4 +685,6 @@ Partial Class frmMain
     Friend WithEvents gMonTrayToolsSyncGameID As ToolStripMenuItem
     Friend WithEvents gMonTrayToolsSyncGameIDOfficial As ToolStripMenuItem
     Friend WithEvents gMonTrayToolsSyncGameIDFile As ToolStripMenuItem
+    Friend WithEvents gMonTraySetupProcessManager As ToolStripMenuItem
+    Friend WithEvents gMonSetupProcessManager As ToolStripMenuItem
 End Class

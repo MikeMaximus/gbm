@@ -40,6 +40,7 @@ Public Class frmMain
     Private sPriorCompany As String
     Private sPriorVersion As String
     Private iRestoreTimeOut As Integer
+    Private oChildProcesses As New Hashtable
     Private wState As FormWindowState = FormWindowState.Normal
 
     'Developer Debug Flags
@@ -52,7 +53,7 @@ Public Class frmMain
     WithEvents tmRestoreCheck As New System.Timers.Timer
     WithEvents tmFileWatcherQueue As New System.Timers.Timer
 
-    Public WithEvents oProcess As New mgrProcesses
+    Public WithEvents oProcess As New mgrProcessDetection
     Public WithEvents oBackup As New mgrBackup
     Public WithEvents oRestore As New mgrRestore
     Public hshScanList As Hashtable
@@ -844,6 +845,13 @@ Public Class frmMain
         ResumeScan()
     End Sub
 
+    Private Sub OpenProcessManager()
+        Dim frm As New frmProcessManager
+        PauseScan()
+        frm.ShowDialog()
+        ResumeScan()
+    End Sub
+
     Private Sub OpenGameManager(Optional ByVal bPendingRestores As Boolean = False)
         Dim frm As New frmGameManager
         PauseScan()
@@ -1381,6 +1389,7 @@ Public Class frmMain
         gMonSetupAddWizard.Text = frmMain_gMonSetupAddWizard
         gMonSetupCustomVariables.Text = frmMain_gMonSetupCustomVariables
         gMonSetupTags.Text = frmMain_gMonSetupTags
+        gMonSetupProcessManager.Text = frmMain_gMonSetupProcessManager
         gMonTools.Text = frmMain_gMonTools
         gMonToolsCompact.Text = frmMain_gMonToolsCompact
         gMonToolsLog.Text = frmMain_gMonToolsLog
@@ -1405,6 +1414,7 @@ Public Class frmMain
         gMonTraySetupAddWizard.Text = frmMain_gMonSetupAddWizard
         gMonTraySetupCustomVariables.Text = frmMain_gMonSetupCustomVariables
         gMonTraySetupTags.Text = frmMain_gMonSetupTags
+        gMonTraySetupProcessManager.Text = frmMain_gMonSetupProcessManager
         gMonTrayTools.Text = frmMain_gMonTools
         gMonTrayToolsCompact.Text = frmMain_gMonToolsCompact
         gMonTrayToolsLog.Text = frmMain_gMonToolsLog
@@ -1437,6 +1447,60 @@ Public Class frmMain
         pbTime.Image = Icon_Clock
         AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
         ResetGameInfo()
+    End Sub
+
+    Private Function BuildChildProcesses() As Integer
+        Dim oCurrentProcess As clsProcess
+        Dim oProcessList As Hashtable
+        Dim prsChild As Process
+
+        oChildProcesses.Clear()
+
+        oProcessList = mgrGameProcesses.GetProcessesByGame(oProcess.GameInfo.ID)
+
+        If oProcessList.Count > 0 Then
+            For Each oCurrentProcess In oProcessList.Values
+                prsChild = New Process
+                prsChild.StartInfo.Arguments = oCurrentProcess.Args
+                prsChild.StartInfo.FileName = oCurrentProcess.Path
+                prsChild.StartInfo.UseShellExecute = False
+                prsChild.StartInfo.RedirectStandardOutput = True
+                prsChild.StartInfo.CreateNoWindow = True
+                oChildProcesses.Add(oCurrentProcess, prsChild)
+            Next
+        End If
+
+        Return oChildProcesses.Count
+    End Function
+
+    Private Sub StartChildProcesses()
+        Dim prsChild As Process
+
+        Try
+            For Each prsChild In oChildProcesses.Values
+                prsChild.Start()
+            Next
+        Catch ex As Exception
+            UpdateLog(mgrCommon.FormatString(frmMain_ErrorStartChildProcess, oProcess.GameInfo.CroppedName), True, ToolTipIcon.Error)
+            UpdateLog(mgrCommon.FormatString(App_GenericError, ex.Message), False,, False)
+        End Try
+    End Sub
+
+    Private Sub EndChildProcesses()
+        Dim oCurrentProcess As clsProcess
+        Dim prsChild As Process
+
+        Try
+            For Each de As DictionaryEntry In oChildProcesses
+                oCurrentProcess = DirectCast(de.Key, clsProcess)
+                prsChild = DirectCast(de.Value, Process)
+                prsChild.Kill()
+            Next
+
+        Catch ex As Exception
+            UpdateLog(mgrCommon.FormatString(frmMain_ErrorEndChildProcess, oProcess.GameInfo.CroppedName), True, ToolTipIcon.Error)
+            UpdateLog(mgrCommon.FormatString(App_GenericError, ex.Message), False,, False)
+        End Try
     End Sub
 
     'Functions that control the scanning for games
@@ -1684,6 +1748,10 @@ Public Class frmMain
         OpenTags()
     End Sub
 
+    Private Sub gMonSetupProcessManager_Click(sender As Object, e As EventArgs) Handles gMonSetupProcessManager.Click, gMonTraySetupProcessManager.Click
+        OpenProcessManager()
+    End Sub
+
     Private Sub gMonHelpAbout_Click(sender As Object, e As EventArgs) Handles gMonHelpAbout.Click
         OpenAbout()
     End Sub
@@ -1710,6 +1778,14 @@ Public Class frmMain
 
     Private Sub gMonToolsSessions_Click(sender As Object, e As EventArgs) Handles gMonToolsSessions.Click, gMonTrayToolsSessions.Click
         OpenSessions()
+    End Sub
+
+    Private Sub gMonToolsSyncGameIDOfficial_Click(sender As Object, e As EventArgs) Handles gMonToolsSyncGameIDOfficial.Click, gMonTrayToolsSyncGameIDOfficial.Click
+        SyncGameIDs(True)
+    End Sub
+
+    Private Sub gMonToolsSyncGameIDFile_Click(sender As Object, e As EventArgs) Handles gMonToolsSyncGameIDFile.Click, gMonTrayToolsSyncGameIDFile.Click
+        SyncGameIDs(False)
     End Sub
 
     Private Sub gMonNotification_Click(sender As Object, e As EventArgs) Handles gMonNotification.Click, gMonTrayNotification.Click
@@ -1810,18 +1886,23 @@ Public Class frmMain
             If bContinue = True Then
                 CheckForSavedDuplicate()
                 If oProcess.Duplicate Then
-                        UpdateLog(frmMain_MultipleGamesDetected, oSettings.ShowDetectionToolTips)
-                        UpdateStatus(frmMain_MultipleGamesDetected)
-                        SetGameInfo(True)
-                    Else
-                        UpdateLog(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.Name), oSettings.ShowDetectionToolTips)
-                        UpdateStatus(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.CroppedName))
-                        SetGameInfo()
-                    End If
-                    oProcess.StartTime = Now
-                    bwMonitor.RunWorkerAsync()
+                    UpdateLog(frmMain_MultipleGamesDetected, oSettings.ShowDetectionToolTips)
+                    UpdateStatus(frmMain_MultipleGamesDetected)
+                    SetGameInfo(True)
                 Else
-                    StopScan()
+                    UpdateLog(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.Name), oSettings.ShowDetectionToolTips)
+                    UpdateStatus(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.CroppedName))
+                    SetGameInfo()
+                End If
+
+                If BuildChildProcesses() > 0 Then
+                    StartChildProcesses()
+                End If
+
+                oProcess.StartTime = Now
+                bwMonitor.RunWorkerAsync()
+            Else
+                StopScan()
             End If
         End If
     End Sub
@@ -1843,6 +1924,11 @@ Public Class frmMain
 
     Private Sub bwMain_RunWorkerCompleted(sender As System.Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwMonitor.RunWorkerCompleted
         Dim bContinue As Boolean = True
+
+        If oChildProcesses.Count > 0 Then
+            EndChildProcesses()
+        End If
+
         oProcess.EndTime = Now
 
         If Not bCancelledByUser Then
@@ -1947,13 +2033,5 @@ Public Class frmMain
         lblStatus3.Click, pbTime.Click, lblTimeSpent.Click, lblLastActionTitle.Click, lblLastAction.Click, gMonMainMenu.Click, gMonStatusStrip.Click
         'Move focus to first label
         lblGameTitle.Focus()
-    End Sub
-
-    Private Sub gMonToolsSyncGameIDOfficial_Click(sender As Object, e As EventArgs) Handles gMonToolsSyncGameIDOfficial.Click, gMonTrayToolsSyncGameIDOfficial.Click
-        SyncGameIDs(True)
-    End Sub
-
-    Private Sub gMonToolsSyncGameIDFile_Click(sender As Object, e As EventArgs) Handles gMonToolsSyncGameIDFile.Click, gMonTrayToolsSyncGameIDFile.Click
-        SyncGameIDs(False)
     End Sub
 End Class

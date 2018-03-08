@@ -152,7 +152,11 @@ Public Class mgrMonitorList
         sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit, "
         sSQL &= "CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments, IsRegEx=@IsRegEx WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE gametags SET MonitorID=@ID WHERE MonitorID=@QueryID;"
-        sSQL &= "UPDATE sessions SET MonitorID=@ID WHERE MonitorID=@QueryID;"
+
+        If iSelectDB = mgrSQLite.Database.Local Then
+            sSQL &= "UPDATE gameprocesses SET MonitorID=@ID WHERE MonitorID=@QueryID;"
+            sSQL &= "UPDATE sessions SET MonitorID=@ID WHERE MonitorID=@QueryID;"
+        End If
 
         'Parameters
         hshParams = SetCoreParameters(oGame)
@@ -200,6 +204,8 @@ Public Class mgrMonitorList
         sSQL &= "DELETE FROM gametags "
         sSQL &= "WHERE MonitorID = @MonitorID;"
         If iSelectDB = mgrSQLite.Database.Local Then
+            sSQL &= "DELETE FROM gameprocesses "
+            sSQL &= "WHERE MonitorID = @MonitorID;"
             sSQL &= "DELETE FROM sessions "
             sSQL &= "WHERE MonitorID = @MonitorID;"
         End If
@@ -243,6 +249,18 @@ Public Class mgrMonitorList
         sSQL &= ");"
 
         If iSelectDB = mgrSQLite.Database.Local Then
+            sSQL &= "DELETE FROM gameprocesses "
+            sSQL &= "WHERE MonitorID IN ("
+
+            For Each s As String In sMonitorIDs
+                sSQL &= "@MonitorID" & iCounter & ","
+                hshParams.Add("MonitorID" & iCounter, s)
+                iCounter += 1
+            Next
+
+            sSQL = sSQL.TrimEnd(",")
+            sSQL &= ");"
+
             sSQL &= "DELETE FROM sessions "
             sSQL &= "WHERE MonitorID IN ("
 
@@ -456,6 +474,8 @@ Public Class mgrMonitorList
         sSQL &= "DELETE FROM gametags "
         sSQL &= "WHERE MonitorID = @MonitorID;"
         If iSelectDB = mgrSQLite.Database.Local Then
+            sSQL &= "DELETE FROM gameprocesses "
+            sSQL &= "WHERE MonitorID = @MonitorID;"
             sSQL &= "DELETE FROM sessions "
             sSQL &= "WHERE MonitorID = @MonitorID;"
         End If

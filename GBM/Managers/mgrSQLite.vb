@@ -102,6 +102,12 @@ Public Class mgrSQLite
             'Add Tables (Sessions)
             sSql &= "CREATE TABLE sessions (MonitorID TEXT NOT NULL, Start INTEGER NOT NULL, End INTEGER NOT NULL, PRIMARY KEY(MonitorID, Start));"
 
+            'Add Tables (Processes)
+            sSql &= "CREATE TABLE processes (ProcessID TEXT NOT NULL PRIMARY KEY, Name Text NOT NULL, Path TEXT NOT NULL, Args TEXT, Kill BOOLEAN NOT NULL);"
+
+            'Add Tables (Game Processes)
+            sSql &= "CREATE TABLE gameprocesses (ProcessID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(ProcessID, MonitorID));"
+
             'Set Version
             sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
 
@@ -766,6 +772,10 @@ Public Class mgrSQLite
             If eDatabase = Database.Local Then
                 'Backup DB before starting
                 BackupDB("v108")
+
+                'Add Tables
+                sSQL = "CREATE TABLE processes (ProcessID TEXT NOT NULL PRIMARY KEY, Name Text NOT NULL, Path TEXT NOT NULL, Args TEXT, Kill BOOLEAN NOT NULL);"
+                sSQL &= "CREATE TABLE gameprocesses (ProcessID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(ProcessID, MonitorID));"
 
                 'Overhaul Tables
                 sSQL = "CREATE TABLE settings_new (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, " &
