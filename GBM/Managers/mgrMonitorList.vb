@@ -818,7 +818,7 @@ Public Class mgrMonitorList
     End Function
 
     Private Shared Sub ImportMonitorList(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False)
-        Dim hshCompareFrom As Hashtable
+        Dim hshCompareFrom As New Hashtable
         Dim hshCompareTo As Hashtable
         Dim hshSyncItems As Hashtable
         Dim oFromItem As clsGame
@@ -827,7 +827,9 @@ Public Class mgrMonitorList
 
         Cursor.Current = Cursors.WaitCursor
 
-        hshCompareFrom = mgrXML.ReadMonitorList(sLocation, oExportInfo, bWebRead)
+        If Not mgrXML.ReadMonitorList(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
+            Exit Sub
+        End If
 
         If oExportInfo.AppVer < 110 Then
             If mgrCommon.ShowMessage(mgrMonitorList_ImportVersionWarning, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
@@ -884,7 +886,7 @@ Public Class mgrMonitorList
         Dim sSQL As String
         Dim hshParams As Hashtable
         Dim oParamList As New List(Of Hashtable)
-        Dim hshCompareFrom As Hashtable
+        Dim hshCompareFrom As New Hashtable
         Dim hshCompareTo As Hashtable
         Dim hshSyncIDs As New Hashtable
         Dim oFromItem As clsGame
@@ -893,7 +895,9 @@ Public Class mgrMonitorList
 
         Cursor.Current = Cursors.WaitCursor
 
-        hshCompareFrom = mgrXML.ReadMonitorList(sLocation, oExportInfo, bWebRead)
+        If Not mgrXML.ReadMonitorList(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
+            Exit Sub
+        End If
 
         If oExportInfo.AppVer < 110 Then
             mgrCommon.ShowMessage(mgrMonitorList_ErrorGameIDVerFailure, MsgBoxStyle.Exclamation)

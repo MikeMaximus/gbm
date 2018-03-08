@@ -5512,7 +5512,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Do you want to sync your identifiers with this export file?[BR][BR]You should only do this if you&apos;re managing your own game configurations..
+        '''  Looks up a localized string similar to Do you want to sync your game identifiers with this export file?[BR][BR]You should only do this if you&apos;re managing your own game configurations.  Please see the online manual for more information..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ConfirmFileGameIDSync() As String
             Get
@@ -5521,7 +5521,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to GBM now uses a unique identifier for each game.  For the import feature to work as intended, your existing game configurations should use the same identifiers.[BR][BR]Do you want to sync your identifiers with the official list?[BR][BR]This warning will only be displayed once, but the option is available anytime from the &quot;Tools&quot; menu..
+        '''  Looks up a localized string similar to GBM now uses a unique identifier for each game.  For the import feature to recognize game configurations from a prior version, they need to use the same identifiers.[BR][BR]Do you want to sync your game identifiers with the official list?[BR][BR]This question will only be displayed once, but the option is available anytime from the &quot;Tools&quot; menu.  Please see the online manual for more information..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ConfirmInitialOfficialGameIDSync() As String
             Get
@@ -5530,7 +5530,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Do you want to sync your identifiers with the official game list?.
+        '''  Looks up a localized string similar to Do you want to sync your game identifiers with the official game list?[BR][BR]This allows the import feature to recognize game configurations from a prior version.  Please see the online manual for more information..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ConfirmOfficialGameIDSync() As String
             Get
