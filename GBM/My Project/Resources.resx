@@ -2129,7 +2129,7 @@
     <value>Executable</value>
   </data>
   <data name="frmProcessManager_chkKillProcess" xml:space="preserve">
-    <value>Kill process when game is closed.</value>
+    <value>Kill process when game is closed</value>
   </data>
   <data name="frmGameProcesses_btnAdd" xml:space="preserve">
     <value>&gt;</value>

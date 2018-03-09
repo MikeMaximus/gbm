@@ -3904,7 +3904,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Kill process when game is closed..
+        '''  Looks up a localized string similar to Kill process when game is closed.
         '''</summary>
         Friend ReadOnly Property frmProcessManager_chkKillProcess() As String
             Get

@@ -63,9 +63,9 @@ Partial Class frmProcessManager
         Me.chkKillProcess.AutoSize = True
         Me.chkKillProcess.Location = New System.Drawing.Point(72, 96)
         Me.chkKillProcess.Name = "chkKillProcess"
-        Me.chkKillProcess.Size = New System.Drawing.Size(184, 17)
+        Me.chkKillProcess.Size = New System.Drawing.Size(181, 17)
         Me.chkKillProcess.TabIndex = 4
-        Me.chkKillProcess.Text = "Kill process when game is closed."
+        Me.chkKillProcess.Text = "Kill process when game is closed"
         Me.chkKillProcess.UseVisualStyleBackColor = True
         '
         'txtArguments

@@ -8,9 +8,11 @@ New in 1.1.0
 
 Disclaimer:
 
-Version 1.1.0 makes fundamental changes to how GBM works with game configurations and backup data, in addition to many other changes.  Please read the changes below carefully before upgrading.
+Version 1.1.0 makes fundamental changes to how GBM works with game configurations and backup data, in addition to many other updates.  Please read the changes below carefully before upgrading.
 
 I've done my best to make sure the upgrade process allows everyone to continue using their existing data and configurations.
+
+However, users who are sharing a backup folder between multiple PCs will experience some data loss at some point due to the changes in this upgrade.  Please read "Known Issue #1" in this file for details.
 
 All Platforms:
 
@@ -21,7 +23,13 @@ All Platforms:
 	- Game Name can now contain any character.
 	- When a game is deleted via Game Manager (or sync), all backup manifest entries for that particular game are now deleted. The backup files themselves are not.
 	- The Game Manager now syncs changes to the remote database immediately, instead of only when closed.
-- Feature Changes
+
+- Feature Addtions & Changes
+	- Added Regular Expression support for game detection
+		- This feature allows GBM to detect games based on a pattern instead of a single process name.
+		- This allows GBM to better support games that run from multiple executables and games that use interpreters or emulators.
+		- Use the new "Regular Expression" checkbox on the Game Manager and enter the pattern in the "Process" field.
+		- GBM will validate patterns and offer to help troubleshoot (using regexr.com) when validation fails.
 	- Added the ability to start another process (or multiple process) whenever a game is detected. (Thanks for the suggestion Naliel Supremo)
 		- This is useful to automatically start utilities, such as custom control schemes or overlays, for specific games.
 		- The "Process Manager" allows you to manage any programs you'd like to launch.
@@ -36,17 +44,16 @@ All Platforms:
 	- The "Clean Local Manifest" feature has been removed.  It is not required because manfiest entries are no longer orphaned by design.  Existing orphaned entries will be removed during the v1.1.0 database upgrade.
 	- Added "Sync Game IDs" feature.  This allows the user to update their game configuration identifiers to match the official list or an export file.
 		- The sync is based on similarly named game configurations, therefore it's not 100% effective.  Some data may be missed and require manual changes.
-		- This is mainly an optional upgrade tool for users with existing data from older versions.				
+		- This is an optional upgrade tool for users with existing data from older versions.  It allows the import feature to properly recognize and update game configurations.
+		- If you share a backup folder with multiple PCs, this feature will cause some data loss when the new IDs are synced to the other PCs.  See "Known Issue #1"
+
 - Import / Export Changes
-	- GBM will offer to "Sync Game IDs" when importing from the official list after upgrading to v1.1.0.  
-		- This offer only appears once and only appears for users that have upgraded from an older version.
 	- GBM now uses the Game ID to determine if a game is new or has an updated configuration.
+	- GBM will offer to "Sync Game IDs" when importing from the official list after upgrading to v1.1.0.
+		- This allows the import to recognize and update your configurations from older versions.
+		- This offer only appears once and only appears for users that have upgraded from an older version.	
 	- Added icons to the import list to indicate a "New" or "Updated" game.
-- Added Regular Expression support for game detection
-	- This feature allows GBM to detect games based on a pattern instead of a single process name.
-	- This allows GBM to better support games that run from multiple executables and games that use interpreters or emulators.
-	- Use the new "Regular Expression" checkbox on the Game Manager and enter the pattern in the "Process" field.
-	- GBM will validate patterns and offer to help troubleshoot (using regexr.com) when validation fails.
+
 - Updated session CSV export to adhere to RFC 4180.  It now handles commas, quotes and line breaks correctly.
 
 Windows Only:
@@ -61,18 +68,19 @@ Linux Only:
 
 Known Issues:
 
-- If one or more Game IDs are changed on one computer and these changes are synced to another PC sharing the same backup folder:
+1.  If one or more Game IDs are changed (manually or via Game ID Sync) on one computer and these changes are synced to another PC sharing the same backup folder, the following data will be lost.
 	- The local session data on that PC for the changed game(s) will be lost.
+	- The local backup manifest data for the changed game(s) on that PC will be lost.  GBM will see any backups for the changed game(s) as new and will handle them accordingly.
 	- Any processes assigned to the changed games(s) on that PC will be lost.
-	- The local backup manifest data for the changed game(s) on that PC will be reset.  GBM will see any backups for the changed game(s) as new and will handle them accordingly.
-- Backup files made prior to v1.1.0 are not being renamed or removed when a new backup is created.
+	Once your PCs are back in sync, this will no longer be an issue unless you are constantly changing your Game IDs, which is not recommended.
+2.  Backup files made prior to v1.1.0 are not being renamed or removed when a new backup is created.
 	- This is due to file name now being generated by the Game ID and not the name.  
 	- Only backups made prior to v1.1.0 are affected by this issue.
 	- After new backup files are created, these files can be deleted at the user's discretion.
-- Configurations on the official game list are no longer fully compatible with older GBM versions.  
+3.  Configurations on the official game list are no longer fully compatible with older GBM versions.  
 	- Technically they will work.  But any game imported with a special character in it's name, such as a colon, will not create backup files correctly.
 	- These characters can be manually removed from the game name after importing, then the configurations will function properly.
-- The error "The requested operation requires elevation" occurs when GBM tries to launch a process associated with a game.
+4.  The error "The requested operation requires elevation" occurs when GBM tries to launch a process associated with a game.
 	- This means the process you're trying to launch with GBM requires administrator privilege.
 	- Click the blue "user" icon on the bottom left of the GBM window to quickly switch to administrator mode.
 
