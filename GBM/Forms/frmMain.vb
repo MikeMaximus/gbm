@@ -1902,7 +1902,7 @@ Public Class frmMain
                     SetGameInfo()
                 End If
 
-                If BuildChildProcesses() > 0 Then
+                If BuildChildProcesses() > 0 And Not oProcess.Duplicate Then
                     StartChildProcesses()
                 End If
 
@@ -1932,7 +1932,7 @@ Public Class frmMain
     Private Sub bwMain_RunWorkerCompleted(sender As System.Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwMonitor.RunWorkerCompleted
         Dim bContinue As Boolean = True
 
-        If oChildProcesses.Count > 0 Then
+        If oChildProcesses.Count > 0 And Not oProcess.Duplicate Then
             EndChildProcesses()
         End If
 
