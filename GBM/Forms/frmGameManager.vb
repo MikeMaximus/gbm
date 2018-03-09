@@ -919,6 +919,7 @@ Public Class frmGameManager
         Select Case eCurrentMode
             Case eModes.Add
                 oTagsToSave.Clear()
+                oProcessesToSave.Clear()
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
                 lblQuickFilter.Enabled = False

@@ -8,11 +8,11 @@ New in 1.1.0
 
 Disclaimer:
 
-Version 1.1.0 makes fundamental changes to how GBM works with game configurations and backup data, in addition to many other updates.  Please read the changes below carefully before upgrading.
+Version 1.1.0 makes fundamental changes to how GBM works with game configurations and backup data, in addition to many other updates.  Read the changes below carefully before upgrading.
 
 I've done my best to make sure the upgrade process allows everyone to continue using their existing data and configurations.
 
-However, users who are sharing a backup folder between multiple PCs will experience some data loss at some point due to the changes in this upgrade.  Please read "Known Issue #1" in this file for details.
+However, users who are sharing a backup folder between multiple PCs will experience data loss at some point due to the changes in this version.  Please read "Known Issue #1" in this file for details.
 
 All Platforms:
 
@@ -30,8 +30,8 @@ All Platforms:
 		- This allows GBM to better support games that run from multiple executables and games that use interpreters or emulators.
 		- Use the new "Regular Expression" checkbox on the Game Manager and enter the pattern in the "Process" field.
 		- GBM will validate patterns and offer to help troubleshoot (using regexr.com) when validation fails.
-	- Added the ability to start another process (or multiple process) whenever a game is detected. (Thanks for the suggestion Naliel Supremo)
-		- This is useful to automatically start utilities, such as custom control schemes or overlays, for specific games.
+	- Added the ability to start another process (or multiple processes) whenever a game is detected. (Thanks for the suggestion Naliel Supremo)
+		- This is useful to automatically start utilities, such as custom control schemes or overlays when a specific game is detected.
 		- The "Process Manager" allows you to manage any programs you'd like to launch.
 		- The "Processes..." button on the Game Manager allows you to assign processes to any selected game.
 		- A process can be set to end when the game is closed.
