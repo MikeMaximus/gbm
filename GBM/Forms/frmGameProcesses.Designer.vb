@@ -37,7 +37,7 @@ Partial Class frmGameProcesses
         Me.btnOpenProcesses.Location = New System.Drawing.Point(12, 229)
         Me.btnOpenProcesses.Name = "btnOpenProcesses"
         Me.btnOpenProcesses.Size = New System.Drawing.Size(110, 23)
-        Me.btnOpenProcesses.TabIndex = 12
+        Me.btnOpenProcesses.TabIndex = 4
         Me.btnOpenProcesses.Text = "&Process Manager..."
         Me.btnOpenProcesses.UseVisualStyleBackColor = True
         '
@@ -46,7 +46,7 @@ Partial Class frmGameProcesses
         Me.btnClose.Location = New System.Drawing.Point(297, 229)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 13
+        Me.btnClose.TabIndex = 5
         Me.btnClose.Text = "&Close"
         Me.btnClose.UseVisualStyleBackColor = True
         '
@@ -56,7 +56,7 @@ Partial Class frmGameProcesses
         Me.lblGameProcesses.Location = New System.Drawing.Point(251, 8)
         Me.lblGameProcesses.Name = "lblGameProcesses"
         Me.lblGameProcesses.Size = New System.Drawing.Size(93, 13)
-        Me.lblGameProcesses.TabIndex = 6
+        Me.lblGameProcesses.TabIndex = 0
         Me.lblGameProcesses.Text = "Current Processes"
         '
         'lblProcesses
@@ -65,7 +65,7 @@ Partial Class frmGameProcesses
         Me.lblProcesses.Location = New System.Drawing.Point(36, 8)
         Me.lblProcesses.Name = "lblProcesses"
         Me.lblProcesses.Size = New System.Drawing.Size(102, 13)
-        Me.lblProcesses.TabIndex = 7
+        Me.lblProcesses.TabIndex = 0
         Me.lblProcesses.Text = "Available Processes"
         '
         'btnRemove
@@ -73,7 +73,7 @@ Partial Class frmGameProcesses
         Me.btnRemove.Location = New System.Drawing.Point(168, 114)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(48, 23)
-        Me.btnRemove.TabIndex = 10
+        Me.btnRemove.TabIndex = 2
         Me.btnRemove.Text = "<"
         Me.btnRemove.UseVisualStyleBackColor = True
         '
@@ -82,7 +82,7 @@ Partial Class frmGameProcesses
         Me.btnAdd.Location = New System.Drawing.Point(168, 85)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(48, 23)
-        Me.btnAdd.TabIndex = 9
+        Me.btnAdd.TabIndex = 1
         Me.btnAdd.Text = ">"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
@@ -94,7 +94,7 @@ Partial Class frmGameProcesses
         Me.lstGameProcesses.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.lstGameProcesses.Size = New System.Drawing.Size(150, 199)
         Me.lstGameProcesses.Sorted = True
-        Me.lstGameProcesses.TabIndex = 11
+        Me.lstGameProcesses.TabIndex = 3
         '
         'lstProcesses
         '
@@ -104,7 +104,7 @@ Partial Class frmGameProcesses
         Me.lstProcesses.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.lstProcesses.Size = New System.Drawing.Size(150, 199)
         Me.lstProcesses.Sorted = True
-        Me.lstProcesses.TabIndex = 8
+        Me.lstProcesses.TabIndex = 0
         '
         'frmGameProcesses
         '

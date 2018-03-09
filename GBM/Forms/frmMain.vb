@@ -1474,11 +1474,15 @@ Public Class frmMain
     End Function
 
     Private Sub StartChildProcesses()
+        Dim oCurrentProcess As clsProcess
         Dim prsChild As Process
 
         Try
-            For Each prsChild In oChildProcesses.Values
+            For Each de As DictionaryEntry In oChildProcesses
+                oCurrentProcess = DirectCast(de.Key, clsProcess)
+                prsChild = DirectCast(de.Value, Process)
                 prsChild.Start()
+                UpdateLog(mgrCommon.FormatString(frmMain_ProcessStarted, oCurrentProcess.Name), False)
             Next
         Catch ex As Exception
             UpdateLog(mgrCommon.FormatString(frmMain_ErrorStartChildProcess, oProcess.GameInfo.CroppedName), True, ToolTipIcon.Error)
@@ -1494,7 +1498,10 @@ Public Class frmMain
             For Each de As DictionaryEntry In oChildProcesses
                 oCurrentProcess = DirectCast(de.Key, clsProcess)
                 prsChild = DirectCast(de.Value, Process)
-                prsChild.Kill()
+                If oCurrentProcess.Kill Then
+                    prsChild.Kill()
+                    UpdateLog(mgrCommon.FormatString(frmMain_ProcessKilled, oCurrentProcess.Name), False)
+                End If
             Next
 
         Catch ex As Exception

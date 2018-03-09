@@ -2410,7 +2410,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Process &amp;Manager....
+        '''  Looks up a localized string similar to &amp;Process Manager....
         '''</summary>
         Friend ReadOnly Property frmGameProcesses_btnOpenProcesses() As String
             Get
@@ -2482,7 +2482,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Setup &amp;Tags....
+        '''  Looks up a localized string similar to &amp;Tag Manager....
         '''</summary>
         Friend ReadOnly Property frmGameTags_btnOpenTags() As String
             Get
@@ -3346,7 +3346,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Custom &amp;Path Variables....
+        '''  Looks up a localized string similar to Custom Path &amp;Variables....
         '''</summary>
         Friend ReadOnly Property frmMain_gMonSetupCustomVariables() As String
             Get
@@ -3364,7 +3364,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Process &amp;Manager....
+        '''  Looks up a localized string similar to &amp;Process Manager....
         '''</summary>
         Friend ReadOnly Property frmMain_gMonSetupProcessManager() As String
             Get
@@ -3373,7 +3373,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Tags....
+        '''  Looks up a localized string similar to &amp;Tag Manager....
         '''</summary>
         Friend ReadOnly Property frmMain_gMonSetupTags() As String
             Get
@@ -3693,6 +3693,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_PNGFilter() As String
             Get
                 Return ResourceManager.GetString("frmMain_PNGFilter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Kill signal was sent for [PARAM]..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ProcessKilled() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ProcessKilled", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] has been started..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ProcessStarted() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ProcessStarted", resourceCulture)
             End Get
         End Property
         
@@ -5146,7 +5164,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Tags.
+        '''  Looks up a localized string similar to Tag Manager.
         '''</summary>
         Friend ReadOnly Property frmTags_FormName() As String
             Get

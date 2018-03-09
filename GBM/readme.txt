@@ -2,7 +2,7 @@ Game Backup Monitor v1.1.0 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-March 7th, 2018
+March 8th, 2018
 
 New in 1.1.0
 

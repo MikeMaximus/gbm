@@ -145,7 +145,7 @@ Partial Class frmMain
         '
         'gMonTraySetup
         '
-        Me.gMonTraySetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTraySetupAddWizard, Me.gMonTraySetupGameManager, Me.gMonTraySetupCustomVariables, Me.gMonTraySetupTags, Me.gMonTraySetupProcessManager})
+        Me.gMonTraySetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTraySetupAddWizard, Me.gMonTraySetupGameManager, Me.gMonTraySetupTags, Me.gMonTraySetupProcessManager, Me.gMonTraySetupCustomVariables})
         Me.gMonTraySetup.Name = "gMonTraySetup"
         Me.gMonTraySetup.Size = New System.Drawing.Size(161, 22)
         Me.gMonTraySetup.Text = "&Setup"
@@ -166,19 +166,19 @@ Partial Class frmMain
         '
         Me.gMonTraySetupCustomVariables.Name = "gMonTraySetupCustomVariables"
         Me.gMonTraySetupCustomVariables.Size = New System.Drawing.Size(201, 22)
-        Me.gMonTraySetupCustomVariables.Text = "Custom &Path Variables..."
+        Me.gMonTraySetupCustomVariables.Text = "Custom Path &Variables..."
         '
         'gMonTraySetupTags
         '
         Me.gMonTraySetupTags.Name = "gMonTraySetupTags"
         Me.gMonTraySetupTags.Size = New System.Drawing.Size(201, 22)
-        Me.gMonTraySetupTags.Text = "&Tags..."
+        Me.gMonTraySetupTags.Text = "&Tag Manager..."
         '
         'gMonTraySetupProcessManager
         '
         Me.gMonTraySetupProcessManager.Name = "gMonTraySetupProcessManager"
         Me.gMonTraySetupProcessManager.Size = New System.Drawing.Size(201, 22)
-        Me.gMonTraySetupProcessManager.Text = "Process &Manager..."
+        Me.gMonTraySetupProcessManager.Text = "&Process Manager..."
         '
         'gMonTrayTools
         '
@@ -350,7 +350,7 @@ Partial Class frmMain
         '
         'gMonSetup
         '
-        Me.gMonSetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonSetupGameManager, Me.gMonSetupAddWizard, Me.gMonSetupCustomVariables, Me.gMonSetupTags, Me.gMonSetupProcessManager})
+        Me.gMonSetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonSetupGameManager, Me.gMonSetupAddWizard, Me.gMonSetupTags, Me.gMonSetupProcessManager, Me.gMonSetupCustomVariables})
         Me.gMonSetup.Name = "gMonSetup"
         Me.gMonSetup.Size = New System.Drawing.Size(49, 20)
         Me.gMonSetup.Text = "&Setup"
@@ -371,19 +371,19 @@ Partial Class frmMain
         '
         Me.gMonSetupCustomVariables.Name = "gMonSetupCustomVariables"
         Me.gMonSetupCustomVariables.Size = New System.Drawing.Size(201, 22)
-        Me.gMonSetupCustomVariables.Text = "Custom &Path Variables..."
+        Me.gMonSetupCustomVariables.Text = "Custom Path &Variables..."
         '
         'gMonSetupTags
         '
         Me.gMonSetupTags.Name = "gMonSetupTags"
         Me.gMonSetupTags.Size = New System.Drawing.Size(201, 22)
-        Me.gMonSetupTags.Text = "&Tags..."
+        Me.gMonSetupTags.Text = "&Tag Manager..."
         '
         'gMonSetupProcessManager
         '
         Me.gMonSetupProcessManager.Name = "gMonSetupProcessManager"
         Me.gMonSetupProcessManager.Size = New System.Drawing.Size(201, 22)
-        Me.gMonSetupProcessManager.Text = "Process &Manager..."
+        Me.gMonSetupProcessManager.Text = "&Process Manager..."
         '
         'gMonTools
         '

@@ -23,6 +23,7 @@ Partial Class frmProcessManager
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.grpProcess = New System.Windows.Forms.GroupBox()
+        Me.chkKillProcess = New System.Windows.Forms.CheckBox()
         Me.txtArguments = New System.Windows.Forms.TextBox()
         Me.lblArguments = New System.Windows.Forms.Label()
         Me.btnProcessBrowse = New System.Windows.Forms.Button()
@@ -37,7 +38,6 @@ Partial Class frmProcessManager
         Me.txtID = New System.Windows.Forms.TextBox()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
-        Me.chkKillProcess = New System.Windows.Forms.CheckBox()
         Me.grpProcess.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -54,16 +54,26 @@ Partial Class frmProcessManager
         Me.grpProcess.Location = New System.Drawing.Point(238, 12)
         Me.grpProcess.Name = "grpProcess"
         Me.grpProcess.Size = New System.Drawing.Size(334, 120)
-        Me.grpProcess.TabIndex = 11
+        Me.grpProcess.TabIndex = 3
         Me.grpProcess.TabStop = False
         Me.grpProcess.Text = "Configuration"
+        '
+        'chkKillProcess
+        '
+        Me.chkKillProcess.AutoSize = True
+        Me.chkKillProcess.Location = New System.Drawing.Point(72, 96)
+        Me.chkKillProcess.Name = "chkKillProcess"
+        Me.chkKillProcess.Size = New System.Drawing.Size(184, 17)
+        Me.chkKillProcess.TabIndex = 4
+        Me.chkKillProcess.Text = "Kill process when game is closed."
+        Me.chkKillProcess.UseVisualStyleBackColor = True
         '
         'txtArguments
         '
         Me.txtArguments.Location = New System.Drawing.Point(72, 70)
         Me.txtArguments.Name = "txtArguments"
         Me.txtArguments.Size = New System.Drawing.Size(256, 20)
-        Me.txtArguments.TabIndex = 5
+        Me.txtArguments.TabIndex = 3
         '
         'lblArguments
         '
@@ -71,7 +81,7 @@ Partial Class frmProcessManager
         Me.lblArguments.Location = New System.Drawing.Point(6, 73)
         Me.lblArguments.Name = "lblArguments"
         Me.lblArguments.Size = New System.Drawing.Size(60, 13)
-        Me.lblArguments.TabIndex = 4
+        Me.lblArguments.TabIndex = 0
         Me.lblArguments.Text = "Arguments:"
         '
         'btnProcessBrowse
@@ -79,7 +89,7 @@ Partial Class frmProcessManager
         Me.btnProcessBrowse.Location = New System.Drawing.Point(298, 45)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
         Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 20)
-        Me.btnProcessBrowse.TabIndex = 3
+        Me.btnProcessBrowse.TabIndex = 2
         Me.btnProcessBrowse.Text = "..."
         Me.btnProcessBrowse.UseVisualStyleBackColor = True
         '
@@ -88,14 +98,14 @@ Partial Class frmProcessManager
         Me.txtName.Location = New System.Drawing.Point(72, 19)
         Me.txtName.Name = "txtName"
         Me.txtName.Size = New System.Drawing.Size(256, 20)
-        Me.txtName.TabIndex = 1
+        Me.txtName.TabIndex = 0
         '
         'txtPath
         '
         Me.txtPath.Location = New System.Drawing.Point(72, 45)
         Me.txtPath.Name = "txtPath"
         Me.txtPath.Size = New System.Drawing.Size(220, 20)
-        Me.txtPath.TabIndex = 2
+        Me.txtPath.TabIndex = 1
         '
         'lblProcess
         '
@@ -103,7 +113,7 @@ Partial Class frmProcessManager
         Me.lblProcess.Location = New System.Drawing.Point(6, 48)
         Me.lblProcess.Name = "lblProcess"
         Me.lblProcess.Size = New System.Drawing.Size(48, 13)
-        Me.lblProcess.TabIndex = 1
+        Me.lblProcess.TabIndex = 0
         Me.lblProcess.Text = "Process:"
         '
         'lblName
@@ -121,7 +131,7 @@ Partial Class frmProcessManager
         Me.btnClose.Location = New System.Drawing.Point(497, 226)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 14
+        Me.btnClose.TabIndex = 6
         Me.btnClose.Text = "C&lose"
         Me.btnClose.UseVisualStyleBackColor = True
         '
@@ -132,7 +142,7 @@ Partial Class frmProcessManager
         Me.btnDelete.Location = New System.Drawing.Point(48, 226)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(30, 23)
-        Me.btnDelete.TabIndex = 10
+        Me.btnDelete.TabIndex = 2
         Me.btnDelete.Text = "-"
         Me.btnDelete.UseVisualStyleBackColor = True
         '
@@ -143,7 +153,7 @@ Partial Class frmProcessManager
         Me.btnAdd.Location = New System.Drawing.Point(12, 226)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(30, 23)
-        Me.btnAdd.TabIndex = 9
+        Me.btnAdd.TabIndex = 1
         Me.btnAdd.Text = "+"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
@@ -154,7 +164,7 @@ Partial Class frmProcessManager
         Me.lstProcesses.Name = "lstProcesses"
         Me.lstProcesses.Size = New System.Drawing.Size(220, 212)
         Me.lstProcesses.Sorted = True
-        Me.lstProcesses.TabIndex = 7
+        Me.lstProcesses.TabIndex = 0
         '
         'txtID
         '
@@ -162,7 +172,7 @@ Partial Class frmProcessManager
         Me.txtID.Location = New System.Drawing.Point(374, 150)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(33, 20)
-        Me.txtID.TabIndex = 8
+        Me.txtID.TabIndex = 0
         Me.txtID.TabStop = False
         Me.txtID.Visible = False
         '
@@ -172,7 +182,7 @@ Partial Class frmProcessManager
         Me.btnCancel.Location = New System.Drawing.Point(494, 149)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 13
+        Me.btnCancel.TabIndex = 5
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
@@ -182,19 +192,9 @@ Partial Class frmProcessManager
         Me.btnSave.Location = New System.Drawing.Point(413, 149)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 12
+        Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
-        '
-        'chkKillProcess
-        '
-        Me.chkKillProcess.AutoSize = True
-        Me.chkKillProcess.Location = New System.Drawing.Point(72, 96)
-        Me.chkKillProcess.Name = "chkKillProcess"
-        Me.chkKillProcess.Size = New System.Drawing.Size(184, 17)
-        Me.chkKillProcess.TabIndex = 6
-        Me.chkKillProcess.Text = "Kill process when game is closed."
-        Me.chkKillProcess.UseVisualStyleBackColor = True
         '
         'frmProcessManager
         '

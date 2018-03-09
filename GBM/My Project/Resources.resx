@@ -392,13 +392,13 @@
     <value>Add Game &amp;Wizard...</value>
   </data>
   <data name="frmMain_gMonSetupCustomVariables" xml:space="preserve">
-    <value>Custom &amp;Path Variables...</value>
+    <value>Custom Path &amp;Variables...</value>
   </data>
   <data name="frmMain_gMonSetupGameManager" xml:space="preserve">
     <value>&amp;Game Manager...</value>
   </data>
   <data name="frmMain_gMonSetupTags" xml:space="preserve">
-    <value>&amp;Tags...</value>
+    <value>&amp;Tag Manager...</value>
   </data>
   <data name="frmMain_gMonStripStatusButton" xml:space="preserve">
     <value>Monitor Status:</value>
@@ -923,7 +923,7 @@
     <value>&amp;Close</value>
   </data>
   <data name="frmGameTags_btnOpenTags" xml:space="preserve">
-    <value>Setup &amp;Tags...</value>
+    <value>&amp;Tag Manager...</value>
   </data>
   <data name="frmGameTags_btnRemove" xml:space="preserve">
     <value>&lt;</value>
@@ -1211,7 +1211,7 @@
     <value>You must enter a valid tag name.</value>
   </data>
   <data name="frmTags_FormName" xml:space="preserve">
-    <value>Tags</value>
+    <value>Tag Manager</value>
   </data>
   <data name="frmTags_grpTag" xml:space="preserve">
     <value>Configuration</value>
@@ -2120,7 +2120,7 @@
     <value>Path:</value>
   </data>
   <data name="frmMain_gMonSetupProcessManager" xml:space="preserve">
-    <value>Process &amp;Manager...</value>
+    <value>&amp;Process Manager...</value>
   </data>
   <data name="frmProcessManager_ChooseProcess" xml:space="preserve">
     <value>Choose a file that starts the process</value>
@@ -2138,7 +2138,7 @@
     <value>&amp;Close</value>
   </data>
   <data name="frmGameProcesses_btnOpenProcesses" xml:space="preserve">
-    <value>Process &amp;Manager...</value>
+    <value>&amp;Process Manager...</value>
   </data>
   <data name="frmGameProcesses_btnRemove" xml:space="preserve">
     <value>&lt;</value>
@@ -2157,5 +2157,11 @@
   </data>
   <data name="App_GenericError" xml:space="preserve">
     <value>Error: [PARAM]</value>
+  </data>
+  <data name="frmMain_ProcessKilled" xml:space="preserve">
+    <value>Kill signal was sent for [PARAM].</value>
+  </data>
+  <data name="frmMain_ProcessStarted" xml:space="preserve">
+    <value>[PARAM] has been started.</value>
   </data>
 </root>
