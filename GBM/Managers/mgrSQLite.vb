@@ -778,7 +778,7 @@ Public Class mgrSQLite
                 sSQL &= "CREATE TABLE gameprocesses (ProcessID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(ProcessID, MonitorID));"
 
                 'Overhaul Tables
-                sSQL = "CREATE TABLE settings_new (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, " &
+                sSQL &= "CREATE TABLE settings_new (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, " &
                    "DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, " &
                    "BackupFolder TEXT NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
                    "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
@@ -813,11 +813,6 @@ Public Class mgrSQLite
                 'Backup DB before starting
                 BackupDB("v108")
 
-                'The remote manifest now requires a synced monitorlist to function.  We need to force a sync for users that had it disabled, otherwise their manifest will be lost.
-                Dim oSettings As New mgrSettings
-                oSettings.LoadSettings()
-                mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
-
                 'Overhaul Tables
                 sSQL = "CREATE TABLE monitorlist_new (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
@@ -828,6 +823,13 @@ Public Class mgrSQLite
                    "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, " &
                    "ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx FROM monitorlist;" &
                    "DROP TABLE monitorlist; ALTER TABLE monitorlist_new RENAME TO monitorlist;"
+
+                'We need to push the local database game list against the remote database in case they had syncing disabled
+                Dim hshMonitorList As Hashtable = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList, mgrSQLite.Database.Local)
+                Dim oSettings As New mgrSettings
+                oSettings.LoadSettings()
+                mgrMonitorList.DoListAddUpdateSync(hshMonitorList, Database.Remote, oSettings.SyncFields)
+
                 sSQL &= "CREATE TABLE manifest_new (ManifestID TEXT NOT NULL PRIMARY KEY, MonitorID TEXT NOT NULL, FileName TEXT NOT NULL, " &
                    "DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
                 sSQL &= "INSERT INTO manifest_new (ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum) " &

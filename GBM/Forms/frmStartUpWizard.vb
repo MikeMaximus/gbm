@@ -131,7 +131,6 @@ Public Class frmStartUpWizard
         frm.DisableExternalFunctions = True
         frm.ShowDialog()
         LoadGameSettings()
-        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
     End Sub
 
     Private Function ValidateBackupPath(ByVal strPath As String, ByRef sErrorMessage As String) As Boolean

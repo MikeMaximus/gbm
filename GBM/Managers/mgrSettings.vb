@@ -277,7 +277,7 @@ Public Class mgrSettings
 
     Sub New()
         'The GameIDsync message should be supressed on all new databases
-        SetMessageField(SupressMessages, eSupressMessages.GameIDSync)
+        SupressMessages = SetMessageField(SupressMessages, eSupressMessages.GameIDSync)
     End Sub
 
     Private Sub SaveFromClass()
