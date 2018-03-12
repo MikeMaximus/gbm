@@ -104,10 +104,10 @@ Public Class mgrBackup
     Private Function GetFileName(ByVal oGame As clsGame) As String
         Dim sName As String
 
-        If oSettings.UseNames Then
-            sName = oGame.FileSafeName
-        Else
+        If oSettings.UseGameID Then
             sName = oGame.ID
+        Else
+            sName = oGame.FileSafeName
         End If
 
         Return sName

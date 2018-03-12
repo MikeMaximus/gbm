@@ -32,6 +32,7 @@ Partial Class frmSettings
         Me.chkTimeTracking = New System.Windows.Forms.CheckBox()
         Me.chkShowDetectionTips = New System.Windows.Forms.CheckBox()
         Me.grpFolderOptions = New System.Windows.Forms.GroupBox()
+        Me.chkUseGameID = New System.Windows.Forms.CheckBox()
         Me.btnBackupFolder = New System.Windows.Forms.Button()
         Me.lblBackupFolder = New System.Windows.Forms.Label()
         Me.txtBackupFolder = New System.Windows.Forms.TextBox()
@@ -67,7 +68,6 @@ Partial Class frmSettings
         Me.chkSessionTracking = New System.Windows.Forms.CheckBox()
         Me.lstSettings = New System.Windows.Forms.ListBox()
         Me.btnResetMessages = New System.Windows.Forms.Button()
-        Me.chkUseNames = New System.Windows.Forms.CheckBox()
         Me.grpStartup.SuspendLayout()
         Me.grpFolderOptions.SuspendLayout()
         Me.grp7zGeneral.SuspendLayout()
@@ -175,7 +175,7 @@ Partial Class frmSettings
         '
         'grpFolderOptions
         '
-        Me.grpFolderOptions.Controls.Add(Me.chkUseNames)
+        Me.grpFolderOptions.Controls.Add(Me.chkUseGameID)
         Me.grpFolderOptions.Controls.Add(Me.btnBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.lblBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.txtBackupFolder)
@@ -186,6 +186,16 @@ Partial Class frmSettings
         Me.grpFolderOptions.TabIndex = 0
         Me.grpFolderOptions.TabStop = False
         Me.grpFolderOptions.Text = "Files and Folders"
+        '
+        'chkUseGameID
+        '
+        Me.chkUseGameID.AutoSize = True
+        Me.chkUseGameID.Location = New System.Drawing.Point(9, 65)
+        Me.chkUseGameID.Name = "chkUseGameID"
+        Me.chkUseGameID.Size = New System.Drawing.Size(205, 17)
+        Me.chkUseGameID.TabIndex = 3
+        Me.chkUseGameID.Text = "Use Game ID for folder and file names"
+        Me.chkUseGameID.UseVisualStyleBackColor = True
         '
         'btnBackupFolder
         '
@@ -531,16 +541,6 @@ Partial Class frmSettings
         Me.btnResetMessages.Text = "&Reset Warnings"
         Me.btnResetMessages.UseVisualStyleBackColor = True
         '
-        'chkUseNames
-        '
-        Me.chkUseNames.AutoSize = True
-        Me.chkUseNames.Location = New System.Drawing.Point(9, 65)
-        Me.chkUseNames.Name = "chkUseNames"
-        Me.chkUseNames.Size = New System.Drawing.Size(254, 17)
-        Me.chkUseNames.TabIndex = 3
-        Me.chkUseNames.Text = "Use Name instead of ID for folder and file names"
-        Me.chkUseNames.UseVisualStyleBackColor = True
-        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -629,5 +629,5 @@ Partial Class frmSettings
     Friend WithEvents chkSupressBackup As CheckBox
     Friend WithEvents btnResetMessages As Button
     Friend WithEvents chkBackupOnLaunch As CheckBox
-    Friend WithEvents chkUseNames As CheckBox
+    Friend WithEvents chkUseGameID As CheckBox
 End Class

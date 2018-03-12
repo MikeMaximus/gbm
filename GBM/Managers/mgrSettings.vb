@@ -23,7 +23,7 @@ Public Class mgrSettings
     Private eMessages As eSupressMessages = eSupressMessages.None
     Private bAutoSaveLog As Boolean = False
     Private bBackupOnLaunch As Boolean = True
-    Private bUseNames As Boolean = False
+    Private bUseGameID As Boolean = False
 
     <Flags()> Public Enum eSupressMessages
         None = 0
@@ -276,12 +276,12 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property UseNames As Boolean
+    Property UseGameID As Boolean
         Get
-            Return bUseNames
+            Return bUseGameID
         End Get
         Set(value As Boolean)
-            bUseNames = value
+            bUseGameID = value
         End Set
     End Property
 
@@ -301,7 +301,7 @@ Public Class mgrSettings
         sSQL = "INSERT INTO settings VALUES (1, @MonitorOnStartup, @StartToTray, @ShowDetectionToolTips, @DisableConfirmation, "
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SupressBackup, @SupressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
-        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SupressMessages, @BackupOnLaunch, @UseNames)"
+        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SupressMessages, @BackupOnLaunch, @UseGameID)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -325,7 +325,7 @@ Public Class mgrSettings
         hshParams.Add("SessionTracking", SessionTracking)
         hshParams.Add("SupressMessages", SupressMessages)
         hshParams.Add("BackupOnLaunch", BackupOnLaunch)
-        hshParams.Add("UseNames", UseNames)
+        hshParams.Add("UseGameID", UseGameID)
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
@@ -362,7 +362,7 @@ Public Class mgrSettings
             SessionTracking = CBool(dr("SessionTracking"))
             SupressMessages = CInt(dr("SupressMessages"))
             BackupOnLaunch = CBool(dr("BackupOnLaunch"))
-            UseNames = CBool(dr("UseNames"))
+            UseGameID = CBool(dr("UseGameID"))
         Next
 
         oDatabase.Disconnect()

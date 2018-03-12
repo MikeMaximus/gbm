@@ -4543,11 +4543,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Use Name instead of ID for folder and file names.
+        '''  Looks up a localized string similar to Use Game ID for folder and file names.
         '''</summary>
-        Friend ReadOnly Property frmSettings_chkUseNames() As String
+        Friend ReadOnly Property frmSettings_chkUseGameID() As String
             Get
-                Return ResourceManager.GetString("frmSettings_chkUseNames", resourceCulture)
+                Return ResourceManager.GetString("frmSettings_chkUseGameID", resourceCulture)
             End Get
         End Property
         
