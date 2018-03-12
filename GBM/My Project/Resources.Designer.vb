@@ -4543,6 +4543,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Use Name instead of ID for folder and file names.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkUseNames() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkUseNames", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Do you want to revert all settings to their defaults?.
         '''</summary>
         Friend ReadOnly Property frmSettings_ConfirmDefaults() As String
@@ -4624,7 +4633,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Folders.
+        '''  Looks up a localized string similar to Files and Folders.
         '''</summary>
         Friend ReadOnly Property frmSettings_grpFolderOptions() As String
             Get

@@ -1094,7 +1094,7 @@
     <value>Startup</value>
   </data>
   <data name="frmSettings_grpFolderOptions" xml:space="preserve">
-    <value>Folders</value>
+    <value>Files and Folders</value>
   </data>
   <data name="frmSettings_lblBackupFolder" xml:space="preserve">
     <value>Backup Folder:</value>
@@ -2163,5 +2163,8 @@
   </data>
   <data name="frmMain_ProcessStarted" xml:space="preserve">
     <value>[PARAM] has been started.</value>
+  </data>
+  <data name="frmSettings_chkUseNames" xml:space="preserve">
+    <value>Use Name instead of ID for folder and file names</value>
   </data>
 </root>

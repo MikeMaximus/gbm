@@ -62,6 +62,12 @@ Public Class clsGame
         End Get
     End Property
 
+    ReadOnly Property FileSafeName As String
+        Get
+            Return mgrPath.ValidateForFileSystem(sGameName)
+        End Get
+    End Property
+
     Property Name As String
         Set(value As String)
             sGameName = value

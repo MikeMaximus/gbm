@@ -101,14 +101,26 @@ Public Class mgrBackup
         Return sSavePath
     End Function
 
+    Private Function GetFileName(ByVal oGame As clsGame) As String
+        Dim sName As String
+
+        If oSettings.UseNames Then
+            sName = oGame.FileSafeName
+        Else
+            sName = oGame.ID
+        End If
+
+        Return sName
+    End Function
+
     Public Function CheckBackupPrereq(ByVal oGame As clsGame) As Boolean
         Dim sBackupFile As String = oSettings.BackupFolder
         Dim sSavePath As String
         Dim lAvailableSpace As Long
         Dim lFolderSize As Long
 
-        If oSettings.CreateSubFolder Then sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.ID
-        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.ID & ".7z"
+        If oSettings.CreateSubFolder Then sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
+        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & ".7z"
 
         'Verify saved game path
         sSavePath = VerifySavePath(oGame)
@@ -199,7 +211,7 @@ Public Class mgrBackup
             RaiseEvent UpdateBackupInfo(oGame)
 
             If oSettings.CreateSubFolder Then
-                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.ID
+                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
                 Try
                     If Not Directory.Exists(sBackupFile) Then
                         Directory.CreateDirectory(sBackupFile)
@@ -212,9 +224,9 @@ Public Class mgrBackup
 
             If oGame.AppendTimeStamp Then
                 CheckOldBackups(oGame)
-                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.ID & sTimeStamp & ".7z"
+                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & sTimeStamp & ".7z"
             Else
-                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & oGame.ID & ".7z"
+                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & ".7z"
             End If
 
             If bDoBackup Then

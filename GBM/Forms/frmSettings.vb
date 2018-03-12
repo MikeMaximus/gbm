@@ -52,6 +52,7 @@ Public Class frmSettings
         oSettings.AutoSaveLog = chkAutoSaveLog.Checked
         oSettings.DisableConfirmation = chkBackupConfirm.Checked
         oSettings.CreateSubFolder = chkCreateFolder.Checked
+        oSettings.UseNames = chkUseNames.Checked
         oSettings.ShowOverwriteWarning = chkOverwriteWarning.Checked
         oSettings.RestoreOnLaunch = chkRestoreNotify.Checked
         oSettings.AutoRestore = chkAutoRestore.Checked
@@ -178,6 +179,7 @@ Public Class frmSettings
         chkAutoSaveLog.Checked = oSettings.AutoSaveLog
         chkBackupConfirm.Checked = oSettings.DisableConfirmation
         chkCreateFolder.Checked = oSettings.CreateSubFolder
+        chkUseNames.Checked = oSettings.UseNames
         chkOverwriteWarning.Checked = oSettings.ShowOverwriteWarning
         chkRestoreNotify.Checked = oSettings.RestoreOnLaunch
         chkAutoRestore.Checked = oSettings.AutoRestore
@@ -278,6 +280,7 @@ Public Class frmSettings
         chkAutoMark.Text = frmSettings_chkAutoMark
         chkOverwriteWarning.Text = frmSettings_chkOverwriteWarning
         chkCreateFolder.Text = frmSettings_chkCreateFolder
+        chkUseNames.Text = frmSettings_chkUseNames
         chkBackupConfirm.Text = frmSettings_chkBackupConfirm
         btnCancel.Text = frmSettings_btnCancel
         btnSave.Text = frmSettings_btnSave

@@ -24,6 +24,7 @@ Partial Class frmSettings
     Private Sub InitializeComponent()
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
         Me.grpStartup = New System.Windows.Forms.GroupBox()
+        Me.chkBackupOnLaunch = New System.Windows.Forms.CheckBox()
         Me.chkStartWindows = New System.Windows.Forms.CheckBox()
         Me.chkStartToTray = New System.Windows.Forms.CheckBox()
         Me.chkAutoSaveLog = New System.Windows.Forms.CheckBox()
@@ -66,7 +67,7 @@ Partial Class frmSettings
         Me.chkSessionTracking = New System.Windows.Forms.CheckBox()
         Me.lstSettings = New System.Windows.Forms.ListBox()
         Me.btnResetMessages = New System.Windows.Forms.Button()
-        Me.chkBackupOnLaunch = New System.Windows.Forms.CheckBox()
+        Me.chkUseNames = New System.Windows.Forms.CheckBox()
         Me.grpStartup.SuspendLayout()
         Me.grpFolderOptions.SuspendLayout()
         Me.grp7zGeneral.SuspendLayout()
@@ -102,6 +103,16 @@ Partial Class frmSettings
         Me.grpStartup.TabIndex = 0
         Me.grpStartup.TabStop = False
         Me.grpStartup.Text = "Startup"
+        '
+        'chkBackupOnLaunch
+        '
+        Me.chkBackupOnLaunch.AutoSize = True
+        Me.chkBackupOnLaunch.Location = New System.Drawing.Point(6, 88)
+        Me.chkBackupOnLaunch.Name = "chkBackupOnLaunch"
+        Me.chkBackupOnLaunch.Size = New System.Drawing.Size(185, 17)
+        Me.chkBackupOnLaunch.TabIndex = 3
+        Me.chkBackupOnLaunch.Text = "Backup GBM data files on launch"
+        Me.chkBackupOnLaunch.UseVisualStyleBackColor = True
         '
         'chkStartWindows
         '
@@ -164,16 +175,17 @@ Partial Class frmSettings
         '
         'grpFolderOptions
         '
+        Me.grpFolderOptions.Controls.Add(Me.chkUseNames)
         Me.grpFolderOptions.Controls.Add(Me.btnBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.lblBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.txtBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.chkCreateFolder)
         Me.grpFolderOptions.Location = New System.Drawing.Point(6, 12)
         Me.grpFolderOptions.Name = "grpFolderOptions"
-        Me.grpFolderOptions.Size = New System.Drawing.Size(354, 70)
+        Me.grpFolderOptions.Size = New System.Drawing.Size(354, 90)
         Me.grpFolderOptions.TabIndex = 0
         Me.grpFolderOptions.TabStop = False
-        Me.grpFolderOptions.Text = "Folders"
+        Me.grpFolderOptions.Text = "Files and Folders"
         '
         'btnBackupFolder
         '
@@ -341,7 +353,7 @@ Partial Class frmSettings
         'chkBackupConfirm
         '
         Me.chkBackupConfirm.AutoSize = True
-        Me.chkBackupConfirm.Location = New System.Drawing.Point(14, 180)
+        Me.chkBackupConfirm.Location = New System.Drawing.Point(14, 199)
         Me.chkBackupConfirm.Name = "chkBackupConfirm"
         Me.chkBackupConfirm.Size = New System.Drawing.Size(160, 17)
         Me.chkBackupConfirm.TabIndex = 2
@@ -351,7 +363,7 @@ Partial Class frmSettings
         'chkOverwriteWarning
         '
         Me.chkOverwriteWarning.AutoSize = True
-        Me.chkOverwriteWarning.Location = New System.Drawing.Point(14, 203)
+        Me.chkOverwriteWarning.Location = New System.Drawing.Point(14, 222)
         Me.chkOverwriteWarning.Name = "chkOverwriteWarning"
         Me.chkOverwriteWarning.Size = New System.Drawing.Size(139, 17)
         Me.chkOverwriteWarning.TabIndex = 3
@@ -363,7 +375,7 @@ Partial Class frmSettings
         Me.grpBackupHandling.Controls.Add(Me.chkAutoRestore)
         Me.grpBackupHandling.Controls.Add(Me.chkRestoreNotify)
         Me.grpBackupHandling.Controls.Add(Me.chkAutoMark)
-        Me.grpBackupHandling.Location = New System.Drawing.Point(6, 88)
+        Me.grpBackupHandling.Location = New System.Drawing.Point(6, 107)
         Me.grpBackupHandling.Margin = New System.Windows.Forms.Padding(2)
         Me.grpBackupHandling.Name = "grpBackupHandling"
         Me.grpBackupHandling.Padding = New System.Windows.Forms.Padding(2)
@@ -519,24 +531,24 @@ Partial Class frmSettings
         Me.btnResetMessages.Text = "&Reset Warnings"
         Me.btnResetMessages.UseVisualStyleBackColor = True
         '
-        'chkBackupOnLaunch
+        'chkUseNames
         '
-        Me.chkBackupOnLaunch.AutoSize = True
-        Me.chkBackupOnLaunch.Location = New System.Drawing.Point(6, 88)
-        Me.chkBackupOnLaunch.Name = "chkBackupOnLaunch"
-        Me.chkBackupOnLaunch.Size = New System.Drawing.Size(185, 17)
-        Me.chkBackupOnLaunch.TabIndex = 3
-        Me.chkBackupOnLaunch.Text = "Backup GBM data files on launch"
-        Me.chkBackupOnLaunch.UseVisualStyleBackColor = True
+        Me.chkUseNames.AutoSize = True
+        Me.chkUseNames.Location = New System.Drawing.Point(9, 65)
+        Me.chkUseNames.Name = "chkUseNames"
+        Me.chkUseNames.Size = New System.Drawing.Size(254, 17)
+        Me.chkUseNames.TabIndex = 3
+        Me.chkUseNames.Text = "Use Name instead of ID for folder and file names"
+        Me.chkUseNames.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(554, 361)
+        Me.Controls.Add(Me.pnlBackup)
         Me.Controls.Add(Me.btnResetMessages)
         Me.Controls.Add(Me.pnlGeneral)
-        Me.Controls.Add(Me.pnlBackup)
         Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.lstSettings)
         Me.Controls.Add(Me.btnDefaults)
@@ -617,4 +629,5 @@ Partial Class frmSettings
     Friend WithEvents chkSupressBackup As CheckBox
     Friend WithEvents btnResetMessages As Button
     Friend WithEvents chkBackupOnLaunch As CheckBox
+    Friend WithEvents chkUseNames As CheckBox
 End Class
