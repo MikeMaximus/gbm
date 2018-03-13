@@ -12,7 +12,7 @@ Version 1.1.0 makes fundamental changes to how GBM works with game configuration
 
 I've done my best to make sure the upgrade process allows everyone to continue using their existing data and configurations.
 
-However, users who are sharing a backup folder between multiple PCs will experience data loss at some point due to the changes in this version.  Please read "Known Issue #1" in this file for details.
+However, users who are sharing a backup folder between multiple PCs may experience data loss at some point due to the changes in this version.  Please read "Known Issue #1" in this file for details.
 
 All Platforms:
 
@@ -22,12 +22,12 @@ All Platforms:
 	- Game ID (instead of Game Name) can now be used to name backup files and folders.  
 		- GBM will continue to use the name by default for ease of use.
 		- This behavior can be toggled in the "Backup and Restore" section of Settings.
-		- Using the game Name for backup files has a minor risk associated with it. See "Known Issue #2 and #5" for more details.
+		- Using the game Name for backup files has a minor risk associated with it. See "Known Issue #2 and #4" for more details.
 	- Game Name can now contain any character.
 	- When a game is deleted via Game Manager (or sync), all backup manifest entries for that particular game are now deleted. The backup files themselves are not.
 	- The Game Manager now syncs changes to the remote database immediately, instead of only when closed.
 
-- Feature Addtions & Changes
+- Feature Additions & Changes
 	- Added Regular Expression support for game detection
 		- This feature allows GBM to detect games based on a pattern instead of a single process name.
 		- This allows GBM to better support games that run from multiple executables and games that use interpreters or emulators.
@@ -42,12 +42,12 @@ All Platforms:
 	- Added "Backup GBM data files on launch" to the settings.  A long overdue feature, this will backup both the remote and local databases (as gbm.s3db.launch.bak) each time GBM starts.  
 		- This new setting is enabled by default.
 		- Only one backup is kept, the prior one will be overwritten.
-	- Added the ability to display messages that can be supressed.  These messages can be reset via the Settings screen.
+	- Added the ability to display messages or warnings that can be supressed after one view.  These messages can be reset via the Settings screen.
 	- The "Enable Sync" feature is now mandatory and the option been removed from Settings.
 	- The "Clean Local Manifest" feature has been removed.  It is not required because manfiest entries are no longer orphaned by design.  Existing orphaned entries will be removed during the v1.1.0 database upgrade.
 	- Added "Sync Game IDs" feature.  This allows the user to update their game configuration identifiers to match the official list or an export file.
-		- The sync is based on similarly named game configurations, therefore it's not 100% effective.  Some data may be missed and require manual changes.
-		- This is an optional upgrade tool for users with existing data from older versions.  It allows the import feature to properly recognize and update game configurations.
+		- This is mainly an optional upgrade tool for users with existing data from older versions.  It allows the import feature to properly recognize and update game configurations.
+		- The sync is based on similarly named game configurations, therefore it's not 100% effective.  Some games may be missed and require manual changes.		
 		- If you share a backup folder with multiple PCs, this feature will cause some data loss when the new IDs are synced to the other PCs.  See "Known Issue #1"
 
 - Import / Export Changes
@@ -67,7 +67,7 @@ Linux Only:
 
 - GBM now uses notify-send (libnotify) if it's available to display notifications on Linux.
 	- Mono style notifications will be displayed if notify-send is not available.
-	- The GBM icon will be displayed on notifications if it's been installed to the correct location (via makefile or deb).
+	- The GBM icon will be displayed on notifications if it's been installed via the makefile or a package installer.
 
 Known Issues:
 
@@ -78,13 +78,16 @@ Known Issues:
 	Once your PCs are back in sync, this will no longer be an issue unless you are constantly changing your Game IDs, which is not recommended.
 2.  Backup files are not being renamed or removed when a new backup is created.
 	- This happens on the first backup after toggling between using the Name or ID for your file names.  It's best to choose one setting and stick with it.
-3.  Configurations on the official game list are no longer fully compatible with older GBM versions.  
-	- Technically they will work.  But any game imported with a special character in it's name, such as a colon, will not create backup files correctly.
-	- These characters can be manually removed from the game name after importing, then the configurations will function properly.
-4.  The error "The requested operation requires elevation" occurs when GBM tries to launch a process associated with a game.
+3.  The error "The requested operation requires elevation" occurs when GBM tries to launch a process associated with a game.
 	- This means the process you're trying to launch with GBM requires administrator privilege.
 	- Click the blue "user" icon on the bottom left of the GBM window to quickly switch to administrator mode.
-5.  Game configurations using the same name, and configurations that end up with the same name when special characters are stripped will overwrite each other's backup files.
+4.  Game configurations using the same name, and configurations that end up with the same name when special characters are stripped will overwrite each other's backup files.
 	- For most users this should be a non-issue.  Toggle "Use Game ID for folder and file names" to on in the Settings screen if this is a problem for you.
+
+Important Notices:
+
+1.  Configurations on the official game list are no longer fully compatible with older GBM versions.  
+	- Technically they will work, but any game imported with a special character in it's name, such as a colon, will not create backup files correctly.
+	- These characters can be manually removed from the game name after importing in an older version, then the configurations will function properly.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
