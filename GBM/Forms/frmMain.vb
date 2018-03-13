@@ -1267,11 +1267,51 @@ Public Class frmMain
         End If
     End Sub
 
-    Public Sub UpdateLog(sLogUpdate As String, Optional bTrayUpdate As Boolean = True, Optional objIcon As System.Windows.Forms.ToolTipIcon = ToolTipIcon.Info, Optional bTimeStamp As Boolean = True) Handles oBackup.UpdateLog, oRestore.UpdateLog
+    Private Function NotifySendUnix(ByVal sLogUpdate As String, ByVal objIcon As System.Windows.Forms.ToolTipIcon) As Boolean
         Dim prsNotify As Process
-        Dim bNotifyFailed As Boolean
         Dim sUrgency As String
         Dim sNotifyArgs As String
+        Dim bNotifyFailed As Boolean
+
+        'Build args for notify-send
+        Select Case objIcon
+            Case ToolTipIcon.Error
+                sUrgency = "critical"
+            Case ToolTipIcon.Warning
+                sUrgency = "normal"
+            Case ToolTipIcon.Info
+                sUrgency = "low"
+            Case Else
+                sUrgency = "low"
+        End Select
+
+        sNotifyArgs = "-i gbm " & "-u " & sUrgency & " """ & App_NameLong & """ ""<i>" & sLogUpdate.Replace("""", "\""") & "</i>"""
+
+        Try
+            'Execute notify-send
+            prsNotify = New Process
+            prsNotify.StartInfo.FileName = "/usr/bin/notify-send"
+            prsNotify.StartInfo.Arguments = sNotifyArgs
+            prsNotify.StartInfo.UseShellExecute = False
+            prsNotify.StartInfo.RedirectStandardOutput = True
+            prsNotify.StartInfo.CreateNoWindow = True
+            prsNotify.Start()
+            prsNotify.WaitForExit()
+            Select Case prsNotify.ExitCode
+                Case 0
+                    bNotifyFailed = False
+                Case Else
+                    bNotifyFailed = True
+            End Select
+        Catch
+            bNotifyFailed = True
+        End Try
+
+        Return bNotifyFailed
+    End Function
+
+    Public Sub UpdateLog(sLogUpdate As String, Optional bTrayUpdate As Boolean = True, Optional objIcon As System.Windows.Forms.ToolTipIcon = ToolTipIcon.Info, Optional bTimeStamp As Boolean = True) Handles oBackup.UpdateLog, oRestore.UpdateLog
+        Dim bNotifyFailed As Boolean
 
         'Thread Safe (If one control requires an invoke assume they all do)
         If txtLog.InvokeRequired = True Then
@@ -1311,39 +1351,7 @@ Public Class frmMain
 
             If bTrayUpdate Then
                 If mgrCommon.IsUnix Then
-                    'Build args for notify-send
-                    Select Case objIcon
-                        Case ToolTipIcon.Error
-                            sUrgency = "critical"
-                        Case ToolTipIcon.Warning
-                            sUrgency = "normal"
-                        Case ToolTipIcon.Info
-                            sUrgency = "low"
-                        Case Else
-                            sUrgency = "low"
-                    End Select
-
-                    sNotifyArgs = "-i gbm " & "-u " & sUrgency & " """ & App_NameLong & """ """ & sLogUpdate.Replace("""", "\""") & """"
-
-                    Try
-                        'Execute notify-send
-                        prsNotify = New Process
-                        prsNotify.StartInfo.FileName = "/usr/bin/notify-send"
-                        prsNotify.StartInfo.Arguments = sNotifyArgs
-                        prsNotify.StartInfo.UseShellExecute = False
-                        prsNotify.StartInfo.RedirectStandardOutput = True
-                        prsNotify.StartInfo.CreateNoWindow = True
-                        prsNotify.Start()
-                        prsNotify.WaitForExit()
-                        Select Case prsNotify.ExitCode
-                            Case 0
-                                bNotifyFailed = False
-                            Case Else
-                                bNotifyFailed = True
-                        End Select
-                    Catch
-                        bNotifyFailed = True
-                    End Try
+                    bNotifyFailed = NotifySendUnix(sLogUpdate, objIcon)
                 End If
 
                 If Not mgrCommon.IsUnix Or bNotifyFailed Then
