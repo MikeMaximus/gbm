@@ -4,10 +4,11 @@
         Dim oBackupItem As clsBackup
 
         oBackupItem = New clsBackup
-        oBackupItem.ID = CStr(dr("ManifestID"))
+        oBackupItem.ManifestID = CStr(dr("ManifestID"))
+        oBackupItem.MonitorID = CStr(dr("MonitorID"))
         oBackupItem.Name = CStr(dr("Name"))
         oBackupItem.FileName = CStr(dr("FileName"))
-        oBackupItem.RestorePath = CStr(dr("RestorePath"))
+        oBackupItem.RestorePath = CStr(dr("Path"))
         oBackupItem.AbsolutePath = CBool(dr("AbsolutePath"))
         oBackupItem.DateUpdated = mgrCommon.UnixToDate(dr("DateUpdated"))
         oBackupItem.UpdatedBy = CStr(dr("UpdatedBy"))
@@ -19,11 +20,9 @@
     Private Shared Function SetCoreParameters(ByVal oBackupItem As clsBackup) As Hashtable
         Dim hshParams As New Hashtable
 
-        hshParams.Add("ID", oBackupItem.ID)
-        hshParams.Add("Name", oBackupItem.Name)
+        hshParams.Add("ManifestID", oBackupItem.ManifestID)
+        hshParams.Add("MonitorID", oBackupItem.MonitorID)
         hshParams.Add("FileName", oBackupItem.FileName)
-        hshParams.Add("Path", oBackupItem.TruePath)
-        hshParams.Add("AbsolutePath", oBackupItem.AbsolutePath)
         hshParams.Add("DateUpdated", oBackupItem.DateUpdatedUnix)
         hshParams.Add("UpdatedBy", oBackupItem.UpdatedBy)
         hshParams.Add("CheckSum", oBackupItem.CheckSum)
@@ -38,12 +37,12 @@
         Dim oBackupItem As clsBackup
         Dim slList As New SortedList
 
-        sSQL = "SELECT * from manifest ORDER BY Name Asc"
+        sSQL = "SELECT * from manifest NATURAL JOIN monitorlist ORDER BY Name Asc"
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oBackupItem = MapToObject(dr)
-            slList.Add(oBackupItem.ID, oBackupItem)
+            slList.Add(oBackupItem.ManifestID, oBackupItem)
         Next
 
         Return slList
@@ -57,19 +56,19 @@
         Dim oBackupItem As clsBackup
         Dim slList As New SortedList
 
-        sSQL = "SELECT ManifestID, Name, FileName, RestorePath, AbsolutePath, Max(DateUpdated) As DateUpdated, UpdatedBy, CheckSum FROM manifest GROUP BY Name ORDER By Name ASC"
+        sSQL = "SELECT ManifestID, MonitorID, Name, FileName, Path, AbsolutePath, Max(DateUpdated) As DateUpdated, UpdatedBy, CheckSum FROM manifest NATURAL JOIN monitorlist GROUP BY Name ORDER By Name ASC"
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oBackupItem = MapToObject(dr)
-            slList.Add(oBackupItem.Name, oBackupItem)
+            slList.Add(oBackupItem.MonitorID, oBackupItem)
         Next
 
         Return slList
 
     End Function
 
-    Public Shared Function DoManifestGetByName(ByVal sName As String, ByVal iSelectDB As mgrSQLite.Database) As List(Of clsBackup)
+    Public Shared Function DoManifestGetByMonitorID(ByVal sMonitorID As String, ByVal iSelectDB As mgrSQLite.Database) As List(Of clsBackup)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
         Dim sSQL As String
@@ -78,10 +77,10 @@
         Dim oList As New List(Of clsBackup)
 
 
-        sSQL = "SELECT * from manifest "
-        sSQL &= "WHERE Name = @Name ORDER BY DateUpdated Desc"
+        sSQL = "SELECT * FROM manifest NATURAL JOIN monitorlist "
+        sSQL &= "WHERE MonitorID = @MonitorID ORDER BY DateUpdated Desc"
 
-        hshParams.Add("Name", sName)
+        hshParams.Add("MonitorID", sMonitorID)
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
@@ -93,7 +92,7 @@
         Return oList
     End Function
 
-    Public Shared Function DoManifestGetByID(ByVal sID As String, ByVal iSelectDB As mgrSQLite.Database) As clsBackup
+    Public Shared Function DoManifestGetByManifestID(ByVal sManifestID As String, ByVal iSelectDB As mgrSQLite.Database) As clsBackup
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
         Dim sSQL As String
@@ -101,10 +100,10 @@
         Dim oBackupItem As New clsBackup
         Dim oList As New List(Of clsBackup)
 
-        sSQL = "SELECT * from manifest "
-        sSQL &= "WHERE ManifestID = @ID ORDER BY DateUpdated Desc"
+        sSQL = "SELECT * FROM manifest NATURAL JOIN monitorlist "
+        sSQL &= "WHERE ManifestID = @ManifestID ORDER BY DateUpdated Desc"
 
-        hshParams.Add("ID", sID)
+        hshParams.Add("ManifestID", sManifestID)
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
@@ -115,25 +114,22 @@
         Return oBackupItem
     End Function
 
-    'This should only be used to update specific entries in the remote manifest
-    Public Shared Function DoSpecificManifestCheck(ByRef oItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database) As Boolean
+    Public Shared Function DoUpdateLatestManifest(ByRef oItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database) As Boolean
         Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim oData As DataSet
+        Dim oData As Object
         Dim sSQL As String
         Dim hshParams As New Hashtable
 
-        sSQL = "SELECT * from manifest "
-        sSQL &= "WHERE Name = @Name AND FileName = @FileName"
+        sSQL = "SELECT ManifestID FROM manifest NATURAL JOIN monitorlist "
+        sSQL &= "WHERE MonitorID = @MonitorID ORDER BY DateUpdated DESC LIMIT 1"
 
-        hshParams.Add("Name", oItem.Name)
-        hshParams.Add("FileName", oItem.FileName)
+        hshParams.Add("MonitorID", oItem.MonitorID)
 
-        oData = oDatabase.ReadParamData(sSQL, hshParams)
+        oData = oDatabase.ReadSingleValue(sSQL, hshParams)
 
-        If oData.Tables(0).Rows.Count > 0 Then
-            For Each dr As DataRow In oData.Tables(0).Rows
-                oItem.ID = CStr(dr("ManifestID"))
-            Next
+        If Not oData Is Nothing Then
+            oItem.ManifestID = CStr(oData)
+            DoManifestUpdateByManifestID(oItem, mgrSQLite.Database.Remote)
             Return True
         Else
             Return False
@@ -141,38 +137,16 @@
 
     End Function
 
-    'This should only be used to update entries in the local manifest
-    Public Shared Function DoGlobalManifestCheck(ByVal sName As String, ByVal iSelectDB As mgrSQLite.Database) As Boolean
+    Public Shared Function DoManifestCheck(ByVal sMonitorID As String, ByVal iSelectDB As mgrSQLite.Database) As Boolean
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
         Dim sSQL As String
         Dim hshParams As New Hashtable
 
-        sSQL = "SELECT * from manifest "
-        sSQL &= "WHERE Name = @Name"
+        sSQL = "SELECT * FROM manifest "
+        sSQL &= "WHERE MonitorID = @MonitorID"
 
-        hshParams.Add("Name", sName)
-
-        oData = oDatabase.ReadParamData(sSQL, hshParams)
-
-        If oData.Tables(0).Rows.Count > 0 Then
-            Return True
-        Else
-            Return False
-        End If
-
-    End Function
-
-    Public Shared Function DoManifestNameCheck(ByVal sName As String, ByVal iSelectDB As mgrSQLite.Database) As Boolean
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim oData As DataSet
-        Dim sSQL As String
-        Dim hshParams As New Hashtable
-
-        sSQL = "SELECT * from manifest "
-        sSQL &= "WHERE Name = @Name"
-
-        hshParams.Add("Name", sName)
+        hshParams.Add("MonitorID", sMonitorID)
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
@@ -189,63 +163,63 @@
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "INSERT INTO manifest VALUES (@ID, @Name, @FileName, @Path, @AbsolutePath, @DateUpdated, @UpdatedBy, @CheckSum)"
+        sSQL = "INSERT INTO manifest VALUES (@ManifestID, @MonitorID, @FileName, @DateUpdated, @UpdatedBy, @CheckSum)"
 
         hshParams = SetCoreParameters(oBackupItem)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
-    Public Shared Sub DoManifestUpdateByName(ByVal oBackupItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database)
+    Public Shared Sub DoManifestUpdateByMonitorID(ByVal oBackupItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "UPDATE manifest SET Name = @Name, FileName = @FileName, RestorePath = @Path, AbsolutePath = @AbsolutePath, "
-        sSQL &= "DateUpdated = @DateUpdated, UpdatedBy = @UpdatedBy, CheckSum = @CheckSum WHERE Name = @QueryName"
+        sSQL = "UPDATE manifest SET MonitorID = @MonitorID, FileName = @FileName, DateUpdated = @DateUpdated, "
+        sSQL &= "UpdatedBy = @UpdatedBy, CheckSum = @CheckSum WHERE MonitorID = @QueryID"
 
         hshParams = SetCoreParameters(oBackupItem)
-        hshParams.Add("QueryName", oBackupItem.Name)
+        hshParams.Add("QueryID", oBackupItem.MonitorID)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
-    Public Shared Sub DoManifestUpdateByID(ByVal oBackupItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database)
+    Public Shared Sub DoManifestUpdateByManifestID(ByVal oBackupItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "UPDATE manifest SET Name = @Name, FileName = @FileName, RestorePath = @Path, AbsolutePath = @AbsolutePath, "
-        sSQL &= "DateUpdated = @DateUpdated, UpdatedBy = @UpdatedBy, CheckSum = @CheckSum WHERE ManifestID = @QueryID"
+        sSQL = "UPDATE manifest SET MonitorID = @MonitorID, FileName = @FileName, DateUpdated = @DateUpdated, "
+        sSQL &= "UpdatedBy = @UpdatedBy, CheckSum = @CheckSum WHERE ManifestID = @QueryID"
 
         hshParams = SetCoreParameters(oBackupItem)
-        hshParams.Add("QueryID", oBackupItem.ID)
+        hshParams.Add("QueryID", oBackupItem.ManifestID)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
-    Public Shared Sub DoManifestDeletebyName(ByVal oBackupItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database)
+    Public Shared Sub DoManifestDeleteByMonitorID(ByVal oBackupItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
         Dim hshParams As New Hashtable
 
         sSQL = "DELETE FROM manifest "
-        sSQL &= "WHERE Name = @Name"
+        sSQL &= "WHERE MonitorID = @MonitorID"
 
-        hshParams.Add("Name", oBackupItem.Name)
+        hshParams.Add("MonitorID", oBackupItem.MonitorID)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
-    Public Shared Sub DoManifestDeletebyID(ByVal oBackupItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database)
+    Public Shared Sub DoManifestDeleteByManifestID(ByVal oBackupItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
         Dim hshParams As New Hashtable
 
         sSQL = "DELETE FROM manifest "
-        sSQL &= "WHERE ManifestID = @ID"
+        sSQL &= "WHERE ManifestID = @ManifestID"
 
-        hshParams.Add("ID", oBackupItem.ID)
+        hshParams.Add("ManifestID", oBackupItem.ManifestID)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub

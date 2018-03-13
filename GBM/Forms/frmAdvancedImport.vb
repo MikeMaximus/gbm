@@ -9,6 +9,7 @@ Public Class frmAdvancedImport
     Private bSelectAll As Boolean = True
     Private bIsLoading As Boolean = False
     Private iCurrentSort As Integer = 0
+    Private oImageList As ImageList
     Private WithEvents tmFilterTimer As Timer
 
     Public Property ImportInfo As ExportData
@@ -82,9 +83,9 @@ Public Class frmAdvancedImport
             sTags = sTags.TrimEnd(New Char() {",", " "})
 
             oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.TrueProcess, sTags})
-            oListViewItem.Tag = oApp.CompoundKey
+            oListViewItem.Tag = oApp.ID
 
-            If FinalData.ContainsKey(oApp.CompoundKey) Then
+            If FinalData.ContainsKey(oApp.ID) Then
                 oListViewItem.Checked = True
             Else
                 oListViewItem.Checked = False
@@ -101,6 +102,13 @@ Public Class frmAdvancedImport
                 Else
                     oListViewItem.Checked = False
                 End If
+            End If
+
+            If oApp.ImportUpdate Then
+                oListViewItem.ImageIndex = 1
+                oListViewItem.Checked = True
+            Else
+                oListViewItem.ImageIndex = 0
             End If
 
             If sFilter = String.Empty Then
@@ -155,6 +163,13 @@ Public Class frmAdvancedImport
         btnCancel.Text = frmAdvancedImport_btnCancel
         btnImport.Text = frmAdvancedImport_btnImport
         chkSelectAll.Text = frmAdvancedImport_chkSelectAll
+
+
+        'Set Icons
+        oImageList = New ImageList()
+        oImageList.Images.Add(Icon_New)
+        oImageList.Images.Add(Icon_Update)
+        lstGames.SmallImageList = oImageList
 
         chkSelectAll.Checked = True
 

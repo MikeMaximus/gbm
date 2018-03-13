@@ -2,16 +2,16 @@
 
 Public Class frmChooseGame
 
-    Private oProcess As mgrProcesses
+    Private oProcess As mgrProcessDetection
     Private oGame As clsGame
     Private oGamesHash As New Hashtable
     Private bGameSelected As Boolean = False
 
-    Property Process As mgrProcesses
+    Property Process As mgrProcessDetection
         Get
             Return oProcess
         End Get
-        Set(value As mgrProcesses)
+        Set(value As mgrProcessDetection)
             oProcess = value
         End Set
     End Property

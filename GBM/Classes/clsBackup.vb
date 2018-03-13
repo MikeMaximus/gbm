@@ -1,5 +1,6 @@
 ﻿Public Class clsBackup
     Private sBackupID As String = Guid.NewGuid.ToString
+    Private sMonitorID As String = String.Empty
     Private sName As String = String.Empty
     Private sFileName As String = String.Empty
     Private sRestorePath As String = String.Empty
@@ -9,12 +10,21 @@
     Private sUpdatedBy As String = String.Empty
     Private sCheckSum As String = String.Empty
 
-    Property ID As String
+    Property ManifestID As String
         Get
             Return sBackupID
         End Get
         Set(value As String)
             sBackupID = value
+        End Set
+    End Property
+
+    Property MonitorID As String
+        Get
+            Return sMonitorID
+        End Get
+        Set(value As String)
+            sMonitorID = value
         End Set
     End Property
 
@@ -25,12 +35,6 @@
         Set(value As String)
             sName = value
         End Set
-    End Property
-
-    ReadOnly Property SafeName As String
-        Get
-            Return mgrPath.ValidateForFileSystem(sName)
-        End Get
     End Property
 
     ReadOnly Property CroppedName As String

@@ -28,24 +28,10 @@ Public Class mgrRestore
     Public Event UpdateRestoreInfo(oRestoreInfo As clsBackup)
     Public Event SetLastAction(sMessage As String)
 
-    Public Shared Sub DoPathOverride(ByRef oCheckBackup As clsBackup, ByVal oCheckGame As clsGame)
-        'Always override the manifest restore path with the current configuration path if possible
-        If Not oCheckGame.Temporary Then
-            If Path.IsPathRooted(oCheckGame.Path) Then
-                oCheckBackup.AbsolutePath = True
-            Else
-                oCheckBackup.AbsolutePath = False
-            End If
-            oCheckBackup.RestorePath = oCheckGame.Path
-        End If
-    End Sub
-
     Public Shared Function CheckPath(ByRef oRestoreInfo As clsBackup, ByVal oGame As clsGame, ByRef bTriggerReload As Boolean) As Boolean
         Dim sProcess As String
         Dim sRestorePath As String
         Dim bNoAuto As Boolean
-
-        DoPathOverride(oRestoreInfo, oGame)
 
         If Not oRestoreInfo.AbsolutePath Then
             If oGame.ProcessPath <> String.Empty Then
@@ -72,7 +58,7 @@ Public Class mgrRestore
         Return True
     End Function
 
-    Public Shared Function CheckManifest(ByVal sAppName As String) As Boolean
+    Public Shared Function CheckManifest(ByVal sMonitorID As String) As Boolean
         Dim slLocalManifest As SortedList
         Dim slRemoteManifest As SortedList
         Dim oLocalItem As New clsBackup
@@ -83,13 +69,13 @@ Public Class mgrRestore
         slLocalManifest = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Local)
         slRemoteManifest = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
 
-        If slLocalManifest.Contains(sAppName) Then
-            oLocalItem = DirectCast(slLocalManifest(sAppName), clsBackup)
+        If slLocalManifest.Contains(sMonitorID) Then
+            oLocalItem = DirectCast(slLocalManifest(sMonitorID), clsBackup)
             bLocal = True
         End If
 
-        If slRemoteManifest.Contains(sAppName) Then
-            oRemoteItem = DirectCast(slRemoteManifest(sAppName), clsBackup)
+        If slRemoteManifest.Contains(sMonitorID) Then
+            oRemoteItem = DirectCast(slRemoteManifest(sMonitorID), clsBackup)
             bRemote = True
         End If
 
@@ -119,36 +105,18 @@ Public Class mgrRestore
         slRemoteManifest = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
 
         For Each oItem As clsBackup In slRemoteManifest.Values
-            If slLocalManifest.Contains(oItem.Name) Then
-                oLocalItem = DirectCast(slLocalManifest(oItem.Name), clsBackup)
+            If slLocalManifest.Contains(oItem.MonitorID) Then
+                oLocalItem = DirectCast(slLocalManifest(oItem.MonitorID), clsBackup)
 
                 If oItem.DateUpdated > oLocalItem.DateUpdated Then
-                    slRestoreItems.Add(oItem.Name, oItem)
+                    slRestoreItems.Add(oItem.MonitorID, oItem)
                 End If
             Else
-                slRestoreItems.Add(oItem.Name, oItem)
+                slRestoreItems.Add(oItem.MonitorID, oItem)
             End If
         Next
 
         Return slRestoreItems
-    End Function
-
-    Public Shared Function SyncLocalManifest() As SortedList
-        Dim slLocalManifest As SortedList
-        Dim slRemoteManifest As SortedList
-        Dim slRemovedItems As New SortedList
-
-        slLocalManifest = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Local)
-        slRemoteManifest = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
-
-        For Each oItem As clsBackup In slLocalManifest.Values
-            If Not slRemoteManifest.Contains(oItem.Name) Then
-                slRemovedItems.Add(oItem.Name, oItem)
-                mgrManifest.DoManifestDeletebyName(oItem, mgrSQLite.Database.Local)
-            End If
-        Next
-
-        Return slRemovedItems
     End Function
 
     Public Function CheckRestorePrereq(ByVal oBackupInfo As clsBackup, ByVal bCleanFolder As Boolean) As Boolean
@@ -262,8 +230,8 @@ Public Class mgrRestore
 
                 If bRestoreCompleted Then
                     'Save Local Manifest
-                    If mgrManifest.DoGlobalManifestCheck(oBackupInfo.Name, mgrSQLite.Database.Local) Then
-                        mgrManifest.DoManifestUpdateByName(oBackupInfo, mgrSQLite.Database.Local)
+                    If mgrManifest.DoManifestCheck(oBackupInfo.MonitorID, mgrSQLite.Database.Local) Then
+                        mgrManifest.DoManifestUpdateByMonitorID(oBackupInfo, mgrSQLite.Database.Local)
                     Else
                         mgrManifest.DoManifestAdd(oBackupInfo, mgrSQLite.Database.Local)
                     End If

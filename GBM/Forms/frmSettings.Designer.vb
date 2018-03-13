@@ -24,14 +24,15 @@ Partial Class frmSettings
     Private Sub InitializeComponent()
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
         Me.grpStartup = New System.Windows.Forms.GroupBox()
+        Me.chkBackupOnLaunch = New System.Windows.Forms.CheckBox()
         Me.chkStartWindows = New System.Windows.Forms.CheckBox()
         Me.chkStartToTray = New System.Windows.Forms.CheckBox()
         Me.chkAutoSaveLog = New System.Windows.Forms.CheckBox()
         Me.btnOptionalFields = New System.Windows.Forms.Button()
         Me.chkTimeTracking = New System.Windows.Forms.CheckBox()
-        Me.chkSync = New System.Windows.Forms.CheckBox()
         Me.chkShowDetectionTips = New System.Windows.Forms.CheckBox()
         Me.grpFolderOptions = New System.Windows.Forms.GroupBox()
+        Me.chkUseGameID = New System.Windows.Forms.CheckBox()
         Me.btnBackupFolder = New System.Windows.Forms.Button()
         Me.lblBackupFolder = New System.Windows.Forms.Label()
         Me.txtBackupFolder = New System.Windows.Forms.TextBox()
@@ -66,6 +67,7 @@ Partial Class frmSettings
         Me.grpGameData = New System.Windows.Forms.GroupBox()
         Me.chkSessionTracking = New System.Windows.Forms.CheckBox()
         Me.lstSettings = New System.Windows.Forms.ListBox()
+        Me.btnResetMessages = New System.Windows.Forms.Button()
         Me.grpStartup.SuspendLayout()
         Me.grpFolderOptions.SuspendLayout()
         Me.grp7zGeneral.SuspendLayout()
@@ -84,22 +86,33 @@ Partial Class frmSettings
         Me.chkMonitorOnStartup.AutoSize = True
         Me.chkMonitorOnStartup.Location = New System.Drawing.Point(6, 65)
         Me.chkMonitorOnStartup.Name = "chkMonitorOnStartup"
-        Me.chkMonitorOnStartup.Size = New System.Drawing.Size(146, 17)
+        Me.chkMonitorOnStartup.Size = New System.Drawing.Size(149, 17)
         Me.chkMonitorOnStartup.TabIndex = 2
-        Me.chkMonitorOnStartup.Text = "Start monitoring at launch"
+        Me.chkMonitorOnStartup.Text = "Start monitoring on launch"
         Me.chkMonitorOnStartup.UseVisualStyleBackColor = True
         '
         'grpStartup
         '
+        Me.grpStartup.Controls.Add(Me.chkBackupOnLaunch)
         Me.grpStartup.Controls.Add(Me.chkStartWindows)
         Me.grpStartup.Controls.Add(Me.chkStartToTray)
         Me.grpStartup.Controls.Add(Me.chkMonitorOnStartup)
         Me.grpStartup.Location = New System.Drawing.Point(6, 12)
         Me.grpStartup.Name = "grpStartup"
-        Me.grpStartup.Size = New System.Drawing.Size(354, 90)
+        Me.grpStartup.Size = New System.Drawing.Size(354, 112)
         Me.grpStartup.TabIndex = 0
         Me.grpStartup.TabStop = False
         Me.grpStartup.Text = "Startup"
+        '
+        'chkBackupOnLaunch
+        '
+        Me.chkBackupOnLaunch.AutoSize = True
+        Me.chkBackupOnLaunch.Location = New System.Drawing.Point(6, 88)
+        Me.chkBackupOnLaunch.Name = "chkBackupOnLaunch"
+        Me.chkBackupOnLaunch.Size = New System.Drawing.Size(185, 17)
+        Me.chkBackupOnLaunch.TabIndex = 3
+        Me.chkBackupOnLaunch.Text = "Backup GBM data files on launch"
+        Me.chkBackupOnLaunch.UseVisualStyleBackColor = True
         '
         'chkStartWindows
         '
@@ -124,7 +137,7 @@ Partial Class frmSettings
         'chkAutoSaveLog
         '
         Me.chkAutoSaveLog.AutoSize = True
-        Me.chkAutoSaveLog.Location = New System.Drawing.Point(12, 251)
+        Me.chkAutoSaveLog.Location = New System.Drawing.Point(12, 280)
         Me.chkAutoSaveLog.Name = "chkAutoSaveLog"
         Me.chkAutoSaveLog.Size = New System.Drawing.Size(231, 17)
         Me.chkAutoSaveLog.TabIndex = 5
@@ -133,11 +146,11 @@ Partial Class frmSettings
         '
         'btnOptionalFields
         '
-        Me.btnOptionalFields.Location = New System.Drawing.Point(103, 61)
+        Me.btnOptionalFields.Location = New System.Drawing.Point(6, 65)
         Me.btnOptionalFields.Name = "btnOptionalFields"
-        Me.btnOptionalFields.Size = New System.Drawing.Size(134, 23)
+        Me.btnOptionalFields.Size = New System.Drawing.Size(216, 23)
         Me.btnOptionalFields.TabIndex = 3
-        Me.btnOptionalFields.Text = "Choose &Optional Fields..."
+        Me.btnOptionalFields.Text = "Choose &Optional Sync Fields..."
         Me.btnOptionalFields.UseVisualStyleBackColor = True
         '
         'chkTimeTracking
@@ -150,20 +163,10 @@ Partial Class frmSettings
         Me.chkTimeTracking.Text = "Enable time tracking"
         Me.chkTimeTracking.UseVisualStyleBackColor = True
         '
-        'chkSync
-        '
-        Me.chkSync.AutoSize = True
-        Me.chkSync.Location = New System.Drawing.Point(6, 65)
-        Me.chkSync.Name = "chkSync"
-        Me.chkSync.Size = New System.Drawing.Size(98, 17)
-        Me.chkSync.TabIndex = 2
-        Me.chkSync.Text = "Enable syncing"
-        Me.chkSync.UseVisualStyleBackColor = True
-        '
         'chkShowDetectionTips
         '
         Me.chkShowDetectionTips.AutoSize = True
-        Me.chkShowDetectionTips.Location = New System.Drawing.Point(12, 228)
+        Me.chkShowDetectionTips.Location = New System.Drawing.Point(12, 257)
         Me.chkShowDetectionTips.Name = "chkShowDetectionTips"
         Me.chkShowDetectionTips.Size = New System.Drawing.Size(159, 17)
         Me.chkShowDetectionTips.TabIndex = 4
@@ -172,16 +175,27 @@ Partial Class frmSettings
         '
         'grpFolderOptions
         '
+        Me.grpFolderOptions.Controls.Add(Me.chkUseGameID)
         Me.grpFolderOptions.Controls.Add(Me.btnBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.lblBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.txtBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.chkCreateFolder)
         Me.grpFolderOptions.Location = New System.Drawing.Point(6, 12)
         Me.grpFolderOptions.Name = "grpFolderOptions"
-        Me.grpFolderOptions.Size = New System.Drawing.Size(354, 70)
+        Me.grpFolderOptions.Size = New System.Drawing.Size(354, 90)
         Me.grpFolderOptions.TabIndex = 0
         Me.grpFolderOptions.TabStop = False
-        Me.grpFolderOptions.Text = "Folders"
+        Me.grpFolderOptions.Text = "Files and Folders"
+        '
+        'chkUseGameID
+        '
+        Me.chkUseGameID.AutoSize = True
+        Me.chkUseGameID.Location = New System.Drawing.Point(9, 65)
+        Me.chkUseGameID.Name = "chkUseGameID"
+        Me.chkUseGameID.Size = New System.Drawing.Size(205, 17)
+        Me.chkUseGameID.TabIndex = 3
+        Me.chkUseGameID.Text = "Use Game ID for folder and file names"
+        Me.chkUseGameID.UseVisualStyleBackColor = True
         '
         'btnBackupFolder
         '
@@ -224,7 +238,7 @@ Partial Class frmSettings
         Me.btnSave.Location = New System.Drawing.Point(384, 321)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 5
+        Me.btnSave.TabIndex = 6
         Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
@@ -234,7 +248,7 @@ Partial Class frmSettings
         Me.btnCancel.Location = New System.Drawing.Point(465, 321)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 6
+        Me.btnCancel.TabIndex = 7
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
@@ -349,7 +363,7 @@ Partial Class frmSettings
         'chkBackupConfirm
         '
         Me.chkBackupConfirm.AutoSize = True
-        Me.chkBackupConfirm.Location = New System.Drawing.Point(14, 180)
+        Me.chkBackupConfirm.Location = New System.Drawing.Point(14, 199)
         Me.chkBackupConfirm.Name = "chkBackupConfirm"
         Me.chkBackupConfirm.Size = New System.Drawing.Size(160, 17)
         Me.chkBackupConfirm.TabIndex = 2
@@ -359,7 +373,7 @@ Partial Class frmSettings
         'chkOverwriteWarning
         '
         Me.chkOverwriteWarning.AutoSize = True
-        Me.chkOverwriteWarning.Location = New System.Drawing.Point(14, 203)
+        Me.chkOverwriteWarning.Location = New System.Drawing.Point(14, 222)
         Me.chkOverwriteWarning.Name = "chkOverwriteWarning"
         Me.chkOverwriteWarning.Size = New System.Drawing.Size(139, 17)
         Me.chkOverwriteWarning.TabIndex = 3
@@ -371,10 +385,10 @@ Partial Class frmSettings
         Me.grpBackupHandling.Controls.Add(Me.chkAutoRestore)
         Me.grpBackupHandling.Controls.Add(Me.chkRestoreNotify)
         Me.grpBackupHandling.Controls.Add(Me.chkAutoMark)
-        Me.grpBackupHandling.Location = New System.Drawing.Point(6, 88)
-        Me.grpBackupHandling.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.grpBackupHandling.Location = New System.Drawing.Point(6, 107)
+        Me.grpBackupHandling.Margin = New System.Windows.Forms.Padding(2)
         Me.grpBackupHandling.Name = "grpBackupHandling"
-        Me.grpBackupHandling.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.grpBackupHandling.Padding = New System.Windows.Forms.Padding(2)
         Me.grpBackupHandling.Size = New System.Drawing.Size(354, 87)
         Me.grpBackupHandling.TabIndex = 1
         Me.grpBackupHandling.TabStop = False
@@ -384,7 +398,7 @@ Partial Class frmSettings
         '
         Me.chkAutoRestore.AutoSize = True
         Me.chkAutoRestore.Location = New System.Drawing.Point(8, 41)
-        Me.chkAutoRestore.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.chkAutoRestore.Margin = New System.Windows.Forms.Padding(2)
         Me.chkAutoRestore.Name = "chkAutoRestore"
         Me.chkAutoRestore.Size = New System.Drawing.Size(190, 17)
         Me.chkAutoRestore.TabIndex = 1
@@ -395,7 +409,7 @@ Partial Class frmSettings
         '
         Me.chkRestoreNotify.AutoSize = True
         Me.chkRestoreNotify.Location = New System.Drawing.Point(8, 19)
-        Me.chkRestoreNotify.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.chkRestoreNotify.Margin = New System.Windows.Forms.Padding(2)
         Me.chkRestoreNotify.Name = "chkRestoreNotify"
         Me.chkRestoreNotify.Size = New System.Drawing.Size(216, 17)
         Me.chkRestoreNotify.TabIndex = 0
@@ -464,7 +478,7 @@ Partial Class frmSettings
         'lblMinutes
         '
         Me.lblMinutes.AutoSize = True
-        Me.lblMinutes.Location = New System.Drawing.Point(232, 205)
+        Me.lblMinutes.Location = New System.Drawing.Point(232, 234)
         Me.lblMinutes.Name = "lblMinutes"
         Me.lblMinutes.Size = New System.Drawing.Size(43, 13)
         Me.lblMinutes.TabIndex = 17
@@ -472,7 +486,7 @@ Partial Class frmSettings
         '
         'nudSupressBackupThreshold
         '
-        Me.nudSupressBackupThreshold.Location = New System.Drawing.Point(176, 203)
+        Me.nudSupressBackupThreshold.Location = New System.Drawing.Point(176, 232)
         Me.nudSupressBackupThreshold.Maximum = New Decimal(New Integer() {999, 0, 0, 0})
         Me.nudSupressBackupThreshold.Name = "nudSupressBackupThreshold"
         Me.nudSupressBackupThreshold.Size = New System.Drawing.Size(51, 20)
@@ -481,7 +495,7 @@ Partial Class frmSettings
         'chkSupressBackup
         '
         Me.chkSupressBackup.AutoSize = True
-        Me.chkSupressBackup.Location = New System.Drawing.Point(12, 204)
+        Me.chkSupressBackup.Location = New System.Drawing.Point(12, 233)
         Me.chkSupressBackup.Name = "chkSupressBackup"
         Me.chkSupressBackup.Size = New System.Drawing.Size(158, 17)
         Me.chkSupressBackup.TabIndex = 2
@@ -492,11 +506,10 @@ Partial Class frmSettings
         '
         Me.grpGameData.Controls.Add(Me.chkSessionTracking)
         Me.grpGameData.Controls.Add(Me.chkTimeTracking)
-        Me.grpGameData.Controls.Add(Me.chkSync)
         Me.grpGameData.Controls.Add(Me.btnOptionalFields)
-        Me.grpGameData.Location = New System.Drawing.Point(6, 106)
+        Me.grpGameData.Location = New System.Drawing.Point(6, 130)
         Me.grpGameData.Name = "grpGameData"
-        Me.grpGameData.Size = New System.Drawing.Size(354, 92)
+        Me.grpGameData.Size = New System.Drawing.Size(354, 97)
         Me.grpGameData.TabIndex = 1
         Me.grpGameData.TabStop = False
         Me.grpGameData.Text = "Game Data"
@@ -519,13 +532,23 @@ Partial Class frmSettings
         Me.lstSettings.Size = New System.Drawing.Size(162, 303)
         Me.lstSettings.TabIndex = 0
         '
+        'btnResetMessages
+        '
+        Me.btnResetMessages.Location = New System.Drawing.Point(128, 321)
+        Me.btnResetMessages.Name = "btnResetMessages"
+        Me.btnResetMessages.Size = New System.Drawing.Size(110, 23)
+        Me.btnResetMessages.TabIndex = 5
+        Me.btnResetMessages.Text = "&Reset Warnings"
+        Me.btnResetMessages.UseVisualStyleBackColor = True
+        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(554, 361)
-        Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlBackup)
+        Me.Controls.Add(Me.btnResetMessages)
+        Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.lstSettings)
         Me.Controls.Add(Me.btnDefaults)
@@ -572,7 +595,6 @@ Partial Class frmSettings
     Friend WithEvents chkShowDetectionTips As System.Windows.Forms.CheckBox
     Friend WithEvents chkStartToTray As System.Windows.Forms.CheckBox
     Friend WithEvents chkCreateFolder As System.Windows.Forms.CheckBox
-    Friend WithEvents chkSync As System.Windows.Forms.CheckBox
     Friend WithEvents chkStartWindows As System.Windows.Forms.CheckBox
     Friend WithEvents chkTimeTracking As System.Windows.Forms.CheckBox
     Friend WithEvents grp7zGeneral As GroupBox
@@ -605,4 +627,7 @@ Partial Class frmSettings
     Friend WithEvents lblMinutes As Label
     Friend WithEvents nudSupressBackupThreshold As NumericUpDown
     Friend WithEvents chkSupressBackup As CheckBox
+    Friend WithEvents btnResetMessages As Button
+    Friend WithEvents chkBackupOnLaunch As CheckBox
+    Friend WithEvents chkUseGameID As CheckBox
 End Class

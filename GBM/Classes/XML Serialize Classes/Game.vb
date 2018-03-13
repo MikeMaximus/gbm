@@ -1,4 +1,5 @@
 ﻿Public Class Game
+    Private sGameID As String
     Private sGameName As String
     Private sProcessName As String
     Private sParameter As String
@@ -11,6 +12,15 @@
     Private sComments As String
     Private bIsRegEx As Boolean
     Private oTags As List(Of Tag)
+
+    Property ID As String
+        Set(value As String)
+            sGameID = value
+        End Set
+        Get
+            Return sGameID
+        End Get
+    End Property
 
     Property Name As String
         Set(value As String)

@@ -40,6 +40,7 @@ Public Class frmMain
     Private sPriorCompany As String
     Private sPriorVersion As String
     Private iRestoreTimeOut As Integer
+    Private oChildProcesses As New Hashtable
     Private wState As FormWindowState = FormWindowState.Normal
 
     'Developer Debug Flags
@@ -52,7 +53,7 @@ Public Class frmMain
     WithEvents tmRestoreCheck As New System.Timers.Timer
     WithEvents tmFileWatcherQueue As New System.Timers.Timer
 
-    Public WithEvents oProcess As New mgrProcesses
+    Public WithEvents oProcess As New mgrProcessDetection
     Public WithEvents oBackup As New mgrBackup
     Public WithEvents oRestore As New mgrRestore
     Public hshScanList As Hashtable
@@ -365,9 +366,9 @@ Public Class frmMain
 
     Private Sub AutoRestoreCheck()
         Dim slRestoreData As SortedList = mgrRestore.CompareManifests()
-        Dim sNotReady As New List(Of String)
-        Dim sNotInstalled As New List(Of String)
-        Dim sNoCheckSum As New List(Of String)
+        Dim oNotReady As New List(Of clsBackup)
+        Dim oNotInstalled As New List(Of clsBackup)
+        Dim oNoCheckSum As New List(Of clsBackup)
         Dim oBackup As clsBackup
         Dim sFileName As String
         Dim sExtractPath As String
@@ -395,18 +396,17 @@ Public Class frmMain
                 If oBackup.CheckSum <> String.Empty Then
                     sFileName = oSettings.BackupFolder & Path.DirectorySeparatorChar & oBackup.FileName
                     If mgrHash.Generate_SHA256_Hash(sFileName) <> oBackup.CheckSum Then
-                        sNotReady.Add(de.Key)
+                        oNotReady.Add(oBackup)
                         bFinished = False
                     End If
                 Else
-                    sNoCheckSum.Add(de.Key)
+                    oNoCheckSum.Add(oBackup)
                 End If
 
                 'Check if the restore location exists,  if not we assume the game is not installed and should be auto-marked.
-                hshGames = mgrMonitorList.DoListGetbyName(de.Key)
+                hshGames = mgrMonitorList.DoListGetbyMonitorID(de.Key)
                 If hshGames.Count = 1 Then
                     oGame = DirectCast(hshGames(0), clsGame)
-                    mgrRestore.DoPathOverride(oBackup, oGame)
                     If oGame.ProcessPath <> String.Empty Then
                         oBackup.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oBackup.RestorePath
                     End If
@@ -420,34 +420,34 @@ Public Class frmMain
 
                 If Not Directory.Exists(sExtractPath) Then
                     If oSettings.AutoMark Then
-                        If mgrManifest.DoGlobalManifestCheck(de.Key, mgrSQLite.Database.Local) Then
-                            mgrManifest.DoManifestUpdateByName(de.Value, mgrSQLite.Database.Local)
+                        If mgrManifest.DoManifestCheck(de.Key, mgrSQLite.Database.Local) Then
+                            mgrManifest.DoManifestUpdateByMonitorID(de.Value, mgrSQLite.Database.Local)
                         Else
                             mgrManifest.DoManifestAdd(de.Value, mgrSQLite.Database.Local)
                         End If
                     End If
-                    sNotInstalled.Add(de.Key)
+                    oNotInstalled.Add(oBackup)
                 End If
             Next
 
             'Remove any backup files that are not ready
-            For Each s As String In sNotReady
-                slRestoreData.Remove(s)
-                UpdateLog(mgrCommon.FormatString(frmMain_RestoreNotReady, s), False, ToolTipIcon.Info, True)
+            For Each o As clsBackup In oNotReady
+                slRestoreData.Remove(o.MonitorID)
+                UpdateLog(mgrCommon.FormatString(frmMain_RestoreNotReady, o.Name), False, ToolTipIcon.Info, True)
             Next
 
             'Remove any backup files that should not be automatically restored
-            For Each s As String In sNotInstalled
-                slRestoreData.Remove(s)
+            For Each o As clsBackup In oNotInstalled
+                slRestoreData.Remove(o.MonitorID)
                 If oSettings.AutoMark Then
-                    UpdateLog(mgrCommon.FormatString(frmMain_AutoMark, s), False, ToolTipIcon.Info, True)
+                    UpdateLog(mgrCommon.FormatString(frmMain_AutoMark, o.Name), False, ToolTipIcon.Info, True)
                 Else
-                    UpdateLog(mgrCommon.FormatString(frmMain_NoAutoMark, s), False, ToolTipIcon.Info, True)
+                    UpdateLog(mgrCommon.FormatString(frmMain_NoAutoMark, o.Name), False, ToolTipIcon.Info, True)
                 End If
             Next
-            For Each s As String In sNoCheckSum
-                slRestoreData.Remove(s)
-                UpdateLog(mgrCommon.FormatString(frmMain_NoCheckSum, s), False, ToolTipIcon.Info, True)
+            For Each o As clsBackup In oNoCheckSum
+                slRestoreData.Remove(o.MonitorID)
+                UpdateLog(mgrCommon.FormatString(frmMain_NoCheckSum, o.Name), False, ToolTipIcon.Info, True)
             Next
 
             'Automatically restore backup files
@@ -456,13 +456,14 @@ Public Class frmMain
                     hshRestore = New Hashtable
                     sGame = String.Empty
                     For Each de As DictionaryEntry In slRestoreData
-                        hshGames = mgrMonitorList.DoListGetbyName(de.Key)
+                        oBackup = DirectCast(de.Value, clsBackup)
+                        hshGames = mgrMonitorList.DoListGetbyMonitorID(de.Key)
                         If hshGames.Count = 1 Then
                             oGame = DirectCast(hshGames(0), clsGame)
                             sGame = oGame.CroppedName
                             hshRestore.Add(oGame, de.Value)
                         Else
-                            UpdateLog(mgrCommon.FormatString(frmMain_AutoRestoreFailure, de.Key), False, ToolTipIcon.Info, True)
+                            UpdateLog(mgrCommon.FormatString(frmMain_AutoRestoreFailure, oBackup.Name), False, ToolTipIcon.Info, True)
                         End If
                     Next
 
@@ -709,7 +710,7 @@ Public Class frmMain
         End If
 
         mgrMonitorList.DoListUpdate(oProcess.GameInfo)
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
 
         UpdateTimeSpent(dCurrentHours, oProcess.TimeSpent.TotalHours)
     End Sub
@@ -840,18 +841,24 @@ Public Class frmMain
         Dim frm As New frmTags
         PauseScan()
         frm.ShowDialog()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        ResumeScan()
+    End Sub
+
+    Private Sub OpenProcessManager()
+        Dim frm As New frmProcessManager
+        PauseScan()
+        frm.ShowDialog()
         ResumeScan()
     End Sub
 
     Private Sub OpenGameManager(Optional ByVal bPendingRestores As Boolean = False)
         Dim frm As New frmGameManager
         PauseScan()
-        frm.BackupFolder = oSettings.BackupFolder
+        frm.Settings = oSettings
         frm.PendingRestores = bPendingRestores
         frm.ShowDialog()
         LoadGameSettings()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
         ResumeScan()
 
         'Handle backup trigger
@@ -901,7 +908,7 @@ Public Class frmMain
         frm.GameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
         frm.ShowDialog()
         LoadGameSettings()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
         ResumeScan()
     End Sub
 
@@ -910,7 +917,7 @@ Public Class frmMain
         PauseScan()
         frm.ShowDialog()
         mgrPath.CustomVariablesReload()
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
         ResumeScan()
     End Sub
 
@@ -975,18 +982,42 @@ Public Class frmMain
     Private Sub HandleSyncWatcher() Handles tmFileWatcherQueue.Elapsed
         tmFileWatcherQueue.Stop()
         StopSyncWatcher()
-        If oSettings.Sync Then
-            UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
-            SyncGameSettings()
-            LoadGameSettings()
-        End If
+
+        UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
+        SyncGameSettings()
+        LoadGameSettings()
+
         CheckForNewBackups()
         StartSyncWatcher()
     End Sub
 
     Private Sub SyncGameSettings()
         'Sync Monitor List
-        If oSettings.Sync Then mgrMonitorList.SyncMonitorLists(oSettings.SyncFields, False)
+        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields, False)
+    End Sub
+
+    Private Sub SyncGameIDs(ByVal bOfficial As Boolean)
+        Dim sLocation As String
+
+        PauseScan()
+
+        If mgrCommon.IsUnix Then
+            sLocation = App_URLImportLinux
+        Else
+            sLocation = App_URLImport
+        End If
+
+        If bOfficial Then
+            mgrMonitorList.SyncGameIDs(sLocation, oSettings, True)
+        Else
+            sLocation = mgrCommon.OpenFileBrowser("XML_Import", frmGameManager_ChooseImportXML, "xml", frmGameManager_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
+
+            If sLocation <> String.Empty Then
+                mgrMonitorList.SyncGameIDs(sLocation, oSettings, False)
+            End If
+        End If
+
+        ResumeScan()
     End Sub
 
     Private Sub LocalDatabaseCheck()
@@ -997,6 +1028,13 @@ Public Class frmMain
     Private Sub RemoteDatabaseCheck()
         Dim oRemoteDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
         oRemoteDatabase.DatabaseUpgrade()
+    End Sub
+
+    Private Sub BackupDatabases()
+        Dim oLocalDatabase As New mgrSQLite(mgrSQLite.Database.Local)
+        Dim oRemoteDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
+        oLocalDatabase.BackupDB(App_BackupOnLaunchFileDescription, True)
+        oRemoteDatabase.BackupDB(App_BackupOnLaunchFileDescription, True)
     End Sub
 
     Private Sub LoadAndVerify()
@@ -1027,6 +1065,11 @@ Public Class frmMain
             'Remote Database Check
             VerifyDBVersion(mgrSQLite.Database.Remote)
             RemoteDatabaseCheck()
+
+            'Backup GBM data
+            If oSettings.BackupOnLaunch Then
+                BackupDatabases()
+            End If
 
             'Sync Game Settings
             SyncGameSettings()
@@ -1346,11 +1389,14 @@ Public Class frmMain
         gMonSetupAddWizard.Text = frmMain_gMonSetupAddWizard
         gMonSetupCustomVariables.Text = frmMain_gMonSetupCustomVariables
         gMonSetupTags.Text = frmMain_gMonSetupTags
+        gMonSetupProcessManager.Text = frmMain_gMonSetupProcessManager
         gMonTools.Text = frmMain_gMonTools
-        gMonToolsCleanMan.Text = frmMain_gMonToolsCleanMan
         gMonToolsCompact.Text = frmMain_gMonToolsCompact
         gMonToolsLog.Text = frmMain_gMonToolsLog
         gMonToolsSessions.Text = frmMain_gMonToolsSessions
+        gMonToolsSyncGameID.Text = frmMain_gMonToolsSyncGameID
+        gMonToolsSyncGameIDOfficial.Text = frmMain_gMonToolsSyncGameIDOfficial
+        gMonToolsSyncGameIDFile.Text = frmMain_gMonToolsSyncGameIDFile
         gMonLogClear.Text = frmMain_gMonLogClear
         gMonLogSave.Text = frmMain_gMonLogSave
         gMonHelp.Text = frmMain_gMonHelp
@@ -1368,11 +1414,14 @@ Public Class frmMain
         gMonTraySetupAddWizard.Text = frmMain_gMonSetupAddWizard
         gMonTraySetupCustomVariables.Text = frmMain_gMonSetupCustomVariables
         gMonTraySetupTags.Text = frmMain_gMonSetupTags
+        gMonTraySetupProcessManager.Text = frmMain_gMonSetupProcessManager
         gMonTrayTools.Text = frmMain_gMonTools
-        gMonTrayToolsCleanMan.Text = frmMain_gMonToolsCleanMan
         gMonTrayToolsCompact.Text = frmMain_gMonToolsCompact
         gMonTrayToolsLog.Text = frmMain_gMonToolsLog
         gMonTrayToolsSessions.Text = frmMain_gMonToolsSessions
+        gMonTrayToolsSyncGameID.Text = frmMain_gMonToolsSyncGameID
+        gMonTrayToolsSyncGameIDOfficial.Text = frmMain_gMonToolsSyncGameIDOfficial
+        gMonTrayToolsSyncGameIDFile.Text = frmMain_gMonToolsSyncGameIDFile
         gMonTrayLogClear.Text = frmMain_gMonLogClear
         gMonTrayLogSave.Text = frmMain_gMonLogSave
         gMonTrayExit.Text = frmMain_gMonFileExit
@@ -1398,6 +1447,67 @@ Public Class frmMain
         pbTime.Image = Icon_Clock
         AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
         ResetGameInfo()
+    End Sub
+
+    Private Function BuildChildProcesses() As Integer
+        Dim oCurrentProcess As clsProcess
+        Dim oProcessList As Hashtable
+        Dim prsChild As Process
+
+        oChildProcesses.Clear()
+
+        oProcessList = mgrGameProcesses.GetProcessesByGame(oProcess.GameInfo.ID)
+
+        If oProcessList.Count > 0 Then
+            For Each oCurrentProcess In oProcessList.Values
+                prsChild = New Process
+                prsChild.StartInfo.Arguments = oCurrentProcess.Args
+                prsChild.StartInfo.FileName = oCurrentProcess.Path
+                prsChild.StartInfo.UseShellExecute = False
+                prsChild.StartInfo.RedirectStandardOutput = True
+                prsChild.StartInfo.CreateNoWindow = True
+                oChildProcesses.Add(oCurrentProcess, prsChild)
+            Next
+        End If
+
+        Return oChildProcesses.Count
+    End Function
+
+    Private Sub StartChildProcesses()
+        Dim oCurrentProcess As clsProcess
+        Dim prsChild As Process
+
+        Try
+            For Each de As DictionaryEntry In oChildProcesses
+                oCurrentProcess = DirectCast(de.Key, clsProcess)
+                prsChild = DirectCast(de.Value, Process)
+                prsChild.Start()
+                UpdateLog(mgrCommon.FormatString(frmMain_ProcessStarted, oCurrentProcess.Name), False)
+            Next
+        Catch ex As Exception
+            UpdateLog(mgrCommon.FormatString(frmMain_ErrorStartChildProcess, oProcess.GameInfo.CroppedName), True, ToolTipIcon.Error)
+            UpdateLog(mgrCommon.FormatString(App_GenericError, ex.Message), False,, False)
+        End Try
+    End Sub
+
+    Private Sub EndChildProcesses()
+        Dim oCurrentProcess As clsProcess
+        Dim prsChild As Process
+
+        Try
+            For Each de As DictionaryEntry In oChildProcesses
+                oCurrentProcess = DirectCast(de.Key, clsProcess)
+                prsChild = DirectCast(de.Value, Process)
+                If oCurrentProcess.Kill Then
+                    prsChild.Kill()
+                    UpdateLog(mgrCommon.FormatString(frmMain_ProcessKilled, oCurrentProcess.Name), False)
+                End If
+            Next
+
+        Catch ex As Exception
+            UpdateLog(mgrCommon.FormatString(frmMain_ErrorEndChildProcess, oProcess.GameInfo.CroppedName), True, ToolTipIcon.Error)
+            UpdateLog(mgrCommon.FormatString(App_GenericError, ex.Message), False,, False)
+        End Try
     End Sub
 
     'Functions that control the scanning for games
@@ -1477,7 +1587,7 @@ Public Class frmMain
                 oSettings.BackupFolder = sBackupPath
                 oSettings.SaveSettings()
                 oSettings.LoadSettings()
-                If oSettings.Sync Then mgrMonitorList.HandleBackupLocationChange(oSettings)
+                mgrMonitorList.HandleBackupLocationChange(oSettings)
             End If
             Return True
         Else
@@ -1576,29 +1686,6 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub CleanLocalManifest()
-        Dim slItems As SortedList
-
-        PauseScan()
-
-        If mgrCommon.ShowMessage(frmMain_ConfirmManifestClean, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-
-            slItems = mgrRestore.SyncLocalManifest()
-
-            If slItems.Count > 0 Then
-                For Each oItem As clsBackup In slItems.Values
-                    UpdateLog(mgrCommon.FormatString(frmMain_ManifestRemovedEntry, oItem.Name), False)
-                Next
-                mgrCommon.ShowMessage(frmMain_ManifestTotalRemoved, slItems.Count, MsgBoxStyle.Information)
-            Else
-                mgrCommon.ShowMessage(frmMain_ManifestAreadyClean, MsgBoxStyle.Information)
-            End If
-        End If
-
-        ResumeScan()
-
-    End Sub
-
     Private Sub CompactDatabases()
         Dim oLocalDatabase As mgrSQLite
         Dim oRemoteDatabase As mgrSQLite
@@ -1652,10 +1739,6 @@ Public Class frmMain
         OpenGameManager()
     End Sub
 
-    Private Sub gMonToolsSync_Click(sender As Object, e As EventArgs) Handles gMonTrayToolsCleanMan.Click, gMonToolsCleanMan.Click
-        CleanLocalManifest()
-    End Sub
-
     Private Sub gMonToolsCompact_Click(sender As Object, e As EventArgs) Handles gMonToolsCompact.Click, gMonTrayToolsCompact.Click
         CompactDatabases()
     End Sub
@@ -1670,6 +1753,10 @@ Public Class frmMain
 
     Private Sub gMonSetupTags_Click(sender As Object, e As EventArgs) Handles gMonSetupTags.Click, gMonTraySetupTags.Click
         OpenTags()
+    End Sub
+
+    Private Sub gMonSetupProcessManager_Click(sender As Object, e As EventArgs) Handles gMonSetupProcessManager.Click, gMonTraySetupProcessManager.Click
+        OpenProcessManager()
     End Sub
 
     Private Sub gMonHelpAbout_Click(sender As Object, e As EventArgs) Handles gMonHelpAbout.Click
@@ -1698,6 +1785,14 @@ Public Class frmMain
 
     Private Sub gMonToolsSessions_Click(sender As Object, e As EventArgs) Handles gMonToolsSessions.Click, gMonTrayToolsSessions.Click
         OpenSessions()
+    End Sub
+
+    Private Sub gMonToolsSyncGameIDOfficial_Click(sender As Object, e As EventArgs) Handles gMonToolsSyncGameIDOfficial.Click, gMonTrayToolsSyncGameIDOfficial.Click
+        SyncGameIDs(True)
+    End Sub
+
+    Private Sub gMonToolsSyncGameIDFile_Click(sender As Object, e As EventArgs) Handles gMonToolsSyncGameIDFile.Click, gMonTrayToolsSyncGameIDFile.Click
+        SyncGameIDs(False)
     End Sub
 
     Private Sub gMonNotification_Click(sender As Object, e As EventArgs) Handles gMonNotification.Click, gMonTrayNotification.Click
@@ -1798,18 +1893,23 @@ Public Class frmMain
             If bContinue = True Then
                 CheckForSavedDuplicate()
                 If oProcess.Duplicate Then
-                        UpdateLog(frmMain_MultipleGamesDetected, oSettings.ShowDetectionToolTips)
-                        UpdateStatus(frmMain_MultipleGamesDetected)
-                        SetGameInfo(True)
-                    Else
-                        UpdateLog(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.Name), oSettings.ShowDetectionToolTips)
-                        UpdateStatus(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.CroppedName))
-                        SetGameInfo()
-                    End If
-                    oProcess.StartTime = Now
-                    bwMonitor.RunWorkerAsync()
+                    UpdateLog(frmMain_MultipleGamesDetected, oSettings.ShowDetectionToolTips)
+                    UpdateStatus(frmMain_MultipleGamesDetected)
+                    SetGameInfo(True)
                 Else
-                    StopScan()
+                    UpdateLog(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.Name), oSettings.ShowDetectionToolTips)
+                    UpdateStatus(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.CroppedName))
+                    SetGameInfo()
+                End If
+
+                If BuildChildProcesses() > 0 And Not oProcess.Duplicate Then
+                    StartChildProcesses()
+                End If
+
+                oProcess.StartTime = Now
+                bwMonitor.RunWorkerAsync()
+            Else
+                StopScan()
             End If
         End If
     End Sub
@@ -1831,6 +1931,11 @@ Public Class frmMain
 
     Private Sub bwMain_RunWorkerCompleted(sender As System.Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwMonitor.RunWorkerCompleted
         Dim bContinue As Boolean = True
+
+        If oChildProcesses.Count > 0 And Not oProcess.Duplicate Then
+            EndChildProcesses()
+        End If
+
         oProcess.EndTime = Now
 
         If Not bCancelledByUser Then
@@ -1936,5 +2041,4 @@ Public Class frmMain
         'Move focus to first label
         lblGameTitle.Focus()
     End Sub
-
 End Class

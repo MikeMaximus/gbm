@@ -30,7 +30,6 @@ Partial Class frmStartUpWizard
         Me.lblStep1Title = New System.Windows.Forms.Label()
         Me.lblStep1Instructions = New System.Windows.Forms.Label()
         Me.tbPage2 = New System.Windows.Forms.TabPage()
-        Me.chkSync = New System.Windows.Forms.CheckBox()
         Me.chkCreateFolder = New System.Windows.Forms.CheckBox()
         Me.lblStep2Title = New System.Windows.Forms.Label()
         Me.lblStep2Instructions = New System.Windows.Forms.Label()
@@ -91,7 +90,7 @@ Partial Class frmStartUpWizard
         Me.lblStep1Instructions2.Name = "lblStep1Instructions2"
         Me.lblStep1Instructions2.Size = New System.Drawing.Size(303, 53)
         Me.lblStep1Instructions2.TabIndex = 2
-        Me.lblStep1Instructions2.Text = "If you'd like to learn about advanced features or have any other questions before" & _
+        Me.lblStep1Instructions2.Text = "If you'd like to learn about advanced features or have any other questions before" &
     " you get started, there is a detailed online manual available."
         '
         'llbManual
@@ -126,7 +125,6 @@ Partial Class frmStartUpWizard
         'tbPage2
         '
         Me.tbPage2.BackColor = System.Drawing.SystemColors.Control
-        Me.tbPage2.Controls.Add(Me.chkSync)
         Me.tbPage2.Controls.Add(Me.chkCreateFolder)
         Me.tbPage2.Controls.Add(Me.lblStep2Title)
         Me.tbPage2.Controls.Add(Me.lblStep2Instructions)
@@ -139,16 +137,6 @@ Partial Class frmStartUpWizard
         Me.tbPage2.Size = New System.Drawing.Size(362, 194)
         Me.tbPage2.TabIndex = 1
         Me.tbPage2.Text = "TabPage2"
-        '
-        'chkSync
-        '
-        Me.chkSync.AutoSize = True
-        Me.chkSync.Location = New System.Drawing.Point(17, 105)
-        Me.chkSync.Name = "chkSync"
-        Me.chkSync.Size = New System.Drawing.Size(261, 17)
-        Me.chkSync.TabIndex = 5
-        Me.chkSync.Text = "Import any existing GBM data in the backup folder"
-        Me.chkSync.UseVisualStyleBackColor = True
         '
         'chkCreateFolder
         '
@@ -172,12 +160,13 @@ Partial Class frmStartUpWizard
         '
         'lblStep2Instructions
         '
-        Me.lblStep2Instructions.Location = New System.Drawing.Point(14, 151)
+        Me.lblStep2Instructions.Location = New System.Drawing.Point(14, 103)
         Me.lblStep2Instructions.Name = "lblStep2Instructions"
-        Me.lblStep2Instructions.Size = New System.Drawing.Size(335, 31)
+        Me.lblStep2Instructions.Size = New System.Drawing.Size(335, 50)
         Me.lblStep2Instructions.TabIndex = 6
-        Me.lblStep2Instructions.Text = "GBM will store all your backup files along with a manifest database (gbm.s3db) in" & _
-    " this location. "
+        Me.lblStep2Instructions.Text = "GBM will store all your backup files along with a manifest database (gbm.s3db) in" &
+    " this location.  Any existing GBM data in this folder will be automatically impo" &
+    "rted."
         '
         'btnFolderBrowse
         '
@@ -283,7 +272,7 @@ Partial Class frmStartUpWizard
         Me.lblStep4Instructions3.Name = "lblStep4Instructions3"
         Me.lblStep4Instructions3.Size = New System.Drawing.Size(303, 33)
         Me.lblStep4Instructions3.TabIndex = 18
-        Me.lblStep4Instructions3.Text = "You can change anything you've setup in this wizard and find more settings and fe" & _
+        Me.lblStep4Instructions3.Text = "You can change anything you've setup in this wizard and find more settings and fe" &
     "atures by exploring the menus.  Thanks!"
         '
         'lblStep4Instructions2
@@ -381,7 +370,6 @@ Partial Class frmStartUpWizard
     Friend WithEvents btnOpenMonitorList As System.Windows.Forms.Button
     Friend WithEvents lblStep4Instructions3 As System.Windows.Forms.Label
     Friend WithEvents lblStep4Instructions2 As System.Windows.Forms.Label
-    Friend WithEvents chkSync As System.Windows.Forms.CheckBox
     Friend WithEvents lblStep1Instructions2 As System.Windows.Forms.Label
     Friend WithEvents llbManual As System.Windows.Forms.LinkLabel
 End Class

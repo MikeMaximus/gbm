@@ -4,11 +4,13 @@ Imports System.IO
 
 Public Class frmGameManager
 
+    Private oSettings As mgrSettings
     Private sBackupFolder As String
     Private bPendingRestores As Boolean = False
     Private oCurrentBackupItem As clsBackup
     Private oCurrentGame As clsGame
     Private oTagsToSave As New List(Of KeyValuePair(Of String, String))
+    Private oProcessesToSave As New List(Of KeyValuePair(Of String, String))
     Private bDisableExternalFunctions As Boolean = False
     Private bTriggerBackup As Boolean = False
     Private bTriggerRestore As Boolean = False
@@ -34,17 +36,16 @@ Public Class frmGameManager
         Add = 3
         Disabled = 4
         MultiSelect = 5
-        ViewTemp = 6
     End Enum
 
     Private eCurrentMode As eModes = eModes.Disabled
 
-    Property BackupFolder As String
+    Property Settings As mgrSettings
         Get
-            Return sBackupFolder & Path.DirectorySeparatorChar
+            Return oSettings
         End Get
-        Set(value As String)
-            sBackupFolder = value
+        Set(value As mgrSettings)
+            oSettings = value
         End Set
     End Property
 
@@ -72,6 +73,15 @@ Public Class frmGameManager
         End Get
         Set(value As clsGame)
             oCurrentGame = value
+        End Set
+    End Property
+
+    Private Property BackupFolder As String
+        Get
+            Return Settings.BackupFolder & Path.DirectorySeparatorChar
+        End Get
+        Set(value As String)
+            sBackupFolder = value
         End Set
     End Property
 
@@ -172,48 +182,46 @@ Public Class frmGameManager
         Dim sFileName As String
         Dim sNewFileName As String
 
-        'If there is a name change, check and update the manifest
-        If oNewApp.Name <> oOriginalApp.Name Then
+        'If there is an ID change, check and update the manifest
+        If oNewApp.ID <> oOriginalApp.ID Then
             'Local
-            If mgrManifest.DoManifestNameCheck(oOriginalApp.Name, mgrSQLite.Database.Local) Then
-                oBackupItems = mgrManifest.DoManifestGetByName(oOriginalApp.Name, mgrSQLite.Database.Local)
+            If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Local) Then
+                oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Local)
                 'The local manifest will only have one entry per game, therefore this runs only once
                 For Each oBackupItem As clsBackup In oBackupItems
                     'Rename Current Backup File & Folder
                     sFileName = BackupFolder & oBackupItem.FileName
 
                     'Rename Backup File
-                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(oOriginalApp.FileSafeName, oNewApp.FileSafeName)
+                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(oOriginalApp.ID, oNewApp.ID)
                     If File.Exists(sFileName) And Not sFileName = sNewFileName Then
                         FileSystem.Rename(sFileName, sNewFileName)
                     End If
 
                     'Rename Directory
                     sDirectory = Path.GetDirectoryName(sFileName)
-                    sNewDirectory = sDirectory.Replace(oOriginalApp.FileSafeName, oNewApp.FileSafeName)
+                    sNewDirectory = sDirectory.Replace(oOriginalApp.ID, oNewApp.ID)
                     If sDirectory <> sNewDirectory Then
                         If Directory.Exists(sDirectory) And Not sDirectory = sNewDirectory Then
                             FileSystem.Rename(sDirectory, sNewDirectory)
                         End If
                     End If
 
-                    oBackupItem.Name = oNewApp.Name
-                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.FileSafeName, oNewApp.FileSafeName)
-                    mgrManifest.DoManifestUpdateByID(oBackupItem, mgrSQLite.Database.Local)
+                    oBackupItem.MonitorID = oNewApp.ID
+                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.ID, oNewApp.ID)
+                    mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Local)
                 Next
-                oLocalBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Local)
             End If
 
             'Remote
-            If mgrManifest.DoManifestNameCheck(oOriginalApp.Name, mgrSQLite.Database.Remote) Then
-                oBackupItems = mgrManifest.DoManifestGetByName(oOriginalApp.Name, mgrSQLite.Database.Remote)
+            If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Remote) Then
+                oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Remote)
 
                 For Each oBackupItem As clsBackup In oBackupItems
-                    oBackupItem.Name = oNewApp.Name
-                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.FileSafeName, oNewApp.FileSafeName)
-                    mgrManifest.DoManifestUpdateByID(oBackupItem, mgrSQLite.Database.Remote)
+                    oBackupItem.MonitorID = oNewApp.ID
+                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.ID, oNewApp.ID)
+                    mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Remote)
                 Next
-                oRemoteBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
             End If
         End If
     End Sub
@@ -221,7 +229,6 @@ Public Class frmGameManager
     Private Sub LoadData(Optional ByVal bRetainFilter As Boolean = True)
         Dim oRestoreData As New SortedList
         Dim oGame As clsGame
-        Dim oBackup As clsBackup
         Dim frm As frmFilter
 
         If optCustom.Checked Then
@@ -264,10 +271,10 @@ Public Class frmGameManager
             Dim oTemporaryList As OrderedDictionary = mgrCommon.GenericClone(GameData)
             For Each de As DictionaryEntry In oTemporaryList
                 oGame = DirectCast(de.Value, clsGame)
-                If Not oRestoreData.ContainsKey(oGame.Name) Then
+                If Not oRestoreData.ContainsKey(oGame.ID) Then
                     GameData.Remove(de.Key)
                 Else
-                    oRestoreData.Remove(oGame.Name)
+                    oRestoreData.Remove(oGame.ID)
                 End If
             Next
         ElseIf optBackupData.Checked Then
@@ -277,21 +284,11 @@ Public Class frmGameManager
 
             For Each de As DictionaryEntry In oTemporaryList
                 oGame = DirectCast(de.Value, clsGame)
-                If Not oRemoteBackupData.ContainsKey(oGame.Name) Then
+                If Not oRemoteBackupData.ContainsKey(oGame.ID) Then
                     GameData.Remove(de.Key)
                 Else
-                    oRestoreData.Remove(oGame.Name)
+                    oRestoreData.Remove(oGame.ID)
                 End If
-            Next
-        End If
-
-        'Handle any orphaned backup files and add them to list
-        If oRestoreData.Count <> 0 Then
-            For Each oBackup In oRestoreData.Values
-                oGame = New clsGame
-                oGame.Name = oBackup.Name
-                oGame.Temporary = True
-                GameData.Add(oGame.ID, oGame)
             Next
         End If
 
@@ -441,6 +438,28 @@ Public Class frmGameManager
         IsLoading = False
     End Sub
 
+    Private Sub OpenGameIDEdit()
+        Dim sCurrentID As String
+        Dim sNewID As String
+
+        If txtID.Text = String.Empty Then
+            txtID.Text = Guid.NewGuid.ToString
+        End If
+
+        sCurrentID = txtID.Text
+
+        sNewID = InputBox(frmGameManager_GameIDEditInfo, frmGameManager_GameIDEditTitle, sCurrentID)
+
+        If sNewID <> String.Empty Then
+            txtID.Text = sNewID
+
+            If sCurrentID <> sNewID Then
+                UpdateGenericButtonLabel(frmGameManager_btnGameID, btnGameID, True)
+            End If
+        End If
+
+    End Sub
+
     Private Sub OpenBackupFile()
         Dim sFileName As String
         Dim oProcessStartInfo As ProcessStartInfo
@@ -466,6 +485,16 @@ Public Class frmGameManager
         Else
             btn.Text = sLabel & " " & frmGameManager_Items
         End If
+
+        If bDirty Then
+            btn.Font = New Font(FontFamily.GenericSansSerif, 8.25, FontStyle.Bold)
+        Else
+            btn.Font = New Font(FontFamily.GenericSansSerif, 8.25, FontStyle.Regular)
+        End If
+    End Sub
+
+    Private Sub UpdateGenericButtonLabel(ByVal sLabel As String, ByVal btn As Button, ByVal bDirty As Boolean)
+        btn.Text = sLabel
 
         If bDirty Then
             btn.Font = New Font(FontFamily.GenericSansSerif, 8.25, FontStyle.Bold)
@@ -552,6 +581,36 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub OpenProcesses()
+        Dim frm As New frmGameProcesses
+        Dim oApp As clsGame
+        Dim sMonitorIDS As New List(Of String)
+
+        If eCurrentMode = eModes.Add Then
+            'Use a dummy ID
+            sMonitorIDS.Add(Guid.NewGuid.ToString)
+            frm.GameName = txtName.Text
+            frm.NewMode = True
+            frm.ProcessList = oProcessesToSave
+        Else
+            For Each oData In lstGames.SelectedItems
+                oApp = DirectCast(GameData(oData.Key), clsGame)
+                sMonitorIDS.Add(oApp.ID)
+            Next
+            frm.GameName = CurrentGame.Name
+            frm.NewMode = False
+        End If
+
+        frm.IDList = sMonitorIDS
+        frm.ShowDialog()
+
+        If eCurrentMode = eModes.Add Then
+            oProcessesToSave = frm.ProcessList
+        Else
+            ModeChange()
+        End If
+    End Sub
+
     Private Sub OpenTags()
         Dim frm As New frmGameTags
         Dim oApp As clsGame
@@ -579,6 +638,9 @@ Public Class frmGameManager
             oTagsToSave = frm.TagList
             FillTagsbyList(frm.TagList)
         Else
+            'Sync
+            mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
+
             'Only update visible tags if one item is selected
             If lstGames.SelectedItems.Count = 1 Then FillTagsbyID(CurrentGame.ID)
 
@@ -598,7 +660,7 @@ Public Class frmGameManager
         Dim sFileName As String
 
         If sManifestID <> String.Empty Then
-            CurrentBackupItem = mgrManifest.DoManifestGetByID(sManifestID, mgrSQLite.Database.Remote)
+            CurrentBackupItem = mgrManifest.DoManifestGetByManifestID(sManifestID, mgrSQLite.Database.Remote)
 
             sFileName = BackupFolder & CurrentBackupItem.FileName
 
@@ -608,7 +670,6 @@ Public Class frmGameManager
                 lblBackupFileData.Text = frmGameManager_ErrorNoBackupExists
             End If
 
-            mgrRestore.DoPathOverride(CurrentBackupItem, CurrentGame)
             lblRestorePathData.Text = CurrentBackupItem.RestorePath
         End If
 
@@ -627,15 +688,15 @@ Public Class frmGameManager
         cboRemoteBackup.ValueMember = "Key"
         cboRemoteBackup.DisplayMember = "Value"
 
-        If oRemoteBackupData.Contains(oApp.Name) Then
+        If oRemoteBackupData.Contains(oApp.ID) Then
             bRemoteData = True
-            oCurrentBackups = mgrManifest.DoManifestGetByName(oApp.Name, mgrSQLite.Database.Remote)
+            oCurrentBackups = mgrManifest.DoManifestGetByMonitorID(oApp.ID, mgrSQLite.Database.Remote)
 
             For Each oCurrentBackup In oCurrentBackups
-                oComboItems.Add(New KeyValuePair(Of String, String)(oCurrentBackup.ID, mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {oCurrentBackup.DateUpdated, oCurrentBackup.UpdatedBy})))
+                oComboItems.Add(New KeyValuePair(Of String, String)(oCurrentBackup.ManifestID, mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {oCurrentBackup.DateUpdated, oCurrentBackup.UpdatedBy})))
             Next
 
-            CurrentBackupItem = DirectCast(oRemoteBackupData(oApp.Name), clsBackup)
+            CurrentBackupItem = DirectCast(oRemoteBackupData(oApp.ID), clsBackup)
 
             sFileName = BackupFolder & CurrentBackupItem.FileName
 
@@ -650,7 +711,6 @@ Public Class frmGameManager
                 lblBackupFileData.Text = frmGameManager_ErrorNoBackupExists
             End If
 
-            mgrRestore.DoPathOverride(CurrentBackupItem, oApp)
             lblRestorePathData.Text = CurrentBackupItem.RestorePath
         Else
             oComboItems.Add(New KeyValuePair(Of String, String)(String.Empty, frmGameManager_None))
@@ -664,9 +724,9 @@ Public Class frmGameManager
 
         cboRemoteBackup.DataSource = oComboItems
 
-        If oLocalBackupData.Contains(oApp.Name) Then
+        If oLocalBackupData.Contains(oApp.ID) Then
             bLocalData = True
-            oBackupInfo = DirectCast(oLocalBackupData(oApp.Name), clsBackup)
+            oBackupInfo = DirectCast(oLocalBackupData(oApp.ID), clsBackup)
             lblLocalBackupData.Text = mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {oBackupInfo.DateUpdated, oBackupInfo.UpdatedBy})
         Else
             lblLocalBackupData.Text = frmGameManager_Unknown
@@ -693,11 +753,11 @@ Public Class frmGameManager
         Dim oBackup As clsBackup
 
         If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupDeleteAll, CurrentGame.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            oBackupData = mgrManifest.DoManifestGetByName(CurrentGame.Name, mgrSQLite.Database.Remote)
+            oBackupData = mgrManifest.DoManifestGetByMonitorID(CurrentGame.ID, mgrSQLite.Database.Remote)
 
             For Each oBackup In oBackupData
                 'Delete the specific remote manifest entry
-                mgrManifest.DoManifestDeletebyID(oBackup, mgrSQLite.Database.Remote)
+                mgrManifest.DoManifestDeletebyManifestID(oBackup, mgrSQLite.Database.Remote)
                 'Delete referenced backup file from the backup folder
                 mgrCommon.DeleteFile(BackupFolder & oBackup.FileName)
                 'Check for sub-directory and delete if empty (we need to do this every pass just in case the user had a mix of settings at one point)
@@ -705,28 +765,21 @@ Public Class frmGameManager
             Next
 
             'Delete local manifest entry
-            mgrManifest.DoManifestDeletebyName(CurrentBackupItem, mgrSQLite.Database.Local)
+            mgrManifest.DoManifestDeletebyMonitorID(CurrentBackupItem, mgrSQLite.Database.Local)
 
             LoadBackupData()
-
-            If oCurrentGame.Temporary Then
-                LoadData()
-                eCurrentMode = eModes.Disabled
-                ModeChange()
-            Else
-                FillData()
-            End If
+            FillData()
         End If
     End Sub
 
     Private Sub DeleteBackup()
         If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupDelete, Path.GetFileName(CurrentBackupItem.FileName), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             'Delete the specific remote manifest entry
-            mgrManifest.DoManifestDeletebyID(CurrentBackupItem, mgrSQLite.Database.Remote)
+            mgrManifest.DoManifestDeleteByManifestID(CurrentBackupItem, mgrSQLite.Database.Remote)
 
             'If a remote manifest entry no longer exists for this game, delete the local entry
-            If Not mgrManifest.DoGlobalManifestCheck(CurrentBackupItem.Name, mgrSQLite.Database.Remote) Then
-                mgrManifest.DoManifestDeletebyName(CurrentBackupItem, mgrSQLite.Database.Local)
+            If Not mgrManifest.DoManifestCheck(CurrentBackupItem.MonitorID, mgrSQLite.Database.Remote) Then
+                mgrManifest.DoManifestDeleteByMonitorID(CurrentBackupItem, mgrSQLite.Database.Local)
             End If
 
             'Delete referenced backup file from the backup folder
@@ -736,14 +789,7 @@ Public Class frmGameManager
             mgrCommon.DeleteDirectoryByBackup(BackupFolder, CurrentBackupItem)
 
             LoadBackupData()
-
-            If oCurrentGame.Temporary Then
-                LoadData()
-                eCurrentMode = eModes.Disabled
-                ModeChange()
-            Else
-                FillData()
-            End If
+            FillData()
         End If
     End Sub
 
@@ -773,6 +819,7 @@ Public Class frmGameManager
         'Update Buttons
         UpdateBuilderButtonLabel(oApp.FileType, frmGameManager_IncludeShortcut, btnInclude, False)
         UpdateBuilderButtonLabel(oApp.ExcludeList, frmGameManager_ExcludeShortcut, btnExclude, False)
+        UpdateGenericButtonLabel(frmGameManager_btnGameID, btnGameID, False)
 
         'Extra
         txtAppPath.Text = oApp.ProcessPath
@@ -795,12 +842,6 @@ Public Class frmGameManager
 
         'Set Current
         CurrentGame = oApp
-
-        'Change view to temporary if we only have backup data for the game
-        If CurrentGame.Temporary Then
-            eCurrentMode = eModes.ViewTemp
-            ModeChange()
-        End If
 
         IsLoading = False
     End Sub
@@ -878,6 +919,7 @@ Public Class frmGameManager
         Select Case eCurrentMode
             Case eModes.Add
                 oTagsToSave.Clear()
+                oProcessesToSave.Clear()
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
                 lblQuickFilter.Enabled = False
@@ -906,6 +948,7 @@ Public Class frmGameManager
                 chkEnabled.Checked = True
                 chkMonitorOnly.Checked = False
                 btnTags.Enabled = True
+                btnProcesses.Enabled = True
                 lblTags.Text = String.Empty
                 lblTags.Visible = True
                 btnInclude.Text = frmGameManager_btnInclude
@@ -933,6 +976,7 @@ Public Class frmGameManager
                 btnOpenBackupFile.Enabled = False
                 btnOpenRestorePath.Enabled = False
                 btnTags.Enabled = True
+                btnProcesses.Enabled = True
                 lblTags.Visible = True
                 btnImport.Enabled = False
                 btnExport.Enabled = False
@@ -952,29 +996,8 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 btnBackup.Enabled = True
                 btnTags.Enabled = True
+                btnProcesses.Enabled = True
                 lblTags.Visible = True
-                btnImport.Enabled = True
-                btnExport.Enabled = True
-            Case eModes.ViewTemp
-                grpFilter.Enabled = True
-                lstGames.Enabled = True
-                lblQuickFilter.Enabled = True
-                txtQuickFilter.Enabled = True
-                grpConfig.Enabled = False
-                chkEnabled.Enabled = False
-                chkMonitorOnly.Enabled = False
-                grpExtra.Enabled = False
-                grpStats.Enabled = True
-                btnSave.Enabled = False
-                btnCancel.Enabled = False
-                btnAdd.Enabled = True
-                btnDelete.Enabled = False
-                btnBackup.Enabled = False
-                btnOpenRestorePath.Enabled = False
-                btnTags.Enabled = False
-                lblTags.Visible = False
-                btnInclude.Text = frmGameManager_btnInclude
-                btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = True
                 btnExport.Enabled = True
             Case eModes.Disabled
@@ -999,11 +1022,15 @@ Public Class frmGameManager
                 btnRestore.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnTags.Enabled = False
+                btnProcesses.Enabled = False
                 lblTags.Visible = False
                 btnInclude.Text = frmGameManager_btnInclude
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = True
                 btnExport.Enabled = True
+                UpdateGenericButtonLabel(frmGameManager_IncludeShortcut, btnInclude, False)
+                UpdateGenericButtonLabel(frmGameManager_ExcludeShortcut, btnExclude, False)
+                UpdateGenericButtonLabel(frmGameManager_btnGameID, btnGameID, False)
             Case eModes.MultiSelect
                 lstGames.Enabled = True
                 lblQuickFilter.Enabled = False
@@ -1027,6 +1054,7 @@ Public Class frmGameManager
                 btnRestore.Enabled = True
                 btnMarkAsRestored.Enabled = True
                 btnTags.Enabled = True
+                btnProcesses.Enabled = True
                 lblTags.Visible = False
                 btnImport.Enabled = True
                 btnExport.Enabled = True
@@ -1136,6 +1164,22 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub SaveProcesses(ByVal sID As String)
+        Dim oGameProcess As clsGameProcess
+        Dim oGameProcesses As List(Of clsGameProcess)
+
+        If oProcessesToSave.Count > 0 Then
+            oGameProcesses = New List(Of clsGameProcess)
+            For Each kp As KeyValuePair(Of String, String) In oProcessesToSave
+                oGameProcess = New clsGameProcess
+                oGameProcess.MonitorID = sID
+                oGameProcess.ProcessID = kp.Key
+                oGameProcesses.Add(oGameProcess)
+            Next
+            mgrGameProcesses.DoGameProcessAddBatch(oGameProcesses)
+        End If
+    End Sub
+
     Private Sub SaveTags(ByVal sID As String)
         Dim oGameTag As clsGameTag
         Dim oGameTags As List(Of clsGameTag)
@@ -1192,17 +1236,18 @@ Public Class frmGameManager
 
         Select Case eCurrentMode
             Case eModes.Add
-                If CoreValidatation(oApp) Then
+                If CoreValidatation(oApp, True) Then
                     bSuccess = True
                     mgrMonitorList.DoListAdd(oApp)
                     SaveTags(oApp.ID)
+                    SaveProcesses(oApp.ID)
                     eCurrentMode = eModes.View
                 End If
             Case eModes.Edit
-                If CoreValidatation(oApp) Then
+                If CoreValidatation(oApp, False) Then
                     bSuccess = True
-                    mgrMonitorList.DoListUpdate(oApp)
                     CheckManifestandUpdate(oCurrentGame, oApp)
+                    mgrMonitorList.DoListUpdate(oApp, CurrentGame.ID)
                     eCurrentMode = eModes.View
                 End If
             Case eModes.MultiSelect
@@ -1219,6 +1264,8 @@ Public Class frmGameManager
         End Select
 
         If bSuccess Then
+            mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
+            LoadBackupData()
             IsDirty = False
             LoadData()
             If eCurrentMode = eModes.View Then
@@ -1244,6 +1291,7 @@ Public Class frmGameManager
 
             If mgrCommon.ShowMessage(frmGameManager_ConfirmGameDelete, oApp.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDelete(oApp.ID)
+                mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
                 LoadData()
                 eCurrentMode = eModes.Disabled
                 ModeChange()
@@ -1258,6 +1306,7 @@ Public Class frmGameManager
 
             If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiGameDelete, sMonitorIDs.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDeleteMulti(sMonitorIDs)
+                mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
                 LoadData()
                 eCurrentMode = eModes.Disabled
                 ModeChange()
@@ -1279,7 +1328,15 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Function CoreValidatation(ByVal oApp As clsGame) As Boolean
+    Private Function CoreValidatation(ByVal oApp As clsGame, ByVal bNewGame As Boolean) As Boolean
+        Dim sCurrentID As String
+
+        If bNewGame Then
+            sCurrentID = String.Empty
+        Else
+            sCurrentID = CurrentGame.ID
+        End If
+
         If txtName.Text.Trim = String.Empty Then
             mgrCommon.ShowMessage(frmGameManager_ErrorValidName, MsgBoxStyle.Exclamation)
             txtName.Focus()
@@ -1298,17 +1355,10 @@ Public Class frmGameManager
             Return False
         End If
 
-        If mgrMonitorList.DoDuplicateListCheck(oApp.Name, oApp.ProcessName, , oApp.ID) Then
-            mgrCommon.ShowMessage(frmGameManager_ErrorGameDupe, MsgBoxStyle.Exclamation)
+        If mgrMonitorList.DoDuplicateListCheck(oApp.ID, , sCurrentID) Then
+            mgrCommon.ShowMessage(frmGameManager_ErrorGameDupe, oApp.ID, MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
-        End If
-
-        If oApp.Parameter <> String.Empty Then
-            If mgrMonitorList.DoDuplicateParameterCheck(oApp.ProcessName, oApp.Parameter, , oApp.ID) Then
-                mgrCommon.ShowMessage(frmGameManager_ErrorProcessParameterDupe, MsgBoxStyle.Exclamation)
-                Return False
-            End If
         End If
 
         If oApp.IsRegEx Then
@@ -1331,8 +1381,8 @@ Public Class frmGameManager
 
         If lstGames.SelectedItems.Count > 0 Then
             For Each oData In lstGames.SelectedItems
-                If oRemoteBackupData.Contains(oData.Value) Then
-                    oGameBackup = DirectCast(oRemoteBackupData(oData.Value), clsBackup)
+                If oRemoteBackupData.Contains(oData.Key) Then
+                    oGameBackup = DirectCast(oRemoteBackupData(oData.Key), clsBackup)
                     oMarkList.Add(oGameBackup)
                 End If
             Next
@@ -1340,8 +1390,8 @@ Public Class frmGameManager
             If oMarkList.Count = 1 Then
                 If mgrCommon.ShowMessage(frmGameManager_ConfirmMark, oMarkList(0).Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     bWasUpdated = True
-                    If mgrManifest.DoGlobalManifestCheck(oMarkList(0).Name, mgrSQLite.Database.Local) Then
-                        mgrManifest.DoManifestUpdateByName(oMarkList(0), mgrSQLite.Database.Local)
+                    If mgrManifest.DoManifestCheck(oMarkList(0).MonitorID, mgrSQLite.Database.Local) Then
+                        mgrManifest.DoManifestUpdateByMonitorID(oMarkList(0), mgrSQLite.Database.Local)
                     Else
                         mgrManifest.DoManifestAdd(oMarkList(0), mgrSQLite.Database.Local)
                     End If
@@ -1350,8 +1400,8 @@ Public Class frmGameManager
                 If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiMark, oMarkList.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     bWasUpdated = True
                     For Each oGameBackup In oMarkList
-                        If mgrManifest.DoGlobalManifestCheck(oGameBackup.Name, mgrSQLite.Database.Local) Then
-                            mgrManifest.DoManifestUpdateByName(oGameBackup, mgrSQLite.Database.Local)
+                        If mgrManifest.DoManifestCheck(oGameBackup.MonitorID, mgrSQLite.Database.Local) Then
+                            mgrManifest.DoManifestUpdateByMonitorID(oGameBackup, mgrSQLite.Database.Local)
                         Else
                             mgrManifest.DoManifestAdd(oGameBackup, mgrSQLite.Database.Local)
                         End If
@@ -1428,9 +1478,9 @@ Public Class frmGameManager
 
 
             For Each oData In lstGames.SelectedItems
-                If oRemoteBackupData.Contains(oData.Value) Then
+                If oRemoteBackupData.Contains(oData.Key) Then
                     oGame = DirectCast(GameData(oData.Key), clsGame)
-                    oBackup = DirectCast(oRemoteBackupData(oData.Value), clsBackup)
+                    oBackup = DirectCast(oRemoteBackupData(oData.Key), clsBackup)
                     If Not oGame.MonitorOnly Then RestoreList.Add(oGame, oBackup)
                 End If
             Next
@@ -1473,8 +1523,10 @@ Public Class frmGameManager
         sLocation = mgrCommon.OpenFileBrowser("XML_Import", frmGameManager_ChooseImportXML, "xml", frmGameManager_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
 
         If sLocation <> String.Empty Then
-            If mgrMonitorList.DoImport(sLocation) Then
+            If mgrMonitorList.DoImport(sLocation, False, Settings) Then
+                mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
                 LoadData()
+                LoadBackupData()
             End If
         End If
 
@@ -1501,8 +1553,10 @@ Public Class frmGameManager
         End If
 
         If mgrCommon.ShowMessage(frmGameManager_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(sImportURL) Then
+            If mgrMonitorList.DoImport(sImportURL, True, Settings) Then
+                mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
                 LoadData()
+                LoadBackupData()
             End If
         End If
     End Sub
@@ -1566,6 +1620,7 @@ Public Class frmGameManager
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
         lblComments.Text = frmGameManager_lblComments
         chkRegEx.Text = frmGameManager_chkRegEx
+        btnGameID.Text = frmGameManager_btnGameID
 
         'Init Filter Timer
         tmFilterTimer = New Timer()
@@ -1672,6 +1727,10 @@ Public Class frmGameManager
         OpenTags()
     End Sub
 
+    Private Sub btnProcesses_Click(sender As Object, e As EventArgs) Handles btnProcesses.Click
+        OpenProcesses()
+    End Sub
+
     Private Sub btnDeleteBackup_Click(sender As Object, e As EventArgs) Handles btnDeleteBackup.Click
         If cboRemoteBackup.Items.Count > 1 Then
             cmsDeleteBackup.Show(btnDeleteBackup, New Drawing.Point(btnDeleteBackup.Size.Width - Math.Floor(btnDeleteBackup.Size.Width * 0.1), btnDeleteBackup.Size.Height - Math.Floor(btnDeleteBackup.Size.Height * 0.5)), ToolStripDropDownDirection.AboveRight)
@@ -1743,6 +1802,10 @@ Public Class frmGameManager
 
     Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
         ExportGameList()
+    End Sub
+
+    Private Sub btnGameID_Click(sender As Object, e As EventArgs) Handles btnGameID.Click
+        OpenGameIDEdit()
     End Sub
 
     Private Sub txtQuickFilter_TextChanged(sender As Object, e As EventArgs) Handles txtQuickFilter.TextChanged

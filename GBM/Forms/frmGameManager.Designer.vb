@@ -28,6 +28,7 @@ Partial Class frmGameManager
         Me.btnBackup = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.grpConfig = New System.Windows.Forms.GroupBox()
+        Me.btnGameID = New System.Windows.Forms.Button()
         Me.chkRegEx = New System.Windows.Forms.CheckBox()
         Me.lblComments = New System.Windows.Forms.Label()
         Me.txtComments = New System.Windows.Forms.TextBox()
@@ -101,6 +102,7 @@ Partial Class frmGameManager
         Me.cmsDeleteBackup = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsDeleteOne = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnProcesses = New System.Windows.Forms.Button()
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -157,6 +159,7 @@ Partial Class frmGameManager
         'grpConfig
         '
         Me.grpConfig.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpConfig.Controls.Add(Me.btnGameID)
         Me.grpConfig.Controls.Add(Me.chkRegEx)
         Me.grpConfig.Controls.Add(Me.lblComments)
         Me.grpConfig.Controls.Add(Me.txtComments)
@@ -188,13 +191,22 @@ Partial Class frmGameManager
         Me.grpConfig.TabStop = False
         Me.grpConfig.Text = "Configuration"
         '
+        'btnGameID
+        '
+        Me.btnGameID.Location = New System.Drawing.Point(402, 17)
+        Me.btnGameID.Name = "btnGameID"
+        Me.btnGameID.Size = New System.Drawing.Size(117, 23)
+        Me.btnGameID.TabIndex = 2
+        Me.btnGameID.Text = "&Game ID..."
+        Me.btnGameID.UseVisualStyleBackColor = True
+        '
         'chkRegEx
         '
         Me.chkRegEx.AutoSize = True
         Me.chkRegEx.Location = New System.Drawing.Point(402, 46)
         Me.chkRegEx.Name = "chkRegEx"
         Me.chkRegEx.Size = New System.Drawing.Size(117, 17)
-        Me.chkRegEx.TabIndex = 5
+        Me.chkRegEx.TabIndex = 6
         Me.chkRegEx.Text = "Regular Expression"
         Me.chkRegEx.UseVisualStyleBackColor = True
         '
@@ -204,7 +216,7 @@ Partial Class frmGameManager
         Me.lblComments.Location = New System.Drawing.Point(7, 181)
         Me.lblComments.Name = "lblComments"
         Me.lblComments.Size = New System.Drawing.Size(59, 13)
-        Me.lblComments.TabIndex = 18
+        Me.lblComments.TabIndex = 19
         Me.lblComments.Text = "Comments:"
         '
         'txtComments
@@ -214,14 +226,14 @@ Partial Class frmGameManager
         Me.txtComments.Name = "txtComments"
         Me.txtComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtComments.Size = New System.Drawing.Size(413, 71)
-        Me.txtComments.TabIndex = 19
+        Me.txtComments.TabIndex = 20
         '
         'txtParameter
         '
         Me.txtParameter.Location = New System.Drawing.Point(70, 71)
         Me.txtParameter.Name = "txtParameter"
         Me.txtParameter.Size = New System.Drawing.Size(414, 20)
-        Me.txtParameter.TabIndex = 7
+        Me.txtParameter.TabIndex = 8
         '
         'lblParameter
         '
@@ -229,7 +241,7 @@ Partial Class frmGameManager
         Me.lblParameter.Location = New System.Drawing.Point(7, 74)
         Me.lblParameter.Name = "lblParameter"
         Me.lblParameter.Size = New System.Drawing.Size(58, 13)
-        Me.lblParameter.TabIndex = 6
+        Me.lblParameter.TabIndex = 7
         Me.lblParameter.Text = "Parameter:"
         '
         'chkCleanFolder
@@ -248,7 +260,7 @@ Partial Class frmGameManager
         Me.lblLimit.Location = New System.Drawing.Point(376, 157)
         Me.lblLimit.Name = "lblLimit"
         Me.lblLimit.Size = New System.Drawing.Size(68, 13)
-        Me.lblLimit.TabIndex = 17
+        Me.lblLimit.TabIndex = 18
         Me.lblLimit.Text = "Backup Limit"
         Me.lblLimit.Visible = False
         '
@@ -258,7 +270,7 @@ Partial Class frmGameManager
         Me.nudLimit.Minimum = New Decimal(New Integer() {2, 0, 0, 0})
         Me.nudLimit.Name = "nudLimit"
         Me.nudLimit.Size = New System.Drawing.Size(40, 20)
-        Me.nudLimit.TabIndex = 16
+        Me.nudLimit.TabIndex = 17
         Me.nudLimit.Value = New Decimal(New Integer() {2, 0, 0, 0})
         Me.nudLimit.Visible = False
         '
@@ -267,7 +279,7 @@ Partial Class frmGameManager
         Me.btnExclude.Location = New System.Drawing.Point(10, 152)
         Me.btnExclude.Name = "btnExclude"
         Me.btnExclude.Size = New System.Drawing.Size(175, 23)
-        Me.btnExclude.TabIndex = 12
+        Me.btnExclude.TabIndex = 15
         Me.btnExclude.Text = "E&xclude Items..."
         Me.btnExclude.UseVisualStyleBackColor = True
         '
@@ -276,14 +288,14 @@ Partial Class frmGameManager
         Me.btnInclude.Location = New System.Drawing.Point(10, 123)
         Me.btnInclude.Name = "btnInclude"
         Me.btnInclude.Size = New System.Drawing.Size(175, 23)
-        Me.btnInclude.TabIndex = 11
+        Me.btnInclude.TabIndex = 12
         Me.btnInclude.Text = "In&clude Items..."
         Me.btnInclude.UseVisualStyleBackColor = True
         '
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(489, 19)
+        Me.txtID.Location = New System.Drawing.Point(489, 180)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(30, 20)
         Me.txtID.TabIndex = 0
@@ -295,7 +307,7 @@ Partial Class frmGameManager
         Me.btnSavePathBrowse.Location = New System.Drawing.Point(490, 97)
         Me.btnSavePathBrowse.Name = "btnSavePathBrowse"
         Me.btnSavePathBrowse.Size = New System.Drawing.Size(30, 20)
-        Me.btnSavePathBrowse.TabIndex = 10
+        Me.btnSavePathBrowse.TabIndex = 11
         Me.btnSavePathBrowse.Text = "..."
         Me.btnSavePathBrowse.UseVisualStyleBackColor = True
         '
@@ -304,7 +316,7 @@ Partial Class frmGameManager
         Me.btnProcessBrowse.Location = New System.Drawing.Point(366, 44)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
         Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 20)
-        Me.btnProcessBrowse.TabIndex = 4
+        Me.btnProcessBrowse.TabIndex = 5
         Me.btnProcessBrowse.Text = "..."
         Me.btnProcessBrowse.UseVisualStyleBackColor = True
         '
@@ -314,7 +326,7 @@ Partial Class frmGameManager
         Me.lblSavePath.Location = New System.Drawing.Point(7, 101)
         Me.lblSavePath.Name = "lblSavePath"
         Me.lblSavePath.Size = New System.Drawing.Size(60, 13)
-        Me.lblSavePath.TabIndex = 8
+        Me.lblSavePath.TabIndex = 9
         Me.lblSavePath.Text = "Save Path:"
         '
         'lblProcess
@@ -323,7 +335,7 @@ Partial Class frmGameManager
         Me.lblProcess.Location = New System.Drawing.Point(7, 47)
         Me.lblProcess.Name = "lblProcess"
         Me.lblProcess.Size = New System.Drawing.Size(48, 13)
-        Me.lblProcess.TabIndex = 2
+        Me.lblProcess.TabIndex = 3
         Me.lblProcess.Text = "Process:"
         '
         'lblName
@@ -359,7 +371,7 @@ Partial Class frmGameManager
         Me.chkTimeStamp.Location = New System.Drawing.Point(191, 156)
         Me.chkTimeStamp.Name = "chkTimeStamp"
         Me.chkTimeStamp.Size = New System.Drawing.Size(133, 17)
-        Me.chkTimeStamp.TabIndex = 15
+        Me.chkTimeStamp.TabIndex = 16
         Me.chkTimeStamp.Text = "Save multiple backups"
         Me.chkTimeStamp.UseVisualStyleBackColor = True
         '
@@ -378,20 +390,20 @@ Partial Class frmGameManager
         Me.txtSavePath.Location = New System.Drawing.Point(70, 97)
         Me.txtSavePath.Name = "txtSavePath"
         Me.txtSavePath.Size = New System.Drawing.Size(414, 20)
-        Me.txtSavePath.TabIndex = 9
+        Me.txtSavePath.TabIndex = 10
         '
         'txtProcess
         '
         Me.txtProcess.Location = New System.Drawing.Point(70, 44)
         Me.txtProcess.Name = "txtProcess"
         Me.txtProcess.Size = New System.Drawing.Size(290, 20)
-        Me.txtProcess.TabIndex = 3
+        Me.txtProcess.TabIndex = 4
         '
         'txtName
         '
         Me.txtName.Location = New System.Drawing.Point(70, 19)
         Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(414, 20)
+        Me.txtName.Size = New System.Drawing.Size(326, 20)
         Me.txtName.TabIndex = 1
         '
         'chkMonitorOnly
@@ -873,11 +885,21 @@ Partial Class frmGameManager
         Me.cmsDeleteAll.Size = New System.Drawing.Size(114, 22)
         Me.cmsDeleteAll.Text = "&All Files"
         '
+        'btnProcesses
+        '
+        Me.btnProcesses.Location = New System.Drawing.Point(454, 437)
+        Me.btnProcesses.Name = "btnProcesses"
+        Me.btnProcesses.Size = New System.Drawing.Size(75, 23)
+        Me.btnProcesses.TabIndex = 20
+        Me.btnProcesses.Text = "Processes..."
+        Me.btnProcesses.UseVisualStyleBackColor = True
+        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 661)
+        Me.Controls.Add(Me.btnProcesses)
         Me.Controls.Add(Me.lblQuickFilter)
         Me.Controls.Add(Me.txtQuickFilter)
         Me.Controls.Add(Me.btnExport)
@@ -1000,4 +1022,6 @@ Partial Class frmGameManager
     Friend WithEvents lblComments As Label
     Friend WithEvents txtComments As TextBox
     Friend WithEvents chkRegEx As CheckBox
+    Friend WithEvents btnGameID As Button
+    Friend WithEvents btnProcesses As Button
 End Class

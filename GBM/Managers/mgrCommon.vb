@@ -65,9 +65,16 @@ Public Class mgrCommon
         Return oFormatter.Deserialize(oStream)
     End Function
 
-    Public Shared Function CheckAddress(ByVal URL As String) As Boolean
+    Public Shared Function IsAddress(ByVal sURL As String) As Boolean
+        If (sURL.IndexOf("http://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Or (sURL.IndexOf("https://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Then
+            Return True
+        End If
+        Return False
+    End Function
+
+    Public Shared Function CheckAddress(ByVal sURL As String) As Boolean
         Try
-            Dim request As WebRequest = WebRequest.Create(URL)
+            Dim request As WebRequest = WebRequest.Create(sURL)
             Dim response As WebResponse = request.GetResponse()
             response.Close()
         Catch ex As Exception
@@ -201,11 +208,6 @@ Public Class mgrCommon
     Public Shared Function IsProcessNotSearchable(ByVal oGame As clsGame) As Boolean
         Dim sExemptList As String() = {"dosbox", "scummvm"}
         Dim bFound As Boolean = False
-
-        'We can't search if we don't have a configuration
-        If oGame.Temporary Then
-            Return True
-        End If
 
         For Each s As String In sExemptList
             If oGame.ProcessName.ToLower.Contains(s) Then bFound = True
@@ -430,10 +432,10 @@ Public Class mgrCommon
     'Delete a sub-folder based on the provided backup information
     Public Shared Sub DeleteDirectoryByBackup(ByVal sBackupFolder As String, ByVal oBackup As clsBackup)
         Dim oDir As DirectoryInfo
-        Dim sDir As String = sBackupFolder & oBackup.SafeName
+        Dim sDir As String = sBackupFolder & oBackup.MonitorID
 
         'Delete sub directory if it's empty
-        If oBackup.FileName.StartsWith(oBackup.SafeName & Path.DirectorySeparatorChar) Then
+        If oBackup.FileName.StartsWith(oBackup.MonitorID & Path.DirectorySeparatorChar) Then
             If Directory.Exists(sDir) Then
                 'Check if there's any sub-directories or files remaining
                 oDir = New DirectoryInfo(sDir)

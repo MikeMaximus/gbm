@@ -392,22 +392,19 @@
     <value>Add Game &amp;Wizard...</value>
   </data>
   <data name="frmMain_gMonSetupCustomVariables" xml:space="preserve">
-    <value>Custom &amp;Path Variables...</value>
+    <value>Custom Path &amp;Variables...</value>
   </data>
   <data name="frmMain_gMonSetupGameManager" xml:space="preserve">
     <value>&amp;Game Manager...</value>
   </data>
   <data name="frmMain_gMonSetupTags" xml:space="preserve">
-    <value>&amp;Tags...</value>
+    <value>&amp;Tag Manager...</value>
   </data>
   <data name="frmMain_gMonStripStatusButton" xml:space="preserve">
     <value>Monitor Status:</value>
   </data>
   <data name="frmMain_gMonTools" xml:space="preserve">
     <value>&amp;Tools</value>
-  </data>
-  <data name="frmMain_gMonToolsCleanMan" xml:space="preserve">
-    <value>Clea&amp;n Local Manifest</value>
   </data>
   <data name="frmMain_gMonToolsCompact" xml:space="preserve">
     <value>&amp;Compact Databases</value>
@@ -554,7 +551,7 @@
     <value>[PARAM] is already up to date.[BR][BR]Would you like to restore this backup anyway?</value>
   </data>
   <data name="frmGameManager_ErrorGameDupe" xml:space="preserve">
-    <value>A game with this exact name and process already exists.</value>
+    <value>A game with the same ID ([PARAM]) already exists.</value>
   </data>
   <data name="frmGameManager_ErrorNoBackupData" xml:space="preserve">
     <value>The selected game(s) have no backup data or can't be restored with their current configuration.</value>
@@ -926,7 +923,7 @@
     <value>&amp;Close</value>
   </data>
   <data name="frmGameTags_btnOpenTags" xml:space="preserve">
-    <value>Setup &amp;Tags...</value>
+    <value>&amp;Tag Manager...</value>
   </data>
   <data name="frmGameTags_btnRemove" xml:space="preserve">
     <value>&lt;</value>
@@ -1084,9 +1081,6 @@
   <data name="frmSettings_chkSupressBackup" xml:space="preserve">
     <value>Ignore sessions shorter than</value>
   </data>
-  <data name="frmSettings_chkSync" xml:space="preserve">
-    <value>Enable syncing</value>
-  </data>
   <data name="frmSettings_chkTimeTracking" xml:space="preserve">
     <value>Enable time tracking</value>
   </data>
@@ -1100,7 +1094,7 @@
     <value>Startup</value>
   </data>
   <data name="frmSettings_grpFolderOptions" xml:space="preserve">
-    <value>Folders</value>
+    <value>Files and Folders</value>
   </data>
   <data name="frmSettings_lblBackupFolder" xml:space="preserve">
     <value>Backup Folder:</value>
@@ -1135,9 +1129,6 @@
   <data name="frmStartUpWizard_chkCreateFolder" xml:space="preserve">
     <value>Create a sub-folder for each game</value>
   </data>
-  <data name="frmStartUpWizard_chkSync" xml:space="preserve">
-    <value>Import any existing GBM data in the backup folder</value>
-  </data>
   <data name="frmStartUpWizard_ConfirmOfficialImport" xml:space="preserve">
     <value>Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection.</value>
   </data>
@@ -1166,7 +1157,7 @@
     <value>Welcome to GBM</value>
   </data>
   <data name="frmStartUpWizard_lblStep2Instructions" xml:space="preserve">
-    <value>GBM will store all your backup files along with a manifest database (gbm.s3db) in this location. </value>
+    <value>GBM will store all your backup files along with a manifest database (gbm.s3db) in this location.  Any existing GBM data in this folder will be automatically imported.</value>
   </data>
   <data name="frmStartUpWizard_lblStep2Intro" xml:space="preserve">
     <value>Choose where GBM saves your backup files:</value>
@@ -1220,7 +1211,7 @@
     <value>You must enter a valid tag name.</value>
   </data>
   <data name="frmTags_FormName" xml:space="preserve">
-    <value>Tags</value>
+    <value>Tag Manager</value>
   </data>
   <data name="frmTags_grpTag" xml:space="preserve">
     <value>Configuration</value>
@@ -1610,7 +1601,7 @@
     <value>A backup cannot be run on the selected game(s) with their current configuration.</value>
   </data>
   <data name="frmSettings_btnOptionalFields" xml:space="preserve">
-    <value>Choose &amp;Optional Fields...</value>
+    <value>Choose &amp;Optional Sync Fields...</value>
   </data>
   <data name="frmSyncFields_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>
@@ -1776,9 +1767,6 @@
   </data>
   <data name="frmGameManager_lblParameter" xml:space="preserve">
     <value>Parameter:</value>
-  </data>
-  <data name="frmGameManager_ErrorProcessParameterDupe" xml:space="preserve">
-    <value>A game with this exact process and parameter already exists.</value>
   </data>
   <data name="mgrCommon_B" xml:space="preserve">
     <value>[PARAM] B</value>
@@ -2022,5 +2010,161 @@
   </data>
   <data name="frmGameManager_ErrorRegExFailure" xml:space="preserve">
     <value>The process is not a a valid regular expression.[BR][BR]Would you like help validating and testing your regular expression? [BR][BR]This will open your web browser and requires the internet.</value>
+  </data>
+  <data name="frmGameManager_btnGameID" xml:space="preserve">
+    <value>&amp;Game ID...</value>
+  </data>
+  <data name="frmGameManager_GameIDEditInfo" xml:space="preserve">
+    <value>The unique Game ID is generated by GBM.  Changing this value is not recommended.</value>
+  </data>
+  <data name="frmGameManager_GameIDEditTitle" xml:space="preserve">
+    <value>Edit Game ID</value>
+  </data>
+  <data name="frmFilter_FieldGameID" xml:space="preserve">
+    <value>Game ID</value>
+  </data>
+  <data name="mgrMonitorList_ConfirmInitialOfficialGameIDSync" xml:space="preserve">
+    <value>GBM now uses a unique identifier for each game.  For the import feature to recognize game configurations from a prior version, they need to use the same identifiers.[BR][BR]Do you want to sync your game identifiers with the official list?[BR][BR]This question will only be displayed once, but the option is available anytime from the "Tools" menu.  Please see the online manual for more information.</value>
+  </data>
+  <data name="mgrMonitorList_ErrorGameIDVerFailure" xml:space="preserve">
+    <value>This file cannot be used to sync game indentifiers.  It was created with an older version of GBM.</value>
+  </data>
+  <data name="mgrMonitorList_ImportVersionWarning" xml:space="preserve">
+    <value>This export file was created with a version of GBM prior to 1.1.0 and does not contain unique game identifiers.[BR][BR]Do you still want to import configurations from this file? (Not Recommended)</value>
+  </data>
+  <data name="mgrMonitorList_ConfirmFileGameIDSync" xml:space="preserve">
+    <value>Do you want to sync your game identifiers with this export file?[BR][BR]You should only do this if you're managing your own game configurations.  Please see the online manual for more information.</value>
+  </data>
+  <data name="frmMain_gMonToolsSyncGameID" xml:space="preserve">
+    <value>S&amp;ync Game IDs</value>
+  </data>
+  <data name="frmMain_gMonToolsSyncGameIDFile" xml:space="preserve">
+    <value>&amp;File...</value>
+  </data>
+  <data name="frmMain_gMonToolsSyncGameIDOfficial" xml:space="preserve">
+    <value>&amp;Official List...</value>
+  </data>
+  <data name="mgrMonitorList_ConfirmOfficialGameIDSync" xml:space="preserve">
+    <value>Do you want to sync your game identifiers with the official game list?[BR][BR]This allows the import feature to recognize game configurations from a prior version.  Please see the online manual for more information.</value>
+  </data>
+  <data name="frmSettings_btnResetMessages" xml:space="preserve">
+    <value>&amp;Reset Warnings</value>
+  </data>
+  <data name="frmSettings_ConfirmMessageReset" xml:space="preserve">
+    <value>Do you want to reset all hidden warnings and messages?</value>
+  </data>
+  <data name="Icon_New" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\New.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon_Update" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mgrMonitorList_GameIDSyncCompleted" xml:space="preserve">
+    <value>Sync Complete.[BR][BR][PARAM] game configurations were matched and updated.</value>
+  </data>
+  <data name="App_BackupOnLaunchFileDescription" xml:space="preserve">
+    <value>launch</value>
+  </data>
+  <data name="frmSettings_chkBackupOnLaunch" xml:space="preserve">
+    <value>Backup GBM data files on launch</value>
+  </data>
+  <data name="frmMain_ErrorEndChildProcess" xml:space="preserve">
+    <value>An error occured when attempting to end a process associated with [PARAM].</value>
+  </data>
+  <data name="frmMain_ErrorStartChildProcess" xml:space="preserve">
+    <value>An error occured when attempting to start a process associated with [PARAM].</value>
+  </data>
+  <data name="frmProcessManager_btnAdd" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="frmProcessManager_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmProcessManager_btnClose" xml:space="preserve">
+    <value>C&amp;lose</value>
+  </data>
+  <data name="frmProcessManager_btnDelete" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="frmProcessManager_btnProcessBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmProcessManager_btnSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmProcessManager_ConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete [PARAM]?  This cannot be undone.</value>
+  </data>
+  <data name="frmProcessManager_ErrorDupe" xml:space="preserve">
+    <value>A process with this name already exists.</value>
+  </data>
+  <data name="frmProcessManager_ErrorPathNotFound" xml:space="preserve">
+    <value>The process does not exist.</value>
+  </data>
+  <data name="frmProcessManager_ErrorValidName" xml:space="preserve">
+    <value>You must enter a valid name for this process.</value>
+  </data>
+  <data name="frmProcessManager_ErrorValidPath" xml:space="preserve">
+    <value>You must choose a valid process.</value>
+  </data>
+  <data name="frmProcessManager_FormName" xml:space="preserve">
+    <value>Process Manager</value>
+  </data>
+  <data name="frmProcessManager_grpProcess" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="frmProcessManager_lblName" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="frmProcessManager_lblPath" xml:space="preserve">
+    <value>Path:</value>
+  </data>
+  <data name="frmMain_gMonSetupProcessManager" xml:space="preserve">
+    <value>&amp;Process Manager...</value>
+  </data>
+  <data name="frmProcessManager_ChooseProcess" xml:space="preserve">
+    <value>Choose a file that starts the process</value>
+  </data>
+  <data name="frmProcessManager_Executable" xml:space="preserve">
+    <value>Executable</value>
+  </data>
+  <data name="frmProcessManager_chkKillProcess" xml:space="preserve">
+    <value>Kill process when game is closed</value>
+  </data>
+  <data name="frmGameProcesses_btnAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmGameProcesses_btnClose" xml:space="preserve">
+    <value>&amp;Close</value>
+  </data>
+  <data name="frmGameProcesses_btnOpenProcesses" xml:space="preserve">
+    <value>&amp;Process Manager...</value>
+  </data>
+  <data name="frmGameProcesses_btnRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmGameProcesses_FormNameMulti" xml:space="preserve">
+    <value>Edit Processes for Multiple Games</value>
+  </data>
+  <data name="frmGameProcesses_FormNameSingle" xml:space="preserve">
+    <value>Edit Processes for [PARAM]</value>
+  </data>
+  <data name="frmGameProcesses_lblGameProccesses" xml:space="preserve">
+    <value>Current Processes</value>
+  </data>
+  <data name="frmGameProcesses_lblProcesses" xml:space="preserve">
+    <value>Available Processes</value>
+  </data>
+  <data name="App_GenericError" xml:space="preserve">
+    <value>Error: [PARAM]</value>
+  </data>
+  <data name="frmMain_ProcessKilled" xml:space="preserve">
+    <value>Kill signal was sent for [PARAM].</value>
+  </data>
+  <data name="frmMain_ProcessStarted" xml:space="preserve">
+    <value>[PARAM] has been started.</value>
+  </data>
+  <data name="frmSettings_chkUseGameID" xml:space="preserve">
+    <value>Use Game ID for folder and file names</value>
   </data>
 </root>

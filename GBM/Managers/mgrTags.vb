@@ -153,7 +153,7 @@
         Dim hshParams As Hashtable
         Dim oParamList As New List(Of Hashtable)
 
-        sSQL = "INSERT OR REPLACE INTO tags VALUES (COALESCE((SELECT TagID FROM tags WHERE Name = @Name), @ID), @Name); INSERT INTO gametags VALUES ((SELECT TagID from tags WHERE Name=@Name), @MonitorID);"        
+        sSQL = "INSERT OR REPLACE INTO tags VALUES (COALESCE((SELECT TagID FROM tags WHERE Name = @Name), @ID), @Name); INSERT OR REPLACE INTO gametags VALUES ((SELECT TagID from tags WHERE Name=@Name), @MonitorID);"
         For Each oGame As clsGame In hshTags.Values
             sMonitorID = oGame.ID
             For Each t As Tag In oGame.ImportTags

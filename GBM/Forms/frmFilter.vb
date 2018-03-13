@@ -132,6 +132,17 @@ Public Class frmFilter
     Private Sub LoadFilterFields()
         Dim oField As clsGameFilterField
 
+
+        'Game ID
+        oField = New clsGameFilterField
+        oField.FieldName = "MonitorID"
+        oField.FriendlyFieldName = frmFilter_FieldGameID
+        oField.Type = clsGameFilterField.eDataType.fString
+        oField.Status = clsGameFilterField.eFieldStatus.ValidSort
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+
         'Name
         oField = New clsGameFilterField
         oField.FieldName = "Name"

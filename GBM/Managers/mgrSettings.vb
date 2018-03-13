@@ -11,7 +11,6 @@ Public Class mgrSettings
     Private bRestoreOnLaunch As Boolean = False
     Private bAutoRestore As Boolean = False
     Private bAutoMark As Boolean = False
-    Private bSync As Boolean = True
     Private bTimeTracking As Boolean = True
     Private bSessionTracking As Boolean = False
     Private bSupressBackup As Boolean = False
@@ -21,7 +20,15 @@ Public Class mgrSettings
     Private s7zLocation As String = String.Empty
     Private sBackupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).TrimEnd(New Char() {"\", "/"})
     Private eSyncFields As clsGame.eOptionalSyncFields = clsGame.eOptionalSyncFields.None Or clsGame.eOptionalSyncFields.TimeStamp
+    Private eMessages As eSupressMessages = eSupressMessages.None
     Private bAutoSaveLog As Boolean = False
+    Private bBackupOnLaunch As Boolean = True
+    Private bUseGameID As Boolean = False
+
+    <Flags()> Public Enum eSupressMessages
+        None = 0
+        GameIDSync = 1
+    End Enum
 
     Property StartWithWindows As Boolean
         Get
@@ -110,15 +117,6 @@ Public Class mgrSettings
         End Get
         Set(value As Boolean)
             bAutoMark = value
-        End Set
-    End Property
-
-    Property Sync As Boolean
-        Get
-            Return bSync
-        End Get
-        Set(value As Boolean)
-            bSync = value
         End Set
     End Property
 
@@ -260,6 +258,38 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Property SupressMessages As eSupressMessages
+        Get
+            Return eMessages
+        End Get
+        Set(value As eSupressMessages)
+            eMessages = value
+        End Set
+    End Property
+
+    Property BackupOnLaunch As Boolean
+        Get
+            Return bBackupOnLaunch
+        End Get
+        Set(value As Boolean)
+            bBackupOnLaunch = value
+        End Set
+    End Property
+
+    Property UseGameID As Boolean
+        Get
+            Return bUseGameID
+        End Get
+        Set(value As Boolean)
+            bUseGameID = value
+        End Set
+    End Property
+
+    Sub New()
+        'The GameIDsync message should be supressed on all new databases
+        SupressMessages = SetMessageField(SupressMessages, eSupressMessages.GameIDSync)
+    End Sub
+
     Private Sub SaveFromClass()
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSQL As String
@@ -269,9 +299,9 @@ Public Class mgrSettings
         oDatabase.RunParamQuery(sSQL, New Hashtable)
 
         sSQL = "INSERT INTO settings VALUES (1, @MonitorOnStartup, @StartToTray, @ShowDetectionToolTips, @DisableConfirmation, "
-        sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @Sync, @StartWithWindows, "
+        sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SupressBackup, @SupressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
-        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking)"
+        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SupressMessages, @BackupOnLaunch, @UseGameID)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -281,7 +311,6 @@ Public Class mgrSettings
         hshParams.Add("ShowOverwriteWarning", ShowOverwriteWarning)
         hshParams.Add("RestoreOnLaunch", RestoreOnLaunch)
         hshParams.Add("BackupFolder", BackupFolder)
-        hshParams.Add("Sync", Sync)
         hshParams.Add("StartWithWindows", StartWithWindows)
         hshParams.Add("TimeTracking", TimeTracking)
         hshParams.Add("SupressBackup", SupressBackup)
@@ -294,6 +323,9 @@ Public Class mgrSettings
         hshParams.Add("AutoRestore", AutoRestore)
         hshParams.Add("AutoMark", AutoMark)
         hshParams.Add("SessionTracking", SessionTracking)
+        hshParams.Add("SupressMessages", SupressMessages)
+        hshParams.Add("BackupOnLaunch", BackupOnLaunch)
+        hshParams.Add("UseGameID", UseGameID)
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
@@ -316,7 +348,6 @@ Public Class mgrSettings
             ShowOverwriteWarning = CBool(dr("ShowOverwriteWarning"))
             RestoreOnLaunch = CBool(dr("RestoreOnLaunch"))
             BackupFolder = CStr(dr("BackupFolder"))
-            Sync = CBool(dr("Sync"))
             StartWithWindows = CBool(dr("StartWithWindows"))
             TimeTracking = CBool(dr("TimeTracking"))
             SupressBackup = CBool(dr("SupressBackup"))
@@ -329,6 +360,9 @@ Public Class mgrSettings
             AutoRestore = CBool(dr("AutoRestore"))
             AutoMark = CBool(dr("AutoMark"))
             SessionTracking = CBool(dr("SessionTracking"))
+            SupressMessages = CInt(dr("SupressMessages"))
+            BackupOnLaunch = CBool(dr("BackupOnLaunch"))
+            UseGameID = CBool(dr("UseGameID"))
         Next
 
         oDatabase.Disconnect()
@@ -347,4 +381,13 @@ Public Class mgrSettings
         'Set Remote Manifest Location        
         mgrPath.RemoteDatabaseLocation = Me.BackupFolder
     End Sub
+
+    Public Function SetMessageField(ByVal eMessages As eSupressMessages, ByVal eMessage As eSupressMessages) As eSupressMessages
+        Return eMessages Or eMessage
+    End Function
+
+    Public Function RemoveMessageField(ByVal eMessages As eSupressMessages, ByVal eMessage As eSupressMessages) As eSupressMessages
+        Return eMessages And (Not eMessage)
+    End Function
+
 End Class

@@ -22,8 +22,8 @@ Public Class clsGame
     Private sComments As String = String.Empty
     Private bIsRegEx As Boolean = False
     Private bDuplicate As Boolean = False
-    Private bTempGame As Boolean = False
     Private oImportTags As New List(Of Tag)
+    Private bImportUpdate As Boolean = False
 
     <Flags()> Public Enum eOptionalSyncFields
         None = 0
@@ -37,7 +37,9 @@ Public Class clsGame
 
     Property ID As String
         Set(value As String)
-            sGameID = value
+            If Not value Is Nothing Then
+                sGameID = mgrPath.ValidateForFileSystem(value)
+            End If
         End Set
         Get
             Return sGameID
@@ -46,7 +48,7 @@ Public Class clsGame
 
     ReadOnly Property CompoundKey As String
         Get
-            Return ProcessName & ":" & KeySafeName
+            Return ProcessName & ":" & ID
         End Get
     End Property
 
@@ -60,24 +62,18 @@ Public Class clsGame
         End Get
     End Property
 
-    Property Name As String
-        Set(value As String)
-            sGameName = value
-        End Set
-        Get
-            Return sGameName
-        End Get
-    End Property
-
     ReadOnly Property FileSafeName As String
         Get
             Return mgrPath.ValidateForFileSystem(sGameName)
         End Get
     End Property
 
-    ReadOnly Property KeySafeName As String
+    Property Name As String
+        Set(value As String)
+            sGameName = value
+        End Set
         Get
-            Return sGameName.Replace(":", "_")
+            Return sGameName
         End Get
     End Property
 
@@ -273,21 +269,21 @@ Public Class clsGame
         End Get
     End Property
 
-    Property Temporary As Boolean
-        Get
-            Return bTempGame
-        End Get
-        Set(value As Boolean)
-            bTempGame = value
-        End Set
-    End Property
-
     Property ImportTags As List(Of Tag)
         Get
             Return oImportTags
         End Get
         Set(value As List(Of Tag))
             oImportTags = value
+        End Set
+    End Property
+
+    Property ImportUpdate As Boolean
+        Get
+            Return bImportUpdate
+        End Get
+        Set(value As Boolean)
+            bImportUpdate = value
         End Set
     End Property
 
@@ -406,10 +402,41 @@ Public Class clsGame
         If oGame Is Nothing Then
             Return False
         Else
+            'Core Fields
+            If ID <> oGame.ID Then
+                Return False
+            End If
             If Name <> oGame.Name Then
                 Return False
             End If
             If ProcessName <> oGame.ProcessName Then
+                Return False
+            End If
+            If Parameter <> oGame.Parameter Then
+                Return False
+            End If
+            If Path <> oGame.Path Then
+                Return False
+            End If
+            If FileType <> oGame.FileType Then
+                Return False
+            End If
+            If ExcludeList <> oGame.ExcludeList Then
+                Return False
+            End If
+            If AbsolutePath <> oGame.AbsolutePath Then
+                Return False
+            End If
+            If FolderSave <> oGame.FolderSave Then
+                Return False
+            End If
+            If MonitorOnly <> oGame.MonitorOnly Then
+                Return False
+            End If
+            If Comments <> oGame.Comments Then
+                Return False
+            End If
+            If IsRegEx <> oGame.IsRegEx Then
                 Return False
             End If
             Return True
