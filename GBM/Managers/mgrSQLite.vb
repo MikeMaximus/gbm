@@ -808,6 +808,16 @@ Public Class mgrSQLite
                 sSQL &= "PRAGMA user_version=110"
 
                 RunParamQuery(sSQL, New Hashtable)
+
+                CompactDatabase()
+
+                'We need to push the local game list against the remote database in case they had syncing disabled
+                Dim hshMonitorList As Hashtable = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList, mgrSQLite.Database.Local)
+                Dim oSettings As New mgrSettings
+                oSettings.LoadSettings()
+                mgrMonitorList.DoListAddUpdateSync(hshMonitorList, Database.Remote, oSettings.SyncFields)
+                mgrTags.SyncTags(True)
+                mgrGameTags.SyncGameTags(True)
             End If
             If eDatabase = Database.Remote Then
                 'Backup DB before starting
@@ -824,12 +834,6 @@ Public Class mgrSQLite
                    "ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx FROM monitorlist;" &
                    "DROP TABLE monitorlist; ALTER TABLE monitorlist_new RENAME TO monitorlist;"
 
-                'We need to push the local database game list against the remote database in case they had syncing disabled
-                Dim hshMonitorList As Hashtable = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList, mgrSQLite.Database.Local)
-                Dim oSettings As New mgrSettings
-                oSettings.LoadSettings()
-                mgrMonitorList.DoListAddUpdateSync(hshMonitorList, Database.Remote, oSettings.SyncFields)
-
                 sSQL &= "CREATE TABLE manifest_new (ManifestID TEXT NOT NULL PRIMARY KEY, MonitorID TEXT NOT NULL, FileName TEXT NOT NULL, " &
                    "DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
                 sSQL &= "INSERT INTO manifest_new (ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum) " &
@@ -839,6 +843,8 @@ Public Class mgrSQLite
                 sSQL &= "PRAGMA user_version=110"
 
                 RunParamQuery(sSQL, New Hashtable)
+
+                CompactDatabase()
             End If
         End If
     End Sub
