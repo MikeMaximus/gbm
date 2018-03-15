@@ -209,6 +209,7 @@ Partial Class frmProcessManager
         Me.Controls.Add(Me.txtID)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmProcessManager"
