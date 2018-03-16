@@ -517,6 +517,14 @@ Public Class mgrMonitorList
             hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
         End If
 
+        'Sync Wipe Protection
+        If hshCompareFrom.Count = 0 And hshCompareTo.Count > 0 Then
+            If mgrCommon.ShowMessage(mgrMonitorList_WarningSyncProtection, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                RaiseEvent UpdateLog(mgrMonitorList_ErrorSyncCancel, False, ToolTipIcon.Warning, True)
+                Exit Sub
+            End If
+        End If
+
         hshSyncItems = hshCompareFrom.Clone
 
         For Each oFromItem In hshCompareFrom.Values

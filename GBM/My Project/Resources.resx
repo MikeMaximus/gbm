@@ -2167,4 +2167,10 @@
   <data name="frmSettings_chkUseGameID" xml:space="preserve">
     <value>Use Game ID for folder and file names</value>
   </data>
+  <data name="mgrMonitorList_ErrorSyncCancel" xml:space="preserve">
+    <value>The sync was aborted by the user.</value>
+  </data>
+  <data name="mgrMonitorList_WarningSyncProtection" xml:space="preserve">
+    <value>The database GBM is attempting to sync with appears to be empty, syncing with this database will delete all data.  Do you still want to sync with this database?  (Not Recommended)</value>
+  </data>
 </root>

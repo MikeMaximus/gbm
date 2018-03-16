@@ -5845,6 +5845,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The sync was aborted by the user..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_ErrorSyncCancel() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_ErrorSyncCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Export Complete.  [PARAM] item(s) have been exported..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ExportComplete() As String
@@ -5922,6 +5931,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrMonitorList_SyncToMaster() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_SyncToMaster", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The database GBM is attempting to sync with appears to be empty, syncing with this database will delete all data.  Do you still want to sync with this database?  (Not Recommended).
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_WarningSyncProtection() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_WarningSyncProtection", resourceCulture)
             End Get
         End Property
         
