@@ -954,6 +954,7 @@ Public Class mgrMonitorList
         oRemoteDatabase.RunMassParamQuery(sSQL, oParamList)
 
         sSQL &= "UPDATE sessions SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
+        sSQL &= "UPDATE gameprocesses SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
 
         oLocalDatabase.RunMassParamQuery(sSQL, oParamList)
 
