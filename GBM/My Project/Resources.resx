@@ -773,7 +773,7 @@
     <value>Saved Game Folder:</value>
   </data>
   <data name="frmAddWizard_lblStep1Instructions" xml:space="preserve">
-    <value>The name will be automatically filtered for length and invalid characters.  You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported.</value>
+    <value>You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported.</value>
   </data>
   <data name="frmAddWizard_lblStep1Intro" xml:space="preserve">
     <value>Enter the name of the game to monitor:</value>
@@ -782,7 +782,7 @@
     <value>Game Name</value>
   </data>
   <data name="frmAddWizard_lblStep2Instructions" xml:space="preserve">
-    <value>Some games use launchers.  Do not monitor launchers,  be sure to choose the game's actual exe file.  You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported.</value>
+    <value>Some games use launchers.  Do not monitor launchers,  be sure to choose the game's actual executable file.  You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported.</value>
   </data>
   <data name="frmAddWizard_lblStep2Intro" xml:space="preserve">
     <value>Choose the game's executable file or shortcut:</value>

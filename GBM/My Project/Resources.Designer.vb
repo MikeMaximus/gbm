@@ -529,7 +529,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The name will be automatically filtered for length and invalid characters.  You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported..
+        '''  Looks up a localized string similar to You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported..
         '''</summary>
         Friend ReadOnly Property frmAddWizard_lblStep1Instructions() As String
             Get
@@ -556,7 +556,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Some games use launchers.  Do not monitor launchers,  be sure to choose the game&apos;s actual exe file.  You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported..
+        '''  Looks up a localized string similar to Some games use launchers.  Do not monitor launchers,  be sure to choose the game&apos;s actual executable file.  You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported..
         '''</summary>
         Friend ReadOnly Property frmAddWizard_lblStep2Instructions() As String
             Get

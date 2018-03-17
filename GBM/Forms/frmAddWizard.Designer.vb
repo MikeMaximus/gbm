@@ -124,9 +124,8 @@ Partial Class frmAddWizard
         Me.lblStep1Instructions.Name = "lblStep1Instructions"
         Me.lblStep1Instructions.Size = New System.Drawing.Size(303, 85)
         Me.lblStep1Instructions.TabIndex = 6
-        Me.lblStep1Instructions.Text = "The name will be automatically filtered for length and invalid characters.  You m" &
-    "ay drag and drop a shortcut here to complete this step, only Windows shortcuts a" &
-    "re currently supported."
+        Me.lblStep1Instructions.Text = "You may drag and drop a shortcut here to complete this step, only Windows shortcu" &
+    "ts are currently supported."
         '
         'txtName
         '
