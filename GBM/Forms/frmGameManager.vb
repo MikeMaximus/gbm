@@ -1204,20 +1204,24 @@ Public Class frmGameManager
         If txtID.Text <> String.Empty Then
             oApp.ID = txtID.Text
         End If
+
         oApp.Name = txtName.Text
-        If Path.HasExtension(txtProcess.Text) Then
-            If txtProcess.Text.ToLower.EndsWith(".exe") Then
-                oApp.ProcessName = Path.GetFileNameWithoutExtension(txtProcess.Text)
-            Else
-                oApp.ProcessName = txtProcess.Text
+        oApp.IsRegEx = chkRegEx.Checked
+
+        If Not oApp.IsRegEx Then
+            txtProcess.Text = mgrPath.ValidateFileNameForOS(txtProcess.Text)
+            If Path.HasExtension(txtProcess.Text) Then
+                If txtProcess.Text.ToLower.EndsWith(".exe") Then
+                    txtProcess.Text = Path.GetFileNameWithoutExtension(txtProcess.Text)
+                End If
             End If
-        Else
-            oApp.ProcessName = txtProcess.Text
         End If
+
+        oApp.ProcessName = txtProcess.Text
         oApp.Parameter = txtParameter.Text
-        oApp.Path = txtSavePath.Text
+        oApp.Path = mgrPath.ValidatePathForOS(txtSavePath.Text)
         'Only do a simple root check here in case the user doesn't really understand creating a proper configuration
-        oApp.AbsolutePath = Path.IsPathRooted(txtSavePath.Text)
+        oApp.AbsolutePath = Path.IsPathRooted(oApp.Path)
         oApp.FileType = txtFileType.Text
         oApp.ExcludeList = txtExclude.Text
         oApp.FolderSave = chkFolderSave.Checked
@@ -1225,10 +1229,9 @@ Public Class frmGameManager
         oApp.AppendTimeStamp = chkTimeStamp.Checked
         oApp.BackupLimit = nudLimit.Value
         oApp.Comments = txtComments.Text
-        oApp.IsRegEx = chkRegEx.Checked
         oApp.Enabled = chkEnabled.Checked
         oApp.MonitorOnly = chkMonitorOnly.Checked
-        oApp.ProcessPath = txtAppPath.Text
+        oApp.ProcessPath = mgrPath.ValidatePathForOS(txtAppPath.Text)
         oApp.Company = txtCompany.Text
         oApp.Version = txtVersion.Text
         oApp.Icon = txtIcon.Text

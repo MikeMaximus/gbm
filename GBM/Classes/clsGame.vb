@@ -38,7 +38,7 @@ Public Class clsGame
     Property ID As String
         Set(value As String)
             If Not value Is Nothing Then
-                sGameID = mgrPath.ValidateForFileSystem(value)
+                sGameID = mgrPath.ValidateFileNameForOS(value)
             End If
         End Set
         Get
@@ -64,7 +64,7 @@ Public Class clsGame
 
     ReadOnly Property FileSafeName As String
         Get
-            Return mgrPath.ValidateForFileSystem(sGameName)
+            Return mgrPath.ValidateFileNameForOS(sGameName)
         End Get
     End Property
 
