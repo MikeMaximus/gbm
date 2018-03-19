@@ -65,7 +65,7 @@ Public Class frmStartUpWizard
         If oDatabase.CheckDB() Then
             'Make sure database is the latest version
             oDatabase.DatabaseUpgrade()
-            mgrMonitorList.SyncMonitorLists(oSettings.SyncFields, False)
+            mgrMonitorList.SyncMonitorLists(oSettings, False)
             mgrCommon.ShowMessage(frmStartUpWizard_ExistingData, MsgBoxStyle.Information)
         End If
     End Sub
@@ -107,7 +107,7 @@ Public Class frmStartUpWizard
         If mgrCommon.ShowMessage(frmStartUpWizard_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             If mgrMonitorList.DoImport(sImportURL, True, Settings, True) Then
                 oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
-                mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+                mgrMonitorList.SyncMonitorLists(oSettings)
             End If
         End If
     End Sub
@@ -122,7 +122,7 @@ Public Class frmStartUpWizard
         frm.GameData = oGameData
         frm.ShowDialog()
         LoadGameSettings()
-        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        mgrMonitorList.SyncMonitorLists(oSettings)
     End Sub
 
     Private Sub OpenMonitorList()

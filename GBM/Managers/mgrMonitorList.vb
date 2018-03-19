@@ -491,7 +491,7 @@ Public Class mgrMonitorList
         oDatabase.RunMassParamQuery(sSQL, oParamList)
     End Sub
 
-    Public Shared Sub SyncMonitorLists(ByVal eSyncFields As clsGame.eOptionalSyncFields, Optional ByVal bToRemote As Boolean = True)
+    Public Shared Sub SyncMonitorLists(ByVal oSettings As mgrSettings, Optional ByVal bToRemote As Boolean = True)
         Dim hshCompareFrom As Hashtable
         Dim hshCompareTo As Hashtable
         Dim hshSyncItems As Hashtable
@@ -502,10 +502,12 @@ Public Class mgrMonitorList
 
         Cursor.Current = Cursors.WaitCursor
 
-        If bToRemote Then
-            RaiseEvent UpdateLog(mgrMonitorList_SyncToMaster, False, ToolTipIcon.Info, True)
-        Else
-            RaiseEvent UpdateLog(mgrMonitorList_SyncFromMaster, False, ToolTipIcon.Info, True)
+        If Not oSettings.DisableSyncMessages Then
+            If bToRemote Then
+                RaiseEvent UpdateLog(mgrMonitorList_SyncToMaster, False, ToolTipIcon.Info, True)
+            Else
+                RaiseEvent UpdateLog(mgrMonitorList_SyncFromMaster, False, ToolTipIcon.Info, True)
+            End If
         End If
 
         'Add / Update Sync
@@ -520,6 +522,7 @@ Public Class mgrMonitorList
         'Sync Wipe Protection
         If hshCompareFrom.Count = 0 And hshCompareTo.Count > 0 Then
             If mgrCommon.ShowMessage(mgrMonitorList_WarningSyncProtection, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                'We will always show this one in the log regardless of setting
                 RaiseEvent UpdateLog(mgrMonitorList_ErrorSyncCancel, False, ToolTipIcon.Warning, True)
                 Exit Sub
             End If
@@ -530,16 +533,16 @@ Public Class mgrMonitorList
         For Each oFromItem In hshCompareFrom.Values
             If hshCompareTo.Contains(oFromItem.ID) Then
                 oToItem = DirectCast(hshCompareTo(oFromItem.ID), clsGame)
-                If oFromItem.SyncEquals(oToItem, eSyncFields) Then
+                If oFromItem.SyncEquals(oToItem, oSettings.SyncFields) Then
                     hshSyncItems.Remove(oFromItem.ID)
                 End If
             End If
         Next
 
         If bToRemote Then
-            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Remote, eSyncFields)
+            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Remote, oSettings.SyncFields)
         Else
-            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Local, eSyncFields)
+            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Local, oSettings.SyncFields)
         End If
 
         'Sync Tags
@@ -572,7 +575,10 @@ Public Class mgrMonitorList
             DoListDeleteSync(hshDeleteItems, mgrSQLite.Database.Local)
         End If
 
-        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrMonitorList_SyncChanges, (hshDeleteItems.Count + hshSyncItems.Count + iChanges).ToString), False, ToolTipIcon.Info, True)
+        If Not oSettings.DisableSyncMessages Then
+            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrMonitorList_SyncChanges, (hshDeleteItems.Count + hshSyncItems.Count + iChanges).ToString), False, ToolTipIcon.Info, True)
+        End If
+
         Cursor.Current = Cursors.Default
         Application.DoEvents()
     End Sub
@@ -1020,15 +1026,15 @@ Public Class mgrMonitorList
             'If the remote database actually contains a list, then ask what to do
             If iGameCount > 0 Then
                 If mgrCommon.ShowMessage(mgrMonitorList_ConfirmExistingData, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+                    mgrMonitorList.SyncMonitorLists(oSettings)
                 Else
-                    mgrMonitorList.SyncMonitorLists(oSettings.SyncFields, False)
+                    mgrMonitorList.SyncMonitorLists(oSettings, False)
                 End If
             Else
-                mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+                mgrMonitorList.SyncMonitorLists(oSettings)
             End If
         Else
-            mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+            mgrMonitorList.SyncMonitorLists(oSettings)
         End If
     End Sub
 End Class

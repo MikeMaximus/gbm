@@ -1091,7 +1091,7 @@
     <value>Settings</value>
   </data>
   <data name="frmSettings_grpStartup" xml:space="preserve">
-    <value>Startup</value>
+    <value>Startup Options</value>
   </data>
   <data name="frmSettings_grpFolderOptions" xml:space="preserve">
     <value>Files and Folders</value>
@@ -1640,7 +1640,7 @@
     <value>Autosave log when max length is exceeded</value>
   </data>
   <data name="frmSettings_grpGameData" xml:space="preserve">
-    <value>Game Data</value>
+    <value>Game Data Options</value>
   </data>
   <data name="frmSettings_lstSettings_7z" xml:space="preserve">
     <value>7-Zip</value>
@@ -2172,5 +2172,20 @@
   </data>
   <data name="mgrMonitorList_WarningSyncProtection" xml:space="preserve">
     <value>The database GBM is attempting to sync with appears to be empty, syncing with this database will delete all data.  Do you still want to sync with this database?  (Not Recommended)</value>
+  </data>
+  <data name="frmSettings_chkDisableSyncMessages" xml:space="preserve">
+    <value>Disable sync event messages</value>
+  </data>
+  <data name="frmSettings_grpBackupConfirmations" xml:space="preserve">
+    <value>Backup Confirmations</value>
+  </data>
+  <data name="frmSettings_grpGameMonitoringOptions" xml:space="preserve">
+    <value>Game Monitoring Options</value>
+  </data>
+  <data name="frmSettings_grpLogOptions" xml:space="preserve">
+    <value>Log Options</value>
+  </data>
+  <data name="frmSettings_lstSettings_Startup" xml:space="preserve">
+    <value>Startup</value>
   </data>
 </root>

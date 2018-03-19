@@ -4462,6 +4462,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Disable sync event messages.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkDisableSyncMessages() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkDisableSyncMessages", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Start monitoring at launch.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkMonitorOnStartup() As String
@@ -4624,6 +4633,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backup Confirmations.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grpBackupConfirmations() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grpBackupConfirmations", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup Handling.
         '''</summary>
         Friend ReadOnly Property frmSettings_grpBackupHandling() As String
@@ -4642,7 +4660,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Game Data.
+        '''  Looks up a localized string similar to Game Data Options.
         '''</summary>
         Friend ReadOnly Property frmSettings_grpGameData() As String
             Get
@@ -4651,7 +4669,25 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Startup.
+        '''  Looks up a localized string similar to Game Monitoring Options.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grpGameMonitoringOptions() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grpGameMonitoringOptions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Log Options.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grpLogOptions() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grpLogOptions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Startup Options.
         '''</summary>
         Friend ReadOnly Property frmSettings_grpStartup() As String
             Get
@@ -4728,6 +4764,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_lstSettings_General() As String
             Get
                 Return ResourceManager.GetString("frmSettings_lstSettings_General", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Startup.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_lstSettings_Startup() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_lstSettings_Startup", resourceCulture)
             End Get
         End Property
         

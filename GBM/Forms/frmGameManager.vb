@@ -639,7 +639,7 @@ Public Class frmGameManager
             FillTagsbyList(frm.TagList)
         Else
             'Sync
-            mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
+            mgrMonitorList.SyncMonitorLists(Settings)
 
             'Only update visible tags if one item is selected
             If lstGames.SelectedItems.Count = 1 Then FillTagsbyID(CurrentGame.ID)
@@ -1267,7 +1267,7 @@ Public Class frmGameManager
         End Select
 
         If bSuccess Then
-            mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
+            mgrMonitorList.SyncMonitorLists(Settings)
             LoadBackupData()
             IsDirty = False
             LoadData()
@@ -1294,7 +1294,7 @@ Public Class frmGameManager
 
             If mgrCommon.ShowMessage(frmGameManager_ConfirmGameDelete, oApp.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDelete(oApp.ID)
-                mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
+                mgrMonitorList.SyncMonitorLists(Settings)
                 LoadData()
                 eCurrentMode = eModes.Disabled
                 ModeChange()
@@ -1309,7 +1309,7 @@ Public Class frmGameManager
 
             If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiGameDelete, sMonitorIDs.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDeleteMulti(sMonitorIDs)
-                mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
+                mgrMonitorList.SyncMonitorLists(Settings)
                 LoadData()
                 eCurrentMode = eModes.Disabled
                 ModeChange()
@@ -1527,7 +1527,7 @@ Public Class frmGameManager
 
         If sLocation <> String.Empty Then
             If mgrMonitorList.DoImport(sLocation, False, Settings) Then
-                mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
+                mgrMonitorList.SyncMonitorLists(Settings)
                 LoadData()
                 LoadBackupData()
             End If
@@ -1557,7 +1557,7 @@ Public Class frmGameManager
 
         If mgrCommon.ShowMessage(frmGameManager_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             If mgrMonitorList.DoImport(sImportURL, True, Settings) Then
-                mgrMonitorList.SyncMonitorLists(Settings.SyncFields)
+                mgrMonitorList.SyncMonitorLists(Settings)
                 LoadData()
                 LoadBackupData()
             End If

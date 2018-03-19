@@ -49,6 +49,7 @@ Public Class frmSettings
         oSettings.StartToTray = chkStartToTray.Checked
         oSettings.BackupOnLaunch = chkBackupOnLaunch.Checked
         oSettings.ShowDetectionToolTips = chkShowDetectionTips.Checked
+        oSettings.DisableSyncMessages = chkDisableSyncMessages.Checked
         oSettings.AutoSaveLog = chkAutoSaveLog.Checked
         oSettings.DisableConfirmation = chkBackupConfirm.Checked
         oSettings.CreateSubFolder = chkCreateFolder.Checked
@@ -176,6 +177,7 @@ Public Class frmSettings
         chkStartToTray.Checked = oSettings.StartToTray
         chkBackupOnLaunch.Checked = oSettings.BackupOnLaunch
         chkShowDetectionTips.Checked = oSettings.ShowDetectionToolTips
+        chkDisableSyncMessages.Checked = oSettings.DisableSyncMessages
         chkAutoSaveLog.Checked = oSettings.AutoSaveLog
         chkBackupConfirm.Checked = oSettings.DisableConfirmation
         chkCreateFolder.Checked = oSettings.CreateSubFolder
@@ -229,7 +231,8 @@ Public Class frmSettings
 
         oSettingsItems.Add(New KeyValuePair(Of Integer, String)(0, frmSettings_lstSettings_General))
         oSettingsItems.Add(New KeyValuePair(Of Integer, String)(1, frmSettings_lstSettings_BackupRestore))
-        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(2, frmSettings_lstSettings_7z))
+        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(2, frmSettings_lstSettings_Startup))
+        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(3, frmSettings_lstSettings_7z))
 
         lstSettings.DataSource = oSettingsItems
 
@@ -253,15 +256,24 @@ Public Class frmSettings
             Select Case oSettingsItem.Key
                 Case 0
                     pnlGeneral.Visible = True
+                    pnlStartup.Visible = False
                     pnlBackup.Visible = False
                     pnl7z.Visible = False
                 Case 1
                     pnlGeneral.Visible = False
                     pnlBackup.Visible = True
+                    pnlStartup.Visible = False
                     pnl7z.Visible = False
                 Case 2
                     pnlGeneral.Visible = False
                     pnlBackup.Visible = False
+                    pnlStartup.Visible = True
+                    pnl7z.Visible = False
+
+                Case 3
+                    pnlGeneral.Visible = False
+                    pnlBackup.Visible = False
+                    pnlStartup.Visible = False
                     pnl7z.Visible = True
             End Select
         End If
@@ -306,6 +318,10 @@ Public Class frmSettings
         btnOptionalFields.Text = frmSettings_btnOptionalFields
         btnResetMessages.Text = frmSettings_btnResetMessages
         chkBackupOnLaunch.Text = frmSettings_chkBackupOnLaunch
+        grpBackupConfirmations.Text = frmSettings_grpBackupConfirmations
+        grpLogOptions.Text = frmSettings_grpLogOptions
+        chkDisableSyncMessages.Text = frmSettings_chkDisableSyncMessages
+        grpGameMonitoringOptions.Text = frmSettings_grpGameMonitoringOptions
 
         'Unix Handler
         If mgrCommon.IsUnix Then

@@ -710,7 +710,7 @@ Public Class frmMain
         End If
 
         mgrMonitorList.DoListUpdate(oProcess.GameInfo)
-        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        mgrMonitorList.SyncMonitorLists(oSettings)
 
         UpdateTimeSpent(dCurrentHours, oProcess.TimeSpent.TotalHours)
     End Sub
@@ -841,7 +841,7 @@ Public Class frmMain
         Dim frm As New frmTags
         PauseScan()
         frm.ShowDialog()
-        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        mgrMonitorList.SyncMonitorLists(oSettings)
         ResumeScan()
     End Sub
 
@@ -908,7 +908,7 @@ Public Class frmMain
         frm.GameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
         frm.ShowDialog()
         LoadGameSettings()
-        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        mgrMonitorList.SyncMonitorLists(oSettings)
         ResumeScan()
     End Sub
 
@@ -917,7 +917,7 @@ Public Class frmMain
         PauseScan()
         frm.ShowDialog()
         mgrPath.CustomVariablesReload()
-        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields)
+        mgrMonitorList.SyncMonitorLists(oSettings)
         ResumeScan()
     End Sub
 
@@ -993,7 +993,7 @@ Public Class frmMain
 
     Private Sub SyncGameSettings()
         'Sync Monitor List
-        mgrMonitorList.SyncMonitorLists(oSettings.SyncFields, False)
+        mgrMonitorList.SyncMonitorLists(oSettings, False)
     End Sub
 
     Private Sub SyncGameIDs(ByVal bOfficial As Boolean)

@@ -2,7 +2,7 @@ Game Backup Monitor v1.1.0 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-March 12th, 2018
+March 18th, 2018
 
 New in 1.1.0
 
@@ -28,7 +28,7 @@ All Platforms:
 	- The Game Manager now syncs changes to the remote database immediately, instead of only when closed.
 
 - Feature Additions & Changes
-	- Added Regular Expression support for game detection
+	- Added Regular Expression support for game detection.
 		- This feature allows GBM to detect games based on a pattern instead of a single process name.
 		- This allows GBM to better support games that run from multiple executables and games that use interpreters or emulators.
 		- Use the new "Regular Expression" checkbox on the Game Manager and enter the pattern in the "Process" field.
@@ -49,7 +49,11 @@ All Platforms:
 		- This is mainly an optional upgrade tool for users with existing data from older versions.  It allows the import feature to properly recognize and update game configurations.
 		- The sync is based on similarly named game configurations, therefore it's not 100% effective.  Some games may be missed and require manual changes.		
 		- If you share a backup folder with multiple PCs, this feature will cause some data loss when the new IDs are synced to the other PCs.  See "Known Issue #1"
-
+	- Added "Disable sync event messages" to the settings.  This will remove all sync related information messages in the log.
+		- This new setting is enabled by default.
+		- Sync messages can cause a lot of useless clutter in the log and are not useful to most users.
+	- Re-organized the Setting screen to clear up some space for the future.
+		
 - Import / Export Changes
 	- GBM now uses the Game ID to determine if a game is new or has an updated configuration.
 	- GBM will offer to "Sync Game IDs" when importing from the official list after upgrading to v1.1.0.
