@@ -46,6 +46,7 @@ Partial Class frmSettings
         Me.lbl7zProduct = New System.Windows.Forms.Label()
         Me.btnDefaults = New System.Windows.Forms.Button()
         Me.pnlBackup = New System.Windows.Forms.Panel()
+        Me.grpBackupConfirmations = New System.Windows.Forms.GroupBox()
         Me.chkBackupConfirm = New System.Windows.Forms.CheckBox()
         Me.chkOverwriteWarning = New System.Windows.Forms.CheckBox()
         Me.grpBackupHandling = New System.Windows.Forms.GroupBox()
@@ -56,38 +57,37 @@ Partial Class frmSettings
         Me.grp7zAdvanced = New System.Windows.Forms.GroupBox()
         Me.grp7zInformation = New System.Windows.Forms.GroupBox()
         Me.pnlGeneral = New System.Windows.Forms.Panel()
+        Me.grpGameMonitoringOptions = New System.Windows.Forms.GroupBox()
+        Me.chkSuppressBackup = New System.Windows.Forms.CheckBox()
         Me.lblMinutes = New System.Windows.Forms.Label()
-        Me.nudSupressBackupThreshold = New System.Windows.Forms.NumericUpDown()
-        Me.chkSupressBackup = New System.Windows.Forms.CheckBox()
+        Me.nudSuppressBackupThreshold = New System.Windows.Forms.NumericUpDown()
+        Me.grpLogOptions = New System.Windows.Forms.GroupBox()
+        Me.chkDisableSyncMessages = New System.Windows.Forms.CheckBox()
         Me.grpGameData = New System.Windows.Forms.GroupBox()
         Me.chkSessionTracking = New System.Windows.Forms.CheckBox()
         Me.lstSettings = New System.Windows.Forms.ListBox()
         Me.btnResetMessages = New System.Windows.Forms.Button()
-        Me.grpBackupConfirmations = New System.Windows.Forms.GroupBox()
         Me.pnlStartup = New System.Windows.Forms.Panel()
         Me.grpStartup = New System.Windows.Forms.GroupBox()
         Me.chkBackupOnLaunch = New System.Windows.Forms.CheckBox()
         Me.chkStartWindows = New System.Windows.Forms.CheckBox()
         Me.chkStartToTray = New System.Windows.Forms.CheckBox()
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
-        Me.grpLogOptions = New System.Windows.Forms.GroupBox()
-        Me.chkDisableSyncMessages = New System.Windows.Forms.CheckBox()
-        Me.grpGameMonitoringOptions = New System.Windows.Forms.GroupBox()
         Me.grpFolderOptions.SuspendLayout()
         Me.grp7zGeneral.SuspendLayout()
         Me.pnlBackup.SuspendLayout()
+        Me.grpBackupConfirmations.SuspendLayout()
         Me.grpBackupHandling.SuspendLayout()
         Me.pnl7z.SuspendLayout()
         Me.grp7zAdvanced.SuspendLayout()
         Me.grp7zInformation.SuspendLayout()
         Me.pnlGeneral.SuspendLayout()
-        CType(Me.nudSupressBackupThreshold, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.grpGameMonitoringOptions.SuspendLayout()
+        CType(Me.nudSuppressBackupThreshold, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.grpLogOptions.SuspendLayout()
         Me.grpGameData.SuspendLayout()
-        Me.grpBackupConfirmations.SuspendLayout()
         Me.pnlStartup.SuspendLayout()
         Me.grpStartup.SuspendLayout()
-        Me.grpLogOptions.SuspendLayout()
-        Me.grpGameMonitoringOptions.SuspendLayout()
         Me.SuspendLayout()
         '
         'chkAutoSaveLog
@@ -315,6 +315,17 @@ Partial Class frmSettings
         Me.pnlBackup.Size = New System.Drawing.Size(367, 314)
         Me.pnlBackup.TabIndex = 3
         '
+        'grpBackupConfirmations
+        '
+        Me.grpBackupConfirmations.Controls.Add(Me.chkBackupConfirm)
+        Me.grpBackupConfirmations.Controls.Add(Me.chkOverwriteWarning)
+        Me.grpBackupConfirmations.Location = New System.Drawing.Point(6, 200)
+        Me.grpBackupConfirmations.Name = "grpBackupConfirmations"
+        Me.grpBackupConfirmations.Size = New System.Drawing.Size(354, 65)
+        Me.grpBackupConfirmations.TabIndex = 2
+        Me.grpBackupConfirmations.TabStop = False
+        Me.grpBackupConfirmations.Text = "Backup Confirmations"
+        '
         'chkBackupConfirm
         '
         Me.chkBackupConfirm.AutoSize = True
@@ -426,6 +437,29 @@ Partial Class frmSettings
         Me.pnlGeneral.Size = New System.Drawing.Size(367, 314)
         Me.pnlGeneral.TabIndex = 1
         '
+        'grpGameMonitoringOptions
+        '
+        Me.grpGameMonitoringOptions.Controls.Add(Me.chkSuppressBackup)
+        Me.grpGameMonitoringOptions.Controls.Add(Me.lblMinutes)
+        Me.grpGameMonitoringOptions.Controls.Add(Me.chkShowDetectionTips)
+        Me.grpGameMonitoringOptions.Controls.Add(Me.nudSuppressBackupThreshold)
+        Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 115)
+        Me.grpGameMonitoringOptions.Name = "grpGameMonitoringOptions"
+        Me.grpGameMonitoringOptions.Size = New System.Drawing.Size(354, 65)
+        Me.grpGameMonitoringOptions.TabIndex = 1
+        Me.grpGameMonitoringOptions.TabStop = False
+        Me.grpGameMonitoringOptions.Text = "Game Monitoring Options"
+        '
+        'chkSuppressBackup
+        '
+        Me.chkSuppressBackup.AutoSize = True
+        Me.chkSuppressBackup.Location = New System.Drawing.Point(6, 18)
+        Me.chkSuppressBackup.Name = "chkSuppressBackup"
+        Me.chkSuppressBackup.Size = New System.Drawing.Size(158, 17)
+        Me.chkSuppressBackup.TabIndex = 2
+        Me.chkSuppressBackup.Text = "Ignore sessions shorter than"
+        Me.chkSuppressBackup.UseVisualStyleBackColor = True
+        '
         'lblMinutes
         '
         Me.lblMinutes.AutoSize = True
@@ -435,23 +469,34 @@ Partial Class frmSettings
         Me.lblMinutes.TabIndex = 17
         Me.lblMinutes.Text = "minutes"
         '
-        'nudSupressBackupThreshold
+        'nudSuppressBackupThreshold
         '
-        Me.nudSupressBackupThreshold.Location = New System.Drawing.Point(170, 17)
-        Me.nudSupressBackupThreshold.Maximum = New Decimal(New Integer() {999, 0, 0, 0})
-        Me.nudSupressBackupThreshold.Name = "nudSupressBackupThreshold"
-        Me.nudSupressBackupThreshold.Size = New System.Drawing.Size(51, 20)
-        Me.nudSupressBackupThreshold.TabIndex = 3
+        Me.nudSuppressBackupThreshold.Location = New System.Drawing.Point(170, 17)
+        Me.nudSuppressBackupThreshold.Maximum = New Decimal(New Integer() {999, 0, 0, 0})
+        Me.nudSuppressBackupThreshold.Name = "nudSuppressBackupThreshold"
+        Me.nudSuppressBackupThreshold.Size = New System.Drawing.Size(51, 20)
+        Me.nudSuppressBackupThreshold.TabIndex = 3
         '
-        'chkSupressBackup
+        'grpLogOptions
         '
-        Me.chkSupressBackup.AutoSize = True
-        Me.chkSupressBackup.Location = New System.Drawing.Point(6, 18)
-        Me.chkSupressBackup.Name = "chkSupressBackup"
-        Me.chkSupressBackup.Size = New System.Drawing.Size(158, 17)
-        Me.chkSupressBackup.TabIndex = 2
-        Me.chkSupressBackup.Text = "Ignore sessions shorter than"
-        Me.chkSupressBackup.UseVisualStyleBackColor = True
+        Me.grpLogOptions.Controls.Add(Me.chkDisableSyncMessages)
+        Me.grpLogOptions.Controls.Add(Me.chkAutoSaveLog)
+        Me.grpLogOptions.Location = New System.Drawing.Point(6, 186)
+        Me.grpLogOptions.Name = "grpLogOptions"
+        Me.grpLogOptions.Size = New System.Drawing.Size(354, 65)
+        Me.grpLogOptions.TabIndex = 2
+        Me.grpLogOptions.TabStop = False
+        Me.grpLogOptions.Text = "Log Options"
+        '
+        'chkDisableSyncMessages
+        '
+        Me.chkDisableSyncMessages.AutoSize = True
+        Me.chkDisableSyncMessages.Location = New System.Drawing.Point(6, 19)
+        Me.chkDisableSyncMessages.Name = "chkDisableSyncMessages"
+        Me.chkDisableSyncMessages.Size = New System.Drawing.Size(166, 17)
+        Me.chkDisableSyncMessages.TabIndex = 0
+        Me.chkDisableSyncMessages.Text = "Disable sync event messages"
+        Me.chkDisableSyncMessages.UseVisualStyleBackColor = True
         '
         'grpGameData
         '
@@ -491,17 +536,6 @@ Partial Class frmSettings
         Me.btnResetMessages.TabIndex = 5
         Me.btnResetMessages.Text = "&Reset Warnings"
         Me.btnResetMessages.UseVisualStyleBackColor = True
-        '
-        'grpBackupConfirmations
-        '
-        Me.grpBackupConfirmations.Controls.Add(Me.chkBackupConfirm)
-        Me.grpBackupConfirmations.Controls.Add(Me.chkOverwriteWarning)
-        Me.grpBackupConfirmations.Location = New System.Drawing.Point(6, 200)
-        Me.grpBackupConfirmations.Name = "grpBackupConfirmations"
-        Me.grpBackupConfirmations.Size = New System.Drawing.Size(354, 65)
-        Me.grpBackupConfirmations.TabIndex = 2
-        Me.grpBackupConfirmations.TabStop = False
-        Me.grpBackupConfirmations.Text = "Backup Confirmations"
         '
         'pnlStartup
         '
@@ -564,40 +598,6 @@ Partial Class frmSettings
         Me.chkMonitorOnStartup.Text = "Start monitoring on launch"
         Me.chkMonitorOnStartup.UseVisualStyleBackColor = True
         '
-        'grpLogOptions
-        '
-        Me.grpLogOptions.Controls.Add(Me.chkDisableSyncMessages)
-        Me.grpLogOptions.Controls.Add(Me.chkAutoSaveLog)
-        Me.grpLogOptions.Location = New System.Drawing.Point(6, 193)
-        Me.grpLogOptions.Name = "grpLogOptions"
-        Me.grpLogOptions.Size = New System.Drawing.Size(354, 65)
-        Me.grpLogOptions.TabIndex = 2
-        Me.grpLogOptions.TabStop = False
-        Me.grpLogOptions.Text = "Log Options"
-        '
-        'chkDisableSyncMessages
-        '
-        Me.chkDisableSyncMessages.AutoSize = True
-        Me.chkDisableSyncMessages.Location = New System.Drawing.Point(6, 19)
-        Me.chkDisableSyncMessages.Name = "chkDisableSyncMessages"
-        Me.chkDisableSyncMessages.Size = New System.Drawing.Size(166, 17)
-        Me.chkDisableSyncMessages.TabIndex = 0
-        Me.chkDisableSyncMessages.Text = "Disable sync event messages"
-        Me.chkDisableSyncMessages.UseVisualStyleBackColor = True
-        '
-        'grpGameMonitoringOptions
-        '
-        Me.grpGameMonitoringOptions.Controls.Add(Me.chkSupressBackup)
-        Me.grpGameMonitoringOptions.Controls.Add(Me.lblMinutes)
-        Me.grpGameMonitoringOptions.Controls.Add(Me.chkShowDetectionTips)
-        Me.grpGameMonitoringOptions.Controls.Add(Me.nudSupressBackupThreshold)
-        Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 115)
-        Me.grpGameMonitoringOptions.Name = "grpGameMonitoringOptions"
-        Me.grpGameMonitoringOptions.Size = New System.Drawing.Size(354, 72)
-        Me.grpGameMonitoringOptions.TabIndex = 1
-        Me.grpGameMonitoringOptions.TabStop = False
-        Me.grpGameMonitoringOptions.Text = "Game Monitoring Options"
-        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -625,6 +625,8 @@ Partial Class frmSettings
         Me.grp7zGeneral.ResumeLayout(False)
         Me.grp7zGeneral.PerformLayout()
         Me.pnlBackup.ResumeLayout(False)
+        Me.grpBackupConfirmations.ResumeLayout(False)
+        Me.grpBackupConfirmations.PerformLayout()
         Me.grpBackupHandling.ResumeLayout(False)
         Me.grpBackupHandling.PerformLayout()
         Me.pnl7z.ResumeLayout(False)
@@ -632,18 +634,16 @@ Partial Class frmSettings
         Me.grp7zAdvanced.PerformLayout()
         Me.grp7zInformation.ResumeLayout(False)
         Me.pnlGeneral.ResumeLayout(False)
-        CType(Me.nudSupressBackupThreshold, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.grpGameMonitoringOptions.ResumeLayout(False)
+        Me.grpGameMonitoringOptions.PerformLayout()
+        CType(Me.nudSuppressBackupThreshold, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.grpLogOptions.ResumeLayout(False)
+        Me.grpLogOptions.PerformLayout()
         Me.grpGameData.ResumeLayout(False)
         Me.grpGameData.PerformLayout()
-        Me.grpBackupConfirmations.ResumeLayout(False)
-        Me.grpBackupConfirmations.PerformLayout()
         Me.pnlStartup.ResumeLayout(False)
         Me.grpStartup.ResumeLayout(False)
         Me.grpStartup.PerformLayout()
-        Me.grpLogOptions.ResumeLayout(False)
-        Me.grpLogOptions.PerformLayout()
-        Me.grpGameMonitoringOptions.ResumeLayout(False)
-        Me.grpGameMonitoringOptions.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -684,8 +684,8 @@ Partial Class frmSettings
     Friend WithEvents chkRestoreNotify As CheckBox
     Friend WithEvents chkSessionTracking As CheckBox
     Friend WithEvents lblMinutes As Label
-    Friend WithEvents nudSupressBackupThreshold As NumericUpDown
-    Friend WithEvents chkSupressBackup As CheckBox
+    Friend WithEvents nudSuppressBackupThreshold As NumericUpDown
+    Friend WithEvents chkSuppressBackup As CheckBox
     Friend WithEvents btnResetMessages As Button
     Friend WithEvents chkUseGameID As CheckBox
     Friend WithEvents grpBackupConfirmations As GroupBox

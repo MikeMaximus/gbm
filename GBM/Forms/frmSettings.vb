@@ -60,8 +60,8 @@ Public Class frmSettings
         oSettings.AutoMark = chkAutoMark.Checked
         oSettings.TimeTracking = chkTimeTracking.Checked
         oSettings.SessionTracking = chkSessionTracking.Checked
-        oSettings.SupressBackup = chkSupressBackup.Checked
-        oSettings.SupressBackupThreshold = nudSupressBackupThreshold.Value
+        oSettings.SuppressBackup = chkSuppressBackup.Checked
+        oSettings.SuppressBackupThreshold = nudSuppressBackupThreshold.Value
         oSettings.CompressionLevel = cboCompression.SelectedValue
 
         If oSettings.Custom7zArguments <> txt7zArguments.Text.Trim And txt7zArguments.Text.Trim <> String.Empty Then
@@ -167,7 +167,7 @@ Public Class frmSettings
 
     Private Sub ResetMessages()
         If mgrCommon.ShowMessage(frmSettings_ConfirmMessageReset, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            oSettings.SupressMessages = mgrSettings.eSupressMessages.None
+            oSettings.SuppressMessages = mgrSettings.eSuppressMessages.None
         End If
     End Sub
 
@@ -189,9 +189,9 @@ Public Class frmSettings
         txtBackupFolder.Text = oSettings.BackupFolder
         chkTimeTracking.Checked = oSettings.TimeTracking
         chkSessionTracking.Checked = oSettings.SessionTracking
-        chkSupressBackup.Checked = oSettings.SupressBackup
-        nudSupressBackupThreshold.Value = oSettings.SupressBackupThreshold
-        nudSupressBackupThreshold.Enabled = chkSupressBackup.Checked
+        chkSuppressBackup.Checked = oSettings.SuppressBackup
+        nudSuppressBackupThreshold.Value = oSettings.SuppressBackupThreshold
+        nudSuppressBackupThreshold.Enabled = chkSuppressBackup.Checked
         cboCompression.SelectedValue = oSettings.CompressionLevel
         txt7zArguments.Text = oSettings.Custom7zArguments
         txt7zLocation.Text = oSettings.Custom7zLocation
@@ -285,7 +285,7 @@ Public Class frmSettings
 
         'Set Form Text
         lblMinutes.Text = frmSettings_lblMinutes
-        chkSupressBackup.Text = frmSettings_chkSupressBackup
+        chkSuppressBackup.Text = frmSettings_chkSuppressBackup
         grpBackupHandling.Text = frmSettings_grpBackupHandling
         chkRestoreNotify.Text = frmSettings_chkRestoreNotify
         chkAutoRestore.Text = frmSettings_chkAutoRestore
@@ -368,8 +368,8 @@ Public Class frmSettings
         End If
     End Sub
 
-    Private Sub chkSupressBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkSupressBackup.CheckedChanged
-        nudSupressBackupThreshold.Enabled = chkSupressBackup.Checked
+    Private Sub chkSuppressBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkSuppressBackup.CheckedChanged
+        nudSuppressBackupThreshold.Enabled = chkSuppressBackup.Checked
     End Sub
 
     Private Sub txt7zLocation_Leave(sender As Object, e As EventArgs) Handles txt7zLocation.Leave

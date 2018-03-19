@@ -1078,7 +1078,7 @@
   <data name="frmSettings_chkStartWindows" xml:space="preserve">
     <value>Start with Windows</value>
   </data>
-  <data name="frmSettings_chkSupressBackup" xml:space="preserve">
+  <data name="frmSettings_chkSuppressBackup" xml:space="preserve">
     <value>Ignore sessions shorter than</value>
   </data>
   <data name="frmSettings_chkTimeTracking" xml:space="preserve">
