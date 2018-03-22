@@ -194,7 +194,7 @@ Partial Class frmSettings
         Me.btnSave.Location = New System.Drawing.Point(384, 321)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 6
+        Me.btnSave.TabIndex = 7
         Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
@@ -204,7 +204,7 @@ Partial Class frmSettings
         Me.btnCancel.Location = New System.Drawing.Point(465, 321)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 7
+        Me.btnCancel.TabIndex = 8
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
@@ -301,7 +301,7 @@ Partial Class frmSettings
         Me.btnDefaults.Location = New System.Drawing.Point(12, 321)
         Me.btnDefaults.Name = "btnDefaults"
         Me.btnDefaults.Size = New System.Drawing.Size(110, 23)
-        Me.btnDefaults.TabIndex = 4
+        Me.btnDefaults.TabIndex = 5
         Me.btnDefaults.Text = "Set &Defaults"
         Me.btnDefaults.UseVisualStyleBackColor = True
         '
@@ -313,7 +313,7 @@ Partial Class frmSettings
         Me.pnlBackup.Location = New System.Drawing.Point(180, 0)
         Me.pnlBackup.Name = "pnlBackup"
         Me.pnlBackup.Size = New System.Drawing.Size(367, 314)
-        Me.pnlBackup.TabIndex = 3
+        Me.pnlBackup.TabIndex = 2
         '
         'grpBackupConfirmations
         '
@@ -400,7 +400,7 @@ Partial Class frmSettings
         Me.pnl7z.Location = New System.Drawing.Point(180, 0)
         Me.pnl7z.Name = "pnl7z"
         Me.pnl7z.Size = New System.Drawing.Size(367, 314)
-        Me.pnl7z.TabIndex = 2
+        Me.pnl7z.TabIndex = 4
         '
         'grp7zAdvanced
         '
@@ -533,7 +533,7 @@ Partial Class frmSettings
         Me.btnResetMessages.Location = New System.Drawing.Point(128, 321)
         Me.btnResetMessages.Name = "btnResetMessages"
         Me.btnResetMessages.Size = New System.Drawing.Size(110, 23)
-        Me.btnResetMessages.TabIndex = 5
+        Me.btnResetMessages.TabIndex = 6
         Me.btnResetMessages.Text = "&Reset Warnings"
         Me.btnResetMessages.UseVisualStyleBackColor = True
         '
@@ -543,7 +543,7 @@ Partial Class frmSettings
         Me.pnlStartup.Location = New System.Drawing.Point(180, 0)
         Me.pnlStartup.Name = "pnlStartup"
         Me.pnlStartup.Size = New System.Drawing.Size(367, 314)
-        Me.pnlStartup.TabIndex = 8
+        Me.pnlStartup.TabIndex = 3
         '
         'grpStartup
         '
