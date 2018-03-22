@@ -13,20 +13,20 @@ Public Class mgrSettings
     Private bAutoMark As Boolean = False
     Private bTimeTracking As Boolean = True
     Private bSessionTracking As Boolean = False
-    Private bSupressBackup As Boolean = False
-    Private iSupressBackupThreshold As Integer = 10
+    Private bSuppressBackup As Boolean = False
+    Private iSuppressBackupThreshold As Integer = 10
     Private iCompressionLevel As Integer = 5
     Private s7zArguments As String = String.Empty
     Private s7zLocation As String = String.Empty
     Private sBackupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).TrimEnd(New Char() {"\", "/"})
     Private eSyncFields As clsGame.eOptionalSyncFields = clsGame.eOptionalSyncFields.None Or clsGame.eOptionalSyncFields.TimeStamp
-    Private eMessages As eSupressMessages = eSupressMessages.None
+    Private eMessages As eSuppressMessages = eSuppressMessages.None
     Private bAutoSaveLog As Boolean = False
     Private bBackupOnLaunch As Boolean = True
     Private bUseGameID As Boolean = False
     Private bDisableSyncMessages As Boolean = True
 
-    <Flags()> Public Enum eSupressMessages
+    <Flags()> Public Enum eSuppressMessages
         None = 0
         GameIDSync = 1
     End Enum
@@ -139,21 +139,21 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property SupressBackup As Boolean
+    Property SuppressBackup As Boolean
         Get
-            Return bSupressBackup
+            Return bSuppressBackup
         End Get
         Set(value As Boolean)
-            bSupressBackup = value
+            bSuppressBackup = value
         End Set
     End Property
 
-    Property SupressBackupThreshold As Integer
+    Property SuppressBackupThreshold As Integer
         Get
-            Return iSupressBackupThreshold
+            Return iSuppressBackupThreshold
         End Get
         Set(value As Integer)
-            iSupressBackupThreshold = value
+            iSuppressBackupThreshold = value
         End Set
     End Property
 
@@ -259,11 +259,11 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property SupressMessages As eSupressMessages
+    Property SuppressMessages As eSuppressMessages
         Get
             Return eMessages
         End Get
-        Set(value As eSupressMessages)
+        Set(value As eSuppressMessages)
             eMessages = value
         End Set
     End Property
@@ -296,8 +296,8 @@ Public Class mgrSettings
     End Property
 
     Sub New()
-        'The GameIDsync message should be supressed on all new databases
-        SupressMessages = SetMessageField(SupressMessages, eSupressMessages.GameIDSync)
+        'The GameIDsync message should be suppressed on all new databases
+        SuppressMessages = SetMessageField(SuppressMessages, eSuppressMessages.GameIDSync)
     End Sub
 
     Private Sub SaveFromClass()
@@ -307,8 +307,8 @@ Public Class mgrSettings
 
         sSQL = "INSERT OR REPLACE INTO settings VALUES (1, @MonitorOnStartup, @StartToTray, @ShowDetectionToolTips, @DisableConfirmation, "
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @StartWithWindows, "
-        sSQL &= "@TimeTracking, @SupressBackup, @SupressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
-        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SupressMessages, @BackupOnLaunch, @UseGameID, "
+        sSQL &= "@TimeTracking, @SuppressBackup, @SuppressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
+        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, @UseGameID, "
         sSQL &= "@DisableSyncMessages)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
@@ -321,8 +321,8 @@ Public Class mgrSettings
         hshParams.Add("BackupFolder", BackupFolder)
         hshParams.Add("StartWithWindows", StartWithWindows)
         hshParams.Add("TimeTracking", TimeTracking)
-        hshParams.Add("SupressBackup", SupressBackup)
-        hshParams.Add("SupressBackupThreshold", SupressBackupThreshold)
+        hshParams.Add("SuppressBackup", SuppressBackup)
+        hshParams.Add("SuppressBackupThreshold", SuppressBackupThreshold)
         hshParams.Add("CompressionLevel", CompressionLevel)
         hshParams.Add("Custom7zArguments", Custom7zArguments)
         hshParams.Add("Custom7zLocation", Custom7zLocation)
@@ -331,7 +331,7 @@ Public Class mgrSettings
         hshParams.Add("AutoRestore", AutoRestore)
         hshParams.Add("AutoMark", AutoMark)
         hshParams.Add("SessionTracking", SessionTracking)
-        hshParams.Add("SupressMessages", SupressMessages)
+        hshParams.Add("SuppressMessages", SuppressMessages)
         hshParams.Add("BackupOnLaunch", BackupOnLaunch)
         hshParams.Add("UseGameID", UseGameID)
         hshParams.Add("DisableSyncMessages", DisableSyncMessages)
@@ -360,8 +360,8 @@ Public Class mgrSettings
             BackupFolder = CStr(dr("BackupFolder"))
             StartWithWindows = CBool(dr("StartWithWindows"))
             TimeTracking = CBool(dr("TimeTracking"))
-            SupressBackup = CBool(dr("SupressBackup"))
-            SupressBackupThreshold = CInt(dr("SupressBackupThreshold"))
+            SuppressBackup = CBool(dr("SuppressBackup"))
+            SuppressBackupThreshold = CInt(dr("SuppressBackupThreshold"))
             CompressionLevel = CInt(dr("CompressionLevel"))
             If Not IsDBNull(dr("Custom7zArguments")) Then Custom7zArguments = CStr(dr("Custom7zArguments"))
             If Not IsDBNull(dr("Custom7zLocation")) Then Custom7zLocation = CStr(dr("Custom7zLocation"))
@@ -370,7 +370,7 @@ Public Class mgrSettings
             AutoRestore = CBool(dr("AutoRestore"))
             AutoMark = CBool(dr("AutoMark"))
             SessionTracking = CBool(dr("SessionTracking"))
-            SupressMessages = CInt(dr("SupressMessages"))
+            SuppressMessages = CInt(dr("SuppressMessages"))
             BackupOnLaunch = CBool(dr("BackupOnLaunch"))
             UseGameID = CBool(dr("UseGameID"))
             DisableSyncMessages = CBool(dr("DisableSyncMessages"))
@@ -393,11 +393,11 @@ Public Class mgrSettings
         mgrPath.RemoteDatabaseLocation = Me.BackupFolder
     End Sub
 
-    Public Function SetMessageField(ByVal eMessages As eSupressMessages, ByVal eMessage As eSupressMessages) As eSupressMessages
+    Public Function SetMessageField(ByVal eMessages As eSuppressMessages, ByVal eMessage As eSuppressMessages) As eSuppressMessages
         Return eMessages Or eMessage
     End Function
 
-    Public Function RemoveMessageField(ByVal eMessages As eSupressMessages, ByVal eMessage As eSupressMessages) As eSupressMessages
+    Public Function RemoveMessageField(ByVal eMessages As eSuppressMessages, ByVal eMessage As eSuppressMessages) As eSuppressMessages
         Return eMessages And (Not eMessage)
     End Function
 

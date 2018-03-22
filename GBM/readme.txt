@@ -42,7 +42,7 @@ All Platforms:
 	- Added "Backup GBM data files on launch" to the settings.  A long overdue feature, this will backup both the remote and local databases (as gbm.s3db.launch.bak) each time GBM starts.  
 		- This new setting is enabled by default.
 		- Only one backup is kept, the prior one will be overwritten.
-	- Added the ability to display messages or warnings that can be supressed after one view.  These messages can be reset via the Settings screen.
+	- Added the ability to display messages or warnings that can be suppressed after one view.  These messages can be reset via the Settings screen.
 	- The "Enable Sync" feature is now mandatory and the option been removed from Settings.
 	- The "Clean Local Manifest" feature has been removed.  It is not required because manfiest entries are no longer orphaned by design.  Existing orphaned entries will be removed during the v1.1.0 database upgrade.
 	- Added "Sync Game IDs" feature.  This allows the user to update their game configuration identifiers to match the official list or an export file.
@@ -90,8 +90,9 @@ Known Issues:
 
 Important Notices:
 
-1.  Configurations on the official game list are no longer fully compatible with older GBM versions.  
-	- Technically they will work, but any game imported with a special character in it's name, such as a colon, will not create backup files correctly.
-	- These characters can be manually removed from the game name after importing in an older version, then the configurations will function properly.
+1.  Configurations on the official game lists are no longer compatible with older GBM versions.
+	- Configurations can now use Regular Expressions to detect when a game is running, which old versions of GBM will not understand how to handle.
+	- Configurations can now use any character in the game name, which may cause backups to fail in old versions of GBM.
+	- The last official lists compatible with v1.0.7 and lower will be archived and available to download from the GBM website for users who wish to stay on an older version.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

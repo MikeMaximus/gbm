@@ -4536,9 +4536,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Ignore sessions shorter than.
         '''</summary>
-        Friend ReadOnly Property frmSettings_chkSupressBackup() As String
+        Friend ReadOnly Property frmSettings_chkSuppressBackup() As String
             Get
-                Return ResourceManager.GetString("frmSettings_chkSupressBackup", resourceCulture)
+                Return ResourceManager.GetString("frmSettings_chkSuppressBackup", resourceCulture)
             End Get
         End Property
         
