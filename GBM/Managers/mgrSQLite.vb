@@ -802,7 +802,7 @@ Public Class mgrSQLite
                 sSQL &= "CREATE TABLE manifest_new (ManifestID TEXT NOT NULL PRIMARY KEY, MonitorID TEXT NOT NULL, FileName TEXT NOT NULL, " &
                    "DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
                 sSQL &= "INSERT INTO manifest_new (ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum) " &
-                   "SELECT ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum FROM manifest NATURAL JOIN monitorlist;" &
+                   "SELECT ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum FROM manifest NATURAL JOIN monitorlist GROUP BY ManifestID;" &
                    "DROP TABLE manifest; ALTER TABLE manifest_new RENAME TO manifest;"
 
                 sSQL &= "PRAGMA user_version=110"
@@ -828,14 +828,17 @@ Public Class mgrSQLite
                    "DROP TABLE monitorlist; ALTER TABLE monitorlist_new RENAME TO monitorlist;"
 
                 'We need to push the local game list against the remote database in case they had syncing disabled
+                Dim hshMonitorList As Hashtable = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList, mgrSQLite.Database.Local)
                 Dim oSettings As New mgrSettings
                 oSettings.LoadSettings()
-                mgrMonitorList.SyncMonitorLists(oSettings)
+                mgrMonitorList.DoListAddUpdateSync(hshMonitorList, Database.Remote, oSettings.SyncFields)
+                mgrTags.SyncTags(True)
+                mgrGameTags.SyncGameTags(True)
 
                 sSQL &= "CREATE TABLE manifest_new (ManifestID TEXT NOT NULL PRIMARY KEY, MonitorID TEXT NOT NULL, FileName TEXT NOT NULL, " &
                    "DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
                 sSQL &= "INSERT INTO manifest_new (ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum) " &
-                   "SELECT ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum FROM manifest NATURAL JOIN monitorlist;" &
+                   "SELECT ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum FROM manifest NATURAL JOIN monitorlist GROUP BY ManifestID;" &
                    "DROP TABLE manifest; ALTER TABLE manifest_new RENAME TO manifest;"
 
                 sSQL &= "PRAGMA user_version=110"
