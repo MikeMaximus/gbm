@@ -3562,7 +3562,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to A manaul backup of [PARAM] was triggered..
+        '''  Looks up a localized string similar to A manual backup of [PARAM] was triggered..
         '''</summary>
         Friend ReadOnly Property frmMain_ManualBackup() As String
             Get

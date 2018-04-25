@@ -269,7 +269,7 @@
     <value>Last Game: [PARAM]</value>
   </data>
   <data name="frmMain_ManualBackup" xml:space="preserve">
-    <value>A manaul backup of [PARAM] was triggered.</value>
+    <value>A manual backup of [PARAM] was triggered.</value>
   </data>
   <data name="frmMain_MasterListChanged" xml:space="preserve">
     <value>The master game list has been changed by a program other than GBM.</value>
