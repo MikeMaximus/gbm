@@ -9,8 +9,8 @@ Imports System.Runtime.Serialization.Formatters.Binary
 Public Class mgrCommon
 
     'These need to be updated when upgrading the packaged 7z utility
-    Private Shared sUtility64Hash As String = "F558DFBB7F2BF5D9A002AC68843A2E79E4EC045EDD7F56213562ACFA75CC77AD" 'v18.01 7za.exe x64
-    Private Shared sUtility32Hash As String = "E6855553350FA6FB23E05839C7F3EF140DAD29D9A0E3495DE4D1B17A9FBF5CA4" 'v18.01 7za.exe x86
+    Private Shared sUtility64Hash As String = "8BC2A3D6C37C4DB9BD487AD35039AE0DC8A1DDF2C3B1F0B76B3E678FEBB9F223" 'v18.05 7za.exe x64
+    Private Shared sUtility32Hash As String = "77613CCA716EDF68B9D5BAB951463ED7FADE5BC0EC465B36190A76299C50F117" 'v18.05 7za.exe x86
 
     Public Shared ReadOnly Property UtilityHash As String
         Get
