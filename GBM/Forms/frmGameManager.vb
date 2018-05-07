@@ -913,7 +913,7 @@ Public Class frmGameManager
         Next
     End Sub
 
-    Private Sub ModeChange()
+    Private Sub ModeChange(Optional ByVal bNoFocusChange As Boolean = False)
         IsLoading = True
 
         Select Case eCurrentMode
@@ -1060,7 +1060,7 @@ Public Class frmGameManager
                 btnExport.Enabled = True
         End Select
 
-        lstGames.Focus()
+        If Not bNoFocusChange Then lstGames.Focus()
 
         IsLoading = False
     End Sub
@@ -1812,6 +1812,11 @@ Public Class frmGameManager
     End Sub
 
     Private Sub txtQuickFilter_TextChanged(sender As Object, e As EventArgs) Handles txtQuickFilter.TextChanged
+        If Not eCurrentMode = eModes.Disabled Then
+            eCurrentMode = eModes.Disabled
+            ModeChange(True)
+        End If
+
         If Not tmFilterTimer.Enabled Then
             tmFilterTimer.Enabled = True
             tmFilterTimer.Start()
