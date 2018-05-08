@@ -1815,6 +1815,7 @@ Public Class frmGameManager
         If Not eCurrentMode = eModes.Disabled Then
             eCurrentMode = eModes.Disabled
             ModeChange(True)
+            lstGames.ClearSelected()
         End If
 
         If Not tmFilterTimer.Enabled Then
