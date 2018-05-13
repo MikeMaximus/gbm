@@ -1819,6 +1819,7 @@ Public Class frmGameManager
         End If
 
         If Not tmFilterTimer.Enabled Then
+            lstGames.Enabled = False
             tmFilterTimer.Enabled = True
             tmFilterTimer.Start()
         End If
@@ -1833,6 +1834,7 @@ Public Class frmGameManager
         FormatAndFillList()
         tmFilterTimer.Stop()
         tmFilterTimer.Enabled = False
+        lstGames.Enabled = True
     End Sub
 
     Private Sub frmGameManager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
