@@ -847,14 +847,14 @@ Public Class frmGameManager
     End Sub
 
     Private Sub FillTagsbyID(ByVal sID As String)
-        Dim hshTags As Hashtable
+        Dim slTags As SortedList
         Dim oTag As clsTag
         Dim sTags As String = String.Empty
         Dim cTrim() As Char = {",", " "}
 
-        hshTags = mgrGameTags.GetTagsByGame(sID)
+        slTags = mgrGameTags.GetTagsByGame(sID)
 
-        For Each de As DictionaryEntry In hshTags
+        For Each de As DictionaryEntry In slTags
             oTag = DirectCast(de.Value, clsTag)
             sTags &= "#" & oTag.Name & ", "
         Next

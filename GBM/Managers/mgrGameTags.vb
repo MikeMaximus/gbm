@@ -76,11 +76,11 @@
 
     End Sub
 
-    Public Shared Function GetTagsByGame(ByVal sMonitorID As String) As Hashtable
+    Public Shared Function GetTagsByGame(ByVal sMonitorID As String) As SortedList
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim oData As DataSet
         Dim sSQL As String
-        Dim hshList As New Hashtable
+        Dim slList As New SortedList
         Dim hshParams As New Hashtable
         Dim oTag As clsTag
 
@@ -94,10 +94,10 @@
             oTag = New clsTag
             oTag.ID = CStr(dr("TagID"))
             oTag.Name = CStr(dr("Name"))
-            hshList.Add(oTag.Name, oTag)
+            slList.Add(oTag.Name, oTag)
         Next
 
-        Return hshList
+        Return slList
     End Function
 
     Public Shared Function GetTagsByGameForExport(ByVal sMonitorID As String) As List(Of Tag)
@@ -108,7 +108,7 @@
         Dim hshParams As New Hashtable
         Dim oTag As Tag
 
-        sSQL = "SELECT TagID, tags.Name FROM gametags NATURAL JOIN tags WHERE MonitorID = @ID"
+        sSQL = "SELECT TagID, tags.Name FROM gametags NATURAL JOIN tags WHERE MonitorID = @ID ORDER BY tags.Name ASC"
 
         hshParams.Add("ID", sMonitorID)
 
