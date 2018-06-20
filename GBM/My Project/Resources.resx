@@ -986,7 +986,7 @@
     <value>Individual Files</value>
   </data>
   <data name="frmIncludeExclude_RawEditInfo" xml:space="preserve">
-    <value>Items are semi-colon delimited.</value>
+    <value>Items are colon delimited.</value>
   </data>
   <data name="frmIncludeExclude_RawEditTitle" xml:space="preserve">
     <value>[PARAM] Raw Edit</value>
