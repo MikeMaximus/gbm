@@ -116,6 +116,7 @@ Public Class mgrBackup
     Public Function CheckBackupPrereq(ByVal oGame As clsGame) As Boolean
         Dim sBackupFile As String = oSettings.BackupFolder
         Dim sSavePath As String
+        Dim sOverwriteMessage As String
         Dim lAvailableSpace As Long
         Dim lFolderSize As Long
 
@@ -150,13 +151,19 @@ Public Class mgrBackup
         End If
 
         If oSettings.ShowOverwriteWarning And File.Exists(sBackupFile) And Not oGame.AppendTimeStamp Then
-            If mgrCommon.ShowMessage(mgrBackup_ConfirmOverwrite, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+            If oGame.AbsolutePath Then
+                sOverwriteMessage = mgrBackup_ConfirmOverwrite
+            Else
+                sOverwriteMessage = mgrBackup_ConfirmOverwriteRelative
+            End If
+
+            If mgrCommon.ShowMessage(sOverwriteMessage, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorOverwriteAbort, oGame.Name), False, ToolTipIcon.Error, True)
                 Return False
             End If
         End If
 
-        Return True
+            Return True
     End Function
 
     Private Sub CheckOldBackups(ByVal oGame As clsGame)
