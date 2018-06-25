@@ -675,6 +675,36 @@ Public Class frmGameManager
 
     End Sub
 
+    Public Sub VerifyBackups(ByVal oApp As clsGame)
+        Dim oCurrentBackup As clsBackup
+        Dim oCurrentBackups As List(Of clsBackup)
+        Dim oBackupsRemoved As New List(Of clsBackup)
+
+        oCurrentBackups = mgrManifest.DoManifestGetByMonitorID(oApp.ID, mgrSQLite.Database.Remote)
+
+        Cursor.Current = Cursors.WaitCursor
+
+        For Each oCurrentBackup In oCurrentBackups
+            If Not File.Exists(BackupFolder & oCurrentBackup.FileName) Then
+                oBackupsRemoved.Add(oCurrentBackup)
+                mgrManifest.DoManifestDeleteByManifestID(oCurrentBackup, mgrSQLite.Database.Remote)
+            End If
+        Next
+
+        If oBackupsRemoved.Count > 0 Then
+            For Each oCurrentBackup In oBackupsRemoved
+                oCurrentBackups.Remove(oCurrentBackup)
+                If oCurrentBackups.Count = 0 Then
+                    mgrManifest.DoManifestDeleteByMonitorID(oCurrentBackup, mgrSQLite.Database.Local)
+                End If
+            Next
+            LoadBackupData()
+            GetBackupInfo(oApp)
+        End If
+
+        Cursor.Current = Cursors.Default
+    End Sub
+
     Private Sub GetBackupInfo(ByVal oApp As clsGame)
         Dim oBackupInfo As clsBackup
         Dim oCurrentBackup As clsBackup
@@ -1785,6 +1815,10 @@ Public Class frmGameManager
         TimeStampModeChange()
     End Sub
 
+    Private Sub cboRemoteBackup_Enter(sender As Object, e As EventArgs) Handles cboRemoteBackup.Enter, cboRemoteBackup.Click
+        VerifyBackups(oCurrentGame)
+    End Sub
+
     Private Sub cboRemoteBackup_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboRemoteBackup.SelectedIndexChanged
         If Not bIsLoading Then
             UpdateBackupInfo(DirectCast(cboRemoteBackup.SelectedItem, KeyValuePair(Of String, String)).Key)
@@ -1844,4 +1878,5 @@ Public Class frmGameManager
     Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkMonitorOnly.CheckedChanged
         MonitorOnlyModeChange()
     End Sub
+
 End Class
