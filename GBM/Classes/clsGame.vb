@@ -343,9 +343,6 @@ Public Class clsGame
             If CleanFolder <> oGame.CleanFolder Then
                 Return False
             End If
-            If AppendTimeStamp <> oGame.AppendTimeStamp Then
-                Return False
-            End If
             If Hours <> oGame.Hours Then
                 Return False
             End If
