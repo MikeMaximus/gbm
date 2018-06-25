@@ -230,7 +230,7 @@ Public Class mgrBackup
             End If
 
             If oGame.AppendTimeStamp Then
-                CheckOldBackups(oGame)
+                If oGame.BackupLimit > 0 Then CheckOldBackups(oGame)
                 sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & sTimeStamp & ".7z"
             Else
                 sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & ".7z"

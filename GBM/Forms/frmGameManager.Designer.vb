@@ -267,7 +267,6 @@ Partial Class frmGameManager
         'nudLimit
         '
         Me.nudLimit.Location = New System.Drawing.Point(330, 155)
-        Me.nudLimit.Minimum = New Decimal(New Integer() {2, 0, 0, 0})
         Me.nudLimit.Name = "nudLimit"
         Me.nudLimit.Size = New System.Drawing.Size(40, 20)
         Me.nudLimit.TabIndex = 17
