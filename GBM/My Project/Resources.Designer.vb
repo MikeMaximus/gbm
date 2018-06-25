@@ -5620,7 +5620,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The manifest shows the backup folder contains a backup for [PARAM] that has not been restored on this computer.[BR][BR]Do you want to overwrite this file anyway?.
+        '''  Looks up a localized string similar to The manifest shows the backup folder contains a more recent backup for [PARAM] that has not been restored on this computer.[BR][BR]Do you want to overwrite this file anyway?.
         '''</summary>
         Friend ReadOnly Property mgrBackup_ConfirmManifestConflict() As String
             Get

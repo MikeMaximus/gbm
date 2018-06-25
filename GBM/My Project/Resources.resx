@@ -1283,7 +1283,7 @@
     <value>[PARAM] backup completed with warnings.</value>
   </data>
   <data name="mgrBackup_ConfirmManifestConflict" xml:space="preserve">
-    <value>The manifest shows the backup folder contains a backup for [PARAM] that has not been restored on this computer.[BR][BR]Do you want to overwrite this file anyway?</value>
+    <value>The manifest shows the backup folder contains a more recent backup for [PARAM] that has not been restored on this computer.[BR][BR]Do you want to overwrite this file anyway?</value>
   </data>
   <data name="mgrBackup_ConfirmOverwrite" xml:space="preserve">
     <value>A file with the same name already exists in the backup folder.[BR][BR]Do you want to overwrite this file?</value>

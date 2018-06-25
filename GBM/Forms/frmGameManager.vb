@@ -1509,7 +1509,6 @@ Public Class frmGameManager
         If lstGames.SelectedItems.Count > 0 Then
             RestoreList.Clear()
 
-
             For Each oData In lstGames.SelectedItems
                 If oRemoteBackupData.Contains(oData.Key) Then
                     oGame = DirectCast(GameData(oData.Key), clsGame)
@@ -1524,6 +1523,12 @@ Public Class frmGameManager
                 For Each de As DictionaryEntry In RestoreList
                     oGame = DirectCast(de.Key, clsGame)
                 Next
+
+                'FIXME: This is a really lazy fix.  This whole function needs a rewrite at some point.
+                'Replace backup entry with currently selected backup item in case the user wants to restore an older backup.       
+                RestoreList.Clear()
+                RestoreList.Add(oGame, oCurrentBackupItem)
+
                 If Not mgrRestore.CheckManifest(oGame.Name) Then
                     sMsg = mgrCommon.FormatString(frmGameManager_ConfirmRestoreAnyway, oGame.Name)
                 Else
