@@ -425,6 +425,9 @@ Public Class clsGame
             If FolderSave <> oGame.FolderSave Then
                 Return False
             End If
+            If AppendTimeStamp <> oGame.AppendTimeStamp Then
+                Return False
+            End If
             If MonitorOnly <> oGame.MonitorOnly Then
                 Return False
             End If
