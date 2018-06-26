@@ -1112,21 +1112,27 @@ Public Class frmGameManager
         If chkMonitorOnly.Checked Then
             chkFolderSave.Enabled = False
             chkTimeStamp.Enabled = False
+            lblLimit.Enabled = False
+            nudLimit.Enabled = False
             lblSavePath.Enabled = False
             txtSavePath.Enabled = False
             btnSavePathBrowse.Enabled = False
             btnInclude.Enabled = False
             btnExclude.Enabled = False
+            chkCleanFolder.Enabled = False
         Else
             chkFolderSave.Enabled = True
             chkTimeStamp.Enabled = True
+            lblLimit.Enabled = True
+            nudLimit.Enabled = True
             lblSavePath.Enabled = True
             txtSavePath.Enabled = True
             btnSavePathBrowse.Enabled = True
             btnInclude.Enabled = True
             btnExclude.Enabled = True
+            FolderSaveModeChange()
+            VerifyCleanFolder()
         End If
-        VerifyCleanFolder()
     End Sub
 
     Private Sub TimeStampModeChange()
@@ -1821,7 +1827,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub cboRemoteBackup_Enter(sender As Object, e As EventArgs) Handles cboRemoteBackup.Enter, cboRemoteBackup.Click
-        VerifyBackups(oCurrentGame)
+        If Not oCurrentGame Is Nothing Then VerifyBackups(oCurrentGame)
     End Sub
 
     Private Sub cboRemoteBackup_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboRemoteBackup.SelectedIndexChanged
