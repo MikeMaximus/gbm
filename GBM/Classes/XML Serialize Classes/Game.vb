@@ -6,6 +6,8 @@
     Private sPath As String
     Private bAbsolutePath As Boolean
     Private bFolderSave As Boolean
+    Private bAppendTimeStamp As Boolean
+    Private iBackupLimit As Integer
     Private sFileType As String
     Private sExcludeList As String
     Private bMonitorOnly As Boolean
@@ -73,6 +75,24 @@
         End Set
         Get
             Return bFolderSave
+        End Get
+    End Property
+
+    Property AppendTimeStamp As Boolean
+        Set(value As Boolean)
+            bAppendTimeStamp = value
+        End Set
+        Get
+            Return bAppendTimeStamp
+        End Get
+    End Property
+
+    Property BackupLimit As Integer
+        Set(value As Integer)
+            iBackupLimit = value
+        End Set
+        Get
+            Return iBackupLimit
         End Get
     End Property
 

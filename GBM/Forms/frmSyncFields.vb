@@ -26,9 +26,6 @@ Public Class frmSyncFields
         If (eSyncFields And clsGame.eOptionalSyncFields.MonitorGame) = clsGame.eOptionalSyncFields.MonitorGame Then
             chkMonitorGame.Checked = True
         End If
-        If (eSyncFields And clsGame.eOptionalSyncFields.TimeStamp) = clsGame.eOptionalSyncFields.TimeStamp Then
-            chkTimeStamp.Checked = True
-        End If
         If (eSyncFields And clsGame.eOptionalSyncFields.Version) = clsGame.eOptionalSyncFields.Version Then
             chkVersion.Checked = True
         End If
@@ -47,7 +44,6 @@ Public Class frmSyncFields
         chkVersion.Text = frmSyncFields_chkVersion
         chkCompany.Text = frmSyncFields_chkCompany
         chkGamePath.Text = frmSyncFields_chkGamePath
-        chkTimeStamp.Text = frmSyncFields_chkTimeStamp
     End Sub
 
     Private Sub frmSyncFields_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -63,14 +59,6 @@ Public Class frmSyncFields
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.DialogResult = DialogResult.Cancel
         Me.Close()
-    End Sub
-
-    Private Sub chkTimeStamp_CheckedChanged(sender As Object, e As EventArgs) Handles chkTimeStamp.CheckedChanged
-        If chkTimeStamp.Checked Then
-            SyncFields = clsGame.SetSyncField(SyncFields, clsGame.eOptionalSyncFields.TimeStamp)
-        Else
-            SyncFields = clsGame.RemoveSyncField(SyncFields, clsGame.eOptionalSyncFields.TimeStamp)
-        End If
     End Sub
 
     Private Sub chkGamePath_CheckedChanged(sender As Object, e As EventArgs) Handles chkGamePath.CheckedChanged

@@ -19,7 +19,7 @@ Public Class mgrSettings
     Private s7zArguments As String = String.Empty
     Private s7zLocation As String = String.Empty
     Private sBackupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).TrimEnd(New Char() {"\", "/"})
-    Private eSyncFields As clsGame.eOptionalSyncFields = clsGame.eOptionalSyncFields.None Or clsGame.eOptionalSyncFields.TimeStamp
+    Private eSyncFields As clsGame.eOptionalSyncFields = clsGame.eOptionalSyncFields.None
     Private eMessages As eSuppressMessages = eSuppressMessages.None
     Private bAutoSaveLog As Boolean = False
     Private bBackupOnLaunch As Boolean = True

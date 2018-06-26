@@ -1139,7 +1139,7 @@ Public Class frmGameManager
         If chkTimeStamp.Checked Then
             nudLimit.Visible = True
             lblLimit.Visible = True
-            nudLimit.Value = 5
+            nudLimit.Value = 0
         Else
             nudLimit.Visible = False
             nudLimit.Value = nudLimit.Minimum

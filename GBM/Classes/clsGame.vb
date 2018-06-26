@@ -9,7 +9,7 @@ Public Class clsGame
     Private bFolderSave As Boolean = False
     Private sFileType As String = String.Empty
     Private bAppendTimeStamp As Boolean = False
-    Private iBackupLimit As Integer = 2
+    Private iBackupLimit As Integer = 0
     Private bCleanFolder As Boolean = False
     Private sExcludeList As String = String.Empty
     Private sProcessPath As String = String.Empty
@@ -31,7 +31,7 @@ Public Class clsGame
         Company = 2
         Version = 4
         Icon = 16
-        TimeStamp = 32
+        Unused = 32 'Do not remove to maintain compatability, re-use for a future field.
         MonitorGame = 64
     End Enum
 
@@ -340,6 +340,12 @@ Public Class clsGame
             If FolderSave <> oGame.FolderSave Then
                 Return False
             End If
+            If AppendTimeStamp <> oGame.AppendTimeStamp Then
+                Return False
+            End If
+            If BackupLimit <> oGame.BackupLimit Then
+                Return False
+            End If
             If CleanFolder <> oGame.CleanFolder Then
                 Return False
             End If
@@ -374,14 +380,6 @@ Public Class clsGame
             End If
             If (eSyncFields And eOptionalSyncFields.MonitorGame) = eOptionalSyncFields.MonitorGame Then
                 If Enabled <> oGame.Enabled Then
-                    Return False
-                End If
-            End If
-            If (eSyncFields And eOptionalSyncFields.TimeStamp) = eOptionalSyncFields.TimeStamp Then
-                If AppendTimeStamp <> oGame.AppendTimeStamp Then
-                    Return False
-                End If
-                If BackupLimit <> oGame.BackupLimit Then
                     Return False
                 End If
             End If

@@ -28,7 +28,6 @@ Partial Class frmSyncFields
         Me.chkVersion = New System.Windows.Forms.CheckBox()
         Me.chkCompany = New System.Windows.Forms.CheckBox()
         Me.chkGamePath = New System.Windows.Forms.CheckBox()
-        Me.chkTimeStamp = New System.Windows.Forms.CheckBox()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.grpFields.SuspendLayout()
@@ -41,10 +40,9 @@ Partial Class frmSyncFields
         Me.grpFields.Controls.Add(Me.chkVersion)
         Me.grpFields.Controls.Add(Me.chkCompany)
         Me.grpFields.Controls.Add(Me.chkGamePath)
-        Me.grpFields.Controls.Add(Me.chkTimeStamp)
         Me.grpFields.Location = New System.Drawing.Point(12, 12)
         Me.grpFields.Name = "grpFields"
-        Me.grpFields.Size = New System.Drawing.Size(195, 162)
+        Me.grpFields.Size = New System.Drawing.Size(195, 135)
         Me.grpFields.TabIndex = 0
         Me.grpFields.TabStop = False
         Me.grpFields.Text = "Available Fields"
@@ -52,7 +50,7 @@ Partial Class frmSyncFields
         'chkMonitorGame
         '
         Me.chkMonitorGame.AutoSize = True
-        Me.chkMonitorGame.Location = New System.Drawing.Point(6, 134)
+        Me.chkMonitorGame.Location = New System.Drawing.Point(6, 111)
         Me.chkMonitorGame.Name = "chkMonitorGame"
         Me.chkMonitorGame.Size = New System.Drawing.Size(109, 17)
         Me.chkMonitorGame.TabIndex = 5
@@ -62,7 +60,7 @@ Partial Class frmSyncFields
         'chkIcon
         '
         Me.chkIcon.AutoSize = True
-        Me.chkIcon.Location = New System.Drawing.Point(6, 111)
+        Me.chkIcon.Location = New System.Drawing.Point(6, 88)
         Me.chkIcon.Name = "chkIcon"
         Me.chkIcon.Size = New System.Drawing.Size(148, 17)
         Me.chkIcon.TabIndex = 4
@@ -72,7 +70,7 @@ Partial Class frmSyncFields
         'chkVersion
         '
         Me.chkVersion.AutoSize = True
-        Me.chkVersion.Location = New System.Drawing.Point(6, 88)
+        Me.chkVersion.Location = New System.Drawing.Point(6, 65)
         Me.chkVersion.Name = "chkVersion"
         Me.chkVersion.Size = New System.Drawing.Size(61, 17)
         Me.chkVersion.TabIndex = 3
@@ -82,7 +80,7 @@ Partial Class frmSyncFields
         'chkCompany
         '
         Me.chkCompany.AutoSize = True
-        Me.chkCompany.Location = New System.Drawing.Point(6, 65)
+        Me.chkCompany.Location = New System.Drawing.Point(6, 42)
         Me.chkCompany.Name = "chkCompany"
         Me.chkCompany.Size = New System.Drawing.Size(70, 17)
         Me.chkCompany.TabIndex = 2
@@ -92,27 +90,17 @@ Partial Class frmSyncFields
         'chkGamePath
         '
         Me.chkGamePath.AutoSize = True
-        Me.chkGamePath.Location = New System.Drawing.Point(6, 42)
+        Me.chkGamePath.Location = New System.Drawing.Point(6, 19)
         Me.chkGamePath.Name = "chkGamePath"
         Me.chkGamePath.Size = New System.Drawing.Size(180, 17)
         Me.chkGamePath.TabIndex = 1
         Me.chkGamePath.Text = "Game Path (Not Recommended)"
         Me.chkGamePath.UseVisualStyleBackColor = True
         '
-        'chkTimeStamp
-        '
-        Me.chkTimeStamp.AutoSize = True
-        Me.chkTimeStamp.Location = New System.Drawing.Point(6, 19)
-        Me.chkTimeStamp.Name = "chkTimeStamp"
-        Me.chkTimeStamp.Size = New System.Drawing.Size(133, 17)
-        Me.chkTimeStamp.TabIndex = 0
-        Me.chkTimeStamp.Text = "Save multiple backups"
-        Me.chkTimeStamp.UseVisualStyleBackColor = True
-        '
         'btnCancel
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(132, 180)
+        Me.btnCancel.Location = New System.Drawing.Point(132, 153)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 2
@@ -122,7 +110,7 @@ Partial Class frmSyncFields
         'btnSave
         '
         Me.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnSave.Location = New System.Drawing.Point(52, 180)
+        Me.btnSave.Location = New System.Drawing.Point(52, 153)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
         Me.btnSave.TabIndex = 1
@@ -133,7 +121,7 @@ Partial Class frmSyncFields
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(219, 211)
+        Me.ClientSize = New System.Drawing.Size(219, 186)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.grpFields)
@@ -157,7 +145,6 @@ Partial Class frmSyncFields
     Friend WithEvents chkVersion As CheckBox
     Friend WithEvents chkCompany As CheckBox
     Friend WithEvents chkGamePath As CheckBox
-    Friend WithEvents chkTimeStamp As CheckBox
     Friend WithEvents btnCancel As Button
     Friend WithEvents btnSave As Button
 End Class

@@ -373,8 +373,6 @@ Public Class mgrMonitorList
         Dim sVersion As String
         Dim sCompany As String
         Dim sMonitorGame As String
-        Dim sTimeStamp As String
-        Dim sBackupLimit As String
 
         'Setup SQL for optional fields
         If (eSyncFields And clsGame.eOptionalSyncFields.Company) = clsGame.eOptionalSyncFields.Company Then
@@ -397,13 +395,6 @@ Public Class mgrMonitorList
         Else
             sMonitorGame = "COALESCE((SELECT Enabled FROM monitorlist WHERE MonitorID=@ID),1)"
         End If
-        If (eSyncFields And clsGame.eOptionalSyncFields.TimeStamp) = clsGame.eOptionalSyncFields.TimeStamp Then
-            sTimeStamp = "@TimeStamp"
-            sBackupLimit = "@BackupLimit"
-        Else
-            sTimeStamp = "COALESCE((SELECT TimeStamp FROM monitorlist WHERE MonitorID=@ID),0)"
-            sBackupLimit = "COALESCE((SELECT BackupLimit FROM monitorlist WHERE MonitorID=@ID),2)"
-        End If
         If (eSyncFields And clsGame.eOptionalSyncFields.Version) = clsGame.eOptionalSyncFields.Version Then
             sVersion = "@Version"
         Else
@@ -412,9 +403,9 @@ Public Class mgrMonitorList
 
         sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx) "
         sSQL &= "VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, "
-        sSQL &= sTimeStamp & ", @ExcludeList, " & sGamePath & ", "
+        sSQL &= "@TimeStamp, @ExcludeList, " & sGamePath & ", "
         sSQL &= sIcon & ", @Hours, " & sVersion & ", "
-        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, " & sBackupLimit & ", @CleanFolder, @Parameter, @Comments, @IsRegEx);"
+        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter, @Comments, @IsRegEx);"
 
         For Each oGame As clsGame In hshGames.Values
             hshParams = New Hashtable
@@ -426,6 +417,8 @@ Public Class mgrMonitorList
             hshParams.Add("Path", oGame.TruePath)
             hshParams.Add("AbsolutePath", oGame.AbsolutePath)
             hshParams.Add("FolderSave", oGame.FolderSave)
+            hshParams.Add("TimeStamp", oGame.AppendTimeStamp)
+            hshParams.Add("BackupLimit", oGame.BackupLimit)
             hshParams.Add("FileType", oGame.FileType)
             hshParams.Add("ExcludeList", oGame.ExcludeList)
             hshParams.Add("Hours", oGame.Hours)
@@ -447,10 +440,6 @@ Public Class mgrMonitorList
             End If
             If (eSyncFields And clsGame.eOptionalSyncFields.MonitorGame) = clsGame.eOptionalSyncFields.MonitorGame Then
                 hshParams.Add("Enabled", oGame.Enabled)
-            End If
-            If (eSyncFields And clsGame.eOptionalSyncFields.TimeStamp) = clsGame.eOptionalSyncFields.TimeStamp Then
-                hshParams.Add("TimeStamp", oGame.AppendTimeStamp)
-                hshParams.Add("BackupLimit", oGame.BackupLimit)
             End If
             If (eSyncFields And clsGame.eOptionalSyncFields.Version) = clsGame.eOptionalSyncFields.Version Then
                 hshParams.Add("Version", oGame.Version)
@@ -778,6 +767,8 @@ Public Class mgrMonitorList
             If Not IsDBNull(dr("Path")) Then oGame.Path = CStr(dr("Path"))
             oGame.AbsolutePath = CBool(dr("AbsolutePath"))
             oGame.FolderSave = CBool(dr("FolderSave"))
+            oGame.AppendTimeStamp = CBool(dr("TimeStamp"))
+            oGame.BackupLimit = CInt(dr("BackupLimit"))
             If Not IsDBNull(dr("FileType")) Then oGame.FileType = CStr(dr("FileType"))
             If Not IsDBNull(dr("ExcludeList")) Then oGame.ExcludeList = CStr(dr("ExcludeList"))
             oGame.MonitorOnly = CBool(dr("MonitorOnly"))

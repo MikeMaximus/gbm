@@ -33,6 +33,8 @@ Public Class mgrXML
             oGame.AbsolutePath = g.AbsolutePath
             oGame.Path = g.Path
             oGame.FolderSave = g.FolderSave
+            oGame.AppendTimeStamp = g.AppendTimeStamp
+            oGame.BackupLimit = g.BackupLimit
             oGame.FileType = g.FileType
             oGame.ExcludeList = g.ExcludeList
             oGame.MonitorOnly = g.MonitorOnly
