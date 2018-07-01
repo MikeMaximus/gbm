@@ -587,6 +587,20 @@ Public Class frmMain
         lblStatus2.Text = String.Empty
         lblStatus3.Text = String.Empty
 
+        'Get Process Information
+        Try
+            Dim ic As Icon = System.Drawing.Icon.ExtractAssociatedIcon(oProcess.FoundProcess.MainModule.FileName)
+            pbIcon.Image = ic.ToBitmap
+
+            'Set Game Details
+            sFileName = oProcess.FoundProcess.MainModule.FileName
+            sFileVersion = oProcess.FoundProcess.MainModule.FileVersionInfo.FileVersion
+            sCompanyName = oProcess.FoundProcess.MainModule.FileVersionInfo.CompanyName
+
+        Catch ex As Exception
+            pbIcon.Image = Icon_Unknown
+        End Try
+
         'Get Game Details 
         If bMulti Then
             bAllowIcon = False
@@ -595,24 +609,15 @@ Public Class frmMain
             pbTime.Visible = False
             lblTimeSpent.Visible = False
             pbIcon.Image = Icon_Unknown
-            lblStatus1.Text = frmMain_NoDetails
+            If sFileName = String.Empty Then
+                lblStatus1.Text = frmMain_NoDetails
+            Else
+                lblStatus1.Text = sFileName
+            End If
         Else
             bAllowIcon = True
             bAllowDetails = True
             lblGameTitle.Text = oProcess.GameInfo.Name
-
-            Try
-                Dim ic As Icon = System.Drawing.Icon.ExtractAssociatedIcon(oProcess.FoundProcess.MainModule.FileName)
-                pbIcon.Image = ic.ToBitmap
-
-                'Set Game Details
-                sFileName = oProcess.FoundProcess.MainModule.FileName
-                sFileVersion = oProcess.FoundProcess.MainModule.FileVersionInfo.FileVersion
-                sCompanyName = oProcess.FoundProcess.MainModule.FileVersionInfo.CompanyName
-
-            Catch ex As Exception
-                pbIcon.Image = Icon_Unknown
-            End Try
 
             'Check for a custom icon & details            
             If File.Exists(oProcess.GameInfo.Icon) Then
