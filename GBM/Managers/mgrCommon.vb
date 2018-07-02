@@ -437,8 +437,8 @@ Public Class mgrCommon
         'Check if the sub-folder is an ID or Name
         If oBackup.FileName.StartsWith(oBackup.MonitorID & Path.DirectorySeparatorChar) Then
             sDir = sBackupFolder & oBackup.MonitorID
-        ElseIf oBackup.FileName.StartsWith(oBackup.Name & Path.DirectorySeparatorChar) Then
-            sDir = sBackupFolder & oBackup.Name
+        ElseIf oBackup.FileName.StartsWith(oBackup.FileSafeName & Path.DirectorySeparatorChar) Then
+            sDir = sBackupFolder & oBackup.FileSafeName
         Else
             Exit Sub
         End If

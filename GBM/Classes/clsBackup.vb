@@ -47,6 +47,12 @@
         End Get
     End Property
 
+    ReadOnly Property FileSafeName As String
+        Get
+            Return mgrPath.ValidateFileNameForOS(sName)
+        End Get
+    End Property
+
     Property FileName As String
         Get
             If mgrCommon.IsUnix Then
