@@ -175,15 +175,26 @@ Public Class frmGameManager
         Return sPath
     End Function
 
-    Private Sub CheckManifestandUpdate(ByVal oOriginalApp As clsGame, ByVal oNewApp As clsGame)
+    Private Sub CheckManifestandUpdate(ByVal oOriginalApp As clsGame, ByVal oNewApp As clsGame, ByVal bUseGameID As Boolean)
         Dim oBackupItems As List(Of clsBackup)
         Dim sDirectory As String
         Dim sNewDirectory As String
         Dim sFileName As String
         Dim sNewFileName As String
+        Dim sNewAppItem As String
+        Dim sOriginalAppItem As String
 
-        'If there is an ID change, check and update the manifest
-        If oNewApp.ID <> oOriginalApp.ID Then
+        'If there is a valid change, check and update the manifest
+        If (oNewApp.ID <> oOriginalApp.ID) Or (oNewApp.FileSafeName <> oOriginalApp.FileSafeName) Then
+            'Choose how to perform file & folder renames
+            If bUseGameID Then
+                sNewAppItem = oNewApp.ID
+                sOriginalAppItem = oOriginalApp.ID
+            Else
+                sNewAppItem = oNewApp.FileSafeName
+                sOriginalAppItem = oOriginalApp.FileSafeName
+            End If
+
             'Local
             If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Local) Then
                 oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Local)
@@ -193,14 +204,14 @@ Public Class frmGameManager
                     sFileName = BackupFolder & oBackupItem.FileName
 
                     'Rename Backup File
-                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(oOriginalApp.ID, oNewApp.ID)
+                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(sOriginalAppItem, sNewAppItem)
                     If File.Exists(sFileName) And Not sFileName = sNewFileName Then
                         FileSystem.Rename(sFileName, sNewFileName)
                     End If
 
                     'Rename Directory
                     sDirectory = Path.GetDirectoryName(sFileName)
-                    sNewDirectory = sDirectory.Replace(oOriginalApp.ID, oNewApp.ID)
+                    sNewDirectory = sDirectory.Replace(sOriginalAppItem, sNewAppItem)
                     If sDirectory <> sNewDirectory Then
                         If Directory.Exists(sDirectory) And Not sDirectory = sNewDirectory Then
                             FileSystem.Rename(sDirectory, sNewDirectory)
@@ -208,7 +219,7 @@ Public Class frmGameManager
                     End If
 
                     oBackupItem.MonitorID = oNewApp.ID
-                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.ID, oNewApp.ID)
+                    oBackupItem.FileName = oBackupItem.FileName.Replace(sOriginalAppItem, sNewAppItem)
                     mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Local)
                 Next
             End If
@@ -219,7 +230,7 @@ Public Class frmGameManager
 
                 For Each oBackupItem As clsBackup In oBackupItems
                     oBackupItem.MonitorID = oNewApp.ID
-                    oBackupItem.FileName = oBackupItem.FileName.Replace(oOriginalApp.ID, oNewApp.ID)
+                    oBackupItem.FileName = oBackupItem.FileName.Replace(sOriginalAppItem, sNewAppItem)
                     mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Remote)
                 Next
             End If
@@ -1285,7 +1296,7 @@ Public Class frmGameManager
             Case eModes.Edit
                 If CoreValidatation(oApp, False) Then
                     bSuccess = True
-                    CheckManifestandUpdate(oCurrentGame, oApp)
+                    CheckManifestandUpdate(oCurrentGame, oApp, oSettings.UseGameID)
                     mgrMonitorList.DoListUpdate(oApp, CurrentGame.ID)
                     eCurrentMode = eModes.View
                 End If
