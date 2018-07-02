@@ -480,7 +480,7 @@ Public Class mgrMonitorList
         oDatabase.RunMassParamQuery(sSQL, oParamList)
     End Sub
 
-    Public Shared Sub SyncMonitorLists(ByVal oSettings As mgrSettings, Optional ByVal bToRemote As Boolean = True)
+    Public Shared Sub SyncMonitorLists(ByVal oSettings As mgrSettings, Optional ByVal bToRemote As Boolean = True, Optional ByVal bSyncProtection As Boolean = True)
         Dim hshCompareFrom As Hashtable
         Dim hshCompareTo As Hashtable
         Dim hshSyncItems As Hashtable
@@ -509,11 +509,15 @@ Public Class mgrMonitorList
         End If
 
         'Sync Wipe Protection
-        If hshCompareFrom.Count = 0 And hshCompareTo.Count > 0 Then
-            If mgrCommon.ShowMessage(mgrMonitorList_WarningSyncProtection, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                'We will always show this one in the log regardless of setting
-                RaiseEvent UpdateLog(mgrMonitorList_ErrorSyncCancel, False, ToolTipIcon.Warning, True)
-                Exit Sub
+        If bSyncProtection Then
+            If hshCompareFrom.Count = 0 And hshCompareTo.Count > 0 Then
+                Cursor.Current = Cursors.Default
+                If mgrCommon.ShowMessage(mgrMonitorList_WarningSyncProtection, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                    'We will always show this one in the log regardless of setting
+                    RaiseEvent UpdateLog(mgrMonitorList_ErrorSyncCancel, False, ToolTipIcon.Warning, True)
+                    Exit Sub
+                End If
+                Cursor.Current = Cursors.WaitCursor
             End If
         End If
 

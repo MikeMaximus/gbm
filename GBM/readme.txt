@@ -17,5 +17,6 @@ All Platforms:
 - GBM now displays the full path of the detected process when multiple configurations are triggered.
 - Fixed an issue that could cause the certain controls to become enabled incorrectly on the Game Manager.
 - Fixed an issue that caused GBM not to remove empty sub-folders unless the "Use Game ID for files and folders" setting was enabled when the folder was created.
+- GBM no longer displays a sync warning when the user deletes all game configurations from the Game Manager.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

@@ -1330,7 +1330,7 @@ Public Class frmGameManager
 
             If mgrCommon.ShowMessage(frmGameManager_ConfirmGameDelete, oApp.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDelete(oApp.ID)
-                mgrMonitorList.SyncMonitorLists(Settings)
+                mgrMonitorList.SyncMonitorLists(Settings,, False)
                 LoadData()
                 eCurrentMode = eModes.Disabled
                 ModeChange()
@@ -1345,7 +1345,7 @@ Public Class frmGameManager
 
             If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiGameDelete, sMonitorIDs.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDeleteMulti(sMonitorIDs)
-                mgrMonitorList.SyncMonitorLists(Settings)
+                mgrMonitorList.SyncMonitorLists(Settings,, False)
                 LoadData()
                 eCurrentMode = eModes.Disabled
                 ModeChange()
