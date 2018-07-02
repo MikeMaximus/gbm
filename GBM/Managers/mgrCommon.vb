@@ -434,15 +434,22 @@ Public Class mgrCommon
         Dim oDir As DirectoryInfo
         Dim sDir As String = sBackupFolder & oBackup.MonitorID
 
-        'Delete sub directory if it's empty
+        'Check if the sub-folder is an ID or Name
         If oBackup.FileName.StartsWith(oBackup.MonitorID & Path.DirectorySeparatorChar) Then
-            If Directory.Exists(sDir) Then
-                'Check if there's any sub-directories or files remaining
-                oDir = New DirectoryInfo(sDir)
-                If oDir.GetDirectories.Length = 0 And oDir.GetFiles.Length = 0 Then
-                    'Folder is empty,  delete the empty sub-folder
-                    If Directory.Exists(sDir) Then DeleteDirectory(sDir)
-                End If
+            sDir = sBackupFolder & oBackup.MonitorID
+        ElseIf oBackup.FileName.StartsWith(oBackup.Name & Path.DirectorySeparatorChar) Then
+            sDir = sBackupFolder & oBackup.Name
+        Else
+            Exit Sub
+        End If
+
+        'Delete sub directory if it's empty
+        If Directory.Exists(sDir) Then
+            'Check if there's any sub-directories or files remaining
+            oDir = New DirectoryInfo(sDir)
+            If oDir.GetDirectories.Length = 0 And oDir.GetFiles.Length = 0 Then
+                'Folder is empty,  delete the empty sub-folder
+                If Directory.Exists(sDir) Then DeleteDirectory(sDir)
             End If
         End If
     End Sub

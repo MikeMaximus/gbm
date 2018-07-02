@@ -14,7 +14,8 @@ All Platforms:
 - "Save Multiple Backups" and "Backup Limit" are now core fields, they are synced by default and included in the Import/Export.
 - The Game Manager will now clean up it's own manifest when backup files are deleted outside of GBM.  As to not affect performance, this only occurs when the "Backup Data" field is accessed.
 - When a single game is selected, the Game Manager now restores the currently selected backup, instead of always restoring the latest backup.
-- Fixed an issue that could cause the certain controls to become enabled incorrectly on the Game Manager.
 - GBM now displays the full path of the detected process when multiple configurations are triggered.
+- Fixed an issue that could cause the certain controls to become enabled incorrectly on the Game Manager.
+- Fixed an issue that caused GBM not to remove empty sub-folders unless the "Use Game ID for files and folders" setting was enabled when the folder was created.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
