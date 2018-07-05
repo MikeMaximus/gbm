@@ -200,24 +200,6 @@ Public Class frmGameManager
                 oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Local)
                 'The local manifest will only have one entry per game, therefore this runs only once
                 For Each oBackupItem As clsBackup In oBackupItems
-                    'Rename Current Backup File & Folder
-                    sFileName = BackupFolder & oBackupItem.FileName
-
-                    'Rename Backup File
-                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(sOriginalAppItem, sNewAppItem)
-                    If File.Exists(sFileName) And Not sFileName = sNewFileName Then
-                        FileSystem.Rename(sFileName, sNewFileName)
-                    End If
-
-                    'Rename Directory
-                    sDirectory = Path.GetDirectoryName(sFileName)
-                    sNewDirectory = sDirectory.Replace(sOriginalAppItem, sNewAppItem)
-                    If sDirectory <> sNewDirectory Then
-                        If Directory.Exists(sDirectory) And Not sDirectory = sNewDirectory Then
-                            FileSystem.Rename(sDirectory, sNewDirectory)
-                        End If
-                    End If
-
                     oBackupItem.MonitorID = oNewApp.ID
                     oBackupItem.FileName = oBackupItem.FileName.Replace(sOriginalAppItem, sNewAppItem)
                     mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Local)
@@ -229,10 +211,24 @@ Public Class frmGameManager
                 oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Remote)
 
                 For Each oBackupItem As clsBackup In oBackupItems
+                    'Rename Current Backup File
+                    sFileName = BackupFolder & oBackupItem.FileName
+                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(sOriginalAppItem, sNewAppItem)
+                    If File.Exists(sFileName) And Not sFileName = sNewFileName Then
+                        FileSystem.Rename(sFileName, sNewFileName)
+                    End If
+
                     oBackupItem.MonitorID = oNewApp.ID
                     oBackupItem.FileName = oBackupItem.FileName.Replace(sOriginalAppItem, sNewAppItem)
                     mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Remote)
                 Next
+
+                'Rename folder if there is one                
+                sDirectory = BackupFolder & sOriginalAppItem
+                sNewDirectory = sDirectory.Replace(sOriginalAppItem, sNewAppItem)
+                If Directory.Exists(sDirectory) And Not sDirectory = sNewDirectory Then
+                    FileSystem.Rename(sDirectory, sNewDirectory)
+                End If
             End If
         End If
     End Sub
