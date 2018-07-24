@@ -1051,6 +1051,12 @@ Public Class frmMain
             Exit Sub
         End If
 
+        'Check Special Paths
+        If Not mgrPath.CheckSpecialPaths Then
+            bInitFail = True
+            Exit Sub
+        End If
+
         'Local Database Check
         VerifyDBVersion(mgrSQLite.Database.Local)
         LocalDatabaseCheck()

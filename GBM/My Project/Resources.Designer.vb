@@ -6061,6 +6061,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An error occured while determining a required system path. [BR][BR]The environment value for [PARAM] is empty.[BR][BR]The application will now exit..
+        '''</summary>
+        Friend ReadOnly Property mgrPath_SpecialPathError() As String
+            Get
+                Return ResourceManager.GetString("mgrPath_SpecialPathError", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] backup restored..
         '''</summary>
         Friend ReadOnly Property mgrRestore_ActionComplete() As String

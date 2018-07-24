@@ -202,6 +202,28 @@ Public Class mgrPath
         Return sResult
     End Function
 
+    Public Shared Function CheckSpecialPaths() As Boolean
+        Dim hshEnvs As New Hashtable
+        Dim bNoError As Boolean = True
+
+        hshEnvs.Add("Documents", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
+        hshEnvs.Add("AppDataRoaming", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData))
+        hshEnvs.Add("AppDataLocal", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData))
+        If Not mgrCommon.IsUnix Then
+            hshEnvs.Add("UserData", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))
+            hshEnvs.Add("PublicDocuments", Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments))
+        End If
+
+        For Each de As DictionaryEntry In hshEnvs
+            If de.Value = String.Empty Then
+                mgrCommon.ShowMessage(mgrPath_SpecialPathError, de.Key, MsgBoxStyle.Critical)
+                bNoError = False
+            End If
+        Next
+
+        Return bNoError
+    End Function
+
     Public Shared Function ReplaceSpecialPaths(sValue As String) As String
         Dim sMyDocs As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         Dim sPublicDocs As String = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments)
@@ -246,11 +268,17 @@ Public Class mgrPath
 
     Public Shared Function ReverseSpecialPaths(sValue As String) As String
         Dim sMyDocs As String = "*mydocs*"
+        Dim sEnvMyDocs As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         Dim sPublicDocs As String = "*publicdocs*"
-        Dim sAppDataRoaming As String = "*appdatalocal*"
-        Dim sAppDataLocal As String = "*appdataroaming*"
+        Dim sEnvPublicDocs As String = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments)
+        Dim sAppDataLocal As String = "*appdatalocal*"
+        Dim sEnvAppDataLocal As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
+        Dim sAppDataRoaming As String = "*appdataroaming*"
+        Dim sEnvAppDataRoaming As String = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
         Dim sCurrentUser As String = "*currentuser*"
+        Dim sEnvCurrentUser As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
         Dim oCustomVariable As clsPathVariable
+
 
         For Each oCustomVariable In hshCustomVariables.Values
             If sValue.Contains(oCustomVariable.Path) Then
@@ -258,27 +286,27 @@ Public Class mgrPath
             End If
         Next
 
-        If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) Then
-            Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), sAppDataLocal)
+        If sValue.Contains(sEnvAppDataRoaming) Then
+            Return sValue.Replace(sEnvAppDataRoaming, sAppDataRoaming)
         End If
 
-        If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)) Then
-            Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), sAppDataRoaming)
+        If sValue.Contains(sEnvAppDataLocal) Then
+            Return sValue.Replace(sEnvAppDataLocal, sAppDataLocal)
         End If
 
         'This needs to be tested last for Unix compatability
-        If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) Then
-            Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), sMyDocs)
+        If sValue.Contains(sEnvMyDocs) Then
+            Return sValue.Replace(sEnvMyDocs, sMyDocs)
         End If
 
         'Don't use these in Unix
         If Not mgrCommon.IsUnix Then
-            If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments)) Then
-                Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), sPublicDocs)
+            If sValue.Contains(sEnvPublicDocs) Then
+                Return sValue.Replace(sEnvPublicDocs, sPublicDocs)
             End If
 
-            If sValue.Contains(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)) Then
-                Return sValue.Replace(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), sCurrentUser)
+            If sValue.Contains(sEnvCurrentUser) Then
+                Return sValue.Replace(sEnvCurrentUser, sCurrentUser)
             End If
         End If
 

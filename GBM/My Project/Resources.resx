@@ -2191,4 +2191,7 @@
   <data name="mgrBackup_ConfirmOverwriteRelative" xml:space="preserve">
     <value>A file with the same name already exists in the backup folder.[BR][BR]This game stores saves in a relative location, you may need to restore the current backup if the game was recently re-installed.[BR][BR]Do you want to overwrite this file?</value>
   </data>
+  <data name="mgrPath_SpecialPathError" xml:space="preserve">
+    <value>An error occured while determining a required system path. [BR][BR]The environment value for [PARAM] is empty.[BR][BR]The application will now exit.</value>
+  </data>
 </root>
