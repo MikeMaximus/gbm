@@ -581,6 +581,8 @@ Public Class frmMain
         Dim sFileName As String = String.Empty
         Dim sFileVersion As String = String.Empty
         Dim sCompanyName As String = String.Empty
+        Dim ic As Icon
+        Dim sIconFile As String
 
         'Wipe Game Info
         lblStatus1.Text = String.Empty
@@ -589,14 +591,17 @@ Public Class frmMain
 
         'Get Process Information
         Try
-            Dim ic As Icon = System.Drawing.Icon.ExtractAssociatedIcon(oProcess.FoundProcess.MainModule.FileName)
-            pbIcon.Image = ic.ToBitmap
+            'Grab icon from the executable and save a copy
+            ic = System.Drawing.Icon.ExtractAssociatedIcon(oProcess.FoundProcess.MainModule.FileName)
+            sIconFile = mgrPath.SettingsRoot & Path.DirectorySeparatorChar & oProcess.GameInfo.ID & ".bmp"
+            ic.ToBitmap.Save(sIconFile)
+            ic.Dispose()
 
             'Set Game Details
+            pbIcon.Image = Image.FromFile(sIconFile)
             sFileName = oProcess.FoundProcess.MainModule.FileName
             sFileVersion = oProcess.FoundProcess.MainModule.FileVersionInfo.FileVersion
             sCompanyName = oProcess.FoundProcess.MainModule.FileVersionInfo.CompanyName
-
         Catch ex As Exception
             pbIcon.Image = Icon_Unknown
         End Try
