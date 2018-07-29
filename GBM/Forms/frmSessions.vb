@@ -68,7 +68,7 @@ Public Class frmSessions
             dgSessions.Rows.Add(New Object() {dr("MonitorID"), dr("Name"), dr("Start"), dStart, dr("End"), dEnd, dHours})
         Next
 
-        lblTotalHours.Text = mgrCommon.FormatString(frmSessions_lblTotalHours, dTotalHours)
+        lblTotalHours.Text = mgrCommon.FormatString(frmSessions_lblTotalHours, Math.Round(dTotalHours, 2))
 
         dgSessions.AutoResizeColumns()
     End Sub
