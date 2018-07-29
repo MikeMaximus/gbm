@@ -133,9 +133,6 @@
   <data name="frmMain_ManifestTotalRemoved" xml:space="preserve">
     <value>[PARAM] entries were removed from the local manifest.</value>
   </data>
-  <data name="frmMain_ConfirmManifestClean" xml:space="preserve">
-    <value>This tool removes orphaned backup information from the local manifest based on the current backup folder.  Data can become orphaned when backups are deleted by various computers that share the same backup folder on a cloud or network.[BR][BR]When alternating between different backup folders you should NOT use this tool.[BR][BR]Do you wish to proceed?</value>
-  </data>
   <data name="frmMain_ConfirmRebuild" xml:space="preserve">
     <value>This will rebuild all databases and shrink them to an optimal size.[BR]This should only be used if your gbm.s3db files are becoming very large.[BR][BR]Do you wish to continue?</value>
   </data>
@@ -2193,5 +2190,8 @@
   </data>
   <data name="mgrPath_SpecialPathError" xml:space="preserve">
     <value>An error occured while determining a required system path. [BR][BR]The environment value for [PARAM] is empty.[BR][BR]The application will now exit.</value>
+  </data>
+  <data name="frmMain_ErrorGameDetails" xml:space="preserve">
+    <value>An error occured while obtaining the details of the detected game.</value>
   </data>
 </root>

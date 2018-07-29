@@ -588,22 +588,26 @@ Public Class frmMain
         lblStatus1.Text = String.Empty
         lblStatus2.Text = String.Empty
         lblStatus3.Text = String.Empty
+        pbIcon.Image = Icon_Unknown
 
-        'Get Process Information
+        'Get Process Information 
         Try
-            'Grab icon from the executable and save a copy
-            ic = System.Drawing.Icon.ExtractAssociatedIcon(oProcess.FoundProcess.MainModule.FileName)
-            sIconFile = mgrPath.SettingsRoot & Path.DirectorySeparatorChar & oProcess.GameInfo.ID & ".bmp"
-            ic.ToBitmap.Save(sIconFile)
-            ic.Dispose()
+            If Not mgrCommon.IsUnix Then
+                'Grab icon from the executable and save a copy
+                ic = System.Drawing.Icon.ExtractAssociatedIcon(oProcess.FoundProcess.MainModule.FileName)
+                sIconFile = mgrPath.SettingsRoot & Path.DirectorySeparatorChar & oProcess.GameInfo.ID & ".bmp"
+                ic.ToBitmap.Save(sIconFile)
+                ic.Dispose()
+                pbIcon.Image = Image.FromFile(sIconFile)
+            End If
 
             'Set Game Details
-            pbIcon.Image = Image.FromFile(sIconFile)
             sFileName = oProcess.FoundProcess.MainModule.FileName
             sFileVersion = oProcess.FoundProcess.MainModule.FileVersionInfo.FileVersion
             sCompanyName = oProcess.FoundProcess.MainModule.FileVersionInfo.CompanyName
         Catch ex As Exception
-            pbIcon.Image = Icon_Unknown
+            UpdateLog(mgrCommon.FormatString(frmMain_ErrorGameDetails), False, ToolTipIcon.Error)
+            UpdateLog(mgrCommon.FormatString(App_GenericError, ex.Message), False,, False)
         End Try
 
         'Get Game Details 

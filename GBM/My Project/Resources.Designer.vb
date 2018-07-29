@@ -2878,15 +2878,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to This tool removes orphaned backup information from the local manifest based on the current backup folder.  Data can become orphaned when backups are deleted by various computers that share the same backup folder on a cloud or network.[BR][BR]When alternating between different backup folders you should NOT use this tool.[BR][BR]Do you wish to proceed?.
-        '''</summary>
-        Friend ReadOnly Property frmMain_ConfirmManifestClean() As String
-            Get
-                Return ResourceManager.GetString("frmMain_ConfirmManifestClean", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Do you wish to cancel the monitoring of [PARAM]?[BR][BR]Warning: When monitoring is cancelled, session time is NOT saved..
         '''</summary>
         Friend ReadOnly Property frmMain_ConfirmMonitorCancel() As String
@@ -3081,6 +3072,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_ErrorEndChildProcess() As String
             Get
                 Return ResourceManager.GetString("frmMain_ErrorEndChildProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error occured while obtaining the details of the detected game..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorGameDetails() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorGameDetails", resourceCulture)
             End Get
         End Property
         
