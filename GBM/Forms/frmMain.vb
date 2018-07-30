@@ -577,12 +577,34 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub SetGameIcon()
+        Dim ic As Icon
+        Dim sIconFile As String
+        Dim oBitmap As Bitmap
+
+        Try
+            'Grab icon from the executable
+            ic = System.Drawing.Icon.ExtractAssociatedIcon(oProcess.FoundProcess.MainModule.FileName)
+
+            'Save a copy
+            sIconFile = mgrPath.SettingsRoot & Path.DirectorySeparatorChar & oProcess.GameInfo.ID & ".ico"
+            ic.ToBitmap.Save(sIconFile, System.Drawing.Imaging.ImageFormat.Icon)
+            ic.Dispose()
+
+            'Set the icon, we need to use an intermediary object to prevent file locking
+            oBitmap = New Bitmap(sIconFile)
+            pbIcon.Image = New Bitmap(oBitmap)
+            oBitmap.Dispose()
+        Catch ex As Exception
+            UpdateLog(mgrCommon.FormatString(frmMain_ErrorGameIcon), False, ToolTipIcon.Error)
+            UpdateLog(mgrCommon.FormatString(App_GenericError, ex.Message), False,, False)
+        End Try
+    End Sub
+
     Private Sub SetGameInfo(Optional ByVal bMulti As Boolean = False)
         Dim sFileName As String = String.Empty
         Dim sFileVersion As String = String.Empty
         Dim sCompanyName As String = String.Empty
-        Dim ic As Icon
-        Dim sIconFile As String
 
         'Wipe Game Info
         lblStatus1.Text = String.Empty
@@ -590,17 +612,10 @@ Public Class frmMain
         lblStatus3.Text = String.Empty
         pbIcon.Image = Icon_Unknown
 
-        'Get Process Information 
-        Try
-            If Not mgrCommon.IsUnix Then
-                'Grab icon from the executable and save a copy
-                ic = System.Drawing.Icon.ExtractAssociatedIcon(oProcess.FoundProcess.MainModule.FileName)
-                sIconFile = mgrPath.SettingsRoot & Path.DirectorySeparatorChar & oProcess.GameInfo.ID & ".bmp"
-                ic.ToBitmap.Save(sIconFile)
-                ic.Dispose()
-                pbIcon.Image = Image.FromFile(sIconFile)
-            End If
+        'Set Game Icon
+        If Not mgrCommon.IsUnix Then SetGameIcon()
 
+        Try
             'Set Game Details
             sFileName = oProcess.FoundProcess.MainModule.FileName
             sFileVersion = oProcess.FoundProcess.MainModule.FileVersionInfo.FileVersion

@@ -3085,6 +3085,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An error occured while extracting the executable icon..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorGameIcon() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorGameIcon", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to An unexpected error occured while initializing GBM.[BR][BR][PARAM][BR][BR]Do you wish to continue anyway? (Not Recommended).
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorInitFailure() As String

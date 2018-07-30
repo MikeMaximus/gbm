@@ -2194,4 +2194,7 @@
   <data name="frmMain_ErrorGameDetails" xml:space="preserve">
     <value>An error occured while obtaining the details of the detected game.</value>
   </data>
+  <data name="frmMain_ErrorGameIcon" xml:space="preserve">
+    <value>An error occured while extracting the executable icon.</value>
+  </data>
 </root>
