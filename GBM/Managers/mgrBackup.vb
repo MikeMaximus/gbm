@@ -143,10 +143,13 @@ Public Class mgrBackup
             End If
         End If
 
-        If mgrRestore.CheckManifest(oGame.ID) Then
-            If mgrCommon.ShowMessage(mgrBackup_ConfirmManifestConflict, oGame.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                RaiseEvent UpdateLog(mgrBackup_ErrorManifestConflict, False, ToolTipIcon.Error, True)
-                Return False
+        'A manifest check is only required when "Save Multiple Backups" is disabled
+        If Not oGame.AppendTimeStamp Then
+            If mgrRestore.CheckManifest(oGame.ID) Then
+                If mgrCommon.ShowMessage(mgrBackup_ConfirmManifestConflict, oGame.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                    RaiseEvent UpdateLog(mgrBackup_ErrorManifestConflict, False, ToolTipIcon.Error, True)
+                    Return False
+                End If
             End If
         End If
 
