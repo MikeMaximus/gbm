@@ -526,7 +526,7 @@ Public Class frmMain
             sIcon = fbBrowser.FileName
             If File.Exists(sIcon) Then
                 oProcess.GameInfo.Icon = sIcon
-                pbIcon.Image = Image.FromFile(sIcon)
+                pbIcon.Image = mgrCommon.SafeIconFromFile(sIcon)
                 mgrMonitorList.DoListUpdate(oProcess.GameInfo)
             End If
         End If
@@ -645,7 +645,7 @@ Public Class frmMain
 
             'Check for a custom icon & details            
             If File.Exists(oProcess.GameInfo.Icon) Then
-                pbIcon.Image = Image.FromFile(oProcess.GameInfo.Icon)
+                pbIcon.Image = mgrCommon.SafeIconFromFile(oProcess.GameInfo.Icon)
             End If
             If sFileName = String.Empty Then
                 If oProcess.GameInfo.ProcessPath <> String.Empty Then

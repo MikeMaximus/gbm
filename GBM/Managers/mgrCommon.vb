@@ -65,6 +65,18 @@ Public Class mgrCommon
         Return oFormatter.Deserialize(oStream)
     End Function
 
+    Public Shared Function SafeIconFromFile(ByVal sPath As String) As Image
+        Dim oImage As Image
+        Dim oReturnImage As Image
+        Dim oImageSize As Size = New Size(48, 48)
+
+        oImage = Image.FromFile(sPath)
+        oReturnImage = New Bitmap(oImage, oImageSize)
+        oImage.Dispose()
+
+        Return oReturnImage
+    End Function
+
     Public Shared Function IsAddress(ByVal sURL As String) As Boolean
         If (sURL.IndexOf("http://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Or (sURL.IndexOf("https://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Then
             Return True

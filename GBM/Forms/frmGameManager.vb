@@ -382,7 +382,7 @@ Public Class frmGameManager
         If sNewPath <> String.Empty Then
             txtIcon.Text = sNewPath
             If IO.File.Exists(sNewPath) Then
-                pbIcon.Image = Image.FromFile(sNewPath)
+                pbIcon.Image = mgrCommon.SafeIconFromFile(sNewPath)
             End If
         End If
     End Sub
@@ -794,7 +794,7 @@ Public Class frmGameManager
 
             For Each oBackup In oBackupData
                 'Delete the specific remote manifest entry
-                mgrManifest.DoManifestDeletebyManifestID(oBackup, mgrSQLite.Database.Remote)
+                mgrManifest.DoManifestDeleteByManifestID(oBackup, mgrSQLite.Database.Remote)
                 'Delete referenced backup file from the backup folder
                 mgrCommon.DeleteFile(BackupFolder & oBackup.FileName)
                 'Check for sub-directory and delete if empty (we need to do this every pass just in case the user had a mix of settings at one point)
@@ -802,7 +802,7 @@ Public Class frmGameManager
             Next
 
             'Delete local manifest entry
-            mgrManifest.DoManifestDeletebyMonitorID(CurrentBackupItem, mgrSQLite.Database.Local)
+            mgrManifest.DoManifestDeleteByMonitorID(CurrentBackupItem, mgrSQLite.Database.Local)
 
             LoadBackupData()
             FillData()
@@ -868,7 +868,7 @@ Public Class frmGameManager
 
         'Icon
         If IO.File.Exists(oApp.Icon) Then
-            pbIcon.Image = Image.FromFile(oApp.Icon)
+            pbIcon.Image = mgrCommon.SafeIconFromFile(oApp.Icon)
         Else
             pbIcon.Image = Icon_Unknown
         End If
