@@ -579,22 +579,17 @@ Public Class frmMain
 
     Private Sub SetGameIcon()
         Dim ic As Icon
-        Dim sIconFile As String
         Dim oBitmap As Bitmap
 
         Try
             'Grab icon from the executable
             ic = System.Drawing.Icon.ExtractAssociatedIcon(oProcess.FoundProcess.MainModule.FileName)
-
-            'Save a copy
-            sIconFile = mgrPath.SettingsRoot & Path.DirectorySeparatorChar & oProcess.GameInfo.ID & ".ico"
-            ic.ToBitmap.Save(sIconFile, System.Drawing.Imaging.ImageFormat.Icon)
+            oBitmap = New Bitmap(ic.ToBitmap)
             ic.Dispose()
 
             'Set the icon, we need to use an intermediary object to prevent file locking
-            oBitmap = New Bitmap(sIconFile)
-            pbIcon.Image = New Bitmap(oBitmap)
-            oBitmap.Dispose()
+            pbIcon.Image = oBitmap
+
         Catch ex As Exception
             UpdateLog(mgrCommon.FormatString(frmMain_ErrorGameIcon), False, ToolTipIcon.Error)
             UpdateLog(mgrCommon.FormatString(App_GenericError, ex.Message), False,, False)
