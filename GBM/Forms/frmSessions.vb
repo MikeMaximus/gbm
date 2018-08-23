@@ -290,9 +290,21 @@ Public Class frmSessions
 
             Select Case iDataTypeCol
                 Case iDataType.DecimalType
-                    iCompareResult = If(CDec(dgRow1.Cells(iSortCol).Value) < CDec(dgRow2.Cells(iSortCol).Value), -1, 1)
+                    If (CDec(dgRow1.Cells(iSortCol).Value) = CDec(dgRow2.Cells(iSortCol).Value)) Then
+                        iCompareResult = 0
+                    ElseIf (CDec(dgRow1.Cells(iSortCol).Value) < CDec(dgRow2.Cells(iSortCol).Value)) Then
+                        iCompareResult = -1
+                    Else
+                        iCompareResult = 1
+                    End If
                 Case iDataType.IntType
-                    iCompareResult = If(CInt(dgRow1.Cells(iSortCol).Value) < CInt(dgRow2.Cells(iSortCol).Value), -1, 1)
+                    If (CInt(dgRow1.Cells(iSortCol).Value) = CInt(dgRow2.Cells(iSortCol).Value)) Then
+                        iCompareResult = 0
+                    ElseIf (CInt(dgRow1.Cells(iSortCol).Value) < CInt(dgRow2.Cells(iSortCol).Value)) Then
+                        iCompareResult = -1
+                    Else
+                        iCompareResult = 1
+                    End If
                 Case iDataType.StringType
                     iCompareResult = String.Compare(CStr(dgRow1.Cells(iSortCol).Value), CStr(dgRow2.Cells(iSortCol).Value))
                 Case iDataType.DateTimeType
