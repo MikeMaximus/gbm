@@ -1,24 +1,25 @@
-Game Backup Monitor v1.1.3 Readme
+Game Backup Monitor v1.1.4 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-July 5th, 2018
+August 25th, 2018
 
-New in 1.1.3
+New in 1.1.4
 
 All Platforms:
 
-- Game tags are now sorted alphanumerically on the Game Manager and in XML exports.
-- GBM now displays a unique backup overwrite warning for games that use a relative saved game path.
-- The "Save Multiple Backups" setting now allows infinite backups when "Backup Limit" is set to 0.  This is now the default for new configurations.
-- "Save Multiple Backups" and "Backup Limit" are now core fields, they are synced by default and included in the Import/Export.
-- The Game Manager will now clean up it's own manifest when backup files are deleted outside of GBM.  As to not affect performance, this only occurs when the "Backup Data" field is accessed.
-- When a single game is selected, the Game Manager now restores the currently selected backup, instead of always restoring the latest backup.
-- If possible, GBM now displays the full path of the detected process when multiple configurations are triggered.
-- Fixed an issue that could cause the certain controls to become enabled incorrectly on the Game Manager.
-- Fixed an issue that caused GBM not to remove empty sub-folders unless the "Use Game ID for files and folders" setting was enabled when the folder was created.
-- Fixed an issue that caused GBM not to rename backup files or sub-folders unless the "Use Game ID for files and folders" setting was enabled.
-- Fixed an issue that caused GBM to only rename the most current backup file when modifying a Name or Game ID.
-- GBM no longer displays a sync warning when the user deletes all game configurations from the Game Manager.
+- Changed method of handling required OS environment paths and added a new path check on startup.
+- Incorrect conflict warnings will no longer be shown in some situations when running a backup configuration with "Save Multiple Backups" enabled.
+- Fixed the precision of "Total Hours" on the Session Viewer, it now always rounds to 2 decimal places.
+
+Windows:
+
+- GBM will no longer keep an open file handle on detected processes and custom icons.
+
+Linux:
+
+- Sorting by "Hours" in the Session Viewer will no longer crash GBM on certain systems.
+- GBM no longer attempts to get icons from a Linux binary.
+- Removed compression from GBM icon to prevent issues with recent versions of imagemagick.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
