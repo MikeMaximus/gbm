@@ -2014,6 +2014,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The backup folder contains one or more backup files that cannot be renamed to [PARAM] because a file using that name already exist.[BR][BR]Do you want to continue and remove the existing files?.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ErrorRenameFilesExist() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ErrorRenameFilesExist", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The backup folder [PARAM] cannot be renamed to [PARAM] because a folder with that name already exists.[BR][BR]Do you want to continue and remove the existing folder?.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ErrorRenameFolderExists() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ErrorRenameFolderExists", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to You must enter a valid game name..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ErrorValidName() As String

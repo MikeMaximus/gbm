@@ -175,7 +175,7 @@ Public Class frmGameManager
         Return sPath
     End Function
 
-    Private Sub CheckManifestandUpdate(ByVal oOriginalApp As clsGame, ByVal oNewApp As clsGame, ByVal bUseGameID As Boolean)
+    Private Function CheckManifestandUpdate(ByVal oOriginalApp As clsGame, ByVal oNewApp As clsGame, ByVal bUseGameID As Boolean) As Boolean
         Dim oBackupItems As List(Of clsBackup)
         Dim sDirectory As String
         Dim sNewDirectory As String
@@ -195,6 +195,55 @@ Public Class frmGameManager
                 sOriginalAppItem = oOriginalApp.FileSafeName
             End If
 
+            'Remote
+            If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Remote) Then
+
+                'Check for existing folder
+                sDirectory = BackupFolder & sOriginalAppItem
+                sNewDirectory = sDirectory.Replace(sOriginalAppItem, sNewAppItem)
+                If Directory.Exists(sNewDirectory) Then
+                    If mgrCommon.ShowMessage(frmGameManager_ErrorRenameFolderExists, New String() {sDirectory, sNewDirectory}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                        mgrCommon.DeleteDirectory(sNewDirectory, True)
+                    Else
+                        Return False
+                    End If
+                End If
+
+                oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Remote)
+
+                'Check for existing files
+                For Each oBackupItem As clsBackup In oBackupItems
+                    'Rename Current Backup File
+                    sFileName = BackupFolder & oBackupItem.FileName
+                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(sOriginalAppItem, sNewAppItem)
+                    If File.Exists(sNewFileName) Then
+                        If mgrCommon.ShowMessage(frmGameManager_ErrorRenameFilesExist, New String() {sOriginalAppItem, sNewAppItem}, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                            Return False
+                        End If
+                        Exit For
+                    End If
+                Next
+
+                'Rename files                
+                For Each oBackupItem As clsBackup In oBackupItems
+                    'Rename Current Backup File
+                    sFileName = BackupFolder & oBackupItem.FileName
+                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(sOriginalAppItem, sNewAppItem)
+                    If File.Exists(sFileName) And Not sFileName = sNewFileName Then
+                        If File.Exists(sNewFileName) Then mgrCommon.DeleteFile(sNewFileName)
+                        FileSystem.Rename(sFileName, sNewFileName)
+                    End If
+                    oBackupItem.MonitorID = oNewApp.ID
+                    oBackupItem.FileName = oBackupItem.FileName.Replace(sOriginalAppItem, sNewAppItem)
+                    mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Remote)
+                Next
+
+                'Rename folder                
+                If Directory.Exists(sDirectory) And Not sDirectory = sNewDirectory Then
+                    FileSystem.Rename(sDirectory, sNewDirectory)
+                End If
+            End If
+
             'Local
             If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Local) Then
                 oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Local)
@@ -205,33 +254,10 @@ Public Class frmGameManager
                     mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Local)
                 Next
             End If
-
-            'Remote
-            If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Remote) Then
-                oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Remote)
-
-                For Each oBackupItem As clsBackup In oBackupItems
-                    'Rename Current Backup File
-                    sFileName = BackupFolder & oBackupItem.FileName
-                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(sOriginalAppItem, sNewAppItem)
-                    If File.Exists(sFileName) And Not sFileName = sNewFileName Then
-                        FileSystem.Rename(sFileName, sNewFileName)
-                    End If
-
-                    oBackupItem.MonitorID = oNewApp.ID
-                    oBackupItem.FileName = oBackupItem.FileName.Replace(sOriginalAppItem, sNewAppItem)
-                    mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Remote)
-                Next
-
-                'Rename folder if there is one                
-                sDirectory = BackupFolder & sOriginalAppItem
-                sNewDirectory = sDirectory.Replace(sOriginalAppItem, sNewAppItem)
-                If Directory.Exists(sDirectory) And Not sDirectory = sNewDirectory Then
-                    FileSystem.Rename(sDirectory, sNewDirectory)
-                End If
-            End If
         End If
-    End Sub
+
+        Return True
+    End Function
 
     Private Sub LoadData(Optional ByVal bRetainFilter As Boolean = True)
         Dim oRestoreData As New SortedList
@@ -1291,10 +1317,11 @@ Public Class frmGameManager
                 End If
             Case eModes.Edit
                 If CoreValidatation(oApp, False) Then
-                    bSuccess = True
-                    CheckManifestandUpdate(oCurrentGame, oApp, oSettings.UseGameID)
-                    mgrMonitorList.DoListUpdate(oApp, CurrentGame.ID)
-                    eCurrentMode = eModes.View
+                    If CheckManifestandUpdate(oCurrentGame, oApp, oSettings.UseGameID) Then
+                        bSuccess = True
+                        mgrMonitorList.DoListUpdate(oApp, CurrentGame.ID)
+                        eCurrentMode = eModes.View
+                    End If
                 End If
             Case eModes.MultiSelect
                 Dim sMonitorIDs As New List(Of String)
