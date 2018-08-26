@@ -213,7 +213,6 @@ Public Class frmGameManager
 
                 'Check for existing files
                 For Each oBackupItem As clsBackup In oBackupItems
-                    'Rename Current Backup File
                     sFileName = BackupFolder & oBackupItem.FileName
                     sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(sOriginalAppItem, sNewAppItem)
                     If File.Exists(sNewFileName) Then

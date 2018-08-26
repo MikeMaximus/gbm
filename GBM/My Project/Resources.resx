@@ -2198,7 +2198,7 @@
     <value>An error occured while extracting the executable icon.</value>
   </data>
   <data name="frmGameManager_ErrorRenameFilesExist" xml:space="preserve">
-    <value>The backup folder contains one or more backup files that cannot be renamed to [PARAM] because a file using that name already exist.[BR][BR]Do you want to continue and remove the existing files?</value>
+    <value>The backup folder contains one or more backup files that cannot be renamed to [PARAM] because a file using that name already exists.[BR][BR]Do you want to continue and remove the existing files?</value>
   </data>
   <data name="frmGameManager_ErrorRenameFolderExists" xml:space="preserve">
     <value>The backup folder [PARAM] cannot be renamed to [PARAM] because a folder with that name already exists.[BR][BR]Do you want to continue and remove the existing folder?</value>

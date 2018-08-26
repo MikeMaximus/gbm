@@ -2014,7 +2014,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The backup folder contains one or more backup files that cannot be renamed to [PARAM] because a file using that name already exist.[BR][BR]Do you want to continue and remove the existing files?.
+        '''  Looks up a localized string similar to The backup folder contains one or more backup files that cannot be renamed to [PARAM] because a file using that name already exists.[BR][BR]Do you want to continue and remove the existing files?.
         '''</summary>
         Friend ReadOnly Property frmGameManager_ErrorRenameFilesExist() As String
             Get
