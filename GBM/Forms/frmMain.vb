@@ -1894,11 +1894,12 @@ Public Class frmMain
 
     Private Sub ScanTimerEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmScanTimer.Tick
         Dim bNeedsPath As Boolean = False
+        Dim bWineProcess As Boolean = False
         Dim bContinue As Boolean = True
         Dim iErrorCode As Integer = 0
         Dim sErrorMessage As String = String.Empty
 
-        If oProcess.SearchRunningProcesses(hshScanList, bNeedsPath, iErrorCode, bProcessDebugMode) Then
+        If oProcess.SearchRunningProcesses(hshScanList, bNeedsPath, bWineProcess, iErrorCode, bProcessDebugMode) Then
             PauseScan(True)
 
             If bNeedsPath Then
@@ -1924,6 +1925,22 @@ Public Class frmMain
                             sPathDetectionError = mgrCommon.FormatString(frmMain_Error64Backup, oProcess.GameInfo.Name)
                         End If
                         bContinue = True
+                    End If
+                End If
+            End If
+
+            If bWineProcess Then
+                'Attempt a path conversion if the game configuration is using an absolute windows path
+                If oProcess.GameInfo.AbsolutePath And oProcess.GameInfo.TruePath.Contains("\") Then
+                    Dim sWinePrefix As String = mgrPath.GetWinePrefix(oProcess.FoundProcess)
+                    Dim sWineSavePath As String
+                    If Not sWinePrefix = String.Empty Then
+                        UpdateLog(oProcess.GameInfo.Name & " Wine Prefix: " & sWinePrefix, False)
+                        sWineSavePath = mgrPath.GetWineSavePath(sWinePrefix, oProcess.GameInfo.TruePath)
+                        If Not sWineSavePath = oProcess.GameInfo.TruePath Then
+                            oProcess.GameInfo.TruePath = sWineSavePath
+                            UpdateLog(oProcess.GameInfo.Name & " Converted Save Path: " & sWineSavePath, False)
+                        End If
                     End If
                 End If
             End If

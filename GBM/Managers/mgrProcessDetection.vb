@@ -202,11 +202,10 @@ Public Class mgrProcessDetection
         Return False
     End Function
 
-    Public Function SearchRunningProcesses(ByVal hshScanList As Hashtable, ByRef bNeedsPath As Boolean, ByRef iErrorCode As Integer, ByVal bDebugMode As Boolean) As Boolean
+    Public Function SearchRunningProcesses(ByVal hshScanList As Hashtable, ByRef bNeedsPath As Boolean, ByRef bWineProcess As Boolean, ByRef iErrorCode As Integer, ByVal bDebugMode As Boolean) As Boolean
         Dim prsList() As Process = Process.GetProcesses
         Dim sProcessCheck As String = String.Empty
         Dim sProcessList As String = String.Empty
-        Dim bWineProcess As Boolean = False
         Dim bPass As Boolean
 
         For Each prsCurrent As Process In prsList
@@ -219,9 +218,13 @@ Public Class mgrProcessDetection
                 'Unix Handler
                 'We need some special handling for Wine processes
                 If mgrCommon.IsUnix And (sProcessCheck.ToLower = "wine-preloader" Or sProcessCheck.ToLower = "wine64-preloader") Then
-                    Dim sWinePath As String()
-                    'We can't use Path.GetFileName here, Wine uses the Windows seperator in arguments and Mono expects a different one in Unix.
-                    sWinePath = GetUnixProcessArguments(prsCurrent)(0).Split("\")
+                    Dim sWinePath As String() = GetUnixProcessArguments(prsCurrent)
+                    'The wine-preloader parameters can refer to a path on the host system or a windows based path within in the prefix, we need to handle both.
+                    If sWinePath(0).Contains("\") Then
+                        sWinePath = GetUnixProcessArguments(prsCurrent)(0).Split("\")
+                    ElseIf sWinePath(0).Contains("/") Then
+                        sWinePath = GetUnixProcessArguments(prsCurrent)(0).Split("/")
+                    End If
                     sProcessCheck = sWinePath(sWinePath.Length - 1).Replace(".exe", "")
                     bWineProcess = True
                 Else

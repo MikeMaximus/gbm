@@ -257,7 +257,10 @@ Public Class clsGame
         End Set
     End Property
 
-    ReadOnly Property TruePath As String
+    Property TruePath As String
+        Set(value As String)
+            sPath = value
+        End Set
         Get
             Return sPath
         End Get

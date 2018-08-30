@@ -202,6 +202,107 @@ Public Class mgrPath
         Return sResult
     End Function
 
+    Private Shared Function BuildWinePath(ByVal sPath As String, ByVal sWinePrefix As String) As String
+        Dim sRealPath As String
+        Dim cDriveLetter As Char
+        Dim sWineDrive As String
+
+        Try
+            'Grab Path
+            sRealPath = sPath.Split("=")(1)
+
+            'Remove Quotes
+            sRealPath = sRealPath.TrimStart("""")
+            sRealPath = sRealPath.TrimEnd("""")
+
+            'Flip Seperators
+            sRealPath = sRealPath.Replace("\\", "/")
+
+            'Change Wine Drive
+            cDriveLetter = sRealPath.Chars(sRealPath.IndexOf(":") - 1)
+            sWineDrive = "drive_" & cDriveLetter
+            sRealPath = sRealPath.Replace(cDriveLetter & ":", sWineDrive.ToLower)
+
+            Return sWinePrefix & Path.DirectorySeparatorChar & sRealPath
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return String.Empty
+        End Try
+    End Function
+
+    Public Shared Function GetWineSavePath(ByVal sPrefix As String, ByVal sPath As String) As String
+        Dim sRegistry As String
+        Dim sWinePath As String
+        Dim sReplace As String
+        Dim oParse As Regex
+        Dim oMatch As Match
+
+        Try
+            If sPath.Contains("*appdatalocal*") Then
+                sReplace = "*appdatalocal*"
+                sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
+                oParse = New Regex("""Local AppData""="".+?(?=\n)")
+            ElseIf sPath.Contains("*appdataroaming*") Then
+                sReplace = "*appdataroaming*"
+                sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
+                oParse = New Regex("""AppData""="".+?(?=\n)")
+            ElseIf sPath.Contains("*mydocs*") Then
+                sReplace = "*mydocs*"
+                sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
+                oParse = New Regex("""Personal""="".+?(?=\n)")
+            ElseIf sPath.Contains("*publicdocs*") Then
+                sReplace = "*publicdocs*"
+                sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "system.reg")
+                oParse = New Regex("""Common Documents""="".+?(?=\n)")
+            ElseIf sPath.Contains("*currentuser*") Then
+                sReplace = "*currentuser*"
+                sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
+                oParse = New Regex("""Personal""="".+?(?=\\\\My Documents)")
+            Else
+                Return sPath
+            End If
+
+            If oParse.IsMatch(sRegistry) Then
+                oMatch = oParse.Match(sRegistry)
+                sWinePath = BuildWinePath(oMatch.Value, sPrefix)
+                sPath = sPath.Replace("\", Path.DirectorySeparatorChar)
+                Return sPath.Replace(sReplace, sWinePath)
+            End If
+
+            Return sPath
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return sPath
+        End Try
+    End Function
+
+    Public Shared Function GetWinePrefix(ByVal prs As Process) As String
+        Dim prps As Process
+        Dim sPsinfo As String
+        Dim oParse As New Regex("WINEPREFIX=.+?(?= )")
+        Dim oMatch As Match
+
+        Try
+            prps = New Process
+            prps.StartInfo.FileName = "/bin/ps"
+            prps.StartInfo.Arguments = "e " & prs.Id.ToString
+            prps.StartInfo.UseShellExecute = False
+            prps.StartInfo.RedirectStandardOutput = True
+            prps.StartInfo.CreateNoWindow = True
+            prps.Start()
+            sPsinfo = prps.StandardOutput.ReadToEnd()
+            If oParse.IsMatch(sPsinfo) Then
+                oMatch = oParse.Match(sPsinfo)
+                Return oMatch.Value.Trim("/").Split("=")(1)
+            Else
+                Return String.Empty
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return String.Empty
+        End Try
+    End Function
+
     Public Shared Function CheckSpecialPaths() As Boolean
         Dim hshEnvs As New Hashtable
         Dim bNoError As Boolean = True
