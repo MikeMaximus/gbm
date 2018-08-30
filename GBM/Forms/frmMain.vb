@@ -1935,11 +1935,11 @@ Public Class frmMain
                     Dim sWinePrefix As String = mgrPath.GetWinePrefix(oProcess.FoundProcess)
                     Dim sWineSavePath As String
                     If Not sWinePrefix = String.Empty Then
-                        UpdateLog(oProcess.GameInfo.Name & " Wine Prefix: " & sWinePrefix, False)
+                        UpdateLog(mgrCommon.FormatString(frmMain_WinePrefix, New String() {oProcess.GameInfo.Name, sWinePrefix}), False)
                         sWineSavePath = mgrPath.GetWineSavePath(sWinePrefix, oProcess.GameInfo.TruePath)
                         If Not sWineSavePath = oProcess.GameInfo.TruePath Then
                             oProcess.GameInfo.TruePath = sWineSavePath
-                            UpdateLog(oProcess.GameInfo.Name & " Converted Save Path: " & sWineSavePath, False)
+                            UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, New String() {oProcess.GameInfo.Name, sWineSavePath}), False)
                         End If
                     End If
                 End If

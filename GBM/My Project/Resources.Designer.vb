@@ -3877,6 +3877,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] Wine Prefix: [PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmMain_WinePrefix() As String
+            Get
+                Return ResourceManager.GetString("frmMain_WinePrefix", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] Converted Save Path: [PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmMain_WineSavePath() As String
+            Get
+                Return ResourceManager.GetString("frmMain_WineSavePath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to +.
         '''</summary>
         Friend ReadOnly Property frmProcessManager_btnAdd() As String
@@ -6084,6 +6102,33 @@ Namespace My.Resources
         Friend ReadOnly Property mgrPath_ConfirmPathCorrect() As String
             Get
                 Return ResourceManager.GetString("mgrPath_ConfirmPathCorrect", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error occured when building a Wine path.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrPath_ErrorBuildingWinePath() As String
+            Get
+                Return ResourceManager.GetString("mgrPath_ErrorBuildingWinePath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error occured when converting to a Wine save path.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrPath_ErrorConvertWineSavePath() As String
+            Get
+                Return ResourceManager.GetString("mgrPath_ErrorConvertWineSavePath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error occured when determining a Wine prefix.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrPath_ErrorWinePrefix() As String
+            Get
+                Return ResourceManager.GetString("mgrPath_ErrorWinePrefix", resourceCulture)
             End Get
         End Property
         

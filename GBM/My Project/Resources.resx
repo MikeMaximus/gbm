@@ -2203,4 +2203,19 @@
   <data name="frmGameManager_ErrorRenameFolderExists" xml:space="preserve">
     <value>The backup folder [PARAM] cannot be renamed to [PARAM] because a folder with that name already exists.[BR][BR]Do you want to continue and remove the existing folder?</value>
   </data>
+  <data name="frmMain_WinePrefix" xml:space="preserve">
+    <value>[PARAM] Wine Prefix: [PARAM]</value>
+  </data>
+  <data name="frmMain_WineSavePath" xml:space="preserve">
+    <value>[PARAM] Converted Save Path: [PARAM]</value>
+  </data>
+  <data name="mgrPath_ErrorBuildingWinePath" xml:space="preserve">
+    <value>An error occured when building a Wine path.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrPath_ErrorConvertWineSavePath" xml:space="preserve">
+    <value>An error occured when converting to a Wine save path.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrPath_ErrorWinePrefix" xml:space="preserve">
+    <value>An error occured when determining a Wine prefix.[BR][BR][PARAM]</value>
+  </data>
 </root>

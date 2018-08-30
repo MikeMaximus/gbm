@@ -225,7 +225,7 @@ Public Class mgrPath
 
             Return sWinePrefix & Path.DirectorySeparatorChar & sRealPath
         Catch ex As Exception
-            MsgBox(ex.Message)
+            mgrCommon.ShowMessage(mgrPath_ErrorBuildingWinePath, ex.Message, MsgBoxStyle.Exclamation)
             Return String.Empty
         End Try
     End Function
@@ -271,7 +271,7 @@ Public Class mgrPath
 
             Return sPath
         Catch ex As Exception
-            MsgBox(ex.Message)
+            mgrCommon.ShowMessage(mgrPath_ErrorConvertWineSavePath, ex.Message, MsgBoxStyle.Exclamation)
             Return sPath
         End Try
     End Function
@@ -298,7 +298,7 @@ Public Class mgrPath
                 Return String.Empty
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            mgrCommon.ShowMessage(mgrPath_ErrorWinePrefix, ex.Message, MsgBoxStyle.Exclamation)
             Return String.Empty
         End Try
     End Function
