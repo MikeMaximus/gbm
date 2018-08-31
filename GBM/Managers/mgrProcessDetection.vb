@@ -218,14 +218,13 @@ Public Class mgrProcessDetection
                 'Unix Handler
                 'We need some special handling for Wine processes
                 If mgrCommon.IsUnix And (sProcessCheck.ToLower = "wine-preloader" Or sProcessCheck.ToLower = "wine64-preloader") Then
-                    Dim sWinePath As String() = GetUnixProcessArguments(prsCurrent)
-                    'The wine-preloader parameters can refer to a path on the host system or a windows based path within in the prefix, we need to handle both.
-                    If sWinePath(0).Contains("\") Then
-                        sWinePath = GetUnixProcessArguments(prsCurrent)(0).Split("\")
-                    ElseIf sWinePath(0).Contains("/") Then
-                        sWinePath = GetUnixProcessArguments(prsCurrent)(0).Split("/")
-                    End If
-                    sProcessCheck = sWinePath(sWinePath.Length - 1).Replace(".exe", "")
+                    Dim sArgs As String() = GetUnixProcessArguments(prsCurrent)
+                    Dim sParameter As String
+                    Dim sWinePath As String()
+                    'The wine-preloader parameters can refer to a path on the host system, windows based path within in the prefix, or mixed notation.
+                    sParameter = sArgs(0).Replace("\", "/")
+                    sWinePath = sParameter.Split("/")
+                    sProcessCheck = Path.GetFileNameWithoutExtension(sWinePath(sWinePath.Length - 1))
                     bWineProcess = True
                 Else
                     bWineProcess = False
