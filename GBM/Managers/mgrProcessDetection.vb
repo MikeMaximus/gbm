@@ -94,8 +94,14 @@ Public Class mgrProcessDetection
 
         For Each o As clsGame In hshScanList.Values
             sProcess = o.ProcessName.Split(":")(0)
-            If o.Duplicate = True And (sProcess = oGame.TrueProcess Or Regex.IsMatch(sProcess, oGame.TrueProcess)) Then
-                oInitialDupes.Add(o.ShallowCopy)
+            If o.Duplicate And o.IsRegEx Then
+                If Regex.IsMatch(prsFoundProcess.ProcessName, sProcess) Then
+                    oInitialDupes.Add(o.ShallowCopy)
+                End If
+            ElseIf o.Duplicate And Not o.IsRegEx Then
+                If sProcess = prsFoundProcess.ProcessName Then
+                    oInitialDupes.Add(o.ShallowCopy)
+                End If
             End If
         Next
 

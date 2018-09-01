@@ -78,7 +78,7 @@ Public Class mgrMonitorList
         Dim oCompareGame As clsGame
         Dim bIsDupe As Boolean
 
-        sSQL = "Select * FROM monitorlist ORDER BY Name Asc"
+        sSQL = "SELECT * FROM monitorlist ORDER BY IsRegEx DESC"
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
 
         For Each dr As DataRow In oData.Tables(0).Rows
