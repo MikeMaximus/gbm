@@ -5,6 +5,7 @@ Imports System.Text.RegularExpressions
 Public Class mgrProcessDetection
 
     Private prsFoundProcess As Process
+    Private sProcessPath As String
     Private dStartTime As DateTime = Now, dEndTime As DateTime = Now
     Private lTimeSpent As Long = 0
     Private oGame As clsGame
@@ -17,6 +18,15 @@ Public Class mgrProcessDetection
         End Get
         Set(value As Process)
             prsFoundProcess = value
+        End Set
+    End Property
+
+    Property ProcessPath As String
+        Get
+            Return sProcessPath
+        End Get
+        Set(value As String)
+            sProcessPath = value
         End Set
     End Property
 
@@ -91,7 +101,7 @@ Public Class mgrProcessDetection
         Dim sFullCommand As String = String.Empty
         Try
             sFullCommand = File.ReadAllText("/proc/" & prs.Id.ToString() & "/cmdline").Replace(vbNullChar, " ")
-        Catch ex As Exception
+        Catch
             'Do Nothing
         End Try
 
@@ -161,10 +171,10 @@ Public Class mgrProcessDetection
 
     Private Sub FilterDetected(ByVal oDetectedGames As ArrayList, ByVal bWineProcess As Boolean)
         Dim bMatch As Boolean = False
-        Dim sProcessPath As String
         Dim sFullCommand As String
         Dim oNotDetectedWithParameters As New ArrayList
         Dim oDetectedWithParameters As New ArrayList
+        Dim oNotDetectedWithProcessPath As New ArrayList
         Dim oDetectedWithProcessPath As New ArrayList
 
         'Get parameters of the found process
@@ -173,6 +183,9 @@ Public Class mgrProcessDetection
         Else
             sFullCommand = GetWindowsCommand(FoundProcess)
         End If
+
+        'Get Process Path
+        ProcessPath = GetProcessPath(bWineProcess)
 
         'Look for any games using parameters and any matches
         For Each oDetectedGame As clsGame In oDetectedGames
@@ -201,13 +214,14 @@ Public Class mgrProcessDetection
             GameInfo = oDetectedGames(0)
             Duplicate = False
         Else
-            'Get Process Path
-            sProcessPath = GetProcessPath(bWineProcess)
-
             'Check if we have any exact matches based on process path
             For Each oDetectedGame As clsGame In oDetectedGames
-                If oDetectedGame.ProcessPath = sProcessPath Then
-                    oDetectedWithProcessPath.Add(oDetectedGame)
+                If oDetectedGame.ProcessPath <> String.Empty Then
+                    If oDetectedGame.ProcessPath = ProcessPath Then
+                        oDetectedWithProcessPath.Add(oDetectedGame)
+                    Else
+                        oNotDetectedWithProcessPath.Add(oDetectedGame)
+                    End If
                 End If
             Next
 
@@ -216,9 +230,20 @@ Public Class mgrProcessDetection
                 GameInfo = oDetectedWithProcessPath(0)
                 Duplicate = False
             Else
-                'We've done all we can, the user must selected which game they were playing when the process ends
-                Duplicate = True
-                oDuplicateGames = oDetectedGames
+                'Remove any games with a process path that does not match the current process
+                For Each oGameNotDetected As clsGame In oNotDetectedWithProcessPath
+                    oDetectedGames.Remove(oGameNotDetected)
+                Next
+
+                'If only a single game remains, set it as current game and we're done
+                If oDetectedGames.Count = 1 Then
+                    GameInfo = oDetectedGames(0)
+                    Duplicate = False
+                Else
+                    'We've done all we can, the user must selected which game they were playing when the process ends
+                    Duplicate = True
+                    oDuplicateGames = oDetectedGames
+                End If
             End If
         End If
     End Sub

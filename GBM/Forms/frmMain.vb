@@ -266,14 +266,9 @@ Public Class frmMain
             frm.Process = oProcess
             oResult = frm.ShowDialog()
             If oResult = DialogResult.OK Then
-                Dim sProcessPath As String
                 'Reload settings
                 LoadGameSettings()
-                'Retain the process path from old object
-                sProcessPath = oProcess.GameInfo.ProcessPath
                 oProcess.GameInfo = frm.Game
-                'Set the process path into the new object
-                oProcess.GameInfo.ProcessPath = sProcessPath
                 'A game was set, return and continue
                 Return True
             Else
