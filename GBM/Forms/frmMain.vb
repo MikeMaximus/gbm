@@ -228,7 +228,7 @@ Public Class frmMain
             If oGame.AbsolutePath = False Then
                 If oGame.ProcessPath = String.Empty Then
                     If mgrCommon.IsProcessNotSearchable(oGame) Then bNoAuto = True
-                    oGame.ProcessPath = mgrPath.ProcessPathSearch(oGame.Name, oGame.TrueProcess, mgrCommon.FormatString(frmMain_ErrorRelativePath, oGame.Name), bNoAuto)
+                    oGame.ProcessPath = mgrPath.ProcessPathSearch(oGame.Name, oGame.ProcessName, mgrCommon.FormatString(frmMain_ErrorRelativePath, oGame.Name), bNoAuto)
                 End If
 
                 If oGame.ProcessPath <> String.Empty Then
@@ -1689,15 +1689,6 @@ Public Class frmMain
 
     End Function
 
-    Private Sub CheckForSavedDuplicate()
-        For Each o As clsGame In oProcess.DuplicateList
-            If o.ProcessPath.ToLower = oProcess.GameInfo.ProcessPath.ToLower Then
-                oProcess.GameInfo = o
-                oProcess.Duplicate = False
-            End If
-        Next
-    End Sub
-
     Private Function CheckForSavedPath() As Boolean
         If oProcess.GameInfo.ProcessPath <> String.Empty Then
             Return True
@@ -1946,7 +1937,6 @@ Public Class frmMain
             End If
 
             If bContinue = True Then
-                CheckForSavedDuplicate()
                 If oProcess.Duplicate Then
                     UpdateLog(frmMain_MultipleGamesDetected, oSettings.ShowDetectionToolTips)
                     UpdateStatus(frmMain_MultipleGamesDetected)

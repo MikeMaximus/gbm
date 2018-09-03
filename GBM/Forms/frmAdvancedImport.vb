@@ -82,7 +82,7 @@ Public Class frmAdvancedImport
             Next
             sTags = sTags.TrimEnd(New Char() {",", " "})
 
-            oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.TrueProcess, sTags})
+            oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.ProcessName, sTags})
             oListViewItem.Tag = oApp.ID
 
             If FinalData.ContainsKey(oApp.ID) Then
@@ -114,7 +114,7 @@ Public Class frmAdvancedImport
             If sFilter = String.Empty Then
                 bAddItem = True
             Else
-                If oApp.Name.ToLower.Contains(sFilter.ToLower) Or oApp.TrueProcess.ToLower.Contains(sFilter.ToLower) Or sTags.ToLower.Contains(sFilter.ToLower) Then
+                If oApp.Name.ToLower.Contains(sFilter.ToLower) Or oApp.ProcessName.ToLower.Contains(sFilter.ToLower) Or sTags.ToLower.Contains(sFilter.ToLower) Then
                     bAddItem = True
                 End If
             End If

@@ -37,7 +37,7 @@ Public Class mgrRestore
             If oGame.ProcessPath <> String.Empty Then
                 oRestoreInfo.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oRestoreInfo.RestorePath
             Else
-                sProcess = oGame.TrueProcess
+                sProcess = oGame.ProcessName
                 If mgrCommon.IsProcessNotSearchable(oGame) Then bNoAuto = True
                 sRestorePath = mgrPath.ProcessPathSearch(oRestoreInfo.Name, sProcess, mgrCommon.FormatString(mgrRestore_RelativeNeedPath, oRestoreInfo.Name), bNoAuto)
 

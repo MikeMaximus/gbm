@@ -225,7 +225,7 @@ Public Class mgrCommon
             If oGame.ProcessName.ToLower.Contains(s) Then bFound = True
         Next
 
-        If bFound Or oGame.Duplicate = True Then
+        If bFound Then
             Return True
         Else
             Return False

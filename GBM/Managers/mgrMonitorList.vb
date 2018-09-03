@@ -45,7 +45,7 @@ Public Class mgrMonitorList
 
         hshParams.Add("ID", oGame.ID)
         hshParams.Add("Name", oGame.Name)
-        hshParams.Add("Process", oGame.TrueProcess)
+        hshParams.Add("Process", oGame.ProcessName)
         hshParams.Add("Path", oGame.TruePath)
         hshParams.Add("AbsolutePath", oGame.AbsolutePath)
         hshParams.Add("FolderSave", oGame.FolderSave)
@@ -75,10 +75,8 @@ Public Class mgrMonitorList
         Dim hshList As New Hashtable
         Dim hshDupeList As New Hashtable
         Dim oGame As clsGame
-        Dim oCompareGame As clsGame
-        Dim bIsDupe As Boolean
 
-        sSQL = "SELECT * FROM monitorlist ORDER BY IsRegEx DESC"
+        sSQL = "SELECT * FROM monitorlist ORDER BY Name ASC"
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
 
         For Each dr As DataRow In oData.Tables(0).Rows
@@ -87,39 +85,7 @@ Public Class mgrMonitorList
                 Case eListTypes.FullList
                     hshList.Add(oGame.ID, oGame)
                 Case eListTypes.ScanList
-                    For Each de As DictionaryEntry In hshList
-                        bIsDupe = False
-                        oCompareGame = DirectCast(de.Value, clsGame)
-
-                        If oCompareGame.IsRegEx Then
-                            If oGame.IsRegEx Then
-                                If oCompareGame.ProcessName = oGame.ProcessName Then
-                                    bIsDupe = True
-                                End If
-                            Else
-                                If Regex.IsMatch(oGame.ProcessName, oCompareGame.ProcessName) Then
-                                    bIsDupe = True
-                                End If
-                            End If
-                        Else
-                            If oGame.IsRegEx Then
-                                If Regex.IsMatch(oCompareGame.ProcessName, oGame.ProcessName) Then
-                                    bIsDupe = True
-                                End If
-                            Else
-                                If oGame.ProcessName = oCompareGame.ProcessName Then
-                                    bIsDupe = True
-                                End If
-                            End If
-                        End If
-
-                        If bIsDupe Then
-                            DirectCast(hshList.Item(oCompareGame.ProcessName), clsGame).Duplicate = True
-                            oGame.ProcessName = oGame.CompoundKey
-                            oGame.Duplicate = True
-                        End If
-                    Next
-                    If oGame.Enabled Then hshList.Add(oGame.ProcessName, oGame)
+                    If oGame.Enabled Then hshList.Add(oGame.ID, oGame)
             End Select
         Next
 
@@ -413,7 +379,7 @@ Public Class mgrMonitorList
             'Core Parameters
             hshParams.Add("ID", oGame.ID)
             hshParams.Add("Name", oGame.Name)
-            hshParams.Add("Process", oGame.TrueProcess)
+            hshParams.Add("Process", oGame.ProcessName)
             hshParams.Add("Path", oGame.TruePath)
             hshParams.Add("AbsolutePath", oGame.AbsolutePath)
             hshParams.Add("FolderSave", oGame.FolderSave)

@@ -574,7 +574,7 @@ Public Class frmGameManager
             If CurrentGame.ProcessPath <> String.Empty Then
                 CurrentBackupItem.RelativeRestorePath = CurrentGame.ProcessPath & Path.DirectorySeparatorChar & CurrentBackupItem.RestorePath
             Else
-                sProcess = CurrentGame.TrueProcess
+                sProcess = CurrentGame.ProcessName
                 If mgrCommon.IsProcessNotSearchable(CurrentGame) Then bNoAuto = True
                 sRestorePath = mgrPath.ProcessPathSearch(CurrentBackupItem.Name, sProcess, mgrCommon.FormatString(frmGameManager_ErrorPathNotSet, CurrentBackupItem.Name), bNoAuto)
 
@@ -864,7 +864,7 @@ Public Class frmGameManager
         'Core
         txtID.Text = oApp.ID
         txtName.Text = oApp.Name
-        txtProcess.Text = oApp.TrueProcess
+        txtProcess.Text = oApp.ProcessName
         chkRegEx.Checked = oApp.IsRegEx
         txtParameter.Text = oApp.Parameter
         txtSavePath.Text = oApp.Path
