@@ -11,6 +11,7 @@ Public Class mgrProcessDetection
     Private oGame As clsGame
     Private oDuplicateGames As New ArrayList
     Private bDuplicates As Boolean
+    Private bVerified As Boolean = False
 
     Property FoundProcess As Process
         Get
@@ -305,9 +306,6 @@ Public Class mgrProcessDetection
                             oGame.ProcessPath = GetUnixSymLinkDirectory(prsCurrent)
                         End If
                     Catch exWin32 As System.ComponentModel.Win32Exception
-                        'If an exception occurs the process is:
-                        'Running as administrator and the app isn't.
-                        'The process is 64-bit and the process folder is required, shouldn't happen often.                        
                         If exWin32.NativeErrorCode = 5 Then
                             bNeedsPath = True
                             iErrorCode = 5
@@ -323,11 +321,19 @@ Public Class mgrProcessDetection
                         Return False
                     End Try
                 End If
-                Return True
+
+                If bDebugMode Then mgrCommon.SaveText(sProcessList, mgrPath.SettingsRoot & "/gbm_process_list.txt")
+
+                'This will force two cycles for detection to try and prevent issues with UAC prompt
+                If Not bVerified Then
+                    bVerified = True
+                    Return False
+                Else
+                    bVerified = False
+                    Return True
+                End If
             End If
         Next
-
-        If bDebugMode Then mgrCommon.SaveText(sProcessList, mgrPath.SettingsRoot & "/gbm_process_list.txt")
 
         Return False
     End Function
