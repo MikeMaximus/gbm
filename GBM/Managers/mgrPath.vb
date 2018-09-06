@@ -12,10 +12,12 @@ Public Class mgrPath
     Private Shared sLogFile As String = sSettingsRoot & Path.DirectorySeparatorChar & "gbm_log_" & Date.Now.ToString("dd-MM-yyyy-HH-mm-ss") & ".txt"
     Private Shared sRemoteDatabaseLocation As String
     Private Shared hshCustomVariables As Hashtable
+    Private Shared hshUnixEnv As Hashtable
     Private Shared oReleaseType As ProcessorArchitecture = AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
 
     Shared Sub New()
-        hshCustomVariables = mgrVariables.ReadVariables
+        SetEnv()
+        LoadCustomVariables()
     End Sub
 
     Shared ReadOnly Property ReleaseType As Integer
@@ -238,24 +240,24 @@ Public Class mgrPath
         Dim oMatch As Match
 
         Try
-            If sPath.Contains("*appdatalocal*") Then
-                sReplace = "*appdatalocal*"
+            If sPath.Contains("%LOCALAPPDATA%") Then
+                sReplace = "%LOCALAPPDATA%"
                 sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
                 oParse = New Regex("""Local AppData""="".+?(?=\n)")
-            ElseIf sPath.Contains("*appdataroaming*") Then
-                sReplace = "*appdataroaming*"
+            ElseIf sPath.Contains("%APPDATA%") Then
+                sReplace = "%APPDATA%"
                 sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
                 oParse = New Regex("""AppData""="".+?(?=\n)")
-            ElseIf sPath.Contains("*mydocs*") Then
-                sReplace = "*mydocs*"
+            ElseIf sPath.Contains("%USERDOCUMENTS%") Then
+                sReplace = "%USERDOCUMENTS%"
                 sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
                 oParse = New Regex("""Personal""="".+?(?=\n)")
-            ElseIf sPath.Contains("*publicdocs*") Then
-                sReplace = "*publicdocs*"
+            ElseIf sPath.Contains("%COMMONDOCUMENTS%") Then
+                sReplace = "%COMMONDOCUMENTS%"
                 sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "system.reg")
                 oParse = New Regex("""Common Documents""="".+?(?=\n)")
-            ElseIf sPath.Contains("*currentuser*") Then
-                sReplace = "*currentuser*"
+            ElseIf sPath.Contains("%USERPROFILE%") Then
+                sReplace = "%USERPROFILE%"
                 sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
                 oParse = New Regex("""Personal""="".+?(?=\\\\My Documents)")
             Else
@@ -325,61 +327,84 @@ Public Class mgrPath
         Return bNoError
     End Function
 
-    Public Shared Function ReplaceSpecialPaths(sValue As String) As String
-        Dim sMyDocs As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-        Dim sPublicDocs As String = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments)
-        Dim sAppDataRoaming As String = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
-        Dim sAppDataLocal As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
-        Dim sCurrentUser As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
-        Dim oCustomVariable As clsPathVariable
-
-
-        For Each oCustomVariable In hshCustomVariables.Values
-            If sValue.Contains(oCustomVariable.FormattedName) Then
-                Return sValue.Replace(oCustomVariable.FormattedName, oCustomVariable.Path)
-            End If
-        Next
-
-        If sValue.Contains("*appdatalocal*") Then
-            Return sValue.Replace("*appdatalocal*", sAppDataLocal)
-        End If
-
-        If sValue.Contains("*appdataroaming*") Then
-            Return sValue.Replace("*appdataroaming*", sAppDataRoaming)
-        End If
-
-        'This needs to be tested last for Unix compatability
-        If sValue.Contains("*mydocs*") Then
-            Return sValue.Replace("*mydocs*", sMyDocs)
-        End If
-
-        'Don't use these in Unix
+    Private Shared Sub SetEnv()
         If Not mgrCommon.IsUnix Then
-            If sValue.Contains("*publicdocs*") Then
-                Return sValue.Replace("*publicdocs*", sPublicDocs)
+            Environment.SetEnvironmentVariable("USERDOCUMENTS", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
+            Environment.SetEnvironmentVariable("COMMONDOCUMENTS", Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments))
+        Else
+            GetUnixEnv()
+            Environment.SetEnvironmentVariable("USERDOCUMENTS", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
+            Environment.SetEnvironmentVariable("APPDATA", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData))
+            Environment.SetEnvironmentVariable("LOCALAPPDATA", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData))
+        End If
+
+    End Sub
+
+    Private Shared Sub GetUnixEnv()
+        Dim prEnv As Process
+        Dim sEnv As String()
+
+        Try
+            hshUnixEnv = New Hashtable
+            prEnv = New Process
+            prEnv.StartInfo.FileName = "/usr/bin/env"
+            prEnv.StartInfo.UseShellExecute = False
+            prEnv.StartInfo.RedirectStandardOutput = True
+            prEnv.StartInfo.CreateNoWindow = True
+            prEnv.Start()
+
+            Using swEnv As StreamReader = prEnv.StandardOutput
+                While Not swEnv.EndOfStream
+                    sEnv = swEnv.ReadLine().Split("=")
+                    If Not hshUnixEnv.Contains(sEnv(0)) Then
+                        hshUnixEnv.Add(sEnv(0), sEnv(1))
+                    End If
+                End While
+            End Using
+        Catch ex As Exception
+            mgrCommon.ShowMessage(mgrPath_ErrorUnixEnv, ex.Message, MsgBoxStyle.Exclamation)
+        End Try
+    End Sub
+
+    Private Shared Function ProcessEnvironmentVariables(ByVal sValue As String) As String
+        Dim sUnixShortHome As String = "~"
+        Dim sEnvUnixHome As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+        Dim sCurrentUnixVar As String
+
+        If mgrCommon.IsUnix Then
+            'Replace ~ for HOME
+            If sValue.Contains(sUnixShortHome) Then
+                Return sValue.Replace(sUnixShortHome, sEnvUnixHome)
             End If
 
-            If sValue.Contains("*currentuser*") Then
-                Return sValue.Replace("*currentuser*", sCurrentUser)
-            End If
+            'Replace any other environemnt variable
+            For Each de As DictionaryEntry In hshUnixEnv
+                sCurrentUnixVar = "$" & de.Key
+                If sValue.Contains(sCurrentUnixVar) Then
+                    sValue = sValue.Replace(sCurrentUnixVar, de.Value)
+                End If
+            Next
+        Else
+            sValue = Environment.ExpandEnvironmentVariables(sValue)
         End If
 
         Return sValue
     End Function
 
     Public Shared Function ReverseSpecialPaths(sValue As String) As String
-        Dim sMyDocs As String = "*mydocs*"
+        Dim sMyDocs As String = "%USERDOCUMENTS%"
         Dim sEnvMyDocs As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-        Dim sPublicDocs As String = "*publicdocs*"
+        Dim sPublicDocs As String = "%COMMONDOCUMENTS%"
         Dim sEnvPublicDocs As String = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments)
-        Dim sAppDataLocal As String = "*appdatalocal*"
+        Dim sAppDataLocal As String = "%LOCALAPPDATA%"
         Dim sEnvAppDataLocal As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
-        Dim sAppDataRoaming As String = "*appdataroaming*"
+        Dim sAppDataRoaming As String = "%APPDATA%"
         Dim sEnvAppDataRoaming As String = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
-        Dim sCurrentUser As String = "*currentuser*"
+        Dim sCurrentUser As String = "%USERPROFILE%"
         Dim sEnvCurrentUser As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
         Dim oCustomVariable As clsPathVariable
 
+        sValue = ProcessEnvironmentVariables(sValue)
 
         For Each oCustomVariable In hshCustomVariables.Values
             If sValue.Contains(oCustomVariable.Path) Then
@@ -400,7 +425,7 @@ Public Class mgrPath
             Return sValue.Replace(sEnvMyDocs, sMyDocs)
         End If
 
-        'Don't use these in Unix
+        'Mono doesn't set a path for these folders
         If Not mgrCommon.IsUnix Then
             If sValue.Contains(sEnvPublicDocs) Then
                 Return sValue.Replace(sEnvPublicDocs, sPublicDocs)
@@ -447,7 +472,7 @@ Public Class mgrPath
     Public Shared Function VerifyCustomVariables(ByVal hshScanlist As Hashtable, ByRef sGames As String) As Boolean
         Dim hshCustomVariables As Hashtable = mgrVariables.ReadVariables
         Dim sVariableCheck As String
-        Dim sPattern As String = "\*(.*)\*"
+        Dim sPattern As String = "\%(.*)\%"
         Dim oGame As clsGame
         Dim oMatch As Match
         Dim bClean As Boolean = True
@@ -455,7 +480,7 @@ Public Class mgrPath
         For Each oGame In hshScanlist.Values
             oMatch = Regex.Match(oGame.Path, sPattern)
             If oMatch.Success Then
-                sVariableCheck = oMatch.Value.Replace("*", String.Empty)
+                sVariableCheck = oMatch.Value.Replace("%", String.Empty)
                 If Not hshCustomVariables.ContainsKey(sVariableCheck) Then
                     sGames &= vbCrLf & oGame.Name & " (" & sVariableCheck & ")"
                     bClean = False
@@ -466,8 +491,12 @@ Public Class mgrPath
         Return bClean
     End Function
 
-    Public Shared Sub CustomVariablesReload()
+    Public Shared Sub LoadCustomVariables()
         hshCustomVariables = mgrVariables.ReadVariables
+
+        For Each oVariable As clsPathVariable In hshCustomVariables.Values
+            Environment.SetEnvironmentVariable(oVariable.Name, oVariable.Path)
+        Next
     End Sub
 
     Public Shared Function SetManualGamePath() As String

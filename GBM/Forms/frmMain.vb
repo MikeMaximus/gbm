@@ -935,7 +935,7 @@ Public Class frmMain
         Dim frm As New frmVariableManager
         PauseScan()
         frm.ShowDialog()
-        mgrPath.CustomVariablesReload()
+        mgrPath.LoadCustomVariables()
         mgrMonitorList.SyncMonitorLists(oSettings)
         ResumeScan()
     End Sub

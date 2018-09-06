@@ -6124,6 +6124,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An error occured while building a list of environment variables.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrPath_ErrorUnixEnv() As String
+            Get
+                Return ResourceManager.GetString("mgrPath_ErrorUnixEnv", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to An error occured when determining a Wine prefix.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrPath_ErrorWinePrefix() As String

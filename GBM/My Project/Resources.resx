@@ -2218,4 +2218,7 @@
   <data name="mgrPath_ErrorWinePrefix" xml:space="preserve">
     <value>An error occured when determining a Wine prefix.[BR][BR][PARAM]</value>
   </data>
+  <data name="mgrPath_ErrorUnixEnv" xml:space="preserve">
+    <value>An error occured while building a list of environment variables.[BR][BR][PARAM]</value>
+  </data>
 </root>

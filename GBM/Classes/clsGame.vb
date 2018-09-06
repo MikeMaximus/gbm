@@ -93,7 +93,7 @@ Public Class clsGame
             sPath = mgrPath.ReverseSpecialPaths(value)
         End Set
         Get
-            Return mgrPath.ReplaceSpecialPaths(sPath)
+            Return Environment.ExpandEnvironmentVariables(sPath)
         End Get
     End Property
 

@@ -24,7 +24,7 @@
 
     ReadOnly Property FormattedName As String
         Get
-            Return "*" & sVariableName & "*"
+            Return "%" & sVariableName & "%"
         End Get
     End Property
 

@@ -848,6 +848,41 @@ Public Class mgrSQLite
                 CompactDatabase()
             End If
         End If
+
+        '1.15 Upgrade
+        If GetDatabaseVersion() < 115 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v110")
+
+                sSQL = "PRAGMA user_version=115"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v110")
+
+                'Convert core path variables to new standard 
+                sSQL = "UPDATE monitorlist SET Path = Replace(Path,'*appdatalocal*','%LOCALAPPDATA%');"
+                sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*appdataroaming*','%APPDATA%');"
+                sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*mydocs*','%USERDOCUMENTS%');"
+                sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*currentuser*','%USERPROFILE%');"
+                sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*publicdocs*','%COMMONDOCUMENTS%');"
+
+                'Convert custom variables to new standard
+                Dim hshVariables As Hashtable = mgrVariables.ReadVariables()
+                Dim sOldVariable As String
+                For Each oVariable As clsPathVariable In hshVariables.Values
+                    sOldVariable = "*" & oVariable.Name & "*"
+                    sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'" & sOldVariable & "','" & oVariable.FormattedName & "');"
+                Next
+
+                sSQL &= "PRAGMA user_version=115"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
     End Sub
 
     Public Function GetDBSize() As Long
