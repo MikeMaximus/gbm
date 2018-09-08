@@ -335,16 +335,19 @@ Public Class mgrPath
     End Sub
 
     Private Shared Function ProcessEnvironmentVariables(ByVal sValue As String) As String
-        Dim sAppDataLocalLinux As String = "${XDG_DATA_HOME:-~/.local/share}"
+        Dim sXdgData As String = "${XDG_DATA_HOME:-~/.local/share}"
         Dim sEnvAppDataLocal As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
-        Dim sAppDataRoamingLinux As String = "${XDG_CONFIG_HOME:-~/.config}"
+        Dim sXdgConfig As String = "${XDG_CONFIG_HOME:-~/.config}"
         Dim sEnvAppDataRoaming As String = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
-        Dim sCurrentUserLinux As String = "${HOME}"
+        Dim sHomeDir As String = "${HOME}"
         Dim sEnvCurrentUser As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
 
         If mgrCommon.IsUnix Then
+            '$VAR_iable
             Dim oParse As new Regex("\$([a-zA-Z0-9_]+)")
+            '${VAR_iable} but not advanced syntax like ${VAR:-iable}
             Dim oParseBracketed As new Regex("\$\{([a-zA-Z0-9_]+?)\}")
+            '~ not inside ${...}
             Dim oParseTilde As new Regex("~(?![^\$\{]*\})")
             If sEnvCurrentUser = String.Empty Then
                 'Fall back
@@ -358,28 +361,31 @@ Public Class mgrPath
             '$HOME to ${HOME}
             sValue = oParse.Replace(sValue, "${$1}")
             'Special notations for home directory
-            'Don't replace inside variables
             sValue = oParseTilde.Replace(sValue,"${HOME}")
             'XDG Base Directory Specification has default values
-            sValue = sValue.Replace("${XDG_DATA_HOME}", "${XDG_DATA_HOME:-~/.local/share}")
-            sValue = sValue.Replace("${XDG_CONFIG_HOME}", "${XDG_CONFIG_HOME:-~/.config}")
+            sValue = sValue.Replace("${XDG_DATA_HOME}", sXdgData)
+            sValue = sValue.Replace("${XDG_CONFIG_HOME}", sXdgConfig)
 
             'Replace with paths
-            sValue = sValue.Replace(sAppDataLocalLinux, sEnvAppDataLocal)
-            sValue = sValue.Replace(sAppDataRoamingLinux, sEnvAppDataRoaming)
-            sValue = sValue.Replace(sCurrentUserLinux, sEnvCurrentUser)
+            sValue = sValue.Replace(sXdgData, sEnvAppDataLocal)
+            sValue = sValue.Replace(sXdgConfig, sEnvAppDataRoaming)
+            sValue = sValue.Replace(sHomeDir, sEnvCurrentUser)
 
+            'Escape real Windows variables
+            sValue = sValue.Replace("%", "\%")
             'Transform Linux variables to Windows variables
-            'More complex syntax couldn't be converted back
             sValue = oParseBracketed.Replace(sValue, "%$1%")
         End If
+
         'On Linux real Linux environmental variables are used
         sValue = Environment.ExpandEnvironmentVariables(sValue)
 
         If mgrCommon.IsUnix Then
-            'TODO: breaks support of Windows variables on Linux
+            'Transform missing variables back
             Dim oParse As new Regex("%([a-zA-Z0-9_]+?)%")
             sValue = oParse.Replace(sValue, "${$1}")
+            'Unscape real Windows variables
+            sValue = sValue.Replace("\%", "%")
         End If
 
         Return sValue
@@ -391,13 +397,13 @@ Public Class mgrPath
         Dim sPublicDocs As String = "%COMMONDOCUMENTS%"
         Dim sEnvPublicDocs As String = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments)
         Dim sAppDataLocal As String = "%LOCALAPPDATA%"
-        Dim sAppDataLocalLinux As String = "${XDG_DATA_HOME:-~/.local/share}"
+        Dim sXdgData As String = "${XDG_DATA_HOME:-~/.local/share}"
         Dim sEnvAppDataLocal As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
         Dim sAppDataRoaming As String = "%APPDATA%"
-        Dim sAppDataRoamingLinux As String = "${XDG_CONFIG_HOME:-~/.config}"
+        Dim sXdgConfig As String = "${XDG_CONFIG_HOME:-~/.config}"
         Dim sEnvAppDataRoaming As String = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
         Dim sCurrentUser As String = "%USERPROFILE%"
-        Dim sCurrentUserLinux As String = "~"
+        Dim sHomeDir As String = "~"
         Dim sEnvCurrentUser As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
         Dim oCustomVariable As clsPathVariable
 
@@ -435,11 +441,11 @@ Public Class mgrPath
         Else
             'Use different paths on Linux
             If sValue.Contains(sEnvAppDataRoaming) Then
-                Return sValue.Replace(sEnvAppDataRoaming, sAppDataRoamingLinux)
+                Return sValue.Replace(sEnvAppDataRoaming, sXdgConfig)
             End If
 
             If sValue.Contains(sEnvAppDataLocal) Then
-                Return sValue.Replace(sEnvAppDataLocal, sAppDataLocalLinux)
+                Return sValue.Replace(sEnvAppDataLocal, sXdgData)
             End If
 
             'Must be last
@@ -452,7 +458,7 @@ Public Class mgrPath
                     'Fall back
                     sEnvCurrentUser = sMyDocs
                 End If
-                Return sValue.Replace(sEnvCurrentUser, sCurrentUserLinux)
+                Return sValue.Replace(sEnvCurrentUser, sHomeDir)
             End If
         End If
 
