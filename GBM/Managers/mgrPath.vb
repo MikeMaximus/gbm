@@ -334,7 +334,7 @@ Public Class mgrPath
 
     End Sub
 
-    Private Shared Function ProcessEnvironmentVariables(ByVal sValue As String) As String
+    Public Shared Function ReplaceSpecialPaths(ByVal sValue As String) As String
         Dim sXdgData As String = "${XDG_DATA_HOME:-~/.local/share}"
         Dim sEnvAppDataLocal As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
         Dim sXdgConfig As String = "${XDG_CONFIG_HOME:-~/.config}"
@@ -344,11 +344,11 @@ Public Class mgrPath
 
         If mgrCommon.IsUnix Then
             '$VAR_iable
-            Dim oParse As new Regex("\$([a-zA-Z0-9_]+)")
+            Dim oParse As New Regex("\$([a-zA-Z0-9_]+)")
             '${VAR_iable} but not advanced syntax like ${VAR:-iable}
-            Dim oParseBracketed As new Regex("\$\{([a-zA-Z0-9_]+?)\}")
+            Dim oParseBracketed As New Regex("\$\{([a-zA-Z0-9_]+?)\}")
             '~ not inside ${...}
-            Dim oParseTilde As new Regex("~(?![^\$\{]*\})")
+            Dim oParseTilde As New Regex("~(?![^\$\{]*\})")
             If sEnvCurrentUser = String.Empty Then
                 'Fall back
                 sEnvCurrentUser = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
@@ -361,7 +361,7 @@ Public Class mgrPath
             '$HOME to ${HOME}
             sValue = oParse.Replace(sValue, "${$1}")
             'Special notations for home directory
-            sValue = oParseTilde.Replace(sValue,"${HOME}")
+            sValue = oParseTilde.Replace(sValue, "${HOME}")
             'XDG Base Directory Specification has default values
             sValue = sValue.Replace("${XDG_DATA_HOME}", sXdgData)
             sValue = sValue.Replace("${XDG_CONFIG_HOME}", sXdgConfig)
@@ -382,7 +382,7 @@ Public Class mgrPath
 
         If mgrCommon.IsUnix Then
             'Transform missing variables back
-            Dim oParse As new Regex("%([a-zA-Z0-9_]+?)%")
+            Dim oParse As New Regex("%([a-zA-Z0-9_]+?)%")
             sValue = oParse.Replace(sValue, "${$1}")
             'Unscape real Windows variables
             sValue = sValue.Replace("\%", "%")
@@ -406,9 +406,6 @@ Public Class mgrPath
         Dim sHomeDir As String = "~"
         Dim sEnvCurrentUser As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
         Dim oCustomVariable As clsPathVariable
-
-        sValue = ProcessEnvironmentVariables(sValue)
-
 
         For Each oCustomVariable In hshCustomVariables.Values
             If sValue.Contains(oCustomVariable.Path) Then

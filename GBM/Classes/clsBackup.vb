@@ -74,7 +74,7 @@
 
     Property RestorePath As String
         Get
-            Return Environment.ExpandEnvironmentVariables(sRestorePath)
+            Return mgrPath.ReplaceSpecialPaths(sRestorePath)
         End Get
         Set(value As String)
             sRestorePath = mgrPath.ReverseSpecialPaths(value)
