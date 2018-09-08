@@ -162,14 +162,16 @@ Public Class frmGameManager
         oLocalBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Local)
     End Sub
 
-    Private Function ConvertToRelativePath(ByVal sSavePath As String, ByVal sAppPath As String) As String
+    Private Function HandleSavePath(ByVal sSavePath As String, ByVal sAppPath As String) As String
         Dim sPath As String = sSavePath
 
-        'Determine a relative path if possible
-        If sAppPath <> String.Empty And sSavePath <> String.Empty Then
-            If Not mgrPath.IsAbsolute(sSavePath) Then
+        If Not mgrPath.IsAbsolute(sSavePath) Then
+            'Determine a relative path if possible
+            If sAppPath <> String.Empty And sSavePath <> String.Empty Then
                 sPath = mgrPath.DetermineRelativePath(sAppPath, sSavePath)
             End If
+        Else
+            sPath = mgrPath.ReverseSpecialPaths(sPath)
         End If
 
         Return sPath
@@ -380,7 +382,7 @@ Public Class frmGameManager
 
         If sNewPath <> String.Empty Then
             txtSavePath.Text = sNewPath
-            txtSavePath.Text = ConvertToRelativePath(txtSavePath.Text, txtAppPath.Text)
+            txtSavePath.Text = HandleSavePath(txtSavePath.Text, txtAppPath.Text)
         End If
     End Sub
 
@@ -867,7 +869,7 @@ Public Class frmGameManager
         txtProcess.Text = oApp.ProcessName
         chkRegEx.Checked = oApp.IsRegEx
         txtParameter.Text = oApp.Parameter
-        txtSavePath.Text = oApp.Path
+        txtSavePath.Text = oApp.TruePath
         txtFileType.Text = oApp.FileType
         txtExclude.Text = oApp.ExcludeList
         chkFolderSave.Checked = oApp.FolderSave
