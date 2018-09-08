@@ -12,7 +12,6 @@ Public Class mgrPath
     Private Shared sLogFile As String = sSettingsRoot & Path.DirectorySeparatorChar & "gbm_log_" & Date.Now.ToString("dd-MM-yyyy-HH-mm-ss") & ".txt"
     Private Shared sRemoteDatabaseLocation As String
     Private Shared hshCustomVariables As Hashtable
-    Private Shared hshUnixEnv As Hashtable
     Private Shared oReleaseType As ProcessorArchitecture = AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
 
     Shared Sub New()
@@ -331,61 +330,54 @@ Public Class mgrPath
         If Not mgrCommon.IsUnix Then
             Environment.SetEnvironmentVariable("USERDOCUMENTS", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
             Environment.SetEnvironmentVariable("COMMONDOCUMENTS", Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments))
-        Else
-            GetUnixEnv()
-            Environment.SetEnvironmentVariable("USERDOCUMENTS", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
-            Environment.SetEnvironmentVariable("APPDATA", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData))
-            Environment.SetEnvironmentVariable("LOCALAPPDATA", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData))
         End If
 
     End Sub
 
-    Private Shared Sub GetUnixEnv()
-        Dim prEnv As Process
-        Dim sEnv As String()
-
-        Try
-            hshUnixEnv = New Hashtable
-            prEnv = New Process
-            prEnv.StartInfo.FileName = "/usr/bin/env"
-            prEnv.StartInfo.UseShellExecute = False
-            prEnv.StartInfo.RedirectStandardOutput = True
-            prEnv.StartInfo.CreateNoWindow = True
-            prEnv.Start()
-
-            Using swEnv As StreamReader = prEnv.StandardOutput
-                While Not swEnv.EndOfStream
-                    sEnv = swEnv.ReadLine().Split("=")
-                    If Not hshUnixEnv.Contains(sEnv(0)) Then
-                        hshUnixEnv.Add(sEnv(0), sEnv(1))
-                    End If
-                End While
-            End Using
-        Catch ex As Exception
-            mgrCommon.ShowMessage(mgrPath_ErrorUnixEnv, ex.Message, MsgBoxStyle.Exclamation)
-        End Try
-    End Sub
-
     Private Shared Function ProcessEnvironmentVariables(ByVal sValue As String) As String
-        Dim sUnixShortHome As String = "~"
-        Dim sEnvUnixHome As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-        Dim sCurrentUnixVar As String
+        Dim sAppDataLocalLinux As String = "${XDG_DATA_HOME:-~/.local/share}"
+        Dim sEnvAppDataLocal As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
+        Dim sAppDataRoamingLinux As String = "${XDG_CONFIG_HOME:-~/.config}"
+        Dim sEnvAppDataRoaming As String = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+        Dim sCurrentUserLinux As String = "${HOME}"
+        Dim sEnvCurrentUser As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
 
         If mgrCommon.IsUnix Then
-            'Replace ~ for HOME
-            If sValue.Contains(sUnixShortHome) Then
-                Return sValue.Replace(sUnixShortHome, sEnvUnixHome)
+            Dim oParse As new Regex("\$([a-zA-Z0-9_]+?)")
+            Dim oParseBracketed As new Regex("\$\{([a-zA-Z0-9_]+?)\}")
+            If sEnvCurrentUser = String.Empty Then
+                'Fall back
+                sEnvCurrentUser = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+            End If
+            If sEnvCurrentUser = String.Empty Then
+                'Fall back
+                sEnvCurrentUser = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
             End If
 
-            'Replace any other environemnt variable
-            For Each de As DictionaryEntry In hshUnixEnv
-                sCurrentUnixVar = "$" & de.Key
-                If sValue.Contains(sCurrentUnixVar) Then
-                    sValue = sValue.Replace(sCurrentUnixVar, de.Value)
-                End If
-            Next
-        Else
-            sValue = Environment.ExpandEnvironmentVariables(sValue)
+            '$HOME to ${HOME}
+            sValue = oParse.Replace(sValue, "${$1}")
+            'Special notations for home directory
+            sValue = sValue.Replace("~", "${HOME}")
+            'XDG Base Directory Specification has default values
+            sValue = sValue.Replace("${XDG_DATA_HOME}", "${XDG_DATA_HOME:-~/.local/share}")
+            sValue = sValue.Replace("${XDG_CONFIG_HOME}", "${XDG_CONFIG_HOME:-~/.config}")
+
+            'Replace with paths
+            sValue = sValue.Replace(sAppDataLocalLinux, sEnvAppDataLocal)
+            sValue = sValue.Replace(sAppDataRoamingLinux, sEnvAppDataRoaming)
+            sValue = sValue.Replace(sCurrentUserLinux, sEnvCurrentUser)
+
+            'Transform Linux variables to Windows variables
+            'More complex syntax couldn't be converted back
+            sValue = oParseBracketed.Replace(sValue, "%$1%")
+        End If
+        'On Linux real Linux environmental variables are used
+        sValue = Environment.ExpandEnvironmentVariables(sValue)
+
+        If mgrCommon.IsUnix Then
+            'TODO: breaks support of Windows variables on Linux
+            Dim oParse As new Regex("%([a-zA-Z0-9_]+?)%")
+            sValue = oParse.Replace(sValue, "${$1}")
         End If
 
         Return sValue
@@ -397,14 +389,18 @@ Public Class mgrPath
         Dim sPublicDocs As String = "%COMMONDOCUMENTS%"
         Dim sEnvPublicDocs As String = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments)
         Dim sAppDataLocal As String = "%LOCALAPPDATA%"
+        Dim sAppDataLocalLinux As String = "${XDG_DATA_HOME:-~/.local/share}"
         Dim sEnvAppDataLocal As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
         Dim sAppDataRoaming As String = "%APPDATA%"
+        Dim sAppDataRoamingLinux As String = "${XDG_CONFIG_HOME:-~/.config}"
         Dim sEnvAppDataRoaming As String = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
         Dim sCurrentUser As String = "%USERPROFILE%"
+        Dim sCurrentUserLinux As String = "~"
         Dim sEnvCurrentUser As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
         Dim oCustomVariable As clsPathVariable
 
         sValue = ProcessEnvironmentVariables(sValue)
+
 
         For Each oCustomVariable In hshCustomVariables.Values
             If sValue.Contains(oCustomVariable.Path) Then
@@ -412,27 +408,49 @@ Public Class mgrPath
             End If
         Next
 
-        If sValue.Contains(sEnvAppDataRoaming) Then
-            Return sValue.Replace(sEnvAppDataRoaming, sAppDataRoaming)
-        End If
-
-        If sValue.Contains(sEnvAppDataLocal) Then
-            Return sValue.Replace(sEnvAppDataLocal, sAppDataLocal)
-        End If
-
-        'This needs to be tested last for Unix compatability
-        If sValue.Contains(sEnvMyDocs) Then
-            Return sValue.Replace(sEnvMyDocs, sMyDocs)
-        End If
-
-        'Mono doesn't set a path for these folders
         If Not mgrCommon.IsUnix Then
+            If sValue.Contains(sEnvAppDataRoaming) Then
+                Return sValue.Replace(sEnvAppDataRoaming, sAppDataRoaming)
+            End If
+
+            If sValue.Contains(sEnvAppDataLocal) Then
+                Return sValue.Replace(sEnvAppDataLocal, sAppDataLocal)
+            End If
+
+            'This needs to be tested last for Unix compatability
+            If sValue.Contains(sEnvMyDocs) Then
+                Return sValue.Replace(sEnvMyDocs, sMyDocs)
+            End If
+
+            'Mono doesn't set a path for these folders
             If sValue.Contains(sEnvPublicDocs) Then
                 Return sValue.Replace(sEnvPublicDocs, sPublicDocs)
             End If
 
             If sValue.Contains(sEnvCurrentUser) Then
                 Return sValue.Replace(sEnvCurrentUser, sCurrentUser)
+            End If
+        Else
+            'Use different paths on Linux
+            If sValue.Contains(sEnvAppDataRoaming) Then
+                Return sValue.Replace(sEnvAppDataRoaming, sAppDataRoamingLinux)
+            End If
+
+            If sValue.Contains(sEnvAppDataLocal) Then
+                Return sValue.Replace(sEnvAppDataLocal, sAppDataLocalLinux)
+            End If
+
+            'Must be last
+            If sValue.Contains(sEnvCurrentUser) Then
+                If sEnvCurrentUser = String.Empty Then
+                    'Fall back
+                    sEnvCurrentUser = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+                End If
+                If sEnvCurrentUser = String.Empty Then
+                    'Fall back
+                    sEnvCurrentUser = sMyDocs
+                End If
+                Return sValue.Replace(sEnvCurrentUser, sCurrentUserLinux)
             End If
         End If
 
