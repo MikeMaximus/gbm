@@ -863,12 +863,18 @@ Public Class mgrSQLite
                 'Backup DB before starting
                 BackupDB("v110")
 
-                'Convert core path variables to new standard 
-                sSQL = "UPDATE monitorlist SET Path = Replace(Path,'*appdatalocal*','%LOCALAPPDATA%');"
-                sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*appdataroaming*','%APPDATA%');"
-                sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*mydocs*','%USERDOCUMENTS%');"
-                sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*currentuser*','%USERPROFILE%');"
-                sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*publicdocs*','%COMMONDOCUMENTS%');"
+                'Convert core path variables to new standard
+                If Not mgrCommon.IsUnix Then
+                    sSQL = "UPDATE monitorlist SET Path = Replace(Path,'*appdatalocal*','%LOCALAPPDATA%');"
+                    sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*appdataroaming*','%APPDATA%');"
+                    sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*mydocs*','%USERDOCUMENTS%');"
+                    sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*currentuser*','%USERPROFILE%');"
+                    sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*publicdocs*','%COMMONDOCUMENTS%');"
+                Else
+                    sSQL = "UPDATE monitorlist SET Path = Replace(Path,'*appdatalocal*','${XDG_DATA_HOME:-~/.local/share}');"
+                    sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*appdataroaming*','${XDG_CONFIG_HOME:-~/.config}');"
+                    sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*mydocs*','~');"
+                End If
 
                 'Convert custom variables to new standard
                 Dim hshVariables As Hashtable = mgrVariables.ReadVariables()
@@ -880,9 +886,9 @@ Public Class mgrSQLite
 
                 sSQL &= "PRAGMA user_version=115"
 
-                RunParamQuery(sSQL, New Hashtable)
+                    RunParamQuery(sSQL, New Hashtable)
+                End If
             End If
-        End If
     End Sub
 
     Public Function GetDBSize() As Long
