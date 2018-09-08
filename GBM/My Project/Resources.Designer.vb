@@ -4561,6 +4561,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Show resolved save paths.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkShowResolvedPaths() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkShowResolvedPaths", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Start to system tray.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkStartToTray() As String

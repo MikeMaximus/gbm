@@ -2221,4 +2221,7 @@
   <data name="mgrPath_ErrorUnixEnv" xml:space="preserve">
     <value>An error occured while building a list of environment variables.[BR][BR][PARAM]</value>
   </data>
+  <data name="frmSettings_chkShowResolvedPaths" xml:space="preserve">
+    <value>Show resolved save paths</value>
+  </data>
 </root>

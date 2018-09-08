@@ -25,6 +25,7 @@ Public Class mgrSettings
     Private bBackupOnLaunch As Boolean = True
     Private bUseGameID As Boolean = False
     Private bDisableSyncMessages As Boolean = True
+    Private bShowResolvedPaths As Boolean = True
 
     <Flags()> Public Enum eSuppressMessages
         None = 0
@@ -175,6 +176,15 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Property ShowResolvedPaths As Boolean
+        Get
+            Return bShowResolvedPaths
+        End Get
+        Set(value As Boolean)
+            bShowResolvedPaths = value
+        End Set
+    End Property
+
     ReadOnly Property Prepared7zArguments As String
         Get
             'Prepare custom 7z arguments
@@ -309,7 +319,7 @@ Public Class mgrSettings
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SuppressBackup, @SuppressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
         sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, @UseGameID, "
-        sSQL &= "@DisableSyncMessages)"
+        sSQL &= "@DisableSyncMessages, @ShowResolvedPaths)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -335,6 +345,7 @@ Public Class mgrSettings
         hshParams.Add("BackupOnLaunch", BackupOnLaunch)
         hshParams.Add("UseGameID", UseGameID)
         hshParams.Add("DisableSyncMessages", DisableSyncMessages)
+        hshParams.Add("ShowResolvedPaths", ShowResolvedPaths)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -374,6 +385,7 @@ Public Class mgrSettings
             BackupOnLaunch = CBool(dr("BackupOnLaunch"))
             UseGameID = CBool(dr("UseGameID"))
             DisableSyncMessages = CBool(dr("DisableSyncMessages"))
+            ShowResolvedPaths = CBool(dr("ShowResolvedPaths"))
         Next
 
         oDatabase.Disconnect()

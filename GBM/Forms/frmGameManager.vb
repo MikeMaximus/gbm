@@ -171,7 +171,9 @@ Public Class frmGameManager
                 sPath = mgrPath.DetermineRelativePath(sAppPath, sSavePath)
             End If
         Else
-            sPath = mgrPath.ReverseSpecialPaths(sPath)
+            If Not oSettings.ShowResolvedPaths Then
+                sPath = mgrPath.ReverseSpecialPaths(sPath)
+            End If
         End If
 
         Return sPath
@@ -862,6 +864,7 @@ Public Class frmGameManager
 
         Dim oData As KeyValuePair(Of String, String) = lstGames.SelectedItems(0)
         Dim oApp As clsGame = DirectCast(GameData(oData.Key), clsGame)
+        Dim sttPath As String
 
         'Core
         txtID.Text = oApp.ID
@@ -869,7 +872,14 @@ Public Class frmGameManager
         txtProcess.Text = oApp.ProcessName
         chkRegEx.Checked = oApp.IsRegEx
         txtParameter.Text = oApp.Parameter
-        txtSavePath.Text = oApp.TruePath
+        If oSettings.ShowResolvedPaths Then
+            txtSavePath.Text = oApp.Path
+            sttPath = oApp.TruePath
+        Else
+            txtSavePath.Text = oApp.TruePath
+            sttPath = oApp.Path
+        End If
+        If oApp.AbsolutePath Then ttFullPath.SetToolTip(txtSavePath, sttPath)
         txtFileType.Text = oApp.FileType
         txtExclude.Text = oApp.ExcludeList
         chkFolderSave.Checked = oApp.FolderSave
@@ -1906,6 +1916,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub txtSavePath_TextChanged(sender As Object, e As EventArgs) Handles txtSavePath.TextChanged
+        ttFullPath.RemoveAll()
         VerifyCleanFolder()
     End Sub
 

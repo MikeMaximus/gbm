@@ -103,6 +103,7 @@ Partial Class frmGameManager
         Me.cmsDeleteOne = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnProcesses = New System.Windows.Forms.Button()
+        Me.ttFullPath = New System.Windows.Forms.ToolTip(Me.components)
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -892,6 +893,12 @@ Partial Class frmGameManager
         Me.btnProcesses.Text = "Processes..."
         Me.btnProcesses.UseVisualStyleBackColor = True
         '
+        'ttFullPath
+        '
+        Me.ttFullPath.AutoPopDelay = 5000
+        Me.ttFullPath.InitialDelay = 300
+        Me.ttFullPath.ReshowDelay = 60
+        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1022,4 +1029,5 @@ Partial Class frmGameManager
     Friend WithEvents chkRegEx As CheckBox
     Friend WithEvents btnGameID As Button
     Friend WithEvents btnProcesses As Button
+    Friend WithEvents ttFullPath As ToolTip
 End Class
