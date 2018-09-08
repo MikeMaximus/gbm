@@ -343,8 +343,9 @@ Public Class mgrPath
         Dim sEnvCurrentUser As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
 
         If mgrCommon.IsUnix Then
-            Dim oParse As new Regex("\$([a-zA-Z0-9_]+?)")
+            Dim oParse As new Regex("\$([a-zA-Z0-9_]+)")
             Dim oParseBracketed As new Regex("\$\{([a-zA-Z0-9_]+?)\}")
+            Dim oParseTilde As new Regex("~(?![^\$\{]*\})")
             If sEnvCurrentUser = String.Empty Then
                 'Fall back
                 sEnvCurrentUser = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
@@ -357,7 +358,8 @@ Public Class mgrPath
             '$HOME to ${HOME}
             sValue = oParse.Replace(sValue, "${$1}")
             'Special notations for home directory
-            sValue = sValue.Replace("~", "${HOME}")
+            'Don't replace inside variables
+            sValue = oParseTilde.Replace(sValue,"${HOME}")
             'XDG Base Directory Specification has default values
             sValue = sValue.Replace("${XDG_DATA_HOME}", "${XDG_DATA_HOME:-~/.local/share}")
             sValue = sValue.Replace("${XDG_CONFIG_HOME}", "${XDG_CONFIG_HOME:-~/.config}")
