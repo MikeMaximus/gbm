@@ -749,6 +749,7 @@ Public Class frmGameManager
         Dim oComboItems As New List(Of KeyValuePair(Of String, String))
         Dim bLocalData As Boolean = False
         Dim bRemoteData As Boolean = False
+        Dim sttRestorePath As String
 
         'cboRemoteBackup
         cboRemoteBackup.ValueMember = "Key"
@@ -777,7 +778,18 @@ Public Class frmGameManager
                 lblBackupFileData.Text = frmGameManager_ErrorNoBackupExists
             End If
 
-            lblRestorePathData.Text = CurrentBackupItem.RestorePath
+            If Not CurrentBackupItem.AbsolutePath And oApp.ProcessPath <> String.Empty Then
+                lblRestorePathData.Text = oApp.ProcessPath & Path.DirectorySeparatorChar & CurrentBackupItem.RestorePath
+            Else
+                If oSettings.ShowResolvedPaths Then
+                    lblRestorePathData.Text = CurrentBackupItem.RestorePath
+                    sttRestorePath = CurrentBackupItem.TruePath
+                Else
+                    lblRestorePathData.Text = CurrentBackupItem.TruePath
+                    sttRestorePath = CurrentBackupItem.RestorePath
+                End If
+                If CurrentBackupItem.AbsolutePath Then ttFullPath.SetToolTip(lblRestorePathData, sttRestorePath)
+            End If
         Else
             oComboItems.Add(New KeyValuePair(Of String, String)(String.Empty, frmGameManager_None))
             lblBackupFileData.Text = String.Empty
