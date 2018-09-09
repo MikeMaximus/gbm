@@ -341,6 +341,13 @@ Public Class mgrPath
         Dim sEnvAppDataRoaming As String = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
         Dim sHomeDir As String = "${HOME}"
         Dim sEnvCurrentUser As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+        Dim oCustomVariable As clsPathVariable
+
+        For Each oCustomVariable In hshCustomVariables.Values
+            If sValue.Contains(oCustomVariable.FormattedName) Then
+                Return sValue.Replace(oCustomVariable.FormattedName, oCustomVariable.Path)
+            End If
+        Next
 
         If mgrCommon.IsUnix Then
             '$VAR_iable
