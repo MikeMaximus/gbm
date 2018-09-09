@@ -1474,7 +1474,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Cancel.
+        '''  Looks up a localized string similar to Ca&amp;ncel.
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnCancel() As String
             Get
@@ -1573,7 +1573,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to In&amp;clude Items....
+        '''  Looks up a localized string similar to Incl&amp;ude Items....
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnInclude() As String
             Get
@@ -1618,6 +1618,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Pro&amp;cesses....
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_btnProcesses() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_btnProcesses", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Restore.
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnRestore() As String
@@ -1645,7 +1654,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Tags....
+        '''  Looks up a localized string similar to &amp;Tags....
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnTags() As String
             Get

@@ -431,7 +431,7 @@
     <value>&amp;Backup</value>
   </data>
   <data name="frmGameManager_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>Ca&amp;ncel</value>
   </data>
   <data name="frmGameManager_btnClose" xml:space="preserve">
     <value>C&amp;lose</value>
@@ -455,7 +455,7 @@
     <value>&amp;Import</value>
   </data>
   <data name="frmGameManager_btnInclude" xml:space="preserve">
-    <value>In&amp;clude Items...</value>
+    <value>Incl&amp;ude Items...</value>
   </data>
   <data name="frmGameManager_btnMarkAsRestored" xml:space="preserve">
     <value>&amp;Mark as Restored</value>
@@ -479,7 +479,7 @@
     <value>...</value>
   </data>
   <data name="frmGameManager_btnTags" xml:space="preserve">
-    <value>Tags...</value>
+    <value>&amp;Tags...</value>
   </data>
   <data name="frmGameManager_chkEnabled" xml:space="preserve">
     <value>Monitor this game</value>
@@ -2244,5 +2244,8 @@
   </data>
   <data name="mgrBackup_ImportSuccess" xml:space="preserve">
     <value>Imported backup file [PARAM] for [PARAM].</value>
+  </data>
+  <data name="frmGameManager_btnProcesses" xml:space="preserve">
+    <value>Pro&amp;cesses...</value>
   </data>
 </root>

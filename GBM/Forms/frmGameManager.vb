@@ -1048,6 +1048,7 @@ Public Class frmGameManager
                 btnBackup.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnRestore.Enabled = False
+                btnImportBackup.Enabled = False
                 btnDeleteBackup.Enabled = False
                 btnOpenBackupFile.Enabled = False
                 btnOpenRestorePath.Enabled = False
@@ -1078,6 +1079,7 @@ Public Class frmGameManager
                 btnBackup.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnRestore.Enabled = False
+                btnImportBackup.Enabled = False
                 btnDeleteBackup.Enabled = False
                 btnOpenBackupFile.Enabled = False
                 btnOpenRestorePath.Enabled = False
@@ -1106,6 +1108,7 @@ Public Class frmGameManager
                 lblTags.Visible = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
+                btnImportBackup.Enabled = True
             Case eModes.Disabled
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -1768,6 +1771,7 @@ Public Class frmGameManager
         chkRegEx.Text = frmGameManager_chkRegEx
         btnGameID.Text = frmGameManager_btnGameID
         btnImportBackup.Text = frmGameManager_btnImportBackup
+        btnProcesses.Text = frmGameManager_btnProcesses
 
         'Init Filter Timer
         tmFilterTimer = New Timer()

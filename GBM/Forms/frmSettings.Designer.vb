@@ -64,6 +64,7 @@ Partial Class frmSettings
         Me.grpLogOptions = New System.Windows.Forms.GroupBox()
         Me.chkDisableSyncMessages = New System.Windows.Forms.CheckBox()
         Me.grpGameData = New System.Windows.Forms.GroupBox()
+        Me.chkShowResolvedPaths = New System.Windows.Forms.CheckBox()
         Me.chkSessionTracking = New System.Windows.Forms.CheckBox()
         Me.lstSettings = New System.Windows.Forms.ListBox()
         Me.btnResetMessages = New System.Windows.Forms.Button()
@@ -73,7 +74,6 @@ Partial Class frmSettings
         Me.chkStartWindows = New System.Windows.Forms.CheckBox()
         Me.chkStartToTray = New System.Windows.Forms.CheckBox()
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
-        Me.chkShowResolvedPaths = New System.Windows.Forms.CheckBox()
         Me.grpFolderOptions.SuspendLayout()
         Me.grp7zGeneral.SuspendLayout()
         Me.pnlBackup.SuspendLayout()
@@ -512,6 +512,16 @@ Partial Class frmSettings
         Me.grpGameData.TabStop = False
         Me.grpGameData.Text = "Game Data Options"
         '
+        'chkShowResolvedPaths
+        '
+        Me.chkShowResolvedPaths.AutoSize = True
+        Me.chkShowResolvedPaths.Location = New System.Drawing.Point(6, 65)
+        Me.chkShowResolvedPaths.Name = "chkShowResolvedPaths"
+        Me.chkShowResolvedPaths.Size = New System.Drawing.Size(154, 17)
+        Me.chkShowResolvedPaths.TabIndex = 2
+        Me.chkShowResolvedPaths.Text = "Show resolved save paths "
+        Me.chkShowResolvedPaths.UseVisualStyleBackColor = True
+        '
         'chkSessionTracking
         '
         Me.chkSessionTracking.AutoSize = True
@@ -599,16 +609,6 @@ Partial Class frmSettings
         Me.chkMonitorOnStartup.TabIndex = 2
         Me.chkMonitorOnStartup.Text = "Start monitoring on launch"
         Me.chkMonitorOnStartup.UseVisualStyleBackColor = True
-        '
-        'chkShowResolvedPaths
-        '
-        Me.chkShowResolvedPaths.AutoSize = True
-        Me.chkShowResolvedPaths.Location = New System.Drawing.Point(6, 65)
-        Me.chkShowResolvedPaths.Name = "chkShowResolvedPaths"
-        Me.chkShowResolvedPaths.Size = New System.Drawing.Size(154, 17)
-        Me.chkShowResolvedPaths.TabIndex = 3
-        Me.chkShowResolvedPaths.Text = "Show resolved save paths "
-        Me.chkShowResolvedPaths.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
