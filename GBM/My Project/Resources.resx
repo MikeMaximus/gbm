@@ -590,7 +590,7 @@
     <value>Include</value>
   </data>
   <data name="frmGameManager_IncludeShortcut" xml:space="preserve">
-    <value>In&amp;clude</value>
+    <value>Incl&amp;ude</value>
   </data>
   <data name="frmGameManager_Items" xml:space="preserve">
     <value>Items...</value>

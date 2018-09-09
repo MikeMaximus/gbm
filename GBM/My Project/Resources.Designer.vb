@@ -2203,7 +2203,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to In&amp;clude.
+        '''  Looks up a localized string similar to Incl&amp;ude.
         '''</summary>
         Friend ReadOnly Property frmGameManager_IncludeShortcut() As String
             Get
