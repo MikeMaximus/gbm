@@ -1307,7 +1307,7 @@
     <value>[PARAM] backup aborted by user due to overwrite.</value>
   </data>
   <data name="mgrBackup_ErrorSubFolderCreate" xml:space="preserve">
-    <value>Backup aborted.  A failure occured while creating a backup sub-folder for [PARAM].[BR][PARAM]</value>
+    <value>A failure occured while creating a backup sub-folder for [PARAM].[BR][PARAM]</value>
   </data>
   <data name="mgrBackup_GenerateHash" xml:space="preserve">
     <value>Generating SHA-256 hash for [PARAM] backup file.</value>
@@ -2223,5 +2223,26 @@
   </data>
   <data name="frmSettings_chkShowResolvedPaths" xml:space="preserve">
     <value>Show resolved save paths</value>
+  </data>
+  <data name="frmGameManager_7zBackup" xml:space="preserve">
+    <value>7-Zip</value>
+  </data>
+  <data name="frmGameManager_btnImportBackup" xml:space="preserve">
+    <value>Import B&amp;ackup Files</value>
+  </data>
+  <data name="frmGameManager_Choose7zImport" xml:space="preserve">
+    <value>Choose compatible backup file(s)</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackupImport" xml:space="preserve">
+    <value>Are you sure you want to import the selected file(s) for [PARAM].  This will close the form.</value>
+  </data>
+  <data name="mgrBackup_ErrorImportBackupCopy" xml:space="preserve">
+    <value>Failed to import [PARAM], the file could not be copied.</value>
+  </data>
+  <data name="mgrBackup_ImportedFile" xml:space="preserve">
+    <value>Imported Backup</value>
+  </data>
+  <data name="mgrBackup_ImportSuccess" xml:space="preserve">
+    <value>Imported backup file [PARAM] for [PARAM].</value>
   </data>
 </root>

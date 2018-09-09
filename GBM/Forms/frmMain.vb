@@ -258,6 +258,12 @@ Public Class frmMain
 
     End Sub
 
+    Private Sub RunImportBackup(ByVal oImportBackupList As Hashtable)
+        PauseScan()
+        oBackup.ImportBackupFiles(oImportBackupList)
+        ResumeScan()
+    End Sub
+
     Private Function DoMultiGameCheck() As Boolean
         Dim oResult As DialogResult
 
@@ -888,6 +894,11 @@ Public Class frmMain
         'Handle restore trigger
         If frm.TriggerRestore Then
             RunRestore(frm.RestoreList)
+        End If
+
+        'Handle import backup trigger
+        If frm.TriggerImportBackup Then
+            RunImportBackup(frm.ImportBackupList)
         End If
     End Sub
 

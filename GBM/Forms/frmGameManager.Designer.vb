@@ -104,6 +104,7 @@ Partial Class frmGameManager
         Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnProcesses = New System.Windows.Forms.Button()
         Me.ttFullPath = New System.Windows.Forms.ToolTip(Me.components)
+        Me.btnImportBackup = New System.Windows.Forms.Button()
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -573,6 +574,7 @@ Partial Class frmGameManager
         'grpStats
         '
         Me.grpStats.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpStats.Controls.Add(Me.btnImportBackup)
         Me.grpStats.Controls.Add(Me.cboRemoteBackup)
         Me.grpStats.Controls.Add(Me.lblRestorePathData)
         Me.grpStats.Controls.Add(Me.lblBackupFileData)
@@ -665,7 +667,7 @@ Partial Class frmGameManager
         Me.btnDeleteBackup.Location = New System.Drawing.Point(129, 125)
         Me.btnDeleteBackup.Name = "btnDeleteBackup"
         Me.btnDeleteBackup.Size = New System.Drawing.Size(114, 23)
-        Me.btnDeleteBackup.TabIndex = 8
+        Me.btnDeleteBackup.TabIndex = 9
         Me.btnDeleteBackup.Text = "&Delete Backup"
         Me.btnDeleteBackup.UseVisualStyleBackColor = True
         '
@@ -899,6 +901,15 @@ Partial Class frmGameManager
         Me.ttFullPath.InitialDelay = 300
         Me.ttFullPath.ReshowDelay = 60
         '
+        'btnImportBackup
+        '
+        Me.btnImportBackup.Location = New System.Drawing.Point(9, 125)
+        Me.btnImportBackup.Name = "btnImportBackup"
+        Me.btnImportBackup.Size = New System.Drawing.Size(114, 23)
+        Me.btnImportBackup.TabIndex = 8
+        Me.btnImportBackup.Text = "Import B&ackup Files"
+        Me.btnImportBackup.UseVisualStyleBackColor = True
+        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1030,4 +1041,5 @@ Partial Class frmGameManager
     Friend WithEvents btnGameID As Button
     Friend WithEvents btnProcesses As Button
     Friend WithEvents ttFullPath As ToolTip
+    Friend WithEvents btnImportBackup As Button
 End Class

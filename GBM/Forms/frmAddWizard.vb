@@ -416,7 +416,7 @@ Public Class frmAddWizard
         End If
 
         sNewPath = mgrCommon.OpenFileBrowser("Wizard_Process_Path", frmAddWizard_ChooseProcess, "exe",
-                                          frmAddWizard_Executable, sDefaultFolder, False, False)
+                                          frmAddWizard_Executable, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then txtProcessPath.Text = sNewPath
     End Sub

@@ -56,7 +56,7 @@ Public Class frmProcessManager
         End If
 
         sNewPath = mgrCommon.OpenFileBrowser("PM_Process", frmProcessManager_ChooseProcess, "exe",
-                                          frmProcessManager_Executable, sDefaultFolder, False, True)
+                                          frmProcessManager_Executable, sDefaultFolder, True)
 
         If sNewPath <> String.Empty Then
             txtPath.Text = sNewPath

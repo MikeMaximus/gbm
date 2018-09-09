@@ -14,8 +14,10 @@ Public Class frmGameManager
     Private bDisableExternalFunctions As Boolean = False
     Private bTriggerBackup As Boolean = False
     Private bTriggerRestore As Boolean = False
+    Private bTriggerImportBackup As Boolean = False
     Private oBackupList As New List(Of clsGame)
     Private oRestoreList As New Hashtable
+    Private oImportBackupList As New Hashtable
     Private oGameData As OrderedDictionary
     Private oLocalBackupData As SortedList
     Private oRemoteBackupData As SortedList
@@ -121,6 +123,15 @@ Public Class frmGameManager
         End Set
     End Property
 
+    Property TriggerImportBackup As Boolean
+        Get
+            Return bTriggerImportBackup
+        End Get
+        Set(value As Boolean)
+            bTriggerImportBackup = value
+        End Set
+    End Property
+
     Property BackupList As List(Of clsGame)
         Get
             Return oBackupList
@@ -136,6 +147,15 @@ Public Class frmGameManager
         End Get
         Set(value As Hashtable)
             oRestoreList = value
+        End Set
+    End Property
+
+    Property ImportBackupList As Hashtable
+        Get
+            Return oImportBackupList
+        End Get
+        Set(value As Hashtable)
+            oImportBackupList = value
         End Set
     End Property
 
@@ -344,7 +364,7 @@ Public Class frmGameManager
         End If
 
         sNewPath = mgrCommon.OpenFileBrowser("GM_Process", frmGameManager_ChooseExe, "exe",
-                                          frmGameManager_Executable, sDefaultFolder, False, False)
+                                          frmGameManager_Executable, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then
             txtAppPath.Text = Path.GetDirectoryName(sNewPath)
@@ -402,10 +422,10 @@ Public Class frmGameManager
         'Unix Handler
         If Not mgrCommon.IsUnix Then
             sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, "ico",
-                                              frmGameManager_Icon, sDefaultFolder, False, False)
+                                              frmGameManager_Icon, sDefaultFolder, False)
         Else
             sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, "png",
-                                              "PNG", sDefaultFolder, False, False)
+                                              "PNG", sDefaultFolder, False)
         End If
 
         If sNewPath <> String.Empty Then
@@ -1524,6 +1544,31 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub TriggerSelectedImportBackup()
+        Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+        Dim oBackup As New mgrBackup
+        Dim sFile As String
+        Dim sFiles As String()
+
+        ImportBackupList.Clear()
+
+        sFiles = mgrCommon.OpenMultiFileBrowser("GM_ImportBackup", frmGameManager_Choose7zImport, "7z",
+                                          frmGameManager_7zBackup, sDefaultFolder, True)
+
+        If sFiles.Length > 0 Then
+            For Each sFile In sFiles
+                If Not ImportBackupList.Contains(sFile) Then
+                    ImportBackupList.Add(sFile, oCurrentGame)
+                End If
+            Next
+
+            If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupImport, oCurrentGame.CroppedName, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                Me.TriggerImportBackup = True
+                Me.Close()
+            End If
+        End If
+    End Sub
+
     Private Sub TriggerSelectedBackup(Optional ByVal bPrompt As Boolean = True)
         Dim oData As KeyValuePair(Of String, String)
         Dim sMsg As String = String.Empty
@@ -1722,6 +1767,7 @@ Public Class frmGameManager
         lblComments.Text = frmGameManager_lblComments
         chkRegEx.Text = frmGameManager_chkRegEx
         btnGameID.Text = frmGameManager_btnGameID
+        btnImportBackup.Text = frmGameManager_btnImportBackup
 
         'Init Filter Timer
         tmFilterTimer = New Timer()
@@ -1875,6 +1921,10 @@ Public Class frmGameManager
         UpdateBuilderButtonLabel(txtExclude.Text, frmGameManager_ExcludeShortcut, btnExclude, (sExclude <> txtExclude.Text))
     End Sub
 
+    Private Sub btnImportBackup_Click(sender As Object, e As EventArgs) Handles btnImportBackup.Click
+        TriggerSelectedImportBackup()
+    End Sub
+
     Private Sub chkFolderSave_CheckedChanged(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged
         FolderSaveModeChange()
     End Sub
@@ -1947,5 +1997,4 @@ Public Class frmGameManager
     Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkMonitorOnly.CheckedChanged
         MonitorOnlyModeChange()
     End Sub
-
 End Class

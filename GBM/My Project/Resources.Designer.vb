@@ -1411,6 +1411,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to 7-Zip.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_7zBackup() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_7zBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] ([PARAM]).
         '''</summary>
         Friend ReadOnly Property frmGameManager_BackupTimeAndName() As String
@@ -1555,6 +1564,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Import B&amp;ackup Files.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_btnImportBackup() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_btnImportBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to In&amp;clude Items....
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnInclude() As String
@@ -1690,6 +1708,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Choose compatible backup file(s).
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_Choose7zImport() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_Choose7zImport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Choose a custom icon for the game.
         '''</summary>
         Friend ReadOnly Property frmGameManager_ChooseCustomIcon() As String
@@ -1821,6 +1848,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ConfirmBackupDeleteAll() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ConfirmBackupDeleteAll", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to import the selected file(s) for [PARAM].  This will close the form..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ConfirmBackupImport() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ConfirmBackupImport", resourceCulture)
             End Get
         End Property
         
@@ -5728,6 +5764,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Failed to import [PARAM], the file could not be copied..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorImportBackupCopy() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorImportBackupCopy", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup aborted by user due to manifest conflict..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorManifestConflict() As String
@@ -5773,7 +5818,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Backup aborted.  A failure occured while creating a backup sub-folder for [PARAM].[BR][PARAM].
+        '''  Looks up a localized string similar to A failure occured while creating a backup sub-folder for [PARAM].[BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorSubFolderCreate() As String
             Get
@@ -5787,6 +5832,24 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_GenerateHash() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_GenerateHash", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Imported Backup.
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ImportedFile() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ImportedFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Imported backup file [PARAM] for [PARAM]..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ImportSuccess() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ImportSuccess", resourceCulture)
             End Get
         End Property
         

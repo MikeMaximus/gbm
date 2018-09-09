@@ -42,7 +42,7 @@ Public Class mgrBackup
         'Create manifest item
         oItem.MonitorID = oGameInfo.ID
         'Keep the path relative to the manifest location
-        oItem.FileName = sBackupFile.Replace(Path.GetDirectoryName(mgrPath.RemoteDatabaseLocation) & Path.DirectorySeparatorChar, "")
+        oItem.FileName = sBackupFile.Replace(Settings.BackupFolder & Path.DirectorySeparatorChar, String.Empty)
         oItem.DateUpdated = dTimeStamp
         oItem.UpdatedBy = My.Computer.Name
         oItem.CheckSum = sCheckSum
@@ -196,6 +196,60 @@ Public Class mgrBackup
         End If
     End Sub
 
+    Private Function BuildFileTimeStamp(ByVal dDate As Date) As String
+        Return " " & dDate.Month & "-" & dDate.Day & "-" & dDate.Year & "-" & dDate.Hour & "-" & dDate.Minute & "-" & dDate.Second
+    End Function
+
+    Private Function HandleSubFolder(ByVal oGame As clsGame, ByVal sPath As String) As Boolean
+        Try
+            If Not Directory.Exists(sPath) Then
+                Directory.CreateDirectory(sPath)
+            End If
+        Catch ex As Exception
+            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorSubFolderCreate, New String() {oGame.Name, ex.Message}), False, ToolTipIcon.Error, True)
+            Return False
+        End Try
+
+        Return True
+    End Function
+
+    Public Sub ImportBackupFiles(ByVal hshImportList As Hashtable)
+        Dim oGame As clsGame
+        Dim bContinue As Boolean = True
+        Dim sFileToImport As String
+        Dim sBackupFile As String
+        Dim oBackup As clsBackup
+
+        For Each de As DictionaryEntry In hshImportList
+            sFileToImport = CStr(de.Key)
+            oGame = DirectCast(de.Value, clsGame)
+            If File.Exists(sFileToImport) Then
+
+                sBackupFile = oSettings.BackupFolder
+                If oSettings.CreateSubFolder Then
+                    sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
+                    bContinue = HandleSubFolder(oGame, sBackupFile)
+                End If
+
+                If bContinue Then
+                    oBackup = New clsBackup
+                    oBackup.MonitorID = oGame.ID
+                    oBackup.DateUpdated = File.GetLastWriteTime(sFileToImport)
+                    oBackup.UpdatedBy = mgrBackup_ImportedFile
+                    sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & BuildFileTimeStamp(oBackup.DateUpdated) & ".7z"
+                    oBackup.FileName = sBackupFile.Replace(Settings.BackupFolder & Path.DirectorySeparatorChar, String.Empty)
+                    If mgrCommon.CopyFile(sFileToImport, sBackupFile, False) Then
+                        oBackup.CheckSum = mgrHash.Generate_SHA256_Hash(sBackupFile)
+                        mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImport, oGame.Name}), False, ToolTipIcon.Error, True)
+                    Else
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportBackupCopy, sFileToImport), False, ToolTipIcon.Error, True)
+                    End If
+                End If
+            End If
+        Next
+    End Sub
+
     Public Sub DoBackup(ByVal oBackupList As List(Of clsGame))
         Dim oGame As clsGame
         Dim bDoBackup As Boolean
@@ -213,7 +267,7 @@ Public Class mgrBackup
             sBackupFile = oSettings.BackupFolder
             sSavePath = String.Empty
             dTimeStamp = Date.Now
-            sTimeStamp = " " & dTimeStamp.Month & "-" & dTimeStamp.Day & "-" & dTimeStamp.Year & "-" & dTimeStamp.Hour & "-" & dTimeStamp.Minute & "-" & dTimeStamp.Second
+            sTimeStamp = BuildFileTimeStamp(dTimeStamp)
             sHash = String.Empty
             bDoBackup = True
             bBackupCompleted = False
@@ -222,14 +276,7 @@ Public Class mgrBackup
 
             If oSettings.CreateSubFolder Then
                 sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
-                Try
-                    If Not Directory.Exists(sBackupFile) Then
-                        Directory.CreateDirectory(sBackupFile)
-                    End If
-                Catch ex As Exception
-                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorSubFolderCreate, New String() {oGame.Name, ex.Message}), False, ToolTipIcon.Error, True)
-                    bDoBackup = False
-                End Try
+                bDoBackup = HandleSubFolder(oGame, sBackupFile)
             End If
 
             If oGame.AppendTimeStamp Then
