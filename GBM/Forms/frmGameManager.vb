@@ -1553,6 +1553,13 @@ Public Class frmGameManager
         Dim sFile As String
         Dim sFiles As String()
 
+        'Show one time warning
+        If Not (oSettings.SuppressMessages And mgrSettings.eSuppressMessages.BackupImport) = mgrSettings.eSuppressMessages.BackupImport Then
+            mgrCommon.ShowMessage(frmGameManager_WarningImportBackup, MsgBoxStyle.Information)
+            oSettings.SuppressMessages = oSettings.SetMessageField(oSettings.SuppressMessages, mgrSettings.eSuppressMessages.BackupImport)
+            oSettings.SaveSettings()
+        End If
+
         ImportBackupList.Clear()
 
         sFiles = mgrCommon.OpenMultiFileBrowser("GM_ImportBackup", frmGameManager_Choose7zImport, "7z",

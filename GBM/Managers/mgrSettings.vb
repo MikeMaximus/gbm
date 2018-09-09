@@ -30,6 +30,7 @@ Public Class mgrSettings
     <Flags()> Public Enum eSuppressMessages
         None = 0
         GameIDSync = 1
+        BackupImport = 2
     End Enum
 
     Property StartWithWindows As Boolean

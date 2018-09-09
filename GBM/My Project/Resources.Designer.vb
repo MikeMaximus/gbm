@@ -2446,6 +2446,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to This feature is intended to import 7-Zip backup archives compatible with the selected game configuration.[BR][BR]GBM does NOT verify these files, you should only use files created by GBM or other compatible archives that were created using the same settings as the current game configuration.[BR][BR]This message will only be shown once..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_WarningImportBackup() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_WarningImportBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to XML.
         '''</summary>
         Friend ReadOnly Property frmGameManager_XML() As String
