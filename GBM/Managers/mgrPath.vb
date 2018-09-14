@@ -239,14 +239,18 @@ Public Class mgrPath
         Dim oMatch As Match
 
         Try
-            If sPath.Contains("%LOCALAPPDATA%") Then
-                sReplace = "%LOCALAPPDATA%"
-                sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
-                oParse = New Regex("""Local AppData""="".+?(?=\n)")
-            ElseIf sPath.Contains("%APPDATA%") Then
+            If sPath.Contains("%APPDATA%") Then
                 sReplace = "%APPDATA%"
                 sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
                 oParse = New Regex("""AppData""="".+?(?=\n)")
+            ElseIf sPath.Contains("%LOCALAPPDATA%Low") Then
+                sReplace = "%LOCALAPPDATA%Low"
+                sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
+                oParse = New Regex("""{A520A1A4-1780-4FF6-BD18-167343C5AF16}""="".+?(?=\n)")
+            ElseIf sPath.Contains("%LOCALAPPDATA%") Then
+                sReplace = "%LOCALAPPDATA%"
+                sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
+                oParse = New Regex("""Local AppData""="".+?(?=\n)")
             ElseIf sPath.Contains("%USERDOCUMENTS%") Then
                 sReplace = "%USERDOCUMENTS%"
                 sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
