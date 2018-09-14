@@ -2249,9 +2249,12 @@
     <value>Pro&amp;cesses...</value>
   </data>
   <data name="frmGameManager_WarningImportBackup" xml:space="preserve">
-    <value>This feature is intended to import 7-Zip backup archives compatible with the selected game configuration.[BR][BR]GBM does NOT verify these files, you should only use files created by GBM or other compatible archives that were created using the same settings as the current game configuration.[BR][BR]This message will only be shown once.</value>
+    <value>This feature is intended to import 7-Zip backup archives compatible with the selected game configuration.[BR][BR]GBM does NOT verify these files, you should only use files created by GBM or compatible archives created using the same settings as the current game configuration.[BR][BR]This message will only be shown once.</value>
   </data>
   <data name="frmVariableManager_ErrorVariableReserved" xml:space="preserve">
     <value>[PARAM] is a reserved variable, you must enter a different name.</value>
+  </data>
+  <data name="frmGameManager_WarningImportBackupSaveMulti" xml:space="preserve">
+    <value>The "Save multiple backups" option must be enabled on this configuration to import backup files.</value>
   </data>
 </root>

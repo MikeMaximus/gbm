@@ -1938,7 +1938,11 @@ Public Class frmGameManager
     End Sub
 
     Private Sub btnImportBackup_Click(sender As Object, e As EventArgs) Handles btnImportBackup.Click
-        TriggerSelectedImportBackup()
+        If CurrentGame.AppendTimeStamp Then
+            TriggerSelectedImportBackup()
+        Else
+            mgrCommon.ShowMessage(frmGameManager_WarningImportBackupSaveMulti, MsgBoxStyle.Information)
+        End If
     End Sub
 
     Private Sub chkFolderSave_CheckedChanged(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged
