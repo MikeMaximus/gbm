@@ -258,7 +258,7 @@ Public Class mgrPath
             ElseIf sPath.Contains("%USERPROFILE%") Then
                 sReplace = "%USERPROFILE%"
                 sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
-                oParse = New Regex("""Personal""="".+?(?=\\\\My Documents)")
+                oParse = New Regex("""Desktop""="".+?(?=\\\\Desktop)")
             Else
                 Return sPath
             End If
