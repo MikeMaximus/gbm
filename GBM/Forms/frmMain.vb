@@ -1927,8 +1927,8 @@ Public Class frmMain
             End If
 
             If bWineProcess Then
-                'Attempt a path conversion if the game configuration is using an absolute windows path
-                If oProcess.GameInfo.AbsolutePath And oProcess.GameInfo.TruePath.Contains("\") Then
+                'Attempt a path conversion if the game configuration is using an absolute windows path that we can convert
+                If mgrVariables.CheckForReservedVariables(oProcess.GameInfo.TruePath) Then
                     Dim sWinePrefix As String = mgrPath.GetWinePrefix(oProcess.FoundProcess)
                     Dim sWineSavePath As String
                     If Not sWinePrefix = String.Empty Then
@@ -1936,6 +1936,7 @@ Public Class frmMain
                         sWineSavePath = mgrPath.GetWineSavePath(sWinePrefix, oProcess.GameInfo.TruePath)
                         If Not sWineSavePath = oProcess.GameInfo.TruePath Then
                             oProcess.GameInfo.TruePath = sWineSavePath
+                            oProcess.GameInfo.AbsolutePath = True
                             UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, New String() {oProcess.GameInfo.Name, sWineSavePath}), False)
                         End If
                     End If

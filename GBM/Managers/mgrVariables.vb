@@ -166,4 +166,17 @@
 
         Return oList
     End Function
+
+    Public Shared Function CheckForReservedVariables(ByVal sPath As String) As Boolean
+        Dim s As String
+
+        For Each s In GetReservedVariables()
+            s = "%" & s & "%"
+            If sPath.Contains(s) Then
+                Return True
+            End If
+        Next
+
+        Return False
+    End Function
 End Class
