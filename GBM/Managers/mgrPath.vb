@@ -501,6 +501,8 @@ Public Class mgrPath
 
     Public Shared Function VerifyCustomVariables(ByVal hshScanlist As Hashtable, ByRef sGames As String) As Boolean
         Dim hshCustomVariables As Hashtable = mgrVariables.ReadVariables
+        'Reserved variables will be resolved on Windows, but not on a Linux.  Therefore we an ignore list here, otherwise GBM will bitch about them when using Windows configurations for Wine.
+        Dim oReservedVariables As List(Of String) = mgrVariables.GetReservedVariables
         Dim sVariableCheck As String
         Dim sPattern As String = "\%(.*)\%"
         Dim oGame As clsGame
@@ -511,7 +513,7 @@ Public Class mgrPath
             oMatch = Regex.Match(oGame.Path, sPattern)
             If oMatch.Success Then
                 sVariableCheck = oMatch.Value.Replace("%", String.Empty)
-                If Not hshCustomVariables.ContainsKey(sVariableCheck) Then
+                If Not hshCustomVariables.ContainsKey(sVariableCheck) And Not oReservedVariables.Contains(sVariableCheck) Then
                     sGames &= vbCrLf & oGame.Name & " (" & sVariableCheck & ")"
                     bClean = False
                 End If

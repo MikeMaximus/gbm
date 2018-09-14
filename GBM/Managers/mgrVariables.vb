@@ -154,4 +154,16 @@
 
         Return hshList
     End Function
+
+    Public Shared Function GetReservedVariables() As List(Of String)
+        Dim oList As New List(Of String)
+
+        oList.Add("APPDATA")
+        oList.Add("LOCALAPPDATA")
+        oList.Add("USERDOCUMENTS")
+        oList.Add("COMMONDOCUMENTS")
+        oList.Add("USERPROFILE")
+
+        Return oList
+    End Function
 End Class

@@ -5443,6 +5443,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] is a reserved variable, you must enter a different name..
+        '''</summary>
+        Friend ReadOnly Property frmVariableManager_ErrorVariableReserved() As String
+            Get
+                Return ResourceManager.GetString("frmVariableManager_ErrorVariableReserved", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Custom Variable Manager.
         '''</summary>
         Friend ReadOnly Property frmVariableManager_FormName() As String

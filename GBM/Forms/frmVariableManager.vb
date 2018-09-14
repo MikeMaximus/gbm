@@ -289,6 +289,12 @@ Public Class frmVariableManager
             Return False
         End If
 
+        If mgrVariables.GetReservedVariables.Contains(txtName.Text.ToUpper) Then
+            mgrCommon.ShowMessage(frmVariableManager_ErrorVariableReserved, txtName.Text, MsgBoxStyle.Exclamation)
+            txtName.Focus()
+            Return False
+        End If
+
         Return True
     End Function
 
