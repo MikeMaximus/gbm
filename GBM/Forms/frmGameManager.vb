@@ -712,25 +712,6 @@ Public Class frmGameManager
 
     End Sub
 
-    Private Sub UpdateBackupInfo(ByVal sManifestID As String)
-        Dim sFileName As String
-
-        If sManifestID <> String.Empty Then
-            CurrentBackupItem = mgrManifest.DoManifestGetByManifestID(sManifestID, mgrSQLite.Database.Remote)
-
-            sFileName = BackupFolder & CurrentBackupItem.FileName
-
-            If File.Exists(sFileName) Then
-                lblBackupFileData.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sFileName)) & ")"
-            Else
-                lblBackupFileData.Text = frmGameManager_ErrorNoBackupExists
-            End If
-
-            lblRestorePathData.Text = CurrentBackupItem.RestorePath
-        End If
-
-    End Sub
-
     Public Sub VerifyBackups(ByVal oApp As clsGame)
         Dim oCurrentBackup As clsBackup
         Dim oCurrentBackups As List(Of clsBackup)
@@ -761,6 +742,23 @@ Public Class frmGameManager
         Cursor.Current = Cursors.Default
     End Sub
 
+    Private Sub SetBackupRestorePath(ByVal oApp As clsGame)
+        Dim sttRestorePath As String
+
+        If Not CurrentBackupItem.AbsolutePath And oApp.ProcessPath <> String.Empty Then
+            lblRestorePathData.Text = oApp.ProcessPath & Path.DirectorySeparatorChar & CurrentBackupItem.RestorePath
+        Else
+            If oSettings.ShowResolvedPaths Then
+                lblRestorePathData.Text = CurrentBackupItem.RestorePath
+                sttRestorePath = CurrentBackupItem.TruePath
+            Else
+                lblRestorePathData.Text = CurrentBackupItem.TruePath
+                sttRestorePath = CurrentBackupItem.RestorePath
+            End If
+            If CurrentBackupItem.AbsolutePath Then ttFullPath.SetToolTip(lblRestorePathData, sttRestorePath)
+        End If
+    End Sub
+
     Private Sub GetBackupInfo(ByVal oApp As clsGame)
         Dim oBackupInfo As clsBackup
         Dim oCurrentBackup As clsBackup
@@ -769,7 +767,7 @@ Public Class frmGameManager
         Dim oComboItems As New List(Of KeyValuePair(Of String, String))
         Dim bLocalData As Boolean = False
         Dim bRemoteData As Boolean = False
-        Dim sttRestorePath As String
+
 
         'cboRemoteBackup
         cboRemoteBackup.ValueMember = "Key"
@@ -798,18 +796,7 @@ Public Class frmGameManager
                 lblBackupFileData.Text = frmGameManager_ErrorNoBackupExists
             End If
 
-            If Not CurrentBackupItem.AbsolutePath And oApp.ProcessPath <> String.Empty Then
-                lblRestorePathData.Text = oApp.ProcessPath & Path.DirectorySeparatorChar & CurrentBackupItem.RestorePath
-            Else
-                If oSettings.ShowResolvedPaths Then
-                    lblRestorePathData.Text = CurrentBackupItem.RestorePath
-                    sttRestorePath = CurrentBackupItem.TruePath
-                Else
-                    lblRestorePathData.Text = CurrentBackupItem.TruePath
-                    sttRestorePath = CurrentBackupItem.RestorePath
-                End If
-                If CurrentBackupItem.AbsolutePath Then ttFullPath.SetToolTip(lblRestorePathData, sttRestorePath)
-            End If
+            SetBackupRestorePath(oApp)
         Else
             oComboItems.Add(New KeyValuePair(Of String, String)(String.Empty, frmGameManager_None))
             lblBackupFileData.Text = String.Empty
@@ -844,6 +831,24 @@ Public Class frmGameManager
             btnMarkAsRestored.Enabled = False
         End If
 
+    End Sub
+
+    Private Sub UpdateBackupInfo(ByVal sManifestID As String)
+        Dim sFileName As String
+
+        If sManifestID <> String.Empty Then
+            CurrentBackupItem = mgrManifest.DoManifestGetByManifestID(sManifestID, mgrSQLite.Database.Remote)
+
+            sFileName = BackupFolder & CurrentBackupItem.FileName
+
+            If File.Exists(sFileName) Then
+                lblBackupFileData.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sFileName)) & ")"
+            Else
+                lblBackupFileData.Text = frmGameManager_ErrorNoBackupExists
+            End If
+
+            SetBackupRestorePath(CurrentGame)
+        End If
     End Sub
 
     Private Sub DeleteAllBackups()
