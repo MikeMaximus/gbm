@@ -97,6 +97,8 @@ Partial Class frmGameManager
         Me.btnExport = New System.Windows.Forms.Button()
         Me.cmsImport = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsOfficial = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsOfficialWindows = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsOfficialLinux = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtQuickFilter = New System.Windows.Forms.TextBox()
         Me.lblQuickFilter = New System.Windows.Forms.Label()
@@ -850,9 +852,22 @@ Partial Class frmGameManager
         '
         'cmsOfficial
         '
+        Me.cmsOfficial.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsOfficialWindows, Me.cmsOfficialLinux})
         Me.cmsOfficial.Name = "cmsOfficial"
         Me.cmsOfficial.Size = New System.Drawing.Size(117, 22)
         Me.cmsOfficial.Text = "&Official List..."
+        '
+        'cmsOfficialWindows
+        '
+        Me.cmsOfficialWindows.Name = "cmsOfficialWindows"
+        Me.cmsOfficialWindows.Size = New System.Drawing.Size(180, 22)
+        Me.cmsOfficialWindows.Text = "&Windows..."
+        '
+        'cmsOfficialLinux
+        '
+        Me.cmsOfficialLinux.Name = "cmsOfficialLinux"
+        Me.cmsOfficialLinux.Size = New System.Drawing.Size(180, 22)
+        Me.cmsOfficialLinux.Text = "&Linux..."
         '
         'cmsFile
         '
@@ -1042,4 +1057,6 @@ Partial Class frmGameManager
     Friend WithEvents btnProcesses As Button
     Friend WithEvents ttFullPath As ToolTip
     Friend WithEvents btnImportBackup As Button
+    Friend WithEvents cmsOfficialWindows As ToolStripMenuItem
+    Friend WithEvents cmsOfficialLinux As ToolStripMenuItem
 End Class

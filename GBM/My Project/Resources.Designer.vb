@@ -1816,6 +1816,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Linux....
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsOfficialLinux() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsOfficialLinux", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Windows....
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsOfficialWindows() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsOfficialWindows", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to run a backup for [PARAM]?  This will close the form..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmBackup() As String
@@ -2460,6 +2478,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_WarningImportBackupSaveMulti() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_WarningImportBackupSaveMulti", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Official Windows configurations can be used in Linux for games running in Wine or Proton.[BR][BR]You do not need to modify these configurations, GBM will automatically do any required path conversions the first time the game is detected.[BR][BR]This message will only be shown once..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_WarningWinConfigsInLinux() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_WarningWinConfigsInLinux", resourceCulture)
             End Get
         End Property
         

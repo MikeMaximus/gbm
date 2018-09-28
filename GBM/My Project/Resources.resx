@@ -2257,4 +2257,13 @@
   <data name="frmGameManager_WarningImportBackupSaveMulti" xml:space="preserve">
     <value>The "Save multiple backups" option must be enabled on this configuration to import backup files.</value>
   </data>
+  <data name="frmGameManager_cmsOfficialLinux" xml:space="preserve">
+    <value>&amp;Linux...</value>
+  </data>
+  <data name="frmGameManager_cmsOfficialWindows" xml:space="preserve">
+    <value>&amp;Windows...</value>
+  </data>
+  <data name="frmGameManager_WarningWinConfigsInLinux" xml:space="preserve">
+    <value>Official Windows configurations can be used in Linux for games running in Wine or Proton.[BR][BR]You do not need to modify these configurations, GBM will automatically do any required path conversions the first time the game is detected.[BR][BR]This message will only be shown once.</value>
+  </data>
 </root>

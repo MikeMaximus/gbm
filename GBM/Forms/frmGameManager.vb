@@ -1704,17 +1704,9 @@ Public Class frmGameManager
 
     End Sub
 
-    Private Sub ImportOfficialGameList()
-        Dim sImportURL As String
-
-        If mgrCommon.IsUnix Then
-            sImportURL = App_URLImportLinux
-        Else
-            sImportURL = App_URLImport
-        End If
-
+    Private Sub ImportOfficialGameList(ByVal sImportUrl As String)
         If mgrCommon.ShowMessage(frmGameManager_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(sImportURL, True, Settings) Then
+            If mgrMonitorList.DoImport(sImportUrl, True, Settings) Then
                 mgrMonitorList.SyncMonitorLists(Settings)
                 LoadData()
                 LoadBackupData()
@@ -1774,6 +1766,8 @@ Public Class frmGameManager
         btnDelete.Text = frmGameManager_btnDelete
         btnAdd.Text = frmGameManager_btnAdd
         cmsOfficial.Text = frmGameManager_cmsOfficial
+        cmsOfficialLinux.Text = frmGameManager_cmsOfficialLinux
+        cmsOfficialWindows.Text = frmGameManager_cmsOfficialWindows
         cmsFile.Text = frmGameManager_cmsFile
         lblQuickFilter.Text = frmGameManager_lblQuickFilter
         lblLimit.Text = frmGameManager_lblLimit
@@ -1784,6 +1778,15 @@ Public Class frmGameManager
         btnGameID.Text = frmGameManager_btnGameID
         btnImportBackup.Text = frmGameManager_btnImportBackup
         btnProcesses.Text = frmGameManager_btnProcesses
+
+        'Init Official Import Menu
+        If mgrCommon.IsUnix Then
+            cmsOfficial.Text = cmsOfficial.Text.TrimEnd(".")
+            RemoveHandler cmsOfficial.Click, AddressOf cmsOfficialWindows_Click
+        Else
+            cmsOfficialLinux.Visible = False
+            cmsOfficialWindows.Visible = False
+        End If
 
         'Init Filter Timer
         tmFilterTimer = New Timer()
@@ -1967,8 +1970,21 @@ Public Class frmGameManager
         cmsImport.Show(btnImport, New Drawing.Point(btnImport.Size.Width - Math.Floor(btnImport.Size.Width * 0.1), btnImport.Size.Height - Math.Floor(btnImport.Size.Height * 0.5)), ToolStripDropDownDirection.AboveRight)
     End Sub
 
-    Private Sub cmsOfficial_Click(sender As Object, e As EventArgs) Handles cmsOfficial.Click
-        ImportOfficialGameList()
+    Private Sub cmsOfficialWindows_Click(sender As Object, e As EventArgs) Handles cmsOfficialWindows.Click, cmsOfficial.Click
+        'Show one time warning about Windows configs in Linux
+        If mgrCommon.IsUnix Then
+            If Not (oSettings.SuppressMessages And mgrSettings.eSuppressMessages.WinConfigsInLinux) = mgrSettings.eSuppressMessages.WinConfigsInLinux Then
+                mgrCommon.ShowMessage(frmGameManager_WarningWinConfigsInLinux, MsgBoxStyle.Information)
+                oSettings.SuppressMessages = oSettings.SetMessageField(oSettings.SuppressMessages, mgrSettings.eSuppressMessages.WinConfigsInLinux)
+                oSettings.SaveSettings()
+            End If
+        End If
+
+        ImportOfficialGameList(App_URLImport)
+    End Sub
+
+    Private Sub cmsOfficialLinux_Click(sender As Object, e As EventArgs) Handles cmsOfficialLinux.Click
+        ImportOfficialGameList(App_URLImportLinux)
     End Sub
 
     Private Sub cmsFile_Click(sender As Object, e As EventArgs) Handles cmsFile.Click
