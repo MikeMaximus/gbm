@@ -1704,9 +1704,9 @@ Public Class frmGameManager
 
     End Sub
 
-    Private Sub ImportOfficialGameList(ByVal sImportUrl As String)
+    Private Sub ImportOfficialGameList(ByVal sImportUrl As String, ByVal bWinConfigsInLinux As Boolean)
         If mgrCommon.ShowMessage(frmGameManager_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(sImportUrl, True, Settings) Then
+            If mgrMonitorList.DoImport(sImportUrl, True, Settings,, bWinConfigsInLinux) Then
                 mgrMonitorList.SyncMonitorLists(Settings)
                 LoadData()
                 LoadBackupData()
@@ -1971,6 +1971,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub cmsOfficialWindows_Click(sender As Object, e As EventArgs) Handles cmsOfficialWindows.Click, cmsOfficial.Click
+        Dim bWinConfigsinLinux As Boolean = False
         'Show one time warning about Windows configs in Linux
         If mgrCommon.IsUnix Then
             If Not (oSettings.SuppressMessages And mgrSettings.eSuppressMessages.WinConfigsInLinux) = mgrSettings.eSuppressMessages.WinConfigsInLinux Then
@@ -1978,13 +1979,14 @@ Public Class frmGameManager
                 oSettings.SuppressMessages = oSettings.SetMessageField(oSettings.SuppressMessages, mgrSettings.eSuppressMessages.WinConfigsInLinux)
                 oSettings.SaveSettings()
             End If
+            bWinConfigsinLinux = True
         End If
 
-        ImportOfficialGameList(App_URLImport)
+        ImportOfficialGameList(App_URLImport, bWinConfigsinLinux)
     End Sub
 
     Private Sub cmsOfficialLinux_Click(sender As Object, e As EventArgs) Handles cmsOfficialLinux.Click
-        ImportOfficialGameList(App_URLImportLinux)
+        ImportOfficialGameList(App_URLImportLinux, False)
     End Sub
 
     Private Sub cmsFile_Click(sender As Object, e As EventArgs) Handles cmsFile.Click
