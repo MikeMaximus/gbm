@@ -6133,7 +6133,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to This export file was created with a version of GBM prior to 1.1.0 and does not contain unique game identifiers.[BR][BR]Do you still want to import configurations from this file? (Not Recommended).
+        '''  Looks up a localized string similar to This export file was created with a version of GBM prior to 1.1.5 and may contain incompatible configuration data.[BR][BR]Do you still want to import configurations from this file? (Not Recommended).
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ImportVersionWarning() As String
             Get

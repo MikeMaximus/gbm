@@ -826,7 +826,7 @@ Public Class mgrMonitorList
             Exit Sub
         End If
 
-        If oExportInfo.AppVer < 110 Then
+        If oExportInfo.AppVer < 115 Then
             If mgrCommon.ShowMessage(mgrMonitorList_ImportVersionWarning, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                 Exit Sub
             End If
