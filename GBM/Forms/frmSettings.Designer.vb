@@ -64,6 +64,7 @@ Partial Class frmSettings
         Me.grpLogOptions = New System.Windows.Forms.GroupBox()
         Me.chkDisableSyncMessages = New System.Windows.Forms.CheckBox()
         Me.grpGameData = New System.Windows.Forms.GroupBox()
+        Me.chkShowResolvedPaths = New System.Windows.Forms.CheckBox()
         Me.chkSessionTracking = New System.Windows.Forms.CheckBox()
         Me.lstSettings = New System.Windows.Forms.ListBox()
         Me.btnResetMessages = New System.Windows.Forms.Button()
@@ -102,7 +103,7 @@ Partial Class frmSettings
         '
         'btnOptionalFields
         '
-        Me.btnOptionalFields.Location = New System.Drawing.Point(6, 65)
+        Me.btnOptionalFields.Location = New System.Drawing.Point(6, 88)
         Me.btnOptionalFields.Name = "btnOptionalFields"
         Me.btnOptionalFields.Size = New System.Drawing.Size(216, 23)
         Me.btnOptionalFields.TabIndex = 3
@@ -443,7 +444,7 @@ Partial Class frmSettings
         Me.grpGameMonitoringOptions.Controls.Add(Me.lblMinutes)
         Me.grpGameMonitoringOptions.Controls.Add(Me.chkShowDetectionTips)
         Me.grpGameMonitoringOptions.Controls.Add(Me.nudSuppressBackupThreshold)
-        Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 115)
+        Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 141)
         Me.grpGameMonitoringOptions.Name = "grpGameMonitoringOptions"
         Me.grpGameMonitoringOptions.Size = New System.Drawing.Size(354, 65)
         Me.grpGameMonitoringOptions.TabIndex = 1
@@ -481,7 +482,7 @@ Partial Class frmSettings
         '
         Me.grpLogOptions.Controls.Add(Me.chkDisableSyncMessages)
         Me.grpLogOptions.Controls.Add(Me.chkAutoSaveLog)
-        Me.grpLogOptions.Location = New System.Drawing.Point(6, 186)
+        Me.grpLogOptions.Location = New System.Drawing.Point(6, 212)
         Me.grpLogOptions.Name = "grpLogOptions"
         Me.grpLogOptions.Size = New System.Drawing.Size(354, 65)
         Me.grpLogOptions.TabIndex = 2
@@ -500,15 +501,26 @@ Partial Class frmSettings
         '
         'grpGameData
         '
+        Me.grpGameData.Controls.Add(Me.chkShowResolvedPaths)
         Me.grpGameData.Controls.Add(Me.chkSessionTracking)
         Me.grpGameData.Controls.Add(Me.chkTimeTracking)
         Me.grpGameData.Controls.Add(Me.btnOptionalFields)
         Me.grpGameData.Location = New System.Drawing.Point(6, 12)
         Me.grpGameData.Name = "grpGameData"
-        Me.grpGameData.Size = New System.Drawing.Size(354, 97)
+        Me.grpGameData.Size = New System.Drawing.Size(354, 123)
         Me.grpGameData.TabIndex = 0
         Me.grpGameData.TabStop = False
         Me.grpGameData.Text = "Game Data Options"
+        '
+        'chkShowResolvedPaths
+        '
+        Me.chkShowResolvedPaths.AutoSize = True
+        Me.chkShowResolvedPaths.Location = New System.Drawing.Point(6, 65)
+        Me.chkShowResolvedPaths.Name = "chkShowResolvedPaths"
+        Me.chkShowResolvedPaths.Size = New System.Drawing.Size(154, 17)
+        Me.chkShowResolvedPaths.TabIndex = 2
+        Me.chkShowResolvedPaths.Text = "Show resolved save paths "
+        Me.chkShowResolvedPaths.UseVisualStyleBackColor = True
         '
         'chkSessionTracking
         '
@@ -698,4 +710,5 @@ Partial Class frmSettings
     Friend WithEvents chkStartToTray As CheckBox
     Friend WithEvents chkMonitorOnStartup As CheckBox
     Friend WithEvents grpGameMonitoringOptions As GroupBox
+    Friend WithEvents chkShowResolvedPaths As CheckBox
 End Class

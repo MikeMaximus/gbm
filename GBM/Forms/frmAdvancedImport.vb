@@ -6,6 +6,7 @@ Public Class frmAdvancedImport
     Private oImportData As ExportData
     Private hshImportData As Hashtable
     Private hshFinalData As New Hashtable
+    Private bModWinConfigsForLinux As Boolean
     Private bSelectAll As Boolean = True
     Private bIsLoading As Boolean = False
     Private iCurrentSort As Integer = 0
@@ -27,6 +28,15 @@ Public Class frmAdvancedImport
         End Set
         Get
             Return hshImportData
+        End Get
+    End Property
+
+    Public Property ModWinConfigsForLinux As Boolean
+        Set(value As Boolean)
+            bModWinConfigsForLinux = value
+        End Set
+        Get
+            Return bModWinConfigsForLinux
         End Get
     End Property
 
@@ -56,6 +66,62 @@ Public Class frmAdvancedImport
         End If
     End Sub
 
+    Private Sub ModTags(ByRef oTags As List(Of Tag))
+        Dim bExists As Boolean
+        Dim oTag As Tag
+        Dim oNewTag As Tag
+        Dim oRemoveTag As New Tag
+        Dim sTag As String
+        Dim sAddTags() As String = {"Wine"}
+        Dim sRemoveTags() As String = {"Official"}
+
+        For Each sTag In sAddTags
+            bExists = False
+            For Each oTag In oTags
+                If oTag.Name = sTag Then
+                    bExists = True
+                    Exit For
+                End If
+            Next
+            If Not bExists Then
+                oNewTag = New Tag
+                oNewTag.Name = sTag
+                oTags.Add(oNewTag)
+            End If
+        Next
+
+        For Each sTag In sRemoveTags
+            bExists = False
+            For Each oTag In oTags
+                If oTag.Name = sTag Then
+                    bExists = True
+                    oRemoveTag = oTag
+                    Exit For
+                End If
+            Next
+            If bExists Then
+                oTags.Remove(oRemoveTag)
+            End If
+        Next
+
+    End Sub
+
+    Private Function CheckIgnoreTags(ByVal oTags As List(Of Tag)) As Boolean
+        Dim oTag As Tag
+        Dim sTag As String
+        Dim sIgnoreTags() As String = {"DOSBox", "ScummVM"}
+
+        For Each oTag In oTags
+            For Each sTag In sIgnoreTags
+                If oTag.Name = sTag Then
+                    Return False
+                End If
+            Next
+        Next
+
+        Return True
+    End Function
+
     Private Sub LoadData(Optional ByVal sFilter As String = "", Optional ByVal bAutoDetect As Boolean = False)
         Dim oApp As clsGame
         Dim oListViewItem As ListViewItem
@@ -75,6 +141,12 @@ Public Class frmAdvancedImport
         For Each de As DictionaryEntry In ImportData
             bAddItem = False
             oApp = DirectCast(de.Value, clsGame)
+
+            'Run any required tag mods
+            If ModWinConfigsForLinux Then
+                ModTags(oApp.ImportTags)
+            End If
+
             sTags = String.Empty
             oApp.ImportTags.Sort(AddressOf mgrCommon.CompareImportTagsByName)
             For Each oTag As Tag In oApp.ImportTags
@@ -82,7 +154,7 @@ Public Class frmAdvancedImport
             Next
             sTags = sTags.TrimEnd(New Char() {",", " "})
 
-            oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.TrueProcess, sTags})
+            oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.ProcessName, sTags})
             oListViewItem.Tag = oApp.ID
 
             If FinalData.ContainsKey(oApp.ID) Then
@@ -114,9 +186,14 @@ Public Class frmAdvancedImport
             If sFilter = String.Empty Then
                 bAddItem = True
             Else
-                If oApp.Name.ToLower.Contains(sFilter.ToLower) Or oApp.TrueProcess.ToLower.Contains(sFilter.ToLower) Or sTags.ToLower.Contains(sFilter.ToLower) Then
+                If oApp.Name.ToLower.Contains(sFilter.ToLower) Or oApp.ProcessName.ToLower.Contains(sFilter.ToLower) Or sTags.ToLower.Contains(sFilter.ToLower) Then
                     bAddItem = True
                 End If
+            End If
+
+            'Check for hardcoded ignore tags
+            If bAddItem And ModWinConfigsForLinux Then
+                bAddItem = CheckIgnoreTags(oApp.ImportTags)
             End If
 
             If bAddItem Then

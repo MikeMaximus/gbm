@@ -5,13 +5,13 @@ Imports System.Text.RegularExpressions
 Public Class mgrProcessDetection
 
     Private prsFoundProcess As Process
+    Private sProcessPath As String
     Private dStartTime As DateTime = Now, dEndTime As DateTime = Now
     Private lTimeSpent As Long = 0
     Private oGame As clsGame
     Private oDuplicateGames As New ArrayList
     Private bDuplicates As Boolean
     Private bVerified As Boolean = False
-    Private sFullCommand As String = String.Empty
 
     Property FoundProcess As Process
         Get
@@ -19,6 +19,15 @@ Public Class mgrProcessDetection
         End Get
         Set(value As Process)
             prsFoundProcess = value
+        End Set
+    End Property
+
+    Property ProcessPath As String
+        Get
+            Return sProcessPath
+        End Get
+        Set(value As String)
+            sProcessPath = value
         End Set
     End Property
 
@@ -73,85 +82,32 @@ Public Class mgrProcessDetection
         End Set
     End Property
 
-    Property FullCommand As String
-        Get
-            Return sFullCommand
-        End Get
-        Set(value As String)
-            sFullCommand = value
-        End Set
-    End Property
-
-    Private Function HandleDuplicates(hshScanList As Hashtable) As Boolean
-        Dim sProcess As String
-        Dim sParameter As String = String.Empty
-        Dim bParameter As Boolean = False
-        Dim oInitialDupes As New ArrayList
-
-        bDuplicates = True
-        oDuplicateGames.Clear()
-
-
-        For Each o As clsGame In hshScanList.Values
-            sProcess = o.ProcessName.Split(":")(0)
-            If o.Duplicate = True And (sProcess = oGame.TrueProcess Or Regex.IsMatch(sProcess, oGame.TrueProcess)) Then
-                oInitialDupes.Add(o.ShallowCopy)
-            End If
-        Next
-
-        For Each o As clsGame In oInitialDupes
-            If (o.Parameter <> String.Empty And FullCommand.Contains(o.Parameter)) Then
-                sParameter = o.Parameter
-                bParameter = True
-                Exit For
-            End If
-        Next
-
-        If bParameter Then
-            For Each o As clsGame In oInitialDupes
-                If (o.Parameter = sParameter) Then
-                    oDuplicateGames.Add(o.ShallowCopy)
-                End If
-            Next
-        Else
-            For Each o As clsGame In oInitialDupes
-                If (o.Parameter = String.Empty) Then
-                    oDuplicateGames.Add(o.ShallowCopy)
-                End If
-            Next
-        End If
-
-        If oDuplicateGames.Count = 1 Then
-            oGame = DirectCast(oDuplicateGames(0), clsGame).ShallowCopy
-            Return True
-        End If
-
-        Return False
-    End Function
-
     'This function will only work correctly on Windows
-    Private Sub GetWindowsCommand(ByVal prs As Process)
-        FullCommand = String.Empty
+    Private Function GetWindowsCommand(ByVal prs As Process) As String
+        Dim sFullCommand As String = String.Empty
         Try
             Using searcher As New ManagementObjectSearcher("SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + prs.Id.ToString)
                 For Each o As ManagementObject In searcher.Get()
-                    FullCommand &= o("CommandLine") & " "
+                    sFullCommand &= o("CommandLine") & " "
                 Next
             End Using
-        Catch ex As Exception
+        Catch
             'Do Nothing
         End Try
-    End Sub
+        Return sFullCommand
+    End Function
 
     'This function will only work correctly on Unix
-    Private Sub GetUnixCommand(ByVal prs As Process)
-        FullCommand = String.Empty
+    Private Function GetUnixCommand(ByVal prs As Process) As String
+        Dim sFullCommand As String = String.Empty
         Try
-            FullCommand = File.ReadAllText("/proc/" & prs.Id.ToString() & "/cmdline").Replace(vbNullChar, " ")
-        Catch ex As Exception
+            sFullCommand = File.ReadAllText("/proc/" & prs.Id.ToString() & "/cmdline").Replace(vbNullChar, " ")
+        Catch
             'Do Nothing
         End Try
-    End Sub
+
+        Return sFullCommand
+    End Function
 
     'This function will only work correctly on Unix
     Private Function GetUnixProcessArguments(ByVal prs As Process) As String()
@@ -202,15 +158,104 @@ Public Class mgrProcessDetection
         Return False
     End Function
 
-    Public Function SearchRunningProcesses(ByVal hshScanList As Hashtable, ByRef bNeedsPath As Boolean, ByRef iErrorCode As Integer, ByVal bDebugMode As Boolean) As Boolean
+    Private Function GetProcessPath(ByVal bWineProcess As Boolean) As String
+        Try
+            If Not bWineProcess Then
+                Return Path.GetDirectoryName(FoundProcess.MainModule.FileName)
+            Else
+                Return GetUnixSymLinkDirectory(FoundProcess)
+            End If
+        Catch
+            Return String.Empty
+        End Try
+    End Function
+
+    Private Sub FilterDetected(ByVal oDetectedGames As ArrayList, ByVal bWineProcess As Boolean)
+        Dim bMatch As Boolean = False
+        Dim sFullCommand As String
+        Dim oNotDetectedWithParameters As New ArrayList
+        Dim oDetectedWithParameters As New ArrayList
+        Dim oNotDetectedWithProcessPath As New ArrayList
+        Dim oDetectedWithProcessPath As New ArrayList
+
+        'Get parameters of the found process
+        If mgrCommon.IsUnix Then
+            sFullCommand = GetUnixCommand(FoundProcess)
+        Else
+            sFullCommand = GetWindowsCommand(FoundProcess)
+        End If
+
+        'Get Process Path
+        ProcessPath = GetProcessPath(bWineProcess)
+
+        'Look for any games using parameters and any matches
+        For Each oDetectedGame As clsGame In oDetectedGames
+            If oDetectedGame.Parameter <> String.Empty Then
+                If sFullCommand.Contains(oDetectedGame.Parameter) Then
+                    oDetectedWithParameters.Add(oDetectedGame)
+                Else
+                    oNotDetectedWithParameters.Add(oDetectedGame)
+                End If
+
+            End If
+        Next
+
+        'If we detected at least one parameter match, replace full detected list with the detected with parameter list
+        If oDetectedWithParameters.Count > 0 Then
+            oDetectedGames = oDetectedWithParameters
+        Else
+            'If there is no parameter match, remove any games using parameters from the detected list
+            For Each oGameNotDetected As clsGame In oNotDetectedWithParameters
+                oDetectedGames.Remove(oGameNotDetected)
+            Next
+        End If
+
+        'If there's only one match after parameter detection, set it as current game and we're done.
+        If oDetectedGames.Count = 1 Then
+            GameInfo = oDetectedGames(0)
+            Duplicate = False
+        Else
+            'Check if we have any exact matches based on process path
+            For Each oDetectedGame As clsGame In oDetectedGames
+                If oDetectedGame.ProcessPath <> String.Empty Then
+                    If oDetectedGame.ProcessPath = ProcessPath Then
+                        oDetectedWithProcessPath.Add(oDetectedGame)
+                    Else
+                        oNotDetectedWithProcessPath.Add(oDetectedGame)
+                    End If
+                End If
+            Next
+
+            'If there's only one match after process detection, set it as current game and we're done
+            If oDetectedWithProcessPath.Count = 1 Then
+                GameInfo = oDetectedWithProcessPath(0)
+                Duplicate = False
+            Else
+                'Remove any games with a process path that does not match the current process
+                For Each oGameNotDetected As clsGame In oNotDetectedWithProcessPath
+                    oDetectedGames.Remove(oGameNotDetected)
+                Next
+
+                'If only a single game remains, set it as current game and we're done
+                If oDetectedGames.Count = 1 Then
+                    GameInfo = oDetectedGames(0)
+                    Duplicate = False
+                Else
+                    'We've done all we can, the user must selected which game they were playing when the process ends
+                    Duplicate = True
+                    oDuplicateGames = oDetectedGames
+                End If
+            End If
+        End If
+    End Sub
+
+    Public Function SearchRunningProcesses(ByVal hshScanList As Hashtable, ByRef bNeedsPath As Boolean, ByRef bWineProcess As Boolean, ByRef iErrorCode As Integer, ByVal bDebugMode As Boolean) As Boolean
         Dim prsList() As Process = Process.GetProcesses
         Dim sProcessCheck As String = String.Empty
         Dim sProcessList As String = String.Empty
-        Dim bWineProcess As Boolean = False
-        Dim bPass As Boolean
+        Dim oDetectedGames As New ArrayList
 
         For Each prsCurrent As Process In prsList
-            bPass = False
 
             'This needs to be wrapped due to issues with Mono.
             Try
@@ -219,10 +264,13 @@ Public Class mgrProcessDetection
                 'Unix Handler
                 'We need some special handling for Wine processes
                 If mgrCommon.IsUnix And (sProcessCheck.ToLower = "wine-preloader" Or sProcessCheck.ToLower = "wine64-preloader") Then
+                    Dim sArgs As String() = GetUnixProcessArguments(prsCurrent)
+                    Dim sParameter As String
                     Dim sWinePath As String()
-                    'We can't use Path.GetFileName here, Wine uses the Windows seperator in arguments and Mono expects a different one in Unix.
-                    sWinePath = GetUnixProcessArguments(prsCurrent)(0).Split("\")
-                    sProcessCheck = sWinePath(sWinePath.Length - 1).Replace(".exe", "")
+                    'The wine-preloader parameters can refer to a path on the host system, windows based path within in the prefix, or mixed notation.
+                    sParameter = sArgs(0).Replace("\", "/")
+                    sWinePath = sParameter.Split("/")
+                    sProcessCheck = Path.GetFileNameWithoutExtension(sWinePath(sWinePath.Length - 1))
                     bWineProcess = True
                 Else
                     bWineProcess = False
@@ -237,39 +285,20 @@ Public Class mgrProcessDetection
                 'Do Nothing
             End Try
 
-            'Detection Pass 1
             For Each oCurrentGame As clsGame In hshScanList.Values
                 If IsMatch(oCurrentGame, sProcessCheck) Then
                     prsFoundProcess = prsCurrent
                     oGame = oCurrentGame.ShallowCopy
-                    bPass = True
-
-                    If mgrCommon.IsUnix Then
-                        GetUnixCommand(prsCurrent)
-                    Else
-                        GetWindowsCommand(prsCurrent)
-                    End If
-
-                    If oGame.Duplicate = True Then
-                        If HandleDuplicates(hshScanList) Then
-                            bDuplicates = False
-                            oDuplicateGames.Clear()
-                        End If
-                    Else
-                        bDuplicates = False
-                        oDuplicateGames.Clear()
-                    End If
-
-                    If Duplicate And DuplicateList.Count = 0 Then bPass = False
-
-                    If oGame.Parameter <> String.Empty And Not Duplicate And Not FullCommand.Contains(oGame.Parameter) Then bPass = False
+                    oDetectedGames.Add(oGame.ShallowCopy)
                 End If
             Next
 
-            'Detection Pass 2
-            If bPass Then
-                'Determine the process path if we need it
-                If Not oGame.AbsolutePath Or oGame.Duplicate Then
+            If oDetectedGames.Count > 0 Then
+                FilterDetected(oDetectedGames, bWineProcess)
+            End If
+
+            If oDetectedGames.Count > 0 Then
+                If Not oGame.AbsolutePath And Not oGame.MonitorOnly Then
                     Try
                         If Not bWineProcess Then
                             oGame.ProcessPath = Path.GetDirectoryName(prsCurrent.MainModule.FileName)
@@ -277,9 +306,6 @@ Public Class mgrProcessDetection
                             oGame.ProcessPath = GetUnixSymLinkDirectory(prsCurrent)
                         End If
                     Catch exWin32 As System.ComponentModel.Win32Exception
-                        'If an exception occurs the process is:
-                        'Running as administrator and the app isn't.
-                        'The process is 64-bit and the process folder is required, shouldn't happen often.                        
                         If exWin32.NativeErrorCode = 5 Then
                             bNeedsPath = True
                             iErrorCode = 5
@@ -288,15 +314,15 @@ Public Class mgrProcessDetection
                             iErrorCode = 299
                         Else
                             If bDebugMode Then mgrCommon.ShowMessage(exWin32.NativeErrorCode & " " & exWin32.Message & vbCrLf & vbCrLf & exWin32.StackTrace, MsgBoxStyle.Critical)
-                            'A different failure occured,  drop out and continue to scan.
-                            bPass = False
+                            Return False
                         End If
                     Catch exAll As Exception
                         If bDebugMode Then mgrCommon.ShowMessage(exAll.Message & vbCrLf & vbCrLf & exAll.StackTrace, MsgBoxStyle.Critical)
-                        'A different failure occured,  drop out and continue to scan.
-                        bPass = False
+                        Return False
                     End Try
                 End If
+
+                If bDebugMode Then mgrCommon.SaveText(sProcessList, mgrPath.SettingsRoot & "/gbm_process_list.txt")
 
                 'This will force two cycles for detection to try and prevent issues with UAC prompt
                 If Not bVerified Then
@@ -308,8 +334,6 @@ Public Class mgrProcessDetection
                 End If
             End If
         Next
-
-        If bDebugMode Then mgrCommon.SaveText(sProcessList, mgrPath.SettingsRoot & "/gbm_process_list.txt")
 
         Return False
     End Function

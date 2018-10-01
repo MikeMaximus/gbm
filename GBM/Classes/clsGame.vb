@@ -21,7 +21,6 @@ Public Class clsGame
     Private bMonitorOnly As Boolean = False
     Private sComments As String = String.Empty
     Private bIsRegEx As Boolean = False
-    Private bDuplicate As Boolean = False
     Private oImportTags As New List(Of Tag)
     Private bImportUpdate As Boolean = False
 
@@ -43,12 +42,6 @@ Public Class clsGame
         End Set
         Get
             Return sGameID
-        End Get
-    End Property
-
-    ReadOnly Property CompoundKey As String
-        Get
-            Return ProcessName & ":" & ID
         End Get
     End Property
 
@@ -248,24 +241,12 @@ Public Class clsGame
         End Set
     End Property
 
-    Property Duplicate As Boolean
-        Get
-            Return bDuplicate
-        End Get
-        Set(value As Boolean)
-            bDuplicate = value
+    Property TruePath As String
+        Set(value As String)
+            sPath = value
         End Set
-    End Property
-
-    ReadOnly Property TruePath As String
         Get
             Return sPath
-        End Get
-    End Property
-
-    ReadOnly Property TrueProcess As String
-        Get
-            Return HandleProcessDuplicates()
         End Get
     End Property
 
@@ -455,18 +436,6 @@ Public Class clsGame
 
     Public Function ShallowCopy() As clsGame
         Return DirectCast(Me.MemberwiseClone(), clsGame)
-    End Function
-
-    Private Function HandleProcessDuplicates() As String
-        Dim sProcessName As String
-
-        'Handle Duplicates
-        sProcessName = Me.ProcessName
-        If Me.Duplicate Then
-            sProcessName = Me.ProcessName.Split(":")(0)
-        End If
-
-        Return sProcessName
     End Function
 
     Public Shared Function SetSyncField(ByVal eSyncFields As eOptionalSyncFields, ByVal eSyncField As eOptionalSyncFields) As eOptionalSyncFields

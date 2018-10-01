@@ -144,9 +144,9 @@ Public Class mgrCommon
             Return String.Empty
     End Function
 
-    Public Shared Function OpenFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
-                                           ByVal bMulti As Boolean, Optional ByVal bSavedPath As Boolean = True) As String
-        Dim fbBrowser As New OpenFileDialog
+    Private Shared Function BuildFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
+                                             ByVal bMulti As Boolean, ByRef fbBrowser As OpenFileDialog, Optional ByVal bSavedPath As Boolean = True) As Boolean
+
         Dim oSavedPath As New clsSavedPath
 
         fbBrowser.Title = sTitle
@@ -171,19 +171,38 @@ Public Class mgrCommon
                 mgrSavedPath.AddUpdatePath(oSavedPath)
             End If
 
-            If bMulti Then
-                Dim sFileNames As String = String.Empty
-                For Each sFileName As String In fbBrowser.FileNames
-                    sFileNames &= sFileName & "|"
-                Next
-                sFileNames = sFileNames.TrimEnd("|")
-                Return sFileNames
-            Else
-                Return fbBrowser.FileName
-            End If
+            Return True
+        End If
+
+        Return False
+    End Function
+
+    Public Shared Function OpenFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
+                                           Optional ByVal bSavedPath As Boolean = True) As String
+        Dim fbBrowser As New OpenFileDialog
+        Dim bResult As Boolean
+
+        bResult = BuildFileBrowser(sName, sTitle, sExtension, sFileType, sDefaultFolder, False, fbBrowser, bSavedPath)
+
+        If bResult Then
+            Return fbBrowser.FileName
         End If
 
         Return String.Empty
+    End Function
+
+    Public Shared Function OpenMultiFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
+                                                Optional ByVal bSavedPath As Boolean = True) As String()
+        Dim fbBrowser As New OpenFileDialog
+        Dim bResult As Boolean
+
+        bResult = BuildFileBrowser(sName, sTitle, sExtension, sFileType, sDefaultFolder, True, fbBrowser, bSavedPath)
+
+        If bResult Then
+            Return fbBrowser.FileNames
+        End If
+
+        Return New String() {}
     End Function
 
     Public Shared Function OpenFolderBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sDefaultFolder As String, ByVal bEnableNewFolder As Boolean,
@@ -225,7 +244,7 @@ Public Class mgrCommon
             If oGame.ProcessName.ToLower.Contains(s) Then bFound = True
         Next
 
-        If bFound Or oGame.Duplicate = True Then
+        If bFound Then
             Return True
         Else
             Return False
@@ -413,6 +432,21 @@ Public Class mgrCommon
         Else
             Return GetAvailableDiskSpaceWindows(sPath)
         End If
+    End Function
+
+    'Copy a file
+    Public Shared Function CopyFile(ByVal sSourcePath As String, ByVal sDestinationPath As String, ByVal bOverWrite As Boolean) As Boolean
+        Try
+            If File.Exists(sSourcePath) Then
+                File.Copy(sSourcePath, sDestinationPath, bOverWrite)
+            Else
+                Return False
+            End If
+        Catch
+            Return False
+        End Try
+
+        Return True
     End Function
 
     'Delete file based on OS type

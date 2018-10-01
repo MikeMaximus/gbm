@@ -70,6 +70,7 @@ Partial Class frmGameManager
         Me.lblHours = New System.Windows.Forms.Label()
         Me.btnTags = New System.Windows.Forms.Button()
         Me.grpStats = New System.Windows.Forms.GroupBox()
+        Me.btnImportBackup = New System.Windows.Forms.Button()
         Me.cboRemoteBackup = New System.Windows.Forms.ComboBox()
         Me.lblRestorePathData = New System.Windows.Forms.Label()
         Me.lblBackupFileData = New System.Windows.Forms.Label()
@@ -96,6 +97,8 @@ Partial Class frmGameManager
         Me.btnExport = New System.Windows.Forms.Button()
         Me.cmsImport = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsOfficial = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsOfficialWindows = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsOfficialLinux = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtQuickFilter = New System.Windows.Forms.TextBox()
         Me.lblQuickFilter = New System.Windows.Forms.Label()
@@ -103,6 +106,7 @@ Partial Class frmGameManager
         Me.cmsDeleteOne = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnProcesses = New System.Windows.Forms.Button()
+        Me.ttFullPath = New System.Windows.Forms.ToolTip(Me.components)
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -142,7 +146,7 @@ Partial Class frmGameManager
         Me.btnBackup.Location = New System.Drawing.Point(616, 626)
         Me.btnBackup.Name = "btnBackup"
         Me.btnBackup.Size = New System.Drawing.Size(75, 23)
-        Me.btnBackup.TabIndex = 18
+        Me.btnBackup.TabIndex = 19
         Me.btnBackup.Text = "&Backup"
         Me.btnBackup.UseVisualStyleBackColor = True
         '
@@ -152,7 +156,7 @@ Partial Class frmGameManager
         Me.btnClose.Location = New System.Drawing.Point(697, 626)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 19
+        Me.btnClose.TabIndex = 20
         Me.btnClose.Text = "C&lose"
         Me.btnClose.UseVisualStyleBackColor = True
         '
@@ -287,7 +291,7 @@ Partial Class frmGameManager
         Me.btnInclude.Name = "btnInclude"
         Me.btnInclude.Size = New System.Drawing.Size(175, 23)
         Me.btnInclude.TabIndex = 12
-        Me.btnInclude.Text = "In&clude Items..."
+        Me.btnInclude.Text = "Incl&ude Items..."
         Me.btnInclude.UseVisualStyleBackColor = True
         '
         'txtID
@@ -565,13 +569,14 @@ Partial Class frmGameManager
         Me.btnTags.Location = New System.Drawing.Point(535, 437)
         Me.btnTags.Name = "btnTags"
         Me.btnTags.Size = New System.Drawing.Size(75, 23)
-        Me.btnTags.TabIndex = 12
-        Me.btnTags.Text = "Tags..."
+        Me.btnTags.TabIndex = 13
+        Me.btnTags.Text = "&Tags..."
         Me.btnTags.UseVisualStyleBackColor = True
         '
         'grpStats
         '
         Me.grpStats.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpStats.Controls.Add(Me.btnImportBackup)
         Me.grpStats.Controls.Add(Me.cboRemoteBackup)
         Me.grpStats.Controls.Add(Me.lblRestorePathData)
         Me.grpStats.Controls.Add(Me.lblBackupFileData)
@@ -586,9 +591,18 @@ Partial Class frmGameManager
         Me.grpStats.Location = New System.Drawing.Point(248, 466)
         Me.grpStats.Name = "grpStats"
         Me.grpStats.Size = New System.Drawing.Size(525, 154)
-        Me.grpStats.TabIndex = 15
+        Me.grpStats.TabIndex = 16
         Me.grpStats.TabStop = False
         Me.grpStats.Text = "Backup Information"
+        '
+        'btnImportBackup
+        '
+        Me.btnImportBackup.Location = New System.Drawing.Point(9, 125)
+        Me.btnImportBackup.Name = "btnImportBackup"
+        Me.btnImportBackup.Size = New System.Drawing.Size(114, 23)
+        Me.btnImportBackup.TabIndex = 8
+        Me.btnImportBackup.Text = "Import B&ackup Files"
+        Me.btnImportBackup.UseVisualStyleBackColor = True
         '
         'cboRemoteBackup
         '
@@ -664,7 +678,7 @@ Partial Class frmGameManager
         Me.btnDeleteBackup.Location = New System.Drawing.Point(129, 125)
         Me.btnDeleteBackup.Name = "btnDeleteBackup"
         Me.btnDeleteBackup.Size = New System.Drawing.Size(114, 23)
-        Me.btnDeleteBackup.TabIndex = 8
+        Me.btnDeleteBackup.TabIndex = 9
         Me.btnDeleteBackup.Text = "&Delete Backup"
         Me.btnDeleteBackup.UseVisualStyleBackColor = True
         '
@@ -701,7 +715,7 @@ Partial Class frmGameManager
         Me.btnMarkAsRestored.Location = New System.Drawing.Point(429, 626)
         Me.btnMarkAsRestored.Name = "btnMarkAsRestored"
         Me.btnMarkAsRestored.Size = New System.Drawing.Size(100, 23)
-        Me.btnMarkAsRestored.TabIndex = 16
+        Me.btnMarkAsRestored.TabIndex = 17
         Me.btnMarkAsRestored.Text = "&Mark as Restored"
         Me.btnMarkAsRestored.UseVisualStyleBackColor = True
         '
@@ -711,7 +725,7 @@ Partial Class frmGameManager
         Me.btnRestore.Location = New System.Drawing.Point(535, 626)
         Me.btnRestore.Name = "btnRestore"
         Me.btnRestore.Size = New System.Drawing.Size(75, 23)
-        Me.btnRestore.TabIndex = 17
+        Me.btnRestore.TabIndex = 18
         Me.btnRestore.Text = "&Restore"
         Me.btnRestore.UseVisualStyleBackColor = True
         '
@@ -721,7 +735,7 @@ Partial Class frmGameManager
         Me.btnSave.Location = New System.Drawing.Point(616, 437)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 13
+        Me.btnSave.TabIndex = 14
         Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
@@ -740,8 +754,8 @@ Partial Class frmGameManager
         Me.btnCancel.Location = New System.Drawing.Point(697, 437)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 14
-        Me.btnCancel.Text = "&Cancel"
+        Me.btnCancel.TabIndex = 15
+        Me.btnCancel.Text = "Ca&ncel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'chkEnabled
@@ -838,9 +852,22 @@ Partial Class frmGameManager
         '
         'cmsOfficial
         '
+        Me.cmsOfficial.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsOfficialWindows, Me.cmsOfficialLinux})
         Me.cmsOfficial.Name = "cmsOfficial"
         Me.cmsOfficial.Size = New System.Drawing.Size(117, 22)
         Me.cmsOfficial.Text = "&Official List..."
+        '
+        'cmsOfficialWindows
+        '
+        Me.cmsOfficialWindows.Name = "cmsOfficialWindows"
+        Me.cmsOfficialWindows.Size = New System.Drawing.Size(180, 22)
+        Me.cmsOfficialWindows.Text = "&Windows..."
+        '
+        'cmsOfficialLinux
+        '
+        Me.cmsOfficialLinux.Name = "cmsOfficialLinux"
+        Me.cmsOfficialLinux.Size = New System.Drawing.Size(180, 22)
+        Me.cmsOfficialLinux.Text = "&Linux..."
         '
         'cmsFile
         '
@@ -888,9 +915,15 @@ Partial Class frmGameManager
         Me.btnProcesses.Location = New System.Drawing.Point(454, 437)
         Me.btnProcesses.Name = "btnProcesses"
         Me.btnProcesses.Size = New System.Drawing.Size(75, 23)
-        Me.btnProcesses.TabIndex = 20
-        Me.btnProcesses.Text = "Processes..."
+        Me.btnProcesses.TabIndex = 12
+        Me.btnProcesses.Text = "Pro&cesses..."
         Me.btnProcesses.UseVisualStyleBackColor = True
+        '
+        'ttFullPath
+        '
+        Me.ttFullPath.AutoPopDelay = 5000
+        Me.ttFullPath.InitialDelay = 300
+        Me.ttFullPath.ReshowDelay = 60
         '
         'frmGameManager
         '
@@ -1022,4 +1055,8 @@ Partial Class frmGameManager
     Friend WithEvents chkRegEx As CheckBox
     Friend WithEvents btnGameID As Button
     Friend WithEvents btnProcesses As Button
+    Friend WithEvents ttFullPath As ToolTip
+    Friend WithEvents btnImportBackup As Button
+    Friend WithEvents cmsOfficialWindows As ToolStripMenuItem
+    Friend WithEvents cmsOfficialLinux As ToolStripMenuItem
 End Class

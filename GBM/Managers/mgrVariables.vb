@@ -154,4 +154,29 @@
 
         Return hshList
     End Function
+
+    Public Shared Function GetReservedVariables() As List(Of String)
+        Dim oList As New List(Of String)
+
+        oList.Add("APPDATA")
+        oList.Add("LOCALAPPDATA")
+        oList.Add("USERDOCUMENTS")
+        oList.Add("COMMONDOCUMENTS")
+        oList.Add("USERPROFILE")
+
+        Return oList
+    End Function
+
+    Public Shared Function CheckForReservedVariables(ByVal sPath As String) As Boolean
+        Dim s As String
+
+        For Each s In GetReservedVariables()
+            s = "%" & s & "%"
+            If sPath.Contains(s) Then
+                Return True
+            End If
+        Next
+
+        Return False
+    End Function
 End Class

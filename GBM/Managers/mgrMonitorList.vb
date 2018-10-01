@@ -45,7 +45,7 @@ Public Class mgrMonitorList
 
         hshParams.Add("ID", oGame.ID)
         hshParams.Add("Name", oGame.Name)
-        hshParams.Add("Process", oGame.TrueProcess)
+        hshParams.Add("Process", oGame.ProcessName)
         hshParams.Add("Path", oGame.TruePath)
         hshParams.Add("AbsolutePath", oGame.AbsolutePath)
         hshParams.Add("FolderSave", oGame.FolderSave)
@@ -75,10 +75,8 @@ Public Class mgrMonitorList
         Dim hshList As New Hashtable
         Dim hshDupeList As New Hashtable
         Dim oGame As clsGame
-        Dim oCompareGame As clsGame
-        Dim bIsDupe As Boolean
 
-        sSQL = "Select * FROM monitorlist ORDER BY Name Asc"
+        sSQL = "SELECT * FROM monitorlist ORDER BY Name ASC"
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
 
         For Each dr As DataRow In oData.Tables(0).Rows
@@ -87,39 +85,7 @@ Public Class mgrMonitorList
                 Case eListTypes.FullList
                     hshList.Add(oGame.ID, oGame)
                 Case eListTypes.ScanList
-                    For Each de As DictionaryEntry In hshList
-                        bIsDupe = False
-                        oCompareGame = DirectCast(de.Value, clsGame)
-
-                        If oCompareGame.IsRegEx Then
-                            If oGame.IsRegEx Then
-                                If oCompareGame.ProcessName = oGame.ProcessName Then
-                                    bIsDupe = True
-                                End If
-                            Else
-                                If Regex.IsMatch(oGame.ProcessName, oCompareGame.ProcessName) Then
-                                    bIsDupe = True
-                                End If
-                            End If
-                        Else
-                            If oGame.IsRegEx Then
-                                If Regex.IsMatch(oCompareGame.ProcessName, oGame.ProcessName) Then
-                                    bIsDupe = True
-                                End If
-                            Else
-                                If oGame.ProcessName = oCompareGame.ProcessName Then
-                                    bIsDupe = True
-                                End If
-                            End If
-                        End If
-
-                        If bIsDupe Then
-                            DirectCast(hshList.Item(oCompareGame.ProcessName), clsGame).Duplicate = True
-                            oGame.ProcessName = oGame.CompoundKey
-                            oGame.Duplicate = True
-                        End If
-                    Next
-                    If oGame.Enabled Then hshList.Add(oGame.ProcessName, oGame)
+                    If oGame.Enabled Then hshList.Add(oGame.ID, oGame)
             End Select
         Next
 
@@ -413,7 +379,7 @@ Public Class mgrMonitorList
             'Core Parameters
             hshParams.Add("ID", oGame.ID)
             hshParams.Add("Name", oGame.Name)
-            hshParams.Add("Process", oGame.TrueProcess)
+            hshParams.Add("Process", oGame.ProcessName)
             hshParams.Add("Path", oGame.TruePath)
             hshParams.Add("AbsolutePath", oGame.AbsolutePath)
             hshParams.Add("FolderSave", oGame.FolderSave)
@@ -822,13 +788,13 @@ Public Class mgrMonitorList
         Return True
     End Function
 
-    Public Shared Function DoImport(ByVal sPath As String, ByVal bOfficial As Boolean, ByRef oSettings As mgrSettings, Optional ByVal bStartUpWizard As Boolean = False) As Boolean
+    Public Shared Function DoImport(ByVal sPath As String, ByVal bOfficial As Boolean, ByRef oSettings As mgrSettings, Optional ByVal bStartUpWizard As Boolean = False, Optional ByVal bWinConfigsInLinux As Boolean = False) As Boolean
         If mgrCommon.IsAddress(sPath) Then
             If mgrCommon.CheckAddress(sPath) Then
                 If bOfficial And Not bStartUpWizard And Not ((oSettings.SuppressMessages And mgrSettings.eSuppressMessages.GameIDSync) = mgrSettings.eSuppressMessages.GameIDSync) Then
                     SyncGameIDs(sPath, oSettings, True)
                 End If
-                ImportMonitorList(sPath, True)
+                ImportMonitorList(sPath, True, bWinConfigsInLinux)
                 Return True
             Else
                 mgrCommon.ShowMessage(mgrMonitorList_WebNoReponse, sPath, MsgBoxStyle.Exclamation)
@@ -836,7 +802,7 @@ Public Class mgrMonitorList
             End If
         Else
             If File.Exists(sPath) Then
-                ImportMonitorList(sPath)
+                ImportMonitorList(sPath,, bWinConfigsInLinux)
                 Return True
             Else
                 mgrCommon.ShowMessage(mgrMonitorList_FileNotFound, sPath, MsgBoxStyle.Exclamation)
@@ -846,7 +812,7 @@ Public Class mgrMonitorList
         Return True
     End Function
 
-    Private Shared Sub ImportMonitorList(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False)
+    Private Shared Sub ImportMonitorList(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False, Optional ByVal bWinConfigsInLinux As Boolean = False)
         Dim hshCompareFrom As New Hashtable
         Dim hshCompareTo As Hashtable
         Dim hshSyncItems As Hashtable
@@ -860,7 +826,7 @@ Public Class mgrMonitorList
             Exit Sub
         End If
 
-        If oExportInfo.AppVer < 110 Then
+        If oExportInfo.AppVer < 115 Then
             If mgrCommon.ShowMessage(mgrMonitorList_ImportVersionWarning, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                 Exit Sub
             End If
@@ -893,6 +859,7 @@ Public Class mgrMonitorList
             Dim frm As New frmAdvancedImport
             frm.ImportInfo = oExportInfo
             frm.ImportData = hshSyncItems
+            frm.ModWinConfigsForLinux = bWinConfigsInLinux
             If frm.ShowDialog() = DialogResult.OK Then
                 Cursor.Current = Cursors.WaitCursor
 

@@ -228,7 +228,7 @@ Public Class frmMain
             If oGame.AbsolutePath = False Then
                 If oGame.ProcessPath = String.Empty Then
                     If mgrCommon.IsProcessNotSearchable(oGame) Then bNoAuto = True
-                    oGame.ProcessPath = mgrPath.ProcessPathSearch(oGame.Name, oGame.TrueProcess, mgrCommon.FormatString(frmMain_ErrorRelativePath, oGame.Name), bNoAuto)
+                    oGame.ProcessPath = mgrPath.ProcessPathSearch(oGame.Name, oGame.ProcessName, mgrCommon.FormatString(frmMain_ErrorRelativePath, oGame.Name), bNoAuto)
                 End If
 
                 If oGame.ProcessPath <> String.Empty Then
@@ -258,6 +258,12 @@ Public Class frmMain
 
     End Sub
 
+    Private Sub RunImportBackup(ByVal oImportBackupList As Hashtable)
+        PauseScan()
+        oBackup.ImportBackupFiles(oImportBackupList)
+        ResumeScan()
+    End Sub
+
     Private Function DoMultiGameCheck() As Boolean
         Dim oResult As DialogResult
 
@@ -266,14 +272,9 @@ Public Class frmMain
             frm.Process = oProcess
             oResult = frm.ShowDialog()
             If oResult = DialogResult.OK Then
-                Dim sProcessPath As String
                 'Reload settings
                 LoadGameSettings()
-                'Retain the process path from old object
-                sProcessPath = oProcess.GameInfo.ProcessPath
                 oProcess.GameInfo = frm.Game
-                'Set the process path into the new object
-                oProcess.GameInfo.ProcessPath = sProcessPath
                 'A game was set, return and continue
                 Return True
             Else
@@ -894,6 +895,11 @@ Public Class frmMain
         If frm.TriggerRestore Then
             RunRestore(frm.RestoreList)
         End If
+
+        'Handle import backup trigger
+        If frm.TriggerImportBackup Then
+            RunImportBackup(frm.ImportBackupList)
+        End If
     End Sub
 
     Private Sub OpenSettings()
@@ -940,7 +946,7 @@ Public Class frmMain
         Dim frm As New frmVariableManager
         PauseScan()
         frm.ShowDialog()
-        mgrPath.CustomVariablesReload()
+        mgrPath.LoadCustomVariables()
         mgrMonitorList.SyncMonitorLists(oSettings)
         ResumeScan()
     End Sub
@@ -1689,15 +1695,6 @@ Public Class frmMain
 
     End Function
 
-    Private Sub CheckForSavedDuplicate()
-        For Each o As clsGame In oProcess.DuplicateList
-            If o.ProcessPath.ToLower = oProcess.GameInfo.ProcessPath.ToLower Then
-                oProcess.GameInfo = o
-                oProcess.Duplicate = False
-            End If
-        Next
-    End Sub
-
     Private Function CheckForSavedPath() As Boolean
         If oProcess.GameInfo.ProcessPath <> String.Empty Then
             Return True
@@ -1894,11 +1891,12 @@ Public Class frmMain
 
     Private Sub ScanTimerEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmScanTimer.Tick
         Dim bNeedsPath As Boolean = False
+        Dim bWineProcess As Boolean = False
         Dim bContinue As Boolean = True
         Dim iErrorCode As Integer = 0
         Dim sErrorMessage As String = String.Empty
 
-        If oProcess.SearchRunningProcesses(hshScanList, bNeedsPath, iErrorCode, bProcessDebugMode) Then
+        If oProcess.SearchRunningProcesses(hshScanList, bNeedsPath, bWineProcess, iErrorCode, bProcessDebugMode) Then
             PauseScan(True)
 
             If bNeedsPath Then
@@ -1928,8 +1926,24 @@ Public Class frmMain
                 End If
             End If
 
+            If bWineProcess Then
+                'Attempt a path conversion if the game configuration is using an absolute windows path that we can convert
+                If mgrVariables.CheckForReservedVariables(oProcess.GameInfo.TruePath) Then
+                    Dim sWinePrefix As String = mgrPath.GetWinePrefix(oProcess.FoundProcess)
+                    Dim sWineSavePath As String
+                    If Not sWinePrefix = String.Empty Then
+                        UpdateLog(mgrCommon.FormatString(frmMain_WinePrefix, New String() {oProcess.GameInfo.Name, sWinePrefix}), False)
+                        sWineSavePath = mgrPath.GetWineSavePath(sWinePrefix, oProcess.GameInfo.TruePath)
+                        If Not sWineSavePath = oProcess.GameInfo.TruePath Then
+                            oProcess.GameInfo.TruePath = sWineSavePath
+                            oProcess.GameInfo.AbsolutePath = True
+                            UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, New String() {oProcess.GameInfo.Name, sWineSavePath}), False)
+                        End If
+                    End If
+                End If
+            End If
+
             If bContinue = True Then
-                CheckForSavedDuplicate()
                 If oProcess.Duplicate Then
                     UpdateLog(frmMain_MultipleGamesDetected, oSettings.ShowDetectionToolTips)
                     UpdateStatus(frmMain_MultipleGamesDetected)

@@ -75,7 +75,7 @@ Public Class mgrSQLite
                    "BackupFolder TEXT NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
                    "SuppressBackup BOOLEAN NOT NULL, SuppressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
                    "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL, SessionTracking BOOLEAN NOT NULL, " &
-                   "SuppressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL, UseGameID BOOLEAN NOT NULL, DisableSyncMessages BOOLEAN NOT NULL);"
+                   "SuppressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL, UseGameID BOOLEAN NOT NULL, DisableSyncMessages BOOLEAN NOT NULL, ShowResolvedPaths BOOLEAN NOT NULL);"
 
             'Add Tables (SavedPath)
             sSql &= "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
@@ -848,6 +848,50 @@ Public Class mgrSQLite
                 CompactDatabase()
             End If
         End If
+
+        '1.15 Upgrade
+        If GetDatabaseVersion() < 115 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v110")
+
+                'Add new setting
+                sSQL = "ALTER TABLE settings ADD COLUMN ShowResolvedPaths BOOLEAN NOT NULL DEFAULT 1;"
+
+                sSQL &= "PRAGMA user_version=115"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v110")
+
+                'Convert core path variables to new standard
+                If Not mgrCommon.IsUnix Then
+                    sSQL = "UPDATE monitorlist SET Path = Replace(Path,'*appdatalocal*','%LOCALAPPDATA%');"
+                    sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*appdataroaming*','%APPDATA%');"
+                    sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*mydocs*','%USERDOCUMENTS%');"
+                    sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*currentuser*','%USERPROFILE%');"
+                    sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*publicdocs*','%COMMONDOCUMENTS%');"
+                Else
+                    sSQL = "UPDATE monitorlist SET Path = Replace(Path,'*appdatalocal*','${XDG_DATA_HOME:-~/.local/share}');"
+                    sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*appdataroaming*','${XDG_CONFIG_HOME:-~/.config}');"
+                    sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'*mydocs*','~');"
+                End If
+
+                'Convert custom variables to new standard
+                Dim hshVariables As Hashtable = mgrVariables.ReadVariables()
+                Dim sOldVariable As String
+                For Each oVariable As clsPathVariable In hshVariables.Values
+                    sOldVariable = "*" & oVariable.Name & "*"
+                    sSQL &= "UPDATE monitorlist SET Path = Replace(Path,'" & sOldVariable & "','" & oVariable.FormattedName & "');"
+                Next
+
+                sSQL &= "PRAGMA user_version=115"
+
+                    RunParamQuery(sSQL, New Hashtable)
+                End If
+            End If
     End Sub
 
     Public Function GetDBSize() As Long

@@ -431,7 +431,7 @@
     <value>&amp;Backup</value>
   </data>
   <data name="frmGameManager_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>Ca&amp;ncel</value>
   </data>
   <data name="frmGameManager_btnClose" xml:space="preserve">
     <value>C&amp;lose</value>
@@ -455,7 +455,7 @@
     <value>&amp;Import</value>
   </data>
   <data name="frmGameManager_btnInclude" xml:space="preserve">
-    <value>In&amp;clude Items...</value>
+    <value>Incl&amp;ude Items...</value>
   </data>
   <data name="frmGameManager_btnMarkAsRestored" xml:space="preserve">
     <value>&amp;Mark as Restored</value>
@@ -479,7 +479,7 @@
     <value>...</value>
   </data>
   <data name="frmGameManager_btnTags" xml:space="preserve">
-    <value>Tags...</value>
+    <value>&amp;Tags...</value>
   </data>
   <data name="frmGameManager_chkEnabled" xml:space="preserve">
     <value>Monitor this game</value>
@@ -590,7 +590,7 @@
     <value>Include</value>
   </data>
   <data name="frmGameManager_IncludeShortcut" xml:space="preserve">
-    <value>In&amp;clude</value>
+    <value>Incl&amp;ude</value>
   </data>
   <data name="frmGameManager_Items" xml:space="preserve">
     <value>Items...</value>
@@ -1307,7 +1307,7 @@
     <value>[PARAM] backup aborted by user due to overwrite.</value>
   </data>
   <data name="mgrBackup_ErrorSubFolderCreate" xml:space="preserve">
-    <value>Backup aborted.  A failure occured while creating a backup sub-folder for [PARAM].[BR][PARAM]</value>
+    <value>A failure occured while creating a backup sub-folder for [PARAM].[BR][PARAM]</value>
   </data>
   <data name="mgrBackup_GenerateHash" xml:space="preserve">
     <value>Generating SHA-256 hash for [PARAM] backup file.</value>
@@ -2027,7 +2027,7 @@
     <value>This file cannot be used to sync game indentifiers.  It was created with an older version of GBM.</value>
   </data>
   <data name="mgrMonitorList_ImportVersionWarning" xml:space="preserve">
-    <value>This export file was created with a version of GBM prior to 1.1.0 and does not contain unique game identifiers.[BR][BR]Do you still want to import configurations from this file? (Not Recommended)</value>
+    <value>This export file was created with a version of GBM prior to 1.1.5 and may contain incompatible configuration data.[BR][BR]Do you still want to import configurations from this file? (Not Recommended)</value>
   </data>
   <data name="mgrMonitorList_ConfirmFileGameIDSync" xml:space="preserve">
     <value>Do you want to sync your game identifiers with this export file?[BR][BR]You should only do this if you're managing your own game configurations.  If you use GBM on multiple PCs, please see "Tools" section of the online manual before using this feature.</value>
@@ -2202,5 +2202,68 @@
   </data>
   <data name="frmGameManager_ErrorRenameFolderExists" xml:space="preserve">
     <value>The backup folder [PARAM] cannot be renamed to [PARAM] because a folder with that name already exists.[BR][BR]Do you want to continue and remove the existing folder?</value>
+  </data>
+  <data name="frmMain_WinePrefix" xml:space="preserve">
+    <value>[PARAM] Wine Prefix: [PARAM]</value>
+  </data>
+  <data name="frmMain_WineSavePath" xml:space="preserve">
+    <value>[PARAM] Converted Save Path: [PARAM]</value>
+  </data>
+  <data name="mgrPath_ErrorBuildingWinePath" xml:space="preserve">
+    <value>An error occured when building a Wine path.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrPath_ErrorConvertWineSavePath" xml:space="preserve">
+    <value>An error occured when converting to a Wine save path.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrPath_ErrorWinePrefix" xml:space="preserve">
+    <value>An error occured when determining a Wine prefix.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrPath_ErrorUnixEnv" xml:space="preserve">
+    <value>An error occured while building a list of environment variables.[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmSettings_chkShowResolvedPaths" xml:space="preserve">
+    <value>Show resolved save paths</value>
+  </data>
+  <data name="frmGameManager_7zBackup" xml:space="preserve">
+    <value>7-Zip</value>
+  </data>
+  <data name="frmGameManager_btnImportBackup" xml:space="preserve">
+    <value>Import B&amp;ackup Files</value>
+  </data>
+  <data name="frmGameManager_Choose7zImport" xml:space="preserve">
+    <value>Choose compatible backup file(s)</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackupImport" xml:space="preserve">
+    <value>Are you sure you want to import the selected file(s) for [PARAM].  This will close the form.</value>
+  </data>
+  <data name="mgrBackup_ErrorImportBackupCopy" xml:space="preserve">
+    <value>Failed to import [PARAM], the file could not be copied.</value>
+  </data>
+  <data name="mgrBackup_ImportedFile" xml:space="preserve">
+    <value>Imported Backup</value>
+  </data>
+  <data name="mgrBackup_ImportSuccess" xml:space="preserve">
+    <value>Imported backup file [PARAM] for [PARAM].</value>
+  </data>
+  <data name="frmGameManager_btnProcesses" xml:space="preserve">
+    <value>Pro&amp;cesses...</value>
+  </data>
+  <data name="frmGameManager_WarningImportBackup" xml:space="preserve">
+    <value>This feature is intended to import 7-Zip backup archives compatible with the selected game configuration.[BR][BR]GBM does NOT verify these files, you should only use files created by GBM or compatible archives created using the same settings as the current game configuration.[BR][BR]This message will only be shown once.</value>
+  </data>
+  <data name="frmVariableManager_ErrorVariableReserved" xml:space="preserve">
+    <value>[PARAM] is a reserved variable, you must enter a different name.</value>
+  </data>
+  <data name="frmGameManager_WarningImportBackupSaveMulti" xml:space="preserve">
+    <value>The "Save multiple backups" option must be enabled on this configuration to import backup files.</value>
+  </data>
+  <data name="frmGameManager_cmsOfficialLinux" xml:space="preserve">
+    <value>&amp;Linux...</value>
+  </data>
+  <data name="frmGameManager_cmsOfficialWindows" xml:space="preserve">
+    <value>&amp;Windows...</value>
+  </data>
+  <data name="frmGameManager_WarningWinConfigsInLinux" xml:space="preserve">
+    <value>Official Windows configurations can be used in Linux for games running in Wine or Proton.[BR][BR]You do not need to modify these configurations, GBM will automatically do any required path conversions the first time the game is detected.[BR][BR]This message will only be shown once.</value>
   </data>
 </root>

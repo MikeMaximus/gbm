@@ -60,6 +60,7 @@ Public Class frmSettings
         oSettings.AutoMark = chkAutoMark.Checked
         oSettings.TimeTracking = chkTimeTracking.Checked
         oSettings.SessionTracking = chkSessionTracking.Checked
+        oSettings.ShowResolvedPaths = chkShowResolvedPaths.Checked
         oSettings.SuppressBackup = chkSuppressBackup.Checked
         oSettings.SuppressBackupThreshold = nudSuppressBackupThreshold.Value
         oSettings.CompressionLevel = cboCompression.SelectedValue
@@ -189,6 +190,7 @@ Public Class frmSettings
         txtBackupFolder.Text = oSettings.BackupFolder
         chkTimeTracking.Checked = oSettings.TimeTracking
         chkSessionTracking.Checked = oSettings.SessionTracking
+        chkShowResolvedPaths.Checked = oSettings.ShowResolvedPaths
         chkSuppressBackup.Checked = oSettings.SuppressBackup
         nudSuppressBackupThreshold.Value = oSettings.SuppressBackupThreshold
         nudSuppressBackupThreshold.Enabled = chkSuppressBackup.Checked
@@ -322,6 +324,7 @@ Public Class frmSettings
         grpLogOptions.Text = frmSettings_grpLogOptions
         chkDisableSyncMessages.Text = frmSettings_chkDisableSyncMessages
         grpGameMonitoringOptions.Text = frmSettings_grpGameMonitoringOptions
+        chkShowResolvedPaths.Text = frmSettings_chkShowResolvedPaths
 
         'Unix Handler
         If mgrCommon.IsUnix Then

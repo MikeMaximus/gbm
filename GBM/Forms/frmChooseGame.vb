@@ -38,7 +38,7 @@ Public Class frmChooseGame
     End Sub
 
     Private Sub SaveSelection()
-        oGame.ProcessPath = oProcess.GameInfo.ProcessPath
+        oGame.ProcessPath = oProcess.ProcessPath
         mgrMonitorList.DoListUpdate(oGame)
     End Sub
 
