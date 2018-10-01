@@ -46,8 +46,6 @@ Public Class frmAdvancedImport
         End Get
     End Property
 
-
-
     Private Sub SelectToggle()
         Cursor.Current = Cursors.WaitCursor
         lstGames.BeginUpdate()
@@ -194,7 +192,7 @@ Public Class frmAdvancedImport
             End If
 
             'Check for hardcoded ignore tags
-            If ModWinConfigsForLinux Then
+            If bAddItem And ModWinConfigsForLinux Then
                 bAddItem = CheckIgnoreTags(oApp.ImportTags)
             End If
 
