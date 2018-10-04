@@ -215,6 +215,7 @@ Public Class mgrBackup
 
     Public Sub ImportBackupFiles(ByVal hshImportList As Hashtable)
         Dim oGame As clsGame
+        Dim bOverwriteCurrent As Boolean = False
         Dim bContinue As Boolean = True
         Dim sFileToImport As String
         Dim sBackupFile As String
@@ -223,9 +224,13 @@ Public Class mgrBackup
         For Each de As DictionaryEntry In hshImportList
             sFileToImport = CStr(de.Key)
             oGame = DirectCast(de.Value, clsGame)
-            If File.Exists(sFileToImport) Then
 
+            'Enter overwite mode if we are importing a single backup and "Save Multiple Backups" is not enabled.
+            If hshImportList.Count = 1 And Not oGame.AppendTimeStamp Then bOverwriteCurrent = True
+
+            If File.Exists(sFileToImport) Then
                 sBackupFile = oSettings.BackupFolder
+
                 If oSettings.CreateSubFolder Then
                     sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
                     bContinue = HandleSubFolder(oGame, sBackupFile)
@@ -236,14 +241,32 @@ Public Class mgrBackup
                     oBackup.MonitorID = oGame.ID
                     oBackup.DateUpdated = File.GetLastWriteTime(sFileToImport)
                     oBackup.UpdatedBy = mgrBackup_ImportedFile
-                    sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & BuildFileTimeStamp(oBackup.DateUpdated) & ".7z"
-                    oBackup.FileName = sBackupFile.Replace(Settings.BackupFolder & Path.DirectorySeparatorChar, String.Empty)
-                    If mgrCommon.CopyFile(sFileToImport, sBackupFile, False) Then
-                        oBackup.CheckSum = mgrHash.Generate_SHA256_Hash(sBackupFile)
-                        mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImport, oGame.Name}), False, ToolTipIcon.Error, True)
+                    If bOverwriteCurrent Then
+                        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & ".7z"
                     Else
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportBackupCopy, sFileToImport), False, ToolTipIcon.Error, True)
+                        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & BuildFileTimeStamp(oBackup.DateUpdated) & ".7z"
+                    End If
+
+                    oBackup.FileName = sBackupFile.Replace(Settings.BackupFolder & Path.DirectorySeparatorChar, String.Empty)
+
+                    If bOverwriteCurrent Then
+                        If mgrCommon.CopyFile(sFileToImport, sBackupFile, True) Then
+                            oBackup.CheckSum = mgrHash.Generate_SHA256_Hash(sBackupFile)
+                            If Not mgrManifest.DoUpdateLatestManifest(oBackup, mgrSQLite.Database.Remote) Then
+                                mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
+                            End If
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImport, oGame.Name}), False, ToolTipIcon.Info, True)
+                        Else
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportBackupCopy, sFileToImport), False, ToolTipIcon.Error, True)
+                        End If
+                    Else
+                        If mgrCommon.CopyFile(sFileToImport, sBackupFile, False) Then
+                            oBackup.CheckSum = mgrHash.Generate_SHA256_Hash(sBackupFile)
+                            mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImport, oGame.Name}), False, ToolTipIcon.Info, True)
+                        Else
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportBackupCopy, sFileToImport), False, ToolTipIcon.Error, True)
+                        End If
                     End If
                 End If
             End If

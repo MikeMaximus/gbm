@@ -1555,6 +1555,7 @@ Public Class frmGameManager
     Private Sub TriggerSelectedImportBackup()
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         Dim oBackup As New mgrBackup
+        Dim sConfirm As String = frmGameManager_ConfirmBackupImport
         Dim sFile As String
         Dim sFiles As String()
 
@@ -1577,7 +1578,16 @@ Public Class frmGameManager
                 End If
             Next
 
-            If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupImport, oCurrentGame.CroppedName, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If sFiles.Length > 1 And Not CurrentGame.AppendTimeStamp Then
+                mgrCommon.ShowMessage(frmGameManager_WarningImportBackupSaveMulti, MsgBoxStyle.Exclamation)
+                Exit Sub
+            End If
+
+            If sFiles.Length = 1 And Not CurrentGame.AppendTimeStamp And mgrManifest.DoManifestCheck(CurrentGame.ID, mgrSQLite.Database.Remote) Then
+                sConfirm = frmGameManager_ConfirmBackupImportOverwriteSingle
+            End If
+
+            If mgrCommon.ShowMessage(sConfirm, oCurrentGame.CroppedName, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 Me.TriggerImportBackup = True
                 Me.Close()
             End If
@@ -1941,11 +1951,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub btnImportBackup_Click(sender As Object, e As EventArgs) Handles btnImportBackup.Click
-        If CurrentGame.AppendTimeStamp Then
-            TriggerSelectedImportBackup()
-        Else
-            mgrCommon.ShowMessage(frmGameManager_WarningImportBackupSaveMulti, MsgBoxStyle.Information)
-        End If
+        TriggerSelectedImportBackup()
     End Sub
 
     Private Sub chkFolderSave_CheckedChanged(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged
