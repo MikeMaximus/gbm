@@ -2222,7 +2222,7 @@
     <value>An error occured while building a list of environment variables.[BR][BR][PARAM]</value>
   </data>
   <data name="frmSettings_chkShowResolvedPaths" xml:space="preserve">
-    <value>Show resolved save paths</value>
+    <value>Show resolved save paths in Game Manager</value>
   </data>
   <data name="frmGameManager_7zBackup" xml:space="preserve">
     <value>7-Zip</value>

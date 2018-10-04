@@ -4660,7 +4660,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Show resolved save paths.
+        '''  Looks up a localized string similar to Show resolved save paths in Game Manager.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkShowResolvedPaths() As String
             Get

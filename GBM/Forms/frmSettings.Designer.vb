@@ -517,9 +517,9 @@ Partial Class frmSettings
         Me.chkShowResolvedPaths.AutoSize = True
         Me.chkShowResolvedPaths.Location = New System.Drawing.Point(6, 65)
         Me.chkShowResolvedPaths.Name = "chkShowResolvedPaths"
-        Me.chkShowResolvedPaths.Size = New System.Drawing.Size(154, 17)
+        Me.chkShowResolvedPaths.Size = New System.Drawing.Size(238, 17)
         Me.chkShowResolvedPaths.TabIndex = 2
-        Me.chkShowResolvedPaths.Text = "Show resolved save paths "
+        Me.chkShowResolvedPaths.Text = "Show resolved save paths in Game Manager"
         Me.chkShowResolvedPaths.UseVisualStyleBackColor = True
         '
         'chkSessionTracking
