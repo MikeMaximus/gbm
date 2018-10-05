@@ -561,15 +561,18 @@ Public Class frmGameManager
 
     Private Function GetBuilderRoot() As String
         Dim sRoot As String = String.Empty
+        Dim sPath As String = txtSavePath.Text
 
-        If Path.IsPathRooted(txtSavePath.Text) Then
-            If Directory.Exists(txtSavePath.Text) Then
-                sRoot = txtSavePath.Text
+        If Not Settings.ShowResolvedPaths Then sPath = mgrPath.ReplaceSpecialPaths(txtSavePath.Text)
+
+        If Path.IsPathRooted(sPath) Then
+            If Directory.Exists(sPath) Then
+                sRoot = sPath
             End If
         Else
             If txtAppPath.Text <> String.Empty Then
-                If Directory.Exists(txtAppPath.Text & Path.DirectorySeparatorChar & txtSavePath.Text) Then
-                    sRoot = txtAppPath.Text & Path.DirectorySeparatorChar & txtSavePath.Text
+                If Directory.Exists(txtAppPath.Text & Path.DirectorySeparatorChar & sPath) Then
+                    sRoot = txtAppPath.Text & Path.DirectorySeparatorChar & sPath
                 End If
             End If
         End If
