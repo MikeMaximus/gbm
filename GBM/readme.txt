@@ -2,7 +2,7 @@ Game Backup Monitor v1.1.5 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-October 1st, 2018
+October 4th, 2018
 
 New in 1.1.5
 
@@ -24,14 +24,14 @@ All Platforms:
 		- GBM will no longer allow the creation of variables using reserved names, such as APPDATA.
 	- Your configurations will be automatically updated to these new formats when upgrading to v1.1.5.
 	- These changes will break game list compatability with other versions of GBM.  Archived lists are available at http://mikemaximus.github.io/gbm-web/archive.html for those that wish to stay on an older version.
-- Added a new setting, "Show resolved save paths".
+- Added a new setting, "Show resolved save paths in Game Manager".
 	- This new setting is enabled by default.
-	- When enabled, GBM will display resolved save paths on the Game Manager.  This is how GBM displayed paths prior to v1.1.5.
+	- When enabled, GBM will display resolved save paths in the Game Manager.  This is how GBM displayed paths prior to v1.1.5.
 	- When disabled, GBM will display save paths with their variables when applicable.
 - Added a tooltip to applicable "Path" fields on the Game Manager.
 	- This tooltip either displays either a resolved or unresolved path.  
 	- The behaviour is toggled by the "Show resolved save paths" setting.
--Added "Import Backup Files" feature to the Game Manager.
+- Added "Import Backup Files" feature to the Game Manager.
 	- This feature allows you to import one or more backup files for a specific game configuration.
 	- This is useful if you lost your GBM database(s), but not the backup files.  It also can be used to easily move compatible saved game backups between Windows and Linux.
 	- GBM cannot verify that the backups being imported are compatible with the current configuration.  This is up to the user!

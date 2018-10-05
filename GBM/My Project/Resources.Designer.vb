@@ -1888,6 +1888,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Importing this backup file will overwrite the current backup file for [PARAM].[BR][BR]Do you want to continue?  This will close the form..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ConfirmBackupImportOverwriteSingle() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ConfirmBackupImportOverwriteSingle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to delete [PARAM]?  This cannot be undone.[BR][BR]This will not delete any backup files that already exist for this game..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmGameDelete() As String
@@ -2473,7 +2482,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The &quot;Save multiple backups&quot; option must be enabled on this configuration to import backup files..
+        '''  Looks up a localized string similar to The &quot;Save multiple backups&quot; option must be enabled on this configuration to import multiple backup files..
         '''</summary>
         Friend ReadOnly Property frmGameManager_WarningImportBackupSaveMulti() As String
             Get
@@ -4651,7 +4660,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Show resolved save paths.
+        '''  Looks up a localized string similar to Show resolved save paths in Game Manager.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkShowResolvedPaths() As String
             Get
