@@ -256,7 +256,6 @@ Public Class mgrProcessDetection
         Dim oDetectedGames As New ArrayList
 
         For Each prsCurrent As Process In prsList
-
             'This needs to be wrapped due to issues with Mono.
             Try
                 sProcessCheck = prsCurrent.ProcessName
@@ -277,9 +276,9 @@ Public Class mgrProcessDetection
                 End If
 
                 If bDebugMode And mgrCommon.IsUnix Then
-                    sProcessList &= prsCurrent.Id & " " & prsCurrent.ProcessName & " " & GetUnixProcessArguments(prsCurrent)(0) & vbCrLf
+                    sProcessList &= prsCurrent.Id & " " & prsCurrent.ProcessName & " " & GetUnixCommand(prsCurrent) & vbCrLf
                 ElseIf bDebugMode Then
-                    sProcessList &= prsCurrent.Id & " " & prsCurrent.ProcessName & vbCrLf
+                    sProcessList &= prsCurrent.Id & " " & prsCurrent.ProcessName & " " & GetWindowsCommand(prsCurrent) & vbCrLf
                 End If
             Catch ex As Exception
                 'Do Nothing
@@ -322,8 +321,6 @@ Public Class mgrProcessDetection
                     End Try
                 End If
 
-                If bDebugMode Then mgrCommon.SaveText(sProcessList, mgrPath.SettingsRoot & "/gbm_process_list.txt")
-
                 'This will force two cycles for detection to try and prevent issues with UAC prompt
                 If Not bVerified Then
                     bVerified = True
@@ -334,6 +331,8 @@ Public Class mgrProcessDetection
                 End If
             End If
         Next
+
+        If bDebugMode Then mgrCommon.SaveText(sProcessList, mgrPath.SettingsRoot & "/gbm_process_list.txt")
 
         Return False
     End Function
