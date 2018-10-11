@@ -259,6 +259,10 @@ Public Class mgrPath
                 sReplace = "%COMMONDOCUMENTS%"
                 sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "system.reg")
                 oParse = New Regex("""Common Documents""="".+?(?=\n)")
+            ElseIf sPath.Contains("%PROGRAMDATA%") Then
+                sReplace = "%PROGRAMDATA%"
+                sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "system.reg")
+                oParse = New Regex("""Common AppData""="".+?(?=\n)")
             ElseIf sPath.Contains("%USERPROFILE%") Then
                 sReplace = "%USERPROFILE%"
                 sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
@@ -315,6 +319,8 @@ Public Class mgrPath
         hshEnvs.Add("Documents", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
         hshEnvs.Add("AppDataRoaming", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData))
         hshEnvs.Add("AppDataLocal", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData))
+        hshEnvs.Add("ProgramData", Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData))
+
         If Not mgrCommon.IsUnix Then
             hshEnvs.Add("UserData", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))
             hshEnvs.Add("PublicDocuments", Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments))
@@ -416,6 +422,8 @@ Public Class mgrPath
         Dim sCurrentUser As String = "%USERPROFILE%"
         Dim sHomeDir As String = "~"
         Dim sEnvCurrentUser As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+        Dim sProgramData As String = "%PROGRAMDATA%"
+        Dim sEnvProgramData As String = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)
         Dim oCustomVariable As clsPathVariable
 
         For Each oCustomVariable In hshCustomVariables.Values
@@ -431,6 +439,10 @@ Public Class mgrPath
 
             If sValue.Contains(sEnvAppDataLocal) Then
                 Return sValue.Replace(sEnvAppDataLocal, sAppDataLocal)
+            End If
+
+            If sValue.Contains(sEnvProgramData) Then
+                Return sValue.Replace(sEnvProgramData, sProgramData)
             End If
 
             'This needs to be tested last for Unix compatability
