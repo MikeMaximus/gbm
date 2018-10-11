@@ -66,7 +66,7 @@ Public Class mgrBackup
         Return True
     End Function
 
-    Private Sub BuildFileList(ByVal sBackupPath As String, ByVal sList As String, ByVal sPath As String)
+    Private Sub BuildFileList(ByVal sList As String, ByVal sPath As String)
         Dim oStream As StreamWriter
 
         Try
@@ -75,7 +75,7 @@ Public Class mgrBackup
             Using oStream
                 If sList <> String.Empty Then
                     For Each sTypeItem As String In sList.Split(":")
-                        oStream.WriteLine("""" & sBackupPath & Path.DirectorySeparatorChar & sTypeItem & """")
+                        oStream.WriteLine("""" & sTypeItem & """")
                     Next
                 End If
                 oStream.Flush()
@@ -314,12 +314,12 @@ Public Class mgrBackup
                 sSavePath = VerifySavePath(oGame)
 
                 If oGame.FolderSave = True Then
-                    BuildFileList(sSavePath, "*", mgrPath.IncludeFileLocation)
+                    BuildFileList("*", mgrPath.IncludeFileLocation)
                 Else
-                    BuildFileList(sSavePath, oGame.FileType, mgrPath.IncludeFileLocation)
+                    BuildFileList(oGame.FileType, mgrPath.IncludeFileLocation)
                 End If
 
-                BuildFileList(sSavePath, oGame.ExcludeList, mgrPath.ExcludeFileLocation)
+                BuildFileList(oGame.ExcludeList, mgrPath.ExcludeFileLocation)
 
                 Try
                     If Directory.Exists(sSavePath) Then
@@ -332,6 +332,7 @@ Public Class mgrBackup
 
                             prs7z.StartInfo.Arguments = "a" & oSettings.Prepared7zArguments & "-t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """ -r"
                             prs7z.StartInfo.FileName = oSettings.Utility7zLocation
+                            prs7z.StartInfo.WorkingDirectory = sSavePath
                             prs7z.StartInfo.UseShellExecute = False
                             prs7z.StartInfo.RedirectStandardOutput = True
                             prs7z.StartInfo.CreateNoWindow = True
