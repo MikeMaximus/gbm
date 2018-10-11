@@ -163,6 +163,7 @@
         oList.Add("USERDOCUMENTS")
         oList.Add("COMMONDOCUMENTS")
         oList.Add("USERPROFILE")
+        oList.Add("PROGRAMDATA")
 
         Return oList
     End Function
