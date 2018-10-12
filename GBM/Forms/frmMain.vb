@@ -1938,7 +1938,11 @@ Public Class frmMain
                             oProcess.GameInfo.TruePath = sWineSavePath
                             oProcess.GameInfo.AbsolutePath = True
                             UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, New String() {oProcess.GameInfo.Name, sWineSavePath}), False)
+                        Else
+                            bContinue = False
                         End If
+                    Else
+                        bContinue = False
                     End If
                 End If
                 'This does required mods to include/exclude data and relative paths (if required)
