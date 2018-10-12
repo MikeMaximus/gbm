@@ -1941,6 +1941,8 @@ Public Class frmMain
                         End If
                     End If
                 End If
+                'This does required mods to include/exclude data and relative paths (if required)
+                mgrPath.ModWinePathData(oProcess.GameInfo)
             End If
 
             If bContinue = True Then

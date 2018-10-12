@@ -203,6 +203,12 @@ Public Class mgrPath
         Return sResult
     End Function
 
+    Public Shared Sub ModWinePathData(ByRef oGame As clsGame)
+        If Not oGame.AbsolutePath Then oGame.Path = oGame.Path.Replace("\", Path.DirectorySeparatorChar)
+        oGame.FileType = oGame.FileType.Replace("\", Path.DirectorySeparatorChar)
+        oGame.ExcludeList = oGame.ExcludeList.Replace("\", Path.DirectorySeparatorChar)
+    End Sub
+
     Private Shared Function BuildWinePath(ByVal sPath As String, ByVal sWinePrefix As String) As String
         Dim sRealPath As String
         Dim cDriveLetter As Char
@@ -217,7 +223,7 @@ Public Class mgrPath
             sRealPath = sRealPath.TrimEnd("""")
 
             'Flip Seperators
-            sRealPath = sRealPath.Replace("\\", "/")
+            sRealPath = sRealPath.Replace("\\", Path.DirectorySeparatorChar)
 
             'Change Wine Drive
             cDriveLetter = sRealPath.Chars(sRealPath.IndexOf(":") - 1)
