@@ -310,7 +310,8 @@ Public Class mgrPath
                 oMatch = oParse.Match(sPsinfo)
                 Return oMatch.Value.Trim("/").Split("=")(1)
             Else
-                Return String.Empty
+                'When WINEPREFIX is not part of the command,  we will assume the default prefix.
+                Return Environment.GetFolderPath(Environment.SpecialFolder.Personal) & "/.wine"
             End If
         Catch ex As Exception
             mgrCommon.ShowMessage(mgrPath_ErrorWinePrefix, ex.Message, MsgBoxStyle.Exclamation)
