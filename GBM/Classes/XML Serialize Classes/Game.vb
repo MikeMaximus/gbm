@@ -13,6 +13,7 @@
     Private bMonitorOnly As Boolean
     Private sComments As String
     Private bIsRegEx As Boolean
+    Private bRecurseSubFolders As Boolean
     Private oTags As List(Of Tag)
 
     Property ID As String
@@ -138,6 +139,15 @@
         End Set
         Get
             Return bIsRegEx
+        End Get
+    End Property
+
+    Property RecurseSubFolders As Boolean
+        Set(value As Boolean)
+            bRecurseSubFolders = value
+        End Set
+        Get
+            Return bRecurseSubFolders
         End Get
     End Property
 

@@ -37,15 +37,16 @@ Partial Class frmIncludeExclude
         Me.cmsAdd = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnRemove = New System.Windows.Forms.Button()
         Me.btnAdd = New System.Windows.Forms.Button()
-        Me.grpFileOptions = New System.Windows.Forms.GroupBox()
+        Me.grpOptions = New System.Windows.Forms.GroupBox()
         Me.optFileTypes = New System.Windows.Forms.RadioButton()
         Me.optIndividualFiles = New System.Windows.Forms.RadioButton()
         Me.lblItems = New System.Windows.Forms.Label()
         Me.btnRawEdit = New System.Windows.Forms.Button()
         Me.lblSaveFolder = New System.Windows.Forms.Label()
         Me.ttWarning = New System.Windows.Forms.ToolTip(Me.components)
+        Me.chkRecurseSubFolders = New System.Windows.Forms.CheckBox()
         Me.cmsItems.SuspendLayout()
-        Me.grpFileOptions.SuspendLayout()
+        Me.grpOptions.SuspendLayout()
         Me.SuspendLayout()
         '
         'treFiles
@@ -157,16 +158,17 @@ Partial Class frmIncludeExclude
         Me.btnAdd.Text = ">"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
-        'grpFileOptions
+        'grpOptions
         '
-        Me.grpFileOptions.Controls.Add(Me.optFileTypes)
-        Me.grpFileOptions.Controls.Add(Me.optIndividualFiles)
-        Me.grpFileOptions.Location = New System.Drawing.Point(12, 403)
-        Me.grpFileOptions.Name = "grpFileOptions"
-        Me.grpFileOptions.Size = New System.Drawing.Size(194, 46)
-        Me.grpFileOptions.TabIndex = 2
-        Me.grpFileOptions.TabStop = False
-        Me.grpFileOptions.Text = "File Options"
+        Me.grpOptions.Controls.Add(Me.chkRecurseSubFolders)
+        Me.grpOptions.Controls.Add(Me.optFileTypes)
+        Me.grpOptions.Controls.Add(Me.optIndividualFiles)
+        Me.grpOptions.Location = New System.Drawing.Point(12, 403)
+        Me.grpOptions.Name = "grpOptions"
+        Me.grpOptions.Size = New System.Drawing.Size(317, 46)
+        Me.grpOptions.TabIndex = 2
+        Me.grpOptions.TabStop = False
+        Me.grpOptions.Text = "Options"
         '
         'optFileTypes
         '
@@ -222,6 +224,16 @@ Partial Class frmIncludeExclude
         Me.ttWarning.ReshowDelay = 50
         Me.ttWarning.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning
         '
+        'chkRecurseSubFolders
+        '
+        Me.chkRecurseSubFolders.AutoSize = True
+        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(185, 20)
+        Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
+        Me.chkRecurseSubFolders.Size = New System.Drawing.Size(120, 17)
+        Me.chkRecurseSubFolders.TabIndex = 2
+        Me.chkRecurseSubFolders.Text = "Recurse sub-folders"
+        Me.chkRecurseSubFolders.UseVisualStyleBackColor = True
+        '
         'frmIncludeExclude
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -230,7 +242,7 @@ Partial Class frmIncludeExclude
         Me.Controls.Add(Me.lblSaveFolder)
         Me.Controls.Add(Me.btnRawEdit)
         Me.Controls.Add(Me.lblItems)
-        Me.Controls.Add(Me.grpFileOptions)
+        Me.Controls.Add(Me.grpOptions)
         Me.Controls.Add(Me.btnRemove)
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.lstBuilder)
@@ -247,7 +259,8 @@ Partial Class frmIncludeExclude
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Include / Exclude Builder"
         Me.cmsItems.ResumeLayout(False)
-        Me.grpFileOptions.ResumeLayout(False)
+        Me.grpOptions.ResumeLayout(False)
+        Me.grpOptions.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -261,7 +274,7 @@ Partial Class frmIncludeExclude
     Friend WithEvents lstBuilder As System.Windows.Forms.ListView
     Friend WithEvents btnRemove As System.Windows.Forms.Button
     Friend WithEvents btnAdd As System.Windows.Forms.Button
-    Friend WithEvents grpFileOptions As System.Windows.Forms.GroupBox
+    Friend WithEvents grpOptions As System.Windows.Forms.GroupBox
     Friend WithEvents optFileTypes As System.Windows.Forms.RadioButton
     Friend WithEvents optIndividualFiles As System.Windows.Forms.RadioButton
     Friend WithEvents lblItems As System.Windows.Forms.Label
@@ -272,4 +285,5 @@ Partial Class frmIncludeExclude
     Friend WithEvents btnRawEdit As Button
     Friend WithEvents lblSaveFolder As Label
     Friend WithEvents ttWarning As ToolTip
+    Friend WithEvents chkRecurseSubFolders As CheckBox
 End Class

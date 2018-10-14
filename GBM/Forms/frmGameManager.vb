@@ -585,10 +585,11 @@ Public Class frmGameManager
         frm.FormName = sFormText
         frm.BuilderString = txtBox.Text
         frm.RootFolder = GetBuilderRoot()
-
+        frm.RecurseSubFolders = chkRecurseSubFolders.Checked
         frm.ShowDialog()
 
         txtBox.Text = frm.BuilderString
+        chkRecurseSubFolders.Checked = frm.RecurseSubFolders
         VerifyCleanFolder()
     End Sub
 
@@ -923,6 +924,7 @@ Public Class frmGameManager
         txtFileType.Text = oApp.FileType
         txtExclude.Text = oApp.ExcludeList
         chkFolderSave.Checked = oApp.FolderSave
+        chkRecurseSubFolders.Checked = oApp.RecurseSubFolders
         chkCleanFolder.Checked = oApp.CleanFolder
         chkTimeStamp.Checked = oApp.AppendTimeStamp
         nudLimit.Value = oApp.BackupLimit
@@ -1062,6 +1064,7 @@ Public Class frmGameManager
                 btnOpenRestorePath.Enabled = False
                 chkEnabled.Checked = True
                 chkMonitorOnly.Checked = False
+                chkRecurseSubFolders.Checked = True
                 btnTags.Enabled = True
                 btnProcesses.Enabled = True
                 lblTags.Text = String.Empty
@@ -1185,6 +1188,7 @@ Public Class frmGameManager
     Private Sub FolderSaveModeChange()
         If chkFolderSave.Checked Then
             btnInclude.Enabled = False
+            chkRecurseSubFolders.Checked = False
             If txtFileType.Text <> String.Empty Then
                 txtFileType.Text = String.Empty
                 UpdateBuilderButtonLabel(txtFileType.Text, frmGameManager_IncludeShortcut, btnInclude, False)
@@ -1348,6 +1352,7 @@ Public Class frmGameManager
         oApp.FileType = txtFileType.Text
         oApp.ExcludeList = txtExclude.Text
         oApp.FolderSave = chkFolderSave.Checked
+        oApp.RecurseSubFolders = chkRecurseSubFolders.Checked
         oApp.CleanFolder = chkCleanFolder.Checked
         oApp.AppendTimeStamp = chkTimeStamp.Checked
         oApp.BackupLimit = nudLimit.Value

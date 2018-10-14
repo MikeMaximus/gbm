@@ -21,6 +21,7 @@ Public Class clsGame
     Private bMonitorOnly As Boolean = False
     Private sComments As String = String.Empty
     Private bIsRegEx As Boolean = False
+    Private bRecurseSubFolders As Boolean = True
     Private oImportTags As New List(Of Tag)
     Private bImportUpdate As Boolean = False
 
@@ -241,6 +242,15 @@ Public Class clsGame
         End Set
     End Property
 
+    Property RecurseSubFolders As Boolean
+        Get
+            Return bRecurseSubFolders
+        End Get
+        Set(value As Boolean)
+            bRecurseSubFolders = value
+        End Set
+    End Property
+
     Property TruePath As String
         Set(value As String)
             sPath = value
@@ -342,6 +352,9 @@ Public Class clsGame
             If IsRegEx <> oGame.IsRegEx Then
                 Return False
             End If
+            If RecurseSubFolders <> oGame.RecurseSubFolders Then
+                Return False
+            End If
 
             'Optional Sync Fields
             If (eSyncFields And eOptionalSyncFields.Company) = eOptionalSyncFields.Company Then
@@ -416,6 +429,9 @@ Public Class clsGame
                 Return False
             End If
             If IsRegEx <> oGame.IsRegEx Then
+                Return False
+            End If
+            If RecurseSubFolders <> oGame.RecurseSubFolders Then
                 Return False
             End If
             Return True

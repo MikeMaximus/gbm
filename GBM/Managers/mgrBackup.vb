@@ -128,7 +128,7 @@ Public Class mgrBackup
 
         'Calculate space
         lAvailableSpace = mgrCommon.GetAvailableDiskSpace(oSettings.BackupFolder)
-        lFolderSize = mgrCommon.GetFolderSize(sSavePath, oGame.IncludeArray, oGame.ExcludeArray)
+        lFolderSize = mgrCommon.GetFolderSize(sSavePath, oGame.IncludeArray, oGame.ExcludeArray, oGame.RecurseSubFolders)
 
         'Show Available Space
         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_AvailableDiskSpace, mgrCommon.FormatDiskSpace(lAvailableSpace)), False, ToolTipIcon.Info, True)
@@ -283,6 +283,7 @@ Public Class mgrBackup
         Dim dTimeStamp As DateTime
         Dim sTimeStamp As String
         Dim sHash As String
+        Dim sArguments As String
 
         For Each oGame In oBackupList
             'Init
@@ -321,6 +322,10 @@ Public Class mgrBackup
 
                 BuildFileList(oGame.ExcludeList, mgrPath.ExcludeFileLocation)
 
+                sArguments = "a" & oSettings.Prepared7zArguments & "-t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """"
+
+                If oGame.RecurseSubFolders Then sArguments &= " -r"
+
                 Try
                     If Directory.Exists(sSavePath) Then
                         If Settings.Is7zUtilityValid Then
@@ -330,7 +335,7 @@ Public Class mgrBackup
                                 File.Delete(sBackupFile)
                             End If
 
-                            prs7z.StartInfo.Arguments = "a" & oSettings.Prepared7zArguments & "-t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """ -r"
+                            prs7z.StartInfo.Arguments = sArguments
                             prs7z.StartInfo.FileName = oSettings.Utility7zLocation
                             prs7z.StartInfo.WorkingDirectory = sSavePath
                             prs7z.StartInfo.UseShellExecute = False

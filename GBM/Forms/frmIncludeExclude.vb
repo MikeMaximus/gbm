@@ -6,6 +6,7 @@ Public Class frmIncludeExclude
     Dim sFormName As String = String.Empty
     Dim sRootFolder As String = String.Empty
     Dim sBuilderString As String
+    Dim bRecurseSubFolders As Boolean
 
     Public Property BuilderString As String
         Get
@@ -31,6 +32,15 @@ Public Class frmIncludeExclude
         End Get
         Set(value As String)
             sRootFolder = value.TrimEnd(Path.DirectorySeparatorChar)
+        End Set
+    End Property
+
+    Public Property RecurseSubFolders As Boolean
+        Get
+            Return bRecurseSubFolders
+        End Get
+        Set(value As Boolean)
+            bRecurseSubFolders = value
         End Set
     End Property
 
@@ -239,9 +249,10 @@ Public Class frmIncludeExclude
         lblSaveFolder.Text = frmIncludeExclude_lblSaveFolder
         btnRawEdit.Text = frmIncludeExclude_btnRawEdit
         lblItems.Text = mgrCommon.FormatString(frmIncludeExclude_lblItems, FormName)
-        grpFileOptions.Text = mgrCommon.FormatString(frmIncludeExclude_grpFileOptions, FormName)
+        grpOptions.Text = mgrCommon.FormatString(frmIncludeExclude_grpOptions, FormName)
         optFileTypes.Text = frmIncludeExclude_optFileTypes
         optIndividualFiles.Text = frmIncludeExclude_optIndividualFiles
+        chkRecurseSubFolders.Text = frmIncludeExclude_chkRecurseSubFolders
         btnRemove.Text = frmIncludeExclude_btnRemove
         btnAdd.Text = frmIncludeExclude_btnAdd
         btnBrowse.Text = frmIncludeExclude_btnBrowse
@@ -254,6 +265,7 @@ Public Class frmIncludeExclude
         'Set Defaults
         txtRootFolder.Text = RootFolder
         optFileTypes.Checked = True
+        chkRecurseSubFolders.Checked = bRecurseSubFolders
         If BuilderString <> String.Empty Then ParseBuilderString(BuilderString)
         If txtRootFolder.Text <> String.Empty Then BuildTrunk()
     End Sub
@@ -285,6 +297,7 @@ Public Class frmIncludeExclude
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         BuilderString = CreateNewBuilderString()
+        RecurseSubFolders = chkRecurseSubFolders.Checked
         Me.Close()
     End Sub
 

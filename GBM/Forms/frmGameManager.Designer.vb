@@ -107,6 +107,7 @@ Partial Class frmGameManager
         Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnProcesses = New System.Windows.Forms.Button()
         Me.ttFullPath = New System.Windows.Forms.ToolTip(Me.components)
+        Me.chkRecurseSubFolders = New System.Windows.Forms.CheckBox()
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -163,6 +164,7 @@ Partial Class frmGameManager
         'grpConfig
         '
         Me.grpConfig.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpConfig.Controls.Add(Me.chkRecurseSubFolders)
         Me.grpConfig.Controls.Add(Me.btnGameID)
         Me.grpConfig.Controls.Add(Me.chkRegEx)
         Me.grpConfig.Controls.Add(Me.lblComments)
@@ -860,13 +862,13 @@ Partial Class frmGameManager
         'cmsOfficialWindows
         '
         Me.cmsOfficialWindows.Name = "cmsOfficialWindows"
-        Me.cmsOfficialWindows.Size = New System.Drawing.Size(180, 22)
+        Me.cmsOfficialWindows.Size = New System.Drawing.Size(132, 22)
         Me.cmsOfficialWindows.Text = "&Windows..."
         '
         'cmsOfficialLinux
         '
         Me.cmsOfficialLinux.Name = "cmsOfficialLinux"
-        Me.cmsOfficialLinux.Size = New System.Drawing.Size(180, 22)
+        Me.cmsOfficialLinux.Size = New System.Drawing.Size(132, 22)
         Me.cmsOfficialLinux.Text = "&Linux..."
         '
         'cmsFile
@@ -924,6 +926,17 @@ Partial Class frmGameManager
         Me.ttFullPath.AutoPopDelay = 5000
         Me.ttFullPath.InitialDelay = 300
         Me.ttFullPath.ReshowDelay = 60
+        '
+        'chkRecurseSubFolders
+        '
+        Me.chkRecurseSubFolders.AutoSize = True
+        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(489, 206)
+        Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
+        Me.chkRecurseSubFolders.Size = New System.Drawing.Size(15, 14)
+        Me.chkRecurseSubFolders.TabIndex = 0
+        Me.chkRecurseSubFolders.TabStop = False
+        Me.chkRecurseSubFolders.UseVisualStyleBackColor = True
+        Me.chkRecurseSubFolders.Visible = False
         '
         'frmGameManager
         '
@@ -1059,4 +1072,5 @@ Partial Class frmGameManager
     Friend WithEvents btnImportBackup As Button
     Friend WithEvents cmsOfficialWindows As ToolStripMenuItem
     Friend WithEvents cmsOfficialLinux As ToolStripMenuItem
+    Friend WithEvents chkRecurseSubFolders As CheckBox
 End Class
