@@ -8,6 +8,7 @@ Public Class frmGameManager
     Private sBackupFolder As String
     Private bPendingRestores As Boolean = False
     Private oCurrentBackupItem As clsBackup
+    Private oLastPlayedGame As clsGame
     Private oCurrentGame As clsGame
     Private oTagsToSave As New List(Of KeyValuePair(Of String, String))
     Private oProcessesToSave As New List(Of KeyValuePair(Of String, String))
@@ -66,6 +67,15 @@ Public Class frmGameManager
         End Get
         Set(value As clsBackup)
             oCurrentBackupItem = value
+        End Set
+    End Property
+
+    Property LastPlayedGame As clsGame
+        Get
+            Return oLastPlayedGame
+        End Get
+        Set(value As clsGame)
+            oLastPlayedGame = value
         End Set
     End Property
 
@@ -1810,6 +1820,7 @@ Public Class frmGameManager
         tmFilterTimer = New Timer()
         tmFilterTimer.Interval = 1000
         tmFilterTimer.Enabled = False
+
     End Sub
 
     Private Sub frmGameManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -1826,7 +1837,7 @@ Public Class frmGameManager
 
         LoadBackupData()
 
-        'Event will take care of initial load
+        'Event will take care of initial load (on Windows)
         If PendingRestores Then
             optPendingRestores.Checked = True
         Else
@@ -1838,8 +1849,11 @@ Public Class frmGameManager
         AssignDirtyHandlers(grpStats.Controls)
         AssignDirtyHandlersMisc()
 
-        LoadData(False)
-        ModeChange()
+        'Mono doesn't fire events in the same way as .NET, so we'll to do this to get an initial load on Linux and prevent multiple loads in Windows.
+        If mgrCommon.IsUnix Then
+            LoadData(False)
+            ModeChange()
+        End If
     End Sub
 
     Private Sub lstGames_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstGames.SelectedIndexChanged
@@ -2043,6 +2057,11 @@ Public Class frmGameManager
     End Sub
 
     Private Sub frmGameManager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        'Load Last Played Game
+        If Not LastPlayedGame Is Nothing Then
+            lstGames.SelectedItem = New KeyValuePair(Of String, String)(LastPlayedGame.ID, LastPlayedGame.Name)
+        End If
+
         txtQuickFilter.Focus()
     End Sub
 

@@ -882,6 +882,7 @@ Public Class frmMain
         PauseScan()
         frm.Settings = oSettings
         frm.PendingRestores = bPendingRestores
+        frm.LastPlayedGame = oProcess.GameInfo
         frm.ShowDialog()
         LoadGameSettings()
         ResumeScan()
