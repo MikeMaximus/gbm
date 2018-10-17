@@ -118,7 +118,8 @@ Public Class mgrBackup
         Dim sSavePath As String
         Dim sOverwriteMessage As String
         Dim lAvailableSpace As Long
-        Dim lFolderSize As Long
+        Dim lFolderSize As Long = 0
+        Dim sDeepFolder As String
 
         If oSettings.CreateSubFolder Then sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
         sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & ".7z"
@@ -128,7 +129,18 @@ Public Class mgrBackup
 
         'Calculate space
         lAvailableSpace = mgrCommon.GetAvailableDiskSpace(oSettings.BackupFolder)
-        lFolderSize = mgrCommon.GetFolderSize(sSavePath, oGame.IncludeArray, oGame.ExcludeArray, oGame.RecurseSubFolders)
+        'If any includes are using a deep path and we aren't using recursion,  we need to go directly to folders to do file size calculations or they will be missed.
+        If Not oGame.RecurseSubFolders Then
+            For Each s As String In oGame.IncludeArray
+                If s.Contains(Path.DirectorySeparatorChar) Then
+                    sDeepFolder = Path.GetDirectoryName(sSavePath & Path.DirectorySeparatorChar & s)
+                    If Directory.Exists(sDeepFolder) Then
+                        lFolderSize += mgrCommon.GetFolderSize(sDeepFolder, oGame.IncludeArray, oGame.ExcludeArray, oGame.RecurseSubFolders)
+                    End If
+                End If
+            Next
+        End If
+        lFolderSize += mgrCommon.GetFolderSize(sSavePath, oGame.IncludeArray, oGame.ExcludeArray, oGame.RecurseSubFolders)
 
         'Show Available Space
         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_AvailableDiskSpace, mgrCommon.FormatDiskSpace(lAvailableSpace)), False, ToolTipIcon.Info, True)

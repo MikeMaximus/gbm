@@ -293,14 +293,15 @@ Public Class mgrCommon
 
     Public Shared Function WildcardToRegex(ByVal sPattern As String) As String
         Dim sRegEx As String
-        sRegEx = sPattern.Replace("*", ".*")
-        sRegEx = sRegEx.Replace("?", ".")
+        sPattern = Regex.Escape(sPattern)
+        sRegEx = sPattern.Replace("\*", ".*")
+        sRegEx = sRegEx.Replace("\?", ".")
         Return sRegEx
     End Function
 
     Public Shared Function CompareValueToArrayRegEx(ByVal sValue As String, ByVal sValues As String()) As Boolean
         For Each se As String In sValues
-            If Regex.IsMatch(sValue, Regex.Escape(WildcardToRegex(se))) Then
+            If Regex.IsMatch(sValue, WildcardToRegex(se)) Then
                 Return True
             End If
         Next
@@ -331,6 +332,7 @@ Public Class mgrCommon
 
             'Files
             For Each fi As FileInfo In oFolder.EnumerateFiles()
+
                 If sInclude.Length > 0 Then
                     bInclude = CompareValueToArrayRegEx(fi.FullName, sInclude)
                 Else
