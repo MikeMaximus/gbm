@@ -1232,7 +1232,6 @@ Public Class frmGameManager
             btnInclude.Enabled = True
             btnExclude.Enabled = True
             FolderSaveModeChange()
-            VerifyCleanFolder()
         End If
     End Sub
 
@@ -1245,6 +1244,16 @@ Public Class frmGameManager
             nudLimit.Visible = False
             nudLimit.Value = nudLimit.Minimum
             lblLimit.Visible = False
+        End If
+    End Sub
+
+    Private Sub VerifyImportBackup()
+        If Not bIsLoading Then
+            If chkMonitorOnly.Checked Then
+                btnImportBackup.Enabled = False
+            Else
+                btnImportBackup.Enabled = True
+            End If
         End If
     End Sub
 
@@ -1463,6 +1472,7 @@ Public Class frmGameManager
                 FillData()
                 ModeChange()
                 VerifyCleanFolder()
+                VerifyImportBackup()
             ElseIf lstGames.SelectedItems.Count > 1 Then
                 eCurrentMode = eModes.MultiSelect
                 ModeChange()
