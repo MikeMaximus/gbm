@@ -202,6 +202,14 @@ Public Class frmFilter
         oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
         oValidFields.Add(oField)
 
+        'Include Sub Folders
+        oField = New clsGameFilterField
+        oField.FieldName = "RecurseSubFolders"
+        oField.FriendlyFieldName = frmFilter_FieldRecurseSubFolders
+        oField.Type = clsGameFilterField.eDataType.fBool
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
         'Delete Folder on Restore
         oField = New clsGameFilterField
         oField.FieldName = "CleanFolder"

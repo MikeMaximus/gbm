@@ -967,7 +967,7 @@
   <data name="frmIncludeExclude_FormName" xml:space="preserve">
     <value>[PARAM] Builder</value>
   </data>
-  <data name="frmIncludeExclude_grpFileOptions" xml:space="preserve">
+  <data name="frmIncludeExclude_grpOptions" xml:space="preserve">
     <value>[PARAM] Options</value>
   </data>
   <data name="frmIncludeExclude_lblItems" xml:space="preserve">
@@ -2268,5 +2268,11 @@
   </data>
   <data name="frmGameManager_ConfirmBackupImportOverwriteSingle" xml:space="preserve">
     <value>Importing this backup file will overwrite the current backup file for [PARAM].[BR][BR]Do you want to continue?  This will close the form.</value>
+  </data>
+  <data name="frmFilter_FieldRecurseSubFolders" xml:space="preserve">
+    <value>Recurse Sub-Folders</value>
+  </data>
+  <data name="frmIncludeExclude_chkRecurseSubFolders" xml:space="preserve">
+    <value>Recurse sub-folders</value>
   </data>
 </root>

@@ -8,6 +8,7 @@ Public Class frmGameManager
     Private sBackupFolder As String
     Private bPendingRestores As Boolean = False
     Private oCurrentBackupItem As clsBackup
+    Private oLastPlayedGame As clsGame
     Private oCurrentGame As clsGame
     Private oTagsToSave As New List(Of KeyValuePair(Of String, String))
     Private oProcessesToSave As New List(Of KeyValuePair(Of String, String))
@@ -66,6 +67,15 @@ Public Class frmGameManager
         End Get
         Set(value As clsBackup)
             oCurrentBackupItem = value
+        End Set
+    End Property
+
+    Property LastPlayedGame As clsGame
+        Get
+            Return oLastPlayedGame
+        End Get
+        Set(value As clsGame)
+            oLastPlayedGame = value
         End Set
     End Property
 
@@ -585,10 +595,11 @@ Public Class frmGameManager
         frm.FormName = sFormText
         frm.BuilderString = txtBox.Text
         frm.RootFolder = GetBuilderRoot()
-
+        frm.RecurseSubFolders = chkRecurseSubFolders.Checked
         frm.ShowDialog()
 
         txtBox.Text = frm.BuilderString
+        chkRecurseSubFolders.Checked = frm.RecurseSubFolders
         VerifyCleanFolder()
     End Sub
 
@@ -923,6 +934,7 @@ Public Class frmGameManager
         txtFileType.Text = oApp.FileType
         txtExclude.Text = oApp.ExcludeList
         chkFolderSave.Checked = oApp.FolderSave
+        chkRecurseSubFolders.Checked = oApp.RecurseSubFolders
         chkCleanFolder.Checked = oApp.CleanFolder
         chkTimeStamp.Checked = oApp.AppendTimeStamp
         nudLimit.Value = oApp.BackupLimit
@@ -1062,6 +1074,7 @@ Public Class frmGameManager
                 btnOpenRestorePath.Enabled = False
                 chkEnabled.Checked = True
                 chkMonitorOnly.Checked = False
+                chkRecurseSubFolders.Checked = True
                 btnTags.Enabled = True
                 btnProcesses.Enabled = True
                 lblTags.Text = String.Empty
@@ -1185,6 +1198,7 @@ Public Class frmGameManager
     Private Sub FolderSaveModeChange()
         If chkFolderSave.Checked Then
             btnInclude.Enabled = False
+            chkRecurseSubFolders.Checked = False
             If txtFileType.Text <> String.Empty Then
                 txtFileType.Text = String.Empty
                 UpdateBuilderButtonLabel(txtFileType.Text, frmGameManager_IncludeShortcut, btnInclude, False)
@@ -1218,7 +1232,6 @@ Public Class frmGameManager
             btnInclude.Enabled = True
             btnExclude.Enabled = True
             FolderSaveModeChange()
-            VerifyCleanFolder()
         End If
     End Sub
 
@@ -1231,6 +1244,16 @@ Public Class frmGameManager
             nudLimit.Visible = False
             nudLimit.Value = nudLimit.Minimum
             lblLimit.Visible = False
+        End If
+    End Sub
+
+    Private Sub VerifyImportBackup()
+        If Not bIsLoading Then
+            If chkMonitorOnly.Checked Then
+                btnImportBackup.Enabled = False
+            Else
+                btnImportBackup.Enabled = True
+            End If
         End If
     End Sub
 
@@ -1348,6 +1371,7 @@ Public Class frmGameManager
         oApp.FileType = txtFileType.Text
         oApp.ExcludeList = txtExclude.Text
         oApp.FolderSave = chkFolderSave.Checked
+        oApp.RecurseSubFolders = chkRecurseSubFolders.Checked
         oApp.CleanFolder = chkCleanFolder.Checked
         oApp.AppendTimeStamp = chkTimeStamp.Checked
         oApp.BackupLimit = nudLimit.Value
@@ -1448,6 +1472,7 @@ Public Class frmGameManager
                 FillData()
                 ModeChange()
                 VerifyCleanFolder()
+                VerifyImportBackup()
             ElseIf lstGames.SelectedItems.Count > 1 Then
                 eCurrentMode = eModes.MultiSelect
                 ModeChange()
@@ -1805,6 +1830,7 @@ Public Class frmGameManager
         tmFilterTimer = New Timer()
         tmFilterTimer.Interval = 1000
         tmFilterTimer.Enabled = False
+
     End Sub
 
     Private Sub frmGameManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -1821,7 +1847,7 @@ Public Class frmGameManager
 
         LoadBackupData()
 
-        'Event will take care of initial load
+        'Event will take care of initial load (on Windows)
         If PendingRestores Then
             optPendingRestores.Checked = True
         Else
@@ -1833,8 +1859,11 @@ Public Class frmGameManager
         AssignDirtyHandlers(grpStats.Controls)
         AssignDirtyHandlersMisc()
 
-        LoadData(False)
-        ModeChange()
+        'Mono doesn't fire events in the same way as .NET, so we'll to do this to get an initial load on Linux and prevent multiple loads in Windows.
+        If mgrCommon.IsUnix Then
+            LoadData(False)
+            ModeChange()
+        End If
     End Sub
 
     Private Sub lstGames_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstGames.SelectedIndexChanged
@@ -2038,6 +2067,11 @@ Public Class frmGameManager
     End Sub
 
     Private Sub frmGameManager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        'Load Last Played Game
+        If Not LastPlayedGame Is Nothing Then
+            lstGames.SelectedItem = New KeyValuePair(Of String, String)(LastPlayedGame.ID, LastPlayedGame.Name)
+        End If
+
         txtQuickFilter.Focus()
     End Sub
 

@@ -66,7 +66,7 @@ Public Class mgrBackup
         Return True
     End Function
 
-    Private Sub BuildFileList(ByVal sBackupPath As String, ByVal sList As String, ByVal sPath As String)
+    Private Sub BuildFileList(ByVal sList As String, ByVal sPath As String)
         Dim oStream As StreamWriter
 
         Try
@@ -75,7 +75,7 @@ Public Class mgrBackup
             Using oStream
                 If sList <> String.Empty Then
                     For Each sTypeItem As String In sList.Split(":")
-                        oStream.WriteLine("""" & sBackupPath & Path.DirectorySeparatorChar & sTypeItem & """")
+                        oStream.WriteLine("""" & sTypeItem & """")
                     Next
                 End If
                 oStream.Flush()
@@ -118,7 +118,8 @@ Public Class mgrBackup
         Dim sSavePath As String
         Dim sOverwriteMessage As String
         Dim lAvailableSpace As Long
-        Dim lFolderSize As Long
+        Dim lFolderSize As Long = 0
+        Dim sDeepFolder As String
 
         If oSettings.CreateSubFolder Then sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
         sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & ".7z"
@@ -128,7 +129,18 @@ Public Class mgrBackup
 
         'Calculate space
         lAvailableSpace = mgrCommon.GetAvailableDiskSpace(oSettings.BackupFolder)
-        lFolderSize = mgrCommon.GetFolderSize(sSavePath, oGame.IncludeArray, oGame.ExcludeArray)
+        'If any includes are using a deep path and we aren't using recursion,  we need to go directly to folders to do file size calculations or they will be missed.
+        If Not oGame.RecurseSubFolders Then
+            For Each s As String In oGame.IncludeArray
+                If s.Contains(Path.DirectorySeparatorChar) Then
+                    sDeepFolder = Path.GetDirectoryName(sSavePath & Path.DirectorySeparatorChar & s)
+                    If Directory.Exists(sDeepFolder) Then
+                        lFolderSize += mgrCommon.GetFolderSize(sDeepFolder, oGame.IncludeArray, oGame.ExcludeArray, oGame.RecurseSubFolders)
+                    End If
+                End If
+            Next
+        End If
+        lFolderSize += mgrCommon.GetFolderSize(sSavePath, oGame.IncludeArray, oGame.ExcludeArray, oGame.RecurseSubFolders)
 
         'Show Available Space
         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_AvailableDiskSpace, mgrCommon.FormatDiskSpace(lAvailableSpace)), False, ToolTipIcon.Info, True)
@@ -283,6 +295,7 @@ Public Class mgrBackup
         Dim dTimeStamp As DateTime
         Dim sTimeStamp As String
         Dim sHash As String
+        Dim sArguments As String
 
         For Each oGame In oBackupList
             'Init
@@ -314,12 +327,16 @@ Public Class mgrBackup
                 sSavePath = VerifySavePath(oGame)
 
                 If oGame.FolderSave = True Then
-                    BuildFileList(sSavePath, "*", mgrPath.IncludeFileLocation)
+                    BuildFileList("*", mgrPath.IncludeFileLocation)
                 Else
-                    BuildFileList(sSavePath, oGame.FileType, mgrPath.IncludeFileLocation)
+                    BuildFileList(oGame.FileType, mgrPath.IncludeFileLocation)
                 End If
 
-                BuildFileList(sSavePath, oGame.ExcludeList, mgrPath.ExcludeFileLocation)
+                BuildFileList(oGame.ExcludeList, mgrPath.ExcludeFileLocation)
+
+                sArguments = "a" & oSettings.Prepared7zArguments & "-t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """"
+
+                If oGame.RecurseSubFolders Then sArguments &= " -r"
 
                 Try
                     If Directory.Exists(sSavePath) Then
@@ -330,8 +347,9 @@ Public Class mgrBackup
                                 File.Delete(sBackupFile)
                             End If
 
-                            prs7z.StartInfo.Arguments = "a" & oSettings.Prepared7zArguments & "-t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """ -r"
+                            prs7z.StartInfo.Arguments = sArguments
                             prs7z.StartInfo.FileName = oSettings.Utility7zLocation
+                            prs7z.StartInfo.WorkingDirectory = sSavePath
                             prs7z.StartInfo.UseShellExecute = False
                             prs7z.StartInfo.RedirectStandardOutput = True
                             prs7z.StartInfo.CreateNoWindow = True

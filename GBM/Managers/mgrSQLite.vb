@@ -84,7 +84,7 @@ Public Class mgrSQLite
             sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
                    "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL);"
+                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, RecurseSubFolders NOT NULL);"
 
             'Add Tables (Tags)
             sSql &= "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
@@ -130,7 +130,7 @@ Public Class mgrSQLite
             sSql = "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
                    "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL);"
+                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, RecurseSubFolders NOT NULL);"
 
             'Add Tables (Remote Manifest)
             sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL PRIMARY KEY, MonitorID TEXT NOT NULL, FileName TEXT NOT NULL, " &
@@ -889,9 +889,33 @@ Public Class mgrSQLite
 
                 sSQL &= "PRAGMA user_version=115"
 
-                    RunParamQuery(sSQL, New Hashtable)
-                End If
+                RunParamQuery(sSQL, New Hashtable)
             End If
+        End If
+
+        '1.16 Upgrade
+        If GetDatabaseVersion() < 116 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v115")
+
+                'Add new field(s)
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN RecurseSubFolders BOOLEAN NOT NULL DEFAULT 1;"
+                sSQL &= "PRAGMA user_version=116"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v115")
+
+                'Add new field(s)
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN RecurseSubFolders BOOLEAN NOT NULL DEFAULT 1;"
+                sSQL &= "PRAGMA user_version=116"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
     End Sub
 
     Public Function GetDBSize() As Long

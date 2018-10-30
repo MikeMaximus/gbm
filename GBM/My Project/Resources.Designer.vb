@@ -1204,6 +1204,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Recurse Sub-Folders.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_FieldRecurseSubFolders() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_FieldRecurseSubFolders", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Save Multiple Backups.
         '''</summary>
         Friend ReadOnly Property frmFilter_FieldTimeStamp() As String
@@ -2716,6 +2725,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Recurse sub-folders.
+        '''</summary>
+        Friend ReadOnly Property frmIncludeExclude_chkRecurseSubFolders() As String
+            Get
+                Return ResourceManager.GetString("frmIncludeExclude_chkRecurseSubFolders", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Add Custom Item.
         '''</summary>
         Friend ReadOnly Property frmIncludeExclude_cmsAdd() As String
@@ -2772,9 +2790,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to [PARAM] Options.
         '''</summary>
-        Friend ReadOnly Property frmIncludeExclude_grpFileOptions() As String
+        Friend ReadOnly Property frmIncludeExclude_grpOptions() As String
             Get
-                Return ResourceManager.GetString("frmIncludeExclude_grpFileOptions", resourceCulture)
+                Return ResourceManager.GetString("frmIncludeExclude_grpOptions", resourceCulture)
             End Get
         End Property
         

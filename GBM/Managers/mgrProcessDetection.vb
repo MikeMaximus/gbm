@@ -267,8 +267,8 @@ Public Class mgrProcessDetection
                     Dim sParameter As String
                     Dim sWinePath As String()
                     'The wine-preloader parameters can refer to a path on the host system, windows based path within in the prefix, or mixed notation.
-                    sParameter = sArgs(0).Replace("\", "/")
-                    sWinePath = sParameter.Split("/")
+                    sParameter = sArgs(0).Replace("\", Path.DirectorySeparatorChar)
+                    sWinePath = sParameter.Split(Path.DirectorySeparatorChar)
                     sProcessCheck = Path.GetFileNameWithoutExtension(sWinePath(sWinePath.Length - 1))
                     bWineProcess = True
                 Else

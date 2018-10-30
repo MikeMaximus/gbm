@@ -293,8 +293,9 @@ Public Class mgrCommon
 
     Public Shared Function WildcardToRegex(ByVal sPattern As String) As String
         Dim sRegEx As String
-        sRegEx = sPattern.Replace("*", ".*")
-        sRegEx = sRegEx.Replace("?", ".")
+        sPattern = Regex.Escape(sPattern)
+        sRegEx = sPattern.Replace("\*", ".*")
+        sRegEx = sRegEx.Replace("\?", ".")
         Return sRegEx
     End Function
 
@@ -318,7 +319,7 @@ Public Class mgrCommon
     End Function
 
     'Calculate the current size of a folder
-    Public Shared Function GetFolderSize(ByVal sPath As String, ByVal sInclude As String(), ByVal sExclude As String()) As Long
+    Public Shared Function GetFolderSize(ByVal sPath As String, ByVal sInclude As String(), ByVal sExclude As String(), Optional ByVal b7zStyleRecurse As Boolean = True) As Long
         Dim oFolder As DirectoryInfo
         Dim bInclude As Boolean
         Dim bExclude As Boolean
@@ -331,14 +332,15 @@ Public Class mgrCommon
 
             'Files
             For Each fi As FileInfo In oFolder.EnumerateFiles()
+
                 If sInclude.Length > 0 Then
-                    bInclude = CompareValueToArrayRegEx(fi.Name, sInclude) Or CompareValueToArrayRegEx(fi.DirectoryName, sInclude)
+                    bInclude = CompareValueToArrayRegEx(fi.FullName, sInclude)
                 Else
                     bInclude = True
                 End If
 
                 If sExclude.Length > 0 Then
-                    bExclude = CompareValueToArrayRegEx(fi.Name, sExclude) Or CompareValueToArrayRegEx(fi.DirectoryName, sExclude)
+                    bExclude = CompareValueToArrayRegEx(fi.FullName, sExclude)
                 Else
                     bExclude = False
                 End If
@@ -351,16 +353,36 @@ Public Class mgrCommon
             'Sub Folders
             For Each di As DirectoryInfo In oFolder.EnumerateDirectories()
                 If Not ((di.Attributes And FileAttributes.ReparsePoint) = FileAttributes.ReparsePoint) Then
-                    If sExclude.Length > 0 Then
-                        bExclude = CompareValueToArrayRegEx(di.Name, sExclude)
+                    If b7zStyleRecurse Then
+                        If sExclude.Length > 0 Then
+                            bExclude = CompareValueToArrayRegEx(di.FullName, sExclude)
+                        Else
+                            bExclude = False
+                        End If
+
+                        If Not bExclude Then
+                            lSize += GetFolderSize(di.FullName, sInclude, sExclude)
+                        End If
                     Else
-                        bExclude = False
-                    End If
-                    If Not bExclude Then
-                        lSize += GetFolderSize(di.FullName, sInclude, sExclude)
+                        If sInclude.Length > 0 Then
+                            bInclude = CompareValueToArrayRegEx(di.FullName, sInclude)
+                        Else
+                            bInclude = True
+                        End If
+
+                        If sExclude.Length > 0 Then
+                            bExclude = CompareValueToArrayRegEx(di.FullName, sExclude)
+                        Else
+                            bExclude = False
+                        End If
+
+                        If bInclude And Not bExclude Then
+                            lSize += GetFolderSize(di.FullName, sInclude, sExclude)
+                        End If
                     End If
                 End If
             Next
+
         Catch
             'Do Nothing
         End Try

@@ -203,6 +203,12 @@ Public Class mgrPath
         Return sResult
     End Function
 
+    Public Shared Sub ModWinePathData(ByRef oGame As clsGame)
+        If Not oGame.AbsolutePath Then oGame.Path = oGame.Path.Replace("\", Path.DirectorySeparatorChar)
+        oGame.FileType = oGame.FileType.Replace("\", Path.DirectorySeparatorChar)
+        oGame.ExcludeList = oGame.ExcludeList.Replace("\", Path.DirectorySeparatorChar)
+    End Sub
+
     Private Shared Function BuildWinePath(ByVal sPath As String, ByVal sWinePrefix As String) As String
         Dim sRealPath As String
         Dim cDriveLetter As Char
@@ -217,7 +223,7 @@ Public Class mgrPath
             sRealPath = sRealPath.TrimEnd("""")
 
             'Flip Seperators
-            sRealPath = sRealPath.Replace("\\", "/")
+            sRealPath = sRealPath.Replace("\\", Path.DirectorySeparatorChar)
 
             'Change Wine Drive
             cDriveLetter = sRealPath.Chars(sRealPath.IndexOf(":") - 1)
@@ -259,6 +265,10 @@ Public Class mgrPath
                 sReplace = "%COMMONDOCUMENTS%"
                 sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "system.reg")
                 oParse = New Regex("""Common Documents""="".+?(?=\n)")
+            ElseIf sPath.Contains("%PROGRAMDATA%") Then
+                sReplace = "%PROGRAMDATA%"
+                sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "system.reg")
+                oParse = New Regex("""Common AppData""="".+?(?=\n)")
             ElseIf sPath.Contains("%USERPROFILE%") Then
                 sReplace = "%USERPROFILE%"
                 sRegistry = File.ReadAllText(sPrefix & Path.DirectorySeparatorChar & "user.reg")
@@ -300,7 +310,8 @@ Public Class mgrPath
                 oMatch = oParse.Match(sPsinfo)
                 Return oMatch.Value.Trim("/").Split("=")(1)
             Else
-                Return String.Empty
+                'When WINEPREFIX is not part of the command,  we will assume the default prefix.
+                Return Environment.GetFolderPath(Environment.SpecialFolder.Personal) & "/.wine"
             End If
         Catch ex As Exception
             mgrCommon.ShowMessage(mgrPath_ErrorWinePrefix, ex.Message, MsgBoxStyle.Exclamation)
@@ -315,6 +326,8 @@ Public Class mgrPath
         hshEnvs.Add("Documents", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
         hshEnvs.Add("AppDataRoaming", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData))
         hshEnvs.Add("AppDataLocal", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData))
+        hshEnvs.Add("ProgramData", Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData))
+
         If Not mgrCommon.IsUnix Then
             hshEnvs.Add("UserData", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))
             hshEnvs.Add("PublicDocuments", Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments))
@@ -416,6 +429,8 @@ Public Class mgrPath
         Dim sCurrentUser As String = "%USERPROFILE%"
         Dim sHomeDir As String = "~"
         Dim sEnvCurrentUser As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+        Dim sProgramData As String = "%PROGRAMDATA%"
+        Dim sEnvProgramData As String = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)
         Dim oCustomVariable As clsPathVariable
 
         For Each oCustomVariable In hshCustomVariables.Values
@@ -431,6 +446,10 @@ Public Class mgrPath
 
             If sValue.Contains(sEnvAppDataLocal) Then
                 Return sValue.Replace(sEnvAppDataLocal, sAppDataLocal)
+            End If
+
+            If sValue.Contains(sEnvProgramData) Then
+                Return sValue.Replace(sEnvProgramData, sProgramData)
             End If
 
             'This needs to be tested last for Unix compatability
