@@ -12,6 +12,7 @@ Public Class mgrProcessDetection
     Private oDuplicateGames As New ArrayList
     Private bDuplicates As Boolean
     Private bVerified As Boolean = False
+    Private oRegEx As Regex
 
     Property FoundProcess As Process
         Get
@@ -143,7 +144,8 @@ Public Class mgrProcessDetection
     Private Function IsMatch(ByRef oGame As clsGame, ByRef sProcessCheck As String) As Boolean
         If oGame.IsRegEx Then
             Try
-                If Regex.IsMatch(sProcessCheck, oGame.ProcessName) Then
+                oRegEx = New Regex(oGame.ProcessName)
+                If oRegEx.IsMatch(sProcessCheck) Then
                     Return True
                 End If
             Catch

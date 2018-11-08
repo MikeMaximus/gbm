@@ -1971,6 +1971,8 @@ Public Class frmMain
                 StopScan()
             End If
         End If
+
+        GC.Collect()
     End Sub
 
     Private Sub bwMonitor_DoWork(sender As System.Object, e As System.ComponentModel.DoWorkEventArgs) Handles bwMonitor.DoWork
