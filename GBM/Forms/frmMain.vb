@@ -1972,7 +1972,9 @@ Public Class frmMain
             End If
         End If
 
-        GC.Collect()
+        'When GBM is running on Mono (v5.16.0.179) a memory leak occurs.  This does not occur on Windows.
+        'See https://github.com/MikeMaximus/gbm/issues/170 for more details.
+        If mgrCommon.IsUnix Then GC.Collect()
     End Sub
 
     Private Sub bwMonitor_DoWork(sender As System.Object, e As System.ComponentModel.DoWorkEventArgs) Handles bwMonitor.DoWork
