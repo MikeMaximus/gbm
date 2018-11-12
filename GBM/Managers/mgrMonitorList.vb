@@ -38,6 +38,11 @@ Public Class mgrMonitorList
         oGame.IsRegEx = CBool(dr("IsRegEx"))
         oGame.RecurseSubFolders = CBool(dr("RecurseSubFolders"))
 
+        'Compile RegEx
+        If oGame.IsRegEx Then
+            oGame.CompiledRegEx = New Regex(oGame.ProcessName, RegexOptions.Compiled)
+        End If
+
         Return oGame
     End Function
 

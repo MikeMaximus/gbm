@@ -1,4 +1,6 @@
-﻿<Serializable()>
+﻿Imports System.Text.RegularExpressions
+
+<Serializable()>
 Public Class clsGame
     Private sGameID As String = Guid.NewGuid.ToString
     Private sGameName As String = String.Empty
@@ -24,6 +26,7 @@ Public Class clsGame
     Private bRecurseSubFolders As Boolean = True
     Private oImportTags As New List(Of Tag)
     Private bImportUpdate As Boolean = False
+    Private oCompiledRegEx As Regex
 
     <Flags()> Public Enum eOptionalSyncFields
         None = 0
@@ -275,6 +278,15 @@ Public Class clsGame
         End Get
         Set(value As Boolean)
             bImportUpdate = value
+        End Set
+    End Property
+
+    Property CompiledRegEx As Regex
+        Get
+            Return oCompiledRegEx
+        End Get
+        Set(value As Regex)
+            oCompiledRegEx = value
         End Set
     End Property
 
