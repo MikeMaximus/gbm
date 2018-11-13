@@ -45,6 +45,7 @@ Public Class frmMain
 
     'Developer Debug Flags
     Private bProcessDebugMode As Boolean = False
+    Private bMemoryDebugMode As Boolean = False
 
     WithEvents oFileWatcher As New FileSystemWatcher
 
@@ -842,6 +843,11 @@ Public Class frmMain
                         Case "process"
                             bProcessDebugMode = bDebugEnable
                             mgrCommon.ShowMessage(frmMain_CommandSucess, MsgBoxStyle.Exclamation)
+                        Case "memory"
+                            bMemoryDebugMode = bDebugEnable
+                            mgrCommon.ShowMessage(frmMain_CommandSucess, MsgBoxStyle.Exclamation)
+                        Case Else
+                            mgrCommon.ShowMessage(frmMain_ErrorInvalidMode, New String() {sCommand(1), sCommand(0)}, MsgBoxStyle.Exclamation)
                     End Select
 
                 Case Else
@@ -1972,9 +1978,9 @@ Public Class frmMain
             End If
         End If
 
-        'When GBM is running on Mono (v5.16.0.179) a memory leak occurs.  This does not occur on Windows.
-        'See https://github.com/MikeMaximus/gbm/issues/170 for more details.
-        If mgrCommon.IsUnix Then GC.Collect()
+        If bMemoryDebugMode Then
+            UpdateLog(mgrCommon.FormatString(frmMain_DebugMemoryAllocation, Math.Round(GC.GetTotalMemory(False) / 1000000, 2)), False, ToolTipIcon.Info, True)
+        End If
     End Sub
 
     Private Sub bwMonitor_DoWork(sender As System.Object, e As System.ComponentModel.DoWorkEventArgs) Handles bwMonitor.DoWork

@@ -3040,6 +3040,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Memory Allocation: [PARAM] MB.
+        '''</summary>
+        Friend ReadOnly Property frmMain_DebugMemoryAllocation() As String
+            Get
+                Return ResourceManager.GetString("frmMain_DebugMemoryAllocation", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor Log.
         '''</summary>
         Friend ReadOnly Property frmMain_DefaultLogFileName() As String
@@ -3234,6 +3243,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_ErrorInitFailure() As String
             Get
                 Return ResourceManager.GetString("frmMain_ErrorInitFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Invalid mode([PARAM]) for command [PARAM]..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorInvalidMode() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorInvalidMode", resourceCulture)
             End Get
         End Property
         

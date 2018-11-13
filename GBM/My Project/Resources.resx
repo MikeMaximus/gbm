@@ -2275,4 +2275,10 @@
   <data name="frmIncludeExclude_chkRecurseSubFolders" xml:space="preserve">
     <value>Recurse sub-folders</value>
   </data>
+  <data name="frmMain_DebugMemoryAllocation" xml:space="preserve">
+    <value>Memory Allocation: [PARAM] MB</value>
+  </data>
+  <data name="frmMain_ErrorInvalidMode" xml:space="preserve">
+    <value>Invalid mode([PARAM]) for command [PARAM].</value>
+  </data>
 </root>
