@@ -292,22 +292,14 @@ Public Class mgrPath
     End Function
 
     Public Shared Function GetWinePrefix(ByVal prs As Process) As String
-        Dim prps As Process
-        Dim sPsinfo As String
-        Dim oParse As New Regex("WINEPREFIX=.+?(?= )")
+        Dim sEnv As String
+        Dim oParse As New Regex("WINEPREFIX=.+?(?=\x00)")
         Dim oMatch As Match
 
         Try
-            prps = New Process
-            prps.StartInfo.FileName = "/bin/ps"
-            prps.StartInfo.Arguments = "e " & prs.Id.ToString
-            prps.StartInfo.UseShellExecute = False
-            prps.StartInfo.RedirectStandardOutput = True
-            prps.StartInfo.CreateNoWindow = True
-            prps.Start()
-            sPsinfo = prps.StandardOutput.ReadToEnd()
-            If oParse.IsMatch(sPsinfo) Then
-                oMatch = oParse.Match(sPsinfo)
+            sEnv = File.ReadAllText("/proc/" & prs.Id.ToString() & "/environ")
+            If oParse.IsMatch(sEnv) Then
+                oMatch = oParse.Match(sEnv)
                 Return oMatch.Value.Trim("/").Split("=")(1)
             Else
                 'When WINEPREFIX is not part of the command,  we will assume the default prefix.
