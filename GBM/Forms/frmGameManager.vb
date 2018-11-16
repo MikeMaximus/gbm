@@ -1198,7 +1198,6 @@ Public Class frmGameManager
     Private Sub FolderSaveModeChange()
         If chkFolderSave.Checked Then
             btnInclude.Enabled = False
-            chkRecurseSubFolders.Checked = False
             If txtFileType.Text <> String.Empty Then
                 txtFileType.Text = String.Empty
                 UpdateBuilderButtonLabel(txtFileType.Text, frmGameManager_IncludeShortcut, btnInclude, False)

@@ -68,6 +68,7 @@ Partial Class frmAddWizard
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnNext = New System.Windows.Forms.Button()
         Me.btnBack = New System.Windows.Forms.Button()
+        Me.chkRecurseSubFolders = New System.Windows.Forms.CheckBox()
         Me.tabWizard.SuspendLayout()
         Me.tbPage1.SuspendLayout()
         Me.tbPage2.SuspendLayout()
@@ -310,6 +311,7 @@ Partial Class frmAddWizard
         'tbPage3a
         '
         Me.tbPage3a.BackColor = System.Drawing.SystemColors.Control
+        Me.tbPage3a.Controls.Add(Me.chkRecurseSubFolders)
         Me.tbPage3a.Controls.Add(Me.lblIncludePathTitle)
         Me.tbPage3a.Controls.Add(Me.lblIncludePath)
         Me.tbPage3a.Controls.Add(Me.lblFileTypes)
@@ -540,6 +542,17 @@ Partial Class frmAddWizard
         Me.btnBack.Text = "&Back"
         Me.btnBack.UseVisualStyleBackColor = True
         '
+        'chkRecurseSubFolders
+        '
+        Me.chkRecurseSubFolders.AutoSize = True
+        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(218, 40)
+        Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
+        Me.chkRecurseSubFolders.Size = New System.Drawing.Size(15, 14)
+        Me.chkRecurseSubFolders.TabIndex = 0
+        Me.chkRecurseSubFolders.TabStop = False
+        Me.chkRecurseSubFolders.UseVisualStyleBackColor = True
+        Me.chkRecurseSubFolders.Visible = False
+        '
         'frmAddWizard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -618,4 +631,5 @@ Partial Class frmAddWizard
     Friend WithEvents lblExcludePathTitle As Label
     Friend WithEvents lblLimit As Label
     Friend WithEvents nudLimit As NumericUpDown
+    Friend WithEvents chkRecurseSubFolders As CheckBox
 End Class

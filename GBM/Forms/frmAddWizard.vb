@@ -66,6 +66,7 @@ Public Class frmAddWizard
 
         chkFolderSave.Checked = True
         chkTimeStamp.Checked = False
+        chkRecurseSubFolders.Checked = True
         StepHandler()
     End Sub
 
@@ -112,6 +113,7 @@ Public Class frmAddWizard
         Dim iLimit As Integer = nudLimit.Value
         Dim sFileType As String = txtFileTypes.Text
         Dim sExcludeList As String = txtExcludeList.Text
+        Dim bRecurseSubFolders As Boolean = chkRecurseSubFolders.Checked
         Dim sProcess As String
         Dim sItem As String()
         Dim sItems As String()
@@ -160,6 +162,7 @@ Public Class frmAddWizard
         oGame.BackupLimit = iLimit
         oGame.ExcludeList = sExcludeList
         oGame.ProcessPath = sProcessPath
+        oGame.RecurseSubFolders = bRecurseSubFolders
 
         Return oGame
     End Function
@@ -452,9 +455,9 @@ Public Class frmAddWizard
         frm.FormName = sFormText
         frm.BuilderString = txtBox.Text
         frm.RootFolder = txtSavePath.Text
-
+        frm.RecurseSubFolders = chkRecurseSubFolders.Checked
         frm.ShowDialog()
-
+        chkRecurseSubFolders.Checked = frm.RecurseSubFolders
         txtBox.Text = frm.BuilderString
     End Sub
 
