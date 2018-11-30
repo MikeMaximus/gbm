@@ -237,8 +237,6 @@ Public Class frmAddWizard
     End Function
 
     Private Function ValidateSavePath(ByVal strPath As String, ByRef sErrorMessage As String) As Boolean
-        strPath = mgrPath.ValidatePathForOS(strPath)
-
         If strPath.Trim = String.Empty Then
             sErrorMessage = frmAddWizard_ErrorValidSavePath
             txtSavePath.Focus()
@@ -326,6 +324,7 @@ Public Class frmAddWizard
                 End If
 
             Case eSteps.Step3
+                txtSavePath.Text = mgrPath.ValidatePathForOS(txtSavePath.Text)
                 If ValidateSavePath(txtSavePath.Text, sErrorMessage) Then
                     lblIncludePath.Text = txtSavePath.Text
                     lblExcludePath.Text = txtSavePath.Text
