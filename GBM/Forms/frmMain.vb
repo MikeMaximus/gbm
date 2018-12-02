@@ -731,8 +731,8 @@ Public Class frmMain
         oProcess.GameInfo.Hours = Math.Round(dCurrentHours, 5)
 
         'Update original object with the new hours without reloading entire list. 
-        If hshScanList.Contains(oProcess.GameInfo.ProcessName) Then
-            DirectCast(hshScanList.Item(oProcess.GameInfo.ProcessName), clsGame).Hours = oProcess.GameInfo.Hours
+        If hshScanList.Contains(oProcess.GameInfo.ID) Then
+            DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).Hours = oProcess.GameInfo.Hours
         End If
 
         mgrMonitorList.DoListUpdate(oProcess.GameInfo)
