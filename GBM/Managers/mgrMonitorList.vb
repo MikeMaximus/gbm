@@ -835,7 +835,7 @@ Public Class mgrMonitorList
 
         Cursor.Current = Cursors.WaitCursor
 
-        If Not mgrXML.ReadMonitorList(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
+        If Not mgrXML.ReadMonitorList(sLocation, oExportInfo, hshCompareFrom, bWebRead, bWinConfigsInLinux) Then
             Exit Sub
         End If
 
