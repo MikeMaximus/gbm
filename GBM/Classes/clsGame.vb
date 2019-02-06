@@ -24,6 +24,7 @@ Public Class clsGame
     Private sComments As String = String.Empty
     Private bIsRegEx As Boolean = False
     Private bRecurseSubFolders As Boolean = True
+    Private iOS As eOS = mgrCommon.GetCurrentOS()
     Private oImportTags As New List(Of Tag)
     Private bImportUpdate As Boolean = False
     Private oCompiledRegEx As Regex
@@ -36,6 +37,11 @@ Public Class clsGame
         Icon = 16
         Unused = 32 'Do not remove to maintain compatability, re-use for a future field.
         MonitorGame = 64
+    End Enum
+
+    Public Enum eOS
+        Windows = 1
+        Linux = 2
     End Enum
 
     Property ID As String
@@ -254,6 +260,15 @@ Public Class clsGame
         End Set
     End Property
 
+    Property OS As eOS
+        Get
+            Return iOS
+        End Get
+        Set(value As eOS)
+            iOS = value
+        End Set
+    End Property
+
     Property TruePath As String
         Set(value As String)
             sPath = value
@@ -367,6 +382,9 @@ Public Class clsGame
             If RecurseSubFolders <> oGame.RecurseSubFolders Then
                 Return False
             End If
+            If OS <> oGame.OS Then
+                Return False
+            End If
 
             'Optional Sync Fields
             If (eSyncFields And eOptionalSyncFields.Company) = eOptionalSyncFields.Company Then
@@ -444,6 +462,9 @@ Public Class clsGame
                 Return False
             End If
             If RecurseSubFolders <> oGame.RecurseSubFolders Then
+                Return False
+            End If
+            If OS <> oGame.OS Then
                 Return False
             End If
             Return True

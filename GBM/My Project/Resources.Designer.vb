@@ -124,6 +124,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Linux.
+        '''</summary>
+        Friend ReadOnly Property App_LinuxOS() As String
+            Get
+                Return ResourceManager.GetString("App_LinuxOS", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor.
         '''</summary>
         Friend ReadOnly Property App_NameLong() As String
@@ -192,6 +201,15 @@ Namespace My.Resources
         Friend ReadOnly Property App_URLWebsite() As String
             Get
                 Return ResourceManager.GetString("App_URLWebsite", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Windows.
+        '''</summary>
+        Friend ReadOnly Property App_WindowsOS() As String
+            Get
+                Return ResourceManager.GetString("App_WindowsOS", resourceCulture)
             End Get
         End Property
         
@@ -2343,6 +2361,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_lblName() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_lblName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to OS:.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblOS() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblOS", resourceCulture)
             End Get
         End Property
         

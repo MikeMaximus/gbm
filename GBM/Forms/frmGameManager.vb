@@ -923,6 +923,7 @@ Public Class frmGameManager
         txtProcess.Text = oApp.ProcessName
         chkRegEx.Checked = oApp.IsRegEx
         txtParameter.Text = oApp.Parameter
+        cboOS.SelectedValue = CInt(oApp.OS)
         If oSettings.ShowResolvedPaths Then
             txtSavePath.Text = oApp.Path
             sttPath = oApp.TruePath
@@ -1021,6 +1022,7 @@ Public Class frmGameManager
     Private Sub AssignDirtyHandlersMisc()
         AddHandler chkEnabled.CheckedChanged, AddressOf DirtyCheck_ValueChanged
         AddHandler chkMonitorOnly.CheckedChanged, AddressOf DirtyCheck_ValueChanged
+        AddHandler cboOS.SelectedValueChanged, AddressOf DirtyCheck_ValueChanged
     End Sub
 
     Private Sub WipeControls(ByVal oCtls As GroupBox.ControlCollection)
@@ -1034,7 +1036,7 @@ Public Class frmGameManager
             ElseIf TypeOf ctl Is NumericUpDown Then
                 DirectCast(ctl, NumericUpDown).Value = DirectCast(ctl, NumericUpDown).Minimum
             ElseIf TypeOf ctl Is ComboBox Then
-                DirectCast(ctl, ComboBox).DataSource = Nothing
+                If ctl.Tag = "wipe" Then DirectCast(ctl, ComboBox).DataSource = Nothing
             End If
         Next
     End Sub
@@ -1364,6 +1366,7 @@ Public Class frmGameManager
 
         oApp.ProcessName = txtProcess.Text
         oApp.Parameter = txtParameter.Text
+        oApp.OS = CType(cboOS.SelectedValue, clsGame.eOS)
         oApp.Path = mgrPath.ValidatePathForOS(txtSavePath.Text)
         'Only do a simple root check here in case the user doesn't really understand creating a proper configuration
         oApp.AbsolutePath = Path.IsPathRooted(oApp.Path)
@@ -1815,6 +1818,21 @@ Public Class frmGameManager
         btnGameID.Text = frmGameManager_btnGameID
         btnImportBackup.Text = frmGameManager_btnImportBackup
         btnProcesses.Text = frmGameManager_btnProcesses
+        lblOS.Text = frmGameManager_lblOS
+
+        'Init Combos
+        Dim oComboItems As New List(Of KeyValuePair(Of Integer, String))
+
+        'cboOS
+        cboOS.ValueMember = "Key"
+        cboOS.DisplayMember = "Value"
+
+        oComboItems.Add(New KeyValuePair(Of Integer, String)(clsGame.eOS.Windows, App_WindowsOS))
+        oComboItems.Add(New KeyValuePair(Of Integer, String)(clsGame.eOS.Linux, App_LinuxOS))
+
+        cboOS.DataSource = oComboItems
+
+        If Not mgrCommon.IsUnix Then cboOS.Enabled = False
 
         'Init Official Import Menu
         If mgrCommon.IsUnix Then

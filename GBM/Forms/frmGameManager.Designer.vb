@@ -28,6 +28,9 @@ Partial Class frmGameManager
         Me.btnBackup = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.grpConfig = New System.Windows.Forms.GroupBox()
+        Me.lblOS = New System.Windows.Forms.Label()
+        Me.cboOS = New System.Windows.Forms.ComboBox()
+        Me.chkRecurseSubFolders = New System.Windows.Forms.CheckBox()
         Me.btnGameID = New System.Windows.Forms.Button()
         Me.chkRegEx = New System.Windows.Forms.CheckBox()
         Me.lblComments = New System.Windows.Forms.Label()
@@ -107,7 +110,6 @@ Partial Class frmGameManager
         Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnProcesses = New System.Windows.Forms.Button()
         Me.ttFullPath = New System.Windows.Forms.ToolTip(Me.components)
-        Me.chkRecurseSubFolders = New System.Windows.Forms.CheckBox()
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -164,6 +166,8 @@ Partial Class frmGameManager
         'grpConfig
         '
         Me.grpConfig.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpConfig.Controls.Add(Me.lblOS)
+        Me.grpConfig.Controls.Add(Me.cboOS)
         Me.grpConfig.Controls.Add(Me.chkRecurseSubFolders)
         Me.grpConfig.Controls.Add(Me.btnGameID)
         Me.grpConfig.Controls.Add(Me.chkRegEx)
@@ -197,6 +201,35 @@ Partial Class frmGameManager
         Me.grpConfig.TabStop = False
         Me.grpConfig.Text = "Configuration"
         '
+        'lblOS
+        '
+        Me.lblOS.AutoSize = True
+        Me.lblOS.Location = New System.Drawing.Point(363, 74)
+        Me.lblOS.Name = "lblOS"
+        Me.lblOS.Size = New System.Drawing.Size(25, 13)
+        Me.lblOS.TabIndex = 9
+        Me.lblOS.Text = "OS:"
+        '
+        'cboOS
+        '
+        Me.cboOS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboOS.FormattingEnabled = True
+        Me.cboOS.Location = New System.Drawing.Point(394, 71)
+        Me.cboOS.Name = "cboOS"
+        Me.cboOS.Size = New System.Drawing.Size(126, 21)
+        Me.cboOS.TabIndex = 10
+        '
+        'chkRecurseSubFolders
+        '
+        Me.chkRecurseSubFolders.AutoSize = True
+        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(489, 206)
+        Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
+        Me.chkRecurseSubFolders.Size = New System.Drawing.Size(15, 14)
+        Me.chkRecurseSubFolders.TabIndex = 0
+        Me.chkRecurseSubFolders.TabStop = False
+        Me.chkRecurseSubFolders.UseVisualStyleBackColor = True
+        Me.chkRecurseSubFolders.Visible = False
+        '
         'btnGameID
         '
         Me.btnGameID.Location = New System.Drawing.Point(402, 17)
@@ -222,7 +255,7 @@ Partial Class frmGameManager
         Me.lblComments.Location = New System.Drawing.Point(7, 181)
         Me.lblComments.Name = "lblComments"
         Me.lblComments.Size = New System.Drawing.Size(59, 13)
-        Me.lblComments.TabIndex = 19
+        Me.lblComments.TabIndex = 21
         Me.lblComments.Text = "Comments:"
         '
         'txtComments
@@ -232,13 +265,13 @@ Partial Class frmGameManager
         Me.txtComments.Name = "txtComments"
         Me.txtComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtComments.Size = New System.Drawing.Size(413, 71)
-        Me.txtComments.TabIndex = 20
+        Me.txtComments.TabIndex = 22
         '
         'txtParameter
         '
         Me.txtParameter.Location = New System.Drawing.Point(70, 71)
         Me.txtParameter.Name = "txtParameter"
-        Me.txtParameter.Size = New System.Drawing.Size(414, 20)
+        Me.txtParameter.Size = New System.Drawing.Size(290, 20)
         Me.txtParameter.TabIndex = 8
         '
         'lblParameter
@@ -256,7 +289,7 @@ Partial Class frmGameManager
         Me.chkCleanFolder.Location = New System.Drawing.Point(330, 127)
         Me.chkCleanFolder.Name = "chkCleanFolder"
         Me.chkCleanFolder.Size = New System.Drawing.Size(136, 17)
-        Me.chkCleanFolder.TabIndex = 14
+        Me.chkCleanFolder.TabIndex = 16
         Me.chkCleanFolder.Text = "Delete folder on restore"
         Me.chkCleanFolder.UseVisualStyleBackColor = True
         '
@@ -266,7 +299,7 @@ Partial Class frmGameManager
         Me.lblLimit.Location = New System.Drawing.Point(376, 157)
         Me.lblLimit.Name = "lblLimit"
         Me.lblLimit.Size = New System.Drawing.Size(68, 13)
-        Me.lblLimit.TabIndex = 18
+        Me.lblLimit.TabIndex = 20
         Me.lblLimit.Text = "Backup Limit"
         Me.lblLimit.Visible = False
         '
@@ -275,7 +308,7 @@ Partial Class frmGameManager
         Me.nudLimit.Location = New System.Drawing.Point(330, 155)
         Me.nudLimit.Name = "nudLimit"
         Me.nudLimit.Size = New System.Drawing.Size(40, 20)
-        Me.nudLimit.TabIndex = 17
+        Me.nudLimit.TabIndex = 19
         Me.nudLimit.Visible = False
         '
         'btnExclude
@@ -283,7 +316,7 @@ Partial Class frmGameManager
         Me.btnExclude.Location = New System.Drawing.Point(10, 152)
         Me.btnExclude.Name = "btnExclude"
         Me.btnExclude.Size = New System.Drawing.Size(175, 23)
-        Me.btnExclude.TabIndex = 15
+        Me.btnExclude.TabIndex = 17
         Me.btnExclude.Text = "E&xclude Items..."
         Me.btnExclude.UseVisualStyleBackColor = True
         '
@@ -292,7 +325,7 @@ Partial Class frmGameManager
         Me.btnInclude.Location = New System.Drawing.Point(10, 123)
         Me.btnInclude.Name = "btnInclude"
         Me.btnInclude.Size = New System.Drawing.Size(175, 23)
-        Me.btnInclude.TabIndex = 12
+        Me.btnInclude.TabIndex = 14
         Me.btnInclude.Text = "Incl&ude Items..."
         Me.btnInclude.UseVisualStyleBackColor = True
         '
@@ -311,7 +344,7 @@ Partial Class frmGameManager
         Me.btnSavePathBrowse.Location = New System.Drawing.Point(490, 97)
         Me.btnSavePathBrowse.Name = "btnSavePathBrowse"
         Me.btnSavePathBrowse.Size = New System.Drawing.Size(30, 20)
-        Me.btnSavePathBrowse.TabIndex = 11
+        Me.btnSavePathBrowse.TabIndex = 13
         Me.btnSavePathBrowse.Text = "..."
         Me.btnSavePathBrowse.UseVisualStyleBackColor = True
         '
@@ -330,7 +363,7 @@ Partial Class frmGameManager
         Me.lblSavePath.Location = New System.Drawing.Point(7, 101)
         Me.lblSavePath.Name = "lblSavePath"
         Me.lblSavePath.Size = New System.Drawing.Size(60, 13)
-        Me.lblSavePath.TabIndex = 9
+        Me.lblSavePath.TabIndex = 11
         Me.lblSavePath.Text = "Save Path:"
         '
         'lblProcess
@@ -375,7 +408,7 @@ Partial Class frmGameManager
         Me.chkTimeStamp.Location = New System.Drawing.Point(191, 156)
         Me.chkTimeStamp.Name = "chkTimeStamp"
         Me.chkTimeStamp.Size = New System.Drawing.Size(133, 17)
-        Me.chkTimeStamp.TabIndex = 16
+        Me.chkTimeStamp.TabIndex = 18
         Me.chkTimeStamp.Text = "Save multiple backups"
         Me.chkTimeStamp.UseVisualStyleBackColor = True
         '
@@ -385,7 +418,7 @@ Partial Class frmGameManager
         Me.chkFolderSave.Location = New System.Drawing.Point(191, 127)
         Me.chkFolderSave.Name = "chkFolderSave"
         Me.chkFolderSave.Size = New System.Drawing.Size(109, 17)
-        Me.chkFolderSave.TabIndex = 13
+        Me.chkFolderSave.TabIndex = 15
         Me.chkFolderSave.Text = "Save entire folder"
         Me.chkFolderSave.UseVisualStyleBackColor = True
         '
@@ -394,7 +427,7 @@ Partial Class frmGameManager
         Me.txtSavePath.Location = New System.Drawing.Point(70, 97)
         Me.txtSavePath.Name = "txtSavePath"
         Me.txtSavePath.Size = New System.Drawing.Size(414, 20)
-        Me.txtSavePath.TabIndex = 10
+        Me.txtSavePath.TabIndex = 12
         '
         'txtProcess
         '
@@ -614,6 +647,7 @@ Partial Class frmGameManager
         Me.cboRemoteBackup.Name = "cboRemoteBackup"
         Me.cboRemoteBackup.Size = New System.Drawing.Size(387, 21)
         Me.cboRemoteBackup.TabIndex = 12
+        Me.cboRemoteBackup.Tag = "wipe"
         '
         'lblRestorePathData
         '
@@ -927,17 +961,6 @@ Partial Class frmGameManager
         Me.ttFullPath.InitialDelay = 300
         Me.ttFullPath.ReshowDelay = 60
         '
-        'chkRecurseSubFolders
-        '
-        Me.chkRecurseSubFolders.AutoSize = True
-        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(489, 206)
-        Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
-        Me.chkRecurseSubFolders.Size = New System.Drawing.Size(15, 14)
-        Me.chkRecurseSubFolders.TabIndex = 0
-        Me.chkRecurseSubFolders.TabStop = False
-        Me.chkRecurseSubFolders.UseVisualStyleBackColor = True
-        Me.chkRecurseSubFolders.Visible = False
-        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1073,4 +1096,6 @@ Partial Class frmGameManager
     Friend WithEvents cmsOfficialWindows As ToolStripMenuItem
     Friend WithEvents cmsOfficialLinux As ToolStripMenuItem
     Friend WithEvents chkRecurseSubFolders As CheckBox
+    Friend WithEvents lblOS As Label
+    Friend WithEvents cboOS As ComboBox
 End Class

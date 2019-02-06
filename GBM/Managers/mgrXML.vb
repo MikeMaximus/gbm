@@ -42,6 +42,7 @@ Public Class mgrXML
             oGame.Comments = g.Comments
             oGame.IsRegEx = g.IsRegEx
             oGame.RecurseSubFolders = g.RecurseSubFolders
+            oGame.OS = g.OS
             For Each t As Tag In g.Tags
                 oGame.ImportTags.Add(t)
             Next

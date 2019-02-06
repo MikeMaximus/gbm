@@ -2281,4 +2281,13 @@
   <data name="frmMain_ErrorInvalidMode" xml:space="preserve">
     <value>Invalid mode([PARAM]) for command [PARAM].</value>
   </data>
+  <data name="App_LinuxOS" xml:space="preserve">
+    <value>Linux</value>
+  </data>
+  <data name="App_WindowsOS" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="frmGameManager_lblOS" xml:space="preserve">
+    <value>OS:</value>
+  </data>
 </root>

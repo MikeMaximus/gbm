@@ -259,6 +259,14 @@ Public Class mgrCommon
         Return False
     End Function
 
+    Public Shared Function GetCurrentOS() As clsGame.eOS
+        If IsUnix() Then
+            Return clsGame.eOS.Linux
+        Else
+            Return clsGame.eOS.Windows
+        End If
+    End Function
+
     Public Shared Function IsElevated() As Boolean
         Dim oID As WindowsIdentity = WindowsIdentity.GetCurrent
         Dim oPrincipal As New WindowsPrincipal(oID)
