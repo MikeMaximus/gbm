@@ -1085,6 +1085,7 @@ Public Class frmGameManager
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = False
                 btnExport.Enabled = False
+                cboOS.SelectedValue = CInt(mgrCommon.GetCurrentOS)
             Case eModes.Edit
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
@@ -1160,6 +1161,7 @@ Public Class frmGameManager
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = True
                 btnExport.Enabled = True
+                cboOS.SelectedValue = CInt(mgrCommon.GetCurrentOS)
                 UpdateGenericButtonLabel(frmGameManager_IncludeShortcut, btnInclude, False)
                 UpdateGenericButtonLabel(frmGameManager_ExcludeShortcut, btnExclude, False)
                 UpdateGenericButtonLabel(frmGameManager_btnGameID, btnGameID, False)
