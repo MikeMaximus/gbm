@@ -1483,6 +1483,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Advanced Configuration....
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_btnAdvancedConfig() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_btnAdvancedConfig", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to ....
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnAppPathBrowse() As String

@@ -1821,6 +1821,7 @@ Public Class frmGameManager
         btnImportBackup.Text = frmGameManager_btnImportBackup
         btnProcesses.Text = frmGameManager_btnProcesses
         lblOS.Text = frmGameManager_lblOS
+        btnAdvancedConfig.Text = frmGameManager_btnAdvancedConfig
 
         'Init Combos
         Dim oComboItems As New List(Of KeyValuePair(Of Integer, String))
@@ -1834,7 +1835,10 @@ Public Class frmGameManager
 
         cboOS.DataSource = oComboItems
 
-        If Not mgrCommon.IsUnix Then cboOS.Enabled = False
+        If Not mgrCommon.IsUnix Then
+            cboOS.Enabled = False
+            btnAdvancedConfig.Enabled = False
+        End If
 
         'Init Official Import Menu
         If mgrCommon.IsUnix Then

@@ -2290,4 +2290,7 @@
   <data name="frmGameManager_lblOS" xml:space="preserve">
     <value>OS:</value>
   </data>
+  <data name="frmGameManager_btnAdvancedConfig" xml:space="preserve">
+    <value>&amp;Advanced Configuration...</value>
+  </data>
 </root>
