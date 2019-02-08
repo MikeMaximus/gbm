@@ -403,7 +403,7 @@ Public Class mgrBackup
 
                         'Write the process path if we have it
                         If oGame.AbsolutePath = False Then
-                            mgrMonitorList.DoListUpdate(oGame)
+                            mgrMonitorList.DoListFieldUpdate("ProcessPath", oGame.ProcessPath, oGame.ID)
                         End If
                     End If
                 Catch ex As Exception

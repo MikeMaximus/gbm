@@ -144,6 +144,20 @@ Public Class mgrMonitorList
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
+    'Do NOT change MonitorID with this function
+    Public Shared Sub DoListFieldUpdate(ByVal sFieldName As String, ByVal oValue As Object, ByVal sQueryID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim hshParams As New Hashtable
+
+        sSQL = "UPDATE monitorlist SET " & sFieldName & "=@" & sFieldName & " WHERE MonitorID=@QueryID;"
+
+        'Parameters
+        hshParams.Add(sFieldName, oValue)
+        hshParams.Add("QueryID", sQueryID)
+        oDatabase.RunParamQuery(sSQL, hshParams)
+    End Sub
+
     Public Shared Sub DoListUpdateMulti(ByVal sMonitorIDs As List(Of String), ByVal oGame As clsGame, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String

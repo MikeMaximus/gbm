@@ -735,7 +735,7 @@ Public Class frmMain
             DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).Hours = oProcess.GameInfo.Hours
         End If
 
-        mgrMonitorList.DoListUpdate(oProcess.GameInfo)
+        mgrMonitorList.DoListFieldUpdate("Hours", oProcess.GameInfo.Hours, oProcess.GameInfo.ID)
         mgrMonitorList.SyncMonitorLists(oSettings)
 
         UpdateTimeSpent(dCurrentHours, oProcess.TimeSpent.TotalHours)
@@ -2013,7 +2013,7 @@ Public Class frmMain
                 oProcess.GameInfo.ProcessPath = mgrPath.ProcessPathSearch(oProcess.GameInfo.Name, oProcess.GameInfo.ProcessName, sPathDetectionError)
                 If oProcess.GameInfo.ProcessPath <> String.Empty Then
                     'Update and reload
-                    mgrMonitorList.DoListUpdate(oProcess.GameInfo)
+                    mgrMonitorList.DoListFieldUpdate("ProcessPath", oProcess.GameInfo.ProcessPath, oProcess.GameInfo.ID)
                     LoadGameSettings()
                 Else
                     bContinue = False
