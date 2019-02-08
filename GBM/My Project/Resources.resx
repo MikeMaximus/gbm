@@ -2207,7 +2207,7 @@
     <value>[PARAM] Wine Prefix: [PARAM]</value>
   </data>
   <data name="frmMain_WineSavePath" xml:space="preserve">
-    <value>[PARAM] Converted Save Path: [PARAM]</value>
+    <value>[PARAM] Wine Save Path: [PARAM]</value>
   </data>
   <data name="mgrPath_ErrorBuildingWinePath" xml:space="preserve">
     <value>An error occured when building a Wine path.[BR][BR][PARAM]</value>
@@ -2295,5 +2295,11 @@
   </data>
   <data name="frmFilter_FieldOS" xml:space="preserve">
     <value>OS</value>
+  </data>
+  <data name="frmMain_WineBinaryPath" xml:space="preserve">
+    <value>[PARAM] Wine Binary Path: [PARAM]</value>
+  </data>
+  <data name="frmMain_ErrorNoWineSavePath" xml:space="preserve">
+    <value>[PARAM] uses a Windows configuration and requires a Wine save path to perform this operation.</value>
   </data>
 </root>

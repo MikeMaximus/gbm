@@ -497,6 +497,7 @@ Public Class mgrPath
         'Don't use these in Unix
         If Not mgrCommon.IsUnix Then
             hshFolders.Add(Guid.NewGuid.ToString, Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments))
+            hshFolders.Add(Guid.NewGuid.ToString, Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData))
             hshFolders.Add(Guid.NewGuid.ToString, Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))
         End If
 

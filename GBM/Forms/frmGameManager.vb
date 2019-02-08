@@ -1370,8 +1370,14 @@ Public Class frmGameManager
         oApp.Parameter = txtParameter.Text
         oApp.OS = CType(cboOS.SelectedValue, clsGame.eOS)
         oApp.Path = mgrPath.ValidatePathForOS(txtSavePath.Text)
-        'Only do a simple root check here in case the user doesn't really understand creating a proper configuration
-        oApp.AbsolutePath = Path.IsPathRooted(oApp.Path)
+        'We need to handle a special case here when working with Windows configurations in Linux
+        If mgrCommon.IsUnix And mgrVariables.CheckForReservedVariables(oApp.Path) And oApp.OS = clsGame.eOS.Windows Then
+            oApp.AbsolutePath = True
+        Else
+            'Only do a simple root check here in case the user doesn't really understand creating a proper configuration
+            oApp.AbsolutePath = Path.IsPathRooted(oApp.Path)
+        End If
+
         oApp.FileType = txtFileType.Text
         oApp.ExcludeList = txtExclude.Text
         oApp.FolderSave = chkFolderSave.Checked

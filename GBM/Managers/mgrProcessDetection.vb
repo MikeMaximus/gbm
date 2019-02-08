@@ -8,6 +8,7 @@ Public Class mgrProcessDetection
     Private dStartTime As DateTime = Now, dEndTime As DateTime = Now
     Private lTimeSpent As Long = 0
     Private oGame As clsGame
+    Private oWineData As clsWineData
     Private oDuplicateGames As New ArrayList
     Private bDuplicates As Boolean
     Private bVerified As Boolean = False
@@ -60,6 +61,15 @@ Public Class mgrProcessDetection
         End Get
         Set(value As clsGame)
             oGame = value
+        End Set
+    End Property
+
+    Property WineData As clsWineData
+        Get
+            Return oWineData
+        End Get
+        Set(value As clsWineData)
+            oWineData = value
         End Set
     End Property
 

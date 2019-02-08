@@ -5,8 +5,8 @@
 
         oWineGame.MonitorID = CStr(dr("MonitorID"))
         If Not IsDBNull(dr("Prefix")) Then oWineGame.Prefix = CStr(dr("Prefix"))
-        If Not IsDBNull(dr("SavePath")) Then oWineGame.Prefix = CStr(dr("SavePath"))
-        If Not IsDBNull(dr("BinaryPath")) Then oWineGame.Prefix = CStr(dr("BinaryPath"))
+        If Not IsDBNull(dr("SavePath")) Then oWineGame.SavePath = CStr(dr("SavePath"))
+        If Not IsDBNull(dr("BinaryPath")) Then oWineGame.BinaryPath = CStr(dr("BinaryPath"))
 
         Return oWineGame
     End Function

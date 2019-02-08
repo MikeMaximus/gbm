@@ -3337,6 +3337,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] uses a Windows configuration and requires a Wine save path to perform this operation..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorNoWineSavePath() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorNoWineSavePath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] uses a relative path and has never been detected on this computer..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorRelativePath() As String
@@ -4057,6 +4066,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] Wine Binary Path: [PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmMain_WineBinaryPath() As String
+            Get
+                Return ResourceManager.GetString("frmMain_WineBinaryPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] Wine Prefix: [PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_WinePrefix() As String
@@ -4066,7 +4084,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] Converted Save Path: [PARAM].
+        '''  Looks up a localized string similar to [PARAM] Wine Save Path: [PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_WineSavePath() As String
             Get
