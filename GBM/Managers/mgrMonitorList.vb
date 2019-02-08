@@ -678,7 +678,7 @@ Public Class mgrMonitorList
                     Case clsGameFilterField.eDataType.fNumeric
                         sSQL &= oFilter.Field.FieldName & " " & oFilter.NumericOperatorAsString & " @" & oFilter.ID
                         hshParams.Add(oFilter.ID, oFilter.Data)
-                    Case clsGameFilterField.eDataType.fBool
+                    Case clsGameFilterField.eDataType.fBool, clsGameFilterField.eDataType.fEnum
                         sSQL &= oFilter.Field.FieldName & " = @" & oFilter.ID
                         hshParams.Add(oFilter.ID, oFilter.Data)
                 End Select

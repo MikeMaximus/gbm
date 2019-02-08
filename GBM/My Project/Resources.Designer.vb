@@ -1186,6 +1186,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to OS.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_FieldOS() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_FieldOS", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Parameter.
         '''</summary>
         Friend ReadOnly Property frmFilter_FieldParameter() As String

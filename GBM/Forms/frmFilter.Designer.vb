@@ -40,7 +40,7 @@ Partial Class frmFilter
         Me.grpGameFilter = New System.Windows.Forms.GroupBox()
         Me.lblNot = New System.Windows.Forms.Label()
         Me.chkNot = New System.Windows.Forms.CheckBox()
-        Me.cboBoolFilter = New System.Windows.Forms.ComboBox()
+        Me.cboListFilter = New System.Windows.Forms.ComboBox()
         Me.numFilter = New System.Windows.Forms.NumericUpDown()
         Me.cboNumericOps = New System.Windows.Forms.ComboBox()
         Me.lblCurrentFilters = New System.Windows.Forms.Label()
@@ -229,7 +229,7 @@ Partial Class frmFilter
         '
         Me.grpGameFilter.Controls.Add(Me.lblNot)
         Me.grpGameFilter.Controls.Add(Me.chkNot)
-        Me.grpGameFilter.Controls.Add(Me.cboBoolFilter)
+        Me.grpGameFilter.Controls.Add(Me.cboListFilter)
         Me.grpGameFilter.Controls.Add(Me.numFilter)
         Me.grpGameFilter.Controls.Add(Me.cboNumericOps)
         Me.grpGameFilter.Controls.Add(Me.lblCurrentFilters)
@@ -265,14 +265,14 @@ Partial Class frmFilter
         Me.chkNot.TabIndex = 10
         Me.chkNot.UseVisualStyleBackColor = True
         '
-        'cboBoolFilter
+        'cboListFilter
         '
-        Me.cboBoolFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboBoolFilter.FormattingEnabled = True
-        Me.cboBoolFilter.Location = New System.Drawing.Point(187, 36)
-        Me.cboBoolFilter.Name = "cboBoolFilter"
-        Me.cboBoolFilter.Size = New System.Drawing.Size(136, 21)
-        Me.cboBoolFilter.TabIndex = 3
+        Me.cboListFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboListFilter.FormattingEnabled = True
+        Me.cboListFilter.Location = New System.Drawing.Point(187, 36)
+        Me.cboListFilter.Name = "cboListFilter"
+        Me.cboListFilter.Size = New System.Drawing.Size(136, 21)
+        Me.cboListFilter.TabIndex = 3
         '
         'numFilter
         '
@@ -549,7 +549,7 @@ Partial Class frmFilter
     Friend WithEvents lblFields As Label
     Friend WithEvents cboNumericOps As ComboBox
     Friend WithEvents numFilter As NumericUpDown
-    Friend WithEvents cboBoolFilter As ComboBox
+    Friend WithEvents cboListFilter As ComboBox
     Friend WithEvents lblSortFields As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents grpSortOptions As GroupBox
