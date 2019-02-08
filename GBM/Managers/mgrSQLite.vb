@@ -109,6 +109,9 @@ Public Class mgrSQLite
             'Add Tables (Game Processes)
             sSql &= "CREATE TABLE gameprocesses (ProcessID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(ProcessID, MonitorID));"
 
+            'Add Tables (Wine Data)
+            sSql &= "CREATE TABLE winedata (MonitorID TEXT NOT NULL PRIMARY KEY, Prefix TEXT NOT NULL, SavePath TEXT NOT NULL, BinaryPath TEXT NOT NULL);"
+
             'Set Version
             sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
 
@@ -927,6 +930,10 @@ Public Class mgrSQLite
 
                 'Add new field(s)
                 sSQL = "ALTER TABLE monitorlist ADD COLUMN OS INTEGER NOT NULL DEFAULT " & mgrCommon.GetCurrentOS & ";"
+
+                'Add Tables (Wine Data)
+                sSQL &= "CREATE TABLE winedata (MonitorID TEXT NOT NULL PRIMARY KEY, Prefix TEXT NOT NULL, SavePath TEXT NOT NULL, BinaryPath TEXT NOT NULL);"
+
                 sSQL &= "PRAGMA user_version=118"
 
                 RunParamQuery(sSQL, New Hashtable)

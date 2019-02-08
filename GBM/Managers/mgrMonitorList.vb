@@ -131,6 +131,7 @@ Public Class mgrMonitorList
         If iSelectDB = mgrSQLite.Database.Local Then
             sSQL &= "UPDATE gameprocesses SET MonitorID=@ID WHERE MonitorID=@QueryID;"
             sSQL &= "UPDATE sessions SET MonitorID=@ID WHERE MonitorID=@QueryID;"
+            sSQL &= "UPDATE winedata SET MonitorID=@ID WHERE MonitorID=@QueryID"
         End If
 
         'Parameters
@@ -197,6 +198,8 @@ Public Class mgrMonitorList
             sSQL &= "WHERE MonitorID = @MonitorID;"
             sSQL &= "DELETE FROM sessions "
             sSQL &= "WHERE MonitorID = @MonitorID;"
+            sSQL &= "DELETE FROM winedata "
+            sSQL &= "WHERE MonitorID = @MonitorID;"
         End If
         sSQL &= "DELETE FROM monitorlist "
         sSQL &= "WHERE MonitorID = @MonitorID;"
@@ -251,6 +254,18 @@ Public Class mgrMonitorList
             sSQL &= ");"
 
             sSQL &= "DELETE FROM sessions "
+            sSQL &= "WHERE MonitorID IN ("
+
+            For Each s As String In sMonitorIDs
+                sSQL &= "@MonitorID" & iCounter & ","
+                hshParams.Add("MonitorID" & iCounter, s)
+                iCounter += 1
+            Next
+
+            sSQL = sSQL.TrimEnd(",")
+            sSQL &= ");"
+
+            sSQL &= "DELETE FROM winedata "
             sSQL &= "WHERE MonitorID IN ("
 
             For Each s As String In sMonitorIDs

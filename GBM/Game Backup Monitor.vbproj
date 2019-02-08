@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\clsGameProcess.vb" />
+    <Compile Include="Classes\clsWineData.vb" />
     <Compile Include="Classes\clsProcess.vb" />
     <Compile Include="Classes\clsGameFilter.vb" />
     <Compile Include="Classes\clsGameFilterField.vb" />
@@ -247,6 +248,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Managers\mgrGameProcesses.vb" />
+    <Compile Include="Managers\mgrWineData.vb" />
     <Compile Include="Managers\mgrProcess.vb" />
     <Compile Include="Managers\mgrCommon.vb" />
     <Compile Include="Managers\mgrGameTags.vb" />
