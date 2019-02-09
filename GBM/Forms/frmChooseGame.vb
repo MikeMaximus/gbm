@@ -26,11 +26,19 @@ Public Class frmChooseGame
     End Property
 
     Private Sub FillComboBox()
+        Dim sTags As String
+        Dim sName As String
         lstGameBox.ValueMember = "Key"
         lstGameBox.DisplayMember = "Value"
 
         For Each o As clsGame In Process.DuplicateList
-            lstGameBox.Items.Add(New KeyValuePair(Of String, String)(o.ID, o.Name))
+            sTags = mgrGameTags.PrintTagsbyID(o.ID)
+            If sTags <> String.Empty Then
+                sName = o.Name & " (" & sTags & ")"
+            Else
+                sName = o.Name
+            End If
+            lstGameBox.Items.Add(New KeyValuePair(Of String, String)(o.ID, sName))
             oGamesHash.Add(o.ID, o)
         Next
 

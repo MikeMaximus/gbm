@@ -706,13 +706,13 @@ Public Class frmGameManager
 
         If eCurrentMode = eModes.Add Then
             oTagsToSave = frm.TagList
-            FillTagsbyList(frm.TagList)
+            lblTags.Text = mgrGameTags.PrintTagsbyList(frm.TagList)
         Else
             'Sync
             mgrMonitorList.SyncMonitorLists(Settings)
 
             'Only update visible tags if one item is selected
-            If lstGames.SelectedItems.Count = 1 Then FillTagsbyID(CurrentGame.ID)
+            If lstGames.SelectedItems.Count = 1 Then lblTags.Text = mgrGameTags.PrintTagsbyID(CurrentGame.ID)
 
             'If a tag filter is enabled, reload list to reflect changes
             If optCustom.Checked Then
@@ -954,7 +954,7 @@ Public Class frmGameManager
         txtVersion.Text = oApp.Version
         txtIcon.Text = oApp.Icon
 
-        FillTagsbyID(oData.Key)
+        lblTags.Text = mgrGameTags.PrintTagsbyID(oData.Key)
 
         'Icon
         If IO.File.Exists(oApp.Icon) Then
@@ -971,33 +971,6 @@ Public Class frmGameManager
         CurrentGame = oApp
 
         IsLoading = False
-    End Sub
-
-    Private Sub FillTagsbyID(ByVal sID As String)
-        Dim slTags As SortedList
-        Dim oTag As clsTag
-        Dim sTags As String = String.Empty
-        Dim cTrim() As Char = {",", " "}
-
-        slTags = mgrGameTags.GetTagsByGame(sID)
-
-        For Each de As DictionaryEntry In slTags
-            oTag = DirectCast(de.Value, clsTag)
-            sTags &= "#" & oTag.Name & ", "
-        Next
-
-        lblTags.Text = sTags.TrimEnd(cTrim)
-    End Sub
-
-    Private Sub FillTagsbyList(ByVal oList As List(Of KeyValuePair(Of String, String)))
-        Dim sTags As String = String.Empty
-        Dim cTrim() As Char = {",", " "}
-
-        For Each kp As KeyValuePair(Of String, String) In oList
-            sTags &= "#" & kp.Value & ", "
-        Next
-
-        lblTags.Text = sTags.TrimEnd(cTrim)
     End Sub
 
     Private Sub DirtyCheck_ValueChanged(sender As Object, e As EventArgs)
