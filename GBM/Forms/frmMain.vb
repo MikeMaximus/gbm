@@ -167,7 +167,7 @@ Public Class frmMain
         OperationEnded()
     End Sub
 
-    Private Function VerifyBackupForOS(ByVal oGame As clsGame, ByRef sPath As String) As Boolean
+    Private Function VerifyBackupForOS(ByRef oGame As clsGame, ByRef sPath As String) As Boolean
         Dim bOSVerified As Boolean
 
         'Handle Windows configurations in Linux
