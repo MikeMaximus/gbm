@@ -12,6 +12,7 @@ Public Class frmGameManager
     Private oCurrentGame As clsGame
     Private oTagsToSave As New List(Of KeyValuePair(Of String, String))
     Private oProcessesToSave As New List(Of KeyValuePair(Of String, String))
+    Private oWineDataToSave As clsWineData
     Private bDisableExternalFunctions As Boolean = False
     Private bTriggerBackup As Boolean = False
     Private bTriggerRestore As Boolean = False
@@ -208,6 +209,14 @@ Public Class frmGameManager
 
         Return sPath
     End Function
+
+    Private Sub HandleWineConfig()
+        If mgrCommon.IsUnix And cboOS.SelectedValue = clsGame.eOS.Windows Then
+            btnWineConfig.Visible = True
+        Else
+            btnWineConfig.Visible = False
+        End If
+    End Sub
 
     Private Function CheckManifestandUpdate(ByVal oOriginalApp As clsGame, ByVal oNewApp As clsGame, ByVal bUseGameID As Boolean) As Boolean
         Dim oBackupItems As List(Of clsBackup)
@@ -726,6 +735,24 @@ Public Class frmGameManager
 
     End Sub
 
+    Public Sub OpenWineConfiguration()
+        Dim frm As New frmWineConfiguration
+        frm.Settings = oSettings
+        If eCurrentMode = eModes.Add Then
+            oWineDataToSave = New clsWineData
+            frm.NewMode = True
+            oWineDataToSave.MonitorID = txtID.Text
+        Else
+            oWineDataToSave = mgrWineData.DoWineDataGetbyID(txtID.Text)
+            If oWineDataToSave.MonitorID = String.Empty Then
+                oWineDataToSave.MonitorID = txtID.Text
+            End If
+        End If
+        frm.WineData = oWineDataToSave
+        frm.ShowDialog()
+        oWineDataToSave = frm.WineData
+    End Sub
+
     Public Sub VerifyBackups(ByVal oApp As clsGame)
         Dim oCurrentBackup As clsBackup
         Dim oCurrentBackups As List(Of clsBackup)
@@ -947,6 +974,7 @@ Public Class frmGameManager
         UpdateBuilderButtonLabel(oApp.FileType, frmGameManager_IncludeShortcut, btnInclude, False)
         UpdateBuilderButtonLabel(oApp.ExcludeList, frmGameManager_ExcludeShortcut, btnExclude, False)
         UpdateGenericButtonLabel(frmGameManager_btnGameID, btnGameID, False)
+        HandleWineConfig()
 
         'Extra
         txtAppPath.Text = oApp.ProcessPath
@@ -1059,6 +1087,7 @@ Public Class frmGameManager
                 btnImport.Enabled = False
                 btnExport.Enabled = False
                 cboOS.SelectedValue = CInt(mgrCommon.GetCurrentOS)
+                HandleWineConfig()
             Case eModes.Edit
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
@@ -1197,6 +1226,7 @@ Public Class frmGameManager
             btnInclude.Enabled = False
             btnExclude.Enabled = False
             chkCleanFolder.Enabled = False
+            btnWineConfig.Enabled = False
         Else
             chkFolderSave.Enabled = True
             chkTimeStamp.Enabled = True
@@ -1207,6 +1237,7 @@ Public Class frmGameManager
             btnSavePathBrowse.Enabled = True
             btnInclude.Enabled = True
             btnExclude.Enabled = True
+            btnWineConfig.Enabled = True
             FolderSaveModeChange()
         End If
     End Sub
@@ -1318,6 +1349,13 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub SaveWineData(ByVal sID As String)
+        If Not oWineDataToSave Is Nothing Then
+            oWineDataToSave.MonitorID = sID
+            mgrWineData.DoWineDataAddUpdate(oWineDataToSave)
+        End If
+    End Sub
+
     Private Sub SaveApp()
         Dim oData As KeyValuePair(Of String, String)
         Dim oApp As New clsGame
@@ -1374,6 +1412,7 @@ Public Class frmGameManager
                     mgrMonitorList.DoListAdd(oApp)
                     SaveTags(oApp.ID)
                     SaveProcesses(oApp.ID)
+                    If mgrCommon.IsUnix And oApp.OS = clsGame.eOS.Windows Then SaveWineData(oApp.ID)
                     eCurrentMode = eModes.View
                 End If
             Case eModes.Edit
@@ -1800,7 +1839,7 @@ Public Class frmGameManager
         btnImportBackup.Text = frmGameManager_btnImportBackup
         btnProcesses.Text = frmGameManager_btnProcesses
         lblOS.Text = frmGameManager_lblOS
-        btnAdvancedConfig.Text = frmGameManager_btnAdvancedConfig
+        btnWineConfig.Text = frmGameManager_btnWineConfig
 
         'Init Combos
         Dim oComboItems As New List(Of KeyValuePair(Of Integer, String))
@@ -1816,7 +1855,7 @@ Public Class frmGameManager
 
         If Not mgrCommon.IsUnix Then
             cboOS.Enabled = False
-            btnAdvancedConfig.Enabled = False
+            btnWineConfig.Visible = False
         End If
 
         'Init Official Import Menu
@@ -1941,6 +1980,10 @@ Public Class frmGameManager
         OpenProcesses()
     End Sub
 
+    Private Sub btnWineConfig_Click(sender As Object, e As EventArgs) Handles btnWineConfig.Click
+        OpenWineConfiguration()
+    End Sub
+
     Private Sub btnDeleteBackup_Click(sender As Object, e As EventArgs) Handles btnDeleteBackup.Click
         If cboRemoteBackup.Items.Count > 1 Then
             cmsDeleteBackup.Show(btnDeleteBackup, New Drawing.Point(btnDeleteBackup.Size.Width - Math.Floor(btnDeleteBackup.Size.Width * 0.1), btnDeleteBackup.Size.Height - Math.Floor(btnDeleteBackup.Size.Height * 0.5)), ToolStripDropDownDirection.AboveRight)
@@ -2003,6 +2046,12 @@ Public Class frmGameManager
     Private Sub cboRemoteBackup_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboRemoteBackup.SelectedIndexChanged
         If Not bIsLoading Then
             UpdateBackupInfo(DirectCast(cboRemoteBackup.SelectedItem, KeyValuePair(Of String, String)).Key)
+        End If
+    End Sub
+
+    Private Sub cboOS_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboOS.SelectedIndexChanged
+        If Not bIsLoading Then
+            HandleWineConfig()
         End If
     End Sub
 

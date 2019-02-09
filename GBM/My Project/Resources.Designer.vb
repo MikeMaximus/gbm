@@ -1492,15 +1492,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Advanced Configuration....
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_btnAdvancedConfig() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_btnAdvancedConfig", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to ....
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnAppPathBrowse() As String
@@ -1704,6 +1695,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_btnTags() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_btnTags", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Wine Configuration....
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_btnWineConfig() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_btnWineConfig", resourceCulture)
             End Get
         End Property
         
@@ -2545,7 +2545,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Official Windows configurations can be used in Linux for games running in Wine or Proton.[BR][BR]You do not need to modify these configurations, GBM will automatically do any required path conversions the first time the game is detected.[BR][BR]This message will only be shown once..
+        '''  Looks up a localized string similar to Official Windows configurations can be used in Linux for games running in Wine or Proton.[BR][BR]You do not need to modify these configurations, GBM will automatically do any required path conversions when the game is detected.[BR][BR]This message will only be shown once..
         '''</summary>
         Friend ReadOnly Property frmGameManager_WarningWinConfigsInLinux() As String
             Get
@@ -4066,7 +4066,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] Wine Binary Path: [PARAM].
+        '''  Looks up a localized string similar to Wine Binary Path: [PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_WineBinaryPath() As String
             Get
@@ -4075,7 +4075,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] Wine Prefix: [PARAM].
+        '''  Looks up a localized string similar to Wine Prefix: [PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_WinePrefix() As String
             Get
@@ -4084,7 +4084,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] Wine Save Path: [PARAM].
+        '''  Looks up a localized string similar to Wine Save Path: [PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_WineSavePath() As String
             Get
@@ -5637,6 +5637,96 @@ Namespace My.Resources
         Friend ReadOnly Property frmVariableManager_PathBrowse() As String
             Get
                 Return ResourceManager.GetString("frmVariableManager_PathBrowse", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Cancel.
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_btnCancel() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_btnCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Save.
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_btnSave() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_btnSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The Wine binary path is required.[BR][BR]Clear all fields and save to remove all Wine data for this game..
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_ErrorValidationBinaryPath() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_ErrorValidationBinaryPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The Wine Prefix is required.[BR][BR]Clear all fields and save to remove all Wine data for this game..
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_ErrorValidationPrefix() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_ErrorValidationPrefix", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Wine Configuration.
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Configuration.
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_grpWineConfig() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_grpWineConfig", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Binary Path:.
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_lblWineBinaryPath() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_lblWineBinaryPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Prefix:.
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_lblWinePrefix() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_lblWinePrefix", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Save Path:.
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_lblWineSavePath() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_lblWineSavePath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game Backup Monitor automatically updates the Wine configuration for a game each time it is detected.  Modifying any of these fields manually is not recommended in most cases.[BR][BR]This warning will only be displayed once..
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_WarningSingle() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_WarningSingle", resourceCulture)
             End Get
         End Property
         

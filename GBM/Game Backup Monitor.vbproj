@@ -138,6 +138,12 @@
     <Compile Include="Classes\clsBackup.vb" />
     <Compile Include="Classes\clsGame.vb" />
     <Compile Include="Classes\clsTag.vb" />
+    <Compile Include="Forms\frmWineConfiguration.Designer.vb">
+      <DependentUpon>frmWineConfiguration.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmWineConfiguration.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmAdvancedImport.Designer.vb">
       <DependentUpon>frmAdvancedImport.vb</DependentUpon>
     </Compile>
@@ -283,6 +289,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\frmWineConfiguration.resx">
+      <DependentUpon>frmWineConfiguration.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAdvancedImport.resx">
       <DependentUpon>frmAdvancedImport.vb</DependentUpon>
     </EmbeddedResource>

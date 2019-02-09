@@ -179,7 +179,7 @@ Public Class frmMain
                     If oWineData.SavePath <> String.Empty Then
                         sPath = oWineData.SavePath
                         bOSVerified = True
-                        UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, New String() {oGame.Name, oWineData.SavePath}), False)
+                        UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, oWineData.SavePath), False)
                     Else
                         bOSVerified = False
                         UpdateLog(mgrCommon.FormatString(frmMain_ErrorNoWineSavePath, oGame.Name), True, ToolTipIcon.Error, True)
@@ -1979,10 +1979,10 @@ Public Class frmMain
                 Dim oWineData As New clsWineData
                 oWineData.Prefix = mgrPath.GetWinePrefix(oProcess.FoundProcess)
                 oWineData.BinaryPath = Path.GetDirectoryName(oProcess.FoundProcess.MainModule.FileName)
-                UpdateLog(mgrCommon.FormatString(frmMain_WineBinaryPath, New String() {oProcess.GameInfo.Name, oWineData.BinaryPath}), False)
+                UpdateLog(mgrCommon.FormatString(frmMain_WineBinaryPath, oWineData.BinaryPath), False)
                 If Not oWineData.Prefix = String.Empty Then
                     oProcess.WineData = oWineData
-                    UpdateLog(mgrCommon.FormatString(frmMain_WinePrefix, New String() {oProcess.GameInfo.Name, oWineData.Prefix}), False)
+                    UpdateLog(mgrCommon.FormatString(frmMain_WinePrefix, oWineData.Prefix), False)
                 Else
                     bContinue = False
                 End If
@@ -2069,7 +2069,7 @@ Public Class frmMain
                             If Not oProcess.WineData.SavePath = oProcess.GameInfo.TruePath Then
                                 oProcess.GameInfo.TruePath = oProcess.WineData.SavePath
                                 mgrWineData.DoWineDataAddUpdate(oProcess.WineData)
-                                UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, New String() {oProcess.GameInfo.Name, oProcess.WineData.SavePath}), False)
+                                UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, oProcess.WineData.SavePath), False)
                             End If
                         End If
                         'This does required mods to include/exclude data and relative paths (if required)

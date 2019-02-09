@@ -32,6 +32,7 @@ Public Class mgrSettings
         GameIDSync = 1
         BackupImport = 2
         WinConfigsInLinux = 4
+        WineConfig = 16
     End Enum
 
     Property StartWithWindows As Boolean

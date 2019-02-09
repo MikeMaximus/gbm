@@ -28,15 +28,16 @@ Partial Class frmGameManager
         Me.btnBackup = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.grpConfig = New System.Windows.Forms.GroupBox()
+        Me.btnWineConfig = New System.Windows.Forms.Button()
         Me.lblOS = New System.Windows.Forms.Label()
         Me.cboOS = New System.Windows.Forms.ComboBox()
         Me.chkRecurseSubFolders = New System.Windows.Forms.CheckBox()
         Me.btnGameID = New System.Windows.Forms.Button()
         Me.chkRegEx = New System.Windows.Forms.CheckBox()
         Me.lblComments = New System.Windows.Forms.Label()
-        Me.txtComments = New System.Windows.Forms.TextBox()
         Me.txtParameter = New System.Windows.Forms.TextBox()
         Me.lblParameter = New System.Windows.Forms.Label()
+        Me.txtComments = New System.Windows.Forms.TextBox()
         Me.chkCleanFolder = New System.Windows.Forms.CheckBox()
         Me.lblLimit = New System.Windows.Forms.Label()
         Me.nudLimit = New System.Windows.Forms.NumericUpDown()
@@ -110,7 +111,6 @@ Partial Class frmGameManager
         Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnProcesses = New System.Windows.Forms.Button()
         Me.ttFullPath = New System.Windows.Forms.ToolTip(Me.components)
-        Me.btnAdvancedConfig = New System.Windows.Forms.Button()
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -167,7 +167,7 @@ Partial Class frmGameManager
         'grpConfig
         '
         Me.grpConfig.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.grpConfig.Controls.Add(Me.btnAdvancedConfig)
+        Me.grpConfig.Controls.Add(Me.btnWineConfig)
         Me.grpConfig.Controls.Add(Me.lblOS)
         Me.grpConfig.Controls.Add(Me.cboOS)
         Me.grpConfig.Controls.Add(Me.chkRecurseSubFolders)
@@ -202,6 +202,15 @@ Partial Class frmGameManager
         Me.grpConfig.TabIndex = 8
         Me.grpConfig.TabStop = False
         Me.grpConfig.Text = "Configuration"
+        '
+        'btnWineConfig
+        '
+        Me.btnWineConfig.Location = New System.Drawing.Point(191, 167)
+        Me.btnWineConfig.Name = "btnWineConfig"
+        Me.btnWineConfig.Size = New System.Drawing.Size(175, 23)
+        Me.btnWineConfig.TabIndex = 16
+        Me.btnWineConfig.Text = "&Wine Configuration..."
+        Me.btnWineConfig.UseVisualStyleBackColor = True
         '
         'lblOS
         '
@@ -260,15 +269,6 @@ Partial Class frmGameManager
         Me.lblComments.TabIndex = 12
         Me.lblComments.Text = "Comments:"
         '
-        'txtComments
-        '
-        Me.txtComments.Location = New System.Drawing.Point(70, 123)
-        Me.txtComments.Multiline = True
-        Me.txtComments.Name = "txtComments"
-        Me.txtComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtComments.Size = New System.Drawing.Size(414, 40)
-        Me.txtComments.TabIndex = 13
-        '
         'txtParameter
         '
         Me.txtParameter.Location = New System.Drawing.Point(70, 71)
@@ -284,6 +284,15 @@ Partial Class frmGameManager
         Me.lblParameter.Size = New System.Drawing.Size(58, 13)
         Me.lblParameter.TabIndex = 7
         Me.lblParameter.Text = "Parameter:"
+        '
+        'txtComments
+        '
+        Me.txtComments.Location = New System.Drawing.Point(70, 123)
+        Me.txtComments.Multiline = True
+        Me.txtComments.Name = "txtComments"
+        Me.txtComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtComments.Size = New System.Drawing.Size(414, 40)
+        Me.txtComments.TabIndex = 13
         '
         'chkCleanFolder
         '
@@ -963,15 +972,6 @@ Partial Class frmGameManager
         Me.ttFullPath.InitialDelay = 300
         Me.ttFullPath.ReshowDelay = 60
         '
-        'btnAdvancedConfig
-        '
-        Me.btnAdvancedConfig.Location = New System.Drawing.Point(191, 167)
-        Me.btnAdvancedConfig.Name = "btnAdvancedConfig"
-        Me.btnAdvancedConfig.Size = New System.Drawing.Size(175, 23)
-        Me.btnAdvancedConfig.TabIndex = 16
-        Me.btnAdvancedConfig.Text = "&Advanced Configuration..."
-        Me.btnAdvancedConfig.UseVisualStyleBackColor = True
-        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1109,5 +1109,5 @@ Partial Class frmGameManager
     Friend WithEvents chkRecurseSubFolders As CheckBox
     Friend WithEvents lblOS As Label
     Friend WithEvents cboOS As ComboBox
-    Friend WithEvents btnAdvancedConfig As Button
+    Friend WithEvents btnWineConfig As Button
 End Class
