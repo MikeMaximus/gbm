@@ -8,6 +8,7 @@ Public Class mgrProcessDetection
     Private dStartTime As DateTime = Now, dEndTime As DateTime = Now
     Private lTimeSpent As Long = 0
     Private oGame As clsGame
+    Private bWineProcess As Boolean = False
     Private oWineData As clsWineData
     Private oDuplicateGames As New ArrayList
     Private bDuplicates As Boolean
@@ -61,6 +62,15 @@ Public Class mgrProcessDetection
         End Get
         Set(value As clsGame)
             oGame = value
+        End Set
+    End Property
+
+    Property WineProcess As Boolean
+        Get
+            Return bWineProcess
+        End Get
+        Set(value As Boolean)
+            bWineProcess = value
         End Set
     End Property
 
@@ -167,7 +177,7 @@ Public Class mgrProcessDetection
         Return False
     End Function
 
-    Private Function GetProcessPath(ByVal bWineProcess As Boolean) As String
+    Private Function GetProcessPath() As String
         Try
             If Not bWineProcess Then
                 Return Path.GetDirectoryName(FoundProcess.MainModule.FileName)
@@ -179,7 +189,7 @@ Public Class mgrProcessDetection
         End Try
     End Function
 
-    Private Sub FilterDetected(ByVal oDetectedGames As ArrayList, ByVal bWineProcess As Boolean)
+    Private Sub FilterDetected(ByVal oDetectedGames As ArrayList)
         Dim bMatch As Boolean = False
         Dim sFullCommand As String
         Dim oNotDetectedWithParameters As New ArrayList
@@ -195,7 +205,7 @@ Public Class mgrProcessDetection
         End If
 
         'Get Process Path
-        ProcessPath = GetProcessPath(bWineProcess)
+        ProcessPath = GetProcessPath()
 
         'Look for any games using parameters and any matches
         For Each oDetectedGame As clsGame In oDetectedGames
@@ -258,7 +268,7 @@ Public Class mgrProcessDetection
         End If
     End Sub
 
-    Public Function SearchRunningProcesses(ByVal hshScanList As Hashtable, ByRef bNeedsPath As Boolean, ByRef bWineProcess As Boolean, ByRef iErrorCode As Integer, ByVal bDebugMode As Boolean) As Boolean
+    Public Function SearchRunningProcesses(ByVal hshScanList As Hashtable, ByRef bNeedsPath As Boolean, ByRef iErrorCode As Integer, ByVal bDebugMode As Boolean) As Boolean
         Dim prsList() As Process = Process.GetProcesses
         Dim sProcessCheck As String = String.Empty
         Dim sProcessList As String = String.Empty
@@ -302,7 +312,7 @@ Public Class mgrProcessDetection
             Next
 
             If oDetectedGames.Count > 0 Then
-                FilterDetected(oDetectedGames, bWineProcess)
+                FilterDetected(oDetectedGames)
             End If
 
             If oDetectedGames.Count > 0 Then

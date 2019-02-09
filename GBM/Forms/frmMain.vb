@@ -1940,12 +1940,11 @@ Public Class frmMain
 
     Private Sub ScanTimerEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmScanTimer.Tick
         Dim bNeedsPath As Boolean = False
-        Dim bWineProcess As Boolean = False
         Dim bContinue As Boolean = True
         Dim iErrorCode As Integer = 0
         Dim sErrorMessage As String = String.Empty
 
-        If oProcess.SearchRunningProcesses(hshScanList, bNeedsPath, bWineProcess, iErrorCode, bProcessDebugMode) Then
+        If oProcess.SearchRunningProcesses(hshScanList, bNeedsPath, iErrorCode, bProcessDebugMode) Then
             PauseScan(True)
 
             If bNeedsPath Then
@@ -1975,30 +1974,18 @@ Public Class frmMain
                 End If
             End If
 
-            If bWineProcess Then
-                'Attempt a path conversion if the game configuration is using an absolute windows path that we can convert
-                If mgrVariables.CheckForReservedVariables(oProcess.GameInfo.TruePath) Then
-                    Dim oWineData As New clsWineData
-                    oWineData.MonitorID = oProcess.GameInfo.ID
-                    oWineData.Prefix = mgrPath.GetWinePrefix(oProcess.FoundProcess)
-                    oWineData.BinaryPath = Path.GetDirectoryName(oProcess.FoundProcess.MainModule.FileName)
-                    UpdateLog(mgrCommon.FormatString(frmMain_WineBinaryPath, New String() {oProcess.GameInfo.Name, oWineData.BinaryPath}), False)
-                    If Not oWineData.Prefix = String.Empty Then
-                        UpdateLog(mgrCommon.FormatString(frmMain_WinePrefix, New String() {oProcess.GameInfo.Name, oWineData.Prefix}), False)
-                        oWineData.SavePath = mgrPath.GetWineSavePath(oWineData.Prefix, oProcess.GameInfo.TruePath)
-                        If Not oWineData.SavePath = oProcess.GameInfo.TruePath Then
-                            oProcess.GameInfo.TruePath = oWineData.SavePath
-                            oProcess.WineData = oWineData
-                            UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, New String() {oProcess.GameInfo.Name, oWineData.SavePath}), False)
-                        Else
-                            bContinue = False
-                        End If
-                    Else
-                        bContinue = False
-                    End If
+            'We need to determine this Wine information and store it before the process ends.
+            If oProcess.WineProcess Then
+                Dim oWineData As New clsWineData
+                oWineData.Prefix = mgrPath.GetWinePrefix(oProcess.FoundProcess)
+                oWineData.BinaryPath = Path.GetDirectoryName(oProcess.FoundProcess.MainModule.FileName)
+                UpdateLog(mgrCommon.FormatString(frmMain_WineBinaryPath, New String() {oProcess.GameInfo.Name, oWineData.BinaryPath}), False)
+                If Not oWineData.Prefix = String.Empty Then
+                    oProcess.WineData = oWineData
+                    UpdateLog(mgrCommon.FormatString(frmMain_WinePrefix, New String() {oProcess.GameInfo.Name, oWineData.Prefix}), False)
+                Else
+                    bContinue = False
                 End If
-                'This does required mods to include/exclude data and relative paths (if required)
-                mgrPath.ModWinePathData(oProcess.GameInfo)
             End If
 
             If bContinue = True Then
@@ -2074,12 +2061,22 @@ Public Class frmMain
             If bContinue Then
                 If DoMultiGameCheck() Then
                     UpdateLog(mgrCommon.FormatString(frmMain_GameEnded, oProcess.GameInfo.Name), False)
+                    If oProcess.WineProcess Then
+                        'Attempt a path conversion if the game configuration is using an absolute windows path that we can convert
+                        If mgrVariables.CheckForReservedVariables(oProcess.GameInfo.TruePath) Then
+                            oProcess.WineData.MonitorID = oProcess.GameInfo.ID
+                            oProcess.WineData.SavePath = mgrPath.GetWineSavePath(oProcess.WineData.Prefix, oProcess.GameInfo.TruePath)
+                            If Not oProcess.WineData.SavePath = oProcess.GameInfo.TruePath Then
+                                oProcess.GameInfo.TruePath = oProcess.WineData.SavePath
+                                mgrWineData.DoWineDataAddUpdate(oProcess.WineData)
+                                UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, New String() {oProcess.GameInfo.Name, oProcess.WineData.SavePath}), False)
+                            End If
+                        End If
+                        'This does required mods to include/exclude data and relative paths (if required)
+                        mgrPath.ModWinePathData(oProcess.GameInfo)
+                    End If
                     If oSettings.TimeTracking Then HandleTimeSpent()
                     If oSettings.SessionTracking Then HandleSession()
-                    If Not oProcess.WineData Is Nothing Then
-                        oProcess.WineData.MonitorID = oProcess.GameInfo.ID
-                        mgrWineData.DoWineDataAddUpdate(oProcess.WineData)
-                    End If
                     RunBackup()
                 Else
                     UpdateLog(frmMain_UnknownGameEnded, False)
@@ -2094,7 +2091,6 @@ Public Class frmMain
         bPathDetectionFailure = False
         sPathDetectionError = String.Empty
         bCancelledByUser = False
-        oProcess.WineData = Nothing
         oProcess.StartTime = Now : oProcess.EndTime = Now
     End Sub
 
