@@ -61,14 +61,14 @@ Partial Class frmWineConfiguration
         Me.txtWinePrefix.Location = New System.Drawing.Point(76, 49)
         Me.txtWinePrefix.Name = "txtWinePrefix"
         Me.txtWinePrefix.Size = New System.Drawing.Size(367, 20)
-        Me.txtWinePrefix.TabIndex = 4
+        Me.txtWinePrefix.TabIndex = 3
         '
         'txtWineBinaryPath
         '
         Me.txtWineBinaryPath.Location = New System.Drawing.Point(76, 23)
         Me.txtWineBinaryPath.Name = "txtWineBinaryPath"
         Me.txtWineBinaryPath.Size = New System.Drawing.Size(367, 20)
-        Me.txtWineBinaryPath.TabIndex = 3
+        Me.txtWineBinaryPath.TabIndex = 1
         '
         'lblWinePrefix
         '
@@ -85,7 +85,7 @@ Partial Class frmWineConfiguration
         Me.lblWineSavePath.Location = New System.Drawing.Point(6, 78)
         Me.lblWineSavePath.Name = "lblWineSavePath"
         Me.lblWineSavePath.Size = New System.Drawing.Size(60, 13)
-        Me.lblWineSavePath.TabIndex = 1
+        Me.lblWineSavePath.TabIndex = 4
         Me.lblWineSavePath.Text = "Save Path:"
         '
         'lblWineBinaryPath
