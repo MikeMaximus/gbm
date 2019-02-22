@@ -12,7 +12,6 @@ Public Class frmGameManager
     Private oCurrentGame As clsGame
     Private oTagsToSave As New List(Of KeyValuePair(Of String, String))
     Private oProcessesToSave As New List(Of KeyValuePair(Of String, String))
-    Private oWineDataToSave As clsWineData
     Private bDisableExternalFunctions As Boolean = False
     Private bTriggerBackup As Boolean = False
     Private bTriggerRestore As Boolean = False
@@ -211,7 +210,7 @@ Public Class frmGameManager
     End Function
 
     Private Sub HandleWineConfig()
-        If mgrCommon.IsUnix And cboOS.SelectedValue = clsGame.eOS.Windows Then
+        If mgrCommon.IsUnix And cboOS.SelectedValue = clsGame.eOS.Windows And Not eCurrentMode = eModes.Add Then
             btnWineConfig.Visible = True
         Else
             btnWineConfig.Visible = False
@@ -738,19 +737,8 @@ Public Class frmGameManager
     Public Sub OpenWineConfiguration()
         Dim frm As New frmWineConfiguration
         frm.Settings = oSettings
-        If eCurrentMode = eModes.Add Then
-            oWineDataToSave = New clsWineData
-            frm.NewMode = True
-            oWineDataToSave.MonitorID = txtID.Text
-        Else
-            oWineDataToSave = mgrWineData.DoWineDataGetbyID(txtID.Text)
-            If oWineDataToSave.MonitorID = String.Empty Then
-                oWineDataToSave.MonitorID = txtID.Text
-            End If
-        End If
-        frm.WineData = oWineDataToSave
+        frm.MonitorID = oCurrentGame.ID
         frm.ShowDialog()
-        oWineDataToSave = frm.WineData
     End Sub
 
     Public Sub VerifyBackups(ByVal oApp As clsGame)
@@ -1349,13 +1337,6 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Sub SaveWineData(ByVal sID As String)
-        If Not oWineDataToSave Is Nothing Then
-            oWineDataToSave.MonitorID = sID
-            mgrWineData.DoWineDataAddUpdate(oWineDataToSave)
-        End If
-    End Sub
-
     Private Sub SaveApp()
         Dim oData As KeyValuePair(Of String, String)
         Dim oApp As New clsGame
@@ -1412,7 +1393,6 @@ Public Class frmGameManager
                     mgrMonitorList.DoListAdd(oApp)
                     SaveTags(oApp.ID)
                     SaveProcesses(oApp.ID)
-                    If mgrCommon.IsUnix And oApp.OS = clsGame.eOS.Windows Then SaveWineData(oApp.ID)
                     eCurrentMode = eModes.View
                 End If
             Case eModes.Edit
@@ -2050,7 +2030,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub cboOS_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboOS.SelectedIndexChanged
-        If Not bIsLoading Then
+        If Not bIsLoading And Not eCurrentMode = eModes.Add Then
             HandleWineConfig()
         End If
     End Sub

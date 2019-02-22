@@ -2,8 +2,7 @@
 
 Public Class frmWineConfiguration
     Private oSettings As mgrSettings
-    Private oWineData As clsWineData
-    Private bNewMode As Boolean = False
+    Private sMonitorID As String
 
     Property Settings As mgrSettings
         Get
@@ -14,21 +13,12 @@ Public Class frmWineConfiguration
         End Set
     End Property
 
-    Property WineData As clsWineData
+    Property MonitorID As String
         Get
-            Return oWineData
+            Return sMonitorID
         End Get
-        Set(value As clsWineData)
-            oWineData = value
-        End Set
-    End Property
-
-    Public Property NewMode As Boolean
-        Get
-            Return bNewMode
-        End Get
-        Set(value As Boolean)
-            bNewMode = value
+        Set(value As String)
+            sMonitorID = value
         End Set
     End Property
 
@@ -46,6 +36,8 @@ Public Class frmWineConfiguration
     End Sub
 
     Private Sub LoadData()
+        Dim oWineData As New clsWineData
+        oWineData = mgrWineData.DoWineDataGetbyID(sMonitorID)
         txtWineBinaryPath.Text = oWineData.BinaryPath
         txtWinePrefix.Text = oWineData.Prefix
         txtWineSavePath.Text = oWineData.SavePath
@@ -74,21 +66,18 @@ Public Class frmWineConfiguration
     End Function
 
     Private Sub SaveData()
+        Dim oWineData As clsWineData
         If txtWineBinaryPath.Text = String.Empty And txtWinePrefix.Text = String.Empty And txtWineSavePath.Text = String.Empty Then
-            If bNewMode Then
-                Me.DialogResult = DialogResult.OK
-            Else
-                mgrWineData.DoWineDataDelete(oWineData.MonitorID)
-                Me.DialogResult = DialogResult.OK
-            End If
+            mgrWineData.DoWineDataDelete(sMonitorID)
+            Me.DialogResult = DialogResult.OK
         Else
             If ValidateData() Then
+                oWineData = New clsWineData
+                oWineData.MonitorID = sMonitorID
                 oWineData.BinaryPath = txtWineBinaryPath.Text
                 oWineData.Prefix = txtWinePrefix.Text
                 oWineData.SavePath = txtWineSavePath.Text
-                If Not bNewMode Then
-                    mgrWineData.DoWineDataAddUpdate(oWineData)
-                End If
+                mgrWineData.DoWineDataAddUpdate(oWineData)
                 Me.DialogResult = DialogResult.OK
             End If
         End If
@@ -107,11 +96,5 @@ Public Class frmWineConfiguration
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.DialogResult = DialogResult.Cancel
-    End Sub
-
-    Private Sub frmWineConfiguration_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If oWineData.BinaryPath = String.Empty And oWineData.Prefix = String.Empty And oWineData.SavePath = String.Empty Then
-            oWineData = Nothing
-        End If
     End Sub
 End Class
