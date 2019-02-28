@@ -6439,7 +6439,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The backup location [PARAM] is not available.[BR]It may be on an external or network drive that isn&apos;t connected.[BR][BR]Do you want to select another backup location and continue?.
+        '''  Looks up a localized string similar to The backup location [PARAM] is not available.[BR]It may be on an external or network drive that isn&apos;t connected.[BR][BR]Do you want to select another backup location?[BR][BR]Select &quot;No&quot; to quit or &quot;Cancel&quot; to continue waiting for the location to become available..
         '''</summary>
         Friend ReadOnly Property mgrPath_ConfirmBackupLocation() As String
             Get

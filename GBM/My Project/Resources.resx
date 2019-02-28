@@ -1361,7 +1361,7 @@
     <value>[PARAM][BR][BR]Do you wish to automatically search for the game path? (Path will be saved)</value>
   </data>
   <data name="mgrPath_ConfirmBackupLocation" xml:space="preserve">
-    <value>The backup location [PARAM] is not available.[BR]It may be on an external or network drive that isn't connected.[BR][BR]Do you want to select another backup location and continue?</value>
+    <value>The backup location [PARAM] is not available.[BR]It may be on an external or network drive that isn't connected.[BR][BR]Do you want to select another backup location?[BR][BR]Select "No" to quit or "Cancel" to continue waiting for the location to become available.</value>
   </data>
   <data name="mgrPath_ConfirmManualPath" xml:space="preserve">
     <value>[PARAM][BR][BR]Do you wish to manually set the game path? (Path will be saved)</value>
