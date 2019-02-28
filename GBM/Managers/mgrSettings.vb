@@ -26,6 +26,7 @@ Public Class mgrSettings
     Private bUseGameID As Boolean = False
     Private bDisableSyncMessages As Boolean = True
     Private bShowResolvedPaths As Boolean = True
+    Private bDisableDiskSpaceCheck As Boolean = False
 
     <Flags()> Public Enum eSuppressMessages
         None = 0
@@ -308,6 +309,15 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Property DisableDiskSpaceCheck As Boolean
+        Get
+            Return bDisableDiskSpaceCheck
+        End Get
+        Set(value As Boolean)
+            bDisableDiskSpaceCheck = value
+        End Set
+    End Property
+
     Sub New()
         'The GameIDsync message should be suppressed on all new databases
         SuppressMessages = SetMessageField(SuppressMessages, eSuppressMessages.GameIDSync)
@@ -322,7 +332,7 @@ Public Class mgrSettings
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SuppressBackup, @SuppressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
         sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, @UseGameID, "
-        sSQL &= "@DisableSyncMessages, @ShowResolvedPaths)"
+        sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -349,6 +359,7 @@ Public Class mgrSettings
         hshParams.Add("UseGameID", UseGameID)
         hshParams.Add("DisableSyncMessages", DisableSyncMessages)
         hshParams.Add("ShowResolvedPaths", ShowResolvedPaths)
+        hshParams.Add("DisableDiskSpaceCheck", DisableDiskSpaceCheck)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -389,6 +400,7 @@ Public Class mgrSettings
             UseGameID = CBool(dr("UseGameID"))
             DisableSyncMessages = CBool(dr("DisableSyncMessages"))
             ShowResolvedPaths = CBool(dr("ShowResolvedPaths"))
+            DisableDiskSpaceCheck = CBool(dr("DisableDiskSpaceCheck"))
         Next
 
         oDatabase.Disconnect()

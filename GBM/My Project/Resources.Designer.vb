@@ -4687,6 +4687,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Start automatically on log-in.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkAutoStart() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkAutoStart", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Disable backup confirmation.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkBackupConfirm() As String
@@ -4710,6 +4719,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_chkCreateFolder() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkCreateFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Disable disk space check prior to backup.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkDisableDiskSpaceCheck() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkDisableDiskSpaceCheck", resourceCulture)
             End Get
         End Property
         
@@ -4777,20 +4795,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Start to system tray.
+        '''  Looks up a localized string similar to Start minimized.
         '''</summary>
-        Friend ReadOnly Property frmSettings_chkStartToTray() As String
+        Friend ReadOnly Property frmSettings_chkStartMinimized() As String
             Get
-                Return ResourceManager.GetString("frmSettings_chkStartToTray", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Start with Windows.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_chkStartWindows() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_chkStartWindows", resourceCulture)
+                Return ResourceManager.GetString("frmSettings_chkStartMinimized", resourceCulture)
             End Get
         End Property
         

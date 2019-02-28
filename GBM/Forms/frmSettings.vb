@@ -35,23 +35,24 @@ Public Class frmSettings
     Private Function ValidateSettings() As Boolean
 
         'Show Start with Windows warning if running as admin
-        If chkStartWindows.Checked And mgrCommon.IsElevated Then
+        If chkAutoStart.Checked And mgrCommon.IsElevated Then
             mgrCommon.ShowMessage(frmSettings_WarningAdminStart, MsgBoxStyle.Exclamation)
         End If
 
         'Only modify registry key when the value changed
-        If chkStartWindows.Checked <> oSettings.StartWithWindows Then
-            HandleRegistryUpdate(chkStartWindows.Checked)
+        If chkAutoStart.Checked <> oSettings.StartWithWindows Then
+            HandleRegistryUpdate(chkAutoStart.Checked)
         End If
-        oSettings.StartWithWindows = chkStartWindows.Checked
+        oSettings.StartWithWindows = chkAutoStart.Checked
 
         oSettings.MonitorOnStartup = chkMonitorOnStartup.Checked
-        oSettings.StartToTray = chkStartToTray.Checked
+        oSettings.StartToTray = chkStartMinimized.Checked
         oSettings.BackupOnLaunch = chkBackupOnLaunch.Checked
         oSettings.ShowDetectionToolTips = chkShowDetectionTips.Checked
         oSettings.DisableSyncMessages = chkDisableSyncMessages.Checked
         oSettings.AutoSaveLog = chkAutoSaveLog.Checked
         oSettings.DisableConfirmation = chkBackupConfirm.Checked
+        oSettings.DisableDiskSpaceCheck = chkDisableDiskSpaceCheck.Checked
         oSettings.CreateSubFolder = chkCreateFolder.Checked
         oSettings.UseGameID = chkUseGameID.Checked
         oSettings.ShowOverwriteWarning = chkOverwriteWarning.Checked
@@ -173,14 +174,15 @@ Public Class frmSettings
     End Sub
 
     Private Sub LoadSettings()
-        chkStartWindows.Checked = oSettings.StartWithWindows
+        chkAutoStart.Checked = oSettings.StartWithWindows
         chkMonitorOnStartup.Checked = oSettings.MonitorOnStartup
-        chkStartToTray.Checked = oSettings.StartToTray
+        chkStartMinimized.Checked = oSettings.StartToTray
         chkBackupOnLaunch.Checked = oSettings.BackupOnLaunch
         chkShowDetectionTips.Checked = oSettings.ShowDetectionToolTips
         chkDisableSyncMessages.Checked = oSettings.DisableSyncMessages
         chkAutoSaveLog.Checked = oSettings.AutoSaveLog
         chkBackupConfirm.Checked = oSettings.DisableConfirmation
+        chkDisableDiskSpaceCheck.Checked = oSettings.DisableDiskSpaceCheck
         chkCreateFolder.Checked = oSettings.CreateSubFolder
         chkUseGameID.Checked = oSettings.UseGameID
         chkOverwriteWarning.Checked = oSettings.ShowOverwriteWarning
@@ -201,8 +203,8 @@ Public Class frmSettings
 
         'Unix Handler
         If mgrCommon.IsUnix Then
-            chkStartToTray.Checked = False
-            chkStartWindows.Checked = False
+            chkStartMinimized.Checked = False
+            chkAutoStart.Checked = False
         End If
 
         'Retrieve 7z Info
@@ -305,10 +307,10 @@ Public Class frmSettings
         grpGameData.Text = frmSettings_grpGameData
         chkTimeTracking.Text = frmSettings_chkTimeTracking
         chkSessionTracking.Text = frmSettings_chkSessionTracking
-        chkStartWindows.Text = frmSettings_chkStartWindows
+        chkAutoStart.Text = frmSettings_chkAutoStart
         chkShowDetectionTips.Text = frmSettings_chkShowDetectionTips
         chkAutoSaveLog.Text = frmSettings_chkAutoSaveLog
-        chkStartToTray.Text = frmSettings_chkStartToTray
+        chkStartMinimized.Text = frmSettings_chkStartMinimized
         chkMonitorOnStartup.Text = frmSettings_chkMonitorOnStartup
         grp7zGeneral.Text = frmSettings_grp7zGeneral
         grp7zAdvanced.Text = frmSettings_grp7zAdvanced
@@ -325,11 +327,12 @@ Public Class frmSettings
         chkDisableSyncMessages.Text = frmSettings_chkDisableSyncMessages
         grpGameMonitoringOptions.Text = frmSettings_grpGameMonitoringOptions
         chkShowResolvedPaths.Text = frmSettings_chkShowResolvedPaths
+        chkDisableDiskSpaceCheck.Text = frmSettings_chkDisableDiskSpaceCheck
 
         'Unix Handler
         If mgrCommon.IsUnix Then
-            chkStartToTray.Enabled = False
-            chkStartWindows.Enabled = False
+            chkStartMinimized.Enabled = False
+            chkAutoStart.Enabled = False
         End If
 
         'Handle Panels

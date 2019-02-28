@@ -127,8 +127,8 @@ Public Class mgrBackup
         'Verify saved game path
         sSavePath = VerifySavePath(oGame)
 
-        'When the backup folder is using a UNC path, skip the disk space check because we can't do it properly.
-        If Not mgrPath.IsPathUNC(oSettings.BackupFolder) Then
+        'Check if disk space check should be disabled (UNC path or Setting)
+        If Not mgrPath.IsPathUNC(oSettings.BackupFolder) And Not Settings.DisableDiskSpaceCheck Then
             'Calculate space
             lAvailableSpace = mgrCommon.GetAvailableDiskSpace(oSettings.BackupFolder)
 
@@ -158,8 +158,8 @@ Public Class mgrBackup
                 End If
             End If
         Else
-            'Show that disk space check was skipped            
-            RaiseEvent UpdateLog(mgrBackup_ErrorBackupPathIsUNC, False, ToolTipIcon.Info, True)
+            'Show that disk space check was skipped due to UNC path
+            If Not Settings.DisableDiskSpaceCheck Then RaiseEvent UpdateLog(mgrBackup_ErrorBackupPathIsUNC, False, ToolTipIcon.Info, True)
         End If
 
         'A manifest check is only required when "Save Multiple Backups" is disabled

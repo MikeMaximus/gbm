@@ -1069,11 +1069,11 @@
   <data name="frmSettings_chkShowDetectionTips" xml:space="preserve">
     <value>Show detection notifications</value>
   </data>
-  <data name="frmSettings_chkStartToTray" xml:space="preserve">
-    <value>Start to system tray</value>
+  <data name="frmSettings_chkStartMinimized" xml:space="preserve">
+    <value>Start minimized</value>
   </data>
-  <data name="frmSettings_chkStartWindows" xml:space="preserve">
-    <value>Start with Windows</value>
+  <data name="frmSettings_chkAutoStart" xml:space="preserve">
+    <value>Start automatically on log-in</value>
   </data>
   <data name="frmSettings_chkSuppressBackup" xml:space="preserve">
     <value>Ignore sessions shorter than</value>
@@ -2337,5 +2337,8 @@
   </data>
   <data name="mgrBackup_ErrorBackupPathIsUNC" xml:space="preserve">
     <value>The backup folder is a UNC path.  The disk space check has been skipped.</value>
+  </data>
+  <data name="frmSettings_chkDisableDiskSpaceCheck" xml:space="preserve">
+    <value>Disable disk space check prior to backup</value>
   </data>
 </root>
