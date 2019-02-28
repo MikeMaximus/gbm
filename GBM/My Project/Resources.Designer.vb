@@ -3310,6 +3310,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to GBM is set to start automatically, but the autostart link is missing.  The autostart link has been re-created..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorLinuxAutoStartMissing() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorLinuxAutoStartMissing", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to The command [PARAM] requires more parameters..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorMissingParams() As String
@@ -4854,6 +4863,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_ErrorBackupFolder() As String
             Get
                 Return ResourceManager.GetString("frmSettings_ErrorBackupFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error occured while creating the autostart link:[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmSettings_ErrorLinuxAutoStart() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_ErrorLinuxAutoStart", resourceCulture)
             End Get
         End Property
         

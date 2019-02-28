@@ -53,6 +53,7 @@ Public Class frmMain
     WithEvents tmScanTimer As New Timer
     WithEvents tmRestoreCheck As New System.Timers.Timer
     WithEvents tmFileWatcherQueue As New System.Timers.Timer
+    WithEvents tmMinimizeTimer As New System.Timers.Timer
 
     Public WithEvents oProcess As New mgrProcessDetection
     Public WithEvents oBackup As New mgrBackup
@@ -1180,8 +1181,14 @@ Public Class frmMain
 
         'Verify the "Start with Windows" setting
         If oSettings.StartWithWindows Then
-            If Not VerifyStartWithWindows() Then
-                UpdateLog(frmMain_ErrorAppLocationChanged, False, ToolTipIcon.Info)
+            If mgrCommon.IsUnix Then
+                If Not VerifyAutoStartLinux() Then
+                    UpdateLog(frmMain_ErrorLinuxAutoStartMissing, False, ToolTipIcon.Info)
+                End If
+            Else
+                If Not VerifyStartWithWindows() Then
+                    UpdateLog(frmMain_ErrorAppLocationChanged, False, ToolTipIcon.Info)
+                End If
             End If
         End If
 
@@ -1735,6 +1742,33 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Function VerifyAutoStartLinux() As Boolean
+        Dim oProcess As Process
+        Dim sAutoStartFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & Path.DirectorySeparatorChar & ".config/autostart/"
+
+        If File.Exists(sAutoStartFolder & Path.DirectorySeparatorChar & "gbm.desktop") Then
+            Return True
+        Else
+            'Create the autostart folder if it doesn't exist yet
+            If Not Directory.Exists(sAutoStartFolder) Then
+                Directory.CreateDirectory(sAutoStartFolder)
+            End If
+            'Create link
+            Try
+                oProcess = New Process
+                oProcess.StartInfo.FileName = "/bin/ln"
+                oProcess.StartInfo.Arguments = "-s /usr/share/applications/gbm.desktop " & sAutoStartFolder
+                oProcess.StartInfo.UseShellExecute = False
+                oProcess.StartInfo.RedirectStandardOutput = True
+                oProcess.StartInfo.CreateNoWindow = True
+                oProcess.Start()
+            Catch ex As Exception
+                mgrCommon.ShowMessage(frmSettings_ErrorLinuxAutoStart, ex.Message, MsgBoxStyle.Exclamation)
+            End Try
+            Return False
+        End If
+    End Function
+
     Private Function VerifyStartWithWindows() As Boolean
         Dim oKey As Microsoft.Win32.RegistryKey
         Dim sAppName As String = Application.ProductName
@@ -1944,6 +1978,10 @@ Public Class frmMain
 
     End Sub
 
+    Private Sub HandleMinimizeTimer() Handles tmMinimizeTimer.Elapsed
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
+
     Private Sub AutoRestoreEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmRestoreCheck.Elapsed
         If eCurrentStatus <> eStatus.Paused Then
             AutoRestoreCheck()
@@ -2133,12 +2171,18 @@ Public Class frmMain
                 'Unix Handler
                 If mgrCommon.IsUnix Then
                     Me.MinimizeBox = True
+                    If oSettings.StartToTray Then
+                        'Window Managers and/or Mono will not trigger a minimize in the Load or Shown event.  We need to delay it.
+                        tmMinimizeTimer.AutoReset = False
+                        tmMinimizeTimer.Interval = 1000
+                        tmMinimizeTimer.Start()
+                    End If
                 Else
-                    Me.gMonTray.Visible = True
+                        Me.gMonTray.Visible = True
                 End If
             End If
         Catch ex As Exception
-            If mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+            If mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message & vbCrLf & ex.StackTrace, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                 bInitFail = True
             End If
         End Try

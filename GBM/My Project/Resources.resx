@@ -2341,4 +2341,10 @@
   <data name="frmSettings_chkDisableDiskSpaceCheck" xml:space="preserve">
     <value>Disable disk space check prior to backup</value>
   </data>
+  <data name="frmMain_ErrorLinuxAutoStartMissing" xml:space="preserve">
+    <value>GBM is set to start automatically, but the autostart link is missing.  The autostart link has been re-created.</value>
+  </data>
+  <data name="frmSettings_ErrorLinuxAutoStart" xml:space="preserve">
+    <value>An error occured while creating the autostart link:[BR][BR][PARAM]</value>
+  </data>
 </root>

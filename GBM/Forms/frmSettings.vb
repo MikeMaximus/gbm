@@ -16,6 +16,35 @@ Public Class frmSettings
         End Set
     End Property
 
+    Private Sub HandleLinuxAutoStart(ByVal bToggle As Boolean)
+        Dim oProcess As Process
+        Dim sAutoStartFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & Path.DirectorySeparatorChar & ".config/autostart/"
+
+        If bToggle Then
+            'Create the autostart folder if it doesn't exist yet
+            If Not Directory.Exists(sAutoStartFolder) Then
+                Directory.CreateDirectory(sAutoStartFolder)
+            End If
+            'Create link
+            Try
+                oProcess = New Process
+                oProcess.StartInfo.FileName = "/bin/ln"
+                oProcess.StartInfo.Arguments = "-s /usr/share/applications/gbm.desktop " & sAutoStartFolder
+                oProcess.StartInfo.UseShellExecute = False
+                oProcess.StartInfo.RedirectStandardOutput = True
+                oProcess.StartInfo.CreateNoWindow = True
+                oProcess.Start()
+            Catch ex As Exception
+                mgrCommon.ShowMessage(frmSettings_ErrorLinuxAutoStart, ex.Message, MsgBoxStyle.Exclamation)
+            End Try
+        Else
+            'Delete link
+            If File.Exists(sAutoStartFolder & Path.DirectorySeparatorChar & "gbm.desktop") Then
+                File.Delete(sAutoStartFolder & Path.DirectorySeparatorChar & "gbm.desktop")
+            End If
+        End If
+    End Sub
+
     Private Sub HandleRegistryUpdate(ByVal bToggle As Boolean)
         Dim oKey As Microsoft.Win32.RegistryKey
         Dim sAppName As String = Application.ProductName
@@ -35,13 +64,17 @@ Public Class frmSettings
     Private Function ValidateSettings() As Boolean
 
         'Show Start with Windows warning if running as admin
-        If chkAutoStart.Checked And mgrCommon.IsElevated Then
+        If Not mgrCommon.IsUnix And chkAutoStart.Checked And mgrCommon.IsElevated Then
             mgrCommon.ShowMessage(frmSettings_WarningAdminStart, MsgBoxStyle.Exclamation)
         End If
 
-        'Only modify registry key when the value changed
+        'Only modify when the value changed
         If chkAutoStart.Checked <> oSettings.StartWithWindows Then
-            HandleRegistryUpdate(chkAutoStart.Checked)
+            If mgrCommon.IsUnix Then
+                HandleLinuxAutoStart(chkAutoStart.Checked)
+            Else
+                HandleRegistryUpdate(chkAutoStart.Checked)
+            End If
         End If
         oSettings.StartWithWindows = chkAutoStart.Checked
 
@@ -201,12 +234,6 @@ Public Class frmSettings
         txt7zLocation.Text = oSettings.Custom7zLocation
         eCurrentSyncFields = oSettings.SyncFields
 
-        'Unix Handler
-        If mgrCommon.IsUnix Then
-            chkStartMinimized.Checked = False
-            chkAutoStart.Checked = False
-        End If
-
         'Retrieve 7z Info
         GetUtilityInfo(oSettings.Custom7zLocation)
 
@@ -329,10 +356,12 @@ Public Class frmSettings
         chkShowResolvedPaths.Text = frmSettings_chkShowResolvedPaths
         chkDisableDiskSpaceCheck.Text = frmSettings_chkDisableDiskSpaceCheck
 
-        'Unix Handler
         If mgrCommon.IsUnix Then
-            chkStartMinimized.Enabled = False
-            chkAutoStart.Enabled = False
+            'Only enable these options on Linux if GBM was installed with an official method
+            If Not File.Exists("/usr/share/applications/gbm.desktop") Then
+                chkStartMinimized.Enabled = False
+                chkAutoStart.Enabled = False
+            End If
         End If
 
         'Handle Panels
