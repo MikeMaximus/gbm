@@ -342,7 +342,7 @@ Public Class frmGameManager
             oRestoreData = mgrRestore.CompareManifests
 
             'Only show games with data to restore
-            Dim oTemporaryList As OrderedDictionary = mgrCommon.GenericClone(GameData)
+            Dim oTemporaryList As OrderedDictionary = mgrMonitorList.ReadFilteredList(oCurrentIncludeTagFilters, oCurrentExcludeTagFilters, oCurrentFilters, eCurrentFilter, bCurrentAndOperator, bCurrentSortAsc, sCurrentSortField)
             For Each de As DictionaryEntry In oTemporaryList
                 oGame = DirectCast(de.Value, clsGame)
                 If Not oRestoreData.ContainsKey(oGame.ID) Then
@@ -353,7 +353,7 @@ Public Class frmGameManager
             Next
         ElseIf optBackupData.Checked Then
             'Only show games with backup data
-            Dim oTemporaryList As OrderedDictionary = mgrCommon.GenericClone(GameData)
+            Dim oTemporaryList As OrderedDictionary = mgrMonitorList.ReadFilteredList(oCurrentIncludeTagFilters, oCurrentExcludeTagFilters, oCurrentFilters, eCurrentFilter, bCurrentAndOperator, bCurrentSortAsc, sCurrentSortField)
             oRestoreData = oRemoteBackupData.Clone
 
             For Each de As DictionaryEntry In oTemporaryList

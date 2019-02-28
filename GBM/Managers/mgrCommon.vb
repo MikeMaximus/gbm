@@ -43,28 +43,6 @@ Public Class mgrCommon
         End Get
     End Property
 
-    'Source - https://stackoverflow.com/questions/18873152/deep-copy-of-ordereddictionary
-    Public Shared Function GenericClone(ByVal oOriginal As Object) As Object
-        'Construct a temporary memory stream
-        Dim oStream As MemoryStream = New MemoryStream()
-
-        'Construct a serialization formatter that does all the hard work
-        Dim oFormatter As BinaryFormatter = New BinaryFormatter()
-
-        'This line Is explained in the "Streaming Contexts" section
-        oFormatter.Context = New StreamingContext(StreamingContextStates.Clone)
-
-        'Serialize the object graph into the memory stream
-        oFormatter.Serialize(oStream, oOriginal)
-
-        'Seek back to the start of the memory stream before deserializing
-        oStream.Position = 0
-
-        'Deserialize the graph into a New set of objects
-        'Return the root of the graph (deep copy) to the caller
-        Return oFormatter.Deserialize(oStream)
-    End Function
-
     Public Shared Function SafeIconFromFile(ByVal sPath As String) As Image
         Dim oImage As Image
         Dim oReturnImage As Image
