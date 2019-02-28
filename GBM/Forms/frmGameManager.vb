@@ -541,11 +541,15 @@ Public Class frmGameManager
         sFileName = BackupFolder & CurrentBackupItem.FileName
 
         If File.Exists(sFileName) Then
-            oProcessStartInfo = New ProcessStartInfo
-            oProcessStartInfo.FileName = sFileName
-            oProcessStartInfo.UseShellExecute = True
-            oProcessStartInfo.Verb = "open"
-            Process.Start(oProcessStartInfo)
+            Try
+                oProcessStartInfo = New ProcessStartInfo
+                oProcessStartInfo.FileName = sFileName
+                oProcessStartInfo.UseShellExecute = True
+                oProcessStartInfo.Verb = "open"
+                Process.Start(oProcessStartInfo)
+            Catch ex As Exception
+                mgrCommon.ShowMessage(App_ErrorLaunchExternal, ex.Message, MsgBoxStyle.Exclamation)
+            End Try
         Else
             mgrCommon.ShowMessage(frmGameManager_ErrorNoBackupExists, MsgBoxStyle.Exclamation)
         End If
@@ -649,11 +653,15 @@ Public Class frmGameManager
         End If
 
         If Directory.Exists(sPath) Then
-            oProcessStartInfo = New ProcessStartInfo
-            oProcessStartInfo.FileName = sPath
-            oProcessStartInfo.UseShellExecute = True
-            oProcessStartInfo.Verb = "open"
-            Process.Start(oProcessStartInfo)
+            Try
+                oProcessStartInfo = New ProcessStartInfo
+                oProcessStartInfo.FileName = sPath
+                oProcessStartInfo.UseShellExecute = True
+                oProcessStartInfo.Verb = "open"
+                Process.Start(oProcessStartInfo)
+            Catch ex As Exception
+                mgrCommon.ShowMessage(App_ErrorLaunchExternal, ex.Message, MsgBoxStyle.Exclamation)
+            End Try
         Else
             mgrCommon.ShowMessage(frmGameManager_ErrorNoRestorePathExists, MsgBoxStyle.Exclamation)
         End If

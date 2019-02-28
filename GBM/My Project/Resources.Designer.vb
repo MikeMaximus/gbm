@@ -97,6 +97,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An error occured attempting to launch the application:[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property App_ErrorLaunchExternal() As String
+            Get
+                Return ResourceManager.GetString("App_ErrorLaunchExternal", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to This function is currently not available on a Unix based operating system..
         '''</summary>
         Friend ReadOnly Property App_ErrorUnixNotAvailable() As String

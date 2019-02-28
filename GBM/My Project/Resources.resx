@@ -2332,4 +2332,7 @@
   <data name="frmWineConfiguration_WarningSingle" xml:space="preserve">
     <value>Game Backup Monitor automatically updates the Wine configuration for a game each time it is detected.  Modifying any of these fields manually is not recommended in most cases.[BR][BR]This warning will only be displayed once.</value>
   </data>
+  <data name="App_ErrorLaunchExternal" xml:space="preserve">
+    <value>An error occured attempting to launch the application:[BR][BR][PARAM]</value>
+  </data>
 </root>
