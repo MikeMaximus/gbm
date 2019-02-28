@@ -127,32 +127,39 @@ Public Class mgrBackup
         'Verify saved game path
         sSavePath = VerifySavePath(oGame)
 
-        'Calculate space
-        lAvailableSpace = mgrCommon.GetAvailableDiskSpace(oSettings.BackupFolder)
-        'If any includes are using a deep path and we aren't using recursion,  we need to go directly to folders to do file size calculations or they will be missed.
-        If Not oGame.RecurseSubFolders Then
-            For Each s As String In oGame.IncludeArray
-                If s.Contains(Path.DirectorySeparatorChar) Then
-                    sDeepFolder = Path.GetDirectoryName(sSavePath & Path.DirectorySeparatorChar & s)
-                    If Directory.Exists(sDeepFolder) Then
-                        lFolderSize += mgrCommon.GetFolderSize(sDeepFolder, oGame.IncludeArray, oGame.ExcludeArray, oGame.RecurseSubFolders)
+        'When the backup folder is using a UNC path, skip the disk space check because we can't do it properly.
+        If Not mgrPath.IsPathUNC(oSettings.BackupFolder) Then
+            'Calculate space
+            lAvailableSpace = mgrCommon.GetAvailableDiskSpace(oSettings.BackupFolder)
+
+            'If any includes are using a deep path and we aren't using recursion,  we need to go directly to folders to do file size calculations or they will be missed.
+            If Not oGame.RecurseSubFolders Then
+                For Each s As String In oGame.IncludeArray
+                    If s.Contains(Path.DirectorySeparatorChar) Then
+                        sDeepFolder = Path.GetDirectoryName(sSavePath & Path.DirectorySeparatorChar & s)
+                        If Directory.Exists(sDeepFolder) Then
+                            lFolderSize += mgrCommon.GetFolderSize(sDeepFolder, oGame.IncludeArray, oGame.ExcludeArray, oGame.RecurseSubFolders)
+                        End If
                     End If
-                End If
-            Next
-        End If
-        lFolderSize += mgrCommon.GetFolderSize(sSavePath, oGame.IncludeArray, oGame.ExcludeArray, oGame.RecurseSubFolders)
-
-        'Show Available Space
-        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_AvailableDiskSpace, mgrCommon.FormatDiskSpace(lAvailableSpace)), False, ToolTipIcon.Info, True)
-
-        'Show Save Folder Size
-        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_SavedGameFolderSize, New String() {oGame.Name, mgrCommon.FormatDiskSpace(lFolderSize)}), False, ToolTipIcon.Info, True)
-
-        If lFolderSize >= lAvailableSpace Then
-            If mgrCommon.ShowMessage(mgrBackup_ConfirmDiskSpace, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                RaiseEvent UpdateLog(mgrBackup_ErrorDiskSpace, False, ToolTipIcon.Error, True)
-                Return False
+                Next
             End If
+            lFolderSize += mgrCommon.GetFolderSize(sSavePath, oGame.IncludeArray, oGame.ExcludeArray, oGame.RecurseSubFolders)
+
+            'Show Available Space
+            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_AvailableDiskSpace, mgrCommon.FormatDiskSpace(lAvailableSpace)), False, ToolTipIcon.Info, True)
+
+            'Show Save Folder Size
+            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_SavedGameFolderSize, New String() {oGame.Name, mgrCommon.FormatDiskSpace(lFolderSize)}), False, ToolTipIcon.Info, True)
+
+            If lFolderSize >= lAvailableSpace Then
+                If mgrCommon.ShowMessage(mgrBackup_ConfirmDiskSpace, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                    RaiseEvent UpdateLog(mgrBackup_ErrorDiskSpace, False, ToolTipIcon.Error, True)
+                    Return False
+                End If
+            End If
+        Else
+            'Show that disk space check was skipped            
+            RaiseEvent UpdateLog(mgrBackup_ErrorBackupPathIsUNC, False, ToolTipIcon.Info, True)
         End If
 
         'A manifest check is only required when "Save Multiple Backups" is disabled

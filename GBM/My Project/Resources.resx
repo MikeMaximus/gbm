@@ -2335,4 +2335,7 @@
   <data name="App_ErrorLaunchExternal" xml:space="preserve">
     <value>An error occured attempting to launch the application:[BR][BR][PARAM]</value>
   </data>
+  <data name="mgrBackup_ErrorBackupPathIsUNC" xml:space="preserve">
+    <value>The backup folder is a UNC path.  The disk space check has been skipped.</value>
+  </data>
 </root>

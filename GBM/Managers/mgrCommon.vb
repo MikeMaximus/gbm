@@ -117,9 +117,9 @@ Public Class mgrCommon
             End If
 
             Return fbBrowser.FileName
-            End If
+        End If
 
-            Return String.Empty
+        Return String.Empty
     End Function
 
     Private Shared Function BuildFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,

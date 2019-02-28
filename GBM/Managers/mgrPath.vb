@@ -484,6 +484,12 @@ Public Class mgrPath
         Return sValue
     End Function
 
+    Public Shared Function IsPathUNC(sPath As String) As Boolean
+        Dim sPrefix As String = Path.DirectorySeparatorChar & Path.DirectorySeparatorChar
+        If sPath.StartsWith(sPrefix) Then Return True
+        Return False
+    End Function
+
     Public Shared Function IsAbsolute(sValue As String) As Boolean
         Dim hshFolders As New Hashtable
         Dim hshCustomVariables As Hashtable = mgrVariables.ReadVariables

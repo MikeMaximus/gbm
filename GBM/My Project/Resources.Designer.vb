@@ -6007,6 +6007,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The backup folder is a UNC path.  The disk space check has been skipped..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorBackupPathIsUNC() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorBackupPathIsUNC", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup aborted due to lack of disk space..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorDiskSpace() As String
