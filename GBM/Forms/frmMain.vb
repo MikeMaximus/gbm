@@ -221,10 +221,14 @@ Public Class frmMain
 
             bOSVerified = VerifyBackupForOS(oGame, oRestoreInfo.RestorePath)
 
-            If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload) Then
+            If mgrPath.IsSupportedRegistryPath(oRestoreInfo.TruePath) Then
                 bPathVerified = True
             Else
-                UpdateLog(mgrCommon.FormatString(frmMain_ErrorRestorePath, oRestoreInfo.Name), False, ToolTipIcon.Error, True)
+                If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload) Then
+                    bPathVerified = True
+                Else
+                    UpdateLog(mgrCommon.FormatString(frmMain_ErrorRestorePath, oRestoreInfo.Name), False, ToolTipIcon.Error, True)
+                End If
             End If
 
             If bOSVerified And bPathVerified Then
@@ -2112,16 +2116,16 @@ Public Class frmMain
                 If DoMultiGameCheck() Then
                     UpdateLog(mgrCommon.FormatString(frmMain_GameEnded, oProcess.GameInfo.Name), False)
                     If oProcess.WineProcess Then
+                        oProcess.WineData.MonitorID = oProcess.GameInfo.ID
                         'Attempt a path conversion if the game configuration is using an absolute windows path that we can convert
                         If mgrVariables.CheckForReservedVariables(oProcess.GameInfo.TruePath) Then
-                            oProcess.WineData.MonitorID = oProcess.GameInfo.ID
                             oProcess.WineData.SavePath = mgrPath.GetWineSavePath(oProcess.WineData.Prefix, oProcess.GameInfo.TruePath)
                             If Not oProcess.WineData.SavePath = oProcess.GameInfo.TruePath Then
                                 oProcess.GameInfo.TruePath = oProcess.WineData.SavePath
-                                mgrWineData.DoWineDataAddUpdate(oProcess.WineData)
                                 UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, oProcess.WineData.SavePath), False)
                             End If
                         End If
+                        mgrWineData.DoWineDataAddUpdate(oProcess.WineData)
                         'This does required mods to include/exclude data and relative paths (if required)
                         mgrPath.ModWinePathData(oProcess.GameInfo)
                     End If

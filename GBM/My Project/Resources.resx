@@ -2347,4 +2347,25 @@
   <data name="frmSettings_ErrorLinuxAutoStart" xml:space="preserve">
     <value>An error occured while creating the autostart link:[BR][BR][PARAM]</value>
   </data>
+  <data name="mgrBackup_ErrorRegBackupElevation" xml:space="preserve">
+    <value>[PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to perform this backup.</value>
+  </data>
+  <data name="mgrBackup_ErrorRegBackupFailed" xml:space="preserve">
+    <value>The backup has failed, please ensure the registry path is correct.</value>
+  </data>
+  <data name="mgrBackup_ErrorRegNotFound" xml:space="preserve">
+    <value>The regedit utility could not be located at [PARAM].  The backup cannot continue.</value>
+  </data>
+  <data name="mgrBackup_ErrorWineNotFound" xml:space="preserve">
+    <value>The wine binary could not be located at [PARAM]. The backup cannot continue.</value>
+  </data>
+  <data name="mgrRestore_ErrorRegNotFound" xml:space="preserve">
+    <value>The regedit utility could not be located at [PARAM].  The restore cannot continue.</value>
+  </data>
+  <data name="mgrRestore_ErrorWineNotFound" xml:space="preserve">
+    <value>The wine binary could not be located at [PARAM].  The restore cannot continue.</value>
+  </data>
+  <data name="mgrRestore_ErrorRegBackupElevation" xml:space="preserve">
+    <value>[PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to restore this backup.</value>
+  </data>
 </root>

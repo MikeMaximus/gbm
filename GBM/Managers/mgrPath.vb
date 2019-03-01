@@ -485,6 +485,16 @@ Public Class mgrPath
         Return sValue
     End Function
 
+    Public Shared Function IsSupportedRegistryPath(ByVal sPath As String)
+        If sPath.StartsWith("HKEY_CURRENT_USER") Then
+            Return True
+        ElseIf sPath.StartsWith("HKEY_LOCAL_MACHINE") Then
+            Return True
+        End If
+
+        Return False
+    End Function
+
     Public Shared Function IsPathUNC(sPath As String) As Boolean
         Dim sPrefix As String = Path.DirectorySeparatorChar & Path.DirectorySeparatorChar
         If sPath.StartsWith(sPrefix) Then Return True

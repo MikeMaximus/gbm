@@ -6124,11 +6124,47 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to perform this backup..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorRegBackupElevation() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorRegBackupElevation", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The backup has failed, please ensure the registry path is correct..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorRegBackupFailed() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorRegBackupFailed", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The regedit utility could not be located at [PARAM].  The backup cannot continue..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorRegNotFound() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorRegNotFound", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to A failure occured while creating a backup sub-folder for [PARAM].[BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorSubFolderCreate() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ErrorSubFolderCreate", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The wine binary could not be located at [PARAM]. The backup cannot continue..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorWineNotFound() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorWineNotFound", resourceCulture)
             End Get
         End Property
         
@@ -6633,6 +6669,33 @@ Namespace My.Resources
         Friend ReadOnly Property mgrRestore_ErrorOtherFailure() As String
             Get
                 Return ResourceManager.GetString("mgrRestore_ErrorOtherFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to restore this backup..
+        '''</summary>
+        Friend ReadOnly Property mgrRestore_ErrorRegBackupElevation() As String
+            Get
+                Return ResourceManager.GetString("mgrRestore_ErrorRegBackupElevation", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The regedit utility could not be located at [PARAM].  The restore cannot continue..
+        '''</summary>
+        Friend ReadOnly Property mgrRestore_ErrorRegNotFound() As String
+            Get
+                Return ResourceManager.GetString("mgrRestore_ErrorRegNotFound", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The wine binary could not be located at [PARAM].  The restore cannot continue..
+        '''</summary>
+        Friend ReadOnly Property mgrRestore_ErrorWineNotFound() As String
+            Get
+                Return ResourceManager.GetString("mgrRestore_ErrorWineNotFound", resourceCulture)
             End Get
         End Property
         

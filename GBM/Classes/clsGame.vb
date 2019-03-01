@@ -112,7 +112,12 @@ Public Class clsGame
             bAbsolutePath = value
         End Set
         Get
-            Return bAbsolutePath
+            'This makes sure a registry key path isn't seen as a relative path.
+            If mgrPath.IsSupportedRegistryPath(TruePath) Then
+                Return True
+            Else
+                Return bAbsolutePath
+            End If
         End Get
     End Property
 
