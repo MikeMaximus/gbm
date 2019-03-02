@@ -318,7 +318,7 @@ Public Class mgrBackup
         Dim bPathVerified As Boolean = False
         Dim bBackupCompleted As Boolean = False
 
-        sArguments = "export """ & oGame.TruePath & """ """ & sBackupFile & """"
+        sArguments = "export """ & oGame.TruePath & """ """ & sBackupFile & """ /y"
 
         If mgrCommon.IsUnix Then
             oWineData = mgrWineData.DoWineDataGetbyID(oGame.ID)
@@ -345,11 +345,6 @@ Public Class mgrBackup
 
         If bPathVerified Then
             Try
-                'Need to delete any prior file if it exists, otherwise reg.exe will get stuck waiting for input it'll never get.
-                If File.Exists(sBackupFile) Then
-                    File.Delete(sBackupFile)
-                End If
-
                 prsReg.StartInfo.Arguments = sArguments
                 prsReg.StartInfo.FileName = sBinaryPath
                 prsReg.StartInfo.UseShellExecute = False
