@@ -868,6 +868,18 @@ Public Class frmGameManager
             btnMarkAsRestored.Enabled = False
         End If
 
+        If chkMonitorOnly.Checked Then
+            btnImportBackup.Enabled = False
+        Else
+            btnImportBackup.Enabled = True
+        End If
+
+        If mgrPath.IsSupportedRegistryPath(oApp.TruePath) Then
+            btnImportBackup.Enabled = False
+            btnOpenBackupFile.Enabled = False
+            btnOpenRestorePath.Enabled = False
+        End If
+
     End Sub
 
     Private Sub UpdateBackupInfo(ByVal sManifestID As String)
@@ -1130,7 +1142,6 @@ Public Class frmGameManager
                 lblTags.Visible = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
-                btnImportBackup.Enabled = True
             Case eModes.Disabled
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -1482,7 +1493,6 @@ Public Class frmGameManager
                 FillData()
                 ModeChange()
                 VerifyCleanFolder()
-                VerifyImportBackup()
             ElseIf lstGames.SelectedItems.Count > 1 Then
                 eCurrentMode = eModes.MultiSelect
                 ModeChange()
