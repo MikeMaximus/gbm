@@ -530,6 +530,31 @@ Public Class mgrCommon
         Return oResult
     End Function
 
+    'Handles no extra parameters
+    Public Shared Function ShowPriorityMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
+        Dim frmFake As Form
+
+        'Create a fake mostly invisible form to get top focus
+        frmFake = New Form
+        frmFake.FormBorderStyle = FormBorderStyle.None
+        frmFake.ShowInTaskbar = False
+        frmFake.Size = New Size(0, 0)
+        frmFake.StartPosition = FormStartPosition.CenterScreen
+        frmFake.Show()
+        frmFake.Focus()
+        frmFake.BringToFront()
+        frmFake.TopMost = True
+        frmFake.Visible = False
+
+        Dim oResult As MsgBoxResult
+        oResult = ShowMessage(sMsg, oType)
+
+        frmFake.TopMost = False
+        frmFake.Dispose()
+
+        Return oResult
+    End Function
+
     'Handles single parameter stings
     Public Shared Function ShowMessage(ByVal sMsg As String, ByVal sParam As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
         Dim oResult As MsgBoxResult
@@ -537,10 +562,60 @@ Public Class mgrCommon
         Return oResult
     End Function
 
+    'Handles single parameter stings
+    Public Shared Function ShowPriorityMessage(ByVal sMsg As String, ByVal sParam As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
+        Dim frmFake As Form
+
+        'Create a fake mostly invisible form to get top focus
+        frmFake = New Form
+        frmFake.FormBorderStyle = FormBorderStyle.None
+        frmFake.ShowInTaskbar = False
+        frmFake.Size = New Size(0, 0)
+        frmFake.StartPosition = FormStartPosition.CenterScreen
+        frmFake.Show()
+        frmFake.Focus()
+        frmFake.BringToFront()
+        frmFake.TopMost = True
+        frmFake.Visible = False
+
+        Dim oResult As MsgBoxResult
+        oResult = ShowMessage(sMsg, sParam, oType)
+
+        frmFake.TopMost = False
+        frmFake.Dispose()
+
+        Return oResult
+    End Function
+
     'Handles multi-parameter strings
     Public Shared Function ShowMessage(ByVal sMsg As String, ByVal sParams As String(), ByVal oType As MsgBoxStyle) As MsgBoxResult
         Dim oResult As MsgBoxResult
         oResult = MsgBox(FormatString(sMsg, sParams), oType, My.Resources.App_NameLong)
+        Return oResult
+    End Function
+
+    'Handles multi-parameter strings
+    Public Shared Function ShowPriorityMessage(ByVal sMsg As String, ByVal sParams As String(), ByVal oType As MsgBoxStyle) As MsgBoxResult
+        Dim frmFake As Form
+
+        'Create a fake mostly invisible form to get top focus
+        frmFake = New Form
+        frmFake.FormBorderStyle = FormBorderStyle.None
+        frmFake.ShowInTaskbar = False
+        frmFake.Size = New Size(0, 0)
+        frmFake.StartPosition = FormStartPosition.CenterScreen
+        frmFake.Show()
+        frmFake.Focus()
+        frmFake.BringToFront()
+        frmFake.TopMost = True
+        frmFake.Visible = False
+
+        Dim oResult As MsgBoxResult
+        oResult = ShowMessage(sMsg, sParams, oType)
+
+        frmFake.TopMost = False
+        frmFake.Dispose()
+
         Return oResult
     End Function
 

@@ -587,8 +587,8 @@ Public Class mgrPath
         If bNoAuto Then
             sMessage = mgrCommon.FormatString(mgrPath_ConfirmManualPath, sSearchReason)
 
-            If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                sFolder = SetManualgamePath()
+            If mgrCommon.ShowPriorityMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                sFolder = SetManualGamePath()
             End If
 
             Return sFolder
@@ -596,8 +596,9 @@ Public Class mgrPath
 
         sMessage = mgrCommon.FormatString(mgrPath_ConfirmAutoPath, sSearchReason)
 
-        If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+        If mgrCommon.ShowPriorityMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             frmFind.ShowDialog()
+            frmFind.BringToFront()
 
             If frmFind.FoundItem <> String.Empty Then
                 Return frmFind.FoundItem
@@ -612,7 +613,7 @@ Public Class mgrPath
             End If
 
             If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                sFolder = SetManualgamePath()
+                sFolder = SetManualGamePath()
             End If
 
             frmFind.Dispose()

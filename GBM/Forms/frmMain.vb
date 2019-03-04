@@ -353,7 +353,7 @@ Public Class frmMain
                 If oSettings.DisableConfirmation Then
                     bDoBackup = True
                 Else
-                    If mgrCommon.ShowMessage(frmMain_ConfirmBackup, oProcess.GameInfo.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    If mgrCommon.ShowPriorityMessage(frmMain_ConfirmBackup, oProcess.GameInfo.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                         bDoBackup = True
                     Else
                         bDoBackup = False
