@@ -322,6 +322,7 @@ Public Class mgrBackup
 
         If mgrCommon.IsUnix Then
             oWineData = mgrWineData.DoWineDataGetbyID(oGame.ID)
+            prsReg.StartInfo.EnvironmentVariables.Add("WINEPREFIX", oWineData.Prefix)
             sBinaryPath = oWineData.BinaryPath & Path.DirectorySeparatorChar & "wine"
             sWineRegEdit = oWineData.Prefix & Path.DirectorySeparatorChar & "drive_c/windows/system32/reg.exe"
             sArguments = """" & sWineRegEdit & """ " & sArguments

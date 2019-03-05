@@ -195,6 +195,7 @@ Public Class mgrRestore
 
         If mgrCommon.IsUnix Then
             oWineData = mgrWineData.DoWineDataGetbyID(oBackupInfo.MonitorID)
+            prsReg.StartInfo.EnvironmentVariables.Add("WINEPREFIX", oWineData.Prefix)
             sBinaryPath = oWineData.BinaryPath & Path.DirectorySeparatorChar & "wine"
             sWineRegEdit = oWineData.Prefix & Path.DirectorySeparatorChar & "drive_c/windows/system32/reg.exe"
             sArguments = """" & sWineRegEdit & """ " & sArguments
