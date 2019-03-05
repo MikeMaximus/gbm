@@ -1249,6 +1249,21 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub RegistryModeChange()
+        If mgrPath.IsSupportedRegistryPath(txtSavePath.Text) Then
+            cboOS.SelectedValue = CInt(clsGame.eOS.Windows)
+            chkFolderSave.Checked = True
+            chkFolderSave.Enabled = False
+            btnInclude.Enabled = False
+            btnExclude.Enabled = False
+        Else
+            chkFolderSave.Checked = False
+            chkFolderSave.Enabled = True
+            btnInclude.Enabled = True
+            btnExclude.Enabled = True
+        End If
+    End Sub
+
     Private Sub TimeStampModeChange()
         If chkTimeStamp.Checked Then
             nudLimit.Visible = True
@@ -1273,7 +1288,7 @@ Public Class frmGameManager
 
     Private Sub VerifyCleanFolder()
         If Not bIsLoading Then
-            If (chkFolderSave.Checked = True And txtExclude.Text = String.Empty And txtSavePath.Text <> String.Empty) And Not chkMonitorOnly.Checked Then
+            If (chkFolderSave.Checked = True And txtExclude.Text = String.Empty And txtSavePath.Text <> String.Empty) And Not mgrPath.IsSupportedRegistryPath(txtSavePath.Text) And Not chkMonitorOnly.Checked Then
                 chkCleanFolder.Enabled = True
             Else
                 chkCleanFolder.Checked = False
@@ -2104,6 +2119,7 @@ Public Class frmGameManager
 
     Private Sub txtSavePath_TextChanged(sender As Object, e As EventArgs) Handles txtSavePath.TextChanged
         ttFullPath.RemoveAll()
+        RegistryModeChange()
         VerifyCleanFolder()
     End Sub
 
