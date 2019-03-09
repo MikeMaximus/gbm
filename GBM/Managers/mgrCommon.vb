@@ -219,7 +219,6 @@ Public Class mgrCommon
     Public Shared Function OpenFolderBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sDefaultFolder As String, Optional ByVal bSavedPath As Boolean = True) As String
         Dim fbBrowser As New OpenFileDialog
         Dim bResult As Boolean
-        Dim oSavedPath As New clsSavedPath
 
         bResult = BuildFolderBrowser(sName, sTitle, sDefaultFolder, fbBrowser, bSavedPath)
 
