@@ -155,6 +155,39 @@ Public Class mgrCommon
         Return False
     End Function
 
+    Private Shared Function BuildFolderBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sDefaultFolder As String, ByRef fbBrowser As OpenFileDialog, Optional ByVal bSavedPath As Boolean = True) As Boolean
+
+        Dim oSavedPath As New clsSavedPath
+
+        fbBrowser.Title = sTitle
+        fbBrowser.InitialDirectory = sDefaultFolder
+        fbBrowser.ValidateNames = False
+        fbBrowser.CheckFileExists = False
+        fbBrowser.CheckPathExists = True
+        fbBrowser.FileName = mgrCommon_FolderSelection
+
+        If bSavedPath Then
+            oSavedPath = mgrSavedPath.GetPathByName(sName)
+            If oSavedPath.Path <> String.Empty Then
+                If Directory.Exists(oSavedPath.Path) Then
+                    fbBrowser.InitialDirectory = oSavedPath.Path
+                End If
+            End If
+        End If
+
+        If fbBrowser.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            If bSavedPath Then
+                oSavedPath.PathName = sName
+                oSavedPath.Path = Path.GetDirectoryName(fbBrowser.FileName)
+                mgrSavedPath.AddUpdatePath(oSavedPath)
+            End If
+
+            Return True
+        End If
+
+        Return False
+    End Function
+
     Public Shared Function OpenFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
                                            Optional ByVal bSavedPath As Boolean = True) As String
         Dim fbBrowser As New OpenFileDialog
@@ -183,7 +216,21 @@ Public Class mgrCommon
         Return New String() {}
     End Function
 
-    Public Shared Function OpenFolderBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sDefaultFolder As String, ByVal bEnableNewFolder As Boolean,
+    Public Shared Function OpenFolderBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sDefaultFolder As String, Optional ByVal bSavedPath As Boolean = True) As String
+        Dim fbBrowser As New OpenFileDialog
+        Dim bResult As Boolean
+        Dim oSavedPath As New clsSavedPath
+
+        bResult = BuildFolderBrowser(sName, sTitle, sDefaultFolder, fbBrowser, bSavedPath)
+
+        If bResult Then
+            Return Path.GetDirectoryName(fbBrowser.FileName)
+        End If
+
+        Return String.Empty
+    End Function
+
+    Public Shared Function OpenClassicFolderBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sDefaultFolder As String, ByVal bEnableNewFolder As Boolean,
                                              Optional ByVal bSavedPath As Boolean = True) As String
         Dim fbBrowser As New FolderBrowserDialog
         Dim oSavedPath As New clsSavedPath

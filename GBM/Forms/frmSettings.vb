@@ -390,7 +390,7 @@ Public Class frmSettings
 
     Private Sub btnBackupFolder_Click(sender As System.Object, e As System.EventArgs) Handles btnBackupFolder.Click
         Dim sNewFolder As String
-        sNewFolder = mgrCommon.OpenFolderBrowser("Settings_Backup_Path", frmSettings_BrowseFolder, oSettings.BackupFolder, True, False)
+        sNewFolder = mgrCommon.OpenClassicFolderBrowser("Settings_Backup_Path", frmSettings_BrowseFolder, oSettings.BackupFolder, True, False)
         If sNewFolder <> String.Empty Then txtBackupFolder.Text = sNewFolder
     End Sub
 

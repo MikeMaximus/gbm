@@ -6241,6 +6241,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Current Folder.
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_FolderSelection() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_FolderSelection", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] GB.
         '''</summary>
         Friend ReadOnly Property mgrCommon_GB() As String

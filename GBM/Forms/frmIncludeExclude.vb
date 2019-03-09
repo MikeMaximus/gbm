@@ -118,7 +118,7 @@ Public Class frmIncludeExclude
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser("IE_Save_Path", frmIncludeExclude_BrowseSaveFolder, sDefaultFolder, False, False)
+        sNewPath = mgrCommon.OpenFolderBrowser("IE_Save_Path", frmIncludeExclude_BrowseSaveFolder, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then txtRootFolder.Text = sNewPath
     End Sub

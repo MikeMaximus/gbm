@@ -402,7 +402,7 @@ Public Class frmGameManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser("GM_Process_Path", frmGameManager_ChooseExePath, sDefaultFolder, False, False)
+        sNewPath = mgrCommon.OpenFolderBrowser("GM_Process_Path", frmGameManager_ChooseExePath, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then txtAppPath.Text = sNewPath
     End Sub
@@ -418,7 +418,7 @@ Public Class frmGameManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser("GM_Save_Path", frmGameManager_ChooseSaveFolder, sDefaultFolder, False, False)
+        sNewPath = mgrCommon.OpenFolderBrowser("GM_Save_Path", frmGameManager_ChooseSaveFolder, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then
             txtSavePath.Text = sNewPath

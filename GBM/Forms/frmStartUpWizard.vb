@@ -211,7 +211,7 @@ Public Class frmStartUpWizard
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser("Wizard_Backup_Path", frmStartUpWizard_BrowseFolder, sDefaultFolder, True, False)
+        sNewPath = mgrCommon.OpenClassicFolderBrowser("Wizard_Backup_Path", frmStartUpWizard_BrowseFolder, sDefaultFolder, True, False)
 
         If sNewPath <> String.Empty Then txtBackupPath.Text = sNewPath
     End Sub
