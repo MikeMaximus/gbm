@@ -357,9 +357,8 @@ Public Class frmSettings
         chkDisableDiskSpaceCheck.Text = frmSettings_chkDisableDiskSpaceCheck
 
         If mgrCommon.IsUnix Then
-            'Only enable these options on Linux if GBM was installed with an official method
+            'Only enable this option on Linux if GBM was installed with an official method
             If Not File.Exists("/usr/share/applications/gbm.desktop") Then
-                chkStartMinimized.Enabled = False
                 chkAutoStart.Enabled = False
             End If
         End If

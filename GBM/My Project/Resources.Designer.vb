@@ -3310,6 +3310,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to GBM is set to start automatically, but the desktop link is missing.  Automatic start has been disabled,  please re-install GBM using a package manager..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorLinuxAutoStartLinkMissing() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorLinuxAutoStartLinkMissing", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to GBM is set to start automatically, but the autostart link is missing.  The autostart link has been re-created..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorLinuxAutoStartMissing() As String
@@ -4867,7 +4876,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured while creating the autostart link:[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occured while configuring autostart:[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property frmSettings_ErrorLinuxAutoStart() As String
             Get

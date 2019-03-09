@@ -2345,7 +2345,7 @@
     <value>GBM is set to start automatically, but the autostart link is missing.  The autostart link has been re-created.</value>
   </data>
   <data name="frmSettings_ErrorLinuxAutoStart" xml:space="preserve">
-    <value>An error occured while creating the autostart link:[BR][BR][PARAM]</value>
+    <value>An error occured while configuring autostart:[BR][BR][PARAM]</value>
   </data>
   <data name="mgrBackup_ErrorRegBackupElevation" xml:space="preserve">
     <value>[PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to perform this backup.</value>
@@ -2367,5 +2367,8 @@
   </data>
   <data name="mgrRestore_ErrorRegBackupElevation" xml:space="preserve">
     <value>[PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to restore this backup.</value>
+  </data>
+  <data name="frmMain_ErrorLinuxAutoStartLinkMissing" xml:space="preserve">
+    <value>GBM is set to start automatically, but the desktop link is missing.  Automatic start has been disabled,  please re-install GBM using a package manager.</value>
   </data>
 </root>

@@ -1186,8 +1186,9 @@ Public Class frmMain
         'Verify the "Start with Windows" setting
         If oSettings.StartWithWindows Then
             If mgrCommon.IsUnix Then
-                If Not VerifyAutoStartLinux() Then
-                    UpdateLog(frmMain_ErrorLinuxAutoStartMissing, False, ToolTipIcon.Info)
+                Dim sVerifyError As String = String.Empty
+                If Not VerifyAutoStartLinux(sVerifyError) Then
+                    UpdateLog(sVerifyError, False, ToolTipIcon.Info)
                 End If
             Else
                 If Not VerifyStartWithWindows() Then
@@ -1746,29 +1747,48 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Function VerifyAutoStartLinux() As Boolean
+    Private Function VerifyAutoStartLinux(ByRef sErrorMessage As String) As Boolean
         Dim oProcess As Process
         Dim sAutoStartFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & Path.DirectorySeparatorChar & ".config/autostart/"
 
-        If File.Exists(sAutoStartFolder & Path.DirectorySeparatorChar & "gbm.desktop") Then
-            Return True
-        Else
-            'Create the autostart folder if it doesn't exist yet
-            If Not Directory.Exists(sAutoStartFolder) Then
-                Directory.CreateDirectory(sAutoStartFolder)
+        'Check if the app is still properly installed
+        If File.Exists("/usr/share/applications/gbm.desktop") Then
+            If File.Exists(sAutoStartFolder & Path.DirectorySeparatorChar & "gbm.desktop") Then
+                Return True
+            Else
+                'Create the autostart folder if it doesn't exist yet
+                If Not Directory.Exists(sAutoStartFolder) Then
+                    Directory.CreateDirectory(sAutoStartFolder)
+                End If
+                'Create link
+                Try
+                    oProcess = New Process
+                    oProcess.StartInfo.FileName = "/bin/ln"
+                    oProcess.StartInfo.Arguments = "-s /usr/share/applications/gbm.desktop " & sAutoStartFolder
+                    oProcess.StartInfo.UseShellExecute = False
+                    oProcess.StartInfo.RedirectStandardOutput = True
+                    oProcess.StartInfo.CreateNoWindow = True
+                    oProcess.Start()
+                Catch ex As Exception
+                    mgrCommon.ShowMessage(frmSettings_ErrorLinuxAutoStart, ex.Message, MsgBoxStyle.Exclamation)
+                End Try
+
+                sErrorMessage = frmMain_ErrorLinuxAutoStartMissing
+                Return False
             End If
-            'Create link
+        Else
+            'If the app is no longer properly installed,  disable autostart and the setting.
             Try
-                oProcess = New Process
-                oProcess.StartInfo.FileName = "/bin/ln"
-                oProcess.StartInfo.Arguments = "-s /usr/share/applications/gbm.desktop " & sAutoStartFolder
-                oProcess.StartInfo.UseShellExecute = False
-                oProcess.StartInfo.RedirectStandardOutput = True
-                oProcess.StartInfo.CreateNoWindow = True
-                oProcess.Start()
+                oSettings.StartWithWindows = False
+                oSettings.SaveSettings()
+                If File.Exists(sAutoStartFolder & Path.DirectorySeparatorChar & "gbm.desktop") Then
+                    File.Delete(sAutoStartFolder & Path.DirectorySeparatorChar & "gbm.desktop")
+                End If
             Catch ex As Exception
                 mgrCommon.ShowMessage(frmSettings_ErrorLinuxAutoStart, ex.Message, MsgBoxStyle.Exclamation)
             End Try
+
+            sErrorMessage = frmMain_ErrorLinuxAutoStartLinkMissing
             Return False
         End If
     End Function
@@ -2176,13 +2196,13 @@ Public Class frmMain
                 If mgrCommon.IsUnix Then
                     Me.MinimizeBox = True
                     If oSettings.StartToTray Then
-                        'Window Managers and/or Mono will not trigger a minimize in the Load or Shown event.  We need to delay it.
+                        'Window Managers and/or Mono will not trigger a minimize in the Load or Shown event.  We need to delay it.                
                         tmMinimizeTimer.AutoReset = False
                         tmMinimizeTimer.Interval = 1000
                         tmMinimizeTimer.Start()
                     End If
                 Else
-                        Me.gMonTray.Visible = True
+                    Me.gMonTray.Visible = True
                 End If
             End If
         Catch ex As Exception
