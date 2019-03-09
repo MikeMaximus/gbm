@@ -53,7 +53,6 @@ Public Class frmMain
     WithEvents tmScanTimer As New Timer
     WithEvents tmRestoreCheck As New System.Timers.Timer
     WithEvents tmFileWatcherQueue As New System.Timers.Timer
-    WithEvents tmMinimizeTimer As New System.Timers.Timer
 
     Public WithEvents oProcess As New mgrProcessDetection
     Public WithEvents oBackup As New mgrBackup
@@ -2002,10 +2001,6 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub HandleMinimizeTimer() Handles tmMinimizeTimer.Elapsed
-        Me.WindowState = FormWindowState.Minimized
-    End Sub
-
     Private Sub AutoRestoreEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmRestoreCheck.Elapsed
         If eCurrentStatus <> eStatus.Paused Then
             AutoRestoreCheck()
@@ -2195,12 +2190,6 @@ Public Class frmMain
                 'Unix Handler
                 If mgrCommon.IsUnix Then
                     Me.MinimizeBox = True
-                    If oSettings.StartToTray Then
-                        'Window Managers and/or Mono will not trigger a minimize in the Load or Shown event.  We need to delay it.                
-                        tmMinimizeTimer.AutoReset = False
-                        tmMinimizeTimer.Interval = 1000
-                        tmMinimizeTimer.Start()
-                    End If
                 Else
                     Me.gMonTray.Visible = True
                 End If

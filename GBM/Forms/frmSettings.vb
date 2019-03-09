@@ -361,6 +361,7 @@ Public Class frmSettings
             If Not File.Exists("/usr/share/applications/gbm.desktop") Then
                 chkAutoStart.Enabled = False
             End If
+            chkStartMinimized.Enabled = False
         End If
 
         'Handle Panels
