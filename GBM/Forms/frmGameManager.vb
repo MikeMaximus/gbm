@@ -409,7 +409,7 @@ Public Class frmGameManager
 
     Private Sub SavePathBrowse()
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-        Dim sCurrentPath As String = txtSavePath.Text
+        Dim sCurrentPath As String = mgrPath.ReplaceSpecialPaths(txtSavePath.Text)
         Dim sNewPath As String
 
         If txtSavePath.Text <> String.Empty Then
