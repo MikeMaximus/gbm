@@ -523,6 +523,20 @@ Public Class mgrCommon
         End Try
     End Sub
 
+    'Configure a fake form to trigger focus for priority messages
+    Private Shared Sub ConfigureFakeForm(ByRef frm As Form)
+        frm.FormBorderStyle = FormBorderStyle.None
+        frm.ShowInTaskbar = False
+        frm.Size = New Size(0, 0)
+        'We need to display it off-screen to hide it,  setting the visiblity to false doesn't work in Mono.
+        frm.StartPosition = FormStartPosition.Manual
+        frm.Location = New Point(-100, -100)
+        frm.Show()
+        frm.Focus()
+        frm.BringToFront()
+        frm.TopMost = True
+    End Sub
+
     'Handles no extra parameters
     Public Shared Function ShowMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
         Dim oResult As MsgBoxResult
@@ -536,15 +550,7 @@ Public Class mgrCommon
 
         'Create a fake mostly invisible form to get top focus
         frmFake = New Form
-        frmFake.FormBorderStyle = FormBorderStyle.None
-        frmFake.ShowInTaskbar = False
-        frmFake.Size = New Size(0, 0)
-        frmFake.StartPosition = FormStartPosition.CenterScreen
-        frmFake.Show()
-        frmFake.Focus()
-        frmFake.BringToFront()
-        frmFake.TopMost = True
-        frmFake.Visible = False
+        ConfigureFakeForm(frmFake)
 
         Dim oResult As MsgBoxResult
         oResult = ShowMessage(sMsg, oType)
@@ -568,15 +574,7 @@ Public Class mgrCommon
 
         'Create a fake mostly invisible form to get top focus
         frmFake = New Form
-        frmFake.FormBorderStyle = FormBorderStyle.None
-        frmFake.ShowInTaskbar = False
-        frmFake.Size = New Size(0, 0)
-        frmFake.StartPosition = FormStartPosition.CenterScreen
-        frmFake.Show()
-        frmFake.Focus()
-        frmFake.BringToFront()
-        frmFake.TopMost = True
-        frmFake.Visible = False
+        ConfigureFakeForm(frmFake)
 
         Dim oResult As MsgBoxResult
         oResult = ShowMessage(sMsg, sParam, oType)
@@ -600,15 +598,7 @@ Public Class mgrCommon
 
         'Create a fake mostly invisible form to get top focus
         frmFake = New Form
-        frmFake.FormBorderStyle = FormBorderStyle.None
-        frmFake.ShowInTaskbar = False
-        frmFake.Size = New Size(0, 0)
-        frmFake.StartPosition = FormStartPosition.CenterScreen
-        frmFake.Show()
-        frmFake.Focus()
-        frmFake.BringToFront()
-        frmFake.TopMost = True
-        frmFake.Visible = False
+        ConfigureFakeForm(frmFake)
 
         Dim oResult As MsgBoxResult
         oResult = ShowMessage(sMsg, sParams, oType)
