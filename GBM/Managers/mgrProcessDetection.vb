@@ -278,7 +278,7 @@ Public Class mgrProcessDetection
             'This needs to be wrapped due to issues with Mono.
             Try
                 'Some processes may return the ProcessName as a full path instead of the executable name.
-                sProcessCheck = Path.GetFileNameWithoutExtension(prsCurrent.ProcessName)
+                sProcessCheck = Path.GetFileName(prsCurrent.ProcessName)
 
                 'Unix Handler
                 'We need some special handling for Wine processes
