@@ -485,7 +485,7 @@ Public Class mgrPath
         Return sValue
     End Function
 
-    Public Shared Function IsSupportedRegistryPath(ByVal sPath As String)
+    Public Shared Function IsSupportedRegistryPath(ByVal sPath As String) As Boolean
         If sPath.StartsWith("HKEY_CURRENT_USER") Then
             Return True
         ElseIf sPath.StartsWith("HKEY_LOCAL_MACHINE") Then

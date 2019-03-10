@@ -6151,7 +6151,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The regedit utility could not be located at [PARAM].  The backup cannot continue..
+        '''  Looks up a localized string similar to The utility reg.exe could not be located at [PARAM].  The backup cannot continue..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorRegNotFound() As String
             Get
@@ -6700,7 +6700,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The regedit utility could not be located at [PARAM].  The restore cannot continue..
+        '''  Looks up a localized string similar to The utility reg.exe could not be located at [PARAM].  The restore cannot continue..
         '''</summary>
         Friend ReadOnly Property mgrRestore_ErrorRegNotFound() As String
             Get

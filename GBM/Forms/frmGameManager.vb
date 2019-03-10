@@ -1396,6 +1396,12 @@ Public Class frmGameManager
         oApp.Parameter = txtParameter.Text
         oApp.OS = CType(cboOS.SelectedValue, clsGame.eOS)
         oApp.Path = mgrPath.ValidatePathForOS(txtSavePath.Text)
+
+        'If we have a registry path, trim any trailing backslashes because they cause export failures
+        If mgrPath.IsSupportedRegistryPath(oApp.Path) Then
+            oApp.Path = oApp.Path.TrimEnd("\")
+        End If
+
         'We need to handle a special case here when working with Windows configurations in Linux
         If mgrCommon.IsUnix And mgrVariables.CheckForReservedVariables(oApp.Path) And oApp.OS = clsGame.eOS.Windows Then
             oApp.AbsolutePath = True

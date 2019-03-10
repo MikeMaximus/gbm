@@ -2354,13 +2354,13 @@
     <value>The backup has failed, please ensure the registry path is correct.</value>
   </data>
   <data name="mgrBackup_ErrorRegNotFound" xml:space="preserve">
-    <value>The regedit utility could not be located at [PARAM].  The backup cannot continue.</value>
+    <value>The utility reg.exe could not be located at [PARAM].  The backup cannot continue.</value>
   </data>
   <data name="mgrBackup_ErrorWineNotFound" xml:space="preserve">
     <value>The wine binary could not be located at [PARAM]. The backup cannot continue.</value>
   </data>
   <data name="mgrRestore_ErrorRegNotFound" xml:space="preserve">
-    <value>The regedit utility could not be located at [PARAM].  The restore cannot continue.</value>
+    <value>The utility reg.exe could not be located at [PARAM].  The restore cannot continue.</value>
   </data>
   <data name="mgrRestore_ErrorWineNotFound" xml:space="preserve">
     <value>The wine binary could not be located at [PARAM].  The restore cannot continue.</value>

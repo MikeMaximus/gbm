@@ -127,7 +127,7 @@ Public Class mgrBackup
         bRegistry = mgrPath.IsSupportedRegistryPath(oGame.TruePath)
 
         If bRegistry Then
-            'If this is a registry backup, we need to have elevated permissions in Windows to use regedit
+            'If this is a registry backup, we need to have elevated permissions in Windows to use reg.exe
             If Not mgrCommon.IsUnix And Not mgrCommon.IsElevated Then
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorRegBackupElevation, oGame.Name), False, ToolTipIcon.Info, True)
                 Return False
@@ -314,7 +314,7 @@ Public Class mgrBackup
         Dim sBinaryPath As String
         Dim sArguments As String
         Dim oWineData As clsWineData
-        Dim sWineRegEdit As String
+        Dim sWineReg As String
         Dim bPathVerified As Boolean = False
         Dim bBackupCompleted As Boolean = False
 
@@ -324,13 +324,13 @@ Public Class mgrBackup
             oWineData = mgrWineData.DoWineDataGetbyID(oGame.ID)
             prsReg.StartInfo.EnvironmentVariables.Add("WINEPREFIX", oWineData.Prefix)
             sBinaryPath = oWineData.BinaryPath & Path.DirectorySeparatorChar & "wine"
-            sWineRegEdit = oWineData.Prefix & Path.DirectorySeparatorChar & "drive_c/windows/system32/reg.exe"
-            sArguments = """" & sWineRegEdit & """ " & sArguments
+            sWineReg = oWineData.Prefix & Path.DirectorySeparatorChar & "drive_c/windows/system32/reg.exe"
+            sArguments = """" & sWineReg & """ " & sArguments
             If File.Exists(sBinaryPath) Then
-                If File.Exists(sWineRegEdit) Then
+                If File.Exists(sWineReg) Then
                     bPathVerified = True
                 Else
-                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorRegNotFound, sWineRegEdit), False, ToolTipIcon.Error, True)
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorRegNotFound, sWineReg), False, ToolTipIcon.Error, True)
                 End If
             Else
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorWineNotFound, sBinaryPath), False, ToolTipIcon.Error, True)
