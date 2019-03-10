@@ -1,4 +1,5 @@
 ﻿Imports System.Text.RegularExpressions
+Imports System.Xml.Serialization
 
 <Serializable()>
 Public Class clsGame
@@ -40,7 +41,9 @@ Public Class clsGame
     End Enum
 
     Public Enum eOS
+        <XmlEnum("1")>
         Windows = 1
+        <XmlEnum("2")>
         Linux = 2
     End Enum
 
