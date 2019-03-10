@@ -6,7 +6,7 @@ Imports System.Net
 
 Public Class mgrXML
 
-    Public Shared Function ReadMonitorList(ByVal sLocation As String, ByRef oExportInfo As ExportData, ByRef hshList As Hashtable, Optional ByVal bWebRead As Boolean = False) As Boolean
+    Public Shared Function ReadMonitorList(ByVal sLocation As String, ByRef oExportInfo As ExportData, ByRef hshList As Hashtable, Optional ByVal bWebRead As Boolean = False, Optional ByVal bWinConfigsInLinux As Boolean = False) As Boolean
         Dim oList As List(Of Game)
         Dim hshDupeList As New Hashtable
         Dim oExportData As New ExportData
@@ -42,6 +42,15 @@ Public Class mgrXML
             oGame.Comments = g.Comments
             oGame.IsRegEx = g.IsRegEx
             oGame.RecurseSubFolders = g.RecurseSubFolders
+            oGame.OS = g.OS
+            'Retain compatability when the OS value is not set
+            If oGame.OS = 0 Then
+                If bWinConfigsInLinux Then
+                    oGame.OS = clsGame.eOS.Windows
+                Else
+                    oGame.OS = mgrCommon.GetCurrentOS
+                End If
+            End If
             For Each t As Tag In g.Tags
                 oGame.ImportTags.Add(t)
             Next

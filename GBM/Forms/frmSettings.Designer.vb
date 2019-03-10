@@ -71,9 +71,10 @@ Partial Class frmSettings
         Me.pnlStartup = New System.Windows.Forms.Panel()
         Me.grpStartup = New System.Windows.Forms.GroupBox()
         Me.chkBackupOnLaunch = New System.Windows.Forms.CheckBox()
-        Me.chkStartWindows = New System.Windows.Forms.CheckBox()
-        Me.chkStartToTray = New System.Windows.Forms.CheckBox()
+        Me.chkAutoStart = New System.Windows.Forms.CheckBox()
+        Me.chkStartMinimized = New System.Windows.Forms.CheckBox()
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
+        Me.chkDisableDiskSpaceCheck = New System.Windows.Forms.CheckBox()
         Me.grpFolderOptions.SuspendLayout()
         Me.grp7zGeneral.SuspendLayout()
         Me.pnlBackup.SuspendLayout()
@@ -318,11 +319,12 @@ Partial Class frmSettings
         '
         'grpBackupConfirmations
         '
+        Me.grpBackupConfirmations.Controls.Add(Me.chkDisableDiskSpaceCheck)
         Me.grpBackupConfirmations.Controls.Add(Me.chkBackupConfirm)
         Me.grpBackupConfirmations.Controls.Add(Me.chkOverwriteWarning)
         Me.grpBackupConfirmations.Location = New System.Drawing.Point(6, 200)
         Me.grpBackupConfirmations.Name = "grpBackupConfirmations"
-        Me.grpBackupConfirmations.Size = New System.Drawing.Size(354, 65)
+        Me.grpBackupConfirmations.Size = New System.Drawing.Size(354, 90)
         Me.grpBackupConfirmations.TabIndex = 2
         Me.grpBackupConfirmations.TabStop = False
         Me.grpBackupConfirmations.Text = "Backup Confirmations"
@@ -340,10 +342,10 @@ Partial Class frmSettings
         'chkOverwriteWarning
         '
         Me.chkOverwriteWarning.AutoSize = True
-        Me.chkOverwriteWarning.Location = New System.Drawing.Point(9, 41)
+        Me.chkOverwriteWarning.Location = New System.Drawing.Point(9, 64)
         Me.chkOverwriteWarning.Name = "chkOverwriteWarning"
         Me.chkOverwriteWarning.Size = New System.Drawing.Size(139, 17)
-        Me.chkOverwriteWarning.TabIndex = 1
+        Me.chkOverwriteWarning.TabIndex = 2
         Me.chkOverwriteWarning.Text = "Show overwrite warning"
         Me.chkOverwriteWarning.UseVisualStyleBackColor = True
         '
@@ -560,8 +562,8 @@ Partial Class frmSettings
         'grpStartup
         '
         Me.grpStartup.Controls.Add(Me.chkBackupOnLaunch)
-        Me.grpStartup.Controls.Add(Me.chkStartWindows)
-        Me.grpStartup.Controls.Add(Me.chkStartToTray)
+        Me.grpStartup.Controls.Add(Me.chkAutoStart)
+        Me.grpStartup.Controls.Add(Me.chkStartMinimized)
         Me.grpStartup.Controls.Add(Me.chkMonitorOnStartup)
         Me.grpStartup.Location = New System.Drawing.Point(6, 12)
         Me.grpStartup.Name = "grpStartup"
@@ -580,25 +582,25 @@ Partial Class frmSettings
         Me.chkBackupOnLaunch.Text = "Backup GBM data files on launch"
         Me.chkBackupOnLaunch.UseVisualStyleBackColor = True
         '
-        'chkStartWindows
+        'chkAutoStart
         '
-        Me.chkStartWindows.AutoSize = True
-        Me.chkStartWindows.Location = New System.Drawing.Point(6, 19)
-        Me.chkStartWindows.Name = "chkStartWindows"
-        Me.chkStartWindows.Size = New System.Drawing.Size(117, 17)
-        Me.chkStartWindows.TabIndex = 0
-        Me.chkStartWindows.Text = "Start with Windows"
-        Me.chkStartWindows.UseVisualStyleBackColor = True
+        Me.chkAutoStart.AutoSize = True
+        Me.chkAutoStart.Location = New System.Drawing.Point(6, 19)
+        Me.chkAutoStart.Name = "chkAutoStart"
+        Me.chkAutoStart.Size = New System.Drawing.Size(155, 17)
+        Me.chkAutoStart.TabIndex = 0
+        Me.chkAutoStart.Text = "Start automatically on log-in"
+        Me.chkAutoStart.UseVisualStyleBackColor = True
         '
-        'chkStartToTray
+        'chkStartMinimized
         '
-        Me.chkStartToTray.AutoSize = True
-        Me.chkStartToTray.Location = New System.Drawing.Point(6, 42)
-        Me.chkStartToTray.Name = "chkStartToTray"
-        Me.chkStartToTray.Size = New System.Drawing.Size(115, 17)
-        Me.chkStartToTray.TabIndex = 1
-        Me.chkStartToTray.Text = "Start to system tray"
-        Me.chkStartToTray.UseVisualStyleBackColor = True
+        Me.chkStartMinimized.AutoSize = True
+        Me.chkStartMinimized.Location = New System.Drawing.Point(6, 42)
+        Me.chkStartMinimized.Name = "chkStartMinimized"
+        Me.chkStartMinimized.Size = New System.Drawing.Size(96, 17)
+        Me.chkStartMinimized.TabIndex = 1
+        Me.chkStartMinimized.Text = "Start minimized"
+        Me.chkStartMinimized.UseVisualStyleBackColor = True
         '
         'chkMonitorOnStartup
         '
@@ -610,15 +612,25 @@ Partial Class frmSettings
         Me.chkMonitorOnStartup.Text = "Start monitoring on launch"
         Me.chkMonitorOnStartup.UseVisualStyleBackColor = True
         '
+        'chkDisableDiskSpaceCheck
+        '
+        Me.chkDisableDiskSpaceCheck.AutoSize = True
+        Me.chkDisableDiskSpaceCheck.Location = New System.Drawing.Point(9, 41)
+        Me.chkDisableDiskSpaceCheck.Name = "chkDisableDiskSpaceCheck"
+        Me.chkDisableDiskSpaceCheck.Size = New System.Drawing.Size(222, 17)
+        Me.chkDisableDiskSpaceCheck.TabIndex = 1
+        Me.chkDisableDiskSpaceCheck.Text = "Disable disk space check prior to backup"
+        Me.chkDisableDiskSpaceCheck.UseVisualStyleBackColor = True
+        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(554, 361)
-        Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlStartup)
-        Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.pnlBackup)
+        Me.Controls.Add(Me.pnlGeneral)
+        Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.btnResetMessages)
         Me.Controls.Add(Me.lstSettings)
         Me.Controls.Add(Me.btnDefaults)
@@ -706,9 +718,10 @@ Partial Class frmSettings
     Friend WithEvents pnlStartup As Panel
     Friend WithEvents grpStartup As GroupBox
     Friend WithEvents chkBackupOnLaunch As CheckBox
-    Friend WithEvents chkStartWindows As CheckBox
-    Friend WithEvents chkStartToTray As CheckBox
+    Friend WithEvents chkAutoStart As CheckBox
+    Friend WithEvents chkStartMinimized As CheckBox
     Friend WithEvents chkMonitorOnStartup As CheckBox
     Friend WithEvents grpGameMonitoringOptions As GroupBox
     Friend WithEvents chkShowResolvedPaths As CheckBox
+    Friend WithEvents chkDisableDiskSpaceCheck As CheckBox
 End Class

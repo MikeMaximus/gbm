@@ -434,7 +434,7 @@ Public Class frmAddWizard
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser("Wizard_Save_Path", frmAddWizard_ChooseSavePath, sDefaultFolder, False, False)
+        sNewPath = mgrCommon.OpenClassicFolderBrowser("Wizard_Save_Path", frmAddWizard_ChooseSavePath, sDefaultFolder, False, False)
 
         If sNewPath <> String.Empty Then txtSavePath.Text = sNewPath
     End Sub

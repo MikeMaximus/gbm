@@ -37,6 +37,7 @@ Public Class mgrMonitorList
         If Not IsDBNull(dr("Comments")) Then oGame.Comments = CStr(dr("Comments"))
         oGame.IsRegEx = CBool(dr("IsRegEx"))
         oGame.RecurseSubFolders = CBool(dr("RecurseSubFolders"))
+        oGame.OS = CInt(dr("OS"))
 
         'Compile RegEx
         If oGame.IsRegEx Then
@@ -71,6 +72,7 @@ Public Class mgrMonitorList
         hshParams.Add("Comments", oGame.Comments)
         hshParams.Add("IsRegEx", oGame.IsRegEx)
         hshParams.Add("RecurseSubFolders", oGame.RecurseSubFolders)
+        hshParams.Add("OS", oGame.OS)
 
         Return hshParams
     End Function
@@ -106,7 +108,7 @@ Public Class mgrMonitorList
 
         sSQL = "INSERT INTO monitorlist VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, @TimeStamp, "
         sSQL &= "@ExcludeList, @ProcessPath, @Icon, @Hours, @Version, @Company, @Enabled, @MonitorOnly, @BackupLimit, @CleanFolder, "
-        sSQL &= "@Parameter, @Comments, @IsRegEx, @RecurseSubFolders)"
+        sSQL &= "@Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS)"
 
         'Parameters
         hshParams = SetCoreParameters(oGame)
@@ -123,12 +125,13 @@ Public Class mgrMonitorList
         sSQL = "UPDATE monitorlist SET MonitorID=@ID, Name=@Name, Process=@Process, Path=@Path, AbsolutePath=@AbsolutePath, FolderSave=@FolderSave, "
         sSQL &= "FileType=@FileType, TimeStamp=@TimeStamp, ExcludeList=@ExcludeList, ProcessPath=@ProcessPath, Icon=@Icon, "
         sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit, "
-        sSQL &= "CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments, IsRegEx=@IsRegEx, RecurseSubFolders=@RecurseSubFolders WHERE MonitorID=@QueryID;"
+        sSQL &= "CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments, IsRegEx=@IsRegEx, RecurseSubFolders=@RecurseSubFolders, OS=@OS WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE gametags SET MonitorID=@ID WHERE MonitorID=@QueryID;"
 
         If iSelectDB = mgrSQLite.Database.Local Then
             sSQL &= "UPDATE gameprocesses SET MonitorID=@ID WHERE MonitorID=@QueryID;"
             sSQL &= "UPDATE sessions SET MonitorID=@ID WHERE MonitorID=@QueryID;"
+            sSQL &= "UPDATE winedata SET MonitorID=@ID WHERE MonitorID=@QueryID"
         End If
 
         'Parameters
@@ -139,6 +142,20 @@ Public Class mgrMonitorList
             hshParams.Add("QueryID", oGame.ID)
         End If
 
+        oDatabase.RunParamQuery(sSQL, hshParams)
+    End Sub
+
+    'Do NOT change MonitorID with this function
+    Public Shared Sub DoListFieldUpdate(ByVal sFieldName As String, ByVal oValue As Object, ByVal sQueryID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim hshParams As New Hashtable
+
+        sSQL = "UPDATE monitorlist SET " & sFieldName & "=@" & sFieldName & " WHERE MonitorID=@QueryID;"
+
+        'Parameters
+        hshParams.Add(sFieldName, oValue)
+        hshParams.Add("QueryID", sQueryID)
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
@@ -180,6 +197,8 @@ Public Class mgrMonitorList
             sSQL &= "DELETE FROM gameprocesses "
             sSQL &= "WHERE MonitorID = @MonitorID;"
             sSQL &= "DELETE FROM sessions "
+            sSQL &= "WHERE MonitorID = @MonitorID;"
+            sSQL &= "DELETE FROM winedata "
             sSQL &= "WHERE MonitorID = @MonitorID;"
         End If
         sSQL &= "DELETE FROM monitorlist "
@@ -235,6 +254,18 @@ Public Class mgrMonitorList
             sSQL &= ");"
 
             sSQL &= "DELETE FROM sessions "
+            sSQL &= "WHERE MonitorID IN ("
+
+            For Each s As String In sMonitorIDs
+                sSQL &= "@MonitorID" & iCounter & ","
+                hshParams.Add("MonitorID" & iCounter, s)
+                iCounter += 1
+            Next
+
+            sSQL = sSQL.TrimEnd(",")
+            sSQL &= ");"
+
+            sSQL &= "DELETE FROM winedata "
             sSQL &= "WHERE MonitorID IN ("
 
             For Each s As String In sMonitorIDs
@@ -374,11 +405,11 @@ Public Class mgrMonitorList
             sVersion = "(SELECT Version FROM monitorlist WHERE MonitorID=@ID)"
         End If
 
-        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders) "
+        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS) "
         sSQL &= "VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, "
         sSQL &= "@TimeStamp, @ExcludeList, " & sGamePath & ", "
         sSQL &= sIcon & ", @Hours, " & sVersion & ", "
-        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter, @Comments, @IsRegEx, @RecurseSubFolders);"
+        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS);"
 
         For Each oGame As clsGame In hshGames.Values
             hshParams = New Hashtable
@@ -401,6 +432,7 @@ Public Class mgrMonitorList
             hshParams.Add("Comments", oGame.Comments)
             hshParams.Add("IsRegEx", oGame.IsRegEx)
             hshParams.Add("RecurseSubFolders", oGame.RecurseSubFolders)
+            hshParams.Add("OS", oGame.OS)
 
             'Optional Parameters
             If (eSyncFields And clsGame.eOptionalSyncFields.Company) = clsGame.eOptionalSyncFields.Company Then
@@ -556,7 +588,7 @@ Public Class mgrMonitorList
                                              ByRef hshParams As Hashtable) As String
         Dim sSQL As String = String.Empty
         Dim iCounter As Integer = 0
-        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders FROM monitorlist"
+        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS FROM monitorlist"
         Dim sSort As String = " ORDER BY " & sSortField
 
         If bSortAsc Then
@@ -675,7 +707,7 @@ Public Class mgrMonitorList
                     Case clsGameFilterField.eDataType.fNumeric
                         sSQL &= oFilter.Field.FieldName & " " & oFilter.NumericOperatorAsString & " @" & oFilter.ID
                         hshParams.Add(oFilter.ID, oFilter.Data)
-                    Case clsGameFilterField.eDataType.fBool
+                    Case clsGameFilterField.eDataType.fBool, clsGameFilterField.eDataType.fEnum
                         sSQL &= oFilter.Field.FieldName & " = @" & oFilter.ID
                         hshParams.Add(oFilter.ID, oFilter.Data)
                 End Select
@@ -754,6 +786,7 @@ Public Class mgrMonitorList
             If Not IsDBNull(dr("Comments")) Then oGame.Comments = CStr(dr("Comments"))
             oGame.IsRegEx = CBool(dr("IsRegEx"))
             oGame.RecurseSubFolders = CBool(dr("RecurseSubFolders"))
+            oGame.OS = CInt(dr("OS"))
             oGame.Tags = mgrGameTags.GetTagsByGameForExport(oGame.ID)
             oList.Add(oGame)
         Next
@@ -831,7 +864,7 @@ Public Class mgrMonitorList
 
         Cursor.Current = Cursors.WaitCursor
 
-        If Not mgrXML.ReadMonitorList(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
+        If Not mgrXML.ReadMonitorList(sLocation, oExportInfo, hshCompareFrom, bWebRead, bWinConfigsInLinux) Then
             Exit Sub
         End If
 

@@ -14,6 +14,7 @@
     Private sComments As String
     Private bIsRegEx As Boolean
     Private bRecurseSubFolders As Boolean
+    Private iOS As clsGame.eOS
     Private oTags As List(Of Tag)
 
     Property ID As String
@@ -148,6 +149,15 @@
         End Set
         Get
             Return bRecurseSubFolders
+        End Get
+    End Property
+
+    Property OS As clsGame.eOS
+        Set(value As clsGame.eOS)
+            iOS = value
+        End Set
+        Get
+            Return iOS
         End Get
     End Property
 

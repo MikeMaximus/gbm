@@ -75,8 +75,8 @@ Public Class mgrSQLite
                    "BackupFolder TEXT NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
                    "SuppressBackup BOOLEAN NOT NULL, SuppressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
                    "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL, SessionTracking BOOLEAN NOT NULL, " &
-                   "SuppressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL, UseGameID BOOLEAN NOT NULL, DisableSyncMessages BOOLEAN NOT NULL, ShowResolvedPaths BOOLEAN NOT NULL);"
-
+                   "SuppressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL, UseGameID BOOLEAN NOT NULL, DisableSyncMessages BOOLEAN NOT NULL, ShowResolvedPaths BOOLEAN NOT NULL, " &
+                   "DisableDiskSpaceCheck BOOLEAN NOT NULL);"
             'Add Tables (SavedPath)
             sSql &= "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
 
@@ -84,7 +84,8 @@ Public Class mgrSQLite
             sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
                    "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, RecurseSubFolders NOT NULL);"
+                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, RecurseSubFolders NOT NULL, " &
+                   "OS INTEGER NOT NULL);"
 
             'Add Tables (Tags)
             sSql &= "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
@@ -108,6 +109,9 @@ Public Class mgrSQLite
             'Add Tables (Game Processes)
             sSql &= "CREATE TABLE gameprocesses (ProcessID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(ProcessID, MonitorID));"
 
+            'Add Tables (Wine Data)
+            sSql &= "CREATE TABLE winedata (MonitorID TEXT NOT NULL PRIMARY KEY, Prefix TEXT NOT NULL, SavePath TEXT NOT NULL, BinaryPath TEXT NOT NULL);"
+
             'Set Version
             sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
 
@@ -130,17 +134,18 @@ Public Class mgrSQLite
             sSql = "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
                    "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
                    "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, RecurseSubFolders NOT NULL);"
+                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, RecurseSubFolders NOT NULL, " &
+                   "OS INTEGER NOT NULL);"
 
             'Add Tables (Remote Manifest)
-            sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL PRIMARY KEY, MonitorID TEXT NOT NULL, FileName TEXT NOT NULL, " &
-                   "DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+            sSql &= "CREATE TABLE manifest (ManifestID TEXT Not NULL PRIMARY KEY, MonitorID TEXT Not NULL, FileName TEXT Not NULL, " &
+                   "DateUpdated TEXT Not NULL, UpdatedBy TEXT Not NULL, CheckSum TEXT);"
 
             'Add Tables (Remote Tags)
-            sSql &= "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
+            sSql &= "CREATE TABLE tags (TagID TEXT Not NULL UNIQUE, Name TEXT Not NULL PRIMARY KEY); "
 
             'Add Tables (Remote Game Tags)
-            sSql &= "CREATE TABLE gametags (TagID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(TagID, MonitorID)); "
+            sSql &= "CREATE TABLE gametags (TagID TEXT Not NULL, MonitorID TEXT Not NULL, PRIMARY KEY(TagID, MonitorID)); "
 
             'Set Version
             sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
@@ -379,7 +384,7 @@ Public Class mgrSQLite
         '0.9 Upgrade
         If GetDatabaseVersion() < 90 Then
             BackupDB("v8")
-            sSQL = "ALTER TABLE monitorlist ADD COLUMN MonitorOnly BOOLEAN NOT NULL DEFAULT 0;"
+            sSQL = "ALTER TABLE monitorlist ADD COLUMN MonitorOnly BOOLEAN Not NULL DEFAULT 0;"
             sSQL &= "PRAGMA user_version=90"
             RunParamQuery(sSQL, New Hashtable)
         End If
@@ -391,25 +396,25 @@ Public Class mgrSQLite
                 BackupDB("v84")
 
                 'Overhaul Monitor List Table
-                sSQL = "CREATE TABLE monitorlist_new (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, PRIMARY KEY(Name, Process));"
+                sSQL = "CREATE TABLE monitorlist_new (MonitorID TEXT Not NULL UNIQUE, Name TEXT Not NULL, Process TEXT Not NULL, Path TEXT, AbsolutePath BOOLEAN Not NULL, FolderSave BOOLEAN Not NULL, FileType TEXT, TimeStamp BOOLEAN Not NULL, ExcludeList TEXT Not NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN Not NULL, MonitorOnly BOOLEAN Not NULL, PRIMARY KEY(Name, Process));"
                 sSQL &= "INSERT INTO monitorlist_new (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly) "
                 sSQL &= "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist;"
                 sSQL &= "DROP TABLE monitorlist; ALTER TABLE monitorlist_new RENAME TO monitorlist;"
 
                 'Overhaul Variables Table
-                sSQL &= "CREATE TABLE variables_new (VariableID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
+                sSQL &= "CREATE TABLE variables_new (VariableID TEXT Not NULL UNIQUE, Name TEXT Not NULL PRIMARY KEY, Path TEXT Not NULL);"
                 sSQL &= "INSERT INTO variables_new (VariableID, Name, Path) SELECT VariableID, Name, Path FROM variables;"
                 sSQL &= "DROP TABLE variables; ALTER TABLE variables_new RENAME TO variables;"
 
                 'Overhaul Manifest Table
-                sSQL &= "CREATE TABLE manifest_new (ManifestID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, AbsolutePath BOOLEAN NOT NULL, DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+                sSQL &= "CREATE TABLE manifest_new (ManifestID TEXT Not NULL UNIQUE, Name TEXT Not NULL PRIMARY KEY, FileName TEXT Not NULL, RestorePath TEXT Not NULL, AbsolutePath BOOLEAN Not NULL, DateUpdated TEXT Not NULL, UpdatedBy TEXT Not NULL, CheckSum TEXT);"
                 sSQL &= "INSERT INTO manifest_new (ManifestID, Name, FileName, RestorePath, AbsolutePath, DateUpdated, UpdatedBy) "
                 sSQL &= "SELECT ManifestID, Name, FileName, RestorePath, AbsolutePath, DateUpdated, UpdatedBy FROM manifest;"
                 sSQL &= "DROP TABLE manifest; ALTER TABLE manifest_new RENAME TO manifest;"
 
                 'Add new settings
-                sSQL &= "ALTER TABLE settings ADD COLUMN Sync BOOLEAN NOT NULL DEFAULT 1;"
-                sSQL &= "ALTER TABLE settings ADD COLUMN CheckSum BOOLEAN NOT NULL DEFAULT 1;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN Sync BOOLEAN Not NULL DEFAULT 1;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN CheckSum BOOLEAN Not NULL DEFAULT 1;"
                 sSQL &= "PRAGMA user_version=91"
 
                 RunParamQuery(sSQL, New Hashtable)
@@ -427,13 +432,13 @@ Public Class mgrSQLite
                 BackupDB("v84")
 
                 'Overhaul Monitor List Table
-                sSQL = "CREATE TABLE monitorlist_new (MonitorID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, PRIMARY KEY(Name, Process));"
+                sSQL = "CREATE TABLE monitorlist_new (MonitorID TEXT Not NULL UNIQUE, Name TEXT Not NULL, Process TEXT Not NULL, Path TEXT, AbsolutePath BOOLEAN Not NULL, FolderSave BOOLEAN Not NULL, FileType TEXT, TimeStamp BOOLEAN Not NULL, ExcludeList TEXT Not NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN Not NULL, MonitorOnly BOOLEAN Not NULL, PRIMARY KEY(Name, Process));"
                 sSQL &= "INSERT INTO monitorlist_new (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly) "
                 sSQL &= "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly FROM monitorlist;"
                 sSQL &= "DROP TABLE monitorlist; ALTER TABLE monitorlist_new RENAME TO monitorlist;"
 
                 'Overhaul Manifest Table
-                sSQL &= "CREATE TABLE manifest_new (ManifestID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, AbsolutePath BOOLEAN NOT NULL, DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+                sSQL &= "CREATE TABLE manifest_new (ManifestID TEXT Not NULL UNIQUE, Name TEXT Not NULL PRIMARY KEY, FileName TEXT Not NULL, RestorePath TEXT Not NULL, AbsolutePath BOOLEAN Not NULL, DateUpdated TEXT Not NULL, UpdatedBy TEXT Not NULL, CheckSum TEXT);"
                 sSQL &= "INSERT INTO manifest_new (ManifestID, Name, FileName, RestorePath, AbsolutePath, DateUpdated, UpdatedBy) "
                 sSQL &= "SELECT ManifestID, Name, FileName, RestorePath, AbsolutePath, DateUpdated, UpdatedBy FROM manifest;"
                 sSQL &= "DROP TABLE manifest; ALTER TABLE manifest_new RENAME TO manifest;"
@@ -457,7 +462,7 @@ Public Class mgrSQLite
                 BackupDB("v91")
 
                 'Add new setting
-                sSQL = "ALTER TABLE settings ADD COLUMN StartWithWindows BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL = "ALTER TABLE settings ADD COLUMN StartWithWindows BOOLEAN Not NULL DEFAULT 0;"
                 sSQL &= "PRAGMA user_version=92"
 
                 RunParamQuery(sSQL, New Hashtable)
@@ -503,11 +508,11 @@ Public Class mgrSQLite
                 BackupDB("v93")
 
                 'Add Tags Tables
-                sSQL = "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
-                sSQL &= "CREATE TABLE gametags (TagID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(TagID, MonitorID)); "
+                sSQL = "CREATE TABLE tags (TagID TEXT Not NULL UNIQUE, Name TEXT Not NULL PRIMARY KEY); "
+                sSQL &= "CREATE TABLE gametags (TagID TEXT Not NULL, MonitorID TEXT Not NULL, PRIMARY KEY(TagID, MonitorID)); "
 
                 'Add new setting
-                sSQL &= "ALTER TABLE settings ADD COLUMN TimeTracking BOOLEAN NOT NULL DEFAULT 1;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN TimeTracking BOOLEAN Not NULL DEFAULT 1;"
 
                 sSQL &= "PRAGMA user_version=94"
 
@@ -518,8 +523,8 @@ Public Class mgrSQLite
                 BackupDB("v93")
 
                 'Add Tags Tables
-                sSQL = "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
-                sSQL &= "CREATE TABLE gametags (TagID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(TagID, MonitorID)); "
+                sSQL = "CREATE TABLE tags (TagID TEXT Not NULL UNIQUE, Name TEXT Not NULL PRIMARY KEY); "
+                sSQL &= "CREATE TABLE gametags (TagID TEXT Not NULL, MonitorID TEXT Not NULL, PRIMARY KEY(TagID, MonitorID)); "
 
                 sSQL &= "PRAGMA user_version=94"
 
@@ -534,8 +539,8 @@ Public Class mgrSQLite
                 BackupDB("v94")
 
                 'Add new setting
-                sSQL = "ALTER TABLE settings ADD COLUMN SupressBackup BOOLEAN NOT NULL DEFAULT 0;"
-                sSQL &= "ALTER TABLE settings ADD COLUMN SupressBackupThreshold INTEGER NOT NULL DEFAULT 10;"
+                sSQL = "ALTER TABLE settings ADD COLUMN SupressBackup BOOLEAN Not NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN SupressBackupThreshold INTEGER Not NULL DEFAULT 10;"
 
                 sSQL &= "PRAGMA user_version=95"
 
@@ -558,7 +563,7 @@ Public Class mgrSQLite
                 BackupDB("v95")
 
                 'Add new setting                
-                sSQL = "ALTER TABLE settings ADD COLUMN CompressionLevel INTEGER NOT NULL DEFAULT 5;"
+                sSQL = "ALTER TABLE settings ADD COLUMN CompressionLevel INTEGER Not NULL DEFAULT 5;"
 
                 sSQL &= "PRAGMA user_version=96"
 
@@ -583,8 +588,8 @@ Public Class mgrSQLite
                 'Add new settings        
                 sSQL = "ALTER TABLE settings ADD COLUMN Custom7zArguments TEXT;"
                 sSQL &= "ALTER TABLE settings ADD COLUMN Custom7zLocation TEXT;"
-                sSQL &= "ALTER TABLE settings ADD COLUMN SyncFields INTEGER NOT NULL DEFAULT 32;"
-                sSQL &= "ALTER TABLE settings ADD COLUMN AutoSaveLog BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN SyncFields INTEGER Not NULL DEFAULT 32;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN AutoSaveLog BOOLEAN Not NULL DEFAULT 0;"
                 sSQL &= "PRAGMA user_version=97"
 
                 RunParamQuery(sSQL, New Hashtable)
@@ -606,13 +611,13 @@ Public Class mgrSQLite
                 BackupDB("v97")
 
                 'Overhaul Manifest Table
-                sSQL = "CREATE TABLE manifest_new (ManifestID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, AbsolutePath BOOLEAN NOT NULL, DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+                sSQL = "CREATE TABLE manifest_new (ManifestID TEXT Not NULL PRIMARY KEY, Name TEXT Not NULL, FileName TEXT Not NULL, RestorePath TEXT Not NULL, AbsolutePath BOOLEAN Not NULL, DateUpdated TEXT Not NULL, UpdatedBy TEXT Not NULL, CheckSum TEXT);"
                 sSQL &= "INSERT INTO manifest_new (ManifestID, Name, FileName, RestorePath, AbsolutePath, DateUpdated, UpdatedBy) "
                 sSQL &= "SELECT ManifestID, Name, FileName, RestorePath, AbsolutePath, DateUpdated, UpdatedBy FROM manifest;"
                 sSQL &= "DROP TABLE manifest; ALTER TABLE manifest_new RENAME TO manifest;"
 
                 'Add backup limit field
-                sSQL &= "ALTER TABLE monitorlist ADD COLUMN BackupLimit INTEGER NOT NULL DEFAULT 5;"
+                sSQL &= "ALTER TABLE monitorlist ADD COLUMN BackupLimit INTEGER Not NULL DEFAULT 5;"
 
                 sSQL &= "PRAGMA user_version=98"
 
@@ -626,13 +631,13 @@ Public Class mgrSQLite
                 BackupDB("v97")
 
                 'Overhaul Manifest Table
-                sSQL = "CREATE TABLE manifest_new (ManifestID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, FileName TEXT NOT NULL, RestorePath TEXT NOT NULL, AbsolutePath BOOLEAN NOT NULL, DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+                sSQL = "CREATE TABLE manifest_new (ManifestID TEXT Not NULL PRIMARY KEY, Name TEXT Not NULL, FileName TEXT Not NULL, RestorePath TEXT Not NULL, AbsolutePath BOOLEAN Not NULL, DateUpdated TEXT Not NULL, UpdatedBy TEXT Not NULL, CheckSum TEXT);"
                 sSQL &= "INSERT INTO manifest_new (ManifestID, Name, FileName, RestorePath, AbsolutePath, DateUpdated, UpdatedBy) "
                 sSQL &= "SELECT ManifestID, Name, FileName, RestorePath, AbsolutePath, DateUpdated, UpdatedBy FROM manifest;"
                 sSQL &= "DROP TABLE manifest; ALTER TABLE manifest_new RENAME TO manifest;"
 
                 'Add backup limit field
-                sSQL &= "ALTER TABLE monitorlist ADD COLUMN BackupLimit INTEGER NOT NULL DEFAULT 5;"
+                sSQL &= "ALTER TABLE monitorlist ADD COLUMN BackupLimit INTEGER Not NULL DEFAULT 5;"
 
                 sSQL &= "PRAGMA user_version=98"
 
@@ -650,11 +655,11 @@ Public Class mgrSQLite
                 BackupDB("v98")
 
                 'Remove checksum field                
-                sSQL = "CREATE TABLE settings_new (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, " &
-                        "DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, " &
-                        "BackupFolder TEXT NOT NULL, Sync BOOLEAN NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
-                        "SupressBackup BOOLEAN NOT NULL, SupressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
-                        "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL);"
+                sSQL = "CREATE TABLE settings_new (SettingsID INTEGER Not NULL PRIMARY KEY, MonitorOnStartup BOOLEAN Not NULL, StartToTray BOOLEAN Not NULL, ShowDetectionToolTips BOOLEAN Not NULL, " &
+                        "DisableConfirmation BOOLEAN Not NULL, CreateSubFolder BOOLEAN Not NULL, ShowOverwriteWarning BOOLEAN Not NULL, RestoreOnLaunch BOOLEAN Not NULL, " &
+                        "BackupFolder TEXT Not NULL, Sync BOOLEAN Not NULL, StartWithWindows BOOLEAN Not NULL, TimeTracking BOOLEAN Not NULL, " &
+                        "SupressBackup BOOLEAN Not NULL, SupressBackupThreshold INTEGER Not NULL, CompressionLevel INTEGER Not NULL, Custom7zArguments TEXT, " &
+                        "Custom7zLocation TEXT, SyncFields INTEGER Not NULL, AutoSaveLog BOOLEAN Not NULL);"
                 sSQL &= "INSERT INTO settings_new (SettingsID, MonitorOnStartup, StartToTray, ShowDetectionToolTips, DisableConfirmation, CreateSubFolder, " &
                         "ShowOverwriteWarning, RestoreOnLaunch, BackupFolder, Sync, StartWithWindows, TimeTracking,  SupressBackup, SupressBackupThreshold, " &
                         "CompressionLevel, Custom7zArguments, Custom7zLocation, SyncFields, AutoSaveLog) " &
@@ -663,9 +668,9 @@ Public Class mgrSQLite
                         "CompressionLevel, Custom7zArguments, Custom7zLocation, SyncFields, AutoSaveLog FROM settings;" &
                         "DROP TABLE settings; ALTER TABLE settings_new RENAME TO settings;"
                 'Add new field(s)
-                sSQL &= "ALTER TABLE monitorlist ADD COLUMN CleanFolder BOOLEAN NOT NULL DEFAULT 0;"
-                sSQL &= "ALTER TABLE settings ADD COLUMN AutoRestore BOOLEAN NOT NULL DEFAULT 0;"
-                sSQL &= "ALTER TABLE settings ADD COLUMN AutoMark BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE monitorlist ADD COLUMN CleanFolder BOOLEAN Not NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN AutoRestore BOOLEAN Not NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN AutoMark BOOLEAN Not NULL DEFAULT 0;"
                 sSQL &= "PRAGMA user_version=101"
 
                 RunParamQuery(sSQL, New Hashtable)
@@ -675,7 +680,7 @@ Public Class mgrSQLite
                 BackupDB("v98")
 
                 'Add new field(s)
-                sSQL = "ALTER TABLE monitorlist ADD COLUMN CleanFolder BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN CleanFolder BOOLEAN Not NULL DEFAULT 0;"
                 sSQL &= "PRAGMA user_version=101"
 
                 RunParamQuery(sSQL, New Hashtable)
@@ -689,7 +694,7 @@ Public Class mgrSQLite
                 BackupDB("v101")
 
                 'Add Table (SavedPath)
-                sSQL = "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
+                sSQL = "CREATE TABLE savedpath (PathName TEXT Not NULL PRIMARY KEY, Path TEXT Not NULL);"
 
                 'Add new field(s)
                 sSQL &= "ALTER TABLE monitorlist ADD COLUMN Parameter TEXT;"
@@ -718,7 +723,7 @@ Public Class mgrSQLite
                 BackupDB("v102")
 
                 'Add Tables (Sessions)
-                sSQL = "CREATE TABLE sessions (MonitorID TEXT NOT NULL, Start INTEGER NOT NULL, End INTEGER NOT NULL, PRIMARY KEY(MonitorID, Start));"
+                sSQL = "CREATE TABLE sessions (MonitorID TEXT Not NULL, Start INTEGER Not NULL, End INTEGER Not NULL, PRIMARY KEY(MonitorID, Start));"
 
                 'Add new field(s)
                 sSQL &= "ALTER TABLE monitorlist ADD COLUMN Comments TEXT;"
@@ -748,7 +753,7 @@ Public Class mgrSQLite
                 BackupDB("v105")
 
                 'Add new field(s)
-                sSQL = "ALTER TABLE monitorlist ADD COLUMN IsRegEx BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN IsRegEx BOOLEAN Not NULL DEFAULT 0;"
 
                 sSQL &= "PRAGMA user_version=108"
 
@@ -759,7 +764,7 @@ Public Class mgrSQLite
                 BackupDB("v105")
 
                 'Add new field(s)
-                sSQL = "ALTER TABLE monitorlist ADD COLUMN IsRegEx BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN IsRegEx BOOLEAN Not NULL DEFAULT 0;"
 
                 sSQL &= "PRAGMA user_version=108"
 
@@ -774,33 +779,33 @@ Public Class mgrSQLite
                 BackupDB("v108")
 
                 'Add Tables
-                sSQL = "CREATE TABLE processes (ProcessID TEXT NOT NULL PRIMARY KEY, Name Text NOT NULL, Path TEXT NOT NULL, Args TEXT, Kill BOOLEAN NOT NULL);"
-                sSQL &= "CREATE TABLE gameprocesses (ProcessID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(ProcessID, MonitorID));"
+                sSQL = "CREATE TABLE processes (ProcessID TEXT Not NULL PRIMARY KEY, Name Text Not NULL, Path TEXT Not NULL, Args TEXT, Kill BOOLEAN Not NULL);"
+                sSQL &= "CREATE TABLE gameprocesses (ProcessID TEXT Not NULL, MonitorID TEXT Not NULL, PRIMARY KEY(ProcessID, MonitorID));"
 
                 'Overhaul Tables
-                sSQL &= "CREATE TABLE settings_new (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, " &
-                   "DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, " &
-                   "BackupFolder TEXT NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
-                   "SuppressBackup BOOLEAN NOT NULL, SuppressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
-                   "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL, SessionTracking BOOLEAN NOT NULL, " &
-                   "SuppressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL, UseGameID BOOLEAN NOT NULL, DisableSyncMessages BOOLEAN NOT NULL);"
+                sSQL &= "CREATE TABLE settings_new (SettingsID INTEGER Not NULL PRIMARY KEY, MonitorOnStartup BOOLEAN Not NULL, StartToTray BOOLEAN Not NULL, ShowDetectionToolTips BOOLEAN Not NULL, " &
+                   "DisableConfirmation BOOLEAN Not NULL, CreateSubFolder BOOLEAN Not NULL, ShowOverwriteWarning BOOLEAN Not NULL, RestoreOnLaunch BOOLEAN Not NULL, " &
+                   "BackupFolder TEXT Not NULL, StartWithWindows BOOLEAN Not NULL, TimeTracking BOOLEAN Not NULL, " &
+                   "SuppressBackup BOOLEAN Not NULL, SuppressBackupThreshold INTEGER Not NULL, CompressionLevel INTEGER Not NULL, Custom7zArguments TEXT, " &
+                   "Custom7zLocation TEXT, SyncFields INTEGER Not NULL, AutoSaveLog BOOLEAN Not NULL, AutoRestore BOOLEAN Not NULL, AutoMark BOOLEAN Not NULL, SessionTracking BOOLEAN Not NULL, " &
+                   "SuppressMessages INTEGER Not NULL, BackupOnLaunch BOOLEAN Not NULL, UseGameID BOOLEAN Not NULL, DisableSyncMessages BOOLEAN Not NULL);"
                 sSQL &= "INSERT INTO settings_new(SettingsID, MonitorOnStartup, StartToTray, ShowDetectionToolTips, DisableConfirmation, CreateSubFolder, ShowOverwriteWarning, RestoreOnLaunch, " &
                    "BackupFolder, StartWithWindows, TimeTracking, SuppressBackup, SuppressBackupThreshold, CompressionLevel, Custom7zArguments, Custom7zLocation, SyncFields, AutoSaveLog, " &
                     "AutoRestore, AutoMark, SessionTracking, SuppressMessages, BackupOnLaunch, UseGameID, DisableSyncMessages) SELECT SettingsID, MonitorOnStartup, StartToTray, ShowDetectionToolTips, DisableConfirmation, CreateSubFolder, ShowOverwriteWarning, RestoreOnLaunch, " &
                    "BackupFolder, StartWithWindows, TimeTracking, SupressBackup, SupressBackupThreshold, CompressionLevel, Custom7zArguments, Custom7zLocation, SyncFields, AutoSaveLog, " &
                     "AutoRestore, AutoMark, SessionTracking, 0, 1, 0, 1 FROM settings;" &
                     "DROP TABLE settings; ALTER TABLE settings_new RENAME TO settings;"
-                sSQL &= "CREATE TABLE monitorlist_new (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
-                   "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
-                   "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL);"
+                sSQL &= "CREATE TABLE monitorlist_new (MonitorID TEXT Not NULL PRIMARY KEY, Name TEXT Not NULL, Process TEXT Not NULL, Path TEXT, " &
+                   "AbsolutePath BOOLEAN Not NULL, FolderSave BOOLEAN Not NULL, FileType TEXT, TimeStamp BOOLEAN Not NULL, ExcludeList TEXT Not NULL, " &
+                   "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN Not NULL, MonitorOnly BOOLEAN Not NULL, " &
+                   "BackupLimit INTEGER Not NULL, CleanFolder BOOLEAN Not NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN Not NULL);"
                 sSQL &= "INSERT INTO monitorlist_new (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, " &
                    "ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx)" &
                    "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, " &
                    "ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx FROM monitorlist;" &
                    "DROP TABLE monitorlist; ALTER TABLE monitorlist_new RENAME TO monitorlist;"
-                sSQL &= "CREATE TABLE manifest_new (ManifestID TEXT NOT NULL PRIMARY KEY, MonitorID TEXT NOT NULL, FileName TEXT NOT NULL, " &
-                   "DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+                sSQL &= "CREATE TABLE manifest_new (ManifestID TEXT Not NULL PRIMARY KEY, MonitorID TEXT Not NULL, FileName TEXT Not NULL, " &
+                   "DateUpdated TEXT Not NULL, UpdatedBy TEXT Not NULL, CheckSum TEXT);"
                 sSQL &= "INSERT INTO manifest_new (ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum) " &
                    "SELECT ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum FROM manifest NATURAL JOIN monitorlist GROUP BY ManifestID;" &
                    "DROP TABLE manifest; ALTER TABLE manifest_new RENAME TO manifest;"
@@ -817,10 +822,10 @@ Public Class mgrSQLite
                 BackupDB("v108")
 
                 'Overhaul Tables
-                sSQL = "CREATE TABLE monitorlist_new (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
-                   "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
-                   "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL);"
+                sSQL = "CREATE TABLE monitorlist_new (MonitorID TEXT Not NULL PRIMARY KEY, Name TEXT Not NULL, Process TEXT Not NULL, Path TEXT, " &
+                   "AbsolutePath BOOLEAN Not NULL, FolderSave BOOLEAN Not NULL, FileType TEXT, TimeStamp BOOLEAN Not NULL, ExcludeList TEXT Not NULL, " &
+                   "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN Not NULL, MonitorOnly BOOLEAN Not NULL, " &
+                   "BackupLimit INTEGER Not NULL, CleanFolder BOOLEAN Not NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN Not NULL);"
                 sSQL &= "INSERT INTO monitorlist_new (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, " &
                    "ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx)" &
                    "SELECT MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, " &
@@ -835,8 +840,8 @@ Public Class mgrSQLite
                 mgrTags.SyncTags(True)
                 mgrGameTags.SyncGameTags(True)
 
-                sSQL &= "CREATE TABLE manifest_new (ManifestID TEXT NOT NULL PRIMARY KEY, MonitorID TEXT NOT NULL, FileName TEXT NOT NULL, " &
-                   "DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+                sSQL &= "CREATE TABLE manifest_new (ManifestID TEXT Not NULL PRIMARY KEY, MonitorID TEXT Not NULL, FileName TEXT Not NULL, " &
+                   "DateUpdated TEXT Not NULL, UpdatedBy TEXT Not NULL, CheckSum TEXT);"
                 sSQL &= "INSERT INTO manifest_new (ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum) " &
                    "SELECT ManifestID, MonitorID, FileName, DateUpdated, UpdatedBy, CheckSum FROM manifest NATURAL JOIN monitorlist GROUP BY ManifestID;" &
                    "DROP TABLE manifest; ALTER TABLE manifest_new RENAME TO manifest;"
@@ -856,7 +861,7 @@ Public Class mgrSQLite
                 BackupDB("v110")
 
                 'Add new setting
-                sSQL = "ALTER TABLE settings ADD COLUMN ShowResolvedPaths BOOLEAN NOT NULL DEFAULT 1;"
+                sSQL = "ALTER TABLE settings ADD COLUMN ShowResolvedPaths BOOLEAN Not NULL DEFAULT 1;"
 
                 sSQL &= "PRAGMA user_version=115"
 
@@ -912,6 +917,35 @@ Public Class mgrSQLite
                 'Add new field(s)
                 sSQL = "ALTER TABLE monitorlist ADD COLUMN RecurseSubFolders BOOLEAN NOT NULL DEFAULT 1;"
                 sSQL &= "PRAGMA user_version=116"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '1.18 Upgrade
+        If GetDatabaseVersion() < 118 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v116")
+
+                'Add new field(s)
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN OS INTEGER NOT NULL DEFAULT " & mgrCommon.GetCurrentOS & ";"
+                sSQL &= "ALTER TABLE settings ADD COLUMN DisableDiskSpaceCheck BOOLEAN NOT NULL DEFAULT 0;"
+
+                'Add Tables (Wine Data)
+                sSQL &= "CREATE TABLE winedata (MonitorID TEXT NOT NULL PRIMARY KEY, Prefix TEXT NOT NULL, SavePath TEXT NOT NULL, BinaryPath TEXT NOT NULL);"
+
+                sSQL &= "PRAGMA user_version=118"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v116")
+
+                'Add new field(s)
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN OS INTEGER NOT NULL DEFAULT " & mgrCommon.GetCurrentOS & ";"
+                sSQL &= "PRAGMA user_version=118"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If

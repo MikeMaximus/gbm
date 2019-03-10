@@ -97,6 +97,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An error occured attempting to launch the application:[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property App_ErrorLaunchExternal() As String
+            Get
+                Return ResourceManager.GetString("App_ErrorLaunchExternal", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to This function is currently not available on a Unix based operating system..
         '''</summary>
         Friend ReadOnly Property App_ErrorUnixNotAvailable() As String
@@ -120,6 +129,15 @@ Namespace My.Resources
         Friend ReadOnly Property App_Invalid7zDetected() As String
             Get
                 Return ResourceManager.GetString("App_Invalid7zDetected", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Linux.
+        '''</summary>
+        Friend ReadOnly Property App_LinuxOS() As String
+            Get
+                Return ResourceManager.GetString("App_LinuxOS", resourceCulture)
             End Get
         End Property
         
@@ -192,6 +210,15 @@ Namespace My.Resources
         Friend ReadOnly Property App_URLWebsite() As String
             Get
                 Return ResourceManager.GetString("App_URLWebsite", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Windows.
+        '''</summary>
+        Friend ReadOnly Property App_WindowsOS() As String
+            Get
+                Return ResourceManager.GetString("App_WindowsOS", resourceCulture)
             End Get
         End Property
         
@@ -1168,6 +1195,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to OS.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_FieldOS() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_FieldOS", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Parameter.
         '''</summary>
         Friend ReadOnly Property frmFilter_FieldParameter() As String
@@ -1668,6 +1704,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_btnTags() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_btnTags", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Wine Configuration....
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_btnWineConfig() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_btnWineConfig", resourceCulture)
             End Get
         End Property
         
@@ -2347,6 +2392,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to OS:.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblOS() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblOS", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Parameter:.
         '''</summary>
         Friend ReadOnly Property frmGameManager_lblParameter() As String
@@ -2500,7 +2554,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Official Windows configurations can be used in Linux for games running in Wine or Proton.[BR][BR]You do not need to modify these configurations, GBM will automatically do any required path conversions the first time the game is detected.[BR][BR]This message will only be shown once..
+        '''  Looks up a localized string similar to Official Windows configurations can be used in Linux for games running in Wine or Proton.[BR][BR]You do not need to modify these configurations, GBM will automatically do any required path conversions when the game is detected.[BR][BR]This message will only be shown once..
         '''</summary>
         Friend ReadOnly Property frmGameManager_WarningWinConfigsInLinux() As String
             Get
@@ -3256,6 +3310,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to GBM is set to start automatically, but the desktop link is missing.  Automatic start has been disabled,  please re-install GBM using a package manager..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorLinuxAutoStartLinkMissing() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorLinuxAutoStartLinkMissing", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to GBM is set to start automatically, but the autostart link is missing.  The autostart link has been re-created..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorLinuxAutoStartMissing() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorLinuxAutoStartMissing", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to The command [PARAM] requires more parameters..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorMissingParams() As String
@@ -3288,6 +3360,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_ErrorNoSessions() As String
             Get
                 Return ResourceManager.GetString("frmMain_ErrorNoSessions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] uses a Windows configuration and requires a Wine save path to perform this operation..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorNoWineSavePath() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorNoWineSavePath", resourceCulture)
             End Get
         End Property
         
@@ -4012,7 +4093,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] Wine Prefix: [PARAM].
+        '''  Looks up a localized string similar to Wine Binary Path: [PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmMain_WineBinaryPath() As String
+            Get
+                Return ResourceManager.GetString("frmMain_WineBinaryPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Wine Prefix: [PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_WinePrefix() As String
             Get
@@ -4021,7 +4111,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] Converted Save Path: [PARAM].
+        '''  Looks up a localized string similar to Wine Save Path: [PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_WineSavePath() As String
             Get
@@ -4615,6 +4705,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Start automatically on log-in.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkAutoStart() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkAutoStart", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Disable backup confirmation.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkBackupConfirm() As String
@@ -4638,6 +4737,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_chkCreateFolder() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkCreateFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Disable disk space check prior to backup.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkDisableDiskSpaceCheck() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkDisableDiskSpaceCheck", resourceCulture)
             End Get
         End Property
         
@@ -4705,20 +4813,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Start to system tray.
+        '''  Looks up a localized string similar to Start minimized.
         '''</summary>
-        Friend ReadOnly Property frmSettings_chkStartToTray() As String
+        Friend ReadOnly Property frmSettings_chkStartMinimized() As String
             Get
-                Return ResourceManager.GetString("frmSettings_chkStartToTray", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Start with Windows.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_chkStartWindows() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_chkStartWindows", resourceCulture)
+                Return ResourceManager.GetString("frmSettings_chkStartMinimized", resourceCulture)
             End Get
         End Property
         
@@ -4773,6 +4872,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_ErrorBackupFolder() As String
             Get
                 Return ResourceManager.GetString("frmSettings_ErrorBackupFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error occured while configuring autostart:[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmSettings_ErrorLinuxAutoStart() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_ErrorLinuxAutoStart", resourceCulture)
             End Get
         End Property
         
@@ -5578,6 +5686,96 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Cancel.
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_btnCancel() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_btnCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Save.
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_btnSave() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_btnSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The Wine binary path is required.[BR][BR]Clear all fields and save to remove all Wine data for this game..
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_ErrorValidationBinaryPath() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_ErrorValidationBinaryPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The Wine Prefix is required.[BR][BR]Clear all fields and save to remove all Wine data for this game..
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_ErrorValidationPrefix() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_ErrorValidationPrefix", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Wine Configuration.
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Configuration.
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_grpWineConfig() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_grpWineConfig", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Binary Path:.
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_lblWineBinaryPath() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_lblWineBinaryPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Prefix:.
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_lblWinePrefix() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_lblWinePrefix", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Save Path:.
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_lblWineSavePath() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_lblWineSavePath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game Backup Monitor automatically updates the Wine configuration for a game each time it is detected.  Modifying any of these fields manually is not recommended in most cases.[BR][BR]This warning will only be displayed once..
+        '''</summary>
+        Friend ReadOnly Property frmWineConfiguration_WarningSingle() As String
+            Get
+                Return ResourceManager.GetString("frmWineConfiguration_WarningSingle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         '''</summary>
         Friend ReadOnly Property GBM_Tray_Detected() As System.Drawing.Icon
@@ -5845,6 +6043,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The backup folder is a UNC path.  The disk space check has been skipped..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorBackupPathIsUNC() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorBackupPathIsUNC", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup aborted due to lack of disk space..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorDiskSpace() As String
@@ -5926,11 +6133,47 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to perform this backup..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorRegBackupElevation() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorRegBackupElevation", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The backup has failed, please ensure the registry path is correct..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorRegBackupFailed() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorRegBackupFailed", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The utility reg.exe could not be located at [PARAM].  The backup cannot continue..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorRegNotFound() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorRegNotFound", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to A failure occured while creating a backup sub-folder for [PARAM].[BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorSubFolderCreate() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ErrorSubFolderCreate", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The wine binary could not be located at [PARAM]. The backup cannot continue..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorWineNotFound() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorWineNotFound", resourceCulture)
             End Get
         End Property
         
@@ -5994,6 +6237,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrCommon_FilesFilter() As String
             Get
                 Return ResourceManager.GetString("mgrCommon_FilesFilter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Current Folder.
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_FolderSelection() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_FolderSelection", resourceCulture)
             End Get
         End Property
         
@@ -6259,7 +6511,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The backup location [PARAM] is not available.[BR]It may be on an external or network drive that isn&apos;t connected.[BR][BR]Do you want to select another backup location and continue?.
+        '''  Looks up a localized string similar to The backup location [PARAM] is not available.[BR]It may be on an external or network drive that isn&apos;t connected.[BR][BR]Do you want to select another backup location?[BR][BR]Select &quot;No&quot; to quit or &quot;Cancel&quot; to continue waiting for the location to become available..
         '''</summary>
         Friend ReadOnly Property mgrPath_ConfirmBackupLocation() As String
             Get
@@ -6435,6 +6687,33 @@ Namespace My.Resources
         Friend ReadOnly Property mgrRestore_ErrorOtherFailure() As String
             Get
                 Return ResourceManager.GetString("mgrRestore_ErrorOtherFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to restore this backup..
+        '''</summary>
+        Friend ReadOnly Property mgrRestore_ErrorRegBackupElevation() As String
+            Get
+                Return ResourceManager.GetString("mgrRestore_ErrorRegBackupElevation", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The utility reg.exe could not be located at [PARAM].  The restore cannot continue..
+        '''</summary>
+        Friend ReadOnly Property mgrRestore_ErrorRegNotFound() As String
+            Get
+                Return ResourceManager.GetString("mgrRestore_ErrorRegNotFound", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The wine binary could not be located at [PARAM].  The restore cannot continue..
+        '''</summary>
+        Friend ReadOnly Property mgrRestore_ErrorWineNotFound() As String
+            Get
+                Return ResourceManager.GetString("mgrRestore_ErrorWineNotFound", resourceCulture)
             End Get
         End Property
         

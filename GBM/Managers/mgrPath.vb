@@ -2,6 +2,7 @@
 Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Reflection
+Imports System.Threading.Thread
 
 Public Class mgrPath
     'Important Note: Any changes to sSettingsRoot & sDBLocation need to be mirrored in frmMain.vb -> VerifyGameDataPath
@@ -484,6 +485,22 @@ Public Class mgrPath
         Return sValue
     End Function
 
+    Public Shared Function IsSupportedRegistryPath(ByVal sPath As String) As Boolean
+        If sPath.StartsWith("HKEY_CURRENT_USER") Then
+            Return True
+        ElseIf sPath.StartsWith("HKEY_LOCAL_MACHINE") Then
+            Return True
+        End If
+
+        Return False
+    End Function
+
+    Public Shared Function IsPathUNC(sPath As String) As Boolean
+        Dim sPrefix As String = Path.DirectorySeparatorChar & Path.DirectorySeparatorChar
+        If sPath.StartsWith(sPrefix) Then Return True
+        Return False
+    End Function
+
     Public Shared Function IsAbsolute(sValue As String) As Boolean
         Dim hshFolders As New Hashtable
         Dim hshCustomVariables As Hashtable = mgrVariables.ReadVariables
@@ -497,6 +514,7 @@ Public Class mgrPath
         'Don't use these in Unix
         If Not mgrCommon.IsUnix Then
             hshFolders.Add(Guid.NewGuid.ToString, Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments))
+            hshFolders.Add(Guid.NewGuid.ToString, Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData))
             hshFolders.Add(Guid.NewGuid.ToString, Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))
         End If
 
@@ -569,8 +587,8 @@ Public Class mgrPath
         If bNoAuto Then
             sMessage = mgrCommon.FormatString(mgrPath_ConfirmManualPath, sSearchReason)
 
-            If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                sFolder = SetManualgamePath()
+            If mgrCommon.ShowPriorityMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                sFolder = SetManualGamePath()
             End If
 
             Return sFolder
@@ -578,8 +596,9 @@ Public Class mgrPath
 
         sMessage = mgrCommon.FormatString(mgrPath_ConfirmAutoPath, sSearchReason)
 
-        If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+        If mgrCommon.ShowPriorityMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             frmFind.ShowDialog()
+            frmFind.BringToFront()
 
             If frmFind.FoundItem <> String.Empty Then
                 Return frmFind.FoundItem
@@ -594,7 +613,7 @@ Public Class mgrPath
             End If
 
             If mgrCommon.ShowMessage(sMessage, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                sFolder = SetManualgamePath()
+                sFolder = SetManualGamePath()
             End If
 
             frmFind.Dispose()
@@ -605,21 +624,31 @@ Public Class mgrPath
 
     Public Shared Function VerifyBackupPath(ByRef sBackupPath As String) As Boolean
         Dim dBrowser As FolderBrowserDialog
+        Dim oDialogResult As DialogResult
+        Dim iTotalWait As Integer
+        Dim iTimeOut As Integer = 60000
 
-        If Not Directory.Exists(sBackupPath) Then
-            If mgrCommon.ShowMessage(mgrPath_ConfirmBackupLocation, sBackupPath, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                dBrowser = New FolderBrowserDialog
-                dBrowser.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-                If dBrowser.ShowDialog = DialogResult.OK Then
-                    sBackupPath = dBrowser.SelectedPath
-                    Return True
-                Else
+        Do While Not (Directory.Exists(sBackupPath))
+            Sleep(5000)
+            iTotalWait += 5000
+            If iTotalWait >= iTimeOut Then
+                oDialogResult = mgrCommon.ShowMessage(mgrPath_ConfirmBackupLocation, sBackupPath, MsgBoxStyle.YesNoCancel)
+                If oDialogResult = MsgBoxResult.Yes Then
+                    dBrowser = New FolderBrowserDialog
+                    dBrowser.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                    If dBrowser.ShowDialog = DialogResult.OK Then
+                        sBackupPath = dBrowser.SelectedPath
+                        Return True
+                    Else
+                        Return False
+                    End If
+                ElseIf oDialogResult = DialogResult.No Then
                     Return False
+                Else
+                    iTotalWait = 0
                 End If
-            Else
-                Return False
             End If
-        End If
+        Loop
 
         Return True
     End Function

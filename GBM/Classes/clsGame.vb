@@ -1,4 +1,5 @@
 ﻿Imports System.Text.RegularExpressions
+Imports System.Xml.Serialization
 
 <Serializable()>
 Public Class clsGame
@@ -24,6 +25,7 @@ Public Class clsGame
     Private sComments As String = String.Empty
     Private bIsRegEx As Boolean = False
     Private bRecurseSubFolders As Boolean = True
+    Private iOS As eOS = mgrCommon.GetCurrentOS()
     Private oImportTags As New List(Of Tag)
     Private bImportUpdate As Boolean = False
     Private oCompiledRegEx As Regex
@@ -36,6 +38,13 @@ Public Class clsGame
         Icon = 16
         Unused = 32 'Do not remove to maintain compatability, re-use for a future field.
         MonitorGame = 64
+    End Enum
+
+    Public Enum eOS
+        <XmlEnum("1")>
+        Windows = 1
+        <XmlEnum("2")>
+        Linux = 2
     End Enum
 
     Property ID As String
@@ -106,7 +115,12 @@ Public Class clsGame
             bAbsolutePath = value
         End Set
         Get
-            Return bAbsolutePath
+            'This makes sure a registry key path isn't seen as a relative path.
+            If mgrPath.IsSupportedRegistryPath(TruePath) Then
+                Return True
+            Else
+                Return bAbsolutePath
+            End If
         End Get
     End Property
 
@@ -254,6 +268,15 @@ Public Class clsGame
         End Set
     End Property
 
+    Property OS As eOS
+        Get
+            Return iOS
+        End Get
+        Set(value As eOS)
+            iOS = value
+        End Set
+    End Property
+
     Property TruePath As String
         Set(value As String)
             sPath = value
@@ -367,6 +390,9 @@ Public Class clsGame
             If RecurseSubFolders <> oGame.RecurseSubFolders Then
                 Return False
             End If
+            If OS <> oGame.OS Then
+                Return False
+            End If
 
             'Optional Sync Fields
             If (eSyncFields And eOptionalSyncFields.Company) = eOptionalSyncFields.Company Then
@@ -444,6 +470,9 @@ Public Class clsGame
                 Return False
             End If
             If RecurseSubFolders <> oGame.RecurseSubFolders Then
+                Return False
+            End If
+            If OS <> oGame.OS Then
                 Return False
             End If
             Return True

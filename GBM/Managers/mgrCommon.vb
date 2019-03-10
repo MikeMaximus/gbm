@@ -9,8 +9,8 @@ Imports System.Runtime.Serialization.Formatters.Binary
 Public Class mgrCommon
 
     'These need to be updated when upgrading the packaged 7z utility
-    Private Shared sUtility64Hash As String = "8BC2A3D6C37C4DB9BD487AD35039AE0DC8A1DDF2C3B1F0B76B3E678FEBB9F223" 'v18.05 7za.exe x64
-    Private Shared sUtility32Hash As String = "77613CCA716EDF68B9D5BAB951463ED7FADE5BC0EC465B36190A76299C50F117" 'v18.05 7za.exe x86
+    Private Shared sUtility64Hash As String = "8117E40EE7F824F63373A4F5625BB62749F69159D0C449B3CE2F35AAD3B83549" 'v19.00 7za.exe x64
+    Private Shared sUtility32Hash As String = "EA308C76A2F927B160A143D94072B0DCE232E04B751F0C6432A94E05164E716D" 'v19.00 7za.exe x86
 
     Public Shared ReadOnly Property UtilityHash As String
         Get
@@ -42,28 +42,6 @@ Public Class mgrCommon
             Return My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Build
         End Get
     End Property
-
-    'Source - https://stackoverflow.com/questions/18873152/deep-copy-of-ordereddictionary
-    Public Shared Function GenericClone(ByVal oOriginal As Object) As Object
-        'Construct a temporary memory stream
-        Dim oStream As MemoryStream = New MemoryStream()
-
-        'Construct a serialization formatter that does all the hard work
-        Dim oFormatter As BinaryFormatter = New BinaryFormatter()
-
-        'This line Is explained in the "Streaming Contexts" section
-        oFormatter.Context = New StreamingContext(StreamingContextStates.Clone)
-
-        'Serialize the object graph into the memory stream
-        oFormatter.Serialize(oStream, oOriginal)
-
-        'Seek back to the start of the memory stream before deserializing
-        oStream.Position = 0
-
-        'Deserialize the graph into a New set of objects
-        'Return the root of the graph (deep copy) to the caller
-        Return oFormatter.Deserialize(oStream)
-    End Function
 
     Public Shared Function SafeIconFromFile(ByVal sPath As String) As Image
         Dim oImage As Image
@@ -139,9 +117,9 @@ Public Class mgrCommon
             End If
 
             Return fbBrowser.FileName
-            End If
+        End If
 
-            Return String.Empty
+        Return String.Empty
     End Function
 
     Private Shared Function BuildFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
@@ -154,6 +132,39 @@ Public Class mgrCommon
         fbBrowser.Filter = FormatString(mgrCommon_FilesFilter, New String() {sFileType, sExtension, sExtension})
         fbBrowser.Multiselect = bMulti
         fbBrowser.InitialDirectory = sDefaultFolder
+
+        If bSavedPath Then
+            oSavedPath = mgrSavedPath.GetPathByName(sName)
+            If oSavedPath.Path <> String.Empty Then
+                If Directory.Exists(oSavedPath.Path) Then
+                    fbBrowser.InitialDirectory = oSavedPath.Path
+                End If
+            End If
+        End If
+
+        If fbBrowser.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            If bSavedPath Then
+                oSavedPath.PathName = sName
+                oSavedPath.Path = Path.GetDirectoryName(fbBrowser.FileName)
+                mgrSavedPath.AddUpdatePath(oSavedPath)
+            End If
+
+            Return True
+        End If
+
+        Return False
+    End Function
+
+    Private Shared Function BuildFolderBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sDefaultFolder As String, ByRef fbBrowser As OpenFileDialog, Optional ByVal bSavedPath As Boolean = True) As Boolean
+
+        Dim oSavedPath As New clsSavedPath
+
+        fbBrowser.Title = sTitle
+        fbBrowser.InitialDirectory = sDefaultFolder
+        fbBrowser.ValidateNames = False
+        fbBrowser.CheckFileExists = False
+        fbBrowser.CheckPathExists = True
+        fbBrowser.FileName = mgrCommon_FolderSelection
 
         If bSavedPath Then
             oSavedPath = mgrSavedPath.GetPathByName(sName)
@@ -205,7 +216,20 @@ Public Class mgrCommon
         Return New String() {}
     End Function
 
-    Public Shared Function OpenFolderBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sDefaultFolder As String, ByVal bEnableNewFolder As Boolean,
+    Public Shared Function OpenFolderBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sDefaultFolder As String, Optional ByVal bSavedPath As Boolean = True) As String
+        Dim fbBrowser As New OpenFileDialog
+        Dim bResult As Boolean
+
+        bResult = BuildFolderBrowser(sName, sTitle, sDefaultFolder, fbBrowser, bSavedPath)
+
+        If bResult Then
+            Return Path.GetDirectoryName(fbBrowser.FileName)
+        End If
+
+        Return String.Empty
+    End Function
+
+    Public Shared Function OpenClassicFolderBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sDefaultFolder As String, ByVal bEnableNewFolder As Boolean,
                                              Optional ByVal bSavedPath As Boolean = True) As String
         Dim fbBrowser As New FolderBrowserDialog
         Dim oSavedPath As New clsSavedPath
@@ -257,6 +281,14 @@ Public Class mgrCommon
         End If
 
         Return False
+    End Function
+
+    Public Shared Function GetCurrentOS() As clsGame.eOS
+        If IsUnix() Then
+            Return clsGame.eOS.Linux
+        Else
+            Return clsGame.eOS.Windows
+        End If
     End Function
 
     Public Shared Function IsElevated() As Boolean
@@ -537,10 +569,41 @@ Public Class mgrCommon
         End Try
     End Sub
 
+    'Configure a fake form to trigger focus for priority messages
+    Private Shared Sub ConfigureFakeForm(ByRef frm As Form)
+        frm.FormBorderStyle = FormBorderStyle.None
+        frm.ShowInTaskbar = False
+        frm.Size = New Size(0, 0)
+        'We need to display it off-screen to hide it,  setting the visiblity to false doesn't work in Mono.
+        frm.StartPosition = FormStartPosition.Manual
+        frm.Location = New Point(-100, -100)
+        frm.Show()
+        frm.Focus()
+        frm.BringToFront()
+        frm.TopMost = True
+    End Sub
+
     'Handles no extra parameters
     Public Shared Function ShowMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
         Dim oResult As MsgBoxResult
         oResult = MsgBox(FormatString(sMsg), oType, My.Resources.App_NameLong)
+        Return oResult
+    End Function
+
+    'Handles no extra parameters
+    Public Shared Function ShowPriorityMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
+        Dim frmFake As Form
+
+        'Create a fake mostly invisible form to get top focus
+        frmFake = New Form
+        ConfigureFakeForm(frmFake)
+
+        Dim oResult As MsgBoxResult
+        oResult = ShowMessage(sMsg, oType)
+
+        frmFake.TopMost = False
+        frmFake.Dispose()
+
         Return oResult
     End Function
 
@@ -551,10 +614,44 @@ Public Class mgrCommon
         Return oResult
     End Function
 
+    'Handles single parameter stings
+    Public Shared Function ShowPriorityMessage(ByVal sMsg As String, ByVal sParam As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
+        Dim frmFake As Form
+
+        'Create a fake mostly invisible form to get top focus
+        frmFake = New Form
+        ConfigureFakeForm(frmFake)
+
+        Dim oResult As MsgBoxResult
+        oResult = ShowMessage(sMsg, sParam, oType)
+
+        frmFake.TopMost = False
+        frmFake.Dispose()
+
+        Return oResult
+    End Function
+
     'Handles multi-parameter strings
     Public Shared Function ShowMessage(ByVal sMsg As String, ByVal sParams As String(), ByVal oType As MsgBoxStyle) As MsgBoxResult
         Dim oResult As MsgBoxResult
         oResult = MsgBox(FormatString(sMsg, sParams), oType, My.Resources.App_NameLong)
+        Return oResult
+    End Function
+
+    'Handles multi-parameter strings
+    Public Shared Function ShowPriorityMessage(ByVal sMsg As String, ByVal sParams As String(), ByVal oType As MsgBoxStyle) As MsgBoxResult
+        Dim frmFake As Form
+
+        'Create a fake mostly invisible form to get top focus
+        frmFake = New Form
+        ConfigureFakeForm(frmFake)
+
+        Dim oResult As MsgBoxResult
+        oResult = ShowMessage(sMsg, sParams, oType)
+
+        frmFake.TopMost = False
+        frmFake.Dispose()
+
         Return oResult
     End Function
 

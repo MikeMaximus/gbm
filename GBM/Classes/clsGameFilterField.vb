@@ -4,6 +4,11 @@
         fString = 1
         fNumeric = 2
         fBool = 3
+        fEnum = 4
+    End Enum
+
+    Public Enum eEnumFilterField As Integer
+        OS = 1
     End Enum
 
     <Flags()> Public Enum eFieldStatus
@@ -15,6 +20,7 @@
     Private sFieldName As String
     Private sFriendlyFieldName As String
     Private eType As eDataType
+    Private eEnumField As eEnumFilterField
     Private eStatus As eFieldStatus
 
     Public Property FieldName As String
@@ -41,6 +47,15 @@
         End Get
         Set(value As eDataType)
             eType = value
+        End Set
+    End Property
+
+    Public Property EnumField As eEnumFilterField
+        Get
+            Return eEnumField
+        End Get
+        Set(value As eEnumFilterField)
+            eEnumField = value
         End Set
     End Property
 

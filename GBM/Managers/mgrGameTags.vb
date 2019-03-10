@@ -281,4 +281,31 @@
 
     End Function
 
+    Public Shared Function PrintTagsbyID(ByVal sID As String) As String
+        Dim slTags As SortedList
+        Dim oTag As clsTag
+        Dim sTags As String = String.Empty
+        Dim cTrim() As Char = {",", " "}
+
+        slTags = mgrGameTags.GetTagsByGame(sID)
+
+        For Each de As DictionaryEntry In slTags
+            oTag = DirectCast(de.Value, clsTag)
+            sTags &= "#" & oTag.Name & ", "
+        Next
+
+        Return sTags.TrimEnd(cTrim)
+    End Function
+
+    Public Shared Function PrintTagsbyList(ByVal oList As List(Of KeyValuePair(Of String, String))) As String
+        Dim sTags As String = String.Empty
+        Dim cTrim() As Char = {",", " "}
+
+        For Each kp As KeyValuePair(Of String, String) In oList
+            sTags &= "#" & kp.Value & ", "
+        Next
+
+        Return sTags.TrimEnd(cTrim)
+    End Function
+
 End Class

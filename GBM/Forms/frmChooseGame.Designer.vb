@@ -49,6 +49,7 @@ Partial Class frmChooseGame
         'lstGameBox
         '
         Me.lstGameBox.FormattingEnabled = True
+        Me.lstGameBox.HorizontalScrollbar = True
         Me.lstGameBox.Location = New System.Drawing.Point(15, 34)
         Me.lstGameBox.Name = "lstGameBox"
         Me.lstGameBox.Size = New System.Drawing.Size(228, 95)

@@ -242,6 +242,15 @@ Public Class frmFilter
         oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
         oValidFields.Add(oField)
 
+        'OS
+        oField = New clsGameFilterField
+        oField.FieldName = "OS"
+        oField.FriendlyFieldName = frmFilter_FieldOS
+        oField.Type = clsGameFilterField.eDataType.fEnum
+        oField.EnumField = clsGameFilterField.eEnumFilterField.OS
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
         'IsRegEx
         oField = New clsGameFilterField
         oField.FieldName = "IsRegEx"
@@ -359,7 +368,7 @@ Public Class frmFilter
                         sFilter = oFilter.Field.FriendlyFieldName & " " & frmFilter_lstFilterContains & " """ & oFilter.Data & """"
                     Case clsGameFilterField.eDataType.fNumeric
                         sFilter = oFilter.Field.FriendlyFieldName & " " & oFilter.NumericOperatorAsString & " " & oFilter.Data
-                    Case clsGameFilterField.eDataType.fBool
+                    Case clsGameFilterField.eDataType.fBool, clsGameFilterField.eDataType.fEnum
                         sFilter = oFilter.Field.FriendlyFieldName & " = " & oFilter.Data
                 End Select
 
@@ -413,23 +422,22 @@ Public Class frmFilter
     End Sub
 
     Private Sub ChangeFilterMode()
-        Dim oFilterType As clsGameFilterField.eDataType = DirectCast(cboFilterField.SelectedValue, clsGameFilterField).Type
+        Dim oFilter As clsGameFilterField = DirectCast(cboFilterField.SelectedValue, clsGameFilterField)
 
         'Reset
         cboNumericOps.SelectedIndex = 0
-        cboBoolFilter.SelectedIndex = 0
         numFilter.Value = 0
         txtStringFilter.Text = String.Empty
         chkNot.Checked = False
 
         'Reset Visibilty
-        cboBoolFilter.Visible = False
+        cboListFilter.Visible = False
         cboNumericOps.Visible = False
         numFilter.Visible = False
         txtStringFilter.Visible = False
 
         'Set Visiblity
-        Select Case oFilterType
+        Select Case oFilter.Type
             Case clsGameFilterField.eDataType.fString
                 txtStringFilter.Visible = True
             Case clsGameFilterField.eDataType.fNumeric
@@ -437,7 +445,13 @@ Public Class frmFilter
                 numFilter.Visible = True
                 txtStringFilter.Visible = False
             Case clsGameFilterField.eDataType.fBool
-                cboBoolFilter.Visible = True
+                LoadComboAsBool()
+                cboListFilter.SelectedIndex = 0
+                cboListFilter.Visible = True
+            Case clsGameFilterField.eDataType.fEnum
+                LoadComboAsEnum(oFilter.EnumField)
+                cboListFilter.SelectedIndex = 0
+                cboListFilter.Visible = True
         End Select
 
     End Sub
@@ -458,8 +472,8 @@ Public Class frmFilter
                 oFilter.Data = numFilter.Value
                 oFilter.NumericOperator = DirectCast(cboNumericOps.SelectedValue, clsGameFilter.eNumericOperators)
                 sFilter = oFilter.Field.FriendlyFieldName & " " & oFilter.NumericOperatorAsString & " " & oFilter.Data
-            Case clsGameFilterField.eDataType.fBool
-                oFilter.Data = cboBoolFilter.SelectedValue
+            Case clsGameFilterField.eDataType.fBool, clsGameFilterField.eDataType.fEnum
+                oFilter.Data = cboListFilter.SelectedValue
                 sFilter = oFilter.Field.FriendlyFieldName & " = " & oFilter.Data
         End Select
 
@@ -531,20 +545,40 @@ Public Class frmFilter
 
     End Sub
 
-    Private Sub LoadCombos()
-        Dim oFilterFields As New List(Of KeyValuePair(Of clsGameFilterField, String))
-        Dim oSortFields As New List(Of KeyValuePair(Of String, String))
-        Dim oNumericOperators As New List(Of KeyValuePair(Of clsGameFilter.eNumericOperators, String))
+    Private Sub LoadComboAsBool()
         Dim oBoolOperators As New List(Of KeyValuePair(Of Boolean, String))
 
-        'cboBoolFilter
-        cboBoolFilter.ValueMember = "Key"
-        cboBoolFilter.DisplayMember = "Value"
+        'cboListFilter (Boolean)
+        cboListFilter.ValueMember = "Key"
+        cboListFilter.DisplayMember = "Value"
 
         oBoolOperators.Add(New KeyValuePair(Of Boolean, String)(True, frmFilter_cboBoolFilterEnabled))
         oBoolOperators.Add(New KeyValuePair(Of Boolean, String)(False, frmFilter_cboBoolFilterDisabled))
 
-        cboBoolFilter.DataSource = oBoolOperators
+        cboListFilter.DataSource = oBoolOperators
+    End Sub
+
+    Private Sub LoadComboAsEnum(ByVal eEnum As clsGameFilterField.eEnumFilterField)
+        Dim oEnums As New List(Of KeyValuePair(Of Integer, String))
+
+        'cboListFilter (Enum)
+        cboListFilter.ValueMember = "Key"
+        cboListFilter.DisplayMember = "Value"
+
+        Select Case eEnum
+            Case clsGameFilterField.eEnumFilterField.OS
+                For Each v As Object In [Enum].GetValues(GetType(clsGame.eOS))
+                    oEnums.Add(New KeyValuePair(Of Integer, String)(v, [Enum].GetName(GetType(clsGame.eOS), v)))
+                Next
+        End Select
+
+        cboListFilter.DataSource = oEnums
+    End Sub
+
+    Private Sub LoadCombos()
+        Dim oFilterFields As New List(Of KeyValuePair(Of clsGameFilterField, String))
+        Dim oSortFields As New List(Of KeyValuePair(Of String, String))
+        Dim oNumericOperators As New List(Of KeyValuePair(Of clsGameFilter.eNumericOperators, String))
 
         'cboNumericOps
         cboNumericOps.ValueMember = "Key"

@@ -209,6 +209,14 @@ Public Class frmGameManager
         Return sPath
     End Function
 
+    Private Sub HandleWineConfig()
+        If mgrCommon.IsUnix And cboOS.SelectedValue = clsGame.eOS.Windows And Not eCurrentMode = eModes.Add Then
+            btnWineConfig.Visible = True
+        Else
+            btnWineConfig.Visible = False
+        End If
+    End Sub
+
     Private Function CheckManifestandUpdate(ByVal oOriginalApp As clsGame, ByVal oNewApp As clsGame, ByVal bUseGameID As Boolean) As Boolean
         Dim oBackupItems As List(Of clsBackup)
         Dim sDirectory As String
@@ -334,7 +342,7 @@ Public Class frmGameManager
             oRestoreData = mgrRestore.CompareManifests
 
             'Only show games with data to restore
-            Dim oTemporaryList As OrderedDictionary = mgrCommon.GenericClone(GameData)
+            Dim oTemporaryList As OrderedDictionary = mgrMonitorList.ReadFilteredList(oCurrentIncludeTagFilters, oCurrentExcludeTagFilters, oCurrentFilters, eCurrentFilter, bCurrentAndOperator, bCurrentSortAsc, sCurrentSortField)
             For Each de As DictionaryEntry In oTemporaryList
                 oGame = DirectCast(de.Value, clsGame)
                 If Not oRestoreData.ContainsKey(oGame.ID) Then
@@ -345,7 +353,7 @@ Public Class frmGameManager
             Next
         ElseIf optBackupData.Checked Then
             'Only show games with backup data
-            Dim oTemporaryList As OrderedDictionary = mgrCommon.GenericClone(GameData)
+            Dim oTemporaryList As OrderedDictionary = mgrMonitorList.ReadFilteredList(oCurrentIncludeTagFilters, oCurrentExcludeTagFilters, oCurrentFilters, eCurrentFilter, bCurrentAndOperator, bCurrentSortAsc, sCurrentSortField)
             oRestoreData = oRemoteBackupData.Clone
 
             For Each de As DictionaryEntry In oTemporaryList
@@ -394,14 +402,14 @@ Public Class frmGameManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser("GM_Process_Path", frmGameManager_ChooseExePath, sDefaultFolder, False, False)
+        sNewPath = mgrCommon.OpenFolderBrowser("GM_Process_Path", frmGameManager_ChooseExePath, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then txtAppPath.Text = sNewPath
     End Sub
 
     Private Sub SavePathBrowse()
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-        Dim sCurrentPath As String = txtSavePath.Text
+        Dim sCurrentPath As String = mgrPath.ReplaceSpecialPaths(txtSavePath.Text)
         Dim sNewPath As String
 
         If txtSavePath.Text <> String.Empty Then
@@ -410,7 +418,7 @@ Public Class frmGameManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFolderBrowser("GM_Save_Path", frmGameManager_ChooseSaveFolder, sDefaultFolder, False, False)
+        sNewPath = mgrCommon.OpenFolderBrowser("GM_Save_Path", frmGameManager_ChooseSaveFolder, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then
             txtSavePath.Text = sNewPath
@@ -533,11 +541,15 @@ Public Class frmGameManager
         sFileName = BackupFolder & CurrentBackupItem.FileName
 
         If File.Exists(sFileName) Then
-            oProcessStartInfo = New ProcessStartInfo
-            oProcessStartInfo.FileName = sFileName
-            oProcessStartInfo.UseShellExecute = True
-            oProcessStartInfo.Verb = "open"
-            Process.Start(oProcessStartInfo)
+            Try
+                oProcessStartInfo = New ProcessStartInfo
+                oProcessStartInfo.FileName = sFileName
+                oProcessStartInfo.UseShellExecute = True
+                oProcessStartInfo.Verb = "open"
+                Process.Start(oProcessStartInfo)
+            Catch ex As Exception
+                mgrCommon.ShowMessage(App_ErrorLaunchExternal, ex.Message, MsgBoxStyle.Exclamation)
+            End Try
         Else
             mgrCommon.ShowMessage(frmGameManager_ErrorNoBackupExists, MsgBoxStyle.Exclamation)
         End If
@@ -641,11 +653,15 @@ Public Class frmGameManager
         End If
 
         If Directory.Exists(sPath) Then
-            oProcessStartInfo = New ProcessStartInfo
-            oProcessStartInfo.FileName = sPath
-            oProcessStartInfo.UseShellExecute = True
-            oProcessStartInfo.Verb = "open"
-            Process.Start(oProcessStartInfo)
+            Try
+                oProcessStartInfo = New ProcessStartInfo
+                oProcessStartInfo.FileName = sPath
+                oProcessStartInfo.UseShellExecute = True
+                oProcessStartInfo.Verb = "open"
+                Process.Start(oProcessStartInfo)
+            Catch ex As Exception
+                mgrCommon.ShowMessage(App_ErrorLaunchExternal, ex.Message, MsgBoxStyle.Exclamation)
+            End Try
         Else
             mgrCommon.ShowMessage(frmGameManager_ErrorNoRestorePathExists, MsgBoxStyle.Exclamation)
         End If
@@ -706,13 +722,13 @@ Public Class frmGameManager
 
         If eCurrentMode = eModes.Add Then
             oTagsToSave = frm.TagList
-            FillTagsbyList(frm.TagList)
+            lblTags.Text = mgrGameTags.PrintTagsbyList(frm.TagList)
         Else
             'Sync
             mgrMonitorList.SyncMonitorLists(Settings)
 
             'Only update visible tags if one item is selected
-            If lstGames.SelectedItems.Count = 1 Then FillTagsbyID(CurrentGame.ID)
+            If lstGames.SelectedItems.Count = 1 Then lblTags.Text = mgrGameTags.PrintTagsbyID(CurrentGame.ID)
 
             'If a tag filter is enabled, reload list to reflect changes
             If optCustom.Checked Then
@@ -724,6 +740,13 @@ Public Class frmGameManager
             ModeChange()
         End If
 
+    End Sub
+
+    Public Sub OpenWineConfiguration()
+        Dim frm As New frmWineConfiguration
+        frm.Settings = oSettings
+        frm.MonitorID = oCurrentGame.ID
+        frm.ShowDialog()
     End Sub
 
     Public Sub VerifyBackups(ByVal oApp As clsGame)
@@ -845,6 +868,18 @@ Public Class frmGameManager
             btnMarkAsRestored.Enabled = False
         End If
 
+        If chkMonitorOnly.Checked Then
+            btnImportBackup.Enabled = False
+        Else
+            btnImportBackup.Enabled = True
+        End If
+
+        If mgrPath.IsSupportedRegistryPath(oApp.TruePath) Then
+            btnImportBackup.Enabled = False
+            btnOpenBackupFile.Enabled = False
+            btnOpenRestorePath.Enabled = False
+        End If
+
     End Sub
 
     Private Sub UpdateBackupInfo(ByVal sManifestID As String)
@@ -923,6 +958,7 @@ Public Class frmGameManager
         txtProcess.Text = oApp.ProcessName
         chkRegEx.Checked = oApp.IsRegEx
         txtParameter.Text = oApp.Parameter
+        cboOS.SelectedValue = CInt(oApp.OS)
         If oSettings.ShowResolvedPaths Then
             txtSavePath.Text = oApp.Path
             sttPath = oApp.TruePath
@@ -946,6 +982,7 @@ Public Class frmGameManager
         UpdateBuilderButtonLabel(oApp.FileType, frmGameManager_IncludeShortcut, btnInclude, False)
         UpdateBuilderButtonLabel(oApp.ExcludeList, frmGameManager_ExcludeShortcut, btnExclude, False)
         UpdateGenericButtonLabel(frmGameManager_btnGameID, btnGameID, False)
+        HandleWineConfig()
 
         'Extra
         txtAppPath.Text = oApp.ProcessPath
@@ -953,7 +990,7 @@ Public Class frmGameManager
         txtVersion.Text = oApp.Version
         txtIcon.Text = oApp.Icon
 
-        FillTagsbyID(oData.Key)
+        lblTags.Text = mgrGameTags.PrintTagsbyID(oData.Key)
 
         'Icon
         If IO.File.Exists(oApp.Icon) Then
@@ -970,33 +1007,6 @@ Public Class frmGameManager
         CurrentGame = oApp
 
         IsLoading = False
-    End Sub
-
-    Private Sub FillTagsbyID(ByVal sID As String)
-        Dim slTags As SortedList
-        Dim oTag As clsTag
-        Dim sTags As String = String.Empty
-        Dim cTrim() As Char = {",", " "}
-
-        slTags = mgrGameTags.GetTagsByGame(sID)
-
-        For Each de As DictionaryEntry In slTags
-            oTag = DirectCast(de.Value, clsTag)
-            sTags &= "#" & oTag.Name & ", "
-        Next
-
-        lblTags.Text = sTags.TrimEnd(cTrim)
-    End Sub
-
-    Private Sub FillTagsbyList(ByVal oList As List(Of KeyValuePair(Of String, String)))
-        Dim sTags As String = String.Empty
-        Dim cTrim() As Char = {",", " "}
-
-        For Each kp As KeyValuePair(Of String, String) In oList
-            sTags &= "#" & kp.Value & ", "
-        Next
-
-        lblTags.Text = sTags.TrimEnd(cTrim)
     End Sub
 
     Private Sub DirtyCheck_ValueChanged(sender As Object, e As EventArgs)
@@ -1021,6 +1031,7 @@ Public Class frmGameManager
     Private Sub AssignDirtyHandlersMisc()
         AddHandler chkEnabled.CheckedChanged, AddressOf DirtyCheck_ValueChanged
         AddHandler chkMonitorOnly.CheckedChanged, AddressOf DirtyCheck_ValueChanged
+        AddHandler cboOS.SelectedValueChanged, AddressOf DirtyCheck_ValueChanged
     End Sub
 
     Private Sub WipeControls(ByVal oCtls As GroupBox.ControlCollection)
@@ -1034,7 +1045,7 @@ Public Class frmGameManager
             ElseIf TypeOf ctl Is NumericUpDown Then
                 DirectCast(ctl, NumericUpDown).Value = DirectCast(ctl, NumericUpDown).Minimum
             ElseIf TypeOf ctl Is ComboBox Then
-                DirectCast(ctl, ComboBox).DataSource = Nothing
+                If ctl.Tag = "wipe" Then DirectCast(ctl, ComboBox).DataSource = Nothing
             End If
         Next
     End Sub
@@ -1083,6 +1094,8 @@ Public Class frmGameManager
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = False
                 btnExport.Enabled = False
+                cboOS.SelectedValue = CInt(mgrCommon.GetCurrentOS)
+                HandleWineConfig()
             Case eModes.Edit
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
@@ -1129,7 +1142,6 @@ Public Class frmGameManager
                 lblTags.Visible = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
-                btnImportBackup.Enabled = True
             Case eModes.Disabled
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -1158,6 +1170,7 @@ Public Class frmGameManager
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = True
                 btnExport.Enabled = True
+                cboOS.SelectedValue = CInt(mgrCommon.GetCurrentOS)
                 UpdateGenericButtonLabel(frmGameManager_IncludeShortcut, btnInclude, False)
                 UpdateGenericButtonLabel(frmGameManager_ExcludeShortcut, btnExclude, False)
                 UpdateGenericButtonLabel(frmGameManager_btnGameID, btnGameID, False)
@@ -1220,6 +1233,7 @@ Public Class frmGameManager
             btnInclude.Enabled = False
             btnExclude.Enabled = False
             chkCleanFolder.Enabled = False
+            btnWineConfig.Enabled = False
         Else
             chkFolderSave.Enabled = True
             chkTimeStamp.Enabled = True
@@ -1230,7 +1244,23 @@ Public Class frmGameManager
             btnSavePathBrowse.Enabled = True
             btnInclude.Enabled = True
             btnExclude.Enabled = True
+            btnWineConfig.Enabled = True
             FolderSaveModeChange()
+        End If
+    End Sub
+
+    Private Sub RegistryModeChange()
+        If mgrPath.IsSupportedRegistryPath(txtSavePath.Text) Then
+            cboOS.SelectedValue = CInt(clsGame.eOS.Windows)
+            chkFolderSave.Checked = True
+            chkFolderSave.Enabled = False
+            btnInclude.Enabled = False
+            btnExclude.Enabled = False
+        Else
+            chkFolderSave.Checked = False
+            chkFolderSave.Enabled = True
+            btnInclude.Enabled = True
+            btnExclude.Enabled = True
         End If
     End Sub
 
@@ -1258,7 +1288,7 @@ Public Class frmGameManager
 
     Private Sub VerifyCleanFolder()
         If Not bIsLoading Then
-            If (chkFolderSave.Checked = True And txtExclude.Text = String.Empty And txtSavePath.Text <> String.Empty) And Not chkMonitorOnly.Checked Then
+            If (chkFolderSave.Checked = True And txtExclude.Text = String.Empty And txtSavePath.Text <> String.Empty) And Not mgrPath.IsSupportedRegistryPath(txtSavePath.Text) And Not chkMonitorOnly.Checked Then
                 chkCleanFolder.Enabled = True
             Else
                 chkCleanFolder.Checked = False
@@ -1364,9 +1394,22 @@ Public Class frmGameManager
 
         oApp.ProcessName = txtProcess.Text
         oApp.Parameter = txtParameter.Text
+        oApp.OS = CType(cboOS.SelectedValue, clsGame.eOS)
         oApp.Path = mgrPath.ValidatePathForOS(txtSavePath.Text)
-        'Only do a simple root check here in case the user doesn't really understand creating a proper configuration
-        oApp.AbsolutePath = Path.IsPathRooted(oApp.Path)
+
+        'If we have a registry path, trim any trailing backslashes because they cause export failures
+        If mgrPath.IsSupportedRegistryPath(oApp.Path) Then
+            oApp.Path = oApp.Path.TrimEnd("\")
+        End If
+
+        'We need to handle a special case here when working with Windows configurations in Linux
+        If mgrCommon.IsUnix And mgrVariables.CheckForReservedVariables(oApp.Path) And oApp.OS = clsGame.eOS.Windows Then
+            oApp.AbsolutePath = True
+        Else
+            'Only do a simple root check here in case the user doesn't really understand creating a proper configuration
+            oApp.AbsolutePath = Path.IsPathRooted(oApp.Path)
+        End If
+
         oApp.FileType = txtFileType.Text
         oApp.ExcludeList = txtExclude.Text
         oApp.FolderSave = chkFolderSave.Checked
@@ -1471,7 +1514,6 @@ Public Class frmGameManager
                 FillData()
                 ModeChange()
                 VerifyCleanFolder()
-                VerifyImportBackup()
             ElseIf lstGames.SelectedItems.Count > 1 Then
                 eCurrentMode = eModes.MultiSelect
                 ModeChange()
@@ -1815,6 +1857,25 @@ Public Class frmGameManager
         btnGameID.Text = frmGameManager_btnGameID
         btnImportBackup.Text = frmGameManager_btnImportBackup
         btnProcesses.Text = frmGameManager_btnProcesses
+        lblOS.Text = frmGameManager_lblOS
+        btnWineConfig.Text = frmGameManager_btnWineConfig
+
+        'Init Combos
+        Dim oComboItems As New List(Of KeyValuePair(Of Integer, String))
+
+        'cboOS
+        cboOS.ValueMember = "Key"
+        cboOS.DisplayMember = "Value"
+
+        oComboItems.Add(New KeyValuePair(Of Integer, String)(clsGame.eOS.Windows, App_WindowsOS))
+        oComboItems.Add(New KeyValuePair(Of Integer, String)(clsGame.eOS.Linux, App_LinuxOS))
+
+        cboOS.DataSource = oComboItems
+
+        If Not mgrCommon.IsUnix Then
+            cboOS.Enabled = False
+            btnWineConfig.Visible = False
+        End If
 
         'Init Official Import Menu
         If mgrCommon.IsUnix Then
@@ -1938,6 +1999,10 @@ Public Class frmGameManager
         OpenProcesses()
     End Sub
 
+    Private Sub btnWineConfig_Click(sender As Object, e As EventArgs) Handles btnWineConfig.Click
+        OpenWineConfiguration()
+    End Sub
+
     Private Sub btnDeleteBackup_Click(sender As Object, e As EventArgs) Handles btnDeleteBackup.Click
         If cboRemoteBackup.Items.Count > 1 Then
             cmsDeleteBackup.Show(btnDeleteBackup, New Drawing.Point(btnDeleteBackup.Size.Width - Math.Floor(btnDeleteBackup.Size.Width * 0.1), btnDeleteBackup.Size.Height - Math.Floor(btnDeleteBackup.Size.Height * 0.5)), ToolStripDropDownDirection.AboveRight)
@@ -2003,6 +2068,12 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub cboOS_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboOS.SelectedIndexChanged
+        If Not bIsLoading And Not eCurrentMode = eModes.Add Then
+            HandleWineConfig()
+        End If
+    End Sub
+
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
         cmsImport.Show(btnImport, New Drawing.Point(btnImport.Size.Width - Math.Floor(btnImport.Size.Width * 0.1), btnImport.Size.Height - Math.Floor(btnImport.Size.Height * 0.5)), ToolStripDropDownDirection.AboveRight)
     End Sub
@@ -2054,6 +2125,7 @@ Public Class frmGameManager
 
     Private Sub txtSavePath_TextChanged(sender As Object, e As EventArgs) Handles txtSavePath.TextChanged
         ttFullPath.RemoveAll()
+        RegistryModeChange()
         VerifyCleanFolder()
     End Sub
 

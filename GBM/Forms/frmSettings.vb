@@ -16,6 +16,35 @@ Public Class frmSettings
         End Set
     End Property
 
+    Private Sub HandleLinuxAutoStart(ByVal bToggle As Boolean)
+        Dim oProcess As Process
+        Dim sAutoStartFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & Path.DirectorySeparatorChar & ".config/autostart/"
+
+        If bToggle Then
+            'Create the autostart folder if it doesn't exist yet
+            If Not Directory.Exists(sAutoStartFolder) Then
+                Directory.CreateDirectory(sAutoStartFolder)
+            End If
+            'Create link
+            Try
+                oProcess = New Process
+                oProcess.StartInfo.FileName = "/bin/ln"
+                oProcess.StartInfo.Arguments = "-s /usr/share/applications/gbm.desktop " & sAutoStartFolder
+                oProcess.StartInfo.UseShellExecute = False
+                oProcess.StartInfo.RedirectStandardOutput = True
+                oProcess.StartInfo.CreateNoWindow = True
+                oProcess.Start()
+            Catch ex As Exception
+                mgrCommon.ShowMessage(frmSettings_ErrorLinuxAutoStart, ex.Message, MsgBoxStyle.Exclamation)
+            End Try
+        Else
+            'Delete link
+            If File.Exists(sAutoStartFolder & Path.DirectorySeparatorChar & "gbm.desktop") Then
+                File.Delete(sAutoStartFolder & Path.DirectorySeparatorChar & "gbm.desktop")
+            End If
+        End If
+    End Sub
+
     Private Sub HandleRegistryUpdate(ByVal bToggle As Boolean)
         Dim oKey As Microsoft.Win32.RegistryKey
         Dim sAppName As String = Application.ProductName
@@ -35,23 +64,28 @@ Public Class frmSettings
     Private Function ValidateSettings() As Boolean
 
         'Show Start with Windows warning if running as admin
-        If chkStartWindows.Checked And mgrCommon.IsElevated Then
+        If Not mgrCommon.IsUnix And chkAutoStart.Checked And mgrCommon.IsElevated Then
             mgrCommon.ShowMessage(frmSettings_WarningAdminStart, MsgBoxStyle.Exclamation)
         End If
 
-        'Only modify registry key when the value changed
-        If chkStartWindows.Checked <> oSettings.StartWithWindows Then
-            HandleRegistryUpdate(chkStartWindows.Checked)
+        'Only modify when the value changed
+        If chkAutoStart.Checked <> oSettings.StartWithWindows Then
+            If mgrCommon.IsUnix Then
+                HandleLinuxAutoStart(chkAutoStart.Checked)
+            Else
+                HandleRegistryUpdate(chkAutoStart.Checked)
+            End If
         End If
-        oSettings.StartWithWindows = chkStartWindows.Checked
+        oSettings.StartWithWindows = chkAutoStart.Checked
 
         oSettings.MonitorOnStartup = chkMonitorOnStartup.Checked
-        oSettings.StartToTray = chkStartToTray.Checked
+        oSettings.StartToTray = chkStartMinimized.Checked
         oSettings.BackupOnLaunch = chkBackupOnLaunch.Checked
         oSettings.ShowDetectionToolTips = chkShowDetectionTips.Checked
         oSettings.DisableSyncMessages = chkDisableSyncMessages.Checked
         oSettings.AutoSaveLog = chkAutoSaveLog.Checked
         oSettings.DisableConfirmation = chkBackupConfirm.Checked
+        oSettings.DisableDiskSpaceCheck = chkDisableDiskSpaceCheck.Checked
         oSettings.CreateSubFolder = chkCreateFolder.Checked
         oSettings.UseGameID = chkUseGameID.Checked
         oSettings.ShowOverwriteWarning = chkOverwriteWarning.Checked
@@ -173,14 +207,15 @@ Public Class frmSettings
     End Sub
 
     Private Sub LoadSettings()
-        chkStartWindows.Checked = oSettings.StartWithWindows
+        chkAutoStart.Checked = oSettings.StartWithWindows
         chkMonitorOnStartup.Checked = oSettings.MonitorOnStartup
-        chkStartToTray.Checked = oSettings.StartToTray
+        chkStartMinimized.Checked = oSettings.StartToTray
         chkBackupOnLaunch.Checked = oSettings.BackupOnLaunch
         chkShowDetectionTips.Checked = oSettings.ShowDetectionToolTips
         chkDisableSyncMessages.Checked = oSettings.DisableSyncMessages
         chkAutoSaveLog.Checked = oSettings.AutoSaveLog
         chkBackupConfirm.Checked = oSettings.DisableConfirmation
+        chkDisableDiskSpaceCheck.Checked = oSettings.DisableDiskSpaceCheck
         chkCreateFolder.Checked = oSettings.CreateSubFolder
         chkUseGameID.Checked = oSettings.UseGameID
         chkOverwriteWarning.Checked = oSettings.ShowOverwriteWarning
@@ -198,12 +233,6 @@ Public Class frmSettings
         txt7zArguments.Text = oSettings.Custom7zArguments
         txt7zLocation.Text = oSettings.Custom7zLocation
         eCurrentSyncFields = oSettings.SyncFields
-
-        'Unix Handler
-        If mgrCommon.IsUnix Then
-            chkStartToTray.Checked = False
-            chkStartWindows.Checked = False
-        End If
 
         'Retrieve 7z Info
         GetUtilityInfo(oSettings.Custom7zLocation)
@@ -305,10 +334,10 @@ Public Class frmSettings
         grpGameData.Text = frmSettings_grpGameData
         chkTimeTracking.Text = frmSettings_chkTimeTracking
         chkSessionTracking.Text = frmSettings_chkSessionTracking
-        chkStartWindows.Text = frmSettings_chkStartWindows
+        chkAutoStart.Text = frmSettings_chkAutoStart
         chkShowDetectionTips.Text = frmSettings_chkShowDetectionTips
         chkAutoSaveLog.Text = frmSettings_chkAutoSaveLog
-        chkStartToTray.Text = frmSettings_chkStartToTray
+        chkStartMinimized.Text = frmSettings_chkStartMinimized
         chkMonitorOnStartup.Text = frmSettings_chkMonitorOnStartup
         grp7zGeneral.Text = frmSettings_grp7zGeneral
         grp7zAdvanced.Text = frmSettings_grp7zAdvanced
@@ -325,11 +354,14 @@ Public Class frmSettings
         chkDisableSyncMessages.Text = frmSettings_chkDisableSyncMessages
         grpGameMonitoringOptions.Text = frmSettings_grpGameMonitoringOptions
         chkShowResolvedPaths.Text = frmSettings_chkShowResolvedPaths
+        chkDisableDiskSpaceCheck.Text = frmSettings_chkDisableDiskSpaceCheck
 
-        'Unix Handler
         If mgrCommon.IsUnix Then
-            chkStartToTray.Enabled = False
-            chkStartWindows.Enabled = False
+            'Only enable this option on Linux if GBM was installed with an official method
+            If Not File.Exists("/usr/share/applications/gbm.desktop") Then
+                chkAutoStart.Enabled = False
+            End If
+            chkStartMinimized.Enabled = False
         End If
 
         'Handle Panels
@@ -358,7 +390,7 @@ Public Class frmSettings
 
     Private Sub btnBackupFolder_Click(sender As System.Object, e As System.EventArgs) Handles btnBackupFolder.Click
         Dim sNewFolder As String
-        sNewFolder = mgrCommon.OpenFolderBrowser("Settings_Backup_Path", frmSettings_BrowseFolder, oSettings.BackupFolder, True, False)
+        sNewFolder = mgrCommon.OpenClassicFolderBrowser("Settings_Backup_Path", frmSettings_BrowseFolder, oSettings.BackupFolder, True, False)
         If sNewFolder <> String.Empty Then txtBackupFolder.Text = sNewFolder
     End Sub
 

@@ -51,7 +51,7 @@ Public Class frmAdvancedImport
         lstGames.BeginUpdate()
         bSelectAll = Not bSelectAll
         For i As Integer = 0 To lstGames.Items.Count - 1
-            lstGames.Items(i).Checked = bSelectAll            
+            lstGames.Items(i).Checked = bSelectAll
         Next
         lstGames.EndUpdate()
         Cursor.Current = Cursors.Default
@@ -64,46 +64,6 @@ Public Class frmAdvancedImport
         Else
             FinalData.Remove(oItem.Tag)
         End If
-    End Sub
-
-    Private Sub ModTags(ByRef oTags As List(Of Tag))
-        Dim bExists As Boolean
-        Dim oTag As Tag
-        Dim oNewTag As Tag
-        Dim oRemoveTag As New Tag
-        Dim sTag As String
-        Dim sAddTags() As String = {"Wine"}
-        Dim sRemoveTags() As String = {"Official"}
-
-        For Each sTag In sAddTags
-            bExists = False
-            For Each oTag In oTags
-                If oTag.Name = sTag Then
-                    bExists = True
-                    Exit For
-                End If
-            Next
-            If Not bExists Then
-                oNewTag = New Tag
-                oNewTag.Name = sTag
-                oTags.Add(oNewTag)
-            End If
-        Next
-
-        For Each sTag In sRemoveTags
-            bExists = False
-            For Each oTag In oTags
-                If oTag.Name = sTag Then
-                    bExists = True
-                    oRemoveTag = oTag
-                    Exit For
-                End If
-            Next
-            If bExists Then
-                oTags.Remove(oRemoveTag)
-            End If
-        Next
-
     End Sub
 
     Private Function CheckIgnoreTags(ByVal oTags As List(Of Tag)) As Boolean
@@ -141,11 +101,6 @@ Public Class frmAdvancedImport
         For Each de As DictionaryEntry In ImportData
             bAddItem = False
             oApp = DirectCast(de.Value, clsGame)
-
-            'Run any required tag mods
-            If ModWinConfigsForLinux Then
-                ModTags(oApp.ImportTags)
-            End If
 
             sTags = String.Empty
             oApp.ImportTags.Sort(AddressOf mgrCommon.CompareImportTagsByName)

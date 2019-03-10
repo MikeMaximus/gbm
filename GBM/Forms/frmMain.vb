@@ -167,11 +167,46 @@ Public Class frmMain
         OperationEnded()
     End Sub
 
+    Private Function VerifyBackupForOS(ByRef oGame As clsGame, ByRef sPath As String) As Boolean
+        Dim bOSVerified As Boolean
+
+        'Handle Windows configurations in Linux
+        If mgrCommon.IsUnix Then
+            If oGame.OS = clsGame.eOS.Windows Then
+                If mgrVariables.CheckForReservedVariables(oGame.TruePath) Then
+                    'Absolute Path
+                    Dim oWineData As clsWineData = mgrWineData.DoWineDataGetbyID(oGame.ID)
+                    If oWineData.SavePath <> String.Empty Then
+                        sPath = oWineData.SavePath
+                        bOSVerified = True
+                        UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, oWineData.SavePath), False)
+                    Else
+                        bOSVerified = False
+                        UpdateLog(mgrCommon.FormatString(frmMain_ErrorNoWineSavePath, oGame.Name), True, ToolTipIcon.Error, True)
+                    End If
+                Else
+                    'Relative Path                    
+                    bOSVerified = True
+                End If
+                mgrPath.ModWinePathData(oGame)
+            Else
+                'Linux Configuration
+                bOSVerified = True
+            End If
+        Else
+            'Windows
+            bOSVerified = True
+        End If
+
+        Return bOSVerified
+    End Function
+
     Private Sub RunRestore(ByVal oRestoreList As Hashtable)
         Dim oGame As clsGame
         Dim oReadyList As New List(Of clsBackup)
         Dim oRestoreInfo As clsBackup
         Dim bTriggerReload As Boolean = False
+        Dim bOSVerified As Boolean
         Dim bPathVerified As Boolean
         eCurrentOperation = eOperation.Restore
         OperationStarted()
@@ -179,16 +214,23 @@ Public Class frmMain
         'Build Restore List
         For Each de As DictionaryEntry In oRestoreList
             bPathVerified = False
+            bOSVerified = False
             oGame = DirectCast(de.Key, clsGame)
             oRestoreInfo = DirectCast(de.Value, clsBackup)
 
-            If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload) Then
+            bOSVerified = VerifyBackupForOS(oGame, oRestoreInfo.RestorePath)
+
+            If mgrPath.IsSupportedRegistryPath(oRestoreInfo.TruePath) Then
                 bPathVerified = True
             Else
-                UpdateLog(mgrCommon.FormatString(frmMain_ErrorRestorePath, oRestoreInfo.Name), False, ToolTipIcon.Error, True)
+                If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload) Then
+                    bPathVerified = True
+                Else
+                    UpdateLog(mgrCommon.FormatString(frmMain_ErrorRestorePath, oRestoreInfo.Name), False, ToolTipIcon.Error, True)
+                End If
             End If
 
-            If bPathVerified Then
+            If bOSVerified And bPathVerified Then
                 If oRestore.CheckRestorePrereq(oRestoreInfo, oGame.CleanFolder) Then
                     oReadyList.Add(oRestoreInfo)
                 End If
@@ -212,6 +254,7 @@ Public Class frmMain
     Private Sub RunManualBackup(ByVal oBackupList As List(Of clsGame))
         Dim oGame As clsGame
         Dim bNoAuto As Boolean
+        Dim bOSVerified As Boolean
         Dim bPathVerified As Boolean
         Dim oReadyList As New List(Of clsGame)
 
@@ -221,10 +264,13 @@ Public Class frmMain
         'Build Backup List
         For Each oGame In oBackupList
             bNoAuto = False
+            bOSVerified = False
             bPathVerified = False
             gMonStripStatusButton.Enabled = False
 
             UpdateLog(mgrCommon.FormatString(frmMain_ManualBackup, oGame.Name), False)
+
+            bOSVerified = VerifyBackupForOS(oGame, oGame.Path)
 
             If oGame.AbsolutePath = False Then
                 If oGame.ProcessPath = String.Empty Then
@@ -241,7 +287,7 @@ Public Class frmMain
                 bPathVerified = True
             End If
 
-            If bPathVerified Then
+            If bOSVerified And bPathVerified Then
                 If oBackup.CheckBackupPrereq(oGame) Then
                     oReadyList.Add(oGame)
                 End If
@@ -306,7 +352,7 @@ Public Class frmMain
                 If oSettings.DisableConfirmation Then
                     bDoBackup = True
                 Else
-                    If mgrCommon.ShowMessage(frmMain_ConfirmBackup, oProcess.GameInfo.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    If mgrCommon.ShowPriorityMessage(frmMain_ConfirmBackup, oProcess.GameInfo.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                         bDoBackup = True
                     Else
                         bDoBackup = False
@@ -735,7 +781,7 @@ Public Class frmMain
             DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).Hours = oProcess.GameInfo.Hours
         End If
 
-        mgrMonitorList.DoListUpdate(oProcess.GameInfo)
+        mgrMonitorList.DoListFieldUpdate("Hours", oProcess.GameInfo.Hours, oProcess.GameInfo.ID)
         mgrMonitorList.SyncMonitorLists(oSettings)
 
         UpdateTimeSpent(dCurrentHours, oProcess.TimeSpent.TotalHours)
@@ -969,15 +1015,27 @@ Public Class frmMain
     End Sub
 
     Private Sub OpenWebSite()
-        Process.Start(App_URLWebsite)
+        Try
+            Process.Start(App_URLWebsite)
+        Catch ex As Exception
+            mgrCommon.ShowMessage(App_ErrorLaunchExternal, ex.Message, MsgBoxStyle.Exclamation)
+        End Try
     End Sub
 
     Private Sub OpenOnlineManual()
-        Process.Start(App_URLManual)
+        Try
+            Process.Start(App_URLManual)
+        Catch ex As Exception
+            mgrCommon.ShowMessage(App_ErrorLaunchExternal, ex.Message, MsgBoxStyle.Exclamation)
+        End Try
     End Sub
 
     Private Sub OpenCheckforUpdates()
-        Process.Start(App_URLUpdates)
+        Try
+            Process.Start(App_URLUpdates)
+        Catch ex As Exception
+            mgrCommon.ShowMessage(App_ErrorLaunchExternal, ex.Message, MsgBoxStyle.Exclamation)
+        End Try
     End Sub
 
     Private Sub CheckForNewBackups()
@@ -1126,8 +1184,15 @@ Public Class frmMain
 
         'Verify the "Start with Windows" setting
         If oSettings.StartWithWindows Then
-            If Not VerifyStartWithWindows() Then
-                UpdateLog(frmMain_ErrorAppLocationChanged, False, ToolTipIcon.Info)
+            If mgrCommon.IsUnix Then
+                Dim sVerifyError As String = String.Empty
+                If Not VerifyAutoStartLinux(sVerifyError) Then
+                    UpdateLog(sVerifyError, False, ToolTipIcon.Info)
+                End If
+            Else
+                If Not VerifyStartWithWindows() Then
+                    UpdateLog(frmMain_ErrorAppLocationChanged, False, ToolTipIcon.Info)
+                End If
             End If
         End If
 
@@ -1681,6 +1746,52 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Function VerifyAutoStartLinux(ByRef sErrorMessage As String) As Boolean
+        Dim oProcess As Process
+        Dim sAutoStartFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & Path.DirectorySeparatorChar & ".config/autostart/"
+
+        'Check if the app is still properly installed
+        If File.Exists("/usr/share/applications/gbm.desktop") Then
+            If File.Exists(sAutoStartFolder & Path.DirectorySeparatorChar & "gbm.desktop") Then
+                Return True
+            Else
+                'Create the autostart folder if it doesn't exist yet
+                If Not Directory.Exists(sAutoStartFolder) Then
+                    Directory.CreateDirectory(sAutoStartFolder)
+                End If
+                'Create link
+                Try
+                    oProcess = New Process
+                    oProcess.StartInfo.FileName = "/bin/ln"
+                    oProcess.StartInfo.Arguments = "-s /usr/share/applications/gbm.desktop " & sAutoStartFolder
+                    oProcess.StartInfo.UseShellExecute = False
+                    oProcess.StartInfo.RedirectStandardOutput = True
+                    oProcess.StartInfo.CreateNoWindow = True
+                    oProcess.Start()
+                Catch ex As Exception
+                    mgrCommon.ShowMessage(frmSettings_ErrorLinuxAutoStart, ex.Message, MsgBoxStyle.Exclamation)
+                End Try
+
+                sErrorMessage = frmMain_ErrorLinuxAutoStartMissing
+                Return False
+            End If
+        Else
+            'If the app is no longer properly installed,  disable autostart and the setting.
+            Try
+                oSettings.StartWithWindows = False
+                oSettings.SaveSettings()
+                If File.Exists(sAutoStartFolder & Path.DirectorySeparatorChar & "gbm.desktop") Then
+                    File.Delete(sAutoStartFolder & Path.DirectorySeparatorChar & "gbm.desktop")
+                End If
+            Catch ex As Exception
+                mgrCommon.ShowMessage(frmSettings_ErrorLinuxAutoStart, ex.Message, MsgBoxStyle.Exclamation)
+            End Try
+
+            sErrorMessage = frmMain_ErrorLinuxAutoStartLinkMissing
+            Return False
+        End If
+    End Function
+
     Private Function VerifyStartWithWindows() As Boolean
         Dim oKey As Microsoft.Win32.RegistryKey
         Dim sAppName As String = Application.ProductName
@@ -1898,12 +2009,11 @@ Public Class frmMain
 
     Private Sub ScanTimerEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmScanTimer.Tick
         Dim bNeedsPath As Boolean = False
-        Dim bWineProcess As Boolean = False
         Dim bContinue As Boolean = True
         Dim iErrorCode As Integer = 0
         Dim sErrorMessage As String = String.Empty
 
-        If oProcess.SearchRunningProcesses(hshScanList, bNeedsPath, bWineProcess, iErrorCode, bProcessDebugMode) Then
+        If oProcess.SearchRunningProcesses(hshScanList, bNeedsPath, iErrorCode, bProcessDebugMode) Then
             PauseScan(True)
 
             If bNeedsPath Then
@@ -1933,27 +2043,18 @@ Public Class frmMain
                 End If
             End If
 
-            If bWineProcess Then
-                'Attempt a path conversion if the game configuration is using an absolute windows path that we can convert
-                If mgrVariables.CheckForReservedVariables(oProcess.GameInfo.TruePath) Then
-                    Dim sWinePrefix As String = mgrPath.GetWinePrefix(oProcess.FoundProcess)
-                    Dim sWineSavePath As String
-                    If Not sWinePrefix = String.Empty Then
-                        UpdateLog(mgrCommon.FormatString(frmMain_WinePrefix, New String() {oProcess.GameInfo.Name, sWinePrefix}), False)
-                        sWineSavePath = mgrPath.GetWineSavePath(sWinePrefix, oProcess.GameInfo.TruePath)
-                        If Not sWineSavePath = oProcess.GameInfo.TruePath Then
-                            oProcess.GameInfo.TruePath = sWineSavePath
-                            oProcess.GameInfo.AbsolutePath = True
-                            UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, New String() {oProcess.GameInfo.Name, sWineSavePath}), False)
-                        Else
-                            bContinue = False
-                        End If
-                    Else
-                        bContinue = False
-                    End If
+            'We need to determine this Wine information and store it before the process ends.
+            If oProcess.WineProcess Then
+                Dim oWineData As New clsWineData
+                oWineData.Prefix = mgrPath.GetWinePrefix(oProcess.FoundProcess)
+                oWineData.BinaryPath = Path.GetDirectoryName(oProcess.FoundProcess.MainModule.FileName)
+                UpdateLog(mgrCommon.FormatString(frmMain_WineBinaryPath, oWineData.BinaryPath), False)
+                If Not oWineData.Prefix = String.Empty Then
+                    oProcess.WineData = oWineData
+                    UpdateLog(mgrCommon.FormatString(frmMain_WinePrefix, oWineData.Prefix), False)
+                Else
+                    bContinue = False
                 End If
-                'This does required mods to include/exclude data and relative paths (if required)
-                mgrPath.ModWinePathData(oProcess.GameInfo)
             End If
 
             If bContinue = True Then
@@ -2013,7 +2114,7 @@ Public Class frmMain
                 oProcess.GameInfo.ProcessPath = mgrPath.ProcessPathSearch(oProcess.GameInfo.Name, oProcess.GameInfo.ProcessName, sPathDetectionError)
                 If oProcess.GameInfo.ProcessPath <> String.Empty Then
                     'Update and reload
-                    mgrMonitorList.DoListUpdate(oProcess.GameInfo)
+                    mgrMonitorList.DoListFieldUpdate("ProcessPath", oProcess.GameInfo.ProcessPath, oProcess.GameInfo.ID)
                     LoadGameSettings()
                 Else
                     bContinue = False
@@ -2029,6 +2130,20 @@ Public Class frmMain
             If bContinue Then
                 If DoMultiGameCheck() Then
                     UpdateLog(mgrCommon.FormatString(frmMain_GameEnded, oProcess.GameInfo.Name), False)
+                    If oProcess.WineProcess Then
+                        oProcess.WineData.MonitorID = oProcess.GameInfo.ID
+                        'Attempt a path conversion if the game configuration is using an absolute windows path that we can convert
+                        If mgrVariables.CheckForReservedVariables(oProcess.GameInfo.TruePath) Then
+                            oProcess.WineData.SavePath = mgrPath.GetWineSavePath(oProcess.WineData.Prefix, oProcess.GameInfo.TruePath)
+                            If Not oProcess.WineData.SavePath = oProcess.GameInfo.TruePath Then
+                                oProcess.GameInfo.TruePath = oProcess.WineData.SavePath
+                                UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, oProcess.WineData.SavePath), False)
+                            End If
+                        End If
+                        mgrWineData.DoWineDataAddUpdate(oProcess.WineData)
+                        'This does required mods to include/exclude data and relative paths (if required)
+                        mgrPath.ModWinePathData(oProcess.GameInfo)
+                    End If
                     If oSettings.TimeTracking Then HandleTimeSpent()
                     If oSettings.SessionTracking Then HandleSession()
                     RunBackup()
@@ -2080,7 +2195,7 @@ Public Class frmMain
                 End If
             End If
         Catch ex As Exception
-            If mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+            If mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message & vbCrLf & ex.StackTrace, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                 bInitFail = True
             End If
         End Try
