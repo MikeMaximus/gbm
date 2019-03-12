@@ -632,7 +632,7 @@ Public Class mgrPath
             Sleep(5000)
             iTotalWait += 5000
             If iTotalWait >= iTimeOut Then
-                oDialogResult = mgrCommon.ShowMessage(mgrPath_ConfirmBackupLocation, sBackupPath, MsgBoxStyle.YesNoCancel)
+                oDialogResult = mgrCommon.ShowPriorityMessage(mgrPath_ConfirmBackupLocation, sBackupPath, MsgBoxStyle.YesNoCancel)
                 If oDialogResult = MsgBoxResult.Yes Then
                     dBrowser = New FolderBrowserDialog
                     dBrowser.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)

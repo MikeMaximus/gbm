@@ -23,7 +23,8 @@ All Platforms:
 - The disk space check prior to backups can now be disabled in the "Backup and Restore" settings.	
 - Added "Operating System" field to game configurations:
 	- "Windows" and "Linux" are the only valid choices at this time and only Linux users are allowed to change this field.
-	
+- Re-designed how GBM initilizes on startup.
+	 	
 Windows:
 
 - Updated SQLite to 3.27.2
@@ -40,5 +41,6 @@ Linux:
 	- This data can be viewed and manually modified on the Game Manager.
 - Fixed the handling of Wine/Proton games when multiple configurations are detected.
 - Fixed a crash when using "Backup Only" and "New Backups Pending" filters on the Game Manager.
+- The Mono and GBM process will now exit cleanly if a critical failure occurs during startup.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

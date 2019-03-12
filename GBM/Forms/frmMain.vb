@@ -1974,17 +1974,6 @@ Public Class frmMain
         RestartAsAdmin()
     End Sub
 
-    Private Sub frmMain_Activated(sender As System.Object, e As System.EventArgs) Handles MyBase.Activated
-        If bInitialLoad Then
-            If oSettings.StartToTray And mgrCommon.IsUnix Then
-                Me.WindowState = FormWindowState.Minimized
-            End If
-            bInitialLoad = False
-        End If
-        txtLog.Select(txtLog.TextLength, 0)
-        txtLog.ScrollToCaret()
-    End Sub
-
     Private Sub Main_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
         'Unix Handler
         If mgrCommon.IsUnix And Not bShutdown Then
@@ -2171,19 +2160,41 @@ Public Class frmMain
         oProcess.StartTime = Now : oProcess.EndTime = Now
     End Sub
 
-    Private Sub Main_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub frmMain_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        SetForm()
+    End Sub
+
+    Private Sub frmMain_Activated(sender As System.Object, e As System.EventArgs) Handles MyBase.Activated
         'Init
-        Try
-            SetForm()
-            VerifyGameDataPath()
-            LoadAndVerify()
-            If Not bInitFail Then
+        If bInitialLoad Then
+            Try
+                VerifyGameDataPath()
+                LoadAndVerify()
+            Catch ex As Exception
+                If mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message & vbCrLf & ex.StackTrace, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                    bInitFail = True
+                End If
+            End Try
+
+            If bInitFail Then
+                bShutdown = True
+                Me.Close()
+            Else
                 VerifyCustomPathVariables()
 
-                If oSettings.StartToTray And Not mgrCommon.IsUnix Then
-                    bShowToggle = False
-                    Me.Visible = False
-                    Me.ShowInTaskbar = False
+                'Windows and Linux require different settings for the system tray
+                If mgrCommon.IsUnix Then
+                    Me.MinimizeBox = True
+                    If oSettings.StartToTray Then
+                        Me.WindowState = FormWindowState.Minimized
+                    End If
+                Else
+                    Me.gMonTray.Visible = True
+                    If oSettings.StartToTray Then
+                        bShowToggle = False
+                        Me.Visible = False
+                        Me.ShowInTaskbar = False
+                    End If
                 End If
 
                 If oSettings.MonitorOnStartup Then
@@ -2194,29 +2205,16 @@ Public Class frmMain
 
                 HandleScan()
                 CheckForNewBackups()
-
-                'Unix Handler
-                If mgrCommon.IsUnix Then
-                    Me.MinimizeBox = True
-                Else
-                    Me.gMonTray.Visible = True
-                End If
             End If
-        Catch ex As Exception
-            If mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message & vbCrLf & ex.StackTrace, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                bInitFail = True
+
+            If bFirstRun And Not bShutdown Then
+                OpenStartupWizard()
             End If
-        End Try
-    End Sub
 
-    Private Sub frmMain_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        If bInitFail Then
-            bShutdown = True
-            Me.Close()
-        End If
-
-        If bFirstRun And Not bShutdown Then
-            OpenStartupWizard()
+            bInitialLoad = False
+        Else
+            txtLog.Select(txtLog.TextLength, 0)
+            txtLog.ScrollToCaret()
         End If
     End Sub
 
