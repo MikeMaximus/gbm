@@ -31,9 +31,9 @@ Windows:
 
 Linux:
 
-- You can now set GBM to automatically start on log-in via the "Startup" Settings.
-	- This requires that GBM be installed via a package manager, so any required files are in a known location.  The option will be disabled otherwise.
-	- The "Start Minimized" option is still unavailable in Linux due to issues with Mono.
+- You can now set GBM to automatically start on log-in via the "Startup" settings.
+	- This requires that GBM be installed via a package manager or the makefile, so any required files are in a known location.  The option will be disabled otherwise.
+- The "Start Minimized" option is now available in "Startup" settings.
 - GBM now stores all Wine configuration data seperately from the core game configuration:
 	- The core configuration is no longer altered in any way when a game is detected running in Wine or Proton.
 	- The Wine configuration data is now automatically updated each time a game is detected, such as when running the game from a new prefix.

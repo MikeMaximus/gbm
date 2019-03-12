@@ -652,4 +652,17 @@ Public Class mgrPath
 
         Return True
     End Function
+
+    Public Shared Function VerifyLinuxDesktopFileLocation(Optional ByRef sFoundPath As String = "") As Boolean
+        Dim sLocations As String() = New String() {"/usr/share/applications/gbm.desktop", "/usr/local/share/applications/gbm.desktop"}
+
+        For Each s As String In sLocations
+            If File.Exists(s) Then
+                sFoundPath = s
+                Return True
+            End If
+        Next
+
+        Return False
+    End Function
 End Class

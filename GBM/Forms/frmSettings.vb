@@ -18,9 +18,10 @@ Public Class frmSettings
 
     Private Sub HandleLinuxAutoStart(ByVal bToggle As Boolean)
         Dim oProcess As Process
+        Dim sDesktopFile = String.Empty
         Dim sAutoStartFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & Path.DirectorySeparatorChar & ".config/autostart/"
 
-        If bToggle Then
+        If bToggle And mgrPath.VerifyLinuxDesktopFileLocation(sDesktopFile) Then
             'Create the autostart folder if it doesn't exist yet
             If Not Directory.Exists(sAutoStartFolder) Then
                 Directory.CreateDirectory(sAutoStartFolder)
@@ -29,7 +30,7 @@ Public Class frmSettings
             Try
                 oProcess = New Process
                 oProcess.StartInfo.FileName = "/bin/ln"
-                oProcess.StartInfo.Arguments = "-s /usr/share/applications/gbm.desktop " & sAutoStartFolder
+                oProcess.StartInfo.Arguments = "-s " & sDesktopFile & " " & sAutoStartFolder
                 oProcess.StartInfo.UseShellExecute = False
                 oProcess.StartInfo.RedirectStandardOutput = True
                 oProcess.StartInfo.CreateNoWindow = True
@@ -358,10 +359,9 @@ Public Class frmSettings
 
         If mgrCommon.IsUnix Then
             'Only enable this option on Linux if GBM was installed with an official method
-            If Not File.Exists("/usr/share/applications/gbm.desktop") Then
+            If Not mgrPath.VerifyLinuxDesktopFileLocation() Then
                 chkAutoStart.Enabled = False
             End If
-            chkStartMinimized.Enabled = False
         End If
 
         'Handle Panels

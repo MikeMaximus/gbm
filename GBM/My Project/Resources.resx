@@ -2369,7 +2369,7 @@
     <value>[PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to restore this backup.</value>
   </data>
   <data name="frmMain_ErrorLinuxAutoStartLinkMissing" xml:space="preserve">
-    <value>GBM is set to start automatically, but the desktop link is missing.  Automatic start has been disabled,  please re-install GBM using a package manager.</value>
+    <value>GBM is set to start automatically, but the desktop link is missing.  Automatic start has been disabled,  please re-install GBM using a package manager or the makefile.</value>
   </data>
   <data name="mgrCommon_FolderSelection" xml:space="preserve">
     <value>Current Folder</value>

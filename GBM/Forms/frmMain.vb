@@ -30,6 +30,7 @@ Public Class frmMain
     Private bMenuEnabled As Boolean = True
     Private bLockdown As Boolean = True
     Private bFirstRun As Boolean = False
+    Private bInitialLoad As Boolean = True
     Private bProcessIsAdmin As Boolean = False
     Private bLogToggle As Boolean = False
     Private bShowToggle As Boolean = True
@@ -1748,10 +1749,11 @@ Public Class frmMain
 
     Private Function VerifyAutoStartLinux(ByRef sErrorMessage As String) As Boolean
         Dim oProcess As Process
+        Dim sDesktopFile As String = String.Empty
         Dim sAutoStartFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & Path.DirectorySeparatorChar & ".config/autostart/"
 
         'Check if the app is still properly installed
-        If File.Exists("/usr/share/applications/gbm.desktop") Then
+        If mgrPath.VerifyLinuxDesktopFileLocation(sDesktopFile) Then
             If File.Exists(sAutoStartFolder & Path.DirectorySeparatorChar & "gbm.desktop") Then
                 Return True
             Else
@@ -1763,7 +1765,7 @@ Public Class frmMain
                 Try
                     oProcess = New Process
                     oProcess.StartInfo.FileName = "/bin/ln"
-                    oProcess.StartInfo.Arguments = "-s /usr/share/applications/gbm.desktop " & sAutoStartFolder
+                    oProcess.StartInfo.Arguments = "-s " & sDesktopFile & " " & sAutoStartFolder
                     oProcess.StartInfo.UseShellExecute = False
                     oProcess.StartInfo.RedirectStandardOutput = True
                     oProcess.StartInfo.CreateNoWindow = True
@@ -1973,6 +1975,12 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_Activated(sender As System.Object, e As System.EventArgs) Handles MyBase.Activated
+        If bInitialLoad Then
+            If oSettings.StartToTray And mgrCommon.IsUnix Then
+                Me.WindowState = FormWindowState.Minimized
+            End If
+            bInitialLoad = False
+        End If
         txtLog.Select(txtLog.TextLength, 0)
         txtLog.ScrollToCaret()
     End Sub

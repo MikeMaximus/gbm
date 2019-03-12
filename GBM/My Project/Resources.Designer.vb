@@ -3310,7 +3310,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to GBM is set to start automatically, but the desktop link is missing.  Automatic start has been disabled,  please re-install GBM using a package manager..
+        '''  Looks up a localized string similar to GBM is set to start automatically, but the desktop link is missing.  Automatic start has been disabled,  please re-install GBM using a package manager or the makefile..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorLinuxAutoStartLinkMissing() As String
             Get
