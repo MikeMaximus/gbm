@@ -16,6 +16,7 @@ All Platforms:
 	- This is useful for delayed network shares on startup or if you forgot to plug in an external backup drive.
 - The "Choose Game" window now displays tags in addition to the game name when multiple configurations are detected.
 - The "Backup Confirmation" window should now always get top focus after a gaming session ends.
+	- This fix has also been applied to other important messages to make sure they don't get hidden behind other windows.
 - The Game Manager and Custom Variable Manager now use a different folder browser where applicable.	
 	- The new browser provides better usability for power users, other areas of the app will still use the classic folder browser.
 	- The new browser allows Linux users to "Show Hidden Folders", which can't be done using the classic Folder Browser.

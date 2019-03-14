@@ -1029,7 +1029,7 @@ Public Class mgrMonitorList
 
             'If the remote database actually contains a list, then ask what to do
             If iGameCount > 0 Then
-                If mgrCommon.ShowMessage(mgrMonitorList_ConfirmExistingData, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                If mgrCommon.ShowPriorityMessage(mgrMonitorList_ConfirmExistingData, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     mgrMonitorList.SyncMonitorLists(oSettings)
                 Else
                     mgrMonitorList.SyncMonitorLists(oSettings, False)
