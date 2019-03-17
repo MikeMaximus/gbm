@@ -467,7 +467,7 @@ Public Class frmMain
                     sExtractPath = oBackup.RelativeRestorePath
                 End If
 
-                If Not Directory.Exists(sExtractPath) Then
+                If Not Directory.Exists(sExtractPath) And Not mgrPath.IsSupportedRegistryPath(oBackup.RestorePath) Then
                     If oSettings.AutoMark Then
                         If mgrManifest.DoManifestCheck(de.Key, mgrSQLite.Database.Local) Then
                             mgrManifest.DoManifestUpdateByMonitorID(de.Value, mgrSQLite.Database.Local)
