@@ -486,9 +486,9 @@ Public Class mgrPath
     End Function
 
     Public Shared Function IsSupportedRegistryPath(ByVal sPath As String) As Boolean
-        If sPath.StartsWith("HKEY_CURRENT_USER") Then
+        If sPath.ToUpper.StartsWith("HKEY_CURRENT_USER\") Or sPath.ToUpper.StartsWith("HKCU\") Then
             Return True
-        ElseIf sPath.StartsWith("HKEY_LOCAL_MACHINE") Then
+        ElseIf sPath.ToUpper.StartsWith("HKEY_LOCAL_MACHINE\") Or sPath.ToUpper.StartsWith("HKLM\") Then
             Return True
         End If
 
