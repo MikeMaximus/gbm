@@ -25,24 +25,25 @@ Public Class frmChooseGame
         End Set
     End Property
 
-    Private Sub FillComboBox()
+    Private Sub FillList()
         Dim sTags As String
-        Dim sName As String
-        lstGameBox.ValueMember = "Key"
-        lstGameBox.DisplayMember = "Value"
+        Dim oListViewItem As ListViewItem
+
+        lstGameBox.BeginUpdate()
+
+        lstGameBox.Columns.Add(frmChooseGame_ColumnName, 180)
+        lstGameBox.Columns.Add(frmChooseGame_ColumnTags, 175)
 
         For Each o As clsGame In Process.DuplicateList
             sTags = mgrGameTags.PrintTagsbyID(o.ID)
-            If sTags <> String.Empty Then
-                sName = o.Name & " (" & sTags & ")"
-            Else
-                sName = o.Name
-            End If
-            lstGameBox.Items.Add(New KeyValuePair(Of String, String)(o.ID, sName))
+            oListViewItem = New ListViewItem(New String() {o.Name, sTags})
+            oListViewItem.Tag = o.ID
+            If lstGameBox.Items.Count = 0 Then oListViewItem.Selected = True
+            lstGameBox.Items.Add(oListViewItem)
             oGamesHash.Add(o.ID, o)
         Next
 
-        lstGameBox.SelectedIndex = 0
+        lstGameBox.EndUpdate()
     End Sub
 
     Private Sub SaveSelection()
@@ -51,8 +52,8 @@ Public Class frmChooseGame
     End Sub
 
     Private Sub GetSelection()
-        Dim oSelected As KeyValuePair(Of String, String) = lstGameBox.SelectedItem
-        oGame = DirectCast(oGamesHash.Item(oSelected.Key), clsGame)
+        Dim oSelected As String = lstGameBox.SelectedItems(0).Tag
+        oGame = DirectCast(oGamesHash.Item(oSelected), clsGame)
         SaveSelection()
         bGameSelected = True
         Me.DialogResult = DialogResult.OK
@@ -71,12 +72,14 @@ Public Class frmChooseGame
 
     Private Sub frmChooseGame_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         SetForm()
-        FillComboBox()
+        FillList()
         Me.Focus()
     End Sub
 
     Private Sub btnChoose_Click(sender As System.Object, e As System.EventArgs) Handles btnChoose.Click
-        GetSelection()
+        If lstGameBox.SelectedItems.Count > 0 Then
+            GetSelection()
+        End If
     End Sub
 
     Private Sub frmChooseGame_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing

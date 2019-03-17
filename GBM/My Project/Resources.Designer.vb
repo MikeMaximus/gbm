@@ -889,6 +889,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Name.
+        '''</summary>
+        Friend ReadOnly Property frmChooseGame_ColumnName() As String
+            Get
+                Return ResourceManager.GetString("frmChooseGame_ColumnName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Tags.
+        '''</summary>
+        Friend ReadOnly Property frmChooseGame_ColumnTags() As String
+            Get
+                Return ResourceManager.GetString("frmChooseGame_ColumnTags", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Choose Game.
         '''</summary>
         Friend ReadOnly Property frmChooseGame_FormName() As String

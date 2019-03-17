@@ -24,8 +24,8 @@ Partial Class frmChooseGame
     Private Sub InitializeComponent()
         Me.lblChoose = New System.Windows.Forms.Label()
         Me.btnChoose = New System.Windows.Forms.Button()
-        Me.lstGameBox = New System.Windows.Forms.ListBox()
         Me.btnCancel = New System.Windows.Forms.Button()
+        Me.lstGameBox = New System.Windows.Forms.ListView()
         Me.SuspendLayout()
         '
         'lblChoose
@@ -39,39 +39,40 @@ Partial Class frmChooseGame
         '
         'btnChoose
         '
-        Me.btnChoose.Location = New System.Drawing.Point(72, 135)
+        Me.btnChoose.Location = New System.Drawing.Point(201, 176)
         Me.btnChoose.Name = "btnChoose"
         Me.btnChoose.Size = New System.Drawing.Size(90, 23)
-        Me.btnChoose.TabIndex = 2
+        Me.btnChoose.TabIndex = 1
         Me.btnChoose.Text = "C&hoose Game"
         Me.btnChoose.UseVisualStyleBackColor = True
         '
-        'lstGameBox
-        '
-        Me.lstGameBox.FormattingEnabled = True
-        Me.lstGameBox.HorizontalScrollbar = True
-        Me.lstGameBox.Location = New System.Drawing.Point(15, 34)
-        Me.lstGameBox.Name = "lstGameBox"
-        Me.lstGameBox.Size = New System.Drawing.Size(228, 95)
-        Me.lstGameBox.Sorted = True
-        Me.lstGameBox.TabIndex = 1
-        '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(168, 135)
+        Me.btnCancel.Location = New System.Drawing.Point(297, 176)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 3
+        Me.btnCancel.TabIndex = 2
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
+        '
+        'lstGameBox
+        '
+        Me.lstGameBox.FullRowSelect = True
+        Me.lstGameBox.Location = New System.Drawing.Point(12, 25)
+        Me.lstGameBox.MultiSelect = False
+        Me.lstGameBox.Name = "lstGameBox"
+        Me.lstGameBox.Size = New System.Drawing.Size(360, 145)
+        Me.lstGameBox.TabIndex = 0
+        Me.lstGameBox.UseCompatibleStateImageBehavior = False
+        Me.lstGameBox.View = System.Windows.Forms.View.Details
         '
         'frmChooseGame
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(255, 166)
-        Me.Controls.Add(Me.btnCancel)
+        Me.ClientSize = New System.Drawing.Size(384, 211)
         Me.Controls.Add(Me.lstGameBox)
+        Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnChoose)
         Me.Controls.Add(Me.lblChoose)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -87,6 +88,6 @@ Partial Class frmChooseGame
     End Sub
     Friend WithEvents lblChoose As System.Windows.Forms.Label
     Friend WithEvents btnChoose As System.Windows.Forms.Button
-    Friend WithEvents lstGameBox As System.Windows.Forms.ListBox
     Friend WithEvents btnCancel As Button
+    Friend WithEvents lstGameBox As ListView
 End Class

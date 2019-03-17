@@ -2374,4 +2374,10 @@
   <data name="mgrCommon_FolderSelection" xml:space="preserve">
     <value>Current Folder</value>
   </data>
+  <data name="frmChooseGame_ColumnName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="frmChooseGame_ColumnTags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
 </root>
