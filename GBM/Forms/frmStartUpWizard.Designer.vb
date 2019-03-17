@@ -331,7 +331,6 @@ Partial Class frmStartUpWizard
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmStartUpWizard"
-        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "GBM Setup"
         Me.tabWizard.ResumeLayout(False)

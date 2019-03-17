@@ -25,6 +25,7 @@ Public Class frmWineConfiguration
     Private Sub SetForm()
         'Set Form Name
         Me.Text = frmWineConfiguration_FormName
+        Me.Icon = GBM_Icon
 
         'Set Form Text
         grpWineConfig.Text = frmWineConfiguration_grpWineConfig

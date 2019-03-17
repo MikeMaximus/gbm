@@ -181,7 +181,6 @@ Partial Class frmVariableManager
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmVariableManager"
-        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Custom Variable Manager"
         Me.grpVariable.ResumeLayout(False)

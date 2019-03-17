@@ -47,6 +47,7 @@ Partial Class frmSettings
         Me.btnDefaults = New System.Windows.Forms.Button()
         Me.pnlBackup = New System.Windows.Forms.Panel()
         Me.grpBackupConfirmations = New System.Windows.Forms.GroupBox()
+        Me.chkDisableDiskSpaceCheck = New System.Windows.Forms.CheckBox()
         Me.chkBackupConfirm = New System.Windows.Forms.CheckBox()
         Me.chkOverwriteWarning = New System.Windows.Forms.CheckBox()
         Me.grpBackupHandling = New System.Windows.Forms.GroupBox()
@@ -74,7 +75,6 @@ Partial Class frmSettings
         Me.chkAutoStart = New System.Windows.Forms.CheckBox()
         Me.chkStartMinimized = New System.Windows.Forms.CheckBox()
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
-        Me.chkDisableDiskSpaceCheck = New System.Windows.Forms.CheckBox()
         Me.grpFolderOptions.SuspendLayout()
         Me.grp7zGeneral.SuspendLayout()
         Me.pnlBackup.SuspendLayout()
@@ -328,6 +328,16 @@ Partial Class frmSettings
         Me.grpBackupConfirmations.TabIndex = 2
         Me.grpBackupConfirmations.TabStop = False
         Me.grpBackupConfirmations.Text = "Backup Confirmations"
+        '
+        'chkDisableDiskSpaceCheck
+        '
+        Me.chkDisableDiskSpaceCheck.AutoSize = True
+        Me.chkDisableDiskSpaceCheck.Location = New System.Drawing.Point(9, 41)
+        Me.chkDisableDiskSpaceCheck.Name = "chkDisableDiskSpaceCheck"
+        Me.chkDisableDiskSpaceCheck.Size = New System.Drawing.Size(222, 17)
+        Me.chkDisableDiskSpaceCheck.TabIndex = 1
+        Me.chkDisableDiskSpaceCheck.Text = "Disable disk space check prior to backup"
+        Me.chkDisableDiskSpaceCheck.UseVisualStyleBackColor = True
         '
         'chkBackupConfirm
         '
@@ -612,16 +622,6 @@ Partial Class frmSettings
         Me.chkMonitorOnStartup.Text = "Start monitoring on launch"
         Me.chkMonitorOnStartup.UseVisualStyleBackColor = True
         '
-        'chkDisableDiskSpaceCheck
-        '
-        Me.chkDisableDiskSpaceCheck.AutoSize = True
-        Me.chkDisableDiskSpaceCheck.Location = New System.Drawing.Point(9, 41)
-        Me.chkDisableDiskSpaceCheck.Name = "chkDisableDiskSpaceCheck"
-        Me.chkDisableDiskSpaceCheck.Size = New System.Drawing.Size(222, 17)
-        Me.chkDisableDiskSpaceCheck.TabIndex = 1
-        Me.chkDisableDiskSpaceCheck.Text = "Disable disk space check prior to backup"
-        Me.chkDisableDiskSpaceCheck.UseVisualStyleBackColor = True
-        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -640,8 +640,6 @@ Partial Class frmSettings
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmSettings"
-        Me.ShowIcon = False
-        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Settings"
         Me.grpFolderOptions.ResumeLayout(False)

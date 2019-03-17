@@ -30,6 +30,7 @@ Public Class frmAddWizard
     Private Sub SetForm()
         'Set Form Name
         Me.Text = frmAddWizard_FormName
+        Me.Icon = GBM_Icon
 
         'Set Form Text
         btnCancel.Text = frmAddWizard_btnCancel

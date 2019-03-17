@@ -46,6 +46,7 @@ Partial Class frmAddWizard
         Me.txtSavePath = New System.Windows.Forms.TextBox()
         Me.lblStep3Intro = New System.Windows.Forms.Label()
         Me.tbPage3a = New System.Windows.Forms.TabPage()
+        Me.chkRecurseSubFolders = New System.Windows.Forms.CheckBox()
         Me.lblIncludePathTitle = New System.Windows.Forms.Label()
         Me.lblIncludePath = New System.Windows.Forms.Label()
         Me.lblFileTypes = New System.Windows.Forms.Label()
@@ -68,7 +69,6 @@ Partial Class frmAddWizard
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnNext = New System.Windows.Forms.Button()
         Me.btnBack = New System.Windows.Forms.Button()
-        Me.chkRecurseSubFolders = New System.Windows.Forms.CheckBox()
         Me.tabWizard.SuspendLayout()
         Me.tbPage1.SuspendLayout()
         Me.tbPage2.SuspendLayout()
@@ -325,6 +325,17 @@ Partial Class frmAddWizard
         Me.tbPage3a.TabIndex = 3
         Me.tbPage3a.Text = "TabPage4"
         '
+        'chkRecurseSubFolders
+        '
+        Me.chkRecurseSubFolders.AutoSize = True
+        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(218, 40)
+        Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
+        Me.chkRecurseSubFolders.Size = New System.Drawing.Size(15, 14)
+        Me.chkRecurseSubFolders.TabIndex = 0
+        Me.chkRecurseSubFolders.TabStop = False
+        Me.chkRecurseSubFolders.UseVisualStyleBackColor = True
+        Me.chkRecurseSubFolders.Visible = False
+        '
         'lblIncludePathTitle
         '
         Me.lblIncludePathTitle.AutoSize = True
@@ -542,17 +553,6 @@ Partial Class frmAddWizard
         Me.btnBack.Text = "&Back"
         Me.btnBack.UseVisualStyleBackColor = True
         '
-        'chkRecurseSubFolders
-        '
-        Me.chkRecurseSubFolders.AutoSize = True
-        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(218, 40)
-        Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
-        Me.chkRecurseSubFolders.Size = New System.Drawing.Size(15, 14)
-        Me.chkRecurseSubFolders.TabIndex = 0
-        Me.chkRecurseSubFolders.TabStop = False
-        Me.chkRecurseSubFolders.UseVisualStyleBackColor = True
-        Me.chkRecurseSubFolders.Visible = False
-        '
         'frmAddWizard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -566,7 +566,6 @@ Partial Class frmAddWizard
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmAddWizard"
-        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Add Game Wizard"
         Me.tabWizard.ResumeLayout(False)

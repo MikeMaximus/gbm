@@ -150,7 +150,6 @@ Partial Class frmTags
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmTags"
-        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Tags"
         Me.grpTag.ResumeLayout(False)

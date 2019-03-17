@@ -63,6 +63,7 @@ Public Class frmChooseGame
     Private Sub SetForm()
         'Set Form Name
         Me.Text = frmChooseGame_FormName
+        Me.Icon = GBM_Icon
 
         'Set Form Text
         btnCancel.Text = frmChooseGame_btnCancel

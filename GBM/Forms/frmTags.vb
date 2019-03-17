@@ -267,6 +267,7 @@ Public Class frmTags
     Private Sub SetForm()
         'Set Form Name
         Me.Text = frmTags_FormName
+        Me.Icon = GBM_Icon
 
         'Set Form Text
         grpTag.Text = frmTags_grpTag

@@ -175,7 +175,6 @@ Partial Class frmSessions
         Me.Controls.Add(Me.lblFilter)
         Me.Controls.Add(Me.txtFilter)
         Me.Name = "frmSessions"
-        Me.ShowIcon = False
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Session Viewer"

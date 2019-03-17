@@ -46,6 +46,7 @@ Public Class frmSessionExport
 
     Private Sub SetForm()
         Me.Text = frmSessionExport_FormName
+        Me.Icon = GBM_Icon
 
         grpExportType.Text = frmSessionExport_grpExportType
         grpDateType.Text = frmSessionExport_grpDateType

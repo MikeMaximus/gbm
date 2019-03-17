@@ -124,6 +124,7 @@ Partial Class frmGameTags
         Me.MinimizeBox = False
         Me.Name = "frmGameTags"
         Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Edit Tags"
         Me.ResumeLayout(False)

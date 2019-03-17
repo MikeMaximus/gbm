@@ -314,6 +314,7 @@ Public Class frmSettings
     Private Sub SetForm()
         'Set Form Name
         Me.Text = frmSettings_FormName
+        Me.Icon = GBM_Icon
 
         'Set Form Text
         lblMinutes.Text = frmSettings_lblMinutes

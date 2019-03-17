@@ -123,6 +123,7 @@ Partial Class frmAdvancedImport
         Me.MinimizeBox = False
         Me.Name = "frmAdvancedImport"
         Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Import Game Configurations"
         Me.ResumeLayout(False)

@@ -301,6 +301,7 @@ Public Class frmVariableManager
     Private Sub SetForm()
         'Set Form Name
         Me.Text = frmVariableManager_FormName
+        Me.Icon = GBM_Icon
 
         'Set Form Text
         btnCancel.Text = frmVariableManager_btnCancel

@@ -213,7 +213,6 @@ Partial Class frmProcessManager
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmProcessManager"
-        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Process Manager"
         Me.grpProcess.ResumeLayout(False)

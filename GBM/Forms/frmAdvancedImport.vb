@@ -184,6 +184,7 @@ Public Class frmAdvancedImport
     Private Sub SetForm()
         'Set Form Name
         Me.Text = frmAdvancedImport_FormName
+        Me.Icon = GBM_Icon
 
         'Add configuration date to title if applicable
         If ImportInfo.Exported <> 0 Then

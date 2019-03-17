@@ -25,11 +25,11 @@ Partial Class frmSessionExport
         Me.btnExport = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.grpExportType = New System.Windows.Forms.GroupBox()
-        Me.grpDateType = New System.Windows.Forms.GroupBox()
-        Me.optCSV = New System.Windows.Forms.RadioButton()
         Me.optXML = New System.Windows.Forms.RadioButton()
-        Me.optCurrentLocale = New System.Windows.Forms.RadioButton()
+        Me.optCSV = New System.Windows.Forms.RadioButton()
+        Me.grpDateType = New System.Windows.Forms.GroupBox()
         Me.optUnix = New System.Windows.Forms.RadioButton()
+        Me.optCurrentLocale = New System.Windows.Forms.RadioButton()
         Me.grpOptions = New System.Windows.Forms.GroupBox()
         Me.chkCSVHeaders = New System.Windows.Forms.CheckBox()
         Me.grpExportType.SuspendLayout()
@@ -66,16 +66,16 @@ Partial Class frmSessionExport
         Me.grpExportType.TabStop = False
         Me.grpExportType.Text = "Export Type"
         '
-        'grpDateType
+        'optXML
         '
-        Me.grpDateType.Controls.Add(Me.optUnix)
-        Me.grpDateType.Controls.Add(Me.optCurrentLocale)
-        Me.grpDateType.Location = New System.Drawing.Point(12, 88)
-        Me.grpDateType.Name = "grpDateType"
-        Me.grpDateType.Size = New System.Drawing.Size(260, 70)
-        Me.grpDateType.TabIndex = 1
-        Me.grpDateType.TabStop = False
-        Me.grpDateType.Text = "Date Type"
+        Me.optXML.AutoSize = True
+        Me.optXML.Location = New System.Drawing.Point(6, 42)
+        Me.optXML.Name = "optXML"
+        Me.optXML.Size = New System.Drawing.Size(47, 17)
+        Me.optXML.TabIndex = 1
+        Me.optXML.TabStop = True
+        Me.optXML.Text = "XML"
+        Me.optXML.UseVisualStyleBackColor = True
         '
         'optCSV
         '
@@ -88,27 +88,16 @@ Partial Class frmSessionExport
         Me.optCSV.Text = "CSV"
         Me.optCSV.UseVisualStyleBackColor = True
         '
-        'optXML
+        'grpDateType
         '
-        Me.optXML.AutoSize = True
-        Me.optXML.Location = New System.Drawing.Point(6, 42)
-        Me.optXML.Name = "optXML"
-        Me.optXML.Size = New System.Drawing.Size(47, 17)
-        Me.optXML.TabIndex = 1
-        Me.optXML.TabStop = True
-        Me.optXML.Text = "XML"
-        Me.optXML.UseVisualStyleBackColor = True
-        '
-        'optCurrentLocale
-        '
-        Me.optCurrentLocale.AutoEllipsis = True
-        Me.optCurrentLocale.Location = New System.Drawing.Point(6, 19)
-        Me.optCurrentLocale.Name = "optCurrentLocale"
-        Me.optCurrentLocale.Size = New System.Drawing.Size(248, 17)
-        Me.optCurrentLocale.TabIndex = 0
-        Me.optCurrentLocale.TabStop = True
-        Me.optCurrentLocale.Text = "Current Locale"
-        Me.optCurrentLocale.UseVisualStyleBackColor = True
+        Me.grpDateType.Controls.Add(Me.optUnix)
+        Me.grpDateType.Controls.Add(Me.optCurrentLocale)
+        Me.grpDateType.Location = New System.Drawing.Point(12, 88)
+        Me.grpDateType.Name = "grpDateType"
+        Me.grpDateType.Size = New System.Drawing.Size(260, 70)
+        Me.grpDateType.TabIndex = 1
+        Me.grpDateType.TabStop = False
+        Me.grpDateType.Text = "Date Type"
         '
         'optUnix
         '
@@ -120,6 +109,17 @@ Partial Class frmSessionExport
         Me.optUnix.TabStop = True
         Me.optUnix.Text = "Unix Timestamp"
         Me.optUnix.UseVisualStyleBackColor = True
+        '
+        'optCurrentLocale
+        '
+        Me.optCurrentLocale.AutoEllipsis = True
+        Me.optCurrentLocale.Location = New System.Drawing.Point(6, 19)
+        Me.optCurrentLocale.Name = "optCurrentLocale"
+        Me.optCurrentLocale.Size = New System.Drawing.Size(248, 17)
+        Me.optCurrentLocale.TabIndex = 0
+        Me.optCurrentLocale.TabStop = True
+        Me.optCurrentLocale.Text = "Current Locale"
+        Me.optCurrentLocale.UseVisualStyleBackColor = True
         '
         'grpOptions
         '
@@ -155,6 +155,7 @@ Partial Class frmSessionExport
         Me.MinimizeBox = False
         Me.Name = "frmSessionExport"
         Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Session Export Options"

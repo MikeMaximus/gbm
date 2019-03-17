@@ -104,6 +104,7 @@ Partial Class frmFileFolderSearch
         Me.MinimizeBox = False
         Me.Name = "frmFileFolderSearch"
         Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Search"
         Me.ResumeLayout(False)

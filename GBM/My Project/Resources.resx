@@ -2380,4 +2380,7 @@
   <data name="frmChooseGame_ColumnTags" xml:space="preserve">
     <value>Tags</value>
   </data>
+  <data name="GBM_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\gbm.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

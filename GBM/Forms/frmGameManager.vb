@@ -1796,6 +1796,7 @@ Public Class frmGameManager
     Private Sub SetForm()
         'Set Form Name
         Me.Name = frmGameManager_FormName
+        Me.Icon = GBM_Icon
 
         'Set Form text
         grpFilter.Text = frmGameManager_grpFilter

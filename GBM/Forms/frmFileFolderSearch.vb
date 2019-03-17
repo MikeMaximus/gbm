@@ -220,6 +220,7 @@ Public Class frmFileFolderSearch
     Private Sub SetForm()
         'Set Form Name
         Me.Text = frmFileFolderSearch_FormName
+        Me.Icon = GBM_Icon
 
         'Set Form Text
         lblResults.Text = frmFileFolderSearch_lblResults

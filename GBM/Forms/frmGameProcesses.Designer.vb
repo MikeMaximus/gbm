@@ -124,6 +124,7 @@ Partial Class frmGameProcesses
         Me.MinimizeBox = False
         Me.Name = "frmGameProcesses"
         Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Edit Processes"
         Me.ResumeLayout(False)

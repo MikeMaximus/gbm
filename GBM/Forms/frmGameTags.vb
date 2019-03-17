@@ -213,6 +213,7 @@ Public Class frmGameTags
         Else
             Me.Text = mgrCommon.FormatString(frmGameTags_FormNameSingle, GameName)
         End If
+        Me.Icon = GBM_Icon
 
         'Set Form Text
         btnOpenTags.Text = frmGameTags_btnOpenTags

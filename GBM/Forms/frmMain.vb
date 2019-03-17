@@ -1495,6 +1495,7 @@ Public Class frmMain
 
         'Set Form Name
         Me.Name = App_NameLong
+        Me.Icon = GBM_Icon
 
         'Set Menu Text
         gMonFile.Text = frmMain_gMonFile

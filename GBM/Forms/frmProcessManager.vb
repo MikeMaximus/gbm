@@ -307,6 +307,7 @@ Public Class frmProcessManager
     Private Sub SetForm()
         'Set Form Name
         Me.Text = frmProcessManager_FormName
+        Me.Icon = GBM_Icon
 
         'Set Form Text
         btnCancel.Text = frmProcessManager_btnCancel

@@ -34,9 +34,9 @@ Partial Class frmMain
         Me.gMonTraySetup = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetupAddWizard = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetupGameManager = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonTraySetupCustomVariables = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetupTags = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetupProcessManager = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTraySetupCustomVariables = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayTools = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayToolsCompact = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayToolsLog = New System.Windows.Forms.ToolStripMenuItem()
@@ -64,9 +64,9 @@ Partial Class frmMain
         Me.gMonSetup = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSetupGameManager = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSetupAddWizard = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonSetupCustomVariables = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSetupTags = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSetupProcessManager = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonSetupCustomVariables = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTools = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonToolsCompact = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonToolsLog = New System.Windows.Forms.ToolStripMenuItem()
@@ -162,12 +162,6 @@ Partial Class frmMain
         Me.gMonTraySetupGameManager.Size = New System.Drawing.Size(201, 22)
         Me.gMonTraySetupGameManager.Text = "&Game Manager..."
         '
-        'gMonTraySetupCustomVariables
-        '
-        Me.gMonTraySetupCustomVariables.Name = "gMonTraySetupCustomVariables"
-        Me.gMonTraySetupCustomVariables.Size = New System.Drawing.Size(201, 22)
-        Me.gMonTraySetupCustomVariables.Text = "Custom Path &Variables..."
-        '
         'gMonTraySetupTags
         '
         Me.gMonTraySetupTags.Name = "gMonTraySetupTags"
@@ -179,6 +173,12 @@ Partial Class frmMain
         Me.gMonTraySetupProcessManager.Name = "gMonTraySetupProcessManager"
         Me.gMonTraySetupProcessManager.Size = New System.Drawing.Size(201, 22)
         Me.gMonTraySetupProcessManager.Text = "&Process Manager..."
+        '
+        'gMonTraySetupCustomVariables
+        '
+        Me.gMonTraySetupCustomVariables.Name = "gMonTraySetupCustomVariables"
+        Me.gMonTraySetupCustomVariables.Size = New System.Drawing.Size(201, 22)
+        Me.gMonTraySetupCustomVariables.Text = "Custom Path &Variables..."
         '
         'gMonTrayTools
         '
@@ -367,12 +367,6 @@ Partial Class frmMain
         Me.gMonSetupAddWizard.Size = New System.Drawing.Size(201, 22)
         Me.gMonSetupAddWizard.Text = "Add Game &Wizard..."
         '
-        'gMonSetupCustomVariables
-        '
-        Me.gMonSetupCustomVariables.Name = "gMonSetupCustomVariables"
-        Me.gMonSetupCustomVariables.Size = New System.Drawing.Size(201, 22)
-        Me.gMonSetupCustomVariables.Text = "Custom Path &Variables..."
-        '
         'gMonSetupTags
         '
         Me.gMonSetupTags.Name = "gMonSetupTags"
@@ -384,6 +378,12 @@ Partial Class frmMain
         Me.gMonSetupProcessManager.Name = "gMonSetupProcessManager"
         Me.gMonSetupProcessManager.Size = New System.Drawing.Size(201, 22)
         Me.gMonSetupProcessManager.Text = "&Process Manager..."
+        '
+        'gMonSetupCustomVariables
+        '
+        Me.gMonSetupCustomVariables.Name = "gMonSetupCustomVariables"
+        Me.gMonSetupCustomVariables.Size = New System.Drawing.Size(201, 22)
+        Me.gMonSetupCustomVariables.Text = "Custom Path &Variables..."
         '
         'gMonTools
         '
@@ -600,7 +600,6 @@ Partial Class frmMain
         Me.Controls.Add(Me.gMonStatusStrip)
         Me.Controls.Add(Me.gMonMainMenu)
         Me.Controls.Add(Me.txtLog)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.gMonMainMenu
         Me.MinimizeBox = False

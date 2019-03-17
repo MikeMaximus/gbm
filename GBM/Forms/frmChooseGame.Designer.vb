@@ -80,6 +80,7 @@ Partial Class frmChooseGame
         Me.MinimizeBox = False
         Me.Name = "frmChooseGame"
         Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Choose Game"
         Me.ResumeLayout(False)

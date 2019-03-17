@@ -501,6 +501,7 @@ Partial Class frmFilter
         Me.MinimizeBox = False
         Me.Name = "frmFilter"
         Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Custom Filter"
         Me.grpTagFilter.ResumeLayout(False)

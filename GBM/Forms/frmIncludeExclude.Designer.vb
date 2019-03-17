@@ -38,13 +38,13 @@ Partial Class frmIncludeExclude
         Me.btnRemove = New System.Windows.Forms.Button()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.grpOptions = New System.Windows.Forms.GroupBox()
+        Me.chkRecurseSubFolders = New System.Windows.Forms.CheckBox()
         Me.optFileTypes = New System.Windows.Forms.RadioButton()
         Me.optIndividualFiles = New System.Windows.Forms.RadioButton()
         Me.lblItems = New System.Windows.Forms.Label()
         Me.btnRawEdit = New System.Windows.Forms.Button()
         Me.lblSaveFolder = New System.Windows.Forms.Label()
         Me.ttWarning = New System.Windows.Forms.ToolTip(Me.components)
-        Me.chkRecurseSubFolders = New System.Windows.Forms.CheckBox()
         Me.cmsItems.SuspendLayout()
         Me.grpOptions.SuspendLayout()
         Me.SuspendLayout()
@@ -170,6 +170,16 @@ Partial Class frmIncludeExclude
         Me.grpOptions.TabStop = False
         Me.grpOptions.Text = "Options"
         '
+        'chkRecurseSubFolders
+        '
+        Me.chkRecurseSubFolders.AutoSize = True
+        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(185, 20)
+        Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
+        Me.chkRecurseSubFolders.Size = New System.Drawing.Size(120, 17)
+        Me.chkRecurseSubFolders.TabIndex = 2
+        Me.chkRecurseSubFolders.Text = "Recurse sub-folders"
+        Me.chkRecurseSubFolders.UseVisualStyleBackColor = True
+        '
         'optFileTypes
         '
         Me.optFileTypes.Location = New System.Drawing.Point(6, 19)
@@ -224,16 +234,6 @@ Partial Class frmIncludeExclude
         Me.ttWarning.ReshowDelay = 50
         Me.ttWarning.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning
         '
-        'chkRecurseSubFolders
-        '
-        Me.chkRecurseSubFolders.AutoSize = True
-        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(185, 20)
-        Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
-        Me.chkRecurseSubFolders.Size = New System.Drawing.Size(120, 17)
-        Me.chkRecurseSubFolders.TabIndex = 2
-        Me.chkRecurseSubFolders.Text = "Recurse sub-folders"
-        Me.chkRecurseSubFolders.UseVisualStyleBackColor = True
-        '
         'frmIncludeExclude
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -256,6 +256,7 @@ Partial Class frmIncludeExclude
         Me.MinimizeBox = False
         Me.Name = "frmIncludeExclude"
         Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Include / Exclude Builder"
         Me.cmsItems.ResumeLayout(False)

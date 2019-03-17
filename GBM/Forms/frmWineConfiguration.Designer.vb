@@ -128,6 +128,7 @@ Partial Class frmWineConfiguration
         Me.MinimizeBox = False
         Me.Name = "frmWineConfiguration"
         Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Wine Configuration"
         Me.grpWineConfig.ResumeLayout(False)

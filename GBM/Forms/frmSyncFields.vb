@@ -34,6 +34,7 @@ Public Class frmSyncFields
     Private Sub SetForm()
         'Set Form Name
         Me.Text = frmSyncFields_FormName
+        Me.Icon = GBM_Icon
 
         'Set Form Text
         btnCancel.Text = frmSyncFields_btnCancel

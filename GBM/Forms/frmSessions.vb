@@ -75,6 +75,7 @@ Public Class frmSessions
 
     Private Sub SetForm()
         Me.Text = frmSessions_Name
+        Me.Icon = GBM_Icon
 
         'Init Labels
         lblFilter.Text = frmSessions_lblFilter

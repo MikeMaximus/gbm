@@ -211,6 +211,7 @@ Public Class frmGameProcesses
         Else
             Me.Text = mgrCommon.FormatString(frmGameProcesses_FormNameSingle, GameName)
         End If
+        Me.Icon = GBM_Icon
 
         'Set Form Text
         btnOpenProcesses.Text = frmGameProcesses_btnOpenProcesses

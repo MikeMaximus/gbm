@@ -244,6 +244,7 @@ Public Class frmIncludeExclude
     Private Sub SetForm()
         'Set Form Name
         Me.Text = mgrCommon.FormatString(frmIncludeExclude_FormName, FormName)
+        Me.Icon = GBM_Icon
 
         'Set Form Text
         lblSaveFolder.Text = frmIncludeExclude_lblSaveFolder

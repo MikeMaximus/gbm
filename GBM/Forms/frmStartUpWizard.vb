@@ -30,6 +30,7 @@ Public Class frmStartUpWizard
     Private Sub SetForm()
         'Set Form Name
         Me.Text = frmStartUpWizard_FormName
+        Me.Icon = GBM_Icon
 
         'Set Form Text
         btnNext.Text = frmStartUpWizard_btnNext

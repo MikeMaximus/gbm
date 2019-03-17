@@ -625,6 +625,7 @@ Public Class frmFilter
     Private Sub SetForm()
         'Set Form Name
         Me.Text = frmFilter_FormName
+        Me.Icon = GBM_Icon
 
         'Set Form Text
         optOr.Text = frmFilter_optOr

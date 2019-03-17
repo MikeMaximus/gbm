@@ -1002,7 +1002,6 @@ Partial Class frmGameManager
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmGameManager"
-        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Game Manager"
         Me.grpConfig.ResumeLayout(False)
