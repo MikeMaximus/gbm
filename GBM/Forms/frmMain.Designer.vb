@@ -106,6 +106,7 @@ Partial Class frmMain
         Me.gMonTray.ContextMenuStrip = Me.gMonTrayMenu
         Me.gMonTray.Icon = CType(resources.GetObject("gMonTray.Icon"), System.Drawing.Icon)
         Me.gMonTray.Text = "GBM"
+        Me.gMonTray.Visible = True
         '
         'gMonTrayMenu
         '

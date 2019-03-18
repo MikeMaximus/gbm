@@ -2185,12 +2185,12 @@ Public Class frmMain
 
                 'Windows and Linux require different settings for the system tray
                 If mgrCommon.IsUnix Then
+                    Me.gMonTray.Visible = False
                     Me.MinimizeBox = True
                     If oSettings.StartToTray Then
                         Me.WindowState = FormWindowState.Minimized
                     End If
                 Else
-                    Me.gMonTray.Visible = True
                     If oSettings.StartToTray Then
                         bShowToggle = False
                         Me.Visible = False
