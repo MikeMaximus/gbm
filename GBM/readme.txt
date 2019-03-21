@@ -2,7 +2,7 @@ Game Backup Monitor v1.1.8 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-March 10, 2019
+March 21, 2019
 
 New in 1.1.8
 
@@ -24,7 +24,8 @@ All Platforms:
 - The disk space check prior to backups can now be disabled in the "Backup and Restore" settings.	
 - Added "Operating System" field to game configurations:
 	- "Windows" and "Linux" are the only valid choices at this time and only Linux users are allowed to change this field.
-- Re-designed how GBM initilizes on startup.
+- Changed how GBM initilizes on startup to fix some long standing issues.
+- Fixed some inconsistencies with form icons and when forms are shown in the task bar.
 	 	
 Windows:
 
@@ -42,6 +43,7 @@ Linux:
 	- This data can be viewed and manually modified on the Game Manager.
 - Fixed the handling of Wine/Proton games when multiple configurations are detected.
 - Fixed a crash when using "Backup Only" and "New Backups Pending" filters on the Game Manager.
-- The Mono and GBM process will now exit cleanly if a critical failure occurs during startup.
+- The Mono and GBM process will now exit cleanly if a critical error occurs during startup.
+- GBM will no longer show the exit dialog when a critical error occurs.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

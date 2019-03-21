@@ -1976,11 +1976,6 @@ Public Class frmMain
     End Sub
 
     Private Sub Main_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        'Unix Handler
-        If mgrCommon.IsUnix And Not bShutdown Then
-            ShutdownApp()
-        End If
-
         Select Case e.CloseReason
             Case CloseReason.UserClosing
                 If bShutdown = False Then
@@ -1991,12 +1986,13 @@ Public Class frmMain
                         Me.WindowState = FormWindowState.Minimized
                         Me.ShowInTaskbar = False
                         Me.Visible = False
+                    Else
+                        ShutdownApp()
                     End If
                 End If
-            Case CloseReason.TaskManagerClosing, CloseReason.WindowsShutDown
-                'Do nothing and let the app close without warning
+            Case Else
+                ShutdownApp(False)
         End Select
-
     End Sub
 
     Private Sub AutoRestoreEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmRestoreCheck.Elapsed
