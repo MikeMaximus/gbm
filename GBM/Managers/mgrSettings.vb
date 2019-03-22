@@ -30,7 +30,7 @@ Public Class mgrSettings
 
     <Flags()> Public Enum eSuppressMessages
         None = 0
-        GameIDSync = 1
+        Unused = 1 'Do not remove to maintain compatability, re-use for a future field.
         BackupImport = 2
         WinConfigsInLinux = 4
         WineConfig = 16
@@ -317,11 +317,6 @@ Public Class mgrSettings
             bDisableDiskSpaceCheck = value
         End Set
     End Property
-
-    Sub New()
-        'The GameIDsync message should be suppressed on all new databases
-        SuppressMessages = SetMessageField(SuppressMessages, eSuppressMessages.GameIDSync)
-    End Sub
 
     Private Sub SaveFromClass()
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)

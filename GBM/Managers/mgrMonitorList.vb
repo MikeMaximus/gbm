@@ -794,19 +794,13 @@ Public Class mgrMonitorList
         Return oList
     End Function
 
-    Public Shared Function SyncGameIDs(ByVal sPath As String, ByRef oSettings As mgrSettings, ByVal bOfficial As Boolean) As Boolean
+    Public Shared Function SyncGameIDs(ByVal sPath As String, ByVal bOfficial As Boolean) As Boolean
         Dim sWarning As String
 
         If bOfficial Then
-            If (oSettings.SuppressMessages And mgrSettings.eSuppressMessages.GameIDSync) = mgrSettings.eSuppressMessages.GameIDSync Then
-                sWarning = mgrMonitorList_ConfirmOfficialGameIDSync
-            Else
-                sWarning = mgrMonitorList_ConfirmInitialOfficialGameIDSync
-                oSettings.SuppressMessages = oSettings.SetMessageField(oSettings.SuppressMessages, mgrSettings.eSuppressMessages.GameIDSync)
-                oSettings.SaveSettings()
-            End If
+            sWarning = mgrMonitorList_ConfirmOfficialGameIDSync
         Else
-                sWarning = mgrMonitorList_ConfirmFileGameIDSync
+            sWarning = mgrMonitorList_ConfirmFileGameIDSync
         End If
 
         If mgrCommon.ShowMessage(sWarning, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
@@ -833,9 +827,6 @@ Public Class mgrMonitorList
     Public Shared Function DoImport(ByVal sPath As String, ByVal bOfficial As Boolean, ByRef oSettings As mgrSettings, Optional ByVal bStartUpWizard As Boolean = False, Optional ByVal bWinConfigsInLinux As Boolean = False) As Boolean
         If mgrCommon.IsAddress(sPath) Then
             If mgrCommon.CheckAddress(sPath) Then
-                If bOfficial And Not bStartUpWizard And Not ((oSettings.SuppressMessages And mgrSettings.eSuppressMessages.GameIDSync) = mgrSettings.eSuppressMessages.GameIDSync) Then
-                    SyncGameIDs(sPath, oSettings, True)
-                End If
                 ImportMonitorList(sPath, True, bWinConfigsInLinux)
                 Return True
             Else

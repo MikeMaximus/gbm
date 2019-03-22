@@ -1104,12 +1104,12 @@ Public Class frmMain
         End If
 
         If bOfficial Then
-            mgrMonitorList.SyncGameIDs(sLocation, oSettings, True)
+            mgrMonitorList.SyncGameIDs(sLocation, True)
         Else
             sLocation = mgrCommon.OpenFileBrowser("XML_Import", frmGameManager_ChooseImportXML, "xml", frmGameManager_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
 
             If sLocation <> String.Empty Then
-                mgrMonitorList.SyncGameIDs(sLocation, oSettings, False)
+                mgrMonitorList.SyncGameIDs(sLocation, False)
             End If
         End If
 

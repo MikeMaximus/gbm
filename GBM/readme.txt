@@ -2,7 +2,7 @@ Game Backup Monitor v1.1.8 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-March 21, 2019
+March 22, 2019
 
 New in 1.1.8
 
@@ -26,7 +26,10 @@ All Platforms:
 	- "Windows" and "Linux" are the only valid choices at this time and only Linux users are allowed to change this field.
 - Changed how GBM initilizes on startup to fix some long standing issues.
 - Fixed some inconsistencies with form icons and when forms are shown in the task bar.
-	 	
+- GBM no longer provides a warning about "Syncing Game IDs" when importing configurations in the Game Manager.
+	- The warning was very confusing and is no longer relevant to most users.
+	- The "Sync Game IDs" Tool will continue to be available for now, but the messaging has been changed warning not to use it without reading the manual first.
+
 Windows:
 
 - Updated SQLite to 3.27.2
