@@ -6,7 +6,6 @@ Public Class frmAdvancedImport
     Private oImportData As ExportData
     Private hshImportData As Hashtable
     Private hshFinalData As New Hashtable
-    Private bModWinConfigsForLinux As Boolean
     Private bSelectAll As Boolean = True
     Private bIsLoading As Boolean = False
     Private iCurrentSort As Integer = 0
@@ -28,15 +27,6 @@ Public Class frmAdvancedImport
         End Set
         Get
             Return hshImportData
-        End Get
-    End Property
-
-    Public Property ModWinConfigsForLinux As Boolean
-        Set(value As Boolean)
-            bModWinConfigsForLinux = value
-        End Set
-        Get
-            Return bModWinConfigsForLinux
         End Get
     End Property
 
@@ -147,7 +137,7 @@ Public Class frmAdvancedImport
             End If
 
             'Check for hardcoded ignore tags
-            If bAddItem And ModWinConfigsForLinux Then
+            If bAddItem And (mgrCommon.IsUnix And oApp.OS = clsGame.eOS.Windows) Then
                 bAddItem = CheckIgnoreTags(oApp.ImportTags)
             End If
 
