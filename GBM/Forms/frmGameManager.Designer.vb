@@ -81,7 +81,7 @@ Partial Class frmGameManager
         Me.lblLocalBackupData = New System.Windows.Forms.Label()
         Me.lblRestorePath = New System.Windows.Forms.Label()
         Me.btnOpenRestorePath = New System.Windows.Forms.Button()
-        Me.btnOpenBackupFile = New System.Windows.Forms.Button()
+        Me.btnOpenBackup = New System.Windows.Forms.Button()
         Me.btnDeleteBackup = New System.Windows.Forms.Button()
         Me.lblBackupFile = New System.Windows.Forms.Label()
         Me.lblRemote = New System.Windows.Forms.Label()
@@ -111,6 +111,9 @@ Partial Class frmGameManager
         Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnProcesses = New System.Windows.Forms.Button()
         Me.ttFullPath = New System.Windows.Forms.ToolTip(Me.components)
+        Me.cmsOpenBackup = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmsOpenBackupFile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsOpenBackupFolder = New System.Windows.Forms.ToolStripMenuItem()
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -120,6 +123,7 @@ Partial Class frmGameManager
         Me.grpFilter.SuspendLayout()
         Me.cmsImport.SuspendLayout()
         Me.cmsDeleteBackup.SuspendLayout()
+        Me.cmsOpenBackup.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnAdd
@@ -629,7 +633,7 @@ Partial Class frmGameManager
         Me.grpStats.Controls.Add(Me.lblLocalBackupData)
         Me.grpStats.Controls.Add(Me.lblRestorePath)
         Me.grpStats.Controls.Add(Me.btnOpenRestorePath)
-        Me.grpStats.Controls.Add(Me.btnOpenBackupFile)
+        Me.grpStats.Controls.Add(Me.btnOpenBackup)
         Me.grpStats.Controls.Add(Me.btnDeleteBackup)
         Me.grpStats.Controls.Add(Me.lblBackupFile)
         Me.grpStats.Controls.Add(Me.lblRemote)
@@ -711,14 +715,14 @@ Partial Class frmGameManager
         Me.btnOpenRestorePath.Text = "O&pen Restore Path"
         Me.btnOpenRestorePath.UseVisualStyleBackColor = True
         '
-        'btnOpenBackupFile
+        'btnOpenBackup
         '
-        Me.btnOpenBackupFile.Location = New System.Drawing.Point(249, 125)
-        Me.btnOpenBackupFile.Name = "btnOpenBackupFile"
-        Me.btnOpenBackupFile.Size = New System.Drawing.Size(114, 23)
-        Me.btnOpenBackupFile.TabIndex = 10
-        Me.btnOpenBackupFile.Text = "&Open Backup File"
-        Me.btnOpenBackupFile.UseVisualStyleBackColor = True
+        Me.btnOpenBackup.Location = New System.Drawing.Point(249, 125)
+        Me.btnOpenBackup.Name = "btnOpenBackup"
+        Me.btnOpenBackup.Size = New System.Drawing.Size(114, 23)
+        Me.btnOpenBackup.TabIndex = 10
+        Me.btnOpenBackup.Text = "&Open Backup"
+        Me.btnOpenBackup.UseVisualStyleBackColor = True
         '
         'btnDeleteBackup
         '
@@ -972,6 +976,24 @@ Partial Class frmGameManager
         Me.ttFullPath.InitialDelay = 300
         Me.ttFullPath.ReshowDelay = 60
         '
+        'cmsOpenBackup
+        '
+        Me.cmsOpenBackup.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsOpenBackupFile, Me.cmsOpenBackupFolder})
+        Me.cmsOpenBackup.Name = "cmsOpenBackup"
+        Me.cmsOpenBackup.Size = New System.Drawing.Size(108, 48)
+        '
+        'cmsOpenBackupFile
+        '
+        Me.cmsOpenBackupFile.Name = "cmsOpenBackupFile"
+        Me.cmsOpenBackupFile.Size = New System.Drawing.Size(107, 22)
+        Me.cmsOpenBackupFile.Text = "&File"
+        '
+        'cmsOpenBackupFolder
+        '
+        Me.cmsOpenBackupFolder.Name = "cmsOpenBackupFolder"
+        Me.cmsOpenBackupFolder.Size = New System.Drawing.Size(107, 22)
+        Me.cmsOpenBackupFolder.Text = "F&older"
+        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1017,6 +1039,7 @@ Partial Class frmGameManager
         Me.grpFilter.PerformLayout()
         Me.cmsImport.ResumeLayout(False)
         Me.cmsDeleteBackup.ResumeLayout(False)
+        Me.cmsOpenBackup.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1065,7 +1088,7 @@ Partial Class frmGameManager
     Friend WithEvents btnMarkAsRestored As System.Windows.Forms.Button
     Friend WithEvents btnRestore As System.Windows.Forms.Button
     Friend WithEvents btnDeleteBackup As System.Windows.Forms.Button
-    Friend WithEvents btnOpenBackupFile As System.Windows.Forms.Button
+    Friend WithEvents btnOpenBackup As System.Windows.Forms.Button
     Friend WithEvents grpFilter As System.Windows.Forms.GroupBox
     Friend WithEvents optPendingRestores As System.Windows.Forms.RadioButton
     Friend WithEvents optAllGames As System.Windows.Forms.RadioButton
@@ -1109,4 +1132,7 @@ Partial Class frmGameManager
     Friend WithEvents lblOS As Label
     Friend WithEvents cboOS As ComboBox
     Friend WithEvents btnWineConfig As Button
+    Friend WithEvents cmsOpenBackup As ContextMenuStrip
+    Friend WithEvents cmsOpenBackupFile As ToolStripMenuItem
+    Friend WithEvents cmsOpenBackupFolder As ToolStripMenuItem
 End Class

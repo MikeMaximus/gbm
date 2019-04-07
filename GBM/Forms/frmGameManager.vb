@@ -535,24 +535,15 @@ Public Class frmGameManager
     End Sub
 
     Private Sub OpenBackupFile()
-        Dim sFileName As String
-        Dim oProcessStartInfo As ProcessStartInfo
+        Dim sFileName As String = BackupFolder & CurrentBackupItem.FileName
 
-        sFileName = BackupFolder & CurrentBackupItem.FileName
+        mgrCommon.OpenInOS(sFileName, frmGameManager_ErrorNoBackupFileExists)
+    End Sub
 
-        If File.Exists(sFileName) Then
-            Try
-                oProcessStartInfo = New ProcessStartInfo
-                oProcessStartInfo.FileName = sFileName
-                oProcessStartInfo.UseShellExecute = True
-                oProcessStartInfo.Verb = "open"
-                Process.Start(oProcessStartInfo)
-            Catch ex As Exception
-                mgrCommon.ShowMessage(App_ErrorLaunchExternal, ex.Message, MsgBoxStyle.Exclamation)
-            End Try
-        Else
-            mgrCommon.ShowMessage(frmGameManager_ErrorNoBackupExists, MsgBoxStyle.Exclamation)
-        End If
+    Private Sub OpenBackupFolder()
+        Dim sFileName As String = BackupFolder & Path.GetDirectoryName(CurrentBackupItem.FileName)
+
+        mgrCommon.OpenInOS(sFileName, frmGameManager_ErrorNoBackupFolderExists)
     End Sub
 
     Private Sub UpdateBuilderButtonLabel(ByVal sBuilderString As String, ByVal sLabel As String, ByVal btn As Button, ByVal bDirty As Boolean)
@@ -642,7 +633,6 @@ Public Class frmGameManager
 
     Private Sub OpenRestorePath()
         Dim sPath As String = String.Empty
-        Dim oProcessStartInfo As ProcessStartInfo
 
         If CurrentBackupItem.AbsolutePath Then
             sPath = CurrentBackupItem.RestorePath
@@ -652,19 +642,7 @@ Public Class frmGameManager
             End If
         End If
 
-        If Directory.Exists(sPath) Then
-            Try
-                oProcessStartInfo = New ProcessStartInfo
-                oProcessStartInfo.FileName = sPath
-                oProcessStartInfo.UseShellExecute = True
-                oProcessStartInfo.Verb = "open"
-                Process.Start(oProcessStartInfo)
-            Catch ex As Exception
-                mgrCommon.ShowMessage(App_ErrorLaunchExternal, ex.Message, MsgBoxStyle.Exclamation)
-            End Try
-        Else
-            mgrCommon.ShowMessage(frmGameManager_ErrorNoRestorePathExists, MsgBoxStyle.Exclamation)
-        End If
+        mgrCommon.OpenInOS(sPath, frmGameManager_ErrorNoRestorePathExists)
     End Sub
 
     Private Sub OpenProcesses()
@@ -822,7 +800,7 @@ Public Class frmGameManager
 
             sFileName = BackupFolder & CurrentBackupItem.FileName
 
-            btnOpenBackupFile.Enabled = True
+            btnOpenBackup.Enabled = True
             btnOpenRestorePath.Enabled = True
             btnRestore.Enabled = True
             btnDeleteBackup.Enabled = True
@@ -830,7 +808,7 @@ Public Class frmGameManager
             If File.Exists(sFileName) Then
                 lblBackupFileData.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sFileName)) & ")"
             Else
-                lblBackupFileData.Text = frmGameManager_ErrorNoBackupExists
+                lblBackupFileData.Text = frmGameManager_ErrorNoBackupFileExists
             End If
 
             SetBackupRestorePath(oApp)
@@ -838,7 +816,7 @@ Public Class frmGameManager
             oComboItems.Add(New KeyValuePair(Of String, String)(String.Empty, frmGameManager_None))
             lblBackupFileData.Text = String.Empty
             lblRestorePathData.Text = String.Empty
-            btnOpenBackupFile.Enabled = False
+            btnOpenBackup.Enabled = False
             btnOpenRestorePath.Enabled = False
             btnRestore.Enabled = False
             btnDeleteBackup.Enabled = False
@@ -876,7 +854,7 @@ Public Class frmGameManager
 
         If mgrPath.IsSupportedRegistryPath(oApp.TruePath) Then
             btnImportBackup.Enabled = False
-            btnOpenBackupFile.Enabled = False
+            btnOpenBackup.Enabled = False
             btnOpenRestorePath.Enabled = False
         End If
 
@@ -893,7 +871,7 @@ Public Class frmGameManager
             If File.Exists(sFileName) Then
                 lblBackupFileData.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sFileName)) & ")"
             Else
-                lblBackupFileData.Text = frmGameManager_ErrorNoBackupExists
+                lblBackupFileData.Text = frmGameManager_ErrorNoBackupFileExists
             End If
 
             SetBackupRestorePath(CurrentGame)
@@ -1081,7 +1059,7 @@ Public Class frmGameManager
                 btnRestore.Enabled = False
                 btnImportBackup.Enabled = False
                 btnDeleteBackup.Enabled = False
-                btnOpenBackupFile.Enabled = False
+                btnOpenBackup.Enabled = False
                 btnOpenRestorePath.Enabled = False
                 chkEnabled.Checked = True
                 chkMonitorOnly.Checked = False
@@ -1115,7 +1093,7 @@ Public Class frmGameManager
                 btnRestore.Enabled = False
                 btnImportBackup.Enabled = False
                 btnDeleteBackup.Enabled = False
-                btnOpenBackupFile.Enabled = False
+                btnOpenBackup.Enabled = False
                 btnOpenRestorePath.Enabled = False
                 btnTags.Enabled = True
                 btnProcesses.Enabled = True
@@ -1818,7 +1796,7 @@ Public Class frmGameManager
         btnSave.Text = frmGameManager_btnSave
         lblRestorePath.Text = frmGameManager_lblRestorePath
         btnOpenRestorePath.Text = frmGameManager_btnOpenRestorePath
-        btnOpenBackupFile.Text = frmGameManager_btnOpenBackupFile
+        btnOpenBackup.Text = frmGameManager_btnOpenBackup
         btnDeleteBackup.Text = frmGameManager_btnDeleteBackup
         lblBackupFile.Text = frmGameManager_lblBackupFile
         lblRemote.Text = frmGameManager_lblRemote
@@ -1860,6 +1838,8 @@ Public Class frmGameManager
         btnProcesses.Text = frmGameManager_btnProcesses
         lblOS.Text = frmGameManager_lblOS
         btnWineConfig.Text = frmGameManager_btnWineConfig
+        cmsOpenBackupFile.Text = frmGameManager_cmsOpenBackupFile
+        cmsOpenBackupFolder.Text = frmGameManager_cmsOpenBackupFolder
 
         'Init Combos
         Dim oComboItems As New List(Of KeyValuePair(Of Integer, String))
@@ -1902,7 +1882,7 @@ Public Class frmGameManager
             btnRestore.Visible = False
             btnMarkAsRestored.Visible = False
             btnDeleteBackup.Visible = False
-            btnOpenBackupFile.Visible = False
+            btnOpenBackup.Visible = False
             btnOpenRestorePath.Visible = False
         End If
 
@@ -1984,8 +1964,16 @@ Public Class frmGameManager
         IconBrowse()
     End Sub
 
-    Private Sub btnOpenBackupFile_Click(sender As Object, e As EventArgs) Handles btnOpenBackupFile.Click
+    Private Sub btnOpenBackup_Click(sender As Object, e As EventArgs) Handles btnOpenBackup.Click
+        mgrCommon.OpenButtonSubMenu(cmsOpenBackup, btnOpenBackup)
+    End Sub
+
+    Private Sub cmsOpenBackupFile_Click(sender As Object, e As EventArgs) Handles cmsOpenBackupFile.Click
         OpenBackupFile()
+    End Sub
+
+    Private Sub cmsOpenBackupFolder_Click(sender As Object, e As EventArgs) Handles cmsOpenBackupFolder.Click
+        OpenBackupFolder()
     End Sub
 
     Private Sub btnOpenRestorePath_Click(sender As Object, e As EventArgs) Handles btnOpenRestorePath.Click
@@ -2006,7 +1994,7 @@ Public Class frmGameManager
 
     Private Sub btnDeleteBackup_Click(sender As Object, e As EventArgs) Handles btnDeleteBackup.Click
         If cboRemoteBackup.Items.Count > 1 Then
-            cmsDeleteBackup.Show(btnDeleteBackup, New Drawing.Point(btnDeleteBackup.Size.Width - Math.Floor(btnDeleteBackup.Size.Width * 0.1), btnDeleteBackup.Size.Height - Math.Floor(btnDeleteBackup.Size.Height * 0.5)), ToolStripDropDownDirection.AboveRight)
+            mgrCommon.OpenButtonSubMenu(cmsDeleteBackup, btnDeleteBackup)
         Else
             DeleteBackup()
         End If
@@ -2076,7 +2064,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
-        cmsImport.Show(btnImport, New Drawing.Point(btnImport.Size.Width - Math.Floor(btnImport.Size.Width * 0.1), btnImport.Size.Height - Math.Floor(btnImport.Size.Height * 0.5)), ToolStripDropDownDirection.AboveRight)
+        mgrCommon.OpenButtonSubMenu(cmsImport, btnImport)
     End Sub
 
     Private Sub cmsOfficialWindows_Click(sender As Object, e As EventArgs) Handles cmsOfficialWindows.Click, cmsOfficial.Click

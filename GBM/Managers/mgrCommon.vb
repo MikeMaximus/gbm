@@ -529,6 +529,29 @@ Public Class mgrCommon
         End If
     End Sub
 
+    'Opens a file or folder in default application determined by the OS
+    Public Shared Function OpenInOS(ByVal sFileName As String, ByVal sNotFoundError As String) As Boolean
+        Dim oProcessStartInfo As ProcessStartInfo
+
+        If File.Exists(sFileName) Or Directory.Exists(sFileName) Then
+            Try
+                oProcessStartInfo = New ProcessStartInfo
+                oProcessStartInfo.FileName = sFileName
+                oProcessStartInfo.UseShellExecute = True
+                oProcessStartInfo.Verb = "open"
+                Process.Start(oProcessStartInfo)
+            Catch ex As Exception
+                mgrCommon.ShowMessage(App_ErrorLaunchExternal, ex.Message, MsgBoxStyle.Exclamation)
+                Return False
+            End Try
+        Else
+            mgrCommon.ShowMessage(sNotFoundError, MsgBoxStyle.Exclamation)
+            Return False
+        End If
+
+        Return True
+    End Function
+
     'Delete a sub-folder based on the provided backup information
     Public Shared Sub DeleteDirectoryByBackup(ByVal sBackupFolder As String, ByVal oBackup As clsBackup)
         Dim oDir As DirectoryInfo
@@ -567,6 +590,11 @@ Public Class mgrCommon
         Catch ex As Exception
             ShowMessage(mgrCommon_ErrorWritingTextFile, ex.Message, MsgBoxStyle.Critical)
         End Try
+    End Sub
+
+    'Open a nice button sub-menu
+    Public Shared Sub OpenButtonSubMenu(ByRef cms As ContextMenuStrip, ByRef btn As Button)
+        cms.Show(btn, New Drawing.Point(btn.Size.Width - Math.Floor(btn.Size.Width * 0.1), btn.Size.Height - Math.Floor(btn.Size.Height * 0.5)), ToolStripDropDownDirection.AboveRight)
     End Sub
 
     'Configure a fake form to trigger focus for priority messages

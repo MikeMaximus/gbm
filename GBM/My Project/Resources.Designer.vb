@@ -1654,11 +1654,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Open Backup File.
+        '''  Looks up a localized string similar to &amp;Open Backup.
         '''</summary>
-        Friend ReadOnly Property frmGameManager_btnOpenBackupFile() As String
+        Friend ReadOnly Property frmGameManager_btnOpenBackup() As String
             Get
-                Return ResourceManager.GetString("frmGameManager_btnOpenBackupFile", resourceCulture)
+                Return ResourceManager.GetString("frmGameManager_btnOpenBackup", resourceCulture)
             End Get
         End Property
         
@@ -1906,6 +1906,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;File.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsOpenBackupFile() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsOpenBackupFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to F&amp;older.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsOpenBackupFolder() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsOpenBackupFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to run a backup for [PARAM]?  This will close the form..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmBackup() As String
@@ -2106,9 +2124,18 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to The backup file does not exist..
         '''</summary>
-        Friend ReadOnly Property frmGameManager_ErrorNoBackupExists() As String
+        Friend ReadOnly Property frmGameManager_ErrorNoBackupFileExists() As String
             Get
-                Return ResourceManager.GetString("frmGameManager_ErrorNoBackupExists", resourceCulture)
+                Return ResourceManager.GetString("frmGameManager_ErrorNoBackupFileExists", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The backup folder does not exist..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ErrorNoBackupFolderExists() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ErrorNoBackupFolderExists", resourceCulture)
             End Get
         End Property
         

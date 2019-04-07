@@ -460,8 +460,8 @@
   <data name="frmGameManager_btnMarkAsRestored" xml:space="preserve">
     <value>&amp;Mark as Restored</value>
   </data>
-  <data name="frmGameManager_btnOpenBackupFile" xml:space="preserve">
-    <value>&amp;Open Backup File</value>
+  <data name="frmGameManager_btnOpenBackup" xml:space="preserve">
+    <value>&amp;Open Backup</value>
   </data>
   <data name="frmGameManager_btnOpenRestorePath" xml:space="preserve">
     <value>O&amp;pen Restore Path</value>
@@ -553,7 +553,7 @@
   <data name="frmGameManager_ErrorNoBackupData" xml:space="preserve">
     <value>The selected game(s) have no backup data or can't be restored with their current configuration.</value>
   </data>
-  <data name="frmGameManager_ErrorNoBackupExists" xml:space="preserve">
+  <data name="frmGameManager_ErrorNoBackupFileExists" xml:space="preserve">
     <value>The backup file does not exist.</value>
   </data>
   <data name="frmGameManager_ErrorNoItems" xml:space="preserve">
@@ -2379,5 +2379,14 @@
   </data>
   <data name="GBM_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\gbm.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_cmsOpenBackupFile" xml:space="preserve">
+    <value>&amp;File</value>
+  </data>
+  <data name="frmGameManager_cmsOpenBackupFolder" xml:space="preserve">
+    <value>F&amp;older</value>
+  </data>
+  <data name="frmGameManager_ErrorNoBackupFolderExists" xml:space="preserve">
+    <value>The backup folder does not exist.</value>
   </data>
 </root>
