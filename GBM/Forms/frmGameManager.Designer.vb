@@ -980,18 +980,19 @@ Partial Class frmGameManager
         '
         Me.cmsOpenBackup.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsOpenBackupFile, Me.cmsOpenBackupFolder})
         Me.cmsOpenBackup.Name = "cmsOpenBackup"
-        Me.cmsOpenBackup.Size = New System.Drawing.Size(108, 48)
+        Me.cmsOpenBackup.ShowImageMargin = False
+        Me.cmsOpenBackup.Size = New System.Drawing.Size(156, 70)
         '
         'cmsOpenBackupFile
         '
         Me.cmsOpenBackupFile.Name = "cmsOpenBackupFile"
-        Me.cmsOpenBackupFile.Size = New System.Drawing.Size(107, 22)
+        Me.cmsOpenBackupFile.Size = New System.Drawing.Size(155, 22)
         Me.cmsOpenBackupFile.Text = "&File"
         '
         'cmsOpenBackupFolder
         '
         Me.cmsOpenBackupFolder.Name = "cmsOpenBackupFolder"
-        Me.cmsOpenBackupFolder.Size = New System.Drawing.Size(107, 22)
+        Me.cmsOpenBackupFolder.Size = New System.Drawing.Size(155, 22)
         Me.cmsOpenBackupFolder.Text = "F&older"
         '
         'frmGameManager
