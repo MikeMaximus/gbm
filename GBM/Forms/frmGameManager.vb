@@ -1235,7 +1235,6 @@ Public Class frmGameManager
             btnInclude.Enabled = False
             btnExclude.Enabled = False
         Else
-            chkFolderSave.Checked = False
             chkFolderSave.Enabled = True
             btnInclude.Enabled = True
             btnExclude.Enabled = True
