@@ -574,7 +574,7 @@ Public Class frmGameManager
 
     Private Function GetBuilderRoot() As String
         Dim sRoot As String = String.Empty
-        Dim sPath As String = mgrPath.ValidatePathForOS(txtSavePath.Text)
+        Dim sPath As String = mgrPath.ValidatePath(txtSavePath.Text)
 
         If Not Settings.ShowResolvedPaths Then sPath = mgrPath.ReplaceSpecialPaths(sPath)
 
@@ -1372,7 +1372,7 @@ Public Class frmGameManager
         oApp.ProcessName = txtProcess.Text
         oApp.Parameter = txtParameter.Text
         oApp.OS = CType(cboOS.SelectedValue, clsGame.eOS)
-        oApp.Path = mgrPath.ValidatePathForOS(txtSavePath.Text)
+        oApp.Path = mgrPath.ValidatePath(txtSavePath.Text)
 
         'If we have a registry path, trim any trailing backslashes because they cause export failures
         If mgrPath.IsSupportedRegistryPath(oApp.Path) Then
@@ -1397,7 +1397,7 @@ Public Class frmGameManager
         oApp.Comments = txtComments.Text
         oApp.Enabled = chkEnabled.Checked
         oApp.MonitorOnly = chkMonitorOnly.Checked
-        oApp.ProcessPath = mgrPath.ValidatePathForOS(txtAppPath.Text)
+        oApp.ProcessPath = mgrPath.ValidatePath(txtAppPath.Text)
         oApp.Company = txtCompany.Text
         oApp.Version = txtVersion.Text
         oApp.Icon = txtIcon.Text

@@ -443,62 +443,6 @@ Public Class mgrCommon
         Return lSize
     End Function
 
-    'Get the drive format of a location (Unix)
-    Public Shared Function GetBackupDriveFormatUnix(ByVal sPath As String) As String
-        Dim prs As Process
-        Dim sOutput As String
-        Dim sDevice As String = String.Empty
-        Dim sDriveFormat As String = String.Empty
-
-        Try
-            prs = New Process
-            prs.StartInfo.FileName = "/bin/df"
-            prs.StartInfo.Arguments = "-T " & sPath
-            prs.StartInfo.UseShellExecute = False
-            prs.StartInfo.RedirectStandardOutput = True
-            prs.StartInfo.CreateNoWindow = True
-            prs.Start()
-
-            sOutput = prs.StandardOutput.ReadToEnd
-            sDevice = sOutput.Split(vbLf)(1).Split(New Char() {" "}, StringSplitOptions.RemoveEmptyEntries)(0)
-            sDriveFormat = sOutput.Split(vbLf)(1).Split(New Char() {" "}, StringSplitOptions.RemoveEmptyEntries)(1)
-
-            'If we are dealing with a fuseblk we have to figure out what the underlying file system is.
-            If sDriveFormat = "fuseblk" Then
-                prs = New Process
-                prs.StartInfo.FileName = "/bin/lsblk"
-                prs.StartInfo.Arguments = sDevice & " -no fstype"
-                prs.StartInfo.UseShellExecute = False
-                prs.StartInfo.RedirectStandardOutput = True
-                prs.StartInfo.CreateNoWindow = True
-                prs.Start()
-
-                sDriveFormat = prs.StandardOutput.ReadToEnd
-            End If
-        Catch
-            'Do Nothing
-        End Try
-
-        Return sDriveFormat
-    End Function
-
-    'Get the drive format of a location (Windows)
-    Public Shared Function GetBackupDriveFormatWindows(ByVal sPath As String) As String
-        Dim oBackupDrive As DriveInfo
-        Dim sFormat As String = String.Empty
-
-        Try
-            If Directory.Exists(sPath) Then
-                oBackupDrive = New DriveInfo(Path.GetPathRoot(sPath))
-                sFormat = oBackupDrive.DriveFormat
-            End If
-        Catch
-            'Do Nothing
-        End Try
-
-        Return sFormat
-    End Function
-
     'Get available disk space on a drive (Unix)
     Private Shared Function GetAvailableDiskSpaceUnix(ByVal sPath As String) As Long
         Dim prsdf As Process

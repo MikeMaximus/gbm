@@ -101,8 +101,10 @@ Public Class mgrPath
         End Set
     End Property
 
-    Public Shared Function ValidatePathForOS(ByVal sCheckString As String) As String
-        Dim cInvalidCharacters As Char() = Path.GetInvalidPathChars
+    Public Shared Function ValidatePath(ByVal sCheckString As String) As String
+        Dim cInvalidCharacters As Char() = {Chr(0), Chr(1), Chr(2), Chr(3), Chr(4), Chr(5), Chr(6), Chr(7), Chr(8), Chr(9), Chr(10), Chr(11), Chr(12), Chr(13), Chr(14), Chr(15),
+                                           Chr(16), Chr(17), Chr(18), Chr(19), Chr(20), Chr(21), Chr(22), Chr(23), Chr(24), Chr(25), Chr(26), Chr(27), Chr(28), Chr(29), Chr(30),
+                                           Chr(31), Chr(34), Chr(60), Chr(62), Chr(124)}
 
         For Each c As Char In cInvalidCharacters
             sCheckString = sCheckString.Replace(c, "")
@@ -112,21 +114,9 @@ Public Class mgrPath
     End Function
 
     Public Shared Function ValidateFileName(ByVal sCheckString As String) As String
-        Dim sFormat As String
-        Dim oSettings As New mgrSettings
-        Dim cInvalidCharacters As Char()
-
-        oSettings.LoadSettings()
-        sFormat = oSettings.BackupDriveFormat.ToLower
-
-        If sFormat.StartsWith("fat") Or sFormat = "vfat" Or sFormat = "ntfs" Then
-            cInvalidCharacters = {"\", "/", ":", "*", "?", """", "<", ">", "|", Convert.ToChar(0)}
-        ElseIf sFormat.StartsWith("ext") Then
-            cInvalidCharacters = {"/", Convert.ToChar(0)}
-        Else
-            'When unable to determine the format, use the invalid characters provided by the OS.
-            cInvalidCharacters = Path.GetInvalidFileNameChars
-        End If
+        Dim cInvalidCharacters As Char() = {Chr(0), Chr(1), Chr(2), Chr(3), Chr(4), Chr(5), Chr(6), Chr(7), Chr(8), Chr(9), Chr(10), Chr(11), Chr(12), Chr(13), Chr(14), Chr(15),
+                                           Chr(16), Chr(17), Chr(18), Chr(19), Chr(20), Chr(21), Chr(22), Chr(23), Chr(24), Chr(25), Chr(26), Chr(27), Chr(28), Chr(29), Chr(30),
+                                           Chr(31), Chr(34), Chr(42), Chr(47), Chr(58), Chr(60), Chr(62), Chr(63), Chr(92), Chr(124)}
 
         For Each c As Char In cInvalidCharacters
             sCheckString = sCheckString.Replace(c, "")

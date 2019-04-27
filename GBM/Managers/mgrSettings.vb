@@ -255,16 +255,6 @@ Public Class mgrSettings
         End Set
     End Property
 
-    ReadOnly Property BackupDriveFormat As String
-        Get
-            If mgrCommon.IsUnix Then
-                Return mgrCommon.GetBackupDriveFormatUnix(sBackupFolder)
-            Else
-                Return mgrCommon.GetBackupDriveFormatWindows(sBackupFolder)
-            End If
-        End Get
-    End Property
-
     Property SyncFields As clsGame.eOptionalSyncFields
         Get
             Return eSyncFields

@@ -208,7 +208,7 @@ Public Class frmAddWizard
     End Function
 
     Private Function ValidateProcessPath(ByVal strPath As String, ByRef sErrorMessage As String) As Boolean
-        strPath = mgrPath.ValidatePathForOS(strPath)
+        strPath = mgrPath.ValidatePath(strPath)
 
         If strPath.Trim = String.Empty Then
             sErrorMessage = frmAddWizard_ErrorValidProcess
@@ -325,7 +325,7 @@ Public Class frmAddWizard
                 End If
 
             Case eSteps.Step3
-                txtSavePath.Text = mgrPath.ValidatePathForOS(txtSavePath.Text)
+                txtSavePath.Text = mgrPath.ValidatePath(txtSavePath.Text)
                 If ValidateSavePath(txtSavePath.Text, sErrorMessage) Then
                     lblIncludePath.Text = txtSavePath.Text
                     lblExcludePath.Text = txtSavePath.Text
