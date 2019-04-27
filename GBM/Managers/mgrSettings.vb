@@ -255,6 +255,22 @@ Public Class mgrSettings
         End Set
     End Property
 
+    ReadOnly Property BackupDriveFormat As String
+        Get
+            Dim oBackupDrive As DriveInfo
+            Dim sFormat As String = String.Empty
+            Try
+                If Directory.Exists(sBackupFolder) Then
+                    oBackupDrive = New DriveInfo(Path.GetPathRoot(sBackupFolder))
+                    sFormat = oBackupDrive.DriveFormat
+                End If
+            Catch
+                'Do Nothing
+            End Try
+            Return sFormat
+        End Get
+    End Property
+
     Property SyncFields As clsGame.eOptionalSyncFields
         Get
             Return eSyncFields
