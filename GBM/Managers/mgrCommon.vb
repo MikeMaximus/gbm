@@ -443,6 +443,47 @@ Public Class mgrCommon
         Return lSize
     End Function
 
+    'Get the drive format of a location (Unix)
+    Public Shared Function GetBackupDriveFormatUnix(ByVal sPath As String) As String
+        Dim prsdf As Process
+        Dim sOutput As String
+        Dim sDriveFormat As String = String.Empty
+
+        Try
+            prsdf = New Process
+            prsdf.StartInfo.FileName = "/bin/df"
+            prsdf.StartInfo.Arguments = "-T " & sPath
+            prsdf.StartInfo.UseShellExecute = False
+            prsdf.StartInfo.RedirectStandardOutput = True
+            prsdf.StartInfo.CreateNoWindow = True
+            prsdf.Start()
+            sOutput = prsdf.StandardOutput.ReadToEnd
+            'Parse df output to grab "Type" value
+            sDriveFormat = sOutput.Split(vbLf)(1).Split(New Char() {" "}, StringSplitOptions.RemoveEmptyEntries)(1)
+        Catch
+            'Do Nothing
+        End Try
+
+        Return sDriveFormat
+    End Function
+
+    'Get the drive format of a location (Windows)
+    Public Shared Function GetBackupDriveFormatWindows(ByVal sPath As String) As String
+        Dim oBackupDrive As DriveInfo
+        Dim sFormat As String = String.Empty
+
+        Try
+            If Directory.Exists(sPath) Then
+                oBackupDrive = New DriveInfo(Path.GetPathRoot(sPath))
+                sFormat = oBackupDrive.DriveFormat
+            End If
+        Catch
+            'Do Nothing
+        End Try
+
+        Return sFormat
+    End Function
+
     'Get available disk space on a drive (Unix)
     Private Shared Function GetAvailableDiskSpaceUnix(ByVal sPath As String) As Long
         Dim prsdf As Process

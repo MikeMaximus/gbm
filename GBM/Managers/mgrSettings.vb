@@ -257,17 +257,11 @@ Public Class mgrSettings
 
     ReadOnly Property BackupDriveFormat As String
         Get
-            Dim oBackupDrive As DriveInfo
-            Dim sFormat As String = String.Empty
-            Try
-                If Directory.Exists(sBackupFolder) Then
-                    oBackupDrive = New DriveInfo(Path.GetPathRoot(sBackupFolder))
-                    sFormat = oBackupDrive.DriveFormat
-                End If
-            Catch
-                'Do Nothing
-            End Try
-            Return sFormat
+            If mgrCommon.IsUnix Then
+                Return mgrCommon.GetBackupDriveFormatUnix(sBackupFolder)
+            Else
+                Return mgrCommon.GetBackupDriveFormatWindows(sBackupFolder)
+            End If
         End Get
     End Property
 
