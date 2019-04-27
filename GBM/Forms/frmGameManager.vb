@@ -1361,7 +1361,7 @@ Public Class frmGameManager
         oApp.IsRegEx = chkRegEx.Checked
 
         If Not oApp.IsRegEx Then
-            txtProcess.Text = mgrPath.ValidateFileNameForOS(txtProcess.Text)
+            txtProcess.Text = mgrPath.ValidateFileName(txtProcess.Text)
             If Path.HasExtension(txtProcess.Text) Then
                 If txtProcess.Text.ToLower.EndsWith(".exe") Then
                     txtProcess.Text = Path.GetFileNameWithoutExtension(txtProcess.Text)

@@ -445,21 +445,36 @@ Public Class mgrCommon
 
     'Get the drive format of a location (Unix)
     Public Shared Function GetBackupDriveFormatUnix(ByVal sPath As String) As String
-        Dim prsdf As Process
+        Dim prs As Process
         Dim sOutput As String
+        Dim sDevice As String = String.Empty
         Dim sDriveFormat As String = String.Empty
 
         Try
-            prsdf = New Process
-            prsdf.StartInfo.FileName = "/bin/df"
-            prsdf.StartInfo.Arguments = "-T " & sPath
-            prsdf.StartInfo.UseShellExecute = False
-            prsdf.StartInfo.RedirectStandardOutput = True
-            prsdf.StartInfo.CreateNoWindow = True
-            prsdf.Start()
-            sOutput = prsdf.StandardOutput.ReadToEnd
-            'Parse df output to grab "Type" value
+            prs = New Process
+            prs.StartInfo.FileName = "/bin/df"
+            prs.StartInfo.Arguments = "-T " & sPath
+            prs.StartInfo.UseShellExecute = False
+            prs.StartInfo.RedirectStandardOutput = True
+            prs.StartInfo.CreateNoWindow = True
+            prs.Start()
+
+            sOutput = prs.StandardOutput.ReadToEnd
+            sDevice = sOutput.Split(vbLf)(1).Split(New Char() {" "}, StringSplitOptions.RemoveEmptyEntries)(0)
             sDriveFormat = sOutput.Split(vbLf)(1).Split(New Char() {" "}, StringSplitOptions.RemoveEmptyEntries)(1)
+
+            'If we are dealing with a fuseblk we have to figure out what the underlying file system is.
+            If sDriveFormat = "fuseblk" Then
+                prs = New Process
+                prs.StartInfo.FileName = "/bin/lsblk"
+                prs.StartInfo.Arguments = sDevice & " -no fstype"
+                prs.StartInfo.UseShellExecute = False
+                prs.StartInfo.RedirectStandardOutput = True
+                prs.StartInfo.CreateNoWindow = True
+                prs.Start()
+
+                sDriveFormat = prs.StandardOutput.ReadToEnd
+            End If
         Catch
             'Do Nothing
         End Try

@@ -111,15 +111,29 @@ Public Class mgrPath
         Return sCheckString.Trim
     End Function
 
-    Public Shared Function ValidateFileNameForOS(ByVal sCheckString As String) As String
-        Dim cInvalidCharacters As Char() = Path.GetInvalidFileNameChars
+    Public Shared Function ValidateFileName(ByVal sCheckString As String) As String
+        Dim sFormat As String
+        Dim oSettings As New mgrSettings
+        Dim cInvalidCharacters As Char()
+
+        oSettings.LoadSettings()
+        sFormat = oSettings.BackupDriveFormat.ToLower
+
+        If sFormat.Contains("fat") Or sFormat.Contains("ntfs") Then
+            cInvalidCharacters = {"\", "/", ":", "*", "?", """", "<", ">", "|", Convert.ToChar(0)}
+        ElseIf sFormat.Contains("ext") Then
+            cInvalidCharacters = {"/", Convert.ToChar(0)}
+        Else
+            'When unable to determine the format, use the invalid characters provided by the OS.
+            cInvalidCharacters = Path.GetInvalidFileNameChars
+        End If
 
         For Each c As Char In cInvalidCharacters
             sCheckString = sCheckString.Replace(c, "")
         Next
 
-        If sCheckString.Length > 257 Then
-            sCheckString = sCheckString.Substring(0, 257)
+        If sCheckString.Length > 255 Then
+            sCheckString = sCheckString.Substring(0, 255)
         End If
 
         Return sCheckString.Trim

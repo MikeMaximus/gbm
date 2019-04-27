@@ -49,7 +49,7 @@
 
     ReadOnly Property FileSafeName As String
         Get
-            Return mgrPath.ValidateFileNameForOS(sName)
+            Return mgrPath.ValidateFileName(sName)
         End Get
     End Property
 
