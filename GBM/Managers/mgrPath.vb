@@ -119,9 +119,9 @@ Public Class mgrPath
         oSettings.LoadSettings()
         sFormat = oSettings.BackupDriveFormat.ToLower
 
-        If sFormat.Contains("fat") Or sFormat.Contains("ntfs") Then
+        If sFormat.StartsWith("fat") Or sFormat = "vfat" Or sFormat = "ntfs" Then
             cInvalidCharacters = {"\", "/", ":", "*", "?", """", "<", ">", "|", Convert.ToChar(0)}
-        ElseIf sFormat.Contains("ext") Then
+        ElseIf sFormat.StartsWith("ext") Then
             cInvalidCharacters = {"/", Convert.ToChar(0)}
         Else
             'When unable to determine the format, use the invalid characters provided by the OS.
