@@ -14,7 +14,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("Game Backup Monitor")> 
 <Assembly: AssemblyCompany("Michael J. Seiferling")> 
 <Assembly: AssemblyProduct("Game Backup Monitor")>
-<Assembly: AssemblyCopyright("Copyright © 2018 Michael J. Seiferling")>
+<Assembly: AssemblyCopyright("© 2014 - 2019 Michael J. Seiferling and Game Backup Monitor contributors")>
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)> 
@@ -33,7 +33,7 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.1.8.*")>
-<Assembly: AssemblyFileVersion("1.1.8.0")>
+<Assembly: AssemblyVersion("1.1.9.*")>
+<Assembly: AssemblyFileVersion("1.1.9.0")>
 
 <Assembly: NeutralResourcesLanguageAttribute("en")> 
