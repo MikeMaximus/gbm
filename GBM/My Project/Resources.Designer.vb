@@ -547,7 +547,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Backup Limit.
+        '''  Looks up a localized string similar to Backup Limit (0 = Unlimited).
         '''</summary>
         Friend ReadOnly Property frmAddWizard_lblLimit() As String
             Get
@@ -741,6 +741,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmAddWizard_Summary_Name() As String
             Get
                 Return ResourceManager.GetString("frmAddWizard_Summary_Name", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Unlimited.
+        '''</summary>
+        Friend ReadOnly Property frmAddWizard_Summary_NoLimit() As String
+            Get
+                Return ResourceManager.GetString("frmAddWizard_Summary_NoLimit", resourceCulture)
             End Get
         End Property
         
@@ -2410,7 +2419,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Backup Limit.
+        '''  Looks up a localized string similar to Backup Limit (0 = Unlimited).
         '''</summary>
         Friend ReadOnly Property frmGameManager_lblLimit() As String
             Get

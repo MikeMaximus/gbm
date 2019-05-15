@@ -313,9 +313,9 @@ Partial Class frmGameManager
         Me.lblLimit.AutoSize = True
         Me.lblLimit.Location = New System.Drawing.Point(376, 229)
         Me.lblLimit.Name = "lblLimit"
-        Me.lblLimit.Size = New System.Drawing.Size(68, 13)
+        Me.lblLimit.Size = New System.Drawing.Size(138, 13)
         Me.lblLimit.TabIndex = 23
-        Me.lblLimit.Text = "Backup Limit"
+        Me.lblLimit.Text = "Backup Limit (0 = Unlimited)"
         Me.lblLimit.Visible = False
         '
         'nudLimit
@@ -981,18 +981,18 @@ Partial Class frmGameManager
         Me.cmsOpenBackup.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsOpenBackupFile, Me.cmsOpenBackupFolder})
         Me.cmsOpenBackup.Name = "cmsOpenBackup"
         Me.cmsOpenBackup.ShowImageMargin = False
-        Me.cmsOpenBackup.Size = New System.Drawing.Size(156, 70)
+        Me.cmsOpenBackup.Size = New System.Drawing.Size(83, 48)
         '
         'cmsOpenBackupFile
         '
         Me.cmsOpenBackupFile.Name = "cmsOpenBackupFile"
-        Me.cmsOpenBackupFile.Size = New System.Drawing.Size(155, 22)
+        Me.cmsOpenBackupFile.Size = New System.Drawing.Size(82, 22)
         Me.cmsOpenBackupFile.Text = "&File"
         '
         'cmsOpenBackupFolder
         '
         Me.cmsOpenBackupFolder.Name = "cmsOpenBackupFolder"
-        Me.cmsOpenBackupFolder.Size = New System.Drawing.Size(155, 22)
+        Me.cmsOpenBackupFolder.Size = New System.Drawing.Size(82, 22)
         Me.cmsOpenBackupFolder.Text = "F&older"
         '
         'frmGameManager

@@ -75,10 +75,8 @@ Public Class frmAddWizard
         If chkTimeStamp.Checked Then
             nudLimit.Visible = True
             lblLimit.Visible = True
-            nudLimit.Value = 5
         Else
             nudLimit.Visible = False
-            nudLimit.Value = nudLimit.Minimum
             lblLimit.Visible = False
         End If
     End Sub
@@ -87,9 +85,13 @@ Public Class frmAddWizard
         Dim sLimit As String = String.Empty
 
         If bTimeStamp Then
-            Return mgrCommon.BooleanYesNo(bTimeStamp) & " (" & iLimit & ")"
+            If iLimit <> 0 Then
+                Return mgrCommon.BooleanYesNo(bTimeStamp) & " (" & iLimit & ")"
+            Else
+                Return mgrCommon.BooleanYesNo(bTimeStamp) & " (" & frmAddWizard_Summary_NoLimit & ")"
+            End If
         Else
-            Return mgrCommon.BooleanYesNo(bTimeStamp)
+                Return mgrCommon.BooleanYesNo(bTimeStamp)
         End If
     End Function
 

@@ -1682,7 +1682,7 @@
     <value>You cannot choose a file located outside the current [PARAM] backup folder.</value>
   </data>
   <data name="frmGameManager_lblLimit" xml:space="preserve">
-    <value>Backup Limit</value>
+    <value>Backup Limit (0 = Unlimited)</value>
   </data>
   <data name="mgrBackup_BackupLimitExceeded" xml:space="preserve">
     <value>[PARAM] was automatically removed.</value>
@@ -1697,7 +1697,7 @@
     <value>This will delete all backup files for [PARAM].  This cannot be undone. [BR][BR]Do you want to continue?</value>
   </data>
   <data name="frmAddWizard_lblLimit" xml:space="preserve">
-    <value>Backup Limit</value>
+    <value>Backup Limit (0 = Unlimited)</value>
   </data>
   <data name="frmGameManager_Unknown" xml:space="preserve">
     <value>Unknown</value>
@@ -2388,5 +2388,8 @@
   </data>
   <data name="frmGameManager_ErrorNoBackupFolderExists" xml:space="preserve">
     <value>The backup folder does not exist.</value>
+  </data>
+  <data name="frmAddWizard_Summary_NoLimit" xml:space="preserve">
+    <value>Unlimited</value>
   </data>
 </root>

@@ -228,19 +228,17 @@ Partial Class frmAddWizard
         Me.lblLimit.AutoSize = True
         Me.lblLimit.Location = New System.Drawing.Point(203, 109)
         Me.lblLimit.Name = "lblLimit"
-        Me.lblLimit.Size = New System.Drawing.Size(68, 13)
+        Me.lblLimit.Size = New System.Drawing.Size(138, 13)
         Me.lblLimit.TabIndex = 15
-        Me.lblLimit.Text = "Backup Limit"
+        Me.lblLimit.Text = "Backup Limit (0 = Unlimited)"
         Me.lblLimit.Visible = False
         '
         'nudLimit
         '
         Me.nudLimit.Location = New System.Drawing.Point(157, 107)
-        Me.nudLimit.Minimum = New Decimal(New Integer() {2, 0, 0, 0})
         Me.nudLimit.Name = "nudLimit"
         Me.nudLimit.Size = New System.Drawing.Size(40, 20)
         Me.nudLimit.TabIndex = 14
-        Me.nudLimit.Value = New Decimal(New Integer() {2, 0, 0, 0})
         Me.nudLimit.Visible = False
         '
         'lblStep3Title
