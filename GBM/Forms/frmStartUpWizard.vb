@@ -42,6 +42,7 @@ Public Class frmStartUpWizard
         chkCreateFolder.Text = frmStartUpWizard_chkCreateFolder
         lblStep2Title.Text = frmStartUpWizard_lblStep2Title
         lblStep2Instructions.Text = frmStartUpWizard_lblStep2Instructions
+        lblStep2Warning.Text = frmStartUpWizard_lblStep2Warning
         btnFolderBrowse.Text = frmStartUpWizard_btnFolderBrowse
         lblStep2Intro.Text = frmStartUpWizard_lblStep2Intro
         btnOpenWizard.Text = frmStartUpWizard_btnOpenWizard
@@ -55,7 +56,8 @@ Public Class frmStartUpWizard
         lblStep4Instructions.Text = frmStartUpWizard_lblStep4Instructions
 
         llbManual.Links.Add(0, 26, App_URLManual)
-        LoadGameSettings()
+        txtBackupPath.Text = oSettings.BackupFolder
+
         StepHandler()
     End Sub
 
@@ -78,8 +80,6 @@ Public Class frmStartUpWizard
                 btnNext.Enabled = True
                 tabWizard.SelectTab(0)
             Case eSteps.Step2
-                txtBackupPath.Text = oSettings.BackupFolder
-                chkCreateFolder.Checked = oSettings.CreateSubFolder
                 btnBack.Enabled = True
                 btnNext.Enabled = True
                 tabWizard.SelectTab(1)
@@ -141,16 +141,20 @@ Public Class frmStartUpWizard
             Return False
         End If
 
-        If Not Directory.Exists(strPath) Then
-            sErrorMessage = frmStartUpWizard_ErrorNoFolderExists
-            txtBackupPath.Focus()
-            Return False
-        End If
-
         If Not Path.IsPathRooted(strPath) Then
             sErrorMessage = frmStartUpWizard_ErrorBadFolder
             txtBackupPath.Focus()
             Return False
+        End If
+
+        If Not Directory.Exists(strPath) Then
+            Try
+                Directory.CreateDirectory(strPath)
+            Catch ex As Exception
+                sErrorMessage = frmStartUpWizard_ErrorNoFolderExists
+                txtBackupPath.Focus()
+                Return False
+            End Try
         End If
 
         Return True

@@ -1136,7 +1136,7 @@
     <value>You must select a backup path to continue.</value>
   </data>
   <data name="frmStartUpWizard_ErrorNoFolderExists" xml:space="preserve">
-    <value>The folder you selected does not exist or is not a valid folder.</value>
+    <value>The selected backup location does not exist and could not be created.[BR][BR][PARAM]</value>
   </data>
   <data name="frmStartUpWizard_ExistingData" xml:space="preserve">
     <value>Existing data was detected in the backup folder and has been imported.</value>
@@ -2391,5 +2391,8 @@
   </data>
   <data name="frmAddWizard_Summary_NoLimit" xml:space="preserve">
     <value>Unlimited</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep2Warning" xml:space="preserve">
+    <value>You cannot return to this step after clicking Next.  The Backup Location can be changed any time once Setup is complete.</value>
   </data>
 </root>

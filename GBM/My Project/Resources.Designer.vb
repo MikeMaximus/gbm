@@ -5263,7 +5263,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The folder you selected does not exist or is not a valid folder..
+        '''  Looks up a localized string similar to The selected backup location does not exist and could not be created.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property frmStartUpWizard_ErrorNoFolderExists() As String
             Get
@@ -5340,6 +5340,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmStartUpWizard_lblStep2Title() As String
             Get
                 Return ResourceManager.GetString("frmStartUpWizard_lblStep2Title", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to You cannot return to this step after clicking Next.  The Backup Location can be changed any time once Setup is complete..
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_lblStep2Warning() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_lblStep2Warning", resourceCulture)
             End Get
         End Property
         

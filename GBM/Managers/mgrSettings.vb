@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports GBM.My.Resources
 
 Public Class mgrSettings
     Private bStartWithWindows As Boolean = False
@@ -18,7 +19,7 @@ Public Class mgrSettings
     Private iCompressionLevel As Integer = 5
     Private s7zArguments As String = String.Empty
     Private s7zLocation As String = String.Empty
-    Private sBackupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).TrimEnd(New Char() {"\", "/"})
+    Private sBackupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & Path.DirectorySeparatorChar & App_NameLong
     Private eSyncFields As clsGame.eOptionalSyncFields = clsGame.eOptionalSyncFields.None
     Private eMessages As eSuppressMessages = eSuppressMessages.None
     Private bAutoSaveLog As Boolean = False

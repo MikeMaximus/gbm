@@ -1883,6 +1883,7 @@ Public Class frmGameManager
             btnDeleteBackup.Visible = False
             btnOpenBackup.Visible = False
             btnOpenRestorePath.Visible = False
+            btnImportBackup.Visible = False
         End If
 
         LoadBackupData()

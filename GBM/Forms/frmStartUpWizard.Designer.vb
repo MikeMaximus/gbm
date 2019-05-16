@@ -49,6 +49,7 @@ Partial Class frmStartUpWizard
         Me.lblStep4Instructions = New System.Windows.Forms.Label()
         Me.btnNext = New System.Windows.Forms.Button()
         Me.btnBack = New System.Windows.Forms.Button()
+        Me.lblStep2Warning = New System.Windows.Forms.Label()
         Me.tabWizard.SuspendLayout()
         Me.tbPage1.SuspendLayout()
         Me.tbPage2.SuspendLayout()
@@ -125,6 +126,7 @@ Partial Class frmStartUpWizard
         'tbPage2
         '
         Me.tbPage2.BackColor = System.Drawing.SystemColors.Control
+        Me.tbPage2.Controls.Add(Me.lblStep2Warning)
         Me.tbPage2.Controls.Add(Me.chkCreateFolder)
         Me.tbPage2.Controls.Add(Me.lblStep2Title)
         Me.tbPage2.Controls.Add(Me.lblStep2Instructions)
@@ -162,7 +164,7 @@ Partial Class frmStartUpWizard
         '
         Me.lblStep2Instructions.Location = New System.Drawing.Point(14, 103)
         Me.lblStep2Instructions.Name = "lblStep2Instructions"
-        Me.lblStep2Instructions.Size = New System.Drawing.Size(335, 50)
+        Me.lblStep2Instructions.Size = New System.Drawing.Size(335, 44)
         Me.lblStep2Instructions.TabIndex = 6
         Me.lblStep2Instructions.Text = "GBM will store all your backup files along with a manifest database (gbm.s3db) in" &
     " this location.  Any existing GBM data in this folder will be automatically impo" &
@@ -319,6 +321,15 @@ Partial Class frmStartUpWizard
         Me.btnBack.Text = "&Back"
         Me.btnBack.UseVisualStyleBackColor = True
         '
+        'lblStep2Warning
+        '
+        Me.lblStep2Warning.Location = New System.Drawing.Point(14, 147)
+        Me.lblStep2Warning.Name = "lblStep2Warning"
+        Me.lblStep2Warning.Size = New System.Drawing.Size(335, 33)
+        Me.lblStep2Warning.TabIndex = 7
+        Me.lblStep2Warning.Text = "You cannot return to this step after clicking Next.  The Backup Location can be c" &
+    "hanged any time once Setup is complete."
+        '
         'frmStartUpWizard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -371,4 +382,5 @@ Partial Class frmStartUpWizard
     Friend WithEvents lblStep4Instructions2 As System.Windows.Forms.Label
     Friend WithEvents lblStep1Instructions2 As System.Windows.Forms.Label
     Friend WithEvents llbManual As System.Windows.Forms.LinkLabel
+    Friend WithEvents lblStep2Warning As Label
 End Class

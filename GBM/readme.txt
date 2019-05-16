@@ -16,5 +16,9 @@ All Platforms:
 	- GBM now always filters out NTFS reserved characters and allows a maximum file name length of 255.
 	- This will prevent various problems when using a backup drive with a non-standard file system in Linux or Windows.
 	- These rules will be applied to new backup files or folders, existing backups not be modified.
+- Made improvements to the Start-Up Wizard.
+	- The default backup location now includes a "Game Backup Monitor" sub-folder.
+	- The wizard will now automatically create the backup location if it doesn't exist.
+	- You can no longer attempt to Import Backup Files during the Start-Up Wizard. 
 	
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
