@@ -19,6 +19,10 @@ All Platforms:
 - Made improvements to the Start-Up Wizard.
 	- The default backup location now includes a "Game Backup Monitor" sub-folder.
 	- The wizard will now automatically create the backup location if it doesn't exist.
-	- You can no longer attempt to Import Backup Files during the Start-Up Wizard. 
+	- You can no longer attempt to Import Backup Files during the Start-Up Wizard.
+
+Linux:
+
+- Fixed a bug that caused the "Available Disk Space" check to fail if the backup folder contained one or more spaces.
 	
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

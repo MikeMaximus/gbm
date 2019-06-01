@@ -451,7 +451,7 @@ Public Class mgrCommon
         Try
             prsdf = New Process
             prsdf.StartInfo.FileName = "/bin/df"
-            prsdf.StartInfo.Arguments = sPath
+            prsdf.StartInfo.Arguments = """" & sPath & """"
             prsdf.StartInfo.UseShellExecute = False
             prsdf.StartInfo.RedirectStandardOutput = True
             prsdf.StartInfo.CreateNoWindow = True
