@@ -963,7 +963,13 @@ Public Class frmGameManager
         HandleWineConfig()
 
         'Extra
-        txtAppPath.Text = oApp.ProcessPath
+        If oSettings.ShowResolvedPaths Then
+            txtAppPath.Text = oApp.ProcessPath
+            ttFullPath.SetToolTip(txtAppPath, oApp.TrueProcessPath)
+        Else
+            txtAppPath.Text = oApp.TrueProcessPath
+            ttFullPath.SetToolTip(txtAppPath, oApp.ProcessPath)
+        End If
         txtCompany.Text = oApp.Company
         txtVersion.Text = oApp.Version
         txtIcon.Text = oApp.Icon

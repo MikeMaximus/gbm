@@ -180,10 +180,10 @@ Public Class clsGame
 
     Property ProcessPath As String
         Set(value As String)
-            sProcessPath = value
+            sProcessPath = mgrPath.ReverseSpecialPaths(value)
         End Set
         Get
-            Return sProcessPath
+            Return mgrPath.ReplaceSpecialPaths(sProcessPath)
         End Get
     End Property
 
@@ -283,6 +283,12 @@ Public Class clsGame
         End Set
         Get
             Return sPath
+        End Get
+    End Property
+
+    ReadOnly Property TrueProcessPath As String
+        Get
+            Return sProcessPath
         End Get
     End Property
 
