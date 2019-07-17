@@ -48,9 +48,13 @@ Public Class mgrCommon
         Dim oReturnImage As Image
         Dim oImageSize As Size = New Size(48, 48)
 
-        oImage = Image.FromFile(sPath)
-        oReturnImage = New Bitmap(oImage, oImageSize)
-        oImage.Dispose()
+        Try
+            oImage = Image.FromFile(sPath)
+            oReturnImage = New Bitmap(oImage, oImageSize)
+            oImage.Dispose()
+        Catch
+            oReturnImage = Icon_Unknown
+        End Try
 
         Return oReturnImage
     End Function
