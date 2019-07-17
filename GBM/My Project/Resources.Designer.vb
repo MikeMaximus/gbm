@@ -232,6 +232,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to 2019-07-17T20:34:36
+        '''.
+        '''</summary>
+        Friend ReadOnly Property BuildDate() As String
+            Get
+                Return ResourceManager.GetString("BuildDate", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Back.
         '''</summary>
         Friend ReadOnly Property frmAddWizard_btnBack() As String

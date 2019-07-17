@@ -91,6 +91,8 @@
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
+    <PreBuildEvent>echo Dumping Build Date...
+    powershell -Command "((Get-Date).ToUniversalTime()).ToString(\"s\") | Out-File '$(SolutionDir)\GBM\Resources\BuildDate.txt'"</PreBuildEvent>
     <PostBuildEvent Condition="$(Platform)==x64">echo Running x64 Post Build Event... 
     COPY /Y "$(SolutionDir)\GBM\x64\sqlite3.dll" .
     RMDIR /S /Q Utilities\x86</PostBuildEvent>
@@ -398,6 +400,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="References\Mono.Data.Sqlite.dll" />
+    <Content Include="Resources\BuildDate.txt" />
     <Content Include="Resources\New.png" />
     <Content Include="Resources\Update.png" />
     <Content Include="Utilities\x64\7za.exe">

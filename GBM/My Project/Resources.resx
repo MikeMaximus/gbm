@@ -2395,4 +2395,7 @@
   <data name="frmStartUpWizard_lblStep2Warning" xml:space="preserve">
     <value>You cannot return to this step after clicking Next.  The Backup Location can be changed any time once Setup is complete.</value>
   </data>
+  <data name="BuildDate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BuildDate.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
 </root>
