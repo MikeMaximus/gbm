@@ -555,6 +555,14 @@ Public Class mgrPath
                     bClean = False
                 End If
             End If
+            oMatch = Regex.Match(oGame.ProcessPath, sPattern)
+            If oMatch.Success Then
+                sVariableCheck = oMatch.Value.Replace("%", String.Empty)
+                If Not hshCustomVariables.ContainsKey(sVariableCheck) And Not oReservedVariables.Contains(sVariableCheck) Then
+                    sGames &= vbCrLf & oGame.Name & " (" & sVariableCheck & ")"
+                    bClean = False
+                End If
+            End If
         Next
 
         Return bClean

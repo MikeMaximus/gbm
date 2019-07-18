@@ -215,7 +215,7 @@
     <value>[PARAM] backup was cancelled due to unknown path.</value>
   </data>
   <data name="frmMain_ErrorCustomVariable" xml:space="preserve">
-    <value>The following monitored game(s) contain a custom path variable that is not set.[BR][PARAM][BR][BR]You will encounter backup/restore errors with these games until the variables are set.</value>
+    <value>The following monitored game(s) are using a custom path variable that is not set.[BR][PARAM][BR][BR]You will encounter backup/restore errors or detection issues with these games until the variables are set.</value>
   </data>
   <data name="frmMain_ErrorDBVerLocal" xml:space="preserve">
     <value>Your local GBM data (Version [PARAM]) is too new for your version of GBM (Version [PARAM]).[BR][BR]Please upgrade GBM or restore the database file appropriate for your version.  The application cannot proceed.</value>

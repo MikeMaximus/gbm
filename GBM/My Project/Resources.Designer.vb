@@ -232,7 +232,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-07-17T20:34:36
+        '''  Looks up a localized string similar to 2019-07-18T16:10:11
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3302,7 +3302,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The following monitored game(s) contain a custom path variable that is not set.[BR][PARAM][BR][BR]You will encounter backup/restore errors with these games until the variables are set..
+        '''  Looks up a localized string similar to The following monitored game(s) are using a custom path variable that is not set.[BR][PARAM][BR][BR]You will encounter backup/restore errors or detection issues with these games until the variables are set..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorCustomVariable() As String
             Get
