@@ -1,8 +1,8 @@
 Package: gbm
 Architecture: all
-Maintainer: Sebastian Riedel <git@basxto.de>
+Maintainer: <MAINTAINER>
 Priority: optional
-Version: 1.0.8
+Version: <VERSION>
 Homepage: https://mikemaximus.github.io/gbm-web/
 Bugs: https://github.com/MikeMaximus/gbm/issues
 Depends: mono-vbnc, libsqlite3-0, p7zip-full
