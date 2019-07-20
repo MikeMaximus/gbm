@@ -359,7 +359,7 @@ Public Class mgrPath
 
         For Each oCustomVariable In hshCustomVariables.Values
             If sValue.Contains(oCustomVariable.FormattedName) Then
-                Return sValue.Replace(oCustomVariable.FormattedName, oCustomVariable.Path)
+                sValue = sValue.Replace(oCustomVariable.FormattedName, oCustomVariable.Path)
             End If
         Next
 
@@ -432,7 +432,7 @@ Public Class mgrPath
 
         For Each oCustomVariable In hshCustomVariables.Values
             If sValue.Contains(oCustomVariable.Path) Then
-                Return sValue.Replace(oCustomVariable.Path, oCustomVariable.FormattedName)
+                sValue = sValue.Replace(oCustomVariable.Path, oCustomVariable.FormattedName)
             End If
         Next
 
