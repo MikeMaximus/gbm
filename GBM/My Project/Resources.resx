@@ -535,9 +535,6 @@
   <data name="frmGameManager_ConfirmMultiRestore" xml:space="preserve">
     <value>Are you sure you want to restore the backups for [PARAM] games?  This will close the form.</value>
   </data>
-  <data name="frmGameManager_ConfirmMultiSave" xml:space="preserve">
-    <value>Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Monitor this game: [PARAM][BR]Monitor only: [PARAM]</value>
-  </data>
   <data name="frmGameManager_ConfirmOfficialImport" xml:space="preserve">
     <value>Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection.</value>
   </data>
@@ -569,7 +566,7 @@
     <value>You must enter a valid game name.</value>
   </data>
   <data name="frmGameManager_ErrorValidProcess" xml:space="preserve">
-    <value>You must enter a valid process name.</value>
+    <value>You must enter a valid process name or regular expression to monitor for this game.</value>
   </data>
   <data name="frmGameManager_Exclude" xml:space="preserve">
     <value>Exclude</value>

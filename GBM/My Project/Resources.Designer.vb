@@ -232,7 +232,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-07-18T16:10:11
+        '''  Looks up a localized string similar to 2019-07-22T15:36:21
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2060,15 +2060,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Monitor this game: [PARAM][BR]Monitor only: [PARAM].
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_ConfirmMultiSave() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_ConfirmMultiSave", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmOfficialImport() As String
@@ -2231,7 +2222,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to You must enter a valid process name..
+        '''  Looks up a localized string similar to You must enter a valid process name or regular expression to monitor for this game..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ErrorValidProcess() As String
             Get
