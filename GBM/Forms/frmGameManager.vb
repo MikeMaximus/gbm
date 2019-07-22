@@ -1374,7 +1374,6 @@ Public Class frmGameManager
     End Sub
 
     Private Sub SaveApp()
-        Dim oData As KeyValuePair(Of String, String)
         Dim oApp As New clsGame
         Dim bSuccess As Boolean = False
 
