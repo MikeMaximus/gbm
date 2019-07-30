@@ -565,9 +565,6 @@
   <data name="frmGameManager_ErrorValidName" xml:space="preserve">
     <value>You must enter a valid game name.</value>
   </data>
-  <data name="frmGameManager_ErrorValidProcess" xml:space="preserve">
-    <value>You must enter a valid process name or regular expression to monitor for this game.</value>
-  </data>
   <data name="frmGameManager_Exclude" xml:space="preserve">
     <value>Exclude</value>
   </data>
@@ -2394,5 +2391,11 @@
   </data>
   <data name="BuildDate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BuildDate.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiSave" xml:space="preserve">
+    <value>Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Monitor this game: [PARAM][BR]Monitor only: [PARAM]</value>
+  </data>
+  <data name="frmGameManager_WarningEmptyProcess" xml:space="preserve">
+    <value>A valid process name or regular expression is required to monitor and backup your saved games automatically.[BR][BR]You may leave the Process field blank to a create manual backup configuration for this game, these configurations will be automatically excluded from monitoring.[BR][BR]This warning will only be displayed once.</value>
   </data>
 </root>

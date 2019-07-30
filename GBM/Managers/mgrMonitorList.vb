@@ -94,7 +94,7 @@ Public Class mgrMonitorList
                 Case eListTypes.FullList
                     hshList.Add(oGame.ID, oGame)
                 Case eListTypes.ScanList
-                    If oGame.Enabled Then hshList.Add(oGame.ID, oGame)
+                    If oGame.Enabled And oGame.ProcessName <> String.Empty Then hshList.Add(oGame.ID, oGame)
             End Select
         Next
 

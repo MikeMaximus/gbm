@@ -31,7 +31,7 @@ Public Class mgrSettings
 
     <Flags()> Public Enum eSuppressMessages
         None = 0
-        Unused = 1 'Do not remove to maintain compatability, re-use for a future field.
+        EmptyProcessWarning = 1
         BackupImport = 2
         WinConfigsInLinux = 4
         WineConfig = 16

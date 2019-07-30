@@ -1106,8 +1106,6 @@ Public Class frmGameManager
                 lblTags.Visible = True
                 btnImport.Enabled = False
                 btnExport.Enabled = False
-                MonitorOnlyModeChange()
-                MonitorEnableChange()
             Case eModes.View
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -1128,8 +1126,6 @@ Public Class frmGameManager
                 lblTags.Visible = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
-                MonitorOnlyModeChange()
-                MonitorEnableChange()
             Case eModes.Disabled
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
@@ -1170,12 +1166,12 @@ Public Class frmGameManager
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
                 pbIcon.Image = Icon_Unknown
-                btnSave.Enabled = False
+                btnSave.Enabled = True
                 btnCancel.Enabled = False
                 grpConfig.Enabled = False
-                chkMonitorOnly.Enabled = False
+                chkMonitorOnly.Enabled = True
                 chkMonitorOnly.Checked = False
-                chkEnabled.Enabled = False
+                chkEnabled.Enabled = True
                 chkEnabled.Checked = False
                 grpExtra.Enabled = False
                 grpStats.Enabled = False
@@ -1207,21 +1203,6 @@ Public Class frmGameManager
             btnInclude.Enabled = True
         End If
         VerifyCleanFolder()
-    End Sub
-
-    Private Sub MonitorEnableChange()
-        If chkEnabled.Checked Then
-            txtProcess.Enabled = True
-            btnProcessBrowse.Enabled = True
-            chkRegEx.Enabled = True
-            chkMonitorOnly.Enabled = True
-        Else
-            txtProcess.Enabled = False
-            btnProcessBrowse.Enabled = False
-            chkRegEx.Enabled = False
-            chkMonitorOnly.Checked = False
-            chkMonitorOnly.Enabled = False
-        End If
     End Sub
 
     Private Sub MonitorOnlyModeChange()
@@ -1374,6 +1355,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub SaveApp()
+        Dim oData As KeyValuePair(Of String, String)
         Dim oApp As New clsGame
         Dim bSuccess As Boolean = False
 
@@ -1443,6 +1425,17 @@ Public Class frmGameManager
                         mgrMonitorList.DoListUpdate(oApp, CurrentGame.ID)
                         eCurrentMode = eModes.View
                     End If
+                End If
+            Case eModes.MultiSelect
+                Dim sMonitorIDs As New List(Of String)
+                For Each oData In lstGames.SelectedItems
+                    sMonitorIDs.Add(oData.Key)
+                Next
+
+                If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiSave, New String() {sMonitorIDs.Count, mgrCommon.BooleanYesNo(oApp.Enabled), mgrCommon.BooleanYesNo(oApp.MonitorOnly)}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    bSuccess = True
+                    mgrMonitorList.DoListUpdateMulti(sMonitorIDs, oApp)
+                    eCurrentMode = eModes.Disabled
                 End If
         End Select
 
@@ -1526,12 +1519,6 @@ Public Class frmGameManager
             Return False
         End If
 
-        If txtProcess.Text.Trim = String.Empty And chkEnabled.Checked Then
-            mgrCommon.ShowMessage(frmGameManager_ErrorValidProcess, MsgBoxStyle.Exclamation)
-            txtProcess.Focus()
-            Return False
-        End If
-
         If (chkFolderSave.Checked = False And txtFileType.Text = String.Empty) And Not chkMonitorOnly.Checked Then
             mgrCommon.ShowMessage(frmGameManager_ErrorNoItems, MsgBoxStyle.Exclamation)
             btnInclude.Focus()
@@ -1544,12 +1531,21 @@ Public Class frmGameManager
             Return False
         End If
 
-        If oApp.IsRegEx Then
+        If Not txtProcess.Text.Trim = String.Empty And oApp.IsRegEx Then
             If Not mgrCommon.IsRegExValid(oApp.ProcessName) Then
                 If mgrCommon.ShowMessage(frmGameManager_ErrorRegExFailure, MsgBoxStyle.Exclamation, MsgBoxStyle.YesNoCancel) = MsgBoxResult.Yes Then
                     Process.Start(mgrCommon.FormatString(AppURL_RegExr, oApp.ProcessName))
                 End If
                 Return False
+            End If
+        End If
+
+        If txtProcess.Text.Trim = String.Empty Then
+            'Show one time warning
+            If Not (oSettings.SuppressMessages And mgrSettings.eSuppressMessages.EmptyProcessWarning) = mgrSettings.eSuppressMessages.EmptyProcessWarning Then
+                mgrCommon.ShowMessage(frmGameManager_WarningEmptyProcess, MsgBoxStyle.Information)
+                oSettings.SuppressMessages = oSettings.SetMessageField(oSettings.SuppressMessages, mgrSettings.eSuppressMessages.EmptyProcessWarning)
+                oSettings.SaveSettings()
             End If
         End If
 
@@ -2147,10 +2143,6 @@ Public Class frmGameManager
     End Sub
 
     Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkMonitorOnly.CheckedChanged
-        If Not bIsLoading Then MonitorOnlyModeChange()
-    End Sub
-
-    Private Sub chkEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles chkEnabled.CheckedChanged
-        If Not bIsLoading Then MonitorEnableChange()
+        MonitorOnlyModeChange()
     End Sub
 End Class

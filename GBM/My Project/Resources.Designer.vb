@@ -232,7 +232,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-07-22T15:36:21
+        '''  Looks up a localized string similar to 2019-07-30T13:20:46
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2060,6 +2060,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Monitor this game: [PARAM][BR]Monitor only: [PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ConfirmMultiSave() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ConfirmMultiSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmOfficialImport() As String
@@ -2218,15 +2227,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ErrorValidName() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ErrorValidName", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to You must enter a valid process name or regular expression to monitor for this game..
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_ErrorValidProcess() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_ErrorValidProcess", resourceCulture)
             End Get
         End Property
         
@@ -2587,6 +2587,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_UpToDate() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_UpToDate", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to A valid process name or regular expression is required to monitor and backup your saved games automatically.[BR][BR]You may leave the Process field blank to a create manual backup configuration for this game, these configurations will be automatically excluded from monitoring.[BR][BR]This warning will only be displayed once..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_WarningEmptyProcess() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_WarningEmptyProcess", resourceCulture)
             End Get
         End Property
         
