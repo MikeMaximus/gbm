@@ -25,7 +25,8 @@
         Dim sSQL As String
         Dim hshParams As New Hashtable
 
-        sSQL = "UPDATE monitorlist SET Path = replace(Path, @Old, @New) WHERE Path LIKE @Match"
+        sSQL = "UPDATE monitorlist SET Path = replace(Path, @Old, @New) WHERE Path LIKE @Match;"
+        sSQL = "UPDATE monitorlist SET ProcessPath = replace(ProcessPath, @Old, @New) WHERE ProcessPath LIKE @Match;"
         hshParams.Add("Old", sOld)
         hshParams.Add("New", sNew)
         hshParams.Add("Match", sOld & "%")
