@@ -268,7 +268,7 @@ Public Class mgrCommon
         Dim sExemptList As String() = {"dosbox", "scummvm"}
         Dim bFound As Boolean = False
 
-        If oGame.ProcessName = String.Empty Then Return True
+        If oGame.ProcessName = String.Empty Or oGame.IsRegEx Then Return True
 
         For Each s As String In sExemptList
             If oGame.ProcessName.ToLower.Contains(s) Then bFound = True
