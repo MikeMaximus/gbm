@@ -452,7 +452,6 @@ Public Class mgrBackup
         Return bBackupCompleted
     End Function
 
-
     Private Function AddMetadataToArchive(ByVal sBackupFile As String, ByVal sMetadata As String) As Boolean
         Dim prs7z As New Process
         Dim sArguments As String
@@ -558,7 +557,7 @@ Public Class mgrBackup
                     bMetadataGenerated = mgrMetadata.SerializeAndExport(mgrPath.SettingsRoot & Path.DirectorySeparatorChar & App_Metadata, oGame, My.Computer.Name, dTimeStamp)
                     If bMetadataGenerated Then
                         bBackupCompleted = Run7zBackup(oGame, sBackupFile)
-                        AddMetadataToArchive(sBackupFile, App_Metadata)
+                        If bBackupCompleted Then AddMetadataToArchive(sBackupFile, App_Metadata)
                     Else
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMetadataFailure, oGame.Name), True, ToolTipIcon.Error, True)
                     End If
