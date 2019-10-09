@@ -142,6 +142,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to _gbm_backup_metadata.xml.
+        '''</summary>
+        Friend ReadOnly Property App_Metadata() As String
+            Get
+                Return ResourceManager.GetString("App_Metadata", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor.
         '''</summary>
         Friend ReadOnly Property App_NameLong() As String
@@ -232,7 +241,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-07-30T13:20:46
+        '''  Looks up a localized string similar to 2019-10-09T16:15:17
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -6189,6 +6198,33 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backup Aborted.  An error occured while creating backup metadata for [PARAM]..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorMetadataFailure() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorMetadataFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The metadata operation failed due to a missing file..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorMetadataMissingFile() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorMetadataMissingFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An unexpected error occured during the metadata operation.[BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorMetadataOtherFailure() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorMetadataOtherFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup aborted.  The saved game path for [PARAM] does not exist..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorNoSavePath() As String
@@ -6284,6 +6320,60 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_ImportSuccess() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ImportSuccess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The metadata operation failed due to a malformed command..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_Metadata7zCommandFailure() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_Metadata7zCommandFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The metadata operation failed due to an error..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_Metadata7zFatalError() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_Metadata7zFatalError", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The metadata operation completed with warnings..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_Metadata7zWarnings() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_Metadata7zWarnings", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The metadata operation was cancelled by user..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_MetadataAbort() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_MetadataAbort", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Metadata operation completed..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_MetadataCompleted() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_MetadataCompleted", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Adding metadata to backup file....
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_MetaDataInProgress() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_MetaDataInProgress", resourceCulture)
             End Get
         End Property
         

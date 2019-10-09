@@ -131,6 +131,7 @@
     <Compile Include="Classes\clsGameFilterField.vb" />
     <Compile Include="Classes\clsSavedPath.vb" />
     <Compile Include="Classes\clsSession.vb" />
+    <Compile Include="Classes\XML Serialize Classes\BackupMetadata.vb" />
     <Compile Include="Classes\XML Serialize Classes\ExportData.vb" />
     <Compile Include="Classes\XML Serialize Classes\Session.vb" />
     <Compile Include="Classes\XML Serialize Classes\Tag.vb" />
@@ -256,6 +257,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Managers\mgrGameProcesses.vb" />
+    <Compile Include="Managers\mgrMetadata.vb" />
     <Compile Include="Managers\mgrWineData.vb" />
     <Compile Include="Managers\mgrProcess.vb" />
     <Compile Include="Managers\mgrCommon.vb" />

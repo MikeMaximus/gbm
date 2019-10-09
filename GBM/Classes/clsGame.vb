@@ -339,6 +339,30 @@ Public Class clsGame
         End Get
     End Property
 
+    Public Function ConvertToXMLGame() As Game
+        Dim oGame As New Game
+
+        oGame.ID = ID
+        oGame.Name = Name
+        oGame.ProcessName = ProcessName
+        oGame.Parameter = Parameter
+        oGame.Path = TruePath
+        oGame.AbsolutePath = AbsolutePath
+        oGame.FolderSave = FolderSave
+        oGame.AppendTimeStamp = AppendTimeStamp
+        oGame.BackupLimit = BackupLimit
+        oGame.FileType = FileType
+        oGame.ExcludeList = ExcludeList
+        oGame.MonitorOnly = MonitorOnly
+        oGame.Comments = Comments
+        oGame.IsRegEx = IsRegEx
+        oGame.RecurseSubFolders = RecurseSubFolders
+        oGame.OS = OS
+        oGame.Tags = mgrGameTags.GetTagsByGameForExport(ID)
+
+        Return oGame
+    End Function
+
     Public Function SyncEquals(obj As Object, eSyncFields As eOptionalSyncFields) As Boolean
         Dim oGame As clsGame = TryCast(obj, clsGame)
         If oGame Is Nothing Then
