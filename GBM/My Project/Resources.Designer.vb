@@ -178,6 +178,87 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] operation was cancelled by user..
+        '''</summary>
+        Friend ReadOnly Property App_Operation_Cancel() As String
+            Get
+                Return ResourceManager.GetString("App_Operation_Cancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] operation failed due to a malformed command..
+        '''</summary>
+        Friend ReadOnly Property App_Operation_CommandFailure() As String
+            Get
+                Return ResourceManager.GetString("App_Operation_CommandFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] operation completed..
+        '''</summary>
+        Friend ReadOnly Property App_Operation_Completed() As String
+            Get
+                Return ResourceManager.GetString("App_Operation_Completed", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] operation failed due to an error..
+        '''</summary>
+        Friend ReadOnly Property App_Operation_FatalError() As String
+            Get
+                Return ResourceManager.GetString("App_Operation_FatalError", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] operation encountered an unexpected error.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property App_Operation_OtherFailure() As String
+            Get
+                Return ResourceManager.GetString("App_Operation_OtherFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] operation completed with warnings..
+        '''</summary>
+        Friend ReadOnly Property App_Operation_Warnings() As String
+            Get
+                Return ResourceManager.GetString("App_Operation_Warnings", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backup.
+        '''</summary>
+        Friend ReadOnly Property App_OperationType_Backup() As String
+            Get
+                Return ResourceManager.GetString("App_OperationType_Backup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Metadata.
+        '''</summary>
+        Friend ReadOnly Property App_OperationType_Metadata() As String
+            Get
+                Return ResourceManager.GetString("App_OperationType_Metadata", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Restore.
+        '''</summary>
+        Friend ReadOnly Property App_OperationType_Restore() As String
+            Get
+                Return ResourceManager.GetString("App_OperationType_Restore", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to http://mikemaximus.github.io/gbm-web/GBM_Official.xml.
         '''</summary>
         Friend ReadOnly Property App_URLImport() As String
@@ -241,7 +322,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-10-09T16:15:17
+        '''  Looks up a localized string similar to 2019-10-10T13:32:35
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -6027,33 +6108,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] backup failed due to a malformed command..
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_7zCommandFailure() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_7zCommandFailure", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to [PARAM] backup failed due to an error..
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_7zFatalError() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_7zFatalError", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to [PARAM] backup completed with warnings..
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_7zWarnings() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_7zWarnings", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to [PARAM] backup completed..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ActionComplete() As String
@@ -6207,38 +6261,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The metadata operation failed due to a missing file..
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_ErrorMetadataMissingFile() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_ErrorMetadataMissingFile", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to An unexpected error occured during the metadata operation.[BR][PARAM].
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_ErrorMetadataOtherFailure() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_ErrorMetadataOtherFailure", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Backup aborted.  The saved game path for [PARAM] does not exist..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorNoSavePath() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ErrorNoSavePath", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to An unexpected error occured during the backup of [PARAM].[BR][PARAM].
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_ErrorOtherFailure() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_ErrorOtherFailure", resourceCulture)
             End Get
         End Property
         
@@ -6320,60 +6347,6 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_ImportSuccess() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ImportSuccess", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to The metadata operation failed due to a malformed command..
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_Metadata7zCommandFailure() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_Metadata7zCommandFailure", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to The metadata operation failed due to an error..
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_Metadata7zFatalError() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_Metadata7zFatalError", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to The metadata operation completed with warnings..
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_Metadata7zWarnings() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_Metadata7zWarnings", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to The metadata operation was cancelled by user..
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_MetadataAbort() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_MetadataAbort", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Metadata operation completed..
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_MetadataCompleted() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_MetadataCompleted", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Adding metadata to backup file....
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_MetaDataInProgress() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_MetaDataInProgress", resourceCulture)
             End Get
         End Property
         
@@ -6491,6 +6464,24 @@ Namespace My.Resources
         Friend ReadOnly Property mgrCommon_Yes() As String
             Get
                 Return ResourceManager.GetString("mgrCommon_Yes", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The metadata operation failed due to a missing file..
+        '''</summary>
+        Friend ReadOnly Property mgrMetadata_ErrorMissingFile() As String
+            Get
+                Return ResourceManager.GetString("mgrMetadata_ErrorMissingFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Adding metadata to backup file....
+        '''</summary>
+        Friend ReadOnly Property mgrMetadata_InProgress() As String
+            Get
+                Return ResourceManager.GetString("mgrMetadata_InProgress", resourceCulture)
             End Get
         End Property
         
@@ -6846,15 +6837,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An unexpected error occured during the restore process.[BR][PARAM].
-        '''</summary>
-        Friend ReadOnly Property mgrRestore_ErrorOtherFailure() As String
-            Get
-                Return ResourceManager.GetString("mgrRestore_ErrorOtherFailure", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to [PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to restore this backup..
         '''</summary>
         Friend ReadOnly Property mgrRestore_ErrorRegBackupElevation() As String
@@ -6914,15 +6896,6 @@ Namespace My.Resources
         Friend ReadOnly Property mgrRestore_RestoreInProgress() As String
             Get
                 Return ResourceManager.GetString("mgrRestore_RestoreInProgress", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to [PARAM] restore finished with warnings or errors..
-        '''</summary>
-        Friend ReadOnly Property mgrRestore_RestoreWarnings() As String
-            Get
-                Return ResourceManager.GetString("mgrRestore_RestoreWarnings", resourceCulture)
             End Get
         End Property
         

@@ -232,11 +232,11 @@ Public Class mgrRestore
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreComplete, oBackupInfo.Name), False, ToolTipIcon.Info, True)
                         bRestoreCompleted = True
                     Case Else
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreWarnings, oBackupInfo.Name), True, ToolTipIcon.Warning, True)
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Restore), True, ToolTipIcon.Warning, True)
                 End Select
                 prsReg.Dispose()
             Catch ex As Exception
-                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorOtherFailure, ex.Message), False, ToolTipIcon.Error, True)
+                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_OtherFailure, New String() {App_OperationType_Restore, ex.Message}), False, ToolTipIcon.Error, True)
             End Try
         End If
 
@@ -278,7 +278,7 @@ Public Class mgrRestore
                             RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreComplete, oBackupInfo.Name), False, ToolTipIcon.Info, True)
                             bRestoreCompleted = True
                         Else
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreWarnings, oBackupInfo.Name), True, ToolTipIcon.Warning, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Restore), True, ToolTipIcon.Warning, True)
                         End If
                     End If
                     prs7z.Dispose()
@@ -289,7 +289,7 @@ Public Class mgrRestore
                 RaiseEvent UpdateLog(mgrRestore_ErrorNoBackup, True, ToolTipIcon.Error, True)
             End If
         Catch ex As Exception
-            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorOtherFailure, ex.Message), False, ToolTipIcon.Error, True)
+            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_OtherFailure, New String() {App_OperationType_Restore, ex.Message}), False, ToolTipIcon.Error, True)
         End Try
 
         Return bRestoreCompleted

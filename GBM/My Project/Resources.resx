@@ -1270,8 +1270,8 @@
   <data name="mgrBackup_BackupInProgress" xml:space="preserve">
     <value>Backup of [PARAM] in progress...</value>
   </data>
-  <data name="mgrBackup_7zWarnings" xml:space="preserve">
-    <value>[PARAM] backup completed with warnings.</value>
+  <data name="App_Operation_Warnings" xml:space="preserve">
+    <value>[PARAM] operation completed with warnings.</value>
   </data>
   <data name="mgrBackup_ConfirmManifestConflict" xml:space="preserve">
     <value>The manifest shows the backup folder contains a more recent backup for [PARAM] that has not been restored on this computer.[BR][BR]Do you want to overwrite this file anyway?</value>
@@ -1293,9 +1293,6 @@
   </data>
   <data name="mgrBackup_ErrorNoSavePath" xml:space="preserve">
     <value>Backup aborted.  The saved game path for [PARAM] does not exist.</value>
-  </data>
-  <data name="mgrBackup_ErrorOtherFailure" xml:space="preserve">
-    <value>An unexpected error occured during the backup of [PARAM].[BR][PARAM]</value>
   </data>
   <data name="mgrBackup_ErrorOverwriteAbort" xml:space="preserve">
     <value>[PARAM] backup aborted by user due to overwrite.</value>
@@ -1396,9 +1393,6 @@
   <data name="mgrRestore_ErrorNoPath" xml:space="preserve">
     <value>Restored aborted.  The path [PARAM] does not exist.</value>
   </data>
-  <data name="mgrRestore_ErrorOtherFailure" xml:space="preserve">
-    <value>An unexpected error occured during the restore process.[BR][PARAM]</value>
-  </data>
   <data name="mgrRestore_NoVerify" xml:space="preserve">
     <value>[PARAM] has no stored checksum,  verification has been skipped.</value>
   </data>
@@ -1410,9 +1404,6 @@
   </data>
   <data name="mgrRestore_RestoreInProgress" xml:space="preserve">
     <value>Restore to [PARAM] in progress...</value>
-  </data>
-  <data name="mgrRestore_RestoreWarnings" xml:space="preserve">
-    <value>[PARAM] restore finished with warnings or errors.</value>
   </data>
   <data name="mgrRestore_Verified" xml:space="preserve">
     <value>[PARAM] backup has been verified.</value>
@@ -1762,11 +1753,11 @@
   <data name="mgrCommon_B" xml:space="preserve">
     <value>[PARAM] B</value>
   </data>
-  <data name="mgrBackup_7zCommandFailure" xml:space="preserve">
-    <value>[PARAM] backup failed due to a malformed command.</value>
+  <data name="App_Operation_CommandFailure" xml:space="preserve">
+    <value>[PARAM] operation failed due to a malformed command.</value>
   </data>
-  <data name="mgrBackup_7zFatalError" xml:space="preserve">
-    <value>[PARAM] backup failed due to an error.</value>
+  <data name="App_Operation_FatalError" xml:space="preserve">
+    <value>[PARAM] operation failed due to an error.</value>
   </data>
   <data name="App_ErrorFocus" xml:space="preserve">
     <value>GBM is busy with an open window on your desktop.</value>
@@ -2404,28 +2395,28 @@
   <data name="mgrBackup_ErrorMetadataFailure" xml:space="preserve">
     <value>Backup Aborted.  An error occured while creating backup metadata for [PARAM].</value>
   </data>
-  <data name="mgrBackup_ErrorMetadataMissingFile" xml:space="preserve">
+  <data name="mgrMetadata_ErrorMissingFile" xml:space="preserve">
     <value>The metadata operation failed due to a missing file.</value>
   </data>
-  <data name="mgrBackup_ErrorMetadataOtherFailure" xml:space="preserve">
-    <value>An unexpected error occured during the metadata operation.[BR][PARAM]</value>
-  </data>
-  <data name="mgrBackup_Metadata7zCommandFailure" xml:space="preserve">
-    <value>The metadata operation failed due to a malformed command.</value>
-  </data>
-  <data name="mgrBackup_Metadata7zFatalError" xml:space="preserve">
-    <value>The metadata operation failed due to an error.</value>
-  </data>
-  <data name="mgrBackup_Metadata7zWarnings" xml:space="preserve">
-    <value>The metadata operation completed with warnings.</value>
-  </data>
-  <data name="mgrBackup_MetadataAbort" xml:space="preserve">
-    <value>The metadata operation was cancelled by user.</value>
-  </data>
-  <data name="mgrBackup_MetadataCompleted" xml:space="preserve">
-    <value>Metadata operation completed.</value>
-  </data>
-  <data name="mgrBackup_MetaDataInProgress" xml:space="preserve">
+  <data name="mgrMetadata_InProgress" xml:space="preserve">
     <value>Adding metadata to backup file...</value>
+  </data>
+  <data name="App_OperationType_Backup" xml:space="preserve">
+    <value>Backup</value>
+  </data>
+  <data name="App_OperationType_Metadata" xml:space="preserve">
+    <value>Metadata</value>
+  </data>
+  <data name="App_OperationType_Restore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="App_Operation_Cancel" xml:space="preserve">
+    <value>[PARAM] operation was cancelled by user.</value>
+  </data>
+  <data name="App_Operation_Completed" xml:space="preserve">
+    <value>[PARAM] operation completed.</value>
+  </data>
+  <data name="App_Operation_OtherFailure" xml:space="preserve">
+    <value>[PARAM] operation encountered an unexpected error.[BR][BR][PARAM]</value>
   </data>
 </root>

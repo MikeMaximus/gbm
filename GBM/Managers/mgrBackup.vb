@@ -28,6 +28,13 @@ Public Class mgrBackup
     Public Event UpdateBackupInfo(oGame As clsGame)
     Public Event SetLastAction(sMessage As String)
 
+    Public WithEvents oMetadata As New mgrMetadata
+
+    'Handlers
+    Public Sub UpdateLogFromMetadata(sLogUpdate As String, Optional bTrayUpdate As Boolean = True, Optional objIcon As System.Windows.Forms.ToolTipIcon = ToolTipIcon.Info, Optional bTimeStamp As Boolean = True) Handles oMetadata.UpdateLog
+        RaiseEvent UpdateLog(sLogUpdate, bTrayUpdate, objIcon, bTimeStamp)
+    End Sub
+
     Public Function CheckForUtilities(ByVal strPath As String) As Boolean
         If File.Exists(strPath) Then
             Return True
@@ -371,7 +378,7 @@ Public Class mgrBackup
                 End Select
                 prsReg.Dispose()
             Catch ex As Exception
-                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorOtherFailure, New String() {oGame.Name, ex.Message}), False, ToolTipIcon.Error, True)
+                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_OtherFailure, New String() {App_OperationType_Backup, ex.Message}), False, ToolTipIcon.Error, True)
             End Try
         End If
 
@@ -430,12 +437,12 @@ Public Class mgrBackup
                                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupComplete, New String() {oGame.Name, mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sBackupFile))}), False, ToolTipIcon.Info, True)
                                 bBackupCompleted = True
                             Case 1
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_7zWarnings, oGame.Name), True, ToolTipIcon.Warning, True)
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Backup), True, ToolTipIcon.Warning, True)
                                 bBackupCompleted = True
                             Case 2
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_7zFatalError, oGame.Name), True, ToolTipIcon.Error, True)
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FatalError, App_OperationType_Backup), True, ToolTipIcon.Error, True)
                             Case 7
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_7zCommandFailure, oGame.Name), True, ToolTipIcon.Error, True)
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_CommandFailure, App_OperationType_Backup), True, ToolTipIcon.Error, True)
                         End Select
                     End If
                     prs7z.Dispose()
@@ -446,66 +453,10 @@ Public Class mgrBackup
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorNoSavePath, oGame.Name), True, ToolTipIcon.Error, True)
             End If
         Catch ex As Exception
-            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorOtherFailure, New String() {oGame.Name, ex.Message}), False, ToolTipIcon.Error, True)
+            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_OtherFailure, New String() {App_OperationType_Backup, ex.Message}), False, ToolTipIcon.Error, True)
         End Try
 
         Return bBackupCompleted
-    End Function
-
-    Private Function AddMetadataToArchive(ByVal sBackupFile As String, ByVal sMetadata As String) As Boolean
-        Dim prs7z As New Process
-        Dim sArguments As String
-        Dim sOutput As String = String.Empty
-        Dim bOperationCompleted As Boolean = False
-
-        sArguments = "a -t7z -mx" & oSettings.CompressionLevel & " """ & sBackupFile & """ """ & sMetadata & """"
-
-        Try
-            If File.Exists(sBackupFile) And File.Exists(mgrPath.SettingsRoot & Path.DirectorySeparatorChar & App_Metadata) Then
-                If Settings.Is7zUtilityValid Then
-                    prs7z.StartInfo.Arguments = sArguments
-                    prs7z.StartInfo.FileName = oSettings.Utility7zLocation
-                    prs7z.StartInfo.WorkingDirectory = mgrPath.SettingsRoot
-                    prs7z.StartInfo.UseShellExecute = False
-                    prs7z.StartInfo.RedirectStandardOutput = True
-                    prs7z.StartInfo.CreateNoWindow = True
-                    prs7z.Start()
-                    RaiseEvent UpdateLog(mgrBackup_MetaDataInProgress, False, ToolTipIcon.Info, True)
-                    While Not prs7z.StandardOutput.EndOfStream
-                        If CancelOperation Then
-                            prs7z.Kill()
-                            RaiseEvent UpdateLog(mgrBackup_MetadataAbort, True, ToolTipIcon.Error, True)
-                            Exit While
-                        End If
-                        sOutput &= prs7z.StandardOutput.ReadLine() & vbCrLf
-                    End While
-                    prs7z.WaitForExit()
-                    If Not CancelOperation Then
-                        Select Case prs7z.ExitCode
-                            Case 0
-                                RaiseEvent UpdateLog(mgrBackup_MetadataCompleted, False, ToolTipIcon.Info, True)
-                                bOperationCompleted = True
-                            Case 1
-                                RaiseEvent UpdateLog(mgrBackup_Metadata7zWarnings, True, ToolTipIcon.Warning, True)
-                                bOperationCompleted = True
-                            Case 2
-                                RaiseEvent UpdateLog(mgrBackup_Metadata7zFatalError, True, ToolTipIcon.Error, True)
-                            Case 7
-                                RaiseEvent UpdateLog(mgrBackup_Metadata7zCommandFailure, True, ToolTipIcon.Error, True)
-                        End Select
-                    End If
-                    prs7z.Dispose()
-                Else
-                    RaiseEvent UpdateLog(App_Invalid7zDetected, True, ToolTipIcon.Error, True)
-                End If
-            Else
-                RaiseEvent UpdateLog(mgrBackup_ErrorMetadataMissingFile, True, ToolTipIcon.Error, True)
-            End If
-        Catch ex As Exception
-            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMetadataOtherFailure, ex.Message), False, ToolTipIcon.Error, True)
-        End Try
-
-        Return bOperationCompleted
     End Function
 
     Public Sub DoBackup(ByVal oBackupList As List(Of clsGame))
@@ -518,6 +469,8 @@ Public Class mgrBackup
         Dim sHash As String
         Dim bMetadataGenerated As Boolean
         Dim bBackupCompleted As Boolean
+
+        oMetadata.Settings = Settings
 
         For Each oGame In oBackupList
             'Init
@@ -554,10 +507,10 @@ Public Class mgrBackup
                 If mgrPath.IsSupportedRegistryPath(oGame.TruePath) Then
                     bBackupCompleted = RunRegistryBackup(oGame, sBackupFile)
                 Else
-                    bMetadataGenerated = mgrMetadata.SerializeAndExport(mgrPath.SettingsRoot & Path.DirectorySeparatorChar & App_Metadata, oGame, My.Computer.Name, dTimeStamp)
+                    bMetadataGenerated = oMetadata.SerializeAndExport(mgrPath.SettingsRoot & Path.DirectorySeparatorChar & App_Metadata, oGame, My.Computer.Name, dTimeStamp)
                     If bMetadataGenerated Then
                         bBackupCompleted = Run7zBackup(oGame, sBackupFile)
-                        If bBackupCompleted Then AddMetadataToArchive(sBackupFile, App_Metadata)
+                        If bBackupCompleted Then oMetadata.AddMetadataToArchive(sBackupFile, App_Metadata)
                     Else
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMetadataFailure, oGame.Name), True, ToolTipIcon.Error, True)
                     End If

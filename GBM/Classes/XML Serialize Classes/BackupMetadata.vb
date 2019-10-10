@@ -17,7 +17,7 @@ Public Class BackupMetadata
         End Get
     End Property
 
-    <XmlAttribute("DataUpdated")>
+    <XmlAttribute("DateUpdated")>
     Property DateUpdated As Int64
         Get
             Return iDateUpdated

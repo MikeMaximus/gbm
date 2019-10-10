@@ -1,9 +1,33 @@
-﻿Imports System.Xml.Serialization
+﻿Imports GBM.My.Resources
+Imports System.Xml.Serialization
 Imports System.IO
 
 Public Class mgrMetadata
 
-    Public Shared Function SerializeAndExport(ByVal sLocation As String, ByVal oGame As clsGame, ByVal sUpdatedBy As String, ByVal dTimeStamp As Date) As Boolean
+    Private oSettings As mgrSettings
+    Private bCancelOperation As Boolean
+
+    Property Settings As mgrSettings
+        Get
+            Return oSettings
+        End Get
+        Set(value As mgrSettings)
+            oSettings = value
+        End Set
+    End Property
+
+    Property CancelOperation As Boolean
+        Get
+            Return bCancelOperation
+        End Get
+        Set(value As Boolean)
+            bCancelOperation = value
+        End Set
+    End Property
+
+    Public Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
+
+    Public Function SerializeAndExport(ByVal sLocation As String, ByVal oGame As clsGame, ByVal sUpdatedBy As String, ByVal dTimeStamp As Date) As Boolean
         Dim oSerializer As XmlSerializer
         Dim oWriter As StreamWriter
         Dim oBackupMetadata As BackupMetadata
@@ -19,5 +43,61 @@ Public Class mgrMetadata
         Catch ex As Exception
             Return False
         End Try
+    End Function
+
+    Public Function AddMetadataToArchive(ByVal sBackupFile As String, ByVal sMetadata As String) As Boolean
+        Dim prs7z As New Process
+        Dim sArguments As String
+        Dim sOutput As String = String.Empty
+        Dim bOperationCompleted As Boolean = False
+
+        sArguments = "a -t7z -mx" & oSettings.CompressionLevel & " """ & sBackupFile & """ """ & sMetadata & """"
+
+        Try
+            If File.Exists(sBackupFile) And File.Exists(mgrPath.SettingsRoot & Path.DirectorySeparatorChar & App_Metadata) Then
+                If Settings.Is7zUtilityValid Then
+                    prs7z.StartInfo.Arguments = sArguments
+                    prs7z.StartInfo.FileName = oSettings.Utility7zLocation
+                    prs7z.StartInfo.WorkingDirectory = mgrPath.SettingsRoot
+                    prs7z.StartInfo.UseShellExecute = False
+                    prs7z.StartInfo.RedirectStandardOutput = True
+                    prs7z.StartInfo.CreateNoWindow = True
+                    prs7z.Start()
+                    RaiseEvent UpdateLog(mgrMetadata_InProgress, False, ToolTipIcon.Info, True)
+                    While Not prs7z.StandardOutput.EndOfStream
+                        If CancelOperation Then
+                            prs7z.Kill()
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Cancel, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
+                            Exit While
+                        End If
+                        sOutput &= prs7z.StandardOutput.ReadLine() & vbCrLf
+                    End While
+                    prs7z.WaitForExit()
+                    If Not CancelOperation Then
+                        Select Case prs7z.ExitCode
+                            Case 0
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Completed, App_OperationType_Metadata), False, ToolTipIcon.Info, True)
+                                bOperationCompleted = True
+                            Case 1
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), True, ToolTipIcon.Warning, True)
+                                bOperationCompleted = True
+                            Case 2
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FatalError, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
+                            Case 7
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_CommandFailure, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
+                        End Select
+                    End If
+                    prs7z.Dispose()
+                Else
+                    RaiseEvent UpdateLog(App_Invalid7zDetected, True, ToolTipIcon.Error, True)
+                End If
+            Else
+                RaiseEvent UpdateLog(mgrMetadata_ErrorMissingFile, True, ToolTipIcon.Error, True)
+            End If
+        Catch ex As Exception
+            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_OtherFailure, New String() {App_OperationType_Metadata, ex.Message}), False, ToolTipIcon.Error, True)
+        End Try
+
+        Return bOperationCompleted
     End Function
 End Class
