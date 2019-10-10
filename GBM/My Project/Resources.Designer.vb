@@ -144,9 +144,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to _gbm_backup_metadata.xml.
         '''</summary>
-        Friend ReadOnly Property App_Metadata() As String
+        Friend ReadOnly Property App_MetadataFilename() As String
             Get
-                Return ResourceManager.GetString("App_Metadata", resourceCulture)
+                Return ResourceManager.GetString("App_MetadataFilename", resourceCulture)
             End Get
         End Property
         
@@ -210,6 +210,15 @@ Namespace My.Resources
         Friend ReadOnly Property App_Operation_FatalError() As String
             Get
                 Return ResourceManager.GetString("App_Operation_FatalError", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] operation failed because a required file was not found..
+        '''</summary>
+        Friend ReadOnly Property App_Operation_FileNotFound() As String
+            Get
+                Return ResourceManager.GetString("App_Operation_FileNotFound", resourceCulture)
             End Get
         End Property
         
@@ -322,7 +331,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-10-10T13:32:35
+        '''  Looks up a localized string similar to 2019-10-10T14:42:11
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -6468,11 +6477,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The metadata operation failed due to a missing file..
+        '''  Looks up a localized string similar to Checking [PARAM] for metadata....
         '''</summary>
-        Friend ReadOnly Property mgrMetadata_ErrorMissingFile() As String
+        Friend ReadOnly Property mgrMetaData_CheckingArchive() As String
             Get
-                Return ResourceManager.GetString("mgrMetadata_ErrorMissingFile", resourceCulture)
+                Return ResourceManager.GetString("mgrMetaData_CheckingArchive", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Extracting metadata from [PARAM]....
+        '''</summary>
+        Friend ReadOnly Property mgrMetaData_ExtractingFromArchive() As String
+            Get
+                Return ResourceManager.GetString("mgrMetaData_ExtractingFromArchive", resourceCulture)
             End Get
         End Property
         

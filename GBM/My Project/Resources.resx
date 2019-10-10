@@ -2389,14 +2389,11 @@
   <data name="frmGameManager_WarningEmptyProcess" xml:space="preserve">
     <value>A valid process name or regular expression is required to monitor and backup your saved games automatically.[BR][BR]You may leave the Process field blank to a create manual backup configuration for this game, these configurations will be automatically excluded from monitoring.[BR][BR]This warning will only be displayed once.</value>
   </data>
-  <data name="App_Metadata" xml:space="preserve">
+  <data name="App_MetadataFilename" xml:space="preserve">
     <value>_gbm_backup_metadata.xml</value>
   </data>
   <data name="mgrBackup_ErrorMetadataFailure" xml:space="preserve">
     <value>Backup Aborted.  An error occured while creating backup metadata for [PARAM].</value>
-  </data>
-  <data name="mgrMetadata_ErrorMissingFile" xml:space="preserve">
-    <value>The metadata operation failed due to a missing file.</value>
   </data>
   <data name="mgrMetadata_InProgress" xml:space="preserve">
     <value>Adding metadata to backup file...</value>
@@ -2416,7 +2413,16 @@
   <data name="App_Operation_Completed" xml:space="preserve">
     <value>[PARAM] operation completed.</value>
   </data>
+  <data name="App_Operation_FileNotFound" xml:space="preserve">
+    <value>[PARAM] operation failed because a required file was not found.</value>
+  </data>
   <data name="App_Operation_OtherFailure" xml:space="preserve">
     <value>[PARAM] operation encountered an unexpected error.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrMetaData_CheckingArchive" xml:space="preserve">
+    <value>Checking [PARAM] for metadata...</value>
+  </data>
+  <data name="mgrMetaData_ExtractingFromArchive" xml:space="preserve">
+    <value>Extracting metadata from [PARAM]...</value>
   </data>
 </root>

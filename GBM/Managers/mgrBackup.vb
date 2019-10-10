@@ -507,10 +507,10 @@ Public Class mgrBackup
                 If mgrPath.IsSupportedRegistryPath(oGame.TruePath) Then
                     bBackupCompleted = RunRegistryBackup(oGame, sBackupFile)
                 Else
-                    bMetadataGenerated = oMetadata.SerializeAndExport(mgrPath.SettingsRoot & Path.DirectorySeparatorChar & App_Metadata, oGame, My.Computer.Name, dTimeStamp)
+                    bMetadataGenerated = oMetadata.SerializeAndExport(mgrPath.SettingsRoot & Path.DirectorySeparatorChar & App_MetadataFilename, oGame, My.Computer.Name, dTimeStamp)
                     If bMetadataGenerated Then
                         bBackupCompleted = Run7zBackup(oGame, sBackupFile)
-                        If bBackupCompleted Then oMetadata.AddMetadataToArchive(sBackupFile, App_Metadata)
+                        If bBackupCompleted Then oMetadata.AddMetadataToArchive(sBackupFile, App_MetadataFilename)
                     Else
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMetadataFailure, oGame.Name), True, ToolTipIcon.Error, True)
                     End If

@@ -257,7 +257,7 @@ Public Class mgrRestore
         Try
             If File.Exists(sBackupFile) Then
                 If Settings.Is7zUtilityValid Then
-                    prs7z.StartInfo.Arguments = "x" & oSettings.Prepared7zArguments & """" & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -x!" & App_Metadata & " -aoa -r"
+                    prs7z.StartInfo.Arguments = "x" & oSettings.Prepared7zArguments & """" & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -x!" & App_MetadataFilename & " -aoa -r"
                     prs7z.StartInfo.FileName = oSettings.Utility7zLocation
                     prs7z.StartInfo.UseShellExecute = False
                     prs7z.StartInfo.RedirectStandardOutput = True
