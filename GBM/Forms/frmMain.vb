@@ -308,7 +308,7 @@ Public Class frmMain
 
     Private Sub RunImportBackup(ByVal oImportBackupList As Hashtable)
         PauseScan()
-        oBackup.ImportBackupFiles(oImportBackupList)
+        oBackup.ImportBackupFilesByGame(oImportBackupList)
         ResumeScan()
     End Sub
 

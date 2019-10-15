@@ -256,17 +256,22 @@ Public Class mgrBackup
         Return True
     End Function
 
-    Public Sub ImportBackupFiles(ByVal hshImportList As Hashtable)
+    Public Sub ImportBackupFilesByGame(ByVal hshImportList As Hashtable)
         Dim oGame As clsGame
         Dim bOverwriteCurrent As Boolean = False
-        Dim bContinue As Boolean = True
+        Dim bContinue As Boolean
+        Dim bMatch As Boolean
         Dim sFileToImport As String
         Dim sBackupFile As String
         Dim oBackup As clsBackup
+        Dim oBackupMetadata As BackupMetadata
 
         For Each de As DictionaryEntry In hshImportList
+            bContinue = True
+            bMatch = False
             sFileToImport = CStr(de.Key)
             oGame = DirectCast(de.Value, clsGame)
+            oBackup = New clsBackup
 
             'Enter overwite mode if we are importing a single backup and "Save Multiple Backups" is not enabled.
             If hshImportList.Count = 1 And Not oGame.AppendTimeStamp Then bOverwriteCurrent = True
@@ -280,10 +285,36 @@ Public Class mgrBackup
                 End If
 
                 If bContinue Then
-                    oBackup = New clsBackup
-                    oBackup.MonitorID = oGame.ID
-                    oBackup.DateUpdated = File.GetLastWriteTime(sFileToImport)
-                    oBackup.UpdatedBy = mgrBackup_ImportedFile
+                    oMetadata.Settings = Settings
+
+                    If oMetadata.CheckForMetadata(sFileToImport) Then
+                        If oMetadata.ExtractMetadataFromArchive(sFileToImport) Then
+                            oBackupMetadata = New BackupMetadata
+                            If oMetadata.ImportandDeserialize(oBackupMetadata) Then
+                                If oBackupMetadata.Game.ID = oGame.ID Then
+                                    bMatch = True
+                                    oBackup = oBackupMetadata.CreateBackupInfo
+                                Else
+                                    If mgrCommon.ShowMessage(mgrBackup_WarningMetadataMismatch, Path.GetFileName(sFileToImport), MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                                        bContinue = False
+                                    End If
+                                End If
+                            End If
+                        End If
+                    Else
+                        If mgrCommon.ShowMessage(mgrBackup_WarningNoMetadata, Path.GetFileName(sFileToImport), MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                            bContinue = False
+                        End If
+                    End If
+
+                    If Not bMatch Then
+                        oBackup.MonitorID = oGame.ID
+                        oBackup.DateUpdated = File.GetLastWriteTime(sFileToImport)
+                        oBackup.UpdatedBy = mgrBackup_ImportedFile
+                    End If
+                End If
+
+                If bContinue Then
                     If bOverwriteCurrent Then
                         sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & ".7z"
                     Else
@@ -311,6 +342,8 @@ Public Class mgrBackup
                             RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportBackupCopy, sFileToImport), False, ToolTipIcon.Error, True)
                         End If
                     End If
+                Else
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportCancel, sFileToImport), False, ToolTipIcon.Error, True)
                 End If
             End If
         Next

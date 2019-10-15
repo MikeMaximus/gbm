@@ -2222,16 +2222,13 @@
     <value>Failed to import [PARAM], the file could not be copied.</value>
   </data>
   <data name="mgrBackup_ImportedFile" xml:space="preserve">
-    <value>Imported Backup</value>
+    <value>Forced Import</value>
   </data>
   <data name="mgrBackup_ImportSuccess" xml:space="preserve">
     <value>Imported backup file [PARAM] for [PARAM].</value>
   </data>
   <data name="frmGameManager_btnProcesses" xml:space="preserve">
     <value>Pro&amp;cesses...</value>
-  </data>
-  <data name="frmGameManager_WarningImportBackup" xml:space="preserve">
-    <value>This feature is intended to import 7-Zip backup archives compatible with the selected game configuration.[BR][BR]GBM does NOT verify these files, you should only use files created by GBM or compatible archives created using the same settings as the current game configuration.[BR][BR]This message will only be shown once.</value>
   </data>
   <data name="frmVariableManager_ErrorVariableReserved" xml:space="preserve">
     <value>[PARAM] is a reserved variable, you must enter a different name.</value>
@@ -2424,5 +2421,14 @@
   </data>
   <data name="mgrMetaData_ExtractingFromArchive" xml:space="preserve">
     <value>Extracting metadata from [PARAM]...</value>
+  </data>
+  <data name="mgrBackup_ErrorImportCancel" xml:space="preserve">
+    <value>The import of [PARAM] was cancelled.</value>
+  </data>
+  <data name="mgrBackup_WarningMetadataMismatch" xml:space="preserve">
+    <value>The metadata in the backup file ([PARAM]) does not match the game you selected.[BR][BR]Do you want to continue importing this file? (Not Recommended)</value>
+  </data>
+  <data name="mgrBackup_WarningNoMetadata" xml:space="preserve">
+    <value>The backup file ([PARAM]) contains no metadata.[BR][BR]Do you want to continue importing this file? (Not Recommended)</value>
   </data>
 </root>

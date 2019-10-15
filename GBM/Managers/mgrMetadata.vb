@@ -27,12 +27,12 @@ Public Class mgrMetadata
 
     Public Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
 
-    Public Function ImportandDeserialize(ByVal sLocation As String, ByRef oBackupMetadata As BackupMetadata) As Boolean
+    Public Function ImportandDeserialize(ByRef oBackupMetadata As BackupMetadata) As Boolean
         Dim oReader As StreamReader
         Dim oSerializer As XmlSerializer
 
         Try
-            oReader = New StreamReader(sLocation)
+            oReader = New StreamReader(mgrPath.SettingsRoot & Path.DirectorySeparatorChar & App_MetadataFilename)
             oSerializer = New XmlSerializer(GetType(BackupMetadata), New XmlRootAttribute("GBM_Backup"))
             oBackupMetadata = oSerializer.Deserialize(oReader)
             oReader.Close()

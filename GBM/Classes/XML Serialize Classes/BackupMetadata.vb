@@ -60,4 +60,14 @@ Public Class BackupMetadata
         sUpdatedBy = sInitUpdatedBy
         oGame = oInitGame
     End Sub
+
+    Public Function CreateBackupInfo() As clsBackup
+        Dim oBackup As New clsBackup
+
+        oBackup.MonitorID = Game.ID
+        oBackup.DateUpdated = mgrCommon.UnixToDate(DateUpdated)
+        oBackup.UpdatedBy = UpdatedBy
+
+        Return oBackup
+    End Function
 End Class

@@ -331,7 +331,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-10-10T14:42:11
+        '''  Looks up a localized string similar to 2019-10-15T17:14:53
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2695,15 +2695,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_WarningEmptyProcess() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_WarningEmptyProcess", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to This feature is intended to import 7-Zip backup archives compatible with the selected game configuration.[BR][BR]GBM does NOT verify these files, you should only use files created by GBM or compatible archives created using the same settings as the current game configuration.[BR][BR]This message will only be shown once..
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_WarningImportBackup() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_WarningImportBackup", resourceCulture)
             End Get
         End Property
         
@@ -6243,6 +6234,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The import of [PARAM] was cancelled..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorImportCancel() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorImportCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup aborted by user due to manifest conflict..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorManifestConflict() As String
@@ -6342,7 +6342,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Imported Backup.
+        '''  Looks up a localized string similar to Forced Import.
         '''</summary>
         Friend ReadOnly Property mgrBackup_ImportedFile() As String
             Get
@@ -6356,6 +6356,24 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_ImportSuccess() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ImportSuccess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The metadata in the backup file ([PARAM]) does not match the game you selected.[BR][BR]Do you want to continue importing this file? (Not Recommended).
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_WarningMetadataMismatch() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_WarningMetadataMismatch", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The backup file ([PARAM]) contains no metadata.[BR][BR]Do you want to continue importing this file? (Not Recommended).
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_WarningNoMetadata() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_WarningNoMetadata", resourceCulture)
             End Get
         End Property
         
