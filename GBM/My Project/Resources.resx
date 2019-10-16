@@ -2429,6 +2429,42 @@
     <value>The metadata in the backup file ([PARAM]) does not match the game you selected.[BR][BR]Do you want to continue importing this file? (Not Recommended)</value>
   </data>
   <data name="mgrBackup_WarningNoMetadata" xml:space="preserve">
-    <value>The backup file ([PARAM]) contains no metadata.[BR][BR]Do you want to continue importing this file? (Not Recommended)</value>
+    <value>The backup file ([PARAM]) contains no metadata or is an invalid archive.[BR][BR]Do you want to continue importing this file? (Not Recommended)</value>
+  </data>
+  <data name="frmMain_ChooseImportFiles" xml:space="preserve">
+    <value>Choose file(s) to import</value>
+  </data>
+  <data name="frmMain_ChooseImportFolder" xml:space="preserve">
+    <value>Choose a folder to import</value>
+  </data>
+  <data name="frmMain_gMonToolsImportBackup" xml:space="preserve">
+    <value>&amp;Import Backup</value>
+  </data>
+  <data name="frmMain_gMonToolsImportBackupFiles" xml:space="preserve">
+    <value>&amp;Files</value>
+  </data>
+  <data name="frmMain_gMonToolsImportBackupFolder" xml:space="preserve">
+    <value>F&amp;older</value>
+  </data>
+  <data name="frmMain_gMonTrayToolsImportBackup" xml:space="preserve">
+    <value>&amp;Import Backup</value>
+  </data>
+  <data name="frmMain_gMonTrayToolsImportBackupFiles" xml:space="preserve">
+    <value>&amp;Files</value>
+  </data>
+  <data name="frmMain_gMonTrayToolsImportBackupFolder" xml:space="preserve">
+    <value>F&amp;older</value>
+  </data>
+  <data name="mgrBackup_BackupsImported" xml:space="preserve">
+    <value>[PARAM] backup files have been imported successfully.</value>
+  </data>
+  <data name="mgrBackup_ErrorNoMetadata" xml:space="preserve">
+    <value>The file [PARAM] contains no metadata or is an invalid archive.  </value>
+  </data>
+  <data name="mgrBackup_ErrorReadingMetadata" xml:space="preserve">
+    <value>An error occuring reading the metadata in the file [PARAM].</value>
+  </data>
+  <data name="mgrBackup_GamesAddedDuringImport" xml:space="preserve">
+    <value>[PARAM] game configurations have been added during the import process.</value>
   </data>
 </root>

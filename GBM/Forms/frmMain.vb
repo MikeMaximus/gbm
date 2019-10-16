@@ -306,9 +306,15 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub RunImportBackup(ByVal oImportBackupList As Hashtable)
+    Private Sub RunImportBackupByGame(ByVal oImportBackupList As Hashtable)
         PauseScan()
         oBackup.ImportBackupFilesByGame(oImportBackupList)
+        ResumeScan()
+    End Sub
+
+    Private Sub RunImportBackupByFile(ByVal sFilesToImport As String())
+        PauseScan()
+        oBackup.ImportBackupFiles(sFilesToImport)
         ResumeScan()
     End Sub
 
@@ -952,7 +958,7 @@ Public Class frmMain
 
         'Handle import backup trigger
         If frm.TriggerImportBackup Then
-            RunImportBackup(frm.ImportBackupList)
+            RunImportBackupByGame(frm.ImportBackupList)
         End If
     End Sub
 
@@ -1506,6 +1512,9 @@ Public Class frmMain
         gMonSetupTags.Text = frmMain_gMonSetupTags
         gMonSetupProcessManager.Text = frmMain_gMonSetupProcessManager
         gMonTools.Text = frmMain_gMonTools
+        gMonToolsImportBackup.Text = frmMain_gMonToolsImportBackup
+        gMonToolsImportBackupFiles.Text = frmMain_gMonToolsImportBackupFiles
+        gMonToolsImportBackupFolder.Text = frmMain_gMonToolsImportBackupFolder
         gMonToolsCompact.Text = frmMain_gMonToolsCompact
         gMonToolsLog.Text = frmMain_gMonToolsLog
         gMonToolsSessions.Text = frmMain_gMonToolsSessions
@@ -1531,6 +1540,9 @@ Public Class frmMain
         gMonTraySetupTags.Text = frmMain_gMonSetupTags
         gMonTraySetupProcessManager.Text = frmMain_gMonSetupProcessManager
         gMonTrayTools.Text = frmMain_gMonTools
+        gMonTrayToolsImportBackup.Text = frmMain_gMonTrayToolsImportBackup
+        gMonTrayToolsImportBackupFiles.Text = frmMain_gMonTrayToolsImportBackupFiles
+        gMonTrayToolsImportBackupFolder.Text = frmMain_gMonTrayToolsImportBackupFolder
         gMonTrayToolsCompact.Text = frmMain_gMonToolsCompact
         gMonTrayToolsLog.Text = frmMain_gMonToolsLog
         gMonTrayToolsSessions.Text = frmMain_gMonToolsSessions
@@ -1863,6 +1875,32 @@ Public Class frmMain
 
     End Sub
 
+    Private Sub ImportBackupFiles()
+        Dim sFilestoImport As String()
+        Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+
+        sFilestoImport = mgrCommon.OpenMultiFileBrowser("Main_BackupFileImport", frmMain_ChooseImportFiles, "7z", frmGameManager_7zBackup, sDefaultFolder, True)
+
+        If sFilestoImport.Length > 0 Then
+            RunImportBackupByFile(sFilestoImport)
+        End If
+    End Sub
+
+    Private Sub ImportBackupFolder()
+        Dim sFilesFound As List(Of String)
+        Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+        Dim sRootFolder As String
+
+        sRootFolder = mgrCommon.OpenFolderBrowser("Main_BackupFolderImport", frmMain_ChooseImportFolder, sDefaultFolder, True)
+
+        If Not sRootFolder = String.Empty Then
+            sFilesFound = mgrCommon.GetFileListByFolder(sRootFolder, New String() {"*.7z"})
+            Dim sFilesToImport(sFilesFound.Count) As String
+            sFilesFound.CopyTo(sFilesToImport)
+            RunImportBackupByFile(sFilesToImport)
+        End If
+    End Sub
+
     'Event Handlers
     Private Sub gMonFileMonitor_Click(sender As Object, e As EventArgs) Handles gMonFileMonitor.Click
         ScanToggle()
@@ -1894,6 +1932,14 @@ Public Class frmMain
 
     Private Sub gMonToolsCompact_Click(sender As Object, e As EventArgs) Handles gMonToolsCompact.Click, gMonTrayToolsCompact.Click
         CompactDatabases()
+    End Sub
+
+    Private Sub gMonToolsImportBackupFiles_Click(sender As Object, e As EventArgs) Handles gMonToolsImportBackupFiles.Click, gMonTrayToolsImportBackupFiles.Click
+        ImportBackupFiles()
+    End Sub
+
+    Private Sub gMonToolsImportBackupFolder_Click(sender As Object, e As EventArgs) Handles gMonTrayToolsImportBackupFolder.Click, gMonTrayToolsImportBackupFolder.Click
+        ImportBackupFolder()
     End Sub
 
     Private Sub gMonSetupAddWizard_Click(sender As Object, e As EventArgs) Handles gMonSetupAddWizard.Click, gMonTraySetupAddWizard.Click

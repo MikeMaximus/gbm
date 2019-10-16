@@ -428,6 +428,43 @@ Public Class mgrCommon
         Return lSize
     End Function
 
+    'Get a list of files in the provided folder path
+    Public Shared Function GetFileListByFolder(ByVal sPath As String, ByVal sSearchFilters As String()) As List(Of String)
+        Dim sFiles As New List(Of String)
+        Dim oFolder As DirectoryInfo
+        Dim bMatch As Boolean
+        Dim lSize As Long = 0
+
+        Try
+            If Not Directory.Exists(sPath) Then Return sFiles
+
+            oFolder = New DirectoryInfo(sPath)
+
+            'Files
+            For Each fi As FileInfo In oFolder.EnumerateFiles()
+                bMatch = CompareValueToArrayRegEx(fi.FullName, sSearchFilters)
+
+                If bMatch Then
+                    sFiles.Add(fi.FullName)
+                End If
+            Next
+
+            'Folders
+            For Each di As DirectoryInfo In oFolder.EnumerateDirectories()
+                If Not ((di.Attributes And FileAttributes.ReparsePoint) = FileAttributes.ReparsePoint) Then
+                    For Each sFile In GetFileListByFolder(di.FullName, sSearchFilters)
+                        sFiles.Add(sFile)
+                    Next
+                End If
+            Next
+
+        Catch
+            'Do Nothing
+        End Try
+
+        Return sFiles
+    End Function
+
     'Format Disk Space Amounts
     Public Shared Function FormatDiskSpace(ByVal lSize As Long)
 

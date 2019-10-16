@@ -293,27 +293,6 @@ Public Class mgrMonitorList
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
-    Public Shared Function DoListGetbyID(ByVal iMonitorID As Integer, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As clsGame
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
-        Dim oData As DataSet
-        Dim oGame As New clsGame
-        Dim hshParams As New Hashtable
-
-        sSQL = "SELECT * from monitorlist "
-        sSQL &= "WHERE MonitorID = @MonitorID"
-
-        hshParams.Add("MonitorID", iMonitorID)
-
-        oData = oDatabase.ReadParamData(sSQL, hshParams)
-
-        For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = MapToObject(dr)
-        Next
-
-        Return oGame
-    End Function
-
     Public Shared Function DoListGetbyMonitorID(ByVal sMonitorID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String

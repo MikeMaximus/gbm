@@ -256,6 +256,103 @@ Public Class mgrBackup
         Return True
     End Function
 
+    Public Sub ImportBackupFiles(ByVal sFileList As String())
+        Dim oGame As New clsGame
+        Dim bOverwriteCurrent As Boolean = False
+        Dim bContinue As Boolean
+        Dim sBackupFile As String
+        Dim oBackup As clsBackup
+        Dim oBackupMetadata As BackupMetadata
+        Dim iFilesImported As Integer = 0
+        Dim iGamesAdded As Integer = 0
+        oMetadata.Settings = Settings
+
+        For Each sFileToImport As String In sFileList
+            bContinue = True
+            oBackup = New clsBackup
+
+            If File.Exists(sFileToImport) Then
+                sBackupFile = oSettings.BackupFolder
+
+                If oMetadata.CheckForMetadata(sFileToImport) Then
+                    If oMetadata.ExtractMetadataFromArchive(sFileToImport) Then
+                        oBackupMetadata = New BackupMetadata
+                        If oMetadata.ImportandDeserialize(oBackupMetadata) Then
+                            oGame = oBackupMetadata.Game.ConvertClass
+                            oBackup = oBackupMetadata.CreateBackupInfo
+                            If Not mgrMonitorList.DoDuplicateListCheck(oGame.ID) Then
+                                Dim oTagsToAdd As New Hashtable
+                                oTagsToAdd.Add(0, oGame)
+                                mgrMonitorList.DoListAdd(oGame)
+                                mgrTags.DoTagAddImport(oTagsToAdd)
+                                iGamesAdded += 1
+                            End If
+                        Else
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorReadingMetadata, sFileToImport), False, ToolTipIcon.Warning, True)
+                            bContinue = False
+                        End If
+                    End If
+                Else
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorNoMetadata, sFileToImport), False, ToolTipIcon.Warning, True)
+                    bContinue = False
+                End If
+
+                If bContinue Then
+                    'Enter overwite mode if "Save Multiple Backups" is not enabled.
+                    If Not oGame.AppendTimeStamp Then bOverwriteCurrent = True
+
+                    If oSettings.CreateSubFolder Then
+                        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
+                        bContinue = HandleSubFolder(oGame, sBackupFile)
+                    End If
+                End If
+
+                If bContinue Then
+                    If bOverwriteCurrent Then
+                        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & ".7z"
+                    Else
+                        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & BuildFileTimeStamp(oBackup.DateUpdated) & ".7z"
+                    End If
+
+                    oBackup.FileName = sBackupFile.Replace(Settings.BackupFolder & Path.DirectorySeparatorChar, String.Empty)
+
+                    If bOverwriteCurrent Then
+                        If mgrCommon.CopyFile(sFileToImport, sBackupFile, True) Then
+                            oBackup.CheckSum = mgrHash.Generate_SHA256_Hash(sBackupFile)
+                            If Not mgrManifest.DoUpdateLatestManifest(oBackup, mgrSQLite.Database.Remote) Then
+                                mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
+                            End If
+                            iFilesImported += 1
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImport, oGame.Name}), False, ToolTipIcon.Info, True)
+                        Else
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportBackupCopy, sFileToImport), False, ToolTipIcon.Error, True)
+                        End If
+                    Else
+                        If mgrCommon.CopyFile(sFileToImport, sBackupFile, False) Then
+                            oBackup.CheckSum = mgrHash.Generate_SHA256_Hash(sBackupFile)
+                            mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
+                            iFilesImported += 1
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImport, oGame.Name}), False, ToolTipIcon.Info, True)
+                        Else
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportBackupCopy, sFileToImport), False, ToolTipIcon.Error, True)
+                        End If
+                    End If
+                Else
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportCancel, sFileToImport), False, ToolTipIcon.Error, True)
+                End If
+            End If
+        Next
+
+        If iGamesAdded > 0 Then
+            mgrMonitorList.SyncMonitorLists(Settings)
+            mgrTags.SyncTags()
+            mgrGameTags.SyncGameTags()
+        End If
+
+        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupsImported, iFilesImported.ToString), False, ToolTipIcon.Info, True)
+        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_GamesAddedDuringImport, iGamesAdded.ToString), False, ToolTipIcon.Info, True)
+    End Sub
+
     Public Sub ImportBackupFilesByGame(ByVal hshImportList As Hashtable)
         Dim oGame As clsGame
         Dim bOverwriteCurrent As Boolean = False
@@ -265,6 +362,7 @@ Public Class mgrBackup
         Dim sBackupFile As String
         Dim oBackup As clsBackup
         Dim oBackupMetadata As BackupMetadata
+        oMetadata.Settings = Settings
 
         For Each de As DictionaryEntry In hshImportList
             bContinue = True
@@ -285,8 +383,6 @@ Public Class mgrBackup
                 End If
 
                 If bContinue Then
-                    oMetadata.Settings = Settings
-
                     If oMetadata.CheckForMetadata(sFileToImport) Then
                         If oMetadata.ExtractMetadataFromArchive(sFileToImport) Then
                             oBackupMetadata = New BackupMetadata
