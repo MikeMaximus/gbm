@@ -91,7 +91,6 @@ Public Class mgrMetadata
                     If Not CancelOperation Then
                         Select Case prs7z.ExitCode
                             Case 0
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Completed, App_OperationType_Metadata), False, ToolTipIcon.Info, True)
                                 bOperationCompleted = True
                             Case 1
                                 RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), True, ToolTipIcon.Warning, True)
@@ -142,7 +141,6 @@ Public Class mgrMetadata
                     prs7z.WaitForExit()
                     If Not CancelOperation Then
                         If prs7z.ExitCode = 0 Then
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Completed, App_OperationType_Metadata), False, ToolTipIcon.Info, True)
                             bOperationCompleted = True
                         Else
                             RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), True, ToolTipIcon.Warning, True)
@@ -192,7 +190,6 @@ Public Class mgrMetadata
                     If Not CancelOperation Then
                         Select Case prs7z.ExitCode
                             Case 0
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Completed, App_OperationType_Metadata), False, ToolTipIcon.Info, True)
                                 bOperationCompleted = True
                             Case 1
                                 RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), True, ToolTipIcon.Warning, True)

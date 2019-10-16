@@ -1938,7 +1938,7 @@ Public Class frmMain
         ImportBackupFiles()
     End Sub
 
-    Private Sub gMonToolsImportBackupFolder_Click(sender As Object, e As EventArgs) Handles gMonTrayToolsImportBackupFolder.Click, gMonTrayToolsImportBackupFolder.Click
+    Private Sub gMonToolsImportBackupFolder_Click(sender As Object, e As EventArgs) Handles gMonToolsImportBackupFolder.Click, gMonTrayToolsImportBackupFolder.Click
         ImportBackupFolder()
     End Sub
 
