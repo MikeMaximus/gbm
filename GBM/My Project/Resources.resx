@@ -2456,7 +2456,7 @@
     <value>F&amp;older</value>
   </data>
   <data name="mgrBackup_BackupsImported" xml:space="preserve">
-    <value>[PARAM] backup files have been imported successfully.</value>
+    <value>[PARAM] backup file(s) imported successfully.</value>
   </data>
   <data name="mgrBackup_ErrorNoMetadata" xml:space="preserve">
     <value>The file [PARAM] contains no metadata or is an invalid archive.  </value>
@@ -2465,6 +2465,9 @@
     <value>An error occuring reading the metadata in the file [PARAM].</value>
   </data>
   <data name="mgrBackup_GamesAddedDuringImport" xml:space="preserve">
-    <value>[PARAM] game configurations have been added during the import process.</value>
+    <value>[PARAM] game configuration(s) added during the import process.</value>
+  </data>
+  <data name="frmMain_ImportInProgress" xml:space="preserve">
+    <value>Import in Progress...</value>
   </data>
 </root>

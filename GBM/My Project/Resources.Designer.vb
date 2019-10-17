@@ -331,7 +331,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-10-16T16:40:17
+        '''  Looks up a localized string similar to 2019-10-17T02:16:35
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3950,6 +3950,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Import in Progress....
+        '''</summary>
+        Friend ReadOnly Property frmMain_ImportInProgress() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ImportInProgress", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Last Game: [PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_LastGame() As String
@@ -6225,7 +6234,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] backup files have been imported successfully..
+        '''  Looks up a localized string similar to [PARAM] backup file(s) imported successfully..
         '''</summary>
         Friend ReadOnly Property mgrBackup_BackupsImported() As String
             Get
@@ -6432,7 +6441,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] game configurations have been added during the import process..
+        '''  Looks up a localized string similar to [PARAM] game configuration(s) added during the import process..
         '''</summary>
         Friend ReadOnly Property mgrBackup_GamesAddedDuringImport() As String
             Get

@@ -18,6 +18,7 @@ Public Class frmMain
         None = 1
         Backup = 2
         Restore = 3
+        Import = 4
     End Enum
 
     Private eCurrentStatus As eStatus = eStatus.Stopped
@@ -118,6 +119,20 @@ Public Class frmMain
         UpdateStatus(frmMain_BackupInProgress)
     End Sub
 
+    Private Sub SetImportInfo(ByVal sPath As String) Handles oBackup.UpdateImportInfo
+        Dim sStatus1 As String
+        Dim sStatus2 As String
+        Dim sStatus3 As String
+
+        'Build Info
+        sStatus1 = Path.GetFileName(sPath)
+        sStatus2 = Path.GetDirectoryName(sPath)
+        sStatus3 = String.Empty
+
+        WorkingGameInfo(frmMain_ImportInProgress, sStatus1, sStatus2, sStatus3)
+        UpdateStatus(frmMain_ImportInProgress)
+    End Sub
+
     Private Sub OperationStarted(Optional ByVal bPause As Boolean = True)
         'Thread Safe
         If Me.InvokeRequired = True Then
@@ -149,7 +164,7 @@ Public Class frmMain
         Select Case eCurrentOperation
             Case eOperation.None
                 'Nothing
-            Case eOperation.Backup
+            Case eOperation.Backup, eOperation.Import
                 oBackup.CancelOperation = True
                 btnCancelOperation.Enabled = False
             Case eOperation.Restore
@@ -307,15 +322,17 @@ Public Class frmMain
     End Sub
 
     Private Sub RunImportBackupByGame(ByVal oImportBackupList As Hashtable)
-        PauseScan()
+        eCurrentOperation = eOperation.Import
+        OperationStarted()
         oBackup.ImportBackupFilesByGame(oImportBackupList)
-        ResumeScan()
+        OperationEnded()
     End Sub
 
     Private Sub RunImportBackupByFile(ByVal sFilesToImport As String())
-        PauseScan()
+        eCurrentOperation = eOperation.Import
+        OperationStarted()
         oBackup.ImportBackupFiles(sFilesToImport)
-        ResumeScan()
+        OperationEnded()
     End Sub
 
     Private Function DoMultiGameCheck() As Boolean

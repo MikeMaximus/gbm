@@ -16,15 +16,6 @@ Public Class mgrMetadata
         End Set
     End Property
 
-    Property CancelOperation As Boolean
-        Get
-            Return bCancelOperation
-        End Get
-        Set(value As Boolean)
-            bCancelOperation = value
-        End Set
-    End Property
-
     Public Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
 
     Public Function ImportandDeserialize(ByRef oBackupMetadata As BackupMetadata) As Boolean
@@ -80,27 +71,20 @@ Public Class mgrMetadata
                     prs7z.Start()
                     RaiseEvent UpdateLog(mgrMetadata_InProgress, False, ToolTipIcon.Info, True)
                     While Not prs7z.StandardOutput.EndOfStream
-                        If CancelOperation Then
-                            prs7z.Kill()
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Cancel, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
-                            Exit While
-                        End If
                         sOutput &= prs7z.StandardOutput.ReadLine() & vbCrLf
                     End While
                     prs7z.WaitForExit()
-                    If Not CancelOperation Then
-                        Select Case prs7z.ExitCode
-                            Case 0
-                                bOperationCompleted = True
-                            Case 1
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), True, ToolTipIcon.Warning, True)
-                                bOperationCompleted = True
-                            Case 2
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FatalError, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
-                            Case 7
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_CommandFailure, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
-                        End Select
-                    End If
+                    Select Case prs7z.ExitCode
+                        Case 0
+                            bOperationCompleted = True
+                        Case 1
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), True, ToolTipIcon.Warning, True)
+                            bOperationCompleted = True
+                        Case 2
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FatalError, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
+                        Case 7
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_CommandFailure, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
+                    End Select
                     prs7z.Dispose()
                 Else
                     RaiseEvent UpdateLog(App_Invalid7zDetected, True, ToolTipIcon.Error, True)
@@ -131,20 +115,13 @@ Public Class mgrMetadata
                     prs7z.Start()
                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrMetaData_ExtractingFromArchive, Path.GetFileName(sBackupFileWithPath)), False, ToolTipIcon.Info, True)
                     While Not prs7z.StandardOutput.EndOfStream
-                        If CancelOperation Then
-                            prs7z.Kill()
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Cancel, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
-                            Exit While
-                        End If
                         sOutput &= prs7z.StandardOutput.ReadLine() & vbCrLf
                     End While
                     prs7z.WaitForExit()
-                    If Not CancelOperation Then
-                        If prs7z.ExitCode = 0 Then
-                            bOperationCompleted = True
-                        Else
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), True, ToolTipIcon.Warning, True)
-                        End If
+                    If prs7z.ExitCode = 0 Then
+                        bOperationCompleted = True
+                    Else
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), True, ToolTipIcon.Warning, True)
                     End If
                     prs7z.Dispose()
                 Else
@@ -179,27 +156,20 @@ Public Class mgrMetadata
                     prs7z.Start()
                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrMetaData_CheckingArchive, Path.GetFileName(sBackupFileWithPath)), False, ToolTipIcon.Info, True)
                     While Not prs7z.StandardOutput.EndOfStream
-                        If CancelOperation Then
-                            prs7z.Kill()
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Cancel, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
-                            Exit While
-                        End If
                         sOutput &= prs7z.StandardOutput.ReadLine() & vbCrLf
                     End While
                     prs7z.WaitForExit()
-                    If Not CancelOperation Then
-                        Select Case prs7z.ExitCode
-                            Case 0
-                                bOperationCompleted = True
-                            Case 1
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), True, ToolTipIcon.Warning, True)
-                                bOperationCompleted = True
-                            Case 2
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FatalError, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
-                            Case 7
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_CommandFailure, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
-                        End Select
-                    End If
+                    Select Case prs7z.ExitCode
+                        Case 0
+                            bOperationCompleted = True
+                        Case 1
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), True, ToolTipIcon.Warning, True)
+                            bOperationCompleted = True
+                        Case 2
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FatalError, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
+                        Case 7
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_CommandFailure, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
+                    End Select
                     prs7z.Dispose()
                 Else
                     RaiseEvent UpdateLog(App_Invalid7zDetected, True, ToolTipIcon.Error, True)

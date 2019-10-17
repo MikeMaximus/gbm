@@ -26,6 +26,7 @@ Public Class mgrBackup
 
     Public Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
     Public Event UpdateBackupInfo(oGame As clsGame)
+    Public Event UpdateImportInfo(sPath As String)
     Public Event SetLastAction(sMessage As String)
 
     Public WithEvents oMetadata As New mgrMetadata
@@ -268,6 +269,7 @@ Public Class mgrBackup
         oMetadata.Settings = Settings
 
         For Each sFileToImport As String In sFileList
+            RaiseEvent UpdateImportInfo(sFileToImport)
             bContinue = True
             oBackup = New clsBackup
 
@@ -280,6 +282,7 @@ Public Class mgrBackup
                         If oMetadata.ImportandDeserialize(oBackupMetadata) Then
                             oGame = oBackupMetadata.Game.ConvertClass
                             oBackup = oBackupMetadata.CreateBackupInfo
+
                             If Not mgrMonitorList.DoDuplicateListCheck(oGame.ID) Then
                                 Dim oTagsToAdd As New Hashtable
                                 oTagsToAdd.Add(0, oGame)
@@ -341,6 +344,10 @@ Public Class mgrBackup
                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportCancel, sFileToImport), False, ToolTipIcon.Error, True)
                 End If
             End If
+
+            If CancelOperation Then
+                Exit For
+            End If
         Next
 
         If iGamesAdded > 0 Then
@@ -368,6 +375,7 @@ Public Class mgrBackup
             bContinue = True
             bMatch = False
             sFileToImport = CStr(de.Key)
+            RaiseEvent UpdateImportInfo(sFileToImport)
             oGame = DirectCast(de.Value, clsGame)
             oBackup = New clsBackup
 
@@ -441,6 +449,10 @@ Public Class mgrBackup
                 Else
                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportCancel, sFileToImport), False, ToolTipIcon.Error, True)
                 End If
+            End If
+
+            If CancelOperation Then
+                Exit For
             End If
         Next
     End Sub
