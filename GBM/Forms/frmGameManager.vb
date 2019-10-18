@@ -720,6 +720,23 @@ Public Class frmGameManager
 
     End Sub
 
+    Private Sub OpenLinks()
+        Dim frm As New frmConfigLinks
+        Dim oApp As clsGame
+        Dim sMonitorIDs As New List(Of String)
+
+        For Each oData In lstGames.SelectedItems
+            oApp = DirectCast(GameData(oData.Key), clsGame)
+            sMonitorIDs.Add(oApp.ID)
+        Next
+        frm.GameName = CurrentGame.Name
+        frm.IDList = sMonitorIDs
+        frm.ShowDialog()
+
+        'Sync
+        mgrMonitorList.SyncMonitorLists(Settings)
+    End Sub
+
     Public Sub OpenWineConfiguration()
         Dim frm As New frmWineConfiguration
         frm.Settings = oSettings
@@ -1062,6 +1079,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
                 btnMarkAsRestored.Enabled = False
+                btnLinks.Enabled = False
                 btnRestore.Enabled = False
                 btnImportBackup.Enabled = False
                 btnDeleteBackup.Enabled = False
@@ -1096,6 +1114,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
                 btnMarkAsRestored.Enabled = False
+                btnLinks.Enabled = False
                 btnRestore.Enabled = False
                 btnImportBackup.Enabled = False
                 btnDeleteBackup.Enabled = False
@@ -1116,6 +1135,7 @@ Public Class frmGameManager
                 chkMonitorOnly.Enabled = True
                 grpExtra.Enabled = True
                 grpStats.Enabled = True
+                btnLinks.Enabled = True
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
                 btnAdd.Enabled = True
@@ -1147,6 +1167,7 @@ Public Class frmGameManager
                 btnBackup.Enabled = False
                 btnRestore.Enabled = False
                 btnMarkAsRestored.Enabled = False
+                btnLinks.Enabled = False
                 btnTags.Enabled = False
                 btnProcesses.Enabled = False
                 lblTags.Visible = False
@@ -1180,6 +1201,7 @@ Public Class frmGameManager
                 btnBackup.Enabled = True
                 btnRestore.Enabled = True
                 btnMarkAsRestored.Enabled = True
+                btnLinks.Enabled = True
                 btnTags.Enabled = True
                 btnProcesses.Enabled = True
                 lblTags.Visible = False
@@ -1984,6 +2006,10 @@ Public Class frmGameManager
 
     Private Sub btnTags_Click(sender As Object, e As EventArgs) Handles btnTags.Click
         OpenTags()
+    End Sub
+
+    Private Sub btnLinks_Click(sender As Object, e As EventArgs) Handles btnLinks.Click
+        OpenLinks()
     End Sub
 
     Private Sub btnProcesses_Click(sender As Object, e As EventArgs) Handles btnProcesses.Click

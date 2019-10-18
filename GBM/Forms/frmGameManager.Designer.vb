@@ -114,6 +114,7 @@ Partial Class frmGameManager
         Me.cmsOpenBackup = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsOpenBackupFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsOpenBackupFolder = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnLinks = New System.Windows.Forms.Button()
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -995,11 +996,21 @@ Partial Class frmGameManager
         Me.cmsOpenBackupFolder.Size = New System.Drawing.Size(82, 22)
         Me.cmsOpenBackupFolder.Text = "F&older"
         '
+        'btnLinks
+        '
+        Me.btnLinks.Location = New System.Drawing.Point(248, 626)
+        Me.btnLinks.Name = "btnLinks"
+        Me.btnLinks.Size = New System.Drawing.Size(175, 23)
+        Me.btnLinks.TabIndex = 21
+        Me.btnLinks.Text = "&Link Configurations..."
+        Me.btnLinks.UseVisualStyleBackColor = True
+        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 661)
+        Me.Controls.Add(Me.btnLinks)
         Me.Controls.Add(Me.btnProcesses)
         Me.Controls.Add(Me.lblQuickFilter)
         Me.Controls.Add(Me.txtQuickFilter)
@@ -1136,4 +1147,5 @@ Partial Class frmGameManager
     Friend WithEvents cmsOpenBackup As ContextMenuStrip
     Friend WithEvents cmsOpenBackupFile As ToolStripMenuItem
     Friend WithEvents cmsOpenBackupFolder As ToolStripMenuItem
+    Friend WithEvents btnLinks As Button
 End Class

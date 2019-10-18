@@ -331,7 +331,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-10-17T02:16:35
+        '''  Looks up a localized string similar to 2019-10-18T17:12:20
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1039,6 +1039,69 @@ Namespace My.Resources
         Friend ReadOnly Property frmChooseGame_lblChoose() As String
             Get
                 Return ResourceManager.GetString("frmChooseGame_lblChoose", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &gt;.
+        '''</summary>
+        Friend ReadOnly Property frmConfigLinks_btnAdd() As String
+            Get
+                Return ResourceManager.GetString("frmConfigLinks_btnAdd", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Close.
+        '''</summary>
+        Friend ReadOnly Property frmConfigLinks_btnClose() As String
+            Get
+                Return ResourceManager.GetString("frmConfigLinks_btnClose", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &lt;.
+        '''</summary>
+        Friend ReadOnly Property frmConfigLinks_btnRemove() As String
+            Get
+                Return ResourceManager.GetString("frmConfigLinks_btnRemove", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Edit Configuration Links for Multiple Games.
+        '''</summary>
+        Friend ReadOnly Property frmConfigLinks_FormNameMulti() As String
+            Get
+                Return ResourceManager.GetString("frmConfigLinks_FormNameMulti", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Edit Configuration Links for [PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmConfigLinks_FormNameSingle() As String
+            Get
+                Return ResourceManager.GetString("frmConfigLinks_FormNameSingle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Available Configurations.
+        '''</summary>
+        Friend ReadOnly Property frmConfigLinks_lblConfigs() As String
+            Get
+                Return ResourceManager.GetString("frmConfigLinks_lblConfigs", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Linked Configurations.
+        '''</summary>
+        Friend ReadOnly Property frmConfigLinks_lblLinkedConfigs() As String
+            Get
+                Return ResourceManager.GetString("frmConfigLinks_lblLinkedConfigs", resourceCulture)
             End Get
         End Property
         

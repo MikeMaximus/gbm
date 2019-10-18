@@ -16,6 +16,7 @@
     Private bRecurseSubFolders As Boolean
     Private iOS As clsGame.eOS
     Private oTags As List(Of Tag)
+    Private oConfigLinks As List(Of ConfigLink)
 
     Property ID As String
         Set(value As String)
@@ -170,6 +171,14 @@
         End Set
     End Property
 
+    Property ConfigLinks As List(Of ConfigLink)
+        Get
+            Return oConfigLinks
+        End Get
+        Set(value As List(Of ConfigLink))
+            oConfigLinks = value
+        End Set
+    End Property
     Public Function ConvertClass() As clsGame
         Dim oGame As New clsGame
 

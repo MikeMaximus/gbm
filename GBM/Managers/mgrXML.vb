@@ -52,6 +52,10 @@ Public Class mgrXML
                 oGame.ImportTags.Add(t)
             Next
 
+            For Each c As ConfigLink In g.ConfigLinks
+                oGame.ImportConfigLinks.Add(c)
+            Next
+
             'This should be wrapped just in case we get some bad data
             Try
                 hshList.Add(oGame.ID, oGame)

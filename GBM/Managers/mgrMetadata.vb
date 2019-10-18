@@ -39,7 +39,7 @@ Public Class mgrMetadata
         Dim oBackupMetadata As BackupMetadata
 
         Try
-            oBackupMetadata = New BackupMetadata(mgrCommon.AppVersion, mgrCommon.DateToUnix(dTimeStamp), sUpdatedBy, oGame.ConvertToXMLGame)
+            oBackupMetadata = New BackupMetadata(mgrCommon.AppVersion, mgrCommon.DateToUnix(dTimeStamp), sUpdatedBy, oGame.ConvertClass)
             oSerializer = New XmlSerializer(oBackupMetadata.GetType())
             oWriter = New StreamWriter(sLocation)
             oSerializer.Serialize(oWriter.BaseStream, oBackupMetadata)

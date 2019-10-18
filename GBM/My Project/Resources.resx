@@ -2470,4 +2470,25 @@
   <data name="frmMain_ImportInProgress" xml:space="preserve">
     <value>Import in Progress...</value>
   </data>
+  <data name="frmConfigLinks_btnAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmConfigLinks_btnClose" xml:space="preserve">
+    <value>&amp;Close</value>
+  </data>
+  <data name="frmConfigLinks_btnRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmConfigLinks_FormNameMulti" xml:space="preserve">
+    <value>Edit Configuration Links for Multiple Games</value>
+  </data>
+  <data name="frmConfigLinks_FormNameSingle" xml:space="preserve">
+    <value>Edit Configuration Links for [PARAM]</value>
+  </data>
+  <data name="frmConfigLinks_lblConfigs" xml:space="preserve">
+    <value>Available Configurations</value>
+  </data>
+  <data name="frmConfigLinks_lblLinkedConfigs" xml:space="preserve">
+    <value>Linked Configurations</value>
+  </data>
 </root>

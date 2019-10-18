@@ -27,6 +27,7 @@ Public Class clsGame
     Private bRecurseSubFolders As Boolean = True
     Private iOS As eOS = mgrCommon.GetCurrentOS()
     Private oImportTags As New List(Of Tag)
+    Private oImportConfigLinks As New List(Of ConfigLink)
     Private bImportUpdate As Boolean = False
     Private oCompiledRegEx As Regex
 
@@ -301,6 +302,15 @@ Public Class clsGame
         End Set
     End Property
 
+    Property ImportConfigLinks As List(Of ConfigLink)
+        Get
+            Return oImportConfigLinks
+        End Get
+        Set(value As List(Of ConfigLink))
+            oImportConfigLinks = value
+        End Set
+    End Property
+
     Property ImportUpdate As Boolean
         Get
             Return bImportUpdate
@@ -339,7 +349,7 @@ Public Class clsGame
         End Get
     End Property
 
-    Public Function ConvertToXMLGame() As Game
+    Public Function ConvertClass() As Game
         Dim oGame As New Game
 
         oGame.ID = ID
@@ -359,6 +369,7 @@ Public Class clsGame
         oGame.RecurseSubFolders = RecurseSubFolders
         oGame.OS = OS
         oGame.Tags = mgrGameTags.GetTagsByGameForExport(ID)
+        oGame.ConfigLinks = mgrConfigLinks.GetConfigLinksByGameForExport(ID)
 
         Return oGame
     End Function
