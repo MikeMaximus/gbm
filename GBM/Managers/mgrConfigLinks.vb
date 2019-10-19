@@ -278,6 +278,41 @@
         End If
 
         Return hshDeleteItems.Count + hshSyncItems.Count
-
     End Function
+
+    Public Shared Function CheckForLinks(ByVal sMonitorID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Remote) As Boolean
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim oData As DataSet
+        Dim sSQL As String
+        Dim hshParams As New Hashtable
+
+        sSQL = "SELECT * FROM configlinks "
+        sSQL &= "WHERE MonitorID = @MonitorID"
+
+        hshParams.Add("MonitorID", sMonitorID)
+
+        oData = oDatabase.ReadParamData(sSQL, hshParams)
+
+        If oData.Tables(0).Rows.Count > 0 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Public Shared Sub BuildLinkChain(ByVal sMonitorID As String, ByRef oLinkChain As List(Of String))
+        Dim oCurrentLinks As List(Of clsConfigLink) = GetConfigsLinksByID(sMonitorID)
+
+        'Add start of chain
+        If Not oLinkChain.Contains(sMonitorID) Then
+            oLinkChain.Add(sMonitorID)
+        End If
+
+        For Each oConfigLink As clsConfigLink In oCurrentLinks
+            If Not oLinkChain.Contains(oConfigLink.LinkID) Then
+                oLinkChain.Add(oConfigLink.LinkID)
+                BuildLinkChain(oConfigLink.LinkID, oLinkChain)
+            End If
+        Next
+    End Sub
 End Class

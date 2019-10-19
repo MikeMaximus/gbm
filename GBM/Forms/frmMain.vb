@@ -224,11 +224,29 @@ Public Class frmMain
         Dim bTriggerReload As Boolean = False
         Dim bOSVerified As Boolean
         Dim bPathVerified As Boolean
+        Dim oQueue As New Hashtable
         eCurrentOperation = eOperation.Restore
         OperationStarted()
 
+        'Continue to allow the restore specific backup files, but only with non-linked configurations
+        'FIXME: Also, this is a really shit block of code.
+        If oRestoreList.Count = 1 Then
+            For Each de As DictionaryEntry In oRestoreList
+                oRestoreInfo = DirectCast(de.Value, clsBackup)
+                If mgrConfigLinks.CheckForLinks(oRestoreInfo.MonitorID) Then
+                    If mgrCommon.ShowMessage(mgrCommon.FormatString(frmMain_RestoreLinkWarning, oRestoreInfo.CroppedName), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                        GetRestoreQueue(oRestoreList, oQueue)
+                    End If
+                Else
+                        oQueue = oRestoreList
+                End If
+            Next
+        Else
+            GetRestoreQueue(oRestoreList, oQueue)
+        End If
+
         'Build Restore List
-        For Each de As DictionaryEntry In oRestoreList
+        For Each de As DictionaryEntry In oQueue
             bPathVerified = False
             bOSVerified = False
             oGame = DirectCast(de.Key, clsGame)
@@ -273,12 +291,15 @@ Public Class frmMain
         Dim bOSVerified As Boolean
         Dim bPathVerified As Boolean
         Dim oReadyList As New List(Of clsGame)
+        Dim oQueue As New List(Of clsGame)
 
         eCurrentOperation = eOperation.Backup
         OperationStarted()
 
+        GetBackupQueue(oBackupList, oQueue, False)
+
         'Build Backup List
-        For Each oGame In oBackupList
+        For Each oGame In oQueue
             bNoAuto = False
             bOSVerified = False
             bPathVerified = False
@@ -359,8 +380,55 @@ Public Class frmMain
 
     End Function
 
+    Private Sub GetRestoreQueue(ByVal oRootList As Hashtable, ByRef oRestoreList As Hashtable)
+        Dim oLinkChain As New List(Of String)
+        Dim hshLatestManifest As SortedList = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
+        Dim hshGame As Hashtable
+        Dim oGame As clsGame
+        Dim oBackup As clsBackup
+
+        For Each de As DictionaryEntry In oRootList
+            oGame = DirectCast(de.Key, clsGame)
+            mgrConfigLinks.BuildLinkChain(oGame.ID, oLinkChain)
+        Next
+
+        For Each sID As String In oLinkChain
+            oBackup = DirectCast(hshLatestManifest(sID), clsBackup)
+            hshGame = mgrMonitorList.DoListGetbyMonitorID(sID)
+            If hshGame.Count = 1 Then
+                oGame = DirectCast(hshGame(0), clsGame)
+                UpdateLog(mgrCommon.FormatString(frmMain_RestoreQueue, New String() {oGame.Name, oBackup.DateUpdated.ToString}), False, ToolTipIcon.Info, True)
+                oRestoreList.Add(oGame, oBackup)
+            End If
+        Next
+    End Sub
+
+    Private Sub GetBackupQueue(ByVal oRootList As List(Of clsGame), ByRef oBackupList As List(Of clsGame), Optional ByVal bDoPreCheck As Boolean = True)
+        Dim oLinkChain As New List(Of String)
+        Dim hshGame As Hashtable
+        Dim oGame As clsGame
+
+        For Each oRoot As clsGame In oRootList
+            mgrConfigLinks.BuildLinkChain(oRoot.ID, oLinkChain)
+        Next
+
+        For Each sID As String In oLinkChain
+            hshGame = mgrMonitorList.DoListGetbyMonitorID(sID)
+            If hshGame.Count = 1 Then
+                oGame = DirectCast(hshGame(0), clsGame)
+                UpdateLog(mgrCommon.FormatString(frmMain_BackupQueue, oGame.Name), False, ToolTipIcon.Info, True)
+                If bDoPreCheck Then
+                    If oBackup.CheckBackupPrereq(oGame) Then oBackupList.Add(oGame)
+                Else
+                    oBackupList.Add(oGame)
+                End If
+            End If
+        Next
+    End Sub
+
     Private Sub RunBackup()
         Dim bDoBackup As Boolean
+        Dim oRootList As New List(Of clsGame)
         Dim oReadyList As New List(Of clsGame)
 
         eCurrentOperation = eOperation.Backup
@@ -394,12 +462,14 @@ Public Class frmMain
         End If
 
         If bDoBackup Then
-            If Not oBackup.CheckBackupPrereq(oProcess.GameInfo) Then
+            oRootList.Add(oProcess.GameInfo)
+            GetBackupQueue(oRootList, oReadyList)
+
+            If oReadyList.Count = 0 Then
                 SetLastAction(mgrCommon.FormatString(frmMain_ErrorBackupCancel, oProcess.GameInfo.CroppedName))
                 OperationEnded()
             Else
-                'Run the backup
-                oReadyList.Add(oProcess.GameInfo)
+                'Run the backup(s)
                 Dim trd As New System.Threading.Thread(AddressOf ExecuteBackup)
                 trd.IsBackground = True
                 trd.Start(oReadyList)

@@ -331,7 +331,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-10-18T17:12:20
+        '''  Looks up a localized string similar to 2019-10-19T15:47:29
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3203,6 +3203,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Adding [PARAM] to backup queue..
+        '''</summary>
+        Friend ReadOnly Property frmMain_BackupQueue() As String
+            Get
+                Return ResourceManager.GetString("frmMain_BackupQueue", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Cancel.
         '''</summary>
         Friend ReadOnly Property frmMain_btnCancelOperation() As String
@@ -4283,6 +4292,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] is linked to other game configurations, only the latest backup of each linked game will be restored.[BR][BR]Do you want to continue with the restore?.
+        '''</summary>
+        Friend ReadOnly Property frmMain_RestoreLinkWarning() As String
+            Get
+                Return ResourceManager.GetString("frmMain_RestoreLinkWarning", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] new saved game backups are being automatically restored..
         '''</summary>
         Friend ReadOnly Property frmMain_RestoreNotificationMulti() As String
@@ -4306,6 +4324,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_RestoreNotReady() As String
             Get
                 Return ResourceManager.GetString("frmMain_RestoreNotReady", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Adding [PARAM] ([PARAM]) to restore queue..
+        '''</summary>
+        Friend ReadOnly Property frmMain_RestoreQueue() As String
+            Get
+                Return ResourceManager.GetString("frmMain_RestoreQueue", resourceCulture)
             End Get
         End Property
         
@@ -6675,7 +6702,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Checking [PARAM] for metadata....
+        '''  Looks up a localized string similar to Checking [PARAM] for metadata..
         '''</summary>
         Friend ReadOnly Property mgrMetaData_CheckingArchive() As String
             Get
@@ -6684,7 +6711,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Extracting metadata from [PARAM]....
+        '''  Looks up a localized string similar to Extracting metadata from [PARAM]..
         '''</summary>
         Friend ReadOnly Property mgrMetaData_ExtractingFromArchive() As String
             Get
@@ -6693,7 +6720,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Adding metadata to backup file....
+        '''  Looks up a localized string similar to Adding metadata to backup file..
         '''</summary>
         Friend ReadOnly Property mgrMetadata_InProgress() As String
             Get

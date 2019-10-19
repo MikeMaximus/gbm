@@ -2393,7 +2393,7 @@
     <value>Backup Aborted.  An error occured while creating backup metadata for [PARAM].</value>
   </data>
   <data name="mgrMetadata_InProgress" xml:space="preserve">
-    <value>Adding metadata to backup file...</value>
+    <value>Adding metadata to backup file.</value>
   </data>
   <data name="App_OperationType_Backup" xml:space="preserve">
     <value>Backup</value>
@@ -2417,10 +2417,10 @@
     <value>[PARAM] operation encountered an unexpected error.[BR][BR][PARAM]</value>
   </data>
   <data name="mgrMetaData_CheckingArchive" xml:space="preserve">
-    <value>Checking [PARAM] for metadata...</value>
+    <value>Checking [PARAM] for metadata.</value>
   </data>
   <data name="mgrMetaData_ExtractingFromArchive" xml:space="preserve">
-    <value>Extracting metadata from [PARAM]...</value>
+    <value>Extracting metadata from [PARAM].</value>
   </data>
   <data name="mgrBackup_ErrorImportCancel" xml:space="preserve">
     <value>The import of [PARAM] was cancelled.</value>
@@ -2490,5 +2490,14 @@
   </data>
   <data name="frmConfigLinks_lblLinkedConfigs" xml:space="preserve">
     <value>Linked Configurations</value>
+  </data>
+  <data name="frmMain_BackupQueue" xml:space="preserve">
+    <value>Adding [PARAM] to backup queue.</value>
+  </data>
+  <data name="frmMain_RestoreLinkWarning" xml:space="preserve">
+    <value>[PARAM] is linked to other game configurations, only the latest backup of each linked game will be restored.[BR][BR]Do you want to continue with the restore?</value>
+  </data>
+  <data name="frmMain_RestoreQueue" xml:space="preserve">
+    <value>Adding [PARAM] ([PARAM]) to restore queue.</value>
   </data>
 </root>
