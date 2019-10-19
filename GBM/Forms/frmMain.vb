@@ -393,12 +393,14 @@ Public Class frmMain
         Next
 
         For Each sID As String In oLinkChain
-            oBackup = DirectCast(hshLatestManifest(sID), clsBackup)
-            hshGame = mgrMonitorList.DoListGetbyMonitorID(sID)
-            If hshGame.Count = 1 Then
-                oGame = DirectCast(hshGame(0), clsGame)
-                UpdateLog(mgrCommon.FormatString(frmMain_RestoreQueue, New String() {oGame.Name, oBackup.DateUpdated.ToString}), False, ToolTipIcon.Info, True)
-                oRestoreList.Add(oGame, oBackup)
+            If hshLatestManifest.Contains(sID) Then
+                oBackup = DirectCast(hshLatestManifest(sID), clsBackup)
+                hshGame = mgrMonitorList.DoListGetbyMonitorID(sID)
+                If hshGame.Count = 1 Then
+                    oGame = DirectCast(hshGame(0), clsGame)
+                    UpdateLog(mgrCommon.FormatString(frmMain_RestoreQueue, New String() {oGame.Name, oBackup.DateUpdated.ToString}), False, ToolTipIcon.Info, True)
+                    oRestoreList.Add(oGame, oBackup)
+                End If
             End If
         Next
     End Sub
