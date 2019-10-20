@@ -4,7 +4,10 @@ Public Class frmConfigLinks
 
     Private sMonitorIDs As List(Of String)
     Private sGameName As String = String.Empty
+    Private bNewMode As Boolean = False
+    Private oConfigLinkList As List(Of KeyValuePair(Of String, String))
     Private WithEvents tmFilterTimer As Timer
+
 
     Public Property IDList As List(Of String)
         Get
@@ -21,6 +24,24 @@ Public Class frmConfigLinks
         End Get
         Set(value As String)
             sGameName = value
+        End Set
+    End Property
+
+    Public Property NewMode As Boolean
+        Get
+            Return bNewMode
+        End Get
+        Set(value As Boolean)
+            bNewMode = value
+        End Set
+    End Property
+
+    Public Property ConfigLinkList As List(Of KeyValuePair(Of String, String))
+        Get
+            Return oConfigLinkList
+        End Get
+        Set(value As List(Of KeyValuePair(Of String, String)))
+            oConfigLinkList = value
         End Set
     End Property
 
@@ -41,7 +62,7 @@ Public Class frmConfigLinks
                 oConfigLinks.Add(oConfigLink)
             Next
 
-            mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
+            If Not bNewMode Then mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
 
             lstLinks.Items.Add(oData)
             lstConfigs.Items.Remove(oData)
@@ -61,7 +82,7 @@ Public Class frmConfigLinks
                     oConfigLinks.Add(oConfigLink)
                 Next
 
-                mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
+                If Not bNewMode Then mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
 
                 lstLinks.Items.Add(kp)
                 lstConfigs.Items.Remove(kp)
@@ -87,7 +108,7 @@ Public Class frmConfigLinks
                 oConfigLinks.Add(oConfigLink)
             Next
 
-            mgrConfigLinks.DoConfigLinkDelete(oConfigLinks)
+            If Not bNewMode Then mgrConfigLinks.DoConfigLinkDelete(oConfigLinks)
 
             lstLinks.Items.Remove(oData)
             lstConfigs.Items.Add(oData)
@@ -107,7 +128,7 @@ Public Class frmConfigLinks
                     oConfigLinks.Add(oConfigLink)
                 Next
 
-                mgrConfigLinks.DoConfigLinkDelete(oConfigLinks)
+                If Not bNewMode Then mgrConfigLinks.DoConfigLinkDelete(oConfigLinks)
 
                 lstLinks.Items.Remove(kp)
                 lstConfigs.Items.Add(kp)
@@ -135,23 +156,35 @@ Public Class frmConfigLinks
         lstLinks.ValueMember = "Key"
         lstLinks.DisplayMember = "Value"
 
-        hshLinks = mgrConfigLinks.GetConfigLinksByGameMulti(IDList)
+        If bNewMode Then
+            For Each kp As KeyValuePair(Of String, String) In oConfigLinkList
+                If hshConfigs.ContainsKey(kp.Key) Then
+                    hshConfigs.Remove(kp.Key)
+                End If
+            Next
+
+            For Each kp As KeyValuePair(Of String, String) In oConfigLinkList
+                lstLinks.Items.Add(kp)
+            Next
+        Else
+            hshLinks = mgrConfigLinks.GetConfigLinksByGameMulti(IDList)
+
+            For Each de As DictionaryEntry In hshLinks
+                If hshConfigs.ContainsKey(de.Key) Then
+                    hshConfigs.Remove(de.Key)
+                End If
+            Next
+
+            For Each de As DictionaryEntry In hshLinks
+                oData = New KeyValuePair(Of String, String)(de.Key, de.Value)
+                lstLinks.Items.Add(oData)
+            Next
+        End If
 
         For Each sID As String In IDList
             If hshConfigs.Contains(sID) Then
                 hshConfigs.Remove(sID)
             End If
-        Next
-
-        For Each de As DictionaryEntry In hshLinks
-            If hshConfigs.ContainsKey(de.Key) Then
-                hshConfigs.Remove(de.Key)
-            End If
-        Next
-
-        For Each de As DictionaryEntry In hshLinks
-            oData = New KeyValuePair(Of String, String)(de.Key, de.Value)
-            lstLinks.Items.Add(oData)
         Next
 
         For Each de As DictionaryEntry In hshConfigs
@@ -169,6 +202,14 @@ Public Class frmConfigLinks
         Next
     End Sub
 
+    Private Sub BuildConfigLinkList()
+        Dim oData As KeyValuePair(Of String, String)
+        oConfigLinkList.Clear()
+        For Each oData In lstLinks.Items
+            oConfigLinkList.Add(oData)
+        Next
+    End Sub
+
     Private Sub SetForm()
         'Set Form Name
         If IDList.Count > 1 Then
@@ -180,6 +221,7 @@ Public Class frmConfigLinks
 
         'Set Form Text
         btnClose.Text = frmConfigLinks_btnClose
+        lblFilter.Text = frmConfigLinks_lblFilter
         lblConfigs.Text = frmConfigLinks_lblConfigs
         lblLinkedConfigs.Text = frmConfigLinks_lblLinkedConfigs
         btnRemove.Text = frmConfigLinks_btnRemove
@@ -197,6 +239,7 @@ Public Class frmConfigLinks
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+        If bNewMode Then BuildConfigLinkList()
         Me.Close()
     End Sub
 

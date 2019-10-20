@@ -2227,8 +2227,8 @@
   <data name="mgrBackup_ImportSuccess" xml:space="preserve">
     <value>Imported backup file [PARAM] for [PARAM].</value>
   </data>
-  <data name="frmGameManager_btnProcesses" xml:space="preserve">
-    <value>Pro&amp;cesses...</value>
+  <data name="frmGameManager_btnLink" xml:space="preserve">
+    <value>&amp;Link</value>
   </data>
   <data name="frmVariableManager_ErrorVariableReserved" xml:space="preserve">
     <value>[PARAM] is a reserved variable, you must enter a different name.</value>
@@ -2499,5 +2499,14 @@
   </data>
   <data name="frmMain_RestoreQueue" xml:space="preserve">
     <value>Adding [PARAM] ([PARAM]) to restore queue.</value>
+  </data>
+  <data name="frmConfigLinks_lblFilter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="frmGameManager_cmsConfiguration" xml:space="preserve">
+    <value>&amp;Configuration...</value>
+  </data>
+  <data name="frmGameManager_cmsProcess" xml:space="preserve">
+    <value>&amp;Process...</value>
   </data>
 </root>

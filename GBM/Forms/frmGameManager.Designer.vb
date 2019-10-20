@@ -109,12 +109,14 @@ Partial Class frmGameManager
         Me.cmsDeleteBackup = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsDeleteOne = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btnProcesses = New System.Windows.Forms.Button()
+        Me.btnLink = New System.Windows.Forms.Button()
         Me.ttFullPath = New System.Windows.Forms.ToolTip(Me.components)
         Me.cmsOpenBackup = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsOpenBackupFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsOpenBackupFolder = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btnLinks = New System.Windows.Forms.Button()
+        Me.cmsLink = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmsProcess = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsConfiguration = New System.Windows.Forms.ToolStripMenuItem()
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -125,6 +127,7 @@ Partial Class frmGameManager
         Me.cmsImport.SuspendLayout()
         Me.cmsDeleteBackup.SuspendLayout()
         Me.cmsOpenBackup.SuspendLayout()
+        Me.cmsLink.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnAdd
@@ -962,14 +965,14 @@ Partial Class frmGameManager
         Me.cmsDeleteAll.Size = New System.Drawing.Size(114, 22)
         Me.cmsDeleteAll.Text = "&All Files"
         '
-        'btnProcesses
+        'btnLink
         '
-        Me.btnProcesses.Location = New System.Drawing.Point(454, 437)
-        Me.btnProcesses.Name = "btnProcesses"
-        Me.btnProcesses.Size = New System.Drawing.Size(75, 23)
-        Me.btnProcesses.TabIndex = 12
-        Me.btnProcesses.Text = "Pro&cesses..."
-        Me.btnProcesses.UseVisualStyleBackColor = True
+        Me.btnLink.Location = New System.Drawing.Point(454, 437)
+        Me.btnLink.Name = "btnLink"
+        Me.btnLink.Size = New System.Drawing.Size(75, 23)
+        Me.btnLink.TabIndex = 12
+        Me.btnLink.Text = "&Link"
+        Me.btnLink.UseVisualStyleBackColor = True
         '
         'ttFullPath
         '
@@ -996,22 +999,30 @@ Partial Class frmGameManager
         Me.cmsOpenBackupFolder.Size = New System.Drawing.Size(82, 22)
         Me.cmsOpenBackupFolder.Text = "F&older"
         '
-        'btnLinks
+        'cmsLink
         '
-        Me.btnLinks.Location = New System.Drawing.Point(248, 626)
-        Me.btnLinks.Name = "btnLinks"
-        Me.btnLinks.Size = New System.Drawing.Size(175, 23)
-        Me.btnLinks.TabIndex = 21
-        Me.btnLinks.Text = "&Link Configurations..."
-        Me.btnLinks.UseVisualStyleBackColor = True
+        Me.cmsLink.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsProcess, Me.cmsConfiguration})
+        Me.cmsLink.Name = "cmsLinks"
+        Me.cmsLink.Size = New System.Drawing.Size(158, 48)
+        '
+        'cmsProcess
+        '
+        Me.cmsProcess.Name = "cmsProcess"
+        Me.cmsProcess.Size = New System.Drawing.Size(157, 22)
+        Me.cmsProcess.Text = "&Process..."
+        '
+        'cmsConfiguration
+        '
+        Me.cmsConfiguration.Name = "cmsConfiguration"
+        Me.cmsConfiguration.Size = New System.Drawing.Size(157, 22)
+        Me.cmsConfiguration.Text = "&Configuration..."
         '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 661)
-        Me.Controls.Add(Me.btnLinks)
-        Me.Controls.Add(Me.btnProcesses)
+        Me.Controls.Add(Me.btnLink)
         Me.Controls.Add(Me.lblQuickFilter)
         Me.Controls.Add(Me.txtQuickFilter)
         Me.Controls.Add(Me.btnExport)
@@ -1052,6 +1063,7 @@ Partial Class frmGameManager
         Me.cmsImport.ResumeLayout(False)
         Me.cmsDeleteBackup.ResumeLayout(False)
         Me.cmsOpenBackup.ResumeLayout(False)
+        Me.cmsLink.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1135,7 +1147,7 @@ Partial Class frmGameManager
     Friend WithEvents txtComments As TextBox
     Friend WithEvents chkRegEx As CheckBox
     Friend WithEvents btnGameID As Button
-    Friend WithEvents btnProcesses As Button
+    Friend WithEvents btnLink As Button
     Friend WithEvents ttFullPath As ToolTip
     Friend WithEvents btnImportBackup As Button
     Friend WithEvents cmsOfficialWindows As ToolStripMenuItem
@@ -1147,5 +1159,7 @@ Partial Class frmGameManager
     Friend WithEvents cmsOpenBackup As ContextMenuStrip
     Friend WithEvents cmsOpenBackupFile As ToolStripMenuItem
     Friend WithEvents cmsOpenBackupFolder As ToolStripMenuItem
-    Friend WithEvents btnLinks As Button
+    Friend WithEvents cmsLink As ContextMenuStrip
+    Friend WithEvents cmsProcess As ToolStripMenuItem
+    Friend WithEvents cmsConfiguration As ToolStripMenuItem
 End Class

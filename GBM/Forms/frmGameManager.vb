@@ -12,6 +12,7 @@ Public Class frmGameManager
     Private oCurrentGame As clsGame
     Private oTagsToSave As New List(Of KeyValuePair(Of String, String))
     Private oProcessesToSave As New List(Of KeyValuePair(Of String, String))
+    Private oConfigLinksToSave As New List(Of KeyValuePair(Of String, String))
     Private bDisableExternalFunctions As Boolean = False
     Private bTriggerBackup As Boolean = False
     Private bTriggerRestore As Boolean = False
@@ -730,21 +731,36 @@ Public Class frmGameManager
 
     End Sub
 
-    Private Sub OpenLinks()
+    Private Sub OpenConfigLinks()
         Dim frm As New frmConfigLinks
         Dim oApp As clsGame
         Dim sMonitorIDs As New List(Of String)
 
-        For Each oData In lstGames.SelectedItems
-            oApp = DirectCast(GameData(oData.Key), clsGame)
-            sMonitorIDs.Add(oApp.ID)
-        Next
-        frm.GameName = CurrentGame.Name
+        If eCurrentMode = eModes.Add Then
+            'Use a dummy ID
+            sMonitorIDs.Add(Guid.NewGuid.ToString)
+            frm.GameName = txtName.Text
+            frm.NewMode = True
+            frm.ConfigLinkList = oConfigLinksToSave
+        Else
+            For Each oData In lstGames.SelectedItems
+                oApp = DirectCast(GameData(oData.Key), clsGame)
+                sMonitorIDs.Add(oApp.ID)
+            Next
+            frm.GameName = CurrentGame.Name
+            frm.NewMode = False
+        End If
+
         frm.IDList = sMonitorIDs
         frm.ShowDialog()
 
-        'Sync
-        mgrMonitorList.SyncMonitorLists(Settings)
+        If eCurrentMode = eModes.Add Then
+            oConfigLinksToSave = frm.ConfigLinkList
+        Else
+            'Sync
+            mgrMonitorList.SyncMonitorLists(Settings)
+            ModeChange()
+        End If
     End Sub
 
     Public Sub OpenWineConfiguration()
@@ -1089,7 +1105,6 @@ Public Class frmGameManager
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
                 btnMarkAsRestored.Enabled = False
-                btnLinks.Enabled = False
                 btnRestore.Enabled = False
                 btnImportBackup.Enabled = False
                 btnDeleteBackup.Enabled = False
@@ -1099,7 +1114,7 @@ Public Class frmGameManager
                 chkMonitorOnly.Checked = False
                 chkRecurseSubFolders.Checked = True
                 btnTags.Enabled = True
-                btnProcesses.Enabled = True
+                btnLink.Enabled = True
                 lblTags.Text = String.Empty
                 lblTags.Visible = True
                 btnInclude.Text = frmGameManager_btnInclude
@@ -1124,14 +1139,13 @@ Public Class frmGameManager
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
                 btnMarkAsRestored.Enabled = False
-                btnLinks.Enabled = False
                 btnRestore.Enabled = False
                 btnImportBackup.Enabled = False
                 btnDeleteBackup.Enabled = False
                 btnOpenBackup.Enabled = False
                 btnOpenRestorePath.Enabled = False
                 btnTags.Enabled = True
-                btnProcesses.Enabled = True
+                btnLink.Enabled = True
                 lblTags.Visible = True
                 btnImport.Enabled = False
                 btnExport.Enabled = False
@@ -1145,14 +1159,13 @@ Public Class frmGameManager
                 chkMonitorOnly.Enabled = True
                 grpExtra.Enabled = True
                 grpStats.Enabled = True
-                btnLinks.Enabled = True
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
                 btnAdd.Enabled = True
                 btnDelete.Enabled = True
                 btnBackup.Enabled = True
                 btnTags.Enabled = True
-                btnProcesses.Enabled = True
+                btnLink.Enabled = True
                 lblTags.Visible = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
@@ -1177,9 +1190,8 @@ Public Class frmGameManager
                 btnBackup.Enabled = False
                 btnRestore.Enabled = False
                 btnMarkAsRestored.Enabled = False
-                btnLinks.Enabled = False
                 btnTags.Enabled = False
-                btnProcesses.Enabled = False
+                btnLink.Enabled = False
                 lblTags.Visible = False
                 btnInclude.Text = frmGameManager_btnInclude
                 btnExclude.Text = frmGameManager_btnExclude
@@ -1211,9 +1223,8 @@ Public Class frmGameManager
                 btnBackup.Enabled = True
                 btnRestore.Enabled = True
                 btnMarkAsRestored.Enabled = True
-                btnLinks.Enabled = True
                 btnTags.Enabled = True
-                btnProcesses.Enabled = True
+                btnLink.Enabled = True
                 lblTags.Visible = False
                 btnImport.Enabled = True
                 btnExport.Enabled = True
@@ -1354,6 +1365,22 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub SaveConfigLinks(ByVal sID As String)
+        Dim oConfigLink As clsConfigLink
+        Dim oConfigLinks As List(Of clsConfigLink)
+
+        If oConfigLinksToSave.Count > 0 Then
+            oConfigLinks = New List(Of clsConfigLink)
+            For Each kp As KeyValuePair(Of String, String) In oConfigLinksToSave
+                oConfigLink = New clsConfigLink
+                oConfigLink.MonitorID = sID
+                oConfigLink.LinkID = kp.Key
+                oConfigLinks.Add(oConfigLink)
+            Next
+            mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
+        End If
+    End Sub
+
     Private Sub SaveProcesses(ByVal sID As String)
         Dim oGameProcess As clsGameProcess
         Dim oGameProcesses As List(Of clsGameProcess)
@@ -1448,6 +1475,7 @@ Public Class frmGameManager
                     mgrMonitorList.DoListAdd(oApp)
                     SaveTags(oApp.ID)
                     SaveProcesses(oApp.ID)
+                    SaveConfigLinks(oApp.ID)
                     eCurrentMode = eModes.View
                 End If
             Case eModes.Edit
@@ -1879,11 +1907,13 @@ Public Class frmGameManager
         chkRegEx.Text = frmGameManager_chkRegEx
         btnGameID.Text = frmGameManager_btnGameID
         btnImportBackup.Text = frmGameManager_btnImportBackup
-        btnProcesses.Text = frmGameManager_btnProcesses
+        btnLink.Text = frmGameManager_btnLink
         lblOS.Text = frmGameManager_lblOS
         btnWineConfig.Text = frmGameManager_btnWineConfig
         cmsOpenBackupFile.Text = frmGameManager_cmsOpenBackupFile
         cmsOpenBackupFolder.Text = frmGameManager_cmsOpenBackupFolder
+        cmsProcess.Text = frmGameManager_cmsProcess
+        cmsConfiguration.Text = frmGameManager_cmsConfiguration
 
         'Init Combos
         Dim oComboItems As New List(Of KeyValuePair(Of Integer, String))
@@ -2025,15 +2055,19 @@ Public Class frmGameManager
         OpenRestorePath()
     End Sub
 
+    Private Sub btnLink_Click(sender As Object, e As EventArgs) Handles btnLink.Click
+        mgrCommon.OpenButtonSubMenu(cmsLink, btnLink)
+    End Sub
+
     Private Sub btnTags_Click(sender As Object, e As EventArgs) Handles btnTags.Click
         OpenTags()
     End Sub
 
-    Private Sub btnLinks_Click(sender As Object, e As EventArgs) Handles btnLinks.Click
-        OpenLinks()
+    Private Sub cmsLink_Click(sender As Object, e As EventArgs) Handles cmsConfiguration.Click
+        OpenConfigLinks()
     End Sub
 
-    Private Sub btnProcesses_Click(sender As Object, e As EventArgs) Handles btnProcesses.Click
+    Private Sub cmsProcess_Click(sender As Object, e As EventArgs) Handles cmsProcess.Click
         OpenProcesses()
     End Sub
 
