@@ -331,7 +331,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-10-19T15:47:29
+        '''  Looks up a localized string similar to 2019-10-20T01:57:04
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2735,6 +2735,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] is linked to another game configuration.  A linked restore cannot be done when selecting an older backup file.[BR][BR]Do you want to continue without restoring any linked configuration(s)?.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_RestoreLinkWarning() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_RestoreLinkWarning", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Unknown.
         '''</summary>
         Friend ReadOnly Property frmGameManager_Unknown() As String
@@ -4288,15 +4297,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_RestoreInProgress() As String
             Get
                 Return ResourceManager.GetString("frmMain_RestoreInProgress", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to [PARAM] is linked to other game configurations, only the latest backup of each linked game will be restored.[BR][BR]Do you want to continue with the restore?.
-        '''</summary>
-        Friend ReadOnly Property frmMain_RestoreLinkWarning() As String
-            Get
-                Return ResourceManager.GetString("frmMain_RestoreLinkWarning", resourceCulture)
             End Get
         End Property
         

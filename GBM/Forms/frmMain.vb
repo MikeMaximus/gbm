@@ -217,7 +217,7 @@ Public Class frmMain
         Return bOSVerified
     End Function
 
-    Private Sub RunRestore(ByVal oRestoreList As Hashtable)
+    Private Sub RunRestore(ByVal oRestoreList As Hashtable, Optional ByVal bIgnoreConfigLinks As Boolean = False)
         Dim oGame As clsGame
         Dim oReadyList As New List(Of clsBackup)
         Dim oRestoreInfo As clsBackup
@@ -228,19 +228,8 @@ Public Class frmMain
         eCurrentOperation = eOperation.Restore
         OperationStarted()
 
-        'Continue to allow the restore specific backup files, but only with non-linked configurations
-        'FIXME: Also, this is a really shit block of code.
-        If oRestoreList.Count = 1 Then
-            For Each de As DictionaryEntry In oRestoreList
-                oRestoreInfo = DirectCast(de.Value, clsBackup)
-                If mgrConfigLinks.CheckForLinks(oRestoreInfo.MonitorID) Then
-                    If mgrCommon.ShowMessage(mgrCommon.FormatString(frmMain_RestoreLinkWarning, oRestoreInfo.CroppedName), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                        GetRestoreQueue(oRestoreList, oQueue)
-                    End If
-                Else
-                        oQueue = oRestoreList
-                End If
-            Next
+        If bIgnoreConfigLinks Then
+            oQueue = oRestoreList
         Else
             GetRestoreQueue(oRestoreList, oQueue)
         End If
@@ -1042,7 +1031,7 @@ Public Class frmMain
 
         'Handle restore trigger
         If frm.TriggerRestore Then
-            RunRestore(frm.RestoreList)
+            RunRestore(frm.RestoreList, frm.IgnoreConfigLinks)
         End If
 
         'Handle import backup trigger

@@ -2494,8 +2494,8 @@
   <data name="frmMain_BackupQueue" xml:space="preserve">
     <value>Adding [PARAM] to backup queue.</value>
   </data>
-  <data name="frmMain_RestoreLinkWarning" xml:space="preserve">
-    <value>[PARAM] is linked to other game configurations, only the latest backup of each linked game will be restored.[BR][BR]Do you want to continue with the restore?</value>
+  <data name="frmGameManager_RestoreLinkWarning" xml:space="preserve">
+    <value>[PARAM] is linked to another game configuration.  A linked restore cannot be done when selecting an older backup file.[BR][BR]Do you want to continue without restoring any linked configuration(s)?</value>
   </data>
   <data name="frmMain_RestoreQueue" xml:space="preserve">
     <value>Adding [PARAM] ([PARAM]) to restore queue.</value>

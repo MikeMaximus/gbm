@@ -16,6 +16,7 @@ Public Class frmGameManager
     Private bTriggerBackup As Boolean = False
     Private bTriggerRestore As Boolean = False
     Private bTriggerImportBackup As Boolean = False
+    Private bIgnoreConfigLinks As Boolean = False
     Private oBackupList As New List(Of clsGame)
     Private oRestoreList As New Hashtable
     Private oImportBackupList As New Hashtable
@@ -139,6 +140,15 @@ Public Class frmGameManager
         End Get
         Set(value As Boolean)
             bTriggerImportBackup = value
+        End Set
+    End Property
+
+    Property IgnoreConfigLinks As Boolean
+        Get
+            Return bIgnoreConfigLinks
+        End Get
+        Set(value As Boolean)
+            bIgnoreConfigLinks = value
         End Set
     End Property
 
@@ -1723,19 +1733,30 @@ Public Class frmGameManager
             If RestoreList.Count = 1 Then
                 bDoRestore = True
                 oGame = New clsGame
+                oBackup = New clsBackup
                 For Each de As DictionaryEntry In RestoreList
                     oGame = DirectCast(de.Key, clsGame)
+                    oBackup = DirectCast(de.Value, clsBackup)
                 Next
 
-                'FIXME: This is a really lazy fix.  This whole function needs a rewrite at some point.
-                'Replace backup entry with currently selected backup item in case the user wants to restore an older backup.       
-                RestoreList.Clear()
-                RestoreList.Add(oGame, oCurrentBackupItem)
+                'Replace backup entry with currently selected backup item in case the user wants to restore an older backup.
+                If Not (oBackup.DateUpdatedUnix = oCurrentBackupItem.DateUpdatedUnix) Then
+                    RestoreList.Clear()
+                    RestoreList.Add(oGame, oCurrentBackupItem)
+                End If
 
                 If Not mgrRestore.CheckManifest(oGame.Name) Then
                     sMsg = mgrCommon.FormatString(frmGameManager_ConfirmRestoreAnyway, oGame.Name)
                 Else
                     sMsg = mgrCommon.FormatString(frmGameManager_ConfirmRestore, oGame.Name)
+                End If
+
+                If mgrConfigLinks.CheckForLinks(oGame.ID) And (oBackup.DateUpdatedUnix > oCurrentBackupItem.DateUpdatedUnix) Then
+                    If mgrCommon.ShowMessage(mgrCommon.FormatString(frmGameManager_RestoreLinkWarning, oGame.CroppedName), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                        IgnoreConfigLinks = True
+                    Else
+                        bDoRestore = False
+                    End If
                 End If
             ElseIf RestoreList.Count > 1 Then
                 bDoRestore = True
