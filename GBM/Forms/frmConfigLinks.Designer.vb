@@ -29,6 +29,8 @@ Partial Class frmConfigLinks
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.lstLinks = New System.Windows.Forms.ListBox()
         Me.lstConfigs = New System.Windows.Forms.ListBox()
+        Me.txtQuickFilter = New System.Windows.Forms.TextBox()
+        Me.lblFilter = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'btnClose
@@ -36,7 +38,7 @@ Partial Class frmConfigLinks
         Me.btnClose.Location = New System.Drawing.Point(397, 331)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 6
+        Me.btnClose.TabIndex = 8
         Me.btnClose.Text = "&Close"
         Me.btnClose.UseVisualStyleBackColor = True
         '
@@ -46,7 +48,7 @@ Partial Class frmConfigLinks
         Me.lblLinkedConfigs.Location = New System.Drawing.Point(318, 6)
         Me.lblLinkedConfigs.Name = "lblLinkedConfigs"
         Me.lblLinkedConfigs.Size = New System.Drawing.Size(109, 13)
-        Me.lblLinkedConfigs.TabIndex = 4
+        Me.lblLinkedConfigs.TabIndex = 6
         Me.lblLinkedConfigs.Text = "Linked Configurations"
         '
         'lblConfigs
@@ -63,7 +65,7 @@ Partial Class frmConfigLinks
         Me.btnRemove.Location = New System.Drawing.Point(218, 164)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(48, 23)
-        Me.btnRemove.TabIndex = 3
+        Me.btnRemove.TabIndex = 5
         Me.btnRemove.Text = "<"
         Me.btnRemove.UseVisualStyleBackColor = True
         '
@@ -72,7 +74,7 @@ Partial Class frmConfigLinks
         Me.btnAdd.Location = New System.Drawing.Point(218, 135)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(48, 23)
-        Me.btnAdd.TabIndex = 2
+        Me.btnAdd.TabIndex = 4
         Me.btnAdd.Text = ">"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
@@ -84,23 +86,41 @@ Partial Class frmConfigLinks
         Me.lstLinks.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.lstLinks.Size = New System.Drawing.Size(200, 303)
         Me.lstLinks.Sorted = True
-        Me.lstLinks.TabIndex = 5
+        Me.lstLinks.TabIndex = 7
         '
         'lstConfigs
         '
         Me.lstConfigs.FormattingEnabled = True
-        Me.lstConfigs.Location = New System.Drawing.Point(12, 22)
+        Me.lstConfigs.Location = New System.Drawing.Point(12, 48)
         Me.lstConfigs.Name = "lstConfigs"
         Me.lstConfigs.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstConfigs.Size = New System.Drawing.Size(200, 303)
+        Me.lstConfigs.Size = New System.Drawing.Size(200, 277)
         Me.lstConfigs.Sorted = True
-        Me.lstConfigs.TabIndex = 1
+        Me.lstConfigs.TabIndex = 3
+        '
+        'txtQuickFilter
+        '
+        Me.txtQuickFilter.Location = New System.Drawing.Point(50, 22)
+        Me.txtQuickFilter.Name = "txtQuickFilter"
+        Me.txtQuickFilter.Size = New System.Drawing.Size(162, 20)
+        Me.txtQuickFilter.TabIndex = 2
+        '
+        'lblFilter
+        '
+        Me.lblFilter.AutoSize = True
+        Me.lblFilter.Location = New System.Drawing.Point(12, 25)
+        Me.lblFilter.Name = "lblFilter"
+        Me.lblFilter.Size = New System.Drawing.Size(32, 13)
+        Me.lblFilter.TabIndex = 1
+        Me.lblFilter.Text = "Filter:"
         '
         'frmConfigLinks
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(484, 361)
+        Me.Controls.Add(Me.lblFilter)
+        Me.Controls.Add(Me.txtQuickFilter)
         Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.lblLinkedConfigs)
         Me.Controls.Add(Me.lblConfigs)
@@ -128,4 +148,6 @@ Partial Class frmConfigLinks
     Friend WithEvents btnAdd As Button
     Friend WithEvents lstLinks As ListBox
     Friend WithEvents lstConfigs As ListBox
+    Friend WithEvents txtQuickFilter As TextBox
+    Friend WithEvents lblFilter As Label
 End Class

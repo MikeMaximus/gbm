@@ -4,6 +4,7 @@ Public Class frmConfigLinks
 
     Private sMonitorIDs As List(Of String)
     Private sGameName As String = String.Empty
+    Private WithEvents tmFilterTimer As Timer
 
     Public Property IDList As List(Of String)
         Get
@@ -120,6 +121,7 @@ Public Class frmConfigLinks
         Dim hshLinks As Hashtable
         Dim oGame As clsGame
         Dim oData As KeyValuePair(Of String, String)
+        Dim sFilter As String = txtQuickFilter.Text
 
         'Load Configs
         hshConfigs = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
@@ -155,9 +157,16 @@ Public Class frmConfigLinks
         For Each de As DictionaryEntry In hshConfigs
             oGame = DirectCast(de.Value, clsGame)
             oData = New KeyValuePair(Of String, String)(oGame.ID, oGame.Name)
-            lstConfigs.Items.Add(oData)
-        Next
 
+            'Apply the quick filter if applicable
+            If sFilter = String.Empty Then
+                lstConfigs.Items.Add(oData)
+            Else
+                If oGame.Name.ToLower.Contains(sFilter.ToLower) Then
+                    lstConfigs.Items.Add(oData)
+                End If
+            End If
+        Next
     End Sub
 
     Private Sub SetForm()
@@ -175,6 +184,11 @@ Public Class frmConfigLinks
         lblLinkedConfigs.Text = frmConfigLinks_lblLinkedConfigs
         btnRemove.Text = frmConfigLinks_btnRemove
         btnAdd.Text = frmConfigLinks_btnAdd
+
+        'Init Filter Timer
+        tmFilterTimer = New Timer()
+        tmFilterTimer.Interval = 1000
+        tmFilterTimer.Enabled = False
     End Sub
 
     Private Sub frmConfigLinks_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -192,5 +206,23 @@ Public Class frmConfigLinks
 
     Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
         RemoveLink()
+    End Sub
+
+    Private Sub tmFilterTimer_Tick(sender As Object, ByVal e As EventArgs) Handles tmFilterTimer.Tick
+        lstConfigs.DataSource = Nothing
+        LoadData()
+        tmFilterTimer.Stop()
+        tmFilterTimer.Enabled = False
+        lstConfigs.Enabled = True
+    End Sub
+
+    Private Sub txtQuickFilter_TextChanged(sender As Object, e As EventArgs) Handles txtQuickFilter.TextChanged
+        lstConfigs.ClearSelected()
+
+        If Not tmFilterTimer.Enabled Then
+            lstConfigs.Enabled = False
+            tmFilterTimer.Enabled = True
+            tmFilterTimer.Start()
+        End If
     End Sub
 End Class
