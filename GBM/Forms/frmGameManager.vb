@@ -867,6 +867,12 @@ Public Class frmGameManager
 
         cboRemoteBackup.DataSource = oComboItems
 
+        If cboRemoteBackup.Items.Count > 1 Then
+            btnDeleteBackup.Image = Arrow_Submenu_Right
+        Else
+            btnDeleteBackup.Image = Nothing
+        End If
+
         If oLocalBackupData.Contains(oApp.ID) Then
             bLocalData = True
             oBackupInfo = DirectCast(oLocalBackupData(oApp.ID), clsBackup)
@@ -1855,6 +1861,8 @@ Public Class frmGameManager
         grpStats.Text = frmGameManager_grpStats
         btnExport.Text = frmGameManager_btnExport
         btnImport.Text = frmGameManager_btnImport
+        btnImport.ImageAlign = ContentAlignment.MiddleRight
+        btnImport.Image = Arrow_Submenu_Right
         optCustom.Text = frmGameManager_optCustom
         optBackupData.Text = frmGameManager_optBackupData
         optPendingRestores.Text = frmGameManager_optPendingRestores
@@ -1870,6 +1878,7 @@ Public Class frmGameManager
         btnOpenRestorePath.Text = frmGameManager_btnOpenRestorePath
         btnOpenBackup.Text = frmGameManager_btnOpenBackup
         btnDeleteBackup.Text = frmGameManager_btnDeleteBackup
+        btnDeleteBackup.ImageAlign = ContentAlignment.MiddleRight
         lblBackupFile.Text = frmGameManager_lblBackupFile
         lblRemote.Text = frmGameManager_lblRemote
         lblLocalData.Text = frmGameManager_lblLocalData
@@ -1908,6 +1917,8 @@ Public Class frmGameManager
         btnGameID.Text = frmGameManager_btnGameID
         btnImportBackup.Text = frmGameManager_btnImportBackup
         btnLink.Text = frmGameManager_btnLink
+        btnLink.ImageAlign = ContentAlignment.MiddleRight
+        btnLink.Image = Arrow_Submenu_Right
         lblOS.Text = frmGameManager_lblOS
         btnWineConfig.Text = frmGameManager_btnWineConfig
         cmsOpenBackupFile.Text = frmGameManager_cmsOpenBackupFile

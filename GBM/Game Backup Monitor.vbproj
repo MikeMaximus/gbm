@@ -414,6 +414,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="References\Mono.Data.Sqlite.dll" />
+    <None Include="Resources\Arrow_Submenu_Right.png" />
     <Content Include="Resources\BuildDate.txt" />
     <Content Include="Resources\New.png" />
     <Content Include="Resources\Update.png" />
