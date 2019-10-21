@@ -1877,6 +1877,8 @@ Public Class frmGameManager
         lblRestorePath.Text = frmGameManager_lblRestorePath
         btnOpenRestorePath.Text = frmGameManager_btnOpenRestorePath
         btnOpenBackup.Text = frmGameManager_btnOpenBackup
+        btnOpenBackup.ImageAlign = ContentAlignment.MiddleRight
+        btnOpenBackup.Image = Arrow_Submenu_Right
         btnDeleteBackup.Text = frmGameManager_btnDeleteBackup
         btnDeleteBackup.ImageAlign = ContentAlignment.MiddleRight
         lblBackupFile.Text = frmGameManager_lblBackupFile
