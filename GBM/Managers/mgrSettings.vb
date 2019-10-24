@@ -32,9 +32,10 @@ Public Class mgrSettings
     <Flags()> Public Enum eSuppressMessages
         None = 0
         EmptyProcessWarning = 1
-        Unused = 2 'Do not remove to maintain compatability, re-use for a future field.
+        LinkProcessTip = 2
         WinConfigsInLinux = 4
         WineConfig = 16
+        LinkConfigTip = 32
     End Enum
 
     Property StartWithWindows As Boolean

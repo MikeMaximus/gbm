@@ -341,7 +341,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-07-18T17:13:17
+        '''  Looks up a localized string similar to 2019-10-24T14:23:13
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2777,6 +2777,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_RestoreLinkWarning() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_RestoreLinkWarning", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The following screen allows you to link other game configuations to this one.  Each time this configuration triggers a backup or restore, the linked configurations will run as well.  Please see the Online Manual for more details.[BR][BR]This message will only be displayed once..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_TipLinkConfiguration() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_TipLinkConfiguration", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The following screen allows you to link other software to run each time this game configuration is detected.  Use the Process Manager to setup software to link.[BR][BR]This message will only be displayed once..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_TipLinkProcess() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_TipLinkProcess", resourceCulture)
             End Get
         End Property
         

@@ -661,6 +661,13 @@ Public Class frmGameManager
         Dim oApp As clsGame
         Dim sMonitorIDS As New List(Of String)
 
+        'Show Intro Tip
+        If Not (oSettings.SuppressMessages And mgrSettings.eSuppressMessages.LinkProcessTip) = mgrSettings.eSuppressMessages.LinkProcessTip Then
+            mgrCommon.ShowMessage(frmGameManager_TipLinkProcess, MsgBoxStyle.Information)
+            oSettings.SuppressMessages = oSettings.SetMessageField(oSettings.SuppressMessages, mgrSettings.eSuppressMessages.LinkProcessTip)
+            oSettings.SaveSettings()
+        End If
+
         If eCurrentMode = eModes.Add Then
             'Use a dummy ID
             sMonitorIDS.Add(Guid.NewGuid.ToString)
@@ -735,6 +742,13 @@ Public Class frmGameManager
         Dim frm As New frmConfigLinks
         Dim oApp As clsGame
         Dim sMonitorIDs As New List(Of String)
+
+        'Show Intro Tip
+        If Not (oSettings.SuppressMessages And mgrSettings.eSuppressMessages.LinkConfigTip) = mgrSettings.eSuppressMessages.LinkConfigTip Then
+            mgrCommon.ShowMessage(frmGameManager_TipLinkConfiguration, MsgBoxStyle.Information)
+            oSettings.SuppressMessages = oSettings.SetMessageField(oSettings.SuppressMessages, mgrSettings.eSuppressMessages.LinkConfigTip)
+            oSettings.SaveSettings()
+        End If
 
         If eCurrentMode = eModes.Add Then
             'Use a dummy ID
