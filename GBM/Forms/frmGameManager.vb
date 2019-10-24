@@ -2187,14 +2187,23 @@ Public Class frmGameManager
             End If
         End If
 
+        lstGames.ClearSelected()
+        eCurrentMode = eModes.Disabled
+        ModeChange()
         ImportOfficialGameList(App_URLImport)
     End Sub
 
     Private Sub cmsOfficialLinux_Click(sender As Object, e As EventArgs) Handles cmsOfficialLinux.Click
+        lstGames.ClearSelected()
+        eCurrentMode = eModes.Disabled
+        ModeChange()
         ImportOfficialGameList(App_URLImportLinux)
     End Sub
 
     Private Sub cmsFile_Click(sender As Object, e As EventArgs) Handles cmsFile.Click
+        lstGames.ClearSelected()
+        eCurrentMode = eModes.Disabled
+        ModeChange()
         ImportGameListFile()
     End Sub
 
