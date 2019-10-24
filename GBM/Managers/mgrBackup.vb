@@ -259,6 +259,8 @@ Public Class mgrBackup
 
     Public Sub ImportBackupFiles(ByVal sFileList As String())
         Dim oGame As New clsGame
+        Dim oExistingGame As clsGame
+        Dim hshGame As Hashtable
         Dim bOverwriteCurrent As Boolean = False
         Dim bContinue As Boolean
         Dim sBackupFile As String
@@ -284,7 +286,18 @@ Public Class mgrBackup
                             oBackup = oBackupMetadata.CreateBackupInfo
 
                             If oGame.OS = mgrCommon.GetCurrentOS Then
-                                If Not mgrMonitorList.DoDuplicateListCheck(oGame.ID) Then
+                                If mgrMonitorList.DoDuplicateListCheck(oGame.ID) Then
+                                    hshGame = mgrMonitorList.DoListGetbyMonitorID(oGame.ID)
+                                    If hshGame.Count = 1 Then
+                                        oExistingGame = DirectCast(hshGame(0), clsGame)
+                                        If Not oExistingGame.CoreEquals(oGame) Then
+                                            oGame.Hours = oExistingGame.Hours
+                                            oGame.CleanFolder = oExistingGame.CleanFolder
+                                            mgrMonitorList.DoListUpdate(oGame)
+                                            iGamesAdded += 1
+                                        End If
+                                    End If
+                                Else
                                     Dim oTagsToAdd As New Hashtable
                                     oTagsToAdd.Add(0, oGame)
                                     mgrMonitorList.DoListAdd(oGame)

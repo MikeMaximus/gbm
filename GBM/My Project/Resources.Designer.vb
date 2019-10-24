@@ -6595,7 +6595,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] game configuration(s) added during the import process..
+        '''  Looks up a localized string similar to [PARAM] game configuration(s) added or updated during the import process..
         '''</summary>
         Friend ReadOnly Property mgrBackup_GamesAddedDuringImport() As String
             Get

@@ -2465,7 +2465,7 @@
     <value>An error occuring reading the metadata in the file [PARAM].</value>
   </data>
   <data name="mgrBackup_GamesAddedDuringImport" xml:space="preserve">
-    <value>[PARAM] game configuration(s) added during the import process.</value>
+    <value>[PARAM] game configuration(s) added or updated during the import process.</value>
   </data>
   <data name="frmMain_ImportInProgress" xml:space="preserve">
     <value>Import in Progress...</value>
