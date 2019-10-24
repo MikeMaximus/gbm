@@ -341,7 +341,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-10-24T14:23:13
+        '''  Looks up a localized string similar to 2019-07-18T17:13:17
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -6474,6 +6474,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_ErrorImportCancel() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ErrorImportCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] was created on [PARAM] and you&apos;re currently running [PARAM].  This backup file cannot be imported using this method..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorImportOSMismatch() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorImportOSMismatch", resourceCulture)
             End Get
         End Property
         

@@ -2518,4 +2518,7 @@
   <data name="frmGameManager_TipLinkProcess" xml:space="preserve">
     <value>The following screen allows you to link other software to run each time this game configuration is detected.  Use the Process Manager to setup software to link.[BR][BR]This message will only be displayed once.</value>
   </data>
+  <data name="mgrBackup_ErrorImportOSMismatch" xml:space="preserve">
+    <value>[PARAM] was created on [PARAM] and you're currently running [PARAM].  This backup file cannot be imported using this method.</value>
+  </data>
 </root>

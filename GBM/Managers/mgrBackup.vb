@@ -283,12 +283,17 @@ Public Class mgrBackup
                             oGame = oBackupMetadata.Game.ConvertClass
                             oBackup = oBackupMetadata.CreateBackupInfo
 
-                            If Not mgrMonitorList.DoDuplicateListCheck(oGame.ID) Then
-                                Dim oTagsToAdd As New Hashtable
-                                oTagsToAdd.Add(0, oGame)
-                                mgrMonitorList.DoListAdd(oGame)
-                                mgrTags.DoTagAddImport(oTagsToAdd)
-                                iGamesAdded += 1
+                            If oGame.OS = mgrCommon.GetCurrentOS Then
+                                If Not mgrMonitorList.DoDuplicateListCheck(oGame.ID) Then
+                                    Dim oTagsToAdd As New Hashtable
+                                    oTagsToAdd.Add(0, oGame)
+                                    mgrMonitorList.DoListAdd(oGame)
+                                    mgrTags.DoTagAddImport(oTagsToAdd)
+                                    iGamesAdded += 1
+                                End If
+                            Else
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportOSMismatch, New String() {sFileToImport, oGame.OS.ToString, mgrCommon.GetCurrentOS.ToString}), False, ToolTipIcon.Warning, True)
+                                bContinue = False
                             End If
                         Else
                             RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorReadingMetadata, sFileToImport), False, ToolTipIcon.Warning, True)
