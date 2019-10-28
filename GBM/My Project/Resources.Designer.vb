@@ -341,7 +341,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-07-18T17:13:17
+        '''  Looks up a localized string similar to 2019-10-28T14:55:40
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5598,11 +5598,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Existing data was detected in the backup folder and has been imported..
+        '''  Looks up a localized string similar to Existing GBM data was detected in the backup folder and has been imported. .
         '''</summary>
         Friend ReadOnly Property frmStartUpWizard_ExistingData() As String
             Get
                 Return ResourceManager.GetString("frmStartUpWizard_ExistingData", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] possible backup files have been detected in the selected backup folder.  Do you want to scan and import them?[BR][BR]This may take a while depending on the number of files found and their size..
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_ExistingFilesDetected() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_ExistingFilesDetected", resourceCulture)
             End Get
         End Property
         

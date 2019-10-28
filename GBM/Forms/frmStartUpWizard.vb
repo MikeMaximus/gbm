@@ -64,12 +64,29 @@ Public Class frmStartUpWizard
     Private Sub CheckSync()
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
 
-        'Check if a remote database already exists in the new backup location
+        'Check if a remote database already exists in the new backup location, if not, then check for possible existing backup files to import
         If oDatabase.CheckDB() Then
             'Make sure database is the latest version
             oDatabase.DatabaseUpgrade()
             mgrMonitorList.SyncMonitorLists(oSettings, False)
             mgrCommon.ShowMessage(frmStartUpWizard_ExistingData, MsgBoxStyle.Information)
+        Else
+            'Scan for any archives to import
+            Cursor.Current = Cursors.WaitCursor
+            Dim sFilesFound As List(Of String)
+            sFilesFound = mgrCommon.GetFileListByFolder(oSettings.BackupFolder, New String() {"*.7z"})
+            Dim sFilesToImport(sFilesFound.Count) As String
+            sFilesFound.CopyTo(sFilesToImport)
+            Cursor.Current = Cursors.Default
+
+            'Ask if the user wants to import them
+            If mgrCommon.ShowMessage(frmStartUpWizard_ExistingFilesDetected, sFilesFound.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                Cursor.Current = Cursors.WaitCursor
+                Dim oBackup As New mgrBackup
+                oBackup.Settings = oSettings
+                oBackup.ImportBackupFiles(sFilesToImport)
+                Cursor.Current = Cursors.Default
+            End If
         End If
     End Sub
 

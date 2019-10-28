@@ -263,6 +263,7 @@ Public Class mgrBackup
         Dim hshGame As Hashtable
         Dim bOverwriteCurrent As Boolean = False
         Dim bContinue As Boolean
+        Dim bUpdateManifest As Boolean
         Dim sBackupFile As String
         Dim oBackup As clsBackup
         Dim oBackupMetadata As BackupMetadata
@@ -273,6 +274,7 @@ Public Class mgrBackup
         For Each sFileToImport As String In sFileList
             RaiseEvent UpdateImportInfo(sFileToImport)
             bContinue = True
+            bUpdateManifest = False
             oBackup = New clsBackup
 
             If File.Exists(sFileToImport) Then
@@ -338,25 +340,30 @@ Public Class mgrBackup
                     oBackup.FileName = sBackupFile.Replace(Settings.BackupFolder & Path.DirectorySeparatorChar, String.Empty)
 
                     If bOverwriteCurrent Then
-                        If mgrCommon.CopyFile(sFileToImport, sBackupFile, True) Then
-                            oBackup.CheckSum = mgrHash.Generate_SHA256_Hash(sBackupFile)
-                            If Not mgrManifest.DoUpdateLatestManifest(oBackup, mgrSQLite.Database.Remote) Then
-                                mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
-                            End If
-                            iFilesImported += 1
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImport, oGame.Name}), False, ToolTipIcon.Info, True)
+                        If sFileToImport = sBackupFile Then
+                            bUpdateManifest = True
                         Else
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportBackupCopy, sFileToImport), False, ToolTipIcon.Error, True)
+                            If mgrCommon.CopyFile(sFileToImport, sBackupFile, True) Then
+                                bUpdateManifest = True
+                            Else
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportBackupCopy, sFileToImport), False, ToolTipIcon.Error, True)
+                            End If
                         End If
                     Else
                         If mgrCommon.CopyFile(sFileToImport, sBackupFile, False) Then
-                            oBackup.CheckSum = mgrHash.Generate_SHA256_Hash(sBackupFile)
-                            mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
-                            iFilesImported += 1
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImport, oGame.Name}), False, ToolTipIcon.Info, True)
+                            bUpdateManifest = True
                         Else
                             RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportBackupCopy, sFileToImport), False, ToolTipIcon.Error, True)
                         End If
+                    End If
+
+                    If bUpdateManifest Then
+                        oBackup.CheckSum = mgrHash.Generate_SHA256_Hash(sBackupFile)
+                        If Not mgrManifest.DoUpdateLatestManifest(oBackup, mgrSQLite.Database.Remote) Then
+                            mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
+                        End If
+                        iFilesImported += 1
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImport, oGame.Name}), False, ToolTipIcon.Info, True)
                     End If
                 Else
                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportCancel, sFileToImport), False, ToolTipIcon.Error, True)

@@ -1133,7 +1133,7 @@
     <value>The selected backup location does not exist and could not be created.[BR][BR][PARAM]</value>
   </data>
   <data name="frmStartUpWizard_ExistingData" xml:space="preserve">
-    <value>Existing data was detected in the backup folder and has been imported.</value>
+    <value>Existing GBM data was detected in the backup folder and has been imported. </value>
   </data>
   <data name="frmStartUpWizard_FormName" xml:space="preserve">
     <value>GBM Setup</value>
@@ -2520,5 +2520,8 @@
   </data>
   <data name="mgrBackup_ErrorImportOSMismatch" xml:space="preserve">
     <value>[PARAM] was created on [PARAM] and you're currently running [PARAM].  This backup file cannot be imported using this method.</value>
+  </data>
+  <data name="frmStartUpWizard_ExistingFilesDetected" xml:space="preserve">
+    <value>[PARAM] possible backup files have been detected in the selected backup folder.  Do you want to scan and import them?[BR][BR]This may take a while depending on the number of files found and their size.</value>
   </data>
 </root>
