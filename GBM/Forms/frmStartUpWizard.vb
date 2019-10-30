@@ -80,12 +80,14 @@ Public Class frmStartUpWizard
             Cursor.Current = Cursors.Default
 
             'Ask if the user wants to import them
-            If mgrCommon.ShowMessage(frmStartUpWizard_ExistingFilesDetected, sFilesFound.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                Cursor.Current = Cursors.WaitCursor
-                Dim oBackup As New mgrBackup
-                oBackup.Settings = oSettings
-                oBackup.ImportBackupFiles(sFilesToImport)
-                Cursor.Current = Cursors.Default
+            If sFilesFound.Count > 0 Then
+                If mgrCommon.ShowMessage(frmStartUpWizard_ExistingFilesDetected, sFilesFound.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    Cursor.Current = Cursors.WaitCursor
+                    Dim oBackup As New mgrBackup
+                    oBackup.Settings = oSettings
+                    oBackup.ImportBackupFiles(sFilesToImport)
+                    Cursor.Current = Cursors.Default
+                End If
             End If
         End If
     End Sub
