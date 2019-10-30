@@ -5,6 +5,7 @@ Public Class mgrRestore
 
     Private oSettings As mgrSettings
     Private bCancelOperation As Boolean
+    Private bShowPriorityTrayMessages As Boolean = True
 
     Property Settings As mgrSettings
         Get
@@ -24,11 +25,20 @@ Public Class mgrRestore
         End Set
     End Property
 
+    Property ShowPriorityTrayMessages As Boolean
+        Get
+            Return bShowPriorityTrayMessages
+        End Get
+        Set(value As Boolean)
+            bShowPriorityTrayMessages = value
+        End Set
+    End Property
+
     Public Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
     Public Event UpdateRestoreInfo(oRestoreInfo As clsBackup)
     Public Event SetLastAction(sMessage As String)
 
-    Public Shared Function CheckPath(ByRef oRestoreInfo As clsBackup, ByVal oGame As clsGame, ByRef bTriggerReload As Boolean) As Boolean
+    Public Shared Function CheckPath(ByRef oRestoreInfo As clsBackup, ByVal oGame As clsGame, ByRef bTriggerReload As Boolean, Optional ByVal bFastMode As Boolean = False) As Boolean
         Dim sProcess As String
         Dim sRestorePath As String
         Dim bNoAuto As Boolean
@@ -36,7 +46,7 @@ Public Class mgrRestore
         If Not oRestoreInfo.AbsolutePath Then
             If oGame.ProcessPath <> String.Empty Then
                 oRestoreInfo.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oRestoreInfo.RestorePath
-            Else
+            ElseIf Not bFastMode Then
                 sProcess = oGame.ProcessName
                 If mgrCommon.IsProcessNotSearchable(oGame) Then bNoAuto = True
                 sRestorePath = mgrPath.ProcessPathSearch(oRestoreInfo.Name, sProcess, mgrCommon.FormatString(mgrRestore_RelativeNeedPath, oRestoreInfo.Name), bNoAuto)
@@ -52,6 +62,8 @@ Public Class mgrRestore
                 Else
                     Return False
                 End If
+            Else
+                Return False
             End If
         End If
 
@@ -119,7 +131,19 @@ Public Class mgrRestore
         Return slRestoreItems
     End Function
 
-    Public Function CheckRestorePrereq(ByVal oBackupInfo As clsBackup, ByVal bCleanFolder As Boolean) As Boolean
+    Private Function CreateRestoreFolder(ByVal sExtractPath As String, Optional ByVal bCleanFolder As Boolean = False) As Boolean
+        Try
+            If bCleanFolder Then mgrCommon.DeleteDirectory(sExtractPath, True)
+            Directory.CreateDirectory(sExtractPath)
+        Catch ex As Exception
+            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorCreatePath, ex.Message), False, ToolTipIcon.Error, True)
+            Return False
+        End Try
+
+        Return True
+    End Function
+
+    Public Function CheckRestorePrereq(ByVal oBackupInfo As clsBackup, ByVal bCleanFolder As Boolean, Optional ByVal bFastMode As Boolean = False) As Boolean
         Dim sHash As String
         Dim sExtractPath As String
         Dim bRegistry As Boolean
@@ -142,22 +166,24 @@ Public Class mgrRestore
             End If
 
             'Check if restore location exists, prompt to create if it doesn't.
-            If Not Directory.Exists(sExtractPath) Then
+            If Not Directory.Exists(sExtractPath) And Not bFastMode Then
                 If mgrCommon.ShowMessage(mgrRestore_ConfirmCreatePath, sExtractPath, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    Try
-                        Directory.CreateDirectory(sExtractPath)
-                    Catch ex As Exception
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorCreatePath, ex.Message), False, ToolTipIcon.Error, True)
+                    If CreateRestoreFolder(sExtractPath) = False Then
                         Return False
-                    End Try
+                    End If
                 Else
                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorNoPath, sExtractPath), False, ToolTipIcon.Error, True)
                     Return False
                 End If
+            ElseIf Not Directory.Exists(sExtractPath) And bFastMode Then
+                If CreateRestoreFolder(sExtractPath) = False Then
+                    Return False
+                End If
             Else
                 If bCleanFolder Then
-                    mgrCommon.DeleteDirectory(sExtractPath, True)
-                    Directory.CreateDirectory(sExtractPath)
+                    If CreateRestoreFolder(sExtractPath, bCleanFolder) = False Then
+                        Return False
+                    End If
                 End If
             End If
         End If
@@ -167,7 +193,12 @@ Public Class mgrRestore
             sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
             If sHash <> oBackupInfo.CheckSum Then
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFailedCheck, oBackupInfo.Name), False, ToolTipIcon.Info, True)
-                If mgrCommon.ShowMessage(mgrRestore_ConfirmFailedCheck, oBackupInfo.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                If Not bFastMode Then
+                    If mgrCommon.ShowMessage(mgrRestore_ConfirmFailedCheck, oBackupInfo.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                        RaiseEvent UpdateLog(mgrRestore_ErrorCheckAbort, False, ToolTipIcon.Info, True)
+                        Return False
+                    End If
+                Else
                     RaiseEvent UpdateLog(mgrRestore_ErrorCheckAbort, False, ToolTipIcon.Info, True)
                     Return False
                 End If
@@ -177,7 +208,6 @@ Public Class mgrRestore
         Else
             RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_NoVerify, oBackupInfo.Name), False, ToolTipIcon.Info, True)
         End If
-
 
         Return True
     End Function
@@ -232,7 +262,7 @@ Public Class mgrRestore
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreComplete, oBackupInfo.Name), False, ToolTipIcon.Info, True)
                         bRestoreCompleted = True
                     Case Else
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Restore), True, ToolTipIcon.Warning, True)
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Restore), bShowPriorityTrayMessages, ToolTipIcon.Warning, True)
                 End Select
                 prsReg.Dispose()
             Catch ex As Exception
@@ -267,7 +297,7 @@ Public Class mgrRestore
                     While Not prs7z.StandardOutput.EndOfStream
                         If CancelOperation Then
                             prs7z.Kill()
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFullAbort, oBackupInfo.Name), True, ToolTipIcon.Error, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFullAbort, oBackupInfo.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
                             Exit While
                         End If
                         RaiseEvent UpdateLog(prs7z.StandardOutput.ReadLine, False, ToolTipIcon.Info, False)
@@ -278,15 +308,15 @@ Public Class mgrRestore
                             RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreComplete, oBackupInfo.Name), False, ToolTipIcon.Info, True)
                             bRestoreCompleted = True
                         Else
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Restore), True, ToolTipIcon.Warning, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Restore), bShowPriorityTrayMessages, ToolTipIcon.Warning, True)
                         End If
                     End If
                     prs7z.Dispose()
                 Else
-                    RaiseEvent UpdateLog(App_Invalid7zDetected, True, ToolTipIcon.Error, True)
+                    RaiseEvent UpdateLog(App_Invalid7zDetected, bShowPriorityTrayMessages, ToolTipIcon.Error, True)
                 End If
             Else
-                RaiseEvent UpdateLog(mgrRestore_ErrorNoBackup, True, ToolTipIcon.Error, True)
+                RaiseEvent UpdateLog(mgrRestore_ErrorNoBackup, bShowPriorityTrayMessages, ToolTipIcon.Error, True)
             End If
         Catch ex As Exception
             RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_OtherFailure, New String() {App_OperationType_Restore, ex.Message}), False, ToolTipIcon.Error, True)
@@ -301,6 +331,12 @@ Public Class mgrRestore
         Dim bRestoreCompleted As Boolean
 
         For Each oBackupInfo In oRestoreList
+            'Break out when a cancel signal is received
+            If CancelOperation Then
+                RaiseEvent UpdateLog(mgrRestore_FullAbort, False, ToolTipIcon.Warning, True)
+                Exit For
+            End If
+
             'Init
             sBackupFile = oSettings.BackupFolder & Path.DirectorySeparatorChar & oBackupInfo.FileName
             sExtractPath = String.Empty

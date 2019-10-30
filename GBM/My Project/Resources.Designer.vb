@@ -341,7 +341,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-10-28T14:55:40
+        '''  Looks up a localized string similar to 2019-10-30T17:00:39
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3780,6 +3780,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Run Full &amp;Backup.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileFullBackup() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileFullBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Run Full &amp;Restore.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileFullRestore() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileFullRestore", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Cancel &amp;Monitoring.
         '''</summary>
         Friend ReadOnly Property frmMain_gMonFileMonitor_Cancel() As String
@@ -4041,6 +4059,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Run Full &amp;Backup.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonTrayFullBackup() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonTrayFullBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Run Full &amp;Restore.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonTrayFullRestore() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonTrayFullRestore", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Show / Hide.
         '''</summary>
         Friend ReadOnly Property frmMain_gMonTrayShow() As String
@@ -4172,15 +4208,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_ManifestTotalRemoved() As String
             Get
                 Return ResourceManager.GetString("frmMain_ManifestTotalRemoved", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to A manual backup of [PARAM] was triggered..
-        '''</summary>
-        Friend ReadOnly Property frmMain_ManualBackup() As String
-            Get
-                Return ResourceManager.GetString("frmMain_ManualBackup", resourceCulture)
             End Get
         End Property
         
@@ -4460,6 +4487,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_UpdatedBy() As String
             Get
                 Return ResourceManager.GetString("frmMain_UpdatedBy", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Any checks that would normally require user confirmation will automatically cancel when running a full backup.  Please review the log when the process is complete.[BR][BR]Are you sure want to trigger a backup for every game? .
+        '''</summary>
+        Friend ReadOnly Property frmMain_WarningFullBackup() As String
+            Get
+                Return ResourceManager.GetString("frmMain_WarningFullBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Most checks that would normally require user confirmation will automatically cancel when running a full restore.  Please review the log when the process is complete.[BR][BR]Are you sure want to restore the newest backup for every game?.
+        '''</summary>
+        Friend ReadOnly Property frmMain_WarningFullRestore() As String
+            Get
+                Return ResourceManager.GetString("frmMain_WarningFullRestore", resourceCulture)
             End Get
         End Property
         
@@ -6604,6 +6649,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Any remaining backup operations have been aborted..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_FullAbort() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_FullAbort", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] game configuration(s) added or updated during the import process..
         '''</summary>
         Friend ReadOnly Property mgrBackup_GamesAddedDuringImport() As String
@@ -7176,6 +7230,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrRestore_ErrorWineNotFound() As String
             Get
                 Return ResourceManager.GetString("mgrRestore_ErrorWineNotFound", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Any remaining restore operations have been aborted..
+        '''</summary>
+        Friend ReadOnly Property mgrRestore_FullAbort() As String
+            Get
+                Return ResourceManager.GetString("mgrRestore_FullAbort", resourceCulture)
             End Get
         End Property
         

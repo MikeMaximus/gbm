@@ -265,9 +265,6 @@
   <data name="frmMain_LastGame" xml:space="preserve">
     <value>Last Game: [PARAM]</value>
   </data>
-  <data name="frmMain_ManualBackup" xml:space="preserve">
-    <value>A manual backup of [PARAM] was triggered.</value>
-  </data>
   <data name="frmMain_MasterListChanged" xml:space="preserve">
     <value>The master game list has been changed by a program other than GBM.</value>
   </data>
@@ -2523,5 +2520,29 @@
   </data>
   <data name="frmStartUpWizard_ExistingFilesDetected" xml:space="preserve">
     <value>[PARAM] possible backup files have been detected in the selected backup folder.  Do you want to scan and import them?[BR][BR]This may take a while depending on the number of files found and their size.</value>
+  </data>
+  <data name="frmMain_gMonFileFullBackup" xml:space="preserve">
+    <value>Run Full &amp;Backup</value>
+  </data>
+  <data name="frmMain_gMonFileFullRestore" xml:space="preserve">
+    <value>Run Full &amp;Restore</value>
+  </data>
+  <data name="frmMain_gMonTrayFullBackup" xml:space="preserve">
+    <value>Run Full &amp;Backup</value>
+  </data>
+  <data name="frmMain_gMonTrayFullRestore" xml:space="preserve">
+    <value>Run Full &amp;Restore</value>
+  </data>
+  <data name="frmMain_WarningFullBackup" xml:space="preserve">
+    <value>Any checks that would normally require user confirmation will automatically cancel when running a full backup.  Please review the log when the process is complete.[BR][BR]Are you sure want to trigger a backup for every game? </value>
+  </data>
+  <data name="frmMain_WarningFullRestore" xml:space="preserve">
+    <value>Most checks that would normally require user confirmation will automatically cancel when running a full restore.  Please review the log when the process is complete.[BR][BR]Are you sure want to restore the newest backup for every game?</value>
+  </data>
+  <data name="mgrBackup_FullAbort" xml:space="preserve">
+    <value>Any remaining backup operations have been aborted.</value>
+  </data>
+  <data name="mgrRestore_FullAbort" xml:space="preserve">
+    <value>Any remaining restore operations have been aborted.</value>
   </data>
 </root>

@@ -78,19 +78,19 @@ Public Class mgrMetadata
                         Case 0
                             bOperationCompleted = True
                         Case 1
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), True, ToolTipIcon.Warning, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), False, ToolTipIcon.Warning, True)
                             bOperationCompleted = True
                         Case 2
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FatalError, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FatalError, App_OperationType_Metadata), False, ToolTipIcon.Error, True)
                         Case 7
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_CommandFailure, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_CommandFailure, App_OperationType_Metadata), False, ToolTipIcon.Error, True)
                     End Select
                     prs7z.Dispose()
                 Else
-                    RaiseEvent UpdateLog(App_Invalid7zDetected, True, ToolTipIcon.Error, True)
+                    RaiseEvent UpdateLog(App_Invalid7zDetected, False, ToolTipIcon.Error, True)
                 End If
             Else
-                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FileNotFound, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
+                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FileNotFound, App_OperationType_Metadata), False, ToolTipIcon.Error, True)
             End If
         Catch ex As Exception
             RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_OtherFailure, New String() {App_OperationType_Metadata, ex.Message}), False, ToolTipIcon.Error, True)
@@ -121,14 +121,14 @@ Public Class mgrMetadata
                     If prs7z.ExitCode = 0 Then
                         bOperationCompleted = True
                     Else
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), True, ToolTipIcon.Warning, True)
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), False, ToolTipIcon.Warning, True)
                     End If
                     prs7z.Dispose()
                 Else
-                    RaiseEvent UpdateLog(App_Invalid7zDetected, True, ToolTipIcon.Error, True)
+                    RaiseEvent UpdateLog(App_Invalid7zDetected, False, ToolTipIcon.Error, True)
                 End If
             Else
-                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FileNotFound, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
+                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FileNotFound, App_OperationType_Metadata), False, ToolTipIcon.Error, True)
             End If
         Catch ex As Exception
             RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_OtherFailure, New String() {App_OperationType_Metadata, ex.Message}), False, ToolTipIcon.Error, True)
@@ -163,19 +163,19 @@ Public Class mgrMetadata
                         Case 0
                             bOperationCompleted = True
                         Case 1
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), True, ToolTipIcon.Warning, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Metadata), False, ToolTipIcon.Warning, True)
                             bOperationCompleted = True
                         Case 2
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FatalError, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FatalError, App_OperationType_Metadata), False, ToolTipIcon.Error, True)
                         Case 7
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_CommandFailure, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_CommandFailure, App_OperationType_Metadata), False, ToolTipIcon.Error, True)
                     End Select
                     prs7z.Dispose()
                 Else
-                    RaiseEvent UpdateLog(App_Invalid7zDetected, True, ToolTipIcon.Error, True)
+                    RaiseEvent UpdateLog(App_Invalid7zDetected, False, ToolTipIcon.Error, True)
                 End If
             Else
-                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FileNotFound, App_OperationType_Metadata), True, ToolTipIcon.Error, True)
+                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FileNotFound, App_OperationType_Metadata), False, ToolTipIcon.Error, True)
             End If
         Catch ex As Exception
             RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_OtherFailure, New String() {App_OperationType_Metadata, ex.Message}), False, ToolTipIcon.Error, True)

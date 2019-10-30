@@ -154,6 +154,12 @@ Public Class frmMain
             ResetGameInfo(True)
             btnCancelOperation.Visible = False
             btnCancelOperation.Enabled = True
+            Select Case eCurrentOperation
+                Case eOperation.Backup, eOperation.Import
+                    oBackup.CancelOperation = False
+                Case eOperation.Restore
+                    oRestore.CancelOperation = False
+            End Select
             eCurrentOperation = eOperation.None
             LockDownMenuEnable()
             If bResume Then ResumeScan()
@@ -217,7 +223,7 @@ Public Class frmMain
         Return bOSVerified
     End Function
 
-    Private Sub RunRestore(ByVal oRestoreList As Hashtable, Optional ByVal bIgnoreConfigLinks As Boolean = False)
+    Private Sub RunRestore(ByVal oRestoreList As Hashtable, Optional ByVal bIgnoreConfigLinks As Boolean = False, Optional ByVal bFastMode As Boolean = False)
         Dim oGame As clsGame
         Dim oReadyList As New List(Of clsBackup)
         Dim oRestoreInfo As clsBackup
@@ -227,6 +233,12 @@ Public Class frmMain
         Dim oQueue As New Hashtable
         eCurrentOperation = eOperation.Restore
         OperationStarted()
+
+        If bFastMode Then
+            oRestore.ShowPriorityTrayMessages = False
+        Else
+            oRestore.ShowPriorityTrayMessages = True
+        End If
 
         If bIgnoreConfigLinks Then
             oQueue = oRestoreList
@@ -246,7 +258,7 @@ Public Class frmMain
             If mgrPath.IsSupportedRegistryPath(oRestoreInfo.TruePath) Then
                 bPathVerified = True
             Else
-                If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload) Then
+                If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload, bFastMode) Then
                     bPathVerified = True
                 Else
                     UpdateLog(mgrCommon.FormatString(frmMain_ErrorRestorePath, oRestoreInfo.Name), False, ToolTipIcon.Error, True)
@@ -254,7 +266,7 @@ Public Class frmMain
             End If
 
             If bOSVerified And bPathVerified Then
-                If oRestore.CheckRestorePrereq(oRestoreInfo, oGame.CleanFolder) Then
+                If oRestore.CheckRestorePrereq(oRestoreInfo, oGame.CleanFolder, bFastMode) Then
                     oReadyList.Add(oRestoreInfo)
                 End If
             End If
@@ -274,7 +286,46 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub RunManualBackup(ByVal oBackupList As List(Of clsGame))
+    Private Sub RunRestoreAll()
+        Dim oBackups As SortedList
+        Dim oRestoreList As New Hashtable
+        Dim hshGame As Hashtable
+        Dim oGame As clsGame
+        Dim oBackup As clsBackup
+
+        oBackups = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
+
+        For Each de As DictionaryEntry In oBackups
+            oBackup = DirectCast(de.Value, clsBackup)
+            hshGame = mgrMonitorList.DoListGetbyMonitorID(de.Key)
+            If hshGame.Count = 1 Then
+                oGame = DirectCast(hshGame(0), clsGame)
+                oRestoreList.Add(oGame, oBackup)
+            End If
+        Next
+
+        If mgrCommon.ShowMessage(frmMain_WarningFullRestore, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            RunRestore(oRestoreList,, True)
+        End If
+    End Sub
+
+    Private Sub RunBackupAll()
+        Dim hshGames As Hashtable
+        Dim oGames As New List(Of clsGame)
+        Dim oGame As clsGame
+
+        hshGames = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
+        For Each de As DictionaryEntry In hshGames
+            oGame = DirectCast(de.Value, clsGame)
+            oGames.Add(oGame)
+        Next
+
+        If mgrCommon.ShowMessage(frmMain_WarningFullBackup, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            RunManualBackup(oGames, True)
+        End If
+    End Sub
+
+    Private Sub RunManualBackup(ByVal oBackupList As List(Of clsGame), Optional ByVal bFastMode As Boolean = False)
         Dim oGame As clsGame
         Dim bNoAuto As Boolean
         Dim bOSVerified As Boolean
@@ -282,6 +333,11 @@ Public Class frmMain
         Dim oReadyList As New List(Of clsGame)
         Dim oQueue As New List(Of clsGame)
 
+        If bFastMode Then
+            oBackup.ShowPriorityTrayMessages = False
+        Else
+            oBackup.ShowPriorityTrayMessages = True
+        End If
         eCurrentOperation = eOperation.Backup
         OperationStarted()
 
@@ -294,12 +350,10 @@ Public Class frmMain
             bPathVerified = False
             gMonStripStatusButton.Enabled = False
 
-            UpdateLog(mgrCommon.FormatString(frmMain_ManualBackup, oGame.Name), False)
-
             bOSVerified = VerifyBackupForOS(oGame, oGame.Path)
 
             If oGame.AbsolutePath = False Then
-                If oGame.ProcessPath = String.Empty Then
+                If oGame.ProcessPath = String.Empty And Not bFastMode Then
                     If mgrCommon.IsProcessNotSearchable(oGame) Then bNoAuto = True
                     oGame.ProcessPath = mgrPath.ProcessPathSearch(oGame.Name, oGame.ProcessName, mgrCommon.FormatString(frmMain_ErrorRelativePath, oGame.Name), bNoAuto)
                 End If
@@ -314,7 +368,7 @@ Public Class frmMain
             End If
 
             If bOSVerified And bPathVerified Then
-                If oBackup.CheckBackupPrereq(oGame) Then
+                If oBackup.CheckBackupPrereq(oGame, bFastMode) Then
                     oReadyList.Add(oGame)
                 End If
             End If
@@ -422,6 +476,7 @@ Public Class frmMain
         Dim oRootList As New List(Of clsGame)
         Dim oReadyList As New List(Of clsGame)
 
+        oBackup.ShowPriorityTrayMessages = True
         eCurrentOperation = eOperation.Backup
         OperationStarted(False)
 
@@ -1581,6 +1636,8 @@ Public Class frmMain
         'Set Menu Text
         gMonFile.Text = frmMain_gMonFile
         gMonFileMonitor.Text = frmMain_gMonFileMonitor_Start
+        gMonFileFullBackup.Text = frmMain_gMonFileFullBackup
+        gMonFileFullRestore.Text = frmMain_gMonFileFullRestore
         gMonFileSettings.Text = frmMain_gMonFileSettings
         gMonFileExit.Text = frmMain_gMonFileExit
         gMonSetup.Text = frmMain_gMonSetup
@@ -1610,6 +1667,8 @@ Public Class frmMain
         'Set Tray Menu Text
         gMonTrayShow.Text = frmMain_gMonTrayShow
         gMonTrayMon.Text = frmMain_gMonFileMonitor_Start
+        gMonTrayFullBackup.Text = frmMain_gMonTrayFullBackup
+        gMonTrayFullRestore.Text = frmMain_gMonTrayFullRestore
         gMonTraySettings.Text = frmMain_gMonFileSettings
         gMonTraySetup.Text = frmMain_gMonSetup
         gMonTraySetupGameManager.Text = frmMain_gMonSetupGameManager
@@ -1980,12 +2039,16 @@ Public Class frmMain
     End Sub
 
     'Event Handlers
-    Private Sub gMonFileMonitor_Click(sender As Object, e As EventArgs) Handles gMonFileMonitor.Click
+    Private Sub gMonFileMonitor_Click(sender As Object, e As EventArgs) Handles gMonFileMonitor.Click, gMonTrayMon.Click
         ScanToggle()
     End Sub
 
-    Private Sub gMonTrayMon_Click(sender As System.Object, e As System.EventArgs) Handles gMonTrayMon.Click
-        ScanToggle()
+    Private Sub gMonFileFullBackup_Click(sender As Object, e As EventArgs) Handles gMonFileFullBackup.Click, gMonTrayFullBackup.Click
+        RunBackupAll()
+    End Sub
+
+    Private Sub gMonFileFullRestore_Click(sender As Object, e As EventArgs) Handles gMonFileFullRestore.Click, gMonTrayFullRestore.Click
+        RunRestoreAll()
     End Sub
 
     Private Sub gMonTray_MouseClick(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles gMonTray.MouseDoubleClick
