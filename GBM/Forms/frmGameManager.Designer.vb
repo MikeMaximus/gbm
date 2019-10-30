@@ -1003,18 +1003,19 @@ Partial Class frmGameManager
         '
         Me.cmsLink.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsProcess, Me.cmsConfiguration})
         Me.cmsLink.Name = "cmsLinks"
-        Me.cmsLink.Size = New System.Drawing.Size(158, 48)
+        Me.cmsLink.ShowImageMargin = False
+        Me.cmsLink.Size = New System.Drawing.Size(156, 70)
         '
         'cmsProcess
         '
         Me.cmsProcess.Name = "cmsProcess"
-        Me.cmsProcess.Size = New System.Drawing.Size(157, 22)
+        Me.cmsProcess.Size = New System.Drawing.Size(155, 22)
         Me.cmsProcess.Text = "&Process..."
         '
         'cmsConfiguration
         '
         Me.cmsConfiguration.Name = "cmsConfiguration"
-        Me.cmsConfiguration.Size = New System.Drawing.Size(157, 22)
+        Me.cmsConfiguration.Size = New System.Drawing.Size(155, 22)
         Me.cmsConfiguration.Text = "&Configuration..."
         '
         'frmGameManager
