@@ -1463,9 +1463,10 @@ Public Class frmMain
             gMonNotification.Enabled = False
             gMonTrayNotification.Enabled = False
             gMonTraySettings.Enabled = False
+            gMonTrayFullBackup.Enabled = False
+            gMonTrayFullRestore.Enabled = False
             If Not bGameDetected Then
                 gMonTrayMon.Enabled = False
-                gMonTrayShow.Enabled = False
                 gMonTrayExit.Enabled = False
             End If
             bMenuEnabled = False
@@ -1480,8 +1481,9 @@ Public Class frmMain
             gMonNotification.Enabled = True
             gMonTrayNotification.Enabled = True
             gMonTraySettings.Enabled = True
+            gMonTrayFullBackup.Enabled = False
+            gMonTrayFullRestore.Enabled = False
             gMonTrayMon.Enabled = True
-            gMonTrayShow.Enabled = True
             gMonTrayExit.Enabled = True
             bMenuEnabled = True
         End If
