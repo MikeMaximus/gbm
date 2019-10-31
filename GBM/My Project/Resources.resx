@@ -2519,7 +2519,7 @@
     <value>[PARAM] was created on [PARAM] and you're currently running [PARAM].  This backup file cannot be imported using this method.</value>
   </data>
   <data name="frmStartUpWizard_ExistingFilesDetected" xml:space="preserve">
-    <value>[PARAM] possible backup files have been detected in the selected backup folder.  Do you want to scan and import them?[BR][BR]This may take a while depending on the number of files found and their size.</value>
+    <value>[PARAM] possible backup files have been detected in the backup folder.  Do you want to scan and import any valid files?</value>
   </data>
   <data name="frmMain_gMonFileFullBackup" xml:space="preserve">
     <value>Run Full &amp;Backup</value>
@@ -2534,15 +2534,18 @@
     <value>Run Full &amp;Restore</value>
   </data>
   <data name="frmMain_WarningFullBackup" xml:space="preserve">
-    <value>Any checks that would normally require user confirmation will automatically cancel when running a full backup.  Please review the log when the process is complete.[BR][BR]Are you sure want to trigger a backup for every game? </value>
+    <value>Are you sure you want to run a backup for every game?[BR][BR]Important checks that would normally require user confirmation will automatically cancel when running a full backup.  Please review the log when the process is complete.</value>
   </data>
   <data name="frmMain_WarningFullRestore" xml:space="preserve">
-    <value>Most checks that would normally require user confirmation will automatically cancel when running a full restore.  Please review the log when the process is complete.[BR][BR]Are you sure want to restore the newest backup for every game?</value>
+    <value>Are you sure you want to restore the latest backup for every game?[BR][BR]Important checks that would normally require user confirmation will automatically cancel when running a full restore.  Please review the log when the process is complete.</value>
   </data>
   <data name="mgrBackup_FullAbort" xml:space="preserve">
     <value>Any remaining backup operations have been aborted.</value>
   </data>
   <data name="mgrRestore_FullAbort" xml:space="preserve">
     <value>Any remaining restore operations have been aborted.</value>
+  </data>
+  <data name="frmStartUpWizard_ExistingDataAndFilesDetected" xml:space="preserve">
+    <value>[PARAM] backup files have been detected in the backup folder.  Do you want to scan and verify all backup files?[BR][BR]This is likely unnecessary since the backup folder already contains a GBM database.</value>
   </data>
 </root>

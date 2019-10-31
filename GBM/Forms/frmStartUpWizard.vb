@@ -63,31 +63,41 @@ Public Class frmStartUpWizard
 
     Private Sub CheckSync()
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
+        Dim bExistingData As Boolean = False
+        Dim sMessage As String
 
         'Check if a remote database already exists in the new backup location, if not, then check for possible existing backup files to import
         If oDatabase.CheckDB() Then
             'Make sure database is the latest version
             oDatabase.DatabaseUpgrade()
             mgrMonitorList.SyncMonitorLists(oSettings, False)
+            bExistingData = True
             mgrCommon.ShowMessage(frmStartUpWizard_ExistingData, MsgBoxStyle.Information)
-        Else
-            'Scan for any archives to import
-            Cursor.Current = Cursors.WaitCursor
-            Dim sFilesFound As List(Of String)
-            sFilesFound = mgrCommon.GetFileListByFolder(oSettings.BackupFolder, New String() {"*.7z"})
-            Dim sFilesToImport(sFilesFound.Count) As String
-            sFilesFound.CopyTo(sFilesToImport)
-            Cursor.Current = Cursors.Default
+        End If
 
-            'Ask if the user wants to import them
-            If sFilesFound.Count > 0 Then
-                If mgrCommon.ShowMessage(frmStartUpWizard_ExistingFilesDetected, sFilesFound.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    Cursor.Current = Cursors.WaitCursor
-                    Dim oBackup As New mgrBackup
-                    oBackup.Settings = oSettings
-                    oBackup.ImportBackupFiles(sFilesToImport)
-                    Cursor.Current = Cursors.Default
-                End If
+        'Scan for any archives to import
+        Cursor.Current = Cursors.WaitCursor
+        Dim sFilesFound As List(Of String)
+        sFilesFound = mgrCommon.GetFileListByFolder(oSettings.BackupFolder, New String() {"*.7z"})
+        Dim sFilesToImport(sFilesFound.Count) As String
+        sFilesFound.CopyTo(sFilesToImport)
+        Cursor.Current = Cursors.Default
+
+        'Ask if the user wants to verify and import any files
+        If sFilesFound.Count > 0 Then
+            'Use a different message depending on if an existing database was also found
+            If bExistingData Then
+                sMessage = frmStartUpWizard_ExistingDataAndFilesDetected
+            Else
+                sMessage = frmStartUpWizard_ExistingFilesDetected
+            End If
+
+            If mgrCommon.ShowMessage(sMessage, sFilesFound.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                Cursor.Current = Cursors.WaitCursor
+                Dim oBackup As New mgrBackup
+                oBackup.Settings = oSettings
+                oBackup.ImportBackupFiles(sFilesToImport)
+                Cursor.Current = Cursors.Default
             End If
         End If
     End Sub
@@ -200,6 +210,7 @@ Public Class frmStartUpWizard
         Select Case eCurrentStep
             Case eSteps.Step1
                 eCurrentStep = eSteps.Step2
+                chkCreateFolder.Checked = True
             Case eSteps.Step2
                 If ValidateBackupPath(txtBackupPath.Text, sErrorMessage) Then
                     oSettings.BackupFolder = txtBackupPath.Text

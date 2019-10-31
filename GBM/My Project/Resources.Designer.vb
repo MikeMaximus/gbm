@@ -341,7 +341,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-10-30T17:00:39
+        '''  Looks up a localized string similar to 2019-10-31T14:56:42
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4491,7 +4491,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Any checks that would normally require user confirmation will automatically cancel when running a full backup.  Please review the log when the process is complete.[BR][BR]Are you sure want to trigger a backup for every game? .
+        '''  Looks up a localized string similar to Are you sure you want to run a backup for every game?[BR][BR]Important checks that would normally require user confirmation will automatically cancel when running a full backup.  Please review the log when the process is complete..
         '''</summary>
         Friend ReadOnly Property frmMain_WarningFullBackup() As String
             Get
@@ -4500,7 +4500,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Most checks that would normally require user confirmation will automatically cancel when running a full restore.  Please review the log when the process is complete.[BR][BR]Are you sure want to restore the newest backup for every game?.
+        '''  Looks up a localized string similar to Are you sure you want to restore the latest backup for every game?[BR][BR]Important checks that would normally require user confirmation will automatically cancel when running a full restore.  Please review the log when the process is complete..
         '''</summary>
         Friend ReadOnly Property frmMain_WarningFullRestore() As String
             Get
@@ -5652,7 +5652,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] possible backup files have been detected in the selected backup folder.  Do you want to scan and import them?[BR][BR]This may take a while depending on the number of files found and their size..
+        '''  Looks up a localized string similar to [PARAM] backup files have been detected in the backup folder.  Do you want to scan and verify all backup files?[BR][BR]This is likely unnecessary since the backup folder already contains a GBM database..
+        '''</summary>
+        Friend ReadOnly Property frmStartUpWizard_ExistingDataAndFilesDetected() As String
+            Get
+                Return ResourceManager.GetString("frmStartUpWizard_ExistingDataAndFilesDetected", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] possible backup files have been detected in the backup folder.  Do you want to scan and import any valid files?.
         '''</summary>
         Friend ReadOnly Property frmStartUpWizard_ExistingFilesDetected() As String
             Get

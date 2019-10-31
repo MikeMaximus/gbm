@@ -1481,8 +1481,8 @@ Public Class frmMain
             gMonNotification.Enabled = True
             gMonTrayNotification.Enabled = True
             gMonTraySettings.Enabled = True
-            gMonTrayFullBackup.Enabled = False
-            gMonTrayFullRestore.Enabled = False
+            gMonTrayFullBackup.Enabled = True
+            gMonTrayFullRestore.Enabled = True
             gMonTrayMon.Enabled = True
             gMonTrayExit.Enabled = True
             bMenuEnabled = True
