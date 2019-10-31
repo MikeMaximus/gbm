@@ -317,7 +317,7 @@ Public Class frmMain
         hshGames = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
         For Each de As DictionaryEntry In hshGames
             oGame = DirectCast(de.Value, clsGame)
-            oGames.Add(oGame)
+            If Not oGame.MonitorOnly Then oGames.Add(oGame)
         Next
 
         If mgrCommon.ShowMessage(frmMain_WarningFullBackup, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
