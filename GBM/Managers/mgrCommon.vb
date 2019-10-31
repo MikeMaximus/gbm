@@ -572,6 +572,20 @@ Public Class mgrCommon
         End If
     End Sub
 
+    'Delete a directory if it's empty
+    Public Shared Sub DeleteEmptyDirectory(ByVal sDir As String)
+        Dim oDir As DirectoryInfo
+
+        If Directory.Exists(sDir) Then
+            'Check if there's any sub-directories or files remaining
+            oDir = New DirectoryInfo(sDir)
+            If oDir.GetDirectories.Length = 0 And oDir.GetFiles.Length = 0 Then
+                'Folder is empty
+                If Directory.Exists(sDir) Then DeleteDirectory(sDir)
+            End If
+        End If
+    End Sub
+
     'Opens a file or folder in default application determined by the OS
     Public Shared Function OpenInOS(ByVal sFileName As String, ByVal sNotFoundError As String) As Boolean
         Dim oProcessStartInfo As ProcessStartInfo
@@ -597,7 +611,6 @@ Public Class mgrCommon
 
     'Delete a sub-folder based on the provided backup information
     Public Shared Sub DeleteDirectoryByBackup(ByVal sBackupFolder As String, ByVal oBackup As clsBackup)
-        Dim oDir As DirectoryInfo
         Dim sDir As String = sBackupFolder & oBackup.MonitorID
 
         'Check if the sub-folder is an ID or Name
@@ -609,15 +622,7 @@ Public Class mgrCommon
             Exit Sub
         End If
 
-        'Delete sub directory if it's empty
-        If Directory.Exists(sDir) Then
-            'Check if there's any sub-directories or files remaining
-            oDir = New DirectoryInfo(sDir)
-            If oDir.GetDirectories.Length = 0 And oDir.GetFiles.Length = 0 Then
-                'Folder is empty,  delete the empty sub-folder
-                If Directory.Exists(sDir) Then DeleteDirectory(sDir)
-            End If
-        End If
+        DeleteEmptyDirectory(sDir)
     End Sub
 
     'Save string as text file

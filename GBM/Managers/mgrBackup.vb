@@ -704,13 +704,12 @@ Public Class mgrBackup
                     If oGame.AbsolutePath = False Then
                         mgrMonitorList.DoListFieldUpdate("ProcessPath", oGame.ProcessPath, oGame.ID)
                     End If
-                End If
-            End If
 
-            If bBackupCompleted Then
-                RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionComplete, oGame.CroppedName))
-            Else
-                RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionFailed, oGame.CroppedName))
+                    RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionComplete, oGame.CroppedName))
+                Else
+                    If oSettings.CreateSubFolder Then mgrCommon.DeleteEmptyDirectory(Path.GetDirectoryName(sBackupFile))
+                    RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionFailed, oGame.CroppedName))
+                End If
             End If
         Next
     End Sub
