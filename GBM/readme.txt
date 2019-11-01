@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.0 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-October 31, 2019
+November 1, 2019
 
 New in 1.2.0
 
@@ -16,10 +16,13 @@ All Platforms:
 	- This allows any linked configuration(s) to automatically run a backup or restore each time their parent is triggered.  This can continue in a chain.
 	- This feature allows for the proper configuration of rare games that stored their saved games in multiple unique locations.  It may also have other creative uses.
 	- Please read "Link -> Configuration" in the "Game Manager" section of the manual for details on exactly how this feature works.
-- GBM now adds metadata to all backup files.
+- Metadata is now added to all backup files.
 	- This is a small XML file that contains important information about the archive and the configuration used to make the backup.
 	- This allows GBM and possibly any other software to easily identify and use GBM backup files.
-	- This file is not extracted when restoring a backup, it will not be cluttering up your saved game folders.	
+	- This file is not extracted when restoring a backup, it will not be cluttering up your saved game folders.
+- All backup operations are now performed in a temporary folder before being moved to the backup folder.
+	- This change was required to fix periodic issues with cloud software (Dropbox) locking backup files while they were being created.
+	- The temporary folder can be manually set in "Settings -> Backup and Restore", it defaults to %LOCALAPPDATA%\gbm (~/.local/share/gbm).
 - Improved the ability to import backup files using metadata.
 	- There is a now a global tool to import backup files or entire folders available in the "Tools" menu.
 	- Only backup files with GBM metadata can be imported using this new tool.
