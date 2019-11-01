@@ -27,6 +27,7 @@ All Platforms:
 	- There is a now a global tool to import backup files or entire folders available in the "Tools" menu.
 	- Only backup files with GBM metadata can be imported using this new tool.
 	- You may still force the import of backup files without metadata (or incorrect metadata) using the "Import Backup Files" tool in the Game Manager.
+- GBM now properly checks for available disk space when doing batch operations.
 - GBM no longer attempts to search for a game when the process name is a regular expression, it isn't supported.
 - Fixed various long-standing problems with the "Cancel" button.
 	- Using "Cancel" during a backup or restore now properly cancels out of batch operations.

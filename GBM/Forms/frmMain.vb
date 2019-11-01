@@ -327,6 +327,7 @@ Public Class frmMain
 
     Private Sub RunManualBackup(ByVal oBackupList As List(Of clsGame), Optional ByVal bFastMode As Boolean = False)
         Dim oGame As clsGame
+        Dim lBackupSize As Long = 0
         Dim bNoAuto As Boolean
         Dim bOSVerified As Boolean
         Dim bPathVerified As Boolean
@@ -345,6 +346,9 @@ Public Class frmMain
 
         'Build Backup List
         For Each oGame In oQueue
+            'Break out when a cancel signal is received
+            If oBackup.CancelOperation Then Exit For
+
             bNoAuto = False
             bOSVerified = False
             bPathVerified = False
@@ -361,21 +365,26 @@ Public Class frmMain
                 If oGame.ProcessPath <> String.Empty Then
                     bPathVerified = True
                 Else
-                    UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oGame.Name), False, ToolTipIcon.Error, True)
+                    If Not bFastMode Then UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oGame.Name), False, ToolTipIcon.Error, True)
                 End If
             Else
-                bPathVerified = True
+                If Directory.Exists(oGame.Path) Then
+                    bPathVerified = True
+                Else
+                    If Not bFastMode Then UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oGame.Name), False, ToolTipIcon.Error, True)
+                End If
             End If
 
             If bOSVerified And bPathVerified Then
-                If oBackup.CheckBackupPrereq(oGame, bFastMode) Then
+                If oBackup.CheckBackupPrereq(oGame, lBackupSize, bFastMode) Then
                     oReadyList.Add(oGame)
                 End If
             End If
         Next
 
         'Run backups
-        If oReadyList.Count > 0 Then
+        If oReadyList.Count > 0 And Not oBackup.CancelOperation Then
+            UpdateLog(mgrCommon.FormatString(mgrBackup_BackupBatchSize, mgrCommon.FormatDiskSpace(lBackupSize)), False, ToolTipIcon.Info, True)
             Dim oThread As New System.Threading.Thread(AddressOf ExecuteBackup)
             oThread.IsBackground = True
             oThread.Start(oReadyList)
@@ -450,6 +459,7 @@ Public Class frmMain
 
     Private Sub GetBackupQueue(ByVal oRootList As List(Of clsGame), ByRef oBackupList As List(Of clsGame), Optional ByVal bDoPreCheck As Boolean = True)
         Dim oLinkChain As New List(Of String)
+        Dim lBackupSize As Long = 0
         Dim hshGame As Hashtable
         Dim oGame As clsGame
 
@@ -463,7 +473,7 @@ Public Class frmMain
                 oGame = DirectCast(hshGame(0), clsGame)
                 UpdateLog(mgrCommon.FormatString(frmMain_BackupQueue, oGame.Name), False, ToolTipIcon.Info, True)
                 If bDoPreCheck Then
-                    If oBackup.CheckBackupPrereq(oGame) Then oBackupList.Add(oGame)
+                    If oBackup.CheckBackupPrereq(oGame, lBackupSize) Then oBackupList.Add(oGame)
                 Else
                     oBackupList.Add(oGame)
                 End If

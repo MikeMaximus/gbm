@@ -341,7 +341,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-11-01T16:36:51
+        '''  Looks up a localized string similar to 2019-11-01T21:23:07
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -6433,6 +6433,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Total Batch Size: [PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_BackupBatchSize() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_BackupBatchSize", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] backup ([PARAM]) completed. .
         '''</summary>
         Friend ReadOnly Property mgrBackup_BackupComplete() As String
@@ -6739,6 +6748,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] Save Folder Size: [PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_SavedGameFolderSize() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_SavedGameFolderSize", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Temporary Folder.
         '''</summary>
         Friend ReadOnly Property mgrBackup_TemporaryFolder() As String
@@ -6852,15 +6870,6 @@ Namespace My.Resources
         Friend ReadOnly Property mgrCommon_PB() As String
             Get
                 Return ResourceManager.GetString("mgrCommon_PB", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to [PARAM] Save Folder Size: [PARAM].
-        '''</summary>
-        Friend ReadOnly Property mgrCommon_SavedGameFolderSize() As String
-            Get
-                Return ResourceManager.GetString("mgrCommon_SavedGameFolderSize", resourceCulture)
             End Get
         End Property
         

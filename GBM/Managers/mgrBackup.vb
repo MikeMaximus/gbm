@@ -131,13 +131,19 @@ Public Class mgrBackup
         Return sName
     End Function
 
-    Public Function CheckBackupPrereq(ByVal oGame As clsGame, Optional ByVal bFastMode As Boolean = False) As Boolean
+    Private Sub ShowBackupSizeInfo(ByVal lAvailableTempSpace As Long, ByVal lAvailableSpace As Long, ByVal lBackupSize As Long)
+        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_AvailableDiskSpace, New String() {mgrBackup_TemporaryFolder, mgrCommon.FormatDiskSpace(lAvailableTempSpace)}), False, ToolTipIcon.Info, True)
+        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_AvailableDiskSpace, New String() {mgrBackup_BackupFolder, mgrCommon.FormatDiskSpace(lAvailableSpace)}), False, ToolTipIcon.Info, True)
+        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupBatchSize, mgrCommon.FormatDiskSpace(lBackupSize)), False, ToolTipIcon.Info, True)
+    End Sub
+
+    Public Function CheckBackupPrereq(ByVal oGame As clsGame, ByRef lBackupSize As Long, Optional ByVal bFastMode As Boolean = False) As Boolean
         Dim sBackupFile As String = oSettings.BackupFolder
         Dim sSavePath As String
         Dim sOverwriteMessage As String
+        Dim lFolderSize As Long
         Dim lAvailableSpace As Long
         Dim lAvailableTempSpace As Long
-        Dim lFolderSize As Long = 0
         Dim sDeepFolder As String
         Dim bRegistry As Boolean
         Dim sExtension As String
@@ -157,7 +163,7 @@ Public Class mgrBackup
             sSavePath = VerifySavePath(oGame)
 
             'Check if disk space check should be disabled (UNC path, Setting, forced fast mode)
-            If (Not mgrPath.IsPathUNC(oSettings.BackupFolder) Or Not mgrPath.IsPathUNC(oSettings.TemporaryFolder)) And Not Settings.DisableDiskSpaceCheck And Not bFastMode Then
+            If (Not mgrPath.IsPathUNC(oSettings.BackupFolder) Or Not mgrPath.IsPathUNC(oSettings.TemporaryFolder)) And Not Settings.DisableDiskSpaceCheck Then
                 'Calculate space
                 lAvailableSpace = mgrCommon.GetAvailableDiskSpace(oSettings.BackupFolder)
                 lAvailableTempSpace = mgrCommon.GetAvailableDiskSpace(oSettings.TemporaryFolder)
@@ -173,17 +179,23 @@ Public Class mgrBackup
                         End If
                     Next
                 End If
-                lFolderSize += mgrCommon.GetFolderSize(sSavePath, oGame.IncludeArray, oGame.ExcludeArray, oGame.RecurseSubFolders)
-
-                'Show Available Space
-                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_AvailableDiskSpace, New String() {mgrBackup_TemporaryFolder, mgrCommon.FormatDiskSpace(lAvailableTempSpace)}), False, ToolTipIcon.Info, True)
-                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_AvailableDiskSpace, New String() {mgrBackup_BackupFolder, mgrCommon.FormatDiskSpace(lAvailableSpace)}), False, ToolTipIcon.Info, True)
+                lFolderSize = mgrCommon.GetFolderSize(sSavePath, oGame.IncludeArray, oGame.ExcludeArray, oGame.RecurseSubFolders)
+                lBackupSize += lFolderSize
 
                 'Show Save Folder Size
-                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_SavedGameFolderSize, New String() {oGame.Name, mgrCommon.FormatDiskSpace(lFolderSize)}), False, ToolTipIcon.Info, True)
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_SavedGameFolderSize, New String() {oGame.Name, mgrCommon.FormatDiskSpace(lFolderSize)}), False, ToolTipIcon.Info, True)
 
-                If lFolderSize >= lAvailableSpace Or lFolderSize >= lAvailableTempSpace Then
-                    If mgrCommon.ShowMessage(mgrBackup_ConfirmDiskSpace, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                If lBackupSize >= lAvailableSpace Or lBackupSize >= lAvailableTempSpace Then
+                    If Not bFastMode Then
+                        If mgrCommon.ShowMessage(mgrBackup_ConfirmDiskSpace, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                            CancelOperation = True
+                            ShowBackupSizeInfo(lAvailableTempSpace, lAvailableSpace, lBackupSize)
+                            RaiseEvent UpdateLog(mgrBackup_ErrorDiskSpace, False, ToolTipIcon.Error, True)
+                            Return False
+                        End If
+                    Else
+                        CancelOperation = True
+                        ShowBackupSizeInfo(lAvailableTempSpace, lAvailableSpace, lBackupSize)
                         RaiseEvent UpdateLog(mgrBackup_ErrorDiskSpace, False, ToolTipIcon.Error, True)
                         Return False
                     End If

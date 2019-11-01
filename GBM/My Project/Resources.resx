@@ -1738,7 +1738,7 @@
   <data name="mgrCommon_PB" xml:space="preserve">
     <value>[PARAM] PB</value>
   </data>
-  <data name="mgrCommon_SavedGameFolderSize" xml:space="preserve">
+  <data name="mgrBackup_SavedGameFolderSize" xml:space="preserve">
     <value>[PARAM] Save Folder Size: [PARAM]</value>
   </data>
   <data name="mgrCommon_TB" xml:space="preserve">
@@ -2562,5 +2562,8 @@
   </data>
   <data name="mgrBackup_TemporaryFolder" xml:space="preserve">
     <value>Temporary Folder</value>
+  </data>
+  <data name="mgrBackup_BackupBatchSize" xml:space="preserve">
+    <value>Total Batch Size: [PARAM]</value>
   </data>
 </root>
