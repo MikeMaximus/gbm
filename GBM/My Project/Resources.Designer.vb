@@ -341,7 +341,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-10-31T14:56:42
+        '''  Looks up a localized string similar to 2019-11-01T16:36:51
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5319,6 +5319,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The temporary folder does not exist.  Please choose a valid temporary folder..
+        '''</summary>
+        Friend ReadOnly Property frmSettings_ErrorTempFolder() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_ErrorTempFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Settings.
         '''</summary>
         Friend ReadOnly Property frmSettings_FormName() As String
@@ -5459,6 +5468,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_lblMinutes() As String
             Get
                 Return ResourceManager.GetString("frmSettings_lblMinutes", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Temp Folder:.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_lblTempFolder() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_lblTempFolder", resourceCulture)
             End Get
         End Property
         
@@ -6424,6 +6442,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backup Folder.
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_BackupFolder() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_BackupFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup of [PARAM] in progress....
         '''</summary>
         Friend ReadOnly Property mgrBackup_BackupInProgress() As String
@@ -6483,15 +6510,6 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_ConfirmOverwriteRelative() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ConfirmOverwriteRelative", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to The backup folder is a UNC path.  The disk space check has been skipped..
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_ErrorBackupPathIsUNC() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_ErrorBackupPathIsUNC", resourceCulture)
             End Get
         End Property
         
@@ -6577,6 +6595,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An error occured while moving the [PARAM] backup file from the temporary folder to the backup folder..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorMovingBackupFile() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorMovingBackupFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to The file [PARAM] contains no metadata or is an invalid archive.  .
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorNoMetadata() As String
@@ -6600,6 +6627,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_ErrorOverwriteAbort() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ErrorOverwriteAbort", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The temporary or backup folder is a UNC path.  The disk space check has been skipped..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorPathIsUNC() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorPathIsUNC", resourceCulture)
             End Get
         End Property
         
@@ -6703,6 +6739,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Temporary Folder.
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_TemporaryFolder() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_TemporaryFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to The metadata in the backup file ([PARAM]) does not match the game you selected.[BR][BR]Do you want to continue importing this file? (Not Recommended).
         '''</summary>
         Friend ReadOnly Property mgrBackup_WarningMetadataMismatch() As String
@@ -6721,7 +6766,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Available Disk Space: [PARAM].
+        '''  Looks up a localized string similar to Available Disk Space ([PARAM]): [PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_AvailableDiskSpace() As String
             Get

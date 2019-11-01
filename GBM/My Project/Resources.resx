@@ -1724,7 +1724,7 @@
     <value>Backup aborted due to lack of disk space.</value>
   </data>
   <data name="mgrCommon_AvailableDiskSpace" xml:space="preserve">
-    <value>Available Disk Space: [PARAM]</value>
+    <value>Available Disk Space ([PARAM]): [PARAM]</value>
   </data>
   <data name="mgrCommon_GB" xml:space="preserve">
     <value>[PARAM] GB</value>
@@ -2311,8 +2311,8 @@
   <data name="App_ErrorLaunchExternal" xml:space="preserve">
     <value>An error occured attempting to launch the application:[BR][BR][PARAM]</value>
   </data>
-  <data name="mgrBackup_ErrorBackupPathIsUNC" xml:space="preserve">
-    <value>The backup folder is a UNC path.  The disk space check has been skipped.</value>
+  <data name="mgrBackup_ErrorPathIsUNC" xml:space="preserve">
+    <value>The temporary or backup folder is a UNC path.  The disk space check has been skipped.</value>
   </data>
   <data name="frmSettings_chkDisableDiskSpaceCheck" xml:space="preserve">
     <value>Disable disk space check prior to backup</value>
@@ -2547,5 +2547,20 @@
   </data>
   <data name="frmStartUpWizard_ExistingDataAndFilesDetected" xml:space="preserve">
     <value>[PARAM] backup files have been detected in the backup folder.  Do you want to scan and verify all backup files?[BR][BR]This is likely unnecessary since the backup folder already contains a GBM database.</value>
+  </data>
+  <data name="frmSettings_ErrorTempFolder" xml:space="preserve">
+    <value>The temporary folder does not exist.  Please choose a valid temporary folder.</value>
+  </data>
+  <data name="frmSettings_lblTempFolder" xml:space="preserve">
+    <value>Temp Folder:</value>
+  </data>
+  <data name="mgrBackup_BackupFolder" xml:space="preserve">
+    <value>Backup Folder</value>
+  </data>
+  <data name="mgrBackup_ErrorMovingBackupFile" xml:space="preserve">
+    <value>An error occured while moving the [PARAM] backup file from the temporary folder to the backup folder.</value>
+  </data>
+  <data name="mgrBackup_TemporaryFolder" xml:space="preserve">
+    <value>Temporary Folder</value>
   </data>
 </root>

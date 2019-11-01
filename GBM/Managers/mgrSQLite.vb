@@ -965,6 +965,7 @@ Public Class mgrSQLite
 
                 'Add Tables (Config Links)
                 sSQL = "CREATE TABLE configlinks (MonitorID TEXT NOT NULL, LinkID TEXT NOT NULL, PRIMARY KEY(MonitorID, LinkID));"
+                sSQL &= "ALTER TABLE settings ADD COLUMN TemporaryFolder TEXT;"
                 sSQL &= "PRAGMA user_version=120"
 
                 RunParamQuery(sSQL, New Hashtable)

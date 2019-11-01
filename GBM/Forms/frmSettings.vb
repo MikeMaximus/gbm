@@ -117,6 +117,13 @@ Public Class frmSettings
             Return False
         End If
 
+        If Directory.Exists(txtTempFolder.Text) Then
+            oSettings.TemporaryFolder = txtTempFolder.Text
+        Else
+            mgrCommon.ShowMessage(frmSettings_ErrorTempFolder, MsgBoxStyle.Exclamation)
+            Return False
+        End If
+
         If oSettings.Custom7zLocation <> String.Empty Then
             If File.Exists(oSettings.Custom7zLocation) Then
                 If Path.GetFileNameWithoutExtension(oSettings.Custom7zLocation) <> "7za" Then
@@ -224,6 +231,7 @@ Public Class frmSettings
         chkAutoRestore.Checked = oSettings.AutoRestore
         chkAutoMark.Checked = oSettings.AutoMark
         txtBackupFolder.Text = oSettings.BackupFolder
+        txtTempFolder.Text = oSettings.TemporaryFolder
         chkTimeTracking.Checked = oSettings.TimeTracking
         chkSessionTracking.Checked = oSettings.SessionTracking
         chkShowResolvedPaths.Checked = oSettings.ShowResolvedPaths
@@ -332,6 +340,7 @@ Public Class frmSettings
         grpFolderOptions.Text = frmSettings_grpFolderOptions
         btnBackupFolder.Text = frmSettings_btnBackupFolder
         lblBackupFolder.Text = frmSettings_lblBackupFolder
+        lblTempFolder.Text = frmSettings_lblTempFolder
         grpStartup.Text = frmSettings_grpStartup
         grpGameData.Text = frmSettings_grpGameData
         chkTimeTracking.Text = frmSettings_chkTimeTracking
@@ -393,6 +402,12 @@ Public Class frmSettings
         Dim sNewFolder As String
         sNewFolder = mgrCommon.OpenClassicFolderBrowser("Settings_Backup_Path", frmSettings_BrowseFolder, oSettings.BackupFolder, True, False)
         If sNewFolder <> String.Empty Then txtBackupFolder.Text = sNewFolder
+    End Sub
+
+    Private Sub btnTempFolder_Click(sender As Object, e As EventArgs) Handles btnTempFolder.Click
+        Dim sNewFolder As String
+        sNewFolder = mgrCommon.OpenClassicFolderBrowser("Settings_Temp_Path", frmSettings_BrowseFolder, oSettings.TemporaryFolder, True, False)
+        If sNewFolder <> String.Empty Then txtTempFolder.Text = sNewFolder
     End Sub
 
     Private Sub btn7zLocation_Click(sender As Object, e As EventArgs) Handles btn7zLocation.Click

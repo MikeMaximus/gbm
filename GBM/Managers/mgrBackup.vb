@@ -136,6 +136,7 @@ Public Class mgrBackup
         Dim sSavePath As String
         Dim sOverwriteMessage As String
         Dim lAvailableSpace As Long
+        Dim lAvailableTempSpace As Long
         Dim lFolderSize As Long = 0
         Dim sDeepFolder As String
         Dim bRegistry As Boolean
@@ -156,9 +157,10 @@ Public Class mgrBackup
             sSavePath = VerifySavePath(oGame)
 
             'Check if disk space check should be disabled (UNC path, Setting, forced fast mode)
-            If Not mgrPath.IsPathUNC(oSettings.BackupFolder) And Not Settings.DisableDiskSpaceCheck And Not bFastMode Then
+            If (Not mgrPath.IsPathUNC(oSettings.BackupFolder) Or Not mgrPath.IsPathUNC(oSettings.TemporaryFolder)) And Not Settings.DisableDiskSpaceCheck And Not bFastMode Then
                 'Calculate space
                 lAvailableSpace = mgrCommon.GetAvailableDiskSpace(oSettings.BackupFolder)
+                lAvailableTempSpace = mgrCommon.GetAvailableDiskSpace(oSettings.TemporaryFolder)
 
                 'If any includes are using a deep path and we aren't using recursion,  we need to go directly to folders to do file size calculations or they will be missed.
                 If Not oGame.RecurseSubFolders Then
@@ -174,20 +176,21 @@ Public Class mgrBackup
                 lFolderSize += mgrCommon.GetFolderSize(sSavePath, oGame.IncludeArray, oGame.ExcludeArray, oGame.RecurseSubFolders)
 
                 'Show Available Space
-                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_AvailableDiskSpace, mgrCommon.FormatDiskSpace(lAvailableSpace)), False, ToolTipIcon.Info, True)
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_AvailableDiskSpace, New String() {mgrBackup_TemporaryFolder, mgrCommon.FormatDiskSpace(lAvailableTempSpace)}), False, ToolTipIcon.Info, True)
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_AvailableDiskSpace, New String() {mgrBackup_BackupFolder, mgrCommon.FormatDiskSpace(lAvailableSpace)}), False, ToolTipIcon.Info, True)
 
                 'Show Save Folder Size
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrCommon_SavedGameFolderSize, New String() {oGame.Name, mgrCommon.FormatDiskSpace(lFolderSize)}), False, ToolTipIcon.Info, True)
 
-                If lFolderSize >= lAvailableSpace Then
+                If lFolderSize >= lAvailableSpace Or lFolderSize >= lAvailableTempSpace Then
                     If mgrCommon.ShowMessage(mgrBackup_ConfirmDiskSpace, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                         RaiseEvent UpdateLog(mgrBackup_ErrorDiskSpace, False, ToolTipIcon.Error, True)
                         Return False
                     End If
                 End If
-            ElseIf mgrPath.IsPathUNC(oSettings.BackupFolder) And Not Settings.DisableDiskSpaceCheck Then
+            ElseIf (mgrPath.IsPathUNC(oSettings.BackupFolder) Or mgrPath.IsPathUNC(oSettings.TemporaryFolder)) And Not Settings.DisableDiskSpaceCheck Then
                 'Show that disk space check was skipped due to UNC path                
-                RaiseEvent UpdateLog(mgrBackup_ErrorBackupPathIsUNC, False, ToolTipIcon.Info, True)
+                RaiseEvent UpdateLog(mgrBackup_ErrorPathIsUNC, False, ToolTipIcon.Info, True)
             End If
 
             sExtension = ".7z"
@@ -627,6 +630,28 @@ Public Class mgrBackup
         Return bBackupCompleted
     End Function
 
+    Private Function MoveBackupToFinalLocation(ByRef sSourceFile As String, ByVal oGame As clsGame) As Boolean
+        Dim sBackupFile As String = Settings.BackupFolder
+        Dim sFileName As String = Path.GetFileName(sSourceFile)
+        Dim bDoMove As Boolean = True
+
+        If oSettings.CreateSubFolder Then
+            sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
+            bDoMove = HandleSubFolder(oGame, sBackupFile)
+        End If
+
+        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & sFileName
+
+        If bDoMove Then
+            If mgrCommon.MoveFile(sSourceFile, sBackupFile, True) Then
+                sSourceFile = sBackupFile
+                Return True
+            End If
+        End If
+
+        Return False
+    End Function
+
     Public Sub DoBackup(ByVal oBackupList As List(Of clsGame))
         Dim oGame As clsGame
         Dim bDoBackup As Boolean
@@ -648,7 +673,7 @@ Public Class mgrBackup
             End If
 
             'Init
-            sBackupFile = oSettings.BackupFolder
+            sBackupFile = Settings.TemporaryFolder
             dTimeStamp = Date.Now
             sTimeStamp = BuildFileTimeStamp(dTimeStamp)
             sHash = String.Empty
@@ -657,11 +682,6 @@ Public Class mgrBackup
             bMetadataGenerated = False
             CancelOperation = False
             RaiseEvent UpdateBackupInfo(oGame)
-
-            If oSettings.CreateSubFolder Then
-                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
-                bDoBackup = HandleSubFolder(oGame, sBackupFile)
-            End If
 
             If mgrPath.IsSupportedRegistryPath(oGame.TruePath) Then
                 sBackupExt = ".reg"
@@ -680,11 +700,26 @@ Public Class mgrBackup
                 'Choose Backup Type
                 If mgrPath.IsSupportedRegistryPath(oGame.TruePath) Then
                     bBackupCompleted = RunRegistryBackup(oGame, sBackupFile)
+                    If bBackupCompleted Then
+                        If Not MoveBackupToFinalLocation(sBackupFile, oGame) Then
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMovingBackupFile, oGame.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
+                            bBackupCompleted = False
+                        End If
+                    End If
                 Else
                     bMetadataGenerated = oMetadata.SerializeAndExport(mgrPath.SettingsRoot & Path.DirectorySeparatorChar & App_MetadataFilename, oGame, My.Computer.Name, dTimeStamp)
                     If bMetadataGenerated Then
                         bBackupCompleted = Run7zBackup(oGame, sBackupFile)
-                        If bBackupCompleted Then oMetadata.AddMetadataToArchive(sBackupFile, App_MetadataFilename)
+                        If bBackupCompleted Then
+                            If oMetadata.AddMetadataToArchive(sBackupFile, App_MetadataFilename) Then
+                                If Not MoveBackupToFinalLocation(sBackupFile, oGame) Then
+                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMovingBackupFile, oGame.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
+                                    bBackupCompleted = False
+                                End If
+                            Else
+                                bBackupCompleted = False
+                            End If
+                        End If
                     Else
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMetadataFailure, oGame.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
                     End If

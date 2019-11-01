@@ -531,6 +531,19 @@ Public Class mgrCommon
         End If
     End Function
 
+    'Move a file
+    Public Shared Function MoveFile(ByVal sSourcePath As String, ByVal sDestinationPath As String, ByVal bOverWrite As Boolean) As Boolean
+        Try
+            If File.Exists(sSourcePath) Then
+                My.Computer.FileSystem.MoveFile(sSourcePath, sDestinationPath, bOverWrite)
+            End If
+        Catch
+            Return False
+        End Try
+
+        Return True
+    End Function
+
     'Copy a file
     Public Shared Function CopyFile(ByVal sSourcePath As String, ByVal sDestinationPath As String, ByVal bOverWrite As Boolean) As Boolean
         Try

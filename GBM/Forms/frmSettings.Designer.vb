@@ -75,6 +75,9 @@ Partial Class frmSettings
         Me.chkAutoStart = New System.Windows.Forms.CheckBox()
         Me.chkStartMinimized = New System.Windows.Forms.CheckBox()
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
+        Me.btnTempFolder = New System.Windows.Forms.Button()
+        Me.lblTempFolder = New System.Windows.Forms.Label()
+        Me.txtTempFolder = New System.Windows.Forms.TextBox()
         Me.grpFolderOptions.SuspendLayout()
         Me.grp7zGeneral.SuspendLayout()
         Me.pnlBackup.SuspendLayout()
@@ -133,6 +136,9 @@ Partial Class frmSettings
         '
         'grpFolderOptions
         '
+        Me.grpFolderOptions.Controls.Add(Me.btnTempFolder)
+        Me.grpFolderOptions.Controls.Add(Me.lblTempFolder)
+        Me.grpFolderOptions.Controls.Add(Me.txtTempFolder)
         Me.grpFolderOptions.Controls.Add(Me.chkUseGameID)
         Me.grpFolderOptions.Controls.Add(Me.btnBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.lblBackupFolder)
@@ -140,7 +146,7 @@ Partial Class frmSettings
         Me.grpFolderOptions.Controls.Add(Me.chkCreateFolder)
         Me.grpFolderOptions.Location = New System.Drawing.Point(6, 12)
         Me.grpFolderOptions.Name = "grpFolderOptions"
-        Me.grpFolderOptions.Size = New System.Drawing.Size(354, 90)
+        Me.grpFolderOptions.Size = New System.Drawing.Size(354, 113)
         Me.grpFolderOptions.TabIndex = 0
         Me.grpFolderOptions.TabStop = False
         Me.grpFolderOptions.Text = "Files and Folders"
@@ -148,10 +154,10 @@ Partial Class frmSettings
         'chkUseGameID
         '
         Me.chkUseGameID.AutoSize = True
-        Me.chkUseGameID.Location = New System.Drawing.Point(9, 65)
+        Me.chkUseGameID.Location = New System.Drawing.Point(8, 87)
         Me.chkUseGameID.Name = "chkUseGameID"
         Me.chkUseGameID.Size = New System.Drawing.Size(205, 17)
-        Me.chkUseGameID.TabIndex = 3
+        Me.chkUseGameID.TabIndex = 5
         Me.chkUseGameID.Text = "Use Game ID for folder and file names"
         Me.chkUseGameID.UseVisualStyleBackColor = True
         '
@@ -183,10 +189,10 @@ Partial Class frmSettings
         'chkCreateFolder
         '
         Me.chkCreateFolder.AutoSize = True
-        Me.chkCreateFolder.Location = New System.Drawing.Point(9, 43)
+        Me.chkCreateFolder.Location = New System.Drawing.Point(8, 65)
         Me.chkCreateFolder.Name = "chkCreateFolder"
         Me.chkCreateFolder.Size = New System.Drawing.Size(186, 17)
-        Me.chkCreateFolder.TabIndex = 2
+        Me.chkCreateFolder.TabIndex = 4
         Me.chkCreateFolder.Text = "Create a sub-folder for each game"
         Me.chkCreateFolder.UseVisualStyleBackColor = True
         '
@@ -322,7 +328,7 @@ Partial Class frmSettings
         Me.grpBackupConfirmations.Controls.Add(Me.chkDisableDiskSpaceCheck)
         Me.grpBackupConfirmations.Controls.Add(Me.chkBackupConfirm)
         Me.grpBackupConfirmations.Controls.Add(Me.chkOverwriteWarning)
-        Me.grpBackupConfirmations.Location = New System.Drawing.Point(6, 200)
+        Me.grpBackupConfirmations.Location = New System.Drawing.Point(6, 221)
         Me.grpBackupConfirmations.Name = "grpBackupConfirmations"
         Me.grpBackupConfirmations.Size = New System.Drawing.Size(354, 90)
         Me.grpBackupConfirmations.TabIndex = 2
@@ -364,7 +370,7 @@ Partial Class frmSettings
         Me.grpBackupHandling.Controls.Add(Me.chkAutoRestore)
         Me.grpBackupHandling.Controls.Add(Me.chkRestoreNotify)
         Me.grpBackupHandling.Controls.Add(Me.chkAutoMark)
-        Me.grpBackupHandling.Location = New System.Drawing.Point(6, 107)
+        Me.grpBackupHandling.Location = New System.Drawing.Point(6, 129)
         Me.grpBackupHandling.Margin = New System.Windows.Forms.Padding(2)
         Me.grpBackupHandling.Name = "grpBackupHandling"
         Me.grpBackupHandling.Padding = New System.Windows.Forms.Padding(2)
@@ -622,13 +628,38 @@ Partial Class frmSettings
         Me.chkMonitorOnStartup.Text = "Start monitoring on launch"
         Me.chkMonitorOnStartup.UseVisualStyleBackColor = True
         '
+        'btnTempFolder
+        '
+        Me.btnTempFolder.Location = New System.Drawing.Point(313, 40)
+        Me.btnTempFolder.Name = "btnTempFolder"
+        Me.btnTempFolder.Size = New System.Drawing.Size(27, 20)
+        Me.btnTempFolder.TabIndex = 3
+        Me.btnTempFolder.Text = "..."
+        Me.btnTempFolder.UseVisualStyleBackColor = True
+        '
+        'lblTempFolder
+        '
+        Me.lblTempFolder.AutoSize = True
+        Me.lblTempFolder.Location = New System.Drawing.Point(6, 43)
+        Me.lblTempFolder.Name = "lblTempFolder"
+        Me.lblTempFolder.Size = New System.Drawing.Size(69, 13)
+        Me.lblTempFolder.TabIndex = 0
+        Me.lblTempFolder.Text = "Temp Folder:"
+        '
+        'txtTempFolder
+        '
+        Me.txtTempFolder.Location = New System.Drawing.Point(91, 40)
+        Me.txtTempFolder.Name = "txtTempFolder"
+        Me.txtTempFolder.Size = New System.Drawing.Size(216, 20)
+        Me.txtTempFolder.TabIndex = 2
+        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(554, 361)
-        Me.Controls.Add(Me.pnlStartup)
         Me.Controls.Add(Me.pnlBackup)
+        Me.Controls.Add(Me.pnlStartup)
         Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.btnResetMessages)
@@ -722,4 +753,7 @@ Partial Class frmSettings
     Friend WithEvents grpGameMonitoringOptions As GroupBox
     Friend WithEvents chkShowResolvedPaths As CheckBox
     Friend WithEvents chkDisableDiskSpaceCheck As CheckBox
+    Friend WithEvents btnTempFolder As Button
+    Friend WithEvents lblTempFolder As Label
+    Friend WithEvents txtTempFolder As TextBox
 End Class
