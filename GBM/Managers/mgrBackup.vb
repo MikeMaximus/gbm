@@ -707,21 +707,22 @@ Public Class mgrBackup
                         End If
                     End If
                 Else
-                    bMetadataGenerated = oMetadata.SerializeAndExport(mgrPath.SettingsRoot & Path.DirectorySeparatorChar & App_MetadataFilename, oGame, My.Computer.Name, dTimeStamp)
-                    If bMetadataGenerated Then
-                        bBackupCompleted = Run7zBackup(oGame, sBackupFile)
-                        If bBackupCompleted Then
+                    bBackupCompleted = Run7zBackup(oGame, sBackupFile)
+                    If bBackupCompleted Then
+                        bMetadataGenerated = oMetadata.SerializeAndExport(mgrPath.SettingsRoot & Path.DirectorySeparatorChar & App_MetadataFilename, oGame, My.Computer.Name, dTimeStamp)
+                        If bMetadataGenerated Then
                             If oMetadata.AddMetadataToArchive(sBackupFile, App_MetadataFilename) Then
                                 If Not MoveBackupToFinalLocation(sBackupFile, oGame) Then
-                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMovingBackupFile, oGame.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
                                     bBackupCompleted = False
+                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMovingBackupFile, oGame.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
                                 End If
                             Else
                                 bBackupCompleted = False
                             End If
+                        Else
+                            bBackupCompleted = False
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMetadataFailure, oGame.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
                         End If
-                    Else
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMetadataFailure, oGame.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
                     End If
                 End If
 
@@ -742,7 +743,8 @@ Public Class mgrBackup
 
                     RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionComplete, oGame.CroppedName))
                 Else
-                    If oSettings.CreateSubFolder Then mgrCommon.DeleteEmptyDirectory(Path.GetDirectoryName(sBackupFile))
+                    'Delete the temporary backup file on failures
+                    mgrCommon.DeleteFile(sBackupFile, False)
                     RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionFailed, oGame.CroppedName))
                 End If
             End If
