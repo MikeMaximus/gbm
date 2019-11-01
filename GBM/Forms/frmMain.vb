@@ -384,7 +384,7 @@ Public Class frmMain
 
         'Run backups
         If oReadyList.Count > 0 And Not oBackup.CancelOperation Then
-            UpdateLog(mgrCommon.FormatString(mgrBackup_BackupBatchSize, mgrCommon.FormatDiskSpace(lBackupSize)), False, ToolTipIcon.Info, True)
+            If Not oSettings.DisableDiskSpaceCheck Then UpdateLog(mgrCommon.FormatString(mgrBackup_BackupBatchSize, mgrCommon.FormatDiskSpace(lBackupSize)), False, ToolTipIcon.Info, True)
             Dim oThread As New System.Threading.Thread(AddressOf ExecuteBackup)
             oThread.IsBackground = True
             oThread.Start(oReadyList)
