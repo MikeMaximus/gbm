@@ -61,6 +61,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to gbm_exclude.txt.
+        '''</summary>
+        Friend ReadOnly Property App_BackupExcludeFileName() As String
+            Get
+                Return ResourceManager.GetString("App_BackupExcludeFileName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to gbm_include.txt.
+        '''</summary>
+        Friend ReadOnly Property App_BackupIncludeFileName() As String
+            Get
+                Return ResourceManager.GetString("App_BackupIncludeFileName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to launch.
         '''</summary>
         Friend ReadOnly Property App_BackupOnLaunchFileDescription() As String
@@ -341,7 +359,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-11-01T21:23:07
+        '''  Looks up a localized string similar to 2019-11-01T17:03:35
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String

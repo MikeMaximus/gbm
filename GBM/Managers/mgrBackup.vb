@@ -577,14 +577,14 @@ Public Class mgrBackup
         sSavePath = VerifySavePath(oGame)
 
         If oGame.FolderSave = True Then
-            BuildFileList("*", mgrPath.IncludeFileLocation)
+            BuildFileList("*", Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_BackupIncludeFileName)
         Else
-            BuildFileList(oGame.FileType, mgrPath.IncludeFileLocation)
+            BuildFileList(oGame.FileType, Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_BackupIncludeFileName)
         End If
 
-        BuildFileList(oGame.ExcludeList, mgrPath.ExcludeFileLocation)
+        BuildFileList(oGame.ExcludeList, Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_BackupExcludeFileName)
 
-        sArguments = "a" & oSettings.Prepared7zArguments & "-t7z -mx" & oSettings.CompressionLevel & " -i@""" & mgrPath.IncludeFileLocation & """ -x@""" & mgrPath.ExcludeFileLocation & """ """ & sBackupFile & """"
+        sArguments = "a" & oSettings.Prepared7zArguments & "-t7z -mx" & oSettings.CompressionLevel & " -i@""" & Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_BackupIncludeFileName & """ -x@""" & Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_BackupExcludeFileName & """ """ & sBackupFile & """"
 
         If oGame.RecurseSubFolders Then sArguments &= " -r"
 

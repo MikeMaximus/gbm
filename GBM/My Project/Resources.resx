@@ -2566,4 +2566,10 @@
   <data name="mgrBackup_BackupBatchSize" xml:space="preserve">
     <value>Total Batch Size: [PARAM]</value>
   </data>
+  <data name="App_BackupExcludeFileName" xml:space="preserve">
+    <value>gbm_exclude.txt</value>
+  </data>
+  <data name="App_BackupIncludeFileName" xml:space="preserve">
+    <value>gbm_include.txt</value>
+  </data>
 </root>
