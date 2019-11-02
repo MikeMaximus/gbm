@@ -368,7 +368,7 @@ Public Class frmMain
                     If Not bFastMode Then UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oGame.Name), False, ToolTipIcon.Error, True)
                 End If
             Else
-                If Directory.Exists(oGame.Path) Then
+                If mgrPath.IsSupportedRegistryPath(oGame.Path) Or Directory.Exists(oGame.Path) Then
                     bPathVerified = True
                 Else
                     If Not bFastMode Then UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oGame.Name), False, ToolTipIcon.Error, True)
