@@ -577,14 +577,14 @@ Public Class mgrBackup
         sSavePath = VerifySavePath(oGame)
 
         If oGame.FolderSave = True Then
-            BuildFileList("*", Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_BackupIncludeFileName)
+            BuildFileList("*", Settings.IncludeFileLocation)
         Else
-            BuildFileList(oGame.FileType, Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_BackupIncludeFileName)
+            BuildFileList(oGame.FileType, Settings.IncludeFileLocation)
         End If
 
-        BuildFileList(oGame.ExcludeList, Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_BackupExcludeFileName)
+        BuildFileList(oGame.ExcludeList, Settings.ExcludeFileLocation)
 
-        sArguments = "a" & oSettings.Prepared7zArguments & "-t7z -mx" & oSettings.CompressionLevel & " -i@""" & Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_BackupIncludeFileName & """ -x@""" & Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_BackupExcludeFileName & """ """ & sBackupFile & """"
+        sArguments = "a" & oSettings.Prepared7zArguments & "-t7z -mx" & oSettings.CompressionLevel & " -i@""" & Settings.IncludeFileLocation & """ -x@""" & Settings.ExcludeFileLocation & """ """ & sBackupFile & """"
 
         If oGame.RecurseSubFolders Then sArguments &= " -r"
 
@@ -721,7 +721,7 @@ Public Class mgrBackup
                 Else
                     bBackupCompleted = Run7zBackup(oGame, sBackupFile)
                     If bBackupCompleted Then
-                        bMetadataGenerated = oMetadata.SerializeAndExport(Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_MetadataFilename, oGame, My.Computer.Name, dTimeStamp)
+                        bMetadataGenerated = oMetadata.SerializeAndExport(Settings.MetadataLocation, oGame, My.Computer.Name, dTimeStamp)
                         If bMetadataGenerated Then
                             If oMetadata.AddMetadataToArchive(sBackupFile, App_MetadataFilename) Then
                                 If Not MoveBackupToFinalLocation(sBackupFile, oGame) Then

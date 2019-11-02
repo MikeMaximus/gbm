@@ -23,7 +23,7 @@ Public Class mgrMetadata
         Dim oSerializer As XmlSerializer
 
         Try
-            oReader = New StreamReader(Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_MetadataFilename)
+            oReader = New StreamReader(Settings.MetadataLocation)
             oSerializer = New XmlSerializer(GetType(BackupMetadata), New XmlRootAttribute("GBM_Backup"))
             oBackupMetadata = oSerializer.Deserialize(oReader)
             oReader.Close()
@@ -60,7 +60,7 @@ Public Class mgrMetadata
         sArguments = "a -t7z -mx" & oSettings.CompressionLevel & " """ & sBackupFile & """ """ & sMetadata & """"
 
         Try
-            If File.Exists(sBackupFile) And File.Exists(Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_MetadataFilename) Then
+            If File.Exists(sBackupFile) And File.Exists(Settings.MetadataLocation) Then
                 If Settings.Is7zUtilityValid Then
                     prs7z.StartInfo.Arguments = sArguments
                     prs7z.StartInfo.FileName = oSettings.Utility7zLocation

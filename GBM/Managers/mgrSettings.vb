@@ -267,6 +267,24 @@ Public Class mgrSettings
         End Set
     End Property
 
+    ReadOnly Property MetadataLocation As String
+        Get
+            Return sTemporaryFolder & Path.DirectorySeparatorChar & App_MetadataFilename
+        End Get
+    End Property
+
+    ReadOnly Property IncludeFileLocation As String
+        Get
+            Return sTemporaryFolder & Path.DirectorySeparatorChar & App_BackupIncludeFileName
+        End Get
+    End Property
+
+    ReadOnly Property ExcludeFileLocation As String
+        Get
+            Return sTemporaryFolder & Path.DirectorySeparatorChar & App_BackupExcludeFileName
+        End Get
+    End Property
+
     Property SyncFields As clsGame.eOptionalSyncFields
         Get
             Return eSyncFields
