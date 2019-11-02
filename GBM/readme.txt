@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.0 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-November 1, 2019
+November 2, 2019
 
 New in 1.2.0
 
@@ -11,7 +11,7 @@ All Platforms:
 - Added the ability to easily backup or restore the entire game list.
 	- Use the "Run Full Backup" or "Run Full Restore" options in the File menu or Tray menu to easily backup or restore your entire game list.
 	- Any confirmations or checks requiring user input are automatically handled when using these tools.  See the "Full Backup and Restore" section of the manual for details.
-	- Notification messages are suppressed when using these tools to prevent insanity when running operations on large game lists.
+	- Notification messages are suppressed when using these tools. (After streamlining batch operations, this may no longer be required.  Subject to change before final release)
 - Added the ability to "link" game configurations.
 	- This allows any linked configuration(s) to automatically run a backup or restore each time their parent is triggered.  This can continue in a chain.
 	- This feature allows for the proper configuration of rare games that stored their saved games in multiple unique locations.  It may also have other creative uses.
@@ -20,7 +20,7 @@ All Platforms:
 	- This is a small XML file that contains important information about the archive and the configuration used to make the backup.
 	- This allows GBM and possibly any other software to easily identify and use GBM backup files.
 	- This file is not extracted when restoring a backup, it will not be cluttering up your saved game folders.
-- All backup operations are now performed in a temporary folder before being moved to the backup folder.
+- All backup operations are now performed in a temporary folder before the resulting file is moved to the backup folder.
 	- This change was required to fix periodic issues with cloud software (Dropbox) locking backup files while they were being created.
 	- The temporary folder can be manually set in "Settings -> Backup and Restore", it defaults to %LOCALAPPDATA%\gbm (~/.local/share/gbm).
 - Improved the ability to import backup files using metadata.
@@ -32,7 +32,8 @@ All Platforms:
 - Fixed various long-standing problems with the "Cancel" button.
 	- Using "Cancel" during a backup or restore now properly cancels out of batch operations.
 	- Using the "Cancel" button no longer prevents future operations from executing properly.
-- Various small improvements have been made to the GUI and messages to improve usability.
+- The Help menu is no longer disabled unnecessarily when the application is busy.
+- Various other small improvements have been made to the GUI and messages to improve usability.
 
 New in 1.1.9HF2 (Hotfix #2 - July 31, 2019)
 
