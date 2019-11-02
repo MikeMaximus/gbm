@@ -200,7 +200,7 @@ Public Class mgrBackup
                         Return False
                     End If
                 End If
-            ElseIf (mgrPath.IsPathUNC(oSettings.BackupFolder) Or mgrPath.IsPathUNC(oSettings.TemporaryFolder)) And Not Settings.DisableDiskSpaceCheck Then
+            ElseIf (mgrPath.IsPathUNC(oSettings.BackupFolder) Or mgrPath.IsPathUNC(oSettings.TemporaryFolder)) And Not Settings.DisableDiskSpaceCheck And Not bFastMode Then
                 'Show that disk space check was skipped due to UNC path                
                 RaiseEvent UpdateLog(mgrBackup_ErrorPathIsUNC, False, ToolTipIcon.Info, True)
             End If
@@ -216,6 +216,7 @@ Public Class mgrBackup
         If Not oGame.AppendTimeStamp And Not bFastMode Then
             If mgrRestore.CheckManifest(oGame.ID) Then
                 If mgrCommon.ShowMessage(mgrBackup_ConfirmManifestConflict, oGame.Name, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                    lBackupSize -= lFolderSize
                     RaiseEvent UpdateLog(mgrBackup_ErrorManifestConflict, False, ToolTipIcon.Error, True)
                     Return False
                 End If
@@ -231,6 +232,7 @@ Public Class mgrBackup
 
             If mgrCommon.ShowMessage(sOverwriteMessage, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorOverwriteAbort, oGame.Name), False, ToolTipIcon.Error, True)
+                lBackupSize -= lFolderSize
                 Return False
             End If
         End If
