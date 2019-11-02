@@ -224,9 +224,9 @@ Public Class mgrBackup
 
         If oSettings.ShowOverwriteWarning And File.Exists(sBackupFile) And Not oGame.AppendTimeStamp And Not bFastMode Then
             If oGame.AbsolutePath Then
-                sOverwriteMessage = mgrBackup_ConfirmOverwrite
+                sOverwriteMessage = mgrCommon.FormatString(mgrBackup_ConfirmOverwrite, Path.GetFileName(sBackupFile))
             Else
-                sOverwriteMessage = mgrBackup_ConfirmOverwriteRelative
+                sOverwriteMessage = mgrCommon.FormatString(mgrBackup_ConfirmOverwriteRelative, Path.GetFileName(sBackupFile))
             End If
 
             If mgrCommon.ShowMessage(sOverwriteMessage, MsgBoxStyle.YesNo) = MsgBoxResult.No Then

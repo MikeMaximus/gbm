@@ -6523,7 +6523,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to A file with the same name already exists in the backup folder.[BR][BR]Do you want to overwrite this file?.
+        '''  Looks up a localized string similar to [PARAM] already exists in the backup folder.[BR][BR]Do you want to overwrite this file?.
         '''</summary>
         Friend ReadOnly Property mgrBackup_ConfirmOverwrite() As String
             Get
@@ -6532,7 +6532,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to A file with the same name already exists in the backup folder.[BR][BR]This game stores saves in a relative location, you may need to restore the current backup if the game was recently re-installed.[BR][BR]Do you want to overwrite this file?.
+        '''  Looks up a localized string similar to [PARAM] already exists in the backup folder.[BR][BR]This game stores saves in a relative location, you may need to restore the current backup if the game was recently re-installed.[BR][BR]Do you want to overwrite this file?.
         '''</summary>
         Friend ReadOnly Property mgrBackup_ConfirmOverwriteRelative() As String
             Get
