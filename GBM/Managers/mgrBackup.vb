@@ -721,7 +721,7 @@ Public Class mgrBackup
                 Else
                     bBackupCompleted = Run7zBackup(oGame, sBackupFile)
                     If bBackupCompleted Then
-                        bMetadataGenerated = oMetadata.SerializeAndExport(mgrPath.SettingsRoot & Path.DirectorySeparatorChar & App_MetadataFilename, oGame, My.Computer.Name, dTimeStamp)
+                        bMetadataGenerated = oMetadata.SerializeAndExport(Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_MetadataFilename, oGame, My.Computer.Name, dTimeStamp)
                         If bMetadataGenerated Then
                             If oMetadata.AddMetadataToArchive(sBackupFile, App_MetadataFilename) Then
                                 If Not MoveBackupToFinalLocation(sBackupFile, oGame) Then

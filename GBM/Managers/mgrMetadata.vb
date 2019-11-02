@@ -23,7 +23,7 @@ Public Class mgrMetadata
         Dim oSerializer As XmlSerializer
 
         Try
-            oReader = New StreamReader(mgrPath.SettingsRoot & Path.DirectorySeparatorChar & App_MetadataFilename)
+            oReader = New StreamReader(Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_MetadataFilename)
             oSerializer = New XmlSerializer(GetType(BackupMetadata), New XmlRootAttribute("GBM_Backup"))
             oBackupMetadata = oSerializer.Deserialize(oReader)
             oReader.Close()
@@ -60,11 +60,11 @@ Public Class mgrMetadata
         sArguments = "a -t7z -mx" & oSettings.CompressionLevel & " """ & sBackupFile & """ """ & sMetadata & """"
 
         Try
-            If File.Exists(sBackupFile) And File.Exists(mgrPath.SettingsRoot & Path.DirectorySeparatorChar & App_MetadataFilename) Then
+            If File.Exists(sBackupFile) And File.Exists(Settings.TemporaryFolder & Path.DirectorySeparatorChar & App_MetadataFilename) Then
                 If Settings.Is7zUtilityValid Then
                     prs7z.StartInfo.Arguments = sArguments
                     prs7z.StartInfo.FileName = oSettings.Utility7zLocation
-                    prs7z.StartInfo.WorkingDirectory = mgrPath.SettingsRoot
+                    prs7z.StartInfo.WorkingDirectory = Settings.TemporaryFolder
                     prs7z.StartInfo.UseShellExecute = False
                     prs7z.StartInfo.RedirectStandardOutput = True
                     prs7z.StartInfo.CreateNoWindow = True
@@ -107,7 +107,7 @@ Public Class mgrMetadata
         Try
             If File.Exists(sBackupFileWithPath) Then
                 If Settings.Is7zUtilityValid Then
-                    prs7z.StartInfo.Arguments = "x " & """" & sBackupFileWithPath & """ -o""" & mgrPath.SettingsRoot & """ -i!" & App_MetadataFilename & " -aoa"
+                    prs7z.StartInfo.Arguments = "x " & """" & sBackupFileWithPath & """ -o""" & Settings.TemporaryFolder & """ -i!" & App_MetadataFilename & " -aoa"
                     prs7z.StartInfo.FileName = oSettings.Utility7zLocation
                     prs7z.StartInfo.UseShellExecute = False
                     prs7z.StartInfo.RedirectStandardOutput = True
