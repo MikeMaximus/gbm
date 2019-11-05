@@ -153,7 +153,7 @@ Public Class mgrBackup
             sSavePath = VerifySavePath(oGame)
 
             'Check if disk space check should be disabled (UNC path, Setting, forced fast mode)
-            If (Not mgrPath.IsPathUNC(oSettings.BackupFolder) Or Not mgrPath.IsPathUNC(oSettings.TemporaryFolder)) And Not Settings.DisableDiskSpaceCheck Then
+            If Not mgrPath.IsPathUNC(oSettings.BackupFolder) And Not mgrPath.IsPathUNC(oSettings.TemporaryFolder) And Not Settings.DisableDiskSpaceCheck Then
                 'Calculate space
                 lAvailableSpace = mgrCommon.GetAvailableDiskSpace(oSettings.BackupFolder)
                 lAvailableTempSpace = mgrCommon.GetAvailableDiskSpace(oSettings.TemporaryFolder)
