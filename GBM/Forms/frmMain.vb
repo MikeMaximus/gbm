@@ -189,7 +189,42 @@ Public Class frmMain
         OperationEnded()
     End Sub
 
-    Private Function VerifyBackupForOS(ByRef oGame As clsGame, ByRef sPath As String) As Boolean
+    Private Function VerifyBackupForOS(ByRef oGame As clsGame) As Boolean
+        Dim bOSVerified As Boolean
+
+        'Handle Windows configurations in Linux
+        If mgrCommon.IsUnix Then
+            If oGame.OS = clsGame.eOS.Windows Then
+                If mgrVariables.CheckForReservedVariables(oGame.TruePath) Then
+                    'Absolute Path
+                    Dim oWineData As clsWineData = mgrWineData.DoWineDataGetbyID(oGame.ID)
+                    If oWineData.SavePath <> String.Empty Then
+                        oGame.Path = oWineData.SavePath
+                        bOSVerified = True
+                    Else
+                        bOSVerified = False
+                        UpdateLog(mgrCommon.FormatString(frmMain_ErrorNoWineSavePath, oGame.Name), True, ToolTipIcon.Error, True)
+                    End If
+                Else
+                    'Relative Path                    
+                    bOSVerified = True
+                End If
+                If Not oGame.AbsolutePath Then oGame.Path = oGame.Path.Replace("\", Path.DirectorySeparatorChar)
+                oGame.FileType = oGame.FileType.Replace("\", Path.DirectorySeparatorChar)
+                oGame.ExcludeList = oGame.ExcludeList.Replace("\", Path.DirectorySeparatorChar)
+            Else
+                'Linux Configuration
+                bOSVerified = True
+            End If
+        Else
+            'Windows
+            bOSVerified = True
+        End If
+
+        Return bOSVerified
+    End Function
+
+    Private Function VerifyRestoreForOS(ByRef oGame As clsGame, ByRef sPath As String) As Boolean
         Dim bOSVerified As Boolean
 
         'Handle Windows configurations in Linux
@@ -201,7 +236,6 @@ Public Class frmMain
                     If oWineData.SavePath <> String.Empty Then
                         sPath = oWineData.SavePath
                         bOSVerified = True
-                        UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, oWineData.SavePath), False)
                     Else
                         bOSVerified = False
                         UpdateLog(mgrCommon.FormatString(frmMain_ErrorNoWineSavePath, oGame.Name), True, ToolTipIcon.Error, True)
@@ -210,7 +244,7 @@ Public Class frmMain
                     'Relative Path                    
                     bOSVerified = True
                 End If
-                mgrPath.ModWinePathData(oGame)
+                If Not oGame.AbsolutePath Then sPath = oGame.Path.Replace("\", Path.DirectorySeparatorChar)
             Else
                 'Linux Configuration
                 bOSVerified = True
@@ -247,7 +281,7 @@ Public Class frmMain
             oGame = DirectCast(de.Key, clsGame)
             oRestoreInfo = DirectCast(de.Value, clsBackup)
 
-            bOSVerified = VerifyBackupForOS(oGame, oRestoreInfo.RestorePath)
+            bOSVerified = VerifyRestoreForOS(oGame, oRestoreInfo.RestorePath)
 
             If mgrPath.IsSupportedRegistryPath(oRestoreInfo.TruePath) Then
                 bPathVerified = True
@@ -343,7 +377,7 @@ Public Class frmMain
             bPathVerified = False
             gMonStripStatusButton.Enabled = False
 
-            bOSVerified = VerifyBackupForOS(oGame, oGame.Path)
+            bOSVerified = VerifyBackupForOS(oGame)
 
             If oGame.AbsolutePath = False Then
                 If oGame.ProcessPath = String.Empty And Not bFastMode Then
@@ -462,7 +496,7 @@ Public Class frmMain
                 oGame = DirectCast(hshGame(0), clsGame)
                 UpdateLog(mgrCommon.FormatString(frmMain_BackupQueue, oGame.Name), False, ToolTipIcon.Info, True)
                 If bDoPreCheck Then
-                    If VerifyBackupForOS(oGame, oGame.Path) And oBackup.CheckBackupPrereq(oGame, lBackupSize) Then oBackupList.Add(oGame)
+                    If VerifyBackupForOS(oGame) And oBackup.CheckBackupPrereq(oGame, lBackupSize) Then oBackupList.Add(oGame)
                 Else
                     oBackupList.Add(oGame)
                 End If
@@ -2311,15 +2345,10 @@ Public Class frmMain
                         'Attempt a path conversion if the game configuration is using an absolute windows path that we can convert
                         If mgrVariables.CheckForReservedVariables(oProcess.GameInfo.TruePath) Then
                             oProcess.WineData.SavePath = mgrPath.GetWineSavePath(oProcess.WineData.Prefix, oProcess.GameInfo.TruePath)
-                            If Not oProcess.WineData.SavePath = oProcess.GameInfo.TruePath Then
-                                oProcess.GameInfo.TruePath = oProcess.WineData.SavePath
-                                UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, oProcess.WineData.SavePath), False)
-                            End If
                         End If
                         mgrWineData.DoWineDataAddUpdate(oProcess.WineData)
-                        'This does required mods to include/exclude data and relative paths (if required)
-                        mgrPath.ModWinePathData(oProcess.GameInfo)
                     End If
+                    If Not oProcess.GameInfo.AbsolutePath Then mgrMonitorList.DoListFieldUpdate("ProcessPath", oProcess.GameInfo.ProcessPath, oProcess.GameInfo.ID)
                     If oSettings.TimeTracking Then HandleTimeSpent()
                     If oSettings.SessionTracking Then HandleSession()
                     RunBackup()

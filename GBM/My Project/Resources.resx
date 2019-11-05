@@ -2185,9 +2185,6 @@
   <data name="frmMain_WinePrefix" xml:space="preserve">
     <value>Wine Prefix: [PARAM]</value>
   </data>
-  <data name="frmMain_WineSavePath" xml:space="preserve">
-    <value>Wine Save Path: [PARAM]</value>
-  </data>
   <data name="mgrPath_ErrorBuildingWinePath" xml:space="preserve">
     <value>An error occured when building a Wine path.[BR][BR][PARAM]</value>
   </data>

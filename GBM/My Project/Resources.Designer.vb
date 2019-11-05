@@ -359,7 +359,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-11-01T17:03:35
+        '''  Looks up a localized string similar to 2019-11-05T15:24:15
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4550,15 +4550,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_WinePrefix() As String
             Get
                 Return ResourceManager.GetString("frmMain_WinePrefix", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Wine Save Path: [PARAM].
-        '''</summary>
-        Friend ReadOnly Property frmMain_WineSavePath() As String
-            Get
-                Return ResourceManager.GetString("frmMain_WineSavePath", resourceCulture)
             End Get
         End Property
         
