@@ -910,6 +910,15 @@ Public Class frmMain
         sPriorVersion = lblStatus3.Text
     End Sub
 
+    Private Sub HandleProcessPath()
+        If hshScanList.Contains(oProcess.GameInfo.ID) Then
+            If Not oProcess.GameInfo.ProcessPath = DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).ProcessPath Then
+                DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).ProcessPath = oProcess.GameInfo.ProcessPath
+                mgrMonitorList.DoListFieldUpdate("ProcessPath", oProcess.GameInfo.ProcessPath, oProcess.GameInfo.ID)
+            End If
+        End If
+    End Sub
+
     Private Sub UpdateTimeSpent(ByVal dTotalTime As Double, ByVal dSessionTime As Double)
         Dim sTotalTime As String
         Dim sSessionTime As String
@@ -2322,11 +2331,7 @@ Public Class frmMain
             'Check if we failed to detect the game path
             If bPathDetectionFailure Then
                 oProcess.GameInfo.ProcessPath = mgrPath.ProcessPathSearch(oProcess.GameInfo.Name, oProcess.GameInfo.ProcessName, sPathDetectionError)
-                If oProcess.GameInfo.ProcessPath <> String.Empty Then
-                    'Update and reload
-                    mgrMonitorList.DoListFieldUpdate("ProcessPath", oProcess.GameInfo.ProcessPath, oProcess.GameInfo.ID)
-                    LoadGameSettings()
-                Else
+                If oProcess.GameInfo.ProcessPath = String.Empty Then
                     bContinue = False
                     If oSettings.TimeTracking Then HandleTimeSpent()
                     If oSettings.SessionTracking Then HandleSession()
@@ -2348,7 +2353,7 @@ Public Class frmMain
                         End If
                         mgrWineData.DoWineDataAddUpdate(oProcess.WineData)
                     End If
-                    If Not oProcess.GameInfo.AbsolutePath Then mgrMonitorList.DoListFieldUpdate("ProcessPath", oProcess.GameInfo.ProcessPath, oProcess.GameInfo.ID)
+                    If Not oProcess.GameInfo.AbsolutePath Then HandleProcessPath()
                     If oSettings.TimeTracking Then HandleTimeSpent()
                     If oSettings.SessionTracking Then HandleSession()
                     RunBackup()
