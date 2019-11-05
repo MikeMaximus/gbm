@@ -462,7 +462,7 @@ Public Class frmMain
                 oGame = DirectCast(hshGame(0), clsGame)
                 UpdateLog(mgrCommon.FormatString(frmMain_BackupQueue, oGame.Name), False, ToolTipIcon.Info, True)
                 If bDoPreCheck Then
-                    If oBackup.CheckBackupPrereq(oGame, lBackupSize) Then oBackupList.Add(oGame)
+                    If VerifyBackupForOS(oGame, oGame.Path) And oBackup.CheckBackupPrereq(oGame, lBackupSize) Then oBackupList.Add(oGame)
                 Else
                     oBackupList.Add(oGame)
                 End If
