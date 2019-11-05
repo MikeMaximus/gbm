@@ -234,12 +234,6 @@ Public Class frmMain
         eCurrentOperation = eOperation.Restore
         OperationStarted()
 
-        If bFastMode Then
-            oRestore.ShowPriorityTrayMessages = False
-        Else
-            oRestore.ShowPriorityTrayMessages = True
-        End If
-
         If bIgnoreConfigLinks Then
             oQueue = oRestoreList
         Else
@@ -334,11 +328,6 @@ Public Class frmMain
         Dim oReadyList As New List(Of clsGame)
         Dim oQueue As New List(Of clsGame)
 
-        If bFastMode Then
-            oBackup.ShowPriorityTrayMessages = False
-        Else
-            oBackup.ShowPriorityTrayMessages = True
-        End If
         eCurrentOperation = eOperation.Backup
         OperationStarted()
 
@@ -486,7 +475,6 @@ Public Class frmMain
         Dim oRootList As New List(Of clsGame)
         Dim oReadyList As New List(Of clsGame)
 
-        oBackup.ShowPriorityTrayMessages = True
         eCurrentOperation = eOperation.Backup
         OperationStarted(False)
 

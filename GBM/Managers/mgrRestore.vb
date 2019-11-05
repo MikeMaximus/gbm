@@ -5,7 +5,6 @@ Public Class mgrRestore
 
     Private oSettings As mgrSettings
     Private bCancelOperation As Boolean
-    Private bShowPriorityTrayMessages As Boolean = True
 
     Property Settings As mgrSettings
         Get
@@ -22,15 +21,6 @@ Public Class mgrRestore
         End Get
         Set(value As Boolean)
             bCancelOperation = value
-        End Set
-    End Property
-
-    Property ShowPriorityTrayMessages As Boolean
-        Get
-            Return bShowPriorityTrayMessages
-        End Get
-        Set(value As Boolean)
-            bShowPriorityTrayMessages = value
         End Set
     End Property
 
@@ -262,7 +252,7 @@ Public Class mgrRestore
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreComplete, oBackupInfo.Name), False, ToolTipIcon.Info, True)
                         bRestoreCompleted = True
                     Case Else
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Restore), bShowPriorityTrayMessages, ToolTipIcon.Warning, True)
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Restore), True, ToolTipIcon.Warning, True)
                 End Select
                 prsReg.Dispose()
             Catch ex As Exception
@@ -297,7 +287,7 @@ Public Class mgrRestore
                     While Not prs7z.StandardOutput.EndOfStream
                         If CancelOperation Then
                             prs7z.Kill()
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFullAbort, oBackupInfo.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_ErrorFullAbort, oBackupInfo.Name), True, ToolTipIcon.Error, True)
                             Exit While
                         End If
                         RaiseEvent UpdateLog(prs7z.StandardOutput.ReadLine, False, ToolTipIcon.Info, False)
@@ -308,15 +298,15 @@ Public Class mgrRestore
                             RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_RestoreComplete, oBackupInfo.Name), False, ToolTipIcon.Info, True)
                             bRestoreCompleted = True
                         Else
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Restore), bShowPriorityTrayMessages, ToolTipIcon.Warning, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Restore), True, ToolTipIcon.Warning, True)
                         End If
                     End If
                     prs7z.Dispose()
                 Else
-                    RaiseEvent UpdateLog(App_Invalid7zDetected, bShowPriorityTrayMessages, ToolTipIcon.Error, True)
+                    RaiseEvent UpdateLog(App_Invalid7zDetected, True, ToolTipIcon.Error, True)
                 End If
             Else
-                RaiseEvent UpdateLog(mgrRestore_ErrorNoBackup, bShowPriorityTrayMessages, ToolTipIcon.Error, True)
+                RaiseEvent UpdateLog(mgrRestore_ErrorNoBackup, True, ToolTipIcon.Error, True)
             End If
         Catch ex As Exception
             RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_OtherFailure, New String() {App_OperationType_Restore, ex.Message}), False, ToolTipIcon.Error, True)

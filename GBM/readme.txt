@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.0 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-November 2, 2019
+November 5, 2019
 
 New in 1.2.0
 
@@ -11,7 +11,6 @@ All Platforms:
 - Added the ability to easily backup or restore the entire game list.
 	- Use the "Run Full Backup" or "Run Full Restore" options in the File menu or Tray menu to easily backup or restore your entire game list.
 	- Any confirmations or checks requiring user input are automatically handled when using these tools.  See the "Full Backup and Restore" section of the manual for details.
-	- Notification messages are suppressed when using these tools. (After streamlining batch operations, this may no longer be required.  Subject to change before final release)
 - Added the ability to "link" game configurations.
 	- This allows any linked configuration(s) to automatically run a backup or restore each time their parent is triggered.  This can continue in a chain.
 	- This feature allows for the proper configuration of rare games that stored their saved games in multiple unique locations.  It may also have other creative uses.

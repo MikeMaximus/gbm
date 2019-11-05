@@ -5,7 +5,6 @@ Public Class mgrBackup
 
     Private oSettings As mgrSettings
     Private bCancelOperation As Boolean
-    Private bShowPriorityTrayMessages As Boolean = True
 
     Property Settings As mgrSettings
         Get
@@ -22,15 +21,6 @@ Public Class mgrBackup
         End Get
         Set(value As Boolean)
             bCancelOperation = value
-        End Set
-    End Property
-
-    Property ShowPriorityTrayMessages As Boolean
-        Get
-            Return bShowPriorityTrayMessages
-        End Get
-        Set(value As Boolean)
-            bShowPriorityTrayMessages = value
         End Set
     End Property
 
@@ -548,7 +538,7 @@ Public Class mgrBackup
                 While Not prsReg.StandardOutput.EndOfStream
                     If CancelOperation Then
                         prsReg.Kill()
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorFullAbort, oGame.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorFullAbort, oGame.Name), True, ToolTipIcon.Error, True)
                         Exit While
                     End If
                     RaiseEvent UpdateLog(prsReg.StandardOutput.ReadLine, False, ToolTipIcon.Info, False)
@@ -610,7 +600,7 @@ Public Class mgrBackup
                     While Not prs7z.StandardOutput.EndOfStream
                         If CancelOperation Then
                             prs7z.Kill()
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorFullAbort, oGame.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorFullAbort, oGame.Name), True, ToolTipIcon.Error, True)
                             Exit While
                         End If
                         RaiseEvent UpdateLog(prs7z.StandardOutput.ReadLine, False, ToolTipIcon.Info, False)
@@ -622,20 +612,20 @@ Public Class mgrBackup
                                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupComplete, New String() {oGame.Name, mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sBackupFile))}), False, ToolTipIcon.Info, True)
                                 bBackupCompleted = True
                             Case 1
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Backup), bShowPriorityTrayMessages, ToolTipIcon.Warning, True)
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_Warnings, App_OperationType_Backup), True, ToolTipIcon.Warning, True)
                                 bBackupCompleted = True
                             Case 2
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FatalError, App_OperationType_Backup), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_FatalError, App_OperationType_Backup), True, ToolTipIcon.Error, True)
                             Case 7
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_CommandFailure, App_OperationType_Backup), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_CommandFailure, App_OperationType_Backup), True, ToolTipIcon.Error, True)
                         End Select
                     End If
                     prs7z.Dispose()
                 Else
-                    RaiseEvent UpdateLog(App_Invalid7zDetected, bShowPriorityTrayMessages, ToolTipIcon.Error, True)
+                    RaiseEvent UpdateLog(App_Invalid7zDetected, True, ToolTipIcon.Error, True)
                 End If
             Else
-                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorNoSavePath, oGame.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorNoSavePath, oGame.Name), True, ToolTipIcon.Error, True)
             End If
         Catch ex As Exception
             RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_OtherFailure, New String() {App_OperationType_Backup, ex.Message}), False, ToolTipIcon.Error, True)
@@ -716,7 +706,7 @@ Public Class mgrBackup
                     bBackupCompleted = RunRegistryBackup(oGame, sBackupFile)
                     If bBackupCompleted Then
                         If Not MoveBackupToFinalLocation(sBackupFile, oGame) Then
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMovingBackupFile, oGame.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMovingBackupFile, oGame.Name), True, ToolTipIcon.Error, True)
                             bBackupCompleted = False
                         End If
                     End If
@@ -728,14 +718,14 @@ Public Class mgrBackup
                             If oMetadata.AddMetadataToArchive(sBackupFile, App_MetadataFilename) Then
                                 If Not MoveBackupToFinalLocation(sBackupFile, oGame) Then
                                     bBackupCompleted = False
-                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMovingBackupFile, oGame.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
+                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMovingBackupFile, oGame.Name), True, ToolTipIcon.Error, True)
                                 End If
                             Else
                                 bBackupCompleted = False
                             End If
                         Else
                             bBackupCompleted = False
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMetadataFailure, oGame.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMetadataFailure, oGame.Name), True, ToolTipIcon.Error, True)
                         End If
                     End If
                 End If
@@ -747,7 +737,7 @@ Public Class mgrBackup
                     sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
 
                     If Not DoManifestUpdate(oGame, sBackupFile, dTimeStamp, sHash) Then
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorManifestFailure, oGame.Name), bShowPriorityTrayMessages, ToolTipIcon.Error, True)
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorManifestFailure, oGame.Name), True, ToolTipIcon.Error, True)
                     End If
 
                     'Write the process path if we have it
