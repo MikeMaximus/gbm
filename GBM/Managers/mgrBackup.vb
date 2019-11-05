@@ -304,7 +304,7 @@ Public Class mgrBackup
                             oGame = oBackupMetadata.Game.ConvertClass
                             oBackup = oBackupMetadata.CreateBackupInfo
 
-                            If oGame.OS = mgrCommon.GetCurrentOS Then
+                            If oGame.OS = mgrCommon.GetCurrentOS Or mgrCommon.GetCurrentOS = clsGame.eOS.Linux Then
                                 If mgrMonitorList.DoDuplicateListCheck(oGame.ID) Then
                                     hshGame = mgrMonitorList.DoListGetbyMonitorID(oGame.ID)
                                     If hshGame.Count = 1 Then
