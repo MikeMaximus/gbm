@@ -20,6 +20,7 @@ Public Class mgrSettings
     Private s7zArguments As String = String.Empty
     Private s7zLocation As String = String.Empty
     Private sBackupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & Path.DirectorySeparatorChar & App_NameLong
+    Private sTemporaryFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
     Private eSyncFields As clsGame.eOptionalSyncFields = clsGame.eOptionalSyncFields.None
     Private eMessages As eSuppressMessages = eSuppressMessages.None
     Private bAutoSaveLog As Boolean = False
@@ -32,9 +33,10 @@ Public Class mgrSettings
     <Flags()> Public Enum eSuppressMessages
         None = 0
         EmptyProcessWarning = 1
-        BackupImport = 2
+        LinkProcessTip = 2
         WinConfigsInLinux = 4
         WineConfig = 16
+        LinkConfigTip = 32
     End Enum
 
     Property StartWithWindows As Boolean
@@ -256,6 +258,33 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Property TemporaryFolder As String
+        Get
+            Return sTemporaryFolder
+        End Get
+        Set(value As String)
+            sTemporaryFolder = value.TrimEnd(New Char() {"\", "/"})
+        End Set
+    End Property
+
+    ReadOnly Property MetadataLocation As String
+        Get
+            Return sTemporaryFolder & Path.DirectorySeparatorChar & App_MetadataFilename
+        End Get
+    End Property
+
+    ReadOnly Property IncludeFileLocation As String
+        Get
+            Return sTemporaryFolder & Path.DirectorySeparatorChar & App_BackupIncludeFileName
+        End Get
+    End Property
+
+    ReadOnly Property ExcludeFileLocation As String
+        Get
+            Return sTemporaryFolder & Path.DirectorySeparatorChar & App_BackupExcludeFileName
+        End Get
+    End Property
+
     Property SyncFields As clsGame.eOptionalSyncFields
         Get
             Return eSyncFields
@@ -328,7 +357,7 @@ Public Class mgrSettings
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SuppressBackup, @SuppressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
         sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, @UseGameID, "
-        sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck)"
+        sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck, @TemporaryFolder)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -356,6 +385,7 @@ Public Class mgrSettings
         hshParams.Add("DisableSyncMessages", DisableSyncMessages)
         hshParams.Add("ShowResolvedPaths", ShowResolvedPaths)
         hshParams.Add("DisableDiskSpaceCheck", DisableDiskSpaceCheck)
+        hshParams.Add("TemporaryFolder", TemporaryFolder)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -397,6 +427,7 @@ Public Class mgrSettings
             DisableSyncMessages = CBool(dr("DisableSyncMessages"))
             ShowResolvedPaths = CBool(dr("ShowResolvedPaths"))
             DisableDiskSpaceCheck = CBool(dr("DisableDiskSpaceCheck"))
+            If Not IsDBNull(dr("TemporaryFolder")) Then TemporaryFolder = CStr(dr("TemporaryFolder"))
         Next
 
         oDatabase.Disconnect()

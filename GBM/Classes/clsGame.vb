@@ -27,6 +27,7 @@ Public Class clsGame
     Private bRecurseSubFolders As Boolean = True
     Private iOS As eOS = mgrCommon.GetCurrentOS()
     Private oImportTags As New List(Of Tag)
+    Private oImportConfigLinks As New List(Of ConfigLink)
     Private bImportUpdate As Boolean = False
     Private oCompiledRegEx As Regex
 
@@ -301,6 +302,15 @@ Public Class clsGame
         End Set
     End Property
 
+    Property ImportConfigLinks As List(Of ConfigLink)
+        Get
+            Return oImportConfigLinks
+        End Get
+        Set(value As List(Of ConfigLink))
+            oImportConfigLinks = value
+        End Set
+    End Property
+
     Property ImportUpdate As Boolean
         Get
             Return bImportUpdate
@@ -338,6 +348,31 @@ Public Class clsGame
             End If
         End Get
     End Property
+
+    Public Function ConvertClass() As Game
+        Dim oGame As New Game
+
+        oGame.ID = ID
+        oGame.Name = Name
+        oGame.ProcessName = ProcessName
+        oGame.Parameter = Parameter
+        oGame.Path = TruePath
+        oGame.AbsolutePath = AbsolutePath
+        oGame.FolderSave = FolderSave
+        oGame.AppendTimeStamp = AppendTimeStamp
+        oGame.BackupLimit = BackupLimit
+        oGame.FileType = FileType
+        oGame.ExcludeList = ExcludeList
+        oGame.MonitorOnly = MonitorOnly
+        oGame.Comments = Comments
+        oGame.IsRegEx = IsRegEx
+        oGame.RecurseSubFolders = RecurseSubFolders
+        oGame.OS = OS
+        oGame.Tags = mgrGameTags.GetTagsByGameForExport(ID)
+        oGame.ConfigLinks = mgrConfigLinks.GetConfigLinksByGameForExport(ID)
+
+        Return oGame
+    End Function
 
     Public Function SyncEquals(obj As Object, eSyncFields As eOptionalSyncFields) As Boolean
         Dim oGame As clsGame = TryCast(obj, clsGame)

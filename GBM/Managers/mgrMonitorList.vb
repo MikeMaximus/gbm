@@ -127,11 +127,13 @@ Public Class mgrMonitorList
         sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit, "
         sSQL &= "CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments, IsRegEx=@IsRegEx, RecurseSubFolders=@RecurseSubFolders, OS=@OS WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE gametags SET MonitorID=@ID WHERE MonitorID=@QueryID;"
+        sSQL &= "UPDATE configlinks SET MonitorID=@ID WHERE MonitorID=@QueryID;"
+        sSQL &= "UPDATE configlinks SET LinkID=@ID WHERE LinkID=@QueryID;"
 
         If iSelectDB = mgrSQLite.Database.Local Then
             sSQL &= "UPDATE gameprocesses SET MonitorID=@ID WHERE MonitorID=@QueryID;"
             sSQL &= "UPDATE sessions SET MonitorID=@ID WHERE MonitorID=@QueryID;"
-            sSQL &= "UPDATE winedata SET MonitorID=@ID WHERE MonitorID=@QueryID"
+            sSQL &= "UPDATE winedata SET MonitorID=@ID WHERE MonitorID=@QueryID;"
         End If
 
         'Parameters
@@ -193,6 +195,10 @@ Public Class mgrMonitorList
         sSQL &= "WHERE MonitorID = @MonitorID;"
         sSQL &= "DELETE FROM gametags "
         sSQL &= "WHERE MonitorID = @MonitorID;"
+        sSQL &= "DELETE FROM configlinks "
+        sSQL &= "WHERE MonitorID = @MonitorID;"
+        sSQL &= "DELETE FROM configlinks "
+        sSQL &= "WHERE LinkID = @MonitorID;"
         If iSelectDB = mgrSQLite.Database.Local Then
             sSQL &= "DELETE FROM gameprocesses "
             sSQL &= "WHERE MonitorID = @MonitorID;"
@@ -200,6 +206,7 @@ Public Class mgrMonitorList
             sSQL &= "WHERE MonitorID = @MonitorID;"
             sSQL &= "DELETE FROM winedata "
             sSQL &= "WHERE MonitorID = @MonitorID;"
+
         End If
         sSQL &= "DELETE FROM monitorlist "
         sSQL &= "WHERE MonitorID = @MonitorID;"
@@ -240,6 +247,30 @@ Public Class mgrMonitorList
         sSQL = sSQL.TrimEnd(",")
         sSQL &= ");"
 
+        sSQL &= "DELETE FROM configlinks "
+        sSQL &= "WHERE MonitorID IN ("
+
+        For Each s As String In sMonitorIDs
+            sSQL &= "@MonitorID" & iCounter & ","
+            hshParams.Add("MonitorID" & iCounter, s)
+            iCounter += 1
+        Next
+
+        sSQL = sSQL.TrimEnd(",")
+        sSQL &= ");"
+
+        sSQL &= "DELETE FROM configlinks "
+        sSQL &= "WHERE LinkID IN ("
+
+        For Each s As String In sMonitorIDs
+            sSQL &= "@MonitorID" & iCounter & ","
+            hshParams.Add("MonitorID" & iCounter, s)
+            iCounter += 1
+        Next
+
+        sSQL = sSQL.TrimEnd(",")
+        sSQL &= ");"
+
         If iSelectDB = mgrSQLite.Database.Local Then
             sSQL &= "DELETE FROM gameprocesses "
             sSQL &= "WHERE MonitorID IN ("
@@ -292,27 +323,6 @@ Public Class mgrMonitorList
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
-
-    Public Shared Function DoListGetbyID(ByVal iMonitorID As Integer, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As clsGame
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
-        Dim oData As DataSet
-        Dim oGame As New clsGame
-        Dim hshParams As New Hashtable
-
-        sSQL = "SELECT * from monitorlist "
-        sSQL &= "WHERE MonitorID = @MonitorID"
-
-        hshParams.Add("MonitorID", iMonitorID)
-
-        oData = oDatabase.ReadParamData(sSQL, hshParams)
-
-        For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = MapToObject(dr)
-        Next
-
-        Return oGame
-    End Function
 
     Public Shared Function DoListGetbyMonitorID(ByVal sMonitorID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
         Dim oDatabase As New mgrSQLite(iSelectDB)
@@ -468,6 +478,10 @@ Public Class mgrMonitorList
         sSQL &= "WHERE MonitorID = @MonitorID;"
         sSQL &= "DELETE FROM gametags "
         sSQL &= "WHERE MonitorID = @MonitorID;"
+        sSQL &= "DELETE FROM configlinks "
+        sSQL &= "WHERE MonitorID = @MonitorID;"
+        sSQL &= "DELETE FROM configlinks "
+        sSQL &= "WHERE LinkID = @MonitorID;"
         If iSelectDB = mgrSQLite.Database.Local Then
             sSQL &= "DELETE FROM gameprocesses "
             sSQL &= "WHERE MonitorID = @MonitorID;"
@@ -547,6 +561,7 @@ Public Class mgrMonitorList
         'Sync Tags
         iChanges = mgrTags.SyncTags(bToRemote)
         iChanges += mgrGameTags.SyncGameTags(bToRemote)
+        iChanges += mgrConfigLinks.SyncConfigLinks(bToRemote)
 
         'Delete Sync
         If bToRemote Then
@@ -788,6 +803,7 @@ Public Class mgrMonitorList
             oGame.RecurseSubFolders = CBool(dr("RecurseSubFolders"))
             oGame.OS = CInt(dr("OS"))
             oGame.Tags = mgrGameTags.GetTagsByGameForExport(oGame.ID)
+            oGame.ConfigLinks = mgrConfigLinks.GetConfigLinksByGameForExport(oGame.ID)
             oList.Add(oGame)
         Next
 
@@ -897,6 +913,7 @@ Public Class mgrMonitorList
 
                 DoListAddUpdateSync(frm.FinalData)
                 mgrTags.DoTagAddImport(frm.FinalData)
+                mgrConfigLinks.DoConfigLinkImport(frm.FinalData)
 
                 Cursor.Current = Cursors.Default
                 mgrCommon.ShowMessage(mgrMonitorList_ImportComplete, MsgBoxStyle.Information)

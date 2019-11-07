@@ -76,7 +76,7 @@ Public Class mgrSQLite
                    "SuppressBackup BOOLEAN NOT NULL, SuppressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
                    "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL, SessionTracking BOOLEAN NOT NULL, " &
                    "SuppressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL, UseGameID BOOLEAN NOT NULL, DisableSyncMessages BOOLEAN NOT NULL, ShowResolvedPaths BOOLEAN NOT NULL, " &
-                   "DisableDiskSpaceCheck BOOLEAN NOT NULL);"
+                   "DisableDiskSpaceCheck BOOLEAN NOT NULL, TemporaryFolder TEXT);"
             'Add Tables (SavedPath)
             sSql &= "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
 
@@ -112,6 +112,9 @@ Public Class mgrSQLite
             'Add Tables (Wine Data)
             sSql &= "CREATE TABLE winedata (MonitorID TEXT NOT NULL PRIMARY KEY, Prefix TEXT NOT NULL, SavePath TEXT NOT NULL, BinaryPath TEXT NOT NULL);"
 
+            'Add Tables (Config Links)
+            sSql &= "CREATE TABLE configlinks (MonitorID TEXT NOT NULL, LinkID TEXT NOT NULL, PRIMARY KEY(MonitorID, LinkID)); "
+
             'Set Version
             sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
 
@@ -146,6 +149,9 @@ Public Class mgrSQLite
 
             'Add Tables (Remote Game Tags)
             sSql &= "CREATE TABLE gametags (TagID TEXT Not NULL, MonitorID TEXT Not NULL, PRIMARY KEY(TagID, MonitorID)); "
+
+            'Add Tables (Config Links)
+            sSql &= "CREATE TABLE configlinks (MonitorID TEXT NOT NULL, LinkID TEXT NOT NULL, PRIMARY KEY(MonitorID, LinkID)); "
 
             'Set Version
             sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
@@ -946,6 +952,31 @@ Public Class mgrSQLite
                 'Add new field(s)
                 sSQL = "ALTER TABLE monitorlist ADD COLUMN OS INTEGER NOT NULL DEFAULT " & mgrCommon.GetCurrentOS & ";"
                 sSQL &= "PRAGMA user_version=118"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '1.20 Upgrade
+        If GetDatabaseVersion() < 120 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v118")
+
+                'Add Tables (Config Links)
+                sSQL = "CREATE TABLE configlinks (MonitorID TEXT NOT NULL, LinkID TEXT NOT NULL, PRIMARY KEY(MonitorID, LinkID));"
+                sSQL &= "ALTER TABLE settings ADD COLUMN TemporaryFolder TEXT;"
+                sSQL &= "PRAGMA user_version=120"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v118")
+
+                'Add Tables (Config Links)
+                sSQL = "CREATE TABLE configlinks (MonitorID TEXT NOT NULL, LinkID TEXT NOT NULL, PRIMARY KEY(MonitorID, LinkID));"
+                sSQL &= "PRAGMA user_version=120"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If

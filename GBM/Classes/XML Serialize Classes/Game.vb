@@ -16,6 +16,7 @@
     Private bRecurseSubFolders As Boolean
     Private iOS As clsGame.eOS
     Private oTags As List(Of Tag)
+    Private oConfigLinks As List(Of ConfigLink)
 
     Property ID As String
         Set(value As String)
@@ -170,4 +171,35 @@
         End Set
     End Property
 
+    Property ConfigLinks As List(Of ConfigLink)
+        Get
+            Return oConfigLinks
+        End Get
+        Set(value As List(Of ConfigLink))
+            oConfigLinks = value
+        End Set
+    End Property
+    Public Function ConvertClass() As clsGame
+        Dim oGame As New clsGame
+
+        oGame.ID = ID
+        oGame.Name = Name
+        oGame.ProcessName = ProcessName
+        oGame.Parameter = Parameter
+        oGame.Path = Path
+        oGame.AbsolutePath = AbsolutePath
+        oGame.FolderSave = FolderSave
+        oGame.AppendTimeStamp = AppendTimeStamp
+        oGame.BackupLimit = BackupLimit
+        oGame.FileType = FileType
+        oGame.ExcludeList = ExcludeList
+        oGame.MonitorOnly = MonitorOnly
+        oGame.Comments = Comments
+        oGame.IsRegEx = IsRegEx
+        oGame.RecurseSubFolders = RecurseSubFolders
+        oGame.OS = OS
+        oGame.ImportTags = Tags
+
+        Return oGame
+    End Function
 End Class

@@ -124,6 +124,7 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\clsConfigLink.vb" />
     <Compile Include="Classes\clsGameProcess.vb" />
     <Compile Include="Classes\clsWineData.vb" />
     <Compile Include="Classes\clsProcess.vb" />
@@ -131,6 +132,8 @@
     <Compile Include="Classes\clsGameFilterField.vb" />
     <Compile Include="Classes\clsSavedPath.vb" />
     <Compile Include="Classes\clsSession.vb" />
+    <Compile Include="Classes\XML Serialize Classes\BackupMetadata.vb" />
+    <Compile Include="Classes\XML Serialize Classes\ConfigLink.vb" />
     <Compile Include="Classes\XML Serialize Classes\ExportData.vb" />
     <Compile Include="Classes\XML Serialize Classes\Session.vb" />
     <Compile Include="Classes\XML Serialize Classes\Tag.vb" />
@@ -140,6 +143,12 @@
     <Compile Include="Classes\clsBackup.vb" />
     <Compile Include="Classes\clsGame.vb" />
     <Compile Include="Classes\clsTag.vb" />
+    <Compile Include="Forms\frmConfigLinks.Designer.vb">
+      <DependentUpon>frmConfigLinks.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmConfigLinks.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmWineConfiguration.Designer.vb">
       <DependentUpon>frmWineConfiguration.vb</DependentUpon>
     </Compile>
@@ -255,7 +264,9 @@
     <Compile Include="Forms\frmVariableManager.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Managers\mgrConfigLinks.vb" />
     <Compile Include="Managers\mgrGameProcesses.vb" />
+    <Compile Include="Managers\mgrMetadata.vb" />
     <Compile Include="Managers\mgrWineData.vb" />
     <Compile Include="Managers\mgrProcess.vb" />
     <Compile Include="Managers\mgrCommon.vb" />
@@ -291,6 +302,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\frmConfigLinks.resx">
+      <DependentUpon>frmConfigLinks.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmWineConfiguration.resx">
       <DependentUpon>frmWineConfiguration.vb</DependentUpon>
     </EmbeddedResource>
@@ -400,6 +414,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="References\Mono.Data.Sqlite.dll" />
+    <None Include="Resources\Arrow_Submenu_Right.png" />
     <Content Include="Resources\BuildDate.txt" />
     <Content Include="Resources\New.png" />
     <Content Include="Resources\Update.png" />

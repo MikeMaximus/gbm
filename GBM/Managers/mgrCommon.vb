@@ -428,6 +428,43 @@ Public Class mgrCommon
         Return lSize
     End Function
 
+    'Get a list of files in the provided folder path
+    Public Shared Function GetFileListByFolder(ByVal sPath As String, ByVal sSearchFilters As String()) As List(Of String)
+        Dim sFiles As New List(Of String)
+        Dim oFolder As DirectoryInfo
+        Dim bMatch As Boolean
+        Dim lSize As Long = 0
+
+        Try
+            If Not Directory.Exists(sPath) Then Return sFiles
+
+            oFolder = New DirectoryInfo(sPath)
+
+            'Files
+            For Each fi As FileInfo In oFolder.EnumerateFiles()
+                bMatch = CompareValueToArrayRegEx(fi.FullName, sSearchFilters)
+
+                If bMatch Then
+                    sFiles.Add(fi.FullName)
+                End If
+            Next
+
+            'Folders
+            For Each di As DirectoryInfo In oFolder.EnumerateDirectories()
+                If Not ((di.Attributes And FileAttributes.ReparsePoint) = FileAttributes.ReparsePoint) Then
+                    For Each sFile In GetFileListByFolder(di.FullName, sSearchFilters)
+                        sFiles.Add(sFile)
+                    Next
+                End If
+            Next
+
+        Catch
+            'Do Nothing
+        End Try
+
+        Return sFiles
+    End Function
+
     'Format Disk Space Amounts
     Public Shared Function FormatDiskSpace(ByVal lSize As Long)
 
@@ -494,6 +531,19 @@ Public Class mgrCommon
         End If
     End Function
 
+    'Move a file
+    Public Shared Function MoveFile(ByVal sSourcePath As String, ByVal sDestinationPath As String, ByVal bOverWrite As Boolean) As Boolean
+        Try
+            If File.Exists(sSourcePath) Then
+                My.Computer.FileSystem.MoveFile(sSourcePath, sDestinationPath, bOverWrite)
+            End If
+        Catch
+            Return False
+        End Try
+
+        Return True
+    End Function
+
     'Copy a file
     Public Shared Function CopyFile(ByVal sSourcePath As String, ByVal sDestinationPath As String, ByVal bOverWrite As Boolean) As Boolean
         Try
@@ -535,6 +585,20 @@ Public Class mgrCommon
         End If
     End Sub
 
+    'Delete a directory if it's empty
+    Public Shared Sub DeleteEmptyDirectory(ByVal sDir As String)
+        Dim oDir As DirectoryInfo
+
+        If Directory.Exists(sDir) Then
+            'Check if there's any sub-directories or files remaining
+            oDir = New DirectoryInfo(sDir)
+            If oDir.GetDirectories.Length = 0 And oDir.GetFiles.Length = 0 Then
+                'Folder is empty
+                If Directory.Exists(sDir) Then DeleteDirectory(sDir)
+            End If
+        End If
+    End Sub
+
     'Opens a file or folder in default application determined by the OS
     Public Shared Function OpenInOS(ByVal sFileName As String, ByVal sNotFoundError As String) As Boolean
         Dim oProcessStartInfo As ProcessStartInfo
@@ -560,7 +624,6 @@ Public Class mgrCommon
 
     'Delete a sub-folder based on the provided backup information
     Public Shared Sub DeleteDirectoryByBackup(ByVal sBackupFolder As String, ByVal oBackup As clsBackup)
-        Dim oDir As DirectoryInfo
         Dim sDir As String = sBackupFolder & oBackup.MonitorID
 
         'Check if the sub-folder is an ID or Name
@@ -572,15 +635,7 @@ Public Class mgrCommon
             Exit Sub
         End If
 
-        'Delete sub directory if it's empty
-        If Directory.Exists(sDir) Then
-            'Check if there's any sub-directories or files remaining
-            oDir = New DirectoryInfo(sDir)
-            If oDir.GetDirectories.Length = 0 And oDir.GetFiles.Length = 0 Then
-                'Folder is empty,  delete the empty sub-folder
-                If Directory.Exists(sDir) Then DeleteDirectory(sDir)
-            End If
-        End If
+        DeleteEmptyDirectory(sDir)
     End Sub
 
     'Save string as text file

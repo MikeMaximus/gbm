@@ -8,8 +8,6 @@ Public Class mgrPath
     'Important Note: Any changes to sSettingsRoot & sDBLocation need to be mirrored in frmMain.vb -> VerifyGameDataPath
     Private Shared sSettingsRoot As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
     Private Shared sDBLocation As String = sSettingsRoot & Path.DirectorySeparatorChar & "gbm.s3db"
-    Private Shared sIncludeFile As String = sSettingsRoot & Path.DirectorySeparatorChar & "gbm_include.txt"
-    Private Shared sExcludeFile As String = sSettingsRoot & Path.DirectorySeparatorChar & "gbm_exclude.txt"
     Private Shared sLogFile As String = sSettingsRoot & Path.DirectorySeparatorChar & "gbm_log_" & Date.Now.ToString("dd-MM-yyyy-HH-mm-ss") & ".txt"
     Private Shared sRemoteDatabaseLocation As String
     Private Shared hshCustomVariables As Hashtable
@@ -65,18 +63,6 @@ Public Class mgrPath
     Shared ReadOnly Property DatabaseLocation As String
         Get
             Return sDBLocation
-        End Get
-    End Property
-
-    Shared ReadOnly Property IncludeFileLocation As String
-        Get
-            Return sIncludeFile
-        End Get
-    End Property
-
-    Shared ReadOnly Property ExcludeFileLocation As String
-        Get
-            Return sExcludeFile
         End Get
     End Property
 
@@ -207,12 +193,6 @@ Public Class mgrPath
         'Done
         Return sResult
     End Function
-
-    Public Shared Sub ModWinePathData(ByRef oGame As clsGame)
-        If Not oGame.AbsolutePath Then oGame.Path = oGame.Path.Replace("\", Path.DirectorySeparatorChar)
-        oGame.FileType = oGame.FileType.Replace("\", Path.DirectorySeparatorChar)
-        oGame.ExcludeList = oGame.ExcludeList.Replace("\", Path.DirectorySeparatorChar)
-    End Sub
 
     Private Shared Function BuildWinePath(ByVal sPath As String, ByVal sWinePrefix As String) As String
         Dim sRealPath As String

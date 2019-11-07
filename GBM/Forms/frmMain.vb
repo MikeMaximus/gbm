@@ -18,6 +18,7 @@ Public Class frmMain
         None = 1
         Backup = 2
         Restore = 3
+        Import = 4
     End Enum
 
     Private eCurrentStatus As eStatus = eStatus.Stopped
@@ -118,6 +119,20 @@ Public Class frmMain
         UpdateStatus(frmMain_BackupInProgress)
     End Sub
 
+    Private Sub SetImportInfo(ByVal sPath As String) Handles oBackup.UpdateImportInfo
+        Dim sStatus1 As String
+        Dim sStatus2 As String
+        Dim sStatus3 As String
+
+        'Build Info
+        sStatus1 = Path.GetFileName(sPath)
+        sStatus2 = Path.GetDirectoryName(sPath)
+        sStatus3 = String.Empty
+
+        WorkingGameInfo(frmMain_ImportInProgress, sStatus1, sStatus2, sStatus3)
+        UpdateStatus(frmMain_ImportInProgress)
+    End Sub
+
     Private Sub OperationStarted(Optional ByVal bPause As Boolean = True)
         'Thread Safe
         If Me.InvokeRequired = True Then
@@ -139,6 +154,12 @@ Public Class frmMain
             ResetGameInfo(True)
             btnCancelOperation.Visible = False
             btnCancelOperation.Enabled = True
+            Select Case eCurrentOperation
+                Case eOperation.Backup, eOperation.Import
+                    oBackup.CancelOperation = False
+                Case eOperation.Restore
+                    oRestore.CancelOperation = False
+            End Select
             eCurrentOperation = eOperation.None
             LockDownMenuEnable()
             If bResume Then ResumeScan()
@@ -149,7 +170,7 @@ Public Class frmMain
         Select Case eCurrentOperation
             Case eOperation.None
                 'Nothing
-            Case eOperation.Backup
+            Case eOperation.Backup, eOperation.Import
                 oBackup.CancelOperation = True
                 btnCancelOperation.Enabled = False
             Case eOperation.Restore
@@ -168,7 +189,7 @@ Public Class frmMain
         OperationEnded()
     End Sub
 
-    Private Function VerifyBackupForOS(ByRef oGame As clsGame, ByRef sPath As String) As Boolean
+    Private Function VerifyBackupForOS(ByRef oGame As clsGame) As Boolean
         Dim bOSVerified As Boolean
 
         'Handle Windows configurations in Linux
@@ -178,9 +199,8 @@ Public Class frmMain
                     'Absolute Path
                     Dim oWineData As clsWineData = mgrWineData.DoWineDataGetbyID(oGame.ID)
                     If oWineData.SavePath <> String.Empty Then
-                        sPath = oWineData.SavePath
+                        oGame.Path = oWineData.SavePath
                         bOSVerified = True
-                        UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, oWineData.SavePath), False)
                     Else
                         bOSVerified = False
                         UpdateLog(mgrCommon.FormatString(frmMain_ErrorNoWineSavePath, oGame.Name), True, ToolTipIcon.Error, True)
@@ -189,7 +209,9 @@ Public Class frmMain
                     'Relative Path                    
                     bOSVerified = True
                 End If
-                mgrPath.ModWinePathData(oGame)
+                If Not oGame.AbsolutePath Then oGame.Path = oGame.Path.Replace("\", Path.DirectorySeparatorChar)
+                oGame.FileType = oGame.FileType.Replace("\", Path.DirectorySeparatorChar)
+                oGame.ExcludeList = oGame.ExcludeList.Replace("\", Path.DirectorySeparatorChar)
             Else
                 'Linux Configuration
                 bOSVerified = True
@@ -202,29 +224,69 @@ Public Class frmMain
         Return bOSVerified
     End Function
 
-    Private Sub RunRestore(ByVal oRestoreList As Hashtable)
+    Private Function VerifyRestoreForOS(ByRef oGame As clsGame, ByRef sPath As String) As Boolean
+        Dim bOSVerified As Boolean
+
+        'Handle Windows configurations in Linux
+        If mgrCommon.IsUnix Then
+            If oGame.OS = clsGame.eOS.Windows Then
+                If mgrVariables.CheckForReservedVariables(oGame.TruePath) Then
+                    'Absolute Path
+                    Dim oWineData As clsWineData = mgrWineData.DoWineDataGetbyID(oGame.ID)
+                    If oWineData.SavePath <> String.Empty Then
+                        sPath = oWineData.SavePath
+                        bOSVerified = True
+                    Else
+                        bOSVerified = False
+                        UpdateLog(mgrCommon.FormatString(frmMain_ErrorNoWineSavePath, oGame.Name), True, ToolTipIcon.Error, True)
+                    End If
+                Else
+                    'Relative Path                    
+                    bOSVerified = True
+                End If
+                If Not oGame.AbsolutePath Then sPath = oGame.Path.Replace("\", Path.DirectorySeparatorChar)
+            Else
+                'Linux Configuration
+                bOSVerified = True
+            End If
+        Else
+            'Windows
+            bOSVerified = True
+        End If
+
+        Return bOSVerified
+    End Function
+
+    Private Sub RunRestore(ByVal oRestoreList As Hashtable, Optional ByVal bIgnoreConfigLinks As Boolean = False, Optional ByVal bFastMode As Boolean = False)
         Dim oGame As clsGame
         Dim oReadyList As New List(Of clsBackup)
         Dim oRestoreInfo As clsBackup
         Dim bTriggerReload As Boolean = False
         Dim bOSVerified As Boolean
         Dim bPathVerified As Boolean
+        Dim oQueue As New Hashtable
         eCurrentOperation = eOperation.Restore
         OperationStarted()
 
+        If bIgnoreConfigLinks Then
+            oQueue = oRestoreList
+        Else
+            GetRestoreQueue(oRestoreList, oQueue)
+        End If
+
         'Build Restore List
-        For Each de As DictionaryEntry In oRestoreList
+        For Each de As DictionaryEntry In oQueue
             bPathVerified = False
             bOSVerified = False
             oGame = DirectCast(de.Key, clsGame)
             oRestoreInfo = DirectCast(de.Value, clsBackup)
 
-            bOSVerified = VerifyBackupForOS(oGame, oRestoreInfo.RestorePath)
+            bOSVerified = VerifyRestoreForOS(oGame, oRestoreInfo.RestorePath)
 
             If mgrPath.IsSupportedRegistryPath(oRestoreInfo.TruePath) Then
                 bPathVerified = True
             Else
-                If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload) Then
+                If mgrRestore.CheckPath(oRestoreInfo, oGame, bTriggerReload, bFastMode) Then
                     bPathVerified = True
                 Else
                     UpdateLog(mgrCommon.FormatString(frmMain_ErrorRestorePath, oRestoreInfo.Name), False, ToolTipIcon.Error, True)
@@ -232,7 +294,7 @@ Public Class frmMain
             End If
 
             If bOSVerified And bPathVerified Then
-                If oRestore.CheckRestorePrereq(oRestoreInfo, oGame.CleanFolder) Then
+                If oRestore.CheckRestorePrereq(oRestoreInfo, oGame.CleanFolder, bFastMode) Then
                     oReadyList.Add(oRestoreInfo)
                 End If
             End If
@@ -252,29 +314,73 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub RunManualBackup(ByVal oBackupList As List(Of clsGame))
+    Private Sub RunRestoreAll()
+        Dim oBackups As SortedList
+        Dim oRestoreList As New Hashtable
+        Dim hshGame As Hashtable
         Dim oGame As clsGame
+        Dim oBackup As clsBackup
+
+        oBackups = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
+
+        For Each de As DictionaryEntry In oBackups
+            oBackup = DirectCast(de.Value, clsBackup)
+            hshGame = mgrMonitorList.DoListGetbyMonitorID(de.Key)
+            If hshGame.Count = 1 Then
+                oGame = DirectCast(hshGame(0), clsGame)
+                oRestoreList.Add(oGame, oBackup)
+            End If
+        Next
+
+        If mgrCommon.ShowMessage(frmMain_WarningFullRestore, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            RunRestore(oRestoreList,, True)
+        End If
+    End Sub
+
+    Private Sub RunBackupAll()
+        Dim hshGames As Hashtable
+        Dim oGames As New List(Of clsGame)
+        Dim oGame As clsGame
+
+        hshGames = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
+        For Each de As DictionaryEntry In hshGames
+            oGame = DirectCast(de.Value, clsGame)
+            If Not oGame.MonitorOnly Then oGames.Add(oGame)
+        Next
+
+        If mgrCommon.ShowMessage(frmMain_WarningFullBackup, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            RunManualBackup(oGames, True)
+        End If
+    End Sub
+
+    Private Sub RunManualBackup(ByVal oBackupList As List(Of clsGame), Optional ByVal bFastMode As Boolean = False)
+        Dim oGame As clsGame
+        Dim lBackupSize As Long = 0
         Dim bNoAuto As Boolean
         Dim bOSVerified As Boolean
         Dim bPathVerified As Boolean
         Dim oReadyList As New List(Of clsGame)
+        Dim oQueue As New List(Of clsGame)
 
         eCurrentOperation = eOperation.Backup
         OperationStarted()
 
+        GetBackupQueue(oBackupList, oQueue, False)
+
         'Build Backup List
-        For Each oGame In oBackupList
+        For Each oGame In oQueue
+            'Break out when a cancel signal is received
+            If oBackup.CancelOperation Then Exit For
+
             bNoAuto = False
             bOSVerified = False
             bPathVerified = False
             gMonStripStatusButton.Enabled = False
 
-            UpdateLog(mgrCommon.FormatString(frmMain_ManualBackup, oGame.Name), False)
-
-            bOSVerified = VerifyBackupForOS(oGame, oGame.Path)
+            bOSVerified = VerifyBackupForOS(oGame)
 
             If oGame.AbsolutePath = False Then
-                If oGame.ProcessPath = String.Empty Then
+                If oGame.ProcessPath = String.Empty And Not bFastMode Then
                     If mgrCommon.IsProcessNotSearchable(oGame) Then bNoAuto = True
                     oGame.ProcessPath = mgrPath.ProcessPathSearch(oGame.Name, oGame.ProcessName, mgrCommon.FormatString(frmMain_ErrorRelativePath, oGame.Name), bNoAuto)
                 End If
@@ -282,21 +388,26 @@ Public Class frmMain
                 If oGame.ProcessPath <> String.Empty Then
                     bPathVerified = True
                 Else
-                    UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oGame.Name), False, ToolTipIcon.Error, True)
+                    If Not bFastMode Then UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oGame.Name), False, ToolTipIcon.Error, True)
                 End If
             Else
-                bPathVerified = True
+                If mgrPath.IsSupportedRegistryPath(oGame.Path) Or Directory.Exists(oGame.Path) Then
+                    bPathVerified = True
+                Else
+                    If Not bFastMode Then UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oGame.Name), False, ToolTipIcon.Error, True)
+                End If
             End If
 
             If bOSVerified And bPathVerified Then
-                If oBackup.CheckBackupPrereq(oGame) Then
+                If oBackup.CheckBackupPrereq(oGame, lBackupSize, bFastMode) Then
                     oReadyList.Add(oGame)
                 End If
             End If
         Next
 
         'Run backups
-        If oReadyList.Count > 0 Then
+        If oReadyList.Count > 0 And Not oBackup.CancelOperation Then
+            If Not oSettings.DisableDiskSpaceCheck And Not oReadyList.Count = 1 Then UpdateLog(mgrCommon.FormatString(mgrBackup_BackupBatchSize, mgrCommon.FormatDiskSpace(lBackupSize)), False, ToolTipIcon.Info, True)
             Dim oThread As New System.Threading.Thread(AddressOf ExecuteBackup)
             oThread.IsBackground = True
             oThread.Start(oReadyList)
@@ -306,10 +417,18 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub RunImportBackup(ByVal oImportBackupList As Hashtable)
-        PauseScan()
-        oBackup.ImportBackupFiles(oImportBackupList)
-        ResumeScan()
+    Private Sub RunImportBackupByGame(ByVal oImportBackupList As Hashtable)
+        eCurrentOperation = eOperation.Import
+        OperationStarted()
+        oBackup.ImportBackupFilesByGame(oImportBackupList)
+        OperationEnded()
+    End Sub
+
+    Private Sub RunImportBackupByFile(ByVal sFilesToImport As String())
+        eCurrentOperation = eOperation.Import
+        OperationStarted()
+        oBackup.ImportBackupFiles(sFilesToImport)
+        OperationEnded()
     End Sub
 
     Private Function DoMultiGameCheck() As Boolean
@@ -336,8 +455,58 @@ Public Class frmMain
 
     End Function
 
+    Private Sub GetRestoreQueue(ByVal oRootList As Hashtable, ByRef oRestoreList As Hashtable)
+        Dim oLinkChain As New List(Of String)
+        Dim hshLatestManifest As SortedList = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
+        Dim hshGame As Hashtable
+        Dim oGame As clsGame
+        Dim oBackup As clsBackup
+
+        For Each de As DictionaryEntry In oRootList
+            oGame = DirectCast(de.Key, clsGame)
+            mgrConfigLinks.BuildLinkChain(oGame.ID, oLinkChain)
+        Next
+
+        For Each sID As String In oLinkChain
+            If hshLatestManifest.Contains(sID) Then
+                oBackup = DirectCast(hshLatestManifest(sID), clsBackup)
+                hshGame = mgrMonitorList.DoListGetbyMonitorID(sID)
+                If hshGame.Count = 1 Then
+                    oGame = DirectCast(hshGame(0), clsGame)
+                    UpdateLog(mgrCommon.FormatString(frmMain_RestoreQueue, New String() {oGame.Name, oBackup.DateUpdated.ToString}), False, ToolTipIcon.Info, True)
+                    oRestoreList.Add(oGame, oBackup)
+                End If
+            End If
+        Next
+    End Sub
+
+    Private Sub GetBackupQueue(ByVal oRootList As List(Of clsGame), ByRef oBackupList As List(Of clsGame), Optional ByVal bDoPreCheck As Boolean = True)
+        Dim oLinkChain As New List(Of String)
+        Dim lBackupSize As Long = 0
+        Dim hshGame As Hashtable
+        Dim oGame As clsGame
+
+        For Each oRoot As clsGame In oRootList
+            mgrConfigLinks.BuildLinkChain(oRoot.ID, oLinkChain)
+        Next
+
+        For Each sID As String In oLinkChain
+            hshGame = mgrMonitorList.DoListGetbyMonitorID(sID)
+            If hshGame.Count = 1 Then
+                oGame = DirectCast(hshGame(0), clsGame)
+                UpdateLog(mgrCommon.FormatString(frmMain_BackupQueue, oGame.Name), False, ToolTipIcon.Info, True)
+                If bDoPreCheck Then
+                    If VerifyBackupForOS(oGame) And oBackup.CheckBackupPrereq(oGame, lBackupSize) Then oBackupList.Add(oGame)
+                Else
+                    oBackupList.Add(oGame)
+                End If
+            End If
+        Next
+    End Sub
+
     Private Sub RunBackup()
         Dim bDoBackup As Boolean
+        Dim oRootList As New List(Of clsGame)
         Dim oReadyList As New List(Of clsGame)
 
         eCurrentOperation = eOperation.Backup
@@ -371,12 +540,14 @@ Public Class frmMain
         End If
 
         If bDoBackup Then
-            If Not oBackup.CheckBackupPrereq(oProcess.GameInfo) Then
+            oRootList.Add(oProcess.GameInfo)
+            GetBackupQueue(oRootList, oReadyList)
+
+            If oReadyList.Count = 0 Then
                 SetLastAction(mgrCommon.FormatString(frmMain_ErrorBackupCancel, oProcess.GameInfo.CroppedName))
                 OperationEnded()
             Else
-                'Run the backup
-                oReadyList.Add(oProcess.GameInfo)
+                'Run the backup(s)
                 Dim trd As New System.Threading.Thread(AddressOf ExecuteBackup)
                 trd.IsBackground = True
                 trd.Start(oReadyList)
@@ -739,6 +910,16 @@ Public Class frmMain
         sPriorVersion = lblStatus3.Text
     End Sub
 
+    Private Sub HandleProcessPath()
+        If hshScanList.Contains(oProcess.GameInfo.ID) Then
+            If Not oProcess.GameInfo.ProcessPath = DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).ProcessPath Then
+                DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).ProcessPath = oProcess.GameInfo.ProcessPath
+                mgrMonitorList.DoListFieldUpdate("ProcessPath", oProcess.GameInfo.ProcessPath, oProcess.GameInfo.ID)
+                If (oSettings.SyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then mgrMonitorList.SyncMonitorLists(oSettings)
+            End If
+        End If
+    End Sub
+
     Private Sub UpdateTimeSpent(ByVal dTotalTime As Double, ByVal dSessionTime As Double)
         Dim sTotalTime As String
         Dim sSessionTime As String
@@ -947,12 +1128,12 @@ Public Class frmMain
 
         'Handle restore trigger
         If frm.TriggerRestore Then
-            RunRestore(frm.RestoreList)
+            RunRestore(frm.RestoreList, frm.IgnoreConfigLinks)
         End If
 
         'Handle import backup trigger
         If frm.TriggerImportBackup Then
-            RunImportBackup(frm.ImportBackupList)
+            RunImportBackupByGame(frm.ImportBackupList)
         End If
     End Sub
 
@@ -1317,16 +1498,16 @@ Public Class frmMain
             ToggleMenuItems(False, gMonFile)
             ToggleMenuItems(False, gMonSetup)
             ToggleMenuItems(False, gMonSetupAddWizard)
-            ToggleMenuItems(False, gMonHelp)
             ToggleMenuItems(False, gMonTools)
             ToggleMenuItems(False, gMonTraySetup)
             ToggleMenuItems(False, gMonTrayTools)
             gMonNotification.Enabled = False
             gMonTrayNotification.Enabled = False
             gMonTraySettings.Enabled = False
+            gMonTrayFullBackup.Enabled = False
+            gMonTrayFullRestore.Enabled = False
             If Not bGameDetected Then
                 gMonTrayMon.Enabled = False
-                gMonTrayShow.Enabled = False
                 gMonTrayExit.Enabled = False
             End If
             bMenuEnabled = False
@@ -1334,15 +1515,15 @@ Public Class frmMain
             ToggleMenuItems(True, gMonFile)
             ToggleMenuItems(True, gMonSetup)
             ToggleMenuItems(True, gMonSetupAddWizard)
-            ToggleMenuItems(True, gMonHelp)
             ToggleMenuItems(True, gMonTools)
             ToggleMenuItems(True, gMonTraySetup)
             ToggleMenuItems(True, gMonTrayTools)
             gMonNotification.Enabled = True
             gMonTrayNotification.Enabled = True
             gMonTraySettings.Enabled = True
+            gMonTrayFullBackup.Enabled = True
+            gMonTrayFullRestore.Enabled = True
             gMonTrayMon.Enabled = True
-            gMonTrayShow.Enabled = True
             gMonTrayExit.Enabled = True
             bMenuEnabled = True
         End If
@@ -1497,6 +1678,8 @@ Public Class frmMain
         'Set Menu Text
         gMonFile.Text = frmMain_gMonFile
         gMonFileMonitor.Text = frmMain_gMonFileMonitor_Start
+        gMonFileFullBackup.Text = frmMain_gMonFileFullBackup
+        gMonFileFullRestore.Text = frmMain_gMonFileFullRestore
         gMonFileSettings.Text = frmMain_gMonFileSettings
         gMonFileExit.Text = frmMain_gMonFileExit
         gMonSetup.Text = frmMain_gMonSetup
@@ -1506,6 +1689,9 @@ Public Class frmMain
         gMonSetupTags.Text = frmMain_gMonSetupTags
         gMonSetupProcessManager.Text = frmMain_gMonSetupProcessManager
         gMonTools.Text = frmMain_gMonTools
+        gMonToolsImportBackup.Text = frmMain_gMonToolsImportBackup
+        gMonToolsImportBackupFiles.Text = frmMain_gMonToolsImportBackupFiles
+        gMonToolsImportBackupFolder.Text = frmMain_gMonToolsImportBackupFolder
         gMonToolsCompact.Text = frmMain_gMonToolsCompact
         gMonToolsLog.Text = frmMain_gMonToolsLog
         gMonToolsSessions.Text = frmMain_gMonToolsSessions
@@ -1523,6 +1709,8 @@ Public Class frmMain
         'Set Tray Menu Text
         gMonTrayShow.Text = frmMain_gMonTrayShow
         gMonTrayMon.Text = frmMain_gMonFileMonitor_Start
+        gMonTrayFullBackup.Text = frmMain_gMonTrayFullBackup
+        gMonTrayFullRestore.Text = frmMain_gMonTrayFullRestore
         gMonTraySettings.Text = frmMain_gMonFileSettings
         gMonTraySetup.Text = frmMain_gMonSetup
         gMonTraySetupGameManager.Text = frmMain_gMonSetupGameManager
@@ -1531,6 +1719,9 @@ Public Class frmMain
         gMonTraySetupTags.Text = frmMain_gMonSetupTags
         gMonTraySetupProcessManager.Text = frmMain_gMonSetupProcessManager
         gMonTrayTools.Text = frmMain_gMonTools
+        gMonTrayToolsImportBackup.Text = frmMain_gMonTrayToolsImportBackup
+        gMonTrayToolsImportBackupFiles.Text = frmMain_gMonTrayToolsImportBackupFiles
+        gMonTrayToolsImportBackupFolder.Text = frmMain_gMonTrayToolsImportBackupFolder
         gMonTrayToolsCompact.Text = frmMain_gMonToolsCompact
         gMonTrayToolsLog.Text = frmMain_gMonToolsLog
         gMonTrayToolsSessions.Text = frmMain_gMonToolsSessions
@@ -1863,13 +2054,43 @@ Public Class frmMain
 
     End Sub
 
+    Private Sub ImportBackupFiles()
+        Dim sFilestoImport As String()
+        Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+
+        sFilestoImport = mgrCommon.OpenMultiFileBrowser("Main_BackupFileImport", frmMain_ChooseImportFiles, "7z", frmGameManager_7zBackup, sDefaultFolder, True)
+
+        If sFilestoImport.Length > 0 Then
+            RunImportBackupByFile(sFilestoImport)
+        End If
+    End Sub
+
+    Private Sub ImportBackupFolder()
+        Dim sFilesFound As List(Of String)
+        Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+        Dim sRootFolder As String
+
+        sRootFolder = mgrCommon.OpenFolderBrowser("Main_BackupFolderImport", frmMain_ChooseImportFolder, sDefaultFolder, True)
+
+        If Not sRootFolder = String.Empty Then
+            sFilesFound = mgrCommon.GetFileListByFolder(sRootFolder, New String() {"*.7z"})
+            Dim sFilesToImport(sFilesFound.Count - 1) As String
+            sFilesFound.CopyTo(sFilesToImport)
+            RunImportBackupByFile(sFilesToImport)
+        End If
+    End Sub
+
     'Event Handlers
-    Private Sub gMonFileMonitor_Click(sender As Object, e As EventArgs) Handles gMonFileMonitor.Click
+    Private Sub gMonFileMonitor_Click(sender As Object, e As EventArgs) Handles gMonFileMonitor.Click, gMonTrayMon.Click
         ScanToggle()
     End Sub
 
-    Private Sub gMonTrayMon_Click(sender As System.Object, e As System.EventArgs) Handles gMonTrayMon.Click
-        ScanToggle()
+    Private Sub gMonFileFullBackup_Click(sender As Object, e As EventArgs) Handles gMonFileFullBackup.Click, gMonTrayFullBackup.Click
+        RunBackupAll()
+    End Sub
+
+    Private Sub gMonFileFullRestore_Click(sender As Object, e As EventArgs) Handles gMonFileFullRestore.Click, gMonTrayFullRestore.Click
+        RunRestoreAll()
     End Sub
 
     Private Sub gMonTray_MouseClick(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles gMonTray.MouseDoubleClick
@@ -1894,6 +2115,14 @@ Public Class frmMain
 
     Private Sub gMonToolsCompact_Click(sender As Object, e As EventArgs) Handles gMonToolsCompact.Click, gMonTrayToolsCompact.Click
         CompactDatabases()
+    End Sub
+
+    Private Sub gMonToolsImportBackupFiles_Click(sender As Object, e As EventArgs) Handles gMonToolsImportBackupFiles.Click, gMonTrayToolsImportBackupFiles.Click
+        ImportBackupFiles()
+    End Sub
+
+    Private Sub gMonToolsImportBackupFolder_Click(sender As Object, e As EventArgs) Handles gMonToolsImportBackupFolder.Click, gMonTrayToolsImportBackupFolder.Click
+        ImportBackupFolder()
     End Sub
 
     Private Sub gMonSetupAddWizard_Click(sender As Object, e As EventArgs) Handles gMonSetupAddWizard.Click, gMonTraySetupAddWizard.Click
@@ -2103,11 +2332,7 @@ Public Class frmMain
             'Check if we failed to detect the game path
             If bPathDetectionFailure Then
                 oProcess.GameInfo.ProcessPath = mgrPath.ProcessPathSearch(oProcess.GameInfo.Name, oProcess.GameInfo.ProcessName, sPathDetectionError)
-                If oProcess.GameInfo.ProcessPath <> String.Empty Then
-                    'Update and reload
-                    mgrMonitorList.DoListFieldUpdate("ProcessPath", oProcess.GameInfo.ProcessPath, oProcess.GameInfo.ID)
-                    LoadGameSettings()
-                Else
+                If oProcess.GameInfo.ProcessPath = String.Empty Then
                     bContinue = False
                     If oSettings.TimeTracking Then HandleTimeSpent()
                     If oSettings.SessionTracking Then HandleSession()
@@ -2126,15 +2351,10 @@ Public Class frmMain
                         'Attempt a path conversion if the game configuration is using an absolute windows path that we can convert
                         If mgrVariables.CheckForReservedVariables(oProcess.GameInfo.TruePath) Then
                             oProcess.WineData.SavePath = mgrPath.GetWineSavePath(oProcess.WineData.Prefix, oProcess.GameInfo.TruePath)
-                            If Not oProcess.WineData.SavePath = oProcess.GameInfo.TruePath Then
-                                oProcess.GameInfo.TruePath = oProcess.WineData.SavePath
-                                UpdateLog(mgrCommon.FormatString(frmMain_WineSavePath, oProcess.WineData.SavePath), False)
-                            End If
                         End If
                         mgrWineData.DoWineDataAddUpdate(oProcess.WineData)
-                        'This does required mods to include/exclude data and relative paths (if required)
-                        mgrPath.ModWinePathData(oProcess.GameInfo)
                     End If
+                    If Not oProcess.GameInfo.AbsolutePath Then HandleProcessPath()
                     If oSettings.TimeTracking Then HandleTimeSpent()
                     If oSettings.SessionTracking Then HandleSession()
                     RunBackup()

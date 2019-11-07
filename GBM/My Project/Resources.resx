@@ -265,9 +265,6 @@
   <data name="frmMain_LastGame" xml:space="preserve">
     <value>Last Game: [PARAM]</value>
   </data>
-  <data name="frmMain_ManualBackup" xml:space="preserve">
-    <value>A manual backup of [PARAM] was triggered.</value>
-  </data>
   <data name="frmMain_MasterListChanged" xml:space="preserve">
     <value>The master game list has been changed by a program other than GBM.</value>
   </data>
@@ -1133,7 +1130,7 @@
     <value>The selected backup location does not exist and could not be created.[BR][BR][PARAM]</value>
   </data>
   <data name="frmStartUpWizard_ExistingData" xml:space="preserve">
-    <value>Existing data was detected in the backup folder and has been imported.</value>
+    <value>Existing GBM data was detected in the backup folder and has been imported. </value>
   </data>
   <data name="frmStartUpWizard_FormName" xml:space="preserve">
     <value>GBM Setup</value>
@@ -1270,14 +1267,14 @@
   <data name="mgrBackup_BackupInProgress" xml:space="preserve">
     <value>Backup of [PARAM] in progress...</value>
   </data>
-  <data name="mgrBackup_7zWarnings" xml:space="preserve">
-    <value>[PARAM] backup completed with warnings.</value>
+  <data name="App_Operation_Warnings" xml:space="preserve">
+    <value>[PARAM] operation completed with warnings.</value>
   </data>
   <data name="mgrBackup_ConfirmManifestConflict" xml:space="preserve">
     <value>The manifest shows the backup folder contains a more recent backup for [PARAM] that has not been restored on this computer.[BR][BR]Do you want to overwrite this file anyway?</value>
   </data>
   <data name="mgrBackup_ConfirmOverwrite" xml:space="preserve">
-    <value>A file with the same name already exists in the backup folder.[BR][BR]Do you want to overwrite this file?</value>
+    <value>[PARAM] already exists in the backup folder.[BR][BR]Do you want to overwrite this file?</value>
   </data>
   <data name="mgrBackup_ErrorFileList" xml:space="preserve">
     <value>An error occured creating a file list: [PARAM]</value>
@@ -1293,9 +1290,6 @@
   </data>
   <data name="mgrBackup_ErrorNoSavePath" xml:space="preserve">
     <value>Backup aborted.  The saved game path for [PARAM] does not exist.</value>
-  </data>
-  <data name="mgrBackup_ErrorOtherFailure" xml:space="preserve">
-    <value>An unexpected error occured during the backup of [PARAM].[BR][PARAM]</value>
   </data>
   <data name="mgrBackup_ErrorOverwriteAbort" xml:space="preserve">
     <value>[PARAM] backup aborted by user due to overwrite.</value>
@@ -1396,9 +1390,6 @@
   <data name="mgrRestore_ErrorNoPath" xml:space="preserve">
     <value>Restored aborted.  The path [PARAM] does not exist.</value>
   </data>
-  <data name="mgrRestore_ErrorOtherFailure" xml:space="preserve">
-    <value>An unexpected error occured during the restore process.[BR][PARAM]</value>
-  </data>
   <data name="mgrRestore_NoVerify" xml:space="preserve">
     <value>[PARAM] has no stored checksum,  verification has been skipped.</value>
   </data>
@@ -1410,9 +1401,6 @@
   </data>
   <data name="mgrRestore_RestoreInProgress" xml:space="preserve">
     <value>Restore to [PARAM] in progress...</value>
-  </data>
-  <data name="mgrRestore_RestoreWarnings" xml:space="preserve">
-    <value>[PARAM] restore finished with warnings or errors.</value>
   </data>
   <data name="mgrRestore_Verified" xml:space="preserve">
     <value>[PARAM] backup has been verified.</value>
@@ -1736,7 +1724,7 @@
     <value>Backup aborted due to lack of disk space.</value>
   </data>
   <data name="mgrCommon_AvailableDiskSpace" xml:space="preserve">
-    <value>Available Disk Space: [PARAM]</value>
+    <value>Available Disk Space ([PARAM]): [PARAM]</value>
   </data>
   <data name="mgrCommon_GB" xml:space="preserve">
     <value>[PARAM] GB</value>
@@ -1750,7 +1738,7 @@
   <data name="mgrCommon_PB" xml:space="preserve">
     <value>[PARAM] PB</value>
   </data>
-  <data name="mgrCommon_SavedGameFolderSize" xml:space="preserve">
+  <data name="mgrBackup_SavedGameFolderSize" xml:space="preserve">
     <value>[PARAM] Save Folder Size: [PARAM]</value>
   </data>
   <data name="mgrCommon_TB" xml:space="preserve">
@@ -1762,11 +1750,11 @@
   <data name="mgrCommon_B" xml:space="preserve">
     <value>[PARAM] B</value>
   </data>
-  <data name="mgrBackup_7zCommandFailure" xml:space="preserve">
-    <value>[PARAM] backup failed due to a malformed command.</value>
+  <data name="App_Operation_CommandFailure" xml:space="preserve">
+    <value>[PARAM] operation failed due to a malformed command.</value>
   </data>
-  <data name="mgrBackup_7zFatalError" xml:space="preserve">
-    <value>[PARAM] backup failed due to an error.</value>
+  <data name="App_Operation_FatalError" xml:space="preserve">
+    <value>[PARAM] operation failed due to an error.</value>
   </data>
   <data name="App_ErrorFocus" xml:space="preserve">
     <value>GBM is busy with an open window on your desktop.</value>
@@ -2177,7 +2165,7 @@
     <value>Startup</value>
   </data>
   <data name="mgrBackup_ConfirmOverwriteRelative" xml:space="preserve">
-    <value>A file with the same name already exists in the backup folder.[BR][BR]This game stores saves in a relative location, you may need to restore the current backup if the game was recently re-installed.[BR][BR]Do you want to overwrite this file?</value>
+    <value>[PARAM] already exists in the backup folder.[BR][BR]This game stores saves in a relative location, you may need to restore the current backup if the game was recently re-installed.[BR][BR]Do you want to overwrite this file?</value>
   </data>
   <data name="mgrPath_SpecialPathError" xml:space="preserve">
     <value>An error occured while determining a required system path. [BR][BR]The environment value for [PARAM] is empty.[BR][BR]The application will now exit.</value>
@@ -2196,9 +2184,6 @@
   </data>
   <data name="frmMain_WinePrefix" xml:space="preserve">
     <value>Wine Prefix: [PARAM]</value>
-  </data>
-  <data name="frmMain_WineSavePath" xml:space="preserve">
-    <value>Wine Save Path: [PARAM]</value>
   </data>
   <data name="mgrPath_ErrorBuildingWinePath" xml:space="preserve">
     <value>An error occured when building a Wine path.[BR][BR][PARAM]</value>
@@ -2231,16 +2216,13 @@
     <value>Failed to import [PARAM], the file could not be copied.</value>
   </data>
   <data name="mgrBackup_ImportedFile" xml:space="preserve">
-    <value>Imported Backup</value>
+    <value>Forced Import</value>
   </data>
   <data name="mgrBackup_ImportSuccess" xml:space="preserve">
     <value>Imported backup file [PARAM] for [PARAM].</value>
   </data>
-  <data name="frmGameManager_btnProcesses" xml:space="preserve">
-    <value>Pro&amp;cesses...</value>
-  </data>
-  <data name="frmGameManager_WarningImportBackup" xml:space="preserve">
-    <value>This feature is intended to import 7-Zip backup archives compatible with the selected game configuration.[BR][BR]GBM does NOT verify these files, you should only use files created by GBM or compatible archives created using the same settings as the current game configuration.[BR][BR]This message will only be shown once.</value>
+  <data name="frmGameManager_btnLink" xml:space="preserve">
+    <value>&amp;Link</value>
   </data>
   <data name="frmVariableManager_ErrorVariableReserved" xml:space="preserve">
     <value>[PARAM] is a reserved variable, you must enter a different name.</value>
@@ -2326,8 +2308,8 @@
   <data name="App_ErrorLaunchExternal" xml:space="preserve">
     <value>An error occured attempting to launch the application:[BR][BR][PARAM]</value>
   </data>
-  <data name="mgrBackup_ErrorBackupPathIsUNC" xml:space="preserve">
-    <value>The backup folder is a UNC path.  The disk space check has been skipped.</value>
+  <data name="mgrBackup_ErrorPathIsUNC" xml:space="preserve">
+    <value>The temporary or backup folder is a UNC path.  The disk space check has been skipped.</value>
   </data>
   <data name="frmSettings_chkDisableDiskSpaceCheck" xml:space="preserve">
     <value>Disable disk space check prior to backup</value>
@@ -2397,5 +2379,200 @@
   </data>
   <data name="frmGameManager_WarningEmptyProcess" xml:space="preserve">
     <value>A valid process name or regular expression is required to monitor and backup your saved games automatically.[BR][BR]You may leave the Process field blank to a create manual backup configuration for this game, these configurations will be automatically excluded from monitoring.[BR][BR]This warning will only be displayed once.</value>
+  </data>
+  <data name="App_MetadataFilename" xml:space="preserve">
+    <value>_gbm_backup_metadata.xml</value>
+  </data>
+  <data name="mgrBackup_ErrorMetadataFailure" xml:space="preserve">
+    <value>Backup Aborted.  An error occured while creating backup metadata for [PARAM].</value>
+  </data>
+  <data name="mgrMetadata_InProgress" xml:space="preserve">
+    <value>Adding metadata to backup file.</value>
+  </data>
+  <data name="App_OperationType_Backup" xml:space="preserve">
+    <value>Backup</value>
+  </data>
+  <data name="App_OperationType_Metadata" xml:space="preserve">
+    <value>Metadata</value>
+  </data>
+  <data name="App_OperationType_Restore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="App_Operation_Cancel" xml:space="preserve">
+    <value>[PARAM] operation was cancelled by user.</value>
+  </data>
+  <data name="App_Operation_Completed" xml:space="preserve">
+    <value>[PARAM] operation completed.</value>
+  </data>
+  <data name="App_Operation_FileNotFound" xml:space="preserve">
+    <value>[PARAM] operation failed because a required file was not found.</value>
+  </data>
+  <data name="App_Operation_OtherFailure" xml:space="preserve">
+    <value>[PARAM] operation encountered an unexpected error.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrMetaData_CheckingArchive" xml:space="preserve">
+    <value>Checking [PARAM] for metadata.</value>
+  </data>
+  <data name="mgrMetaData_ExtractingFromArchive" xml:space="preserve">
+    <value>Extracting metadata from [PARAM].</value>
+  </data>
+  <data name="mgrBackup_ErrorImportCancel" xml:space="preserve">
+    <value>The import of [PARAM] was cancelled.</value>
+  </data>
+  <data name="mgrBackup_WarningMetadataMismatch" xml:space="preserve">
+    <value>The metadata in the backup file ([PARAM]) does not match the game you selected.[BR][BR]Do you want to continue importing this file? (Not Recommended)</value>
+  </data>
+  <data name="mgrBackup_WarningNoMetadata" xml:space="preserve">
+    <value>The backup file ([PARAM]) contains no metadata or is an invalid archive.[BR][BR]Do you want to continue importing this file? (Not Recommended)</value>
+  </data>
+  <data name="frmMain_ChooseImportFiles" xml:space="preserve">
+    <value>Choose file(s) to import</value>
+  </data>
+  <data name="frmMain_ChooseImportFolder" xml:space="preserve">
+    <value>Choose a folder to import</value>
+  </data>
+  <data name="frmMain_gMonToolsImportBackup" xml:space="preserve">
+    <value>&amp;Import Backup</value>
+  </data>
+  <data name="frmMain_gMonToolsImportBackupFiles" xml:space="preserve">
+    <value>&amp;Files</value>
+  </data>
+  <data name="frmMain_gMonToolsImportBackupFolder" xml:space="preserve">
+    <value>F&amp;older</value>
+  </data>
+  <data name="frmMain_gMonTrayToolsImportBackup" xml:space="preserve">
+    <value>&amp;Import Backup</value>
+  </data>
+  <data name="frmMain_gMonTrayToolsImportBackupFiles" xml:space="preserve">
+    <value>&amp;Files</value>
+  </data>
+  <data name="frmMain_gMonTrayToolsImportBackupFolder" xml:space="preserve">
+    <value>F&amp;older</value>
+  </data>
+  <data name="mgrBackup_BackupsImported" xml:space="preserve">
+    <value>[PARAM] backup file(s) imported successfully.</value>
+  </data>
+  <data name="mgrBackup_ErrorNoMetadata" xml:space="preserve">
+    <value>The file [PARAM] contains no metadata or is an invalid archive.  </value>
+  </data>
+  <data name="mgrBackup_ErrorReadingMetadata" xml:space="preserve">
+    <value>An error occuring reading the metadata in the file [PARAM].</value>
+  </data>
+  <data name="mgrBackup_GamesAddedDuringImport" xml:space="preserve">
+    <value>[PARAM] game configuration(s) added or updated during the import process.</value>
+  </data>
+  <data name="frmMain_ImportInProgress" xml:space="preserve">
+    <value>Import in Progress...</value>
+  </data>
+  <data name="frmConfigLinks_btnAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmConfigLinks_btnClose" xml:space="preserve">
+    <value>&amp;Close</value>
+  </data>
+  <data name="frmConfigLinks_btnRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmConfigLinks_FormNameMulti" xml:space="preserve">
+    <value>Edit Configuration Links for Multiple Games</value>
+  </data>
+  <data name="frmConfigLinks_FormNameSingle" xml:space="preserve">
+    <value>Edit Configuration Links for [PARAM]</value>
+  </data>
+  <data name="frmConfigLinks_lblConfigs" xml:space="preserve">
+    <value>Available Configurations</value>
+  </data>
+  <data name="frmConfigLinks_lblLinkedConfigs" xml:space="preserve">
+    <value>Linked Configurations</value>
+  </data>
+  <data name="frmMain_BackupQueue" xml:space="preserve">
+    <value>Adding [PARAM] to backup queue.</value>
+  </data>
+  <data name="frmGameManager_RestoreLinkWarning" xml:space="preserve">
+    <value>[PARAM] is linked to another game configuration.  A linked restore cannot be done when selecting an older backup file.[BR][BR]Do you want to continue without restoring any linked configuration(s)?</value>
+  </data>
+  <data name="frmMain_RestoreQueue" xml:space="preserve">
+    <value>Adding [PARAM] ([PARAM]) to restore queue.</value>
+  </data>
+  <data name="frmConfigLinks_lblFilter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="frmGameManager_cmsConfiguration" xml:space="preserve">
+    <value>&amp;Configuration...</value>
+  </data>
+  <data name="frmGameManager_cmsProcess" xml:space="preserve">
+    <value>&amp;Process...</value>
+  </data>
+  <data name="Arrow_Submenu_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Arrow_Submenu_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_TipLinkConfiguration" xml:space="preserve">
+    <value>The following screen allows you to link other game configuations to this one.  Each time this configuration triggers a backup or restore, the linked configurations will run as well.  Please see the Online Manual for more details.[BR][BR]This message will only be displayed once.</value>
+  </data>
+  <data name="frmGameManager_TipLinkProcess" xml:space="preserve">
+    <value>The following screen allows you to link other software to run each time this game configuration is detected.  Use the Process Manager to setup software to link.[BR][BR]This message will only be displayed once.</value>
+  </data>
+  <data name="mgrBackup_ErrorImportOSMismatch" xml:space="preserve">
+    <value>[PARAM] was created on [PARAM] and you're currently running [PARAM].  This backup file cannot be imported using this method.</value>
+  </data>
+  <data name="frmStartUpWizard_ExistingFilesDetected" xml:space="preserve">
+    <value>[PARAM] possible backup files have been detected in the backup folder.  Do you want to scan and import any valid files?</value>
+  </data>
+  <data name="frmMain_gMonFileFullBackup" xml:space="preserve">
+    <value>Run Full &amp;Backup</value>
+  </data>
+  <data name="frmMain_gMonFileFullRestore" xml:space="preserve">
+    <value>Run Full &amp;Restore</value>
+  </data>
+  <data name="frmMain_gMonTrayFullBackup" xml:space="preserve">
+    <value>Run Full &amp;Backup</value>
+  </data>
+  <data name="frmMain_gMonTrayFullRestore" xml:space="preserve">
+    <value>Run Full &amp;Restore</value>
+  </data>
+  <data name="frmMain_WarningFullBackup" xml:space="preserve">
+    <value>Are you sure you want to run a backup for every game?[BR][BR]Important checks that would normally require user confirmation will automatically cancel when running a full backup.  Please review the log when the process is complete.</value>
+  </data>
+  <data name="frmMain_WarningFullRestore" xml:space="preserve">
+    <value>Are you sure you want to restore the latest backup for every game?[BR][BR]Important checks that would normally require user confirmation will automatically cancel when running a full restore.  Please review the log when the process is complete.</value>
+  </data>
+  <data name="mgrBackup_FullAbort" xml:space="preserve">
+    <value>Any remaining backup operations have been aborted.</value>
+  </data>
+  <data name="mgrRestore_FullAbort" xml:space="preserve">
+    <value>Any remaining restore operations have been aborted.</value>
+  </data>
+  <data name="frmStartUpWizard_ExistingDataAndFilesDetected" xml:space="preserve">
+    <value>[PARAM] backup files have been detected in the backup folder.  Do you want to scan and verify all backup files?[BR][BR]This is likely unnecessary since the backup folder already contains a GBM database.</value>
+  </data>
+  <data name="frmSettings_ErrorTempFolder" xml:space="preserve">
+    <value>The temporary folder does not exist.  Please choose a valid temporary folder.</value>
+  </data>
+  <data name="frmSettings_lblTempFolder" xml:space="preserve">
+    <value>Temp Folder:</value>
+  </data>
+  <data name="mgrBackup_BackupFolder" xml:space="preserve">
+    <value>Backup Folder</value>
+  </data>
+  <data name="mgrBackup_ErrorMovingBackupFile" xml:space="preserve">
+    <value>An error occured while moving the [PARAM] backup file from the temporary folder to the backup folder.</value>
+  </data>
+  <data name="mgrBackup_TemporaryFolder" xml:space="preserve">
+    <value>Temporary Folder</value>
+  </data>
+  <data name="mgrBackup_BackupBatchSize" xml:space="preserve">
+    <value>Total Batch Size: [PARAM]</value>
+  </data>
+  <data name="App_BackupExcludeFileName" xml:space="preserve">
+    <value>gbm_exclude.txt</value>
+  </data>
+  <data name="App_BackupIncludeFileName" xml:space="preserve">
+    <value>gbm_include.txt</value>
+  </data>
+  <data name="mgrBackup_ActionImportComplete" xml:space="preserve">
+    <value>[PARAM] import completed.</value>
+  </data>
+  <data name="mgrBackup_ActionImportFailed" xml:space="preserve">
+    <value>[PARAM] import failed.</value>
   </data>
 </root>
