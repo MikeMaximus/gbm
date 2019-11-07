@@ -2074,7 +2074,7 @@ Public Class frmMain
 
         If Not sRootFolder = String.Empty Then
             sFilesFound = mgrCommon.GetFileListByFolder(sRootFolder, New String() {"*.7z"})
-            Dim sFilesToImport(sFilesFound.Count) As String
+            Dim sFilesToImport(sFilesFound.Count - 1) As String
             sFilesFound.CopyTo(sFilesToImport)
             RunImportBackupByFile(sFilesToImport)
         End If

@@ -280,6 +280,7 @@ Public Class mgrBackup
         Dim hshGame As Hashtable
         Dim bOverwriteCurrent As Boolean = False
         Dim bContinue As Boolean
+        Dim bImportComplete As Boolean
         Dim bUpdateManifest As Boolean
         Dim sBackupFile As String
         Dim oBackup As clsBackup
@@ -291,6 +292,7 @@ Public Class mgrBackup
         For Each sFileToImport As String In sFileList
             RaiseEvent UpdateImportInfo(sFileToImport)
             bContinue = True
+            bImportComplete = False
             bUpdateManifest = False
             oBackup = New clsBackup
 
@@ -372,10 +374,17 @@ Public Class mgrBackup
                             mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
                         End If
                         iFilesImported += 1
+                        bImportComplete = True
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImport, oGame.Name}), False, ToolTipIcon.Info, True)
                     End If
                 Else
                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportCancel, sFileToImport), False, ToolTipIcon.Error, True)
+                End If
+
+                If bImportComplete Then
+                    RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionImportComplete, oGame.CroppedName))
+                Else
+                    RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionImportFailed, oGame.CroppedName))
                 End If
             End If
 
@@ -398,6 +407,7 @@ Public Class mgrBackup
         Dim oGame As clsGame
         Dim bOverwriteCurrent As Boolean = False
         Dim bContinue As Boolean
+        Dim bImportComplete As Boolean
         Dim bUpdateManifest As Boolean
         Dim bMatch As Boolean
         Dim sFileToImport As String
@@ -408,6 +418,7 @@ Public Class mgrBackup
 
         For Each de As DictionaryEntry In hshImportList
             bContinue = True
+            bImportComplete = False
             bMatch = False
             bUpdateManifest = False
             sFileToImport = CStr(de.Key)
@@ -478,10 +489,17 @@ Public Class mgrBackup
                         If Not mgrManifest.DoUpdateLatestManifest(oBackup, mgrSQLite.Database.Remote) Then
                             mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
                         End If
+                        bImportComplete = True
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImport, oGame.Name}), False, ToolTipIcon.Info, True)
                     End If
                 Else
                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportCancel, sFileToImport), False, ToolTipIcon.Error, True)
+                End If
+
+                If bImportComplete Then
+                    RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionImportComplete, oGame.CroppedName))
+                Else
+                    RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionImportFailed, oGame.CroppedName))
                 End If
             End If
 

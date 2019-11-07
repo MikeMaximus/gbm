@@ -2569,4 +2569,10 @@
   <data name="App_BackupIncludeFileName" xml:space="preserve">
     <value>gbm_include.txt</value>
   </data>
+  <data name="mgrBackup_ActionImportComplete" xml:space="preserve">
+    <value>[PARAM] import completed.</value>
+  </data>
+  <data name="mgrBackup_ActionImportFailed" xml:space="preserve">
+    <value>[PARAM] import failed.</value>
+  </data>
 </root>

@@ -359,7 +359,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-11-05T15:24:15
+        '''  Looks up a localized string similar to 2019-11-01T17:03:35
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -6438,6 +6438,24 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_ActionFailed() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ActionFailed", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] import completed..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ActionImportComplete() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ActionImportComplete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] import failed..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ActionImportFailed() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ActionImportFailed", resourceCulture)
             End Get
         End Property
         
