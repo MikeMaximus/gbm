@@ -359,7 +359,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-11-01T17:03:35
+        '''  Looks up a localized string similar to 2019-11-08T13:50:55
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4509,7 +4509,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Are you sure you want to run a backup for every game?[BR][BR]Important checks that would normally require user confirmation will automatically cancel when running a full backup.  Please review the log when the process is complete..
+        '''  Looks up a localized string similar to Are you sure you want to run a backup for every game?[BR][BR]GBM automatically determines which backups can be performed and handles any confirmations that normally require user input.  See the Online Manual for more details..
         '''</summary>
         Friend ReadOnly Property frmMain_WarningFullBackup() As String
             Get
@@ -4518,7 +4518,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Are you sure you want to restore the latest backup for every game?[BR][BR]Important checks that would normally require user confirmation will automatically cancel when running a full restore.  Please review the log when the process is complete..
+        '''  Looks up a localized string similar to Are you sure you want to restore the latest backup for every game?[BR][BR]GBM automatically determines which backups can be restored and handles any confirmations that normally require user input.  See the Online Manual for more details..
         '''</summary>
         Friend ReadOnly Property frmMain_WarningFullRestore() As String
             Get

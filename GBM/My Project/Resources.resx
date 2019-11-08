@@ -2531,10 +2531,10 @@
     <value>Run Full &amp;Restore</value>
   </data>
   <data name="frmMain_WarningFullBackup" xml:space="preserve">
-    <value>Are you sure you want to run a backup for every game?[BR][BR]Important checks that would normally require user confirmation will automatically cancel when running a full backup.  Please review the log when the process is complete.</value>
+    <value>Are you sure you want to run a backup for every game?[BR][BR]GBM automatically determines which backups can be performed and handles any confirmations that normally require user input.  See the Online Manual for more details.</value>
   </data>
   <data name="frmMain_WarningFullRestore" xml:space="preserve">
-    <value>Are you sure you want to restore the latest backup for every game?[BR][BR]Important checks that would normally require user confirmation will automatically cancel when running a full restore.  Please review the log when the process is complete.</value>
+    <value>Are you sure you want to restore the latest backup for every game?[BR][BR]GBM automatically determines which backups can be restored and handles any confirmations that normally require user input.  See the Online Manual for more details.</value>
   </data>
   <data name="mgrBackup_FullAbort" xml:space="preserve">
     <value>Any remaining backup operations have been aborted.</value>
