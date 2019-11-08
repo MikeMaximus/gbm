@@ -1,8 +1,8 @@
-Game Backup Monitor v1.2.0 Readme
+Game Backup Monitor v1.2.0 Pre-Release Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-November 5, 2019
+November 8, 2019
 
 New in 1.2.0
 
@@ -25,7 +25,7 @@ All Platforms:
 - Improved the ability to import backup files using metadata.
 	- There is a now a global tool to import backup files or entire folders available in the "Tools" menu.
 	- Only backup files with GBM metadata can be imported using this new tool.
-	- You may still force the import of backup files without metadata (or incorrect metadata) using the "Import Backup Files" tool in the Game Manager.
+	- You may still force the import of any 7z archive using the "Import Backup Files" tool in the Game Manager.
 - GBM now properly checks for available disk space when doing batch operations.
 - GBM no longer attempts to search for a game when the process name is a regular expression, it isn't supported.
 - Fixed various long-standing problems with the "Cancel" button.
