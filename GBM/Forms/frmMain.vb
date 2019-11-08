@@ -271,7 +271,7 @@ Public Class frmMain
         If bIgnoreConfigLinks Then
             oQueue = oRestoreList
         Else
-            GetRestoreQueue(oRestoreList, oQueue)
+            GetRestoreQueue(oRestoreList, oQueue, bFastMode)
         End If
 
         'Build Restore List
@@ -365,7 +365,7 @@ Public Class frmMain
         eCurrentOperation = eOperation.Backup
         OperationStarted()
 
-        GetBackupQueue(oBackupList, oQueue, False)
+        GetBackupQueue(oBackupList, oQueue, False, bFastMode)
 
         'Build Backup List
         For Each oGame In oQueue
@@ -455,7 +455,7 @@ Public Class frmMain
 
     End Function
 
-    Private Sub GetRestoreQueue(ByVal oRootList As Hashtable, ByRef oRestoreList As Hashtable)
+    Private Sub GetRestoreQueue(ByVal oRootList As Hashtable, ByRef oRestoreList As Hashtable, Optional ByVal bFastMode As Boolean = False)
         Dim oLinkChain As New List(Of String)
         Dim hshLatestManifest As SortedList = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
         Dim hshGame As Hashtable
@@ -473,14 +473,14 @@ Public Class frmMain
                 hshGame = mgrMonitorList.DoListGetbyMonitorID(sID)
                 If hshGame.Count = 1 Then
                     oGame = DirectCast(hshGame(0), clsGame)
-                    UpdateLog(mgrCommon.FormatString(frmMain_RestoreQueue, New String() {oGame.Name, oBackup.DateUpdated.ToString}), False, ToolTipIcon.Info, True)
+                    If Not bFastMode Then UpdateLog(mgrCommon.FormatString(frmMain_RestoreQueue, New String() {oGame.Name, oBackup.DateUpdated.ToString}), False, ToolTipIcon.Info, True)
                     oRestoreList.Add(oGame, oBackup)
                 End If
             End If
         Next
     End Sub
 
-    Private Sub GetBackupQueue(ByVal oRootList As List(Of clsGame), ByRef oBackupList As List(Of clsGame), Optional ByVal bDoPreCheck As Boolean = True)
+    Private Sub GetBackupQueue(ByVal oRootList As List(Of clsGame), ByRef oBackupList As List(Of clsGame), Optional ByVal bDoPreCheck As Boolean = True, Optional ByVal bFastMode As Boolean = False)
         Dim oLinkChain As New List(Of String)
         Dim lBackupSize As Long = 0
         Dim hshGame As Hashtable
@@ -494,7 +494,7 @@ Public Class frmMain
             hshGame = mgrMonitorList.DoListGetbyMonitorID(sID)
             If hshGame.Count = 1 Then
                 oGame = DirectCast(hshGame(0), clsGame)
-                UpdateLog(mgrCommon.FormatString(frmMain_BackupQueue, oGame.Name), False, ToolTipIcon.Info, True)
+                If Not bFastMode Then UpdateLog(mgrCommon.FormatString(frmMain_BackupQueue, oGame.Name), False, ToolTipIcon.Info, True)
                 If bDoPreCheck Then
                     If VerifyBackupForOS(oGame) And oBackup.CheckBackupPrereq(oGame, lBackupSize) Then oBackupList.Add(oGame)
                 Else
