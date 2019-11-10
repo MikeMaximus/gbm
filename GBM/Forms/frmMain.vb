@@ -494,11 +494,13 @@ Public Class frmMain
             hshGame = mgrMonitorList.DoListGetbyMonitorID(sID)
             If hshGame.Count = 1 Then
                 oGame = DirectCast(hshGame(0), clsGame)
-                If Not bFastMode Then UpdateLog(mgrCommon.FormatString(frmMain_BackupQueue, oGame.Name), False, ToolTipIcon.Info, True)
-                If bDoPreCheck Then
-                    If VerifyBackupForOS(oGame) And oBackup.CheckBackupPrereq(oGame, lBackupSize) Then oBackupList.Add(oGame)
-                Else
-                    oBackupList.Add(oGame)
+                If Not oGame.MonitorOnly Then
+                    If Not bFastMode Then UpdateLog(mgrCommon.FormatString(frmMain_BackupQueue, oGame.Name), False, ToolTipIcon.Info, True)
+                    If bDoPreCheck Then
+                        If VerifyBackupForOS(oGame) And oBackup.CheckBackupPrereq(oGame, lBackupSize) Then oBackupList.Add(oGame)
+                    Else
+                        oBackupList.Add(oGame)
+                    End If
                 End If
             End If
         Next
@@ -533,10 +535,9 @@ Public Class frmMain
                 End If
             End If
         Else
-            bDoBackup = False
+            bDoBackup = True
             UpdateLog(mgrCommon.FormatString(frmMain_MonitorEnded, oProcess.GameInfo.Name), False)
             SetLastAction(mgrCommon.FormatString(frmMain_MonitorEnded, oProcess.GameInfo.CroppedName))
-            OperationEnded()
         End If
 
         If bDoBackup Then
@@ -544,7 +545,6 @@ Public Class frmMain
             GetBackupQueue(oRootList, oReadyList)
 
             If oReadyList.Count = 0 Then
-                SetLastAction(mgrCommon.FormatString(frmMain_ErrorBackupCancel, oProcess.GameInfo.CroppedName))
                 OperationEnded()
             Else
                 'Run the backup(s)
