@@ -1,10 +1,16 @@
-Game Backup Monitor v1.2.0 Pre-Release Readme
+Game Backup Monitor v1.2.0 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-November 8, 2019
+December 1, 2019
 
 New in 1.2.0
+
+All Platforms:
+
+- Fixed various issues when linking to or from "Monitor Only" configurations.
+	
+New in 1.2.0PR1 (Pre-Release #1 - November 8, 2019)
 
 All Platforms:
 
