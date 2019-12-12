@@ -101,6 +101,31 @@ Public Class mgrProcessDetection
         End Set
     End Property
 
+    Private Sub DebugDumpProcessList(ByVal prsList As Process())
+        Dim sProcessList As String = String.Empty
+        For Each prsCurrent As Process In prsList
+            If mgrCommon.IsUnix Then
+                sProcessList &= prsCurrent.Id & " " & prsCurrent.ProcessName & " " & GetUnixCommand(prsCurrent) & vbCrLf
+            Else
+                sProcessList &= prsCurrent.Id & " " & prsCurrent.ProcessName & " " & GetWindowsCommand(prsCurrent) & vbCrLf
+            End If
+        Next
+
+        mgrCommon.SaveText(sProcessList.Trim, mgrPath.SettingsRoot & "/gbm_process_list.txt")
+    End Sub
+
+    Private Sub DebugDumpDetectedProcess(ByVal prs As Process)
+        Dim sProcessList As String = String.Empty
+
+        If mgrCommon.IsUnix Then
+            sProcessList = prs.Id & " " & prs.ProcessName & " " & GetUnixCommand(prs)
+        Else
+            sProcessList = prs.Id & " " & prs.ProcessName & " " & GetWindowsCommand(prs)
+        End If
+
+        mgrCommon.SaveText(sProcessList, mgrPath.SettingsRoot & "/gbm_last_detected_process.txt")
+    End Sub
+
     'This function will only work correctly on Windows
     Private Function GetWindowsCommand(ByVal prs As Process) As String
         Dim sFullCommand As String = String.Empty
@@ -271,8 +296,13 @@ Public Class mgrProcessDetection
     Public Function SearchRunningProcesses(ByVal hshScanList As Hashtable, ByRef bNeedsPath As Boolean, ByRef iErrorCode As Integer, ByVal bDebugMode As Boolean) As Boolean
         Dim prsList() As Process = Process.GetProcesses
         Dim sProcessCheck As String = String.Empty
-        Dim sProcessList As String = String.Empty
         Dim oDetectedGames As New ArrayList
+
+        If bDebugMode Then
+            'Multiple calls to WMI will lock up the UI thread, so make a new one.
+            Dim oThread As New System.Threading.Thread(AddressOf DebugDumpProcessList)
+            oThread.Start(prsList)
+        End If
 
         For Each prsCurrent As Process In prsList
             'This needs to be wrapped due to issues with Mono.
@@ -293,12 +323,6 @@ Public Class mgrProcessDetection
                     bWineProcess = True
                 Else
                     bWineProcess = False
-                End If
-
-                If bDebugMode And mgrCommon.IsUnix Then
-                    sProcessList &= prsCurrent.Id & " " & prsCurrent.ProcessName & " " & GetUnixCommand(prsCurrent) & vbCrLf
-                ElseIf bDebugMode Then
-                    sProcessList &= prsCurrent.Id & " " & prsCurrent.ProcessName & " " & GetWindowsCommand(prsCurrent) & vbCrLf
                 End If
             Catch ex As Exception
                 'Do Nothing
@@ -346,13 +370,12 @@ Public Class mgrProcessDetection
                     bVerified = True
                     Return False
                 Else
+                    If bDebugMode Then DebugDumpDetectedProcess(prsCurrent)
                     bVerified = False
                     Return True
                 End If
             End If
         Next
-
-        If bDebugMode Then mgrCommon.SaveText(sProcessList, mgrPath.SettingsRoot & "/gbm_process_list.txt")
 
         Return False
     End Function
