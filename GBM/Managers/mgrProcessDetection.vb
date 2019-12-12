@@ -103,25 +103,32 @@ Public Class mgrProcessDetection
 
     Private Sub DebugDumpProcessList(ByVal prsList As Process())
         Dim sProcessList As String = String.Empty
-        For Each prsCurrent As Process In prsList
-            If mgrCommon.IsUnix Then
-                sProcessList &= prsCurrent.Id & " " & prsCurrent.ProcessName & " " & GetUnixCommand(prsCurrent) & vbCrLf
-            Else
-                sProcessList &= prsCurrent.Id & " " & prsCurrent.ProcessName & " " & GetWindowsCommand(prsCurrent) & vbCrLf
-            End If
-        Next
+        Try
+            For Each prsCurrent As Process In prsList
+                If mgrCommon.IsUnix Then
+                    sProcessList &= prsCurrent.Id & " " & prsCurrent.ProcessName & " " & GetUnixCommand(prsCurrent) & vbCrLf
+                Else
+                    sProcessList &= prsCurrent.Id & " " & prsCurrent.ProcessName & " " & GetWindowsCommand(prsCurrent) & vbCrLf
+                End If
+            Next
+        Catch
+            'Do Nothing
+        End Try
 
         mgrCommon.SaveText(sProcessList.Trim, mgrPath.SettingsRoot & "/gbm_process_list.txt")
     End Sub
 
     Private Sub DebugDumpDetectedProcess(ByVal prs As Process)
         Dim sProcessList As String = String.Empty
-
-        If mgrCommon.IsUnix Then
-            sProcessList = prs.Id & " " & prs.ProcessName & " " & GetUnixCommand(prs)
-        Else
-            sProcessList = prs.Id & " " & prs.ProcessName & " " & GetWindowsCommand(prs)
-        End If
+        Try
+            If mgrCommon.IsUnix Then
+                sProcessList = prs.Id & " " & prs.ProcessName & " " & GetUnixCommand(prs)
+            Else
+                sProcessList = prs.Id & " " & prs.ProcessName & " " & GetWindowsCommand(prs)
+            End If
+        Catch
+            'Do Nothing
+        End Try
 
         mgrCommon.SaveText(sProcessList, mgrPath.SettingsRoot & "/gbm_last_detected_process.txt")
     End Sub
