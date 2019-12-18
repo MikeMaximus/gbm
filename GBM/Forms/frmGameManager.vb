@@ -250,8 +250,7 @@ Public Class frmGameManager
 
             'Remote
             If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Remote) Then
-
-                'Check for existing folder
+                'Check for existing folder and create it if it doesn't already exist
                 sDirectory = BackupFolder & sOriginalAppItem
                 sNewDirectory = sDirectory.Replace(sOriginalAppItem, sNewAppItem)
                 If Directory.Exists(sNewDirectory) Then
@@ -260,6 +259,8 @@ Public Class frmGameManager
                     Else
                         Return False
                     End If
+                Else
+                    Directory.CreateDirectory(sNewDirectory)
                 End If
 
                 oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Remote)
@@ -276,23 +277,24 @@ Public Class frmGameManager
                     End If
                 Next
 
-                'Rename files                
+                'We need to copy the files, then delete the original to work around file locking issues with cloud clients.               
                 For Each oBackupItem As clsBackup In oBackupItems
-                    'Rename Current Backup File
                     sFileName = BackupFolder & oBackupItem.FileName
-                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(sOriginalAppItem, sNewAppItem)
+                    sNewFileName = sNewDirectory & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(sOriginalAppItem, sNewAppItem)
                     If File.Exists(sFileName) And Not sFileName = sNewFileName Then
-                        If File.Exists(sNewFileName) Then mgrCommon.DeleteFile(sNewFileName)
-                        FileSystem.Rename(sFileName, sNewFileName)
+                        'Copy the file using the new name, then delete the old file when successful.
+                        If mgrCommon.CopyFile(sFileName, sNewFileName, True) Then
+                            mgrCommon.DeleteFile(sFileName)
+                            oBackupItem.MonitorID = oNewApp.ID
+                            oBackupItem.FileName = oBackupItem.FileName.Replace(sOriginalAppItem, sNewAppItem)
+                            mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Remote)
+                        End If
                     End If
-                    oBackupItem.MonitorID = oNewApp.ID
-                    oBackupItem.FileName = oBackupItem.FileName.Replace(sOriginalAppItem, sNewAppItem)
-                    mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Remote)
                 Next
 
-                'Rename folder                
+                'Delete the old folder if it's empty
                 If Directory.Exists(sDirectory) And Not sDirectory = sNewDirectory Then
-                    FileSystem.Rename(sDirectory, sNewDirectory)
+                    mgrCommon.DeleteEmptyDirectory(sDirectory)
                 End If
             End If
 
