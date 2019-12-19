@@ -250,7 +250,7 @@ Public Class frmGameManager
 
             'Remote
             If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Remote) Then
-                'Check for existing folder and create it if it doesn't already exist
+                'Check for existing folder
                 sDirectory = BackupFolder & sOriginalAppItem
                 sNewDirectory = sDirectory.Replace(sOriginalAppItem, sNewAppItem)
                 If Directory.Exists(sNewDirectory) Then
@@ -259,9 +259,8 @@ Public Class frmGameManager
                     Else
                         Return False
                     End If
-                Else
-                    Directory.CreateDirectory(sNewDirectory)
                 End If
+                Directory.CreateDirectory(sNewDirectory)
 
                 oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Remote)
 
