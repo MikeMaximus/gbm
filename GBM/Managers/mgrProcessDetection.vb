@@ -381,6 +381,8 @@ Public Class mgrProcessDetection
                     bVerified = False
                     Return True
                 End If
+            Else
+                GameInfo = Nothing
             End If
         Next
 
