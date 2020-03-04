@@ -43,6 +43,7 @@ Public Class frmMain
     Private sPriorVersion As String
     Private iRestoreTimeOut As Integer
     Private oChildProcesses As New Hashtable
+    Private oLastGame As clsGame
     Private wState As FormWindowState = FormWindowState.Normal
 
     'Developer Debug Flags
@@ -1116,7 +1117,7 @@ Public Class frmMain
         PauseScan()
         frm.Settings = oSettings
         frm.PendingRestores = bPendingRestores
-        frm.LastPlayedGame = oProcess.GameInfo
+        frm.LastPlayedGame = oLastGame
         frm.ShowDialog()
         LoadGameSettings()
         ResumeScan()
@@ -2279,10 +2280,12 @@ Public Class frmMain
 
             If bContinue = True Then
                 If oProcess.Duplicate Then
+                    oLastGame = Nothing
                     UpdateLog(frmMain_MultipleGamesDetected, oSettings.ShowDetectionToolTips)
                     UpdateStatus(frmMain_MultipleGamesDetected)
                     SetGameInfo(True)
                 Else
+                    oLastGame = oProcess.GameInfo
                     UpdateLog(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.Name), oSettings.ShowDetectionToolTips)
                     UpdateStatus(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.CroppedName))
                     SetGameInfo()
@@ -2345,6 +2348,7 @@ Public Class frmMain
 
             If bContinue Then
                 If DoMultiGameCheck() Then
+                    oLastGame = oProcess.GameInfo
                     UpdateLog(mgrCommon.FormatString(frmMain_GameEnded, oProcess.GameInfo.Name), False)
                     If oProcess.WineProcess Then
                         oProcess.WineData.MonitorID = oProcess.GameInfo.ID
@@ -2359,6 +2363,7 @@ Public Class frmMain
                     If oSettings.SessionTracking Then HandleSession()
                     RunBackup()
                 Else
+                    oLastGame = Nothing
                     UpdateLog(frmMain_UnknownGameEnded, False)
                     oProcess.GameInfo = Nothing
                     ResetGameInfo()
