@@ -187,3 +187,6 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 /.vs
+
+#Temporary Build Files
+GBM/Resources/BuildDate.txt
