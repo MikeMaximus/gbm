@@ -372,46 +372,46 @@ Partial Class frmMain
         'gMonFileMonitor
         '
         Me.gMonFileMonitor.Name = "gMonFileMonitor"
-        Me.gMonFileMonitor.Size = New System.Drawing.Size(180, 22)
+        Me.gMonFileMonitor.Size = New System.Drawing.Size(161, 22)
         Me.gMonFileMonitor.Text = "Start &Monitoring"
         '
         'gMonFullSep
         '
         Me.gMonFullSep.Name = "gMonFullSep"
-        Me.gMonFullSep.Size = New System.Drawing.Size(177, 6)
+        Me.gMonFullSep.Size = New System.Drawing.Size(158, 6)
         '
         'gMonFileFullBackup
         '
         Me.gMonFileFullBackup.Name = "gMonFileFullBackup"
-        Me.gMonFileFullBackup.Size = New System.Drawing.Size(180, 22)
+        Me.gMonFileFullBackup.Size = New System.Drawing.Size(161, 22)
         Me.gMonFileFullBackup.Text = "Run Full &Backup"
         '
         'gMonFileFullRestore
         '
         Me.gMonFileFullRestore.Name = "gMonFileFullRestore"
-        Me.gMonFileFullRestore.Size = New System.Drawing.Size(180, 22)
+        Me.gMonFileFullRestore.Size = New System.Drawing.Size(161, 22)
         Me.gMonFileFullRestore.Text = "Run Full &Restore"
         '
         'gMonSettingsSep
         '
         Me.gMonSettingsSep.Name = "gMonSettingsSep"
-        Me.gMonSettingsSep.Size = New System.Drawing.Size(177, 6)
+        Me.gMonSettingsSep.Size = New System.Drawing.Size(158, 6)
         '
         'gMonFileSettings
         '
         Me.gMonFileSettings.Name = "gMonFileSettings"
-        Me.gMonFileSettings.Size = New System.Drawing.Size(180, 22)
+        Me.gMonFileSettings.Size = New System.Drawing.Size(161, 22)
         Me.gMonFileSettings.Text = "&Settings..."
         '
         'gMonExitSep
         '
         Me.gMonExitSep.Name = "gMonExitSep"
-        Me.gMonExitSep.Size = New System.Drawing.Size(177, 6)
+        Me.gMonExitSep.Size = New System.Drawing.Size(158, 6)
         '
         'gMonFileExit
         '
         Me.gMonFileExit.Name = "gMonFileExit"
-        Me.gMonFileExit.Size = New System.Drawing.Size(180, 22)
+        Me.gMonFileExit.Size = New System.Drawing.Size(161, 22)
         Me.gMonFileExit.Text = "E&xit"
         '
         'gMonSetup
@@ -586,6 +586,7 @@ Partial Class frmMain
         Me.lblGameTitle.Size = New System.Drawing.Size(446, 16)
         Me.lblGameTitle.TabIndex = 1
         Me.lblGameTitle.Text = "Game Title"
+        Me.lblGameTitle.UseMnemonic = False
         '
         'lblLastAction
         '
@@ -598,6 +599,7 @@ Partial Class frmMain
         Me.lblLastAction.Size = New System.Drawing.Size(419, 13)
         Me.lblLastAction.TabIndex = 9
         Me.lblLastAction.Text = "Last Action"
+        Me.lblLastAction.UseMnemonic = False
         '
         'lblLastActionTitle
         '
@@ -638,6 +640,7 @@ Partial Class frmMain
         Me.lblStatus1.Name = "lblStatus1"
         Me.lblStatus1.Size = New System.Drawing.Size(446, 13)
         Me.lblStatus1.TabIndex = 2
+        Me.lblStatus1.UseMnemonic = False
         '
         'lblStatus2
         '
@@ -648,6 +651,7 @@ Partial Class frmMain
         Me.lblStatus2.Name = "lblStatus2"
         Me.lblStatus2.Size = New System.Drawing.Size(446, 13)
         Me.lblStatus2.TabIndex = 3
+        Me.lblStatus2.UseMnemonic = False
         '
         'lblStatus3
         '
@@ -658,6 +662,7 @@ Partial Class frmMain
         Me.lblStatus3.Name = "lblStatus3"
         Me.lblStatus3.Size = New System.Drawing.Size(446, 13)
         Me.lblStatus3.TabIndex = 4
+        Me.lblStatus3.UseMnemonic = False
         '
         'pbTime
         '

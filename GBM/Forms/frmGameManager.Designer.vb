@@ -678,6 +678,7 @@ Partial Class frmGameManager
         Me.lblRestorePathData.TabIndex = 7
         Me.lblRestorePathData.Tag = "wipe"
         Me.lblRestorePathData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblRestorePathData.UseMnemonic = False
         '
         'lblBackupFileData
         '
@@ -689,6 +690,7 @@ Partial Class frmGameManager
         Me.lblBackupFileData.TabIndex = 6
         Me.lblBackupFileData.Tag = "wipe"
         Me.lblBackupFileData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblBackupFileData.UseMnemonic = False
         '
         'lblLocalBackupData
         '
@@ -700,6 +702,7 @@ Partial Class frmGameManager
         Me.lblLocalBackupData.TabIndex = 5
         Me.lblLocalBackupData.Tag = "wipe"
         Me.lblLocalBackupData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblLocalBackupData.UseMnemonic = False
         '
         'lblRestorePath
         '
@@ -1004,18 +1007,18 @@ Partial Class frmGameManager
         Me.cmsLink.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsProcess, Me.cmsConfiguration})
         Me.cmsLink.Name = "cmsLinks"
         Me.cmsLink.ShowImageMargin = False
-        Me.cmsLink.Size = New System.Drawing.Size(156, 70)
+        Me.cmsLink.Size = New System.Drawing.Size(133, 48)
         '
         'cmsProcess
         '
         Me.cmsProcess.Name = "cmsProcess"
-        Me.cmsProcess.Size = New System.Drawing.Size(155, 22)
+        Me.cmsProcess.Size = New System.Drawing.Size(132, 22)
         Me.cmsProcess.Text = "&Process..."
         '
         'cmsConfiguration
         '
         Me.cmsConfiguration.Name = "cmsConfiguration"
-        Me.cmsConfiguration.Size = New System.Drawing.Size(155, 22)
+        Me.cmsConfiguration.Size = New System.Drawing.Size(132, 22)
         Me.cmsConfiguration.Text = "&Configuration..."
         '
         'frmGameManager
