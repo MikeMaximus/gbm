@@ -1615,7 +1615,7 @@ Public Class frmGameManager
         If Not txtProcess.Text.Trim = String.Empty And oApp.IsRegEx Then
             If Not mgrCommon.IsRegExValid(oApp.ProcessName) Then
                 If mgrCommon.ShowMessage(frmGameManager_ErrorRegExFailure, MsgBoxStyle.Exclamation, MsgBoxStyle.YesNoCancel) = MsgBoxResult.Yes Then
-                    Process.Start(mgrCommon.FormatString(AppURL_RegExr, oApp.ProcessName))
+                    mgrCommon.OpenInOS(mgrCommon.FormatString(AppURL_RegExr, oApp.ProcessName), , True)
                 End If
                 Return False
             End If

@@ -599,14 +599,19 @@ Public Class mgrCommon
         End If
     End Sub
 
-    'Opens a file or folder in default application determined by the OS
-    Public Shared Function OpenInOS(ByVal sFileName As String, ByVal sNotFoundError As String) As Boolean
+    'Opens a file, folder or URL in default application determined by the OS
+    Public Shared Function OpenInOS(ByVal sItem As String, Optional ByVal sNotFoundError As String = "", Optional ByVal sIsURL As Boolean = False) As Boolean
         Dim oProcessStartInfo As ProcessStartInfo
 
-        If File.Exists(sFileName) Or Directory.Exists(sFileName) Then
+        If File.Exists(sItem) Or Directory.Exists(sItem) Or sIsURL Then
             Try
                 oProcessStartInfo = New ProcessStartInfo
-                oProcessStartInfo.FileName = sFileName
+                If IsUnix() Then
+                    oProcessStartInfo.FileName = "/usr/bin/xdg-open"
+                    oProcessStartInfo.Arguments = """" & sItem & """"
+                Else
+                    oProcessStartInfo.FileName = sItem
+                End If
                 oProcessStartInfo.UseShellExecute = True
                 oProcessStartInfo.Verb = "open"
                 Process.Start(oProcessStartInfo)

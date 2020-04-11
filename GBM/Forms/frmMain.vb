@@ -1195,27 +1195,15 @@ Public Class frmMain
     End Sub
 
     Private Sub OpenWebSite()
-        Try
-            Process.Start(App_URLWebsite)
-        Catch ex As Exception
-            mgrCommon.ShowMessage(App_ErrorLaunchExternal, ex.Message, MsgBoxStyle.Exclamation)
-        End Try
+        mgrCommon.OpenInOS(App_URLWebsite, , True)
     End Sub
 
     Private Sub OpenOnlineManual()
-        Try
-            Process.Start(App_URLManual)
-        Catch ex As Exception
-            mgrCommon.ShowMessage(App_ErrorLaunchExternal, ex.Message, MsgBoxStyle.Exclamation)
-        End Try
+        mgrCommon.OpenInOS(App_URLManual, , True)
     End Sub
 
     Private Sub OpenCheckforUpdates()
-        Try
-            Process.Start(App_URLUpdates)
-        Catch ex As Exception
-            mgrCommon.ShowMessage(App_ErrorLaunchExternal, ex.Message, MsgBoxStyle.Exclamation)
-        End Try
+        mgrCommon.OpenInOS(App_URLUpdates, , True)
     End Sub
 
     Private Sub CheckForNewBackups()

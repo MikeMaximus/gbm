@@ -286,6 +286,6 @@ Public Class frmStartUpWizard
     End Sub
 
     Private Sub llbManual_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbManual.LinkClicked
-        Process.Start(e.Link.LinkData.ToString)
+        mgrCommon.OpenInOS(e.Link.LinkData.ToString, , True)
     End Sub
 End Class
