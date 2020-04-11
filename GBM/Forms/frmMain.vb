@@ -2400,9 +2400,15 @@ Public Class frmMain
                 VerifyCustomPathVariables()
 
                 If oSettings.StartToTray Then
-                    bShowToggle = False
-                    Me.Visible = False
-                    Me.ShowInTaskbar = False
+                    'Mono and .NET do not behave in the same way on startup
+                    If mgrCommon.IsUnix Then
+                        bShowToggle = True
+                        ToggleState()
+                    Else
+                        bShowToggle = False
+                        Me.Visible = False
+                        Me.ShowInTaskbar = False
+                    End If
                 End If
 
                 If oSettings.MonitorOnStartup Then
