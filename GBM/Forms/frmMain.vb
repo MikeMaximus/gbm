@@ -2196,11 +2196,15 @@ Public Class frmMain
             Case CloseReason.UserClosing
                 If bShutdown = False Then
                     e.Cancel = True
-                    bShowToggle = False
-                    wState = Me.WindowState
-                    Me.WindowState = FormWindowState.Minimized
-                    Me.ShowInTaskbar = False
-                    Me.Visible = False
+                    If Not mgrCommon.IsUnix Then
+                        bShowToggle = False
+                        wState = Me.WindowState
+                        Me.WindowState = FormWindowState.Minimized
+                        Me.ShowInTaskbar = False
+                        Me.Visible = False
+                    Else
+                        ShutdownApp()
+                    End If
                 End If
             Case Else
                 ShutdownApp(False)
@@ -2387,12 +2391,14 @@ Public Class frmMain
             Else
                 VerifyCustomPathVariables()
 
-                If oSettings.StartToTray Then
-                    'Mono and .NET do not behave in the same way on startup
-                    If mgrCommon.IsUnix Then
-                        bShowToggle = True
-                        ToggleState()
-                    Else
+                'Windows and Linux require different settings
+                If mgrCommon.IsUnix Then
+                    Me.MinimizeBox = True
+                    If oSettings.StartToTray Then
+                        Me.WindowState = FormWindowState.Minimized
+                    End If
+                Else
+                    If oSettings.StartToTray Then
                         bShowToggle = False
                         Me.Visible = False
                         Me.ShowInTaskbar = False
