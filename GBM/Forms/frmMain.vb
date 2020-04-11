@@ -1457,6 +1457,7 @@ Public Class frmMain
             'Close Application
             bShutdown = True
             tmScanTimer.Stop()
+            gMonTray.Dispose() 'Mono has issues automatically disposing of this control
             If bwMonitor.IsBusy() Then bwMonitor.CancelAsync()
             Me.Close()
         End If
@@ -2207,15 +2208,11 @@ Public Class frmMain
             Case CloseReason.UserClosing
                 If bShutdown = False Then
                     e.Cancel = True
-                    If Not mgrCommon.IsUnix Then
-                        bShowToggle = False
-                        wState = Me.WindowState
-                        Me.WindowState = FormWindowState.Minimized
-                        Me.ShowInTaskbar = False
-                        Me.Visible = False
-                    Else
-                        ShutdownApp()
-                    End If
+                    bShowToggle = False
+                    wState = Me.WindowState
+                    Me.WindowState = FormWindowState.Minimized
+                    Me.ShowInTaskbar = False
+                    Me.Visible = False
                 End If
             Case Else
                 ShutdownApp(False)
@@ -2402,19 +2399,10 @@ Public Class frmMain
             Else
                 VerifyCustomPathVariables()
 
-                'Windows and Linux require different settings for the system tray
-                If mgrCommon.IsUnix Then
-                    Me.gMonTray.Visible = False
-                    Me.MinimizeBox = True
-                    If oSettings.StartToTray Then
-                        Me.WindowState = FormWindowState.Minimized
-                    End If
-                Else
-                    If oSettings.StartToTray Then
-                        bShowToggle = False
-                        Me.Visible = False
-                        Me.ShowInTaskbar = False
-                    End If
+                If oSettings.StartToTray Then
+                    bShowToggle = False
+                    Me.Visible = False
+                    Me.ShowInTaskbar = False
                 End If
 
                 If oSettings.MonitorOnStartup Then
