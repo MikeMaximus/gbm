@@ -1,3 +1,4 @@
+Unicode True
 !include MUI2.nsh
 !include UninstallLog.nsh
 
@@ -18,6 +19,26 @@ SetCompressor /SOLID /FINAL lzma
 !define UNINSTALL_PATH "Software\Game Backup Monitor (32-bit)"
 !define WINDOWS_UNINSTALL_PATH "Software\Microsoft\Windows\CurrentVersion\Uninstall\Game Backup Monitor (32-bit)"
 
+Var StartMenuFolder
+
+!define MUI_ABORTWARNING
+
+!insertmacro MUI_PAGE_WELCOME
+!define MUI_DIRECTORYPAGE_VARIABLE $INSTDIR
+!insertmacro MUI_PAGE_DIRECTORY
+
+!define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKCU"
+!define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\Game Backup Monitor (32-bit)"
+!define MUI_STARTMENUPAGE_VALUENAME "Start Menu Folder"
+!insertmacro MUI_PAGE_STARTMENU "Game" $StartMenuFolder
+!insertmacro MUI_PAGE_INSTFILES
+
+
+!insertmacro MUI_UNPAGE_CONFIRM
+!insertmacro MUI_UNPAGE_INSTFILES
+
+!insertmacro MUI_LANGUAGE "English"
+
 ;--------------------------------
 ; Configure UnInstall log to only remove what is installed
 ;-------------------------------- 
@@ -26,7 +47,7 @@ SetCompressor /SOLID /FINAL lzma
     Var UninstLog
  
   ;Uninstall log file missing.
-    LangString UninstLogMissing ${LANG_ENGLISH} "${UninstLog} not found!$\r$\nUninstallation cannot proceed!"
+	LangString UninstLogMissing ${LANG_ENGLISH} "${UninstLog} not found!$\r$\nUninstallation cannot proceed!"
  
   ;AddItem macro
     !define AddItem "!insertmacro AddItem"
@@ -67,27 +88,6 @@ SetCompressor /SOLID /FINAL lzma
       FileOpen $UninstLog "$INSTDIR\${UninstLog}" a
       FileSeek $UninstLog 0 END
   SectionEnd
-
-
-Var StartMenuFolder
-
-!define MUI_ABORTWARNING
-
-!insertmacro MUI_PAGE_WELCOME
-!define MUI_DIRECTORYPAGE_VARIABLE $INSTDIR
-!insertmacro MUI_PAGE_DIRECTORY
-
-!define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKCU"
-!define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\Game Backup Monitor (32-bit)"
-!define MUI_STARTMENUPAGE_VALUENAME "Start Menu Folder"
-!insertmacro MUI_PAGE_STARTMENU "Game" $StartMenuFolder
-!insertmacro MUI_PAGE_INSTFILES
-
-
-!insertmacro MUI_UNPAGE_CONFIRM
-!insertmacro MUI_UNPAGE_INSTFILES
-
-!insertmacro MUI_LANGUAGE "English"
 
 Section "Game Installation" GameInstall
 
