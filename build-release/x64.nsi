@@ -1,23 +1,25 @@
+;--------------------------------
+; WARNINGS: 
+; 1.  This script is only a template.  <DESTNAME>, <SOURCEDIR> and <VERSION> need to be set.
+; 2.  UninstallLog.nsh needs to be added to the Include folder of the NSIS installation.
+;-------------------------------- 
+
 Unicode True
 !include MUI2.nsh
 !include UninstallLog.nsh
 
-;--------------------------------
-; WARNING: This script is only a template.  <DESTNAME>, <SOURCEDIR> and <VERSION> need to be set.
-;-------------------------------- 
-
-Name "Game Backup Monitor (32-bit)"
+Name "Game Backup Monitor (64-bit)"
 OutFile "<DESTNAME>"
-InstallDir "$PROGRAMFILES\Game Backup Monitor"
-InstallDirRegKey HKCU "Software\Game Backup Monitor (32-bit)" "Install Directory"
+InstallDir "$PROGRAMFILES64\Game Backup Monitor"
+InstallDirRegKey HKCU "Software\Game Backup Monitor (64-bit)" "Install Directory"
 RequestExecutionLevel admin
 SetCompressor /SOLID /FINAL lzma
 
 !define MUI_ICON "<SOURCEDIR>\gbm.ico"
 !define REG_ROOT "HKCU"
-!define REG_APP_PATH "Software\Game Backup Monitor (32-bit)"
-!define UNINSTALL_PATH "Software\Game Backup Monitor (32-bit)"
-!define WINDOWS_UNINSTALL_PATH "Software\Microsoft\Windows\CurrentVersion\Uninstall\Game Backup Monitor (32-bit)"
+!define REG_APP_PATH "Software\Game Backup Monitor (64-bit)"
+!define UNINSTALL_PATH "Software\Game Backup Monitor (64-bit)"
+!define WINDOWS_UNINSTALL_PATH "Software\Microsoft\Windows\CurrentVersion\Uninstall\Game Backup Monitor (64-bit)"
 
 Var StartMenuFolder
 
@@ -28,7 +30,7 @@ Var StartMenuFolder
 !insertmacro MUI_PAGE_DIRECTORY
 
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKCU"
-!define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\Game Backup Monitor (32-bit)"
+!define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\Game Backup Monitor (64-bit)"
 !define MUI_STARTMENUPAGE_VALUENAME "Start Menu Folder"
 !insertmacro MUI_PAGE_STARTMENU "Game" $StartMenuFolder
 !insertmacro MUI_PAGE_INSTFILES
@@ -47,7 +49,7 @@ Var StartMenuFolder
     Var UninstLog
  
   ;Uninstall log file missing.
-	LangString UninstLogMissing ${LANG_ENGLISH} "${UninstLog} not found!$\r$\nUninstallation cannot proceed!"
+    LangString UninstLogMissing ${LANG_ENGLISH} "${UninstLog} not found!$\r$\nUninstallation cannot proceed!"
  
   ;AddItem macro
     !define AddItem "!insertmacro AddItem"
@@ -104,16 +106,16 @@ Section "Game Installation" GameInstall
 	${File} "<SOURCEDIR>\License" "gpl-3.0.html"
 	${File} "<SOURCEDIR>\License" "license.txt"
 	${CreateDirectory} "$INSTDIR\Utilities"
-	${CreateDirectory} "$INSTDIR\Utilities\x86"
-	${SetOutPath} "$INSTDIR\Utilities\x86"
-	${File} "<SOURCEDIR>\Utilities\x86" "7za.exe"
+	${CreateDirectory} "$INSTDIR\Utilities\x64"
+	${SetOutPath} "$INSTDIR\Utilities\x64"
+	${File} "<SOURCEDIR>\Utilities\x64" "7za.exe"
 
 	${SetOutPath} "$INSTDIR"
 	
 	${WriteRegStr} "${REG_ROOT}" "${REG_APP_PATH}" "Install Directory" "$INSTDIR"
 	${WriteRegStr} "${REG_ROOT}" "${UNINSTALL_PATH}" "UninstallString" "$INSTDIR\Uninstall.exe"
 	
-	WriteRegStr HKLM "${WINDOWS_UNINSTALL_PATH}" "DisplayName" "Game Backup Monitor (32-bit)"
+	WriteRegStr HKLM "${WINDOWS_UNINSTALL_PATH}" "DisplayName" "Game Backup Monitor (64-bit)"
 	WriteRegStr HKLM "${WINDOWS_UNINSTALL_PATH}" "Publisher" "Michael J. Seiferling"
 	WriteRegStr HKLM "${WINDOWS_UNINSTALL_PATH}" "HelpLink" "http://mikemaximus.github.io/gbm-web/manual.html"
 	WriteRegStr HKLM "${WINDOWS_UNINSTALL_PATH}" "URLUpdateInfo" "https://github.com/MikeMaximus/gbm/releases"
@@ -128,7 +130,7 @@ Section "Game Installation" GameInstall
 	!insertmacro MUI_STARTMENU_WRITE_BEGIN Game
 	${CreateDirectory} "$SMPROGRAMS\$StartMenuFolder"
 	${CreateShortcut} "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk" "$INSTDIR\Uninstall.exe" "" "" ""
-	${CreateShortcut} "$SMPROGRAMS\$StartMenuFolder\Game Backup Monitor (32-bit).lnk" "$INSTDIR\GBM.exe" "" "$INSTDIR\gbm.ico" ""
+	${CreateShortcut} "$SMPROGRAMS\$StartMenuFolder\Game Backup Monitor (64-bit).lnk" "$INSTDIR\GBM.exe" "" "$INSTDIR\gbm.ico" ""
 	!insertmacro MUI_STARTMENU_WRITE_END
 	
 	${WriteUninstaller} "$INSTDIR\Uninstall.exe"

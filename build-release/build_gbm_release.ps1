@@ -1,12 +1,12 @@
 ﻿#Script Name: Game Backup Monitor - Release Package Builder
 #Author: Michael J. Seiferling
-#Revised: July 18, 2019
+#Revised: May 26, 2020
 #Warning: This script only prepares Windows packages for release, it does not build GBM.
 
 $7z_bin = "C:\Program Files\7-Zip\7z.exe"
 $nsis_bin = "C:\Program Files (x86)\NSIS\makensis.exe"
 
-$release_version = "1.1.9HF1"
+$release_version = "1.2.1"
 $base_project = "$env:USERPROFILE\Documents\Visual Studio 2017\Projects\gbm"
 $x86_build_folder = $base_project + "\GBM\bin\x86\Release"
 $x64_build_folder = $base_project + "\GBM\bin\x64\Release"
@@ -70,7 +70,7 @@ Set-Location $x64_7z_release_folder\deb-package\gbm\DEBIAN
 
 #Prepare NSIS Installer Scripts
 Set-Location $base_release_folder
-Copy-Item $base_project\*.nsi .
+Copy-Item $base_project\build-release\*.nsi .
 (Get-Content -path x86.nsi -Raw) -replace '<DESTNAME>',"$x86_installer_filename" | Set-Content x86.nsi
 (Get-Content -path x86.nsi -Raw) -replace '<VERSION>',"$release_version" | Set-Content x86.nsi
 (Get-Content -path x86.nsi -Raw) -replace '<SOURCEDIR>',"$x86_installer_release_folder" | Set-Content x86.nsi
