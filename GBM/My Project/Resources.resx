@@ -497,7 +497,7 @@
     <value>Choose exe file that starts the application</value>
   </data>
   <data name="frmGameManager_ChooseExePath" xml:space="preserve">
-    <value>Choose the location of application's exe file:</value>
+    <value>Browse to the folder containing the game executable and click Open</value>
   </data>
   <data name="frmGameManager_ChooseExportXML" xml:space="preserve">
     <value>Choose a location for the export file</value>
@@ -506,7 +506,7 @@
     <value>Choose a valid xml file to import</value>
   </data>
   <data name="frmGameManager_ChooseSaveFolder" xml:space="preserve">
-    <value>Choose the saved game folder:</value>
+    <value>Browse to the saved game folder and click Open</value>
   </data>
   <data name="frmGameManager_ConfirmBackup" xml:space="preserve">
     <value>Are you sure you want to run a backup for [PARAM]?  This will close the form.</value>
@@ -1250,7 +1250,7 @@
     <value>Path:</value>
   </data>
   <data name="frmVariableManager_PathBrowse" xml:space="preserve">
-    <value>Choose the path the variable represents:</value>
+    <value>Browse to the folder the variable represents and click Open</value>
   </data>
   <data name="mgPath_ConfirmManualPathNoParam" xml:space="preserve">
     <value>Do you wish to manually set the game path? (Path will be saved)</value>

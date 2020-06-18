@@ -359,7 +359,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2019-11-08T13:50:55
+        '''  Looks up a localized string similar to 2020-06-18T13:34:18
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2034,7 +2034,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Choose the location of application&apos;s exe file:.
+        '''  Looks up a localized string similar to Browse to the folder containing the game executable and click Open.
         '''</summary>
         Friend ReadOnly Property frmGameManager_ChooseExePath() As String
             Get
@@ -2061,7 +2061,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Choose the saved game folder:.
+        '''  Looks up a localized string similar to Browse to the saved game folder and click Open.
         '''</summary>
         Friend ReadOnly Property frmGameManager_ChooseSaveFolder() As String
             Get
@@ -6156,7 +6156,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Choose the path the variable represents:.
+        '''  Looks up a localized string similar to Browse to the folder the variable represents and click Open.
         '''</summary>
         Friend ReadOnly Property frmVariableManager_PathBrowse() As String
             Get
