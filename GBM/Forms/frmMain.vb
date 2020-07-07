@@ -1378,19 +1378,25 @@ Public Class frmMain
         'Toggle State with Tray Clicks        
         If Not bShowToggle Then
             bShowToggle = True
-            Me.Visible = True
+            'Toggling the visibility of the window causes some very strange issues with the form controls in Mono
+            If Not mgrCommon.IsUnix Then
+                Me.Visible = True
+                Me.ShowInTaskbar = True
+            End If
             Me.WindowState = wState
-            Me.ShowInTaskbar = True
             Me.Focus()
         Else
             If Me.CanFocus Then
                 bShowToggle = False
                 wState = Me.WindowState
                 Me.WindowState = FormWindowState.Minimized
-                Me.ShowInTaskbar = False
-                Me.Visible = False
+                'Toggling the visibility of the window causes some very strange issues with the form controls in Mono
+                If Not mgrCommon.IsUnix Then
+                    Me.ShowInTaskbar = False
+                    Me.Visible = False
+                End If
             Else
-                gMonTray.ShowBalloonTip(5000, App_NameLong, App_ErrorFocus, ToolTipIcon.Info)
+                    gMonTray.ShowBalloonTip(5000, App_NameLong, App_ErrorFocus, ToolTipIcon.Info)
             End If
         End If
     End Sub
@@ -2089,6 +2095,12 @@ Public Class frmMain
 
     Private Sub gMonTrayShow_Click(sender As System.Object, e As System.EventArgs) Handles gMonTrayShow.Click
         ToggleState()
+    End Sub
+
+    Private Sub frmMain_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+        If mgrCommon.IsUnix Then
+            bShowToggle = False
+        End If
     End Sub
 
     Private Sub FileExit_Click(sender As Object, e As EventArgs) Handles gMonFileExit.Click, gMonTrayExit.Click
