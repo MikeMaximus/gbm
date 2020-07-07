@@ -2098,9 +2098,12 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
-        If mgrCommon.IsUnix Then
-            bShowToggle = False
-        End If
+        Select Case Me.WindowState
+            Case FormWindowState.Minimized
+                bShowToggle = False
+            Case FormWindowState.Normal, FormWindowState.Maximized
+                bShowToggle = True
+        End Select
     End Sub
 
     Private Sub FileExit_Click(sender As Object, e As EventArgs) Handles gMonFileExit.Click, gMonTrayExit.Click
