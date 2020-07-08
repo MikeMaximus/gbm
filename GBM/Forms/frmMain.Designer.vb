@@ -183,31 +183,31 @@ Partial Class frmMain
         'gMonTraySetupAddWizard
         '
         Me.gMonTraySetupAddWizard.Name = "gMonTraySetupAddWizard"
-        Me.gMonTraySetupAddWizard.Size = New System.Drawing.Size(201, 22)
+        Me.gMonTraySetupAddWizard.Size = New System.Drawing.Size(202, 22)
         Me.gMonTraySetupAddWizard.Text = "Add Game &Wizard..."
         '
         'gMonTraySetupGameManager
         '
         Me.gMonTraySetupGameManager.Name = "gMonTraySetupGameManager"
-        Me.gMonTraySetupGameManager.Size = New System.Drawing.Size(201, 22)
+        Me.gMonTraySetupGameManager.Size = New System.Drawing.Size(202, 22)
         Me.gMonTraySetupGameManager.Text = "&Game Manager..."
         '
         'gMonTraySetupTags
         '
         Me.gMonTraySetupTags.Name = "gMonTraySetupTags"
-        Me.gMonTraySetupTags.Size = New System.Drawing.Size(201, 22)
+        Me.gMonTraySetupTags.Size = New System.Drawing.Size(202, 22)
         Me.gMonTraySetupTags.Text = "&Tag Manager..."
         '
         'gMonTraySetupProcessManager
         '
         Me.gMonTraySetupProcessManager.Name = "gMonTraySetupProcessManager"
-        Me.gMonTraySetupProcessManager.Size = New System.Drawing.Size(201, 22)
+        Me.gMonTraySetupProcessManager.Size = New System.Drawing.Size(202, 22)
         Me.gMonTraySetupProcessManager.Text = "&Process Manager..."
         '
         'gMonTraySetupCustomVariables
         '
         Me.gMonTraySetupCustomVariables.Name = "gMonTraySetupCustomVariables"
-        Me.gMonTraySetupCustomVariables.Size = New System.Drawing.Size(201, 22)
+        Me.gMonTraySetupCustomVariables.Size = New System.Drawing.Size(202, 22)
         Me.gMonTraySetupCustomVariables.Text = "Custom Path &Variables..."
         '
         'gMonTrayTools
@@ -424,38 +424,38 @@ Partial Class frmMain
         'gMonSetupGameManager
         '
         Me.gMonSetupGameManager.Name = "gMonSetupGameManager"
-        Me.gMonSetupGameManager.Size = New System.Drawing.Size(201, 22)
+        Me.gMonSetupGameManager.Size = New System.Drawing.Size(202, 22)
         Me.gMonSetupGameManager.Text = "&Game Manager..."
         '
         'gMonSetupAddWizard
         '
         Me.gMonSetupAddWizard.Name = "gMonSetupAddWizard"
-        Me.gMonSetupAddWizard.Size = New System.Drawing.Size(201, 22)
+        Me.gMonSetupAddWizard.Size = New System.Drawing.Size(202, 22)
         Me.gMonSetupAddWizard.Text = "Add Game &Wizard..."
         '
         'gMonSetupTags
         '
         Me.gMonSetupTags.Name = "gMonSetupTags"
-        Me.gMonSetupTags.Size = New System.Drawing.Size(201, 22)
+        Me.gMonSetupTags.Size = New System.Drawing.Size(202, 22)
         Me.gMonSetupTags.Text = "&Tag Manager..."
         '
         'gMonSetupProcessManager
         '
         Me.gMonSetupProcessManager.Name = "gMonSetupProcessManager"
-        Me.gMonSetupProcessManager.Size = New System.Drawing.Size(201, 22)
+        Me.gMonSetupProcessManager.Size = New System.Drawing.Size(202, 22)
         Me.gMonSetupProcessManager.Text = "&Process Manager..."
         '
         'gMonSetupCustomVariables
         '
         Me.gMonSetupCustomVariables.Name = "gMonSetupCustomVariables"
-        Me.gMonSetupCustomVariables.Size = New System.Drawing.Size(201, 22)
+        Me.gMonSetupCustomVariables.Size = New System.Drawing.Size(202, 22)
         Me.gMonSetupCustomVariables.Text = "Custom Path &Variables..."
         '
         'gMonTools
         '
         Me.gMonTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonToolsCompact, Me.gMonToolsImportBackup, Me.gMonToolsLog, Me.gMonToolsSessions, Me.gMonToolsSyncGameID})
         Me.gMonTools.Name = "gMonTools"
-        Me.gMonTools.Size = New System.Drawing.Size(46, 20)
+        Me.gMonTools.Size = New System.Drawing.Size(48, 20)
         Me.gMonTools.Text = "&Tools"
         '
         'gMonToolsCompact
@@ -692,7 +692,6 @@ Partial Class frmMain
         Me.Controls.Add(Me.txtLog)
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.gMonMainMenu
-        Me.MinimizeBox = False
         Me.Name = "frmMain"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

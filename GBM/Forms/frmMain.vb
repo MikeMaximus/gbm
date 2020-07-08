@@ -34,7 +34,6 @@ Public Class frmMain
     Private bInitialLoad As Boolean = True
     Private bProcessIsAdmin As Boolean = False
     Private bLogToggle As Boolean = False
-    Private bShowToggle As Boolean = True
     Private bAllowIcon As Boolean = False
     Private bAllowDetails As Boolean = False
     Private oPriorImage As Image
@@ -1301,7 +1300,6 @@ Public Class frmMain
     End Sub
 
     Private Sub LoadAndVerify()
-
         'If the default utility is missing we cannot continue
         If Not oBackup.CheckForUtilities(mgrPath.Default7zLocation) Then
             mgrCommon.ShowMessage(frmMain_Error7zip, MsgBoxStyle.Critical)
@@ -1374,31 +1372,30 @@ Public Class frmMain
     End Sub
 
     'Functions that handle buttons, menus and other GUI features on this form
+    Private Sub ToggleVisibility(ByVal bToggle As Boolean)
+        'Toggling the visibility of the window(or hiding it from the taskbar) causes some very strange issues with the form in Mono.
+        If Not mgrCommon.IsUnix Then
+            Me.Visible = bToggle
+            Me.ShowInTaskbar = bToggle
+        End If
+    End Sub
+
     Private Sub ToggleState()
         'Toggle State with Tray Clicks        
-        If Not bShowToggle Then
-            bShowToggle = True
-            'Toggling the visibility of the window causes some very strange issues with the form controls in Mono
-            If Not mgrCommon.IsUnix Then
-                Me.Visible = True
-                Me.ShowInTaskbar = True
-            End If
-            Me.WindowState = wState
-            Me.Focus()
-        Else
-            If Me.CanFocus Then
-                bShowToggle = False
-                wState = Me.WindowState
-                Me.WindowState = FormWindowState.Minimized
-                'Toggling the visibility of the window causes some very strange issues with the form controls in Mono
-                If Not mgrCommon.IsUnix Then
-                    Me.ShowInTaskbar = False
-                    Me.Visible = False
-                End If
-            Else
+        Select Case Me.WindowState
+            Case FormWindowState.Normal, FormWindowState.Maximized
+                If Me.CanFocus Then
+                    wState = Me.WindowState
+                    Me.WindowState = FormWindowState.Minimized
+                    ToggleVisibility(False)
+                Else
                     gMonTray.ShowBalloonTip(5000, App_NameLong, App_ErrorFocus, ToolTipIcon.Info)
-            End If
-        End If
+                End If
+            Case FormWindowState.Minimized
+                ToggleVisibility(True)
+                Me.WindowState = wState
+                Me.Focus()
+        End Select
     End Sub
 
     Private Sub ScanToggle()
@@ -2097,15 +2094,6 @@ Public Class frmMain
         ToggleState()
     End Sub
 
-    Private Sub frmMain_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
-        Select Case Me.WindowState
-            Case FormWindowState.Minimized
-                bShowToggle = False
-            Case FormWindowState.Normal, FormWindowState.Maximized
-                bShowToggle = True
-        End Select
-    End Sub
-
     Private Sub FileExit_Click(sender As Object, e As EventArgs) Handles gMonFileExit.Click, gMonTrayExit.Click
         ShutdownApp()
     End Sub
@@ -2211,15 +2199,9 @@ Public Class frmMain
             Case CloseReason.UserClosing
                 If bShutdown = False Then
                     e.Cancel = True
-                    If Not mgrCommon.IsUnix Then
-                        bShowToggle = False
-                        wState = Me.WindowState
-                        Me.WindowState = FormWindowState.Minimized
-                        Me.ShowInTaskbar = False
-                        Me.Visible = False
-                    Else
-                        ShutdownApp()
-                    End If
+                    wState = Me.WindowState
+                    Me.WindowState = FormWindowState.Minimized
+                    ToggleVisibility(False)
                 End If
             Case Else
                 ShutdownApp(False)
@@ -2406,18 +2388,9 @@ Public Class frmMain
             Else
                 VerifyCustomPathVariables()
 
-                'Windows and Linux require different settings
-                If mgrCommon.IsUnix Then
-                    Me.MinimizeBox = True
-                    If oSettings.StartToTray Then
-                        Me.WindowState = FormWindowState.Minimized
-                    End If
-                Else
-                    If oSettings.StartToTray Then
-                        bShowToggle = False
-                        Me.Visible = False
-                        Me.ShowInTaskbar = False
-                    End If
+                If oSettings.StartToTray Then
+                    Me.WindowState = FormWindowState.Minimized
+                    ToggleVisibility(False)
                 End If
 
                 If oSettings.MonitorOnStartup Then
