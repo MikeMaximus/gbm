@@ -33,12 +33,21 @@ Public Class mgrMetadata
         End Try
     End Function
 
-    Public Function SerializeAndExport(ByVal sLocation As String, ByVal oGame As clsGame, ByVal sUpdatedBy As String, ByVal dTimeStamp As Date) As Boolean
+    Public Function SerializeAndExport(ByVal sLocation As String, ByVal sGameID As String, ByVal sUpdatedBy As String, ByVal dTimeStamp As Date) As Boolean
         Dim oSerializer As XmlSerializer
         Dim oWriter As StreamWriter
         Dim oBackupMetadata As BackupMetadata
+        Dim oGame As clsGame
+        Dim hshGame As Hashtable
 
         Try
+            'Get a fresh copy of the game object for the metadata
+            hshGame = mgrMonitorList.DoListGetbyMonitorID(sGameID)
+            If hshGame.Count = 1 Then
+                oGame = DirectCast(hshGame(0), clsGame)
+            Else
+                Return False
+            End If
             oBackupMetadata = New BackupMetadata(mgrCommon.AppVersion, mgrCommon.DateToUnix(dTimeStamp), sUpdatedBy, oGame.ConvertClass)
             oSerializer = New XmlSerializer(oBackupMetadata.GetType())
             oWriter = New StreamWriter(sLocation)
