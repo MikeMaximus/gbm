@@ -1193,7 +1193,9 @@ Public Class frmMain
     Private Sub OpenStartupWizard()
         Dim frm As New frmStartUpWizard()
         frm.Settings = New mgrSettings
+        ToggleMenuEnable()
         frm.ShowDialog()
+        ToggleMenuEnable()
         bFirstRun = False
     End Sub
 
