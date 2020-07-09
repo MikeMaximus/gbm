@@ -359,7 +359,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-06-18T13:34:18
+        '''  Looks up a localized string similar to 2020-07-09T14:32:38
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3240,7 +3240,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Game Backup Monitor[BR]Version: [PARAM] ([PARAM])[BR]Build: [PARAM][BR]SQLite: [PARAM][BR][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details..
+        '''  Looks up a localized string similar to Game Backup Monitor[BR]Version: [PARAM] ([PARAM])[BR]Build: [PARAM][BR]Platform: [PARAM][BR]SQLite: [PARAM][BR][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details..
         '''</summary>
         Friend ReadOnly Property frmMain_About() As String
             Get
@@ -6829,6 +6829,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to .NET Framework ([PARAM]).
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_DotNet() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_DotNet", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to An error has occured writing the text file.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_ErrorWritingTextFile() As String
@@ -6879,6 +6888,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrCommon_MB() As String
             Get
                 Return ResourceManager.GetString("mgrCommon_MB", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Mono ([PARAM]).
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_Mono() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_Mono", resourceCulture)
             End Get
         End Property
         

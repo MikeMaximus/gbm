@@ -1,10 +1,9 @@
 ﻿Imports GBM.My.Resources
 Imports System.Net
 Imports System.IO
+Imports System.Reflection
 Imports System.Security.Principal
 Imports System.Text.RegularExpressions
-Imports System.Runtime.Serialization
-Imports System.Runtime.Serialization.Formatters.Binary
 
 Public Class mgrCommon
 
@@ -282,11 +281,58 @@ Public Class mgrCommon
     End Function
 
     Public Shared Function IsUnix() As Boolean
-        If Path.DirectorySeparatorChar = "/" Then
-            Return True
+        If Type.GetType("Mono.Runtime") Is Nothing Then
+            Return False
         End If
+        Return True
+    End Function
 
-        Return False
+    Public Shared Function GetArchitecture() As ProcessorArchitecture
+        Dim iProcessType As ProcessorArchitecture
+        iProcessType = AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
+        Return iProcessType
+    End Function
+
+    Public Shared Function GetFrameworkInfo() As String
+        If IsUnix() Then
+            Dim oType As Type
+            Dim oMethod As MethodInfo
+
+            Try
+                oType = Type.GetType("Mono.Runtime")
+                oMethod = oType.GetMethod("GetDisplayName", BindingFlags.NonPublic Or BindingFlags.Static)
+                Return FormatString(mgrCommon_Mono, oMethod.Invoke(Nothing, Nothing))
+            Catch
+                Return String.Empty
+            End Try
+        Else
+            Dim oKey As Microsoft.Win32.RegistryKey
+            Dim sRegKey As String
+
+            Select Case GetArchitecture()
+                Case ProcessorArchitecture.Amd64, ProcessorArchitecture.IA64
+                    sRegKey = "SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\"
+                Case ProcessorArchitecture.X86
+                    sRegKey = "SOFTWARE\Wow6432Node\Microsoft\NET Framework Setup\NDP\v4\Full"
+                Case Else
+                    Return String.Empty
+            End Select
+
+            Try
+                oKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(sRegKey)
+                If (Not oKey Is Nothing) And (Not oKey.GetValue("Release") Is Nothing) Then
+                    If Not oKey.GetValue("Version") Is Nothing Then
+                        Return FormatString(mgrCommon_DotNet, oKey.GetValue("Version").ToString)
+                    Else
+                        Return FormatString(mgrCommon_DotNet, ">4.5")
+                    End If
+                Else
+                    Return FormatString(mgrCommon_DotNet, "<4.5")
+                End If
+            Catch
+                Return String.Empty
+            End Try
+        End If
     End Function
 
     Public Shared Function GetCurrentOS() As clsGame.eOS
