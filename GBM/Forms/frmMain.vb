@@ -48,6 +48,7 @@ Public Class frmMain
     'Developer Debug Flags
     Private bProcessDebugMode As Boolean = False
     Private bMemoryDebugMode As Boolean = False
+    Private bWineDebugMode As Boolean = False
 
     WithEvents oFileWatcher As New FileSystemWatcher
 
@@ -1073,6 +1074,9 @@ Public Class frmMain
                             mgrCommon.ShowMessage(frmMain_CommandSucess, MsgBoxStyle.Exclamation)
                         Case "memory"
                             bMemoryDebugMode = bDebugEnable
+                            mgrCommon.ShowMessage(frmMain_CommandSucess, MsgBoxStyle.Exclamation)
+                        Case "wine"
+                            bWineDebugMode = bDebugEnable
                             mgrCommon.ShowMessage(frmMain_CommandSucess, MsgBoxStyle.Exclamation)
                         Case Else
                             mgrCommon.ShowMessage(frmMain_ErrorInvalidMode, New String() {sCommand(1), sCommand(0)}, MsgBoxStyle.Exclamation)
@@ -2255,12 +2259,14 @@ Public Class frmMain
                 Dim oWineData As New clsWineData
                 oWineData.Prefix = mgrPath.GetWinePrefix(oProcess.FoundProcess)
                 oWineData.BinaryPath = Path.GetDirectoryName(oProcess.FoundProcess.MainModule.FileName)
-                UpdateLog(mgrCommon.FormatString(frmMain_WineBinaryPath, oWineData.BinaryPath), False)
                 If Not oWineData.Prefix = String.Empty Then
                     oProcess.WineData = oWineData
-                    UpdateLog(mgrCommon.FormatString(frmMain_WinePrefix, oWineData.Prefix), False)
                 Else
                     bContinue = False
+                End If
+                If bWineDebugMode Then
+                    UpdateLog(mgrCommon.FormatString(frmMain_WineBinaryPath, oWineData.BinaryPath), False)
+                    UpdateLog(mgrCommon.FormatString(frmMain_WinePrefix, oWineData.Prefix), False)
                 End If
             End If
 
