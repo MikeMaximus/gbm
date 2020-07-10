@@ -592,7 +592,9 @@ Public Class frmGameManager
         If mgrCommon.IsUnix And cboOS.SelectedValue = clsGame.eOS.Windows Then
             Dim oWineData As clsWineData = mgrWineData.DoWineDataGetbyID(oCurrentGame.ID)
             sPath = mgrPath.ValidatePath(oWineData.SavePath)
-        Else
+        End If
+
+        If sPath = String.Empty Then
             sPath = mgrPath.ValidatePath(txtSavePath.Text)
         End If
 
