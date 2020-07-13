@@ -158,6 +158,31 @@
 
     End Function
 
+    Public Shared Function DoManifestDuplicateCheck(ByVal oItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database) As Boolean
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim oData As Object
+        Dim sSQL As String
+        Dim hshParams As New Hashtable
+
+        sSQL = "SELECT ManifestID FROM manifest "
+        sSQL &= "WHERE MonitorID = @MonitorID AND FileName = @FileName AND DateUpdated = @DateUpdated AND UpdatedBy = @UpdatedBy AND CheckSum=@CheckSum LIMIT 1;"
+
+        hshParams.Add("MonitorID", oItem.MonitorID)
+        hshParams.Add("FileName", oItem.FileName)
+        hshParams.Add("DateUpdated", oItem.DateUpdatedUnix)
+        hshParams.Add("UpdatedBy", oItem.UpdatedBy)
+        hshParams.Add("CheckSum", oItem.CheckSum)
+
+        oData = oDatabase.ReadSingleValue(sSQL, hshParams)
+
+        If Not oData Is Nothing Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
     Public Shared Sub DoManifestAdd(ByVal oBackupItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String

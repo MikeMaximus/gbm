@@ -486,13 +486,19 @@ Public Class mgrBackup
 
                     If bUpdateManifest Then
                         oBackup.CheckSum = mgrHash.Generate_SHA256_Hash(sBackupFile)
-                        If Not mgrManifest.DoUpdateLatestManifest(oBackup, mgrSQLite.Database.Remote) Then
-                            mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
+                        If bOverwriteCurrent Then
+                            If Not mgrManifest.DoUpdateLatestManifest(oBackup, mgrSQLite.Database.Remote) Then
+                                mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
+                            End If
+                        Else
+                            If Not mgrManifest.DoManifestDuplicateCheck(oBackup, mgrSQLite.Database.Remote) Then
+                                mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
+                            End If
                         End If
                         bImportComplete = True
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImport, oGame.Name}), False, ToolTipIcon.Info, True)
                     End If
-                Else
+                    Else
                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportCancel, sFileToImport), False, ToolTipIcon.Error, True)
                 End If
 
