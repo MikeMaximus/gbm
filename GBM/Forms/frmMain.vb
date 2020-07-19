@@ -43,7 +43,6 @@ Public Class frmMain
     Private iRestoreTimeOut As Integer
     Private oChildProcesses As New Hashtable
     Private oLastGame As clsGame
-    Private wState As FormWindowState = FormWindowState.Normal
 
     'Developer Debug Flags
     Private bProcessDebugMode As Boolean = False
@@ -1386,22 +1385,10 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub ToggleState()
-        'Toggle State with Tray Clicks        
-        Select Case Me.WindowState
-            Case FormWindowState.Normal, FormWindowState.Maximized
-                If Me.CanFocus Then
-                    wState = Me.WindowState
-                    Me.WindowState = FormWindowState.Minimized
-                    ToggleVisibility(False)
-                Else
-                    gMonTray.ShowBalloonTip(5000, App_NameLong, App_ErrorFocus, ToolTipIcon.Info)
-                End If
-            Case FormWindowState.Minimized
-                ToggleVisibility(True)
-                Me.WindowState = wState
-                Me.Focus()
-        End Select
+    Private Sub ShowApp()
+        ToggleVisibility(True)
+        Me.WindowState = FormWindowState.Normal
+        Me.Focus()
     End Sub
 
     Private Sub ScanToggle()
@@ -2093,11 +2080,15 @@ Public Class frmMain
     End Sub
 
     Private Sub gMonTray_MouseClick(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles gMonTray.MouseDoubleClick
-        ToggleState()
+        ShowApp()
+    End Sub
+
+    Private Sub gMonTray_BalloonTipClicked(sender As Object, e As EventArgs) Handles gMonTray.BalloonTipClicked
+        ShowApp()
     End Sub
 
     Private Sub gMonTrayShow_Click(sender As System.Object, e As System.EventArgs) Handles gMonTrayShow.Click
-        ToggleState()
+        ShowApp()
     End Sub
 
     Private Sub FileExit_Click(sender As Object, e As EventArgs) Handles gMonFileExit.Click, gMonTrayExit.Click
@@ -2205,9 +2196,8 @@ Public Class frmMain
             Case CloseReason.UserClosing
                 If bShutdown = False Then
                     e.Cancel = True
-                    wState = Me.WindowState
-                    Me.WindowState = FormWindowState.Minimized
                     ToggleVisibility(False)
+                    Me.WindowState = FormWindowState.Minimized
                 End If
             Case Else
                 ShutdownApp(False)
@@ -2397,8 +2387,8 @@ Public Class frmMain
                 VerifyCustomPathVariables()
 
                 If oSettings.StartToTray Then
-                    Me.WindowState = FormWindowState.Minimized
                     ToggleVisibility(False)
+                    Me.WindowState = FormWindowState.Minimized
                 End If
 
                 If oSettings.MonitorOnStartup Then

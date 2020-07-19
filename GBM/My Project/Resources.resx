@@ -404,7 +404,7 @@
     <value>&amp;Compact Databases</value>
   </data>
   <data name="frmMain_gMonTrayShow" xml:space="preserve">
-    <value>Show / Hide</value>
+    <value>Restore &amp;Window</value>
   </data>
   <data name="frmMain_lblLastActionTitle" xml:space="preserve">
     <value>Last Action:</value>
@@ -1755,9 +1755,6 @@
   </data>
   <data name="App_Operation_FatalError" xml:space="preserve">
     <value>[PARAM] operation failed due to an error.</value>
-  </data>
-  <data name="App_ErrorFocus" xml:space="preserve">
-    <value>GBM is busy with an open window on your desktop.</value>
   </data>
   <data name="frmFilter_grpSorting" xml:space="preserve">
     <value>Sorting</value>

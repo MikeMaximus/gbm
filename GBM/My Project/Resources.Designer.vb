@@ -106,15 +106,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to GBM is busy with an open window on your desktop..
-        '''</summary>
-        Friend ReadOnly Property App_ErrorFocus() As String
-            Get
-                Return ResourceManager.GetString("App_ErrorFocus", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to An error occured attempting to launch the application:[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property App_ErrorLaunchExternal() As String
@@ -359,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-07-09T14:32:38
+        '''  Looks up a localized string similar to 2020-07-19T13:36:03
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4095,7 +4086,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Show / Hide.
+        '''  Looks up a localized string similar to Restore &amp;Window.
         '''</summary>
         Friend ReadOnly Property frmMain_gMonTrayShow() As String
             Get
