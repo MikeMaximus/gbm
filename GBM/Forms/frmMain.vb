@@ -1493,6 +1493,7 @@ Public Class frmMain
             gMonTrayFullBackup.Enabled = False
             gMonTrayFullRestore.Enabled = False
             If Not bGameDetected Then
+                gMonTrayShow.Enabled = False
                 gMonTrayMon.Enabled = False
                 gMonTrayExit.Enabled = False
             End If
@@ -1509,6 +1510,7 @@ Public Class frmMain
             gMonTraySettings.Enabled = True
             gMonTrayFullBackup.Enabled = True
             gMonTrayFullRestore.Enabled = True
+            gMonTrayShow.Enabled = True
             gMonTrayMon.Enabled = True
             gMonTrayExit.Enabled = True
             bMenuEnabled = True

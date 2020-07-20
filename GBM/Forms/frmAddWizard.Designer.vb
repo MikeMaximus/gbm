@@ -516,6 +516,7 @@ Partial Class frmAddWizard
         'lstSummary
         '
         Me.lstSummary.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.lstSummary.HideSelection = False
         Me.lstSummary.Location = New System.Drawing.Point(14, 65)
         Me.lstSummary.Name = "lstSummary"
         Me.lstSummary.ShowItemToolTips = True
@@ -564,7 +565,7 @@ Partial Class frmAddWizard
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmAddWizard"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Add Game Wizard"
         Me.tabWizard.ResumeLayout(False)
         Me.tbPage1.ResumeLayout(False)
