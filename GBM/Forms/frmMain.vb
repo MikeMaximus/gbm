@@ -1514,7 +1514,6 @@ Public Class frmMain
             gMonTraySettings.Enabled = True
             gMonTrayFullBackup.Enabled = True
             gMonTrayFullRestore.Enabled = True
-            gMonTrayShow.Enabled = True
             gMonTrayMon.Enabled = True
             gMonTrayExit.Enabled = True
             gMonStatusStrip.Enabled = True
