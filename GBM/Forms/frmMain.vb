@@ -1447,9 +1447,8 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub ToggleMenuItems(ByVal bEnable As Boolean, ByVal oDropDownItems As ToolStripMenuItem)
-        'Control names are exempt from being disabled
-        Dim sExempt() As String = {"gMonFileMonitor", "gMonFileExit"}
+    Private Sub ToggleMenuItems(ByVal bEnable As Boolean, ByVal oDropDownItems As ToolStripMenuItem, Optional ByVal sExempt() As String = Nothing)
+        If sExempt Is Nothing Then sExempt = {}
         Dim oExempt As New List(Of String)(sExempt)
         For Each mi As Object In oDropDownItems.DropDownItems
             If mi.GetType().Equals(GetType(ToolStripMenuItem)) Then
@@ -1481,7 +1480,12 @@ Public Class frmMain
 
     Private Sub ToggleMenuEnable(Optional ByVal bGameDetected As Boolean = False)
         If bMenuEnabled Then
-            ToggleMenuItems(False, gMonFile)
+            If Not bGameDetected Then
+                ToggleMenuItems(False, gMonFile)
+            Else
+                Dim sExempt() As String = {"gMonFileMonitor", "gMonFileExit"}
+                ToggleMenuItems(False, gMonFile, sExempt)
+            End If
             ToggleMenuItems(False, gMonSetup)
             ToggleMenuItems(False, gMonSetupAddWizard)
             ToggleMenuItems(False, gMonTools)
@@ -1493,9 +1497,9 @@ Public Class frmMain
             gMonTrayFullBackup.Enabled = False
             gMonTrayFullRestore.Enabled = False
             If Not bGameDetected Then
-                gMonTrayShow.Enabled = False
                 gMonTrayMon.Enabled = False
                 gMonTrayExit.Enabled = False
+                gMonStatusStrip.Enabled = False
             End If
             bMenuEnabled = False
         Else
@@ -1513,6 +1517,7 @@ Public Class frmMain
             gMonTrayShow.Enabled = True
             gMonTrayMon.Enabled = True
             gMonTrayExit.Enabled = True
+            gMonStatusStrip.Enabled = True
             bMenuEnabled = True
         End If
     End Sub
