@@ -1377,17 +1377,22 @@ Public Class frmMain
     End Sub
 
     'Functions that handle buttons, menus and other GUI features on this form
-    Private Sub ToggleVisibility(ByVal bToggle As Boolean)
+    Private Sub ToggleVisibility(ByVal bVisible As Boolean)
         'Toggling the visibility of the window(or hiding it from the taskbar) causes some very strange issues with the form in Mono.
-        If Not mgrCommon.IsUnix Then
-            Me.Visible = bToggle
-            Me.ShowInTaskbar = bToggle
+        If bVisible Then
+            Me.WindowState = FormWindowState.Normal
+        Else
+            Me.WindowState = FormWindowState.Minimized
+        End If
+
+        If oSettings.MinimizeToTray Then
+            Me.ShowInTaskbar = bVisible
+            Me.Visible = bVisible
         End If
     End Sub
 
     Private Sub ShowApp()
         ToggleVisibility(True)
-        Me.WindowState = FormWindowState.Normal
         Me.Focus()
     End Sub
 
@@ -1429,7 +1434,7 @@ Public Class frmMain
     Private Sub ShutdownApp(Optional ByVal bPrompt As Boolean = True)
         Dim bClose As Boolean = False
 
-        If bPrompt Then
+        If bPrompt And Not oSettings.ExitNoWarning Then
             If mgrCommon.ShowMessage(frmMain_Exit, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 bClose = True
             End If
@@ -2202,8 +2207,11 @@ Public Class frmMain
             Case CloseReason.UserClosing
                 If bShutdown = False Then
                     e.Cancel = True
-                    ToggleVisibility(False)
-                    Me.WindowState = FormWindowState.Minimized
+                    If oSettings.ExitOnClose Then
+                        ShutdownApp()
+                    Else
+                        ToggleVisibility(False)
+                    End If
                 End If
             Case Else
                 ShutdownApp(False)
@@ -2394,7 +2402,6 @@ Public Class frmMain
 
                 If oSettings.StartToTray Then
                     ToggleVisibility(False)
-                    Me.WindowState = FormWindowState.Minimized
                 End If
 
                 If oSettings.MonitorOnStartup Then
@@ -2426,5 +2433,11 @@ Public Class frmMain
         lblStatus3.Click, pbTime.Click, lblTimeSpent.Click, lblLastActionTitle.Click, lblLastAction.Click, gMonMainMenu.Click, gMonStatusStrip.Click
         'Move focus to first label
         lblGameTitle.Focus()
+    End Sub
+
+    Private Sub frmMain_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+        If Me.WindowState = FormWindowState.Minimized And oSettings.MinimizeToTray Then
+            ToggleVisibility(False)
+        End If
     End Sub
 End Class

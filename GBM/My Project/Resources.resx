@@ -2159,7 +2159,7 @@
     <value>Log Options</value>
   </data>
   <data name="frmSettings_lstSettings_Startup" xml:space="preserve">
-    <value>Startup</value>
+    <value>Startup and UI</value>
   </data>
   <data name="mgrBackup_ConfirmOverwriteRelative" xml:space="preserve">
     <value>[PARAM] already exists in the backup folder.[BR][BR]This game stores saves in a relative location, you may need to restore the current backup if the game was recently re-installed.[BR][BR]Do you want to overwrite this file?</value>
@@ -2577,5 +2577,17 @@
   </data>
   <data name="mgrCommon_Mono" xml:space="preserve">
     <value>Mono ([PARAM])</value>
+  </data>
+  <data name="frmSettings_chkExitNoWarning" xml:space="preserve">
+    <value>Exit without confirmation</value>
+  </data>
+  <data name="frmSettings_chkExitOnClose" xml:space="preserve">
+    <value>Exit when closing main window</value>
+  </data>
+  <data name="frmSettings_chkMinimizeToTray" xml:space="preserve">
+    <value>Minimize to system tray</value>
+  </data>
+  <data name="frmSettings_grpUIOptions" xml:space="preserve">
+    <value>User Interface Options</value>
   </data>
 </root>

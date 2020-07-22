@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-07-19T13:36:03
+        '''  Looks up a localized string similar to 2020-07-22T15:15:58
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5184,6 +5184,33 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Exit without confirmation.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkExitNoWarning() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkExitNoWarning", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Exit when closing main window.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkExitOnClose() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkExitOnClose", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Minimize to system tray.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkMinimizeToTray() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkMinimizeToTray", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Start monitoring at launch.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkMonitorOnStartup() As String
@@ -5427,6 +5454,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to User Interface Options.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grpUIOptions() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grpUIOptions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Custom Arguments:.
         '''</summary>
         Friend ReadOnly Property frmSettings_lblArguments() As String
@@ -5508,7 +5544,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Startup.
+        '''  Looks up a localized string similar to Startup and UI.
         '''</summary>
         Friend ReadOnly Property frmSettings_lstSettings_Startup() As String
             Get
