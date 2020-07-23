@@ -73,15 +73,14 @@ Partial Class frmSettings
         Me.lstSettings = New System.Windows.Forms.ListBox()
         Me.btnResetMessages = New System.Windows.Forms.Button()
         Me.pnlStartup = New System.Windows.Forms.Panel()
+        Me.grpUIOptions = New System.Windows.Forms.GroupBox()
+        Me.chkExitNoWarning = New System.Windows.Forms.CheckBox()
+        Me.chkExitOnClose = New System.Windows.Forms.CheckBox()
         Me.grpStartup = New System.Windows.Forms.GroupBox()
         Me.chkBackupOnLaunch = New System.Windows.Forms.CheckBox()
         Me.chkAutoStart = New System.Windows.Forms.CheckBox()
         Me.chkStartMinimized = New System.Windows.Forms.CheckBox()
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
-        Me.grpUIOptions = New System.Windows.Forms.GroupBox()
-        Me.chkExitOnClose = New System.Windows.Forms.CheckBox()
-        Me.chkExitNoWarning = New System.Windows.Forms.CheckBox()
-        Me.chkMinimizeToTray = New System.Windows.Forms.CheckBox()
         Me.grpFolderOptions.SuspendLayout()
         Me.grp7zGeneral.SuspendLayout()
         Me.pnlBackup.SuspendLayout()
@@ -96,8 +95,8 @@ Partial Class frmSettings
         Me.grpLogOptions.SuspendLayout()
         Me.grpGameData.SuspendLayout()
         Me.pnlStartup.SuspendLayout()
-        Me.grpStartup.SuspendLayout()
         Me.grpUIOptions.SuspendLayout()
+        Me.grpStartup.SuspendLayout()
         Me.SuspendLayout()
         '
         'chkAutoSaveLog
@@ -606,6 +605,37 @@ Partial Class frmSettings
         Me.pnlStartup.Size = New System.Drawing.Size(367, 314)
         Me.pnlStartup.TabIndex = 3
         '
+        'grpUIOptions
+        '
+        Me.grpUIOptions.Controls.Add(Me.chkExitNoWarning)
+        Me.grpUIOptions.Controls.Add(Me.chkExitOnClose)
+        Me.grpUIOptions.Location = New System.Drawing.Point(6, 130)
+        Me.grpUIOptions.Name = "grpUIOptions"
+        Me.grpUIOptions.Size = New System.Drawing.Size(354, 67)
+        Me.grpUIOptions.TabIndex = 2
+        Me.grpUIOptions.TabStop = False
+        Me.grpUIOptions.Text = "User Interface Options"
+        '
+        'chkExitNoWarning
+        '
+        Me.chkExitNoWarning.AutoSize = True
+        Me.chkExitNoWarning.Location = New System.Drawing.Point(6, 40)
+        Me.chkExitNoWarning.Name = "chkExitNoWarning"
+        Me.chkExitNoWarning.Size = New System.Drawing.Size(140, 17)
+        Me.chkExitNoWarning.TabIndex = 1
+        Me.chkExitNoWarning.Text = "Exit without confirmation"
+        Me.chkExitNoWarning.UseVisualStyleBackColor = True
+        '
+        'chkExitOnClose
+        '
+        Me.chkExitOnClose.AutoSize = True
+        Me.chkExitOnClose.Location = New System.Drawing.Point(6, 18)
+        Me.chkExitOnClose.Name = "chkExitOnClose"
+        Me.chkExitOnClose.Size = New System.Drawing.Size(172, 17)
+        Me.chkExitOnClose.TabIndex = 0
+        Me.chkExitOnClose.Text = "Exit when closing main window"
+        Me.chkExitOnClose.UseVisualStyleBackColor = True
+        '
         'grpStartup
         '
         Me.grpStartup.Controls.Add(Me.chkBackupOnLaunch)
@@ -659,48 +689,6 @@ Partial Class frmSettings
         Me.chkMonitorOnStartup.Text = "Start monitoring on launch"
         Me.chkMonitorOnStartup.UseVisualStyleBackColor = True
         '
-        'grpUIOptions
-        '
-        Me.grpUIOptions.Controls.Add(Me.chkMinimizeToTray)
-        Me.grpUIOptions.Controls.Add(Me.chkExitNoWarning)
-        Me.grpUIOptions.Controls.Add(Me.chkExitOnClose)
-        Me.grpUIOptions.Location = New System.Drawing.Point(6, 130)
-        Me.grpUIOptions.Name = "grpUIOptions"
-        Me.grpUIOptions.Size = New System.Drawing.Size(354, 86)
-        Me.grpUIOptions.TabIndex = 2
-        Me.grpUIOptions.TabStop = False
-        Me.grpUIOptions.Text = "User Interface Options"
-        '
-        'chkExitOnClose
-        '
-        Me.chkExitOnClose.AutoSize = True
-        Me.chkExitOnClose.Location = New System.Drawing.Point(6, 18)
-        Me.chkExitOnClose.Name = "chkExitOnClose"
-        Me.chkExitOnClose.Size = New System.Drawing.Size(172, 17)
-        Me.chkExitOnClose.TabIndex = 0
-        Me.chkExitOnClose.Text = "Exit when closing main window"
-        Me.chkExitOnClose.UseVisualStyleBackColor = True
-        '
-        'chkExitNoWarning
-        '
-        Me.chkExitNoWarning.AutoSize = True
-        Me.chkExitNoWarning.Location = New System.Drawing.Point(6, 40)
-        Me.chkExitNoWarning.Name = "chkExitNoWarning"
-        Me.chkExitNoWarning.Size = New System.Drawing.Size(140, 17)
-        Me.chkExitNoWarning.TabIndex = 1
-        Me.chkExitNoWarning.Text = "Exit without confirmation"
-        Me.chkExitNoWarning.UseVisualStyleBackColor = True
-        '
-        'chkMinimizeToTray
-        '
-        Me.chkMinimizeToTray.AutoSize = True
-        Me.chkMinimizeToTray.Location = New System.Drawing.Point(6, 62)
-        Me.chkMinimizeToTray.Name = "chkMinimizeToTray"
-        Me.chkMinimizeToTray.Size = New System.Drawing.Size(133, 17)
-        Me.chkMinimizeToTray.TabIndex = 2
-        Me.chkMinimizeToTray.Text = "Minimize to system tray"
-        Me.chkMinimizeToTray.UseVisualStyleBackColor = True
-        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -743,10 +731,10 @@ Partial Class frmSettings
         Me.grpGameData.ResumeLayout(False)
         Me.grpGameData.PerformLayout()
         Me.pnlStartup.ResumeLayout(False)
-        Me.grpStartup.ResumeLayout(False)
-        Me.grpStartup.PerformLayout()
         Me.grpUIOptions.ResumeLayout(False)
         Me.grpUIOptions.PerformLayout()
+        Me.grpStartup.ResumeLayout(False)
+        Me.grpStartup.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -807,7 +795,6 @@ Partial Class frmSettings
     Friend WithEvents lblTempFolder As Label
     Friend WithEvents txtTempFolder As TextBox
     Friend WithEvents grpUIOptions As GroupBox
-    Friend WithEvents chkMinimizeToTray As CheckBox
     Friend WithEvents chkExitNoWarning As CheckBox
     Friend WithEvents chkExitOnClose As CheckBox
 End Class

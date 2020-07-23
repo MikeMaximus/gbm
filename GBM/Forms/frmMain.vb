@@ -1385,7 +1385,7 @@ Public Class frmMain
             Me.WindowState = FormWindowState.Minimized
         End If
 
-        If oSettings.MinimizeToTray Then
+        If Not mgrCommon.IsUnix Then
             Me.ShowInTaskbar = bVisible
             Me.Visible = bVisible
         End If
@@ -2433,11 +2433,5 @@ Public Class frmMain
         lblStatus3.Click, pbTime.Click, lblTimeSpent.Click, lblLastActionTitle.Click, lblLastAction.Click, gMonMainMenu.Click, gMonStatusStrip.Click
         'Move focus to first label
         lblGameTitle.Focus()
-    End Sub
-
-    Private Sub frmMain_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
-        If Me.WindowState = FormWindowState.Minimized And oSettings.MinimizeToTray Then
-            ToggleVisibility(False)
-        End If
     End Sub
 End Class

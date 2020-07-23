@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-07-22T15:15:58
+        '''  Looks up a localized string similar to 2020-07-22T23:03:27
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5198,15 +5198,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_chkExitOnClose() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkExitOnClose", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Minimize to system tray.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_chkMinimizeToTray() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_chkMinimizeToTray", resourceCulture)
             End Get
         End Property
         

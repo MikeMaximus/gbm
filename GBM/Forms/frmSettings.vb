@@ -84,7 +84,6 @@ Public Class frmSettings
         oSettings.BackupOnLaunch = chkBackupOnLaunch.Checked
         oSettings.ExitOnClose = chkExitOnClose.Checked
         oSettings.ExitNoWarning = chkExitNoWarning.Checked
-        oSettings.MinimizeToTray = chkMinimizeToTray.Checked
         oSettings.ShowDetectionToolTips = chkShowDetectionTips.Checked
         oSettings.DisableSyncMessages = chkDisableSyncMessages.Checked
         oSettings.AutoSaveLog = chkAutoSaveLog.Checked
@@ -224,7 +223,6 @@ Public Class frmSettings
         chkBackupOnLaunch.Checked = oSettings.BackupOnLaunch
         chkExitOnClose.Checked = oSettings.ExitOnClose
         chkExitNoWarning.Checked = oSettings.ExitNoWarning
-        chkMinimizeToTray.Checked = oSettings.MinimizeToTray
         chkShowDetectionTips.Checked = oSettings.ShowDetectionToolTips
         chkDisableSyncMessages.Checked = oSettings.DisableSyncMessages
         chkAutoSaveLog.Checked = oSettings.AutoSaveLog
@@ -375,14 +373,12 @@ Public Class frmSettings
         grpUIOptions.Text = frmSettings_grpUIOptions
         chkExitOnClose.Text = frmSettings_chkExitOnClose
         chkExitNoWarning.Text = frmSettings_chkExitNoWarning
-        chkMinimizeToTray.Text = frmSettings_chkMinimizeToTray
 
         If mgrCommon.IsUnix Then
             'Only enable this option on Linux if GBM was installed with an official method
             If Not mgrPath.VerifyLinuxDesktopFileLocation() Then
                 chkAutoStart.Enabled = False
             End If
-            chkMinimizeToTray.Enabled = False
         End If
 
         'Handle Panels

@@ -31,7 +31,6 @@ Public Class mgrSettings
     Private bDisableDiskSpaceCheck As Boolean = False
     Private bExitOnClose As Boolean = False
     Private bExitNoWarning As Boolean = False
-    Private bMinimizeToTray As Boolean = False
 
     <Flags()> Public Enum eSuppressMessages
         None = 0
@@ -369,15 +368,6 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property MinimizeToTray As Boolean
-        Get
-            Return bMinimizeToTray
-        End Get
-        Set(value As Boolean)
-            bMinimizeToTray = value
-        End Set
-    End Property
-
     Private Sub SaveFromClass()
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSQL As String
@@ -387,8 +377,7 @@ Public Class mgrSettings
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SuppressBackup, @SuppressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
         sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, @UseGameID, "
-        sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck, @TemporaryFolder, @ExitOnClose, @ExitNoWarning, "
-        sSQL &= "@MinimizeToTray)"
+        sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck, @TemporaryFolder, @ExitOnClose, @ExitNoWarning)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -419,7 +408,6 @@ Public Class mgrSettings
         hshParams.Add("TemporaryFolder", TemporaryFolder)
         hshParams.Add("ExitOnClose", ExitOnClose)
         hshParams.Add("ExitNoWarning", ExitNoWarning)
-        hshParams.Add("MinimizeToTray", MinimizeToTray)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -464,7 +452,6 @@ Public Class mgrSettings
             If Not IsDBNull(dr("TemporaryFolder")) Then TemporaryFolder = CStr(dr("TemporaryFolder"))
             ExitOnClose = CBool(dr("ExitOnClose"))
             ExitNoWarning = CBool(dr("ExitNoWarning"))
-            MinimizeToTray = CBool(dr("MinimizeToTray"))
         Next
 
         oDatabase.Disconnect()

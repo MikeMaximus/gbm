@@ -2584,9 +2584,6 @@
   <data name="frmSettings_chkExitOnClose" xml:space="preserve">
     <value>Exit when closing main window</value>
   </data>
-  <data name="frmSettings_chkMinimizeToTray" xml:space="preserve">
-    <value>Minimize to system tray</value>
-  </data>
   <data name="frmSettings_grpUIOptions" xml:space="preserve">
     <value>User Interface Options</value>
   </data>
