@@ -2377,12 +2377,8 @@ Public Class frmMain
         oProcess.StartTime = Now : oProcess.EndTime = Now
     End Sub
 
-    Private Sub frmMain_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        SetForm()
-    End Sub
-
     Private Sub frmMain_Activated(sender As System.Object, e As System.EventArgs) Handles MyBase.Activated
-        'Init
+        SetForm()
         If bInitialLoad Then
             Try
                 VerifyGameDataPath()
