@@ -2,35 +2,35 @@
 Imports GBM.My.Resources
 
 Public Class mgrSettings
-    Private bStartWithWindows As Boolean = False
-    Private bMonitoronStartup As Boolean = True
-    Private bStartToTray As Boolean = False
-    Private bShowDetectionToolTips As Boolean = True
-    Private bDisableConfirmation As Boolean = False
-    Private bCreateSubFolder As Boolean = False
-    Private bShowOverwriteWarning As Boolean = True
-    Private bRestoreOnLaunch As Boolean = False
-    Private bAutoRestore As Boolean = False
-    Private bAutoMark As Boolean = False
-    Private bTimeTracking As Boolean = True
-    Private bSessionTracking As Boolean = False
-    Private bSuppressBackup As Boolean = False
-    Private iSuppressBackupThreshold As Integer = 10
-    Private iCompressionLevel As Integer = 5
-    Private s7zArguments As String = String.Empty
-    Private s7zLocation As String = String.Empty
-    Private sBackupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & Path.DirectorySeparatorChar & App_NameLong
-    Private sTemporaryFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
-    Private eSyncFields As clsGame.eOptionalSyncFields = clsGame.eOptionalSyncFields.None
-    Private eMessages As eSuppressMessages = eSuppressMessages.None
-    Private bAutoSaveLog As Boolean = False
-    Private bBackupOnLaunch As Boolean = True
-    Private bUseGameID As Boolean = False
-    Private bDisableSyncMessages As Boolean = True
-    Private bShowResolvedPaths As Boolean = True
-    Private bDisableDiskSpaceCheck As Boolean = False
-    Private bExitOnClose As Boolean = False
-    Private bExitNoWarning As Boolean = False
+    Private bStartWithWindows As Boolean
+    Private bMonitoronStartup As Boolean
+    Private bStartToTray As Boolean
+    Private bShowDetectionToolTips As Boolean
+    Private bDisableConfirmation As Boolean
+    Private bCreateSubFolder As Boolean
+    Private bShowOverwriteWarning As Boolean
+    Private bRestoreOnLaunch As Boolean
+    Private bAutoRestore As Boolean
+    Private bAutoMark As Boolean
+    Private bTimeTracking As Boolean
+    Private bSessionTracking As Boolean
+    Private bSuppressBackup As Boolean
+    Private iSuppressBackupThreshold As Integer
+    Private iCompressionLevel As Integer
+    Private s7zArguments As String
+    Private s7zLocation As String
+    Private sBackupFolder As String
+    Private sTemporaryFolder As String
+    Private eSyncFields As clsGame.eOptionalSyncFields
+    Private eMessages As eSuppressMessages
+    Private bAutoSaveLog As Boolean
+    Private bBackupOnLaunch As Boolean
+    Private bUseGameID As Boolean
+    Private bDisableSyncMessages As Boolean
+    Private bShowResolvedPaths As Boolean
+    Private bDisableDiskSpaceCheck As Boolean
+    Private bExitOnClose As Boolean
+    Private bExitNoWarning As Boolean
 
     <Flags()> Public Enum eSuppressMessages
         None = 0
@@ -367,6 +367,45 @@ Public Class mgrSettings
             bExitNoWarning = value
         End Set
     End Property
+
+    Public Sub New()
+        'Defaults
+        bStartWithWindows = False
+        bMonitoronStartup = True
+        bStartToTray = False
+        bShowDetectionToolTips = True
+        bDisableConfirmation = False
+        bCreateSubFolder = False
+        bShowOverwriteWarning = True
+        bRestoreOnLaunch = False
+        bAutoRestore = False
+        bAutoMark = False
+        bTimeTracking = True
+        bSessionTracking = False
+        bSuppressBackup = False
+        iSuppressBackupThreshold = 10
+        iCompressionLevel = 5
+        s7zArguments = String.Empty
+        s7zLocation = String.Empty
+        sBackupFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & Path.DirectorySeparatorChar & App_NameLong
+        sTemporaryFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
+        eSyncFields = clsGame.eOptionalSyncFields.None
+        eMessages = eSuppressMessages.None
+        bAutoSaveLog = False
+        bBackupOnLaunch = True
+        bUseGameID = False
+        bDisableSyncMessages = True
+        bShowResolvedPaths = True
+        bDisableDiskSpaceCheck = False
+        bExitNoWarning = False
+
+        'OS Based Defaults
+        If mgrCommon.IsUnix Then
+            bExitOnClose = True
+        Else
+            bExitOnClose = False
+        End If
+    End Sub
 
     Private Sub SaveFromClass()
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
