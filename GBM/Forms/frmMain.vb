@@ -2377,9 +2377,11 @@ Public Class frmMain
         oProcess.StartTime = Now : oProcess.EndTime = Now
     End Sub
 
+    'All initialize code is run in the form Activated event, since running it in the Load event can cause issues in Mono.
+    'Using a combination of the Load and Activated events to initialize can also cause weird issues since they fire concurrently in .NET when the app starts.
     Private Sub frmMain_Activated(sender As System.Object, e As System.EventArgs) Handles MyBase.Activated
-        SetForm()
         If bInitialLoad Then
+            SetForm()
             Try
                 VerifyGameDataPath()
                 If bFirstRun Then OpenStartupWizard()
