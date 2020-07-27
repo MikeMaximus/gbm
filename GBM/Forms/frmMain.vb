@@ -1393,7 +1393,7 @@ Public Class frmMain
 
     Private Sub ShowApp()
         ToggleVisibility(True)
-        Me.Focus()
+        Me.Activate()
     End Sub
 
     Private Sub ScanToggle()
