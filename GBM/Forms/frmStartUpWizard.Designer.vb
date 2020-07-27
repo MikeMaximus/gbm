@@ -30,6 +30,7 @@ Partial Class frmStartUpWizard
         Me.lblStep1Title = New System.Windows.Forms.Label()
         Me.lblStep1Instructions = New System.Windows.Forms.Label()
         Me.tbPage2 = New System.Windows.Forms.TabPage()
+        Me.lblStep2Warning = New System.Windows.Forms.Label()
         Me.chkCreateFolder = New System.Windows.Forms.CheckBox()
         Me.lblStep2Title = New System.Windows.Forms.Label()
         Me.lblStep2Instructions = New System.Windows.Forms.Label()
@@ -49,7 +50,6 @@ Partial Class frmStartUpWizard
         Me.lblStep4Instructions = New System.Windows.Forms.Label()
         Me.btnNext = New System.Windows.Forms.Button()
         Me.btnBack = New System.Windows.Forms.Button()
-        Me.lblStep2Warning = New System.Windows.Forms.Label()
         Me.tabWizard.SuspendLayout()
         Me.tbPage1.SuspendLayout()
         Me.tbPage2.SuspendLayout()
@@ -139,6 +139,15 @@ Partial Class frmStartUpWizard
         Me.tbPage2.Size = New System.Drawing.Size(362, 194)
         Me.tbPage2.TabIndex = 1
         Me.tbPage2.Text = "TabPage2"
+        '
+        'lblStep2Warning
+        '
+        Me.lblStep2Warning.Location = New System.Drawing.Point(14, 147)
+        Me.lblStep2Warning.Name = "lblStep2Warning"
+        Me.lblStep2Warning.Size = New System.Drawing.Size(335, 33)
+        Me.lblStep2Warning.TabIndex = 7
+        Me.lblStep2Warning.Text = "You cannot return to this step after clicking Next.  The Backup Location can be c" &
+    "hanged any time once Setup is complete."
         '
         'chkCreateFolder
         '
@@ -321,15 +330,6 @@ Partial Class frmStartUpWizard
         Me.btnBack.Text = "&Back"
         Me.btnBack.UseVisualStyleBackColor = True
         '
-        'lblStep2Warning
-        '
-        Me.lblStep2Warning.Location = New System.Drawing.Point(14, 147)
-        Me.lblStep2Warning.Name = "lblStep2Warning"
-        Me.lblStep2Warning.Size = New System.Drawing.Size(335, 33)
-        Me.lblStep2Warning.TabIndex = 7
-        Me.lblStep2Warning.Text = "You cannot return to this step after clicking Next.  The Backup Location can be c" &
-    "hanged any time once Setup is complete."
-        '
         'frmStartUpWizard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -342,7 +342,7 @@ Partial Class frmStartUpWizard
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmStartUpWizard"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "GBM Setup"
         Me.tabWizard.ResumeLayout(False)
         Me.tbPage1.ResumeLayout(False)

@@ -1379,15 +1379,15 @@ Public Class frmMain
     'Functions that handle buttons, menus and other GUI features on this form
     Private Sub ToggleVisibility(ByVal bVisible As Boolean)
         'Toggling the visibility of the window(or hiding it from the taskbar) causes some very strange issues with the form in Mono.
+        If Not mgrCommon.IsUnix Then
+            Me.ShowInTaskbar = bVisible
+            Me.Visible = bVisible
+        End If
+
         If bVisible Then
             Me.WindowState = FormWindowState.Normal
         Else
             Me.WindowState = FormWindowState.Minimized
-        End If
-
-        If Not mgrCommon.IsUnix Then
-            Me.ShowInTaskbar = bVisible
-            Me.Visible = bVisible
         End If
     End Sub
 
@@ -1429,6 +1429,42 @@ Public Class frmMain
             Case eStatus.Stopped
                 HandleScan()
         End Select
+    End Sub
+
+    Private Sub InitApp()
+        SetForm()
+        Try
+            VerifyGameDataPath()
+            If bFirstRun Then OpenStartupWizard()
+            LoadAndVerify()
+        Catch ex As Exception
+            If mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message & vbCrLf & ex.StackTrace, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                bInitFail = True
+            End If
+        End Try
+
+        If bInitFail Then
+            bShutdown = True
+            Me.Close()
+        Else
+            VerifyCustomPathVariables()
+
+            'We only do this in .NET,  this code won't run correctly in Mono.
+            If oSettings.StartToTray And Not mgrCommon.IsUnix Then
+                'Setting the form to minimized before making it invisible prevents weird flickering and redraw in .NET when the app starts.
+                Me.WindowState = FormWindowState.Minimized
+                ToggleVisibility(False)
+            End If
+
+            If oSettings.MonitorOnStartup Then
+                eCurrentStatus = eStatus.Stopped
+            Else
+                eCurrentStatus = eStatus.Running
+            End If
+
+            HandleScan()
+            CheckForNewBackups()
+        End If
     End Sub
 
     Private Sub ShutdownApp(Optional ByVal bPrompt As Boolean = True)
@@ -2377,41 +2413,16 @@ Public Class frmMain
         oProcess.StartTime = Now : oProcess.EndTime = Now
     End Sub
 
-    'All initialize code is run in the form Activated event, since running it in the Load event can cause issues in Mono.
-    'Using a combination of the Load and Activated events to initialize can also cause weird issues since they fire concurrently in .NET when the app starts.
+    Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        InitApp()
+    End Sub
+
     Private Sub frmMain_Activated(sender As System.Object, e As System.EventArgs) Handles MyBase.Activated
-        If bInitialLoad Then
-            SetForm()
-            Try
-                VerifyGameDataPath()
-                If bFirstRun Then OpenStartupWizard()
-                LoadAndVerify()
-            Catch ex As Exception
-                If mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message & vbCrLf & ex.StackTrace, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                    bInitFail = True
-                End If
-            End Try
-
-            If bInitFail Then
-                bShutdown = True
-                Me.Close()
-            Else
-                VerifyCustomPathVariables()
-
-                If oSettings.StartToTray Then
-                    ToggleVisibility(False)
-                End If
-
-                If oSettings.MonitorOnStartup Then
-                    eCurrentStatus = eStatus.Stopped
-                Else
-                    eCurrentStatus = eStatus.Running
-                End If
-
-                HandleScan()
-                CheckForNewBackups()
+        'This is a workaround to minimize on startup in Mono.
+        If bInitialLoad And mgrCommon.IsUnix Then
+            If oSettings.StartToTray Then
+                ToggleVisibility(False)
             End If
-
             bInitialLoad = False
         Else
             txtLog.Select(txtLog.TextLength, 0)
