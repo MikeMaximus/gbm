@@ -32,8 +32,9 @@ All Platforms:
 	- It will now create manifest entries for each file when appropriate, instead of just the newest file.
 
 Linux:
-	- Fixed the incorrect save path being stored in the metadata when making backups from games running in Proton / Wine.
-	- Moved the wine path detection output into a debug mode instead of cluttering up the log.
-	- The Include/Exclude builder on the Game Manager will now properly open to the Proton / Wine saved game path when possible.
+
+- Fixed the incorrect save path being stored in the metadata when making backups from games running in Proton / Wine.
+- Moved the wine path detection output into a debug mode instead of cluttering up the log.
+- The Include/Exclude builder on the Game Manager will now properly open to the Proton / Wine saved game path when possible.
 		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
