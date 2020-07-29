@@ -1,27 +1,37 @@
-Game Backup Monitor v1.2.1 Readme
+Game Backup Monitor v1.2.2 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-June 4, 2020
+August 1, 2020
 
-New in 1.2.1
+New in 1.2.2
 
 All Platforms:
 
-- Fixed a possible crash when renaming a game with existing backup files while a cloud client is monitoring the backup folder.
-- Fixed a rare issue that could cause the wrong game to be pre-selected when opening the Game Manager.
-- Fixed an issue causing the ampersand character to be hidden in certain controls.  
-	- Ex. Mount & Blade II: Bannerlords will now be displayed correctly.
-- Various changes for debugging and building releases.
-
-Windows:
-
-- Installers are now built with NSIS 3.05
+- Added new settings to customize the UI
+	- Added "Exit when closing main window"
+		- Allows the user to exit the app completely when closing the main window, instead of hiding it.
+		- This option defaults to enabled in Linux and disabled in Windows.		
+	- Added "Exit without confirmation"
+		- Allows the user to exit the app without the confirmation pop-up.
+		- This defaults to disabled in both Linux and Windows.
+- Attempted to unify how the UI functions in Windows / Linux and reduce the amount of platform specific work-arounds.	
+	- You can now minimize the main window to the taskbar in Windows.
+	- You can no longer double-click the tray icon or use the "Show / Hide" option to toggle the visibility of the main window.		
+		- The "Show / Hide" option has been replaced by "Restore Window".
+		- Double-clicking the tray icon or using "Restore Window" will always restore the app to a normal, visible state and give it focus.		
+	- Unfortunately, the main window cannot be hidden in Linux.  In cases where it's supposed to be hidden, it will be minimized instead.
+		- Hiding the main window in Linux requires too many work-arounds and my goal was to reduce the amount of platform specific code.
+- Reduced the amount of platform specific code when the app initalizes.
+- The "Start-Up Wizard" will now always appear in the center of screen, instead of sometimes appearing random location.
+- The system tray menu is now disabled during the "Start-Up Wizard".
+- Updated window titles on the custom folder browsers to give more concise instructions.
+- Fixed the forced import of multiple backup files when using the Game Manager.
+	- It will now properly create manifest entries for each file, instead just the newest file.
 
 Linux:
-
-- The system tray icon is now enabled for desktop environments that support it (Cinnamon, LXDE).	
-	- You'll need an up-to-date version of Mono for the tray icon to work, tested with Mono 6.8.0.	
-- Fixed an issue that caused opening external apps to fail when using the latest versions of Mono.
-
+	- Fixed the incorrect save path being stored in the metadata when making backups from games running in Proton / Wine.
+	- Moved the wine path detection output in a debug mode instead of cluttering up the log.
+	- The Include/Exclude builder on the Game Manager will now properly open to the Proton / Wine saved game path when possible.
+		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
