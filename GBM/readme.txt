@@ -22,16 +22,18 @@ All Platforms:
 		- Double-clicking the tray icon or using "Restore Window" will always restore the app to a normal, visible state and give it focus.		
 	- Unfortunately, the main window cannot be hidden in Linux.  In cases where it's supposed to be hidden, it will be minimized instead.
 		- Hiding the main window in Linux requires too many work-arounds and my goal was to reduce the amount of platform specific code.
-- Reduced the amount of platform specific code when the app initalizes.
-- The "Start-Up Wizard" will now always appear in the center of screen, instead of sometimes appearing random location.
+- Improved platform detection.
+	- The "About Game Backup Monitor" window will now display which platform the app is running on (Mono or .NET) and the version.
+- Reduced the amount of platform specific code when the app initalizes, this may improve performance.
+- The "Start-Up Wizard" will now always appear in the center of screen, instead of sometimes appearing in a random location.
 - The system tray menu is now disabled during the "Start-Up Wizard".
 - Updated window titles on the custom folder browsers to give more concise instructions.
 - Fixed the forced import of multiple backup files when using the Game Manager.
-	- It will now properly create manifest entries for each file, instead just the newest file.
+	- It will now create manifest entries for each file when appropriate, instead of just the newest file.
 
 Linux:
 	- Fixed the incorrect save path being stored in the metadata when making backups from games running in Proton / Wine.
-	- Moved the wine path detection output in a debug mode instead of cluttering up the log.
+	- Moved the wine path detection output into a debug mode instead of cluttering up the log.
 	- The Include/Exclude builder on the Game Manager will now properly open to the Proton / Wine saved game path when possible.
 		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
