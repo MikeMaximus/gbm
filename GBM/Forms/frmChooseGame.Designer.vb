@@ -58,6 +58,7 @@ Partial Class frmChooseGame
         'lstGameBox
         '
         Me.lstGameBox.FullRowSelect = True
+        Me.lstGameBox.HideSelection = False
         Me.lstGameBox.Location = New System.Drawing.Point(12, 25)
         Me.lstGameBox.MultiSelect = False
         Me.lstGameBox.Name = "lstGameBox"
@@ -79,8 +80,6 @@ Partial Class frmChooseGame
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmChooseGame"
-        Me.ShowIcon = False
-        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Choose Game"
         Me.ResumeLayout(False)

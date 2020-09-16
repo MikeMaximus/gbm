@@ -74,7 +74,12 @@ Public Class frmChooseGame
     Private Sub frmChooseGame_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         SetForm()
         FillList()
+    End Sub
+
+    Private Sub frmChooseGame_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         Me.Focus()
+        Me.BringToFront()
+        Me.TopMost = True
     End Sub
 
     Private Sub btnChoose_Click(sender As System.Object, e As System.EventArgs) Handles btnChoose.Click
