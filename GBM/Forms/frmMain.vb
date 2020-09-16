@@ -1378,16 +1378,15 @@ Public Class frmMain
 
     'Functions that handle buttons, menus and other GUI features on this form
     Private Sub ToggleVisibility(ByVal bVisible As Boolean)
-        'Toggling the visibility of the window(or hiding it from the taskbar) causes some very strange issues with the form in Mono.
-        If Not mgrCommon.IsUnix Then
-            Me.ShowInTaskbar = bVisible
-            Me.Visible = bVisible
-        End If
-
         If bVisible Then
             Me.WindowState = FormWindowState.Normal
         Else
             Me.WindowState = FormWindowState.Minimized
+        End If
+
+        'Toggling the visibility of the window(or hiding it from the taskbar) causes some very strange issues with the form in Mono.
+        If Not mgrCommon.IsUnix Then
+            Me.ShowInTaskbar = bVisible
         End If
     End Sub
 
@@ -1451,8 +1450,6 @@ Public Class frmMain
 
             'We only do this in .NET,  this code won't run correctly in Mono.
             If oSettings.StartToTray And Not mgrCommon.IsUnix Then
-                'Setting the form to minimized before making it invisible prevents weird flickering and redraw in .NET when the app starts.
-                Me.WindowState = FormWindowState.Minimized
                 ToggleVisibility(False)
             End If
 
