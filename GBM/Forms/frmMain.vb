@@ -1387,6 +1387,7 @@ Public Class frmMain
         'Toggling the visibility of the window(or hiding it from the taskbar) causes some very strange issues with the form in Mono.
         If Not mgrCommon.IsUnix Then
             Me.ShowInTaskbar = bVisible
+            Me.Visible = bVisible
         End If
     End Sub
 
