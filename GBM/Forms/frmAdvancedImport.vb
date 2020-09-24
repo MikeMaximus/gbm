@@ -50,7 +50,7 @@ Public Class frmAdvancedImport
 
     Private Sub SaveChecked(ByVal oItem As ListViewItem)
         If oItem.Checked Then
-            FinalData.Add(oItem.Tag, ImportData(oItem.Tag))
+            If Not FinalData.ContainsKey(oItem.Tag) Then FinalData.Add(oItem.Tag, ImportData(oItem.Tag))
         Else
             FinalData.Remove(oItem.Tag)
         End If
@@ -84,9 +84,9 @@ Public Class frmAdvancedImport
 
         lstGames.Clear()
 
-        lstGames.Columns.Add(frmAdvancedImport_ColumnName, 215)
+        lstGames.Columns.Add(frmAdvancedImport_ColumnName, 315)
         lstGames.Columns.Add(frmAdvancedImport_ColumnProcess, 130)
-        lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 190)
+        lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 290)
 
         For Each de As DictionaryEntry In ImportData
             bAddItem = False
@@ -113,11 +113,7 @@ Public Class frmAdvancedImport
                     If Directory.Exists(oApp.Path) Then
                         oListViewItem.Checked = True
                         SaveChecked(oListViewItem)
-                    Else
-                        oListViewItem.Checked = False
                     End If
-                Else
-                    oListViewItem.Checked = False
                 End If
             End If
 
@@ -189,6 +185,7 @@ Public Class frmAdvancedImport
 
         'Set Form Text
         lblFilter.Text = frmAdvancedImport_lblFilter
+        btnDetectSavedGames.Text = frmAdvancedImport_btnDetectSavedGames
         btnCancel.Text = frmAdvancedImport_btnCancel
         btnImport.Text = frmAdvancedImport_btnImport
         chkSelectAll.Text = frmAdvancedImport_chkSelectAll
@@ -232,6 +229,10 @@ Public Class frmAdvancedImport
         If Not bIsLoading Then
             UpdateSelected()
         End If
+    End Sub
+
+    Private Sub btnDetect_Click(sender As Object, e As EventArgs) Handles btnDetectSavedGames.Click
+        LoadData(txtFilter.Text, chkSelectedOnly.Checked, True)
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click

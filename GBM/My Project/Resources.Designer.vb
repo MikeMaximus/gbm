@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-09-24T15:48:12
+        '''  Looks up a localized string similar to 2020-09-24T22:17:39
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -918,6 +918,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Detect Saved Games.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_btnDetectSavedGames() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_btnDetectSavedGames", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Import.
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_btnImport() As String
@@ -936,7 +945,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Show Selected Only.
+        '''  Looks up a localized string similar to Show Only Selected.
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_chkSelectedOnly() As String
             Get

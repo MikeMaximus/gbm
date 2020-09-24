@@ -2588,6 +2588,9 @@
     <value>User Interface Options</value>
   </data>
   <data name="frmAdvancedImport_chkSelectedOnly" xml:space="preserve">
-    <value>Show Selected Only</value>
+    <value>Show Only Selected</value>
+  </data>
+  <data name="frmAdvancedImport_btnDetectSavedGames" xml:space="preserve">
+    <value>Detect Saved Games</value>
   </data>
 </root>

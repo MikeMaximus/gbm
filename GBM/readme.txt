@@ -4,6 +4,11 @@ gamebackupmonitor@gmail.com
 
 September 24, 2020
 
+Important Notices:
+
+- v1.2.3 will likely be the last version that supports Windows XP and Windows Vista.	
+- v1.2.3 is still in development.  This file will be updated as changes are made.
+
 New in 1.2.3
 
 All Platforms:
@@ -13,17 +18,19 @@ All Platforms:
 	- It now appears in the taskbar, just in case it does get hidden behind other windows.
 	- The GBM icon is now displayed on this window.
 - Improvements to the "Import Game Configurations" window
-	- Added "Show Selected Only" option.  
-		- This option will filter the current list to show only what's currently selected.
+	- Added "Show Only Selected" option.  
+		- This option will filter the current list to show only currently selected configurations.
 		- This option can be combined with the text filter.
+	- Added "Detect Saved Games" button.
+		- This button allows you to detect configurations with saved games.  This has always been automatically done when the form is opened, but the button is useful if you need to start over.
+		- Using this button will not unselect any configurations you manually selected.
 	- You can now maximize or minimize this window.
+	- Increased the default size of the window.
 	- The GBM icon is now displayed on this window and it now appears in the taskbar.
 
 Windows:
 
 - Simplified the code used to hide the main window.  
 	- Prevents the weird flicker effect that could occur when clicking the close button.
-
-v1.2.3 is still in development.  This file will be updated as changes are made.
 		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
