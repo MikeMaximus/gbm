@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-07-22T23:03:27
+        '''  Looks up a localized string similar to 2020-09-24T15:48:12
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -932,6 +932,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmAdvancedImport_chkSelectAll() As String
             Get
                 Return ResourceManager.GetString("frmAdvancedImport_chkSelectAll", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Show Selected Only.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_chkSelectedOnly() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_chkSelectedOnly", resourceCulture)
             End Get
         End Property
         

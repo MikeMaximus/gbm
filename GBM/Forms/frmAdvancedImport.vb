@@ -72,7 +72,7 @@ Public Class frmAdvancedImport
         Return True
     End Function
 
-    Private Sub LoadData(Optional ByVal sFilter As String = "", Optional ByVal bAutoDetect As Boolean = False)
+    Private Sub LoadData(Optional ByVal sFilter As String = "", Optional ByVal bSelectedOnly As Boolean = False, Optional ByVal bAutoDetect As Boolean = False)
         Dim oApp As clsGame
         Dim oListViewItem As ListViewItem
         Dim sTags As String
@@ -136,6 +136,12 @@ Public Class frmAdvancedImport
                 End If
             End If
 
+            If bSelectedOnly Then
+                If Not oListViewItem.Checked Then
+                    bAddItem = False
+                End If
+            End If
+
             'Check for hardcoded ignore tags
             If bAddItem And (mgrCommon.IsUnix And oApp.OS = clsGame.eOS.Windows) Then
                 bAddItem = CheckIgnoreTags(oApp.ImportTags)
@@ -162,7 +168,7 @@ Public Class frmAdvancedImport
         lstGames.EndUpdate()
         UpdateSelected()
 
-        If txtFilter.Text = String.Empty Then
+        If txtFilter.Text = String.Empty And Not chkSelectedOnly.Checked Then
             lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_Configs, lstGames.Items.Count)
         Else
             lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_Configs, lstGames.Items.Count) & " " & frmAdvancedImport_Filtered
@@ -186,7 +192,7 @@ Public Class frmAdvancedImport
         btnCancel.Text = frmAdvancedImport_btnCancel
         btnImport.Text = frmAdvancedImport_btnImport
         chkSelectAll.Text = frmAdvancedImport_chkSelectAll
-
+        chkSelectedOnly.Text = frmAdvancedImport_chkSelectedOnly
 
         'Set Icons
         oImageList = New ImageList()
@@ -209,12 +215,16 @@ Public Class frmAdvancedImport
     Private Sub frmAdvancedImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         bIsLoading = True
         SetForm()
-        LoadData(String.Empty, True)
+        LoadData(String.Empty, False, True)
         bIsLoading = False
     End Sub
 
     Private Sub chkSelectAll_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectAll.CheckedChanged
         If Not bIsLoading Then SelectToggle()
+    End Sub
+
+    Private Sub chkSelectedOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectedOnly.CheckedChanged
+        LoadData(txtFilter.Text, chkSelectedOnly.Checked, False)
     End Sub
 
     Private Sub lstGames_ItemChecked(sender As Object, e As ItemCheckedEventArgs) Handles lstGames.ItemChecked
@@ -246,11 +256,10 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub tmFilterTimer_Tick(sender As Object, ByVal e As EventArgs) Handles tmFilterTimer.Tick
-        LoadData(txtFilter.Text)
+        LoadData(txtFilter.Text, chkSelectedOnly.Checked)
         tmFilterTimer.Stop()
         tmFilterTimer.Enabled = False
     End Sub
-
 End Class
 
 ' Column Sorter

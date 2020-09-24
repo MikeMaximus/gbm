@@ -30,14 +30,16 @@ Partial Class frmAdvancedImport
         Me.lstGames = New System.Windows.Forms.ListView()
         Me.txtFilter = New System.Windows.Forms.TextBox()
         Me.lblFilter = New System.Windows.Forms.Label()
+        Me.chkSelectedOnly = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'btnImport
         '
+        Me.btnImport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnImport.Location = New System.Drawing.Point(416, 375)
         Me.btnImport.Name = "btnImport"
         Me.btnImport.Size = New System.Drawing.Size(75, 23)
-        Me.btnImport.TabIndex = 3
+        Me.btnImport.TabIndex = 4
         Me.btnImport.Text = "&Import"
         Me.btnImport.UseVisualStyleBackColor = True
         '
@@ -53,6 +55,7 @@ Partial Class frmAdvancedImport
         '
         'lblGames
         '
+        Me.lblGames.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.lblGames.Location = New System.Drawing.Point(12, 380)
         Me.lblGames.Name = "lblGames"
         Me.lblGames.Size = New System.Drawing.Size(560, 14)
@@ -62,6 +65,7 @@ Partial Class frmAdvancedImport
         '
         'lblSelected
         '
+        Me.lblSelected.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblSelected.AutoSize = True
         Me.lblSelected.Location = New System.Drawing.Point(9, 380)
         Me.lblSelected.Name = "lblSelected"
@@ -71,33 +75,40 @@ Partial Class frmAdvancedImport
         '
         'btnCancel
         '
+        Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.Location = New System.Drawing.Point(497, 375)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 4
+        Me.btnCancel.TabIndex = 5
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'lstGames
         '
+        Me.lstGames.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lstGames.CheckBoxes = True
         Me.lstGames.FullRowSelect = True
+        Me.lstGames.HideSelection = False
         Me.lstGames.Location = New System.Drawing.Point(12, 35)
         Me.lstGames.Name = "lstGames"
         Me.lstGames.Size = New System.Drawing.Size(560, 329)
-        Me.lstGames.TabIndex = 2
+        Me.lstGames.TabIndex = 3
         Me.lstGames.UseCompatibleStateImageBehavior = False
         Me.lstGames.View = System.Windows.Forms.View.Details
         '
         'txtFilter
         '
+        Me.txtFilter.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtFilter.Location = New System.Drawing.Point(416, 9)
         Me.txtFilter.Name = "txtFilter"
         Me.txtFilter.Size = New System.Drawing.Size(156, 20)
-        Me.txtFilter.TabIndex = 1
+        Me.txtFilter.TabIndex = 2
         '
         'lblFilter
         '
+        Me.lblFilter.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblFilter.Location = New System.Drawing.Point(371, 12)
         Me.lblFilter.Name = "lblFilter"
         Me.lblFilter.Size = New System.Drawing.Size(39, 14)
@@ -105,11 +116,23 @@ Partial Class frmAdvancedImport
         Me.lblFilter.Text = "Filter:"
         Me.lblFilter.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
+        'chkSelectedOnly
+        '
+        Me.chkSelectedOnly.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.chkSelectedOnly.AutoSize = True
+        Me.chkSelectedOnly.Location = New System.Drawing.Point(243, 11)
+        Me.chkSelectedOnly.Name = "chkSelectedOnly"
+        Me.chkSelectedOnly.Size = New System.Drawing.Size(122, 17)
+        Me.chkSelectedOnly.TabIndex = 1
+        Me.chkSelectedOnly.Text = "Show Selected Only"
+        Me.chkSelectedOnly.UseVisualStyleBackColor = True
+        '
         'frmAdvancedImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(584, 411)
+        Me.Controls.Add(Me.chkSelectedOnly)
         Me.Controls.Add(Me.lblFilter)
         Me.Controls.Add(Me.txtFilter)
         Me.Controls.Add(Me.lstGames)
@@ -119,11 +142,7 @@ Partial Class frmAdvancedImport
         Me.Controls.Add(Me.btnImport)
         Me.Controls.Add(Me.lblGames)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "frmAdvancedImport"
-        Me.ShowIcon = False
-        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Import Game Configurations"
         Me.ResumeLayout(False)
@@ -138,4 +157,5 @@ Partial Class frmAdvancedImport
     Friend WithEvents lstGames As System.Windows.Forms.ListView
     Friend WithEvents txtFilter As System.Windows.Forms.TextBox
     Friend WithEvents lblFilter As System.Windows.Forms.Label
+    Friend WithEvents chkSelectedOnly As CheckBox
 End Class

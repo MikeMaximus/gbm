@@ -2587,4 +2587,7 @@
   <data name="frmSettings_grpUIOptions" xml:space="preserve">
     <value>User Interface Options</value>
   </data>
+  <data name="frmAdvancedImport_chkSelectedOnly" xml:space="preserve">
+    <value>Show Selected Only</value>
+  </data>
 </root>
