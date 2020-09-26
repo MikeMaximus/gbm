@@ -6,7 +6,6 @@ September 24, 2020
 
 Important Notices:
 
-- v1.2.3 will likely be the last version that supports Windows XP and Windows Vista.	
 - v1.2.3 is still in development.  This file will be updated as changes are made.
 
 New in 1.2.3
@@ -32,5 +31,6 @@ Windows:
 
 - Simplified the code used to hide the main window.  
 	- Prevents the weird flicker effect that could occur when clicking the close button.
+- Updated SQLite to 3.33.0
 		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
