@@ -1378,21 +1378,27 @@ Public Class frmMain
 
     'Functions that handle buttons, menus and other GUI features on this form
     Private Sub ToggleVisibility(ByVal bVisible As Boolean)
-        If bVisible Then
-            Me.WindowState = FormWindowState.Normal
-        Else
-            Me.WindowState = FormWindowState.Minimized
-        End If
-
-        'Toggling the visibility of the window(or hiding it from the taskbar) causes some very strange issues with the form in Mono.
+        'Do not toggle the visibility of the window or hide it from the taskbar in Mono.
         If Not mgrCommon.IsUnix Then
             Me.ShowInTaskbar = bVisible
             Me.Visible = bVisible
         End If
     End Sub
 
+    Private Sub ToggleState(ByVal bVisible As Boolean)
+        If bVisible Then
+            'When toggling back to normal, we want to make the window visible first so the user sees the restore animation.
+            ToggleVisibility(bVisible)
+            Me.WindowState = FormWindowState.Normal
+        Else
+            'When toggling to hide the window, we want to make the window invisible after a minimize to prevent the odd flickering animation.
+            Me.WindowState = FormWindowState.Minimized
+            ToggleVisibility(bVisible)
+        End If
+    End Sub
+
     Private Sub ShowApp()
-        ToggleVisibility(True)
+        ToggleState(True)
         Me.Activate()
     End Sub
 
@@ -1449,9 +1455,9 @@ Public Class frmMain
         Else
             VerifyCustomPathVariables()
 
-            'We only do this in .NET,  this code won't run correctly in Mono.
+            'We only do this in .NET.
             If oSettings.StartToTray And Not mgrCommon.IsUnix Then
-                ToggleVisibility(False)
+                ToggleState(False)
             End If
 
             If oSettings.MonitorOnStartup Then
@@ -2244,7 +2250,7 @@ Public Class frmMain
                     If oSettings.ExitOnClose Then
                         ShutdownApp()
                     Else
-                        ToggleVisibility(False)
+                        ToggleState(False)
                     End If
                 End If
             Case Else
@@ -2419,7 +2425,7 @@ Public Class frmMain
         'This is a workaround to minimize on startup in Mono.
         If bInitialLoad And mgrCommon.IsUnix Then
             If oSettings.StartToTray Then
-                ToggleVisibility(False)
+                ToggleState(False)
             End If
             bInitialLoad = False
         Else
