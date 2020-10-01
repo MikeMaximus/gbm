@@ -296,19 +296,38 @@ Public Class mgrPath
         End Try
     End Function
 
-    Public Shared Function CheckSpecialPaths() As Boolean
+    Public Shared Function GetSpecialPaths() As Hashtable
         Dim hshEnvs As New Hashtable
         Dim bNoError As Boolean = True
 
-        hshEnvs.Add("Documents", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
-        hshEnvs.Add("AppDataRoaming", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData))
-        hshEnvs.Add("AppDataLocal", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData))
-        hshEnvs.Add("ProgramData", Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData))
+        hshEnvs.Add("%USERDOCUMENTS%", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
+        hshEnvs.Add("%APPDATA%", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData))
+        hshEnvs.Add("%LOCALAPPDATA%", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData))
+        hshEnvs.Add("%PROGRAMDATA%", Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData))
 
         If Not mgrCommon.IsUnix Then
-            hshEnvs.Add("UserData", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))
-            hshEnvs.Add("PublicDocuments", Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments))
+            hshEnvs.Add("%USERPROFILE%", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))
+            hshEnvs.Add("%COMMONDOCUMENTS%", Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments))
         End If
+
+        Return hshEnvs
+    End Function
+
+    Public Shared Function IsSpecialPath(ByVal sPath As String) As Boolean
+        Dim hshEnvs As Hashtable = GetSpecialPaths()
+
+        For Each de As DictionaryEntry In hshEnvs
+            If de.Value = sPath.TrimEnd(Path.DirectorySeparatorChar) Then
+                Return True
+            End If
+        Next
+
+        Return False
+    End Function
+
+    Public Shared Function CheckForEmptySpecialPaths() As Boolean
+        Dim hshEnvs As Hashtable = GetSpecialPaths()
+        Dim bNoError As Boolean = True
 
         For Each de As DictionaryEntry In hshEnvs
             If de.Value = String.Empty Then

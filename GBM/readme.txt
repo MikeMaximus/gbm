@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.3 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-September 24, 2020
+October 1, 2020
 
 Important Notices:
 
@@ -16,16 +16,19 @@ All Platforms:
 	- It should now always be displayed in front of other windows after closing a game.
 	- It now appears in the taskbar, just in case it does get hidden behind other windows.
 	- The GBM icon is now displayed on this window.
-- Improvements to the "Import Game Configurations" window
+- Improvements to the "Import Game Configurations" window	
 	- Added "Show Only Selected" option.  
 		- This option will filter the current list to show only currently selected configurations.
 		- This option can be combined with the text filter.
 	- Added "Detect Saved Games" button.
 		- This button allows you to detect configurations with saved games.  This has always been automatically done when the form is opened, but the button is useful if you need to start over.
-		- Using this button will not unselect any configurations you manually selected.
+		- Using this button will not unselect any configurations you manually selected.	
+	- Configurations in the official list(s) that use a special folder as a base path will no longer be incorrectly selected when detecting saved games.
+		- These types of configurations cannot currently be detected, this only fixes them being selected by mistake.
 	- You can now maximize or minimize this window.
 	- Increased the default size of the window.
 	- The GBM icon is now displayed on this window and it now appears in the taskbar.
+	
 
 Windows:
 

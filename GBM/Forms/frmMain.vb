@@ -1313,7 +1313,7 @@ Public Class frmMain
         End If
 
         'Check Special Paths
-        If Not mgrPath.CheckSpecialPaths Then
+        If Not mgrPath.CheckForEmptySpecialPaths() Then
             bInitFail = True
             Exit Sub
         End If
