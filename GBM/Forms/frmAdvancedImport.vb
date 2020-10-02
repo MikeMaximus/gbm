@@ -110,7 +110,7 @@ Public Class frmAdvancedImport
 
             If bAutoDetect Then
                 If oApp.AbsolutePath Then
-                    If Directory.Exists(oApp.Path) And Not mgrPath.IsSpecialPath(oApp.Path) Then
+                    If Directory.Exists(oApp.Path) And Not mgrPath.IsSpecialPath(oApp.Path, True) Then
                         oListViewItem.Checked = True
                         SaveChecked(oListViewItem)
                     End If

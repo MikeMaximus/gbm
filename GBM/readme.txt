@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.3 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-October 1, 2020
+October 2, 2020
 
 Important Notices:
 
@@ -23,7 +23,7 @@ All Platforms:
 	- Added "Detect Saved Games" button.
 		- This button allows you to detect configurations with saved games.  This has always been automatically done when the form is opened, but the button is useful if you need to start over.
 		- Using this button will not unselect any configurations you manually selected.	
-	- Configurations in the official list(s) that use a special folder as a base path will no longer be incorrectly selected when detecting saved games.
+	- Configurations in an import list that use only a special folder(or custom variable) as the save path, will no longer be incorrectly selected when detecting saved games.
 		- These types of configurations cannot currently be detected, this only fixes them being selected by mistake.
 	- You can now maximize or minimize this window.
 	- Increased the default size of the window.

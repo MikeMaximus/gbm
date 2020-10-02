@@ -296,7 +296,7 @@ Public Class mgrPath
         End Try
     End Function
 
-    Public Shared Function GetSpecialPaths() As Hashtable
+    Public Shared Function GetSpecialPaths(Optional ByVal bIncludeCustom As Boolean = False) As Hashtable
         Dim hshEnvs As New Hashtable
         Dim bNoError As Boolean = True
 
@@ -310,11 +310,20 @@ Public Class mgrPath
             hshEnvs.Add("%COMMONDOCUMENTS%", Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments))
         End If
 
+        If bIncludeCustom Then
+            Dim hshCustom As Hashtable = mgrVariables.ReadVariables()
+            Dim oCustomVariable As clsPathVariable
+            For Each de As DictionaryEntry In hshCustom
+                oCustomVariable = DirectCast(de.Value, clsPathVariable)
+                hshEnvs.Add(oCustomVariable.FormattedName, oCustomVariable.Path)
+            Next
+        End If
+
         Return hshEnvs
     End Function
 
-    Public Shared Function IsSpecialPath(ByVal sPath As String) As Boolean
-        Dim hshEnvs As Hashtable = GetSpecialPaths()
+    Public Shared Function IsSpecialPath(ByVal sPath As String, Optional ByVal bIncludeCustom As Boolean = False) As Boolean
+        Dim hshEnvs As Hashtable = GetSpecialPaths(bIncludeCustom)
 
         For Each de As DictionaryEntry In hshEnvs
             If de.Value = sPath.TrimEnd(Path.DirectorySeparatorChar) Then
