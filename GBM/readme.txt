@@ -2,11 +2,7 @@ Game Backup Monitor v1.2.3 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-October 2, 2020
-
-Important Notices:
-
-- v1.2.3 is still in development.  This file will be updated as changes are made.
+October 15, 2020
 
 New in 1.2.3
 
@@ -29,7 +25,6 @@ All Platforms:
 	- Increased the default size of the window.
 	- The GBM icon is now displayed on this window and it now appears in the taskbar.
 	
-
 Windows:
 
 - Simplified the code used to hide the main window.  
