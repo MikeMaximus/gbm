@@ -151,6 +151,18 @@
     <Compile Include="Forms\frmConfigLinks.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmLaunchConfiguration.Designer.vb">
+      <DependentUpon>frmLaunchConfiguration.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLaunchConfiguration.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLauncherManager.Designer.vb">
+      <DependentUpon>frmLauncherManager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLauncherManager.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmWineConfiguration.Designer.vb">
       <DependentUpon>frmWineConfiguration.vb</DependentUpon>
     </Compile>
@@ -308,6 +320,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms\frmConfigLinks.resx">
       <DependentUpon>frmConfigLinks.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLaunchConfiguration.resx">
+      <DependentUpon>frmLaunchConfiguration.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLauncherManager.resx">
+      <DependentUpon>frmLauncherManager.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmWineConfiguration.resx">
       <DependentUpon>frmWineConfiguration.vb</DependentUpon>

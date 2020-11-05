@@ -117,6 +117,7 @@ Partial Class frmGameManager
         Me.cmsLink = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsProcess = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsConfiguration = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnLauncherConfig = New System.Windows.Forms.Button()
         Me.grpConfig.SuspendLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpExtra.SuspendLayout()
@@ -158,7 +159,7 @@ Partial Class frmGameManager
         Me.btnBackup.Location = New System.Drawing.Point(616, 626)
         Me.btnBackup.Name = "btnBackup"
         Me.btnBackup.Size = New System.Drawing.Size(75, 23)
-        Me.btnBackup.TabIndex = 19
+        Me.btnBackup.TabIndex = 20
         Me.btnBackup.Text = "&Backup"
         Me.btnBackup.UseVisualStyleBackColor = True
         '
@@ -168,7 +169,7 @@ Partial Class frmGameManager
         Me.btnClose.Location = New System.Drawing.Point(697, 626)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 20
+        Me.btnClose.TabIndex = 21
         Me.btnClose.Text = "C&lose"
         Me.btnClose.UseVisualStyleBackColor = True
         '
@@ -773,7 +774,7 @@ Partial Class frmGameManager
         Me.btnMarkAsRestored.Location = New System.Drawing.Point(429, 626)
         Me.btnMarkAsRestored.Name = "btnMarkAsRestored"
         Me.btnMarkAsRestored.Size = New System.Drawing.Size(100, 23)
-        Me.btnMarkAsRestored.TabIndex = 17
+        Me.btnMarkAsRestored.TabIndex = 18
         Me.btnMarkAsRestored.Text = "&Mark as Restored"
         Me.btnMarkAsRestored.UseVisualStyleBackColor = True
         '
@@ -783,7 +784,7 @@ Partial Class frmGameManager
         Me.btnRestore.Location = New System.Drawing.Point(535, 626)
         Me.btnRestore.Name = "btnRestore"
         Me.btnRestore.Size = New System.Drawing.Size(75, 23)
-        Me.btnRestore.TabIndex = 18
+        Me.btnRestore.TabIndex = 19
         Me.btnRestore.Text = "&Restore"
         Me.btnRestore.UseVisualStyleBackColor = True
         '
@@ -1021,11 +1022,22 @@ Partial Class frmGameManager
         Me.cmsConfiguration.Size = New System.Drawing.Size(132, 22)
         Me.cmsConfiguration.Text = "&Configuration..."
         '
+        'btnLauncherConfig
+        '
+        Me.btnLauncherConfig.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnLauncherConfig.Location = New System.Drawing.Point(303, 626)
+        Me.btnLauncherConfig.Name = "btnLauncherConfig"
+        Me.btnLauncherConfig.Size = New System.Drawing.Size(120, 23)
+        Me.btnLauncherConfig.TabIndex = 17
+        Me.btnLauncherConfig.Text = "Lau&nch Settings..."
+        Me.btnLauncherConfig.UseVisualStyleBackColor = True
+        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 661)
+        Me.Controls.Add(Me.btnLauncherConfig)
         Me.Controls.Add(Me.btnLink)
         Me.Controls.Add(Me.lblQuickFilter)
         Me.Controls.Add(Me.txtQuickFilter)
@@ -1166,4 +1178,5 @@ Partial Class frmGameManager
     Friend WithEvents cmsLink As ContextMenuStrip
     Friend WithEvents cmsProcess As ToolStripMenuItem
     Friend WithEvents cmsConfiguration As ToolStripMenuItem
+    Friend WithEvents btnLauncherConfig As Button
 End Class

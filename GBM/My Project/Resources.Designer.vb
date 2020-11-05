@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-04T23:05:22
+        '''  Looks up a localized string similar to 2020-11-05T14:44:05
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1872,6 +1872,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Lau&amp;nch Settings....
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_btnLaunchConfig() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_btnLaunchConfig", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Link.
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnLink() As String
@@ -3245,6 +3254,258 @@ Namespace My.Resources
         Friend ReadOnly Property frmIncludeExclude_ToolTipTitle() As String
             Get
                 Return ResourceManager.GetString("frmIncludeExclude_ToolTipTitle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Cancel.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_btnCancel() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_btnCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Manage Launchers....
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_btnOpenLaunchers() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_btnOpenLaunchers", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Save.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_btnSave() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_btnSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The executable cannot be found..
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_ErrorExeNotFound() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_ErrorExeNotFound", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to A Game ID is required when using a store launcher..
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_ErrorNoGameID() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_ErrorNoGameID", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Executable.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_Executable() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_Executable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Launch Configuration for [PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Other Configuration.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_grpOtherConfig() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_grpOtherConfig", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Store Launcher Configuration.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_grpStoreLauncher() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_grpStoreLauncher", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Arguments:.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_lblArguments() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_lblArguments", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Executable:.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_lblExe() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_lblExe", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game ID:.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_lblGameID() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_lblGameID", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Launcher:.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_lblLauncher() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_lblLauncher", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to None.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_NoLauncher() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_NoLauncher", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to +.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_btnAdd() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_btnAdd", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Cancel.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_btnCancel() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_btnCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to C&amp;lose.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_btnClose() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_btnClose", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to -.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_btnDelete() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_btnDelete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Save.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_btnSave() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_btnSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to delete [PARAM]?  This cannot be undone..
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_ConfirmDelete() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_ConfirmDelete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to A launcher with this name already exists..
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_ErrorDupe() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_ErrorDupe", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to A valid launch command is required..
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_ErrorValidCommand() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_ErrorValidCommand", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to You must enter a valid name for this launcher..
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_ErrorValidName() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_ErrorValidName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Launcher Manager.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Configuration.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_grpLauncher() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_grpLauncher", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Command:.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_lblCommand() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_lblCommand", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Name:.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_lblName() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_lblName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The launch command is missing the %ID% variable.[BR][BR]When the variable is missing, GBM will assume it belongs at the end of the command string.[BR][BR]Please see the manual for more details..
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_WarningMissingVariable() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_WarningMissingVariable", resourceCulture)
             End Get
         End Property
         

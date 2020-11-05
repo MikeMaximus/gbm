@@ -15,17 +15,17 @@
 
         hshParams.Add("LauncherID", oLauncher.LauncherID)
         hshParams.Add("Name", oLauncher.Name)
-        hshParams.Add("LauncherString", oLauncher.LaunchString)
+        hshParams.Add("LaunchString", oLauncher.LaunchString)
 
         Return hshParams
     End Function
 
-    Public Shared Sub DoLauncherAddUpdate(ByVal oLauncher As clsLauncher)
+    Public Shared Sub DoLauncherAdd(ByVal oLauncher As clsLauncher)
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "INSERT INTO launchers VALUES (@LauncherID, @Name, @LauncherString)"
+        sSQL = "INSERT INTO launchers VALUES (@LauncherID, @Name, @LaunchString)"
         hshParams = SetCoreParameters(oLauncher)
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -35,7 +35,7 @@
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "UPDATE launchers SET Name=@Name, LauncherString=@LauncherString "
+        sSQL = "UPDATE launchers SET Name=@Name, LaunchString=@LaunchString "
         sSQL &= "WHERE LauncherID = @LauncherID"
 
         hshParams = SetCoreParameters(oLauncher)
@@ -87,7 +87,7 @@
         Dim oLauncher As New clsLauncher
         Dim hshParams As New Hashtable
 
-        sSQL = "SELECT * FROM launcher "
+        sSQL = "SELECT * FROM launchers "
         sSQL &= "WHERE Name = @Name"
 
         hshParams.Add("Name", sLauncherName)
@@ -107,7 +107,7 @@
         Dim oData As DataSet
         Dim hshParams As New Hashtable
 
-        sSQL = "SELECT * FROM launcher "
+        sSQL = "SELECT * FROM launchers "
         sSQL &= "WHERE Name = @Name"
 
         hshParams.Add("Name", sLauncherName)

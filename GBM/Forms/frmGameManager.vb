@@ -795,6 +795,13 @@ Public Class frmGameManager
         frm.ShowDialog()
     End Sub
 
+    Private Sub OpenLauncherConfig()
+        Dim frm As New frmLaunchConfiguration
+        frm.MonitorID = oCurrentGame.ID
+        frm.GameName = oCurrentGame.CroppedName
+        frm.ShowDialog()
+    End Sub
+
     Public Sub VerifyBackups(ByVal oApp As clsGame)
         Dim oCurrentBackup As clsBackup
         Dim oCurrentBackups As List(Of clsBackup)
@@ -1135,6 +1142,7 @@ Public Class frmGameManager
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
+                btnLauncherConfig.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnRestore.Enabled = False
                 btnImportBackup.Enabled = False
@@ -1169,6 +1177,7 @@ Public Class frmGameManager
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
+                btnLauncherConfig.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnRestore.Enabled = False
                 btnImportBackup.Enabled = False
@@ -1190,6 +1199,7 @@ Public Class frmGameManager
                 chkMonitorOnly.Enabled = True
                 grpExtra.Enabled = True
                 grpStats.Enabled = True
+                btnLauncherConfig.Enabled = True
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
                 btnAdd.Enabled = True
@@ -1220,6 +1230,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 btnBackup.Enabled = False
                 btnRestore.Enabled = False
+                btnLauncherConfig.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnTags.Enabled = False
                 btnLink.Enabled = False
@@ -1253,6 +1264,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 btnBackup.Enabled = True
                 btnRestore.Enabled = True
+                btnLauncherConfig.Enabled = False
                 btnMarkAsRestored.Enabled = True
                 btnTags.Enabled = True
                 btnLink.Enabled = True
@@ -1948,6 +1960,7 @@ Public Class frmGameManager
         btnLink.Image = Arrow_Submenu_Right
         lblOS.Text = frmGameManager_lblOS
         btnWineConfig.Text = frmGameManager_btnWineConfig
+        btnLauncherConfig.Text = frmGameManager_btnLaunchConfig
         cmsOpenBackupFile.Text = frmGameManager_cmsOpenBackupFile
         cmsOpenBackupFolder.Text = frmGameManager_cmsOpenBackupFolder
         cmsProcess.Text = frmGameManager_cmsProcess
@@ -1997,6 +2010,10 @@ Public Class frmGameManager
             btnOpenBackup.Visible = False
             btnOpenRestorePath.Visible = False
             btnImportBackup.Visible = False
+        End If
+
+        If Not Settings.EnableLauncher Then
+            btnLauncherConfig.Visible = False
         End If
 
         LoadBackupData()
@@ -2224,6 +2241,10 @@ Public Class frmGameManager
 
     Private Sub btnGameID_Click(sender As Object, e As EventArgs) Handles btnGameID.Click
         OpenGameIDEdit()
+    End Sub
+
+    Private Sub btnLauncherConfig_Click(sender As Object, e As EventArgs) Handles btnLauncherConfig.Click
+        OpenLauncherConfig()
     End Sub
 
     Private Sub txtQuickFilter_TextChanged(sender As Object, e As EventArgs) Handles txtQuickFilter.TextChanged
