@@ -2593,4 +2593,7 @@
   <data name="frmAdvancedImport_btnDetectSavedGames" xml:space="preserve">
     <value>Detect Saved Games</value>
   </data>
+  <data name="frmSettings_chkEnableLauncher" xml:space="preserve">
+    <value>Enable launching recently played games</value>
+  </data>
 </root>

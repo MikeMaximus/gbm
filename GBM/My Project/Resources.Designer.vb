@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-09-24T22:17:39
+        '''  Looks up a localized string similar to 2020-11-04T23:05:22
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5198,6 +5198,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_chkDisableSyncMessages() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkDisableSyncMessages", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Enable launching recently played games.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkEnableLauncher() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkEnableLauncher", resourceCulture)
             End Get
         End Property
         

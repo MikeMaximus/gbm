@@ -1023,11 +1023,12 @@ Public Class mgrSQLite
                 'Backup DB before starting
                 BackupDB("v122")
 
-                'Add Tables (Launchers)
+                'Add Tables (Launchers & Launch Data)
                 sSQL = "CREATE TABLE launchers (LauncherID	TEXT NOT NULL PRIMARY KEY, Name	TEXT NOT NULL, LaunchString	TEXT NOT NULL);"
-
-                'Add Tables (Launch Data)
                 sSQL &= "CREATE TABLE launchdata (MonitorID	TEXT NOT NULL PRIMARY KEY, Path	TEXT NOT NULL, Args TEXT NOT NULL, LauncherID TEXT NOT NULL, LauncherGameID	TEXT NOT NULL);"
+
+                'Add new field(s)
+                sSQL &= "ALTER TABLE settings ADD COLUMN EnableLauncher BOOLEAN NOT NULL DEFAULT 0;"
 
                 sSQL &= "PRAGMA user_version=124"
 

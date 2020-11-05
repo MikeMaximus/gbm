@@ -97,6 +97,7 @@ Public Class frmSettings
         oSettings.AutoMark = chkAutoMark.Checked
         oSettings.TimeTracking = chkTimeTracking.Checked
         oSettings.SessionTracking = chkSessionTracking.Checked
+        oSettings.EnableLauncher = chkEnableLauncher.Checked
         oSettings.ShowResolvedPaths = chkShowResolvedPaths.Checked
         oSettings.SuppressBackup = chkSuppressBackup.Checked
         oSettings.SuppressBackupThreshold = nudSuppressBackupThreshold.Value
@@ -238,6 +239,7 @@ Public Class frmSettings
         txtTempFolder.Text = oSettings.TemporaryFolder
         chkTimeTracking.Checked = oSettings.TimeTracking
         chkSessionTracking.Checked = oSettings.SessionTracking
+        chkEnableLauncher.Checked = oSettings.EnableLauncher
         chkShowResolvedPaths.Checked = oSettings.ShowResolvedPaths
         chkSuppressBackup.Checked = oSettings.SuppressBackup
         nudSuppressBackupThreshold.Value = oSettings.SuppressBackupThreshold
@@ -349,6 +351,7 @@ Public Class frmSettings
         grpGameData.Text = frmSettings_grpGameData
         chkTimeTracking.Text = frmSettings_chkTimeTracking
         chkSessionTracking.Text = frmSettings_chkSessionTracking
+        chkEnableLauncher.Text = frmSettings_chkEnableLauncher
         chkAutoStart.Text = frmSettings_chkAutoStart
         chkShowDetectionTips.Text = frmSettings_chkShowDetectionTips
         chkAutoSaveLog.Text = frmSettings_chkAutoSaveLog
@@ -448,5 +451,14 @@ Public Class frmSettings
 
     Private Sub lstSettings_SelectedValueChanged(sender As Object, e As EventArgs) Handles lstSettings.SelectedValueChanged
         ChangePanel()
+    End Sub
+
+    Private Sub chkSessionTracking_CheckedChanged(sender As Object, e As EventArgs) Handles chkSessionTracking.CheckedChanged
+        If chkSessionTracking.Checked = False Then
+            chkEnableLauncher.Checked = False
+            chkEnableLauncher.Enabled = False
+        Else
+            chkEnableLauncher.Enabled = True
+        End If
     End Sub
 End Class
