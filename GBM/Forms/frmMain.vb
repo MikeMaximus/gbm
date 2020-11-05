@@ -982,6 +982,9 @@ Public Class frmMain
 
             mgrSessions.AddSession(oSession)
         End If
+
+        'Handle Launcher Menu
+        HandleLauncherMenu()
     End Sub
 
     Private Function SuppressSession() As Boolean
@@ -1153,6 +1156,7 @@ Public Class frmMain
             mgrPath.RemoteDatabaseLocation = oSettings.BackupFolder
             SetupSyncWatcher()
             LoadGameSettings()
+            HandleLauncherMenu()
         End If
         ResumeScan()
     End Sub
@@ -1353,6 +1357,9 @@ Public Class frmMain
 
         'Load Game Settings
         LoadGameSettings()
+
+        'Build Launcher Menu
+        HandleLauncherMenu()
 
         'Verify the "Start with Windows" setting
         If oSettings.StartWithWindows Then
@@ -1557,14 +1564,14 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub BuildLauncherMenu()
+    Private Sub HandleLauncherMenu()
         Dim oSpacer As New ToolStripSeparator
         Dim oMenuItem As ToolStripMenuItem
         Dim iMenuOrder As Integer = 0
         Dim oRecentGames As DataSet = mgrSessions.GetLastFiveUniqueSessions()
 
         'Handle Spacer
-        If oRecentGames.Tables(0).Rows.Count > 0 Then
+        If oRecentGames.Tables(0).Rows.Count > 0 And oSettings.EnableLauncher = True Then
             If Not bModdedTrayMenu Then
                 oSpacer.Name = "LaunchSpacer"
                 gMonTrayMenu.Items.Insert(0, oSpacer)
@@ -1576,7 +1583,7 @@ Public Class frmMain
                     gMonTrayMenu.Items.Item(iMenuOrder).Text = CStr(dr(1))
                 Else
                     oMenuItem = New ToolStripMenuItem
-                    oMenuItem.Name = "LauncherGame" & iMenuOrder
+                    oMenuItem.Name = "LaunchGame" & iMenuOrder
                     oMenuItem.Tag = CStr(dr(0))
                     oMenuItem.Text = CStr(dr(1))
                     gMonTrayMenu.Items.Insert(iMenuOrder, oMenuItem)
@@ -1593,6 +1600,7 @@ Public Class frmMain
                     gMonTrayMenu.Items.RemoveByKey("LaunchGame" & i)
                 Next
             End If
+            bModdedTrayMenu = False
         End If
     End Sub
 
@@ -2330,12 +2338,6 @@ Public Class frmMain
 
     Private Sub gMonStripSplitStatusButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripStatusButton.Click
         ScanToggle()
-    End Sub
-
-    Private Sub gMonTrayMenu_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles gMonTrayMenu.Opening
-        If oSettings.EnableLauncher Then
-            BuildLauncherMenu()
-        End If
     End Sub
 
     Private Sub pbIcon_Click(sender As Object, e As EventArgs) Handles pbIcon.Click

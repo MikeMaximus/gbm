@@ -62,6 +62,15 @@ Public Class frmSettings
         End If
     End Sub
 
+    Private Sub HandleSessionTracking()
+        If chkSessionTracking.Checked = False Then
+            chkEnableLauncher.Checked = False
+            chkEnableLauncher.Enabled = False
+        Else
+            chkEnableLauncher.Enabled = True
+        End If
+    End Sub
+
     Private Function ValidateSettings() As Boolean
 
         'Show Start with Windows warning if running as admin
@@ -248,6 +257,8 @@ Public Class frmSettings
         txt7zArguments.Text = oSettings.Custom7zArguments
         txt7zLocation.Text = oSettings.Custom7zLocation
         eCurrentSyncFields = oSettings.SyncFields
+
+        HandleSessionTracking()
 
         'Retrieve 7z Info
         GetUtilityInfo(oSettings.Custom7zLocation)
@@ -454,11 +465,6 @@ Public Class frmSettings
     End Sub
 
     Private Sub chkSessionTracking_CheckedChanged(sender As Object, e As EventArgs) Handles chkSessionTracking.CheckedChanged
-        If chkSessionTracking.Checked = False Then
-            chkEnableLauncher.Checked = False
-            chkEnableLauncher.Enabled = False
-        Else
-            chkEnableLauncher.Enabled = True
-        End If
+        HandleSessionTracking()
     End Sub
 End Class
