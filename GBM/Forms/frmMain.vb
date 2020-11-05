@@ -2130,8 +2130,8 @@ Public Class frmMain
         RunRestoreAll()
     End Sub
 
-    Private Sub gMonTray_MouseClick(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles gMonTray.MouseDoubleClick
-        ShowApp()
+    Private Sub gMonTray_MouseDoubleClick(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles gMonTray.MouseDoubleClick
+        If e.Button = MouseButtons.Left Then ShowApp()
     End Sub
 
     Private Sub gMonTray_BalloonTipClicked(sender As Object, e As EventArgs) Handles gMonTray.BalloonTipClicked
