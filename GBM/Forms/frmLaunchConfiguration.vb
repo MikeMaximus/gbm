@@ -138,8 +138,10 @@ Public Class frmLaunchConfiguration
 
     Private Sub OpenLaunchers()
         Dim frm As New frmLauncherManager
+        Dim oValue As Object = cboLauncher.SelectedValue
         frm.ShowDialog()
         LoadCombos()
+        cboLauncher.SelectedValue = oValue
     End Sub
 
     Private Sub frmAdvancedConfiguration_Load(sender As Object, e As EventArgs) Handles MyBase.Load

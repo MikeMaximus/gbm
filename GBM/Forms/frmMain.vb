@@ -1142,6 +1142,9 @@ Public Class frmMain
         If frm.TriggerImportBackup Then
             RunImportBackupByGame(frm.ImportBackupList)
         End If
+
+        'Rebuild launch menu just in case something was deleted.
+        HandleLauncherMenu()
     End Sub
 
     Private Sub OpenSettings()
@@ -1172,6 +1175,7 @@ Public Class frmMain
         Else
             mgrCommon.ShowMessage(frmMain_ErrorNoSessions, MsgBoxStyle.Information)
         End If
+        HandleLauncherMenu()
         ResumeScan()
     End Sub
 
@@ -1573,7 +1577,7 @@ Public Class frmMain
         'Handle Spacer
         If oRecentGames.Tables(0).Rows.Count > 0 And oSettings.EnableLauncher = True Then
             If Not bModdedTrayMenu Then
-                oSpacer.Name = "LaunchSpacer"
+                oSpacer.Name = "gMonLaunchSpacer"
                 gMonTrayMenu.Items.Insert(0, oSpacer)
             End If
 
@@ -1583,7 +1587,7 @@ Public Class frmMain
                     gMonTrayMenu.Items.Item(iMenuOrder).Text = CStr(dr(1))
                 Else
                     oMenuItem = New ToolStripMenuItem
-                    oMenuItem.Name = "LaunchGame" & iMenuOrder
+                    oMenuItem.Name = "gMonLaunchGame" & iMenuOrder
                     oMenuItem.Tag = CStr(dr(0))
                     oMenuItem.Text = CStr(dr(1))
                     gMonTrayMenu.Items.Insert(iMenuOrder, oMenuItem)
@@ -1595,9 +1599,9 @@ Public Class frmMain
             bModdedTrayMenu = True
         Else
             If bModdedTrayMenu Then
-                gMonTrayMenu.Items.RemoveByKey("LaunchSpacer")
+                gMonTrayMenu.Items.RemoveByKey("gMonLaunchSpacer")
                 For i = 0 To 4
-                    gMonTrayMenu.Items.RemoveByKey("LaunchGame" & i)
+                    gMonTrayMenu.Items.RemoveByKey("gMonLaunchGame" & i)
                 Next
             End If
             bModdedTrayMenu = False
@@ -1658,6 +1662,14 @@ Public Class frmMain
                 gMonTrayExit.Enabled = False
                 gMonStatusStrip.Enabled = False
             End If
+            'Disable Game Launchers (if they exist)
+            Dim iItem As Integer
+            For i = 0 To 4
+                iItem = gMonTrayMenu.Items.IndexOfKey("gMonLaunchGame" & i)
+                If Not iItem = -1 Then
+                    gMonTrayMenu.Items.Item(iItem).Enabled = False
+                End If
+            Next
             bMenuEnabled = False
         Else
             ToggleMenuItems(True, gMonFile)
@@ -1674,6 +1686,14 @@ Public Class frmMain
             gMonTrayMon.Enabled = True
             gMonTrayExit.Enabled = True
             gMonStatusStrip.Enabled = True
+            'Enable Game Launchers (if they exist)
+            Dim iItem As Integer
+            For i = 0 To 4
+                iItem = gMonTrayMenu.Items.IndexOfKey("gMonLaunchGame" & i)
+                If Not iItem = -1 Then
+                    gMonTrayMenu.Items.Item(iItem).Enabled = True
+                End If
+            Next
             bMenuEnabled = True
         End If
     End Sub
