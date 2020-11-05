@@ -126,6 +126,8 @@
   <ItemGroup>
     <Compile Include="Classes\clsConfigLink.vb" />
     <Compile Include="Classes\clsGameProcess.vb" />
+    <Compile Include="Classes\clsLaunchData.vb" />
+    <Compile Include="Classes\clsLauncher.vb" />
     <Compile Include="Classes\clsWineData.vb" />
     <Compile Include="Classes\clsProcess.vb" />
     <Compile Include="Classes\clsGameFilter.vb" />
@@ -266,6 +268,8 @@
     </Compile>
     <Compile Include="Managers\mgrConfigLinks.vb" />
     <Compile Include="Managers\mgrGameProcesses.vb" />
+    <Compile Include="Managers\mgrLaunchData.vb" />
+    <Compile Include="Managers\mgrLaunchers.vb" />
     <Compile Include="Managers\mgrMetadata.vb" />
     <Compile Include="Managers\mgrWineData.vb" />
     <Compile Include="Managers\mgrProcess.vb" />

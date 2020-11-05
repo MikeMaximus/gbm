@@ -115,6 +115,12 @@ Public Class mgrSQLite
             'Add Tables (Config Links)
             sSql &= "CREATE TABLE configlinks (MonitorID TEXT NOT NULL, LinkID TEXT NOT NULL, PRIMARY KEY(MonitorID, LinkID)); "
 
+            'Add Tables (Launchers)
+            sSql &= "CREATE TABLE launchers (LauncherID	TEXT NOT NULL PRIMARY KEY, Name	TEXT NOT NULL, LaunchString	TEXT NOT NULL);"
+
+            'Add Tables (Launch Data)
+            sSql &= "CREATE TABLE launchdata (MonitorID	TEXT NOT NULL PRIMARY KEY, Path	TEXT NOT NULL, Args TEXT NOT NULL, LauncherID TEXT NOT NULL, LauncherGameID	TEXT NOT NULL);"
+
             'Set Version
             sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
 
@@ -1006,6 +1012,32 @@ Public Class mgrSQLite
                 BackupDB("v120")
 
                 sSQL = "PRAGMA user_version=122"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '1.24 Upgrade
+        If GetDatabaseVersion() < 124 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v122")
+
+                'Add Tables (Launchers)
+                sSQL = "CREATE TABLE launchers (LauncherID	TEXT NOT NULL PRIMARY KEY, Name	TEXT NOT NULL, LaunchString	TEXT NOT NULL);"
+
+                'Add Tables (Launch Data)
+                sSQL &= "CREATE TABLE launchdata (MonitorID	TEXT NOT NULL PRIMARY KEY, Path	TEXT NOT NULL, Args TEXT NOT NULL, LauncherID TEXT NOT NULL, LauncherGameID	TEXT NOT NULL);"
+
+                sSQL &= "PRAGMA user_version=124"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v122")
+
+                sSQL = "PRAGMA user_version=124"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If
