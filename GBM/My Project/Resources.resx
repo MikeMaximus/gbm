@@ -2683,4 +2683,13 @@
   <data name="frmLaunchConfiguration_NoLauncher" xml:space="preserve">
     <value>None</value>
   </data>
+  <data name="frmMain_ErrorLaunchGameException" xml:space="preserve">
+    <value>An error occured while attempting to launch [PARAM].[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmMain_ErrorLaunchGameMissingInfo" xml:space="preserve">
+    <value>[PARAM] cannot be launched due to missing information or a settings conflict.</value>
+  </data>
+  <data name="frmMain_LaunchGame" xml:space="preserve">
+    <value>Attempting to launch [PARAM] using [PARAM].</value>
+  </data>
 </root>

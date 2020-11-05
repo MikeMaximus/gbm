@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-05T14:44:05
+        '''  Looks up a localized string similar to 2020-11-05T16:00:08
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3906,6 +3906,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An error occured while attempting to launch [PARAM].[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorLaunchGameException() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorLaunchGameException", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] cannot be launched due to missing information or a settings conflict..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorLaunchGameMissingInfo() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorLaunchGameMissingInfo", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to GBM is set to start automatically, but the desktop link is missing.  Automatic start has been disabled,  please re-install GBM using a package manager or the makefile..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorLinuxAutoStartLinkMissing() As String
@@ -4424,6 +4442,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_LastGame() As String
             Get
                 Return ResourceManager.GetString("frmMain_LastGame", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Attempting to launch [PARAM] using [PARAM]..
+        '''</summary>
+        Friend ReadOnly Property frmMain_LaunchGame() As String
+            Get
+                Return ResourceManager.GetString("frmMain_LaunchGame", resourceCulture)
             End Get
         End Property
         

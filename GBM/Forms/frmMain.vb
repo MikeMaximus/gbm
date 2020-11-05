@@ -36,6 +36,7 @@ Public Class frmMain
     Private bLogToggle As Boolean = False
     Private bAllowIcon As Boolean = False
     Private bAllowDetails As Boolean = False
+    Private bModdedTrayMenu As Boolean = False
     Private oPriorImage As Image
     Private sPriorPath As String
     Private sPriorCompany As String
@@ -1492,6 +1493,109 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub LaunchGame(sender As Object, e As EventArgs)
+        Dim hshGame As Hashtable = mgrMonitorList.DoListGetbyMonitorID(sender.Tag)
+        Dim oLaunchData As clsLaunchData
+        Dim oLauncher As clsLauncher
+        Dim oGame As clsGame
+
+        If hshGame.Count = 1 Then
+            oGame = DirectCast(hshGame(0), clsGame)
+            oLaunchData = mgrLaunchData.DoLaunchDataGetbyID(sender.Tag)
+
+            If oLaunchData.LauncherID <> String.Empty Then
+                'We use the store launcher first if it's set
+                Dim sLaunchCommand As String
+                oLauncher = mgrLaunchers.DoLauncherGetbyID(oLaunchData.LauncherID)
+                'Replace the ID variable if it exists, if not append it to the command.
+                If oLauncher.LaunchString.Contains("%ID%") Then
+                    sLaunchCommand = oLauncher.LaunchString.Replace("%ID%", oLaunchData.LauncherGameID)
+                Else
+                    sLaunchCommand = oLauncher.LaunchString & oLaunchData.LauncherGameID
+                End If
+                UpdateLog(mgrCommon.FormatString(frmMain_LaunchGame, New String() {oGame.Name, oLauncher.Name}), False, ToolTipIcon.Info, True)
+                mgrCommon.OpenInOS(sLaunchCommand,, True)
+            ElseIf oLaunchData.Path <> String.Empty Then
+                'We use the alternative exe next if it's set
+                Dim prsGame As New Process
+                Try
+                    prsGame = New Process
+                    prsGame.StartInfo.Arguments = oLaunchData.Args
+                    prsGame.StartInfo.FileName = oLaunchData.Path
+                    prsGame.StartInfo.WorkingDirectory = Path.GetDirectoryName(oLaunchData.Path)
+                    prsGame.StartInfo.UseShellExecute = False
+                    prsGame.StartInfo.CreateNoWindow = True
+                    UpdateLog(mgrCommon.FormatString(frmMain_LaunchGame, New String() {oGame.Name, oLaunchData.Path}), False, ToolTipIcon.Info, True)
+                    prsGame.Start()
+                Catch ex As Exception
+                    mgrCommon.ShowMessage(frmMain_ErrorLaunchGameException, New String() {oGame.Name, ex.Message}, MsgBoxStyle.Exclamation)
+                End Try
+            Else
+                'And finally we attempt to use the process name and game path if no specific launcher settings exist
+                If oGame.ProcessName <> String.Empty And oGame.ProcessPath <> String.Empty And oGame.IsRegEx = True Then
+                    mgrCommon.ShowMessage(frmMain_ErrorLaunchGameMissingInfo, oGame.Name, MsgBoxStyle.Exclamation)
+                Else
+                    Dim sLaunchPath As String = oGame.ProcessPath.TrimEnd(Path.DirectorySeparatorChar) & Path.DirectorySeparatorChar & oGame.ProcessName
+                    If Not mgrCommon.IsUnix Then
+                        sLaunchPath = sLaunchPath & ".exe"
+                    End If
+                    Dim prsGame As New Process
+                    Try
+                        prsGame = New Process
+                        prsGame.StartInfo.Arguments = oLaunchData.Args
+                        prsGame.StartInfo.FileName = sLaunchPath
+                        prsGame.StartInfo.WorkingDirectory = Path.GetDirectoryName(sLaunchPath)
+                        prsGame.StartInfo.UseShellExecute = False
+                        prsGame.StartInfo.CreateNoWindow = True
+                        UpdateLog(mgrCommon.FormatString(frmMain_LaunchGame, New String() {oGame.Name, sLaunchPath}), False, ToolTipIcon.Info, True)
+                        prsGame.Start()
+                    Catch ex As Exception
+                        mgrCommon.ShowMessage(frmMain_ErrorLaunchGameException, New String() {oGame.Name, ex.Message}, MsgBoxStyle.Exclamation)
+                    End Try
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub BuildLauncherMenu()
+        Dim oSpacer As New ToolStripSeparator
+        Dim oMenuItem As ToolStripMenuItem
+        Dim iMenuOrder As Integer = 0
+        Dim oRecentGames As DataSet = mgrSessions.GetLastFiveUniqueSessions()
+
+        'Handle Spacer
+        If oRecentGames.Tables(0).Rows.Count > 0 Then
+            If Not bModdedTrayMenu Then
+                oSpacer.Name = "LaunchSpacer"
+                gMonTrayMenu.Items.Insert(0, oSpacer)
+            End If
+
+            For Each dr As DataRow In oRecentGames.Tables(0).Rows
+                If bModdedTrayMenu Then
+                    gMonTrayMenu.Items.Item(iMenuOrder).Tag = CStr(dr(0))
+                    gMonTrayMenu.Items.Item(iMenuOrder).Text = CStr(dr(1))
+                Else
+                    oMenuItem = New ToolStripMenuItem
+                    oMenuItem.Name = "LauncherGame" & iMenuOrder
+                    oMenuItem.Tag = CStr(dr(0))
+                    oMenuItem.Text = CStr(dr(1))
+                    gMonTrayMenu.Items.Insert(iMenuOrder, oMenuItem)
+                    AddHandler oMenuItem.Click, AddressOf LaunchGame
+                End If
+                iMenuOrder += 1
+            Next
+
+            bModdedTrayMenu = True
+        Else
+            If bModdedTrayMenu Then
+                gMonTrayMenu.Items.RemoveByKey("LaunchSpacer")
+                For i = 0 To 4
+                    gMonTrayMenu.Items.RemoveByKey("LaunchGame" & i)
+                Next
+            End If
+        End If
+    End Sub
+
     Private Sub ToggleMenuItems(ByVal bEnable As Boolean, ByVal oDropDownItems As ToolStripMenuItem, Optional ByVal sExempt() As String = Nothing)
         If sExempt Is Nothing Then sExempt = {}
         Dim oExempt As New List(Of String)(sExempt)
@@ -2226,6 +2330,12 @@ Public Class frmMain
 
     Private Sub gMonStripSplitStatusButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripStatusButton.Click
         ScanToggle()
+    End Sub
+
+    Private Sub gMonTrayMenu_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles gMonTrayMenu.Opening
+        If oSettings.EnableLauncher Then
+            BuildLauncherMenu()
+        End If
     End Sub
 
     Private Sub pbIcon_Click(sender As Object, e As EventArgs) Handles pbIcon.Click

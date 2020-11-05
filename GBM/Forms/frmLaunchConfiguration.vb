@@ -100,7 +100,11 @@ Public Class frmLaunchConfiguration
             If ValidateData() Then
                 oLaunchData = New clsLaunchData
                 oLaunchData.MonitorID = sMonitorID
-                oLaunchData.LauncherID = cboLauncher.SelectedValue
+                If cboLauncher.SelectedValue = "nolauncher" Then
+                    oLaunchData.LauncherID = String.Empty
+                Else
+                    oLaunchData.LauncherID = cboLauncher.SelectedValue
+                End If
                 oLaunchData.LauncherGameID = txtGameID.Text
                 oLaunchData.Path = txtExePath.Text
                 oLaunchData.Args = txtArguments.Text
