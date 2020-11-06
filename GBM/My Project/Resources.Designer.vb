@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-05T16:00:08
+        '''  Looks up a localized string similar to 2020-11-06T20:21:39
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3726,7 +3726,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] is a 64-bit game, GBM cannot detect the required information to save your backup..
+        '''  Looks up a localized string similar to [PARAM] is a 64-bit game and GBM is 32-bit.  GBM cannot detect the required information to save your backup..
         '''</summary>
         Friend ReadOnly Property frmMain_Error64Backup() As String
             Get
@@ -3992,6 +3992,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_ErrorRelativePath() As String
             Get
                 Return ResourceManager.GetString("frmMain_ErrorRelativePath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error occured starting GBM as Administrator.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorRestartAsAdmin() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorRestartAsAdmin", resourceCulture)
             End Get
         End Property
         
@@ -4802,6 +4811,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_UpdatedBy() As String
             Get
                 Return ResourceManager.GetString("frmMain_UpdatedBy", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] is a 64-bit game and GBM is 32-bit.  The process path can not be determined, but is not required for this backup configuration..
+        '''</summary>
+        Friend ReadOnly Property frmMain_Warning64NoPath() As String
+            Get
+                Return ResourceManager.GetString("frmMain_Warning64NoPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] is running as Administrator and GBM is not.  The process path can not be determined, but is not required for this backup configuration..
+        '''</summary>
+        Friend ReadOnly Property frmMain_WarningAdminNoPath() As String
+            Get
+                Return ResourceManager.GetString("frmMain_WarningAdminNoPath", resourceCulture)
             End Get
         End Property
         

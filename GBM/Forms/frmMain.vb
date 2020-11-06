@@ -1543,7 +1543,7 @@ Public Class frmMain
                 End Try
             Else
                 'And finally we attempt to use the process name and game path if no specific launcher settings exist
-                If oGame.ProcessName <> String.Empty And oGame.ProcessPath <> String.Empty And oGame.IsRegEx = True Then
+                If oGame.ProcessName = String.Empty Or oGame.ProcessPath = String.Empty Or oGame.IsRegEx = True Then
                     mgrCommon.ShowMessage(frmMain_ErrorLaunchGameMissingInfo, oGame.Name, MsgBoxStyle.Exclamation)
                 Else
                     Dim sLaunchPath As String = oGame.ProcessPath.TrimEnd(Path.DirectorySeparatorChar) & Path.DirectorySeparatorChar & oGame.ProcessName
@@ -2189,9 +2189,10 @@ Public Class frmMain
                 mgrCommon.ShowMessage(frmMain_ErrorAlreadyAdmin, MsgBoxStyle.Information)
             Else
                 If mgrCommon.ShowMessage(frmMain_ConfirmRunAsAdmin, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    mgrCommon.RestartAsAdmin()
-                    bShutdown = True
-                    ShutdownApp(False)
+                    If mgrCommon.RestartAsAdmin() Then
+                        bShutdown = True
+                        ShutdownApp(False)
+                    End If
                 End If
             End If
         Else
@@ -2413,8 +2414,12 @@ Public Class frmMain
                         UpdateLog(sErrorMessage, True, ToolTipIcon.Warning, True)
                     Else
                         If Not CheckForSavedPath() Then
-                            bPathDetectionFailure = True
-                            sPathDetectionError = mgrCommon.FormatString(frmMain_ErrorAdminBackup, oProcess.GameInfo.Name)
+                            If Not oProcess.GameInfo.AbsolutePath Then
+                                bPathDetectionFailure = True
+                                sPathDetectionError = mgrCommon.FormatString(frmMain_ErrorAdminBackup, oProcess.GameInfo.Name)
+                            Else
+                                UpdateLog(mgrCommon.FormatString(frmMain_WarningAdminNoPath, oProcess.GameInfo.Name), False, ToolTipIcon.Warning, True)
+                            End If
                         End If
                         bContinue = True
                     End If
@@ -2424,8 +2429,12 @@ Public Class frmMain
                         UpdateLog(sErrorMessage, True, ToolTipIcon.Warning, True)
                     Else
                         If Not CheckForSavedPath() Then
-                            bPathDetectionFailure = True
-                            sPathDetectionError = mgrCommon.FormatString(frmMain_Error64Backup, oProcess.GameInfo.Name)
+                            If Not oProcess.GameInfo.AbsolutePath Then
+                                bPathDetectionFailure = True
+                                sPathDetectionError = mgrCommon.FormatString(frmMain_Error64Backup, oProcess.GameInfo.Name)
+                            Else
+                                UpdateLog(mgrCommon.FormatString(frmMain_Warning64NoPath, oProcess.GameInfo.Name), False, ToolTipIcon.Warning, True)
+                            End If
                         End If
                         bContinue = True
                     End If

@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.4 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-Novermber 5, 2020
+Novermber 6, 2020
 
 Important Notices:
 
@@ -25,6 +25,13 @@ All Platforms:
 		- Allows setting launch arguments
 			- Arguments only apply to game executables directly launched with GBM.
 			- Arguments do NOT apply to games configured to use another launcher (Steam, EGS, etc).  You must set the arguments each game in those launchers instead.
+- The process path is now always detected and saved (when possible) after a game has been detected.
+	- Warnings will now be displayed in the log if the process path cannot be determined.
 - Double right-clicking the tray icon no longer triggers "Restore Window"
+- Deleting a custom variable will now properly remove the environment variable in the current session and update any affected game configurations.
+
+Windows:
+
+- GBM will no longer crash if the UAC prompt is cancelled while restarting as Administrator.
 		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

@@ -349,16 +349,21 @@ Public Class mgrCommon
         Return oPrincipal.IsInRole(WindowsBuiltInRole.Administrator)
     End Function
 
-    Public Shared Sub RestartAsAdmin()
+    Public Shared Function RestartAsAdmin() As Boolean
         Dim oProcess As New Process
+        Try
+            oProcess.StartInfo.FileName = Application.ExecutablePath
+            oProcess.StartInfo.UseShellExecute = True
+            oProcess.StartInfo.CreateNoWindow = True
+            oProcess.StartInfo.Verb = "runas"
 
-        oProcess.StartInfo.FileName = Application.ExecutablePath
-        oProcess.StartInfo.UseShellExecute = True
-        oProcess.StartInfo.CreateNoWindow = True
-        oProcess.StartInfo.Verb = "runas"
-
-        oProcess.Start()
-    End Sub
+            oProcess.Start()
+            Return True
+        Catch ex As Exception
+            ShowMessage(frmMain_ErrorRestartAsAdmin, ex.Message, MsgBoxStyle.Exclamation)
+            Return False
+        End Try
+    End Function
 
     'Get a file size
     Public Shared Function GetFileSize(ByVal sFile As String) As Long

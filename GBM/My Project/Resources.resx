@@ -188,7 +188,7 @@
     <value>Do you want to restart Game Backup Monitor as Administrator?</value>
   </data>
   <data name="frmMain_Error64Backup" xml:space="preserve">
-    <value>[PARAM] is a 64-bit game, GBM cannot detect the required information to save your backup.</value>
+    <value>[PARAM] is a 64-bit game and GBM is 32-bit.  GBM cannot detect the required information to save your backup.</value>
   </data>
   <data name="frmMain_Error7zip" xml:space="preserve">
     <value>7-Zip was not found.  The application cannot continue.</value>
@@ -2691,5 +2691,14 @@
   </data>
   <data name="frmMain_LaunchGame" xml:space="preserve">
     <value>Attempting to launch [PARAM] using [PARAM].</value>
+  </data>
+  <data name="frmMain_ErrorRestartAsAdmin" xml:space="preserve">
+    <value>An error occured starting GBM as Administrator.[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmMain_Warning64NoPath" xml:space="preserve">
+    <value>[PARAM] is a 64-bit game and GBM is 32-bit.  The process path can not be determined, but is not required for this backup configuration.</value>
+  </data>
+  <data name="frmMain_WarningAdminNoPath" xml:space="preserve">
+    <value>[PARAM] is running as Administrator and GBM is not.  The process path can not be determined, but is not required for this backup configuration.</value>
   </data>
 </root>

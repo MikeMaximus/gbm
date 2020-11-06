@@ -254,7 +254,8 @@ Public Class frmVariableManager
 
             If mgrCommon.ShowMessage(frmVariableManager_ConfirmDelete, oCustomVariable.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrVariables.DoVariableDelete(oCustomVariable.ID)
-                mgrVariables.DoPathUpdate(oCurrentVariable.FormattedName, oCurrentVariable.Path)
+                mgrVariables.DoPathUpdate(oCustomVariable.FormattedName, oCustomVariable.Path)
+                Environment.SetEnvironmentVariable(oCustomVariable.Name, Nothing)
                 LoadData()
                 eCurrentMode = eModes.Disabled
                 ModeChange()
