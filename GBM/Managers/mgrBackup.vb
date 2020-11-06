@@ -764,11 +764,6 @@ Public Class mgrBackup
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorManifestFailure, oGame.Name), True, ToolTipIcon.Error, True)
                     End If
 
-                    'Write the process path if we have it
-                    If oGame.AbsolutePath = False Then
-                        mgrMonitorList.DoListFieldUpdate("ProcessPath", oGame.ProcessPath, oGame.ID)
-                    End If
-
                     RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionComplete, oGame.CroppedName))
                 Else
                     'Delete the temporary backup file on failures

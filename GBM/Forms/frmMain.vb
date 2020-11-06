@@ -2528,7 +2528,7 @@ Public Class frmMain
                         End If
                         mgrWineData.DoWineDataAddUpdate(oProcess.WineData)
                     End If
-                    If Not oProcess.GameInfo.AbsolutePath Then HandleProcessPath()
+                    HandleProcessPath()
                     If oSettings.TimeTracking Then HandleTimeSpent()
                     If oSettings.SessionTracking Then HandleSession()
                     RunBackup()
