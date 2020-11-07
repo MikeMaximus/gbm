@@ -2686,13 +2686,13 @@
   <data name="frmMain_ErrorLaunchGameException" xml:space="preserve">
     <value>An error occured while attempting to launch [PARAM].[BR][BR][PARAM]</value>
   </data>
-  <data name="frmMain_ErrorLaunchGameMissingInfo" xml:space="preserve">
-    <value>[PARAM] cannot be launched due to missing information or a settings conflict.</value>
+  <data name="frmMain_ErrorLaunchGameMissingProcess" xml:space="preserve">
+    <value>[PARAM] cannot be launched, it's configuration has no process.</value>
   </data>
   <data name="frmMain_LaunchGame" xml:space="preserve">
-    <value>Attempting to launch [PARAM] using [PARAM].</value>
+    <value>Launching [PARAM] using [PARAM].</value>
   </data>
-  <data name="frmMain_ErrorRestartAsAdmin" xml:space="preserve">
+  <data name="mgrCommon_ErrorRestartAsAdmin" xml:space="preserve">
     <value>An error occured starting GBM as Administrator.[BR][BR][PARAM]</value>
   </data>
   <data name="frmMain_Warning64NoPath" xml:space="preserve">
@@ -2700,5 +2700,14 @@
   </data>
   <data name="frmMain_WarningAdminNoPath" xml:space="preserve">
     <value>[PARAM] is running as Administrator and GBM is not.  The process path can not be determined, but is not required for this backup configuration.</value>
+  </data>
+  <data name="frmMain_ErrorLaunchGameIsBlacklisted" xml:space="preserve">
+    <value>[PARAM] cannot be launched, it's using a recognized emulator or interpreter.[BR][BR]Set the executable and arguments in the Launch Settings for this game.</value>
+  </data>
+  <data name="frmMain_ErrorLaunchGameIsRegex" xml:space="preserve">
+    <value>[PARAM] cannot be launched, it's configuration is using a regular expression.[BR][BR]Set a specific executable to use in the Launch Settings for this game.</value>
+  </data>
+  <data name="frmMain_ErrorLaunchGameMissingProcessPath" xml:space="preserve">
+    <value>[PARAM] cannot be launched, it's configuration has no process path.</value>
   </data>
 </root>

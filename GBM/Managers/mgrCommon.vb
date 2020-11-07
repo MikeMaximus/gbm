@@ -10,6 +10,7 @@ Public Class mgrCommon
     'These need to be updated when upgrading the packaged 7z utility
     Private Shared sUtility64Hash As String = "8117E40EE7F824F63373A4F5625BB62749F69159D0C449B3CE2F35AAD3B83549" 'v19.00 7za.exe x64
     Private Shared sUtility32Hash As String = "EA308C76A2F927B160A143D94072B0DCE232E04B751F0C6432A94E05164E716D" 'v19.00 7za.exe x86
+    Private Shared sBlackList As String() = {"dosbox", "scummvm", "java", "python", "python.real", "python2.7"}
 
     Public Shared ReadOnly Property UtilityHash As String
         Get
@@ -264,12 +265,27 @@ Public Class mgrCommon
     End Function
 
     Public Shared Function IsProcessNotSearchable(ByVal oGame As clsGame) As Boolean
-        Dim sExemptList As String() = {"dosbox", "scummvm"}
         Dim bFound As Boolean = False
 
         If oGame.ProcessName = String.Empty Or oGame.IsRegEx Then Return True
 
-        For Each s As String In sExemptList
+        For Each s As String In sBlackList
+            If oGame.ProcessName.ToLower.Contains(s) Then bFound = True
+        Next
+
+        If bFound Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Public Shared Function IsProcessNotLaunchable(ByVal oGame As clsGame) As Boolean
+        Dim bFound As Boolean = False
+
+        If oGame.ProcessName = String.Empty Or oGame.ProcessPath = String.Empty Or oGame.IsRegEx Then Return True
+
+        For Each s As String In sBlackList
             If oGame.ProcessName.ToLower.Contains(s) Then bFound = True
         Next
 
@@ -360,7 +376,7 @@ Public Class mgrCommon
             oProcess.Start()
             Return True
         Catch ex As Exception
-            ShowMessage(frmMain_ErrorRestartAsAdmin, ex.Message, MsgBoxStyle.Exclamation)
+            ShowMessage(mgrCommon_ErrorRestartAsAdmin, ex.Message, MsgBoxStyle.Exclamation)
             Return False
         End Try
     End Function

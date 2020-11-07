@@ -1542,9 +1542,18 @@ Public Class frmMain
                     mgrCommon.ShowMessage(frmMain_ErrorLaunchGameException, New String() {oGame.Name, ex.Message}, MsgBoxStyle.Exclamation)
                 End Try
             Else
-                'And finally we attempt to use the process name and game path if no specific launcher settings exist
-                If oGame.ProcessName = String.Empty Or oGame.ProcessPath = String.Empty Or oGame.IsRegEx = True Then
-                    mgrCommon.ShowMessage(frmMain_ErrorLaunchGameMissingInfo, oGame.Name, MsgBoxStyle.Exclamation)
+                'And finally we attempt to use the process name and detected process path if no specific launcher settings exist
+                If mgrCommon.IsProcessNotLaunchable(oGame) Then
+                    'Give the user a specific error message
+                    If oGame.ProcessName = String.Empty Then
+                        mgrCommon.ShowMessage(frmMain_ErrorLaunchGameMissingProcess, oGame.Name, MsgBoxStyle.Exclamation)
+                    ElseIf oGame.ProcessPath = String.Empty Then
+                        mgrCommon.ShowMessage(frmMain_ErrorLaunchGameMissingProcessPath, oGame.Name, MsgBoxStyle.Exclamation)
+                    ElseIf oGame.IsRegEx Then
+                        mgrCommon.ShowMessage(frmMain_ErrorLaunchGameIsRegex, oGame.Name, MsgBoxStyle.Exclamation)
+                    Else
+                        mgrCommon.ShowMessage(frmMain_ErrorLaunchGameIsBlacklisted, oGame.Name, MsgBoxStyle.Exclamation)
+                    End If
                 Else
                     Dim sLaunchPath As String = oGame.ProcessPath.TrimEnd(Path.DirectorySeparatorChar) & Path.DirectorySeparatorChar & oGame.ProcessName
                     If Not mgrCommon.IsUnix Then
@@ -1571,10 +1580,11 @@ Public Class frmMain
     Private Sub HandleLauncherMenu()
         Dim oSpacer As New ToolStripSeparator
         Dim oMenuItem As ToolStripMenuItem
+        Dim sID As String
+        Dim sName As String
         Dim iMenuOrder As Integer = 0
         Dim oRecentGames As DataSet = mgrSessions.GetLastFiveUniqueSessions()
 
-        'Handle Spacer
         If oRecentGames.Tables(0).Rows.Count > 0 And oSettings.EnableLauncher = True Then
             If Not bModdedTrayMenu Then
                 oSpacer.Name = "gMonLaunchSpacer"
@@ -1582,14 +1592,19 @@ Public Class frmMain
             End If
 
             For Each dr As DataRow In oRecentGames.Tables(0).Rows
+                sID = CStr(dr(0))
+                sName = CStr(dr(1))
+
+                If sName.Length > 30 Then sName = sName.Substring(0, 31).Trim & "..."
+
                 If bModdedTrayMenu Then
-                    gMonTrayMenu.Items.Item(iMenuOrder).Tag = CStr(dr(0))
-                    gMonTrayMenu.Items.Item(iMenuOrder).Text = CStr(dr(1))
+                    gMonTrayMenu.Items.Item(iMenuOrder).Tag = sID
+                    gMonTrayMenu.Items.Item(iMenuOrder).Text = sName
                 Else
                     oMenuItem = New ToolStripMenuItem
                     oMenuItem.Name = "gMonLaunchGame" & iMenuOrder
-                    oMenuItem.Tag = CStr(dr(0))
-                    oMenuItem.Text = CStr(dr(1))
+                    oMenuItem.Tag = sID
+                    oMenuItem.Text = sName
                     gMonTrayMenu.Items.Insert(iMenuOrder, oMenuItem)
                     AddHandler oMenuItem.Click, AddressOf LaunchGame
                 End If
@@ -1604,6 +1619,7 @@ Public Class frmMain
                     gMonTrayMenu.Items.RemoveByKey("gMonLaunchGame" & i)
                 Next
             End If
+
             bModdedTrayMenu = False
         End If
     End Sub

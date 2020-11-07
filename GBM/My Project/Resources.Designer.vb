@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-06T20:21:39
+        '''  Looks up a localized string similar to 2020-11-07T15:18:25
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3915,11 +3915,38 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] cannot be launched due to missing information or a settings conflict..
+        '''  Looks up a localized string similar to [PARAM] cannot be launched, it&apos;s using a recognized emulator or interpreter.[BR][BR]Set the executable and arguments in the Launch Settings for this game..
         '''</summary>
-        Friend ReadOnly Property frmMain_ErrorLaunchGameMissingInfo() As String
+        Friend ReadOnly Property frmMain_ErrorLaunchGameIsBlacklisted() As String
             Get
-                Return ResourceManager.GetString("frmMain_ErrorLaunchGameMissingInfo", resourceCulture)
+                Return ResourceManager.GetString("frmMain_ErrorLaunchGameIsBlacklisted", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] cannot be launched, it&apos;s configuration is using a regular expression.[BR][BR]Set a specific executable to use in the Launch Settings for this game..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorLaunchGameIsRegex() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorLaunchGameIsRegex", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] cannot be launched, it&apos;s configuration has no process..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorLaunchGameMissingProcess() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorLaunchGameMissingProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] cannot be launched, it&apos;s configuration has no process path..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorLaunchGameMissingProcessPath() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorLaunchGameMissingProcessPath", resourceCulture)
             End Get
         End Property
         
@@ -3992,15 +4019,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_ErrorRelativePath() As String
             Get
                 Return ResourceManager.GetString("frmMain_ErrorRelativePath", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to An error occured starting GBM as Administrator.[BR][BR][PARAM].
-        '''</summary>
-        Friend ReadOnly Property frmMain_ErrorRestartAsAdmin() As String
-            Get
-                Return ResourceManager.GetString("frmMain_ErrorRestartAsAdmin", resourceCulture)
             End Get
         End Property
         
@@ -4455,7 +4473,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Attempting to launch [PARAM] using [PARAM]..
+        '''  Looks up a localized string similar to Launching [PARAM] using [PARAM]..
         '''</summary>
         Friend ReadOnly Property frmMain_LaunchGame() As String
             Get
@@ -7194,6 +7212,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrCommon_DotNet() As String
             Get
                 Return ResourceManager.GetString("mgrCommon_DotNet", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error occured starting GBM as Administrator.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_ErrorRestartAsAdmin() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_ErrorRestartAsAdmin", resourceCulture)
             End Get
         End Property
         
