@@ -1029,9 +1029,9 @@ Partial Class frmGameManager
         'btnLaunchOptions
         '
         Me.btnLaunchOptions.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnLaunchOptions.Location = New System.Drawing.Point(313, 626)
+        Me.btnLaunchOptions.Location = New System.Drawing.Point(303, 626)
         Me.btnLaunchOptions.Name = "btnLaunchOptions"
-        Me.btnLaunchOptions.Size = New System.Drawing.Size(110, 23)
+        Me.btnLaunchOptions.Size = New System.Drawing.Size(120, 23)
         Me.btnLaunchOptions.TabIndex = 17
         Me.btnLaunchOptions.Text = "&Launch Options"
         Me.btnLaunchOptions.UseVisualStyleBackColor = True
@@ -1040,18 +1040,19 @@ Partial Class frmGameManager
         '
         Me.cmsLaunch.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsLaunchSettings, Me.cmsLaunchGame})
         Me.cmsLaunch.Name = "cmsLaunch"
-        Me.cmsLaunch.Size = New System.Drawing.Size(148, 48)
+        Me.cmsLaunch.ShowImageMargin = False
+        Me.cmsLaunch.Size = New System.Drawing.Size(156, 70)
         '
         'cmsLaunchSettings
         '
         Me.cmsLaunchSettings.Name = "cmsLaunchSettings"
-        Me.cmsLaunchSettings.Size = New System.Drawing.Size(147, 22)
+        Me.cmsLaunchSettings.Size = New System.Drawing.Size(155, 22)
         Me.cmsLaunchSettings.Text = "&Settings"
         '
         'cmsLaunchGame
         '
         Me.cmsLaunchGame.Name = "cmsLaunchGame"
-        Me.cmsLaunchGame.Size = New System.Drawing.Size(147, 22)
+        Me.cmsLaunchGame.Size = New System.Drawing.Size(155, 22)
         Me.cmsLaunchGame.Text = "&Launch Game"
         '
         'frmGameManager

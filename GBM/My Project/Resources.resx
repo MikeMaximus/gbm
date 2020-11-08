@@ -2672,7 +2672,7 @@
     <value>Arguments:</value>
   </data>
   <data name="frmLaunchConfiguration_lblExe" xml:space="preserve">
-    <value>Executable:</value>
+    <value>Alternate exe:</value>
   </data>
   <data name="frmLaunchConfiguration_lblGameID" xml:space="preserve">
     <value>Game ID:</value>

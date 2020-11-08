@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-08T02:24:49
+        '''  Looks up a localized string similar to 2020-11-08T02:34:20
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3366,7 +3366,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Executable:.
+        '''  Looks up a localized string similar to Alternate exe:.
         '''</summary>
         Friend ReadOnly Property frmLaunchConfiguration_lblExe() As String
             Get

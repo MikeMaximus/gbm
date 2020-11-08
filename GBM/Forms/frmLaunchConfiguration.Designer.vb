@@ -65,16 +65,16 @@ Partial Class frmLaunchConfiguration
         '
         'txtArguments
         '
-        Me.txtArguments.Location = New System.Drawing.Point(75, 49)
+        Me.txtArguments.Location = New System.Drawing.Point(85, 49)
         Me.txtArguments.Name = "txtArguments"
-        Me.txtArguments.Size = New System.Drawing.Size(368, 20)
+        Me.txtArguments.Size = New System.Drawing.Size(358, 20)
         Me.txtArguments.TabIndex = 2
         '
         'txtExePath
         '
-        Me.txtExePath.Location = New System.Drawing.Point(75, 23)
+        Me.txtExePath.Location = New System.Drawing.Point(85, 23)
         Me.txtExePath.Name = "txtExePath"
-        Me.txtExePath.Size = New System.Drawing.Size(332, 20)
+        Me.txtExePath.Size = New System.Drawing.Size(322, 20)
         Me.txtExePath.TabIndex = 0
         '
         'lblArguments
@@ -91,9 +91,9 @@ Partial Class frmLaunchConfiguration
         Me.lblExe.AutoSize = True
         Me.lblExe.Location = New System.Drawing.Point(6, 26)
         Me.lblExe.Name = "lblExe"
-        Me.lblExe.Size = New System.Drawing.Size(63, 13)
+        Me.lblExe.Size = New System.Drawing.Size(72, 13)
         Me.lblExe.TabIndex = 0
-        Me.lblExe.Text = "Executable:"
+        Me.lblExe.Text = "Alternate exe:"
         '
         'grpStoreLauncher
         '
@@ -122,16 +122,16 @@ Partial Class frmLaunchConfiguration
         '
         Me.cboLauncher.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboLauncher.FormattingEnabled = True
-        Me.cboLauncher.Location = New System.Drawing.Point(75, 23)
+        Me.cboLauncher.Location = New System.Drawing.Point(85, 23)
         Me.cboLauncher.Name = "cboLauncher"
-        Me.cboLauncher.Size = New System.Drawing.Size(233, 21)
+        Me.cboLauncher.Size = New System.Drawing.Size(223, 21)
         Me.cboLauncher.TabIndex = 0
         '
         'txtGameID
         '
-        Me.txtGameID.Location = New System.Drawing.Point(75, 49)
+        Me.txtGameID.Location = New System.Drawing.Point(85, 49)
         Me.txtGameID.Name = "txtGameID"
-        Me.txtGameID.Size = New System.Drawing.Size(368, 20)
+        Me.txtGameID.Size = New System.Drawing.Size(358, 20)
         Me.txtGameID.TabIndex = 2
         '
         'lblGameID
