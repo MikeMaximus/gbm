@@ -282,6 +282,7 @@
     <Compile Include="Managers\mgrGameProcesses.vb" />
     <Compile Include="Managers\mgrLaunchData.vb" />
     <Compile Include="Managers\mgrLaunchers.vb" />
+    <Compile Include="Managers\mgrLaunchGame.vb" />
     <Compile Include="Managers\mgrMetadata.vb" />
     <Compile Include="Managers\mgrWineData.vb" />
     <Compile Include="Managers\mgrProcess.vb" />

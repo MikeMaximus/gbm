@@ -1143,6 +1143,11 @@ Public Class frmMain
             RunImportBackupByGame(frm.ImportBackupList)
         End If
 
+        'Handle launch trigger
+        If frm.TriggerLaunch Then
+            LaunchGame(frm.CurrentGame)
+        End If
+
         'Rebuild launch menu just in case something was deleted.
         HandleLauncherMenu()
     End Sub
@@ -1504,76 +1509,24 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub LaunchGame(sender As Object, e As EventArgs)
+    Private Sub LaunchGame(ByVal oGame As clsGame)
+        Dim eLaunchType As mgrLaunchGame.eLaunchType
+        Dim sMessage As String = String.Empty
+
+        If mgrLaunchGame.CanLaunchGame(oGame, eLaunchType) Then
+            If mgrLaunchGame.LaunchGame(oGame, eLaunchType, sMessage) Then
+                UpdateLog(sMessage, False, ToolTipIcon.Info, True)
+            End If
+        End If
+    End Sub
+
+    Private Sub GameLaunchHandler(sender As Object, e As EventArgs)
         Dim hshGame As Hashtable = mgrMonitorList.DoListGetbyMonitorID(sender.Tag)
-        Dim oLaunchData As clsLaunchData
-        Dim oLauncher As clsLauncher
         Dim oGame As clsGame
 
         If hshGame.Count = 1 Then
             oGame = DirectCast(hshGame(0), clsGame)
-            oLaunchData = mgrLaunchData.DoLaunchDataGetbyID(sender.Tag)
-
-            If oLaunchData.LauncherID <> String.Empty Then
-                'We use the store launcher first if it's set
-                Dim sLaunchCommand As String
-                oLauncher = mgrLaunchers.DoLauncherGetbyID(oLaunchData.LauncherID)
-                'Replace the ID variable if it exists, if not append it to the command.
-                If oLauncher.LaunchString.Contains("%ID%") Then
-                    sLaunchCommand = oLauncher.LaunchString.Replace("%ID%", oLaunchData.LauncherGameID)
-                Else
-                    sLaunchCommand = oLauncher.LaunchString & oLaunchData.LauncherGameID
-                End If
-                UpdateLog(mgrCommon.FormatString(frmMain_LaunchGame, New String() {oGame.Name, oLauncher.Name}), False, ToolTipIcon.Info, True)
-                mgrCommon.OpenInOS(sLaunchCommand,, True)
-            ElseIf oLaunchData.Path <> String.Empty Then
-                'We use the alternative exe next if it's set
-                Dim prsGame As New Process
-                Try
-                    prsGame = New Process
-                    prsGame.StartInfo.Arguments = oLaunchData.Args
-                    prsGame.StartInfo.FileName = oLaunchData.Path
-                    prsGame.StartInfo.WorkingDirectory = Path.GetDirectoryName(oLaunchData.Path)
-                    prsGame.StartInfo.UseShellExecute = False
-                    prsGame.StartInfo.CreateNoWindow = True
-                    UpdateLog(mgrCommon.FormatString(frmMain_LaunchGame, New String() {oGame.Name, oLaunchData.Path}), False, ToolTipIcon.Info, True)
-                    prsGame.Start()
-                Catch ex As Exception
-                    mgrCommon.ShowMessage(frmMain_ErrorLaunchGameException, New String() {oGame.Name, ex.Message}, MsgBoxStyle.Exclamation)
-                End Try
-            Else
-                'And finally we attempt to use the process name and detected process path if no specific launcher settings exist
-                If mgrCommon.IsProcessNotLaunchable(oGame) Then
-                    'Give the user a specific error message
-                    If oGame.ProcessName = String.Empty Then
-                        mgrCommon.ShowMessage(frmMain_ErrorLaunchGameMissingProcess, oGame.Name, MsgBoxStyle.Exclamation)
-                    ElseIf oGame.ProcessPath = String.Empty Then
-                        mgrCommon.ShowMessage(frmMain_ErrorLaunchGameMissingProcessPath, oGame.Name, MsgBoxStyle.Exclamation)
-                    ElseIf oGame.IsRegEx Then
-                        mgrCommon.ShowMessage(frmMain_ErrorLaunchGameIsRegex, oGame.Name, MsgBoxStyle.Exclamation)
-                    Else
-                        mgrCommon.ShowMessage(frmMain_ErrorLaunchGameIsBlacklisted, oGame.Name, MsgBoxStyle.Exclamation)
-                    End If
-                Else
-                    Dim sLaunchPath As String = oGame.ProcessPath.TrimEnd(Path.DirectorySeparatorChar) & Path.DirectorySeparatorChar & oGame.ProcessName
-                    If Not mgrCommon.IsUnix Then
-                        sLaunchPath = sLaunchPath & ".exe"
-                    End If
-                    Dim prsGame As New Process
-                    Try
-                        prsGame = New Process
-                        prsGame.StartInfo.Arguments = oLaunchData.Args
-                        prsGame.StartInfo.FileName = sLaunchPath
-                        prsGame.StartInfo.WorkingDirectory = Path.GetDirectoryName(sLaunchPath)
-                        prsGame.StartInfo.UseShellExecute = False
-                        prsGame.StartInfo.CreateNoWindow = True
-                        UpdateLog(mgrCommon.FormatString(frmMain_LaunchGame, New String() {oGame.Name, sLaunchPath}), False, ToolTipIcon.Info, True)
-                        prsGame.Start()
-                    Catch ex As Exception
-                        mgrCommon.ShowMessage(frmMain_ErrorLaunchGameException, New String() {oGame.Name, ex.Message}, MsgBoxStyle.Exclamation)
-                    End Try
-                End If
-            End If
+            LaunchGame(oGame)
         End If
     End Sub
 
@@ -1606,7 +1559,7 @@ Public Class frmMain
                     oMenuItem.Tag = sID
                     oMenuItem.Text = sName
                     gMonTrayMenu.Items.Insert(iMenuOrder, oMenuItem)
-                    AddHandler oMenuItem.Click, AddressOf LaunchGame
+                    AddHandler oMenuItem.Click, AddressOf GameLaunchHandler
                 End If
                 iMenuOrder += 1
             Next

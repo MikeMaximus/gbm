@@ -431,7 +431,7 @@
     <value>Ca&amp;ncel</value>
   </data>
   <data name="frmGameManager_btnClose" xml:space="preserve">
-    <value>C&amp;lose</value>
+    <value>&amp;Close</value>
   </data>
   <data name="frmGameManager_btnDelete" xml:space="preserve">
     <value>-</value>
@@ -2219,7 +2219,7 @@
     <value>Imported backup file [PARAM] for [PARAM].</value>
   </data>
   <data name="frmGameManager_btnLink" xml:space="preserve">
-    <value>&amp;Link</value>
+    <value>Lin&amp;k</value>
   </data>
   <data name="frmVariableManager_ErrorVariableReserved" xml:space="preserve">
     <value>[PARAM] is a reserved variable, you must enter a different name.</value>
@@ -2594,10 +2594,10 @@
     <value>Detect Saved Games</value>
   </data>
   <data name="frmSettings_chkEnableLauncher" xml:space="preserve">
-    <value>Enable launching recently played games</value>
+    <value>Enable launching games</value>
   </data>
-  <data name="frmGameManager_btnLaunchConfig" xml:space="preserve">
-    <value>Lau&amp;nch Settings...</value>
+  <data name="frmGameManager_btnLaunchOptions" xml:space="preserve">
+    <value>&amp;Launch Options</value>
   </data>
   <data name="frmLauncherManager_btnAdd" xml:space="preserve">
     <value>+</value>
@@ -2683,10 +2683,10 @@
   <data name="frmLaunchConfiguration_NoLauncher" xml:space="preserve">
     <value>None</value>
   </data>
-  <data name="frmMain_ErrorLaunchGameException" xml:space="preserve">
-    <value>An error occured while attempting to launch [PARAM].[BR][BR][PARAM]</value>
+  <data name="mgrLaunchGame_ErrorException" xml:space="preserve">
+    <value>An error occured while attempting to launch a game.[BR][BR][PARAM]</value>
   </data>
-  <data name="frmMain_ErrorLaunchGameMissingProcess" xml:space="preserve">
+  <data name="mgrLaunchGame_ErrorNoProcess" xml:space="preserve">
     <value>[PARAM] cannot be launched, it's configuration has no process.</value>
   </data>
   <data name="frmMain_LaunchGame" xml:space="preserve">
@@ -2701,13 +2701,22 @@
   <data name="frmMain_WarningAdminNoPath" xml:space="preserve">
     <value>[PARAM] is running as Administrator and GBM is not.  The process path can not be determined, but is not required for this backup configuration.</value>
   </data>
-  <data name="frmMain_ErrorLaunchGameIsBlacklisted" xml:space="preserve">
+  <data name="mgrLaunchGame_ErrorIsBlacklisted" xml:space="preserve">
     <value>[PARAM] cannot be launched, it's using a recognized emulator or interpreter.[BR][BR]Set the executable and arguments in the Launch Settings for this game.</value>
   </data>
-  <data name="frmMain_ErrorLaunchGameIsRegex" xml:space="preserve">
+  <data name="mgrLaunchGame_ErrorIsRegex" xml:space="preserve">
     <value>[PARAM] cannot be launched, it's configuration is using a regular expression.[BR][BR]Set a specific executable to use in the Launch Settings for this game.</value>
   </data>
-  <data name="frmMain_ErrorLaunchGameMissingProcessPath" xml:space="preserve">
+  <data name="mgrLaunchGame_ErrorNoProcessPath" xml:space="preserve">
     <value>[PARAM] cannot be launched, it's configuration has no process path.</value>
+  </data>
+  <data name="frmGameManager_cmsLaunchGame" xml:space="preserve">
+    <value>&amp;Launch Game</value>
+  </data>
+  <data name="frmGameManager_cmsLaunchSettings" xml:space="preserve">
+    <value>&amp;Settings...</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorNoExe" xml:space="preserve">
+    <value>The game executable could not be found at:[BR][BR][PARAM]</value>
   </data>
 </root>

@@ -17,6 +17,7 @@ Public Class frmGameManager
     Private bTriggerBackup As Boolean = False
     Private bTriggerRestore As Boolean = False
     Private bTriggerImportBackup As Boolean = False
+    Private bTriggerLaunch As Boolean = False
     Private bIgnoreConfigLinks As Boolean = False
     Private oBackupList As New List(Of clsGame)
     Private oRestoreList As New Hashtable
@@ -141,6 +142,15 @@ Public Class frmGameManager
         End Get
         Set(value As Boolean)
             bTriggerImportBackup = value
+        End Set
+    End Property
+
+    Property TriggerLaunch As Boolean
+        Get
+            Return bTriggerLaunch
+        End Get
+        Set(value As Boolean)
+            bTriggerLaunch = value
         End Set
     End Property
 
@@ -1142,7 +1152,7 @@ Public Class frmGameManager
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
-                btnLauncherConfig.Enabled = False
+                btnLaunchOptions.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnRestore.Enabled = False
                 btnImportBackup.Enabled = False
@@ -1177,7 +1187,7 @@ Public Class frmGameManager
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
-                btnLauncherConfig.Enabled = False
+                btnLaunchOptions.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnRestore.Enabled = False
                 btnImportBackup.Enabled = False
@@ -1199,7 +1209,7 @@ Public Class frmGameManager
                 chkMonitorOnly.Enabled = True
                 grpExtra.Enabled = True
                 grpStats.Enabled = True
-                btnLauncherConfig.Enabled = True
+                btnLaunchOptions.Enabled = True
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
                 btnAdd.Enabled = True
@@ -1230,7 +1240,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 btnBackup.Enabled = False
                 btnRestore.Enabled = False
-                btnLauncherConfig.Enabled = False
+                btnLaunchOptions.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnTags.Enabled = False
                 btnLink.Enabled = False
@@ -1264,7 +1274,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 btnBackup.Enabled = True
                 btnRestore.Enabled = True
-                btnLauncherConfig.Enabled = False
+                btnLaunchOptions.Enabled = False
                 btnMarkAsRestored.Enabled = True
                 btnTags.Enabled = True
                 btnLink.Enabled = True
@@ -1710,6 +1720,14 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub TriggerSelectedGameLaunch()
+        Dim eLaunchType As mgrLaunchGame.eLaunchType
+        If mgrLaunchGame.CanLaunchGame(oCurrentGame, eLaunchType) Then
+            Me.TriggerLaunch = True
+            Me.Close()
+        End If
+    End Sub
+
     Private Sub TriggerSelectedImportBackup()
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         Dim oBackup As New mgrBackup
@@ -1960,11 +1978,15 @@ Public Class frmGameManager
         btnLink.Image = Arrow_Submenu_Right
         lblOS.Text = frmGameManager_lblOS
         btnWineConfig.Text = frmGameManager_btnWineConfig
-        btnLauncherConfig.Text = frmGameManager_btnLaunchConfig
+        btnLaunchOptions.Text = frmGameManager_btnLaunchOptions
+        btnLaunchOptions.ImageAlign = ContentAlignment.MiddleRight
+        btnLaunchOptions.Image = Arrow_Submenu_Right
         cmsOpenBackupFile.Text = frmGameManager_cmsOpenBackupFile
         cmsOpenBackupFolder.Text = frmGameManager_cmsOpenBackupFolder
         cmsProcess.Text = frmGameManager_cmsProcess
         cmsConfiguration.Text = frmGameManager_cmsConfiguration
+        cmsLaunchSettings.Text = frmGameManager_cmsLaunchSettings
+        cmsLaunchGame.Text = frmGameManager_cmsLaunchGame
 
         'Init Combos
         Dim oComboItems As New List(Of KeyValuePair(Of Integer, String))
@@ -2013,7 +2035,7 @@ Public Class frmGameManager
         End If
 
         If Not Settings.EnableLauncher Then
-            btnLauncherConfig.Visible = False
+            btnLaunchOptions.Visible = False
         End If
 
         LoadBackupData()
@@ -2243,8 +2265,16 @@ Public Class frmGameManager
         OpenGameIDEdit()
     End Sub
 
-    Private Sub btnLauncherConfig_Click(sender As Object, e As EventArgs) Handles btnLauncherConfig.Click
+    Private Sub btnLauncherConfig_Click(sender As Object, e As EventArgs) Handles btnLaunchOptions.Click
+        mgrCommon.OpenButtonSubMenu(cmsLaunch, btnLaunchOptions)
+    End Sub
+
+    Private Sub cmsLaunchSettings_Click(sender As Object, e As EventArgs) Handles cmsLaunchSettings.Click
         OpenLauncherConfig()
+    End Sub
+
+    Private Sub cmsLaunchGame_Click(sender As Object, e As EventArgs) Handles cmsLaunchGame.Click
+        TriggerSelectedGameLaunch()
     End Sub
 
     Private Sub txtQuickFilter_TextChanged(sender As Object, e As EventArgs) Handles txtQuickFilter.TextChanged

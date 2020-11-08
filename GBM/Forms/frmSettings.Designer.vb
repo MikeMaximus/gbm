@@ -68,6 +68,7 @@ Partial Class frmSettings
         Me.grpLogOptions = New System.Windows.Forms.GroupBox()
         Me.chkDisableSyncMessages = New System.Windows.Forms.CheckBox()
         Me.grpGameData = New System.Windows.Forms.GroupBox()
+        Me.chkEnableLauncher = New System.Windows.Forms.CheckBox()
         Me.chkShowResolvedPaths = New System.Windows.Forms.CheckBox()
         Me.chkSessionTracking = New System.Windows.Forms.CheckBox()
         Me.lstSettings = New System.Windows.Forms.ListBox()
@@ -81,7 +82,6 @@ Partial Class frmSettings
         Me.chkAutoStart = New System.Windows.Forms.CheckBox()
         Me.chkStartMinimized = New System.Windows.Forms.CheckBox()
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
-        Me.chkEnableLauncher = New System.Windows.Forms.CheckBox()
         Me.grpFolderOptions.SuspendLayout()
         Me.grp7zGeneral.SuspendLayout()
         Me.pnlBackup.SuspendLayout()
@@ -561,6 +561,16 @@ Partial Class frmSettings
         Me.grpGameData.TabStop = False
         Me.grpGameData.Text = "Game Data Options"
         '
+        'chkEnableLauncher
+        '
+        Me.chkEnableLauncher.AutoSize = True
+        Me.chkEnableLauncher.Location = New System.Drawing.Point(28, 65)
+        Me.chkEnableLauncher.Name = "chkEnableLauncher"
+        Me.chkEnableLauncher.Size = New System.Drawing.Size(142, 17)
+        Me.chkEnableLauncher.TabIndex = 2
+        Me.chkEnableLauncher.Text = "Enable launching games"
+        Me.chkEnableLauncher.UseVisualStyleBackColor = True
+        '
         'chkShowResolvedPaths
         '
         Me.chkShowResolvedPaths.AutoSize = True
@@ -690,16 +700,6 @@ Partial Class frmSettings
         Me.chkMonitorOnStartup.TabIndex = 2
         Me.chkMonitorOnStartup.Text = "Start monitoring on launch"
         Me.chkMonitorOnStartup.UseVisualStyleBackColor = True
-        '
-        'chkEnableLauncher
-        '
-        Me.chkEnableLauncher.AutoSize = True
-        Me.chkEnableLauncher.Location = New System.Drawing.Point(28, 65)
-        Me.chkEnableLauncher.Name = "chkEnableLauncher"
-        Me.chkEnableLauncher.Size = New System.Drawing.Size(216, 17)
-        Me.chkEnableLauncher.TabIndex = 2
-        Me.chkEnableLauncher.Text = "Enable launching recently played games"
-        Me.chkEnableLauncher.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
