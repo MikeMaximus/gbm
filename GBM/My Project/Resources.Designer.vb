@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-08T02:34:20
+        '''  Looks up a localized string similar to 2020-11-08T02:40:30
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -7306,7 +7306,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] cannot be launched, it&apos;s using a recognized emulator or interpreter.[BR][BR]Set the executable and arguments in the Launch Settings for this game..
+        '''  Looks up a localized string similar to [PARAM] cannot be launched, it&apos;s using a recognized emulator or interpreter without a parameter.[BR][BR]Set the parameter field, or use an alternate executable and argument in the Launch Settings for this game..
         '''</summary>
         Friend ReadOnly Property mgrLaunchGame_ErrorIsBlacklisted() As String
             Get

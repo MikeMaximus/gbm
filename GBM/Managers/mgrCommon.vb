@@ -286,7 +286,11 @@ Public Class mgrCommon
         If oGame.ProcessName = String.Empty Or oGame.ProcessPath = String.Empty Or oGame.IsRegEx Then Return True
 
         For Each s As String In sBlackList
-            If oGame.ProcessName.ToLower.Contains(s) Then bFound = True
+            If oGame.ProcessName.ToLower.Contains(s) Then
+                If oGame.Parameter = String.Empty Then
+                    bFound = True
+                End If
+            End If
         Next
 
         If bFound Then

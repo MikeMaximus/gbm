@@ -72,6 +72,7 @@ Public Class mgrLaunchGame
         Dim oLauncher As clsLauncher
         Dim sLaunchCommand As String
         Dim sLaunchPath As String
+        Dim sLaunchArgs As String
 
         Select Case eLaunchType
             Case eLaunchType.ExternalLauncher
@@ -91,9 +92,16 @@ Public Class mgrLaunchGame
                     Return True
                 End If
             Case eLaunchType.UseGameConfig
+                'Handle Launch Path
                 sLaunchPath = oGame.ProcessPath.TrimEnd(Path.DirectorySeparatorChar) & Path.DirectorySeparatorChar & oGame.ProcessName
                 If Not mgrCommon.IsUnix Then sLaunchPath &= ".exe"
-                If RunGameExecutable(sLaunchPath, oLaunchData.Args) Then
+                'Handle Launch Arguments
+                If oGame.Parameter <> String.Empty Then
+                    sLaunchArgs = oGame.Parameter
+                Else
+                    sLaunchArgs = oLaunchData.Args
+                End If
+                If RunGameExecutable(sLaunchPath, sLaunchArgs) Then
                     sMessage = mgrCommon.FormatString(frmMain_LaunchGame, New String() {oGame.Name, sLaunchPath})
                     Return True
                 End If

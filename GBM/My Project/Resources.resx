@@ -2702,7 +2702,7 @@
     <value>[PARAM] is running as Administrator and GBM is not.  The process path can not be determined, but is not required for this backup configuration.</value>
   </data>
   <data name="mgrLaunchGame_ErrorIsBlacklisted" xml:space="preserve">
-    <value>[PARAM] cannot be launched, it's using a recognized emulator or interpreter.[BR][BR]Set the executable and arguments in the Launch Settings for this game.</value>
+    <value>[PARAM] cannot be launched, it's using a recognized emulator or interpreter without a parameter.[BR][BR]Set the parameter field, or use an alternate executable and argument in the Launch Settings for this game.</value>
   </data>
   <data name="mgrLaunchGame_ErrorIsRegex" xml:space="preserve">
     <value>[PARAM] cannot be launched, it's configuration is using a regular expression.[BR][BR]Set a specific executable to use in the Launch Settings for this game.</value>
