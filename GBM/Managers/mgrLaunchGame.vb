@@ -42,7 +42,7 @@ Public Class mgrLaunchGame
                     eLaunchType = eLaunchType.UseGameConfig
                     Return True
                 Else
-                    mgrCommon.ShowMessage(mgrLaunchGame_ErrorNoExe, oGame.Name, MsgBoxStyle.Exclamation)
+                    mgrCommon.ShowMessage(mgrLaunchGame_ErrorNoExe, sLaunchPath, MsgBoxStyle.Exclamation)
                     Return False
                 End If
             End If
