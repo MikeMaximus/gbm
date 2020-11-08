@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-08T02:40:30
+        '''  Looks up a localized string similar to 2020-11-08T15:51:40
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3443,6 +3443,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmLauncherManager_btnSave() As String
             Get
                 Return ResourceManager.GetString("frmLauncherManager_btnSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Do you want to re-add the default launchers?[BR][BR]This will not overwrite any existing launchers of the same name..
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_ConfirmAddDefaults() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_ConfirmAddDefaults", resourceCulture)
             End Get
         End Property
         
@@ -7293,6 +7302,60 @@ Namespace My.Resources
         Friend ReadOnly Property mgrCommon_Yes() As String
             Get
                 Return ResourceManager.GetString("mgrCommon_Yes", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Epic Games.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchers_Epic() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchers_Epic", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to com.epicgames.launcher://apps/%ID%?action=launch&amp;silent=true.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchers_EpicURI() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchers_EpicURI", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Steam.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchers_Steam() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchers_Steam", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to steam://rungameid/%ID%.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchers_SteamURI() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchers_SteamURI", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Ubisoft Connect.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchers_Ubisoft() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchers_Ubisoft", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to uplay://launch/%ID%/0.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchers_UbisoftURI() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchers_UbisoftURI", resourceCulture)
             End Get
         End Property
         

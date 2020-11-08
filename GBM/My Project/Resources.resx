@@ -2719,4 +2719,25 @@
   <data name="mgrLaunchGame_ErrorNoExe" xml:space="preserve">
     <value>The game executable could not be found at:[BR][BR][PARAM]</value>
   </data>
+  <data name="frmLauncherManager_ConfirmAddDefaults" xml:space="preserve">
+    <value>Do you want to re-add the default launchers?[BR][BR]This will not overwrite any existing launchers of the same name.</value>
+  </data>
+  <data name="mgrLaunchers_Epic" xml:space="preserve">
+    <value>Epic Games</value>
+  </data>
+  <data name="mgrLaunchers_EpicURI" xml:space="preserve">
+    <value>com.epicgames.launcher://apps/%ID%?action=launch&amp;silent=true</value>
+  </data>
+  <data name="mgrLaunchers_Steam" xml:space="preserve">
+    <value>Steam</value>
+  </data>
+  <data name="mgrLaunchers_SteamURI" xml:space="preserve">
+    <value>steam://rungameid/%ID%</value>
+  </data>
+  <data name="mgrLaunchers_Ubisoft" xml:space="preserve">
+    <value>Ubisoft Connect</value>
+  </data>
+  <data name="mgrLaunchers_UbisoftURI" xml:space="preserve">
+    <value>uplay://launch/%ID%/0</value>
+  </data>
 </root>

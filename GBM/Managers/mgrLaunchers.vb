@@ -1,4 +1,6 @@
-﻿Public Class mgrLaunchers
+﻿Imports GBM.My.Resources
+
+Public Class mgrLaunchers
 
     Private Shared Function MapToObject(ByVal dr As DataRow) As clsLauncher
         Dim oLauncher As New clsLauncher
@@ -143,4 +145,31 @@
 
         Return hshList
     End Function
+
+    Public Shared Sub AddDefaultLaunchers()
+        Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
+        Dim sSQL As String
+        Dim hshParams As Hashtable
+        Dim oParamList As New List(Of Hashtable)
+        Dim oDefaults As New List(Of clsLauncher)
+
+        'Default Launchers
+        oDefaults.Add(New clsLauncher(mgrLaunchers_Steam, mgrLaunchers_SteamURI))
+        oDefaults.Add(New clsLauncher(mgrLaunchers_Ubisoft, mgrLaunchers_UbisoftURI))
+        oDefaults.Add(New clsLauncher(mgrLaunchers_Epic, mgrLaunchers_EpicURI))
+
+        sSQL = "INSERT INTO launchers (LauncherID, Name, LaunchString) VALUES (@LauncherID, @Name, @LaunchString);"
+
+        For Each oLauncher As clsLauncher In oDefaults
+            If Not DoCheckDuplicate(oLauncher.Name) Then
+                hshParams = New Hashtable
+                hshParams.Add("LauncherID", oLauncher.LauncherID)
+                hshParams.Add("Name", oLauncher.Name)
+                hshParams.Add("LaunchString", oLauncher.LaunchString)
+                oParamList.Add(hshParams)
+            End If
+        Next
+
+        oDatabase.RunMassParamQuery(sSQL, oParamList)
+    End Sub
 End Class

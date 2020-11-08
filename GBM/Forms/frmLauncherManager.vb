@@ -318,6 +318,13 @@ Public Class frmLauncherManager
         CancelEdit()
     End Sub
 
+    Private Sub btnAddDefaults_Click(sender As Object, e As EventArgs) Handles btnAddDefaults.Click
+        If mgrCommon.ShowMessage(frmLauncherManager_ConfirmAddDefaults, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            mgrLaunchers.AddDefaultLaunchers()
+            LoadData()
+        End If
+    End Sub
+
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
         Me.Close()
     End Sub

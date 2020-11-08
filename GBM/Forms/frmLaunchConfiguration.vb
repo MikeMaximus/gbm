@@ -142,6 +142,9 @@ Public Class frmLaunchConfiguration
         frm.ShowDialog()
         LoadCombos()
         cboLauncher.SelectedValue = oValue
+        If cboLauncher.SelectedValue Is Nothing Then
+            cboLauncher.SelectedValue = "nolauncher"
+        End If
     End Sub
 
     Private Sub frmAdvancedConfiguration_Load(sender As Object, e As EventArgs) Handles MyBase.Load

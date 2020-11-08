@@ -34,6 +34,7 @@ Partial Class frmLauncherManager
         Me.txtID = New System.Windows.Forms.TextBox()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
+        Me.btnAddDefaults = New System.Windows.Forms.Button()
         Me.grpLauncher.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -46,7 +47,7 @@ Partial Class frmLauncherManager
         Me.grpLauncher.Location = New System.Drawing.Point(198, 12)
         Me.grpLauncher.Name = "grpLauncher"
         Me.grpLauncher.Size = New System.Drawing.Size(374, 78)
-        Me.grpLauncher.TabIndex = 3
+        Me.grpLauncher.TabIndex = 4
         Me.grpLauncher.TabStop = False
         Me.grpLauncher.Text = "Configuration"
         '
@@ -87,7 +88,7 @@ Partial Class frmLauncherManager
         Me.btnClose.Location = New System.Drawing.Point(497, 165)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 6
+        Me.btnClose.TabIndex = 7
         Me.btnClose.Text = "C&lose"
         Me.btnClose.UseVisualStyleBackColor = True
         '
@@ -135,7 +136,7 @@ Partial Class frmLauncherManager
         Me.btnCancel.Location = New System.Drawing.Point(497, 96)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 5
+        Me.btnCancel.TabIndex = 6
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
@@ -144,15 +145,25 @@ Partial Class frmLauncherManager
         Me.btnSave.Location = New System.Drawing.Point(416, 96)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 4
+        Me.btnSave.TabIndex = 5
         Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
+        '
+        'btnAddDefaults
+        '
+        Me.btnAddDefaults.Location = New System.Drawing.Point(84, 165)
+        Me.btnAddDefaults.Name = "btnAddDefaults"
+        Me.btnAddDefaults.Size = New System.Drawing.Size(108, 23)
+        Me.btnAddDefaults.TabIndex = 3
+        Me.btnAddDefaults.Text = "&Add Defaults"
+        Me.btnAddDefaults.UseVisualStyleBackColor = True
         '
         'frmLauncherManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(584, 201)
+        Me.Controls.Add(Me.btnAddDefaults)
         Me.Controls.Add(Me.grpLauncher)
         Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnDelete)
@@ -186,4 +197,5 @@ Partial Class frmLauncherManager
     Friend WithEvents txtID As TextBox
     Friend WithEvents btnCancel As Button
     Friend WithEvents btnSave As Button
+    Friend WithEvents btnAddDefaults As Button
 End Class

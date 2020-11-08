@@ -29,4 +29,13 @@
             Return sLaunchString
         End Get
     End Property
+
+    Sub New()
+        'Empty
+    End Sub
+
+    Sub New(ByVal sName As String, ByVal sLaunchString As String)
+        Name = sName
+        LaunchString = sLaunchString
+    End Sub
 End Class
