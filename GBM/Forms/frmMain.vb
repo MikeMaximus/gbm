@@ -1530,6 +1530,14 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub RemoveLauncherMenu()
+        gMonTrayMenu.Items.RemoveByKey("gMonLaunchSpacer")
+        For i = 0 To 4
+            gMonTrayMenu.Items.RemoveByKey("gMonLaunchGame" & i)
+        Next
+        bModdedTrayMenu = False
+    End Sub
+
     Private Sub HandleLauncherMenu()
         Dim oSpacer As New ToolStripSeparator
         Dim oMenuItem As ToolStripMenuItem
@@ -1537,8 +1545,14 @@ Public Class frmMain
         Dim sName As String
         Dim iMenuOrder As Integer = 0
         Dim oRecentGames As DataSet = mgrSessions.GetLastFiveUniqueSessions()
+        Dim iRecentCount As Integer = oRecentGames.Tables(0).Rows.Count
 
-        If oRecentGames.Tables(0).Rows.Count > 0 And oSettings.EnableLauncher = True Then
+        'If there's less than 5 recently played games, we need to rebuild
+        If iRecentCount <= 5 And bModdedTrayMenu Then
+            RemoveLauncherMenu()
+        End If
+
+        If iRecentCount > 0 And oSettings.EnableLauncher = True Then
             If Not bModdedTrayMenu Then
                 oSpacer.Name = "gMonLaunchSpacer"
                 gMonTrayMenu.Items.Insert(0, oSpacer)
@@ -1567,13 +1581,8 @@ Public Class frmMain
             bModdedTrayMenu = True
         Else
             If bModdedTrayMenu Then
-                gMonTrayMenu.Items.RemoveByKey("gMonLaunchSpacer")
-                For i = 0 To 4
-                    gMonTrayMenu.Items.RemoveByKey("gMonLaunchGame" & i)
-                Next
+                RemoveLauncherMenu()
             End If
-
-            bModdedTrayMenu = False
         End If
     End Sub
 
