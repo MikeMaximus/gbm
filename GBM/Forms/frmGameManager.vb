@@ -718,6 +718,7 @@ Public Class frmGameManager
         Dim frm As New frmGameTags
         Dim oApp As clsGame
         Dim sMonitorIDs As New List(Of String)
+        Dim bSingleSelected As Boolean = False
 
         If eCurrentMode = eModes.Add Then
             'Use a dummy ID
@@ -748,8 +749,10 @@ Public Class frmGameManager
             If lstGames.SelectedItems.Count = 1 Then lblTags.Text = mgrGameTags.PrintTagsbyID(CurrentGame.ID)
 
             'If a tag filter is enabled, reload list to reflect changes
-            If optCustom.Checked Then
+            If optCustom.Checked And Not bIsDirty Then
+                If lstGames.SelectedItems.Count = 1 Then bSingleSelected = True
                 LoadData()
+                If bSingleSelected Then lstGames.SelectedItem = New KeyValuePair(Of String, String)(CurrentGame.ID, CurrentGame.Name)
             End If
 
             'If the selected game(s) no longer match the filter, disable the form

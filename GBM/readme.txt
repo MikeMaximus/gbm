@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.4 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-November 7, 2020
+November 9, 2020
 
 Important Notices:
 
@@ -30,6 +30,8 @@ All Platforms:
 	- Warnings will now be displayed in the log if the process path cannot be determined.
 - Double right-clicking the tray icon no longer triggers "Restore Window"
 - Deleting a custom variable will now properly remove the environment variable in the current session and update any affected game configurations.
+- Editing a configuration while using a Custom filter on the Game Manager will no longer lose the changes if any tags are modified before saving.
+- Modifying tags on a single configuration while using a Custom filter will no longer unselect the configuration.
 
 Windows:
 
