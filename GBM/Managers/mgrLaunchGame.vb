@@ -73,6 +73,8 @@ Public Class mgrLaunchGame
             'If the launch fails due to required elevation, try it again and request elevation.
             If exWin32.ErrorCode = 740 Then
                 RunGameExecutable(sFullPath, sArgs, True)
+            Else
+                mgrCommon.ShowMessage(mgrLaunchGame_ErrorException, exWin32.Message, MsgBoxStyle.Exclamation)
             End If
             Return False
         Catch exAll As Exception
