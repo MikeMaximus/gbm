@@ -49,7 +49,7 @@ Public Class mgrLaunchGame
         End If
     End Function
 
-    Private Shared Function RunGameExecutable(ByVal sFullPath As String, ByVal sArgs As String) As Boolean
+    Private Shared Function RunGameExecutable(ByVal sFullPath As String, ByVal sArgs As String, Optional ByVal bAdmin As Boolean = False) As Boolean
         Dim prsGame As New Process
 
         Try
@@ -57,12 +57,19 @@ Public Class mgrLaunchGame
             prsGame.StartInfo.Arguments = sArgs
             prsGame.StartInfo.FileName = sFullPath
             prsGame.StartInfo.WorkingDirectory = Path.GetDirectoryName(sFullPath)
-            prsGame.StartInfo.UseShellExecute = False
+            prsGame.StartInfo.UseShellExecute = True
             prsGame.StartInfo.CreateNoWindow = True
+            If bAdmin Then prsGame.StartInfo.Verb = "runas"
             prsGame.Start()
             Return True
-        Catch ex As Exception
-            mgrCommon.ShowMessage(mgrLaunchGame_ErrorException, ex.Message, MsgBoxStyle.Exclamation)
+        Catch exWin32 As System.ComponentModel.Win32Exception
+            'If the launch fails due to required elevation, try it again and request elevation.
+            If exWin32.ErrorCode = 740 Then
+                RunGameExecutable(sFullPath, sArgs, True)
+            End If
+            Return False
+        Catch exAll As Exception
+            mgrCommon.ShowMessage(mgrLaunchGame_ErrorException, exAll.Message, MsgBoxStyle.Exclamation)
             Return False
         End Try
     End Function
