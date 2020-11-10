@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-08T15:51:40
+        '''  Looks up a localized string similar to 2020-11-10T13:50:15
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -7410,6 +7410,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrLaunchGame_ErrorNoProcessPath() As String
             Get
                 Return ResourceManager.GetString("mgrLaunchGame_ErrorNoProcessPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to GBM is running as Administrator.[BR][BR]Are you sure you want to launch [PARAM] as Administrator?.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchGame_WarningLaunchElevation() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchGame_WarningLaunchElevation", resourceCulture)
             End Get
         End Property
         

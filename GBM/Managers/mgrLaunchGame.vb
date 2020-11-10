@@ -52,6 +52,13 @@ Public Class mgrLaunchGame
     Private Shared Function RunGameExecutable(ByVal sFullPath As String, ByVal sArgs As String, Optional ByVal bAdmin As Boolean = False) As Boolean
         Dim prsGame As New Process
 
+        'Give a warning when elevated
+        If mgrCommon.IsElevated Then
+            If mgrCommon.ShowPriorityMessage(mgrLaunchGame_WarningLaunchElevation, sFullPath, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                Return False
+            End If
+        End If
+
         Try
             prsGame = New Process
             prsGame.StartInfo.Arguments = sArgs

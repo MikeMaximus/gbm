@@ -2740,4 +2740,7 @@
   <data name="mgrLaunchers_UbisoftURI" xml:space="preserve">
     <value>uplay://launch/%ID%/0</value>
   </data>
+  <data name="mgrLaunchGame_WarningLaunchElevation" xml:space="preserve">
+    <value>GBM is running as Administrator.[BR][BR]Are you sure you want to launch [PARAM] as Administrator?</value>
+  </data>
 </root>
