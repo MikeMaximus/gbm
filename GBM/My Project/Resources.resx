@@ -2743,4 +2743,10 @@
   <data name="mgrLaunchGame_WarningLaunchElevation" xml:space="preserve">
     <value>GBM is running as Administrator.[BR][BR]Are you sure you want to launch [PARAM] as Administrator?</value>
   </data>
+  <data name="frmMain_gMonSetupLauncherManager" xml:space="preserve">
+    <value>&amp;Launcher Manager...</value>
+  </data>
+  <data name="frmMain_gMonTraySetupLauncherManager" xml:space="preserve">
+    <value>&amp;Launcher Manager...</value>
+  </data>
 </root>

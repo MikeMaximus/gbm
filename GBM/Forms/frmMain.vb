@@ -1118,6 +1118,13 @@ Public Class frmMain
         ResumeScan()
     End Sub
 
+    Private Sub OpenLauncherManager()
+        Dim frm As New frmLauncherManager
+        PauseScan()
+        frm.ShowDialog()
+        ResumeScan()
+    End Sub
+
     Private Sub OpenGameManager(Optional ByVal bPendingRestores As Boolean = False)
         Dim frm As New frmGameManager
         PauseScan()
@@ -1164,6 +1171,7 @@ Public Class frmMain
             mgrPath.RemoteDatabaseLocation = oSettings.BackupFolder
             SetupSyncWatcher()
             LoadGameSettings()
+            HandleMenuFeatures()
             HandleLauncherMenu()
         End If
         ResumeScan()
@@ -1367,7 +1375,10 @@ Public Class frmMain
         'Load Game Settings
         LoadGameSettings()
 
-        'Build Launcher Menu
+        'Enable or disable menu options based on feature settings
+        HandleMenuFeatures()
+
+        'Handle the launcher menu 
         HandleLauncherMenu()
 
         'Verify the "Start with Windows" setting
@@ -1585,6 +1596,28 @@ Public Class frmMain
             End If
         End If
     End Sub
+
+    Private Sub HandleMenuFeatures()
+        'Sessions
+        If oSettings.SessionTracking Then
+            gMonToolsSessions.Visible = True
+            gMonTrayToolsSessions.Visible = True
+        Else
+            gMonToolsSessions.Visible = False
+            gMonTrayToolsSessions.Visible = False
+        End If
+
+        'Launcher Manager
+        If oSettings.EnableLauncher Then
+            gMonSetupLauncherManager.Visible = True
+            gMonTraySetupLauncherManager.Visible = True
+        Else
+            gMonSetupLauncherManager.Visible = False
+            gMonTraySetupLauncherManager.Visible = False
+        End If
+
+    End Sub
+
 
     Private Sub ToggleMenuItems(ByVal bEnable As Boolean, ByVal oDropDownItems As ToolStripMenuItem, Optional ByVal sExempt() As String = Nothing)
         If sExempt Is Nothing Then sExempt = {}
@@ -1834,6 +1867,7 @@ Public Class frmMain
         gMonSetupAddWizard.Text = frmMain_gMonSetupAddWizard
         gMonSetupCustomVariables.Text = frmMain_gMonSetupCustomVariables
         gMonSetupTags.Text = frmMain_gMonSetupTags
+        gMonSetupLauncherManager.Text = frmMain_gMonSetupLauncherManager
         gMonSetupProcessManager.Text = frmMain_gMonSetupProcessManager
         gMonTools.Text = frmMain_gMonTools
         gMonToolsImportBackup.Text = frmMain_gMonToolsImportBackup
@@ -1864,6 +1898,7 @@ Public Class frmMain
         gMonTraySetupAddWizard.Text = frmMain_gMonSetupAddWizard
         gMonTraySetupCustomVariables.Text = frmMain_gMonSetupCustomVariables
         gMonTraySetupTags.Text = frmMain_gMonSetupTags
+        gMonTraySetupLauncherManager.Text = frmMain_gMonTraySetupLauncherManager
         gMonTraySetupProcessManager.Text = frmMain_gMonSetupProcessManager
         gMonTrayTools.Text = frmMain_gMonTools
         gMonTrayToolsImportBackup.Text = frmMain_gMonTrayToolsImportBackup
@@ -2287,6 +2322,10 @@ Public Class frmMain
 
     Private Sub gMonSetupTags_Click(sender As Object, e As EventArgs) Handles gMonSetupTags.Click, gMonTraySetupTags.Click
         OpenTags()
+    End Sub
+
+    Private Sub gMonSetupLauncherManager_Click(sender As Object, e As EventArgs) Handles gMonSetupLauncherManager.Click, gMonTraySetupLauncherManager.Click
+        OpenLauncherManager()
     End Sub
 
     Private Sub gMonSetupProcessManager_Click(sender As Object, e As EventArgs) Handles gMonSetupProcessManager.Click, gMonTraySetupProcessManager.Click

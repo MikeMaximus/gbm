@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-10T13:50:15
+        '''  Looks up a localized string similar to 2020-11-10T14:25:13
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4248,6 +4248,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Launcher Manager....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonSetupLauncherManager() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonSetupLauncherManager", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Process Manager....
         '''</summary>
         Friend ReadOnly Property frmMain_gMonSetupProcessManager() As String
@@ -4388,6 +4397,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_gMonTrayFullRestore() As String
             Get
                 Return ResourceManager.GetString("frmMain_gMonTrayFullRestore", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Launcher Manager....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonTraySetupLauncherManager() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonTraySetupLauncherManager", resourceCulture)
             End Get
         End Property
         
