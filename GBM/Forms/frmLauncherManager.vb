@@ -261,6 +261,11 @@ Public Class frmLauncherManager
             txtLaunchString.Focus()
             Return False
         Else
+            If Not mgrCommon.IsURI(txtLaunchString.Text) Then
+                mgrCommon.ShowMessage(frmLauncherManager_ErrorInvalidURI, MsgBoxStyle.Exclamation)
+                txtLaunchString.Focus()
+                Return False
+            End If
             If Not txtLaunchString.Text.Contains("%ID%") Then
                 mgrCommon.ShowMessage(frmLauncherManager_WarningMissingVariable, MsgBoxStyle.Information)
             End If

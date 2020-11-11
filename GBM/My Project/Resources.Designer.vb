@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-11T17:44:10
+        '''  Looks up a localized string similar to 2020-11-11T20:29:34
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3470,6 +3470,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmLauncherManager_ErrorDupe() As String
             Get
                 Return ResourceManager.GetString("frmLauncherManager_ErrorDupe", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The launch command must be a valid URI..
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_ErrorInvalidURI() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_ErrorInvalidURI", resourceCulture)
             End Get
         End Property
         

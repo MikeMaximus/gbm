@@ -2749,4 +2749,7 @@
   <data name="frmMain_gMonTraySetupLauncherManager" xml:space="preserve">
     <value>&amp;Launcher Manager...</value>
   </data>
+  <data name="frmLauncherManager_ErrorInvalidURI" xml:space="preserve">
+    <value>The launch command must be a valid URI.</value>
+  </data>
 </root>

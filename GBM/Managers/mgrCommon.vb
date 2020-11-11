@@ -59,6 +59,13 @@ Public Class mgrCommon
         Return oReturnImage
     End Function
 
+    Public Shared Function IsURI(ByVal sURI As String) As Boolean
+        If (sURI.IndexOf("://", 1, StringComparison.CurrentCultureIgnoreCase) > -1) Or (sURI.IndexOf("://", 1, StringComparison.CurrentCultureIgnoreCase) > -1) Then
+            Return True
+        End If
+        Return False
+    End Function
+
     Public Shared Function IsAddress(ByVal sURL As String) As Boolean
         If (sURL.IndexOf("http://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Or (sURL.IndexOf("https://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Then
             Return True
