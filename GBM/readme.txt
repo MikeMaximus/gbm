@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.4 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-November 9, 2020
+November 11, 2020
 
 Important Notices:
 
@@ -21,9 +21,9 @@ All Platforms:
 - Added the ability to customize game launch options.
 	- Added "Launch Settings..." to Game Manager		
 		- Allows the configuration of another launcher (Steam, uPlay, EGS) to start the game instead of directly using an executable.
-			- You can manage available launchers using the "Manage Launchers..." button on this window.  Popular launchers will be preconfigured.			
-		- Allows the use of a custom executable, instead of using the process from the game configuration.
-		- Allows setting launch arguments
+			- You can manage available launchers using the Launcher Manager.  Some popular launchers will be preconfigured.			
+		- Allows the use of an alternate executable, instead of using the process field from the game configuration.
+		- Allows setting alternate launch arguments, instead of using the parameter field from the game configuration.
 			- Arguments only apply to game executables directly launched with GBM.
 			- Arguments do NOT apply to games configured to use another launcher (Steam, EGS, etc).  You must set the arguments each game in those launchers instead.
 - The process path is now always detected and saved (when possible) after a game has been detected.
@@ -32,6 +32,7 @@ All Platforms:
 - Deleting a custom variable will now properly remove the environment variable in the current session and update any affected game configurations.
 - Editing a configuration while using a Custom filter on the Game Manager will no longer lose the changes if any tags are modified before saving.
 - Modifying tags on a single configuration while using a Custom filter will no longer unselect the configuration.
+- Disabled features will now have their options removed from any menus.  This currently only applies to session tracking and game launching.
 
 Windows:
 

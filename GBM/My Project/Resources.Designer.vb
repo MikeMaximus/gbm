@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-10T14:25:13
+        '''  Looks up a localized string similar to 2020-11-11T17:44:10
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3285,7 +3285,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Manage Launchers....
+        '''  Looks up a localized string similar to &amp;Launcher Manager....
         '''</summary>
         Friend ReadOnly Property frmLaunchConfiguration_btnOpenLaunchers() As String
             Get

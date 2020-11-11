@@ -2645,7 +2645,7 @@
     <value>&amp;Cancel</value>
   </data>
   <data name="frmLaunchConfiguration_btnOpenLaunchers" xml:space="preserve">
-    <value>&amp;Manage Launchers...</value>
+    <value>&amp;Launcher Manager...</value>
   </data>
   <data name="frmLaunchConfiguration_btnSave" xml:space="preserve">
     <value>&amp;Save</value>

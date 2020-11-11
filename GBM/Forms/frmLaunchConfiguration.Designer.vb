@@ -115,7 +115,7 @@ Partial Class frmLaunchConfiguration
         Me.btnOpenLaunchers.Name = "btnOpenLaunchers"
         Me.btnOpenLaunchers.Size = New System.Drawing.Size(129, 23)
         Me.btnOpenLaunchers.TabIndex = 1
-        Me.btnOpenLaunchers.Text = "&Manage Launchers..."
+        Me.btnOpenLaunchers.Text = "&Launcher Manager..."
         Me.btnOpenLaunchers.UseVisualStyleBackColor = True
         '
         'cboLauncher
