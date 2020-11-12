@@ -36,8 +36,11 @@ Partial Class frmLaunchConfiguration
         Me.lblLauncher = New System.Windows.Forms.Label()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
+        Me.grpCommand = New System.Windows.Forms.GroupBox()
+        Me.txtCommand = New System.Windows.Forms.TextBox()
         Me.grpOtherConfig.SuspendLayout()
         Me.grpStoreLauncher.SuspendLayout()
+        Me.grpCommand.SuspendLayout()
         Me.SuspendLayout()
         '
         'grpOtherConfig
@@ -49,10 +52,10 @@ Partial Class frmLaunchConfiguration
         Me.grpOtherConfig.Controls.Add(Me.lblExe)
         Me.grpOtherConfig.Location = New System.Drawing.Point(12, 99)
         Me.grpOtherConfig.Name = "grpOtherConfig"
-        Me.grpOtherConfig.Size = New System.Drawing.Size(460, 82)
+        Me.grpOtherConfig.Size = New System.Drawing.Size(465, 82)
         Me.grpOtherConfig.TabIndex = 1
         Me.grpOtherConfig.TabStop = False
-        Me.grpOtherConfig.Text = "Other Configuration"
+        Me.grpOtherConfig.Text = "Alternate Configuration"
         '
         'btnBrowse
         '
@@ -82,18 +85,18 @@ Partial Class frmLaunchConfiguration
         Me.lblArguments.AutoSize = True
         Me.lblArguments.Location = New System.Drawing.Point(6, 52)
         Me.lblArguments.Name = "lblArguments"
-        Me.lblArguments.Size = New System.Drawing.Size(60, 13)
+        Me.lblArguments.Size = New System.Drawing.Size(63, 13)
         Me.lblArguments.TabIndex = 0
-        Me.lblArguments.Text = "Arguments:"
+        Me.lblArguments.Text = "Parameters:"
         '
         'lblExe
         '
         Me.lblExe.AutoSize = True
         Me.lblExe.Location = New System.Drawing.Point(6, 26)
         Me.lblExe.Name = "lblExe"
-        Me.lblExe.Size = New System.Drawing.Size(72, 13)
+        Me.lblExe.Size = New System.Drawing.Size(63, 13)
         Me.lblExe.TabIndex = 0
-        Me.lblExe.Text = "Alternate exe:"
+        Me.lblExe.Text = "Executable:"
         '
         'grpStoreLauncher
         '
@@ -104,7 +107,7 @@ Partial Class frmLaunchConfiguration
         Me.grpStoreLauncher.Controls.Add(Me.lblLauncher)
         Me.grpStoreLauncher.Location = New System.Drawing.Point(12, 12)
         Me.grpStoreLauncher.Name = "grpStoreLauncher"
-        Me.grpStoreLauncher.Size = New System.Drawing.Size(460, 81)
+        Me.grpStoreLauncher.Size = New System.Drawing.Size(465, 81)
         Me.grpStoreLauncher.TabIndex = 0
         Me.grpStoreLauncher.TabStop = False
         Me.grpStoreLauncher.Text = "Store Launcher Configuration"
@@ -154,27 +157,47 @@ Partial Class frmLaunchConfiguration
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(397, 187)
+        Me.btnCancel.Location = New System.Drawing.Point(402, 281)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 2
+        Me.btnCancel.TabIndex = 4
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(316, 187)
+        Me.btnSave.Location = New System.Drawing.Point(321, 281)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 1
+        Me.btnSave.TabIndex = 3
         Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
+        '
+        'grpCommand
+        '
+        Me.grpCommand.Controls.Add(Me.txtCommand)
+        Me.grpCommand.Location = New System.Drawing.Point(12, 187)
+        Me.grpCommand.Name = "grpCommand"
+        Me.grpCommand.Size = New System.Drawing.Size(465, 88)
+        Me.grpCommand.TabIndex = 2
+        Me.grpCommand.TabStop = False
+        Me.grpCommand.Text = "Current Launch Command"
+        '
+        'txtCommand
+        '
+        Me.txtCommand.Location = New System.Drawing.Point(6, 19)
+        Me.txtCommand.Multiline = True
+        Me.txtCommand.Name = "txtCommand"
+        Me.txtCommand.ReadOnly = True
+        Me.txtCommand.Size = New System.Drawing.Size(453, 60)
+        Me.txtCommand.TabIndex = 0
         '
         'frmLaunchConfiguration
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(488, 223)
+        Me.ClientSize = New System.Drawing.Size(489, 311)
+        Me.Controls.Add(Me.grpCommand)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.grpStoreLauncher)
@@ -191,6 +214,8 @@ Partial Class frmLaunchConfiguration
         Me.grpOtherConfig.PerformLayout()
         Me.grpStoreLauncher.ResumeLayout(False)
         Me.grpStoreLauncher.PerformLayout()
+        Me.grpCommand.ResumeLayout(False)
+        Me.grpCommand.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -209,4 +234,6 @@ Partial Class frmLaunchConfiguration
     Friend WithEvents btnSave As Button
     Friend WithEvents btnOpenLaunchers As Button
     Friend WithEvents btnBrowse As Button
+    Friend WithEvents grpCommand As GroupBox
+    Friend WithEvents txtCommand As TextBox
 End Class

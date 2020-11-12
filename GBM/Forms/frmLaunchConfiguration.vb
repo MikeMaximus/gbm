@@ -2,30 +2,23 @@
 Imports System.IO
 
 Public Class frmLaunchConfiguration
-    Private sGameName As String
-    Private sMonitorID As String
+    Private oGame As clsGame
+    Private bIsDirty As Boolean = False
+    Private bIsLoading As Boolean = False
+    Private WithEvents tmUpdateTimer As Timer
 
-    Property GameName As String
+    Property Game As clsGame
         Get
-            Return sGameName
+            Return oGame
         End Get
-        Set(value As String)
-            sGameName = value
-        End Set
-    End Property
-
-    Property MonitorID As String
-        Get
-            Return sMonitorID
-        End Get
-        Set(value As String)
-            sMonitorID = value
+        Set(value As clsGame)
+            oGame = value
         End Set
     End Property
 
     Private Sub SetForm()
         'Set Form Name
-        Me.Text = mgrCommon.FormatString(frmLaunchConfiguration_FormName, GameName)
+        Me.Text = mgrCommon.FormatString(frmLaunchConfiguration_FormName, oGame.CroppedName)
         Me.Icon = GBM_Icon
 
         'Set Form Text
@@ -36,8 +29,14 @@ Public Class frmLaunchConfiguration
         grpOtherConfig.Text = frmLaunchConfiguration_grpOtherConfig
         lblExe.Text = frmLaunchConfiguration_lblExe
         lblArguments.Text = frmLaunchConfiguration_lblArguments
+        grpCommand.Text = frmLaunchConfiguration_grpCommand
         btnSave.Text = frmLaunchConfiguration_btnSave
         btnCancel.Text = frmLaunchConfiguration_btnCancel
+
+        'Init Command Update Timer
+        tmUpdateTimer = New Timer()
+        tmUpdateTimer.Interval = 1000
+        tmUpdateTimer.Enabled = False
     End Sub
 
     Private Sub LoadCombos()
@@ -60,9 +59,43 @@ Public Class frmLaunchConfiguration
         cboLauncher.DataSource = oComboItems
     End Sub
 
+    Private Function HandleDirty() As MsgBoxResult
+        Dim oResult As MsgBoxResult
+
+        oResult = mgrCommon.ShowMessage(App_ConfirmDirty, MsgBoxStyle.YesNoCancel)
+
+        Select Case oResult
+            Case MsgBoxResult.Yes
+                bIsDirty = False
+            Case MsgBoxResult.No
+                bIsDirty = False
+            Case MsgBoxResult.Cancel
+                'No Change
+        End Select
+
+        Return oResult
+    End Function
+
+    Private Sub DirtyCheck_ValueChanged(sender As Object, e As EventArgs)
+        If Not bIsLoading Then
+            bIsDirty = True
+        End If
+    End Sub
+
+    Private Sub AssignDirtyHandlers(ByVal oCtls As GroupBox.ControlCollection)
+        For Each ctl As Control In oCtls
+            If TypeOf ctl Is TextBox Then
+                AddHandler DirectCast(ctl, TextBox).TextChanged, AddressOf DirtyCheck_ValueChanged
+            ElseIf TypeOf ctl Is ComboBox Then
+                AddHandler DirectCast(ctl, ComboBox).SelectedIndexChanged, AddressOf DirtyCheck_ValueChanged
+            End If
+        Next
+    End Sub
+
     Private Sub LoadData()
         Dim oLaunchData As New clsLaunchData
-        oLaunchData = mgrLaunchData.DoLaunchDataGetbyID(sMonitorID)
+        bIsLoading = True
+        oLaunchData = mgrLaunchData.DoLaunchDataGetbyID(oGame.ID)
         LoadCombos()
         If oLaunchData.LauncherID = String.Empty Then
             cboLauncher.SelectedValue = "nolauncher"
@@ -72,6 +105,30 @@ Public Class frmLaunchConfiguration
         txtGameID.Text = oLaunchData.LauncherGameID
         txtExePath.Text = oLaunchData.Path
         txtArguments.Text = oLaunchData.Args
+        bIsLoading = False
+    End Sub
+
+    Private Sub UpdateLaunchCommand()
+        Dim oLaunchData As New clsLaunchData
+        Dim eLaunchType As mgrLaunchGame.eLaunchType
+        Dim sErrorMessage As String = String.Empty
+
+        'Build a object based on current values
+        oLaunchData.MonitorID = oGame.ID
+        If cboLauncher.SelectedValue = "nolauncher" Then
+            oLaunchData.LauncherID = String.Empty
+        Else
+            oLaunchData.LauncherID = cboLauncher.SelectedValue
+        End If
+        oLaunchData.LauncherGameID = txtGameID.Text
+        oLaunchData.Path = txtExePath.Text
+        oLaunchData.Args = txtArguments.Text
+
+        If mgrLaunchGame.CanLaunchGame(oGame, oLaunchData, eLaunchType, sErrorMessage) Then
+            txtCommand.Text = mgrLaunchGame.GetLaunchCommand(oGame, oLaunchData, eLaunchType)
+        Else
+            txtCommand.Text = sErrorMessage
+        End If
     End Sub
 
     Private Function ValidateData() As Boolean
@@ -94,12 +151,12 @@ Public Class frmLaunchConfiguration
     Private Sub SaveData()
         Dim oLaunchData As clsLaunchData
         If cboLauncher.SelectedValue = "nolauncher" And txtGameID.Text = String.Empty And txtExePath.Text = String.Empty And txtArguments.Text = String.Empty Then
-            mgrLaunchData.DoLaunchDataDelete(sMonitorID)
+            mgrLaunchData.DoLaunchDataDelete(oGame.ID)
             Me.DialogResult = DialogResult.OK
         Else
             If ValidateData() Then
                 oLaunchData = New clsLaunchData
-                oLaunchData.MonitorID = sMonitorID
+                oLaunchData.MonitorID = oGame.ID
                 If cboLauncher.SelectedValue = "nolauncher" Then
                     oLaunchData.LauncherID = String.Empty
                 Else
@@ -112,7 +169,7 @@ Public Class frmLaunchConfiguration
                 Me.DialogResult = DialogResult.OK
             End If
         End If
-
+        bIsDirty = False
     End Sub
 
     Private Sub ExeBrowse()
@@ -150,6 +207,9 @@ Public Class frmLaunchConfiguration
     Private Sub frmAdvancedConfiguration_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetForm()
         LoadData()
+        AssignDirtyHandlers(grpStoreLauncher.Controls)
+        AssignDirtyHandlers(grpOtherConfig.Controls)
+        UpdateLaunchCommand()
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
@@ -166,5 +226,31 @@ Public Class frmLaunchConfiguration
 
     Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowse.Click
         ExeBrowse()
+    End Sub
+
+    Private Sub tmUpdateTimer_Tick(sender As Object, ByVal e As EventArgs) Handles tmUpdateTimer.Tick
+        tmUpdateTimer.Stop()
+        tmUpdateTimer.Enabled = False
+        UpdateLaunchCommand()
+    End Sub
+
+    Private Sub Command_Change(sender As Object, e As EventArgs) Handles cboLauncher.SelectedIndexChanged, txtGameID.TextChanged, txtExePath.TextChanged, txtArguments.TextChanged
+        If Not tmUpdateTimer.Enabled Then
+            tmUpdateTimer.Enabled = True
+            tmUpdateTimer.Start()
+        End If
+    End Sub
+
+    Private Sub frmLaunchConfiguration_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If bIsDirty Then
+            Select Case HandleDirty()
+                Case MsgBoxResult.Yes
+                    SaveData()
+                Case MsgBoxResult.No
+                    'Do Nothing
+                Case MsgBoxResult.Cancel
+                    e.Cancel = True
+            End Select
+        End If
     End Sub
 End Class

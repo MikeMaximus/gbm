@@ -2594,7 +2594,7 @@
     <value>Detect Saved Games</value>
   </data>
   <data name="frmSettings_chkEnableLauncher" xml:space="preserve">
-    <value>Enable launching games</value>
+    <value>Enable game launching</value>
   </data>
   <data name="frmGameManager_btnLaunchOptions" xml:space="preserve">
     <value>&amp;Launch Options</value>
@@ -2654,7 +2654,7 @@
     <value>The executable cannot be found.</value>
   </data>
   <data name="frmLaunchConfiguration_ErrorNoGameID" xml:space="preserve">
-    <value>A Game ID is required when using a store launcher.</value>
+    <value>A game ID is required when using a store launcher.</value>
   </data>
   <data name="frmLaunchConfiguration_Executable" xml:space="preserve">
     <value>Executable</value>
@@ -2663,16 +2663,16 @@
     <value>Launch Configuration for [PARAM]</value>
   </data>
   <data name="frmLaunchConfiguration_grpOtherConfig" xml:space="preserve">
-    <value>Other Configuration</value>
+    <value>Alternate Configuration</value>
   </data>
   <data name="frmLaunchConfiguration_grpStoreLauncher" xml:space="preserve">
     <value>Store Launcher Configuration</value>
   </data>
   <data name="frmLaunchConfiguration_lblArguments" xml:space="preserve">
-    <value>Arguments:</value>
+    <value>Parameters:</value>
   </data>
   <data name="frmLaunchConfiguration_lblExe" xml:space="preserve">
-    <value>Alternate exe:</value>
+    <value>Executable:</value>
   </data>
   <data name="frmLaunchConfiguration_lblGameID" xml:space="preserve">
     <value>Game ID:</value>
@@ -2751,5 +2751,8 @@
   </data>
   <data name="frmLauncherManager_ErrorInvalidURI" xml:space="preserve">
     <value>The launch command must be a valid URI.</value>
+  </data>
+  <data name="frmLaunchConfiguration_grpCommand" xml:space="preserve">
+    <value>Current Launch Command</value>
   </data>
 </root>

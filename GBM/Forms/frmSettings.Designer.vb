@@ -566,9 +566,9 @@ Partial Class frmSettings
         Me.chkEnableLauncher.AutoSize = True
         Me.chkEnableLauncher.Location = New System.Drawing.Point(28, 65)
         Me.chkEnableLauncher.Name = "chkEnableLauncher"
-        Me.chkEnableLauncher.Size = New System.Drawing.Size(142, 17)
+        Me.chkEnableLauncher.Size = New System.Drawing.Size(137, 17)
         Me.chkEnableLauncher.TabIndex = 2
-        Me.chkEnableLauncher.Text = "Enable launching games"
+        Me.chkEnableLauncher.Text = "Enable game launching"
         Me.chkEnableLauncher.UseVisualStyleBackColor = True
         '
         'chkShowResolvedPaths

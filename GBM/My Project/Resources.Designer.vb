@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-11T20:29:34
+        '''  Looks up a localized string similar to 2020-11-12T15:24:14
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3312,7 +3312,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to A Game ID is required when using a store launcher..
+        '''  Looks up a localized string similar to A game ID is required when using a store launcher..
         '''</summary>
         Friend ReadOnly Property frmLaunchConfiguration_ErrorNoGameID() As String
             Get
@@ -3339,7 +3339,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Other Configuration.
+        '''  Looks up a localized string similar to Current Launch Command.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_grpCommand() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_grpCommand", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Alternate Configuration.
         '''</summary>
         Friend ReadOnly Property frmLaunchConfiguration_grpOtherConfig() As String
             Get
@@ -3357,7 +3366,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Arguments:.
+        '''  Looks up a localized string similar to Parameters:.
         '''</summary>
         Friend ReadOnly Property frmLaunchConfiguration_lblArguments() As String
             Get
@@ -3366,7 +3375,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Alternate exe:.
+        '''  Looks up a localized string similar to Executable:.
         '''</summary>
         Friend ReadOnly Property frmLaunchConfiguration_lblExe() As String
             Get
@@ -5544,7 +5553,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enable launching games.
+        '''  Looks up a localized string similar to Enable game launching.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkEnableLauncher() As String
             Get

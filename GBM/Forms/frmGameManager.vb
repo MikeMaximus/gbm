@@ -810,8 +810,7 @@ Public Class frmGameManager
 
     Private Sub OpenLauncherConfig()
         Dim frm As New frmLaunchConfiguration
-        frm.MonitorID = oCurrentGame.ID
-        frm.GameName = oCurrentGame.CroppedName
+        frm.Game = oCurrentGame
         frm.ShowDialog()
     End Sub
 
@@ -1724,10 +1723,14 @@ Public Class frmGameManager
     End Sub
 
     Private Sub TriggerSelectedGameLaunch()
+        Dim oLaunchData As clsLaunchData = mgrLaunchData.DoLaunchDataGetbyID(oCurrentGame.ID)
         Dim eLaunchType As mgrLaunchGame.eLaunchType
-        If mgrLaunchGame.CanLaunchGame(oCurrentGame, eLaunchType) Then
+        Dim sErrorMessage As String = String.Empty
+        If mgrLaunchGame.CanLaunchGame(oCurrentGame, oLaunchData, eLaunchType, sErrorMessage) Then
             Me.TriggerLaunch = True
             Me.Close()
+        Else
+            mgrCommon.ShowMessage(sErrorMessage, MsgBoxStyle.Exclamation)
         End If
     End Sub
 

@@ -1521,13 +1521,17 @@ Public Class frmMain
     End Sub
 
     Private Sub LaunchGame(ByVal oGame As clsGame)
+        Dim oLaunchData As clsLaunchData = mgrLaunchData.DoLaunchDataGetbyID(oGame.ID)
         Dim eLaunchType As mgrLaunchGame.eLaunchType
+        Dim sErrorMessage As String = String.Empty
         Dim sMessage As String = String.Empty
 
-        If mgrLaunchGame.CanLaunchGame(oGame, eLaunchType) Then
-            If mgrLaunchGame.LaunchGame(oGame, eLaunchType, sMessage) Then
+        If mgrLaunchGame.CanLaunchGame(oGame, oLaunchData, eLaunchType, sErrorMessage) Then
+            If mgrLaunchGame.LaunchGame(oGame, oLaunchData, eLaunchType, sMessage) Then
                 UpdateLog(sMessage, False, ToolTipIcon.Info, True)
             End If
+        Else
+            mgrCommon.ShowMessage(sErrorMessage, MsgBoxStyle.Exclamation)
         End If
     End Sub
 

@@ -9,8 +9,7 @@ Public Class mgrLaunchGame
         UseGameConfig = 3
     End Enum
 
-    Public Shared Function CanLaunchGame(ByVal oGame As clsGame, ByRef eLaunchType As eLaunchType) As Boolean
-        Dim oLaunchData As clsLaunchData = mgrLaunchData.DoLaunchDataGetbyID(oGame.ID)
+    Public Shared Function CanLaunchGame(ByVal oGame As clsGame, ByVal oLaunchData As clsLaunchData, ByRef eLaunchType As eLaunchType, ByRef sErrorMessage As String) As Boolean
         Dim sLaunchPath As String
 
         If oLaunchData.LauncherID <> String.Empty Then
@@ -26,13 +25,13 @@ Public Class mgrLaunchGame
             If mgrCommon.IsProcessNotLaunchable(oGame) Then
                 'Give the user a specific error message
                 If oGame.ProcessName = String.Empty Then
-                    mgrCommon.ShowMessage(mgrLaunchGame_ErrorNoProcess, oGame.Name, MsgBoxStyle.Exclamation)
+                    sErrorMessage = mgrCommon.FormatString(mgrLaunchGame_ErrorNoProcess, oGame.CroppedName)
                 ElseIf oGame.ProcessPath = String.Empty Then
-                    mgrCommon.ShowMessage(mgrLaunchGame_ErrorNoProcessPath, oGame.Name, MsgBoxStyle.Exclamation)
+                    sErrorMessage = mgrCommon.FormatString(mgrLaunchGame_ErrorNoProcessPath, oGame.CroppedName)
                 ElseIf oGame.IsRegEx Then
-                    mgrCommon.ShowMessage(mgrLaunchGame_ErrorIsRegex, oGame.Name, MsgBoxStyle.Exclamation)
+                    sErrorMessage = mgrCommon.FormatString(mgrLaunchGame_ErrorIsRegex, oGame.CroppedName)
                 Else
-                    mgrCommon.ShowMessage(mgrLaunchGame_ErrorIsBlacklisted, oGame.Name, MsgBoxStyle.Exclamation)
+                    sErrorMessage = mgrCommon.FormatString(mgrLaunchGame_ErrorIsBlacklisted, oGame.CroppedName)
                 End If
                 Return False
             Else
@@ -42,7 +41,7 @@ Public Class mgrLaunchGame
                     eLaunchType = eLaunchType.UseGameConfig
                     Return True
                 Else
-                    mgrCommon.ShowMessage(mgrLaunchGame_ErrorNoExe, sLaunchPath, MsgBoxStyle.Exclamation)
+                    sErrorMessage = mgrCommon.FormatString(mgrLaunchGame_ErrorNoExe, sLaunchPath)
                     Return False
                 End If
             End If
@@ -83,12 +82,34 @@ Public Class mgrLaunchGame
         End Try
     End Function
 
-    Public Shared Function LaunchGame(ByVal oGame As clsGame, ByVal eLaunchType As eLaunchType, ByRef sMessage As String) As Boolean
-        Dim oLaunchData As clsLaunchData = mgrLaunchData.DoLaunchDataGetbyID(oGame.ID)
+    Private Shared Function GetLaunchParameters(ByVal oGame As clsGame, ByVal oLaunchData As clsLaunchData) As String
+        Dim sLaunchArgs As String
+
+        If oLaunchData.Args <> String.Empty Then
+            sLaunchArgs = oLaunchData.Args
+        ElseIf oGame.Parameter <> String.Empty Then
+            sLaunchArgs = oGame.Parameter
+        Else
+            sLaunchArgs = String.Empty
+        End If
+
+        Return sLaunchArgs
+    End Function
+
+    Private Shared Function BuildLaunchPathFromGame(ByVal oGame As clsGame) As String
+        Dim sLaunchPath As String
+
+        sLaunchPath = oGame.ProcessPath.TrimEnd(Path.DirectorySeparatorChar) & Path.DirectorySeparatorChar & oGame.ProcessName
+        If Not mgrCommon.IsUnix Then sLaunchPath &= ".exe"
+
+        Return sLaunchPath
+    End Function
+
+    Public Shared Function LaunchGame(ByVal oGame As clsGame, ByVal oLaunchData As clsLaunchData, ByVal eLaunchType As eLaunchType, ByRef sMessage As String) As Boolean
         Dim oLauncher As clsLauncher
         Dim sLaunchCommand As String
         Dim sLaunchPath As String
-        Dim sLaunchArgs As String
+        Dim sLaunchArgs As String = GetLaunchParameters(oGame, oLaunchData)
 
         Select Case eLaunchType
             Case eLaunchType.ExternalLauncher
@@ -103,20 +124,12 @@ Public Class mgrLaunchGame
                 sMessage = mgrCommon.FormatString(frmMain_LaunchGame, New String() {oGame.Name, oLauncher.Name})
                 Return True
             Case eLaunchType.AlternateExe
-                If RunGameExecutable(oLaunchData.Path, oLaunchData.Args) Then
+                If RunGameExecutable(oLaunchData.Path, sLaunchArgs) Then
                     sMessage = mgrCommon.FormatString(frmMain_LaunchGame, New String() {oGame.Name, oLaunchData.Path})
                     Return True
                 End If
             Case eLaunchType.UseGameConfig
-                'Handle Launch Path
-                sLaunchPath = oGame.ProcessPath.TrimEnd(Path.DirectorySeparatorChar) & Path.DirectorySeparatorChar & oGame.ProcessName
-                If Not mgrCommon.IsUnix Then sLaunchPath &= ".exe"
-                'Handle Launch Arguments
-                If oGame.Parameter <> String.Empty Then
-                    sLaunchArgs = oGame.Parameter
-                Else
-                    sLaunchArgs = oLaunchData.Args
-                End If
+                sLaunchPath = BuildLaunchPathFromGame(oGame)
                 If RunGameExecutable(sLaunchPath, sLaunchArgs) Then
                     sMessage = mgrCommon.FormatString(frmMain_LaunchGame, New String() {oGame.Name, sLaunchPath})
                     Return True
@@ -126,4 +139,27 @@ Public Class mgrLaunchGame
         Return False
     End Function
 
+    Public Shared Function GetLaunchCommand(ByVal oGame As clsGame, ByVal oLaunchData As clsLaunchData, ByVal eLaunchType As eLaunchType) As String
+        Dim oLauncher As clsLauncher
+        Dim sLaunchCommand As String
+        Dim sLaunchArgs As String = GetLaunchParameters(oGame, oLaunchData)
+
+        Select Case eLaunchType
+            Case eLaunchType.ExternalLauncher
+                oLauncher = mgrLaunchers.DoLauncherGetbyID(oLaunchData.LauncherID)
+                'Replace the ID variable if it exists, if not append it to the command.
+                If oLauncher.LaunchString.Contains("%ID%") Then
+                    sLaunchCommand = oLauncher.LaunchString.Replace("%ID%", oLaunchData.LauncherGameID)
+                Else
+                    sLaunchCommand = oLauncher.LaunchString & oLaunchData.LauncherGameID
+                End If
+                Return sLaunchCommand
+            Case eLaunchType.AlternateExe
+                Return oLaunchData.Path & " " & sLaunchArgs
+            Case eLaunchType.UseGameConfig
+                Return BuildLaunchPathFromGame(oGame) & " " & sLaunchArgs
+        End Select
+
+        Return String.Empty
+    End Function
 End Class
