@@ -143,6 +143,7 @@ Public Class frmLaunchConfiguration
             txtGameID.Focus()
             Return False
         ElseIf Not txtExePath.Text = String.Empty Then
+            txtExePath.Text = mgrPath.ValidatePath(txtExePath.Text)
             If Not File.Exists(txtExePath.Text) Then
                 mgrCommon.ShowMessage(frmLaunchConfiguration_ErrorExeNotFound, MsgBoxStyle.Exclamation)
                 txtExePath.Focus()
@@ -185,7 +186,7 @@ Public Class frmLaunchConfiguration
         Dim sNewPath As String
 
         If sCurrentPath <> String.Empty Then
-            sCurrentPath = Path.GetDirectoryName(txtExePath.Text)
+            sCurrentPath = Path.GetDirectoryName(mgrPath.ValidatePath(txtExePath.Text))
             If Directory.Exists(sCurrentPath) Then
                 sDefaultFolder = sCurrentPath
             End If
@@ -195,7 +196,7 @@ Public Class frmLaunchConfiguration
         oExtensions.Add(frmLaunchConfiguration_Command, "cmd")
         oExtensions.Add(frmLaunchConfiguration_Executable, "exe")
 
-        sNewPath = mgrCommon.OpenFileBrowser("LC_Exe", frmProcessManager_ChooseProcess, oExtensions, 3, sDefaultFolder, True)
+        sNewPath = mgrCommon.OpenFileBrowser("LC_Exe", frmProcessManager_ChooseProcess, oExtensions, 3, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then
             txtExePath.Text = sNewPath
