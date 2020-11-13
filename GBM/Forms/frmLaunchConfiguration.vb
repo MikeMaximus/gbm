@@ -192,9 +192,10 @@ Public Class frmLaunchConfiguration
         End If
 
         oExtensions.Add(frmLaunchConfiguration_Batch, "bat")
+        oExtensions.Add(frmLaunchConfiguration_Command, "cmd")
         oExtensions.Add(frmLaunchConfiguration_Executable, "exe")
 
-        sNewPath = mgrCommon.OpenFileBrowser("LC_Exe", frmProcessManager_ChooseProcess, oExtensions, 2, sDefaultFolder, True)
+        sNewPath = mgrCommon.OpenFileBrowser("LC_Exe", frmProcessManager_ChooseProcess, oExtensions, 3, sDefaultFolder, True)
 
         If sNewPath <> String.Empty Then
             txtExePath.Text = sNewPath
