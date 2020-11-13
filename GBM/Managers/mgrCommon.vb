@@ -100,14 +100,26 @@ Public Class mgrCommon
         End If
     End Function
 
-    Public Shared Function SaveFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
+    Private Shared Function BuildBrowserFilter(ByVal oFileTypes As SortedList)
+        Dim sFilter As String = String.Empty
+
+        For Each de As DictionaryEntry In oFileTypes
+            sFilter &= FormatString(mgrCommon_FilesFilter, New String() {de.Key, de.Value, de.Value}) & "|"
+        Next
+
+        sFilter &= FormatString(mgrCommon_FilesFilterAll)
+
+        Return sFilter
+    End Function
+
+    Public Shared Function SaveFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal oFileTypes As SortedList, ByVal iFilterIndex As Integer, ByVal sDefaultFolder As String,
                                            ByVal sDefaultFile As String, Optional ByVal bSavedPath As Boolean = True) As String
         Dim fbBrowser As New SaveFileDialog
         Dim oSavedPath As New clsSavedPath
 
         fbBrowser.Title = sTitle
-        fbBrowser.DefaultExt = sExtension
-        fbBrowser.Filter = FormatString(mgrCommon_FilesFilter, New String() {sFileType, sExtension, sExtension})
+        fbBrowser.Filter = BuildBrowserFilter(oFileTypes)
+        fbBrowser.FilterIndex = iFilterIndex
         fbBrowser.FileName = sDefaultFile
         fbBrowser.InitialDirectory = sDefaultFolder
 
@@ -133,14 +145,14 @@ Public Class mgrCommon
         Return String.Empty
     End Function
 
-    Private Shared Function BuildFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
+    Private Shared Function BuildFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal oFileTypes As SortedList, ByVal iFilterIndex As Integer, ByVal sDefaultFolder As String,
                                              ByVal bMulti As Boolean, ByRef fbBrowser As OpenFileDialog, Optional ByVal bSavedPath As Boolean = True) As Boolean
 
         Dim oSavedPath As New clsSavedPath
 
         fbBrowser.Title = sTitle
-        fbBrowser.DefaultExt = sExtension
-        fbBrowser.Filter = FormatString(mgrCommon_FilesFilter, New String() {sFileType, sExtension, sExtension})
+        fbBrowser.Filter = BuildBrowserFilter(oFileTypes)
+        fbBrowser.FilterIndex = iFilterIndex
         fbBrowser.Multiselect = bMulti
         fbBrowser.InitialDirectory = sDefaultFolder
 
@@ -199,12 +211,12 @@ Public Class mgrCommon
         Return False
     End Function
 
-    Public Shared Function OpenFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
+    Public Shared Function OpenFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal oFileTypes As SortedList, ByVal iFilterIndex As Integer, ByVal sDefaultFolder As String,
                                            Optional ByVal bSavedPath As Boolean = True) As String
         Dim fbBrowser As New OpenFileDialog
         Dim bResult As Boolean
 
-        bResult = BuildFileBrowser(sName, sTitle, sExtension, sFileType, sDefaultFolder, False, fbBrowser, bSavedPath)
+        bResult = BuildFileBrowser(sName, sTitle, oFileTypes, iFilterIndex, sDefaultFolder, False, fbBrowser, bSavedPath)
 
         If bResult Then
             Return fbBrowser.FileName
@@ -213,12 +225,12 @@ Public Class mgrCommon
         Return String.Empty
     End Function
 
-    Public Shared Function OpenMultiFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
+    Public Shared Function OpenMultiFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal oFileTypes As SortedList, ByVal iFilterIndex As Integer, ByVal sDefaultFolder As String,
                                                 Optional ByVal bSavedPath As Boolean = True) As String()
         Dim fbBrowser As New OpenFileDialog
         Dim bResult As Boolean
 
-        bResult = BuildFileBrowser(sName, sTitle, sExtension, sFileType, sDefaultFolder, True, fbBrowser, bSavedPath)
+        bResult = BuildFileBrowser(sName, sTitle, oFileTypes, iFilterIndex, sDefaultFolder, True, fbBrowser, bSavedPath)
 
         If bResult Then
             Return fbBrowser.FileNames

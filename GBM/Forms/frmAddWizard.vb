@@ -412,6 +412,7 @@ Public Class frmAddWizard
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
         Dim sCurrentPath As String
         Dim sNewPath As String
+        Dim oExtensions As New SortedList
 
         If txtProcessPath.Text <> String.Empty Then
             sCurrentPath = Path.GetDirectoryName(txtProcessPath.Text)
@@ -420,8 +421,9 @@ Public Class frmAddWizard
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFileBrowser("Wizard_Process_Path", frmAddWizard_ChooseProcess, "exe",
-                                          frmAddWizard_Executable, sDefaultFolder, False)
+        oExtensions.Add(frmAddWizard_Executable, "exe")
+
+        sNewPath = mgrCommon.OpenFileBrowser("Wizard_Process_Path", frmAddWizard_ChooseProcess, oExtensions, 1, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then txtProcessPath.Text = sNewPath
     End Sub

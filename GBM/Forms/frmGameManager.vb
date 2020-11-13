@@ -396,6 +396,7 @@ Public Class frmGameManager
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
         Dim sCurrentPath As String = txtAppPath.Text
         Dim sNewPath As String
+        Dim oExtensions As New SortedList
 
         If sCurrentPath <> String.Empty Then
             If Directory.Exists(sCurrentPath) Then
@@ -403,8 +404,8 @@ Public Class frmGameManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFileBrowser("GM_Process", frmGameManager_ChooseExe, "exe",
-                                          frmGameManager_Executable, sDefaultFolder, False)
+        oExtensions.Add(frmGameManager_Executable, "exe")
+        sNewPath = mgrCommon.OpenFileBrowser("GM_Process", frmGameManager_ChooseExe, oExtensions, 1, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then
             txtAppPath.Text = Path.GetDirectoryName(sNewPath)
@@ -452,6 +453,7 @@ Public Class frmGameManager
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
         Dim sCurrentPath As String = txtAppPath.Text
         Dim sNewPath As String
+        Dim oExtensions As New SortedList
 
         If sCurrentPath <> String.Empty Then
             If Directory.Exists(sCurrentPath) Then
@@ -461,11 +463,11 @@ Public Class frmGameManager
 
         'Unix Handler
         If Not mgrCommon.IsUnix Then
-            sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, "ico",
-                                              frmGameManager_Icon, sDefaultFolder, False)
+            oExtensions.Add(frmGameManager_Icon, "ico")
+            sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, oExtensions, 1, sDefaultFolder, False)
         Else
-            sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, "png",
-                                              "PNG", sDefaultFolder, False)
+            oExtensions.Add("PNG", "png")
+            sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, oExtensions, 1, sDefaultFolder, False)
         End If
 
         If sNewPath <> String.Empty Then
@@ -1740,11 +1742,12 @@ Public Class frmGameManager
         Dim sConfirm As String = frmGameManager_ConfirmBackupImport
         Dim sFile As String
         Dim sFiles As String()
+        Dim oExtensions As New SortedList
 
         ImportBackupList.Clear()
 
-        sFiles = mgrCommon.OpenMultiFileBrowser("GM_ImportBackup", frmGameManager_Choose7zImport, "7z",
-                                          frmGameManager_7zBackup, sDefaultFolder, True)
+        oExtensions.Add(frmGameManager_7zBackup, "7z")
+        sFiles = mgrCommon.OpenMultiFileBrowser("GM_ImportBackup", frmGameManager_Choose7zImport, oExtensions, 1, sDefaultFolder, True)
 
         If sFiles.Length > 0 Then
             For Each sFile In sFiles
@@ -1876,8 +1879,10 @@ Public Class frmGameManager
 
     Private Sub ImportGameListFile()
         Dim sLocation As String
+        Dim oExtensions As New SortedList
 
-        sLocation = mgrCommon.OpenFileBrowser("XML_Import", frmGameManager_ChooseImportXML, "xml", frmGameManager_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
+        oExtensions.Add(frmGameManager_XML, "xml")
+        sLocation = mgrCommon.OpenFileBrowser("XML_Import", frmGameManager_ChooseImportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
 
         If sLocation <> String.Empty Then
             If mgrMonitorList.DoImport(sLocation, False) Then
@@ -1891,8 +1896,10 @@ Public Class frmGameManager
 
     Private Sub ExportGameList()
         Dim sLocation As String
+        Dim oExtensions As New SortedList
 
-        sLocation = mgrCommon.SaveFileBrowser("XML_Export", frmGameManager_ChooseExportXML, "xml", frmGameManager_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmGameManager_DefaultExportFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
+        oExtensions.Add(frmGameManager_XML, "xml")
+        sLocation = mgrCommon.SaveFileBrowser("XML_Export", frmGameManager_ChooseExportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmGameManager_DefaultExportFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
 
         If sLocation <> String.Empty Then
             mgrMonitorList.ExportMonitorList(sLocation)

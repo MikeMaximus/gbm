@@ -181,6 +181,7 @@ Public Class frmLaunchConfiguration
     Private Sub ExeBrowse()
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
         Dim sCurrentPath As String = txtExePath.Text
+        Dim oExtensions As New SortedList
         Dim sNewPath As String
 
         If sCurrentPath <> String.Empty Then
@@ -190,8 +191,10 @@ Public Class frmLaunchConfiguration
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFileBrowser("LC_Exe", frmProcessManager_ChooseProcess, "exe",
-                                          frmLaunchConfiguration_Executable, sDefaultFolder, True)
+        oExtensions.Add(frmLaunchConfiguration_Batch, "bat")
+        oExtensions.Add(frmLaunchConfiguration_Executable, "exe")
+
+        sNewPath = mgrCommon.OpenFileBrowser("LC_Exe", frmProcessManager_ChooseProcess, oExtensions, 2, sDefaultFolder, True)
 
         If sNewPath <> String.Empty Then
             txtExePath.Text = sNewPath

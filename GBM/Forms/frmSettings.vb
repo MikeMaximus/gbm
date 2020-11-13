@@ -433,7 +433,9 @@ Public Class frmSettings
 
     Private Sub btn7zLocation_Click(sender As Object, e As EventArgs) Handles btn7zLocation.Click
         Dim sNewLocation As String
-        sNewLocation = mgrCommon.OpenFileBrowser("7z_Browse", frmSettings_Browse7za, "exe", frmSettings_7zaFileType, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
+        Dim oExtensions As New SortedList
+        oExtensions.Add(frmSettings_7zaFileType, "exe")
+        sNewLocation = mgrCommon.OpenFileBrowser("7z_Browse", frmSettings_Browse7za, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
         If sNewLocation <> String.Empty Then
             txt7zLocation.Text = sNewLocation
             GetUtilityInfo(txt7zLocation.Text)

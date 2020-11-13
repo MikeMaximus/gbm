@@ -1287,6 +1287,7 @@ Public Class frmMain
 
     Private Sub SyncGameIDs(ByVal bOfficial As Boolean)
         Dim sLocation As String
+        Dim oExtensions As New SortedList
 
         PauseScan()
 
@@ -1299,7 +1300,8 @@ Public Class frmMain
         If bOfficial Then
             mgrMonitorList.SyncGameIDs(sLocation, True)
         Else
-            sLocation = mgrCommon.OpenFileBrowser("XML_Import", frmGameManager_ChooseImportXML, "xml", frmGameManager_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
+            oExtensions.Add(frmGameManager_XML, "xml")
+            sLocation = mgrCommon.OpenFileBrowser("XML_Import", frmGameManager_ChooseImportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
 
             If sLocation <> String.Empty Then
                 mgrMonitorList.SyncGameIDs(sLocation, False)
@@ -1843,8 +1845,10 @@ Public Class frmMain
 
     Private Sub SaveLog()
         Dim sLocation As String
+        Dim oExtensions As New SortedList
 
-        sLocation = mgrCommon.SaveFileBrowser("Log_File", frmMain_ChooseLogFile, "txt", frmMain_Text, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmMain_DefaultLogFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
+        oExtensions.Add(frmMain_Text, "txt")
+        sLocation = mgrCommon.SaveFileBrowser("Log_File", frmMain_ChooseLogFile, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmMain_DefaultLogFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
 
         If sLocation <> String.Empty Then
             mgrCommon.SaveText(txtLog.Text, sLocation)
@@ -2244,8 +2248,10 @@ Public Class frmMain
     Private Sub ImportBackupFiles()
         Dim sFilestoImport As String()
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+        Dim oExtensions As New SortedList
 
-        sFilestoImport = mgrCommon.OpenMultiFileBrowser("Main_BackupFileImport", frmMain_ChooseImportFiles, "7z", frmGameManager_7zBackup, sDefaultFolder, True)
+        oExtensions.Add(frmGameManager_7zBackup, "7z")
+        sFilestoImport = mgrCommon.OpenMultiFileBrowser("Main_BackupFileImport", frmMain_ChooseImportFiles, oExtensions, 1, sDefaultFolder, True)
 
         If sFilestoImport.Length > 0 Then
             RunImportBackupByFile(sFilestoImport)

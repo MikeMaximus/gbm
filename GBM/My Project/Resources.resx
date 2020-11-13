@@ -1301,7 +1301,7 @@
     <value>Generating SHA-256 hash for [PARAM] backup file.</value>
   </data>
   <data name="mgrCommon_FilesFilter" xml:space="preserve">
-    <value>[PARAM] files (*.[PARAM])|*.[PARAM]|All files (*.*)|*.*</value>
+    <value>[PARAM] files (*.[PARAM])|*.[PARAM]</value>
   </data>
   <data name="mgrCommon_No" xml:space="preserve">
     <value>No</value>
@@ -2757,5 +2757,14 @@
   </data>
   <data name="frmLaunchConfiguration_chkNoArgs" xml:space="preserve">
     <value>Use no parameters</value>
+  </data>
+  <data name="frmLaunchConfiguration_Batch" xml:space="preserve">
+    <value>Batch</value>
+  </data>
+  <data name="frmLaunchConfiguration_Link" xml:space="preserve">
+    <value>Link</value>
+  </data>
+  <data name="mgrCommon_FilesFilterAll" xml:space="preserve">
+    <value>All files (*.*)|*.*</value>
   </data>
 </root>

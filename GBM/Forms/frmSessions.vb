@@ -182,16 +182,19 @@ Public Class frmSessions
     Private Sub ExportGrid()
         Dim frm As New frmSessionExport
         Dim sLocation As String
+        Dim oExtensions As New SortedList
 
         frm.ShowDialog()
 
         If frm.DialogResult = DialogResult.OK Then
 
             If frm.XML Then
-                sLocation = mgrCommon.SaveFileBrowser("Session_Export", frmSessions_ChooseExportLocation, "xml", frmSessions_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmSessions_DefaultExportFileName)
+                oExtensions.Add(frmSessions_XML, "xml")
             Else
-                sLocation = mgrCommon.SaveFileBrowser("Session_Export", frmSessions_ChooseExportLocation, "csv", frmSessions_CSV, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmSessions_DefaultExportFileName)
+                oExtensions.Add(frmSessions_CSV, "csv")
             End If
+
+            sLocation = mgrCommon.SaveFileBrowser("Session_Export", frmSessions_ChooseExportLocation, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmSessions_DefaultExportFileName)
 
             If sLocation <> String.Empty Then
                 If frm.XML Then

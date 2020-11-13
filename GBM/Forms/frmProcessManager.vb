@@ -47,6 +47,7 @@ Public Class frmProcessManager
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
         Dim sCurrentPath As String = txtPath.Text
         Dim sNewPath As String
+        Dim oExtensions As New SortedList
 
         If sCurrentPath <> String.Empty Then
             sCurrentPath = Path.GetDirectoryName(txtPath.Text)
@@ -55,8 +56,8 @@ Public Class frmProcessManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFileBrowser("PM_Process", frmProcessManager_ChooseProcess, "exe",
-                                          frmProcessManager_Executable, sDefaultFolder, True)
+        oExtensions.Add(frmProcessManager_Executable, "exe")
+        sNewPath = mgrCommon.OpenFileBrowser("PM_Process", frmProcessManager_ChooseProcess, oExtensions, 1, sDefaultFolder, True)
 
         If sNewPath <> String.Empty Then
             txtPath.Text = sNewPath

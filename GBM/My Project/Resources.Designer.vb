@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-12T17:19:53
+        '''  Looks up a localized string similar to 2020-11-13T14:15:27
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3276,6 +3276,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Batch.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_Batch() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_Batch", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Cancel.
         '''</summary>
         Friend ReadOnly Property frmLaunchConfiguration_btnCancel() As String
@@ -3407,6 +3416,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmLaunchConfiguration_lblLauncher() As String
             Get
                 Return ResourceManager.GetString("frmLaunchConfiguration_lblLauncher", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Link.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_Link() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_Link", resourceCulture)
             End Get
         End Property
         
@@ -7261,11 +7279,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] files (*.[PARAM])|*.[PARAM]|All files (*.*)|*.*.
+        '''  Looks up a localized string similar to [PARAM] files (*.[PARAM])|*.[PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_FilesFilter() As String
             Get
                 Return ResourceManager.GetString("mgrCommon_FilesFilter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to All files (*.*)|*.*.
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_FilesFilterAll() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_FilesFilterAll", resourceCulture)
             End Get
         End Property
         
