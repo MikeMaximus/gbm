@@ -6,6 +6,7 @@
         oLaunchData.MonitorID = CStr(dr("MonitorID"))
         oLaunchData.Path = CStr(dr("Path"))
         oLaunchData.Args = CStr(dr("Args"))
+        oLaunchData.NoArgs = CBool(dr("NoArgs"))
         oLaunchData.LauncherID = CStr(dr("LauncherID"))
         oLaunchData.LauncherGameID = CStr(dr("LauncherGameID"))
         Return oLaunchData
@@ -17,6 +18,7 @@
         hshParams.Add("MonitorID", oLaunchData.MonitorID)
         hshParams.Add("Path", oLaunchData.Path)
         hshParams.Add("Args", oLaunchData.Args)
+        hshParams.Add("NoArgs", oLaunchData.NoArgs)
         hshParams.Add("LauncherID", oLaunchData.LauncherID)
         hshParams.Add("LauncherGameID", oLaunchData.LauncherGameID)
 
@@ -28,7 +30,7 @@
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "INSERT OR REPLACE INTO launchdata VALUES (@MonitorID, @Path, @Args, @LauncherID, @LauncherGameID)"
+        sSQL = "INSERT OR REPLACE INTO launchdata VALUES (@MonitorID, @Path, @Args, @NoArgs, @LauncherID, @LauncherGameID)"
 
         'Parameters
         hshParams = SetCoreParameters(oLaunchData)

@@ -4,6 +4,7 @@
     Private sArgs As String = String.Empty
     Private sLauncherID As String = String.Empty
     Private sLauncherGameID As String = String.Empty
+    Private bNoArgs As Boolean = False
 
     Property MonitorID As String
         Set(value As String)
@@ -47,6 +48,15 @@
         End Set
         Get
             Return sLauncherGameID
+        End Get
+    End Property
+
+    Property NoArgs As Boolean
+        Set(value As Boolean)
+            bNoArgs = value
+        End Set
+        Get
+            Return bNoArgs
         End Get
     End Property
 End Class

@@ -85,6 +85,8 @@ Public Class mgrLaunchGame
     Private Shared Function GetLaunchParameters(ByVal oGame As clsGame, ByVal oLaunchData As clsLaunchData) As String
         Dim sLaunchArgs As String
 
+        If oLaunchData.NoArgs Then Return String.Empty
+
         If oLaunchData.Args <> String.Empty Then
             sLaunchArgs = oLaunchData.Args
         ElseIf oGame.Parameter <> String.Empty Then

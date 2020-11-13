@@ -2755,4 +2755,7 @@
   <data name="frmLaunchConfiguration_grpCommand" xml:space="preserve">
     <value>Current Launch Command</value>
   </data>
+  <data name="frmLaunchConfiguration_chkNoArgs" xml:space="preserve">
+    <value>Use no parameters</value>
+  </data>
 </root>

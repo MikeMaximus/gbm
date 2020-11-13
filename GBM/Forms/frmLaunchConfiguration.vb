@@ -29,6 +29,7 @@ Public Class frmLaunchConfiguration
         grpOtherConfig.Text = frmLaunchConfiguration_grpOtherConfig
         lblExe.Text = frmLaunchConfiguration_lblExe
         lblArguments.Text = frmLaunchConfiguration_lblArguments
+        chkNoArgs.Text = frmLaunchConfiguration_chkNoArgs
         grpCommand.Text = frmLaunchConfiguration_grpCommand
         btnSave.Text = frmLaunchConfiguration_btnSave
         btnCancel.Text = frmLaunchConfiguration_btnCancel
@@ -88,6 +89,8 @@ Public Class frmLaunchConfiguration
                 AddHandler DirectCast(ctl, TextBox).TextChanged, AddressOf DirtyCheck_ValueChanged
             ElseIf TypeOf ctl Is ComboBox Then
                 AddHandler DirectCast(ctl, ComboBox).SelectedIndexChanged, AddressOf DirtyCheck_ValueChanged
+            ElseIf TypeOf ctl Is CheckBox Then
+                AddHandler DirectCast(ctl, CheckBox).CheckedChanged, AddressOf DirtyCheck_ValueChanged
             End If
         Next
     End Sub
@@ -105,6 +108,7 @@ Public Class frmLaunchConfiguration
         txtGameID.Text = oLaunchData.LauncherGameID
         txtExePath.Text = oLaunchData.Path
         txtArguments.Text = oLaunchData.Args
+        chkNoArgs.Checked = oLaunchData.NoArgs
         bIsLoading = False
     End Sub
 
@@ -123,6 +127,7 @@ Public Class frmLaunchConfiguration
         oLaunchData.LauncherGameID = txtGameID.Text
         oLaunchData.Path = txtExePath.Text
         oLaunchData.Args = txtArguments.Text
+        oLaunchData.NoArgs = chkNoArgs.Checked
 
         If mgrLaunchGame.CanLaunchGame(oGame, oLaunchData, eLaunchType, sErrorMessage) Then
             txtCommand.Text = mgrLaunchGame.GetLaunchCommand(oGame, oLaunchData, eLaunchType)
@@ -150,7 +155,7 @@ Public Class frmLaunchConfiguration
 
     Private Sub SaveData()
         Dim oLaunchData As clsLaunchData
-        If cboLauncher.SelectedValue = "nolauncher" And txtGameID.Text = String.Empty And txtExePath.Text = String.Empty And txtArguments.Text = String.Empty Then
+        If cboLauncher.SelectedValue = "nolauncher" And txtGameID.Text = String.Empty And txtExePath.Text = String.Empty And txtArguments.Text = String.Empty And chkNoArgs.Checked = False Then
             mgrLaunchData.DoLaunchDataDelete(oGame.ID)
             Me.DialogResult = DialogResult.OK
         Else
@@ -165,6 +170,7 @@ Public Class frmLaunchConfiguration
                 oLaunchData.LauncherGameID = txtGameID.Text
                 oLaunchData.Path = txtExePath.Text
                 oLaunchData.Args = txtArguments.Text
+                oLaunchData.NoArgs = chkNoArgs.Checked
                 mgrLaunchData.DoLaunchDataAddUpdate(oLaunchData)
                 Me.DialogResult = DialogResult.OK
             End If
@@ -234,7 +240,7 @@ Public Class frmLaunchConfiguration
         UpdateLaunchCommand()
     End Sub
 
-    Private Sub Command_Change(sender As Object, e As EventArgs) Handles cboLauncher.SelectedIndexChanged, txtGameID.TextChanged, txtExePath.TextChanged, txtArguments.TextChanged
+    Private Sub Command_Change(sender As Object, e As EventArgs) Handles cboLauncher.SelectedIndexChanged, txtGameID.TextChanged, txtExePath.TextChanged, txtArguments.TextChanged, chkNoArgs.CheckedChanged
         If Not tmUpdateTimer.Enabled Then
             tmUpdateTimer.Enabled = True
             tmUpdateTimer.Start()

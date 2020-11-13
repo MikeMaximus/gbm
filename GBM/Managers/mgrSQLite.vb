@@ -120,7 +120,7 @@ Public Class mgrSQLite
             sSql &= "CREATE TABLE launchers (LauncherID	TEXT NOT NULL PRIMARY KEY, Name	TEXT NOT NULL, LaunchString	TEXT NOT NULL);"
 
             'Add Tables (Launch Data)
-            sSql &= "CREATE TABLE launchdata (MonitorID	TEXT NOT NULL PRIMARY KEY, Path	TEXT NOT NULL, Args TEXT NOT NULL, LauncherID TEXT NOT NULL, LauncherGameID	TEXT NOT NULL);"
+            sSql &= "CREATE TABLE launchdata (MonitorID	TEXT NOT NULL PRIMARY KEY, Path	TEXT NOT NULL, Args TEXT NOT NULL, NoArgs BOOLEAN NOT NULL, LauncherID TEXT NOT NULL, LauncherGameID TEXT NOT NULL);"
 
             'Set Version
             sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
@@ -1030,7 +1030,7 @@ Public Class mgrSQLite
 
                 'Add Tables (Launchers & Launch Data)
                 sSQL = "CREATE TABLE launchers (LauncherID	TEXT NOT NULL PRIMARY KEY, Name	TEXT NOT NULL, LaunchString	TEXT NOT NULL);"
-                sSQL &= "CREATE TABLE launchdata (MonitorID	TEXT NOT NULL PRIMARY KEY, Path	TEXT NOT NULL, Args TEXT NOT NULL, LauncherID TEXT NOT NULL, LauncherGameID	TEXT NOT NULL);"
+                sSQL &= "CREATE TABLE launchdata (MonitorID	TEXT NOT NULL PRIMARY KEY, Path	TEXT NOT NULL, Args TEXT NOT NULL, NoArgs BOOLEAN NOT NULL, LauncherID TEXT NOT NULL, LauncherGameID TEXT NOT NULL);"
 
                 'Add new field(s)
                 sSQL &= "ALTER TABLE settings ADD COLUMN EnableLauncher BOOLEAN NOT NULL DEFAULT 0;"

@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-12T15:24:14
+        '''  Looks up a localized string similar to 2020-11-12T17:19:53
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3299,6 +3299,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmLaunchConfiguration_btnSave() As String
             Get
                 Return ResourceManager.GetString("frmLaunchConfiguration_btnSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Use no parameters.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_chkNoArgs() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_chkNoArgs", resourceCulture)
             End Get
         End Property
         

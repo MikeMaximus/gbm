@@ -38,6 +38,7 @@ Partial Class frmLaunchConfiguration
         Me.btnSave = New System.Windows.Forms.Button()
         Me.grpCommand = New System.Windows.Forms.GroupBox()
         Me.txtCommand = New System.Windows.Forms.TextBox()
+        Me.chkNoArgs = New System.Windows.Forms.CheckBox()
         Me.grpOtherConfig.SuspendLayout()
         Me.grpStoreLauncher.SuspendLayout()
         Me.grpCommand.SuspendLayout()
@@ -45,6 +46,7 @@ Partial Class frmLaunchConfiguration
         '
         'grpOtherConfig
         '
+        Me.grpOtherConfig.Controls.Add(Me.chkNoArgs)
         Me.grpOtherConfig.Controls.Add(Me.btnBrowse)
         Me.grpOtherConfig.Controls.Add(Me.txtArguments)
         Me.grpOtherConfig.Controls.Add(Me.txtExePath)
@@ -52,7 +54,7 @@ Partial Class frmLaunchConfiguration
         Me.grpOtherConfig.Controls.Add(Me.lblExe)
         Me.grpOtherConfig.Location = New System.Drawing.Point(12, 99)
         Me.grpOtherConfig.Name = "grpOtherConfig"
-        Me.grpOtherConfig.Size = New System.Drawing.Size(465, 82)
+        Me.grpOtherConfig.Size = New System.Drawing.Size(465, 102)
         Me.grpOtherConfig.TabIndex = 1
         Me.grpOtherConfig.TabStop = False
         Me.grpOtherConfig.Text = "Alternate Configuration"
@@ -157,7 +159,7 @@ Partial Class frmLaunchConfiguration
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(402, 281)
+        Me.btnCancel.Location = New System.Drawing.Point(402, 301)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 4
@@ -166,7 +168,7 @@ Partial Class frmLaunchConfiguration
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(321, 281)
+        Me.btnSave.Location = New System.Drawing.Point(321, 301)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
         Me.btnSave.TabIndex = 3
@@ -176,7 +178,7 @@ Partial Class frmLaunchConfiguration
         'grpCommand
         '
         Me.grpCommand.Controls.Add(Me.txtCommand)
-        Me.grpCommand.Location = New System.Drawing.Point(12, 187)
+        Me.grpCommand.Location = New System.Drawing.Point(12, 207)
         Me.grpCommand.Name = "grpCommand"
         Me.grpCommand.Size = New System.Drawing.Size(465, 88)
         Me.grpCommand.TabIndex = 2
@@ -192,11 +194,21 @@ Partial Class frmLaunchConfiguration
         Me.txtCommand.Size = New System.Drawing.Size(453, 60)
         Me.txtCommand.TabIndex = 0
         '
+        'chkNoArgs
+        '
+        Me.chkNoArgs.AutoSize = True
+        Me.chkNoArgs.Location = New System.Drawing.Point(9, 75)
+        Me.chkNoArgs.Name = "chkNoArgs"
+        Me.chkNoArgs.Size = New System.Drawing.Size(115, 17)
+        Me.chkNoArgs.TabIndex = 3
+        Me.chkNoArgs.Text = "Use no parameters"
+        Me.chkNoArgs.UseVisualStyleBackColor = True
+        '
         'frmLaunchConfiguration
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(489, 311)
+        Me.ClientSize = New System.Drawing.Size(489, 336)
         Me.Controls.Add(Me.grpCommand)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
@@ -236,4 +248,5 @@ Partial Class frmLaunchConfiguration
     Friend WithEvents btnBrowse As Button
     Friend WithEvents grpCommand As GroupBox
     Friend WithEvents txtCommand As TextBox
+    Friend WithEvents chkNoArgs As CheckBox
 End Class
