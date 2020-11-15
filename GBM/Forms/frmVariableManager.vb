@@ -71,12 +71,8 @@ Public Class frmVariableManager
         oResult = mgrCommon.ShowMessage(App_ConfirmDirty, MsgBoxStyle.YesNoCancel)
 
         Select Case oResult
-            Case MsgBoxResult.Yes
-                IsDirty = False
             Case MsgBoxResult.No
                 IsDirty = False
-            Case MsgBoxResult.Cancel
-                'No Change
         End Select
 
         Return oResult
@@ -356,8 +352,7 @@ Public Class frmVariableManager
             Select Case HandleDirty()
                 Case MsgBoxResult.Yes
                     SaveVariable()
-                Case MsgBoxResult.No
-                    'Do Nothing
+                    If bIsDirty Then e.Cancel = True
                 Case MsgBoxResult.Cancel
                     e.Cancel = True
             End Select

@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.4 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-November 11, 2020
+November 15, 2020
 
 Important Notices:
 
@@ -33,6 +33,7 @@ All Platforms:
 - Editing a configuration while using a Custom filter on the Game Manager will no longer lose the changes if any tags are modified before saving.
 - Modifying tags on a single configuration while using a Custom filter will no longer unselect the configuration.
 - Disabled features will now have their options removed from any menus.  This currently only applies to session tracking and game launching.
+- Any form that asks to save unchanged data on closing, will no longer just close and lose the changes if the form fails validation.
 
 Windows:
 

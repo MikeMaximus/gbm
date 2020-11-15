@@ -77,12 +77,8 @@ Public Class frmProcessManager
         oResult = mgrCommon.ShowMessage(App_ConfirmDirty, MsgBoxStyle.YesNoCancel)
 
         Select Case oResult
-            Case MsgBoxResult.Yes
-                IsDirty = False
             Case MsgBoxResult.No
                 IsDirty = False
-            Case MsgBoxResult.Cancel
-                'No Change
         End Select
 
         Return oResult
@@ -363,8 +359,7 @@ Public Class frmProcessManager
             Select Case HandleDirty()
                 Case MsgBoxResult.Yes
                     SaveProcess()
-                Case MsgBoxResult.No
-                    'Do Nothing
+                    If bIsDirty Then e.Cancel = True
                 Case MsgBoxResult.Cancel
                     e.Cancel = True
             End Select
