@@ -1619,7 +1619,7 @@
     <value>Autosave log when max length is exceeded</value>
   </data>
   <data name="frmSettings_grpGameData" xml:space="preserve">
-    <value>Game Data Options</value>
+    <value>Optional Features and Game Data Options</value>
   </data>
   <data name="frmSettings_lstSettings_7z" xml:space="preserve">
     <value>7-Zip</value>
@@ -2769,5 +2769,8 @@
   </data>
   <data name="frmLaunchConfiguration_Command" xml:space="preserve">
     <value>Command</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorNoAutoWineSupport" xml:space="preserve">
+    <value>Launching Windows games in Linux with an automatically built command is not currently supported.[BR][BR]You can manually configure this game to use an external launcher or script instead.</value>
   </data>
 </root>

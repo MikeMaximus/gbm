@@ -66,12 +66,8 @@ Public Class frmLaunchConfiguration
         oResult = mgrCommon.ShowMessage(App_ConfirmDirty, MsgBoxStyle.YesNoCancel)
 
         Select Case oResult
-            Case MsgBoxResult.Yes
-                bIsDirty = False
             Case MsgBoxResult.No
                 bIsDirty = False
-            Case MsgBoxResult.Cancel
-                'No Change
         End Select
 
         Return oResult
@@ -139,7 +135,6 @@ Public Class frmLaunchConfiguration
     Private Function ValidateData() As Boolean
         If cboLauncher.SelectedValue <> "nolauncher" And txtGameID.Text = String.Empty Then
             mgrCommon.ShowMessage(frmLaunchConfiguration_ErrorNoGameID, MsgBoxStyle.Exclamation)
-            Return False
             txtGameID.Focus()
             Return False
         ElseIf Not txtExePath.Text = String.Empty Then
@@ -158,6 +153,7 @@ Public Class frmLaunchConfiguration
         Dim oLaunchData As clsLaunchData
         If cboLauncher.SelectedValue = "nolauncher" And txtGameID.Text = String.Empty And txtExePath.Text = String.Empty And txtArguments.Text = String.Empty And chkNoArgs.Checked = False Then
             mgrLaunchData.DoLaunchDataDelete(oGame.ID)
+            bIsDirty = False
             Me.DialogResult = DialogResult.OK
         Else
             If ValidateData() Then
@@ -173,10 +169,10 @@ Public Class frmLaunchConfiguration
                 oLaunchData.Args = txtArguments.Text
                 oLaunchData.NoArgs = chkNoArgs.Checked
                 mgrLaunchData.DoLaunchDataAddUpdate(oLaunchData)
+                bIsDirty = False
                 Me.DialogResult = DialogResult.OK
             End If
         End If
-        bIsDirty = False
     End Sub
 
     Private Sub ExeBrowse()
@@ -257,8 +253,7 @@ Public Class frmLaunchConfiguration
             Select Case HandleDirty()
                 Case MsgBoxResult.Yes
                     SaveData()
-                Case MsgBoxResult.No
-                    'Do Nothing
+                    If bIsDirty Then e.Cancel = True
                 Case MsgBoxResult.Cancel
                     e.Cancel = True
             End Select

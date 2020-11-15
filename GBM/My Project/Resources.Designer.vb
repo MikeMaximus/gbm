@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-13T15:32:02
+        '''  Looks up a localized string similar to 2020-11-15T14:57:58
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5823,7 +5823,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Game Data Options.
+        '''  Looks up a localized string similar to Optional Features and Game Data Options.
         '''</summary>
         Friend ReadOnly Property frmSettings_grpGameData() As String
             Get
@@ -7464,6 +7464,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrLaunchGame_ErrorIsRegex() As String
             Get
                 Return ResourceManager.GetString("mgrLaunchGame_ErrorIsRegex", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Launching Windows games in Linux with an automatically built command is not currently supported.[BR][BR]You can manually configure this game to use an external launcher or script instead..
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchGame_ErrorNoAutoWineSupport() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchGame_ErrorNoAutoWineSupport", resourceCulture)
             End Get
         End Property
         

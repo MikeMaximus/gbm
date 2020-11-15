@@ -559,7 +559,7 @@ Partial Class frmSettings
         Me.grpGameData.Size = New System.Drawing.Size(354, 148)
         Me.grpGameData.TabIndex = 0
         Me.grpGameData.TabStop = False
-        Me.grpGameData.Text = "Game Data Options"
+        Me.grpGameData.Text = "Optional Features and Game Data Options"
         '
         'chkEnableLauncher
         '

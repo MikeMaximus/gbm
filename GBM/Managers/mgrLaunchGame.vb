@@ -24,7 +24,9 @@ Public Class mgrLaunchGame
             'And finally we attempt to use the process name and detected process path if no specific launcher settings exist
             If mgrCommon.IsProcessNotLaunchable(oGame) Then
                 'Give the user a specific error message
-                If oGame.ProcessName = String.Empty Then
+                If mgrCommon.IsUnix And oGame.OS = clsGame.eOS.Windows Then
+                    sErrorMessage = mgrCommon.FormatString(mgrLaunchGame_ErrorNoAutoWineSupport, oGame.CroppedName)
+                ElseIf oGame.ProcessName = String.Empty Then
                     sErrorMessage = mgrCommon.FormatString(mgrLaunchGame_ErrorNoProcess, oGame.CroppedName)
                 ElseIf oGame.ProcessPath = String.Empty Then
                     sErrorMessage = mgrCommon.FormatString(mgrLaunchGame_ErrorNoProcessPath, oGame.CroppedName)
