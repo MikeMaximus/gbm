@@ -1118,6 +1118,16 @@ Public Class frmMain
         ResumeScan()
     End Sub
 
+    Private Sub OpenQuickLaunch()
+        Dim frm As New frmQuickLauncher
+        PauseScan()
+        frm.ShowDialog()
+        If frm.DialogResult = DialogResult.OK Then
+            LaunchGame(frm.Game)
+        End If
+        ResumeScan()
+    End Sub
+
     Private Sub OpenLauncherManager()
         Dim frm As New frmLauncherManager
         PauseScan()
@@ -1613,13 +1623,15 @@ Public Class frmMain
             gMonTrayToolsSessions.Visible = False
         End If
 
-        'Launcher Manager
+        'Game Launching
         If oSettings.EnableLauncher Then
             gMonSetupLauncherManager.Visible = True
             gMonTraySetupLauncherManager.Visible = True
+            gMonTrayQuickLauncher.Visible = True
         Else
             gMonSetupLauncherManager.Visible = False
             gMonTraySetupLauncherManager.Visible = False
+            gMonTrayQuickLauncher.Visible = False
         End If
 
     End Sub
@@ -1896,12 +1908,13 @@ Public Class frmMain
         gMonHelpAbout.Text = frmMain_gMonHelpAbout
 
         'Set Tray Menu Text
+        gMonTrayQuickLauncher.Text = frmMain_gMonTrayQuickLauncher
         gMonTrayShow.Text = frmMain_gMonTrayShow
         gMonTrayMon.Text = frmMain_gMonFileMonitor_Start
         gMonTrayFullBackup.Text = frmMain_gMonTrayFullBackup
         gMonTrayFullRestore.Text = frmMain_gMonTrayFullRestore
         gMonTraySettings.Text = frmMain_gMonFileSettings
-        gMonTraySetup.Text = frmMain_gMonSetup
+        gMonTraySetup.Text = frmMain_gMonTraySetup
         gMonTraySetupGameManager.Text = frmMain_gMonSetupGameManager
         gMonTraySetupAddWizard.Text = frmMain_gMonSetupAddWizard
         gMonTraySetupCustomVariables.Text = frmMain_gMonSetupCustomVariables
@@ -2384,6 +2397,10 @@ Public Class frmMain
         OpenGameManager(True)
     End Sub
 
+    Private Sub gMonTrayQuickLaunch_Click(sender As Object, e As EventArgs) Handles gMonTrayQuickLauncher.Click
+        OpenQuickLaunch()
+    End Sub
+
     Private Sub gMonStripSplitStatusButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripStatusButton.Click
         ScanToggle()
     End Sub
@@ -2605,6 +2622,8 @@ Public Class frmMain
     Private Sub frmMain_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Oemtilde AndAlso e.Modifiers = Keys.Control Then
             OpenDevConsole()
+        ElseIf e.KeyCode = Keys.Q AndAlso e.Modifiers = Keys.Control Then
+            OpenQuickLaunch()
         End If
     End Sub
 

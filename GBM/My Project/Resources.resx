@@ -2773,4 +2773,16 @@
   <data name="mgrLaunchGame_ErrorNoAutoWineSupport" xml:space="preserve">
     <value>Launching Windows games in Linux with an automatically built command is not currently supported.[BR][BR]You can manually configure this game to use an external launcher or script instead.</value>
   </data>
+  <data name="frmQuickLauncher_btnGo" xml:space="preserve">
+    <value>&amp;Go</value>
+  </data>
+  <data name="frmQuickLauncher_FormName" xml:space="preserve">
+    <value>Quick Launcher</value>
+  </data>
+  <data name="frmMain_gMonTrayQuickLauncher" xml:space="preserve">
+    <value>&amp;Quick Launcher</value>
+  </data>
+  <data name="frmMain_gMonTraySetup" xml:space="preserve">
+    <value>S&amp;etup</value>
+  </data>
 </root>

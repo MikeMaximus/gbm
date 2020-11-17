@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-15T14:57:58
+        '''  Looks up a localized string similar to 2020-11-17T21:16:17
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4455,6 +4455,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Quick Launcher.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonTrayQuickLauncher() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonTrayQuickLauncher", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to S&amp;etup.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonTraySetup() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonTraySetup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Launcher Manager....
         '''</summary>
         Friend ReadOnly Property frmMain_gMonTraySetupLauncherManager() As String
@@ -5108,6 +5126,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmProcessManager_lblPath() As String
             Get
                 Return ResourceManager.GetString("frmProcessManager_lblPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Go.
+        '''</summary>
+        Friend ReadOnly Property frmQuickLauncher_btnGo() As String
+            Get
+                Return ResourceManager.GetString("frmQuickLauncher_btnGo", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Quick Launcher.
+        '''</summary>
+        Friend ReadOnly Property frmQuickLauncher_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmQuickLauncher_FormName", resourceCulture)
             End Get
         End Property
         

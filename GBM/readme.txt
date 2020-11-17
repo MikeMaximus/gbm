@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.4 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-November 16, 2020
+November 17, 2020
 
 Important Notices:
 
@@ -12,9 +12,10 @@ New in 1.2.4
 
 All Platforms:
 
-- Added the ability to launch games.
-	- Launch any configured game from the Game Manager.
+- Added the ability to launch games.		
 	- Launch the last five games played from the system tray menu.
+	- Launch any configured game using the "Quick Launcher" window on the system tray menu.
+	- Launch any configured game from the Game Manager.
 	- Games are launched using information GBM has automatically detected or can be fully customized via the Game Manager.
 	- This feature is optional and disabled by default, it must be enabled in Settings -> General.
 		- This feature relies on "Session Tracking", it must be enabled to determine the recently played games.		
