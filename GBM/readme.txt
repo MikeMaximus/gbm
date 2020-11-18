@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.4 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-November 17, 2020
+November 18, 2020
 
 Important Notices:
 
@@ -14,7 +14,7 @@ All Platforms:
 
 - Added the ability to launch games.		
 	- Launch the last five games played from the system tray menu.
-	- Launch any configured game using the "Quick Launcher" window on the system tray menu.
+	- Launch any configured game using the "Quick Launcher" option on the system tray menu, or using hotkey Ctrl + L on the main window.		
 	- Launch any configured game from the Game Manager.
 	- Games are launched using information GBM has automatically detected or can be fully customized via the Game Manager.
 	- This feature is optional and disabled by default, it must be enabled in Settings -> General.
@@ -38,5 +38,9 @@ All Platforms:
 Windows:
 
 - GBM will no longer crash if the UAC prompt is cancelled while restarting as Administrator.
+
+Known Issues:
+
+- (Linux) The "Quick Launcher" won't accept using the "Enter" key on the game list combo box to trigger closing the form and launching the game.  You need to hit "Tab" then "Enter".
 		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

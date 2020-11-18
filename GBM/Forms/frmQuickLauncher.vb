@@ -53,13 +53,15 @@ Public Class frmQuickLauncher
         cboGames.Focus()
     End Sub
 
-    Private Sub cboGames_KeyDown(sender As Object, e As KeyEventArgs) Handles cboGames.KeyDown, btnGo.KeyDown
-        If e.KeyCode = Keys.Enter Then
+    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
+        If ((Me.ActiveControl Is cboGames) Or (Me.ActiveControl Is btnGo)) And (keyData = Keys.Enter) Then
             LaunchGame()
-        ElseIf e.KeyCode = Keys.Escape Then
+        ElseIf ((Me.ActiveControl Is cboGames) Or (Me.ActiveControl Is btnGo)) And (keyData = Keys.Escape) Then
             Me.DialogResult = DialogResult.Cancel
         End If
-    End Sub
+
+        Return MyBase.ProcessCmdKey(msg, keyData)
+    End Function
 
     Private Sub btnGo_Click(sender As Object, e As EventArgs) Handles btnGo.Click
         LaunchGame()

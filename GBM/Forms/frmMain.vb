@@ -2622,8 +2622,8 @@ Public Class frmMain
     Private Sub frmMain_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Oemtilde AndAlso e.Modifiers = Keys.Control Then
             OpenDevConsole()
-        ElseIf e.KeyCode = Keys.Q AndAlso e.Modifiers = Keys.Control Then
-            OpenQuickLaunch()
+        ElseIf e.KeyCode = Keys.L AndAlso e.Modifiers = Keys.Control Then
+            If oSettings.EnableLauncher Then OpenQuickLaunch()
         End If
     End Sub
 
