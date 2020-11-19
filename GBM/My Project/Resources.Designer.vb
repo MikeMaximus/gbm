@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-11-17T21:16:17
+        '''  Looks up a localized string similar to 2020-11-19T01:33:57
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5747,6 +5747,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_ConfirmDefaults() As String
             Get
                 Return ResourceManager.GetString("frmSettings_ConfirmDefaults", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The Session Tracking feature can be used to show you recently played games to launch from the system tray menu.[BR][BR]Do you want to enable Session Tracking?.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_ConfirmEnableLauncherSessions() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_ConfirmEnableLauncherSessions", resourceCulture)
             End Get
         End Property
         

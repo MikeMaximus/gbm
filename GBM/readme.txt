@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.4 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-November 18, 2020
+November 19, 2020
 
 Important Notices:
 
@@ -12,21 +12,22 @@ New in 1.2.4
 
 All Platforms:
 
-- Added the ability to launch games.		
-	- Launch the last five games played from the system tray menu.
-	- Launch any configured game using the "Quick Launcher" option on the system tray menu, or using hotkey Ctrl + L on the main window.		
-	- Launch any configured game from the Game Manager.
+- Added the ability to launch games.
 	- Games are launched using information GBM has automatically detected or can be fully customized via the Game Manager.
-	- This feature is optional and disabled by default, it must be enabled in Settings -> General.
-		- This feature relies on "Session Tracking", it must be enabled to determine the recently played games.		
+		- Most games will need to be detected at least once in v1.2.4 or higher before they can be automatically launched using this feature.
+	- Launch any configured game using the "Quick Launcher".
+		- The Quick Launcher is available in the File menu, system tray menu and by using "Ctrl + L" on the main window.
+	- Launch any configured game directly from the Game Manager.
+	- Launch the last five games played from the system tray menu
+		- The "Session Tracking" feature needs to be enabled and have enough recorded data to display any recently played games in the system tray menu.
 - Added the ability to customize game launch options.
 	- Added "Launch Settings..." button to Game Manager.
 		- Allows the configuration of another launcher (such as Steam) to start the game instead of directly using an executable.
 			- You can manage available launchers using the Launcher Manager.  Some popular launchers will be preconfigured.			
 		- Allows the use of an alternate executable or script.
 		- Allows setting alternate launch parameters (or disabling them).		
-- The process path is now always detected and saved after a game has been detected.
-	- Priors versions of GBM only saved the process path when it was required for a backup.
+- The process path is now always saved once a game has been detected.
+	- Priors versions of GBM only saved the process path when it was required for backup or detection purposes.
 	- A warning will now be displayed in the log when the process path cannot be determined.
 - Disabled features will now have their options removed from all menus.  This currently only applies to session tracking and game launching.
 - Deleting a custom variable will now properly remove the environment variable in the current session and update any affected game configurations.

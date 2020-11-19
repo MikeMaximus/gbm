@@ -2,6 +2,7 @@
 Imports System.IO
 
 Public Class frmSettings
+    Dim bIsLoading As Boolean = False
     Dim bShutdown As Boolean = False
     Dim bSyncSettingsChanged As Boolean = False
     Dim eCurrentSyncFields As clsGame.eOptionalSyncFields
@@ -59,15 +60,6 @@ Public Class frmSettings
             oKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True)
             oKey.DeleteValue(sAppName, False)
             oKey.Close()
-        End If
-    End Sub
-
-    Private Sub HandleSessionTracking()
-        If chkSessionTracking.Checked = False Then
-            chkEnableLauncher.Checked = False
-            chkEnableLauncher.Enabled = False
-        Else
-            chkEnableLauncher.Enabled = True
         End If
     End Sub
 
@@ -258,11 +250,8 @@ Public Class frmSettings
         txt7zLocation.Text = oSettings.Custom7zLocation
         eCurrentSyncFields = oSettings.SyncFields
 
-        HandleSessionTracking()
-
         'Retrieve 7z Info
         GetUtilityInfo(oSettings.Custom7zLocation)
-
     End Sub
 
     Private Sub LoadCombos()
@@ -414,9 +403,11 @@ Public Class frmSettings
     End Sub
 
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        bIsLoading = True
         SetForm()
         LoadCombos()
         LoadSettings()
+        bIsLoading = False
     End Sub
 
     Private Sub btnBackupFolder_Click(sender As System.Object, e As System.EventArgs) Handles btnBackupFolder.Click
@@ -466,7 +457,13 @@ Public Class frmSettings
         ChangePanel()
     End Sub
 
-    Private Sub chkSessionTracking_CheckedChanged(sender As Object, e As EventArgs) Handles chkSessionTracking.CheckedChanged
-        HandleSessionTracking()
+    Private Sub chkEnableLauncher_CheckedChanged(sender As Object, e As EventArgs) Handles chkEnableLauncher.CheckedChanged
+        If Not bIsLoading Then
+            If chkSessionTracking.Checked = False And chkEnableLauncher.Checked = True Then
+                If mgrCommon.ShowMessage(frmSettings_ConfirmEnableLauncherSessions, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    chkSessionTracking.Checked = True
+                End If
+            End If
+        End If
     End Sub
 End Class

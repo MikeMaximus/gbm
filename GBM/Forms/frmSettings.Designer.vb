@@ -564,7 +564,7 @@ Partial Class frmSettings
         'chkEnableLauncher
         '
         Me.chkEnableLauncher.AutoSize = True
-        Me.chkEnableLauncher.Location = New System.Drawing.Point(28, 65)
+        Me.chkEnableLauncher.Location = New System.Drawing.Point(6, 65)
         Me.chkEnableLauncher.Name = "chkEnableLauncher"
         Me.chkEnableLauncher.Size = New System.Drawing.Size(137, 17)
         Me.chkEnableLauncher.TabIndex = 2
@@ -707,8 +707,8 @@ Partial Class frmSettings
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(554, 361)
         Me.Controls.Add(Me.pnlGeneral)
-        Me.Controls.Add(Me.pnlStartup)
         Me.Controls.Add(Me.pnlBackup)
+        Me.Controls.Add(Me.pnlStartup)
         Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.btnResetMessages)
         Me.Controls.Add(Me.lstSettings)

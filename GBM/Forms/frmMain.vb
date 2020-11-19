@@ -1627,10 +1627,12 @@ Public Class frmMain
         If oSettings.EnableLauncher Then
             gMonSetupLauncherManager.Visible = True
             gMonTraySetupLauncherManager.Visible = True
+            gMonFileQuickLauncher.Visible = True
             gMonTrayQuickLauncher.Visible = True
         Else
             gMonSetupLauncherManager.Visible = False
             gMonTraySetupLauncherManager.Visible = False
+            gMonFileQuickLauncher.Visible = False
             gMonTrayQuickLauncher.Visible = False
         End If
 
@@ -2291,6 +2293,10 @@ Public Class frmMain
         ScanToggle()
     End Sub
 
+    Private Sub gMonFileQuickLaunch_Click(sender As Object, e As EventArgs) Handles gMonFileQuickLauncher.Click, gMonTrayQuickLauncher.Click
+        OpenQuickLaunch()
+    End Sub
+
     Private Sub gMonFileFullBackup_Click(sender As Object, e As EventArgs) Handles gMonFileFullBackup.Click, gMonTrayFullBackup.Click
         RunBackupAll()
     End Sub
@@ -2395,10 +2401,6 @@ Public Class frmMain
         gMonNotification.Visible = False
         gMonTrayNotification.Visible = False
         OpenGameManager(True)
-    End Sub
-
-    Private Sub gMonTrayQuickLaunch_Click(sender As Object, e As EventArgs) Handles gMonTrayQuickLauncher.Click
-        OpenQuickLaunch()
     End Sub
 
     Private Sub gMonStripSplitStatusButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripStatusButton.Click

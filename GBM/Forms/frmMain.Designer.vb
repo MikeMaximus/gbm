@@ -66,6 +66,7 @@ Partial Class frmMain
         Me.gMonFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileMonitor = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFullSep = New System.Windows.Forms.ToolStripSeparator()
+        Me.gMonFileQuickLauncher = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileFullBackup = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileFullRestore = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSettingsSep = New System.Windows.Forms.ToolStripSeparator()
@@ -125,7 +126,7 @@ Partial Class frmMain
         '
         'gMonTrayMenu
         '
-        Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayNotification, Me.gMonTrayQuickLauncher, Me.gMonTrayShow, Me.gMonTraySep2, Me.gMonTrayMon, Me.gMonTrayFullBackup, Me.gMonTrayFullRestore, Me.gMonTraySep3, Me.gMonTraySettings, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTraySep1, Me.gMonTrayExit})
+        Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayNotification, Me.gMonTrayShow, Me.gMonTrayMon, Me.gMonTraySep2, Me.gMonTrayQuickLauncher, Me.gMonTrayFullBackup, Me.gMonTrayFullRestore, Me.gMonTraySep3, Me.gMonTraySettings, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTraySep1, Me.gMonTrayExit})
         Me.gMonTrayMenu.Name = "gMonTrayMenu"
         Me.gMonTrayMenu.Size = New System.Drawing.Size(181, 264)
         '
@@ -379,7 +380,7 @@ Partial Class frmMain
         '
         'gMonFile
         '
-        Me.gMonFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonFileMonitor, Me.gMonFullSep, Me.gMonFileFullBackup, Me.gMonFileFullRestore, Me.gMonSettingsSep, Me.gMonFileSettings, Me.gMonExitSep, Me.gMonFileExit})
+        Me.gMonFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonFileMonitor, Me.gMonFullSep, Me.gMonFileQuickLauncher, Me.gMonFileFullBackup, Me.gMonFileFullRestore, Me.gMonSettingsSep, Me.gMonFileSettings, Me.gMonExitSep, Me.gMonFileExit})
         Me.gMonFile.Name = "gMonFile"
         Me.gMonFile.Size = New System.Drawing.Size(37, 20)
         Me.gMonFile.Text = "&File"
@@ -387,46 +388,52 @@ Partial Class frmMain
         'gMonFileMonitor
         '
         Me.gMonFileMonitor.Name = "gMonFileMonitor"
-        Me.gMonFileMonitor.Size = New System.Drawing.Size(161, 22)
+        Me.gMonFileMonitor.Size = New System.Drawing.Size(180, 22)
         Me.gMonFileMonitor.Text = "Start &Monitoring"
         '
         'gMonFullSep
         '
         Me.gMonFullSep.Name = "gMonFullSep"
-        Me.gMonFullSep.Size = New System.Drawing.Size(158, 6)
+        Me.gMonFullSep.Size = New System.Drawing.Size(177, 6)
+        '
+        'gMonFileQuickLauncher
+        '
+        Me.gMonFileQuickLauncher.Name = "gMonFileQuickLauncher"
+        Me.gMonFileQuickLauncher.Size = New System.Drawing.Size(180, 22)
+        Me.gMonFileQuickLauncher.Text = "&Quick Launcher"
         '
         'gMonFileFullBackup
         '
         Me.gMonFileFullBackup.Name = "gMonFileFullBackup"
-        Me.gMonFileFullBackup.Size = New System.Drawing.Size(161, 22)
+        Me.gMonFileFullBackup.Size = New System.Drawing.Size(180, 22)
         Me.gMonFileFullBackup.Text = "Run Full &Backup"
         '
         'gMonFileFullRestore
         '
         Me.gMonFileFullRestore.Name = "gMonFileFullRestore"
-        Me.gMonFileFullRestore.Size = New System.Drawing.Size(161, 22)
+        Me.gMonFileFullRestore.Size = New System.Drawing.Size(180, 22)
         Me.gMonFileFullRestore.Text = "Run Full &Restore"
         '
         'gMonSettingsSep
         '
         Me.gMonSettingsSep.Name = "gMonSettingsSep"
-        Me.gMonSettingsSep.Size = New System.Drawing.Size(158, 6)
+        Me.gMonSettingsSep.Size = New System.Drawing.Size(177, 6)
         '
         'gMonFileSettings
         '
         Me.gMonFileSettings.Name = "gMonFileSettings"
-        Me.gMonFileSettings.Size = New System.Drawing.Size(161, 22)
+        Me.gMonFileSettings.Size = New System.Drawing.Size(180, 22)
         Me.gMonFileSettings.Text = "&Settings..."
         '
         'gMonExitSep
         '
         Me.gMonExitSep.Name = "gMonExitSep"
-        Me.gMonExitSep.Size = New System.Drawing.Size(158, 6)
+        Me.gMonExitSep.Size = New System.Drawing.Size(177, 6)
         '
         'gMonFileExit
         '
         Me.gMonFileExit.Name = "gMonFileExit"
-        Me.gMonFileExit.Size = New System.Drawing.Size(161, 22)
+        Me.gMonFileExit.Size = New System.Drawing.Size(180, 22)
         Me.gMonFileExit.Text = "E&xit"
         '
         'gMonSetup
@@ -811,4 +818,5 @@ Partial Class frmMain
     Friend WithEvents gMonSetupLauncherManager As ToolStripMenuItem
     Friend WithEvents gMonTraySetupLauncherManager As ToolStripMenuItem
     Friend WithEvents gMonTrayQuickLauncher As ToolStripMenuItem
+    Friend WithEvents gMonFileQuickLauncher As ToolStripMenuItem
 End Class
