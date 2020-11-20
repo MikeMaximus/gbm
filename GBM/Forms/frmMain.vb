@@ -1686,6 +1686,7 @@ Public Class frmMain
             gMonNotification.Enabled = False
             gMonTrayNotification.Enabled = False
             gMonTraySettings.Enabled = False
+            gMonTrayQuickLauncher.Enabled = False
             gMonTrayFullBackup.Enabled = False
             gMonTrayFullRestore.Enabled = False
             If Not bGameDetected Then
@@ -1712,6 +1713,7 @@ Public Class frmMain
             gMonNotification.Enabled = True
             gMonTrayNotification.Enabled = True
             gMonTraySettings.Enabled = True
+            gMonTrayQuickLauncher.Enabled = True
             gMonTrayFullBackup.Enabled = True
             gMonTrayFullRestore.Enabled = True
             gMonTrayMon.Enabled = True
@@ -2625,7 +2627,7 @@ Public Class frmMain
         If e.KeyCode = Keys.Oemtilde AndAlso e.Modifiers = Keys.Control Then
             OpenDevConsole()
         ElseIf e.KeyCode = Keys.L AndAlso e.Modifiers = Keys.Control Then
-            If oSettings.EnableLauncher Then OpenQuickLaunch()
+            If oSettings.EnableLauncher And Not eCurrentStatus = eStatus.Paused Then OpenQuickLaunch()
         End If
     End Sub
 
