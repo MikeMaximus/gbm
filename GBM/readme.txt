@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.4 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-November 19, 2020
+November 20, 2020
 
 Important Notices:
 
@@ -29,6 +29,7 @@ All Platforms:
 - The process path is now always saved once a game has been detected.
 	- Priors versions of GBM only saved the process path when it was required for backup or detection purposes.
 	- A warning will now be displayed in the log when the process path cannot be determined.
+- The current session time (and total time played) will now live update every minute on the main window, instead of only being displayed after the game ends.	
 - Disabled features will now have their options removed from all menus.  This currently only applies to session tracking and game launching.
 - Deleting a custom variable will now properly remove the environment variable in the current session and update any affected game configurations.
 - Editing a configuration while using a Custom filter on the Game Manager will no longer lose the changes if any tags are modified before saving.

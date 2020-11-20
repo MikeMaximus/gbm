@@ -56,6 +56,12 @@ Public Class mgrProcessDetection
         End Get
     End Property
 
+    ReadOnly Property CurrentSessionTime As TimeSpan
+        Get
+            Return Now().Subtract(dStartTime)
+        End Get
+    End Property
+
     Property GameInfo As clsGame
         Get
             Return oGame

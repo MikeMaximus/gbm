@@ -56,6 +56,7 @@ Public Class frmMain
     WithEvents tmScanTimer As New Timer
     WithEvents tmRestoreCheck As New System.Timers.Timer
     WithEvents tmFileWatcherQueue As New System.Timers.Timer
+    WithEvents tmSessionTimeUpdater As New System.Timers.Timer
 
     Public WithEvents oProcess As New mgrProcessDetection
     Public WithEvents oBackup As New mgrBackup
@@ -66,6 +67,7 @@ Public Class frmMain
     Delegate Sub UpdateNotifierCallBack(ByVal iCount As Integer)
     Delegate Sub UpdateLogCallBack(ByVal sLogUpdate As String, ByVal bTrayUpdate As Boolean, ByVal objIcon As System.Windows.Forms.ToolTipIcon, ByVal bTimeStamp As Boolean)
     Delegate Sub WorkingGameInfoCallBack(ByVal sTitle As String, ByVal sStatus1 As String, ByVal sStatus2 As String, ByVal sStatus3 As String)
+    Delegate Sub UpdateTimeSpentCallback(ByVal dTotalTime As Double, ByVal dSessionTime As Double)
     Delegate Sub UpdateStatusCallBack(ByVal sStatus As String)
     Delegate Sub SetLastActionCallBack(ByVal sString As String)
     Delegate Sub OperationEndedCallBack()
@@ -579,8 +581,6 @@ Public Class frmMain
 
     Private Sub StartRestoreCheck()
         iRestoreTimeOut = -1
-        tmRestoreCheck.Interval = 60000
-        tmRestoreCheck.AutoReset = True
         tmRestoreCheck.Start()
         AutoRestoreCheck()
     End Sub
@@ -922,29 +922,31 @@ Public Class frmMain
     End Sub
 
     Private Sub UpdateTimeSpent(ByVal dTotalTime As Double, ByVal dSessionTime As Double)
-        Dim sTotalTime As String
-        Dim sSessionTime As String
-
-        If dTotalTime < 1 Then
-            sTotalTime = mgrCommon.FormatString(frmMain_SessionMinutes, Math.Round((dTotalTime * 100) * 0.6).ToString)
+        'Thread Safe 
+        If Me.InvokeRequired = True Then
+            Dim d As New UpdateTimeSpentCallback(AddressOf UpdateTimeSpent)
+            Me.Invoke(d, New Object() {dTotalTime, dSessionTime})
         Else
-            sTotalTime = mgrCommon.FormatString(frmMain_SessionHours, Math.Round(dTotalTime, 1).ToString)
-        End If
+            Dim sTotalTime As String
+            Dim sSessionTime As String
 
-        If dSessionTime < 1 Then
-            sSessionTime = mgrCommon.FormatString(frmMain_SessionMinutes, Math.Round((dSessionTime * 100) * 0.6).ToString)
-        Else
-            sSessionTime = mgrCommon.FormatString(frmMain_SessionHours, Math.Round(dSessionTime, 1).ToString)
-        End If
+            If dTotalTime < 1 Then
+                sTotalTime = mgrCommon.FormatString(frmMain_SessionMinutes, Math.Round((dTotalTime * 100) * 0.6).ToString)
+            Else
+                sTotalTime = mgrCommon.FormatString(frmMain_SessionHours, Math.Round(dTotalTime, 1).ToString)
+            End If
 
-        If dSessionTime > 0 Then
+            If dSessionTime < 1 Then
+                sSessionTime = mgrCommon.FormatString(frmMain_SessionMinutes, Math.Round((dSessionTime * 100) * 0.6).ToString)
+            Else
+                sSessionTime = mgrCommon.FormatString(frmMain_SessionHours, Math.Round(dSessionTime, 1).ToString)
+            End If
+
             lblTimeSpent.Text = sSessionTime & " (" & sTotalTime & ")"
-        Else
-            lblTimeSpent.Text = sTotalTime
-        End If
 
-        pbTime.Visible = True
-        lblTimeSpent.Visible = True
+            pbTime.Visible = True
+            lblTimeSpent.Visible = True
+        End If
     End Sub
 
     Private Sub HandleTimeSpent()
@@ -1273,8 +1275,6 @@ Public Class frmMain
 
     Private Sub QueueSyncWatcher() Handles oFileWatcher.Changed
         tmFileWatcherQueue.Stop()
-        tmFileWatcherQueue.AutoReset = False
-        tmFileWatcherQueue.Interval = 30000
         tmFileWatcherQueue.Start()
     End Sub
 
@@ -1958,6 +1958,14 @@ Public Class frmMain
         lblLastAction.Text = String.Empty
         pbTime.SizeMode = PictureBoxSizeMode.AutoSize
         pbTime.Image = Icon_Clock
+
+        'Init Timers
+        tmScanTimer.Interval = 5000
+        tmRestoreCheck.Interval = 60000
+        tmFileWatcherQueue.AutoReset = False
+        tmFileWatcherQueue.Interval = 30000
+        tmSessionTimeUpdater.Interval = 60000
+
         AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
         ResetGameInfo()
     End Sub
@@ -2025,7 +2033,6 @@ Public Class frmMain
 
     'Functions that control the scanning for games
     Private Sub StartScan()
-        tmScanTimer.Interval = 5000
         tmScanTimer.Start()
     End Sub
 
@@ -2445,6 +2452,10 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub SessionTimeUpdaterEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmSessionTimeUpdater.Elapsed
+        UpdateTimeSpent(oProcess.GameInfo.Hours + oProcess.CurrentSessionTime.TotalHours, oProcess.CurrentSessionTime.TotalHours)
+    End Sub
+
     Private Sub ScanTimerEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmScanTimer.Tick
         Dim bNeedsPath As Boolean = False
         Dim bContinue As Boolean = True
@@ -2535,6 +2546,8 @@ Public Class frmMain
     End Sub
 
     Private Sub bwMonitor_DoWork(sender As System.Object, e As System.ComponentModel.DoWorkEventArgs) Handles bwMonitor.DoWork
+        If oSettings.TimeTracking And Not oProcess.Duplicate Then tmSessionTimeUpdater.Start()
+
         Try
             Do While Not (oProcess.FoundProcess.HasExited Or bwMonitor.CancellationPending)
                 System.Threading.Thread.Sleep(3000)
@@ -2547,6 +2560,8 @@ Public Class frmMain
             oProcess.FoundProcess.WaitForExit()
             bProcessIsAdmin = False
         End Try
+
+        tmSessionTimeUpdater.Stop()
     End Sub
 
     Private Sub bwMain_RunWorkerCompleted(sender As System.Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwMonitor.RunWorkerCompleted
