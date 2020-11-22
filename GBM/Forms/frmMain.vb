@@ -943,6 +943,7 @@ Public Class frmMain
             End If
 
             lblTimeSpent.Text = sSessionTime & " (" & sTotalTime & ")"
+            gMonTray.Text = mgrCommon.FormatString(frmMain_GameDetectedWithSessionTime, New String() {oProcess.GameInfo.CroppedName, sSessionTime})
 
             pbTime.Visible = True
             lblTimeSpent.Visible = True
@@ -1745,14 +1746,18 @@ Public Class frmMain
         End Select
     End Sub
 
-    Public Sub UpdateStatus(sStatus As String)
-        'Thread Safe (If one control requires an invoke assume they all do)
-        If gMonStatusStrip.InvokeRequired = True Then
+    Public Sub UpdateStatus(ByVal sStatus As String, Optional ByVal sTrayStatus As String = "")
+        'Thread Safe
+        If Me.InvokeRequired = True Then
             Dim d As New UpdateStatusCallBack(AddressOf UpdateStatus)
             Me.Invoke(d, New Object() {sStatus})
         Else
             gMonStripTxtStatus.Text = sStatus
-            gMonTray.Text = sStatus
+            If sTrayStatus = String.Empty Then
+                gMonTray.Text = sStatus
+            Else
+                gMonTray.Text = sTrayStatus
+            End If
         End If
     End Sub
 
@@ -2525,7 +2530,7 @@ Public Class frmMain
                 Else
                     oLastGame = oProcess.GameInfo
                     UpdateLog(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.Name), oSettings.ShowDetectionToolTips)
-                    UpdateStatus(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.CroppedName))
+                    UpdateStatus(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.CroppedName), oProcess.GameInfo.CroppedName)
                     SetGameInfo()
                 End If
 

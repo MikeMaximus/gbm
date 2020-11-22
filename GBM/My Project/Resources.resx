@@ -2788,4 +2788,7 @@
   <data name="frmSettings_ConfirmEnableLauncherSessions" xml:space="preserve">
     <value>The Session Tracking feature can be used to show you recently played games to launch from the system tray menu.[BR][BR]Do you want to enable Session Tracking?</value>
   </data>
+  <data name="frmMain_GameDetectedWithSessionTime" xml:space="preserve">
+    <value>[PARAM][BR][PARAM]</value>
+  </data>
 </root>
