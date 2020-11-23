@@ -56,6 +56,12 @@ Public Class mgrProcessDetection
         End Get
     End Property
 
+    ReadOnly Property CurrentSessionTime As TimeSpan
+        Get
+            Return Now().Subtract(dStartTime)
+        End Get
+    End Property
+
     Property GameInfo As clsGame
         Get
             Return oGame
@@ -348,29 +354,27 @@ Public Class mgrProcessDetection
             End If
 
             If oDetectedGames.Count > 0 Then
-                If Not oGame.AbsolutePath And Not oGame.MonitorOnly Then
-                    Try
-                        If Not bWineProcess Then
-                            oGame.ProcessPath = Path.GetDirectoryName(prsCurrent.MainModule.FileName)
-                        Else
-                            oGame.ProcessPath = GetUnixSymLinkDirectory(prsCurrent)
-                        End If
-                    Catch exWin32 As System.ComponentModel.Win32Exception
-                        If exWin32.NativeErrorCode = 5 Then
-                            bNeedsPath = True
-                            iErrorCode = 5
-                        ElseIf exWin32.NativeErrorCode = 299 Then
-                            bNeedsPath = True
-                            iErrorCode = 299
-                        Else
-                            If bDebugMode Then mgrCommon.ShowMessage(exWin32.NativeErrorCode & " " & exWin32.Message & vbCrLf & vbCrLf & exWin32.StackTrace, MsgBoxStyle.Critical)
-                            Return False
-                        End If
-                    Catch exAll As Exception
-                        If bDebugMode Then mgrCommon.ShowMessage(exAll.Message & vbCrLf & vbCrLf & exAll.StackTrace, MsgBoxStyle.Critical)
+                Try
+                    If Not bWineProcess Then
+                        oGame.ProcessPath = Path.GetDirectoryName(prsCurrent.MainModule.FileName)
+                    Else
+                        oGame.ProcessPath = GetUnixSymLinkDirectory(prsCurrent)
+                    End If
+                Catch exWin32 As System.ComponentModel.Win32Exception
+                    If exWin32.NativeErrorCode = 5 Then
+                        bNeedsPath = True
+                        iErrorCode = 5
+                    ElseIf exWin32.NativeErrorCode = 299 Then
+                        bNeedsPath = True
+                        iErrorCode = 299
+                    Else
+                        If bDebugMode Then mgrCommon.ShowMessage(exWin32.NativeErrorCode & " " & exWin32.Message & vbCrLf & vbCrLf & exWin32.StackTrace, MsgBoxStyle.Critical)
                         Return False
-                    End Try
-                End If
+                    End If
+                Catch exAll As Exception
+                    If bDebugMode Then mgrCommon.ShowMessage(exAll.Message & vbCrLf & vbCrLf & exAll.StackTrace, MsgBoxStyle.Critical)
+                    Return False
+                End Try
 
                 'This will force two cycles for detection to try and prevent issues with UAC prompt
                 If Not bVerified Then

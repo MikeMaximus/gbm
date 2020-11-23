@@ -1,11 +1,10 @@
 ﻿Imports GBM.My.Resources
-Imports System.IO
 
-Public Class frmVariableManager
-    Dim hshVariableData As Hashtable
+Public Class frmLauncherManager
+    Dim hshLauncherData As Hashtable
     Private bIsDirty As Boolean = False
     Private bIsLoading As Boolean = False
-    Private oCurrentVariable As clsPathVariable
+    Private oCurrentLauncher As clsLauncher
 
     Private Property IsDirty As Boolean
         Get
@@ -34,34 +33,18 @@ Public Class frmVariableManager
 
     Private eCurrentMode As eModes = eModes.Disabled
 
-    Private Property VariableData As Hashtable
+    Private Property LauncherData As Hashtable
         Get
-            Return hshVariableData
+            Return hshLauncherData
         End Get
         Set(value As Hashtable)
-            hshVariableData = value
+            hshLauncherData = value
         End Set
     End Property
 
-    Private Sub PathBrowse()
-        Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-        Dim sCurrentPath As String = txtPath.Text
-        Dim sNewPath As String
-
-        If txtPath.Text <> String.Empty Then
-            If Directory.Exists(sCurrentPath) Then
-                sDefaultFolder = sCurrentPath
-            End If
-        End If
-
-        sNewPath = mgrCommon.OpenFolderBrowser("VM_Path", frmVariableManager_PathBrowse, sDefaultFolder, False)
-
-        If sNewPath <> String.Empty Then txtPath.Text = sNewPath
-    End Sub
-
     Private Sub LoadData()
-        VariableData = mgrVariables.ReadVariables
-        lstVariables.Items.Clear()
+        LauncherData = mgrLaunchers.ReadLaunchers
+        lstLaunchers.Items.Clear()
         FormatAndFillList()
     End Sub
 
@@ -82,8 +65,8 @@ Public Class frmVariableManager
     Private Sub FormatAndFillList()
         IsLoading = True
 
-        For Each oCustomVariable As clsPathVariable In VariableData.Values
-            lstVariables.Items.Add(oCustomVariable.Name)
+        For Each oLauncher As clsLauncher In LauncherData.Values
+            lstLaunchers.Items.Add(oLauncher.Name)
         Next
 
         IsLoading = False
@@ -92,11 +75,11 @@ Public Class frmVariableManager
     Private Sub FillData()
         IsLoading = True
 
-        oCurrentVariable = DirectCast(VariableData(lstVariables.SelectedItems(0).ToString), clsPathVariable)
+        oCurrentLauncher = DirectCast(LauncherData(lstLaunchers.SelectedItems(0).ToString), clsLauncher)
 
-        txtID.Text = oCurrentVariable.ID
-        txtName.Text = oCurrentVariable.Name
-        txtPath.Text = oCurrentVariable.Path
+        txtID.Text = oCurrentLauncher.LauncherID
+        txtName.Text = oCurrentLauncher.Name
+        txtLaunchString.Text = oCurrentLauncher.LaunchString
 
         IsLoading = False
     End Sub
@@ -104,7 +87,7 @@ Public Class frmVariableManager
     Private Sub DirtyCheck_ValueChanged(sender As Object, e As EventArgs)
         If Not IsLoading Then
             IsDirty = True
-            If Not eCurrentMode = eModes.Add Then EditVariable()
+            If Not eCurrentMode = eModes.Add Then EditLauncher()
         End If
     End Sub
 
@@ -130,31 +113,31 @@ Public Class frmVariableManager
 
         Select Case eCurrentMode
             Case eModes.Add
-                grpVariable.Enabled = True
-                WipeControls(grpVariable.Controls)
+                grpLauncher.Enabled = True
+                WipeControls(grpLauncher.Controls)
                 btnSave.Enabled = True
                 btnCancel.Enabled = True
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
-                lstVariables.Enabled = False
+                lstLaunchers.Enabled = False
             Case eModes.Edit
-                lstVariables.Enabled = False
-                grpVariable.Enabled = True
+                lstLaunchers.Enabled = False
+                grpLauncher.Enabled = True
                 btnSave.Enabled = True
                 btnCancel.Enabled = True
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
             Case eModes.View
-                lstVariables.Enabled = True
-                grpVariable.Enabled = True
+                lstLaunchers.Enabled = True
+                grpLauncher.Enabled = True
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
                 btnAdd.Enabled = True
                 btnDelete.Enabled = True
             Case eModes.Disabled
-                lstVariables.Enabled = True
-                WipeControls(grpVariable.Controls)
-                grpVariable.Enabled = False
+                lstLaunchers.Enabled = True
+                WipeControls(grpLauncher.Controls)
+                grpLauncher.Enabled = False
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
                 btnAdd.Enabled = True
@@ -164,12 +147,12 @@ Public Class frmVariableManager
         IsLoading = False
     End Sub
 
-    Private Sub EditVariable()
+    Private Sub EditLauncher()
         eCurrentMode = eModes.Edit
         ModeChange()
     End Sub
 
-    Private Sub AddVariable()
+    Private Sub AddLauncher()
         eCurrentMode = eModes.Add
         ModeChange()
         txtName.Focus()
@@ -179,13 +162,13 @@ Public Class frmVariableManager
         If bIsDirty Then
             Select Case HandleDirty()
                 Case MsgBoxResult.Yes
-                    SaveVariable()
+                    SaveLauncher()
                 Case MsgBoxResult.No
-                    If lstVariables.SelectedItems.Count > 0 Then
+                    If lstLaunchers.SelectedItems.Count > 0 Then
                         eCurrentMode = eModes.View
                         ModeChange()
                         FillData()
-                        lstVariables.Focus()
+                        lstLaunchers.Focus()
                     Else
                         eCurrentMode = eModes.Disabled
                         ModeChange()
@@ -194,11 +177,11 @@ Public Class frmVariableManager
                     'Do Nothing
             End Select
         Else
-            If lstVariables.SelectedItems.Count > 0 Then
+            If lstLaunchers.SelectedItems.Count > 0 Then
                 eCurrentMode = eModes.View
                 ModeChange()
                 FillData()
-                lstVariables.Focus()
+                lstLaunchers.Focus()
             Else
                 eCurrentMode = eModes.Disabled
                 ModeChange()
@@ -206,30 +189,27 @@ Public Class frmVariableManager
         End If
     End Sub
 
-    Private Sub SaveVariable()
-        Dim oCustomVariable As New clsPathVariable
+    Private Sub SaveLauncher()
+        Dim oLauncher As New clsLauncher
         Dim bSuccess As Boolean = False
 
         If txtID.Text <> String.Empty Then
-            oCustomVariable.ID = txtID.Text
+            oLauncher.LauncherID = txtID.Text
         End If
-        oCustomVariable.Name = txtName.Text
-        oCustomVariable.Path = txtPath.Text
+        oLauncher.Name = txtName.Text
+        oLauncher.LaunchString = txtLaunchString.Text
 
         Select Case eCurrentMode
             Case eModes.Add
-                If CoreValidatation(oCustomVariable) Then
+                If CoreValidatation(oLauncher) Then
                     bSuccess = True
-                    mgrVariables.DoVariableAdd(oCustomVariable)
-                    mgrVariables.DoPathUpdate(oCustomVariable.Path, oCustomVariable.FormattedName)
+                    mgrLaunchers.DoLauncherAdd(oLauncher)
                     eCurrentMode = eModes.View
                 End If
             Case eModes.Edit
-                If CoreValidatation(oCustomVariable) Then
+                If CoreValidatation(oLauncher) Then
                     bSuccess = True
-                    mgrVariables.DoVariableUpdate(oCustomVariable)
-                    mgrVariables.DoPathUpdate(oCurrentVariable.FormattedName, oCurrentVariable.Path)
-                    mgrVariables.DoPathUpdate(oCustomVariable.Path, oCustomVariable.FormattedName)
+                    mgrLaunchers.DoLauncherUpdate(oLauncher)
                     eCurrentMode = eModes.View
                 End If
         End Select
@@ -238,20 +218,18 @@ Public Class frmVariableManager
             IsDirty = False
             LoadData()
             ModeChange()
-            If eCurrentMode = eModes.View Then lstVariables.SelectedIndex = lstVariables.Items.IndexOf(oCustomVariable.Name)
+            If eCurrentMode = eModes.View Then lstLaunchers.SelectedIndex = lstLaunchers.Items.IndexOf(oLauncher.Name)
         End If
     End Sub
 
-    Private Sub DeleteVariable()
-        Dim oCustomVariable As clsPathVariable
+    Private Sub DeleteLauncher()
+        Dim oLauncher As clsLauncher
 
-        If lstVariables.SelectedItems.Count > 0 Then
-            oCustomVariable = DirectCast(VariableData(lstVariables.SelectedItems(0).ToString), clsPathVariable)
+        If lstLaunchers.SelectedItems.Count > 0 Then
+            oLauncher = DirectCast(LauncherData(lstLaunchers.SelectedItems(0).ToString), clsLauncher)
 
-            If mgrCommon.ShowMessage(frmVariableManager_ConfirmDelete, oCustomVariable.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                mgrVariables.DoVariableDelete(oCustomVariable.ID)
-                mgrVariables.DoPathUpdate(oCustomVariable.FormattedName, oCustomVariable.Path)
-                Environment.SetEnvironmentVariable(oCustomVariable.Name, Nothing)
+            If mgrCommon.ShowMessage(frmLauncherManager_ConfirmDelete, oLauncher.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                mgrLaunchers.DoLauncherDelete(oLauncher.LauncherID)
                 LoadData()
                 eCurrentMode = eModes.Disabled
                 ModeChange()
@@ -259,35 +237,38 @@ Public Class frmVariableManager
         End If
     End Sub
 
-    Private Sub SwitchVariable()
-        If lstVariables.SelectedItems.Count > 0 Then
+    Private Sub SwitchLauncher()
+        If lstLaunchers.SelectedItems.Count > 0 Then
             eCurrentMode = eModes.View
             FillData()
             ModeChange()
         End If
     End Sub
 
-    Private Function CoreValidatation(ByVal oCustomVariable As clsPathVariable) As Boolean
-        If txtName.Text = String.Empty Then
-            mgrCommon.ShowMessage(frmVariableManager_ErrorValidName, MsgBoxStyle.Exclamation)
+    Private Function CoreValidatation(ByVal oLauncher As clsLauncher) As Boolean
+        If txtName.Text.Trim = String.Empty Then
+            mgrCommon.ShowMessage(frmLauncherManager_ErrorValidName, MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
         End If
 
-        If txtPath.Text = String.Empty Then
-            mgrCommon.ShowMessage(frmVariableManager_ErrorValidPath, MsgBoxStyle.Exclamation)
-            txtPath.Focus()
+        If txtLaunchString.Text.Trim = String.Empty Then
+            mgrCommon.ShowMessage(frmLauncherManager_ErrorValidCommand, MsgBoxStyle.Exclamation)
+            txtLaunchString.Focus()
             Return False
+        Else
+            If Not mgrCommon.IsURI(txtLaunchString.Text) Then
+                mgrCommon.ShowMessage(frmLauncherManager_ErrorInvalidURI, MsgBoxStyle.Exclamation)
+                txtLaunchString.Focus()
+                Return False
+            End If
+            If Not txtLaunchString.Text.Contains("%ID%") Then
+                mgrCommon.ShowMessage(frmLauncherManager_WarningMissingVariable, MsgBoxStyle.Information)
+            End If
         End If
 
-        If mgrVariables.DoCheckDuplicate(oCustomVariable.Name, oCustomVariable.ID) Then
-            mgrCommon.ShowMessage(frmVariableManager_ErrorVariableDupe, MsgBoxStyle.Exclamation)
-            txtName.Focus()
-            Return False
-        End If
-
-        If mgrVariables.GetReservedVariables.Contains(txtName.Text.ToUpper) Then
-            mgrCommon.ShowMessage(frmVariableManager_ErrorVariableReserved, txtName.Text, MsgBoxStyle.Exclamation)
+        If mgrLaunchers.DoCheckDuplicate(oLauncher.Name, oLauncher.LauncherID) Then
+            mgrCommon.ShowMessage(frmLauncherManager_ErrorDupe, MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False
         End If
@@ -297,61 +278,63 @@ Public Class frmVariableManager
 
     Private Sub SetForm()
         'Set Form Name
-        Me.Text = frmVariableManager_FormName
+        Me.Text = frmLauncherManager_FormName
         Me.Icon = GBM_Icon
 
         'Set Form Text
-        btnCancel.Text = frmVariableManager_btnCancel
-        btnSave.Text = frmVariableManager_btnSave
-        grpVariable.Text = frmVariableManager_grpVariable
-        btnPathBrowse.Text = frmVariableManager_btnPathBrowse
-        lblPath.Text = frmVariableManager_lblPath
-        lblName.Text = frmVariableManager_lblName
-        btnClose.Text = frmVariableManager_btnClose
-        btnDelete.Text = frmVariableManager_btnDelete
-        btnAdd.Text = frmVariableManager_btnAdd
+        btnCancel.Text = frmLauncherManager_btnCancel
+        btnSave.Text = frmLauncherManager_btnSave
+        grpLauncher.Text = frmLauncherManager_grpLauncher
+        lblCommand.Text = frmLauncherManager_lblCommand
+        lblName.Text = frmLauncherManager_lblName
+        btnClose.Text = frmLauncherManager_btnClose
+        btnDelete.Text = frmLauncherManager_btnDelete
+        btnAdd.Text = frmLauncherManager_btnAdd
     End Sub
 
-    Private Sub frmVariableManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmLauncherManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetForm()
         LoadData()
         ModeChange()
-        AssignDirtyHandlers(grpVariable.Controls)
+        AssignDirtyHandlers(grpLauncher.Controls)
     End Sub
 
-    Private Sub lstVariables_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstVariables.SelectedIndexChanged
-        SwitchVariable()
+    Private Sub lstLauncheres_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstLaunchers.SelectedIndexChanged
+        SwitchLauncher()
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        AddVariable()
+        AddLauncher()
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
-        DeleteVariable()
+        DeleteLauncher()
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        SaveVariable()
+        SaveLauncher()
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         CancelEdit()
     End Sub
 
+    Private Sub btnAddDefaults_Click(sender As Object, e As EventArgs) Handles btnAddDefaults.Click
+        If mgrCommon.ShowMessage(frmLauncherManager_ConfirmAddDefaults, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            mgrLaunchers.AddDefaultLaunchers()
+            LoadData()
+        End If
+    End Sub
+
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
         Me.Close()
     End Sub
 
-    Private Sub btnPathBrowse_Click(sender As Object, e As EventArgs) Handles btnPathBrowse.Click
-        PathBrowse()
-    End Sub
-
-    Private Sub frmVariableManager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+    Private Sub frmLauncherManager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If bIsDirty Then
             Select Case HandleDirty()
                 Case MsgBoxResult.Yes
-                    SaveVariable()
+                    SaveLauncher()
                     If bIsDirty Then e.Cancel = True
                 Case MsgBoxResult.Cancel
                     e.Cancel = True

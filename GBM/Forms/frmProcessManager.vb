@@ -47,6 +47,7 @@ Public Class frmProcessManager
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
         Dim sCurrentPath As String = txtPath.Text
         Dim sNewPath As String
+        Dim oExtensions As New SortedList
 
         If sCurrentPath <> String.Empty Then
             sCurrentPath = Path.GetDirectoryName(txtPath.Text)
@@ -55,8 +56,8 @@ Public Class frmProcessManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFileBrowser("PM_Process", frmProcessManager_ChooseProcess, "exe",
-                                          frmProcessManager_Executable, sDefaultFolder, True)
+        oExtensions.Add(frmProcessManager_Executable, "exe")
+        sNewPath = mgrCommon.OpenFileBrowser("PM_Process", frmProcessManager_ChooseProcess, oExtensions, 1, sDefaultFolder, True)
 
         If sNewPath <> String.Empty Then
             txtPath.Text = sNewPath
@@ -76,12 +77,8 @@ Public Class frmProcessManager
         oResult = mgrCommon.ShowMessage(App_ConfirmDirty, MsgBoxStyle.YesNoCancel)
 
         Select Case oResult
-            Case MsgBoxResult.Yes
-                IsDirty = False
             Case MsgBoxResult.No
                 IsDirty = False
-            Case MsgBoxResult.Cancel
-                'No Change
         End Select
 
         Return oResult
@@ -362,8 +359,7 @@ Public Class frmProcessManager
             Select Case HandleDirty()
                 Case MsgBoxResult.Yes
                     SaveProcess()
-                Case MsgBoxResult.No
-                    'Do Nothing
+                    If bIsDirty Then e.Cancel = True
                 Case MsgBoxResult.Cancel
                     e.Cancel = True
             End Select

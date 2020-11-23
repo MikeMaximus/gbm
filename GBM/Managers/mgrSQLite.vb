@@ -76,7 +76,8 @@ Public Class mgrSQLite
                    "SuppressBackup BOOLEAN NOT NULL, SuppressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
                    "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL, SessionTracking BOOLEAN NOT NULL, " &
                    "SuppressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL, UseGameID BOOLEAN NOT NULL, DisableSyncMessages BOOLEAN NOT NULL, ShowResolvedPaths BOOLEAN NOT NULL, " &
-                   "DisableDiskSpaceCheck BOOLEAN NOT NULL, TemporaryFolder TEXT, ExitOnClose BOOLEAN NOT NULL, ExitNoWarning BOOLEAN NOT NULL);"
+                   "DisableDiskSpaceCheck BOOLEAN NOT NULL, TemporaryFolder TEXT, ExitOnClose BOOLEAN NOT NULL, ExitNoWarning BOOLEAN NOT NULL, EnableLauncher BOOLEAN NOT NULL);"
+
             'Add Tables (SavedPath)
             sSql &= "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
 
@@ -115,10 +116,20 @@ Public Class mgrSQLite
             'Add Tables (Config Links)
             sSql &= "CREATE TABLE configlinks (MonitorID TEXT NOT NULL, LinkID TEXT NOT NULL, PRIMARY KEY(MonitorID, LinkID)); "
 
+            'Add Tables (Launchers)
+            sSql &= "CREATE TABLE launchers (LauncherID	TEXT NOT NULL PRIMARY KEY, Name	TEXT NOT NULL, LaunchString	TEXT NOT NULL);"
+
+            'Add Tables (Launch Data)
+            sSql &= "CREATE TABLE launchdata (MonitorID	TEXT NOT NULL PRIMARY KEY, Path	TEXT NOT NULL, Args TEXT NOT NULL, NoArgs BOOLEAN NOT NULL, LauncherID TEXT NOT NULL, LauncherGameID TEXT NOT NULL);"
+
             'Set Version
             sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
 
             RunParamQuery(sSql, New Hashtable)
+
+            'Add any default data
+            mgrLaunchers.AddDefaultLaunchers()
+
             Return True
         Catch ex As Exception
             mgrCommon.ShowMessage(mgrSQLite_ErrorCreatingLocalDB, ex.Message, MsgBoxStyle.Critical)
@@ -1006,6 +1017,36 @@ Public Class mgrSQLite
                 BackupDB("v120")
 
                 sSQL = "PRAGMA user_version=122"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '1.24 Upgrade
+        If GetDatabaseVersion() < 124 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v122")
+
+                'Add Tables (Launchers & Launch Data)
+                sSQL = "CREATE TABLE launchers (LauncherID	TEXT NOT NULL PRIMARY KEY, Name	TEXT NOT NULL, LaunchString	TEXT NOT NULL);"
+                sSQL &= "CREATE TABLE launchdata (MonitorID	TEXT NOT NULL PRIMARY KEY, Path	TEXT NOT NULL, Args TEXT NOT NULL, NoArgs BOOLEAN NOT NULL, LauncherID TEXT NOT NULL, LauncherGameID TEXT NOT NULL);"
+
+                'Add new field(s)
+                sSQL &= "ALTER TABLE settings ADD COLUMN EnableLauncher BOOLEAN NOT NULL DEFAULT 0;"
+
+                sSQL &= "PRAGMA user_version=124"
+
+                RunParamQuery(sSQL, New Hashtable)
+
+                'Add new default data
+                mgrLaunchers.AddDefaultLaunchers()
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v122")
+
+                sSQL = "PRAGMA user_version=124"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If

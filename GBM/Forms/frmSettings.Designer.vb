@@ -68,6 +68,7 @@ Partial Class frmSettings
         Me.grpLogOptions = New System.Windows.Forms.GroupBox()
         Me.chkDisableSyncMessages = New System.Windows.Forms.CheckBox()
         Me.grpGameData = New System.Windows.Forms.GroupBox()
+        Me.chkEnableLauncher = New System.Windows.Forms.CheckBox()
         Me.chkShowResolvedPaths = New System.Windows.Forms.CheckBox()
         Me.chkSessionTracking = New System.Windows.Forms.CheckBox()
         Me.lstSettings = New System.Windows.Forms.ListBox()
@@ -111,10 +112,10 @@ Partial Class frmSettings
         '
         'btnOptionalFields
         '
-        Me.btnOptionalFields.Location = New System.Drawing.Point(6, 88)
+        Me.btnOptionalFields.Location = New System.Drawing.Point(6, 111)
         Me.btnOptionalFields.Name = "btnOptionalFields"
         Me.btnOptionalFields.Size = New System.Drawing.Size(216, 23)
-        Me.btnOptionalFields.TabIndex = 3
+        Me.btnOptionalFields.TabIndex = 4
         Me.btnOptionalFields.Text = "Choose &Optional Sync Fields..."
         Me.btnOptionalFields.UseVisualStyleBackColor = True
         '
@@ -491,7 +492,7 @@ Partial Class frmSettings
         Me.grpGameMonitoringOptions.Controls.Add(Me.lblMinutes)
         Me.grpGameMonitoringOptions.Controls.Add(Me.chkShowDetectionTips)
         Me.grpGameMonitoringOptions.Controls.Add(Me.nudSuppressBackupThreshold)
-        Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 141)
+        Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 168)
         Me.grpGameMonitoringOptions.Name = "grpGameMonitoringOptions"
         Me.grpGameMonitoringOptions.Size = New System.Drawing.Size(354, 65)
         Me.grpGameMonitoringOptions.TabIndex = 1
@@ -529,7 +530,7 @@ Partial Class frmSettings
         '
         Me.grpLogOptions.Controls.Add(Me.chkDisableSyncMessages)
         Me.grpLogOptions.Controls.Add(Me.chkAutoSaveLog)
-        Me.grpLogOptions.Location = New System.Drawing.Point(6, 212)
+        Me.grpLogOptions.Location = New System.Drawing.Point(6, 240)
         Me.grpLogOptions.Name = "grpLogOptions"
         Me.grpLogOptions.Size = New System.Drawing.Size(354, 65)
         Me.grpLogOptions.TabIndex = 2
@@ -548,24 +549,35 @@ Partial Class frmSettings
         '
         'grpGameData
         '
+        Me.grpGameData.Controls.Add(Me.chkEnableLauncher)
         Me.grpGameData.Controls.Add(Me.chkShowResolvedPaths)
         Me.grpGameData.Controls.Add(Me.chkSessionTracking)
         Me.grpGameData.Controls.Add(Me.chkTimeTracking)
         Me.grpGameData.Controls.Add(Me.btnOptionalFields)
         Me.grpGameData.Location = New System.Drawing.Point(6, 12)
         Me.grpGameData.Name = "grpGameData"
-        Me.grpGameData.Size = New System.Drawing.Size(354, 123)
+        Me.grpGameData.Size = New System.Drawing.Size(354, 148)
         Me.grpGameData.TabIndex = 0
         Me.grpGameData.TabStop = False
-        Me.grpGameData.Text = "Game Data Options"
+        Me.grpGameData.Text = "Optional Features and Game Data Options"
+        '
+        'chkEnableLauncher
+        '
+        Me.chkEnableLauncher.AutoSize = True
+        Me.chkEnableLauncher.Location = New System.Drawing.Point(6, 65)
+        Me.chkEnableLauncher.Name = "chkEnableLauncher"
+        Me.chkEnableLauncher.Size = New System.Drawing.Size(137, 17)
+        Me.chkEnableLauncher.TabIndex = 2
+        Me.chkEnableLauncher.Text = "Enable game launching"
+        Me.chkEnableLauncher.UseVisualStyleBackColor = True
         '
         'chkShowResolvedPaths
         '
         Me.chkShowResolvedPaths.AutoSize = True
-        Me.chkShowResolvedPaths.Location = New System.Drawing.Point(6, 65)
+        Me.chkShowResolvedPaths.Location = New System.Drawing.Point(6, 88)
         Me.chkShowResolvedPaths.Name = "chkShowResolvedPaths"
         Me.chkShowResolvedPaths.Size = New System.Drawing.Size(238, 17)
-        Me.chkShowResolvedPaths.TabIndex = 2
+        Me.chkShowResolvedPaths.TabIndex = 3
         Me.chkShowResolvedPaths.Text = "Show resolved save paths in Game Manager"
         Me.chkShowResolvedPaths.UseVisualStyleBackColor = True
         '
@@ -694,9 +706,9 @@ Partial Class frmSettings
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(554, 361)
-        Me.Controls.Add(Me.pnlStartup)
-        Me.Controls.Add(Me.pnlBackup)
         Me.Controls.Add(Me.pnlGeneral)
+        Me.Controls.Add(Me.pnlBackup)
+        Me.Controls.Add(Me.pnlStartup)
         Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.btnResetMessages)
         Me.Controls.Add(Me.lstSettings)
@@ -797,4 +809,5 @@ Partial Class frmSettings
     Friend WithEvents grpUIOptions As GroupBox
     Friend WithEvents chkExitNoWarning As CheckBox
     Friend WithEvents chkExitOnClose As CheckBox
+    Friend WithEvents chkEnableLauncher As CheckBox
 End Class

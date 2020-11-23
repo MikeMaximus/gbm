@@ -29,7 +29,7 @@
         sSQL = "UPDATE monitorlist SET ProcessPath = replace(ProcessPath, @Old, @New) WHERE ProcessPath LIKE @Match;"
         hshParams.Add("Old", sOld)
         hshParams.Add("New", sNew)
-        hshParams.Add("Match", sOld & "%")
+        hshParams.Add("Match", sOld)
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 

@@ -2,6 +2,7 @@
 Imports System.IO
 
 Public Class frmSettings
+    Dim bIsLoading As Boolean = False
     Dim bShutdown As Boolean = False
     Dim bSyncSettingsChanged As Boolean = False
     Dim eCurrentSyncFields As clsGame.eOptionalSyncFields
@@ -97,6 +98,7 @@ Public Class frmSettings
         oSettings.AutoMark = chkAutoMark.Checked
         oSettings.TimeTracking = chkTimeTracking.Checked
         oSettings.SessionTracking = chkSessionTracking.Checked
+        oSettings.EnableLauncher = chkEnableLauncher.Checked
         oSettings.ShowResolvedPaths = chkShowResolvedPaths.Checked
         oSettings.SuppressBackup = chkSuppressBackup.Checked
         oSettings.SuppressBackupThreshold = nudSuppressBackupThreshold.Value
@@ -238,6 +240,7 @@ Public Class frmSettings
         txtTempFolder.Text = oSettings.TemporaryFolder
         chkTimeTracking.Checked = oSettings.TimeTracking
         chkSessionTracking.Checked = oSettings.SessionTracking
+        chkEnableLauncher.Checked = oSettings.EnableLauncher
         chkShowResolvedPaths.Checked = oSettings.ShowResolvedPaths
         chkSuppressBackup.Checked = oSettings.SuppressBackup
         nudSuppressBackupThreshold.Value = oSettings.SuppressBackupThreshold
@@ -249,7 +252,6 @@ Public Class frmSettings
 
         'Retrieve 7z Info
         GetUtilityInfo(oSettings.Custom7zLocation)
-
     End Sub
 
     Private Sub LoadCombos()
@@ -349,6 +351,7 @@ Public Class frmSettings
         grpGameData.Text = frmSettings_grpGameData
         chkTimeTracking.Text = frmSettings_chkTimeTracking
         chkSessionTracking.Text = frmSettings_chkSessionTracking
+        chkEnableLauncher.Text = frmSettings_chkEnableLauncher
         chkAutoStart.Text = frmSettings_chkAutoStart
         chkShowDetectionTips.Text = frmSettings_chkShowDetectionTips
         chkAutoSaveLog.Text = frmSettings_chkAutoSaveLog
@@ -400,9 +403,11 @@ Public Class frmSettings
     End Sub
 
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        bIsLoading = True
         SetForm()
         LoadCombos()
         LoadSettings()
+        bIsLoading = False
     End Sub
 
     Private Sub btnBackupFolder_Click(sender As System.Object, e As System.EventArgs) Handles btnBackupFolder.Click
@@ -419,7 +424,9 @@ Public Class frmSettings
 
     Private Sub btn7zLocation_Click(sender As Object, e As EventArgs) Handles btn7zLocation.Click
         Dim sNewLocation As String
-        sNewLocation = mgrCommon.OpenFileBrowser("7z_Browse", frmSettings_Browse7za, "exe", frmSettings_7zaFileType, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
+        Dim oExtensions As New SortedList
+        oExtensions.Add(frmSettings_7zaFileType, "exe")
+        sNewLocation = mgrCommon.OpenFileBrowser("7z_Browse", frmSettings_Browse7za, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
         If sNewLocation <> String.Empty Then
             txt7zLocation.Text = sNewLocation
             GetUtilityInfo(txt7zLocation.Text)
@@ -448,5 +455,15 @@ Public Class frmSettings
 
     Private Sub lstSettings_SelectedValueChanged(sender As Object, e As EventArgs) Handles lstSettings.SelectedValueChanged
         ChangePanel()
+    End Sub
+
+    Private Sub chkEnableLauncher_CheckedChanged(sender As Object, e As EventArgs) Handles chkEnableLauncher.CheckedChanged
+        If Not bIsLoading Then
+            If chkSessionTracking.Checked = False And chkEnableLauncher.Checked = True Then
+                If mgrCommon.ShowMessage(frmSettings_ConfirmEnableLauncherSessions, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    chkSessionTracking.Checked = True
+                End If
+            End If
+        End If
     End Sub
 End Class

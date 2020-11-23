@@ -17,6 +17,7 @@ Public Class frmGameManager
     Private bTriggerBackup As Boolean = False
     Private bTriggerRestore As Boolean = False
     Private bTriggerImportBackup As Boolean = False
+    Private bTriggerLaunch As Boolean = False
     Private bIgnoreConfigLinks As Boolean = False
     Private oBackupList As New List(Of clsGame)
     Private oRestoreList As New Hashtable
@@ -141,6 +142,15 @@ Public Class frmGameManager
         End Get
         Set(value As Boolean)
             bTriggerImportBackup = value
+        End Set
+    End Property
+
+    Property TriggerLaunch As Boolean
+        Get
+            Return bTriggerLaunch
+        End Get
+        Set(value As Boolean)
+            bTriggerLaunch = value
         End Set
     End Property
 
@@ -386,6 +396,7 @@ Public Class frmGameManager
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
         Dim sCurrentPath As String = txtAppPath.Text
         Dim sNewPath As String
+        Dim oExtensions As New SortedList
 
         If sCurrentPath <> String.Empty Then
             If Directory.Exists(sCurrentPath) Then
@@ -393,8 +404,8 @@ Public Class frmGameManager
             End If
         End If
 
-        sNewPath = mgrCommon.OpenFileBrowser("GM_Process", frmGameManager_ChooseExe, "exe",
-                                          frmGameManager_Executable, sDefaultFolder, False)
+        oExtensions.Add(frmGameManager_Executable, "exe")
+        sNewPath = mgrCommon.OpenFileBrowser("GM_Process", frmGameManager_ChooseExe, oExtensions, 1, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then
             txtAppPath.Text = Path.GetDirectoryName(sNewPath)
@@ -442,6 +453,7 @@ Public Class frmGameManager
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
         Dim sCurrentPath As String = txtAppPath.Text
         Dim sNewPath As String
+        Dim oExtensions As New SortedList
 
         If sCurrentPath <> String.Empty Then
             If Directory.Exists(sCurrentPath) Then
@@ -451,11 +463,11 @@ Public Class frmGameManager
 
         'Unix Handler
         If Not mgrCommon.IsUnix Then
-            sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, "ico",
-                                              frmGameManager_Icon, sDefaultFolder, False)
+            oExtensions.Add(frmGameManager_Icon, "ico")
+            sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, oExtensions, 1, sDefaultFolder, False)
         Else
-            sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, "png",
-                                              "PNG", sDefaultFolder, False)
+            oExtensions.Add("PNG", "png")
+            sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, oExtensions, 1, sDefaultFolder, False)
         End If
 
         If sNewPath <> String.Empty Then
@@ -472,12 +484,8 @@ Public Class frmGameManager
         oResult = mgrCommon.ShowMessage(App_ConfirmDirty, MsgBoxStyle.YesNoCancel)
 
         Select Case oResult
-            Case MsgBoxResult.Yes
-                IsDirty = False
             Case MsgBoxResult.No
                 IsDirty = False
-            Case MsgBoxResult.Cancel
-                'No Change
         End Select
 
         Return oResult
@@ -708,6 +716,7 @@ Public Class frmGameManager
         Dim frm As New frmGameTags
         Dim oApp As clsGame
         Dim sMonitorIDs As New List(Of String)
+        Dim bSingleSelected As Boolean = False
 
         If eCurrentMode = eModes.Add Then
             'Use a dummy ID
@@ -738,8 +747,10 @@ Public Class frmGameManager
             If lstGames.SelectedItems.Count = 1 Then lblTags.Text = mgrGameTags.PrintTagsbyID(CurrentGame.ID)
 
             'If a tag filter is enabled, reload list to reflect changes
-            If optCustom.Checked Then
+            If optCustom.Checked And Not bIsDirty Then
+                If lstGames.SelectedItems.Count = 1 Then bSingleSelected = True
                 LoadData()
+                If bSingleSelected Then lstGames.SelectedItem = New KeyValuePair(Of String, String)(CurrentGame.ID, CurrentGame.Name)
             End If
 
             'If the selected game(s) no longer match the filter, disable the form
@@ -792,6 +803,12 @@ Public Class frmGameManager
         Dim frm As New frmWineConfiguration
         frm.Settings = oSettings
         frm.MonitorID = oCurrentGame.ID
+        frm.ShowDialog()
+    End Sub
+
+    Private Sub OpenLauncherConfig()
+        Dim frm As New frmLaunchConfiguration
+        frm.Game = oCurrentGame
         frm.ShowDialog()
     End Sub
 
@@ -1135,6 +1152,7 @@ Public Class frmGameManager
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
+                btnLaunchOptions.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnRestore.Enabled = False
                 btnImportBackup.Enabled = False
@@ -1169,6 +1187,7 @@ Public Class frmGameManager
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
+                btnLaunchOptions.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnRestore.Enabled = False
                 btnImportBackup.Enabled = False
@@ -1190,6 +1209,7 @@ Public Class frmGameManager
                 chkMonitorOnly.Enabled = True
                 grpExtra.Enabled = True
                 grpStats.Enabled = True
+                btnLaunchOptions.Enabled = True
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
                 btnAdd.Enabled = True
@@ -1220,6 +1240,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 btnBackup.Enabled = False
                 btnRestore.Enabled = False
+                btnLaunchOptions.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnTags.Enabled = False
                 btnLink.Enabled = False
@@ -1253,6 +1274,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 btnBackup.Enabled = True
                 btnRestore.Enabled = True
+                btnLaunchOptions.Enabled = False
                 btnMarkAsRestored.Enabled = True
                 btnTags.Enabled = True
                 btnLink.Enabled = True
@@ -1698,17 +1720,30 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub TriggerSelectedGameLaunch()
+        Dim oLaunchData As clsLaunchData = mgrLaunchData.DoLaunchDataGetbyID(oCurrentGame.ID)
+        Dim eLaunchType As mgrLaunchGame.eLaunchType
+        Dim sErrorMessage As String = String.Empty
+        If mgrLaunchGame.CanLaunchGame(oCurrentGame, oLaunchData, eLaunchType, sErrorMessage) Then
+            Me.TriggerLaunch = True
+            Me.Close()
+        Else
+            mgrCommon.ShowMessage(sErrorMessage, MsgBoxStyle.Exclamation)
+        End If
+    End Sub
+
     Private Sub TriggerSelectedImportBackup()
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         Dim oBackup As New mgrBackup
         Dim sConfirm As String = frmGameManager_ConfirmBackupImport
         Dim sFile As String
         Dim sFiles As String()
+        Dim oExtensions As New SortedList
 
         ImportBackupList.Clear()
 
-        sFiles = mgrCommon.OpenMultiFileBrowser("GM_ImportBackup", frmGameManager_Choose7zImport, "7z",
-                                          frmGameManager_7zBackup, sDefaultFolder, True)
+        oExtensions.Add(frmGameManager_7zBackup, "7z")
+        sFiles = mgrCommon.OpenMultiFileBrowser("GM_ImportBackup", frmGameManager_Choose7zImport, oExtensions, 1, sDefaultFolder, True)
 
         If sFiles.Length > 0 Then
             For Each sFile In sFiles
@@ -1840,8 +1875,10 @@ Public Class frmGameManager
 
     Private Sub ImportGameListFile()
         Dim sLocation As String
+        Dim oExtensions As New SortedList
 
-        sLocation = mgrCommon.OpenFileBrowser("XML_Import", frmGameManager_ChooseImportXML, "xml", frmGameManager_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
+        oExtensions.Add(frmGameManager_XML, "xml")
+        sLocation = mgrCommon.OpenFileBrowser("XML_Import", frmGameManager_ChooseImportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
 
         If sLocation <> String.Empty Then
             If mgrMonitorList.DoImport(sLocation, False) Then
@@ -1855,8 +1892,10 @@ Public Class frmGameManager
 
     Private Sub ExportGameList()
         Dim sLocation As String
+        Dim oExtensions As New SortedList
 
-        sLocation = mgrCommon.SaveFileBrowser("XML_Export", frmGameManager_ChooseExportXML, "xml", frmGameManager_XML, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmGameManager_DefaultExportFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
+        oExtensions.Add(frmGameManager_XML, "xml")
+        sLocation = mgrCommon.SaveFileBrowser("XML_Export", frmGameManager_ChooseExportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmGameManager_DefaultExportFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
 
         If sLocation <> String.Empty Then
             mgrMonitorList.ExportMonitorList(sLocation)
@@ -1948,10 +1987,15 @@ Public Class frmGameManager
         btnLink.Image = Arrow_Submenu_Right
         lblOS.Text = frmGameManager_lblOS
         btnWineConfig.Text = frmGameManager_btnWineConfig
+        btnLaunchOptions.Text = frmGameManager_btnLaunchOptions
+        btnLaunchOptions.ImageAlign = ContentAlignment.MiddleRight
+        btnLaunchOptions.Image = Arrow_Submenu_Right
         cmsOpenBackupFile.Text = frmGameManager_cmsOpenBackupFile
         cmsOpenBackupFolder.Text = frmGameManager_cmsOpenBackupFolder
         cmsProcess.Text = frmGameManager_cmsProcess
         cmsConfiguration.Text = frmGameManager_cmsConfiguration
+        cmsLaunchSettings.Text = frmGameManager_cmsLaunchSettings
+        cmsLaunchGame.Text = frmGameManager_cmsLaunchGame
 
         'Init Combos
         Dim oComboItems As New List(Of KeyValuePair(Of Integer, String))
@@ -1997,6 +2041,10 @@ Public Class frmGameManager
             btnOpenBackup.Visible = False
             btnOpenRestorePath.Visible = False
             btnImportBackup.Visible = False
+        End If
+
+        If Not Settings.EnableLauncher Then
+            btnLaunchOptions.Visible = False
         End If
 
         LoadBackupData()
@@ -2053,8 +2101,7 @@ Public Class frmGameManager
             Select Case HandleDirty()
                 Case MsgBoxResult.Yes
                     SaveApp()
-                Case MsgBoxResult.No
-                    'Do Nothing
+                    If bIsDirty Then e.Cancel = True
                 Case MsgBoxResult.Cancel
                     e.Cancel = True
             End Select
@@ -2224,6 +2271,18 @@ Public Class frmGameManager
 
     Private Sub btnGameID_Click(sender As Object, e As EventArgs) Handles btnGameID.Click
         OpenGameIDEdit()
+    End Sub
+
+    Private Sub btnLauncherConfig_Click(sender As Object, e As EventArgs) Handles btnLaunchOptions.Click
+        mgrCommon.OpenButtonSubMenu(cmsLaunch, btnLaunchOptions)
+    End Sub
+
+    Private Sub cmsLaunchSettings_Click(sender As Object, e As EventArgs) Handles cmsLaunchSettings.Click
+        OpenLauncherConfig()
+    End Sub
+
+    Private Sub cmsLaunchGame_Click(sender As Object, e As EventArgs) Handles cmsLaunchGame.Click
+        TriggerSelectedGameLaunch()
     End Sub
 
     Private Sub txtQuickFilter_TextChanged(sender As Object, e As EventArgs) Handles txtQuickFilter.TextChanged

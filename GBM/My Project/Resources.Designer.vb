@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-09-24T22:17:39
+        '''  Looks up a localized string similar to 2020-11-22T13:24:24
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1782,7 +1782,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to C&amp;lose.
+        '''  Looks up a localized string similar to &amp;Close.
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnClose() As String
             Get
@@ -1872,7 +1872,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Link.
+        '''  Looks up a localized string similar to &amp;Launch Options.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_btnLaunchOptions() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_btnLaunchOptions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Lin&amp;k.
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnLink() As String
             Get
@@ -2111,6 +2120,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_cmsFile() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_cmsFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Launch Game.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsLaunchGame() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsLaunchGame", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Settings....
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsLaunchSettings() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsLaunchSettings", resourceCulture)
             End Get
         End Property
         
@@ -3249,6 +3276,321 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Batch.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_Batch() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_Batch", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Cancel.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_btnCancel() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_btnCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Launcher Manager....
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_btnOpenLaunchers() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_btnOpenLaunchers", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Save.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_btnSave() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_btnSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Use no parameters.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_chkNoArgs() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_chkNoArgs", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Command.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_Command() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_Command", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The executable cannot be found..
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_ErrorExeNotFound() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_ErrorExeNotFound", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to A game ID is required when using a store launcher..
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_ErrorNoGameID() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_ErrorNoGameID", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Executable.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_Executable() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_Executable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Launch Configuration for [PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Current Launch Command.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_grpCommand() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_grpCommand", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Alternate Configuration.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_grpOtherConfig() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_grpOtherConfig", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Store Launcher Configuration.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_grpStoreLauncher() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_grpStoreLauncher", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Parameters:.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_lblArguments() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_lblArguments", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Executable:.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_lblExe() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_lblExe", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game ID:.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_lblGameID() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_lblGameID", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Launcher:.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_lblLauncher() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_lblLauncher", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Link.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_Link() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_Link", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to None.
+        '''</summary>
+        Friend ReadOnly Property frmLaunchConfiguration_NoLauncher() As String
+            Get
+                Return ResourceManager.GetString("frmLaunchConfiguration_NoLauncher", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to +.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_btnAdd() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_btnAdd", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Cancel.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_btnCancel() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_btnCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to C&amp;lose.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_btnClose() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_btnClose", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to -.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_btnDelete() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_btnDelete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Save.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_btnSave() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_btnSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Do you want to re-add the default launchers?[BR][BR]This will not overwrite any existing launchers of the same name..
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_ConfirmAddDefaults() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_ConfirmAddDefaults", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to delete [PARAM]?  This cannot be undone..
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_ConfirmDelete() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_ConfirmDelete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to A launcher with this name already exists..
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_ErrorDupe() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_ErrorDupe", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The launch command must be a valid URI..
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_ErrorInvalidURI() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_ErrorInvalidURI", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to A valid launch command is required..
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_ErrorValidCommand() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_ErrorValidCommand", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to You must enter a valid name for this launcher..
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_ErrorValidName() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_ErrorValidName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Launcher Manager.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Configuration.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_grpLauncher() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_grpLauncher", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Command:.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_lblCommand() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_lblCommand", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Name:.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_lblName() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_lblName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The launch command is missing the %ID% variable.[BR][BR]When the variable is missing, GBM will assume it belongs at the end of the command string.[BR][BR]Please see the manual for more details..
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_WarningMissingVariable() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_WarningMissingVariable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor[BR]Version: [PARAM] ([PARAM])[BR]Build: [PARAM][BR]Platform: [PARAM][BR]SQLite: [PARAM][BR][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details..
         '''</summary>
         Friend ReadOnly Property frmMain_About() As String
@@ -3465,7 +3807,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] is a 64-bit game, GBM cannot detect the required information to save your backup..
+        '''  Looks up a localized string similar to [PARAM] is a 64-bit game and GBM is 32-bit.  GBM cannot detect the required information to save your backup..
         '''</summary>
         Friend ReadOnly Property frmMain_Error64Backup() As String
             Get
@@ -3771,6 +4113,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmMain_GameDetectedWithSessionTime() As String
+            Get
+                Return ResourceManager.GetString("frmMain_GameDetectedWithSessionTime", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] has ended..
         '''</summary>
         Friend ReadOnly Property frmMain_GameEnded() As String
@@ -3960,6 +4311,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Launcher Manager....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonSetupLauncherManager() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonSetupLauncherManager", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Process Manager....
         '''</summary>
         Friend ReadOnly Property frmMain_gMonSetupProcessManager() As String
@@ -4104,6 +4464,33 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Quick Launcher.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonTrayQuickLauncher() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonTrayQuickLauncher", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to S&amp;etup.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonTraySetup() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonTraySetup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Launcher Manager....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonTraySetupLauncherManager() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonTraySetupLauncherManager", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Restore &amp;Window.
         '''</summary>
         Friend ReadOnly Property frmMain_gMonTrayShow() As String
@@ -4163,6 +4550,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_LastGame() As String
             Get
                 Return ResourceManager.GetString("frmMain_LastGame", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Launching [PARAM] using [PARAM]..
+        '''</summary>
+        Friend ReadOnly Property frmMain_LaunchGame() As String
+            Get
+                Return ResourceManager.GetString("frmMain_LaunchGame", resourceCulture)
             End Get
         End Property
         
@@ -4518,6 +4914,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] is a 64-bit game and GBM is 32-bit.  The process path can not be determined, but is not required for this backup configuration..
+        '''</summary>
+        Friend ReadOnly Property frmMain_Warning64NoPath() As String
+            Get
+                Return ResourceManager.GetString("frmMain_Warning64NoPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] is running as Administrator and GBM is not.  The process path can not be determined, but is not required for this backup configuration..
+        '''</summary>
+        Friend ReadOnly Property frmMain_WarningAdminNoPath() As String
+            Get
+                Return ResourceManager.GetString("frmMain_WarningAdminNoPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to run a backup for every game?[BR][BR]GBM automatically determines which backups can be performed and handles any confirmations that normally require user input.  See the Online Manual for more details..
         '''</summary>
         Friend ReadOnly Property frmMain_WarningFullBackup() As String
@@ -4721,6 +5135,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmProcessManager_lblPath() As String
             Get
                 Return ResourceManager.GetString("frmProcessManager_lblPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Go.
+        '''</summary>
+        Friend ReadOnly Property frmQuickLauncher_btnGo() As String
+            Get
+                Return ResourceManager.GetString("frmQuickLauncher_btnGo", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Quick Launcher.
+        '''</summary>
+        Friend ReadOnly Property frmQuickLauncher_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmQuickLauncher_FormName", resourceCulture)
             End Get
         End Property
         
@@ -5202,6 +5634,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Enable game launching.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkEnableLauncher() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkEnableLauncher", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Exit without confirmation.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkExitNoWarning() As String
@@ -5319,6 +5760,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The Session Tracking feature can be used to show you recently played games to launch from the system tray menu.[BR][BR]Do you want to enable Session Tracking?.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_ConfirmEnableLauncherSessions() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_ConfirmEnableLauncherSessions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Do you want to reset all hidden warnings and messages?.
         '''</summary>
         Friend ReadOnly Property frmSettings_ConfirmMessageReset() As String
@@ -5427,7 +5877,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Game Data Options.
+        '''  Looks up a localized string similar to Optional Features and Game Data Options.
         '''</summary>
         Friend ReadOnly Property frmSettings_grpGameData() As String
             Get
@@ -6874,6 +7324,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An error occured starting GBM as Administrator.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_ErrorRestartAsAdmin() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_ErrorRestartAsAdmin", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to An error has occured writing the text file.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_ErrorWritingTextFile() As String
@@ -6883,11 +7342,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] files (*.[PARAM])|*.[PARAM]|All files (*.*)|*.*.
+        '''  Looks up a localized string similar to [PARAM] files (*.[PARAM])|*.[PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_FilesFilter() As String
             Get
                 Return ResourceManager.GetString("mgrCommon_FilesFilter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to All files (*.*)|*.*.
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_FilesFilterAll() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_FilesFilterAll", resourceCulture)
             End Get
         End Property
         
@@ -6969,6 +7437,132 @@ Namespace My.Resources
         Friend ReadOnly Property mgrCommon_Yes() As String
             Get
                 Return ResourceManager.GetString("mgrCommon_Yes", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Epic Games.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchers_Epic() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchers_Epic", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to com.epicgames.launcher://apps/%ID%?action=launch&amp;silent=true.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchers_EpicURI() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchers_EpicURI", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Steam.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchers_Steam() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchers_Steam", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to steam://rungameid/%ID%.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchers_SteamURI() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchers_SteamURI", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Ubisoft Connect.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchers_Ubisoft() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchers_Ubisoft", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to uplay://launch/%ID%/0.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchers_UbisoftURI() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchers_UbisoftURI", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error occured while attempting to launch a game.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchGame_ErrorException() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchGame_ErrorException", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] cannot be launched, it&apos;s using a recognized emulator or interpreter without a parameter.[BR][BR]Set the parameter field, or use an alternate executable and argument in the Launch Settings for this game..
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchGame_ErrorIsBlacklisted() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchGame_ErrorIsBlacklisted", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] cannot be launched, it&apos;s configuration is using a regular expression.[BR][BR]Set a specific executable to use in the Launch Settings for this game..
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchGame_ErrorIsRegex() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchGame_ErrorIsRegex", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Launching Windows games in Linux with an automatically built command is not currently supported.[BR][BR]You can manually configure this game to use an external launcher or script instead..
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchGame_ErrorNoAutoWineSupport() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchGame_ErrorNoAutoWineSupport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The game executable could not be found at:[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchGame_ErrorNoExe() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchGame_ErrorNoExe", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] cannot be launched, it&apos;s configuration has no process..
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchGame_ErrorNoProcess() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchGame_ErrorNoProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] cannot be launched, it&apos;s configuration has no process path..
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchGame_ErrorNoProcessPath() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchGame_ErrorNoProcessPath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to GBM is running as Administrator.[BR][BR]Are you sure you want to launch [PARAM] as Administrator?.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchGame_WarningLaunchElevation() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchGame_WarningLaunchElevation", resourceCulture)
             End Get
         End Property
         

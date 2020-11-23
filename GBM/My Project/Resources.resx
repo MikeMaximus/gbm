@@ -188,7 +188,7 @@
     <value>Do you want to restart Game Backup Monitor as Administrator?</value>
   </data>
   <data name="frmMain_Error64Backup" xml:space="preserve">
-    <value>[PARAM] is a 64-bit game, GBM cannot detect the required information to save your backup.</value>
+    <value>[PARAM] is a 64-bit game and GBM is 32-bit.  GBM cannot detect the required information to save your backup.</value>
   </data>
   <data name="frmMain_Error7zip" xml:space="preserve">
     <value>7-Zip was not found.  The application cannot continue.</value>
@@ -431,7 +431,7 @@
     <value>Ca&amp;ncel</value>
   </data>
   <data name="frmGameManager_btnClose" xml:space="preserve">
-    <value>C&amp;lose</value>
+    <value>&amp;Close</value>
   </data>
   <data name="frmGameManager_btnDelete" xml:space="preserve">
     <value>-</value>
@@ -1301,7 +1301,7 @@
     <value>Generating SHA-256 hash for [PARAM] backup file.</value>
   </data>
   <data name="mgrCommon_FilesFilter" xml:space="preserve">
-    <value>[PARAM] files (*.[PARAM])|*.[PARAM]|All files (*.*)|*.*</value>
+    <value>[PARAM] files (*.[PARAM])|*.[PARAM]</value>
   </data>
   <data name="mgrCommon_No" xml:space="preserve">
     <value>No</value>
@@ -1619,7 +1619,7 @@
     <value>Autosave log when max length is exceeded</value>
   </data>
   <data name="frmSettings_grpGameData" xml:space="preserve">
-    <value>Game Data Options</value>
+    <value>Optional Features and Game Data Options</value>
   </data>
   <data name="frmSettings_lstSettings_7z" xml:space="preserve">
     <value>7-Zip</value>
@@ -2219,7 +2219,7 @@
     <value>Imported backup file [PARAM] for [PARAM].</value>
   </data>
   <data name="frmGameManager_btnLink" xml:space="preserve">
-    <value>&amp;Link</value>
+    <value>Lin&amp;k</value>
   </data>
   <data name="frmVariableManager_ErrorVariableReserved" xml:space="preserve">
     <value>[PARAM] is a reserved variable, you must enter a different name.</value>
@@ -2592,5 +2592,203 @@
   </data>
   <data name="frmAdvancedImport_btnDetectSavedGames" xml:space="preserve">
     <value>Detect Saved Games</value>
+  </data>
+  <data name="frmSettings_chkEnableLauncher" xml:space="preserve">
+    <value>Enable game launching</value>
+  </data>
+  <data name="frmGameManager_btnLaunchOptions" xml:space="preserve">
+    <value>&amp;Launch Options</value>
+  </data>
+  <data name="frmLauncherManager_btnAdd" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="frmLauncherManager_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmLauncherManager_btnClose" xml:space="preserve">
+    <value>C&amp;lose</value>
+  </data>
+  <data name="frmLauncherManager_btnDelete" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="frmLauncherManager_btnSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmLauncherManager_ConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete [PARAM]?  This cannot be undone.</value>
+  </data>
+  <data name="frmLauncherManager_ErrorDupe" xml:space="preserve">
+    <value>A launcher with this name already exists.</value>
+  </data>
+  <data name="frmLauncherManager_ErrorValidCommand" xml:space="preserve">
+    <value>A valid launch command is required.</value>
+  </data>
+  <data name="frmLauncherManager_ErrorValidName" xml:space="preserve">
+    <value>You must enter a valid name for this launcher.</value>
+  </data>
+  <data name="frmLauncherManager_FormName" xml:space="preserve">
+    <value>Launcher Manager</value>
+  </data>
+  <data name="frmLauncherManager_grpLauncher" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="frmLauncherManager_lblCommand" xml:space="preserve">
+    <value>Command:</value>
+  </data>
+  <data name="frmLauncherManager_lblName" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="frmLauncherManager_WarningMissingVariable" xml:space="preserve">
+    <value>The launch command is missing the %ID% variable.[BR][BR]When the variable is missing, GBM will assume it belongs at the end of the command string.[BR][BR]Please see the manual for more details.</value>
+  </data>
+  <data name="frmLaunchConfiguration_btnCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="frmLaunchConfiguration_btnOpenLaunchers" xml:space="preserve">
+    <value>&amp;Launcher Manager...</value>
+  </data>
+  <data name="frmLaunchConfiguration_btnSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="frmLaunchConfiguration_ErrorExeNotFound" xml:space="preserve">
+    <value>The executable cannot be found.</value>
+  </data>
+  <data name="frmLaunchConfiguration_ErrorNoGameID" xml:space="preserve">
+    <value>A game ID is required when using a store launcher.</value>
+  </data>
+  <data name="frmLaunchConfiguration_Executable" xml:space="preserve">
+    <value>Executable</value>
+  </data>
+  <data name="frmLaunchConfiguration_FormName" xml:space="preserve">
+    <value>Launch Configuration for [PARAM]</value>
+  </data>
+  <data name="frmLaunchConfiguration_grpOtherConfig" xml:space="preserve">
+    <value>Alternate Configuration</value>
+  </data>
+  <data name="frmLaunchConfiguration_grpStoreLauncher" xml:space="preserve">
+    <value>Store Launcher Configuration</value>
+  </data>
+  <data name="frmLaunchConfiguration_lblArguments" xml:space="preserve">
+    <value>Parameters:</value>
+  </data>
+  <data name="frmLaunchConfiguration_lblExe" xml:space="preserve">
+    <value>Executable:</value>
+  </data>
+  <data name="frmLaunchConfiguration_lblGameID" xml:space="preserve">
+    <value>Game ID:</value>
+  </data>
+  <data name="frmLaunchConfiguration_lblLauncher" xml:space="preserve">
+    <value>Launcher:</value>
+  </data>
+  <data name="frmLaunchConfiguration_NoLauncher" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorException" xml:space="preserve">
+    <value>An error occured while attempting to launch a game.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorNoProcess" xml:space="preserve">
+    <value>[PARAM] cannot be launched, it's configuration has no process.</value>
+  </data>
+  <data name="frmMain_LaunchGame" xml:space="preserve">
+    <value>Launching [PARAM] using [PARAM].</value>
+  </data>
+  <data name="mgrCommon_ErrorRestartAsAdmin" xml:space="preserve">
+    <value>An error occured starting GBM as Administrator.[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmMain_Warning64NoPath" xml:space="preserve">
+    <value>[PARAM] is a 64-bit game and GBM is 32-bit.  The process path can not be determined, but is not required for this backup configuration.</value>
+  </data>
+  <data name="frmMain_WarningAdminNoPath" xml:space="preserve">
+    <value>[PARAM] is running as Administrator and GBM is not.  The process path can not be determined, but is not required for this backup configuration.</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorIsBlacklisted" xml:space="preserve">
+    <value>[PARAM] cannot be launched, it's using a recognized emulator or interpreter without a parameter.[BR][BR]Set the parameter field, or use an alternate executable and argument in the Launch Settings for this game.</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorIsRegex" xml:space="preserve">
+    <value>[PARAM] cannot be launched, it's configuration is using a regular expression.[BR][BR]Set a specific executable to use in the Launch Settings for this game.</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorNoProcessPath" xml:space="preserve">
+    <value>[PARAM] cannot be launched, it's configuration has no process path.</value>
+  </data>
+  <data name="frmGameManager_cmsLaunchGame" xml:space="preserve">
+    <value>&amp;Launch Game</value>
+  </data>
+  <data name="frmGameManager_cmsLaunchSettings" xml:space="preserve">
+    <value>&amp;Settings...</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorNoExe" xml:space="preserve">
+    <value>The game executable could not be found at:[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmLauncherManager_ConfirmAddDefaults" xml:space="preserve">
+    <value>Do you want to re-add the default launchers?[BR][BR]This will not overwrite any existing launchers of the same name.</value>
+  </data>
+  <data name="mgrLaunchers_Epic" xml:space="preserve">
+    <value>Epic Games</value>
+  </data>
+  <data name="mgrLaunchers_EpicURI" xml:space="preserve">
+    <value>com.epicgames.launcher://apps/%ID%?action=launch&amp;silent=true</value>
+  </data>
+  <data name="mgrLaunchers_Steam" xml:space="preserve">
+    <value>Steam</value>
+  </data>
+  <data name="mgrLaunchers_SteamURI" xml:space="preserve">
+    <value>steam://rungameid/%ID%</value>
+  </data>
+  <data name="mgrLaunchers_Ubisoft" xml:space="preserve">
+    <value>Ubisoft Connect</value>
+  </data>
+  <data name="mgrLaunchers_UbisoftURI" xml:space="preserve">
+    <value>uplay://launch/%ID%/0</value>
+  </data>
+  <data name="mgrLaunchGame_WarningLaunchElevation" xml:space="preserve">
+    <value>GBM is running as Administrator.[BR][BR]Are you sure you want to launch [PARAM] as Administrator?</value>
+  </data>
+  <data name="frmMain_gMonSetupLauncherManager" xml:space="preserve">
+    <value>&amp;Launcher Manager...</value>
+  </data>
+  <data name="frmMain_gMonTraySetupLauncherManager" xml:space="preserve">
+    <value>&amp;Launcher Manager...</value>
+  </data>
+  <data name="frmLauncherManager_ErrorInvalidURI" xml:space="preserve">
+    <value>The launch command must be a valid URI.</value>
+  </data>
+  <data name="frmLaunchConfiguration_grpCommand" xml:space="preserve">
+    <value>Current Launch Command</value>
+  </data>
+  <data name="frmLaunchConfiguration_chkNoArgs" xml:space="preserve">
+    <value>Use no parameters</value>
+  </data>
+  <data name="frmLaunchConfiguration_Batch" xml:space="preserve">
+    <value>Batch</value>
+  </data>
+  <data name="frmLaunchConfiguration_Link" xml:space="preserve">
+    <value>Link</value>
+  </data>
+  <data name="mgrCommon_FilesFilterAll" xml:space="preserve">
+    <value>All files (*.*)|*.*</value>
+  </data>
+  <data name="frmLaunchConfiguration_Command" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorNoAutoWineSupport" xml:space="preserve">
+    <value>Launching Windows games in Linux with an automatically built command is not currently supported.[BR][BR]You can manually configure this game to use an external launcher or script instead.</value>
+  </data>
+  <data name="frmQuickLauncher_btnGo" xml:space="preserve">
+    <value>&amp;Go</value>
+  </data>
+  <data name="frmQuickLauncher_FormName" xml:space="preserve">
+    <value>Quick Launcher</value>
+  </data>
+  <data name="frmMain_gMonTrayQuickLauncher" xml:space="preserve">
+    <value>&amp;Quick Launcher</value>
+  </data>
+  <data name="frmMain_gMonTraySetup" xml:space="preserve">
+    <value>S&amp;etup</value>
+  </data>
+  <data name="frmSettings_ConfirmEnableLauncherSessions" xml:space="preserve">
+    <value>The Session Tracking feature can be used to show you recently played games to launch from the system tray menu.[BR][BR]Do you want to enable Session Tracking?</value>
+  </data>
+  <data name="frmMain_GameDetectedWithSessionTime" xml:space="preserve">
+    <value>[PARAM][BR][PARAM]</value>
   </data>
 </root>

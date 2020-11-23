@@ -73,6 +73,16 @@ Public Class mgrSessions
         Return oDatabase.ReadParamData(sSQL, hshParams)
     End Function
 
+    Public Shared Function GetLastFiveUniqueSessions(Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As DataSet
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim hshParams As New Hashtable
+
+        sSQL = "SELECT sessions.MonitorID, monitorlist.Name, MAX(sessions.Start) FROM sessions NATURAL JOIN monitorlist GROUP By monitorlist.Name ORDER BY sessions.Start DESC LIMIT 5;"
+
+        Return oDatabase.ReadParamData(sSQL, hshParams)
+    End Function
+
     Public Shared Sub DeleteSession(ByVal oSessions As List(Of clsSession), Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String

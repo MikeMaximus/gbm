@@ -10,6 +10,7 @@ Public Class mgrCommon
     'These need to be updated when upgrading the packaged 7z utility
     Private Shared sUtility64Hash As String = "8117E40EE7F824F63373A4F5625BB62749F69159D0C449B3CE2F35AAD3B83549" 'v19.00 7za.exe x64
     Private Shared sUtility32Hash As String = "EA308C76A2F927B160A143D94072B0DCE232E04B751F0C6432A94E05164E716D" 'v19.00 7za.exe x86
+    Private Shared sBlackList As String() = {"dosbox", "scummvm", "java", "python", "python.real", "python2.7", "mono", "wine"}
 
     Public Shared ReadOnly Property UtilityHash As String
         Get
@@ -58,6 +59,13 @@ Public Class mgrCommon
         Return oReturnImage
     End Function
 
+    Public Shared Function IsURI(ByVal sURI As String) As Boolean
+        If (sURI.IndexOf("://", 1, StringComparison.CurrentCultureIgnoreCase) > -1) Or (sURI.IndexOf("://", 1, StringComparison.CurrentCultureIgnoreCase) > -1) Then
+            Return True
+        End If
+        Return False
+    End Function
+
     Public Shared Function IsAddress(ByVal sURL As String) As Boolean
         If (sURL.IndexOf("http://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Or (sURL.IndexOf("https://", 0, StringComparison.CurrentCultureIgnoreCase) > -1) Then
             Return True
@@ -92,14 +100,26 @@ Public Class mgrCommon
         End If
     End Function
 
-    Public Shared Function SaveFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
+    Private Shared Function BuildBrowserFilter(ByVal oFileTypes As SortedList)
+        Dim sFilter As String = String.Empty
+
+        For Each de As DictionaryEntry In oFileTypes
+            sFilter &= FormatString(mgrCommon_FilesFilter, New String() {de.Key, de.Value, de.Value}) & "|"
+        Next
+
+        sFilter &= FormatString(mgrCommon_FilesFilterAll)
+
+        Return sFilter
+    End Function
+
+    Public Shared Function SaveFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal oFileTypes As SortedList, ByVal iFilterIndex As Integer, ByVal sDefaultFolder As String,
                                            ByVal sDefaultFile As String, Optional ByVal bSavedPath As Boolean = True) As String
         Dim fbBrowser As New SaveFileDialog
         Dim oSavedPath As New clsSavedPath
 
         fbBrowser.Title = sTitle
-        fbBrowser.DefaultExt = sExtension
-        fbBrowser.Filter = FormatString(mgrCommon_FilesFilter, New String() {sFileType, sExtension, sExtension})
+        fbBrowser.Filter = BuildBrowserFilter(oFileTypes)
+        fbBrowser.FilterIndex = iFilterIndex
         fbBrowser.FileName = sDefaultFile
         fbBrowser.InitialDirectory = sDefaultFolder
 
@@ -125,14 +145,14 @@ Public Class mgrCommon
         Return String.Empty
     End Function
 
-    Private Shared Function BuildFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
+    Private Shared Function BuildFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal oFileTypes As SortedList, ByVal iFilterIndex As Integer, ByVal sDefaultFolder As String,
                                              ByVal bMulti As Boolean, ByRef fbBrowser As OpenFileDialog, Optional ByVal bSavedPath As Boolean = True) As Boolean
 
         Dim oSavedPath As New clsSavedPath
 
         fbBrowser.Title = sTitle
-        fbBrowser.DefaultExt = sExtension
-        fbBrowser.Filter = FormatString(mgrCommon_FilesFilter, New String() {sFileType, sExtension, sExtension})
+        fbBrowser.Filter = BuildBrowserFilter(oFileTypes)
+        fbBrowser.FilterIndex = iFilterIndex
         fbBrowser.Multiselect = bMulti
         fbBrowser.InitialDirectory = sDefaultFolder
 
@@ -191,12 +211,12 @@ Public Class mgrCommon
         Return False
     End Function
 
-    Public Shared Function OpenFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
+    Public Shared Function OpenFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal oFileTypes As SortedList, ByVal iFilterIndex As Integer, ByVal sDefaultFolder As String,
                                            Optional ByVal bSavedPath As Boolean = True) As String
         Dim fbBrowser As New OpenFileDialog
         Dim bResult As Boolean
 
-        bResult = BuildFileBrowser(sName, sTitle, sExtension, sFileType, sDefaultFolder, False, fbBrowser, bSavedPath)
+        bResult = BuildFileBrowser(sName, sTitle, oFileTypes, iFilterIndex, sDefaultFolder, False, fbBrowser, bSavedPath)
 
         If bResult Then
             Return fbBrowser.FileName
@@ -205,12 +225,12 @@ Public Class mgrCommon
         Return String.Empty
     End Function
 
-    Public Shared Function OpenMultiFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal sExtension As String, ByVal sFileType As String, ByVal sDefaultFolder As String,
+    Public Shared Function OpenMultiFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal oFileTypes As SortedList, ByVal iFilterIndex As Integer, ByVal sDefaultFolder As String,
                                                 Optional ByVal bSavedPath As Boolean = True) As String()
         Dim fbBrowser As New OpenFileDialog
         Dim bResult As Boolean
 
-        bResult = BuildFileBrowser(sName, sTitle, sExtension, sFileType, sDefaultFolder, True, fbBrowser, bSavedPath)
+        bResult = BuildFileBrowser(sName, sTitle, oFileTypes, iFilterIndex, sDefaultFolder, True, fbBrowser, bSavedPath)
 
         If bResult Then
             Return fbBrowser.FileNames
@@ -264,13 +284,34 @@ Public Class mgrCommon
     End Function
 
     Public Shared Function IsProcessNotSearchable(ByVal oGame As clsGame) As Boolean
-        Dim sExemptList As String() = {"dosbox", "scummvm"}
         Dim bFound As Boolean = False
 
         If oGame.ProcessName = String.Empty Or oGame.IsRegEx Then Return True
 
-        For Each s As String In sExemptList
+        For Each s As String In sBlackList
             If oGame.ProcessName.ToLower.Contains(s) Then bFound = True
+        Next
+
+        If bFound Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Public Shared Function IsProcessNotLaunchable(ByVal oGame As clsGame) As Boolean
+        Dim bFound As Boolean = False
+
+        If oGame.ProcessName = String.Empty Or oGame.ProcessPath = String.Empty Or oGame.IsRegEx Then Return True
+
+        If IsUnix() And oGame.OS = clsGame.eOS.Windows Then Return True
+
+        For Each s As String In sBlackList
+            If oGame.ProcessName.ToLower.Contains(s) Then
+                If oGame.Parameter = String.Empty Then
+                    bFound = True
+                End If
+            End If
         Next
 
         If bFound Then
@@ -349,16 +390,21 @@ Public Class mgrCommon
         Return oPrincipal.IsInRole(WindowsBuiltInRole.Administrator)
     End Function
 
-    Public Shared Sub RestartAsAdmin()
+    Public Shared Function RestartAsAdmin() As Boolean
         Dim oProcess As New Process
+        Try
+            oProcess.StartInfo.FileName = Application.ExecutablePath
+            oProcess.StartInfo.UseShellExecute = True
+            oProcess.StartInfo.CreateNoWindow = True
+            oProcess.StartInfo.Verb = "runas"
 
-        oProcess.StartInfo.FileName = Application.ExecutablePath
-        oProcess.StartInfo.UseShellExecute = True
-        oProcess.StartInfo.CreateNoWindow = True
-        oProcess.StartInfo.Verb = "runas"
-
-        oProcess.Start()
-    End Sub
+            oProcess.Start()
+            Return True
+        Catch ex As Exception
+            ShowMessage(mgrCommon_ErrorRestartAsAdmin, ex.Message, MsgBoxStyle.Exclamation)
+            Return False
+        End Try
+    End Function
 
     'Get a file size
     Public Shared Function GetFileSize(ByVal sFile As String) As Long

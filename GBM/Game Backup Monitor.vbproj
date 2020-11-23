@@ -126,6 +126,8 @@
   <ItemGroup>
     <Compile Include="Classes\clsConfigLink.vb" />
     <Compile Include="Classes\clsGameProcess.vb" />
+    <Compile Include="Classes\clsLaunchData.vb" />
+    <Compile Include="Classes\clsLauncher.vb" />
     <Compile Include="Classes\clsWineData.vb" />
     <Compile Include="Classes\clsProcess.vb" />
     <Compile Include="Classes\clsGameFilter.vb" />
@@ -147,6 +149,24 @@
       <DependentUpon>frmConfigLinks.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmConfigLinks.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLaunchConfiguration.Designer.vb">
+      <DependentUpon>frmLaunchConfiguration.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLaunchConfiguration.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLauncherManager.Designer.vb">
+      <DependentUpon>frmLauncherManager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLauncherManager.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmQuickLauncher.Designer.vb">
+      <DependentUpon>frmQuickLauncher.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmQuickLauncher.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmWineConfiguration.Designer.vb">
@@ -266,6 +286,9 @@
     </Compile>
     <Compile Include="Managers\mgrConfigLinks.vb" />
     <Compile Include="Managers\mgrGameProcesses.vb" />
+    <Compile Include="Managers\mgrLaunchData.vb" />
+    <Compile Include="Managers\mgrLaunchers.vb" />
+    <Compile Include="Managers\mgrLaunchGame.vb" />
     <Compile Include="Managers\mgrMetadata.vb" />
     <Compile Include="Managers\mgrWineData.vb" />
     <Compile Include="Managers\mgrProcess.vb" />
@@ -304,6 +327,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms\frmConfigLinks.resx">
       <DependentUpon>frmConfigLinks.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLaunchConfiguration.resx">
+      <DependentUpon>frmLaunchConfiguration.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLauncherManager.resx">
+      <DependentUpon>frmLauncherManager.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmQuickLauncher.resx">
+      <DependentUpon>frmQuickLauncher.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmWineConfiguration.resx">
       <DependentUpon>frmWineConfiguration.vb</DependentUpon>

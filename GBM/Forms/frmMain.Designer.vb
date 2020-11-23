@@ -27,6 +27,7 @@ Partial Class frmMain
         Me.gMonTray = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.gMonTrayMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.gMonTrayNotification = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayQuickLauncher = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayShow = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySep2 = New System.Windows.Forms.ToolStripSeparator()
         Me.gMonTrayMon = New System.Windows.Forms.ToolStripMenuItem()
@@ -38,6 +39,7 @@ Partial Class frmMain
         Me.gMonTraySetupAddWizard = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetupGameManager = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetupTags = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTraySetupLauncherManager = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetupProcessManager = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetupCustomVariables = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayTools = New System.Windows.Forms.ToolStripMenuItem()
@@ -64,6 +66,7 @@ Partial Class frmMain
         Me.gMonFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileMonitor = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFullSep = New System.Windows.Forms.ToolStripSeparator()
+        Me.gMonFileQuickLauncher = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileFullBackup = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileFullRestore = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSettingsSep = New System.Windows.Forms.ToolStripSeparator()
@@ -74,6 +77,7 @@ Partial Class frmMain
         Me.gMonSetupGameManager = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSetupAddWizard = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSetupTags = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonSetupLauncherManager = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSetupProcessManager = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSetupCustomVariables = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTools = New System.Windows.Forms.ToolStripMenuItem()
@@ -122,9 +126,9 @@ Partial Class frmMain
         '
         'gMonTrayMenu
         '
-        Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayNotification, Me.gMonTrayShow, Me.gMonTraySep2, Me.gMonTrayMon, Me.gMonTrayFullBackup, Me.gMonTrayFullRestore, Me.gMonTraySep3, Me.gMonTraySettings, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTraySep1, Me.gMonTrayExit})
+        Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayNotification, Me.gMonTrayShow, Me.gMonTrayMon, Me.gMonTraySep2, Me.gMonTrayQuickLauncher, Me.gMonTrayFullBackup, Me.gMonTrayFullRestore, Me.gMonTraySep3, Me.gMonTraySettings, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTraySep1, Me.gMonTrayExit})
         Me.gMonTrayMenu.Name = "gMonTrayMenu"
-        Me.gMonTrayMenu.Size = New System.Drawing.Size(181, 242)
+        Me.gMonTrayMenu.Size = New System.Drawing.Size(181, 264)
         '
         'gMonTrayNotification
         '
@@ -132,6 +136,12 @@ Partial Class frmMain
         Me.gMonTrayNotification.Size = New System.Drawing.Size(180, 22)
         Me.gMonTrayNotification.Text = "Notification"
         Me.gMonTrayNotification.Visible = False
+        '
+        'gMonTrayQuickLauncher
+        '
+        Me.gMonTrayQuickLauncher.Name = "gMonTrayQuickLauncher"
+        Me.gMonTrayQuickLauncher.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayQuickLauncher.Text = "&Quick Launcher"
         '
         'gMonTrayShow
         '
@@ -175,7 +185,7 @@ Partial Class frmMain
         '
         'gMonTraySetup
         '
-        Me.gMonTraySetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTraySetupAddWizard, Me.gMonTraySetupGameManager, Me.gMonTraySetupTags, Me.gMonTraySetupProcessManager, Me.gMonTraySetupCustomVariables})
+        Me.gMonTraySetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTraySetupAddWizard, Me.gMonTraySetupGameManager, Me.gMonTraySetupTags, Me.gMonTraySetupLauncherManager, Me.gMonTraySetupProcessManager, Me.gMonTraySetupCustomVariables})
         Me.gMonTraySetup.Name = "gMonTraySetup"
         Me.gMonTraySetup.Size = New System.Drawing.Size(180, 22)
         Me.gMonTraySetup.Text = "&Setup"
@@ -197,6 +207,12 @@ Partial Class frmMain
         Me.gMonTraySetupTags.Name = "gMonTraySetupTags"
         Me.gMonTraySetupTags.Size = New System.Drawing.Size(201, 22)
         Me.gMonTraySetupTags.Text = "&Tag Manager..."
+        '
+        'gMonTraySetupLauncherManager
+        '
+        Me.gMonTraySetupLauncherManager.Name = "gMonTraySetupLauncherManager"
+        Me.gMonTraySetupLauncherManager.Size = New System.Drawing.Size(201, 22)
+        Me.gMonTraySetupLauncherManager.Text = "&Launcher Manager..."
         '
         'gMonTraySetupProcessManager
         '
@@ -364,7 +380,7 @@ Partial Class frmMain
         '
         'gMonFile
         '
-        Me.gMonFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonFileMonitor, Me.gMonFullSep, Me.gMonFileFullBackup, Me.gMonFileFullRestore, Me.gMonSettingsSep, Me.gMonFileSettings, Me.gMonExitSep, Me.gMonFileExit})
+        Me.gMonFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonFileMonitor, Me.gMonFullSep, Me.gMonFileQuickLauncher, Me.gMonFileFullBackup, Me.gMonFileFullRestore, Me.gMonSettingsSep, Me.gMonFileSettings, Me.gMonExitSep, Me.gMonFileExit})
         Me.gMonFile.Name = "gMonFile"
         Me.gMonFile.Size = New System.Drawing.Size(37, 20)
         Me.gMonFile.Text = "&File"
@@ -379,6 +395,12 @@ Partial Class frmMain
         '
         Me.gMonFullSep.Name = "gMonFullSep"
         Me.gMonFullSep.Size = New System.Drawing.Size(177, 6)
+        '
+        'gMonFileQuickLauncher
+        '
+        Me.gMonFileQuickLauncher.Name = "gMonFileQuickLauncher"
+        Me.gMonFileQuickLauncher.Size = New System.Drawing.Size(180, 22)
+        Me.gMonFileQuickLauncher.Text = "&Quick Launcher"
         '
         'gMonFileFullBackup
         '
@@ -416,7 +438,7 @@ Partial Class frmMain
         '
         'gMonSetup
         '
-        Me.gMonSetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonSetupGameManager, Me.gMonSetupAddWizard, Me.gMonSetupTags, Me.gMonSetupProcessManager, Me.gMonSetupCustomVariables})
+        Me.gMonSetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonSetupGameManager, Me.gMonSetupAddWizard, Me.gMonSetupTags, Me.gMonSetupLauncherManager, Me.gMonSetupProcessManager, Me.gMonSetupCustomVariables})
         Me.gMonSetup.Name = "gMonSetup"
         Me.gMonSetup.Size = New System.Drawing.Size(49, 20)
         Me.gMonSetup.Text = "&Setup"
@@ -438,6 +460,12 @@ Partial Class frmMain
         Me.gMonSetupTags.Name = "gMonSetupTags"
         Me.gMonSetupTags.Size = New System.Drawing.Size(201, 22)
         Me.gMonSetupTags.Text = "&Tag Manager..."
+        '
+        'gMonSetupLauncherManager
+        '
+        Me.gMonSetupLauncherManager.Name = "gMonSetupLauncherManager"
+        Me.gMonSetupLauncherManager.Size = New System.Drawing.Size(201, 22)
+        Me.gMonSetupLauncherManager.Text = "&Launcher Manager..."
         '
         'gMonSetupProcessManager
         '
@@ -787,4 +815,8 @@ Partial Class frmMain
     Friend WithEvents gMonTrayFullBackup As ToolStripMenuItem
     Friend WithEvents gMonTrayFullRestore As ToolStripMenuItem
     Friend WithEvents gMonTraySep3 As ToolStripSeparator
+    Friend WithEvents gMonSetupLauncherManager As ToolStripMenuItem
+    Friend WithEvents gMonTraySetupLauncherManager As ToolStripMenuItem
+    Friend WithEvents gMonTrayQuickLauncher As ToolStripMenuItem
+    Friend WithEvents gMonFileQuickLauncher As ToolStripMenuItem
 End Class
