@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.4 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-November 22, 2020
+November 25, 2020
 
 Important Notices:
 
@@ -32,6 +32,7 @@ All Platforms:
 - Session time (and total time played) will now update(once per minute) on the main window, instead of only being displayed after the game ends.
 - Session time will now be displayed and update(once per minute) on the GBM tray icon tooltip.
 - Disabled features will now have their options removed from all menus.  This currently only applies to session tracking and game launching.
+- Fixed issues that prevented configuration save paths from being updated correctly when a custom variable is modified or deleted.
 - Deleting a custom variable will now properly remove the environment variable in the current session and update any affected game configurations.
 - Editing a configuration while using a Custom filter on the Game Manager will no longer lose the changes if any tags are modified before saving.
 - Modifying tags on a single configuration while using a Custom filter on the Game Maanger will no longer unselect the current configuration.
@@ -42,8 +43,8 @@ Windows:
 
 - GBM will no longer crash if the UAC prompt is cancelled while restarting as Administrator.
 
-Known Issues:
+Known Issues (Linux):
 
-- (Linux) The "Quick Launcher" won't accept using the "Enter" key on the game list combo box to trigger closing the form and launching the game.  You need to hit "Tab" then "Enter".
+- The "Quick Launcher" may not accept using the "Enter" key on the game list combo box to trigger closing the form and launching the game.  You need to hit "Tab" then "Enter".
 		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

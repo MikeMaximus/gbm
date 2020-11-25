@@ -213,7 +213,7 @@ Public Class frmVariableManager
         If txtID.Text <> String.Empty Then
             oCustomVariable.ID = txtID.Text
         End If
-        oCustomVariable.Name = txtName.Text
+        oCustomVariable.Name = txtName.Text.Replace("%", "")
         oCustomVariable.Path = txtPath.Text
 
         Select Case eCurrentMode

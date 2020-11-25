@@ -23,13 +23,20 @@
     Public Shared Sub DoPathUpdate(ByVal sOld As String, ByVal sNew As String)
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSQL As String
+        Dim sMatch As String
         Dim hshParams As New Hashtable
 
-        sSQL = "UPDATE monitorlist SET Path = replace(Path, @Old, @New) WHERE Path LIKE @Match;"
-        sSQL = "UPDATE monitorlist SET ProcessPath = replace(ProcessPath, @Old, @New) WHERE ProcessPath LIKE @Match;"
+        'Escape any LIKE wildcards that may be contained in the variable name or path.
+        sMatch = "%" & sOld.Replace("%", "|%") & "%"
+        sMatch = sMatch.Replace("_", "|_")
+
+        sSQL = "UPDATE monitorlist SET Path = replace(Path, @Old, @New), AbsolutePath = 1 WHERE Path LIKE @Match ESCAPE ""|"";"
+        sSQL &= "UPDATE monitorlist SET ProcessPath = replace(ProcessPath, @Old, @New) WHERE ProcessPath LIKE @Match ESCAPE ""|"";"
+
         hshParams.Add("Old", sOld)
         hshParams.Add("New", sNew)
-        hshParams.Add("Match", sOld)
+        hshParams.Add("Match", sMatch)
+
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
