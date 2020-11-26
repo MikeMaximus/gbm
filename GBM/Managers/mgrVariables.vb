@@ -30,7 +30,7 @@
         sMatch = "%" & sOld.Replace("%", "|%") & "%"
         sMatch = sMatch.Replace("_", "|_")
 
-        sSQL = "UPDATE monitorlist SET Path = replace(Path, @Old, @New), AbsolutePath = 1 WHERE Path LIKE @Match ESCAPE ""|"";"
+        sSQL = "UPDATE monitorlist SET Path = replace(Path, @Old, @New) WHERE Path LIKE @Match ESCAPE ""|"";"
         sSQL &= "UPDATE monitorlist SET ProcessPath = replace(ProcessPath, @Old, @New) WHERE ProcessPath LIKE @Match ESCAPE ""|"";"
 
         hshParams.Add("Old", sOld)
