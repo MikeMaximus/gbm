@@ -2,11 +2,7 @@ Game Backup Monitor v1.2.4 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-November 25, 2020
-
-Important Notices:
-
-- v1.2.4 is still in development.  This file will be updated as changes are made.
+November 27, 2020
 
 New in 1.2.4
 
