@@ -247,8 +247,8 @@ Public Class frmGameManager
         Dim sNewAppItem As String
         Dim sOriginalAppItem As String
 
-        'If there is a valid change, check and update the manifest
-        If (oNewApp.ID <> oOriginalApp.ID) Or (oNewApp.FileSafeName <> oOriginalApp.FileSafeName) Then
+        'Handle File Changes
+        If (bUseGameID And (oNewApp.ID <> oOriginalApp.ID)) Or (Not bUseGameID And (oNewApp.FileSafeName <> oOriginalApp.FileSafeName)) Then
             'Choose how to perform file & folder renames
             If bUseGameID Then
                 sNewAppItem = oNewApp.ID
@@ -279,7 +279,7 @@ Public Class frmGameManager
                     sFileName = BackupFolder & oBackupItem.FileName
                     sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(sOriginalAppItem, sNewAppItem)
                     If File.Exists(sNewFileName) Then
-                        If mgrCommon.ShowMessage(frmGameManager_ErrorRenameFilesExist, New String() {sOriginalAppItem, sNewAppItem}, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                        If mgrCommon.ShowMessage(frmGameManager_ErrorRenameFilesExist, sNewAppItem, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                             Return False
                         End If
                         Exit For
@@ -294,7 +294,6 @@ Public Class frmGameManager
                         'Copy the file using the new name, then delete the old file when successful.
                         If mgrCommon.CopyFile(sFileName, sNewFileName, True) Then
                             mgrCommon.DeleteFile(sFileName)
-                            oBackupItem.MonitorID = oNewApp.ID
                             oBackupItem.FileName = oBackupItem.FileName.Replace(sOriginalAppItem, sNewAppItem)
                             mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Remote)
                         End If
@@ -312,9 +311,30 @@ Public Class frmGameManager
                 oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Local)
                 'The local manifest will only have one entry per game, therefore this runs only once
                 For Each oBackupItem As clsBackup In oBackupItems
-                    oBackupItem.MonitorID = oNewApp.ID
                     oBackupItem.FileName = oBackupItem.FileName.Replace(sOriginalAppItem, sNewAppItem)
                     mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Local)
+                Next
+            End If
+        End If
+
+        'Handle ID Change
+        If oNewApp.ID <> oOriginalApp.ID Then
+            'Local
+            If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Local) Then
+                oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Local)
+                'The local manifest will only have one entry per game, therefore this runs only once
+                For Each oBackupItem As clsBackup In oBackupItems
+                    oBackupItem.MonitorID = oNewApp.ID
+                    mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Local)
+                Next
+            End If
+
+            'Remote
+            If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Remote) Then
+                oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Remote)
+                For Each oBackupItem As clsBackup In oBackupItems
+                    oBackupItem.MonitorID = oNewApp.ID
+                    mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Remote)
                 Next
             End If
         End If
