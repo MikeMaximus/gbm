@@ -514,7 +514,7 @@ Public Class mgrMonitorList
         oDatabase.RunMassParamQuery(sSQL, oParamList)
     End Sub
 
-    Public Shared Sub SyncMonitorLists(ByVal oSettings As mgrSettings, Optional ByVal bToRemote As Boolean = True, Optional ByVal bSyncProtection As Boolean = True)
+    Public Shared Sub SyncMonitorLists(Optional ByVal bToRemote As Boolean = True, Optional ByVal bSyncProtection As Boolean = True)
         Dim hshCompareFrom As Hashtable
         Dim hshCompareTo As Hashtable
         Dim hshSyncItems As Hashtable
@@ -525,7 +525,7 @@ Public Class mgrMonitorList
 
         Cursor.Current = Cursors.WaitCursor
 
-        If Not oSettings.DisableSyncMessages Then
+        If Not mgrSettings.DisableSyncMessages Then
             If bToRemote Then
                 RaiseEvent UpdateLog(mgrMonitorList_SyncToMaster, False, ToolTipIcon.Info, True)
             Else
@@ -560,16 +560,16 @@ Public Class mgrMonitorList
         For Each oFromItem In hshCompareFrom.Values
             If hshCompareTo.Contains(oFromItem.ID) Then
                 oToItem = DirectCast(hshCompareTo(oFromItem.ID), clsGame)
-                If oFromItem.SyncEquals(oToItem, oSettings.SyncFields) Then
+                If oFromItem.SyncEquals(oToItem, mgrSettings.SyncFields) Then
                     hshSyncItems.Remove(oFromItem.ID)
                 End If
             End If
         Next
 
         If bToRemote Then
-            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Remote, oSettings.SyncFields)
+            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Remote, mgrSettings.SyncFields)
         Else
-            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Local, oSettings.SyncFields)
+            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Local, mgrSettings.SyncFields)
         End If
 
         'Sync Tags
@@ -603,7 +603,7 @@ Public Class mgrMonitorList
             DoListDeleteSync(hshDeleteItems, mgrSQLite.Database.Local)
         End If
 
-        If Not oSettings.DisableSyncMessages Then
+        If Not mgrSettings.DisableSyncMessages Then
             RaiseEvent UpdateLog(mgrCommon.FormatString(mgrMonitorList_SyncChanges, (hshDeleteItems.Count + hshSyncItems.Count + iChanges).ToString), False, ToolTipIcon.Info, True)
         End If
 
@@ -1036,7 +1036,7 @@ Public Class mgrMonitorList
     End Sub
 
     'Other Functions
-    Public Shared Sub HandleBackupLocationChange(ByVal oSettings As mgrSettings)
+    Public Shared Sub HandleBackupLocationChange()
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
         Dim iGameCount As Integer
 
@@ -1051,15 +1051,15 @@ Public Class mgrMonitorList
             'If the remote database actually contains a list, then ask what to do
             If iGameCount > 0 Then
                 If mgrCommon.ShowPriorityMessage(mgrMonitorList_ConfirmExistingData, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    mgrMonitorList.SyncMonitorLists(oSettings)
+                    mgrMonitorList.SyncMonitorLists()
                 Else
-                    mgrMonitorList.SyncMonitorLists(oSettings, False)
+                    mgrMonitorList.SyncMonitorLists(False)
                 End If
             Else
-                mgrMonitorList.SyncMonitorLists(oSettings)
+                mgrMonitorList.SyncMonitorLists()
             End If
         Else
-            mgrMonitorList.SyncMonitorLists(oSettings)
+            mgrMonitorList.SyncMonitorLists()
         End If
     End Sub
 End Class

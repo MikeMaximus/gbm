@@ -62,7 +62,6 @@ Public Class frmMain
     Public WithEvents oBackup As New mgrBackup
     Public WithEvents oRestore As New mgrRestore
     Public hshScanList As Hashtable
-    Public oSettings As New mgrSettings
 
     Delegate Sub UpdateNotifierCallBack(ByVal iCount As Integer)
     Delegate Sub UpdateLogCallBack(ByVal sLogUpdate As String, ByVal bTrayUpdate As Boolean, ByVal objIcon As System.Windows.Forms.ToolTipIcon, ByVal bTimeStamp As Boolean)
@@ -410,7 +409,7 @@ Public Class frmMain
 
         'Run backups
         If oReadyList.Count > 0 And Not oBackup.CancelOperation Then
-            If Not oSettings.DisableDiskSpaceCheck And Not oReadyList.Count = 1 Then UpdateLog(mgrCommon.FormatString(mgrBackup_BackupBatchSize, mgrCommon.FormatDiskSpace(lBackupSize)), False, ToolTipIcon.Info, True)
+            If Not mgrSettings.DisableDiskSpaceCheck And Not oReadyList.Count = 1 Then UpdateLog(mgrCommon.FormatString(mgrBackup_BackupBatchSize, mgrCommon.FormatDiskSpace(lBackupSize)), False, ToolTipIcon.Info, True)
             Dim oThread As New System.Threading.Thread(AddressOf ExecuteBackup)
             oThread.IsBackground = True
             oThread.Start(oReadyList)
@@ -524,7 +523,7 @@ Public Class frmMain
                 SetLastAction(mgrCommon.FormatString(frmMain_ErrorBackupSessionLength, oProcess.GameInfo.CroppedName))
                 OperationEnded()
             Else
-                If oSettings.DisableConfirmation Then
+                If mgrSettings.DisableConfirmation Then
                     bDoBackup = True
                 Else
                     If mgrCommon.ShowPriorityMessage(frmMain_ConfirmBackup, oProcess.GameInfo.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
@@ -605,7 +604,7 @@ Public Class frmMain
             Exit Sub
         End If
 
-        If oSettings.AutoMark Or oSettings.AutoRestore Then
+        If mgrSettings.AutoMark Or mgrSettings.AutoRestore Then
             'Increment Timer
             iRestoreTimeOut += 1
 
@@ -615,7 +614,7 @@ Public Class frmMain
 
                 'Check if backup file is ready to restore
                 If oBackup.CheckSum <> String.Empty Then
-                    sFileName = oSettings.BackupFolder & Path.DirectorySeparatorChar & oBackup.FileName
+                    sFileName = mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oBackup.FileName
                     If mgrHash.Generate_SHA256_Hash(sFileName) <> oBackup.CheckSum Then
                         oNotReady.Add(oBackup)
                         bFinished = False
@@ -640,7 +639,7 @@ Public Class frmMain
                 End If
 
                 If Not Directory.Exists(sExtractPath) And Not mgrPath.IsSupportedRegistryPath(oBackup.RestorePath) Then
-                    If oSettings.AutoMark Then
+                    If mgrSettings.AutoMark Then
                         If mgrManifest.DoManifestCheck(de.Key, mgrSQLite.Database.Local) Then
                             mgrManifest.DoManifestUpdateByMonitorID(de.Value, mgrSQLite.Database.Local)
                         Else
@@ -660,7 +659,7 @@ Public Class frmMain
             'Remove any backup files that should not be automatically restored
             For Each o As clsBackup In oNotInstalled
                 slRestoreData.Remove(o.MonitorID)
-                If oSettings.AutoMark Then
+                If mgrSettings.AutoMark Then
                     UpdateLog(mgrCommon.FormatString(frmMain_AutoMark, o.Name), False, ToolTipIcon.Info, True)
                 Else
                     UpdateLog(mgrCommon.FormatString(frmMain_NoAutoMark, o.Name), False, ToolTipIcon.Info, True)
@@ -672,7 +671,7 @@ Public Class frmMain
             Next
 
             'Automatically restore backup files
-            If oSettings.AutoRestore Then
+            If mgrSettings.AutoRestore Then
                 If slRestoreData.Count > 0 Then
                     hshRestore = New Hashtable
                     sGame = String.Empty
@@ -689,7 +688,7 @@ Public Class frmMain
                     Next
 
                     'Handle notifications
-                    If oSettings.RestoreOnLaunch Then
+                    If mgrSettings.RestoreOnLaunch Then
                         If slRestoreData.Count > 1 Then
                             UpdateLog(mgrCommon.FormatString(frmMain_RestoreNotificationMulti, slRestoreData.Count), True, ToolTipIcon.Info, True)
                         Else
@@ -713,7 +712,7 @@ Public Class frmMain
         End If
 
         'Update the menu notifier if we aren't using auto restore
-        If oSettings.RestoreOnLaunch And Not oSettings.AutoRestore Then
+        If mgrSettings.RestoreOnLaunch And Not mgrSettings.AutoRestore Then
             If slRestoreData.Count > 0 Then
                 UpdateNotifier(slRestoreData.Count)
             End If
@@ -760,7 +759,7 @@ Public Class frmMain
             lblStatus1.Text = sPriorPath
             lblStatus2.Text = sPriorCompany
             lblStatus3.Text = sPriorVersion
-            If oSettings.TimeTracking Then
+            If mgrSettings.TimeTracking Then
                 pbTime.Visible = True
                 lblTimeSpent.Visible = True
             End If
@@ -876,7 +875,7 @@ Public Class frmMain
             End If
 
             'Do Time Update
-            If oSettings.TimeTracking Then
+            If mgrSettings.TimeTracking Then
                 UpdateTimeSpent(oProcess.GameInfo.Hours, 0)
             Else
                 pbTime.Visible = False
@@ -916,7 +915,7 @@ Public Class frmMain
             If Not oProcess.GameInfo.ProcessPath = DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).ProcessPath Then
                 DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).ProcessPath = oProcess.GameInfo.ProcessPath
                 mgrMonitorList.DoListFieldUpdate("ProcessPath", oProcess.GameInfo.ProcessPath, oProcess.GameInfo.ID)
-                If (oSettings.SyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then mgrMonitorList.SyncMonitorLists(oSettings)
+                If (mgrSettings.SyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then mgrMonitorList.SyncMonitorLists()
             End If
         End If
     End Sub
@@ -968,7 +967,7 @@ Public Class frmMain
         End If
 
         mgrMonitorList.DoListFieldUpdate("Hours", oProcess.GameInfo.Hours, oProcess.GameInfo.ID)
-        mgrMonitorList.SyncMonitorLists(oSettings)
+        mgrMonitorList.SyncMonitorLists()
 
         UpdateTimeSpent(dCurrentHours, oProcess.TimeSpent.TotalHours)
     End Sub
@@ -992,9 +991,9 @@ Public Class frmMain
 
     Private Function SuppressSession() As Boolean
         Dim iSession As Integer
-        If oSettings.SuppressBackup Then
+        If mgrSettings.SuppressBackup Then
             iSession = Math.Ceiling(oProcess.TimeSpent.TotalMinutes)
-            If iSession > oSettings.SuppressBackupThreshold Then
+            If iSession > mgrSettings.SuppressBackupThreshold Then
                 Return False
             Else
                 Return True
@@ -1110,7 +1109,7 @@ Public Class frmMain
         Dim frm As New frmTags
         PauseScan()
         frm.ShowDialog()
-        mgrMonitorList.SyncMonitorLists(oSettings)
+        mgrMonitorList.SyncMonitorLists()
         ResumeScan()
     End Sub
 
@@ -1141,7 +1140,6 @@ Public Class frmMain
     Private Sub OpenGameManager(Optional ByVal bPendingRestores As Boolean = False)
         Dim frm As New frmGameManager
         PauseScan()
-        frm.Settings = oSettings
         frm.PendingRestores = bPendingRestores
         frm.LastPlayedGame = oLastGame
         frm.ShowDialog()
@@ -1174,18 +1172,16 @@ Public Class frmMain
 
     Private Sub OpenSettings()
         Dim frm As New frmSettings
-        frm.Settings = oSettings
         PauseScan()
         If frm.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            oSettings = frm.Settings
-            oBackup.Settings = oSettings
-            oRestore.Settings = oSettings
             'Set Remote Database Location
-            mgrPath.RemoteDatabaseLocation = oSettings.BackupFolder
+            mgrPath.RemoteDatabaseLocation = mgrSettings.BackupFolder
             SetupSyncWatcher()
             LoadGameSettings()
             HandleMenuFeatures()
             HandleLauncherMenu()
+        Else
+            mgrSettings.LoadSettings()
         End If
         ResumeScan()
     End Sub
@@ -1193,7 +1189,7 @@ Public Class frmMain
     Private Sub OpenSessions()
         Dim frm As New frmSessions
         PauseScan()
-        If oSettings.SessionTracking = False Then
+        If mgrSettings.SessionTracking = False Then
             mgrCommon.ShowMessage(frmMain_WarningSessionsDisabled, MsgBoxStyle.Exclamation)
         End If
         If mgrSessions.CountRows > 0 Then
@@ -1211,7 +1207,7 @@ Public Class frmMain
         frm.GameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
         frm.ShowDialog()
         LoadGameSettings()
-        mgrMonitorList.SyncMonitorLists(oSettings)
+        mgrMonitorList.SyncMonitorLists()
         ResumeScan()
     End Sub
 
@@ -1220,13 +1216,12 @@ Public Class frmMain
         PauseScan()
         frm.ShowDialog()
         mgrPath.LoadCustomVariables()
-        mgrMonitorList.SyncMonitorLists(oSettings)
+        mgrMonitorList.SyncMonitorLists()
         ResumeScan()
     End Sub
 
     Private Sub OpenStartupWizard()
         Dim frm As New frmStartUpWizard()
-        frm.Settings = New mgrSettings
         ToggleMenuEnable()
         frm.ShowDialog()
         ToggleMenuEnable()
@@ -1246,7 +1241,7 @@ Public Class frmMain
     End Sub
 
     Private Sub CheckForNewBackups()
-        If oSettings.RestoreOnLaunch Or oSettings.AutoRestore Or oSettings.AutoMark Then
+        If mgrSettings.RestoreOnLaunch Or mgrSettings.AutoRestore Or mgrSettings.AutoMark Then
             StartRestoreCheck()
         End If
     End Sub
@@ -1268,7 +1263,7 @@ Public Class frmMain
     End Sub
 
     Private Sub SetupSyncWatcher()
-        oFileWatcher.Path = oSettings.BackupFolder
+        oFileWatcher.Path = mgrSettings.BackupFolder
         oFileWatcher.Filter = "gbm.s3db"
         oFileWatcher.NotifyFilter = NotifyFilters.LastWrite
 
@@ -1293,7 +1288,7 @@ Public Class frmMain
 
     Private Sub SyncGameSettings()
         'Sync Monitor List
-        mgrMonitorList.SyncMonitorLists(oSettings, False)
+        mgrMonitorList.SyncMonitorLists(False)
     End Sub
 
     Private Sub SyncGameIDs(ByVal bOfficial As Boolean)
@@ -1358,9 +1353,7 @@ Public Class frmMain
         LocalDatabaseCheck()
 
         'Load Settings
-        oSettings.LoadSettings()
-        oBackup.Settings = oSettings
-        oRestore.Settings = oSettings
+        mgrSettings.LoadSettings()
 
         If Not bFirstRun Then
             'The application cannot continue if this fails
@@ -1374,7 +1367,7 @@ Public Class frmMain
             RemoteDatabaseCheck()
 
             'Backup GBM data
-            If oSettings.BackupOnLaunch Then
+            If mgrSettings.BackupOnLaunch Then
                 BackupDatabases()
             End If
 
@@ -1395,7 +1388,7 @@ Public Class frmMain
         HandleLauncherMenu()
 
         'Verify the "Start with Windows" setting
-        If oSettings.StartWithWindows Then
+        If mgrSettings.StartWithWindows Then
             If mgrCommon.IsUnix Then
                 Dim sVerifyError As String = String.Empty
                 If Not VerifyAutoStartLinux(sVerifyError) Then
@@ -1409,9 +1402,9 @@ Public Class frmMain
         End If
 
         'Check for any custom 7z utility and display a warning if it's missing
-        If oSettings.Custom7zLocation <> String.Empty Then
-            If Not oBackup.CheckForUtilities(oSettings.Custom7zLocation) Then
-                mgrCommon.ShowMessage(frmMain_Error7zCustom, oSettings.Custom7zLocation, MsgBoxStyle.Exclamation)
+        If mgrSettings.Custom7zLocation <> String.Empty Then
+            If Not oBackup.CheckForUtilities(mgrSettings.Custom7zLocation) Then
+                mgrCommon.ShowMessage(frmMain_Error7zCustom, mgrSettings.Custom7zLocation, MsgBoxStyle.Exclamation)
             End If
         End If
 
@@ -1497,11 +1490,11 @@ Public Class frmMain
             VerifyCustomPathVariables()
 
             'We only do this in .NET.
-            If oSettings.StartToTray And Not mgrCommon.IsUnix Then
+            If mgrSettings.StartToTray And Not mgrCommon.IsUnix Then
                 ToggleState(False)
             End If
 
-            If oSettings.MonitorOnStartup Then
+            If mgrSettings.MonitorOnStartup Then
                 eCurrentStatus = eStatus.Stopped
             Else
                 eCurrentStatus = eStatus.Running
@@ -1515,7 +1508,7 @@ Public Class frmMain
     Private Sub ShutdownApp(Optional ByVal bPrompt As Boolean = True)
         Dim bClose As Boolean = False
 
-        If bPrompt And Not oSettings.ExitNoWarning Then
+        If bPrompt And Not mgrSettings.ExitNoWarning Then
             If mgrCommon.ShowMessage(frmMain_Exit, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 bClose = True
             End If
@@ -1580,7 +1573,7 @@ Public Class frmMain
             RemoveLauncherMenu()
         End If
 
-        If iRecentCount > 0 And oSettings.EnableLauncher = True Then
+        If iRecentCount > 0 And mgrSettings.EnableLauncher = True Then
             If Not bModdedTrayMenu Then
                 oSpacer.Name = "gMonLaunchSpacer"
                 gMonTrayMenu.Items.Insert(0, oSpacer)
@@ -1616,7 +1609,7 @@ Public Class frmMain
 
     Private Sub HandleMenuFeatures()
         'Sessions
-        If oSettings.SessionTracking Then
+        If mgrSettings.SessionTracking Then
             gMonToolsSessions.Visible = True
             gMonTrayToolsSessions.Visible = True
         Else
@@ -1625,7 +1618,7 @@ Public Class frmMain
         End If
 
         'Game Launching
-        If oSettings.EnableLauncher Then
+        If mgrSettings.EnableLauncher Then
             gMonSetupLauncherManager.Visible = True
             gMonTraySetupLauncherManager.Visible = True
             gMonFileQuickLauncher.Visible = True
@@ -1814,7 +1807,7 @@ Public Class frmMain
         Else
             'Auto save and/or clear the log if we are approaching the limit
             If txtLog.TextLength > 262144 Then
-                If oSettings.AutoSaveLog Then
+                If mgrSettings.AutoSaveLog Then
                     Dim sLogFile As String = mgrPath.LogFileLocation
                     mgrCommon.SaveText(txtLog.Text, sLogFile)
                     txtLog.Clear()
@@ -2106,13 +2099,12 @@ Public Class frmMain
     End Sub
 
     Private Function VerifyBackupLocation() As Boolean
-        Dim sBackupPath As String = oSettings.BackupFolder
+        Dim sBackupPath As String = mgrSettings.BackupFolder
         If mgrPath.VerifyBackupPath(sBackupPath) Then
-            If oSettings.BackupFolder <> sBackupPath Then
-                oSettings.BackupFolder = sBackupPath
-                oSettings.SaveSettings()
-                oSettings.LoadSettings()
-                mgrMonitorList.HandleBackupLocationChange(oSettings)
+            If mgrSettings.BackupFolder <> sBackupPath Then
+                mgrSettings.BackupFolder = sBackupPath
+                mgrSettings.SaveSettings()
+                mgrMonitorList.HandleBackupLocationChange()
             End If
             Return True
         Else
@@ -2188,8 +2180,8 @@ Public Class frmMain
         Else
             'If the app is no longer properly installed,  disable autostart and the setting.
             Try
-                oSettings.StartWithWindows = False
-                oSettings.SaveSettings()
+                mgrSettings.StartWithWindows = False
+                mgrSettings.SaveSettings()
                 If File.Exists(sAutoStartFolder & Path.DirectorySeparatorChar & "gbm.desktop") Then
                     File.Delete(sAutoStartFolder & Path.DirectorySeparatorChar & "gbm.desktop")
                 End If
@@ -2440,7 +2432,7 @@ Public Class frmMain
             Case CloseReason.UserClosing
                 If bShutdown = False Then
                     e.Cancel = True
-                    If oSettings.ExitOnClose Then
+                    If mgrSettings.ExitOnClose Then
                         ShutdownApp()
                     Else
                         ToggleState(False)
@@ -2524,12 +2516,12 @@ Public Class frmMain
             If bContinue = True Then
                 If oProcess.Duplicate Then
                     oLastGame = Nothing
-                    UpdateLog(frmMain_MultipleGamesDetected, oSettings.ShowDetectionToolTips)
+                    UpdateLog(frmMain_MultipleGamesDetected, mgrSettings.ShowDetectionToolTips)
                     UpdateStatus(frmMain_MultipleGamesDetected)
                     SetGameInfo(True)
                 Else
                     oLastGame = oProcess.GameInfo
-                    UpdateLog(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.Name), oSettings.ShowDetectionToolTips)
+                    UpdateLog(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.Name), mgrSettings.ShowDetectionToolTips)
                     UpdateStatus(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.CroppedName), oProcess.GameInfo.CroppedName)
                     SetGameInfo()
                 End If
@@ -2551,7 +2543,7 @@ Public Class frmMain
     End Sub
 
     Private Sub bwMonitor_DoWork(sender As System.Object, e As System.ComponentModel.DoWorkEventArgs) Handles bwMonitor.DoWork
-        If oSettings.TimeTracking And Not oProcess.Duplicate Then tmSessionTimeUpdater.Start()
+        If mgrSettings.TimeTracking And Not oProcess.Duplicate Then tmSessionTimeUpdater.Start()
 
         Try
             Do While Not (oProcess.FoundProcess.HasExited Or bwMonitor.CancellationPending)
@@ -2584,8 +2576,8 @@ Public Class frmMain
                 oProcess.GameInfo.ProcessPath = mgrPath.ProcessPathSearch(oProcess.GameInfo.Name, oProcess.GameInfo.ProcessName, sPathDetectionError)
                 If oProcess.GameInfo.ProcessPath = String.Empty Then
                     bContinue = False
-                    If oSettings.TimeTracking Then HandleTimeSpent()
-                    If oSettings.SessionTracking Then HandleSession()
+                    If mgrSettings.TimeTracking Then HandleTimeSpent()
+                    If mgrSettings.SessionTracking Then HandleSession()
                     UpdateLog(mgrCommon.FormatString(frmMain_ErrorBackupUnknownPath, oProcess.GameInfo.Name), False)
                     oProcess.GameInfo = Nothing
                     ResetGameInfo()
@@ -2606,8 +2598,8 @@ Public Class frmMain
                         mgrWineData.DoWineDataAddUpdate(oProcess.WineData)
                     End If
                     HandleProcessPath()
-                    If oSettings.TimeTracking Then HandleTimeSpent()
-                    If oSettings.SessionTracking Then HandleSession()
+                    If mgrSettings.TimeTracking Then HandleTimeSpent()
+                    If mgrSettings.SessionTracking Then HandleSession()
                     RunBackup()
                 Else
                     oLastGame = Nothing
@@ -2633,7 +2625,7 @@ Public Class frmMain
     Private Sub frmMain_Activated(sender As System.Object, e As System.EventArgs) Handles MyBase.Activated
         'This is a workaround to minimize on startup in Mono.
         If bInitialLoad And mgrCommon.IsUnix Then
-            If oSettings.StartToTray Then
+            If mgrSettings.StartToTray Then
                 ToggleState(False)
             End If
             bInitialLoad = False
@@ -2647,7 +2639,7 @@ Public Class frmMain
         If e.KeyCode = Keys.Oemtilde AndAlso e.Modifiers = Keys.Control Then
             OpenDevConsole()
         ElseIf e.KeyCode = Keys.L AndAlso e.Modifiers = Keys.Control Then
-            If oSettings.EnableLauncher And Not eCurrentStatus = eStatus.Paused Then OpenQuickLaunch()
+            If mgrSettings.EnableLauncher And Not eCurrentStatus = eStatus.Paused Then OpenQuickLaunch()
         End If
     End Sub
 

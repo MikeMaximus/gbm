@@ -353,7 +353,6 @@ Public Class mgrPath
             Environment.SetEnvironmentVariable("USERDOCUMENTS", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
             Environment.SetEnvironmentVariable("COMMONDOCUMENTS", Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments))
         End If
-
     End Sub
 
     Public Shared Function ReplaceSpecialPaths(ByVal sValue As String) As String

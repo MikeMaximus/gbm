@@ -1,17 +1,7 @@
 ﻿Imports GBM.My.Resources
 
 Public Class frmWineConfiguration
-    Private oSettings As mgrSettings
     Private sMonitorID As String
-
-    Property Settings As mgrSettings
-        Get
-            Return oSettings
-        End Get
-        Set(value As mgrSettings)
-            oSettings = value
-        End Set
-    End Property
 
     Property MonitorID As String
         Get
@@ -45,10 +35,10 @@ Public Class frmWineConfiguration
     End Sub
 
     Private Sub HandleWarning()
-        If Not (oSettings.SuppressMessages And mgrSettings.eSuppressMessages.WineConfig) = mgrSettings.eSuppressMessages.WineConfig Then
+        If Not (mgrSettings.SuppressMessages And mgrSettings.eSuppressMessages.WineConfig) = mgrSettings.eSuppressMessages.WineConfig Then
             mgrCommon.ShowMessage(frmWineConfiguration_WarningSingle, MsgBoxStyle.Information)
-            oSettings.SuppressMessages = oSettings.SetMessageField(oSettings.SuppressMessages, mgrSettings.eSuppressMessages.WineConfig)
-            oSettings.SaveSettings()
+            mgrSettings.SuppressMessages = mgrSettings.SetMessageField(mgrSettings.SuppressMessages, mgrSettings.eSuppressMessages.WineConfig)
+            mgrSettings.SaveSettings()
         End If
     End Sub
 

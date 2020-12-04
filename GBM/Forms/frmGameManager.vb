@@ -4,7 +4,6 @@ Imports System.IO
 
 Public Class frmGameManager
 
-    Private oSettings As mgrSettings
     Private sBackupFolder As String
     Private bPendingRestores As Boolean = False
     Private oCurrentBackupItem As clsBackup
@@ -46,15 +45,6 @@ Public Class frmGameManager
 
     Private eCurrentMode As eModes = eModes.Disabled
 
-    Property Settings As mgrSettings
-        Get
-            Return oSettings
-        End Get
-        Set(value As mgrSettings)
-            oSettings = value
-        End Set
-    End Property
-
     Property PendingRestores As Boolean
         Get
             Return bPendingRestores
@@ -93,7 +83,7 @@ Public Class frmGameManager
 
     Private Property BackupFolder As String
         Get
-            Return Settings.BackupFolder & Path.DirectorySeparatorChar
+            Return mgrSettings.BackupFolder & Path.DirectorySeparatorChar
         End Get
         Set(value As String)
             sBackupFolder = value
@@ -222,7 +212,7 @@ Public Class frmGameManager
                 sPath = mgrPath.DetermineRelativePath(sAppPath, sSavePath)
             End If
         Else
-            If Not oSettings.ShowResolvedPaths Then
+            If Not mgrSettings.ShowResolvedPaths Then
                 sPath = mgrPath.ReverseSpecialPaths(sPath)
             End If
         End If
@@ -626,7 +616,7 @@ Public Class frmGameManager
             sPath = mgrPath.ValidatePath(txtSavePath.Text)
         End If
 
-        If Not Settings.ShowResolvedPaths Then sPath = mgrPath.ReplaceSpecialPaths(sPath)
+        If Not mgrSettings.ShowResolvedPaths Then sPath = mgrPath.ReplaceSpecialPaths(sPath)
 
         If Path.IsPathRooted(sPath) Then
             If Directory.Exists(sPath) Then
@@ -701,10 +691,10 @@ Public Class frmGameManager
         Dim sMonitorIDS As New List(Of String)
 
         'Show Intro Tip
-        If Not (oSettings.SuppressMessages And mgrSettings.eSuppressMessages.LinkProcessTip) = mgrSettings.eSuppressMessages.LinkProcessTip Then
+        If Not (mgrSettings.SuppressMessages And mgrSettings.eSuppressMessages.LinkProcessTip) = mgrSettings.eSuppressMessages.LinkProcessTip Then
             mgrCommon.ShowMessage(frmGameManager_TipLinkProcess, MsgBoxStyle.Information)
-            oSettings.SuppressMessages = oSettings.SetMessageField(oSettings.SuppressMessages, mgrSettings.eSuppressMessages.LinkProcessTip)
-            oSettings.SaveSettings()
+            mgrSettings.SuppressMessages = mgrSettings.SetMessageField(mgrSettings.SuppressMessages, mgrSettings.eSuppressMessages.LinkProcessTip)
+            mgrSettings.SaveSettings()
         End If
 
         If eCurrentMode = eModes.Add Then
@@ -761,7 +751,7 @@ Public Class frmGameManager
             lblTags.Text = mgrGameTags.PrintTagsbyList(frm.TagList)
         Else
             'Sync
-            mgrMonitorList.SyncMonitorLists(Settings)
+            mgrMonitorList.SyncMonitorLists()
 
             'Only update visible tags if one item is selected
             If lstGames.SelectedItems.Count = 1 Then lblTags.Text = mgrGameTags.PrintTagsbyID(CurrentGame.ID)
@@ -786,10 +776,10 @@ Public Class frmGameManager
         Dim sMonitorIDs As New List(Of String)
 
         'Show Intro Tip
-        If Not (oSettings.SuppressMessages And mgrSettings.eSuppressMessages.LinkConfigTip) = mgrSettings.eSuppressMessages.LinkConfigTip Then
+        If Not (mgrSettings.SuppressMessages And mgrSettings.eSuppressMessages.LinkConfigTip) = mgrSettings.eSuppressMessages.LinkConfigTip Then
             mgrCommon.ShowMessage(frmGameManager_TipLinkConfiguration, MsgBoxStyle.Information)
-            oSettings.SuppressMessages = oSettings.SetMessageField(oSettings.SuppressMessages, mgrSettings.eSuppressMessages.LinkConfigTip)
-            oSettings.SaveSettings()
+            mgrSettings.SuppressMessages = mgrSettings.SetMessageField(mgrSettings.SuppressMessages, mgrSettings.eSuppressMessages.LinkConfigTip)
+            mgrSettings.SaveSettings()
         End If
 
         If eCurrentMode = eModes.Add Then
@@ -814,14 +804,13 @@ Public Class frmGameManager
             oConfigLinksToSave = frm.ConfigLinkList
         Else
             'Sync
-            mgrMonitorList.SyncMonitorLists(Settings)
+            mgrMonitorList.SyncMonitorLists()
             ModeChange()
         End If
     End Sub
 
     Public Sub OpenWineConfiguration()
         Dim frm As New frmWineConfiguration
-        frm.Settings = oSettings
         frm.MonitorID = oCurrentGame.ID
         frm.ShowDialog()
     End Sub
@@ -868,7 +857,7 @@ Public Class frmGameManager
         If Not CurrentBackupItem.AbsolutePath And oApp.ProcessPath <> String.Empty Then
             lblRestorePathData.Text = oApp.ProcessPath & Path.DirectorySeparatorChar & CurrentBackupItem.RestorePath
         Else
-            If oSettings.ShowResolvedPaths Then
+            If mgrSettings.ShowResolvedPaths Then
                 lblRestorePathData.Text = CurrentBackupItem.RestorePath
                 sttRestorePath = CurrentBackupItem.TruePath
             Else
@@ -1048,7 +1037,7 @@ Public Class frmGameManager
         chkRegEx.Checked = oApp.IsRegEx
         txtParameter.Text = oApp.Parameter
         cboOS.SelectedValue = CInt(oApp.OS)
-        If oSettings.ShowResolvedPaths Then
+        If mgrSettings.ShowResolvedPaths Then
             txtSavePath.Text = oApp.Path
             sttPath = oApp.TruePath
         Else
@@ -1074,7 +1063,7 @@ Public Class frmGameManager
         HandleWineConfig()
 
         'Extra
-        If oSettings.ShowResolvedPaths Then
+        If mgrSettings.ShowResolvedPaths Then
             txtAppPath.Text = oApp.ProcessPath
             ttFullPath.SetToolTip(txtAppPath, oApp.TrueProcessPath)
         Else
@@ -1553,7 +1542,7 @@ Public Class frmGameManager
                 End If
             Case eModes.Edit
                 If CoreValidatation(oApp, False) Then
-                    If CheckManifestandUpdate(oCurrentGame, oApp, oSettings.UseGameID) Then
+                    If CheckManifestandUpdate(oCurrentGame, oApp, mgrSettings.UseGameID) Then
                         bSuccess = True
                         mgrMonitorList.DoListUpdate(oApp, CurrentGame.ID)
                         eCurrentMode = eModes.View
@@ -1573,7 +1562,7 @@ Public Class frmGameManager
         End Select
 
         If bSuccess Then
-            mgrMonitorList.SyncMonitorLists(Settings)
+            mgrMonitorList.SyncMonitorLists()
             LoadBackupData()
             IsDirty = False
             LoadData()
@@ -1600,7 +1589,7 @@ Public Class frmGameManager
 
             If mgrCommon.ShowMessage(frmGameManager_ConfirmGameDelete, oApp.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDelete(oApp.ID)
-                mgrMonitorList.SyncMonitorLists(Settings,, False)
+                mgrMonitorList.SyncMonitorLists(, False)
                 LoadData()
                 eCurrentMode = eModes.Disabled
                 ModeChange()
@@ -1615,7 +1604,7 @@ Public Class frmGameManager
 
             If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiGameDelete, sMonitorIDs.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDeleteMulti(sMonitorIDs)
-                mgrMonitorList.SyncMonitorLists(Settings,, False)
+                mgrMonitorList.SyncMonitorLists(, False)
                 LoadData()
                 eCurrentMode = eModes.Disabled
                 ModeChange()
@@ -1675,10 +1664,10 @@ Public Class frmGameManager
 
         If txtProcess.Text.Trim = String.Empty Then
             'Show one time warning
-            If Not (oSettings.SuppressMessages And mgrSettings.eSuppressMessages.EmptyProcessWarning) = mgrSettings.eSuppressMessages.EmptyProcessWarning Then
+            If Not (mgrSettings.SuppressMessages And mgrSettings.eSuppressMessages.EmptyProcessWarning) = mgrSettings.eSuppressMessages.EmptyProcessWarning Then
                 mgrCommon.ShowMessage(frmGameManager_WarningEmptyProcess, MsgBoxStyle.Information)
-                oSettings.SuppressMessages = oSettings.SetMessageField(oSettings.SuppressMessages, mgrSettings.eSuppressMessages.EmptyProcessWarning)
-                oSettings.SaveSettings()
+                mgrSettings.SuppressMessages = mgrSettings.SetMessageField(mgrSettings.SuppressMessages, mgrSettings.eSuppressMessages.EmptyProcessWarning)
+                mgrSettings.SaveSettings()
             End If
         End If
 
@@ -1902,7 +1891,7 @@ Public Class frmGameManager
 
         If sLocation <> String.Empty Then
             If mgrMonitorList.DoImport(sLocation, False) Then
-                mgrMonitorList.SyncMonitorLists(Settings)
+                mgrMonitorList.SyncMonitorLists()
                 LoadData()
                 LoadBackupData()
             End If
@@ -1926,7 +1915,7 @@ Public Class frmGameManager
     Private Sub ImportOfficialGameList(ByVal sImportUrl As String)
         If mgrCommon.ShowMessage(frmGameManager_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             If mgrMonitorList.DoImport(sImportUrl, True) Then
-                mgrMonitorList.SyncMonitorLists(Settings)
+                mgrMonitorList.SyncMonitorLists()
                 LoadData()
                 LoadBackupData()
             End If
@@ -2063,7 +2052,7 @@ Public Class frmGameManager
             btnImportBackup.Visible = False
         End If
 
-        If Not Settings.EnableLauncher Then
+        If Not mgrSettings.EnableLauncher Then
             btnLaunchOptions.Visible = False
         End If
 
@@ -2258,10 +2247,10 @@ Public Class frmGameManager
     Private Sub cmsOfficialWindows_Click(sender As Object, e As EventArgs) Handles cmsOfficialWindows.Click, cmsOfficial.Click
         'Show one time warning about Windows configs in Linux
         If mgrCommon.IsUnix Then
-            If Not (oSettings.SuppressMessages And mgrSettings.eSuppressMessages.WinConfigsInLinux) = mgrSettings.eSuppressMessages.WinConfigsInLinux Then
+            If Not (mgrSettings.SuppressMessages And mgrSettings.eSuppressMessages.WinConfigsInLinux) = mgrSettings.eSuppressMessages.WinConfigsInLinux Then
                 mgrCommon.ShowMessage(frmGameManager_WarningWinConfigsInLinux, MsgBoxStyle.Information)
-                oSettings.SuppressMessages = oSettings.SetMessageField(oSettings.SuppressMessages, mgrSettings.eSuppressMessages.WinConfigsInLinux)
-                oSettings.SaveSettings()
+                mgrSettings.SuppressMessages = mgrSettings.SetMessageField(mgrSettings.SuppressMessages, mgrSettings.eSuppressMessages.WinConfigsInLinux)
+                mgrSettings.SaveSettings()
             End If
         End If
 

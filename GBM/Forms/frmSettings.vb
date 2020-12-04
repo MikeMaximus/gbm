@@ -6,16 +6,6 @@ Public Class frmSettings
     Dim bShutdown As Boolean = False
     Dim bSyncSettingsChanged As Boolean = False
     Dim eCurrentSyncFields As clsGame.eOptionalSyncFields
-    Private oSettings As mgrSettings
-
-    Property Settings As mgrSettings
-        Get
-            Return oSettings
-        End Get
-        Set(value As mgrSettings)
-            oSettings = value
-        End Set
-    End Property
 
     Private Sub HandleLinuxAutoStart(ByVal bToggle As Boolean)
         Dim oProcess As Process
@@ -71,76 +61,76 @@ Public Class frmSettings
         End If
 
         'Only modify when the value changed
-        If chkAutoStart.Checked <> oSettings.StartWithWindows Then
+        If chkAutoStart.Checked <> mgrSettings.StartWithWindows Then
             If mgrCommon.IsUnix Then
                 HandleLinuxAutoStart(chkAutoStart.Checked)
             Else
                 HandleRegistryUpdate(chkAutoStart.Checked)
             End If
         End If
-        oSettings.StartWithWindows = chkAutoStart.Checked
+        mgrSettings.StartWithWindows = chkAutoStart.Checked
 
-        oSettings.MonitorOnStartup = chkMonitorOnStartup.Checked
-        oSettings.StartToTray = chkStartMinimized.Checked
-        oSettings.BackupOnLaunch = chkBackupOnLaunch.Checked
-        oSettings.ExitOnClose = chkExitOnClose.Checked
-        oSettings.ExitNoWarning = chkExitNoWarning.Checked
-        oSettings.ShowDetectionToolTips = chkShowDetectionTips.Checked
-        oSettings.DisableSyncMessages = chkDisableSyncMessages.Checked
-        oSettings.AutoSaveLog = chkAutoSaveLog.Checked
-        oSettings.DisableConfirmation = chkBackupConfirm.Checked
-        oSettings.DisableDiskSpaceCheck = chkDisableDiskSpaceCheck.Checked
-        oSettings.CreateSubFolder = chkCreateFolder.Checked
-        oSettings.UseGameID = chkUseGameID.Checked
-        oSettings.ShowOverwriteWarning = chkOverwriteWarning.Checked
-        oSettings.RestoreOnLaunch = chkRestoreNotify.Checked
-        oSettings.AutoRestore = chkAutoRestore.Checked
-        oSettings.AutoMark = chkAutoMark.Checked
-        oSettings.TimeTracking = chkTimeTracking.Checked
-        oSettings.SessionTracking = chkSessionTracking.Checked
-        oSettings.EnableLauncher = chkEnableLauncher.Checked
-        oSettings.ShowResolvedPaths = chkShowResolvedPaths.Checked
-        oSettings.SuppressBackup = chkSuppressBackup.Checked
-        oSettings.SuppressBackupThreshold = nudSuppressBackupThreshold.Value
-        oSettings.CompressionLevel = cboCompression.SelectedValue
+        mgrSettings.MonitorOnStartup = chkMonitorOnStartup.Checked
+        mgrSettings.StartToTray = chkStartMinimized.Checked
+        mgrSettings.BackupOnLaunch = chkBackupOnLaunch.Checked
+        mgrSettings.ExitOnClose = chkExitOnClose.Checked
+        mgrSettings.ExitNoWarning = chkExitNoWarning.Checked
+        mgrSettings.ShowDetectionToolTips = chkShowDetectionTips.Checked
+        mgrSettings.DisableSyncMessages = chkDisableSyncMessages.Checked
+        mgrSettings.AutoSaveLog = chkAutoSaveLog.Checked
+        mgrSettings.DisableConfirmation = chkBackupConfirm.Checked
+        mgrSettings.DisableDiskSpaceCheck = chkDisableDiskSpaceCheck.Checked
+        mgrSettings.CreateSubFolder = chkCreateFolder.Checked
+        mgrSettings.UseGameID = chkUseGameID.Checked
+        mgrSettings.ShowOverwriteWarning = chkOverwriteWarning.Checked
+        mgrSettings.RestoreOnLaunch = chkRestoreNotify.Checked
+        mgrSettings.AutoRestore = chkAutoRestore.Checked
+        mgrSettings.AutoMark = chkAutoMark.Checked
+        mgrSettings.TimeTracking = chkTimeTracking.Checked
+        mgrSettings.SessionTracking = chkSessionTracking.Checked
+        mgrSettings.EnableLauncher = chkEnableLauncher.Checked
+        mgrSettings.ShowResolvedPaths = chkShowResolvedPaths.Checked
+        mgrSettings.SuppressBackup = chkSuppressBackup.Checked
+        mgrSettings.SuppressBackupThreshold = nudSuppressBackupThreshold.Value
+        mgrSettings.CompressionLevel = cboCompression.SelectedValue
 
-        If oSettings.Custom7zArguments <> txt7zArguments.Text.Trim And txt7zArguments.Text.Trim <> String.Empty Then
+        If mgrSettings.Custom7zArguments <> txt7zArguments.Text.Trim And txt7zArguments.Text.Trim <> String.Empty Then
             mgrCommon.ShowMessage(frmSettings_WarningArguments, MsgBoxStyle.Exclamation)
         End If
 
-        oSettings.Custom7zArguments = txt7zArguments.Text.Trim
-        oSettings.Custom7zLocation = txt7zLocation.Text.Trim
+        mgrSettings.Custom7zArguments = txt7zArguments.Text.Trim
+        mgrSettings.Custom7zLocation = txt7zLocation.Text.Trim
 
         If Directory.Exists(txtBackupFolder.Text) Then
-            If oSettings.BackupFolder <> txtBackupFolder.Text Then
+            If mgrSettings.BackupFolder <> txtBackupFolder.Text Then
                 bSyncSettingsChanged = True
             End If
-            oSettings.BackupFolder = txtBackupFolder.Text
+            mgrSettings.BackupFolder = txtBackupFolder.Text
         Else
             mgrCommon.ShowMessage(frmSettings_ErrorBackupFolder, MsgBoxStyle.Exclamation)
             Return False
         End If
 
         If Directory.Exists(txtTempFolder.Text) Then
-            oSettings.TemporaryFolder = txtTempFolder.Text
+            mgrSettings.TemporaryFolder = txtTempFolder.Text
         Else
             mgrCommon.ShowMessage(frmSettings_ErrorTempFolder, MsgBoxStyle.Exclamation)
             Return False
         End If
 
-        If oSettings.Custom7zLocation <> String.Empty Then
-            If File.Exists(oSettings.Custom7zLocation) Then
-                If Path.GetFileNameWithoutExtension(oSettings.Custom7zLocation) <> "7za" Then
+        If mgrSettings.Custom7zLocation <> String.Empty Then
+            If File.Exists(mgrSettings.Custom7zLocation) Then
+                If Path.GetFileNameWithoutExtension(mgrSettings.Custom7zLocation) <> "7za" Then
                     mgrCommon.ShowMessage(frmSettings_WarningLocation, MsgBoxStyle.Critical)
                 End If
             Else
-                mgrCommon.ShowMessage(frmSettings_ErrorLocation, oSettings.Custom7zLocation, MsgBoxStyle.Critical)
+                mgrCommon.ShowMessage(frmSettings_ErrorLocation, mgrSettings.Custom7zLocation, MsgBoxStyle.Critical)
                 Return False
             End If
         End If
 
         'We must trigger a sync if optional fields have changed
-        If eCurrentSyncFields <> Settings.SyncFields Then
+        If eCurrentSyncFields <> mgrSettings.SyncFields Then
             bSyncSettingsChanged = True
         End If
 
@@ -149,8 +139,8 @@ Public Class frmSettings
 
     Private Function SaveSettings() As Boolean
         If ValidateSettings() Then
-            oSettings.SaveSettings()
-            If bSyncSettingsChanged Then mgrMonitorList.HandleBackupLocationChange(Settings)
+            mgrSettings.SaveSettings()
+            If bSyncSettingsChanged Then mgrMonitorList.HandleBackupLocationChange()
             Return True
         Else
             Return False
@@ -207,56 +197,56 @@ Public Class frmSettings
 
     Private Sub SetDefaults()
         If mgrCommon.ShowMessage(frmSettings_ConfirmDefaults, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            oSettings = New mgrSettings
+            mgrSettings.SetDefaults()
             LoadSettings()
         End If
     End Sub
 
     Private Sub ResetMessages()
         If mgrCommon.ShowMessage(frmSettings_ConfirmMessageReset, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            oSettings.SuppressMessages = mgrSettings.eSuppressMessages.None
+            mgrSettings.SuppressMessages = mgrSettings.eSuppressMessages.None
         End If
     End Sub
 
     Private Sub LoadSettings()
-        chkAutoStart.Checked = oSettings.StartWithWindows
-        chkMonitorOnStartup.Checked = oSettings.MonitorOnStartup
-        chkStartMinimized.Checked = oSettings.StartToTray
-        chkBackupOnLaunch.Checked = oSettings.BackupOnLaunch
-        chkExitOnClose.Checked = oSettings.ExitOnClose
-        chkExitNoWarning.Checked = oSettings.ExitNoWarning
-        chkShowDetectionTips.Checked = oSettings.ShowDetectionToolTips
-        chkDisableSyncMessages.Checked = oSettings.DisableSyncMessages
-        chkAutoSaveLog.Checked = oSettings.AutoSaveLog
-        chkBackupConfirm.Checked = oSettings.DisableConfirmation
-        chkDisableDiskSpaceCheck.Checked = oSettings.DisableDiskSpaceCheck
-        chkCreateFolder.Checked = oSettings.CreateSubFolder
-        chkUseGameID.Checked = oSettings.UseGameID
-        chkOverwriteWarning.Checked = oSettings.ShowOverwriteWarning
-        chkRestoreNotify.Checked = oSettings.RestoreOnLaunch
-        chkAutoRestore.Checked = oSettings.AutoRestore
-        chkAutoMark.Checked = oSettings.AutoMark
-        txtBackupFolder.Text = oSettings.BackupFolder
-        txtTempFolder.Text = oSettings.TemporaryFolder
-        chkTimeTracking.Checked = oSettings.TimeTracking
-        chkSessionTracking.Checked = oSettings.SessionTracking
-        chkEnableLauncher.Checked = oSettings.EnableLauncher
-        chkShowResolvedPaths.Checked = oSettings.ShowResolvedPaths
-        chkSuppressBackup.Checked = oSettings.SuppressBackup
-        nudSuppressBackupThreshold.Value = oSettings.SuppressBackupThreshold
+        chkAutoStart.Checked = mgrSettings.StartWithWindows
+        chkMonitorOnStartup.Checked = mgrSettings.MonitorOnStartup
+        chkStartMinimized.Checked = mgrSettings.StartToTray
+        chkBackupOnLaunch.Checked = mgrSettings.BackupOnLaunch
+        chkExitOnClose.Checked = mgrSettings.ExitOnClose
+        chkExitNoWarning.Checked = mgrSettings.ExitNoWarning
+        chkShowDetectionTips.Checked = mgrSettings.ShowDetectionToolTips
+        chkDisableSyncMessages.Checked = mgrSettings.DisableSyncMessages
+        chkAutoSaveLog.Checked = mgrSettings.AutoSaveLog
+        chkBackupConfirm.Checked = mgrSettings.DisableConfirmation
+        chkDisableDiskSpaceCheck.Checked = mgrSettings.DisableDiskSpaceCheck
+        chkCreateFolder.Checked = mgrSettings.CreateSubFolder
+        chkUseGameID.Checked = mgrSettings.UseGameID
+        chkOverwriteWarning.Checked = mgrSettings.ShowOverwriteWarning
+        chkRestoreNotify.Checked = mgrSettings.RestoreOnLaunch
+        chkAutoRestore.Checked = mgrSettings.AutoRestore
+        chkAutoMark.Checked = mgrSettings.AutoMark
+        txtBackupFolder.Text = mgrSettings.BackupFolder
+        txtTempFolder.Text = mgrSettings.TemporaryFolder
+        chkTimeTracking.Checked = mgrSettings.TimeTracking
+        chkSessionTracking.Checked = mgrSettings.SessionTracking
+        chkEnableLauncher.Checked = mgrSettings.EnableLauncher
+        chkShowResolvedPaths.Checked = mgrSettings.ShowResolvedPaths
+        chkSuppressBackup.Checked = mgrSettings.SuppressBackup
+        nudSuppressBackupThreshold.Value = mgrSettings.SuppressBackupThreshold
         nudSuppressBackupThreshold.Enabled = chkSuppressBackup.Checked
-        cboCompression.SelectedValue = oSettings.CompressionLevel
-        txt7zArguments.Text = oSettings.Custom7zArguments
-        txt7zLocation.Text = oSettings.Custom7zLocation
-        eCurrentSyncFields = oSettings.SyncFields
+        cboCompression.SelectedValue = mgrSettings.CompressionLevel
+        txt7zArguments.Text = mgrSettings.Custom7zArguments
+        txt7zLocation.Text = mgrSettings.Custom7zLocation
+        eCurrentSyncFields = mgrSettings.SyncFields
 
         'Retrieve 7z Info
-        GetUtilityInfo(oSettings.Custom7zLocation)
+        GetUtilityInfo(mgrSettings.Custom7zLocation)
     End Sub
 
     Private Sub LoadCombos()
         Dim oComboItems As New List(Of KeyValuePair(Of Integer, String))
-        Dim oSettingsItems As New List(Of KeyValuePair(Of Integer, String))
+        Dim mgrSettingsItems As New List(Of KeyValuePair(Of Integer, String))
 
         'cboCompression
         cboCompression.ValueMember = "Key"
@@ -275,12 +265,12 @@ Public Class frmSettings
         lstSettings.ValueMember = "Key"
         lstSettings.DisplayMember = "Value"
 
-        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(0, frmSettings_lstSettings_General))
-        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(1, frmSettings_lstSettings_BackupRestore))
-        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(2, frmSettings_lstSettings_Startup))
-        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(3, frmSettings_lstSettings_7z))
+        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(0, frmSettings_lstSettings_General))
+        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(1, frmSettings_lstSettings_BackupRestore))
+        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(2, frmSettings_lstSettings_Startup))
+        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(3, frmSettings_lstSettings_7z))
 
-        lstSettings.DataSource = oSettingsItems
+        lstSettings.DataSource = mgrSettingsItems
 
         'Select Default
         lstSettings.SelectedIndex = 0
@@ -288,18 +278,18 @@ Public Class frmSettings
 
     Private Sub OpenOptionalFields()
         Dim frm As New frmSyncFields
-        frm.SyncFields = Settings.SyncFields
+        frm.SyncFields = mgrSettings.SyncFields
         frm.ShowDialog()
         If frm.DialogResult = DialogResult.OK Then
-            Settings.SyncFields = frm.SyncFields
+            mgrSettings.SyncFields = frm.SyncFields
         End If
     End Sub
 
     Private Sub ChangePanel()
         If lstSettings.SelectedItems.Count > 0 Then
-            Dim oSettingsItem As KeyValuePair(Of Integer, String) = lstSettings.SelectedItems(0)
+            Dim mgrSettingsItem As KeyValuePair(Of Integer, String) = lstSettings.SelectedItems(0)
 
-            Select Case oSettingsItem.Key
+            Select Case mgrSettingsItem.Key
                 Case 0
                     pnlGeneral.Visible = True
                     pnlStartup.Visible = False
@@ -412,13 +402,13 @@ Public Class frmSettings
 
     Private Sub btnBackupFolder_Click(sender As System.Object, e As System.EventArgs) Handles btnBackupFolder.Click
         Dim sNewFolder As String
-        sNewFolder = mgrCommon.OpenClassicFolderBrowser("Settings_Backup_Path", frmSettings_BrowseFolder, oSettings.BackupFolder, True, False)
+        sNewFolder = mgrCommon.OpenClassicFolderBrowser("Settings_Backup_Path", frmSettings_BrowseFolder, mgrSettings.BackupFolder, True, False)
         If sNewFolder <> String.Empty Then txtBackupFolder.Text = sNewFolder
     End Sub
 
     Private Sub btnTempFolder_Click(sender As Object, e As EventArgs) Handles btnTempFolder.Click
         Dim sNewFolder As String
-        sNewFolder = mgrCommon.OpenClassicFolderBrowser("Settings_Temp_Path", frmSettings_BrowseFolder, oSettings.TemporaryFolder, True, False)
+        sNewFolder = mgrCommon.OpenClassicFolderBrowser("Settings_Temp_Path", frmSettings_BrowseFolder, mgrSettings.TemporaryFolder, True, False)
         If sNewFolder <> String.Empty Then txtTempFolder.Text = sNewFolder
     End Sub
 
