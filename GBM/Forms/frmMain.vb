@@ -94,7 +94,7 @@ Public Class frmMain
         sStatus1 = Path.GetFileName(oRestoreInfo.FileName)
         sStatus2 = mgrCommon.FormatString(frmMain_UpdatedBy, New String() {oRestoreInfo.UpdatedBy, oRestoreInfo.DateUpdated})
         If oRestoreInfo.AbsolutePath Then
-            sStatus3 = oRestoreInfo.RestorePath
+            sStatus3 = oRestoreInfo.Path
         Else
             sStatus3 = oRestoreInfo.RelativeRestorePath
         End If
@@ -283,7 +283,7 @@ Public Class frmMain
             oGame = DirectCast(de.Key, clsGame)
             oRestoreInfo = DirectCast(de.Value, clsBackup)
 
-            bOSVerified = VerifyRestoreForOS(oGame, oRestoreInfo.RestorePath)
+            bOSVerified = VerifyRestoreForOS(oGame, oRestoreInfo.Path)
 
             If mgrPath.IsSupportedRegistryPath(oRestoreInfo.TruePath) Then
                 bPathVerified = True
@@ -628,17 +628,17 @@ Public Class frmMain
                 If hshGames.Count = 1 Then
                     oGame = DirectCast(hshGames(0), clsGame)
                     If oGame.ProcessPath <> String.Empty Then
-                        oBackup.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oBackup.RestorePath
+                        oBackup.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oBackup.Path
                     End If
                 End If
 
                 If oBackup.AbsolutePath Then
-                    sExtractPath = oBackup.RestorePath
+                    sExtractPath = oBackup.Path
                 Else
                     sExtractPath = oBackup.RelativeRestorePath
                 End If
 
-                If Not Directory.Exists(sExtractPath) And Not mgrPath.IsSupportedRegistryPath(oBackup.RestorePath) Then
+                If Not Directory.Exists(sExtractPath) And Not mgrPath.IsSupportedRegistryPath(oBackup.Path) Then
                     If mgrSettings.AutoMark Then
                         If mgrManifest.DoManifestCheck(de.Key, mgrSQLite.Database.Local) Then
                             mgrManifest.DoManifestUpdateByMonitorID(de.Value, mgrSQLite.Database.Local)

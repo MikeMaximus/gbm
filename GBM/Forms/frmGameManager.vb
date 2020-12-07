@@ -653,14 +653,14 @@ Public Class frmGameManager
 
         If Not CurrentBackupItem.AbsolutePath Then
             If CurrentGame.ProcessPath <> String.Empty Then
-                CurrentBackupItem.RelativeRestorePath = CurrentGame.ProcessPath & Path.DirectorySeparatorChar & CurrentBackupItem.RestorePath
+                CurrentBackupItem.RelativeRestorePath = CurrentGame.ProcessPath & Path.DirectorySeparatorChar & CurrentBackupItem.Path
             Else
                 sProcess = CurrentGame.ProcessName
                 If mgrCommon.IsProcessNotSearchable(CurrentGame) Then bNoAuto = True
                 sRestorePath = mgrPath.ProcessPathSearch(CurrentBackupItem.Name, sProcess, mgrCommon.FormatString(frmGameManager_ErrorPathNotSet, CurrentBackupItem.Name), bNoAuto)
 
                 If sRestorePath <> String.Empty Then
-                    CurrentBackupItem.RelativeRestorePath = sRestorePath & Path.DirectorySeparatorChar & CurrentBackupItem.RestorePath
+                    CurrentBackupItem.RelativeRestorePath = sRestorePath & Path.DirectorySeparatorChar & CurrentBackupItem.Path
                     txtAppPath.Text = sRestorePath
                 Else
                     Return False
@@ -675,7 +675,7 @@ Public Class frmGameManager
         Dim sPath As String = String.Empty
 
         If CurrentBackupItem.AbsolutePath Then
-            sPath = CurrentBackupItem.RestorePath
+            sPath = CurrentBackupItem.Path
         Else
             If FindRestorePath() Then
                 sPath = CurrentBackupItem.RelativeRestorePath
@@ -855,14 +855,14 @@ Public Class frmGameManager
         Dim sttRestorePath As String
 
         If Not CurrentBackupItem.AbsolutePath And oApp.ProcessPath <> String.Empty Then
-            lblRestorePathData.Text = oApp.ProcessPath & Path.DirectorySeparatorChar & CurrentBackupItem.RestorePath
+            lblRestorePathData.Text = oApp.ProcessPath & Path.DirectorySeparatorChar & CurrentBackupItem.Path
         Else
             If mgrSettings.ShowResolvedPaths Then
-                lblRestorePathData.Text = CurrentBackupItem.RestorePath
+                lblRestorePathData.Text = CurrentBackupItem.Path
                 sttRestorePath = CurrentBackupItem.TruePath
             Else
                 lblRestorePathData.Text = CurrentBackupItem.TruePath
-                sttRestorePath = CurrentBackupItem.RestorePath
+                sttRestorePath = CurrentBackupItem.Path
             End If
             If CurrentBackupItem.AbsolutePath Then ttFullPath.SetToolTip(lblRestorePathData, sttRestorePath)
         End If
@@ -1504,14 +1504,6 @@ Public Class frmGameManager
         'If we have a registry path, trim any trailing backslashes because they cause export failures
         If mgrPath.IsSupportedRegistryPath(oApp.Path) Then
             oApp.Path = oApp.Path.TrimEnd("\")
-        End If
-
-        'We need to handle a special case here when working with Windows configurations in Linux
-        If mgrCommon.IsUnix And mgrVariables.CheckForReservedVariables(oApp.Path) And oApp.OS = clsGame.eOS.Windows Then
-            oApp.AbsolutePath = True
-        Else
-            'Only do a simple root check here in case the user doesn't really understand creating a proper configuration
-            oApp.AbsolutePath = Path.IsPathRooted(oApp.Path)
         End If
 
         oApp.FileType = txtFileType.Text

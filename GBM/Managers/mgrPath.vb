@@ -512,6 +512,7 @@ Public Class mgrPath
         Return False
     End Function
 
+    'This should only be used in situations where the function DetermineRelativePath is required.
     Public Shared Function IsAbsolute(sValue As String) As Boolean
         Dim hshFolders As New Hashtable
         Dim hshCustomVariables As Hashtable = mgrVariables.ReadVariables

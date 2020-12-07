@@ -1,10 +1,9 @@
 ﻿Public Class clsBackup
+    Inherits clsGameBase
+
     Private sBackupID As String = Guid.NewGuid.ToString
     Private sMonitorID As String = String.Empty
-    Private sName As String = String.Empty
     Private sFileName As String = String.Empty
-    Private sRestorePath As String = String.Empty
-    Private bAbsolutePath As Boolean = False
     Private sRelativeRestorePath As String = String.Empty
     Private dDateUpdated As DateTime = Date.Now
     Private sUpdatedBy As String = String.Empty
@@ -28,31 +27,6 @@
         End Set
     End Property
 
-    Property Name As String
-        Get
-            Return sName
-        End Get
-        Set(value As String)
-            sName = value
-        End Set
-    End Property
-
-    ReadOnly Property CroppedName As String
-        Get
-            If Name.Length > 40 Then
-                Return sName.Substring(0, 41).Trim & "..."
-            Else
-                Return sName
-            End If
-        End Get
-    End Property
-
-    ReadOnly Property FileSafeName As String
-        Get
-            Return mgrPath.ValidateFileName(sName)
-        End Get
-    End Property
-
     Property FileName As String
         Get
             If mgrCommon.IsUnix Then
@@ -63,30 +37,6 @@
         End Get
         Set(value As String)
             sFileName = value
-        End Set
-    End Property
-
-    ReadOnly Property TruePath As String
-        Get
-            Return sRestorePath
-        End Get
-    End Property
-
-    Property RestorePath As String
-        Get
-            Return mgrPath.ReplaceSpecialPaths(sRestorePath)
-        End Get
-        Set(value As String)
-            sRestorePath = mgrPath.ReverseSpecialPaths(value)
-        End Set
-    End Property
-
-    Property AbsolutePath As Boolean
-        Get
-            Return bAbsolutePath
-        End Get
-        Set(value As Boolean)
-            bAbsolutePath = value
         End Set
     End Property
 

@@ -12,14 +12,22 @@ Public Class mgrMonitorList
 
     Public Shared Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
 
-    Private Shared Function MapToObject(ByVal dr As DataRow) As clsGame
-        Dim oGame As New clsGame
+    'This function supports filling class types that inherit clsGameBase
+    Public Shared Function MapToObject(ByVal dr As DataRow, ByVal oClass As Type) As Object
+        Dim bFullClass As Boolean = True
+        Dim oGame As Object
+
+        If oClass = GetType(clsBackup) Then
+            oGame = New clsBackup
+            bFullClass = False
+        Else
+            oGame = New clsGame
+        End If
 
         oGame.ID = CStr(dr("MonitorID"))
         oGame.Name = CStr(dr("Name"))
         oGame.ProcessName = CStr(dr("Process"))
         If Not IsDBNull(dr("Path")) Then oGame.Path = CStr(dr("Path"))
-        oGame.AbsolutePath = CBool(dr("AbsolutePath"))
         oGame.FolderSave = CBool(dr("FolderSave"))
         If Not IsDBNull(dr("FileType")) Then oGame.FileType = CStr(dr("FileType"))
         oGame.AppendTimeStamp = CBool(dr("TimeStamp"))
@@ -40,7 +48,7 @@ Public Class mgrMonitorList
         oGame.OS = CInt(dr("OS"))
 
         'Compile RegEx
-        If oGame.IsRegEx Then
+        If oGame.IsRegEx And bFullClass Then
             oGame.CompiledRegEx = New Regex(oGame.ProcessName, RegexOptions.Compiled)
         End If
 
@@ -54,7 +62,6 @@ Public Class mgrMonitorList
         hshParams.Add("Name", oGame.Name)
         hshParams.Add("Process", oGame.ProcessName)
         hshParams.Add("Path", oGame.TruePath)
-        hshParams.Add("AbsolutePath", oGame.AbsolutePath)
         hshParams.Add("FolderSave", oGame.FolderSave)
         hshParams.Add("FileType", oGame.FileType)
         hshParams.Add("TimeStamp", oGame.AppendTimeStamp)
@@ -89,7 +96,7 @@ Public Class mgrMonitorList
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
 
         For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = MapToObject(dr)
+            oGame = MapToObject(dr, GetType(clsGame))
             Select Case eListType
                 Case eListTypes.FullList
                     hshList.Add(oGame.ID, oGame)
@@ -106,7 +113,7 @@ Public Class mgrMonitorList
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "INSERT INTO monitorlist VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, @TimeStamp, "
+        sSQL = "INSERT INTO monitorlist VALUES (@ID, @Name, @Process, @Path, @FolderSave, @FileType, @TimeStamp, "
         sSQL &= "@ExcludeList, @ProcessPath, @Icon, @Hours, @Version, @Company, @Enabled, @MonitorOnly, @BackupLimit, @CleanFolder, "
         sSQL &= "@Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS)"
 
@@ -122,7 +129,7 @@ Public Class mgrMonitorList
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "UPDATE monitorlist SET MonitorID=@ID, Name=@Name, Process=@Process, Path=@Path, AbsolutePath=@AbsolutePath, FolderSave=@FolderSave, "
+        sSQL = "UPDATE monitorlist SET MonitorID=@ID, Name=@Name, Process=@Process, Path=@Path, FolderSave=@FolderSave, "
         sSQL &= "FileType=@FileType, TimeStamp=@TimeStamp, ExcludeList=@ExcludeList, ProcessPath=@ProcessPath, Icon=@Icon, "
         sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit, "
         sSQL &= "CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments, IsRegEx=@IsRegEx, RecurseSubFolders=@RecurseSubFolders, OS=@OS WHERE MonitorID=@QueryID;"
@@ -355,7 +362,7 @@ Public Class mgrMonitorList
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
         For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = MapToObject(dr)
+            oGame = MapToObject(dr, GetType(clsGame))
             hshGames.Add(iCounter, oGame)
             iCounter += 1
         Next
@@ -429,8 +436,8 @@ Public Class mgrMonitorList
             sVersion = "(SELECT Version FROM monitorlist WHERE MonitorID=@ID)"
         End If
 
-        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS) "
-        sSQL &= "VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, "
+        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS) "
+        sSQL &= "VALUES (@ID, @Name, @Process, @Path, @FolderSave, @FileType, "
         sSQL &= "@TimeStamp, @ExcludeList, " & sGamePath & ", "
         sSQL &= sIcon & ", @Hours, " & sVersion & ", "
         sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS);"
@@ -443,7 +450,6 @@ Public Class mgrMonitorList
             hshParams.Add("Name", oGame.Name)
             hshParams.Add("Process", oGame.ProcessName)
             hshParams.Add("Path", oGame.TruePath)
-            hshParams.Add("AbsolutePath", oGame.AbsolutePath)
             hshParams.Add("FolderSave", oGame.FolderSave)
             hshParams.Add("TimeStamp", oGame.AppendTimeStamp)
             hshParams.Add("BackupLimit", oGame.BackupLimit)
@@ -500,6 +506,10 @@ Public Class mgrMonitorList
             sSQL &= "DELETE FROM gameprocesses "
             sSQL &= "WHERE MonitorID = @MonitorID;"
             sSQL &= "DELETE FROM sessions "
+            sSQL &= "WHERE MonitorID = @MonitorID;"
+            sSQL &= "DELETE FROM winedata "
+            sSQL &= "WHERE MonitorID = @MonitorID;"
+            sSQL &= "DELETE FROM launchdata "
             sSQL &= "WHERE MonitorID = @MonitorID;"
         End If
         sSQL &= "DELETE FROM monitorlist "
@@ -617,7 +627,7 @@ Public Class mgrMonitorList
                                              ByRef hshParams As Hashtable) As String
         Dim sSQL As String = String.Empty
         Dim iCounter As Integer = 0
-        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS FROM monitorlist"
+        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS FROM monitorlist"
         Dim sSort As String = " ORDER BY " & sSortField
 
         If bSortAsc Then
@@ -775,7 +785,7 @@ Public Class mgrMonitorList
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
         For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = MapToObject(dr)
+            oGame = MapToObject(dr, GetType(clsGame))
 
             oList.Add(oGame.ID, oGame)
         Next
@@ -804,7 +814,6 @@ Public Class mgrMonitorList
             oGame.Name = CStr(dr("Name"))
             oGame.ProcessName = CStr(dr("Process"))
             If Not IsDBNull(dr("Path")) Then oGame.Path = CStr(dr("Path"))
-            oGame.AbsolutePath = CBool(dr("AbsolutePath"))
             oGame.FolderSave = CBool(dr("FolderSave"))
             oGame.AppendTimeStamp = CBool(dr("TimeStamp"))
             oGame.BackupLimit = CInt(dr("BackupLimit"))

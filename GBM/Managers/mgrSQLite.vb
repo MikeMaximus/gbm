@@ -82,11 +82,10 @@ Public Class mgrSQLite
             sSql &= "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
 
             'Add Tables (Monitor List)
-            sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
-                   "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
-                   "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, RecurseSubFolders BOOLEAN NOT NULL, " &
-                   "OS INTEGER NOT NULL);"
+            sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, FolderSave BOOLEAN NOT NULL, FileType TEXT, 
+                    TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, 
+                    MonitorOnly BOOLEAN NOT NULL, BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, 
+                    RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL);"
 
             'Add Tables (Tags)
             sSql &= "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
@@ -145,11 +144,10 @@ Public Class mgrSQLite
             SqliteConnection.CreateFile(sDatabaseLocation)
 
             'Add Tables (Remote Monitor List)
-            sSql = "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, " &
-                   "AbsolutePath BOOLEAN NOT NULL, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, " &
-                   "ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, " &
-                   "BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, RecurseSubFolders BOOLEAN NOT NULL, " &
-                   "OS INTEGER NOT NULL);"
+            sSql = "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, FolderSave BOOLEAN NOT NULL, FileType TEXT, 
+                    TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, 
+                    MonitorOnly BOOLEAN NOT NULL, BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, 
+                    RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL);"
 
             'Add Tables (Remote Manifest)
             sSql &= "CREATE TABLE manifest (ManifestID TEXT Not NULL PRIMARY KEY, MonitorID TEXT Not NULL, FileName TEXT Not NULL, " &
@@ -1049,6 +1047,51 @@ Public Class mgrSQLite
 
                 RunParamQuery(sSQL, New Hashtable)
             End If
+        End If
+
+        '1.25 Upgrade
+        If GetDatabaseVersion() < 125 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v124")
+
+                'Drop AbsolutePath
+                sSQL = "CREATE TABLE monitorlist_new (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, FolderSave BOOLEAN NOT NULL, FileType TEXT, 
+                        TimeStamp Boolean NOT NULL, ExcludeList TEXT NOT NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, 
+                        MonitorOnly BOOLEAN NOT NULL, BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, 
+                        RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL);
+                        INSERT INTO monitorlist_new (MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, 
+                        BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS) SELECT MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, 
+                        ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS FROM monitorlist;
+                        DROP TABLE monitorlist; ALTER TABLE monitorlist_new RENAME TO monitorlist;"
+
+                sSQL &= "PRAGMA user_version=125"
+
+                RunParamQuery(sSQL, New Hashtable)
+
+                CompactDatabase()
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v124")
+
+                'Drop AbsolutePath
+                sSQL = "CREATE TABLE monitorlist_new (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, FolderSave BOOLEAN NOT NULL, FileType TEXT, 
+                        TimeStamp Boolean NOT NULL, ExcludeList TEXT NOT NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, 
+                        MonitorOnly BOOLEAN NOT NULL, BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, 
+                        RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL);
+                        INSERT INTO monitorlist_new (MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, 
+                        BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS) SELECT MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, 
+                        ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS FROM monitorlist;
+                        DROP TABLE monitorlist; ALTER TABLE monitorlist_new RENAME TO monitorlist;"
+
+                sSQL &= "PRAGMA user_version=125"
+
+                RunParamQuery(sSQL, New Hashtable)
+
+                CompactDatabase()
+            End If
+
         End If
     End Sub
 

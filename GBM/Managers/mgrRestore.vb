@@ -25,7 +25,7 @@ Public Class mgrRestore
 
         If Not oRestoreInfo.AbsolutePath Then
             If oGame.ProcessPath <> String.Empty Then
-                oRestoreInfo.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oRestoreInfo.RestorePath
+                oRestoreInfo.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oRestoreInfo.Path
             ElseIf Not bFastMode Then
                 sProcess = oGame.ProcessName
                 If mgrCommon.IsProcessNotSearchable(oGame) Then bNoAuto = True
@@ -38,7 +38,7 @@ Public Class mgrRestore
                     bTriggerReload = True
 
                     'Set path for restore
-                    oRestoreInfo.RelativeRestorePath = sRestorePath & Path.DirectorySeparatorChar & oRestoreInfo.RestorePath
+                    oRestoreInfo.RelativeRestorePath = sRestorePath & Path.DirectorySeparatorChar & oRestoreInfo.Path
                 Else
                     Return False
                 End If
@@ -140,7 +140,7 @@ Public Class mgrRestore
             End If
         Else
             If oBackupInfo.AbsolutePath Then
-                sExtractPath = oBackupInfo.RestorePath
+                sExtractPath = oBackupInfo.Path
             Else
                 sExtractPath = oBackupInfo.RelativeRestorePath
             End If
@@ -259,7 +259,7 @@ Public Class mgrRestore
         Dim bRestoreCompleted As Boolean = False
 
         If oBackupInfo.AbsolutePath Then
-            sExtractPath = oBackupInfo.RestorePath
+            sExtractPath = oBackupInfo.Path
         Else
             sExtractPath = oBackupInfo.RelativeRestorePath
         End If

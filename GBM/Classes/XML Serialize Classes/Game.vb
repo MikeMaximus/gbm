@@ -4,7 +4,6 @@
     Private sProcessName As String
     Private sParameter As String
     Private sPath As String
-    Private bAbsolutePath As Boolean
     Private bFolderSave As Boolean
     Private bAppendTimeStamp As Boolean
     Private iBackupLimit As Integer
@@ -60,15 +59,6 @@
         End Set
         Get
             Return sPath
-        End Get
-    End Property
-
-    Property AbsolutePath As Boolean
-        Set(value As Boolean)
-            bAbsolutePath = value
-        End Set
-        Get
-            Return bAbsolutePath
         End Get
     End Property
 
@@ -187,7 +177,6 @@
         oGame.ProcessName = ProcessName
         oGame.Parameter = Parameter
         oGame.Path = Path
-        oGame.AbsolutePath = AbsolutePath
         oGame.FolderSave = FolderSave
         oGame.AppendTimeStamp = AppendTimeStamp
         oGame.BackupLimit = BackupLimit

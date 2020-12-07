@@ -158,7 +158,6 @@ Public Class frmAddWizard
         oGame.Name = sName
         oGame.ProcessName = sProcess
         oGame.Path = sSavePath
-        oGame.AbsolutePath = bIsAbsolute
         oGame.FolderSave = bFolderBackup
         oGame.FileType = sFileType
         oGame.AppendTimeStamp = bTimeStamp

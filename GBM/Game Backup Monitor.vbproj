@@ -125,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\clsConfigLink.vb" />
+    <Compile Include="Classes\clsGameBase.vb" />
     <Compile Include="Classes\clsGameProcess.vb" />
     <Compile Include="Classes\clsLaunchData.vb" />
     <Compile Include="Classes\clsLauncher.vb" />

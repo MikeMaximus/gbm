@@ -30,7 +30,6 @@ Public Class mgrXML
             oGame.ID = g.ID
             oGame.Name = g.Name
             oGame.ProcessName = g.ProcessName
-            oGame.AbsolutePath = g.AbsolutePath
             oGame.Path = g.Path
             oGame.FolderSave = g.FolderSave
             oGame.AppendTimeStamp = g.AppendTimeStamp
