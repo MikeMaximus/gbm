@@ -448,8 +448,15 @@
     </Content>
     <Content Include="References\Mono.Data.Sqlite.dll" />
     <None Include="Resources\Arrow_Submenu_Right.png" />
+    <Content Include="Resources\backup.png" />
     <Content Include="Resources\BuildDate.txt" />
+    <None Include="Resources\collapse.png" />
+    <None Include="Resources\expand.png" />
+    <Content Include="Resources\cancel.png" />
+    <Content Include="Resources\edit.png" />
     <Content Include="Resources\New.png" />
+    <Content Include="Resources\play.png" />
+    <Content Include="Resources\restore.png" />
     <Content Include="Resources\Update.png" />
     <Content Include="Utilities\x64\7za.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

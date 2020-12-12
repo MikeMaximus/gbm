@@ -7,7 +7,7 @@ Public Class frmGameManager
     Private sBackupFolder As String
     Private bPendingRestores As Boolean = False
     Private oCurrentBackupItem As clsBackup
-    Private oLastPlayedGame As clsGame
+    Private oOpenToGame As clsGame
     Private oCurrentGame As clsGame
     Private oTagsToSave As New List(Of KeyValuePair(Of String, String))
     Private oProcessesToSave As New List(Of KeyValuePair(Of String, String))
@@ -63,12 +63,12 @@ Public Class frmGameManager
         End Set
     End Property
 
-    Property LastPlayedGame As clsGame
+    Property OpenToGame As clsGame
         Get
-            Return oLastPlayedGame
+            Return oOpenToGame
         End Get
         Set(value As clsGame)
-            oLastPlayedGame = value
+            oOpenToGame = value
         End Set
     End Property
 
@@ -2316,8 +2316,8 @@ Public Class frmGameManager
 
     Private Sub frmGameManager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         'Load Last Played Game
-        If Not LastPlayedGame Is Nothing Then
-            lstGames.SelectedItem = New KeyValuePair(Of String, String)(LastPlayedGame.ID, LastPlayedGame.Name)
+        If Not OpenToGame Is Nothing Then
+            lstGames.SelectedItem = New KeyValuePair(Of String, String)(OpenToGame.ID, OpenToGame.Name)
         End If
 
         txtQuickFilter.Focus()

@@ -1,4 +1,5 @@
 ﻿Imports GBM.My.Resources
+Imports System.Collections.Specialized
 Imports System.IO
 
 'Name: frmMain
@@ -21,8 +22,16 @@ Public Class frmMain
         Import = 4
     End Enum
 
+    'Used to demote which display mode the form is in
+    Private Enum eDisplayModes As Integer
+        Normal = 1
+        Busy = 2
+        GameSelected = 3
+    End Enum
+
     Private eCurrentStatus As eStatus = eStatus.Stopped
     Private eCurrentOperation As eOperation = eOperation.None
+    Private eDisplayMode As eDisplayModes = eDisplayModes.Normal
     Private bCancelledByUser As Boolean = False
     Private bShutdown As Boolean = False
     Private bInitFail As Boolean = False
@@ -44,6 +53,8 @@ Public Class frmMain
     Private iRestoreTimeOut As Integer
     Private oChildProcesses As New Hashtable
     Private oLastGame As clsGame
+    Private oSelectedGame As clsGame
+    Private bListLoading As Boolean = False
 
     'Developer Debug Flags
     Private bProcessDebugMode As Boolean = False
@@ -57,11 +68,13 @@ Public Class frmMain
     WithEvents tmRestoreCheck As New System.Timers.Timer
     WithEvents tmFileWatcherQueue As New System.Timers.Timer
     WithEvents tmSessionTimeUpdater As New System.Timers.Timer
+    WithEvents tmFilterTimer As New System.Timers.Timer
 
     Public WithEvents oProcess As New mgrProcessDetection
     Public WithEvents oBackup As New mgrBackup
     Public WithEvents oRestore As New mgrRestore
     Public hshScanList As Hashtable
+    Private oGameList As OrderedDictionary
 
     Delegate Sub UpdateNotifierCallBack(ByVal iCount As Integer)
     Delegate Sub UpdateLogCallBack(ByVal sLogUpdate As String, ByVal bTrayUpdate As Boolean, ByVal objIcon As System.Windows.Forms.ToolTipIcon, ByVal bTimeStamp As Boolean)
@@ -70,6 +83,7 @@ Public Class frmMain
     Delegate Sub UpdateStatusCallBack(ByVal sStatus As String)
     Delegate Sub SetLastActionCallBack(ByVal sString As String)
     Delegate Sub OperationEndedCallBack()
+    Delegate Sub FormatAndFillListCallback()
     Delegate Sub RestoreCompletedCallBack()
 
     'Handlers
@@ -752,74 +766,83 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub ResetGameInfo(Optional ByVal bKeepInfo As Boolean = False)
-        If bKeepInfo And Not oProcess.GameInfo Is Nothing Then
-            lblGameTitle.Text = mgrCommon.FormatString(frmMain_LastGame, oProcess.GameInfo.Name)
-            pbIcon.Image = oPriorImage
-            lblStatus1.Text = sPriorPath
-            lblStatus2.Text = sPriorCompany
-            lblStatus3.Text = sPriorVersion
-            If mgrSettings.TimeTracking Then
-                pbTime.Visible = True
-                lblTimeSpent.Visible = True
+    Private Sub FormatAndFillList()
+        'Thread Safe
+        If lstGames.InvokeRequired = True Then
+            Dim d As New FormatAndFillListCallback(AddressOf FormatAndFillList)
+            Me.Invoke(d, New Object() {})
+        Else
+
+            Dim oApp As clsGame
+            Dim oData As KeyValuePair(Of String, String)
+            Dim oList As New List(Of KeyValuePair(Of String, String))
+            Dim sFilter As String = txtSearch.Text
+
+            For Each de As DictionaryEntry In oGameList
+                oApp = DirectCast(de.Value, clsGame)
+                oData = New KeyValuePair(Of String, String)(oApp.ID, oApp.Name)
+                'Apply the quick filter if applicable
+                If sFilter = String.Empty Then
+                    oList.Add(oData)
+                Else
+                    If oApp.Name.ToLower.Contains(sFilter.ToLower) Then
+                        oList.Add(oData)
+                    End If
+                End If
+            Next
+
+            bListLoading = True
+            lstGames.BeginUpdate()
+            lstGames.DataSource = Nothing
+            lstGames.ValueMember = "Key"
+            lstGames.DisplayMember = "Value"
+
+            'Due to a control bug with Mono we need to fill the list box differently on Linux
+            If mgrCommon.IsUnix Then
+                lstGames.Items.Clear()
+                For Each kp As KeyValuePair(Of String, String) In oList
+                    lstGames.Items.Add(kp)
+                Next
+            Else
+                lstGames.DataSource = oList
             End If
-        Else
-            pbIcon.Image = Icon_Searching
-            lblGameTitle.Text = frmMain_NoGameDetected
-            lblStatus1.Text = String.Empty
-            lblStatus2.Text = String.Empty
-            lblStatus3.Text = String.Empty
-            pbTime.Visible = False
-            lblTimeSpent.Visible = False
-        End If
 
-        If eCurrentStatus = eStatus.Stopped Then
-            UpdateStatus(frmMain_NotScanning)
-        Else
-            UpdateStatus(frmMain_NoGameDetected)
-        End If
-
-    End Sub
-
-    Private Sub WorkingGameInfo(ByVal sTitle As String, ByVal sStatus1 As String, ByVal sStatus2 As String, ByVal sStatus3 As String)
-        'Thread Safe (If one control requires an invoke assume they all do)
-        If pbIcon.InvokeRequired = True Then
-            Dim d As New WorkingGameInfoCallBack(AddressOf WorkingGameInfo)
-            Me.Invoke(d, New Object() {sTitle, sStatus1, sStatus2, sStatus3})
-        Else
-            pbTime.Visible = False
-            lblTimeSpent.Visible = False
-            pbIcon.Image = Icon_Working
-            lblGameTitle.Text = sTitle
-            lblStatus1.Text = sStatus1
-            lblStatus2.Text = sStatus2
-            lblStatus3.Text = sStatus3
+            lstGames.EndUpdate()
+            lstGames.Enabled = True
+            lstGames.ClearSelected()
+            bListLoading = False
         End If
     End Sub
 
-    Private Sub SetGameIcon()
+    Private Function GetGameIcon(ByVal sFileName As String) As Bitmap
         Dim ic As Icon
         Dim oBitmap As Bitmap
 
         Try
-            'Grab icon from the executable
-            ic = System.Drawing.Icon.ExtractAssociatedIcon(oProcess.FoundProcess.MainModule.FileName)
-            oBitmap = New Bitmap(ic.ToBitmap)
-            ic.Dispose()
+            If File.Exists(sFileName) Then
+                'Grab icon from the executable
+                ic = System.Drawing.Icon.ExtractAssociatedIcon(sFileName)
+                oBitmap = New Bitmap(ic.ToBitmap)
+                ic.Dispose()
 
-            'Set the icon, we need to use an intermediary object to prevent file locking
-            pbIcon.Image = oBitmap
-
+                'Set the icon, we need to use an intermediary object to prevent file locking
+                Return oBitmap
+            End If
         Catch ex As Exception
             UpdateLog(mgrCommon.FormatString(frmMain_ErrorGameIcon), False, ToolTipIcon.Error)
             UpdateLog(mgrCommon.FormatString(App_GenericError, ex.Message), False,, False)
         End Try
-    End Sub
+
+        Return Icon_Unknown
+    End Function
 
     Private Sub SetGameInfo(Optional ByVal bMulti As Boolean = False)
         Dim sFileName As String = String.Empty
         Dim sFileVersion As String = String.Empty
         Dim sCompanyName As String = String.Empty
+
+        eDisplayMode = eDisplayModes.Busy
+        SwitchDisplayMode()
 
         'Wipe Game Info
         lblStatus1.Text = String.Empty
@@ -828,7 +851,9 @@ Public Class frmMain
         pbIcon.Image = Icon_Unknown
 
         'Set Game Icon
-        If Not mgrCommon.IsUnix Then SetGameIcon()
+        If Not mgrCommon.IsUnix Then
+            pbIcon.Image = GetGameIcon(oProcess.FoundProcess.MainModule.FileName)
+        End If
 
         Try
             'Set Game Details
@@ -908,6 +933,101 @@ Public Class frmMain
         sPriorPath = lblStatus1.Text
         sPriorCompany = lblStatus2.Text
         sPriorVersion = lblStatus3.Text
+    End Sub
+
+    Private Sub ResetGameInfo(Optional ByVal bKeepInfo As Boolean = False)
+        eDisplayMode = eDisplayModes.Normal
+        SwitchDisplayMode()
+
+        If bKeepInfo And Not oProcess.GameInfo Is Nothing Then
+            lblGameTitle.Text = mgrCommon.FormatString(frmMain_LastGame, oProcess.GameInfo.Name)
+            pbIcon.Image = oPriorImage
+            lblStatus1.Text = sPriorPath
+            lblStatus2.Text = sPriorCompany
+            lblStatus3.Text = sPriorVersion
+            If mgrSettings.TimeTracking Then
+                pbTime.Visible = True
+                lblTimeSpent.Visible = True
+            End If
+        Else
+            pbIcon.Image = Icon_Searching
+            lblGameTitle.Text = frmMain_NoGameDetected
+            lblStatus1.Text = String.Empty
+            lblStatus2.Text = String.Empty
+            lblStatus3.Text = String.Empty
+            pbTime.Visible = False
+            lblTimeSpent.Visible = False
+        End If
+
+        If eCurrentStatus = eStatus.Stopped Then
+            UpdateStatus(frmMain_NotScanning)
+        Else
+            UpdateStatus(frmMain_NoGameDetected)
+        End If
+
+    End Sub
+
+    Private Sub WorkingGameInfo(ByVal sTitle As String, ByVal sStatus1 As String, ByVal sStatus2 As String, ByVal sStatus3 As String)
+        'Thread Safe (If one control requires an invoke assume they all do)
+        If pbIcon.InvokeRequired = True Then
+            Dim d As New WorkingGameInfoCallBack(AddressOf WorkingGameInfo)
+            Me.Invoke(d, New Object() {sTitle, sStatus1, sStatus2, sStatus3})
+        Else
+            eDisplayMode = eDisplayModes.Busy
+            SwitchDisplayMode()
+
+            pbTime.Visible = False
+            lblTimeSpent.Visible = False
+            pbIcon.Image = Icon_Working
+            lblGameTitle.Text = sTitle
+            lblStatus1.Text = sStatus1
+            lblStatus2.Text = sStatus2
+            lblStatus3.Text = sStatus3
+        End If
+    End Sub
+
+    Private Sub DisplaySelectedGameInfo()
+        Dim oBackupList As List(Of clsBackup) = mgrManifest.DoManifestGetByMonitorID(oSelectedGame.ID, mgrSQLite.Database.Remote)
+        Dim oLastPlayed As Object = mgrSessions.GetLastSessionDateTime(oSelectedGame)
+
+        eDisplayMode = eDisplayModes.GameSelected
+        SwitchDisplayMode()
+
+        If mgrSettings.TimeTracking Then
+            pbTime.Visible = True
+            lblTimeSpent.Visible = True
+            If oSelectedGame.Hours < 1 Then
+                lblTimeSpent.Text = mgrCommon.FormatString(frmMain_SessionMinutes, Math.Round((oSelectedGame.Hours * 100) * 0.6).ToString)
+            Else
+                lblTimeSpent.Text = mgrCommon.FormatString(frmMain_SessionHours, Math.Round(oSelectedGame.Hours, 1).ToString)
+            End If
+        End If
+
+        If File.Exists(oSelectedGame.Icon) Then
+            pbIcon.Image = mgrCommon.SafeIconFromFile(oSelectedGame.Icon)
+        Else
+            pbIcon.Image = Icon_Unknown
+        End If
+
+        lblGameTitle.Text = oSelectedGame.Name
+        lblStatus1.Text = mgrGameTags.PrintTagsbyID(oSelectedGame.ID)
+
+        If oLastPlayed Is Nothing Then
+            lblStatus2.Text = frmMain_NoSessions
+        Else
+            lblStatus2.Text = mgrCommon.FormatString(frmMain_Lastplayed, mgrCommon.UnixToDate(CLng(oLastPlayed)))
+        End If
+
+        If oBackupList.Count >= 1 Then
+            lblStatus3.Text = mgrCommon.FormatString(frmMain_LastBackup, oBackupList(0).DateUpdated)
+        Else
+            lblStatus3.Text = frmMain_NoBackups
+        End If
+    End Sub
+
+    Private Sub SetSelectedGame()
+        Dim oData As KeyValuePair(Of String, String) = lstGames.SelectedItems(0)
+        oSelectedGame = DirectCast(oGameList(oData.Key), clsGame)
     End Sub
 
     Private Sub HandleProcessPath()
@@ -1137,11 +1257,11 @@ Public Class frmMain
         ResumeScan()
     End Sub
 
-    Private Sub OpenGameManager(Optional ByVal bPendingRestores As Boolean = False)
+    Private Sub OpenGameManager(ByVal oGame As clsGame, Optional ByVal bPendingRestores As Boolean = False)
         Dim frm As New frmGameManager
         PauseScan()
         frm.PendingRestores = bPendingRestores
-        frm.LastPlayedGame = oLastGame
+        frm.OpenToGame = oGame
         frm.ShowDialog()
         LoadGameSettings()
         ResumeScan()
@@ -1250,6 +1370,8 @@ Public Class frmMain
     Private Sub LoadGameSettings()
         'Load Monitor List
         hshScanList = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.ScanList)
+        oGameList = mgrMonitorList.ReadFilteredList(New List(Of clsTag), New List(Of clsTag), New List(Of clsGameFilter), frmFilter.eFilterType.BaseFilter, False, True, "Name")
+        FormatAndFillList()
 
         UpdateLog(mgrCommon.FormatString(frmMain_GameListLoaded, hshScanList.Keys.Count), False)
     End Sub
@@ -1869,6 +1991,31 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub SwitchDisplayMode()
+        Select Case eDisplayMode
+            Case eDisplayModes.Normal
+                btnRestore.Enabled = False
+                btnBackup.Enabled = False
+                btnEdit.Enabled = False
+                btnPlay.Enabled = False
+                lstGames.Enabled = True
+                txtSearch.Enabled = True
+            Case eDisplayModes.Busy
+                btnRestore.Enabled = False
+                btnBackup.Enabled = False
+                btnEdit.Enabled = False
+                btnPlay.Enabled = False
+                lstGames.ClearSelected()
+                lstGames.Enabled = False
+                txtSearch.Enabled = False
+            Case eDisplayModes.GameSelected
+                btnRestore.Enabled = True
+                btnBackup.Enabled = True
+                btnEdit.Enabled = True
+                btnPlay.Enabled = True
+        End Select
+    End Sub
+
     Private Sub SetForm()
         'Set Minimum Size
         Me.MinimumSize = New Size(Me.Size.Width, Me.Size.Height - txtLog.Size.Height)
@@ -1939,9 +2086,19 @@ Public Class frmMain
 
         'Set Form Text
         lblLastActionTitle.Text = frmMain_lblLastActionTitle
-        btnCancelOperation.Text = frmMain_btnCancelOperation
         gMonStripStatusButton.Text = frmMain_gMonStripStatusButton
         gMonStripStatusButton.ToolTipText = frmMain_gMonStripStatusButtonToolTip
+        gMonStripCollapse.ToolTipText = frmMain_gMonStripCollapseHideToolTip
+        btnRestore.Text = frmMain_btnRestore
+        btnRestore.Image = Main_Restore
+        btnBackup.Text = frmMain_btnBackup
+        btnBackup.Image = Main_Backup
+        btnEdit.Text = frmMain_btnEdit
+        btnEdit.Image = Main_Edit
+        btnPlay.Text = frmMain_btnPlay
+        btnPlay.Image = Main_Play
+        btnCancelOperation.Text = frmMain_btnCancelOperation
+        btnCancelOperation.Image = Main_Cancel
 
         If mgrCommon.IsElevated Then
             gMonStripAdminButton.Image = Icon_Admin
@@ -1963,6 +2120,8 @@ Public Class frmMain
         tmFileWatcherQueue.AutoReset = False
         tmFileWatcherQueue.Interval = 30000
         tmSessionTimeUpdater.Interval = 60000
+        tmFilterTimer.Interval = 1000
+        tmFilterTimer.Enabled = False
 
         AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
         ResetGameInfo()
@@ -2332,7 +2491,7 @@ Public Class frmMain
     End Sub
 
     Private Sub SetupGameManager_Click(sender As Object, e As EventArgs) Handles gMonSetupGameManager.Click, gMonTraySetupGameManager.Click
-        OpenGameManager()
+        OpenGameManager(oLastGame)
     End Sub
 
     Private Sub gMonToolsCompact_Click(sender As Object, e As EventArgs) Handles gMonToolsCompact.Click, gMonTrayToolsCompact.Click
@@ -2406,17 +2565,83 @@ Public Class frmMain
     Private Sub gMonNotification_Click(sender As Object, e As EventArgs) Handles gMonNotification.Click, gMonTrayNotification.Click
         gMonNotification.Visible = False
         gMonTrayNotification.Visible = False
-        OpenGameManager(True)
+        OpenGameManager(oLastGame, True)
     End Sub
 
     Private Sub gMonStripSplitStatusButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripStatusButton.Click
         ScanToggle()
     End Sub
 
+    Private Sub gMonStripCollapse_Click(sender As Object, e As EventArgs) Handles gMonStripCollapse.Click
+        slcMain.Panel1Collapsed = Not slcMain.Panel1Collapsed
+
+        If slcMain.Panel1Collapsed Then
+            gMonStripCollapse.Image = Expand_Right
+            gMonStripCollapse.ToolTipText = frmMain_gMonStripCollapseShowToolTip
+        Else
+            gMonStripCollapse.Image = Collapse_Left
+            gMonStripCollapse.ToolTipText = frmMain_gMonStripCollapseHideToolTip
+        End If
+    End Sub
+
+    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        If Not tmFilterTimer.Enabled Then
+            lstGames.Enabled = False
+            tmFilterTimer.Enabled = True
+            tmFilterTimer.Start()
+        End If
+    End Sub
+
     Private Sub pbIcon_Click(sender As Object, e As EventArgs) Handles pbIcon.Click
         If bAllowIcon Then
             SetIcon()
         End If
+    End Sub
+
+    Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
+        Select Case eDisplayMode
+            Case eDisplayModes.Normal
+                OpenGameManager(oLastGame)
+            Case eDisplayModes.GameSelected
+                OpenGameManager(oSelectedGame)
+        End Select
+    End Sub
+
+    Private Sub btnBackup_Click(sender As Object, e As EventArgs) Handles btnBackup.Click
+        Select Case eDisplayMode
+            Case eDisplayModes.Normal
+                RunManualBackup(New List(Of clsGame)({oLastGame}))
+            Case eDisplayModes.GameSelected
+                RunManualBackup(New List(Of clsGame)({oSelectedGame}))
+        End Select
+    End Sub
+
+    Private Sub btnRestore_Click(sender As Object, e As EventArgs) Handles btnRestore.Click
+        Dim oBackup As List(Of clsBackup)
+        Dim hshRestoreList As New Hashtable
+        Select Case eDisplayMode
+            Case eDisplayModes.Normal
+                oBackup = mgrManifest.DoManifestGetByMonitorID(oLastGame.ID, mgrSQLite.Database.Remote)
+                If oBackup.Count >= 1 Then
+                    hshRestoreList.Add(oLastGame, oBackup)
+                    RunRestore(hshRestoreList)
+                End If
+            Case eDisplayModes.GameSelected
+                oBackup = mgrManifest.DoManifestGetByMonitorID(oSelectedGame.ID, mgrSQLite.Database.Remote)
+                If oBackup.Count >= 1 Then
+                    hshRestoreList.Add(oSelectedGame, oBackup)
+                    RunRestore(hshRestoreList)
+                End If
+        End Select
+    End Sub
+
+    Private Sub btnPlay_Click(sender As Object, e As EventArgs) Handles btnPlay.Click
+        Select Case eDisplayMode
+            Case eDisplayModes.Normal
+                LaunchGame(oLastGame)
+            Case eDisplayModes.GameSelected
+                LaunchGame(oSelectedGame)
+        End Select
     End Sub
 
     Private Sub btnCancelOperation_Click(sender As Object, e As EventArgs) Handles btnCancelOperation.Click
@@ -2441,6 +2666,12 @@ Public Class frmMain
             Case Else
                 ShutdownApp(False)
         End Select
+    End Sub
+
+    Private Sub FilterEventProcessor(sender As Object, ByVal e As EventArgs) Handles tmFilterTimer.Elapsed
+        FormatAndFillList()
+        tmFilterTimer.Stop()
+        tmFilterTimer.Enabled = False
     End Sub
 
     Private Sub AutoRestoreEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmRestoreCheck.Elapsed
@@ -2649,5 +2880,16 @@ Public Class frmMain
         lblStatus3.Click, pbTime.Click, lblTimeSpent.Click, lblLastActionTitle.Click, lblLastAction.Click, gMonMainMenu.Click, gMonStatusStrip.Click
         'Move focus to first label
         lblGameTitle.Focus()
+    End Sub
+
+    Private Sub lstGames_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstGames.SelectedIndexChanged
+        If lstGames.SelectedIndex = -1 Then
+            ResetGameInfo(True)
+        Else
+            If Not bListLoading Then
+                SetSelectedGame()
+                DisplaySelectedGameInfo()
+            End If
+        End If
     End Sub
 End Class

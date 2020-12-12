@@ -2791,4 +2791,55 @@
   <data name="frmMain_GameDetectedWithSessionTime" xml:space="preserve">
     <value>[PARAM][BR][PARAM]</value>
   </data>
+  <data name="Collapse_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\collapse.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Expand_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\expand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_gMonStripCollapseHideToolTip" xml:space="preserve">
+    <value>Click to hide the game list panel.</value>
+  </data>
+  <data name="frmMain_gMonStripCollapseShowToolTip" xml:space="preserve">
+    <value>Click to show the game list panel.</value>
+  </data>
+  <data name="frmMain_btnBackup" xml:space="preserve">
+    <value>&amp;Backup</value>
+  </data>
+  <data name="frmMain_btnEdit" xml:space="preserve">
+    <value>&amp;Edit</value>
+  </data>
+  <data name="frmMain_btnPlay" xml:space="preserve">
+    <value>&amp;Play</value>
+  </data>
+  <data name="frmMain_btnRestore" xml:space="preserve">
+    <value>&amp;Restore</value>
+  </data>
+  <data name="frmMain_LastBackup" xml:space="preserve">
+    <value>Last Backup: [PARAM]</value>
+  </data>
+  <data name="frmMain_Lastplayed" xml:space="preserve">
+    <value>Last Played: [PARAM]</value>
+  </data>
+  <data name="frmMain_NoBackups" xml:space="preserve">
+    <value>No Backups</value>
+  </data>
+  <data name="frmMain_NoSessions" xml:space="preserve">
+    <value>No Sessions</value>
+  </data>
+  <data name="Main_Backup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\backup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Main_Cancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cancel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Main_Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Main_Play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Main_Restore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\restore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
