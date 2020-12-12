@@ -2842,4 +2842,13 @@
   <data name="Main_Restore" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\restore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="frmMain_ConfirmManualBackup" xml:space="preserve">
+    <value>Are you sure you want to run a backup for [PARAM]? </value>
+  </data>
+  <data name="frmMain_ConfirmRestore" xml:space="preserve">
+    <value>Are you sure you want to restore the latest backup for [PARAM]?[BR][BR][PARAM] ([PARAM])</value>
+  </data>
+  <data name="Main_Cancel_Small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cancel_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

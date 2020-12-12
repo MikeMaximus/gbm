@@ -453,6 +453,7 @@
     <None Include="Resources\collapse.png" />
     <None Include="Resources\expand.png" />
     <Content Include="Resources\cancel.png" />
+    <Content Include="Resources\cancel_small.png" />
     <Content Include="Resources\edit.png" />
     <Content Include="Resources\New.png" />
     <Content Include="Resources\play.png" />

@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-12-12T02:42:41
+        '''  Looks up a localized string similar to 2020-12-12T13:46:06
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3800,6 +3800,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to run a backup for [PARAM]? .
+        '''</summary>
+        Friend ReadOnly Property frmMain_ConfirmManualBackup() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ConfirmManualBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Do you wish to cancel the monitoring of [PARAM]?[BR][BR]Warning: When monitoring is cancelled, session time is NOT saved..
         '''</summary>
         Friend ReadOnly Property frmMain_ConfirmMonitorCancel() As String
@@ -3814,6 +3823,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_ConfirmRebuild() As String
             Get
                 Return ResourceManager.GetString("frmMain_ConfirmRebuild", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to restore the latest backup for [PARAM]?[BR][BR][PARAM] ([PARAM]).
+        '''</summary>
+        Friend ReadOnly Property frmMain_ConfirmRestore() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ConfirmRestore", resourceCulture)
             End Get
         End Property
         
@@ -7026,6 +7044,16 @@ Namespace My.Resources
         Friend ReadOnly Property Main_Cancel() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Main_Cancel", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Main_Cancel_Small() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Main_Cancel_Small", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

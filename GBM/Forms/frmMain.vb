@@ -24,9 +24,10 @@ Public Class frmMain
 
     'Used to demote which display mode the form is in
     Private Enum eDisplayModes As Integer
-        Normal = 1
-        Busy = 2
-        GameSelected = 3
+        Initial = 1
+        Normal = 2
+        Busy = 3
+        GameSelected = 4
     End Enum
 
     Private eCurrentStatus As eStatus = eStatus.Stopped
@@ -811,6 +812,23 @@ Public Class frmMain
             lstGames.Enabled = True
             lstGames.ClearSelected()
             bListLoading = False
+
+            'Remember last selected game if there is one
+            SelectLastSelectedGame()
+            If Not lstGames.SelectedIndex = -1 Then
+                eDisplayMode = eDisplayModes.GameSelected
+                DisplaySelectedGameInfo()
+            End If
+
+            'Automatically select the game on a single filter match
+            If Not txtSearch.Text = String.Empty Then
+                If lstGames.Items.Count = 1 Then
+                    lstGames.SelectedIndex = 0
+                    eDisplayMode = eDisplayModes.GameSelected
+                    DisplaySelectedGameInfo()
+                    If btnPlay.Enabled And btnPlay.Visible Then btnPlay.Focus()
+                End If
+            End If
         End If
     End Sub
 
@@ -842,6 +860,7 @@ Public Class frmMain
         Dim sCompanyName As String = String.Empty
 
         eDisplayMode = eDisplayModes.Busy
+        lstGames.ClearSelected()
         SwitchDisplayMode()
 
         'Wipe Game Info
@@ -936,35 +955,40 @@ Public Class frmMain
     End Sub
 
     Private Sub ResetGameInfo(Optional ByVal bKeepInfo As Boolean = False)
-        eDisplayMode = eDisplayModes.Normal
-        SwitchDisplayMode()
-
-        If bKeepInfo And Not oProcess.GameInfo Is Nothing Then
-            lblGameTitle.Text = mgrCommon.FormatString(frmMain_LastGame, oProcess.GameInfo.Name)
-            pbIcon.Image = oPriorImage
-            lblStatus1.Text = sPriorPath
-            lblStatus2.Text = sPriorCompany
-            lblStatus3.Text = sPriorVersion
-            If mgrSettings.TimeTracking Then
-                pbTime.Visible = True
-                lblTimeSpent.Visible = True
+        If lstGames.SelectedIndex = -1 Then
+            If bKeepInfo And Not oLastGame Is Nothing Then
+                lblGameTitle.Text = mgrCommon.FormatString(frmMain_LastGame, oLastGame.Name)
+                pbIcon.Image = oPriorImage
+                lblStatus1.Text = sPriorPath
+                lblStatus2.Text = sPriorCompany
+                lblStatus3.Text = sPriorVersion
+                If mgrSettings.TimeTracking Then
+                    pbTime.Visible = True
+                    lblTimeSpent.Visible = True
+                End If
+                eDisplayMode = eDisplayModes.Normal
+            Else
+                pbIcon.Image = Icon_Searching
+                lblGameTitle.Text = frmMain_NoGameDetected
+                lblStatus1.Text = String.Empty
+                lblStatus2.Text = String.Empty
+                lblStatus3.Text = String.Empty
+                pbTime.Visible = False
+                lblTimeSpent.Visible = False
+                eDisplayMode = eDisplayModes.Initial
             End If
-        Else
-            pbIcon.Image = Icon_Searching
-            lblGameTitle.Text = frmMain_NoGameDetected
-            lblStatus1.Text = String.Empty
-            lblStatus2.Text = String.Empty
-            lblStatus3.Text = String.Empty
-            pbTime.Visible = False
-            lblTimeSpent.Visible = False
-        End If
 
-        If eCurrentStatus = eStatus.Stopped Then
-            UpdateStatus(frmMain_NotScanning)
+            If eCurrentStatus = eStatus.Stopped Then
+                UpdateStatus(frmMain_NotScanning)
+            Else
+                UpdateStatus(frmMain_NoGameDetected)
+            End If
+            SwitchDisplayMode()
         Else
-            UpdateStatus(frmMain_NoGameDetected)
+            eDisplayMode = eDisplayModes.GameSelected
+            SwitchDisplayMode()
+            DisplaySelectedGameInfo()
         End If
-
     End Sub
 
     Private Sub WorkingGameInfo(ByVal sTitle As String, ByVal sStatus1 As String, ByVal sStatus2 As String, ByVal sStatus3 As String)
@@ -1001,6 +1025,9 @@ Public Class frmMain
             Else
                 lblTimeSpent.Text = mgrCommon.FormatString(frmMain_SessionHours, Math.Round(oSelectedGame.Hours, 1).ToString)
             End If
+        Else
+            pbTime.Visible = False
+            lblTimeSpent.Visible = False
         End If
 
         If File.Exists(oSelectedGame.Icon) Then
@@ -1028,6 +1055,13 @@ Public Class frmMain
     Private Sub SetSelectedGame()
         Dim oData As KeyValuePair(Of String, String) = lstGames.SelectedItems(0)
         oSelectedGame = DirectCast(oGameList(oData.Key), clsGame)
+    End Sub
+
+    Private Sub SelectLastSelectedGame()
+        If Not oSelectedGame Is Nothing Then
+            eDisplayMode = eDisplayModes.GameSelected
+            lstGames.SelectedItem = New KeyValuePair(Of String, String)(oSelectedGame.ID, oSelectedGame.Name)
+        End If
     End Sub
 
     Private Sub HandleProcessPath()
@@ -1298,7 +1332,7 @@ Public Class frmMain
             mgrPath.RemoteDatabaseLocation = mgrSettings.BackupFolder
             SetupSyncWatcher()
             LoadGameSettings()
-            HandleMenuFeatures()
+            HandleFeatures()
             HandleLauncherMenu()
         Else
             mgrSettings.LoadSettings()
@@ -1503,8 +1537,8 @@ Public Class frmMain
         'Load Game Settings
         LoadGameSettings()
 
-        'Enable or disable menu options based on feature settings
-        HandleMenuFeatures()
+        'Enable or disable options based on feature settings
+        HandleFeatures()
 
         'Handle the launcher menu 
         HandleLauncherMenu()
@@ -1729,7 +1763,7 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub HandleMenuFeatures()
+    Private Sub HandleFeatures()
         'Sessions
         If mgrSettings.SessionTracking Then
             gMonToolsSessions.Visible = True
@@ -1745,11 +1779,13 @@ Public Class frmMain
             gMonTraySetupLauncherManager.Visible = True
             gMonFileQuickLauncher.Visible = True
             gMonTrayQuickLauncher.Visible = True
+            btnPlay.Visible = True
         Else
             gMonSetupLauncherManager.Visible = False
             gMonTraySetupLauncherManager.Visible = False
             gMonFileQuickLauncher.Visible = False
             gMonTrayQuickLauncher.Visible = False
+            btnPlay.Visible = False
         End If
 
     End Sub
@@ -1993,26 +2029,52 @@ Public Class frmMain
 
     Private Sub SwitchDisplayMode()
         Select Case eDisplayMode
-            Case eDisplayModes.Normal
+            Case eDisplayModes.Initial
                 btnRestore.Enabled = False
                 btnBackup.Enabled = False
                 btnEdit.Enabled = False
                 btnPlay.Enabled = False
                 lstGames.Enabled = True
+                SelectLastSelectedGame()
+                btnClearSelected.Enabled = True
                 txtSearch.Enabled = True
+                txtSearch.Focus()
+            Case eDisplayModes.Normal
+                btnEdit.Enabled = True
+                btnPlay.Enabled = True
+                SelectLastSelectedGame()
+                If oLastGame.MonitorOnly Then
+                    btnRestore.Enabled = False
+                    btnBackup.Enabled = False
+                Else
+                    btnRestore.Enabled = True
+                    btnBackup.Enabled = True
+                End If
+                lstGames.Enabled = True
+                btnClearSelected.Enabled = True
+                txtSearch.Enabled = True
+                txtSearch.Focus()
             Case eDisplayModes.Busy
                 btnRestore.Enabled = False
                 btnBackup.Enabled = False
                 btnEdit.Enabled = False
                 btnPlay.Enabled = False
-                lstGames.ClearSelected()
                 lstGames.Enabled = False
                 txtSearch.Enabled = False
+                btnClearSelected.Enabled = False
             Case eDisplayModes.GameSelected
-                btnRestore.Enabled = True
-                btnBackup.Enabled = True
+                If oSelectedGame.MonitorOnly Then
+                    btnRestore.Enabled = False
+                    btnBackup.Enabled = False
+                Else
+                    btnRestore.Enabled = True
+                    btnBackup.Enabled = True
+                End If
                 btnEdit.Enabled = True
                 btnPlay.Enabled = True
+                lstGames.Enabled = True
+                txtSearch.Enabled = True
+                btnClearSelected.Enabled = True
         End Select
     End Sub
 
@@ -2099,6 +2161,7 @@ Public Class frmMain
         btnPlay.Image = Main_Play
         btnCancelOperation.Text = frmMain_btnCancelOperation
         btnCancelOperation.Image = Main_Cancel
+        btnClearSelected.Image = Main_Cancel_Small
 
         If mgrCommon.IsElevated Then
             gMonStripAdminButton.Image = Icon_Admin
@@ -2608,31 +2671,37 @@ Public Class frmMain
     End Sub
 
     Private Sub btnBackup_Click(sender As Object, e As EventArgs) Handles btnBackup.Click
+        Dim oGame As New clsGame
+
         Select Case eDisplayMode
             Case eDisplayModes.Normal
-                RunManualBackup(New List(Of clsGame)({oLastGame}))
+                oGame = oLastGame
             Case eDisplayModes.GameSelected
-                RunManualBackup(New List(Of clsGame)({oSelectedGame}))
+                oGame = oSelectedGame
         End Select
+
+        If mgrCommon.ShowMessage(frmMain_ConfirmManualBackup, oGame.CroppedName, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            RunManualBackup(New List(Of clsGame)({oGame}))
+        End If
     End Sub
 
     Private Sub btnRestore_Click(sender As Object, e As EventArgs) Handles btnRestore.Click
-        Dim oBackup As List(Of clsBackup)
+        Dim oBackup As New List(Of clsBackup)
         Dim hshRestoreList As New Hashtable
+
         Select Case eDisplayMode
             Case eDisplayModes.Normal
                 oBackup = mgrManifest.DoManifestGetByMonitorID(oLastGame.ID, mgrSQLite.Database.Remote)
-                If oBackup.Count >= 1 Then
-                    hshRestoreList.Add(oLastGame, oBackup)
-                    RunRestore(hshRestoreList)
-                End If
             Case eDisplayModes.GameSelected
                 oBackup = mgrManifest.DoManifestGetByMonitorID(oSelectedGame.ID, mgrSQLite.Database.Remote)
-                If oBackup.Count >= 1 Then
-                    hshRestoreList.Add(oSelectedGame, oBackup)
-                    RunRestore(hshRestoreList)
-                End If
         End Select
+
+        If oBackup.Count >= 1 Then
+            If mgrCommon.ShowMessage(frmMain_ConfirmRestore, New String() {oBackup(0).CroppedName, oBackup(0).DateUpdated, oBackup(0).UpdatedBy}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                hshRestoreList.Add(oLastGame, oBackup)
+                RunRestore(hshRestoreList)
+            End If
+        End If
     End Sub
 
     Private Sub btnPlay_Click(sender As Object, e As EventArgs) Handles btnPlay.Click
@@ -2646,6 +2715,11 @@ Public Class frmMain
 
     Private Sub btnCancelOperation_Click(sender As Object, e As EventArgs) Handles btnCancelOperation.Click
         OperationCancel()
+    End Sub
+
+    Private Sub btnClearSelected_Click(sender As Object, e As EventArgs) Handles btnClearSelected.Click
+        lstGames.ClearSelected()
+        txtSearch.Clear()
     End Sub
 
     Private Sub gMonStripAdminButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripAdminButton.Click
@@ -2874,22 +2948,25 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub lstGames_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstGames.SelectedIndexChanged
+        If Not bListLoading Then
+            If lstGames.SelectedIndex = -1 Then
+                oSelectedGame = Nothing
+                If Not eDisplayMode = eDisplayModes.Busy Then
+                    ResetGameInfo(True)
+                End If
+            Else
+                SetSelectedGame()
+                DisplaySelectedGameInfo()
+            End If
+        End If
+    End Sub
+
     'This event handler lets the user clear focus from the log by clicking anywhere on the form.
     'Due to txtLog being the only focusable control in most cases, it's impossible for it to lose focus unless a change is forced.
     Private Sub ClearLogFocus(sender As Object, e As EventArgs) Handles MyBase.Click, lblGameTitle.Click, lblStatus1.Click, lblStatus2.Click,
         lblStatus3.Click, pbTime.Click, lblTimeSpent.Click, lblLastActionTitle.Click, lblLastAction.Click, gMonMainMenu.Click, gMonStatusStrip.Click
         'Move focus to first label
         lblGameTitle.Focus()
-    End Sub
-
-    Private Sub lstGames_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstGames.SelectedIndexChanged
-        If lstGames.SelectedIndex = -1 Then
-            ResetGameInfo(True)
-        Else
-            If Not bListLoading Then
-                SetSelectedGame()
-                DisplaySelectedGameInfo()
-            End If
-        End If
     End Sub
 End Class
