@@ -633,7 +633,7 @@ Partial Class frmMain
         Me.lblGameTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGameTitle.Location = New System.Drawing.Point(69, 12)
         Me.lblGameTitle.Name = "lblGameTitle"
-        Me.lblGameTitle.Size = New System.Drawing.Size(435, 16)
+        Me.lblGameTitle.Size = New System.Drawing.Size(436, 16)
         Me.lblGameTitle.TabIndex = 0
         Me.lblGameTitle.Text = "Game Title"
         Me.lblGameTitle.UseMnemonic = False
@@ -646,7 +646,7 @@ Partial Class frmMain
         Me.lblLastAction.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblLastAction.Location = New System.Drawing.Point(10, 185)
         Me.lblLastAction.Name = "lblLastAction"
-        Me.lblLastAction.Size = New System.Drawing.Size(403, 13)
+        Me.lblLastAction.Size = New System.Drawing.Size(397, 13)
         Me.lblLastAction.TabIndex = 10
         Me.lblLastAction.Text = "Last Action"
         Me.lblLastAction.UseMnemonic = False
@@ -667,7 +667,7 @@ Partial Class frmMain
         Me.lblTimeSpent.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTimeSpent.Location = New System.Drawing.Point(69, 92)
         Me.lblTimeSpent.Name = "lblTimeSpent"
-        Me.lblTimeSpent.Size = New System.Drawing.Size(435, 16)
+        Me.lblTimeSpent.Size = New System.Drawing.Size(436, 16)
         Me.lblTimeSpent.TabIndex = 4
         Me.lblTimeSpent.Text = "0 Hours"
         '
@@ -691,7 +691,7 @@ Partial Class frmMain
         Me.lblStatus1.AutoEllipsis = True
         Me.lblStatus1.Location = New System.Drawing.Point(69, 33)
         Me.lblStatus1.Name = "lblStatus1"
-        Me.lblStatus1.Size = New System.Drawing.Size(435, 13)
+        Me.lblStatus1.Size = New System.Drawing.Size(436, 13)
         Me.lblStatus1.TabIndex = 1
         Me.lblStatus1.Text = "Status Text "
         Me.lblStatus1.UseMnemonic = False
@@ -703,7 +703,7 @@ Partial Class frmMain
         Me.lblStatus2.AutoEllipsis = True
         Me.lblStatus2.Location = New System.Drawing.Point(69, 51)
         Me.lblStatus2.Name = "lblStatus2"
-        Me.lblStatus2.Size = New System.Drawing.Size(435, 13)
+        Me.lblStatus2.Size = New System.Drawing.Size(436, 13)
         Me.lblStatus2.TabIndex = 2
         Me.lblStatus2.Text = "Status Text"
         Me.lblStatus2.UseMnemonic = False
@@ -715,7 +715,7 @@ Partial Class frmMain
         Me.lblStatus3.AutoEllipsis = True
         Me.lblStatus3.Location = New System.Drawing.Point(69, 69)
         Me.lblStatus3.Name = "lblStatus3"
-        Me.lblStatus3.Size = New System.Drawing.Size(435, 13)
+        Me.lblStatus3.Size = New System.Drawing.Size(436, 13)
         Me.lblStatus3.TabIndex = 3
         Me.lblStatus3.Text = "Status Text"
         Me.lblStatus3.UseMnemonic = False
@@ -768,6 +768,7 @@ Partial Class frmMain
         '
         'btnClearSelected
         '
+        Me.btnClearSelected.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnClearSelected.Image = Global.GBM.My.Resources.Resources.Main_Cancel_Small
         Me.btnClearSelected.Location = New System.Drawing.Point(234, 9)
         Me.btnClearSelected.Name = "btnClearSelected"
@@ -806,10 +807,9 @@ Partial Class frmMain
         '
         'btnBackup
         '
-        Me.btnBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnBackup.Image = Global.GBM.My.Resources.Resources.Main_Backup
         Me.btnBackup.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnBackup.Location = New System.Drawing.Point(239, 127)
+        Me.btnBackup.Location = New System.Drawing.Point(102, 127)
         Me.btnBackup.Name = "btnBackup"
         Me.btnBackup.Size = New System.Drawing.Size(85, 35)
         Me.btnBackup.TabIndex = 6
@@ -820,10 +820,9 @@ Partial Class frmMain
         '
         'btnRestore
         '
-        Me.btnRestore.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnRestore.Image = Global.GBM.My.Resources.Resources.Main_Restore
         Me.btnRestore.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnRestore.Location = New System.Drawing.Point(330, 127)
+        Me.btnRestore.Location = New System.Drawing.Point(193, 127)
         Me.btnRestore.Name = "btnRestore"
         Me.btnRestore.Size = New System.Drawing.Size(85, 35)
         Me.btnRestore.TabIndex = 7
@@ -834,13 +833,12 @@ Partial Class frmMain
         '
         'btnEdit
         '
-        Me.btnEdit.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnEdit.Image = Global.GBM.My.Resources.Resources.Main_Edit
         Me.btnEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnEdit.Location = New System.Drawing.Point(421, 127)
+        Me.btnEdit.Location = New System.Drawing.Point(11, 127)
         Me.btnEdit.Name = "btnEdit"
         Me.btnEdit.Size = New System.Drawing.Size(85, 35)
-        Me.btnEdit.TabIndex = 8
+        Me.btnEdit.TabIndex = 5
         Me.btnEdit.Text = "&Edit"
         Me.btnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.btnEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
@@ -851,10 +849,10 @@ Partial Class frmMain
         Me.btnPlay.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnPlay.Image = Global.GBM.My.Resources.Resources.Main_Play
         Me.btnPlay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnPlay.Location = New System.Drawing.Point(148, 127)
+        Me.btnPlay.Location = New System.Drawing.Point(420, 127)
         Me.btnPlay.Name = "btnPlay"
         Me.btnPlay.Size = New System.Drawing.Size(85, 35)
-        Me.btnPlay.TabIndex = 5
+        Me.btnPlay.TabIndex = 8
         Me.btnPlay.Text = "&Play"
         Me.btnPlay.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.btnPlay.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage

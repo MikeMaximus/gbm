@@ -826,7 +826,6 @@ Public Class frmMain
                     lstGames.SelectedIndex = 0
                     eDisplayMode = eDisplayModes.GameSelected
                     DisplaySelectedGameInfo()
-                    If btnPlay.Enabled And btnPlay.Visible Then btnPlay.Focus()
                 End If
             End If
         End If
@@ -1400,13 +1399,16 @@ Public Class frmMain
         End If
     End Sub
 
-    'Functions handling the loading/sync of settings    
+    'Functions handling the loading/sync of settings
+    Private Sub RefreshGameList()
+        oGameList = mgrMonitorList.ReadFilteredList(New List(Of clsTag), New List(Of clsTag), New List(Of clsGameFilter), frmFilter.eFilterType.BaseFilter, False, True, "Name")
+        FormatAndFillList()
+    End Sub
+
     Private Sub LoadGameSettings()
         'Load Monitor List
         hshScanList = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.ScanList)
-        oGameList = mgrMonitorList.ReadFilteredList(New List(Of clsTag), New List(Of clsTag), New List(Of clsGameFilter), frmFilter.eFilterType.BaseFilter, False, True, "Name")
-        FormatAndFillList()
-
+        RefreshGameList()
         UpdateLog(mgrCommon.FormatString(frmMain_GameListLoaded, hshScanList.Keys.Count), False)
     End Sub
 
@@ -2916,11 +2918,12 @@ Public Class frmMain
             End If
         End If
 
-        'Reset globals
+        'Refresh
         bPathDetectionFailure = False
         sPathDetectionError = String.Empty
         bCancelledByUser = False
         oProcess.StartTime = Now : oProcess.EndTime = Now
+        RefreshGameList()
     End Sub
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -2945,6 +2948,15 @@ Public Class frmMain
             OpenDevConsole()
         ElseIf e.KeyCode = Keys.L AndAlso e.Modifiers = Keys.Control Then
             If mgrSettings.EnableLauncher And Not eCurrentStatus = eStatus.Paused Then OpenQuickLaunch()
+        ElseIf e.KeyCode = Keys.Enter Then
+            If eDisplayMode = eDisplayModes.GameSelected And lstGames.Items.Count = 1 Then btnPlay.PerformClick()
+        End If
+    End Sub
+
+    Private Sub frmMain_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
+        'This supresses the stupid Windows ding any time you use the enter key because AcceptButton is not set.
+        If e.KeyChar = Chr(13) Then
+            e.Handled = True
         End If
     End Sub
 
