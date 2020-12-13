@@ -59,6 +59,11 @@ Public Class mgrCommon
         Return oReturnImage
     End Function
 
+    Public Shared Function GetCachedIconPath(ByVal sID As String) As String
+        Return mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & sID & ".png"
+    End Function
+
+
     Public Shared Function IsURI(ByVal sURI As String) As Boolean
         If (sURI.IndexOf("://", 1, StringComparison.CurrentCultureIgnoreCase) > -1) Or (sURI.IndexOf("://", 1, StringComparison.CurrentCultureIgnoreCase) > -1) Then
             Return True

@@ -1028,6 +1028,7 @@ Public Class frmGameManager
 
         Dim oData As KeyValuePair(Of String, String) = lstGames.SelectedItems(0)
         Dim oApp As clsGame = DirectCast(GameData(oData.Key), clsGame)
+        Dim sCachedIcon As String = mgrCommon.GetCachedIconPath(oApp.ID)
         Dim sttPath As String
 
         'Core
@@ -1079,6 +1080,8 @@ Public Class frmGameManager
         'Icon
         If IO.File.Exists(oApp.Icon) Then
             pbIcon.Image = mgrCommon.SafeIconFromFile(oApp.Icon)
+        ElseIf IO.File.Exists(sCachedIcon) Then
+            pbIcon.Image = mgrCommon.SafeIconFromFile(sCachedIcon)
         Else
             pbIcon.Image = Icon_Unknown
         End If

@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-12-12T13:46:06
+        '''  Looks up a localized string similar to 2020-12-13T14:26:38
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4039,6 +4039,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_ErrorGameIcon() As String
             Get
                 Return ResourceManager.GetString("frmMain_ErrorGameIcon", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error has occured while saving the icon for [PARAM]:[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorIconCache() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorIconCache", resourceCulture)
             End Get
         End Property
         

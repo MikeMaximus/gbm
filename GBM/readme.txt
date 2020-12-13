@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.5 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-December 11, 2020
+December 13, 2020
 
 New in 1.2.5
 
@@ -19,5 +19,11 @@ All Platforms:
 - Application settings are now handled more efficiently.
 - Added missing code to properly update or delete existing launch data when certain configuration changes are made.
 - Fixed issues with changing a configuration identifier when that configuration had existing backup files.
+
+Windows:
+
+- The icons from game executables are now cached after a session.
+	- The main window and game manager will display the cached icon when viewing the game details, unless a custom icon has been set.
+	- Cached icons are stored using the PNG format in the GBM temporary folder (can be customized in Settings).
 		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

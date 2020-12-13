@@ -56,6 +56,7 @@ Public Class frmMain
     Private oLastGame As clsGame
     Private oSelectedGame As clsGame
     Private bListLoading As Boolean = False
+    Private oExecutableIcon As Bitmap
 
     'Developer Debug Flags
     Private bProcessDebugMode As Boolean = False
@@ -870,7 +871,8 @@ Public Class frmMain
 
         'Set Game Icon
         If Not mgrCommon.IsUnix Then
-            pbIcon.Image = GetGameIcon(oProcess.FoundProcess.MainModule.FileName)
+            oExecutableIcon = GetGameIcon(oProcess.FoundProcess.MainModule.FileName)
+            pbIcon.Image = oExecutableIcon
         End If
 
         Try
@@ -1012,6 +1014,7 @@ Public Class frmMain
     Private Sub DisplaySelectedGameInfo()
         Dim oBackupList As List(Of clsBackup) = mgrManifest.DoManifestGetByMonitorID(oSelectedGame.ID, mgrSQLite.Database.Remote)
         Dim oLastPlayed As Object = mgrSessions.GetLastSessionDateTime(oSelectedGame)
+        Dim sCachedIcon As String = mgrCommon.GetCachedIconPath(oSelectedGame.ID)
 
         eDisplayMode = eDisplayModes.GameSelected
         SwitchDisplayMode()
@@ -1031,6 +1034,8 @@ Public Class frmMain
 
         If File.Exists(oSelectedGame.Icon) Then
             pbIcon.Image = mgrCommon.SafeIconFromFile(oSelectedGame.Icon)
+        ElseIf File.Exists(sCachedIcon) Then
+            pbIcon.Image = mgrCommon.SafeIconFromFile(sCachedIcon)
         Else
             pbIcon.Image = Icon_Unknown
         End If
@@ -1155,6 +1160,14 @@ Public Class frmMain
             Return False
         End If
     End Function
+
+    Private Sub HandleIconCache()
+        Try
+            oExecutableIcon.Save(mgrCommon.GetCachedIconPath(oLastGame.ID), Imaging.ImageFormat.Png)
+        Catch ex As Exception
+            UpdateLog(mgrCommon.FormatString(frmMain_ErrorIconCache, New String() {oLastGame.Name, ex.Message}), False, ToolTipIcon.Warning, True)
+        End Try
+    End Sub
 
     'Functions handling the opening of other windows
     Private Sub OpenDevConsole()
@@ -2907,6 +2920,7 @@ Public Class frmMain
                     HandleProcessPath()
                     If mgrSettings.TimeTracking Then HandleTimeSpent()
                     If mgrSettings.SessionTracking Then HandleSession()
+                    If Not mgrCommon.IsUnix Then HandleIconCache()
                     RunBackup()
                 Else
                     oLastGame = Nothing
