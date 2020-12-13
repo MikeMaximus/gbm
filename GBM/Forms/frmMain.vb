@@ -1794,13 +1794,11 @@ Public Class frmMain
             gMonTraySetupLauncherManager.Visible = True
             gMonFileQuickLauncher.Visible = True
             gMonTrayQuickLauncher.Visible = True
-            btnPlay.Visible = True
         Else
             gMonSetupLauncherManager.Visible = False
             gMonTraySetupLauncherManager.Visible = False
             gMonFileQuickLauncher.Visible = False
             gMonTrayQuickLauncher.Visible = False
-            btnPlay.Visible = False
         End If
 
     End Sub
@@ -2045,18 +2043,20 @@ Public Class frmMain
     Private Sub SwitchDisplayMode()
         Select Case eDisplayMode
             Case eDisplayModes.Initial
-                btnRestore.Enabled = False
-                btnBackup.Enabled = False
-                btnEdit.Enabled = False
-                btnPlay.Enabled = False
+                btnRestore.Visible = False
+                btnBackup.Visible = False
+                btnEdit.Visible = False
+                btnPlay.Visible = False
                 lstGames.Enabled = True
                 SelectLastSelectedGame()
                 btnClearSelected.Enabled = True
                 txtSearch.Enabled = True
                 txtSearch.Focus()
             Case eDisplayModes.Normal
-                btnEdit.Enabled = True
-                btnPlay.Enabled = True
+                btnRestore.Visible = True
+                btnBackup.Visible = True
+                btnEdit.Visible = True
+                If mgrSettings.EnableLauncher Then btnPlay.Visible = True
                 SelectLastSelectedGame()
                 If oLastGame.MonitorOnly Then
                     btnRestore.Enabled = False
@@ -2070,14 +2070,18 @@ Public Class frmMain
                 txtSearch.Enabled = True
                 txtSearch.Focus()
             Case eDisplayModes.Busy
-                btnRestore.Enabled = False
-                btnBackup.Enabled = False
-                btnEdit.Enabled = False
-                btnPlay.Enabled = False
+                btnRestore.Visible = False
+                btnBackup.Visible = False
+                btnEdit.Visible = False
+                btnPlay.Visible = False
                 lstGames.Enabled = False
                 txtSearch.Enabled = False
                 btnClearSelected.Enabled = False
             Case eDisplayModes.GameSelected
+                btnRestore.Visible = True
+                btnBackup.Visible = True
+                btnEdit.Visible = True
+                If mgrSettings.EnableLauncher Then btnPlay.Visible = True
                 If oSelectedGame.MonitorOnly Then
                     btnRestore.Enabled = False
                     btnBackup.Enabled = False
@@ -2085,8 +2089,6 @@ Public Class frmMain
                     btnRestore.Enabled = True
                     btnBackup.Enabled = True
                 End If
-                btnEdit.Enabled = True
-                btnPlay.Enabled = True
                 lstGames.Enabled = True
                 txtSearch.Enabled = True
                 btnClearSelected.Enabled = True
@@ -2095,7 +2097,7 @@ Public Class frmMain
 
     Private Sub SetForm()
         'Set Minimum Size
-        Me.MinimumSize = New Size(Me.Size.Width, Me.Size.Height - txtLog.Size.Height)
+        Me.MinimumSize = New Size(Me.Size.Width - slcMain.SplitterDistance, Me.Size.Height - txtLog.Size.Height)
 
         'Set Form Name
         Me.Name = App_NameLong

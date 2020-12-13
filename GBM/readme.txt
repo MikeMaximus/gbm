@@ -25,5 +25,11 @@ Windows:
 - The icons from game executables are now cached after a session.
 	- The main window and game manager will display the cached icon when viewing the game details, unless a custom icon has been set.
 	- Cached icons are stored using the PNG format in the GBM temporary folder (can be customized in Settings).
-		
+
+Known Issues (Linux):
+
+- Manually resizing the main form may trigger severe performance issues with the GUI.
+	- Collapsing the left panel (Game List) before resizing the form seems to be a valid work-around.
+	- Observed on Linux Mint 20 Cinnamon (Mono 6.12.0.107)
+	 		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
