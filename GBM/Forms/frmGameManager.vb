@@ -26,6 +26,7 @@ Public Class frmGameManager
     Private oRemoteBackupData As SortedList
     Private bIsDirty As Boolean = False
     Private bIsLoading As Boolean = False
+    Private bSupressOptionButtons As Boolean = False
     Private oCurrentIncludeTagFilters As New List(Of clsTag)
     Private oCurrentExcludeTagFilters As New List(Of clsTag)
     Private oCurrentFilters As New List(Of clsGameFilter)
@@ -2053,7 +2054,8 @@ Public Class frmGameManager
 
         LoadBackupData()
 
-        'Event will take care of initial load (on Windows)
+        'Supress the initial option button events from firing to prevent double loading (Windows Only)        
+        If Not mgrCommon.IsUnix Then bSupressOptionButtons = True
         If PendingRestores Then
             optPendingRestores.Checked = True
         Else
@@ -2065,11 +2067,8 @@ Public Class frmGameManager
         AssignDirtyHandlers(grpStats.Controls)
         AssignDirtyHandlersMisc()
 
-        'Mono doesn't fire events in the same way as .NET, so we'll to do this to get an initial load on Linux and prevent multiple loads in Windows.
-        If mgrCommon.IsUnix Then
-            LoadData(False)
-            ModeChange()
-        End If
+        LoadData(False)
+        ModeChange()
     End Sub
 
     Private Sub lstGames_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstGames.SelectedIndexChanged
@@ -2189,10 +2188,14 @@ Public Class frmGameManager
     End Sub
 
     Private Sub optGamesFilter_Click(sender As Object, e As EventArgs) Handles optPendingRestores.Click, optAllGames.Click, optBackupData.Click, optCustom.Click
-        lstGames.ClearSelected()
-        eCurrentMode = eModes.Disabled
-        ModeChange()
-        LoadData(False)
+        If bSupressOptionButtons Then
+            bSupressOptionButtons = False
+        Else
+            lstGames.ClearSelected()
+            eCurrentMode = eModes.Disabled
+            ModeChange()
+            LoadData(False)
+        End If
     End Sub
 
     Private Sub btnInclude_Click(sender As Object, e As EventArgs) Handles btnInclude.Click
