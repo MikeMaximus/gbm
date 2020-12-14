@@ -96,7 +96,6 @@ Public Class frmMain
             Me.Invoke(d, New Object() {sMessage})
         Else
             Dim sPattern As String = "h:mm tt"
-            lblLastActionTitle.Visible = True
             lblLastAction.Text = sMessage.TrimEnd(".") & " " & mgrCommon.FormatString(frmMain_AtTime, TimeOfDay.ToString(sPattern))
         End If
     End Sub
@@ -2165,6 +2164,7 @@ Public Class frmMain
 
         'Set Form Text
         lblLastActionTitle.Text = frmMain_lblLastActionTitle
+        lblLastAction.Text = frmMain_lblLastAction
         gMonStripStatusButton.Text = frmMain_gMonStripStatusButton
         gMonStripStatusButton.ToolTipText = frmMain_gMonStripStatusButtonToolTip
         gMonStripCollapse.ToolTipText = frmMain_gMonStripCollapseHideToolTip
@@ -2189,8 +2189,6 @@ Public Class frmMain
             gMonStripAdminButton.ToolTipText = frmMain_RunningAsNormal
         End If
         btnCancelOperation.Visible = False
-        lblLastActionTitle.Visible = False
-        lblLastAction.Text = String.Empty
         pbTime.SizeMode = PictureBoxSizeMode.AutoSize
         pbTime.Image = Icon_Clock
 

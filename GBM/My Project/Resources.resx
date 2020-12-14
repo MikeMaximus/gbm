@@ -2854,4 +2854,7 @@
   <data name="frmMain_ErrorIconCache" xml:space="preserve">
     <value>An error has occured while saving the icon for [PARAM]:[BR][BR][PARAM]</value>
   </data>
+  <data name="frmMain_lblLastAction" xml:space="preserve">
+    <value>None</value>
+  </data>
 </root>
