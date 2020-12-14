@@ -76,11 +76,11 @@
 
     End Sub
 
-    Public Shared Function GetTagsByGame(ByVal sMonitorID As String) As List(Of clsTag)
+    Public Shared Function GetTagsByGame(ByVal sMonitorID As String) As SortedList
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim oData As DataSet
         Dim sSQL As String
-        Dim oList As New List(Of clsTag)
+        Dim slList As New SortedList
         Dim hshParams As New Hashtable
         Dim oTag As clsTag
 
@@ -94,10 +94,10 @@
             oTag = New clsTag
             oTag.ID = CStr(dr("TagID"))
             oTag.Name = CStr(dr("Name"))
-            oList.Add(oTag)
+            slList.Add(oTag.Name, oTag)
         Next
 
-        Return oList
+        Return slList
     End Function
 
     Public Shared Function GetTagsByGameForExport(ByVal sMonitorID As String) As List(Of Tag)
@@ -279,6 +279,22 @@
 
         Return hshDeleteItems.Count + hshSyncItems.Count
 
+    End Function
+
+    Public Shared Function PrintTagsbyID(ByVal sID As String) As String
+        Dim slTags As SortedList
+        Dim oTag As clsTag
+        Dim sTags As String = String.Empty
+        Dim cTrim() As Char = {",", " "}
+
+        slTags = mgrGameTags.GetTagsByGame(sID)
+
+        For Each de As DictionaryEntry In slTags
+            oTag = DirectCast(de.Value, clsTag)
+            sTags &= "#" & oTag.Name & ", "
+        Next
+
+        Return sTags.TrimEnd(cTrim)
     End Function
 
     Public Shared Function PrintTagsbyList(ByVal oList As List(Of KeyValuePair(Of String, String))) As String

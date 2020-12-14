@@ -13,7 +13,7 @@ Public Class mgrMonitorList
     Public Shared Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
 
     'This function supports filling class types that inherit clsGameBase
-    Public Shared Function MapToObject(ByVal dr As DataRow, ByVal oClass As Type, Optional ByVal bCompileRegEx As Boolean = False, Optional ByVal bGetTags As Boolean = False) As Object
+    Public Shared Function MapToObject(ByVal dr As DataRow, ByVal oClass As Type) As Object
         Dim bFullClass As Boolean = True
         Dim oGame As Object
 
@@ -47,13 +47,8 @@ Public Class mgrMonitorList
         oGame.RecurseSubFolders = CBool(dr("RecurseSubFolders"))
         oGame.OS = CInt(dr("OS"))
 
-        'Tags
-        If bFullClass And bGetTags Then
-            oGame.Tags = mgrGameTags.GetTagsByGame(oGame.ID)
-        End If
-
         'Compile RegEx
-        If oGame.IsRegEx And bFullClass And bCompileRegEx Then
+        If oGame.IsRegEx And bFullClass Then
             oGame.CompiledRegEx = New Regex(oGame.ProcessName, RegexOptions.Compiled)
         End If
 
@@ -101,12 +96,11 @@ Public Class mgrMonitorList
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
 
         For Each dr As DataRow In oData.Tables(0).Rows
+            oGame = MapToObject(dr, GetType(clsGame))
             Select Case eListType
                 Case eListTypes.FullList
-                    oGame = MapToObject(dr, GetType(clsGame))
                     hshList.Add(oGame.ID, oGame)
                 Case eListTypes.ScanList
-                    oGame = MapToObject(dr, GetType(clsGame), True)
                     If oGame.Enabled And oGame.ProcessName <> String.Empty Then hshList.Add(oGame.ID, oGame)
             End Select
         Next
@@ -122,15 +116,38 @@ Public Class mgrMonitorList
         Dim oList As New OrderedDictionary
         Dim oGame As clsGame
         Dim hshParams As New Hashtable
-        Dim iCounter As Integer = 0
 
         sSQL = BuildFilterQuery(oIncludeTagFilters, oExcludeTagFilters, oFilters, eFilterType, bAndOperator, bSortAsc, sSortField, hshParams)
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
         For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = MapToObject(dr, GetType(clsGame),, True)
+            oGame = MapToObject(dr, GetType(clsGame))
+            oList.Add(oGame.ID, oGame)
+        Next
 
+        Return oList
+    End Function
+
+    Public Shared Function ReadQuickFilteredList(ByVal sFilter As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As OrderedDictionary
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim oData As DataSet
+        Dim sSQL As String = String.Empty
+        Dim oList As New OrderedDictionary
+        Dim oGame As clsGame
+        Dim hshParams As New Hashtable
+        Dim iCounter As Integer = 0
+
+        sSQL = "SELECT * from monitorlist NATURAL JOIN gametags WHERE Name LIKE @GameName OR gametags.TagID = (SELECT TagID from tags WHERE Name=@TagName COLLATE NOCASE) GROUP BY monitorlist.Name;"
+
+        'Parameters
+        hshParams.Add("GameName", "%" & sFilter & "%")
+        hshParams.Add("TagName", sFilter)
+
+        oData = oDatabase.ReadParamData(sSQL, hshParams)
+
+        For Each dr As DataRow In oData.Tables(0).Rows
+            oGame = MapToObject(dr, GetType(clsGame))
             oList.Add(oGame.ID, oGame)
         Next
 

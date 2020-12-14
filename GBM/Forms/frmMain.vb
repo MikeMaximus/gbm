@@ -782,14 +782,7 @@ Public Class frmMain
             For Each de As DictionaryEntry In oGameList
                 oApp = DirectCast(de.Value, clsGame)
                 oData = New KeyValuePair(Of String, String)(oApp.ID, oApp.Name)
-                'Apply the quick filter if applicable
-                If sFilter = String.Empty Then
-                    oList.Add(oData)
-                Else
-                    If oApp.Name.ToLower.Contains(sFilter.ToLower) Or oApp.PrintTags.ToLower.Contains(sFilter.ToLower) Then
-                        oList.Add(oData)
-                    End If
-                End If
+                oList.Add(oData)
             Next
 
             bListLoading = True
@@ -1040,7 +1033,7 @@ Public Class frmMain
         End If
 
         lblGameTitle.Text = oSelectedGame.Name
-        lblStatus1.Text = oSelectedGame.PrintTags
+        lblStatus1.Text = mgrGameTags.PrintTagsbyID(oSelectedGame.ID)
 
         If oLastPlayed Is Nothing Then
             lblStatus2.Text = frmMain_NoSessions
@@ -1413,7 +1406,11 @@ Public Class frmMain
 
     'Functions handling the loading/sync of settings
     Private Sub RefreshGameList()
-        oGameList = mgrMonitorList.ReadFilteredList(New List(Of clsTag), New List(Of clsTag), New List(Of clsGameFilter), frmFilter.eFilterType.BaseFilter, False, True, "Name")
+        If txtSearch.Text = String.Empty Then
+            oGameList = mgrMonitorList.ReadFilteredList(New List(Of clsTag), New List(Of clsTag), New List(Of clsGameFilter), frmFilter.eFilterType.BaseFilter, False, True, "Name")
+        Else
+            oGameList = mgrMonitorList.ReadQuickFilteredList(txtSearch.Text.Trim)
+        End If
         FormatAndFillList()
     End Sub
 
@@ -2758,7 +2755,7 @@ Public Class frmMain
     End Sub
 
     Private Sub FilterEventProcessor(sender As Object, ByVal e As EventArgs) Handles tmFilterTimer.Elapsed
-        FormatAndFillList()
+        RefreshGameList()
         tmFilterTimer.Stop()
         tmFilterTimer.Enabled = False
     End Sub

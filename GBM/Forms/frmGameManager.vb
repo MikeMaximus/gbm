@@ -518,7 +518,7 @@ Public Class frmGameManager
             If sFilter = String.Empty Then
                 oList.Add(oData)
             Else
-                If oApp.Name.ToLower.Contains(sFilter.ToLower) Or oApp.PrintTags.ToLower.Contains(sFilter.ToLower) Then
+                If oApp.Name.ToLower.Contains(sFilter.ToLower) Then
                     oList.Add(oData)
                 End If
             End If
@@ -755,7 +755,7 @@ Public Class frmGameManager
             mgrMonitorList.SyncMonitorLists()
 
             'Only update visible tags if one item is selected
-            If lstGames.SelectedItems.Count = 1 Then lblTags.Text = CurrentGame.PrintTags
+            If lstGames.SelectedItems.Count = 1 Then lblTags.Text = mgrGameTags.PrintTagsbyID(CurrentGame.ID)
 
             'If a tag filter is enabled, reload list to reflect changes
             If optCustom.Checked And Not bIsDirty Then
@@ -1076,7 +1076,7 @@ Public Class frmGameManager
         txtVersion.Text = oApp.Version
         txtIcon.Text = oApp.Icon
 
-        lblTags.Text = oApp.PrintTags
+        lblTags.Text = mgrGameTags.PrintTagsbyID(oApp.ID)
 
         'Icon
         If IO.File.Exists(oApp.Icon) Then

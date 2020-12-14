@@ -35,7 +35,7 @@ Public Class frmChooseGame
         lstGameBox.Columns.Add(frmChooseGame_ColumnTags, 175)
 
         For Each o As clsGame In Process.DuplicateList
-            sTags = o.PrintTags
+            sTags = mgrGameTags.PrintTagsbyID(o.ID)
             oListViewItem = New ListViewItem(New String() {o.Name, sTags})
             oListViewItem.Tag = o.ID
             If lstGameBox.Items.Count = 0 Then oListViewItem.Selected = True
