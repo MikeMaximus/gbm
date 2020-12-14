@@ -3,10 +3,20 @@
 Public Class clsGame
     Inherits clsGameBase
 
+    Private oTags As New List(Of clsTag)
     Private oImportTags As New List(Of Tag)
     Private oImportConfigLinks As New List(Of ConfigLink)
     Private bImportUpdate As Boolean = False
     Private oCompiledRegEx As Regex
+
+    Property Tags As List(Of clsTag)
+        Get
+            Return oTags
+        End Get
+        Set(value As List(Of clsTag))
+            oTags = value
+        End Set
+    End Property
 
     Property ImportTags As List(Of Tag)
         Get
@@ -43,6 +53,18 @@ Public Class clsGame
             oCompiledRegEx = value
         End Set
     End Property
+
+    Public Function PrintTags() As String
+        Dim oTag As clsTag
+        Dim sTags As String = String.Empty
+        Dim cTrim() As Char = {",", " "}
+
+        For Each oTag In Tags
+            sTags &= "#" & oTag.Name & ", "
+        Next
+
+        Return sTags.TrimEnd(cTrim)
+    End Function
 
     Public Function ConvertClass() As Game
         Dim oGame As New Game

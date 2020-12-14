@@ -786,7 +786,7 @@ Public Class frmMain
                 If sFilter = String.Empty Then
                     oList.Add(oData)
                 Else
-                    If oApp.Name.ToLower.Contains(sFilter.ToLower) Then
+                    If oApp.Name.ToLower.Contains(sFilter.ToLower) Or oApp.PrintTags.ToLower.Contains(sFilter.ToLower) Then
                         oList.Add(oData)
                     End If
                 End If
@@ -1040,7 +1040,7 @@ Public Class frmMain
         End If
 
         lblGameTitle.Text = oSelectedGame.Name
-        lblStatus1.Text = mgrGameTags.PrintTagsbyID(oSelectedGame.ID)
+        lblStatus1.Text = oSelectedGame.PrintTags
 
         If oLastPlayed Is Nothing Then
             lblStatus2.Text = frmMain_NoSessions

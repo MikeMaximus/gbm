@@ -188,6 +188,7 @@
         oGame.RecurseSubFolders = RecurseSubFolders
         oGame.OS = OS
         oGame.ImportTags = Tags
+        oGame.ImportConfigLinks = ConfigLinks
 
         Return oGame
     End Function
