@@ -2779,9 +2779,6 @@
   <data name="frmQuickLauncher_FormName" xml:space="preserve">
     <value>Quick Launcher</value>
   </data>
-  <data name="frmMain_gMonTrayQuickLauncher" xml:space="preserve">
-    <value>&amp;Quick Launcher</value>
-  </data>
   <data name="frmMain_gMonTraySetup" xml:space="preserve">
     <value>S&amp;etup</value>
   </data>

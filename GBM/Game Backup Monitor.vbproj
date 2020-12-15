@@ -164,12 +164,6 @@
     <Compile Include="Forms\frmLauncherManager.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmQuickLauncher.Designer.vb">
-      <DependentUpon>frmQuickLauncher.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmQuickLauncher.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\frmWineConfiguration.Designer.vb">
       <DependentUpon>frmWineConfiguration.vb</DependentUpon>
     </Compile>
@@ -334,9 +328,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmLauncherManager.resx">
       <DependentUpon>frmLauncherManager.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmQuickLauncher.resx">
-      <DependentUpon>frmQuickLauncher.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmWineConfiguration.resx">
       <DependentUpon>frmWineConfiguration.vb</DependentUpon>

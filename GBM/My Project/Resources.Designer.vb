@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-12-13T23:56:10
+        '''  Looks up a localized string similar to 2020-12-15T14:36:41
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4561,15 +4561,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_gMonTrayFullRestore() As String
             Get
                 Return ResourceManager.GetString("frmMain_gMonTrayFullRestore", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to &amp;Quick Launcher.
-        '''</summary>
-        Friend ReadOnly Property frmMain_gMonTrayQuickLauncher() As String
-            Get
-                Return ResourceManager.GetString("frmMain_gMonTrayQuickLauncher", resourceCulture)
             End Get
         End Property
         

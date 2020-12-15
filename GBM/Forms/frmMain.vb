@@ -1278,16 +1278,6 @@ Public Class frmMain
         ResumeScan()
     End Sub
 
-    Private Sub OpenQuickLaunch()
-        Dim frm As New frmQuickLauncher
-        PauseScan()
-        frm.ShowDialog()
-        If frm.DialogResult = DialogResult.OK Then
-            LaunchGame(frm.Game)
-        End If
-        ResumeScan()
-    End Sub
-
     Private Sub OpenLauncherManager()
         Dim frm As New frmLauncherManager
         PauseScan()
@@ -1587,6 +1577,7 @@ Public Class frmMain
             'When toggling back to normal, we want to make the window visible first so the user sees the restore animation.
             ToggleVisibility(bVisible)
             Me.WindowState = FormWindowState.Normal
+            txtSearch.Focus()
         Else
             'When toggling to hide the window, we want to make the window invisible after a minimize to prevent the odd flickering animation.
             Me.WindowState = FormWindowState.Minimized
@@ -1784,13 +1775,9 @@ Public Class frmMain
         If mgrSettings.EnableLauncher Then
             gMonSetupLauncherManager.Visible = True
             gMonTraySetupLauncherManager.Visible = True
-            gMonFileQuickLauncher.Visible = True
-            gMonTrayQuickLauncher.Visible = True
         Else
             gMonSetupLauncherManager.Visible = False
             gMonTraySetupLauncherManager.Visible = False
-            gMonFileQuickLauncher.Visible = False
-            gMonTrayQuickLauncher.Visible = False
         End If
 
     End Sub
@@ -1843,7 +1830,6 @@ Public Class frmMain
             gMonNotification.Enabled = False
             gMonTrayNotification.Enabled = False
             gMonTraySettings.Enabled = False
-            gMonTrayQuickLauncher.Enabled = False
             gMonTrayFullBackup.Enabled = False
             gMonTrayFullRestore.Enabled = False
             If Not bGameDetected Then
@@ -1870,7 +1856,6 @@ Public Class frmMain
             gMonNotification.Enabled = True
             gMonTrayNotification.Enabled = True
             gMonTraySettings.Enabled = True
-            gMonTrayQuickLauncher.Enabled = True
             gMonTrayFullBackup.Enabled = True
             gMonTrayFullRestore.Enabled = True
             gMonTrayMon.Enabled = True
@@ -2128,7 +2113,6 @@ Public Class frmMain
         gMonHelpAbout.Text = frmMain_gMonHelpAbout
 
         'Set Tray Menu Text
-        gMonTrayQuickLauncher.Text = frmMain_gMonTrayQuickLauncher
         gMonTrayShow.Text = frmMain_gMonTrayShow
         gMonTrayMon.Text = frmMain_gMonFileMonitor_Start
         gMonTrayFullBackup.Text = frmMain_gMonTrayFullBackup
@@ -2527,10 +2511,6 @@ Public Class frmMain
     'Event Handlers
     Private Sub gMonFileMonitor_Click(sender As Object, e As EventArgs) Handles gMonFileMonitor.Click, gMonTrayMon.Click
         ScanToggle()
-    End Sub
-
-    Private Sub gMonFileQuickLaunch_Click(sender As Object, e As EventArgs) Handles gMonFileQuickLauncher.Click, gMonTrayQuickLauncher.Click
-        OpenQuickLaunch()
     End Sub
 
     Private Sub gMonFileFullBackup_Click(sender As Object, e As EventArgs) Handles gMonFileFullBackup.Click, gMonTrayFullBackup.Click
@@ -2953,15 +2933,13 @@ Public Class frmMain
     Private Sub frmMain_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Oemtilde AndAlso e.Modifiers = Keys.Control Then
             OpenDevConsole()
-        ElseIf e.KeyCode = Keys.L AndAlso e.Modifiers = Keys.Control Then
-            If mgrSettings.EnableLauncher And Not eCurrentStatus = eStatus.Paused Then OpenQuickLaunch()
         ElseIf e.KeyCode = Keys.Enter Then
             If eDisplayMode = eDisplayModes.GameSelected And lstGames.Items.Count = 1 Then btnPlay.PerformClick()
         End If
     End Sub
 
     Private Sub frmMain_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
-        'This supresses the stupid Windows ding any time you use the enter key because AcceptButton is not set.
+        'This suppresses the stupid Windows ding any time you use the enter key because AcceptButton is not set.
         If e.KeyChar = Chr(13) Then
             e.Handled = True
         End If

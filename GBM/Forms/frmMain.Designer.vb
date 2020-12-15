@@ -30,7 +30,6 @@ Partial Class frmMain
         Me.gMonTrayShow = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayMon = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySep2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.gMonTrayQuickLauncher = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayFullBackup = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayFullRestore = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySep3 = New System.Windows.Forms.ToolStripSeparator()
@@ -67,7 +66,6 @@ Partial Class frmMain
         Me.gMonFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileMonitor = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFullSep = New System.Windows.Forms.ToolStripSeparator()
-        Me.gMonFileQuickLauncher = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileFullBackup = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileFullRestore = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSettingsSep = New System.Windows.Forms.ToolStripSeparator()
@@ -140,9 +138,9 @@ Partial Class frmMain
         '
         'gMonTrayMenu
         '
-        Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayNotification, Me.gMonTrayShow, Me.gMonTrayMon, Me.gMonTraySep2, Me.gMonTrayQuickLauncher, Me.gMonTrayFullBackup, Me.gMonTrayFullRestore, Me.gMonTraySep3, Me.gMonTraySettings, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTraySep1, Me.gMonTrayExit})
+        Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayNotification, Me.gMonTrayShow, Me.gMonTrayMon, Me.gMonTraySep2, Me.gMonTrayFullBackup, Me.gMonTrayFullRestore, Me.gMonTraySep3, Me.gMonTraySettings, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTraySep1, Me.gMonTrayExit})
         Me.gMonTrayMenu.Name = "gMonTrayMenu"
-        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 242)
+        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 220)
         '
         'gMonTrayNotification
         '
@@ -167,12 +165,6 @@ Partial Class frmMain
         '
         Me.gMonTraySep2.Name = "gMonTraySep2"
         Me.gMonTraySep2.Size = New System.Drawing.Size(158, 6)
-        '
-        'gMonTrayQuickLauncher
-        '
-        Me.gMonTrayQuickLauncher.Name = "gMonTrayQuickLauncher"
-        Me.gMonTrayQuickLauncher.Size = New System.Drawing.Size(161, 22)
-        Me.gMonTrayQuickLauncher.Text = "&Quick Launcher"
         '
         'gMonTrayFullBackup
         '
@@ -402,7 +394,7 @@ Partial Class frmMain
         '
         'gMonFile
         '
-        Me.gMonFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonFileMonitor, Me.gMonFullSep, Me.gMonFileQuickLauncher, Me.gMonFileFullBackup, Me.gMonFileFullRestore, Me.gMonSettingsSep, Me.gMonFileSettings, Me.gMonExitSep, Me.gMonFileExit})
+        Me.gMonFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonFileMonitor, Me.gMonFullSep, Me.gMonFileFullBackup, Me.gMonFileFullRestore, Me.gMonSettingsSep, Me.gMonFileSettings, Me.gMonExitSep, Me.gMonFileExit})
         Me.gMonFile.Name = "gMonFile"
         Me.gMonFile.Size = New System.Drawing.Size(37, 20)
         Me.gMonFile.Text = "&File"
@@ -417,12 +409,6 @@ Partial Class frmMain
         '
         Me.gMonFullSep.Name = "gMonFullSep"
         Me.gMonFullSep.Size = New System.Drawing.Size(158, 6)
-        '
-        'gMonFileQuickLauncher
-        '
-        Me.gMonFileQuickLauncher.Name = "gMonFileQuickLauncher"
-        Me.gMonFileQuickLauncher.Size = New System.Drawing.Size(161, 22)
-        Me.gMonFileQuickLauncher.Text = "&Quick Launcher"
         '
         'gMonFileFullBackup
         '
@@ -646,7 +632,7 @@ Partial Class frmMain
         Me.lblLastAction.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblLastAction.Location = New System.Drawing.Point(94, 171)
         Me.lblLastAction.Name = "lblLastAction"
-        Me.lblLastAction.Size = New System.Drawing.Size(374, 13)
+        Me.lblLastAction.Size = New System.Drawing.Size(380, 13)
         Me.lblLastAction.TabIndex = 10
         Me.lblLastAction.Text = "Last Action"
         Me.lblLastAction.UseMnemonic = False
@@ -961,8 +947,6 @@ Partial Class frmMain
     Friend WithEvents gMonTraySep3 As ToolStripSeparator
     Friend WithEvents gMonSetupLauncherManager As ToolStripMenuItem
     Friend WithEvents gMonTraySetupLauncherManager As ToolStripMenuItem
-    Friend WithEvents gMonTrayQuickLauncher As ToolStripMenuItem
-    Friend WithEvents gMonFileQuickLauncher As ToolStripMenuItem
     Friend WithEvents slcMain As SplitContainer
     Friend WithEvents lblSearch As Label
     Friend WithEvents txtSearch As TextBox
