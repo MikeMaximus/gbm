@@ -369,7 +369,7 @@ Public Class frmGameManager
             sCurrentSortField = "Name"
         End If
 
-        GameData = mgrMonitorList.ReadFilteredList(oCurrentIncludeTagFilters, oCurrentExcludeTagFilters, oCurrentFilters, eCurrentFilter, bCurrentAndOperator, bCurrentSortAsc, sCurrentSortField)
+        GameData = mgrMonitorList.ReadFilteredList(oCurrentIncludeTagFilters, oCurrentExcludeTagFilters, oCurrentFilters, eCurrentFilter, bCurrentAndOperator, bCurrentSortAsc, sCurrentSortField, txtQuickFilter.Text)
 
         If optPendingRestores.Checked Then
             oRestoreData = mgrRestore.CompareManifests
@@ -514,14 +514,7 @@ Public Class frmGameManager
         For Each de As DictionaryEntry In GameData
             oApp = DirectCast(de.Value, clsGame)
             oData = New KeyValuePair(Of String, String)(oApp.ID, oApp.Name)
-            'Apply the quick filter if applicable
-            If sFilter = String.Empty Then
-                oList.Add(oData)
-            Else
-                If oApp.Name.ToLower.Contains(sFilter.ToLower) Then
-                    oList.Add(oData)
-                End If
-            End If
+            oList.Add(oData)
         Next
 
         lstGames.BeginUpdate()
@@ -2313,8 +2306,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub tmFilterTimer_Tick(sender As Object, ByVal e As EventArgs) Handles tmFilterTimer.Tick
-        lstGames.DataSource = Nothing
-        FormatAndFillList()
+        LoadData()
         tmFilterTimer.Stop()
         tmFilterTimer.Enabled = False
         lstGames.Enabled = True

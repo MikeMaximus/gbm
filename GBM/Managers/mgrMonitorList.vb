@@ -109,7 +109,7 @@ Public Class mgrMonitorList
     End Function
 
     Public Shared Function ReadFilteredList(ByVal oIncludeTagFilters As List(Of clsTag), ByVal oExcludeTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter), ByVal eFilterType As frmFilter.eFilterType, ByVal bAndOperator As Boolean,
-                                            ByVal bSortAsc As Boolean, ByVal sSortField As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As OrderedDictionary
+                                            ByVal bSortAsc As Boolean, ByVal sSortField As String, Optional ByVal sQuickFilter As String = "", Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As OrderedDictionary
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
         Dim sSQL As String = String.Empty
@@ -117,32 +117,7 @@ Public Class mgrMonitorList
         Dim oGame As clsGame
         Dim hshParams As New Hashtable
 
-        sSQL = BuildFilterQuery(oIncludeTagFilters, oExcludeTagFilters, oFilters, eFilterType, bAndOperator, bSortAsc, sSortField, hshParams)
-
-        oData = oDatabase.ReadParamData(sSQL, hshParams)
-
-        For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = MapToObject(dr, GetType(clsGame))
-            oList.Add(oGame.ID, oGame)
-        Next
-
-        Return oList
-    End Function
-
-    Public Shared Function ReadQuickFilteredList(ByVal sFilter As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As OrderedDictionary
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim oData As DataSet
-        Dim sSQL As String = String.Empty
-        Dim oList As New OrderedDictionary
-        Dim oGame As clsGame
-        Dim hshParams As New Hashtable
-        Dim iCounter As Integer = 0
-
-        sSQL = "SELECT * from monitorlist NATURAL JOIN gametags WHERE Name LIKE @GameName OR gametags.TagID = (SELECT TagID from tags WHERE Name=@TagName COLLATE NOCASE) GROUP BY monitorlist.Name;"
-
-        'Parameters
-        hshParams.Add("GameName", "%" & sFilter & "%")
-        hshParams.Add("TagName", sFilter)
+        sSQL = BuildFilterQuery(oIncludeTagFilters, oExcludeTagFilters, oFilters, eFilterType, bAndOperator, bSortAsc, sSortField, sQuickFilter, hshParams)
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
@@ -670,7 +645,7 @@ Public Class mgrMonitorList
     'Filter Functions
     Private Shared Function BuildFilterQuery(ByVal oIncludeTagFilters As List(Of clsTag), ByVal oExcludeTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter),
                                              ByVal eFilterType As frmFilter.eFilterType, ByVal bAndOperator As Boolean, ByVal bSortAsc As Boolean, ByVal sSortField As String,
-                                             ByRef hshParams As Hashtable) As String
+                                             ByVal sQuickFilter As String, ByRef hshParams As Hashtable) As String
         Dim sSQL As String = String.Empty
         Dim iCounter As Integer = 0
         Dim sBaseSelect As String = "MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS FROM monitorlist"
@@ -809,11 +784,22 @@ Public Class mgrMonitorList
             sSQL &= ")"
         End If
 
+        'Handle Quick Filter
+        If Not sQuickFilter = String.Empty Then
+            If eFilterType = frmFilter.eFilterType.BaseFilter And oFilters.Count = 0 Then
+                sSQL &= " WHERE "
+            Else
+                sSQL &= " AND "
+            End If
+            sSQL &= "MonitorID IN (SELECT MonitorID FROM monitorlist NATURAL JOIN gametags WHERE monitorlist.Name LIKE @QuickName OR gametags.TagID = (SELECT TagID FROM tags WHERE tags.Name=@QuickTag COLLATE NOCASE) GROUP BY monitorlist.Name)"
+            hshParams.Add("QuickName", "%" & sQuickFilter & "%")
+            hshParams.Add("QuickTag", sQuickFilter)
+        End If
+
         'Handle Sorting
         sSQL &= sSort
 
         Return sSQL
-
     End Function
 
     'Import / Export Functions
@@ -826,7 +812,7 @@ Public Class mgrMonitorList
         Dim oGame As Game
         Dim hshParams As New Hashtable
 
-        sSQL = BuildFilterQuery(oIncludeTagFilters, oExcludeTagFilters, oFilters, eFilterType, bAndOperator, bSortAsc, sSortField, hshParams)
+        sSQL = BuildFilterQuery(oIncludeTagFilters, oExcludeTagFilters, oFilters, eFilterType, bAndOperator, bSortAsc, sSortField, String.Empty, hshParams)
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 

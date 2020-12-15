@@ -1406,11 +1406,7 @@ Public Class frmMain
 
     'Functions handling the loading/sync of settings
     Private Sub RefreshGameList()
-        If txtSearch.Text = String.Empty Then
-            oGameList = mgrMonitorList.ReadFilteredList(New List(Of clsTag), New List(Of clsTag), New List(Of clsGameFilter), frmFilter.eFilterType.BaseFilter, False, True, "Name")
-        Else
-            oGameList = mgrMonitorList.ReadQuickFilteredList(txtSearch.Text.Trim)
-        End If
+        oGameList = mgrMonitorList.ReadFilteredList(New List(Of clsTag), New List(Of clsTag), New List(Of clsGameFilter), frmFilter.eFilterType.BaseFilter, False, True, "Name", txtSearch.Text)
         FormatAndFillList()
     End Sub
 
