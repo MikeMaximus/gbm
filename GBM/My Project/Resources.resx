@@ -436,9 +436,6 @@
   <data name="frmGameManager_btnDelete" xml:space="preserve">
     <value>-</value>
   </data>
-  <data name="frmGameManager_btnDeleteBackup" xml:space="preserve">
-    <value>&amp;Delete Backup</value>
-  </data>
   <data name="frmGameManager_btnExclude" xml:space="preserve">
     <value>E&amp;xclude Items...</value>
   </data>
@@ -454,15 +451,6 @@
   <data name="frmGameManager_btnInclude" xml:space="preserve">
     <value>Incl&amp;ude Items...</value>
   </data>
-  <data name="frmGameManager_btnMarkAsRestored" xml:space="preserve">
-    <value>&amp;Mark as Restored</value>
-  </data>
-  <data name="frmGameManager_btnOpenBackup" xml:space="preserve">
-    <value>&amp;Open Backup</value>
-  </data>
-  <data name="frmGameManager_btnOpenRestorePath" xml:space="preserve">
-    <value>O&amp;pen Restore Path</value>
-  </data>
   <data name="frmGameManager_btnProcessBrowse" xml:space="preserve">
     <value>...</value>
   </data>
@@ -474,9 +462,6 @@
   </data>
   <data name="frmGameManager_btnSavePathBrowse" xml:space="preserve">
     <value>...</value>
-  </data>
-  <data name="frmGameManager_btnTags" xml:space="preserve">
-    <value>&amp;Tags...</value>
   </data>
   <data name="frmGameManager_chkEnabled" xml:space="preserve">
     <value>Monitor this game</value>
@@ -1670,10 +1655,10 @@
     <value>[PARAM] was automatically removed.</value>
   </data>
   <data name="frmGameManager_cmsDeleteAll" xml:space="preserve">
-    <value>&amp;All Files</value>
+    <value>Delete &amp;All</value>
   </data>
   <data name="frmGameManager_cmsDeleteOne" xml:space="preserve">
-    <value>&amp;Selected File</value>
+    <value>Delete &amp;Selected</value>
   </data>
   <data name="frmGameManager_ConfirmBackupDeleteAll" xml:space="preserve">
     <value>This will delete all backup files for [PARAM].  This cannot be undone. [BR][BR]Do you want to continue?</value>
@@ -2200,9 +2185,6 @@
   <data name="frmGameManager_7zBackup" xml:space="preserve">
     <value>7-Zip</value>
   </data>
-  <data name="frmGameManager_btnImportBackup" xml:space="preserve">
-    <value>Import B&amp;ackup Files</value>
-  </data>
   <data name="frmGameManager_Choose7zImport" xml:space="preserve">
     <value>Choose compatible backup file(s)</value>
   </data>
@@ -2218,8 +2200,8 @@
   <data name="mgrBackup_ImportSuccess" xml:space="preserve">
     <value>Imported backup file [PARAM] for [PARAM].</value>
   </data>
-  <data name="frmGameManager_btnLink" xml:space="preserve">
-    <value>Lin&amp;k</value>
+  <data name="frmGameManager_btnAdvanced" xml:space="preserve">
+    <value>&amp;Advanced</value>
   </data>
   <data name="frmVariableManager_ErrorVariableReserved" xml:space="preserve">
     <value>[PARAM] is a reserved variable, you must enter a different name.</value>
@@ -2352,12 +2334,6 @@
   </data>
   <data name="GBM_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\gbm.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmGameManager_cmsOpenBackupFile" xml:space="preserve">
-    <value>&amp;File</value>
-  </data>
-  <data name="frmGameManager_cmsOpenBackupFolder" xml:space="preserve">
-    <value>F&amp;older</value>
   </data>
   <data name="frmGameManager_ErrorNoBackupFolderExists" xml:space="preserve">
     <value>The backup folder does not exist.</value>
@@ -2495,10 +2471,10 @@
     <value>Filter:</value>
   </data>
   <data name="frmGameManager_cmsConfiguration" xml:space="preserve">
-    <value>&amp;Configuration...</value>
+    <value>&amp;Link Configuration...</value>
   </data>
   <data name="frmGameManager_cmsProcess" xml:space="preserve">
-    <value>&amp;Process...</value>
+    <value>&amp;Link Process...</value>
   </data>
   <data name="Arrow_Submenu_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Arrow_Submenu_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2595,9 +2571,6 @@
   </data>
   <data name="frmSettings_chkEnableLauncher" xml:space="preserve">
     <value>Enable game launching</value>
-  </data>
-  <data name="frmGameManager_btnLaunchOptions" xml:space="preserve">
-    <value>&amp;Launch Options</value>
   </data>
   <data name="frmLauncherManager_btnAdd" xml:space="preserve">
     <value>+</value>
@@ -2709,12 +2682,6 @@
   </data>
   <data name="mgrLaunchGame_ErrorNoProcessPath" xml:space="preserve">
     <value>[PARAM] cannot be launched, it's configuration has no process path.</value>
-  </data>
-  <data name="frmGameManager_cmsLaunchGame" xml:space="preserve">
-    <value>&amp;Launch Game</value>
-  </data>
-  <data name="frmGameManager_cmsLaunchSettings" xml:space="preserve">
-    <value>&amp;Settings...</value>
   </data>
   <data name="mgrLaunchGame_ErrorNoExe" xml:space="preserve">
     <value>The game executable could not be found at:[BR][BR][PARAM]</value>
@@ -2853,5 +2820,38 @@
   </data>
   <data name="frmMain_lblLastAction" xml:space="preserve">
     <value>None</value>
+  </data>
+  <data name="Icon_FolderOpen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon_Recycle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\recycle_bin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_cmsImportData" xml:space="preserve">
+    <value>&amp;Import Backup</value>
+  </data>
+  <data name="Icon_Checkmark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\checkmark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGamemanager_cmsLaunchSettings" xml:space="preserve">
+    <value>Launch &amp;Settings...</value>
+  </data>
+  <data name="frmGameManager_lblTags" xml:space="preserve">
+    <value>Manage Tags...</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnBackupData" xml:space="preserve">
+    <value>Manage backup data</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnMarkAsRestored" xml:space="preserve">
+    <value>Mark backup as restored</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnOpenBackupFolder" xml:space="preserve">
+    <value>Open backup folder</value>
+  </data>
+  <data name="frmGameManager_ttHelp_lblBackupFileData" xml:space="preserve">
+    <value>Open backup file</value>
+  </data>
+  <data name="frmGameManager_ttHelp_lblTags" xml:space="preserve">
+    <value>Manage Tags</value>
   </data>
 </root>

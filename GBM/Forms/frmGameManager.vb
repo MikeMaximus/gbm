@@ -716,11 +716,20 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub HandleTags(ByVal sTags As String)
+        If sTags = String.Empty Then
+            lblTags.Text = frmGameManager_lblTags
+        Else
+            lblTags.Text = sTags
+        End If
+    End Sub
+
     Private Sub OpenTags()
         Dim frm As New frmGameTags
         Dim oApp As clsGame
         Dim sMonitorIDs As New List(Of String)
         Dim bSingleSelected As Boolean = False
+        Dim sTags As String
 
         If eCurrentMode = eModes.Add Then
             'Use a dummy ID
@@ -742,25 +751,29 @@ Public Class frmGameManager
 
         If eCurrentMode = eModes.Add Then
             oTagsToSave = frm.TagList
-            lblTags.Text = mgrGameTags.PrintTagsbyList(frm.TagList)
+            sTags = mgrGameTags.PrintTagsbyList(frm.TagList)
+            HandleTags(sTags)
         Else
             'Sync
             mgrMonitorList.SyncMonitorLists()
 
             'Only update visible tags if one item is selected
-            If lstGames.SelectedItems.Count = 1 Then lblTags.Text = mgrGameTags.PrintTagsbyID(CurrentGame.ID)
+            If lstGames.SelectedItems.Count = 1 Then
+                sTags = mgrGameTags.PrintTagsbyID(CurrentGame.ID)
+                HandleTags(sTags)
+            End If
 
             'If a tag filter is enabled, reload list to reflect changes
             If optCustom.Checked And Not bIsDirty Then
-                If lstGames.SelectedItems.Count = 1 Then bSingleSelected = True
-                LoadData()
-                If bSingleSelected Then lstGames.SelectedItem = New KeyValuePair(Of String, String)(CurrentGame.ID, CurrentGame.Name)
-            End If
+                    If lstGames.SelectedItems.Count = 1 Then bSingleSelected = True
+                    LoadData()
+                    If bSingleSelected Then lstGames.SelectedItem = New KeyValuePair(Of String, String)(CurrentGame.ID, CurrentGame.Name)
+                End If
 
-            'If the selected game(s) no longer match the filter, disable the form
-            If lstGames.SelectedIndex = -1 Then eCurrentMode = eModes.Disabled
-            ModeChange()
-        End If
+                'If the selected game(s) no longer match the filter, disable the form
+                If lstGames.SelectedIndex = -1 Then eCurrentMode = eModes.Disabled
+                ModeChange()
+            End If
 
     End Sub
 
@@ -888,10 +901,12 @@ Public Class frmGameManager
 
             sFileName = BackupFolder & CurrentBackupItem.FileName
 
-            btnOpenBackup.Enabled = True
-            btnOpenRestorePath.Enabled = True
+            lblBackupFileData.Enabled = True
+            btnOpenBackupFolder.Enabled = True
+            lblRestorePath.Enabled = True
             btnRestore.Enabled = True
-            btnDeleteBackup.Enabled = True
+            cmsDeleteOne.Enabled = True
+            cmsDeleteAll.Enabled = True
 
             If File.Exists(sFileName) Then
                 lblBackupFileData.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sFileName)) & ")"
@@ -904,18 +919,20 @@ Public Class frmGameManager
             oComboItems.Add(New KeyValuePair(Of String, String)(String.Empty, frmGameManager_None))
             lblBackupFileData.Text = String.Empty
             lblRestorePathData.Text = String.Empty
-            btnOpenBackup.Enabled = False
-            btnOpenRestorePath.Enabled = False
+            lblBackupFileData.Enabled = False
+            btnOpenBackupFolder.Enabled = False
+            lblRestorePath.Enabled = False
             btnRestore.Enabled = False
-            btnDeleteBackup.Enabled = False
+            cmsDeleteOne.Enabled = False
+            cmsDeleteAll.Enabled = False
         End If
 
         cboRemoteBackup.DataSource = oComboItems
 
         If cboRemoteBackup.Items.Count > 1 Then
-            btnDeleteBackup.Image = Arrow_Submenu_Right
+            cmsDeleteAll.Enabled = True
         Else
-            btnDeleteBackup.Image = Nothing
+            cmsDeleteAll.Enabled = False
         End If
 
         If oLocalBackupData.Contains(oApp.ID) Then
@@ -941,15 +958,16 @@ Public Class frmGameManager
         End If
 
         If chkMonitorOnly.Checked Then
-            btnImportBackup.Enabled = False
+            cmsImportData.Enabled = False
         Else
-            btnImportBackup.Enabled = True
+            cmsImportData.Enabled = True
         End If
 
         If mgrPath.IsSupportedRegistryPath(oApp.TruePath) Then
-            btnImportBackup.Enabled = False
-            btnOpenBackup.Enabled = False
-            btnOpenRestorePath.Enabled = False
+            cmsImportData.Enabled = False
+            lblBackupFileData.Enabled = False
+            btnOpenBackupFolder.Enabled = False
+            lblRestorePath.Enabled = False
         End If
 
     End Sub
@@ -1023,6 +1041,7 @@ Public Class frmGameManager
         Dim oData As KeyValuePair(Of String, String) = lstGames.SelectedItems(0)
         Dim oApp As clsGame = DirectCast(GameData(oData.Key), clsGame)
         Dim sCachedIcon As String = mgrCommon.GetCachedIconPath(oApp.ID)
+        Dim sTags As String = mgrGameTags.PrintTagsbyID(oApp.ID)
         Dim sttPath As String
 
         'Core
@@ -1069,7 +1088,7 @@ Public Class frmGameManager
         txtVersion.Text = oApp.Version
         txtIcon.Text = oApp.Icon
 
-        lblTags.Text = mgrGameTags.PrintTagsbyID(oApp.ID)
+        HandleTags(sTags)
 
         'Icon
         If IO.File.Exists(oApp.Icon) Then
@@ -1158,19 +1177,18 @@ Public Class frmGameManager
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
-                btnLaunchOptions.Enabled = False
+                cmsLaunchSettings.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnRestore.Enabled = False
-                btnImportBackup.Enabled = False
-                btnDeleteBackup.Enabled = False
-                btnOpenBackup.Enabled = False
-                btnOpenRestorePath.Enabled = False
+                btnBackupData.Enabled = False
+                lblBackupFileData.Enabled = False
+                btnOpenBackupFolder.Enabled = False
+                lblRestorePath.Enabled = False
                 chkEnabled.Checked = True
                 chkMonitorOnly.Checked = False
                 chkRecurseSubFolders.Checked = True
-                btnTags.Enabled = True
-                btnLink.Enabled = True
-                lblTags.Text = String.Empty
+                btnAdvanced.Enabled = True
+                lblTags.Text = frmGameManager_lblTags
                 lblTags.Visible = True
                 btnInclude.Text = frmGameManager_btnInclude
                 btnExclude.Text = frmGameManager_btnExclude
@@ -1193,15 +1211,14 @@ Public Class frmGameManager
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
-                btnLaunchOptions.Enabled = False
+                cmsLaunchSettings.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnRestore.Enabled = False
-                btnImportBackup.Enabled = False
-                btnDeleteBackup.Enabled = False
-                btnOpenBackup.Enabled = False
-                btnOpenRestorePath.Enabled = False
-                btnTags.Enabled = True
-                btnLink.Enabled = True
+                btnBackup.Enabled = False
+                lblBackupFileData.Enabled = False
+                btnOpenBackupFolder.Enabled = False
+                lblRestorePath.Enabled = False
+                btnAdvanced.Enabled = True
                 lblTags.Visible = True
                 btnImport.Enabled = False
                 btnExport.Enabled = False
@@ -1215,14 +1232,13 @@ Public Class frmGameManager
                 chkMonitorOnly.Enabled = True
                 grpExtra.Enabled = True
                 grpStats.Enabled = True
-                btnLaunchOptions.Enabled = True
+                cmsLaunchSettings.Enabled = True
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
                 btnAdd.Enabled = True
                 btnDelete.Enabled = True
                 btnBackup.Enabled = True
-                btnTags.Enabled = True
-                btnLink.Enabled = True
+                btnAdvanced.Enabled = True
                 lblTags.Visible = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
@@ -1246,10 +1262,8 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 btnBackup.Enabled = False
                 btnRestore.Enabled = False
-                btnLaunchOptions.Enabled = False
                 btnMarkAsRestored.Enabled = False
-                btnTags.Enabled = False
-                btnLink.Enabled = False
+                btnAdvanced.Enabled = False
                 lblTags.Visible = False
                 btnInclude.Text = frmGameManager_btnInclude
                 btnExclude.Text = frmGameManager_btnExclude
@@ -1280,10 +1294,9 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 btnBackup.Enabled = True
                 btnRestore.Enabled = True
-                btnLaunchOptions.Enabled = False
+                cmsLaunchSettings.Enabled = False
                 btnMarkAsRestored.Enabled = True
-                btnTags.Enabled = True
-                btnLink.Enabled = True
+                btnAdvanced.Enabled = True
                 lblTags.Visible = False
                 btnImport.Enabled = True
                 btnExport.Enabled = True
@@ -1364,9 +1377,9 @@ Public Class frmGameManager
     Private Sub VerifyImportBackup()
         If Not bIsLoading Then
             If chkMonitorOnly.Checked Then
-                btnImportBackup.Enabled = False
+                cmsImportData.Enabled = False
             Else
-                btnImportBackup.Enabled = True
+                cmsImportData.Enabled = True
             End If
         End If
     End Sub
@@ -1718,18 +1731,6 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Sub TriggerSelectedGameLaunch()
-        Dim oLaunchData As clsLaunchData = mgrLaunchData.DoLaunchDataGetbyID(oCurrentGame.ID)
-        Dim eLaunchType As mgrLaunchGame.eLaunchType
-        Dim sErrorMessage As String = String.Empty
-        If mgrLaunchGame.CanLaunchGame(oCurrentGame, oLaunchData, eLaunchType, sErrorMessage) Then
-            Me.TriggerLaunch = True
-            Me.Close()
-        Else
-            mgrCommon.ShowMessage(sErrorMessage, MsgBoxStyle.Exclamation)
-        End If
-    End Sub
-
     Private Sub TriggerSelectedImportBackup()
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         Dim oBackup As New mgrBackup
@@ -1929,20 +1930,12 @@ Public Class frmGameManager
         optBackupData.Text = frmGameManager_optBackupData
         optPendingRestores.Text = frmGameManager_optPendingRestores
         optAllGames.Text = frmGameManager_optAllGames
-        btnTags.Text = frmGameManager_btnTags
         chkEnabled.Text = frmGameManager_chkEnabled
         btnCancel.Text = frmGameManager_btnCancel
         chkMonitorOnly.Text = frmGameManager_chkMonitorOnly
-        btnMarkAsRestored.Text = frmGameManager_btnMarkAsRestored
         btnRestore.Text = frmGameManager_btnRestore
         btnSave.Text = frmGameManager_btnSave
         lblRestorePath.Text = frmGameManager_lblRestorePath
-        btnOpenRestorePath.Text = frmGameManager_btnOpenRestorePath
-        btnOpenBackup.Text = frmGameManager_btnOpenBackup
-        btnOpenBackup.ImageAlign = ContentAlignment.MiddleRight
-        btnOpenBackup.Image = Arrow_Submenu_Right
-        btnDeleteBackup.Text = frmGameManager_btnDeleteBackup
-        btnDeleteBackup.ImageAlign = ContentAlignment.MiddleRight
         lblBackupFile.Text = frmGameManager_lblBackupFile
         lblRemote.Text = frmGameManager_lblRemote
         lblLocalData.Text = frmGameManager_lblLocalData
@@ -1976,24 +1969,29 @@ Public Class frmGameManager
         lblLimit.Text = frmGameManager_lblLimit
         cmsDeleteOne.Text = frmGameManager_cmsDeleteOne
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
+        cmsImportData.Text = frmGameManager_cmsImportData
         lblComments.Text = frmGameManager_lblComments
         chkRegEx.Text = frmGameManager_chkRegEx
         btnGameID.Text = frmGameManager_btnGameID
-        btnImportBackup.Text = frmGameManager_btnImportBackup
-        btnLink.Text = frmGameManager_btnLink
-        btnLink.ImageAlign = ContentAlignment.MiddleRight
-        btnLink.Image = Arrow_Submenu_Right
+        btnAdvanced.Text = frmGameManager_btnAdvanced
+        btnAdvanced.ImageAlign = ContentAlignment.MiddleRight
+        btnAdvanced.Image = Arrow_Submenu_Right
         lblOS.Text = frmGameManager_lblOS
         btnWineConfig.Text = frmGameManager_btnWineConfig
-        btnLaunchOptions.Text = frmGameManager_btnLaunchOptions
-        btnLaunchOptions.ImageAlign = ContentAlignment.MiddleRight
-        btnLaunchOptions.Image = Arrow_Submenu_Right
-        cmsOpenBackupFile.Text = frmGameManager_cmsOpenBackupFile
-        cmsOpenBackupFolder.Text = frmGameManager_cmsOpenBackupFolder
         cmsProcess.Text = frmGameManager_cmsProcess
         cmsConfiguration.Text = frmGameManager_cmsConfiguration
-        cmsLaunchSettings.Text = frmGameManager_cmsLaunchSettings
-        cmsLaunchGame.Text = frmGameManager_cmsLaunchGame
+        cmsLaunchSettings.Text = frmGamemanager_cmsLaunchSettings
+        lblTags.Text = frmGameManager_lblTags
+        btnBackupData.Image = Icon_Recycle
+        btnMarkAsRestored.Image = Icon_Checkmark
+        btnOpenBackupFolder.Image = Icon_FolderOpen
+
+        'Tool Tips
+        ttHelp.SetToolTip(btnBackupData, frmGameManager_ttHelp_btnBackupData)
+        ttHelp.SetToolTip(btnMarkAsRestored, frmGameManager_ttHelp_btnMarkAsRestored)
+        ttHelp.SetToolTip(btnOpenBackupFolder, frmGameManager_ttHelp_btnOpenBackupFolder)
+        ttHelp.SetToolTip(lblBackupFileData, frmGameManager_ttHelp_lblBackupFileData)
+        ttHelp.SetToolTip(lblTags, frmGameManager_ttHelp_lblTags)
 
         'Init Combos
         Dim oComboItems As New List(Of KeyValuePair(Of Integer, String))
@@ -2035,14 +2033,11 @@ Public Class frmGameManager
             btnBackup.Visible = False
             btnRestore.Visible = False
             btnMarkAsRestored.Visible = False
-            btnDeleteBackup.Visible = False
-            btnOpenBackup.Visible = False
-            btnOpenRestorePath.Visible = False
-            btnImportBackup.Visible = False
+            btnBackupData.Visible = False
         End If
 
         If Not mgrSettings.EnableLauncher Then
-            btnLaunchOptions.Visible = False
+            cmsLaunchSettings.Visible = False
         End If
 
         LoadBackupData()
@@ -2120,27 +2115,23 @@ Public Class frmGameManager
         IconBrowse()
     End Sub
 
-    Private Sub btnOpenBackup_Click(sender As Object, e As EventArgs) Handles btnOpenBackup.Click
-        mgrCommon.OpenButtonSubMenu(cmsOpenBackup, btnOpenBackup)
-    End Sub
-
-    Private Sub cmsOpenBackupFile_Click(sender As Object, e As EventArgs) Handles cmsOpenBackupFile.Click
+    Private Sub lblBackupFileData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblBackupFileData.LinkClicked
         OpenBackupFile()
     End Sub
 
-    Private Sub cmsOpenBackupFolder_Click(sender As Object, e As EventArgs) Handles cmsOpenBackupFolder.Click
+    Private Sub btnOpenBackupFolder_Click(sender As Object, e As EventArgs) Handles btnOpenBackupFolder.Click
         OpenBackupFolder()
     End Sub
 
-    Private Sub btnOpenRestorePath_Click(sender As Object, e As EventArgs) Handles btnOpenRestorePath.Click
+    Private Sub lblRestorePathData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblRestorePathData.LinkClicked
         OpenRestorePath()
     End Sub
 
-    Private Sub btnLink_Click(sender As Object, e As EventArgs) Handles btnLink.Click
-        mgrCommon.OpenButtonSubMenu(cmsLink, btnLink)
+    Private Sub btnLink_Click(sender As Object, e As EventArgs) Handles btnAdvanced.Click
+        mgrCommon.OpenButtonSubMenu(cmsLink, btnAdvanced)
     End Sub
 
-    Private Sub btnTags_Click(sender As Object, e As EventArgs) Handles btnTags.Click
+    Private Sub lblTags_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblTags.LinkClicked
         OpenTags()
     End Sub
 
@@ -2152,16 +2143,20 @@ Public Class frmGameManager
         OpenProcesses()
     End Sub
 
+    Private Sub cmsLaunchSettings_Click(sender As Object, e As EventArgs) Handles cmsLaunchSettings.Click
+        OpenLauncherConfig()
+    End Sub
+
     Private Sub btnWineConfig_Click(sender As Object, e As EventArgs) Handles btnWineConfig.Click
         OpenWineConfiguration()
     End Sub
 
-    Private Sub btnDeleteBackup_Click(sender As Object, e As EventArgs) Handles btnDeleteBackup.Click
-        If cboRemoteBackup.Items.Count > 1 Then
-            mgrCommon.OpenButtonSubMenu(cmsDeleteBackup, btnDeleteBackup)
-        Else
-            DeleteBackup()
-        End If
+    Private Sub btnBackupData_Click(sender As Object, e As EventArgs) Handles btnBackupData.Click
+        mgrCommon.OpenButtonSubMenu(cmsBackupData, btnBackupData)
+    End Sub
+
+    Private Sub cmsImportData_Click(sender As Object, e As EventArgs) Handles cmsImportData.Click
+        TriggerSelectedImportBackup()
     End Sub
 
     Private Sub cmsDeleteOne_Click(sender As Object, e As EventArgs) Handles cmsDeleteOne.Click
@@ -2172,7 +2167,7 @@ Public Class frmGameManager
         DeleteAllBackups()
     End Sub
 
-    Private Sub btnMarkAsRestored_Click(sender As Object, e As EventArgs) Handles btnMarkAsRestored.Click
+    Private Sub btnMarkAsRestored_CheckedChanged(sender As Object, e As EventArgs) Handles btnMarkAsRestored.Click
         MarkAsRestored()
     End Sub
 
@@ -2201,10 +2196,6 @@ Public Class frmGameManager
         Dim sExclude As String = txtExclude.Text
         OpenBuilder(frmGameManager_Exclude, txtExclude)
         UpdateBuilderButtonLabel(txtExclude.Text, frmGameManager_ExcludeShortcut, btnExclude, (sExclude <> txtExclude.Text))
-    End Sub
-
-    Private Sub btnImportBackup_Click(sender As Object, e As EventArgs) Handles btnImportBackup.Click
-        TriggerSelectedImportBackup()
     End Sub
 
     Private Sub chkFolderSave_CheckedChanged(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged
@@ -2271,18 +2262,6 @@ Public Class frmGameManager
 
     Private Sub btnGameID_Click(sender As Object, e As EventArgs) Handles btnGameID.Click
         OpenGameIDEdit()
-    End Sub
-
-    Private Sub btnLauncherConfig_Click(sender As Object, e As EventArgs) Handles btnLaunchOptions.Click
-        mgrCommon.OpenButtonSubMenu(cmsLaunch, btnLaunchOptions)
-    End Sub
-
-    Private Sub cmsLaunchSettings_Click(sender As Object, e As EventArgs) Handles cmsLaunchSettings.Click
-        OpenLauncherConfig()
-    End Sub
-
-    Private Sub cmsLaunchGame_Click(sender As Object, e As EventArgs) Handles cmsLaunchGame.Click
-        TriggerSelectedGameLaunch()
     End Sub
 
     Private Sub txtQuickFilter_TextChanged(sender As Object, e As EventArgs) Handles txtQuickFilter.TextChanged

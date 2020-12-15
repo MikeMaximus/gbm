@@ -445,9 +445,12 @@
     <None Include="Resources\expand.png" />
     <Content Include="Resources\cancel.png" />
     <Content Include="Resources\cancel_small.png" />
+    <Content Include="Resources\checkmark.png" />
     <Content Include="Resources\edit.png" />
+    <Content Include="Resources\folder_open.png" />
     <Content Include="Resources\New.png" />
     <Content Include="Resources\play.png" />
+    <Content Include="Resources\recycle_bin.png" />
     <Content Include="Resources\restore.png" />
     <Content Include="Resources\Update.png" />
     <Content Include="Utilities\x64\7za.exe">
