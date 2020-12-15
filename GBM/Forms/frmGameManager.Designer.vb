@@ -500,7 +500,7 @@ Partial Class frmGameManager
         Me.lblTags.Location = New System.Drawing.Point(163, 124)
         Me.lblTags.Name = "lblTags"
         Me.lblTags.Size = New System.Drawing.Size(304, 20)
-        Me.lblTags.TabIndex = 11
+        Me.lblTags.TabIndex = 12
         Me.lblTags.TabStop = True
         Me.lblTags.Text = "Manage Tags"
         Me.lblTags.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -605,7 +605,7 @@ Partial Class frmGameManager
         Me.nudHours.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudHours.Name = "nudHours"
         Me.nudHours.Size = New System.Drawing.Size(88, 20)
-        Me.nudHours.TabIndex = 12
+        Me.nudHours.TabIndex = 11
         '
         'lblHours
         '
@@ -613,7 +613,7 @@ Partial Class frmGameManager
         Me.lblHours.Location = New System.Drawing.Point(6, 126)
         Me.lblHours.Name = "lblHours"
         Me.lblHours.Size = New System.Drawing.Size(38, 13)
-        Me.lblHours.TabIndex = 11
+        Me.lblHours.TabIndex = 4
         Me.lblHours.Text = "Hours:"
         '
         'grpStats
@@ -947,11 +947,12 @@ Partial Class frmGameManager
         '
         'btnAdvanced
         '
-        Me.btnAdvanced.Location = New System.Drawing.Point(525, 437)
+        Me.btnAdvanced.Location = New System.Drawing.Point(535, 437)
         Me.btnAdvanced.Name = "btnAdvanced"
-        Me.btnAdvanced.Size = New System.Drawing.Size(85, 23)
+        Me.btnAdvanced.Size = New System.Drawing.Size(75, 23)
         Me.btnAdvanced.TabIndex = 12
         Me.btnAdvanced.Text = "&Advanced"
+        Me.btnAdvanced.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnAdvanced.UseVisualStyleBackColor = True
         '
         'ttFullPath
