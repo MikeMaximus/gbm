@@ -45,6 +45,7 @@ Public Class frmGameManager
     End Enum
 
     Private eCurrentMode As eModes = eModes.Disabled
+    Private eLastMode As eModes = eModes.Disabled
 
     Property PendingRestores As Boolean
         Get
@@ -1009,7 +1010,7 @@ Public Class frmGameManager
             mgrManifest.DoManifestDeleteByMonitorID(CurrentBackupItem, mgrSQLite.Database.Local)
 
             LoadBackupData()
-            FillData()
+            GetBackupInfo(CurrentGame)
         End If
     End Sub
 
@@ -1030,7 +1031,7 @@ Public Class frmGameManager
             mgrCommon.DeleteDirectoryByBackup(BackupFolder, CurrentBackupItem)
 
             LoadBackupData()
-            FillData()
+            GetBackupInfo(CurrentGame)
         End If
     End Sub
 
@@ -1100,7 +1101,6 @@ Public Class frmGameManager
 
         'Stats
         nudHours.Value = oApp.Hours
-        GetBackupInfo(oApp)
 
         'Set Current
         CurrentGame = oApp
@@ -1158,8 +1158,15 @@ Public Class frmGameManager
     Private Sub ModeChange(Optional ByVal bNoFocusChange As Boolean = False)
         IsLoading = True
 
+        Select Case eLastMode
+            Case eModes.MultiSelect
+                ToggleControls(grpExtra.Controls, True)
+                ToggleControls(grpStats.Controls, True)
+        End Select
+
         Select Case eCurrentMode
             Case eModes.Add
+                eLastMode = eModes.Add
                 oTagsToSave.Clear()
                 oProcessesToSave.Clear()
                 grpFilter.Enabled = False
@@ -1170,8 +1177,6 @@ Public Class frmGameManager
                 chkMonitorOnly.Enabled = True
                 grpExtra.Enabled = True
                 grpStats.Enabled = True
-                ToggleControls(grpExtra.Controls, True)
-                ToggleControls(grpStats.Controls, True)
                 WipeControls(grpConfig.Controls)
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
@@ -1204,6 +1209,7 @@ Public Class frmGameManager
                 cboOS.SelectedValue = CInt(mgrCommon.GetCurrentOS)
                 HandleWineConfig()
             Case eModes.Edit
+                eLastMode = eModes.Edit
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
                 lblQuickFilter.Enabled = False
@@ -1212,26 +1218,21 @@ Public Class frmGameManager
                 chkEnabled.Enabled = True
                 chkMonitorOnly.Enabled = True
                 grpExtra.Enabled = True
-                grpStats.Enabled = True
-                ToggleControls(grpExtra.Controls, True)
-                ToggleControls(grpStats.Controls, True)
+                grpStats.Enabled = False
                 btnSave.Enabled = True
                 btnCancel.Enabled = True
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
-                cmsLaunchSettings.Enabled = False
-                btnMarkAsRestored.Enabled = False
                 btnRestore.Enabled = False
                 btnBackup.Enabled = False
-                lblBackupFileData.Enabled = False
-                btnOpenBackupFolder.Enabled = False
-                lblRestorePath.Enabled = False
                 btnAdvanced.Enabled = True
                 lblTags.Visible = True
                 btnImport.Enabled = False
                 btnExport.Enabled = False
             Case eModes.View
+                eLastMode = eModes.View
+                GetBackupInfo(CurrentGame)
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
                 lblQuickFilter.Enabled = True
@@ -1241,8 +1242,6 @@ Public Class frmGameManager
                 chkMonitorOnly.Enabled = True
                 grpExtra.Enabled = True
                 grpStats.Enabled = True
-                ToggleControls(grpExtra.Controls, True)
-                ToggleControls(grpStats.Controls, True)
                 cmsLaunchSettings.Enabled = True
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
@@ -1254,6 +1253,7 @@ Public Class frmGameManager
                 btnImport.Enabled = True
                 btnExport.Enabled = True
             Case eModes.Disabled
+                eLastMode = eModes.Disabled
                 grpFilter.Enabled = True
                 lstGames.Enabled = True
                 lblQuickFilter.Enabled = True
@@ -1285,6 +1285,7 @@ Public Class frmGameManager
                 UpdateGenericButtonLabel(frmGameManager_ExcludeShortcut, btnExclude, False)
                 UpdateGenericButtonLabel(frmGameManager_btnGameID, btnGameID, False)
             Case eModes.MultiSelect
+                eLastMode = eModes.MultiSelect
                 lstGames.Enabled = True
                 lblQuickFilter.Enabled = False
                 txtQuickFilter.Enabled = False
@@ -1733,7 +1734,7 @@ Public Class frmGameManager
                 If optAllGames.Checked Then
                     If lstGames.SelectedItems.Count = 1 Then
                         lstGames.SelectedIndex = lstGames.Items.IndexOf(New KeyValuePair(Of String, String)(CurrentGame.ID, CurrentGame.Name))
-                        FillData()
+                        GetBackupInfo(CurrentGame)
                     End If
                 Else
                     eCurrentMode = eModes.Disabled
