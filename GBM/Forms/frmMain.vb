@@ -1775,9 +1775,11 @@ Public Class frmMain
         If mgrSettings.EnableLauncher Then
             gMonSetupLauncherManager.Visible = True
             gMonTraySetupLauncherManager.Visible = True
+            SwitchDisplayMode()
         Else
             gMonSetupLauncherManager.Visible = False
             gMonTraySetupLauncherManager.Visible = False
+            SwitchDisplayMode()
         End If
 
     End Sub
@@ -2033,7 +2035,11 @@ Public Class frmMain
                 btnRestore.Visible = True
                 btnBackup.Visible = True
                 btnEdit.Visible = True
-                If mgrSettings.EnableLauncher Then btnPlay.Visible = True
+                If mgrSettings.EnableLauncher Then
+                    btnPlay.Visible = True
+                Else
+                    btnPlay.Visible = False
+                End If
                 SelectLastSelectedGame()
                 If oLastGame.MonitorOnly Then
                     btnRestore.Enabled = False
@@ -2058,7 +2064,11 @@ Public Class frmMain
                 btnRestore.Visible = True
                 btnBackup.Visible = True
                 btnEdit.Visible = True
-                If mgrSettings.EnableLauncher Then btnPlay.Visible = True
+                If mgrSettings.EnableLauncher Then
+                    btnPlay.Visible = True
+                Else
+                    btnPlay.Visible = False
+                End If
                 If oSelectedGame.MonitorOnly Then
                     btnRestore.Enabled = False
                     btnBackup.Enabled = False

@@ -503,7 +503,7 @@ Partial Class frmGameManager
         Me.lblTags.TabIndex = 12
         Me.lblTags.TabStop = True
         Me.lblTags.Text = "Manage Tags"
-        Me.lblTags.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblTags.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'btnIconBrowse
         '

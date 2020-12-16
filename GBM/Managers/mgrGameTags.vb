@@ -297,6 +297,22 @@
         Return sTags.TrimEnd(cTrim)
     End Function
 
+    Public Shared Function PrintTagsbyIDMulti(ByVal sIDs As List(Of String)) As String
+        Dim hshTags As Hashtable
+        Dim oTag As clsTag
+        Dim sTags As String = String.Empty
+        Dim cTrim() As Char = {",", " "}
+
+        hshTags = mgrGameTags.GetTagsByGameMulti(sIDs)
+
+        For Each de As DictionaryEntry In hshTags
+            oTag = DirectCast(de.Value, clsTag)
+            sTags &= "#" & oTag.Name & ", "
+        Next
+
+        Return sTags.TrimEnd(cTrim)
+    End Function
+
     Public Shared Function PrintTagsbyList(ByVal oList As List(Of KeyValuePair(Of String, String))) As String
         Dim sTags As String = String.Empty
         Dim cTrim() As Char = {",", " "}

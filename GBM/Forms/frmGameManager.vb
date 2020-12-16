@@ -679,10 +679,21 @@ Public Class frmGameManager
         mgrCommon.OpenInOS(sPath, frmGameManager_ErrorNoRestorePathExists)
     End Sub
 
+    Private Function GetSelectedGames() As List(Of String)
+        Dim sMonitorIDs As New List(Of String)
+        Dim oApp As clsGame
+
+        For Each oData In lstGames.SelectedItems
+            oApp = DirectCast(GameData(oData.Key), clsGame)
+            sMonitorIDs.Add(oApp.ID)
+        Next
+
+        Return sMonitorIDs
+    End Function
+
     Private Sub OpenProcesses()
         Dim frm As New frmGameProcesses
-        Dim oApp As clsGame
-        Dim sMonitorIDS As New List(Of String)
+        Dim sMonitorIDs As New List(Of String)
 
         'Show Intro Tip
         If Not (mgrSettings.SuppressMessages And mgrSettings.eSuppressMessages.LinkProcessTip) = mgrSettings.eSuppressMessages.LinkProcessTip Then
@@ -693,20 +704,17 @@ Public Class frmGameManager
 
         If eCurrentMode = eModes.Add Then
             'Use a dummy ID
-            sMonitorIDS.Add(Guid.NewGuid.ToString)
+            sMonitorIDs.Add(Guid.NewGuid.ToString)
             frm.GameName = txtName.Text
             frm.NewMode = True
             frm.ProcessList = oProcessesToSave
         Else
-            For Each oData In lstGames.SelectedItems
-                oApp = DirectCast(GameData(oData.Key), clsGame)
-                sMonitorIDS.Add(oApp.ID)
-            Next
+            sMonitorIDs = GetSelectedGames()
             frm.GameName = CurrentGame.Name
             frm.NewMode = False
         End If
 
-        frm.IDList = sMonitorIDS
+        frm.IDList = sMonitorIDs
         frm.ShowDialog()
 
         If eCurrentMode = eModes.Add Then
@@ -726,7 +734,6 @@ Public Class frmGameManager
 
     Private Sub OpenTags()
         Dim frm As New frmGameTags
-        Dim oApp As clsGame
         Dim sMonitorIDs As New List(Of String)
         Dim bSingleSelected As Boolean = False
         Dim sTags As String
@@ -738,10 +745,7 @@ Public Class frmGameManager
             frm.NewMode = True
             frm.TagList = oTagsToSave
         Else
-            For Each oData In lstGames.SelectedItems
-                oApp = DirectCast(GameData(oData.Key), clsGame)
-                sMonitorIDs.Add(oApp.ID)
-            Next
+            sMonitorIDs = GetSelectedGames()
             frm.GameName = CurrentGame.Name
             frm.NewMode = False
         End If
@@ -765,21 +769,19 @@ Public Class frmGameManager
 
             'If a tag filter is enabled, reload list to reflect changes
             If optCustom.Checked And Not bIsDirty Then
-                    If lstGames.SelectedItems.Count = 1 Then bSingleSelected = True
-                    LoadData()
-                    If bSingleSelected Then lstGames.SelectedItem = New KeyValuePair(Of String, String)(CurrentGame.ID, CurrentGame.Name)
-                End If
-
-                'If the selected game(s) no longer match the filter, disable the form
-                If lstGames.SelectedIndex = -1 Then eCurrentMode = eModes.Disabled
-                ModeChange()
+                If lstGames.SelectedItems.Count = 1 Then bSingleSelected = True
+                LoadData()
+                If bSingleSelected Then lstGames.SelectedItem = New KeyValuePair(Of String, String)(CurrentGame.ID, CurrentGame.Name)
             End If
 
+            'If the selected game(s) no longer match the filter, disable the form
+            If lstGames.SelectedIndex = -1 Then eCurrentMode = eModes.Disabled
+            ModeChange()
+        End If
     End Sub
 
     Private Sub OpenConfigLinks()
         Dim frm As New frmConfigLinks
-        Dim oApp As clsGame
         Dim sMonitorIDs As New List(Of String)
 
         'Show Intro Tip
@@ -796,10 +798,7 @@ Public Class frmGameManager
             frm.NewMode = True
             frm.ConfigLinkList = oConfigLinksToSave
         Else
-            For Each oData In lstGames.SelectedItems
-                oApp = DirectCast(GameData(oData.Key), clsGame)
-                sMonitorIDs.Add(oApp.ID)
-            Next
+            sMonitorIDs = GetSelectedGames()
             frm.GameName = CurrentGame.Name
             frm.NewMode = False
         End If
@@ -1134,6 +1133,12 @@ Public Class frmGameManager
         AddHandler cboOS.SelectedValueChanged, AddressOf DirtyCheck_ValueChanged
     End Sub
 
+    Private Sub ToggleControls(ByVal oCtls As GroupBox.ControlCollection, ByVal bEnabled As Boolean)
+        For Each ctl As Control In oCtls
+            ctl.Enabled = bEnabled
+        Next
+    End Sub
+
     Private Sub WipeControls(ByVal oCtls As GroupBox.ControlCollection)
         For Each ctl As Control In oCtls
             If TypeOf ctl Is TextBox Then
@@ -1165,6 +1170,8 @@ Public Class frmGameManager
                 chkMonitorOnly.Enabled = True
                 grpExtra.Enabled = True
                 grpStats.Enabled = True
+                ToggleControls(grpExtra.Controls, True)
+                ToggleControls(grpStats.Controls, True)
                 WipeControls(grpConfig.Controls)
                 WipeControls(grpExtra.Controls)
                 WipeControls(grpStats.Controls)
@@ -1206,6 +1213,8 @@ Public Class frmGameManager
                 chkMonitorOnly.Enabled = True
                 grpExtra.Enabled = True
                 grpStats.Enabled = True
+                ToggleControls(grpExtra.Controls, True)
+                ToggleControls(grpStats.Controls, True)
                 btnSave.Enabled = True
                 btnCancel.Enabled = True
                 btnAdd.Enabled = False
@@ -1232,6 +1241,8 @@ Public Class frmGameManager
                 chkMonitorOnly.Enabled = True
                 grpExtra.Enabled = True
                 grpStats.Enabled = True
+                ToggleControls(grpExtra.Controls, True)
+                ToggleControls(grpStats.Controls, True)
                 cmsLaunchSettings.Enabled = True
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
@@ -1288,16 +1299,18 @@ Public Class frmGameManager
                 chkMonitorOnly.Checked = False
                 chkEnabled.Enabled = True
                 chkEnabled.Checked = False
-                grpExtra.Enabled = False
-                grpStats.Enabled = False
+                ToggleControls(grpExtra.Controls, False)
+                ToggleControls(grpStats.Controls, False)
+                btnMarkAsRestored.Enabled = True
+                lblTags.Visible = True
+                lblTags.Enabled = True
+                HandleTags(mgrGameTags.PrintTagsbyIDMulti(GetSelectedGames))
                 btnAdd.Enabled = False
                 btnDelete.Enabled = True
                 btnBackup.Enabled = True
                 btnRestore.Enabled = True
                 cmsLaunchSettings.Enabled = False
-                btnMarkAsRestored.Enabled = True
                 btnAdvanced.Enabled = True
-                lblTags.Visible = False
                 btnImport.Enabled = True
                 btnExport.Enabled = True
         End Select
