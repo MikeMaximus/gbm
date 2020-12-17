@@ -496,6 +496,7 @@ Partial Class frmGameManager
         '
         Me.lblTags.ActiveLinkColor = System.Drawing.SystemColors.ControlText
         Me.lblTags.AutoEllipsis = True
+        Me.lblTags.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
         Me.lblTags.LinkColor = System.Drawing.SystemColors.ControlText
         Me.lblTags.Location = New System.Drawing.Point(163, 124)
         Me.lblTags.Name = "lblTags"
@@ -669,6 +670,7 @@ Partial Class frmGameManager
         Me.lblBackupFileData.ActiveLinkColor = System.Drawing.SystemColors.ControlText
         Me.lblBackupFileData.AutoEllipsis = True
         Me.lblBackupFileData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblBackupFileData.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
         Me.lblBackupFileData.LinkColor = System.Drawing.SystemColors.ControlText
         Me.lblBackupFileData.Location = New System.Drawing.Point(96, 73)
         Me.lblBackupFileData.Name = "lblBackupFileData"
@@ -682,6 +684,7 @@ Partial Class frmGameManager
         Me.lblRestorePathData.ActiveLinkColor = System.Drawing.SystemColors.ControlText
         Me.lblRestorePathData.AutoEllipsis = True
         Me.lblRestorePathData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblRestorePathData.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
         Me.lblRestorePathData.LinkColor = System.Drawing.SystemColors.ControlText
         Me.lblRestorePathData.Location = New System.Drawing.Point(96, 98)
         Me.lblRestorePathData.Name = "lblRestorePathData"
