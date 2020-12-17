@@ -1508,6 +1508,9 @@ Public Class frmMain
         'Load Settings
         mgrSettings.LoadSettings()
 
+        'Set UI based on settings
+        HandleUISettings()
+
         If Not bFirstRun Then
             'The application cannot continue if this fails
             If Not VerifyBackupLocation() Then
@@ -2032,13 +2035,20 @@ Public Class frmMain
                 txtSearch.Enabled = True
                 txtSearch.Focus()
             Case eDisplayModes.Normal
-                btnRestore.Visible = True
-                btnBackup.Visible = True
-                btnEdit.Visible = True
-                If mgrSettings.EnableLauncher Then
-                    btnPlay.Visible = True
-                Else
+                If mgrSettings.MainHideButtons Then
+                    btnRestore.Visible = False
+                    btnBackup.Visible = False
+                    btnEdit.Visible = False
                     btnPlay.Visible = False
+                Else
+                    btnRestore.Visible = True
+                    btnBackup.Visible = True
+                    btnEdit.Visible = True
+                    If mgrSettings.EnableLauncher Then
+                        btnPlay.Visible = True
+                    Else
+                        btnPlay.Visible = False
+                    End If
                 End If
                 SelectLastSelectedGame()
                 If oLastGame.MonitorOnly Then
@@ -2061,13 +2071,20 @@ Public Class frmMain
                 txtSearch.Enabled = False
                 btnClearSelected.Enabled = False
             Case eDisplayModes.GameSelected
-                btnRestore.Visible = True
-                btnBackup.Visible = True
-                btnEdit.Visible = True
-                If mgrSettings.EnableLauncher Then
-                    btnPlay.Visible = True
-                Else
+                If mgrSettings.MainHideButtons Then
+                    btnRestore.Visible = False
+                    btnBackup.Visible = False
+                    btnEdit.Visible = False
                     btnPlay.Visible = False
+                Else
+                    btnRestore.Visible = True
+                    btnBackup.Visible = True
+                    btnEdit.Visible = True
+                    If mgrSettings.EnableLauncher Then
+                        btnPlay.Visible = True
+                    Else
+                        btnPlay.Visible = False
+                    End If
                 End If
                 If oSelectedGame.MonitorOnly Then
                     btnRestore.Enabled = False
@@ -2155,6 +2172,7 @@ Public Class frmMain
         gMonStripStatusButton.Text = frmMain_gMonStripStatusButton
         gMonStripStatusButton.ToolTipText = frmMain_gMonStripStatusButtonToolTip
         gMonStripCollapse.ToolTipText = frmMain_gMonStripCollapseHideToolTip
+        gMonStripCollapse.Image = Collapse_Left
         btnRestore.Text = frmMain_btnRestore
         btnRestore.Image = Main_Restore
         btnBackup.Text = frmMain_btnBackup
@@ -2190,6 +2208,22 @@ Public Class frmMain
 
         AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
         ResetGameInfo()
+    End Sub
+
+    Private Sub HandleUISettings()
+        If mgrSettings.MainHideGameList Then
+            slcMain.Panel1Collapsed = True
+            gMonStripCollapse.ToolTipText = frmMain_gMonStripCollapseShowToolTip
+            gMonStripCollapse.Image = Expand_Right
+        End If
+
+        If mgrSettings.MainHideLog And mgrSettings.MainHideGameList Then
+            Me.Size = New Size(Me.Size.Width - slcMain.SplitterDistance, Me.Size.Height - txtLog.Size.Height)
+        ElseIf mgrSettings.MainHideLog And Not mgrSettings.MainHideGameList Then
+            Me.Size = New Size(Me.Size.Width, Me.Size.Height - txtLog.Size.Height)
+        ElseIf Not mgrSettings.MainHideLog And mgrSettings.MainHideGameList Then
+            Me.Size = New Size(Me.Size.Width - slcMain.SplitterDistance, Me.Size.Height)
+        End If
     End Sub
 
     Private Function BuildChildProcesses() As Integer

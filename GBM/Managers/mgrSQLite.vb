@@ -76,7 +76,8 @@ Public Class mgrSQLite
                    "SuppressBackup BOOLEAN NOT NULL, SuppressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
                    "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL, SessionTracking BOOLEAN NOT NULL, " &
                    "SuppressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL, UseGameID BOOLEAN NOT NULL, DisableSyncMessages BOOLEAN NOT NULL, ShowResolvedPaths BOOLEAN NOT NULL, " &
-                   "DisableDiskSpaceCheck BOOLEAN NOT NULL, TemporaryFolder TEXT, ExitOnClose BOOLEAN NOT NULL, ExitNoWarning BOOLEAN NOT NULL, EnableLauncher BOOLEAN NOT NULL);"
+                   "DisableDiskSpaceCheck BOOLEAN NOT NULL, TemporaryFolder TEXT, ExitOnClose BOOLEAN NOT NULL, ExitNoWarning BOOLEAN NOT NULL, EnableLauncher BOOLEAN NOT NULL, " &
+                   "MainHideGameList BOOLEAN NOT NULL, MainHideButtons BOOLEAN NOT NULL, MainHideLog BOOLEAN NOT NULL);"
 
             'Add Tables (SavedPath)
             sSql &= "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
@@ -1064,6 +1065,10 @@ Public Class mgrSQLite
                         BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS) SELECT MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, 
                         ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS FROM monitorlist;
                         DROP TABLE monitorlist; ALTER TABLE monitorlist_new RENAME TO monitorlist;"
+
+                'Add new UI settings
+                sSQL &= "ALTER TABLE settings ADD COLUMN MainHideGameList BOOLEAN NOT NULL DEFAULT 0; ALTER TABLE settings ADD COLUMN MainHideButtons BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN MainHideLog BOOLEAN NOT NULL DEFAULT 0;"
 
                 sSQL &= "PRAGMA user_version=125"
 

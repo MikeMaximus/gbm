@@ -75,6 +75,9 @@ Public Class frmSettings
         mgrSettings.BackupOnLaunch = chkBackupOnLaunch.Checked
         mgrSettings.ExitOnClose = chkExitOnClose.Checked
         mgrSettings.ExitNoWarning = chkExitNoWarning.Checked
+        mgrSettings.MainHideLog = chkHideLog.Checked
+        mgrSettings.MainHideGameList = chkHideGameList.Checked
+        mgrSettings.MainHideButtons = chkHideButtons.Checked
         mgrSettings.ShowDetectionToolTips = chkShowDetectionTips.Checked
         mgrSettings.DisableSyncMessages = chkDisableSyncMessages.Checked
         mgrSettings.AutoSaveLog = chkAutoSaveLog.Checked
@@ -215,6 +218,9 @@ Public Class frmSettings
         chkBackupOnLaunch.Checked = mgrSettings.BackupOnLaunch
         chkExitOnClose.Checked = mgrSettings.ExitOnClose
         chkExitNoWarning.Checked = mgrSettings.ExitNoWarning
+        chkHideLog.Checked = mgrSettings.MainHideLog
+        chkHideGameList.Checked = mgrSettings.MainHideGameList
+        chkHideButtons.Checked = mgrSettings.MainHideButtons
         chkShowDetectionTips.Checked = mgrSettings.ShowDetectionToolTips
         chkDisableSyncMessages.Checked = mgrSettings.DisableSyncMessages
         chkAutoSaveLog.Checked = mgrSettings.AutoSaveLog

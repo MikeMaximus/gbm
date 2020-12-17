@@ -32,6 +32,9 @@ Public Class mgrSettings
     Shared bExitOnClose As Boolean
     Shared bExitNoWarning As Boolean
     Shared bEnableLauncher As Boolean
+    Shared bMainHideGameList As Boolean
+    Shared bMainHideButtons As Boolean
+    Shared bMainHideLog As Boolean
 
     <Flags()> Public Enum eSuppressMessages
         None = 0
@@ -378,6 +381,33 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Shared Property MainHideGameList As Boolean
+        Get
+            Return bMainHideGameList
+        End Get
+        Set(value As Boolean)
+            bMainHideGameList = value
+        End Set
+    End Property
+
+    Shared Property MainHideLog As Boolean
+        Get
+            Return bMainHideLog
+        End Get
+        Set(value As Boolean)
+            bMainHideLog = value
+        End Set
+    End Property
+
+    Shared Property MainHideButtons As Boolean
+        Get
+            Return bMainHideButtons
+        End Get
+        Set(value As Boolean)
+            bMainHideButtons = value
+        End Set
+    End Property
+
     Shared Sub New()
         SetDefaults()
     End Sub
@@ -413,6 +443,9 @@ Public Class mgrSettings
         bDisableDiskSpaceCheck = False
         bExitNoWarning = False
         bEnableLauncher = False
+        bMainHideGameList = False
+        bMainHideButtons = False
+        bMainHideLog = False
 
         'OS Based Defaults
         If mgrCommon.IsUnix Then
@@ -431,7 +464,8 @@ Public Class mgrSettings
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SuppressBackup, @SuppressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
         sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, @UseGameID, "
-        sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck, @TemporaryFolder, @ExitOnClose, @ExitNoWarning, @EnableLauncher)"
+        sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck, @TemporaryFolder, @ExitOnClose, @ExitNoWarning, @EnableLauncher, "
+        sSQL &= "@MainHideGameList, @MainHideButtons, @MainHideLog)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -463,6 +497,9 @@ Public Class mgrSettings
         hshParams.Add("ExitOnClose", ExitOnClose)
         hshParams.Add("ExitNoWarning", ExitNoWarning)
         hshParams.Add("EnableLauncher", EnableLauncher)
+        hshParams.Add("MainHideGameList", MainHideGameList)
+        hshParams.Add("MainHideButtons", MainHideButtons)
+        hshParams.Add("MainHideLog", MainHideLog)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -508,6 +545,9 @@ Public Class mgrSettings
             ExitOnClose = CBool(dr("ExitOnClose"))
             ExitNoWarning = CBool(dr("ExitNoWarning"))
             EnableLauncher = CBool(dr("EnableLauncher"))
+            MainHideGameList = CBool(dr("MainHideGameList"))
+            MainHideButtons = CBool(dr("MainHideButtons"))
+            MainHideLog = CBool(dr("MainHideLog"))
         Next
 
         oDatabase.Disconnect()

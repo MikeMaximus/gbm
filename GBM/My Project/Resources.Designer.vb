@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-12-15T18:31:53
+        '''  Looks up a localized string similar to 2020-12-17T16:10:49
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5767,6 +5767,33 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_chkExitOnClose() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkExitOnClose", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Hide buttons on main window.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkHideButtons() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkHideButtons", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Hide game list on main window by default (Requires Restart).
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkHideGameList() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkHideGameList", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Hide log by default (Requires Restart).
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkHideLog() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkHideLog", resourceCulture)
             End Get
         End Property
         

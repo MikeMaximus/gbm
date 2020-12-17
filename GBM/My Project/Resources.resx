@@ -2854,4 +2854,13 @@
   <data name="frmGameManager_ttHelp_lblTags" xml:space="preserve">
     <value>Manage Tags</value>
   </data>
+  <data name="frmSettings_chkHideButtons" xml:space="preserve">
+    <value>Hide buttons on main window</value>
+  </data>
+  <data name="frmSettings_chkHideGameList" xml:space="preserve">
+    <value>Hide game list on main window by default (Requires Restart)</value>
+  </data>
+  <data name="frmSettings_chkHideLog" xml:space="preserve">
+    <value>Hide log by default (Requires Restart)</value>
+  </data>
 </root>
