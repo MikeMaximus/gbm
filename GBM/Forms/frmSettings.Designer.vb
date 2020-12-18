@@ -75,6 +75,9 @@ Partial Class frmSettings
         Me.btnResetMessages = New System.Windows.Forms.Button()
         Me.pnlStartup = New System.Windows.Forms.Panel()
         Me.grpUIOptions = New System.Windows.Forms.GroupBox()
+        Me.chkHideLog = New System.Windows.Forms.CheckBox()
+        Me.chkHideButtons = New System.Windows.Forms.CheckBox()
+        Me.chkHideGameList = New System.Windows.Forms.CheckBox()
         Me.chkExitNoWarning = New System.Windows.Forms.CheckBox()
         Me.chkExitOnClose = New System.Windows.Forms.CheckBox()
         Me.grpStartup = New System.Windows.Forms.GroupBox()
@@ -82,9 +85,6 @@ Partial Class frmSettings
         Me.chkAutoStart = New System.Windows.Forms.CheckBox()
         Me.chkStartMinimized = New System.Windows.Forms.CheckBox()
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
-        Me.chkHideGameList = New System.Windows.Forms.CheckBox()
-        Me.chkHideButtons = New System.Windows.Forms.CheckBox()
-        Me.chkHideLog = New System.Windows.Forms.CheckBox()
         Me.grpFolderOptions.SuspendLayout()
         Me.grp7zGeneral.SuspendLayout()
         Me.pnlBackup.SuspendLayout()
@@ -627,17 +627,47 @@ Partial Class frmSettings
         Me.grpUIOptions.Controls.Add(Me.chkHideGameList)
         Me.grpUIOptions.Controls.Add(Me.chkExitNoWarning)
         Me.grpUIOptions.Controls.Add(Me.chkExitOnClose)
-        Me.grpUIOptions.Location = New System.Drawing.Point(8, 135)
+        Me.grpUIOptions.Location = New System.Drawing.Point(6, 131)
         Me.grpUIOptions.Name = "grpUIOptions"
-        Me.grpUIOptions.Size = New System.Drawing.Size(354, 167)
+        Me.grpUIOptions.Size = New System.Drawing.Size(356, 134)
         Me.grpUIOptions.TabIndex = 2
         Me.grpUIOptions.TabStop = False
         Me.grpUIOptions.Text = "User Interface Options"
         '
+        'chkHideLog
+        '
+        Me.chkHideLog.AutoSize = True
+        Me.chkHideLog.Location = New System.Drawing.Point(6, 63)
+        Me.chkHideLog.Name = "chkHideLog"
+        Me.chkHideLog.Size = New System.Drawing.Size(202, 17)
+        Me.chkHideLog.TabIndex = 2
+        Me.chkHideLog.Text = "Hide log by default (Requires Restart)"
+        Me.chkHideLog.UseVisualStyleBackColor = True
+        '
+        'chkHideButtons
+        '
+        Me.chkHideButtons.AutoSize = True
+        Me.chkHideButtons.Location = New System.Drawing.Point(6, 109)
+        Me.chkHideButtons.Name = "chkHideButtons"
+        Me.chkHideButtons.Size = New System.Drawing.Size(165, 17)
+        Me.chkHideButtons.TabIndex = 4
+        Me.chkHideButtons.Text = "Hide buttons on main window"
+        Me.chkHideButtons.UseVisualStyleBackColor = True
+        '
+        'chkHideGameList
+        '
+        Me.chkHideGameList.AutoSize = True
+        Me.chkHideGameList.Location = New System.Drawing.Point(6, 86)
+        Me.chkHideGameList.Name = "chkHideGameList"
+        Me.chkHideGameList.Size = New System.Drawing.Size(308, 17)
+        Me.chkHideGameList.TabIndex = 3
+        Me.chkHideGameList.Text = "Hide game list on main window by default (Requires Restart)"
+        Me.chkHideGameList.UseVisualStyleBackColor = True
+        '
         'chkExitNoWarning
         '
         Me.chkExitNoWarning.AutoSize = True
-        Me.chkExitNoWarning.Location = New System.Drawing.Point(4, 40)
+        Me.chkExitNoWarning.Location = New System.Drawing.Point(6, 40)
         Me.chkExitNoWarning.Name = "chkExitNoWarning"
         Me.chkExitNoWarning.Size = New System.Drawing.Size(140, 17)
         Me.chkExitNoWarning.TabIndex = 1
@@ -647,7 +677,7 @@ Partial Class frmSettings
         'chkExitOnClose
         '
         Me.chkExitOnClose.AutoSize = True
-        Me.chkExitOnClose.Location = New System.Drawing.Point(4, 17)
+        Me.chkExitOnClose.Location = New System.Drawing.Point(6, 17)
         Me.chkExitOnClose.Name = "chkExitOnClose"
         Me.chkExitOnClose.Size = New System.Drawing.Size(172, 17)
         Me.chkExitOnClose.TabIndex = 0
@@ -662,7 +692,7 @@ Partial Class frmSettings
         Me.grpStartup.Controls.Add(Me.chkMonitorOnStartup)
         Me.grpStartup.Location = New System.Drawing.Point(6, 12)
         Me.grpStartup.Name = "grpStartup"
-        Me.grpStartup.Size = New System.Drawing.Size(354, 117)
+        Me.grpStartup.Size = New System.Drawing.Size(354, 113)
         Me.grpStartup.TabIndex = 1
         Me.grpStartup.TabStop = False
         Me.grpStartup.Text = "Startup Options"
@@ -706,36 +736,6 @@ Partial Class frmSettings
         Me.chkMonitorOnStartup.TabIndex = 2
         Me.chkMonitorOnStartup.Text = "Start monitoring on launch"
         Me.chkMonitorOnStartup.UseVisualStyleBackColor = True
-        '
-        'chkHideGameList
-        '
-        Me.chkHideGameList.AutoSize = True
-        Me.chkHideGameList.Location = New System.Drawing.Point(4, 86)
-        Me.chkHideGameList.Name = "chkHideGameList"
-        Me.chkHideGameList.Size = New System.Drawing.Size(308, 17)
-        Me.chkHideGameList.TabIndex = 3
-        Me.chkHideGameList.Text = "Hide game list on main window by default (Requires Restart)"
-        Me.chkHideGameList.UseVisualStyleBackColor = True
-        '
-        'chkHideButtons
-        '
-        Me.chkHideButtons.AutoSize = True
-        Me.chkHideButtons.Location = New System.Drawing.Point(4, 109)
-        Me.chkHideButtons.Name = "chkHideButtons"
-        Me.chkHideButtons.Size = New System.Drawing.Size(165, 17)
-        Me.chkHideButtons.TabIndex = 4
-        Me.chkHideButtons.Text = "Hide buttons on main window"
-        Me.chkHideButtons.UseVisualStyleBackColor = True
-        '
-        'chkHideLog
-        '
-        Me.chkHideLog.AutoSize = True
-        Me.chkHideLog.Location = New System.Drawing.Point(4, 63)
-        Me.chkHideLog.Name = "chkHideLog"
-        Me.chkHideLog.Size = New System.Drawing.Size(202, 17)
-        Me.chkHideLog.TabIndex = 2
-        Me.chkHideLog.Text = "Hide log by default (Requires Restart)"
-        Me.chkHideLog.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
