@@ -26,7 +26,7 @@ Public Class frmGameManager
     Private oRemoteBackupData As SortedList
     Private bIsDirty As Boolean = False
     Private bIsLoading As Boolean = False
-    Private bSupressOptionButtons As Boolean = False
+    Private bSuppressOptionButtons As Boolean = False
     Private oCurrentIncludeTagFilters As New List(Of clsTag)
     Private oCurrentExcludeTagFilters As New List(Of clsTag)
     Private oCurrentFilters As New List(Of clsGameFilter)
@@ -197,6 +197,15 @@ Public Class frmGameManager
         End Get
         Set(value As Boolean)
             bIsLoading = value
+        End Set
+    End Property
+
+    Private Property SuppressOptionButtons As Boolean
+        Get
+            Return bSuppressOptionButtons
+        End Get
+        Set(value As Boolean)
+            bSuppressOptionButtons = value
         End Set
     End Property
 
@@ -400,7 +409,6 @@ Public Class frmGameManager
             Next
         End If
 
-        lstGames.DataSource = Nothing
         FormatAndFillList()
     End Sub
 
@@ -510,7 +518,6 @@ Public Class frmGameManager
         Dim oApp As clsGame
         Dim oData As KeyValuePair(Of String, String)
         Dim oList As New List(Of KeyValuePair(Of String, String))
-        Dim sFilter As String = txtQuickFilter.Text
 
         For Each de As DictionaryEntry In GameData
             oApp = DirectCast(de.Value, clsGame)
@@ -535,6 +542,19 @@ Public Class frmGameManager
         lstGames.EndUpdate()
         lstGames.ClearSelected()
         IsLoading = False
+
+        If Not CurrentGame Is Nothing Then
+            lstGames.SelectedItem = New KeyValuePair(Of String, String)(CurrentGame.ID, CurrentGame.Name)
+            SwitchApp()
+        End If
+
+        'Automatically select the game on a single filter match
+        If Not txtQuickFilter.Text = String.Empty Then
+            If lstGames.Items.Count = 1 Then
+                lstGames.SelectedIndex = 0
+                SwitchApp()
+            End If
+        End If
     End Sub
 
     Private Sub OpenGameIDEdit()
@@ -727,11 +747,11 @@ Public Class frmGameManager
 
     Private Sub HandleTags(ByVal sTags As String)
         If sTags = String.Empty Then
-            lblTags.Text = frmGameManager_lblTags
-            lblTags.LinkBehavior = LinkBehavior.SystemDefault
+            lblGameTags.Text = frmGameManager_lblGameTags
+            lblGameTags.LinkBehavior = LinkBehavior.SystemDefault
         Else
-            lblTags.Text = sTags
-            lblTags.LinkBehavior = LinkBehavior.HoverUnderline
+            lblGameTags.Text = sTags
+            lblGameTags.LinkBehavior = LinkBehavior.HoverUnderline
         End If
     End Sub
 
@@ -1158,6 +1178,7 @@ Public Class frmGameManager
 
         Select Case eLastMode
             Case eModes.MultiSelect
+                ToggleControls(grpCoreConfig.Controls, True)
                 ToggleControls(grpGameInfo.Controls, True)
                 ToggleControls(grpBackupInfo.Controls, True)
         End Select
@@ -1199,14 +1220,15 @@ Public Class frmGameManager
                 chkMonitorOnly.Checked = False
                 chkRecurseSubFolders.Checked = True
                 btnAdvanced.Enabled = True
-                lblTags.Text = frmGameManager_lblTags
-                lblTags.Visible = True
+                lblGameTags.Text = frmGameManager_lblGameTags
+                lblGameTags.Visible = True
                 btnInclude.Text = frmGameManager_btnInclude
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = False
                 btnExport.Enabled = False
                 cboOS.SelectedValue = CInt(mgrCommon.GetCurrentOS)
                 HandleWineConfig()
+                TimeStampModeChange()
             Case eModes.Edit
                 eLastMode = eModes.Edit
                 grpFilter.Enabled = False
@@ -1226,7 +1248,7 @@ Public Class frmGameManager
                 btnRestore.Enabled = False
                 btnBackup.Enabled = False
                 btnAdvanced.Enabled = True
-                lblTags.Visible = True
+                lblGameTags.Visible = True
                 btnImport.Enabled = False
                 btnExport.Enabled = False
             Case eModes.View
@@ -1248,9 +1270,10 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 btnBackup.Enabled = True
                 btnAdvanced.Enabled = True
-                lblTags.Visible = True
+                lblGameTags.Visible = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
+                TimeStampModeChange()
             Case eModes.Disabled
                 eLastMode = eModes.Disabled
                 grpFilter.Enabled = True
@@ -1274,7 +1297,7 @@ Public Class frmGameManager
                 btnRestore.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnAdvanced.Enabled = False
-                lblTags.Visible = False
+                lblGameTags.Visible = False
                 btnInclude.Text = frmGameManager_btnInclude
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = True
@@ -1294,16 +1317,16 @@ Public Class frmGameManager
                 pbIcon.Image = Icon_Unknown
                 btnSave.Enabled = True
                 btnCancel.Enabled = False
-                tbConfig.Enabled = False
+                ToggleControls(grpCoreConfig.Controls, False)
+                ToggleControls(grpGameInfo.Controls, False)
+                ToggleControls(grpBackupInfo.Controls, False)
                 chkMonitorOnly.Enabled = True
                 chkMonitorOnly.Checked = False
                 chkEnabled.Enabled = True
                 chkEnabled.Checked = False
-                ToggleControls(grpGameInfo.Controls, False)
-                ToggleControls(grpBackupInfo.Controls, False)
                 btnMarkAsRestored.Enabled = True
-                lblTags.Visible = True
-                lblTags.Enabled = True
+                lblGameTags.Visible = True
+                lblGameTags.Enabled = True
                 HandleTags(mgrGameTags.PrintTagsbyIDMulti(GetSelectedGames))
                 btnAdd.Enabled = False
                 btnDelete.Enabled = True
@@ -1388,7 +1411,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub VerifyImportBackup()
-        If Not bIsLoading Then
+        If Not IsLoading Then
             If chkMonitorOnly.Checked Then
                 cmsImportData.Enabled = False
             Else
@@ -1398,7 +1421,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub VerifyCleanFolder()
-        If Not bIsLoading Then
+        If Not IsLoading Then
             If (chkFolderSave.Checked = True And txtExclude.Text = String.Empty And txtSavePath.Text <> String.Empty) And Not mgrPath.IsSupportedRegistryPath(txtSavePath.Text) And Not chkMonitorOnly.Checked Then
                 chkCleanFolder.Enabled = True
             Else
@@ -1577,20 +1600,11 @@ Public Class frmGameManager
         End Select
 
         If bSuccess Then
+            CurrentGame = oApp
             mgrMonitorList.SyncMonitorLists()
             LoadBackupData()
             IsDirty = False
             LoadData()
-            If eCurrentMode = eModes.View Then
-                lstGames.SelectedItem = New KeyValuePair(Of String, String)(oApp.ID, oApp.Name)
-            Else
-                ModeChange()
-            End If
-            'If the addition doesn't match the current filter we should go into disabled mode as it can't be selected to view
-            If lstGames.SelectedIndex = -1 Then
-                eCurrentMode = eModes.Disabled
-                ModeChange()
-            End If
         End If
     End Sub
 
@@ -1628,7 +1642,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub SwitchApp()
-        If Not bIsLoading Then
+        If Not IsLoading Then
             If lstGames.SelectedItems.Count = 1 Then
                 eCurrentMode = eModes.View
                 FillData()
@@ -1993,6 +2007,7 @@ Public Class frmGameManager
         cmsProcess.Text = frmGameManager_cmsProcess
         cmsConfiguration.Text = frmGameManager_cmsConfiguration
         cmsLaunchSettings.Text = frmGamemanager_cmsLaunchSettings
+        lblGameTags.Text = frmGameManager_lblGameTags
         lblTags.Text = frmGameManager_lblTags
         btnBackupData.Image = Icon_Recycle
         btnMarkAsRestored.Image = Icon_Checkmark
@@ -2003,7 +2018,7 @@ Public Class frmGameManager
         ttHelp.SetToolTip(btnMarkAsRestored, frmGameManager_ttHelp_btnMarkAsRestored)
         ttHelp.SetToolTip(btnOpenBackupFolder, frmGameManager_ttHelp_btnOpenBackupFolder)
         ttHelp.SetToolTip(lblBackupFileData, frmGameManager_ttHelp_lblBackupFileData)
-        ttHelp.SetToolTip(lblTags, frmGameManager_ttHelp_lblTags)
+        ttHelp.SetToolTip(lblGameTags, frmGameManager_ttHelp_lblTags)
 
         'Init Combos
         Dim oComboItems As New List(Of KeyValuePair(Of Integer, String))
@@ -2054,8 +2069,8 @@ Public Class frmGameManager
 
         LoadBackupData()
 
-        'Supress the initial option button events from firing to prevent double loading (Windows Only)        
-        If Not mgrCommon.IsUnix Then bSupressOptionButtons = True
+        'Suppress the initial option button events from firing to prevent double loading (Windows Only)        
+        If Not mgrCommon.IsUnix Then SuppressOptionButtons = True
         If PendingRestores Then
             optPendingRestores.Checked = True
         Else
@@ -2142,7 +2157,7 @@ Public Class frmGameManager
         mgrCommon.OpenButtonSubMenu(cmsLink, btnAdvanced)
     End Sub
 
-    Private Sub lblTags_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblTags.LinkClicked
+    Private Sub lblGameTags_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblGameTags.LinkClicked
         OpenTags()
     End Sub
 
@@ -2187,8 +2202,8 @@ Public Class frmGameManager
     End Sub
 
     Private Sub optGamesFilter_Click(sender As Object, e As EventArgs) Handles optPendingRestores.Click, optAllGames.Click, optBackupData.Click, optCustom.Click
-        If bSupressOptionButtons Then
-            bSupressOptionButtons = False
+        If SuppressOptionButtons Then
+            SuppressOptionButtons = False
         Else
             lstGames.ClearSelected()
             eCurrentMode = eModes.Disabled
@@ -2222,13 +2237,13 @@ Public Class frmGameManager
     End Sub
 
     Private Sub cboRemoteBackup_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboRemoteBackup.SelectedIndexChanged
-        If Not bIsLoading Then
+        If Not IsLoading Then
             UpdateBackupInfo(DirectCast(cboRemoteBackup.SelectedItem, KeyValuePair(Of String, String)).Key)
         End If
     End Sub
 
     Private Sub cboOS_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboOS.SelectedIndexChanged
-        If Not bIsLoading And Not eCurrentMode = eModes.Add Then
+        If Not IsLoading And Not eCurrentMode = eModes.Add Then
             HandleWineConfig()
         End If
     End Sub
@@ -2313,5 +2328,9 @@ Public Class frmGameManager
 
     Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkMonitorOnly.CheckedChanged
         MonitorOnlyModeChange()
+    End Sub
+
+    Private Sub grpFilter_EnabledChanged(sender As Object, e As EventArgs) Handles grpFilter.EnabledChanged
+        If grpFilter.Enabled Then SuppressOptionButtons = True
     End Sub
 End Class

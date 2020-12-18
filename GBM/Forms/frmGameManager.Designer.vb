@@ -53,7 +53,7 @@ Partial Class frmGameManager
         Me.txtProcess = New System.Windows.Forms.TextBox()
         Me.txtName = New System.Windows.Forms.TextBox()
         Me.chkMonitorOnly = New System.Windows.Forms.CheckBox()
-        Me.lblTags = New System.Windows.Forms.LinkLabel()
+        Me.lblGameTags = New System.Windows.Forms.LinkLabel()
         Me.btnIconBrowse = New System.Windows.Forms.Button()
         Me.txtIcon = New System.Windows.Forms.TextBox()
         Me.lblVersion = New System.Windows.Forms.Label()
@@ -102,6 +102,7 @@ Partial Class frmGameManager
         Me.txtAppPath = New System.Windows.Forms.TextBox()
         Me.tbGameInfo = New System.Windows.Forms.TabPage()
         Me.grpGameInfo = New System.Windows.Forms.GroupBox()
+        Me.lblTags = New System.Windows.Forms.Label()
         Me.lblComments = New System.Windows.Forms.Label()
         Me.txtComments = New System.Windows.Forms.TextBox()
         Me.tbBackupInfo = New System.Windows.Forms.TabPage()
@@ -248,7 +249,7 @@ Partial Class frmGameManager
         'lblLimit
         '
         Me.lblLimit.AutoSize = True
-        Me.lblLimit.Location = New System.Drawing.Point(374, 202)
+        Me.lblLimit.Location = New System.Drawing.Point(375, 199)
         Me.lblLimit.Name = "lblLimit"
         Me.lblLimit.Size = New System.Drawing.Size(98, 13)
         Me.lblLimit.TabIndex = 24
@@ -256,7 +257,7 @@ Partial Class frmGameManager
         '
         'nudLimit
         '
-        Me.nudLimit.Location = New System.Drawing.Point(328, 200)
+        Me.nudLimit.Location = New System.Drawing.Point(329, 195)
         Me.nudLimit.Name = "nudLimit"
         Me.nudLimit.Size = New System.Drawing.Size(40, 20)
         Me.nudLimit.TabIndex = 23
@@ -355,7 +356,7 @@ Partial Class frmGameManager
         'chkTimeStamp
         '
         Me.chkTimeStamp.AutoSize = True
-        Me.chkTimeStamp.Location = New System.Drawing.Point(190, 201)
+        Me.chkTimeStamp.Location = New System.Drawing.Point(190, 198)
         Me.chkTimeStamp.Name = "chkTimeStamp"
         Me.chkTimeStamp.Size = New System.Drawing.Size(133, 17)
         Me.chkTimeStamp.TabIndex = 22
@@ -403,17 +404,17 @@ Partial Class frmGameManager
         Me.chkMonitorOnly.Text = "Monitor only"
         Me.chkMonitorOnly.UseVisualStyleBackColor = True
         '
-        'lblTags
+        'lblGameTags
         '
-        Me.lblTags.ActiveLinkColor = System.Drawing.SystemColors.ControlText
-        Me.lblTags.AutoEllipsis = True
-        Me.lblTags.LinkColor = System.Drawing.SystemColors.ControlText
-        Me.lblTags.Location = New System.Drawing.Point(6, 170)
-        Me.lblTags.Name = "lblTags"
-        Me.lblTags.Size = New System.Drawing.Size(496, 40)
-        Me.lblTags.TabIndex = 11
-        Me.lblTags.TabStop = True
-        Me.lblTags.Text = "Manage Tags"
+        Me.lblGameTags.ActiveLinkColor = System.Drawing.SystemColors.ControlText
+        Me.lblGameTags.AutoEllipsis = True
+        Me.lblGameTags.LinkColor = System.Drawing.SystemColors.ControlText
+        Me.lblGameTags.Location = New System.Drawing.Point(74, 170)
+        Me.lblGameTags.Name = "lblGameTags"
+        Me.lblGameTags.Size = New System.Drawing.Size(431, 40)
+        Me.lblGameTags.TabIndex = 12
+        Me.lblGameTags.TabStop = True
+        Me.lblGameTags.Text = "Manage Tags"
         '
         'btnIconBrowse
         '
@@ -434,7 +435,7 @@ Partial Class frmGameManager
         'lblVersion
         '
         Me.lblVersion.AutoSize = True
-        Me.lblVersion.Location = New System.Drawing.Point(6, 88)
+        Me.lblVersion.Location = New System.Drawing.Point(6, 91)
         Me.lblVersion.Name = "lblVersion"
         Me.lblVersion.Size = New System.Drawing.Size(45, 13)
         Me.lblVersion.TabIndex = 4
@@ -457,7 +458,7 @@ Partial Class frmGameManager
         'lblCompany
         '
         Me.lblCompany.AutoSize = True
-        Me.lblCompany.Location = New System.Drawing.Point(6, 62)
+        Me.lblCompany.Location = New System.Drawing.Point(6, 65)
         Me.lblCompany.Name = "lblCompany"
         Me.lblCompany.Size = New System.Drawing.Size(54, 13)
         Me.lblCompany.TabIndex = 2
@@ -476,7 +477,7 @@ Partial Class frmGameManager
         'lblIcon
         '
         Me.lblIcon.AutoSize = True
-        Me.lblIcon.Location = New System.Drawing.Point(6, 114)
+        Me.lblIcon.Location = New System.Drawing.Point(6, 118)
         Me.lblIcon.Name = "lblIcon"
         Me.lblIcon.Size = New System.Drawing.Size(31, 13)
         Me.lblIcon.TabIndex = 6
@@ -495,7 +496,7 @@ Partial Class frmGameManager
         'lblHours
         '
         Me.lblHours.AutoSize = True
-        Me.lblHours.Location = New System.Drawing.Point(8, 141)
+        Me.lblHours.Location = New System.Drawing.Point(6, 144)
         Me.lblHours.Name = "lblHours"
         Me.lblHours.Size = New System.Drawing.Size(38, 13)
         Me.lblHours.TabIndex = 9
@@ -839,10 +840,11 @@ Partial Class frmGameManager
         '
         'grpGameInfo
         '
+        Me.grpGameInfo.Controls.Add(Me.lblTags)
         Me.grpGameInfo.Controls.Add(Me.lblComments)
         Me.grpGameInfo.Controls.Add(Me.txtComments)
         Me.grpGameInfo.Controls.Add(Me.pbIcon)
-        Me.grpGameInfo.Controls.Add(Me.lblTags)
+        Me.grpGameInfo.Controls.Add(Me.lblGameTags)
         Me.grpGameInfo.Controls.Add(Me.lblIcon)
         Me.grpGameInfo.Controls.Add(Me.btnIconBrowse)
         Me.grpGameInfo.Controls.Add(Me.nudHours)
@@ -857,6 +859,15 @@ Partial Class frmGameManager
         Me.grpGameInfo.Size = New System.Drawing.Size(511, 256)
         Me.grpGameInfo.TabIndex = 0
         Me.grpGameInfo.TabStop = False
+        '
+        'lblTags
+        '
+        Me.lblTags.AutoSize = True
+        Me.lblTags.Location = New System.Drawing.Point(6, 170)
+        Me.lblTags.Name = "lblTags"
+        Me.lblTags.Size = New System.Drawing.Size(34, 13)
+        Me.lblTags.TabIndex = 11
+        Me.lblTags.Text = "Tags:"
         '
         'lblComments
         '
@@ -1134,7 +1145,7 @@ Partial Class frmGameManager
     Friend WithEvents cmsConfiguration As ToolStripMenuItem
     Friend WithEvents cmsImportData As ToolStripMenuItem
     Friend WithEvents ttHelp As ToolTip
-    Friend WithEvents lblTags As LinkLabel
+    Friend WithEvents lblGameTags As LinkLabel
     Friend WithEvents cmsLaunchSettings As ToolStripMenuItem
     Friend WithEvents tabGameManager As TabControl
     Friend WithEvents tbConfig As TabPage
@@ -1159,4 +1170,5 @@ Partial Class frmGameManager
     Friend WithEvents grpCoreConfig As GroupBox
     Friend WithEvents grpGameInfo As GroupBox
     Friend WithEvents grpBackupInfo As GroupBox
+    Friend WithEvents lblTags As Label
 End Class

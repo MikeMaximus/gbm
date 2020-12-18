@@ -2833,7 +2833,7 @@
   <data name="frmGamemanager_cmsLaunchSettings" xml:space="preserve">
     <value>Launch &amp;Settings...</value>
   </data>
-  <data name="frmGameManager_lblTags" xml:space="preserve">
+  <data name="frmGameManager_lblGameTags" xml:space="preserve">
     <value>Manage Tags...</value>
   </data>
   <data name="frmGameManager_ttHelp_btnBackupData" xml:space="preserve">
@@ -2859,5 +2859,8 @@
   </data>
   <data name="frmSettings_chkHideLog" xml:space="preserve">
     <value>Hide log by default (Requires Restart)</value>
+  </data>
+  <data name="frmGameManager_lblTags" xml:space="preserve">
+    <value>Tags:</value>
   </data>
 </root>
