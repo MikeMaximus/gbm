@@ -430,9 +430,6 @@
   <data name="frmGameManager_btnCancel" xml:space="preserve">
     <value>Ca&amp;ncel</value>
   </data>
-  <data name="frmGameManager_btnClose" xml:space="preserve">
-    <value>&amp;Close</value>
-  </data>
   <data name="frmGameManager_btnDelete" xml:space="preserve">
     <value>-</value>
   </data>
@@ -982,16 +979,16 @@
   <data name="frmFilter_grpTagOptions" xml:space="preserve">
     <value>Include Options</value>
   </data>
-  <data name="frmGameManager_grpConfig" xml:space="preserve">
-    <value>Configuration</value>
+  <data name="frmGameManager_tbConfig" xml:space="preserve">
+    <value>Core Configuration</value>
   </data>
-  <data name="frmGameManager_grpExtra" xml:space="preserve">
+  <data name="frmGameManager_tbGameInfo" xml:space="preserve">
     <value>Game Information</value>
   </data>
   <data name="frmGameManager_grpFilter" xml:space="preserve">
     <value>Games Filter</value>
   </data>
-  <data name="frmGameManager_grpStats" xml:space="preserve">
+  <data name="frmGameManager_tbBackupInfo" xml:space="preserve">
     <value>Backup Information</value>
   </data>
   <data name="App_URLImport" xml:space="preserve">
@@ -1649,7 +1646,7 @@
     <value>You cannot choose a file located outside the current [PARAM] backup folder.</value>
   </data>
   <data name="frmGameManager_lblLimit" xml:space="preserve">
-    <value>Backup Limit (0 = Unlimited)</value>
+    <value>Limit (0 = Unlimited)</value>
   </data>
   <data name="mgrBackup_BackupLimitExceeded" xml:space="preserve">
     <value>[PARAM] was automatically removed.</value>

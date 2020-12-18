@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-12-17T16:10:49
+        '''  Looks up a localized string similar to 2020-12-18T16:20:47
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1811,15 +1811,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Close.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_btnClose() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_btnClose", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to -.
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnDelete() As String
@@ -2477,38 +2468,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Configuration.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_grpConfig() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_grpConfig", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Game Information.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_grpExtra() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_grpExtra", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Games Filter.
         '''</summary>
         Friend ReadOnly Property frmGameManager_grpFilter() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_grpFilter", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Backup Information.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_grpStats() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_grpStats", resourceCulture)
             End Get
         End Property
         
@@ -2612,7 +2576,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Backup Limit (0 = Unlimited).
+        '''  Looks up a localized string similar to Limit (0 = Unlimited).
         '''</summary>
         Friend ReadOnly Property frmGameManager_lblLimit() As String
             Get
@@ -2779,6 +2743,33 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_RestoreLinkWarning() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_RestoreLinkWarning", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backup Information.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_tbBackupInfo() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_tbBackupInfo", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Core Configuration.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_tbConfig() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_tbConfig", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game Information.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_tbGameInfo() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_tbGameInfo", resourceCulture)
             End Get
         End Property
         

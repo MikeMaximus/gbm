@@ -728,8 +728,10 @@ Public Class frmGameManager
     Private Sub HandleTags(ByVal sTags As String)
         If sTags = String.Empty Then
             lblTags.Text = frmGameManager_lblTags
+            lblTags.LinkBehavior = LinkBehavior.SystemDefault
         Else
             lblTags.Text = sTags
+            lblTags.LinkBehavior = LinkBehavior.HoverUnderline
         End If
     End Sub
 
@@ -1123,14 +1125,10 @@ Public Class frmGameManager
                 AddHandler DirectCast(ctl, CheckBox).CheckedChanged, AddressOf DirtyCheck_ValueChanged
             ElseIf TypeOf ctl Is NumericUpDown Then
                 AddHandler DirectCast(ctl, NumericUpDown).ValueChanged, AddressOf DirtyCheck_ValueChanged
+            ElseIf TypeOf ctl Is ComboBox Then
+                AddHandler DirectCast(ctl, ComboBox).SelectedValueChanged, AddressOf DirtyCheck_ValueChanged
             End If
         Next
-    End Sub
-
-    Private Sub AssignDirtyHandlersMisc()
-        AddHandler chkEnabled.CheckedChanged, AddressOf DirtyCheck_ValueChanged
-        AddHandler chkMonitorOnly.CheckedChanged, AddressOf DirtyCheck_ValueChanged
-        AddHandler cboOS.SelectedValueChanged, AddressOf DirtyCheck_ValueChanged
     End Sub
 
     Private Sub ToggleControls(ByVal oCtls As GroupBox.ControlCollection, ByVal bEnabled As Boolean)
@@ -1160,26 +1158,27 @@ Public Class frmGameManager
 
         Select Case eLastMode
             Case eModes.MultiSelect
-                ToggleControls(grpExtra.Controls, True)
-                ToggleControls(grpStats.Controls, True)
+                ToggleControls(grpGameInfo.Controls, True)
+                ToggleControls(grpBackupInfo.Controls, True)
         End Select
 
         Select Case eCurrentMode
             Case eModes.Add
                 eLastMode = eModes.Add
+                tabGameManager.SelectTab(0)
                 oTagsToSave.Clear()
                 oProcessesToSave.Clear()
                 grpFilter.Enabled = False
                 lstGames.Enabled = False
                 lblQuickFilter.Enabled = False
                 txtQuickFilter.Enabled = False
-                grpConfig.Enabled = True
+                tbConfig.Enabled = True
                 chkMonitorOnly.Enabled = True
-                grpExtra.Enabled = True
-                grpStats.Enabled = True
-                WipeControls(grpConfig.Controls)
-                WipeControls(grpExtra.Controls)
-                WipeControls(grpStats.Controls)
+                tbGameInfo.Enabled = True
+                tbBackupInfo.Enabled = True
+                WipeControls(grpCoreConfig.Controls)
+                WipeControls(grpGameInfo.Controls)
+                WipeControls(grpBackupInfo.Controls)
                 chkCleanFolder.Enabled = False
                 pbIcon.Image = Icon_Unknown
                 chkEnabled.Enabled = True
@@ -1214,11 +1213,11 @@ Public Class frmGameManager
                 lstGames.Enabled = False
                 lblQuickFilter.Enabled = False
                 txtQuickFilter.Enabled = False
-                grpConfig.Enabled = True
+                tbConfig.Enabled = True
                 chkEnabled.Enabled = True
                 chkMonitorOnly.Enabled = True
-                grpExtra.Enabled = True
-                grpStats.Enabled = False
+                tbGameInfo.Enabled = True
+                tbBackupInfo.Enabled = False
                 btnSave.Enabled = True
                 btnCancel.Enabled = True
                 btnAdd.Enabled = False
@@ -1237,11 +1236,11 @@ Public Class frmGameManager
                 lstGames.Enabled = True
                 lblQuickFilter.Enabled = True
                 txtQuickFilter.Enabled = True
-                grpConfig.Enabled = True
+                tbConfig.Enabled = True
                 chkEnabled.Enabled = True
                 chkMonitorOnly.Enabled = True
-                grpExtra.Enabled = True
-                grpStats.Enabled = True
+                tbGameInfo.Enabled = True
+                tbBackupInfo.Enabled = True
                 cmsLaunchSettings.Enabled = True
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
@@ -1258,17 +1257,17 @@ Public Class frmGameManager
                 lstGames.Enabled = True
                 lblQuickFilter.Enabled = True
                 txtQuickFilter.Enabled = True
-                WipeControls(grpConfig.Controls)
-                WipeControls(grpExtra.Controls)
-                WipeControls(grpStats.Controls)
+                WipeControls(grpCoreConfig.Controls)
+                WipeControls(grpGameInfo.Controls)
+                WipeControls(grpBackupInfo.Controls)
                 pbIcon.Image = Icon_Unknown
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
-                grpConfig.Enabled = False
+                tbConfig.Enabled = False
                 chkEnabled.Enabled = False
                 chkMonitorOnly.Enabled = False
-                grpExtra.Enabled = False
-                grpStats.Enabled = False
+                tbGameInfo.Enabled = False
+                tbBackupInfo.Enabled = False
                 btnAdd.Enabled = True
                 btnDelete.Enabled = True
                 btnBackup.Enabled = False
@@ -1289,19 +1288,19 @@ Public Class frmGameManager
                 lstGames.Enabled = True
                 lblQuickFilter.Enabled = False
                 txtQuickFilter.Enabled = False
-                WipeControls(grpConfig.Controls)
-                WipeControls(grpExtra.Controls)
-                WipeControls(grpStats.Controls)
+                WipeControls(grpCoreConfig.Controls)
+                WipeControls(grpGameInfo.Controls)
+                WipeControls(grpBackupInfo.Controls)
                 pbIcon.Image = Icon_Unknown
                 btnSave.Enabled = True
                 btnCancel.Enabled = False
-                grpConfig.Enabled = False
+                tbConfig.Enabled = False
                 chkMonitorOnly.Enabled = True
                 chkMonitorOnly.Checked = False
                 chkEnabled.Enabled = True
                 chkEnabled.Checked = False
-                ToggleControls(grpExtra.Controls, False)
-                ToggleControls(grpStats.Controls, False)
+                ToggleControls(grpGameInfo.Controls, False)
+                ToggleControls(grpBackupInfo.Controls, False)
                 btnMarkAsRestored.Enabled = True
                 lblTags.Visible = True
                 lblTags.Enabled = True
@@ -1378,13 +1377,13 @@ Public Class frmGameManager
 
     Private Sub TimeStampModeChange()
         If chkTimeStamp.Checked Then
-            nudLimit.Visible = True
-            lblLimit.Visible = True
+            nudLimit.Enabled = True
+            lblLimit.Enabled = True
             nudLimit.Value = 0
         Else
-            nudLimit.Visible = False
+            nudLimit.Enabled = False
             nudLimit.Value = nudLimit.Minimum
-            lblLimit.Visible = False
+            lblLimit.Enabled = False
         End If
     End Sub
 
@@ -1933,9 +1932,9 @@ Public Class frmGameManager
 
         'Set Form text
         grpFilter.Text = frmGameManager_grpFilter
-        grpConfig.Text = frmGameManager_grpConfig
-        grpExtra.Text = frmGameManager_grpExtra
-        grpStats.Text = frmGameManager_grpStats
+        tbConfig.Text = frmGameManager_tbConfig
+        tbGameInfo.Text = frmGameManager_tbGameInfo
+        tbBackupInfo.Text = frmGameManager_tbBackupInfo
         btnExport.Text = frmGameManager_btnExport
         btnImport.Text = frmGameManager_btnImport
         btnImport.ImageAlign = ContentAlignment.MiddleRight
@@ -1972,7 +1971,6 @@ Public Class frmGameManager
         chkFolderSave.Text = frmGameManager_chkFolderSave
         chkCleanFolder.Text = frmGameManager_chkCleanFolder
         btnBackup.Text = frmGameManager_btnBackup
-        btnClose.Text = frmGameManager_btnClose
         btnDelete.Text = frmGameManager_btnDelete
         btnAdd.Text = frmGameManager_btnAdd
         cmsOfficial.Text = frmGameManager_cmsOfficial
@@ -2064,10 +2062,9 @@ Public Class frmGameManager
             optAllGames.Checked = True
         End If
 
-        AssignDirtyHandlers(grpConfig.Controls)
-        AssignDirtyHandlers(grpExtra.Controls)
-        AssignDirtyHandlers(grpStats.Controls)
-        AssignDirtyHandlersMisc()
+        AssignDirtyHandlers(grpCoreConfig.Controls)
+        AssignDirtyHandlers(grpGameInfo.Controls)
+        AssignDirtyHandlers(grpBackupInfo.Controls)
 
         LoadData(False)
         ModeChange()
@@ -2077,7 +2074,7 @@ Public Class frmGameManager
         SwitchApp()
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+    Private Sub btnClose_Click(sender As Object, e As EventArgs)
         Me.Close()
     End Sub
 
@@ -2121,7 +2118,7 @@ Public Class frmGameManager
         SavePathBrowse()
     End Sub
 
-    Private Sub btnAppPathBrowse_Click(sender As Object, e As EventArgs) Handles btnAppPathBrowse.Click
+    Private Sub btnAppPathBrowse_Click(sender As Object, e As EventArgs)
         ProcessPathBrowse()
     End Sub
 
