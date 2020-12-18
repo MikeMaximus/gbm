@@ -164,9 +164,9 @@ Partial Class frmGameManager
         '
         'btnWineConfig
         '
-        Me.btnWineConfig.Location = New System.Drawing.Point(190, 140)
+        Me.btnWineConfig.Location = New System.Drawing.Point(199, 140)
         Me.btnWineConfig.Name = "btnWineConfig"
-        Me.btnWineConfig.Size = New System.Drawing.Size(175, 23)
+        Me.btnWineConfig.Size = New System.Drawing.Size(133, 23)
         Me.btnWineConfig.TabIndex = 17
         Me.btnWineConfig.Text = "&Wine Configuration..."
         Me.btnWineConfig.UseVisualStyleBackColor = True
@@ -184,7 +184,7 @@ Partial Class frmGameManager
         '
         Me.cboOS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboOS.FormattingEnabled = True
-        Me.cboOS.Location = New System.Drawing.Point(69, 142)
+        Me.cboOS.Location = New System.Drawing.Point(78, 142)
         Me.cboOS.Name = "cboOS"
         Me.cboOS.Size = New System.Drawing.Size(115, 21)
         Me.cboOS.TabIndex = 16
@@ -192,7 +192,7 @@ Partial Class frmGameManager
         'chkRecurseSubFolders
         '
         Me.chkRecurseSubFolders.AutoSize = True
-        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(479, 145)
+        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(446, 145)
         Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
         Me.chkRecurseSubFolders.Size = New System.Drawing.Size(15, 14)
         Me.chkRecurseSubFolders.TabIndex = 0
@@ -282,7 +282,7 @@ Partial Class frmGameManager
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(443, 142)
+        Me.txtID.Location = New System.Drawing.Point(410, 142)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(30, 20)
         Me.txtID.TabIndex = 0
@@ -336,7 +336,7 @@ Partial Class frmGameManager
         '
         'txtExclude
         '
-        Me.txtExclude.Location = New System.Drawing.Point(407, 142)
+        Me.txtExclude.Location = New System.Drawing.Point(374, 142)
         Me.txtExclude.Name = "txtExclude"
         Me.txtExclude.Size = New System.Drawing.Size(30, 20)
         Me.txtExclude.TabIndex = 0
@@ -345,7 +345,7 @@ Partial Class frmGameManager
         '
         'txtFileType
         '
-        Me.txtFileType.Location = New System.Drawing.Point(371, 142)
+        Me.txtFileType.Location = New System.Drawing.Point(338, 142)
         Me.txtFileType.Name = "txtFileType"
         Me.txtFileType.Size = New System.Drawing.Size(30, 20)
         Me.txtFileType.TabIndex = 0
@@ -751,7 +751,7 @@ Partial Class frmGameManager
         Me.tabGameManager.Name = "tabGameManager"
         Me.tabGameManager.SelectedIndex = 0
         Me.tabGameManager.Size = New System.Drawing.Size(526, 291)
-        Me.tabGameManager.TabIndex = 0
+        Me.tabGameManager.TabIndex = 8
         '
         'tbConfig
         '
