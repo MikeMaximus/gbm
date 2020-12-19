@@ -610,18 +610,6 @@
   <data name="frmGameManager_None" xml:space="preserve">
     <value>None</value>
   </data>
-  <data name="frmGameManager_optAllGames" xml:space="preserve">
-    <value>All</value>
-  </data>
-  <data name="frmGameManager_optBackupData" xml:space="preserve">
-    <value>Backups Only</value>
-  </data>
-  <data name="frmGameManager_optCustom" xml:space="preserve">
-    <value>Custom</value>
-  </data>
-  <data name="frmGameManager_optPendingRestores" xml:space="preserve">
-    <value>New Backups Pending</value>
-  </data>
   <data name="frmGameManager_OutofSync" xml:space="preserve">
     <value>Out of Sync</value>
   </data>
@@ -984,9 +972,6 @@
   </data>
   <data name="frmGameManager_tbGameInfo" xml:space="preserve">
     <value>Game Information</value>
-  </data>
-  <data name="frmGameManager_grpFilter" xml:space="preserve">
-    <value>Games Filter</value>
   </data>
   <data name="frmGameManager_tbBackupInfo" xml:space="preserve">
     <value>Backup Information</value>
@@ -1555,8 +1540,8 @@
   <data name="App_Invalid7zDetected" xml:space="preserve">
     <value>7-Zip (7za.exe) is invalid and has been prevented from running.</value>
   </data>
-  <data name="frmGameManager_lblQuickFilter" xml:space="preserve">
-    <value>Quick Filter:</value>
+  <data name="frmGameManager_lblSearch" xml:space="preserve">
+    <value>Search:</value>
   </data>
   <data name="frmGameManager_ErrorNoValidBackup" xml:space="preserve">
     <value>A backup cannot be run on the selected game(s) with their current configuration.</value>
@@ -2239,7 +2224,7 @@
   <data name="frmGameManager_lblOS" xml:space="preserve">
     <value>OS:</value>
   </data>
-  <data name="frmGameManager_btnWineConfig" xml:space="preserve">
+  <data name="frmGameManager_cmsWineConfig" xml:space="preserve">
     <value>&amp;Wine Configuration...</value>
   </data>
   <data name="frmFilter_FieldOS" xml:space="preserve">
@@ -2862,5 +2847,20 @@
   </data>
   <data name="frmGameManager_lblTags" xml:space="preserve">
     <value>Tags:</value>
+  </data>
+  <data name="frmGameManager_cboFilters_All" xml:space="preserve">
+    <value>All Games</value>
+  </data>
+  <data name="frmGameManager_cboFilters_Backups" xml:space="preserve">
+    <value>Games with Backups</value>
+  </data>
+  <data name="frmGameManager_cboFilters_Custom" xml:space="preserve">
+    <value>Custom Filter...</value>
+  </data>
+  <data name="frmGameManager_cboFilters_Pending" xml:space="preserve">
+    <value>Games with Pending Backups</value>
+  </data>
+  <data name="frmGameManager_lblFilters" xml:space="preserve">
+    <value>Filters:</value>
   </data>
 </root>

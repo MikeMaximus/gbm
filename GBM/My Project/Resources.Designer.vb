@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-12-18T19:39:11
+        '''  Looks up a localized string similar to 2020-12-19T14:40:02
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1910,11 +1910,38 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Wine Configuration....
+        '''  Looks up a localized string similar to All Games.
         '''</summary>
-        Friend ReadOnly Property frmGameManager_btnWineConfig() As String
+        Friend ReadOnly Property frmGameManager_cboFilters_All() As String
             Get
-                Return ResourceManager.GetString("frmGameManager_btnWineConfig", resourceCulture)
+                Return ResourceManager.GetString("frmGameManager_cboFilters_All", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Games with Backups.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cboFilters_Backups() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cboFilters_Backups", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Custom Filter....
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cboFilters_Custom() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cboFilters_Custom", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Games with Pending Backups.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cboFilters_Pending() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cboFilters_Pending", resourceCulture)
             End Get
         End Property
         
@@ -2122,6 +2149,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_cmsProcess() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_cmsProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Wine Configuration....
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsWineConfig() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsWineConfig", resourceCulture)
             End Get
         End Property
         
@@ -2468,15 +2504,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Games Filter.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_grpFilter() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_grpFilter", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Icon.
         '''</summary>
         Friend ReadOnly Property frmGameManager_Icon() As String
@@ -2545,6 +2572,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_lblCompany() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_lblCompany", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Filters:.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblFilters() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblFilters", resourceCulture)
             End Get
         End Property
         
@@ -2639,15 +2675,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Quick Filter:.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_lblQuickFilter() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_lblQuickFilter", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Backup Data:.
         '''</summary>
         Friend ReadOnly Property frmGameManager_lblRemote() As String
@@ -2675,6 +2702,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Search:.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblSearch() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblSearch", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Tags:.
         '''</summary>
         Friend ReadOnly Property frmGameManager_lblTags() As String
@@ -2698,42 +2734,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_None() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_None", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to All.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_optAllGames() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_optAllGames", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Backups Only.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_optBackupData() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_optBackupData", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Custom.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_optCustom() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_optCustom", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to New Backups Pending.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_optPendingRestores() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_optPendingRestores", resourceCulture)
             End Get
         End Property
         
