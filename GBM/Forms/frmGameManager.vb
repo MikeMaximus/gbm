@@ -543,9 +543,18 @@ Public Class frmGameManager
         lstGames.ClearSelected()
         IsLoading = False
 
-        If Not CurrentGame Is Nothing Then
+        'Handle Mode
+        If CurrentGame Is Nothing Then
+            eCurrentMode = eModes.Disabled
+            ModeChange()
+        Else
             lstGames.SelectedItem = New KeyValuePair(Of String, String)(CurrentGame.ID, CurrentGame.Name)
-            SwitchApp()
+            If lstGames.SelectedIndex = -1 And Not eCurrentMode = eModes.Disabled Then
+                eCurrentMode = eModes.Disabled
+                ModeChange()
+            Else
+                SwitchApp()
+            End If
         End If
 
         'Automatically select the game on a single filter match
@@ -740,8 +749,6 @@ Public Class frmGameManager
 
         If eCurrentMode = eModes.Add Then
             oProcessesToSave = frm.ProcessList
-        Else
-            ModeChange()
         End If
     End Sub
 
@@ -828,8 +835,6 @@ Public Class frmGameManager
 
         If eCurrentMode = eModes.Add Then
             oConfigLinksToSave = frm.ConfigLinkList
-        Else
-            ModeChange()
         End If
     End Sub
 
@@ -1575,14 +1580,12 @@ Public Class frmGameManager
                     SaveTags(oApp.ID)
                     SaveProcesses(oApp.ID)
                     SaveConfigLinks(oApp.ID)
-                    eCurrentMode = eModes.View
                 End If
             Case eModes.Edit
                 If CoreValidatation(oApp, False) Then
                     If CheckManifestandUpdate(oCurrentGame, oApp, mgrSettings.UseGameID) Then
                         bSuccess = True
                         mgrMonitorList.DoListUpdate(oApp, CurrentGame.ID)
-                        eCurrentMode = eModes.View
                     End If
                 End If
             Case eModes.MultiSelect
@@ -1594,7 +1597,6 @@ Public Class frmGameManager
                 If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiSave, New String() {sMonitorIDs.Count, mgrCommon.BooleanYesNo(oApp.Enabled), mgrCommon.BooleanYesNo(oApp.MonitorOnly)}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     bSuccess = True
                     mgrMonitorList.DoListUpdateMulti(sMonitorIDs, oApp)
-                    eCurrentMode = eModes.Disabled
                 End If
         End Select
 
@@ -1617,8 +1619,6 @@ Public Class frmGameManager
             If mgrCommon.ShowMessage(frmGameManager_ConfirmGameDelete, oApp.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDelete(oApp.ID)
                 LoadData()
-                eCurrentMode = eModes.Disabled
-                ModeChange()
             End If
         ElseIf lstGames.SelectedItems.Count > 1 Then
             Dim sMonitorIDs As New List(Of String)
@@ -1631,8 +1631,6 @@ Public Class frmGameManager
             If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiGameDelete, sMonitorIDs.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDeleteMulti(sMonitorIDs)
                 LoadData()
-                eCurrentMode = eModes.Disabled
-                ModeChange()
             End If
         End If
     End Sub
@@ -1746,8 +1744,6 @@ Public Class frmGameManager
                         GetBackupInfo(CurrentGame)
                     End If
                 Else
-                    eCurrentMode = eModes.Disabled
-                    ModeChange()
                     LoadData()
                 End If
             End If
@@ -2089,14 +2085,11 @@ Public Class frmGameManager
 
         LoadData(False)
         InitialLoad = False
-        ModeChange()
     End Sub
 
     Private Sub cboFilters_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboFilters.SelectedIndexChanged
         If Not InitialLoad Then
             lstGames.ClearSelected()
-            eCurrentMode = eModes.Disabled
-            ModeChange()
             LoadData(False)
         End If
     End Sub
