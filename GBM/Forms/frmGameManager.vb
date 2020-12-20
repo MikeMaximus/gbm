@@ -781,9 +781,6 @@ Public Class frmGameManager
             sTags = mgrGameTags.PrintTagsbyList(frm.TagList)
             HandleTags(sTags)
         Else
-            'Sync
-            mgrMonitorList.SyncMonitorLists()
-
             'Only update visible tags if one item is selected
             If lstGames.SelectedItems.Count = 1 Then
                 sTags = mgrGameTags.PrintTagsbyID(CurrentGame.ID)
@@ -832,8 +829,6 @@ Public Class frmGameManager
         If eCurrentMode = eModes.Add Then
             oConfigLinksToSave = frm.ConfigLinkList
         Else
-            'Sync
-            mgrMonitorList.SyncMonitorLists()
             ModeChange()
         End If
     End Sub
@@ -1189,6 +1184,7 @@ Public Class frmGameManager
                 tabGameManager.SelectTab(0)
                 oTagsToSave.Clear()
                 oProcessesToSave.Clear()
+                oConfigLinksToSave.Clear()
                 lblFilters.Enabled = False
                 cboFilters.Enabled = False
                 lstGames.Enabled = False
@@ -1604,7 +1600,6 @@ Public Class frmGameManager
 
         If bSuccess Then
             CurrentGame = oApp
-            mgrMonitorList.SyncMonitorLists()
             LoadBackupData()
             IsDirty = False
             LoadData()
@@ -1621,7 +1616,6 @@ Public Class frmGameManager
 
             If mgrCommon.ShowMessage(frmGameManager_ConfirmGameDelete, oApp.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDelete(oApp.ID)
-                mgrMonitorList.SyncMonitorLists(, False)
                 LoadData()
                 eCurrentMode = eModes.Disabled
                 ModeChange()
@@ -1636,7 +1630,6 @@ Public Class frmGameManager
 
             If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiGameDelete, sMonitorIDs.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDeleteMulti(sMonitorIDs)
-                mgrMonitorList.SyncMonitorLists(, False)
                 LoadData()
                 eCurrentMode = eModes.Disabled
                 ModeChange()
@@ -1911,7 +1904,6 @@ Public Class frmGameManager
 
         If sLocation <> String.Empty Then
             If mgrMonitorList.DoImport(sLocation, False) Then
-                mgrMonitorList.SyncMonitorLists()
                 LoadData()
                 LoadBackupData()
             End If
@@ -1935,7 +1927,6 @@ Public Class frmGameManager
     Private Sub ImportOfficialGameList(ByVal sImportUrl As String)
         If mgrCommon.ShowMessage(frmGameManager_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             If mgrMonitorList.DoImport(sImportUrl, True) Then
-                mgrMonitorList.SyncMonitorLists()
                 LoadData()
                 LoadBackupData()
             End If

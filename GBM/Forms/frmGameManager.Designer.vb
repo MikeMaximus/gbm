@@ -162,7 +162,7 @@ Partial Class frmGameManager
         'chkRecurseSubFolders
         '
         Me.chkRecurseSubFolders.AutoSize = True
-        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(354, 331)
+        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(114, 250)
         Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
         Me.chkRecurseSubFolders.Size = New System.Drawing.Size(15, 14)
         Me.chkRecurseSubFolders.TabIndex = 0
@@ -252,7 +252,7 @@ Partial Class frmGameManager
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(318, 328)
+        Me.txtID.Location = New System.Drawing.Point(78, 247)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(30, 20)
         Me.txtID.TabIndex = 0
@@ -306,7 +306,7 @@ Partial Class frmGameManager
         '
         'txtExclude
         '
-        Me.txtExclude.Location = New System.Drawing.Point(282, 328)
+        Me.txtExclude.Location = New System.Drawing.Point(42, 247)
         Me.txtExclude.Name = "txtExclude"
         Me.txtExclude.Size = New System.Drawing.Size(30, 20)
         Me.txtExclude.TabIndex = 0
@@ -315,7 +315,7 @@ Partial Class frmGameManager
         '
         'txtFileType
         '
-        Me.txtFileType.Location = New System.Drawing.Point(246, 328)
+        Me.txtFileType.Location = New System.Drawing.Point(6, 247)
         Me.txtFileType.Name = "txtFileType"
         Me.txtFileType.Size = New System.Drawing.Size(30, 20)
         Me.txtFileType.TabIndex = 0
@@ -692,6 +692,8 @@ Partial Class frmGameManager
         Me.grpCoreConfig.Controls.Add(Me.btnAppPathBrowse)
         Me.grpCoreConfig.Controls.Add(Me.lblName)
         Me.grpCoreConfig.Controls.Add(Me.lblOS)
+        Me.grpCoreConfig.Controls.Add(Me.txtFileType)
+        Me.grpCoreConfig.Controls.Add(Me.txtExclude)
         Me.grpCoreConfig.Controls.Add(Me.lblGamePath)
         Me.grpCoreConfig.Controls.Add(Me.chkTimeStamp)
         Me.grpCoreConfig.Controls.Add(Me.txtAppPath)
@@ -703,8 +705,10 @@ Partial Class frmGameManager
         Me.grpCoreConfig.Controls.Add(Me.txtProcess)
         Me.grpCoreConfig.Controls.Add(Me.btnInclude)
         Me.grpCoreConfig.Controls.Add(Me.cboOS)
+        Me.grpCoreConfig.Controls.Add(Me.txtID)
         Me.grpCoreConfig.Controls.Add(Me.btnProcessBrowse)
         Me.grpCoreConfig.Controls.Add(Me.btnExclude)
+        Me.grpCoreConfig.Controls.Add(Me.chkRecurseSubFolders)
         Me.grpCoreConfig.Controls.Add(Me.btnGameID)
         Me.grpCoreConfig.Controls.Add(Me.chkRegEx)
         Me.grpCoreConfig.Controls.Add(Me.txtParameter)
@@ -979,8 +983,6 @@ Partial Class frmGameManager
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 361)
-        Me.Controls.Add(Me.txtFileType)
-        Me.Controls.Add(Me.txtExclude)
         Me.Controls.Add(Me.lblFilters)
         Me.Controls.Add(Me.cboFilters)
         Me.Controls.Add(Me.tabGameManager)
@@ -991,9 +993,7 @@ Partial Class frmGameManager
         Me.Controls.Add(Me.btnImport)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.lstGames)
-        Me.Controls.Add(Me.txtID)
         Me.Controls.Add(Me.btnSave)
-        Me.Controls.Add(Me.chkRecurseSubFolders)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnAdd)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle

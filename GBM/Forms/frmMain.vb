@@ -1291,7 +1291,9 @@ Public Class frmMain
         frm.PendingRestores = bPendingRestores
         frm.OpenToGame = oGame
         frm.ShowDialog()
+        mgrMonitorList.SyncMonitorLists()
         LoadGameSettings()
+        ResetGameInfo()
         ResumeScan()
 
         'Handle backup trigger
@@ -1354,8 +1356,8 @@ Public Class frmMain
         PauseScan()
         frm.GameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
         frm.ShowDialog()
-        LoadGameSettings()
         mgrMonitorList.SyncMonitorLists()
+        LoadGameSettings()
         ResumeScan()
     End Sub
 
@@ -1363,8 +1365,8 @@ Public Class frmMain
         Dim frm As New frmVariableManager
         PauseScan()
         frm.ShowDialog()
-        mgrPath.LoadCustomVariables()
         mgrMonitorList.SyncMonitorLists()
+        mgrPath.LoadCustomVariables()
         ResumeScan()
     End Sub
 
