@@ -1007,6 +1007,7 @@ Public Class frmMain
         Dim oBackupList As List(Of clsBackup) = mgrManifest.DoManifestGetByMonitorID(oSelectedGame.ID, mgrSQLite.Database.Remote)
         Dim oLastPlayed As Object = mgrSessions.GetLastSessionDateTime(oSelectedGame)
         Dim sCachedIcon As String = mgrCommon.GetCachedIconPath(oSelectedGame.ID)
+        Dim sTags As String = mgrGameTags.PrintTagsbyID(oSelectedGame.ID)
 
         eDisplayMode = eDisplayModes.GameSelected
         SwitchDisplayMode()
@@ -1033,7 +1034,12 @@ Public Class frmMain
         End If
 
         lblGameTitle.Text = oSelectedGame.Name
-        lblStatus1.Text = mgrGameTags.PrintTagsbyID(oSelectedGame.ID)
+
+        If sTags = String.Empty Then
+            lblStatus1.Text = frmMain_NoTags
+        Else
+            lblStatus1.Text = sTags
+        End If
 
         If oLastPlayed Is Nothing Then
             lblStatus2.Text = frmMain_NoSessions
