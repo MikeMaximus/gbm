@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-12-19T14:40:02
+        '''  Looks up a localized string similar to 2020-12-19T19:48:17
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2063,6 +2063,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Run &amp;Backup.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsBackup() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Link Configuration....
         '''</summary>
         Friend ReadOnly Property frmGameManager_cmsConfiguration() As String
@@ -2149,6 +2158,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_cmsProcess() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_cmsProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Restore Selected.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsRestore() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsRestore", resourceCulture)
             End Get
         End Property
         

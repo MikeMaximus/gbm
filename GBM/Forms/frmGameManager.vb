@@ -926,7 +926,7 @@ Public Class frmGameManager
             lblBackupFileData.Enabled = True
             btnOpenBackupFolder.Enabled = True
             lblRestorePath.Enabled = True
-            btnRestore.Enabled = True
+            cmsRestore.Enabled = True
             cmsDeleteOne.Enabled = True
             cmsDeleteAll.Enabled = True
 
@@ -944,7 +944,7 @@ Public Class frmGameManager
             lblBackupFileData.Enabled = False
             btnOpenBackupFolder.Enabled = False
             lblRestorePath.Enabled = False
-            btnRestore.Enabled = False
+            cmsRestore.Enabled = False
             cmsDeleteOne.Enabled = False
             cmsDeleteAll.Enabled = False
         End If
@@ -1209,10 +1209,10 @@ Public Class frmGameManager
                 btnCancel.Enabled = True
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
-                btnBackup.Enabled = False
+                cmsBackup.Enabled = False
                 cmsLaunchSettings.Enabled = False
                 btnMarkAsRestored.Enabled = False
-                btnRestore.Enabled = False
+                cmsRestore.Enabled = False
                 btnBackupData.Enabled = False
                 lblBackupFileData.Enabled = False
                 btnOpenBackupFolder.Enabled = False
@@ -1246,9 +1246,9 @@ Public Class frmGameManager
                 btnCancel.Enabled = True
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
-                btnBackup.Enabled = False
-                btnRestore.Enabled = False
-                btnBackup.Enabled = False
+                cmsBackup.Enabled = False
+                cmsRestore.Enabled = False
+                cmsBackup.Enabled = False
                 btnAdvanced.Enabled = True
                 lblGameTags.Visible = True
                 btnImport.Enabled = False
@@ -1271,7 +1271,7 @@ Public Class frmGameManager
                 btnCancel.Enabled = False
                 btnAdd.Enabled = True
                 btnDelete.Enabled = True
-                btnBackup.Enabled = True
+                cmsBackup.Enabled = True
                 btnAdvanced.Enabled = True
                 lblGameTags.Visible = True
                 btnImport.Enabled = True
@@ -1297,8 +1297,8 @@ Public Class frmGameManager
                 tbBackupInfo.Enabled = False
                 btnAdd.Enabled = True
                 btnDelete.Enabled = True
-                btnBackup.Enabled = False
-                btnRestore.Enabled = False
+                cmsBackup.Enabled = False
+                cmsRestore.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnAdvanced.Enabled = False
                 lblGameTags.Visible = False
@@ -1334,8 +1334,8 @@ Public Class frmGameManager
                 HandleTags(mgrGameTags.PrintTagsbyIDMulti(GetSelectedGames))
                 btnAdd.Enabled = False
                 btnDelete.Enabled = True
-                btnBackup.Enabled = True
-                btnRestore.Enabled = True
+                cmsBackup.Enabled = True
+                cmsRestore.Enabled = True
                 cmsLaunchSettings.Enabled = False
                 btnAdvanced.Enabled = True
                 btnImport.Enabled = True
@@ -1986,7 +1986,7 @@ Public Class frmGameManager
         chkEnabled.Text = frmGameManager_chkEnabled
         btnCancel.Text = frmGameManager_btnCancel
         chkMonitorOnly.Text = frmGameManager_chkMonitorOnly
-        btnRestore.Text = frmGameManager_btnRestore
+        cmsRestore.Text = frmGameManager_btnRestore
         btnSave.Text = frmGameManager_btnSave
         lblRestorePath.Text = frmGameManager_lblRestorePath
         lblBackupFile.Text = frmGameManager_lblBackupFile
@@ -2010,7 +2010,6 @@ Public Class frmGameManager
         chkTimeStamp.Text = frmGameManager_chkTimeStamp
         chkFolderSave.Text = frmGameManager_chkFolderSave
         chkCleanFolder.Text = frmGameManager_chkCleanFolder
-        btnBackup.Text = frmGameManager_btnBackup
         btnDelete.Text = frmGameManager_btnDelete
         btnAdd.Text = frmGameManager_btnAdd
         cmsOfficial.Text = frmGameManager_cmsOfficial
@@ -2019,6 +2018,8 @@ Public Class frmGameManager
         cmsFile.Text = frmGameManager_cmsFile
         lblSearch.Text = frmGameManager_lblSearch
         lblLimit.Text = frmGameManager_lblLimit
+        cmsRestore.Text = frmGameManager_cmsRestore
+        cmsBackup.Text = frmGameManager_cmsBackup
         cmsDeleteOne.Text = frmGameManager_cmsDeleteOne
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
         cmsImportData.Text = frmGameManager_cmsImportData
@@ -2075,8 +2076,8 @@ Public Class frmGameManager
         SetForm()
 
         If DisableExternalFunctions Then
-            btnBackup.Visible = False
-            btnRestore.Visible = False
+            cmsBackup.Visible = False
+            cmsRestore.Visible = False
             btnMarkAsRestored.Visible = False
             btnBackupData.Visible = False
         End If
@@ -2132,10 +2133,6 @@ Public Class frmGameManager
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         SaveApp()
-    End Sub
-
-    Private Sub btnBackup_Click(sender As Object, e As EventArgs) Handles btnBackup.Click
-        TriggerSelectedBackup()
     End Sub
 
     Private Sub frmGameManager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -2206,6 +2203,14 @@ Public Class frmGameManager
         mgrCommon.OpenButtonSubMenu(cmsBackupData, btnBackupData)
     End Sub
 
+    Private Sub cmsRestore_Click(sender As Object, e As EventArgs) Handles cmsRestore.Click
+        TriggerSelectedRestore()
+    End Sub
+
+    Private Sub cmsBackup_Click(sender As Object, e As EventArgs) Handles cmsBackup.Click
+        TriggerSelectedBackup()
+    End Sub
+
     Private Sub cmsImportData_Click(sender As Object, e As EventArgs) Handles cmsImportData.Click
         TriggerSelectedImportBackup()
     End Sub
@@ -2220,10 +2225,6 @@ Public Class frmGameManager
 
     Private Sub btnMarkAsRestored_CheckedChanged(sender As Object, e As EventArgs) Handles btnMarkAsRestored.Click
         MarkAsRestored()
-    End Sub
-
-    Private Sub btnRestore_Click(sender As Object, e As EventArgs) Handles btnRestore.Click
-        TriggerSelectedRestore()
     End Sub
 
     Private Sub btnInclude_Click(sender As Object, e As EventArgs) Handles btnInclude.Click

@@ -2863,4 +2863,10 @@
   <data name="frmGameManager_lblFilters" xml:space="preserve">
     <value>Filters:</value>
   </data>
+  <data name="frmGameManager_cmsBackup" xml:space="preserve">
+    <value>Run &amp;Backup</value>
+  </data>
+  <data name="frmGameManager_cmsRestore" xml:space="preserve">
+    <value>&amp;Restore Selected</value>
+  </data>
 </root>
