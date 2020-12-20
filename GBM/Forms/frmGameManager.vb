@@ -925,7 +925,7 @@ Public Class frmGameManager
 
             lblBackupFileData.Enabled = True
             btnOpenBackupFolder.Enabled = True
-            lblRestorePath.Enabled = True
+            lblRestorePathData.Enabled = True
             cmsRestore.Enabled = True
             cmsDeleteOne.Enabled = True
             cmsDeleteAll.Enabled = True
@@ -943,7 +943,7 @@ Public Class frmGameManager
             lblRestorePathData.Text = String.Empty
             lblBackupFileData.Enabled = False
             btnOpenBackupFolder.Enabled = False
-            lblRestorePath.Enabled = False
+            lblRestorePathData.Enabled = False
             cmsRestore.Enabled = False
             cmsDeleteOne.Enabled = False
             cmsDeleteAll.Enabled = False
@@ -989,7 +989,7 @@ Public Class frmGameManager
             cmsImportData.Enabled = False
             lblBackupFileData.Enabled = False
             btnOpenBackupFolder.Enabled = False
-            lblRestorePath.Enabled = False
+            lblRestorePathData.Enabled = False
         End If
 
     End Sub
@@ -1216,7 +1216,7 @@ Public Class frmGameManager
                 btnBackupData.Enabled = False
                 lblBackupFileData.Enabled = False
                 btnOpenBackupFolder.Enabled = False
-                lblRestorePath.Enabled = False
+                lblRestorePathData.Enabled = False
                 chkEnabled.Checked = True
                 chkMonitorOnly.Checked = False
                 chkRecurseSubFolders.Checked = True
@@ -1376,8 +1376,7 @@ Public Class frmGameManager
         Else
             chkFolderSave.Enabled = True
             chkTimeStamp.Enabled = True
-            lblLimit.Enabled = True
-            nudLimit.Enabled = True
+            TimeStampModeChange()
             lblSavePath.Enabled = True
             txtSavePath.Enabled = True
             btnSavePathBrowse.Enabled = True

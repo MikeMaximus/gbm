@@ -76,10 +76,10 @@ Partial Class frmGameManager
         Me.lblSearch = New System.Windows.Forms.Label()
         Me.cmsBackupData = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsRestore = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmsBackup = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmsImportData = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsDeleteOne = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsBackup = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsImportData = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnAdvanced = New System.Windows.Forms.Button()
         Me.ttFullPath = New System.Windows.Forms.ToolTip(Me.components)
         Me.cmsAdvanced = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -414,14 +414,14 @@ Partial Class frmGameManager
         '
         Me.txtVersion.Location = New System.Drawing.Point(74, 88)
         Me.txtVersion.Name = "txtVersion"
-        Me.txtVersion.Size = New System.Drawing.Size(377, 20)
+        Me.txtVersion.Size = New System.Drawing.Size(431, 20)
         Me.txtVersion.TabIndex = 5
         '
         'txtCompany
         '
         Me.txtCompany.Location = New System.Drawing.Point(74, 62)
         Me.txtCompany.Name = "txtCompany"
-        Me.txtCompany.Size = New System.Drawing.Size(377, 20)
+        Me.txtCompany.Size = New System.Drawing.Size(431, 20)
         Me.txtCompany.TabIndex = 3
         '
         'lblCompany
@@ -587,18 +587,6 @@ Partial Class frmGameManager
         Me.cmsRestore.Size = New System.Drawing.Size(135, 22)
         Me.cmsRestore.Text = "&Restore Selected"
         '
-        'cmsBackup
-        '
-        Me.cmsBackup.Name = "cmsBackup"
-        Me.cmsBackup.Size = New System.Drawing.Size(135, 22)
-        Me.cmsBackup.Text = "Run &Backup"
-        '
-        'cmsImportData
-        '
-        Me.cmsImportData.Name = "cmsImportData"
-        Me.cmsImportData.Size = New System.Drawing.Size(135, 22)
-        Me.cmsImportData.Text = "&Import Backup"
-        '
         'cmsDeleteOne
         '
         Me.cmsDeleteOne.Name = "cmsDeleteOne"
@@ -610,6 +598,18 @@ Partial Class frmGameManager
         Me.cmsDeleteAll.Name = "cmsDeleteAll"
         Me.cmsDeleteAll.Size = New System.Drawing.Size(135, 22)
         Me.cmsDeleteAll.Text = "Delete &All"
+        '
+        'cmsBackup
+        '
+        Me.cmsBackup.Name = "cmsBackup"
+        Me.cmsBackup.Size = New System.Drawing.Size(135, 22)
+        Me.cmsBackup.Text = "Run &Backup"
+        '
+        'cmsImportData
+        '
+        Me.cmsImportData.Name = "cmsImportData"
+        Me.cmsImportData.Size = New System.Drawing.Size(135, 22)
+        Me.cmsImportData.Text = "&Import Backup"
         '
         'btnAdvanced
         '
@@ -811,7 +811,7 @@ Partial Class frmGameManager
         Me.txtComments.Multiline = True
         Me.txtComments.Name = "txtComments"
         Me.txtComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtComments.Size = New System.Drawing.Size(377, 40)
+        Me.txtComments.Size = New System.Drawing.Size(431, 40)
         Me.txtComments.TabIndex = 1
         '
         'tbBackupInfo
