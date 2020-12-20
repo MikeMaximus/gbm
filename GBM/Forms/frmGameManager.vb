@@ -1173,7 +1173,7 @@ Public Class frmGameManager
         Next
     End Sub
 
-    Private Sub ModeChange(Optional ByVal bNoFocusChange As Boolean = False)
+    Private Sub ModeChange()
         IsLoading = True
 
         Select Case eLastMode
@@ -1342,8 +1342,6 @@ Public Class frmGameManager
                 btnImport.Enabled = True
                 btnExport.Enabled = True
         End Select
-
-        If Not bNoFocusChange Then lstGames.Focus()
 
         IsLoading = False
     End Sub
@@ -2291,7 +2289,7 @@ Public Class frmGameManager
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         If Not eCurrentMode = eModes.Disabled Then
             eCurrentMode = eModes.Disabled
-            ModeChange(True)
+            ModeChange()
             lstGames.ClearSelected()
         End If
 
