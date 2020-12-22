@@ -785,6 +785,7 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lstGames.FormattingEnabled = True
+        Me.lstGames.IntegralHeight = False
         Me.lstGames.Location = New System.Drawing.Point(12, 38)
         Me.lstGames.Name = "lstGames"
         Me.lstGames.Size = New System.Drawing.Size(228, 316)

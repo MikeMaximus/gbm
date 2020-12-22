@@ -674,7 +674,7 @@ Partial Class frmGameManager
         Me.tabGameManager.Multiline = True
         Me.tabGameManager.Name = "tabGameManager"
         Me.tabGameManager.SelectedIndex = 0
-        Me.tabGameManager.Size = New System.Drawing.Size(526, 308)
+        Me.tabGameManager.Size = New System.Drawing.Size(526, 315)
         Me.tabGameManager.TabIndex = 8
         '
         'tbConfig
@@ -683,7 +683,7 @@ Partial Class frmGameManager
         Me.tbConfig.Controls.Add(Me.grpCoreConfig)
         Me.tbConfig.Location = New System.Drawing.Point(4, 25)
         Me.tbConfig.Name = "tbConfig"
-        Me.tbConfig.Size = New System.Drawing.Size(518, 279)
+        Me.tbConfig.Size = New System.Drawing.Size(518, 286)
         Me.tbConfig.TabIndex = 0
         Me.tbConfig.Text = "Core Configuration"
         '
@@ -721,7 +721,7 @@ Partial Class frmGameManager
         Me.grpCoreConfig.Controls.Add(Me.lblLimit)
         Me.grpCoreConfig.Location = New System.Drawing.Point(3, 3)
         Me.grpCoreConfig.Name = "grpCoreConfig"
-        Me.grpCoreConfig.Size = New System.Drawing.Size(511, 273)
+        Me.grpCoreConfig.Size = New System.Drawing.Size(511, 280)
         Me.grpCoreConfig.TabIndex = 0
         Me.grpCoreConfig.TabStop = False
         '
@@ -765,7 +765,7 @@ Partial Class frmGameManager
         Me.tbGameInfo.Controls.Add(Me.grpGameInfo)
         Me.tbGameInfo.Location = New System.Drawing.Point(4, 25)
         Me.tbGameInfo.Name = "tbGameInfo"
-        Me.tbGameInfo.Size = New System.Drawing.Size(518, 279)
+        Me.tbGameInfo.Size = New System.Drawing.Size(518, 286)
         Me.tbGameInfo.TabIndex = 1
         Me.tbGameInfo.Text = "Game Information"
         '
@@ -787,7 +787,7 @@ Partial Class frmGameManager
         Me.grpGameInfo.Controls.Add(Me.txtVersion)
         Me.grpGameInfo.Location = New System.Drawing.Point(3, 3)
         Me.grpGameInfo.Name = "grpGameInfo"
-        Me.grpGameInfo.Size = New System.Drawing.Size(511, 273)
+        Me.grpGameInfo.Size = New System.Drawing.Size(511, 280)
         Me.grpGameInfo.TabIndex = 0
         Me.grpGameInfo.TabStop = False
         '
@@ -824,7 +824,7 @@ Partial Class frmGameManager
         Me.tbBackupInfo.Controls.Add(Me.grpBackupInfo)
         Me.tbBackupInfo.Location = New System.Drawing.Point(4, 25)
         Me.tbBackupInfo.Name = "tbBackupInfo"
-        Me.tbBackupInfo.Size = New System.Drawing.Size(518, 279)
+        Me.tbBackupInfo.Size = New System.Drawing.Size(518, 286)
         Me.tbBackupInfo.TabIndex = 2
         Me.tbBackupInfo.Text = "Backup Information"
         '
@@ -843,7 +843,7 @@ Partial Class frmGameManager
         Me.grpBackupInfo.Controls.Add(Me.lblRestorePathData)
         Me.grpBackupInfo.Location = New System.Drawing.Point(3, 3)
         Me.grpBackupInfo.Name = "grpBackupInfo"
-        Me.grpBackupInfo.Size = New System.Drawing.Size(511, 273)
+        Me.grpBackupInfo.Size = New System.Drawing.Size(511, 280)
         Me.grpBackupInfo.TabIndex = 0
         Me.grpBackupInfo.TabStop = False
         '
