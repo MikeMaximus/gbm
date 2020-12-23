@@ -27,7 +27,6 @@ Partial Class frmGameManager
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.cboOS = New System.Windows.Forms.ComboBox()
         Me.chkRecurseSubFolders = New System.Windows.Forms.CheckBox()
-        Me.btnGameID = New System.Windows.Forms.Button()
         Me.chkRegEx = New System.Windows.Forms.CheckBox()
         Me.txtParameter = New System.Windows.Forms.TextBox()
         Me.lblParameter = New System.Windows.Forms.Label()
@@ -83,10 +82,11 @@ Partial Class frmGameManager
         Me.btnAdvanced = New System.Windows.Forms.Button()
         Me.ttFullPath = New System.Windows.Forms.ToolTip(Me.components)
         Me.cmsAdvanced = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.cmsProcess = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmsConfiguration = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmsWineConfig = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsLaunchSettings = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsConfiguration = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsProcess = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsGameID = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsWineConfig = New System.Windows.Forms.ToolStripMenuItem()
         Me.ttHelp = New System.Windows.Forms.ToolTip(Me.components)
         Me.tabGameManager = New System.Windows.Forms.TabControl()
         Me.tbConfig = New System.Windows.Forms.TabPage()
@@ -157,7 +157,7 @@ Partial Class frmGameManager
         Me.cboOS.Location = New System.Drawing.Point(37, 200)
         Me.cboOS.Name = "cboOS"
         Me.cboOS.Size = New System.Drawing.Size(156, 21)
-        Me.cboOS.TabIndex = 16
+        Me.cboOS.TabIndex = 22
         '
         'chkRecurseSubFolders
         '
@@ -170,23 +170,13 @@ Partial Class frmGameManager
         Me.chkRecurseSubFolders.UseVisualStyleBackColor = True
         Me.chkRecurseSubFolders.Visible = False
         '
-        'btnGameID
-        '
-        Me.btnGameID.Location = New System.Drawing.Point(388, 12)
-        Me.btnGameID.Name = "btnGameID"
-        Me.btnGameID.Size = New System.Drawing.Size(117, 23)
-        Me.btnGameID.TabIndex = 2
-        Me.btnGameID.TabStop = False
-        Me.btnGameID.Text = "&Game ID..."
-        Me.btnGameID.UseVisualStyleBackColor = True
-        '
         'chkRegEx
         '
         Me.chkRegEx.AutoSize = True
         Me.chkRegEx.Location = New System.Drawing.Point(388, 42)
         Me.chkRegEx.Name = "chkRegEx"
         Me.chkRegEx.Size = New System.Drawing.Size(117, 17)
-        Me.chkRegEx.TabIndex = 6
+        Me.chkRegEx.TabIndex = 5
         Me.chkRegEx.Text = "Regular Expression"
         Me.chkRegEx.UseVisualStyleBackColor = True
         '
@@ -195,7 +185,7 @@ Partial Class frmGameManager
         Me.txtParameter.Location = New System.Drawing.Point(78, 64)
         Me.txtParameter.Name = "txtParameter"
         Me.txtParameter.Size = New System.Drawing.Size(387, 20)
-        Me.txtParameter.TabIndex = 8
+        Me.txtParameter.TabIndex = 7
         '
         'lblParameter
         '
@@ -203,7 +193,7 @@ Partial Class frmGameManager
         Me.lblParameter.Location = New System.Drawing.Point(6, 67)
         Me.lblParameter.Name = "lblParameter"
         Me.lblParameter.Size = New System.Drawing.Size(58, 13)
-        Me.lblParameter.TabIndex = 7
+        Me.lblParameter.TabIndex = 6
         Me.lblParameter.Text = "Parameter:"
         '
         'chkCleanFolder
@@ -212,7 +202,7 @@ Partial Class frmGameManager
         Me.chkCleanFolder.Location = New System.Drawing.Point(338, 146)
         Me.chkCleanFolder.Name = "chkCleanFolder"
         Me.chkCleanFolder.Size = New System.Drawing.Size(136, 17)
-        Me.chkCleanFolder.TabIndex = 20
+        Me.chkCleanFolder.TabIndex = 16
         Me.chkCleanFolder.Text = "Delete folder on restore"
         Me.chkCleanFolder.UseVisualStyleBackColor = True
         '
@@ -222,7 +212,7 @@ Partial Class frmGameManager
         Me.lblLimit.Location = New System.Drawing.Point(384, 176)
         Me.lblLimit.Name = "lblLimit"
         Me.lblLimit.Size = New System.Drawing.Size(98, 13)
-        Me.lblLimit.TabIndex = 24
+        Me.lblLimit.TabIndex = 20
         Me.lblLimit.Text = "Limit (0 = Unlimited)"
         '
         'nudLimit
@@ -230,14 +220,14 @@ Partial Class frmGameManager
         Me.nudLimit.Location = New System.Drawing.Point(338, 174)
         Me.nudLimit.Name = "nudLimit"
         Me.nudLimit.Size = New System.Drawing.Size(40, 20)
-        Me.nudLimit.TabIndex = 23
+        Me.nudLimit.TabIndex = 19
         '
         'btnExclude
         '
         Me.btnExclude.Location = New System.Drawing.Point(9, 171)
         Me.btnExclude.Name = "btnExclude"
         Me.btnExclude.Size = New System.Drawing.Size(184, 23)
-        Me.btnExclude.TabIndex = 21
+        Me.btnExclude.TabIndex = 17
         Me.btnExclude.Text = "E&xclude Items..."
         Me.btnExclude.UseVisualStyleBackColor = True
         '
@@ -246,7 +236,7 @@ Partial Class frmGameManager
         Me.btnInclude.Location = New System.Drawing.Point(9, 142)
         Me.btnInclude.Name = "btnInclude"
         Me.btnInclude.Size = New System.Drawing.Size(184, 23)
-        Me.btnInclude.TabIndex = 18
+        Me.btnInclude.TabIndex = 14
         Me.btnInclude.Text = "Incl&ude Items..."
         Me.btnInclude.UseVisualStyleBackColor = True
         '
@@ -265,7 +255,7 @@ Partial Class frmGameManager
         Me.btnSavePathBrowse.Location = New System.Drawing.Point(471, 116)
         Me.btnSavePathBrowse.Name = "btnSavePathBrowse"
         Me.btnSavePathBrowse.Size = New System.Drawing.Size(30, 20)
-        Me.btnSavePathBrowse.TabIndex = 11
+        Me.btnSavePathBrowse.TabIndex = 13
         Me.btnSavePathBrowse.Text = "..."
         Me.btnSavePathBrowse.UseVisualStyleBackColor = True
         '
@@ -274,7 +264,7 @@ Partial Class frmGameManager
         Me.btnProcessBrowse.Location = New System.Drawing.Point(352, 39)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
         Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 20)
-        Me.btnProcessBrowse.TabIndex = 5
+        Me.btnProcessBrowse.TabIndex = 4
         Me.btnProcessBrowse.Text = "..."
         Me.btnProcessBrowse.UseVisualStyleBackColor = True
         '
@@ -284,7 +274,7 @@ Partial Class frmGameManager
         Me.lblSavePath.Location = New System.Drawing.Point(6, 120)
         Me.lblSavePath.Name = "lblSavePath"
         Me.lblSavePath.Size = New System.Drawing.Size(60, 13)
-        Me.lblSavePath.TabIndex = 9
+        Me.lblSavePath.TabIndex = 11
         Me.lblSavePath.Text = "Save Path:"
         '
         'lblProcess
@@ -293,7 +283,7 @@ Partial Class frmGameManager
         Me.lblProcess.Location = New System.Drawing.Point(6, 42)
         Me.lblProcess.Name = "lblProcess"
         Me.lblProcess.Size = New System.Drawing.Size(48, 13)
-        Me.lblProcess.TabIndex = 3
+        Me.lblProcess.TabIndex = 2
         Me.lblProcess.Text = "Process:"
         '
         'lblName
@@ -329,7 +319,7 @@ Partial Class frmGameManager
         Me.chkTimeStamp.Location = New System.Drawing.Point(199, 175)
         Me.chkTimeStamp.Name = "chkTimeStamp"
         Me.chkTimeStamp.Size = New System.Drawing.Size(133, 17)
-        Me.chkTimeStamp.TabIndex = 22
+        Me.chkTimeStamp.TabIndex = 18
         Me.chkTimeStamp.Text = "Save multiple backups"
         Me.chkTimeStamp.UseVisualStyleBackColor = True
         '
@@ -339,7 +329,7 @@ Partial Class frmGameManager
         Me.chkFolderSave.Location = New System.Drawing.Point(199, 146)
         Me.chkFolderSave.Name = "chkFolderSave"
         Me.chkFolderSave.Size = New System.Drawing.Size(109, 17)
-        Me.chkFolderSave.TabIndex = 19
+        Me.chkFolderSave.TabIndex = 15
         Me.chkFolderSave.Text = "Save entire folder"
         Me.chkFolderSave.UseVisualStyleBackColor = True
         '
@@ -348,20 +338,20 @@ Partial Class frmGameManager
         Me.txtSavePath.Location = New System.Drawing.Point(78, 116)
         Me.txtSavePath.Name = "txtSavePath"
         Me.txtSavePath.Size = New System.Drawing.Size(387, 20)
-        Me.txtSavePath.TabIndex = 10
+        Me.txtSavePath.TabIndex = 12
         '
         'txtProcess
         '
         Me.txtProcess.Location = New System.Drawing.Point(78, 39)
         Me.txtProcess.Name = "txtProcess"
         Me.txtProcess.Size = New System.Drawing.Size(268, 20)
-        Me.txtProcess.TabIndex = 4
+        Me.txtProcess.TabIndex = 3
         '
         'txtName
         '
         Me.txtName.Location = New System.Drawing.Point(78, 13)
         Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(304, 20)
+        Me.txtName.Size = New System.Drawing.Size(387, 20)
         Me.txtName.TabIndex = 1
         '
         'chkMonitorOnly
@@ -370,7 +360,7 @@ Partial Class frmGameManager
         Me.chkMonitorOnly.Location = New System.Drawing.Point(338, 202)
         Me.chkMonitorOnly.Name = "chkMonitorOnly"
         Me.chkMonitorOnly.Size = New System.Drawing.Size(83, 17)
-        Me.chkMonitorOnly.TabIndex = 26
+        Me.chkMonitorOnly.TabIndex = 24
         Me.chkMonitorOnly.Text = "Monitor only"
         Me.chkMonitorOnly.UseVisualStyleBackColor = True
         '
@@ -505,7 +495,7 @@ Partial Class frmGameManager
         Me.chkEnabled.Location = New System.Drawing.Point(199, 202)
         Me.chkEnabled.Name = "chkEnabled"
         Me.chkEnabled.Size = New System.Drawing.Size(109, 17)
-        Me.chkEnabled.TabIndex = 25
+        Me.chkEnabled.TabIndex = 23
         Me.chkEnabled.Text = "Monitor this game"
         Me.chkEnabled.UseVisualStyleBackColor = True
         '
@@ -630,16 +620,16 @@ Partial Class frmGameManager
         '
         'cmsAdvanced
         '
-        Me.cmsAdvanced.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsProcess, Me.cmsConfiguration, Me.cmsWineConfig, Me.cmsLaunchSettings})
+        Me.cmsAdvanced.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsLaunchSettings, Me.cmsConfiguration, Me.cmsProcess, Me.cmsGameID, Me.cmsWineConfig})
         Me.cmsAdvanced.Name = "cmsLinks"
         Me.cmsAdvanced.ShowImageMargin = False
-        Me.cmsAdvanced.Size = New System.Drawing.Size(163, 92)
+        Me.cmsAdvanced.Size = New System.Drawing.Size(163, 114)
         '
-        'cmsProcess
+        'cmsLaunchSettings
         '
-        Me.cmsProcess.Name = "cmsProcess"
-        Me.cmsProcess.Size = New System.Drawing.Size(162, 22)
-        Me.cmsProcess.Text = "Link &Process..."
+        Me.cmsLaunchSettings.Name = "cmsLaunchSettings"
+        Me.cmsLaunchSettings.Size = New System.Drawing.Size(162, 22)
+        Me.cmsLaunchSettings.Text = "&Launch Settings..."
         '
         'cmsConfiguration
         '
@@ -647,17 +637,23 @@ Partial Class frmGameManager
         Me.cmsConfiguration.Size = New System.Drawing.Size(162, 22)
         Me.cmsConfiguration.Text = "Link &Configuration..."
         '
+        'cmsProcess
+        '
+        Me.cmsProcess.Name = "cmsProcess"
+        Me.cmsProcess.Size = New System.Drawing.Size(162, 22)
+        Me.cmsProcess.Text = "Link &Process..."
+        '
+        'cmsGameID
+        '
+        Me.cmsGameID.Name = "cmsGameID"
+        Me.cmsGameID.Size = New System.Drawing.Size(162, 22)
+        Me.cmsGameID.Text = "Modify &Game ID..."
+        '
         'cmsWineConfig
         '
         Me.cmsWineConfig.Name = "cmsWineConfig"
         Me.cmsWineConfig.Size = New System.Drawing.Size(162, 22)
         Me.cmsWineConfig.Text = "&Wine Configuration..."
-        '
-        'cmsLaunchSettings
-        '
-        Me.cmsLaunchSettings.Name = "cmsLaunchSettings"
-        Me.cmsLaunchSettings.Size = New System.Drawing.Size(162, 22)
-        Me.cmsLaunchSettings.Text = "&Launch Settings..."
         '
         'ttHelp
         '
@@ -710,7 +706,6 @@ Partial Class frmGameManager
         Me.grpCoreConfig.Controls.Add(Me.btnProcessBrowse)
         Me.grpCoreConfig.Controls.Add(Me.btnExclude)
         Me.grpCoreConfig.Controls.Add(Me.chkRecurseSubFolders)
-        Me.grpCoreConfig.Controls.Add(Me.btnGameID)
         Me.grpCoreConfig.Controls.Add(Me.chkRegEx)
         Me.grpCoreConfig.Controls.Add(Me.txtParameter)
         Me.grpCoreConfig.Controls.Add(Me.chkMonitorOnly)
@@ -731,7 +726,7 @@ Partial Class frmGameManager
         Me.btnAppPathBrowse.Location = New System.Drawing.Point(471, 90)
         Me.btnAppPathBrowse.Name = "btnAppPathBrowse"
         Me.btnAppPathBrowse.Size = New System.Drawing.Size(30, 20)
-        Me.btnAppPathBrowse.TabIndex = 14
+        Me.btnAppPathBrowse.TabIndex = 10
         Me.btnAppPathBrowse.Text = "..."
         Me.btnAppPathBrowse.UseVisualStyleBackColor = True
         '
@@ -741,7 +736,7 @@ Partial Class frmGameManager
         Me.lblOS.Location = New System.Drawing.Point(6, 203)
         Me.lblOS.Name = "lblOS"
         Me.lblOS.Size = New System.Drawing.Size(25, 13)
-        Me.lblOS.TabIndex = 15
+        Me.lblOS.TabIndex = 21
         Me.lblOS.Text = "OS:"
         '
         'lblGamePath
@@ -750,7 +745,7 @@ Partial Class frmGameManager
         Me.lblGamePath.Location = New System.Drawing.Point(6, 93)
         Me.lblGamePath.Name = "lblGamePath"
         Me.lblGamePath.Size = New System.Drawing.Size(63, 13)
-        Me.lblGamePath.TabIndex = 12
+        Me.lblGamePath.TabIndex = 8
         Me.lblGamePath.Text = "Game Path:"
         '
         'txtAppPath
@@ -758,7 +753,7 @@ Partial Class frmGameManager
         Me.txtAppPath.Location = New System.Drawing.Point(78, 90)
         Me.txtAppPath.Name = "txtAppPath"
         Me.txtAppPath.Size = New System.Drawing.Size(387, 20)
-        Me.txtAppPath.TabIndex = 13
+        Me.txtAppPath.TabIndex = 9
         '
         'tbGameInfo
         '
@@ -1071,7 +1066,6 @@ Partial Class frmGameManager
     Friend WithEvents txtParameter As TextBox
     Friend WithEvents lblParameter As Label
     Friend WithEvents chkRegEx As CheckBox
-    Friend WithEvents btnGameID As Button
     Friend WithEvents btnAdvanced As Button
     Friend WithEvents ttFullPath As ToolTip
     Friend WithEvents cmsOfficialWindows As ToolStripMenuItem
@@ -1115,4 +1109,5 @@ Partial Class frmGameManager
     Friend WithEvents cmsWineConfig As ToolStripMenuItem
     Friend WithEvents cmsRestore As ToolStripMenuItem
     Friend WithEvents cmsBackup As ToolStripMenuItem
+    Friend WithEvents cmsGameID As ToolStripMenuItem
 End Class

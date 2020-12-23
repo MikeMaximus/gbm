@@ -578,14 +578,9 @@ Public Class frmGameManager
 
         sNewID = InputBox(frmGameManager_GameIDEditInfo, frmGameManager_GameIDEditTitle, sCurrentID)
 
-        If sNewID <> String.Empty Then
+        If sNewID <> String.Empty And sCurrentID <> sNewID Then
             txtID.Text = sNewID
-
-            If sCurrentID <> sNewID Then
-                UpdateGenericButtonLabel(frmGameManager_btnGameID, btnGameID, True)
-            End If
         End If
-
     End Sub
 
     Private Sub OpenBackupFile()
@@ -1095,7 +1090,6 @@ Public Class frmGameManager
         'Update Buttons
         UpdateBuilderButtonLabel(oApp.FileType, frmGameManager_IncludeShortcut, btnInclude, False)
         UpdateBuilderButtonLabel(oApp.ExcludeList, frmGameManager_ExcludeShortcut, btnExclude, False)
-        UpdateGenericButtonLabel(frmGameManager_btnGameID, btnGameID, False)
         HandleWineConfig()
 
         'Extra
@@ -1310,7 +1304,6 @@ Public Class frmGameManager
                 cboOS.SelectedValue = CInt(mgrCommon.GetCurrentOS)
                 UpdateGenericButtonLabel(frmGameManager_IncludeShortcut, btnInclude, False)
                 UpdateGenericButtonLabel(frmGameManager_ExcludeShortcut, btnExclude, False)
-                UpdateGenericButtonLabel(frmGameManager_btnGameID, btnGameID, False)
             Case eModes.MultiSelect
                 eLastMode = eModes.MultiSelect
                 lstGames.Enabled = True
@@ -2009,7 +2002,7 @@ Public Class frmGameManager
         cmsImportData.Text = frmGameManager_cmsImportData
         lblComments.Text = frmGameManager_lblComments
         chkRegEx.Text = frmGameManager_chkRegEx
-        btnGameID.Text = frmGameManager_btnGameID
+        cmsGameID.Text = frmGameManager_cmsGameID
         btnAdvanced.Text = frmGameManager_btnAdvanced
         btnAdvanced.ImageAlign = ContentAlignment.MiddleRight
         btnAdvanced.Image = Arrow_Submenu_Right
@@ -2164,6 +2157,10 @@ Public Class frmGameManager
         OpenTags()
     End Sub
 
+    Private Sub ModifyGameIDToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles cmsGameID.Click
+        OpenGameIDEdit()
+    End Sub
+
     Private Sub cmsLink_Click(sender As Object, e As EventArgs) Handles cmsConfiguration.Click
         OpenConfigLinks()
     End Sub
@@ -2280,10 +2277,6 @@ Public Class frmGameManager
 
     Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
         ExportGameList()
-    End Sub
-
-    Private Sub btnGameID_Click(sender As Object, e As EventArgs) Handles btnGameID.Click
-        OpenGameIDEdit()
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
