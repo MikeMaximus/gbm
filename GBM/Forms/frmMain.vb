@@ -51,6 +51,7 @@ Public Class frmMain
     Private sPriorPath As String
     Private sPriorCompany As String
     Private sPriorVersion As String
+    Private sPriorTime As String
     Private iRestoreTimeOut As Integer
     Private oChildProcesses As New Hashtable
     Private oLastGame As clsGame
@@ -955,6 +956,7 @@ Public Class frmMain
                 lblStatus1.Text = sPriorPath
                 lblStatus2.Text = sPriorCompany
                 lblStatus3.Text = sPriorVersion
+                lblTimeSpent.Text = sPriorTime
                 If mgrSettings.TimeTracking Then
                     pbTime.Visible = True
                     lblTimeSpent.Visible = True
@@ -1125,6 +1127,7 @@ Public Class frmMain
         mgrMonitorList.DoListFieldUpdate("Hours", oProcess.GameInfo.Hours, oProcess.GameInfo.ID)
         mgrMonitorList.SyncMonitorLists()
 
+        sPriorTime = lblTimeSpent.Text
         UpdateTimeSpent(dCurrentHours, oProcess.TimeSpent.TotalHours)
     End Sub
 
@@ -1299,7 +1302,7 @@ Public Class frmMain
         frm.ShowDialog()
         mgrMonitorList.SyncMonitorLists()
         LoadGameSettings()
-        ResetGameInfo()
+        ResetGameInfo(True)
         ResumeScan()
 
         'Handle backup trigger

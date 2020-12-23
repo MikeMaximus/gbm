@@ -176,6 +176,7 @@ Partial Class frmGameManager
         Me.btnGameID.Name = "btnGameID"
         Me.btnGameID.Size = New System.Drawing.Size(117, 23)
         Me.btnGameID.TabIndex = 2
+        Me.btnGameID.TabStop = False
         Me.btnGameID.Text = "&Game ID..."
         Me.btnGameID.UseVisualStyleBackColor = True
         '
