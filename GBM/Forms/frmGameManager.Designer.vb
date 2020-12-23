@@ -27,7 +27,6 @@ Partial Class frmGameManager
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.cboOS = New System.Windows.Forms.ComboBox()
         Me.chkRecurseSubFolders = New System.Windows.Forms.CheckBox()
-        Me.chkRegEx = New System.Windows.Forms.CheckBox()
         Me.txtParameter = New System.Windows.Forms.TextBox()
         Me.lblParameter = New System.Windows.Forms.Label()
         Me.chkCleanFolder = New System.Windows.Forms.CheckBox()
@@ -91,6 +90,7 @@ Partial Class frmGameManager
         Me.tabGameManager = New System.Windows.Forms.TabControl()
         Me.tbConfig = New System.Windows.Forms.TabPage()
         Me.grpCoreConfig = New System.Windows.Forms.GroupBox()
+        Me.btnProcessOptions = New System.Windows.Forms.Button()
         Me.btnAppPathBrowse = New System.Windows.Forms.Button()
         Me.lblOS = New System.Windows.Forms.Label()
         Me.lblGamePath = New System.Windows.Forms.Label()
@@ -115,6 +115,9 @@ Partial Class frmGameManager
         Me.lblRestorePathData = New System.Windows.Forms.LinkLabel()
         Me.cboFilters = New System.Windows.Forms.ComboBox()
         Me.lblFilters = New System.Windows.Forms.Label()
+        Me.cmsProcessOptions = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmsRegEx = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsUseWindowTitle = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudHours, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -128,6 +131,7 @@ Partial Class frmGameManager
         Me.grpGameInfo.SuspendLayout()
         Me.tbBackupInfo.SuspendLayout()
         Me.grpBackupInfo.SuspendLayout()
+        Me.cmsProcessOptions.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnAdd
@@ -169,16 +173,6 @@ Partial Class frmGameManager
         Me.chkRecurseSubFolders.TabStop = False
         Me.chkRecurseSubFolders.UseVisualStyleBackColor = True
         Me.chkRecurseSubFolders.Visible = False
-        '
-        'chkRegEx
-        '
-        Me.chkRegEx.AutoSize = True
-        Me.chkRegEx.Location = New System.Drawing.Point(388, 42)
-        Me.chkRegEx.Name = "chkRegEx"
-        Me.chkRegEx.Size = New System.Drawing.Size(117, 17)
-        Me.chkRegEx.TabIndex = 5
-        Me.chkRegEx.Text = "Regular Expression"
-        Me.chkRegEx.UseVisualStyleBackColor = True
         '
         'txtParameter
         '
@@ -261,7 +255,7 @@ Partial Class frmGameManager
         '
         'btnProcessBrowse
         '
-        Me.btnProcessBrowse.Location = New System.Drawing.Point(352, 39)
+        Me.btnProcessBrowse.Location = New System.Drawing.Point(406, 39)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
         Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnProcessBrowse.TabIndex = 4
@@ -344,7 +338,7 @@ Partial Class frmGameManager
         '
         Me.txtProcess.Location = New System.Drawing.Point(78, 39)
         Me.txtProcess.Name = "txtProcess"
-        Me.txtProcess.Size = New System.Drawing.Size(268, 20)
+        Me.txtProcess.Size = New System.Drawing.Size(322, 20)
         Me.txtProcess.TabIndex = 3
         '
         'txtName
@@ -467,7 +461,7 @@ Partial Class frmGameManager
         Me.btnSave.Location = New System.Drawing.Point(616, 326)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 10
+        Me.btnSave.TabIndex = 11
         Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
@@ -485,7 +479,7 @@ Partial Class frmGameManager
         Me.btnCancel.Location = New System.Drawing.Point(697, 326)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 11
+        Me.btnCancel.TabIndex = 12
         Me.btnCancel.Text = "Ca&ncel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
@@ -607,7 +601,7 @@ Partial Class frmGameManager
         Me.btnAdvanced.Location = New System.Drawing.Point(535, 326)
         Me.btnAdvanced.Name = "btnAdvanced"
         Me.btnAdvanced.Size = New System.Drawing.Size(75, 23)
-        Me.btnAdvanced.TabIndex = 9
+        Me.btnAdvanced.TabIndex = 10
         Me.btnAdvanced.Text = "&Advanced"
         Me.btnAdvanced.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnAdvanced.UseVisualStyleBackColor = True
@@ -672,7 +666,7 @@ Partial Class frmGameManager
         Me.tabGameManager.Name = "tabGameManager"
         Me.tabGameManager.SelectedIndex = 0
         Me.tabGameManager.Size = New System.Drawing.Size(526, 315)
-        Me.tabGameManager.TabIndex = 8
+        Me.tabGameManager.TabIndex = 9
         '
         'tbConfig
         '
@@ -686,6 +680,7 @@ Partial Class frmGameManager
         '
         'grpCoreConfig
         '
+        Me.grpCoreConfig.Controls.Add(Me.btnProcessOptions)
         Me.grpCoreConfig.Controls.Add(Me.btnAppPathBrowse)
         Me.grpCoreConfig.Controls.Add(Me.lblName)
         Me.grpCoreConfig.Controls.Add(Me.lblOS)
@@ -706,7 +701,6 @@ Partial Class frmGameManager
         Me.grpCoreConfig.Controls.Add(Me.btnProcessBrowse)
         Me.grpCoreConfig.Controls.Add(Me.btnExclude)
         Me.grpCoreConfig.Controls.Add(Me.chkRecurseSubFolders)
-        Me.grpCoreConfig.Controls.Add(Me.chkRegEx)
         Me.grpCoreConfig.Controls.Add(Me.txtParameter)
         Me.grpCoreConfig.Controls.Add(Me.chkMonitorOnly)
         Me.grpCoreConfig.Controls.Add(Me.chkEnabled)
@@ -720,6 +714,16 @@ Partial Class frmGameManager
         Me.grpCoreConfig.Size = New System.Drawing.Size(511, 280)
         Me.grpCoreConfig.TabIndex = 0
         Me.grpCoreConfig.TabStop = False
+        '
+        'btnProcessOptions
+        '
+        Me.btnProcessOptions.Location = New System.Drawing.Point(442, 37)
+        Me.btnProcessOptions.Name = "btnProcessOptions"
+        Me.btnProcessOptions.Size = New System.Drawing.Size(59, 23)
+        Me.btnProcessOptions.TabIndex = 5
+        Me.btnProcessOptions.Text = "&Options"
+        Me.btnProcessOptions.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnProcessOptions.UseVisualStyleBackColor = True
         '
         'btnAppPathBrowse
         '
@@ -974,6 +978,28 @@ Partial Class frmGameManager
         Me.lblFilters.TabIndex = 0
         Me.lblFilters.Text = "Filters:"
         '
+        'cmsProcessOptions
+        '
+        Me.cmsProcessOptions.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsRegEx, Me.cmsUseWindowTitle})
+        Me.cmsProcessOptions.Name = "ContextMenuStrip1"
+        Me.cmsProcessOptions.Size = New System.Drawing.Size(174, 48)
+        '
+        'cmsRegEx
+        '
+        Me.cmsRegEx.CheckOnClick = True
+        Me.cmsRegEx.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.cmsRegEx.Name = "cmsRegEx"
+        Me.cmsRegEx.Size = New System.Drawing.Size(173, 22)
+        Me.cmsRegEx.Text = "&Regular Expression"
+        '
+        'cmsUseWindowTitle
+        '
+        Me.cmsUseWindowTitle.CheckOnClick = True
+        Me.cmsUseWindowTitle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.cmsUseWindowTitle.Name = "cmsUseWindowTitle"
+        Me.cmsUseWindowTitle.Size = New System.Drawing.Size(173, 22)
+        Me.cmsUseWindowTitle.Text = "Use &Window Title"
+        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1014,6 +1040,7 @@ Partial Class frmGameManager
         Me.tbBackupInfo.ResumeLayout(False)
         Me.grpBackupInfo.ResumeLayout(False)
         Me.grpBackupInfo.PerformLayout()
+        Me.cmsProcessOptions.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1065,7 +1092,6 @@ Partial Class frmGameManager
     Friend WithEvents chkCleanFolder As CheckBox
     Friend WithEvents txtParameter As TextBox
     Friend WithEvents lblParameter As Label
-    Friend WithEvents chkRegEx As CheckBox
     Friend WithEvents btnAdvanced As Button
     Friend WithEvents ttFullPath As ToolTip
     Friend WithEvents cmsOfficialWindows As ToolStripMenuItem
@@ -1110,4 +1136,8 @@ Partial Class frmGameManager
     Friend WithEvents cmsRestore As ToolStripMenuItem
     Friend WithEvents cmsBackup As ToolStripMenuItem
     Friend WithEvents cmsGameID As ToolStripMenuItem
+    Friend WithEvents btnProcessOptions As Button
+    Friend WithEvents cmsProcessOptions As ContextMenuStrip
+    Friend WithEvents cmsRegEx As ToolStripMenuItem
+    Friend WithEvents cmsUseWindowTitle As ToolStripMenuItem
 End Class

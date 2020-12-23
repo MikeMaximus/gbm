@@ -14,6 +14,7 @@
     Private bIsRegEx As Boolean
     Private bRecurseSubFolders As Boolean
     Private iOS As clsGame.eOS
+    Private bUseWindowTitle As Boolean
     Private oTags As List(Of Tag)
     Private oConfigLinks As List(Of ConfigLink)
 
@@ -152,6 +153,15 @@
         End Get
     End Property
 
+    Property UseWindowTitle As Boolean
+        Set(value As Boolean)
+            bUseWindowTitle = value
+        End Set
+        Get
+            Return bUseWindowTitle
+        End Get
+    End Property
+
     Property Tags As List(Of Tag)
         Get
             Return oTags
@@ -187,6 +197,7 @@
         oGame.IsRegEx = IsRegEx
         oGame.RecurseSubFolders = RecurseSubFolders
         oGame.OS = OS
+        oGame.UseWindowTitle = UseWindowTitle
         oGame.ImportTags = Tags
         oGame.ImportConfigLinks = ConfigLinks
 

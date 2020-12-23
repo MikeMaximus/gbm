@@ -197,7 +197,7 @@ Public Class mgrProcessDetection
         End Try
     End Function
 
-    Private Function IsMatch(ByRef oGame As clsGame, ByRef sProcessCheck As String) As Boolean
+    Public Shared Function IsMatch(ByRef oGame As clsGame, ByRef sProcessCheck As String) As Boolean
         If oGame.IsRegEx Then
             Try
                 If oGame.CompiledRegEx.IsMatch(sProcessCheck) Then
@@ -309,6 +309,7 @@ Public Class mgrProcessDetection
     Public Function SearchRunningProcesses(ByVal hshScanList As Hashtable, ByRef bNeedsPath As Boolean, ByRef iErrorCode As Integer, ByVal bDebugMode As Boolean) As Boolean
         Dim prsList() As Process = Process.GetProcesses
         Dim sProcessCheck As String = String.Empty
+        Dim sWindowTitle As String = String.Empty
         Dim oDetectedGames As New ArrayList
 
         If bDebugMode Then
@@ -322,6 +323,7 @@ Public Class mgrProcessDetection
             Try
                 'Some processes may return the ProcessName as a full path instead of the executable name.
                 sProcessCheck = Path.GetFileName(prsCurrent.ProcessName)
+                sWindowTitle = prsCurrent.MainWindowTitle
 
                 'Unix Handler
                 'We need some special handling for Wine processes
@@ -342,6 +344,7 @@ Public Class mgrProcessDetection
             End Try
 
             For Each oCurrentGame As clsGame In hshScanList.Values
+                If oCurrentGame.UseWindowTitle Then sProcessCheck = sWindowTitle
                 If IsMatch(oCurrentGame, sProcessCheck) Then
                     prsFoundProcess = prsCurrent
                     oGame = oCurrentGame.ShallowCopy

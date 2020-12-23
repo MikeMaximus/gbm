@@ -46,6 +46,7 @@ Public Class mgrMonitorList
         oGame.IsRegEx = CBool(dr("IsRegEx"))
         oGame.RecurseSubFolders = CBool(dr("RecurseSubFolders"))
         oGame.OS = CInt(dr("OS"))
+        oGame.UseWindowTitle = CBool(dr("UseWindowTitle"))
 
         'Compile RegEx
         If oGame.IsRegEx And bFullClass Then
@@ -80,6 +81,7 @@ Public Class mgrMonitorList
         hshParams.Add("IsRegEx", oGame.IsRegEx)
         hshParams.Add("RecurseSubFolders", oGame.RecurseSubFolders)
         hshParams.Add("OS", oGame.OS)
+        hshParams.Add("UseWindowTitle", oGame.UseWindowTitle)
 
         Return hshParams
     End Function
@@ -136,7 +138,7 @@ Public Class mgrMonitorList
 
         sSQL = "INSERT INTO monitorlist VALUES (@ID, @Name, @Process, @Path, @FolderSave, @FileType, @TimeStamp, "
         sSQL &= "@ExcludeList, @ProcessPath, @Icon, @Hours, @Version, @Company, @Enabled, @MonitorOnly, @BackupLimit, @CleanFolder, "
-        sSQL &= "@Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS)"
+        sSQL &= "@Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS, @UseWindowTitle)"
 
         'Parameters
         hshParams = SetCoreParameters(oGame)
@@ -153,7 +155,8 @@ Public Class mgrMonitorList
         sSQL = "UPDATE monitorlist SET MonitorID=@ID, Name=@Name, Process=@Process, Path=@Path, FolderSave=@FolderSave, "
         sSQL &= "FileType=@FileType, TimeStamp=@TimeStamp, ExcludeList=@ExcludeList, ProcessPath=@ProcessPath, Icon=@Icon, "
         sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit, "
-        sSQL &= "CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments, IsRegEx=@IsRegEx, RecurseSubFolders=@RecurseSubFolders, OS=@OS WHERE MonitorID=@QueryID;"
+        sSQL &= "CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments, IsRegEx=@IsRegEx, RecurseSubFolders=@RecurseSubFolders, OS=@OS, UseWindowTitle=@UseWindowTitle "
+        sSQL &= "WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE gametags SET MonitorID=@ID WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE configlinks SET MonitorID=@ID WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE configlinks SET LinkID=@ID WHERE LinkID=@QueryID;"
@@ -457,11 +460,11 @@ Public Class mgrMonitorList
             sVersion = "(SELECT Version FROM monitorlist WHERE MonitorID=@ID)"
         End If
 
-        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS) "
+        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle) "
         sSQL &= "VALUES (@ID, @Name, @Process, @Path, @FolderSave, @FileType, "
         sSQL &= "@TimeStamp, @ExcludeList, " & sGamePath & ", "
         sSQL &= sIcon & ", @Hours, " & sVersion & ", "
-        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS);"
+        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS, @UseWindowTitle);"
 
         For Each oGame As clsGame In hshGames.Values
             hshParams = New Hashtable
@@ -484,6 +487,7 @@ Public Class mgrMonitorList
             hshParams.Add("IsRegEx", oGame.IsRegEx)
             hshParams.Add("RecurseSubFolders", oGame.RecurseSubFolders)
             hshParams.Add("OS", oGame.OS)
+            hshParams.Add("UseWindowTitle", oGame.UseWindowTitle)
 
             'Optional Parameters
             If (eSyncFields And clsGame.eOptionalSyncFields.Company) = clsGame.eOptionalSyncFields.Company Then
@@ -648,7 +652,7 @@ Public Class mgrMonitorList
                                              ByVal sQuickFilter As String, ByRef hshParams As Hashtable) As String
         Dim sSQL As String = String.Empty
         Dim iCounter As Integer = 0
-        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS FROM monitorlist"
+        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle FROM monitorlist"
         Dim sSort As String = " ORDER BY " & sSortField
 
         If bSortAsc Then
@@ -833,6 +837,7 @@ Public Class mgrMonitorList
             oGame.IsRegEx = CBool(dr("IsRegEx"))
             oGame.RecurseSubFolders = CBool(dr("RecurseSubFolders"))
             oGame.OS = CInt(dr("OS"))
+            oGame.UseWindowTitle = CBool(dr("UseWindowTitle"))
             oGame.Tags = mgrGameTags.GetTagsByGameForExport(oGame.ID)
             oGame.ConfigLinks = mgrConfigLinks.GetConfigLinksByGameForExport(oGame.ID)
             oList.Add(oGame)
@@ -1006,11 +1011,15 @@ Public Class mgrMonitorList
         sSQL = "UPDATE monitorlist SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE gametags SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE manifest SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
+        sSQL &= "UPDATE configlinks SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
+        sSQL &= "UPDATE configlinks SET LinkID=@MonitorID WHERE MonitorID=@QueryID;"
 
         oRemoteDatabase.RunMassParamQuery(sSQL, oParamList)
 
         sSQL &= "UPDATE sessions SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE gameprocesses SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
+        sSQL &= "UPDATE winedata SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
+        sSQL &= "UPDATE launchdata SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
 
         oLocalDatabase.RunMassParamQuery(sSQL, oParamList)
 

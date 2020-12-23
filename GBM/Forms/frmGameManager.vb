@@ -1065,7 +1065,8 @@ Public Class frmGameManager
         txtID.Text = oApp.ID
         txtName.Text = oApp.Name
         txtProcess.Text = oApp.ProcessName
-        chkRegEx.Checked = oApp.IsRegEx
+        cmsRegEx.Checked = oApp.IsRegEx
+        cmsUseWindowTitle.Checked = oApp.UseWindowTitle
         txtParameter.Text = oApp.Parameter
         cboOS.SelectedValue = CInt(oApp.OS)
         If mgrSettings.ShowResolvedPaths Then
@@ -1196,6 +1197,8 @@ Public Class frmGameManager
                 WipeControls(grpCoreConfig.Controls)
                 WipeControls(grpGameInfo.Controls)
                 WipeControls(grpBackupInfo.Controls)
+                cmsRegEx.Checked = False
+                cmsUseWindowTitle.Checked = False
                 chkCleanFolder.Enabled = False
                 pbIcon.Image = Icon_Unknown
                 chkEnabled.Enabled = True
@@ -1526,7 +1529,8 @@ Public Class frmGameManager
         End If
 
         oApp.Name = txtName.Text
-        oApp.IsRegEx = chkRegEx.Checked
+        oApp.IsRegEx = cmsRegEx.Checked
+        oApp.UseWindowTitle = cmsUseWindowTitle.Checked
 
         If Not oApp.IsRegEx Then
             txtProcess.Text = mgrPath.ValidateFileName(txtProcess.Text)
@@ -2001,7 +2005,11 @@ Public Class frmGameManager
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
         cmsImportData.Text = frmGameManager_cmsImportData
         lblComments.Text = frmGameManager_lblComments
-        chkRegEx.Text = frmGameManager_chkRegEx
+        cmsRegEx.Text = frmGameManager_cmsRegEx
+        cmsUseWindowTitle.Text = frmGameManager_cmsUseWindowTitle
+        btnProcessOptions.Text = frmGameManager_btnProcessOptions
+        btnProcessOptions.ImageAlign = ContentAlignment.MiddleRight
+        btnProcessOptions.Image = Arrow_Submenu_Right
         cmsGameID.Text = frmGameManager_cmsGameID
         btnAdvanced.Text = frmGameManager_btnAdvanced
         btnAdvanced.ImageAlign = ContentAlignment.MiddleRight
@@ -2073,6 +2081,8 @@ Public Class frmGameManager
 
         AssignDirtyHandlers(grpCoreConfig.Controls)
         AssignDirtyHandlers(grpGameInfo.Controls)
+        AddHandler cmsRegEx.CheckedChanged, AddressOf DirtyCheck_ValueChanged
+        AddHandler cmsUseWindowTitle.CheckedChanged, AddressOf DirtyCheck_ValueChanged
 
         LoadData(False)
         InitialLoad = False
@@ -2147,6 +2157,10 @@ Public Class frmGameManager
 
     Private Sub lblRestorePathData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblRestorePathData.LinkClicked
         OpenRestorePath()
+    End Sub
+
+    Private Sub btnProcessOptions_Click(sender As Object, e As EventArgs) Handles btnProcessOptions.Click
+        mgrCommon.OpenButtonSubMenu(cmsProcessOptions, btnProcessOptions)
     End Sub
 
     Private Sub btnLink_Click(sender As Object, e As EventArgs) Handles btnAdvanced.Click

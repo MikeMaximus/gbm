@@ -26,6 +26,7 @@ Public MustInherit Class clsGameBase
     Private bIsRegEx As Boolean = False
     Private bRecurseSubFolders As Boolean = True
     Private iOS As eOS = mgrCommon.GetCurrentOS()
+    Private bUseWindowTitle As Boolean = False
 
     <Flags()> Public Enum eOptionalSyncFields
         None = 0
@@ -278,6 +279,15 @@ Public MustInherit Class clsGameBase
         End Get
         Set(value As eOS)
             iOS = value
+        End Set
+    End Property
+
+    Property UseWindowTitle As Boolean
+        Get
+            Return bUseWindowTitle
+        End Get
+        Set(value As Boolean)
+            bUseWindowTitle = value
         End Set
     End Property
 

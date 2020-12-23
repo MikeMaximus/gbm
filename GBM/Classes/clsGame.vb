@@ -62,6 +62,7 @@ Public Class clsGame
         oGame.IsRegEx = IsRegEx
         oGame.RecurseSubFolders = RecurseSubFolders
         oGame.OS = OS
+        oGame.UseWindowTitle = UseWindowTitle
         oGame.Tags = mgrGameTags.GetTagsByGameForExport(ID)
         oGame.ConfigLinks = mgrConfigLinks.GetConfigLinksByGameForExport(ID)
 
@@ -123,6 +124,9 @@ Public Class clsGame
                 Return False
             End If
             If OS <> oGame.OS Then
+                Return False
+            End If
+            If UseWindowTitle <> oGame.UseWindowTitle Then
                 Return False
             End If
 
@@ -202,6 +206,9 @@ Public Class clsGame
                 Return False
             End If
             If OS <> oGame.OS Then
+                Return False
+            End If
+            If UseWindowTitle <> oGame.UseWindowTitle Then
                 Return False
             End If
             Return True

@@ -42,6 +42,7 @@ Public Class mgrXML
             oGame.IsRegEx = g.IsRegEx
             oGame.RecurseSubFolders = g.RecurseSubFolders
             oGame.OS = g.OS
+            oGame.UseWindowTitle = g.UseWindowTitle
             'Retain compatability when the OS value is not set
             If oGame.OS = 0 Then
                 oGame.OS = mgrCommon.GetCurrentOS

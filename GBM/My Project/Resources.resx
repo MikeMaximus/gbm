@@ -1942,8 +1942,8 @@
   <data name="frmFilter_FieldIsRegEx" xml:space="preserve">
     <value>Regular Expression</value>
   </data>
-  <data name="frmGameManager_chkRegEx" xml:space="preserve">
-    <value>Regular Expression</value>
+  <data name="frmGameManager_cmsRegEx" xml:space="preserve">
+    <value>&amp;Regular Expression</value>
   </data>
   <data name="frmGameManager_lblComments" xml:space="preserve">
     <value>Comments:</value>
@@ -2871,5 +2871,11 @@
   </data>
   <data name="frmMain_NoTags" xml:space="preserve">
     <value>No Tags</value>
+  </data>
+  <data name="frmGameManager_btnProcessOptions" xml:space="preserve">
+    <value>&amp;Options</value>
+  </data>
+  <data name="frmGameManager_cmsUseWindowTitle" xml:space="preserve">
+    <value>Use &amp;Window Title</value>
   </data>
 </root>
