@@ -446,6 +446,7 @@
     <Content Include="Resources\cancel.png" />
     <Content Include="Resources\cancel_small.png" />
     <Content Include="Resources\checkmark.png" />
+    <Content Include="Resources\chip.png" />
     <Content Include="Resources\edit.png" />
     <Content Include="Resources\folder_open.png" />
     <Content Include="Resources\New.png" />

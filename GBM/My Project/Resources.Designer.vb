@@ -61,6 +61,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Process options.
+        '''</summary>
+        Friend ReadOnly Property _frmGameManager_ttHelp_btnProcessOptions() As String
+            Get
+                Return ResourceManager.GetString("_frmGameManager_ttHelp_btnProcessOptions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to gbm_exclude.txt.
         '''</summary>
         Friend ReadOnly Property App_BackupExcludeFileName() As String
@@ -350,7 +359,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-12-23T19:22:44
+        '''  Looks up a localized string similar to 2020-12-23T21:20:18
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1874,15 +1883,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Options.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_btnProcessOptions() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_btnProcessOptions", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to &amp;Restore.
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnRestore() As String
@@ -2707,6 +2707,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_lblProcess() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_lblProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Window Title:.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblProcess_WindowTitle() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblProcess_WindowTitle", resourceCulture)
             End Get
         End Property
         
@@ -6978,6 +6987,16 @@ Namespace My.Resources
         Friend ReadOnly Property Icon_Checkmark() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Icon_Checkmark", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Icon_Chip() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Icon_Chip", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

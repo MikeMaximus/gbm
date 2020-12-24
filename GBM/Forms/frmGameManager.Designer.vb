@@ -255,10 +255,10 @@ Partial Class frmGameManager
         '
         'btnProcessBrowse
         '
-        Me.btnProcessBrowse.Location = New System.Drawing.Point(406, 39)
+        Me.btnProcessBrowse.Location = New System.Drawing.Point(471, 39)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
         Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 20)
-        Me.btnProcessBrowse.TabIndex = 4
+        Me.btnProcessBrowse.TabIndex = 5
         Me.btnProcessBrowse.Text = "..."
         Me.btnProcessBrowse.UseVisualStyleBackColor = True
         '
@@ -338,7 +338,7 @@ Partial Class frmGameManager
         '
         Me.txtProcess.Location = New System.Drawing.Point(78, 39)
         Me.txtProcess.Name = "txtProcess"
-        Me.txtProcess.Size = New System.Drawing.Size(322, 20)
+        Me.txtProcess.Size = New System.Drawing.Size(359, 20)
         Me.txtProcess.TabIndex = 3
         '
         'txtName
@@ -717,11 +717,11 @@ Partial Class frmGameManager
         '
         'btnProcessOptions
         '
-        Me.btnProcessOptions.Location = New System.Drawing.Point(442, 37)
+        Me.btnProcessOptions.Image = Global.GBM.My.Resources.Resources.Icon_Chip
+        Me.btnProcessOptions.Location = New System.Drawing.Point(443, 38)
         Me.btnProcessOptions.Name = "btnProcessOptions"
-        Me.btnProcessOptions.Size = New System.Drawing.Size(59, 23)
-        Me.btnProcessOptions.TabIndex = 5
-        Me.btnProcessOptions.Text = "&Options"
+        Me.btnProcessOptions.Size = New System.Drawing.Size(22, 22)
+        Me.btnProcessOptions.TabIndex = 4
         Me.btnProcessOptions.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnProcessOptions.UseVisualStyleBackColor = True
         '

@@ -2007,9 +2007,7 @@ Public Class frmGameManager
         lblComments.Text = frmGameManager_lblComments
         cmsRegEx.Text = frmGameManager_cmsRegEx
         cmsUseWindowTitle.Text = frmGameManager_cmsUseWindowTitle
-        btnProcessOptions.Text = frmGameManager_btnProcessOptions
-        btnProcessOptions.ImageAlign = ContentAlignment.MiddleRight
-        btnProcessOptions.Image = Arrow_Submenu_Right
+        btnProcessOptions.Image = Icon_Chip
         cmsGameID.Text = frmGameManager_cmsGameID
         btnAdvanced.Text = frmGameManager_btnAdvanced
         btnAdvanced.ImageAlign = ContentAlignment.MiddleRight
@@ -2031,6 +2029,7 @@ Public Class frmGameManager
         ttHelp.SetToolTip(btnOpenBackupFolder, frmGameManager_ttHelp_btnOpenBackupFolder)
         ttHelp.SetToolTip(lblBackupFileData, frmGameManager_ttHelp_lblBackupFileData)
         ttHelp.SetToolTip(lblGameTags, frmGameManager_ttHelp_lblTags)
+        ttHelp.SetToolTip(btnProcessOptions, _frmGameManager_ttHelp_btnProcessOptions)
 
         LoadCombos()
 
@@ -2331,5 +2330,15 @@ Public Class frmGameManager
 
     Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkMonitorOnly.CheckedChanged
         MonitorOnlyModeChange()
+    End Sub
+
+    Private Sub cmsUseWindowTitle_CheckChanged(sender As Object, e As EventArgs) Handles cmsUseWindowTitle.CheckedChanged
+        If cmsUseWindowTitle.Checked Then
+            lblProcess.Text = frmGameManager_lblProcess_WindowTitle
+            btnProcessBrowse.Enabled = False
+        Else
+            lblProcess.Text = frmGameManager_lblProcess
+            btnProcessBrowse.Enabled = True
+        End If
     End Sub
 End Class

@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.5 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-December 23, 2020
+December 24, 2020
 
 New in 1.2.5
 
@@ -15,7 +15,7 @@ All Platforms:
 - Visit https://github.com/MikeMaximus/gbm/discussions/209 for details on the GUI overhaul currently in progress.
 	- Overhaul of the Main Window interface
 	- Overhaul of the Game Manager interface
-- Added the option to detect games using a window title (instead of executable name)
+- Added the option to detect games using a window title (instead of process name)
 	- This adds another option for detecting games that all run from the same executable. Such as emulated games, browser games, or cloud service games.
 	- In addition to the process ending, GBM will also end monitoring when the window title no longer matches the game configuration.	
 - "Search" on the Main Window and Game Manager now supports searching by tag.
@@ -35,6 +35,8 @@ Windows:
 Known Issues (Linux):
 
 - There may be performance issues with the GUI when working with large game lists.  (Investigating)
-- Detecting by window title does not work in Linux.  (Investigating)
+- Detecting by window title does not work in Linux.
+	- Mono hasn't implemented the "MainWindowTitle" property in System.Diagnostics.Process, so this feature is not supported in Linux at this time.
+	
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

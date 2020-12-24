@@ -2872,10 +2872,16 @@
   <data name="frmMain_NoTags" xml:space="preserve">
     <value>No Tags</value>
   </data>
-  <data name="frmGameManager_btnProcessOptions" xml:space="preserve">
-    <value>&amp;Options</value>
+  <data name="_frmGameManager_ttHelp_btnProcessOptions" xml:space="preserve">
+    <value>Process options</value>
   </data>
   <data name="frmGameManager_cmsUseWindowTitle" xml:space="preserve">
     <value>Use &amp;Window Title</value>
+  </data>
+  <data name="frmGameManager_lblProcess_WindowTitle" xml:space="preserve">
+    <value>Window Title:</value>
+  </data>
+  <data name="Icon_Chip" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chip.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
