@@ -1210,7 +1210,7 @@ Public Class frmGameManager
                 chkRecurseSubFolders.Checked = True
                 btnAdvanced.Enabled = True
                 lblGameTags.Text = frmGameManager_lblGameTags
-                lblGameTags.Visible = True
+                lblGameTags.LinkBehavior = LinkBehavior.SystemDefault
                 btnInclude.Text = frmGameManager_btnInclude
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = False
@@ -1238,7 +1238,6 @@ Public Class frmGameManager
                 cmsRestore.Enabled = False
                 cmsBackup.Enabled = False
                 btnAdvanced.Enabled = True
-                lblGameTags.Visible = True
                 btnImport.Enabled = False
                 btnExport.Enabled = False
             Case eModes.View
@@ -1261,7 +1260,6 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 cmsBackup.Enabled = True
                 btnAdvanced.Enabled = True
-                lblGameTags.Visible = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
                 TimeStampModeChange()
@@ -1289,7 +1287,8 @@ Public Class frmGameManager
                 cmsRestore.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnAdvanced.Enabled = False
-                lblGameTags.Visible = False
+                lblGameTags.Text = frmGameManager_lblGameTags
+                lblGameTags.LinkBehavior = LinkBehavior.HoverUnderline
                 btnInclude.Text = frmGameManager_btnInclude
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = True
@@ -1316,7 +1315,6 @@ Public Class frmGameManager
                 chkEnabled.Enabled = True
                 chkEnabled.Checked = False
                 btnMarkAsRestored.Enabled = True
-                lblGameTags.Visible = True
                 lblGameTags.Enabled = True
                 HandleTags(mgrGameTags.PrintTagsbyIDMulti(GetSelectedGames))
                 btnAdd.Enabled = False
