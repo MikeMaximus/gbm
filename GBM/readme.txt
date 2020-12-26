@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.5 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-December 24, 2020
+December 26, 2020
 
 New in 1.2.5
 
@@ -37,5 +37,4 @@ Known Issues (Linux):
 - Detecting by window title does not work in Linux.
 	- Mono hasn't implemented the "MainWindowTitle" property in System.Diagnostics.Process, so this feature is not supported in Linux at this time.
 	
-
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
