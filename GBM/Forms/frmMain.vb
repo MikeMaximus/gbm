@@ -774,7 +774,6 @@ Public Class frmMain
             Dim d As New FormatAndFillListCallback(AddressOf FormatAndFillList)
             Me.Invoke(d, New Object() {})
         Else
-
             Dim oApp As clsGame
             Dim oData As KeyValuePair(Of String, String)
             Dim oList As New List(Of KeyValuePair(Of String, String))
@@ -791,17 +790,7 @@ Public Class frmMain
             lstGames.DataSource = Nothing
             lstGames.ValueMember = "Key"
             lstGames.DisplayMember = "Value"
-
-            'Due to a control bug with Mono we need to fill the list box differently on Linux
-            If mgrCommon.IsUnix Then
-                lstGames.Items.Clear()
-                For Each kp As KeyValuePair(Of String, String) In oList
-                    lstGames.Items.Add(kp)
-                Next
-            Else
-                lstGames.DataSource = oList
-            End If
-
+            lstGames.DataSource = oList
             lstGames.EndUpdate()
             lstGames.Enabled = True
             lstGames.ClearSelected()

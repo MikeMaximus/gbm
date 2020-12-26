@@ -528,17 +528,7 @@ Public Class frmGameManager
         lstGames.BeginUpdate()
         lstGames.ValueMember = "Key"
         lstGames.DisplayMember = "Value"
-
-        'Due to a control bug with Mono we need to fill the list box differently on Linux
-        If mgrCommon.IsUnix Then
-            lstGames.Items.Clear()
-            For Each kp As KeyValuePair(Of String, String) In oList
-                lstGames.Items.Add(kp)
-            Next
-        Else
-            lstGames.DataSource = oList
-        End If
-
+        lstGames.DataSource = oList
         lstGames.EndUpdate()
         lstGames.ClearSelected()
         IsLoading = False

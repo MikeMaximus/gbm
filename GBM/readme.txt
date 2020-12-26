@@ -34,7 +34,6 @@ Windows:
 	
 Known Issues (Linux):
 
-- There may be performance issues with the GUI when working with large game lists.  (Investigating)
 - Detecting by window title does not work in Linux.
 	- Mono hasn't implemented the "MainWindowTitle" property in System.Diagnostics.Process, so this feature is not supported in Linux at this time.
 	
