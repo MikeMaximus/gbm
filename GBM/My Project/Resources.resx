@@ -424,9 +424,6 @@
   <data name="frmGameManager_btnAppPathBrowse" xml:space="preserve">
     <value>...</value>
   </data>
-  <data name="frmGameManager_btnBackup" xml:space="preserve">
-    <value>&amp;Backup</value>
-  </data>
   <data name="frmGameManager_btnCancel" xml:space="preserve">
     <value>Ca&amp;ncel</value>
   </data>
@@ -450,9 +447,6 @@
   </data>
   <data name="frmGameManager_btnProcessBrowse" xml:space="preserve">
     <value>...</value>
-  </data>
-  <data name="frmGameManager_btnRestore" xml:space="preserve">
-    <value>&amp;Restore</value>
   </data>
   <data name="frmGameManager_btnSave" xml:space="preserve">
     <value>&amp;Save</value>
@@ -2872,7 +2866,7 @@
   <data name="frmMain_NoTags" xml:space="preserve">
     <value>No Tags</value>
   </data>
-  <data name="_frmGameManager_ttHelp_btnProcessOptions" xml:space="preserve">
+  <data name="frmGameManager_ttHelp_btnProcessOptions" xml:space="preserve">
     <value>Process options</value>
   </data>
   <data name="frmGameManager_cmsUseWindowTitle" xml:space="preserve">

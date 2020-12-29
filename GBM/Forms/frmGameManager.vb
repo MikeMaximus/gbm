@@ -1264,6 +1264,7 @@ Public Class frmGameManager
                 tbGameInfo.Enabled = True
                 tbBackupInfo.Enabled = True
                 cmsLaunchSettings.Enabled = True
+                cmsGameID.Enabled = True
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
                 btnAdd.Enabled = True
@@ -1336,6 +1337,7 @@ Public Class frmGameManager
                 cmsDeleteOne.Enabled = False
                 cmsImportData.Enabled = False
                 cmsLaunchSettings.Enabled = False
+                cmsGameID.Enabled = False
                 btnAdvanced.Enabled = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
@@ -1969,7 +1971,7 @@ Public Class frmGameManager
         chkEnabled.Text = frmGameManager_chkEnabled
         btnCancel.Text = frmGameManager_btnCancel
         chkMonitorOnly.Text = frmGameManager_chkMonitorOnly
-        cmsRestore.Text = frmGameManager_btnRestore
+        cmsRestore.Text = frmGameManager_cmsRestore
         btnSave.Text = frmGameManager_btnSave
         lblRestorePath.Text = frmGameManager_lblRestorePath
         lblBackupFile.Text = frmGameManager_lblBackupFile
@@ -2031,7 +2033,7 @@ Public Class frmGameManager
         ttHelp.SetToolTip(btnOpenBackupFolder, frmGameManager_ttHelp_btnOpenBackupFolder)
         ttHelp.SetToolTip(lblBackupFileData, frmGameManager_ttHelp_lblBackupFileData)
         ttHelp.SetToolTip(lblGameTags, frmGameManager_ttHelp_lblTags)
-        ttHelp.SetToolTip(btnProcessOptions, _frmGameManager_ttHelp_btnProcessOptions)
+        ttHelp.SetToolTip(btnProcessOptions, frmGameManager_ttHelp_btnProcessOptions)
 
         LoadCombos()
 

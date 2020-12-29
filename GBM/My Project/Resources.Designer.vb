@@ -61,15 +61,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Process options.
-        '''</summary>
-        Friend ReadOnly Property _frmGameManager_ttHelp_btnProcessOptions() As String
-            Get
-                Return ResourceManager.GetString("_frmGameManager_ttHelp_btnProcessOptions", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to gbm_exclude.txt.
         '''</summary>
         Friend ReadOnly Property App_BackupExcludeFileName() As String
@@ -359,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-12-29T19:22:10
+        '''  Looks up a localized string similar to 2020-12-29T19:43:56
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1793,15 +1784,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Backup.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_btnBackup() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_btnBackup", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Ca&amp;ncel.
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnCancel() As String
@@ -1879,15 +1861,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_btnProcessBrowse() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_btnProcessBrowse", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to &amp;Restore.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_btnRestore() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_btnRestore", resourceCulture)
             End Get
         End Property
         
@@ -2869,6 +2842,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ttHelp_btnOpenBackupFolder() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ttHelp_btnOpenBackupFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Process options.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ttHelp_btnProcessOptions() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ttHelp_btnProcessOptions", resourceCulture)
             End Get
         End Property
         
