@@ -35,6 +35,7 @@ Public Class mgrSettings
     Shared bMainHideGameList As Boolean
     Shared bMainHideButtons As Boolean
     Shared bMainHideLog As Boolean
+    Shared bBackupNotification As Boolean
 
     <Flags()> Public Enum eSuppressMessages
         None = 0
@@ -408,6 +409,15 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Shared Property BackupNotification As Boolean
+        Get
+            Return bBackupNotification
+        End Get
+        Set(value As Boolean)
+            bBackupNotification = value
+        End Set
+    End Property
+
     Shared Sub New()
         SetDefaults()
     End Sub
@@ -446,6 +456,7 @@ Public Class mgrSettings
         bMainHideGameList = False
         bMainHideButtons = False
         bMainHideLog = False
+        bBackupNotification = False
 
         'OS Based Defaults
         If mgrCommon.IsUnix Then
@@ -465,7 +476,7 @@ Public Class mgrSettings
         sSQL &= "@TimeTracking, @SuppressBackup, @SuppressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
         sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, @UseGameID, "
         sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck, @TemporaryFolder, @ExitOnClose, @ExitNoWarning, @EnableLauncher, "
-        sSQL &= "@MainHideGameList, @MainHideButtons, @MainHideLog)"
+        sSQL &= "@MainHideGameList, @MainHideButtons, @MainHideLog, @BackupNotification)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -500,6 +511,7 @@ Public Class mgrSettings
         hshParams.Add("MainHideGameList", MainHideGameList)
         hshParams.Add("MainHideButtons", MainHideButtons)
         hshParams.Add("MainHideLog", MainHideLog)
+        hshParams.Add("BackupNotification", BackupNotification)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -548,6 +560,7 @@ Public Class mgrSettings
             MainHideGameList = CBool(dr("MainHideGameList"))
             MainHideButtons = CBool(dr("MainHideButtons"))
             MainHideLog = CBool(dr("MainHideLog"))
+            BackupNotification = CBool(dr("BackupNotification"))
         Next
 
         oDatabase.Disconnect()

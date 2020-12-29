@@ -86,6 +86,7 @@ Public Class frmSettings
         mgrSettings.CreateSubFolder = chkCreateFolder.Checked
         mgrSettings.UseGameID = chkUseGameID.Checked
         mgrSettings.ShowOverwriteWarning = chkOverwriteWarning.Checked
+        mgrSettings.BackupNotification = chkBackupNotification.Checked
         mgrSettings.RestoreOnLaunch = chkRestoreNotify.Checked
         mgrSettings.AutoRestore = chkAutoRestore.Checked
         mgrSettings.AutoMark = chkAutoMark.Checked
@@ -229,6 +230,7 @@ Public Class frmSettings
         chkCreateFolder.Checked = mgrSettings.CreateSubFolder
         chkUseGameID.Checked = mgrSettings.UseGameID
         chkOverwriteWarning.Checked = mgrSettings.ShowOverwriteWarning
+        chkBackupNotification.Checked = mgrSettings.BackupNotification
         chkRestoreNotify.Checked = mgrSettings.RestoreOnLaunch
         chkAutoRestore.Checked = mgrSettings.AutoRestore
         chkAutoMark.Checked = mgrSettings.AutoMark
@@ -334,6 +336,7 @@ Public Class frmSettings
         chkAutoRestore.Text = frmSettings_chkAutoRestore
         chkAutoMark.Text = frmSettings_chkAutoMark
         chkOverwriteWarning.Text = frmSettings_chkOverwriteWarning
+        chkBackupNotification.Text = frmSettings_chkBackupNotification
         chkCreateFolder.Text = frmSettings_chkCreateFolder
         chkUseGameID.Text = frmSettings_chkUseGameID
         chkBackupConfirm.Text = frmSettings_chkBackupConfirm

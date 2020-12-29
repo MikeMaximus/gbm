@@ -359,7 +359,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-12-24T18:51:27
+        '''  Looks up a localized string similar to 2020-12-29T19:22:10
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5762,6 +5762,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Show notification when a backup is completed.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkBackupNotification() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkBackupNotification", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup GBM data files on launch.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkBackupOnLaunch() As String
@@ -5834,7 +5843,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Hide game list on main window by default (Requires Restart).
+        '''  Looks up a localized string similar to Hide game list on main window by default.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkHideGameList() As String
             Get
@@ -5843,7 +5852,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Hide log by default (Requires Restart).
+        '''  Looks up a localized string similar to Hide log by default.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkHideLog() As String
             Get
@@ -5852,7 +5861,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Start monitoring at launch.
+        '''  Looks up a localized string similar to Start monitoring on launch.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkMonitorOnStartup() As String
             Get
@@ -7548,6 +7557,24 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_ImportSuccess() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ImportSuccess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] backups have been completed..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_NotificationMulti() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_NotificationMulti", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] backup has been completed..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_NotificationSingle() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_NotificationSingle", resourceCulture)
             End Get
         End Property
         

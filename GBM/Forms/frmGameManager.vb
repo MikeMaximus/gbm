@@ -1325,12 +1325,16 @@ Public Class frmGameManager
                 chkEnabled.Enabled = True
                 chkEnabled.Checked = False
                 btnMarkAsRestored.Enabled = True
+                btnBackupData.Enabled = True
                 lblGameTags.Enabled = True
                 HandleTags(mgrGameTags.PrintTagsbyIDMulti(GetSelectedGames))
                 btnAdd.Enabled = False
                 btnDelete.Enabled = True
                 cmsBackup.Enabled = True
                 cmsRestore.Enabled = True
+                cmsDeleteAll.Enabled = False
+                cmsDeleteOne.Enabled = False
+                cmsImportData.Enabled = False
                 cmsLaunchSettings.Enabled = False
                 btnAdvanced.Enabled = True
                 btnImport.Enabled = True

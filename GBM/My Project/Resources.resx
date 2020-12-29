@@ -1016,7 +1016,7 @@
     <value>Create a sub-folder for each game</value>
   </data>
   <data name="frmSettings_chkMonitorOnStartup" xml:space="preserve">
-    <value>Start monitoring at launch</value>
+    <value>Start monitoring on launch</value>
   </data>
   <data name="frmSettings_chkOverwriteWarning" xml:space="preserve">
     <value>Show overwrite warning</value>
@@ -2840,10 +2840,10 @@
     <value>Hide buttons on main window</value>
   </data>
   <data name="frmSettings_chkHideGameList" xml:space="preserve">
-    <value>Hide game list on main window by default (Requires Restart)</value>
+    <value>Hide game list on main window by default</value>
   </data>
   <data name="frmSettings_chkHideLog" xml:space="preserve">
-    <value>Hide log by default (Requires Restart)</value>
+    <value>Hide log by default</value>
   </data>
   <data name="frmGameManager_lblTags" xml:space="preserve">
     <value>Tags:</value>
@@ -2886,5 +2886,14 @@
   </data>
   <data name="mgrLaunchGame_ErrorUseWindowTitle" xml:space="preserve">
     <value>[PARAM] cannot be launched using a window title.</value>
+  </data>
+  <data name="frmSettings_chkBackupNotification" xml:space="preserve">
+    <value>Show notification when a backup is completed</value>
+  </data>
+  <data name="mgrBackup_NotificationMulti" xml:space="preserve">
+    <value>[PARAM] backups have been completed.</value>
+  </data>
+  <data name="mgrBackup_NotificationSingle" xml:space="preserve">
+    <value>[PARAM] backup has been completed.</value>
   </data>
 </root>

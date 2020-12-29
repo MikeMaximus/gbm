@@ -740,14 +740,19 @@ Public Class mgrBackup
                     End If
                 End If
 
-                'Write Main Manifest
                 If bBackupCompleted Then
                     'Generate checksum for new backup
                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_GenerateHash, oGame.Name), False, ToolTipIcon.Info, True)
                     sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
 
+                    'Write Main Manifest
                     If Not DoManifestUpdate(oGame, sBackupFile, dTimeStamp, sHash) Then
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorManifestFailure, oGame.Name), True, ToolTipIcon.Error, True)
+                    End If
+
+                    'Handle Single Notification
+                    If oBackupList.Count = 1 And mgrSettings.BackupNotification Then
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_NotificationSingle, oGame.CroppedName), True, ToolTipIcon.Info, True)
                     End If
 
                     RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionComplete, oGame.CroppedName))
@@ -758,6 +763,11 @@ Public Class mgrBackup
                 End If
             End If
         Next
+
+        'Handle Multi Notification
+        If oBackupList.Count > 1 And mgrSettings.BackupNotification Then
+            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_NotificationMulti, oBackupList.Count.ToString), True, ToolTipIcon.Info, True)
+        End If
     End Sub
 
 End Class

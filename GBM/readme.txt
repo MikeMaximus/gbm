@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.5 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-December 26, 2020
+December 29, 2020
 
 New in 1.2.5
 
@@ -22,6 +22,9 @@ All Platforms:
 - AbsolutePath is now a calculated field and no longer stored.
 	- This is a bigger change than it seems, but I feel it was worth it.  It never should have been stored and this will clean up some issues and prepare for future updates.
 	- This will break future official lists for prior versions of GBM (v1.1.5 - v1.2.4).  The last official list(s) compatible with these prior versions will be archived so they can still be accessed.
+- Added option to show a notification when a backup operation has been completed.
+	- This option is available in the "Backup and Restore" section of the Settings window, it defaults to disabled.
+	- Shows a single notification when a backup operation is completed, even if the operation included multiple games.
 - Application settings are now handled more efficiently.
 - Added missing code to properly update or delete existing launch data when certain configuration changes are made.
 - Fixed issues with changing a configuration identifier when that configuration had existing backup files.
