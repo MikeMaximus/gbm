@@ -275,7 +275,7 @@ Public Class frmMain
         Return bOSVerified
     End Function
 
-    Private Sub RunRestore(ByVal oRestoreList As Hashtable, Optional ByVal bIgnoreConfigLinks As Boolean = False, Optional ByVal bFastMode As Boolean = False)
+    Private Sub RunRestore(ByVal oRestoreList As Hashtable, Optional ByVal bNoRestoreQueue As Boolean = False, Optional ByVal bFastMode As Boolean = False)
         Dim oGame As clsGame
         Dim oReadyList As New List(Of clsBackup)
         Dim oRestoreInfo As clsBackup
@@ -286,7 +286,7 @@ Public Class frmMain
         eCurrentOperation = eOperation.Restore
         OperationStarted()
 
-        If bIgnoreConfigLinks Then
+        If bNoRestoreQueue Then
             oQueue = oRestoreList
         Else
             GetRestoreQueue(oRestoreList, oQueue, bFastMode)
@@ -1311,7 +1311,7 @@ Public Class frmMain
 
         'Handle restore trigger
         If frm.TriggerRestore Then
-            RunRestore(frm.RestoreList, frm.IgnoreConfigLinks)
+            RunRestore(frm.RestoreList, frm.NoRestoreQueue)
         End If
 
         'Handle import backup trigger

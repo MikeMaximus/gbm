@@ -2857,11 +2857,11 @@
   <data name="frmGameManager_lblFilters" xml:space="preserve">
     <value>Filters:</value>
   </data>
-  <data name="frmGameManager_cmsBackup" xml:space="preserve">
-    <value>Run &amp;Backup</value>
+  <data name="frmGameManager_btnBackup" xml:space="preserve">
+    <value>&amp;Backup</value>
   </data>
-  <data name="frmGameManager_cmsRestore" xml:space="preserve">
-    <value>&amp;Restore Selected</value>
+  <data name="frmGameManager_btnRestore" xml:space="preserve">
+    <value>&amp;Restore</value>
   </data>
   <data name="frmMain_NoTags" xml:space="preserve">
     <value>No Tags</value>

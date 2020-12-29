@@ -350,7 +350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-12-29T19:43:56
+        '''  Looks up a localized string similar to 2020-12-29T22:31:37
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1784,6 +1784,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Backup.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_btnBackup() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_btnBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Ca&amp;ncel.
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnCancel() As String
@@ -1861,6 +1870,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_btnProcessBrowse() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_btnProcessBrowse", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Restore.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_btnRestore() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_btnRestore", resourceCulture)
             End Get
         End Property
         
@@ -2027,15 +2045,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Run &amp;Backup.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_cmsBackup() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_cmsBackup", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to &amp;Link Configuration....
         '''</summary>
         Friend ReadOnly Property frmGameManager_cmsConfiguration() As String
@@ -2140,15 +2149,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_cmsRegEx() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_cmsRegEx", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to &amp;Restore Selected.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_cmsRestore() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_cmsRestore", resourceCulture)
             End Get
         End Property
         

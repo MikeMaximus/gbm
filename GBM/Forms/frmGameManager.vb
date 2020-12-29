@@ -17,7 +17,7 @@ Public Class frmGameManager
     Private bTriggerRestore As Boolean = False
     Private bTriggerImportBackup As Boolean = False
     Private bTriggerLaunch As Boolean = False
-    Private bIgnoreConfigLinks As Boolean = False
+    Private bNoRestoreQueue As Boolean = False
     Private oBackupList As New List(Of clsGame)
     Private oRestoreList As New Hashtable
     Private oImportBackupList As New Hashtable
@@ -146,12 +146,12 @@ Public Class frmGameManager
         End Set
     End Property
 
-    Property IgnoreConfigLinks As Boolean
+    Property NoRestoreQueue As Boolean
         Get
-            Return bIgnoreConfigLinks
+            Return bNoRestoreQueue
         End Get
         Set(value As Boolean)
-            bIgnoreConfigLinks = value
+            bNoRestoreQueue = value
         End Set
     End Property
 
@@ -921,7 +921,7 @@ Public Class frmGameManager
             lblBackupFileData.Enabled = True
             btnOpenBackupFolder.Enabled = True
             lblRestorePathData.Enabled = True
-            cmsRestore.Enabled = True
+            btnRestore.Enabled = True
             cmsDeleteOne.Enabled = True
             cmsDeleteAll.Enabled = True
 
@@ -939,7 +939,7 @@ Public Class frmGameManager
             lblBackupFileData.Enabled = False
             btnOpenBackupFolder.Enabled = False
             lblRestorePathData.Enabled = False
-            cmsRestore.Enabled = False
+            btnRestore.Enabled = False
             cmsDeleteOne.Enabled = False
             cmsDeleteAll.Enabled = False
         End If
@@ -1207,10 +1207,10 @@ Public Class frmGameManager
                 btnCancel.Enabled = True
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
-                cmsBackup.Enabled = False
+                btnBackup.Enabled = False
                 cmsLaunchSettings.Enabled = False
                 btnMarkAsRestored.Enabled = False
-                cmsRestore.Enabled = False
+                btnRestore.Enabled = False
                 btnBackupData.Enabled = False
                 lblBackupFileData.Enabled = False
                 btnOpenBackupFolder.Enabled = False
@@ -1244,9 +1244,8 @@ Public Class frmGameManager
                 btnCancel.Enabled = True
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
-                cmsBackup.Enabled = False
-                cmsRestore.Enabled = False
-                cmsBackup.Enabled = False
+                btnBackup.Enabled = False
+                btnRestore.Enabled = False
                 btnAdvanced.Enabled = True
                 btnImport.Enabled = False
                 btnExport.Enabled = False
@@ -1269,7 +1268,7 @@ Public Class frmGameManager
                 btnCancel.Enabled = False
                 btnAdd.Enabled = True
                 btnDelete.Enabled = True
-                cmsBackup.Enabled = True
+                btnBackup.Enabled = True
                 btnAdvanced.Enabled = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
@@ -1294,8 +1293,8 @@ Public Class frmGameManager
                 tbBackupInfo.Enabled = False
                 btnAdd.Enabled = True
                 btnDelete.Enabled = True
-                cmsBackup.Enabled = False
-                cmsRestore.Enabled = False
+                btnBackup.Enabled = False
+                btnRestore.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnAdvanced.Enabled = False
                 lblGameTags.Text = frmGameManager_lblGameTags
@@ -1326,13 +1325,12 @@ Public Class frmGameManager
                 chkEnabled.Enabled = True
                 chkEnabled.Checked = False
                 btnMarkAsRestored.Enabled = True
-                btnBackupData.Enabled = True
                 lblGameTags.Enabled = True
                 HandleTags(mgrGameTags.PrintTagsbyIDMulti(GetSelectedGames))
                 btnAdd.Enabled = False
                 btnDelete.Enabled = True
-                cmsBackup.Enabled = True
-                cmsRestore.Enabled = True
+                btnBackup.Enabled = True
+                btnRestore.Enabled = True
                 cmsDeleteAll.Enabled = False
                 cmsDeleteOne.Enabled = False
                 cmsImportData.Enabled = False
@@ -1850,24 +1848,27 @@ Public Class frmGameManager
                     oBackup = DirectCast(de.Value, clsBackup)
                 Next
 
-                'Replace backup entry with currently selected backup item in case the user wants to restore an older backup.
-                If Not (oBackup.DateUpdatedUnix = oCurrentBackupItem.DateUpdatedUnix) Then
-                    RestoreList.Clear()
-                    RestoreList.Add(oGame, oCurrentBackupItem)
+                If lstGames.SelectedItems.Count = 1 Then
+                    'Replace backup entry with currently selected backup item in case the user wants to restore an older backup.                
+                    If Not (oBackup.DateUpdatedUnix = oCurrentBackupItem.DateUpdatedUnix) Then
+                        NoRestoreQueue = True
+                        RestoreList.Clear()
+                        RestoreList.Add(oGame, oCurrentBackupItem)
+                    End If
+
+                    If mgrConfigLinks.CheckForLinks(oGame.ID) And (oBackup.DateUpdatedUnix > oCurrentBackupItem.DateUpdatedUnix) Then
+                        If mgrCommon.ShowMessage(mgrCommon.FormatString(frmGameManager_RestoreLinkWarning, oGame.CroppedName), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                            NoRestoreQueue = True
+                        Else
+                            bDoRestore = False
+                        End If
+                    End If
                 End If
 
-                If Not mgrRestore.CheckManifest(oGame.Name) Then
+                If Not mgrRestore.CheckManifest(oGame.ID) Then
                     sMsg = mgrCommon.FormatString(frmGameManager_ConfirmRestoreAnyway, oGame.Name)
                 Else
                     sMsg = mgrCommon.FormatString(frmGameManager_ConfirmRestore, oGame.Name)
-                End If
-
-                If mgrConfigLinks.CheckForLinks(oGame.ID) And (oBackup.DateUpdatedUnix > oCurrentBackupItem.DateUpdatedUnix) Then
-                    If mgrCommon.ShowMessage(mgrCommon.FormatString(frmGameManager_RestoreLinkWarning, oGame.CroppedName), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                        IgnoreConfigLinks = True
-                    Else
-                        bDoRestore = False
-                    End If
                 End If
             ElseIf RestoreList.Count > 1 Then
                 bDoRestore = True
@@ -1971,7 +1972,9 @@ Public Class frmGameManager
         chkEnabled.Text = frmGameManager_chkEnabled
         btnCancel.Text = frmGameManager_btnCancel
         chkMonitorOnly.Text = frmGameManager_chkMonitorOnly
-        cmsRestore.Text = frmGameManager_cmsRestore
+        btnRestore.Text = frmGameManager_btnRestore
+        btnBackup.Text = frmGameManager_btnBackup
+        cmsImportData.Text = frmGameManager_cmsImportData
         btnSave.Text = frmGameManager_btnSave
         lblRestorePath.Text = frmGameManager_lblRestorePath
         lblBackupFile.Text = frmGameManager_lblBackupFile
@@ -2003,11 +2006,9 @@ Public Class frmGameManager
         cmsFile.Text = frmGameManager_cmsFile
         lblSearch.Text = frmGameManager_lblSearch
         lblLimit.Text = frmGameManager_lblLimit
-        cmsRestore.Text = frmGameManager_cmsRestore
-        cmsBackup.Text = frmGameManager_cmsBackup
         cmsDeleteOne.Text = frmGameManager_cmsDeleteOne
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
-        cmsImportData.Text = frmGameManager_cmsImportData
+
         lblComments.Text = frmGameManager_lblComments
         cmsRegEx.Text = frmGameManager_cmsRegEx
         cmsUseWindowTitle.Text = frmGameManager_cmsUseWindowTitle
@@ -2064,8 +2065,8 @@ Public Class frmGameManager
         SetForm()
 
         If DisableExternalFunctions Then
-            cmsBackup.Visible = False
-            cmsRestore.Visible = False
+            btnBackup.Visible = False
+            btnRestore.Visible = False
             btnMarkAsRestored.Visible = False
             btnBackupData.Visible = False
         End If
@@ -2198,11 +2199,11 @@ Public Class frmGameManager
         mgrCommon.OpenButtonSubMenu(cmsBackupData, btnBackupData)
     End Sub
 
-    Private Sub cmsRestore_Click(sender As Object, e As EventArgs) Handles cmsRestore.Click
+    Private Sub btnRestore_Click(sender As Object, e As EventArgs) Handles btnRestore.Click
         TriggerSelectedRestore()
     End Sub
 
-    Private Sub cmsBackup_Click(sender As Object, e As EventArgs) Handles cmsBackup.Click
+    Private Sub btnBackup_Click(sender As Object, e As EventArgs) Handles btnBackup.Click
         TriggerSelectedBackup()
     End Sub
 
