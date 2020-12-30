@@ -475,7 +475,7 @@
     <value>Are you sure you want to restore the backup for [PARAM]?  This will close the form.</value>
   </data>
   <data name="frmGameManager_ConfirmRestoreAnyway" xml:space="preserve">
-    <value>[PARAM] is already up to date.[BR][BR]Would you like to restore this backup anyway?</value>
+    <value>[PARAM] is already up to date.[BR][BR]Would you like to restore this backup anyway?  This will close the form.</value>
   </data>
   <data name="frmGameManager_ErrorGameDupe" xml:space="preserve">
     <value>A game with the same ID ([PARAM]) already exists.</value>
@@ -2809,9 +2809,6 @@
   <data name="frmAdvancedImport_Update" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frmAdvancedImport_Update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="frmMain_Backup" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Backup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="frmMain_Cancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frmMain_Cancel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -2829,9 +2826,6 @@
   </data>
   <data name="frmMain_Ready" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frmMain_Ready.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmMain_Restore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Restore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="frmMain_Searching" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frmMain_Searching.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2889,5 +2883,14 @@
   </data>
   <data name="GBM_Icon_Stopped" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GBM_Icon_Stopped.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_ConfirmRestoreSelected" xml:space="preserve">
+    <value>Are you sure you want to restore the selected backup for [PARAM]?  This will close the form.[BR][BR][PARAM] ([PARAM])</value>
+  </data>
+  <data name="Multi_Backup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Backup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Restore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Restore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

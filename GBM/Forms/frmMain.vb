@@ -2184,9 +2184,9 @@ Public Class frmMain
         gMonStripCollapse.ToolTipText = frmMain_gMonStripCollapseHideToolTip
         gMonStripCollapse.Image = frmMain_Collapse_Left
         btnRestore.Text = frmMain_btnRestore
-        btnRestore.Image = frmMain_Restore
+        btnRestore.Image = Multi_Restore
         btnBackup.Text = frmMain_btnBackup
-        btnBackup.Image = frmMain_Backup
+        btnBackup.Image = Multi_Backup
         btnEdit.Text = frmMain_btnEdit
         btnEdit.Image = frmMain_Edit
         btnPlay.Text = frmMain_btnPlay

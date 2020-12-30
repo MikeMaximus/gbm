@@ -793,7 +793,7 @@ Partial Class frmMain
         '
         'btnBackup
         '
-        Me.btnBackup.Image = Global.GBM.My.Resources.Resources.frmMain_Backup
+        Me.btnBackup.Image = Global.GBM.My.Resources.Resources.Multi_Backup
         Me.btnBackup.Location = New System.Drawing.Point(81, 118)
         Me.btnBackup.Name = "btnBackup"
         Me.btnBackup.Size = New System.Drawing.Size(60, 45)
@@ -804,7 +804,7 @@ Partial Class frmMain
         '
         'btnRestore
         '
-        Me.btnRestore.Image = Global.GBM.My.Resources.Resources.frmMain_Restore
+        Me.btnRestore.Image = Global.GBM.My.Resources.Resources.Multi_Restore
         Me.btnRestore.Location = New System.Drawing.Point(147, 118)
         Me.btnRestore.Name = "btnRestore"
         Me.btnRestore.Size = New System.Drawing.Size(60, 45)

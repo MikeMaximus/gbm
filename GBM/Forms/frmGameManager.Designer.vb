@@ -839,20 +839,24 @@ Partial Class frmGameManager
         '
         'btnRestore
         '
-        Me.btnRestore.Location = New System.Drawing.Point(346, 121)
+        Me.btnRestore.Image = Global.GBM.My.Resources.Resources.Multi_Restore
+        Me.btnRestore.Location = New System.Drawing.Point(414, 121)
         Me.btnRestore.Name = "btnRestore"
-        Me.btnRestore.Size = New System.Drawing.Size(75, 23)
+        Me.btnRestore.Size = New System.Drawing.Size(60, 45)
         Me.btnRestore.TabIndex = 12
         Me.btnRestore.Text = "&Restore"
+        Me.btnRestore.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnRestore.UseVisualStyleBackColor = True
         '
         'btnBackup
         '
-        Me.btnBackup.Location = New System.Drawing.Point(427, 121)
+        Me.btnBackup.Image = Global.GBM.My.Resources.Resources.Multi_Backup
+        Me.btnBackup.Location = New System.Drawing.Point(348, 121)
         Me.btnBackup.Name = "btnBackup"
-        Me.btnBackup.Size = New System.Drawing.Size(75, 23)
+        Me.btnBackup.Size = New System.Drawing.Size(60, 45)
         Me.btnBackup.TabIndex = 13
         Me.btnBackup.Text = "&Backup"
+        Me.btnBackup.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnBackup.UseVisualStyleBackColor = True
         '
         'btnMarkAsRestored

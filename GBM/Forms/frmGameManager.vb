@@ -1843,17 +1843,25 @@ Public Class frmGameManager
                 bDoRestore = True
                 oGame = New clsGame
                 oBackup = New clsBackup
+
                 For Each de As DictionaryEntry In RestoreList
                     oGame = DirectCast(de.Key, clsGame)
                     oBackup = DirectCast(de.Value, clsBackup)
                 Next
 
+                If Not mgrRestore.CheckManifest(oGame.ID) Then
+                    sMsg = mgrCommon.FormatString(frmGameManager_ConfirmRestoreAnyway, oGame.Name)
+                Else
+                    sMsg = mgrCommon.FormatString(frmGameManager_ConfirmRestore, oGame.Name)
+                End If
+
                 If lstGames.SelectedItems.Count = 1 Then
                     'Replace backup entry with currently selected backup item in case the user wants to restore an older backup.                
-                    If Not (oBackup.DateUpdatedUnix = oCurrentBackupItem.DateUpdatedUnix) Then
+                    If oBackup.DateUpdatedUnix > oCurrentBackupItem.DateUpdatedUnix Then
                         NoRestoreQueue = True
                         RestoreList.Clear()
                         RestoreList.Add(oGame, oCurrentBackupItem)
+                        sMsg = mgrCommon.FormatString(frmGameManager_ConfirmRestoreSelected, New String() {oGame.CroppedName, oCurrentBackupItem.DateUpdated, oCurrentBackupItem.UpdatedBy})
                     End If
 
                     If mgrConfigLinks.CheckForLinks(oGame.ID) And (oBackup.DateUpdatedUnix > oCurrentBackupItem.DateUpdatedUnix) Then
@@ -1863,12 +1871,6 @@ Public Class frmGameManager
                             bDoRestore = False
                         End If
                     End If
-                End If
-
-                If Not mgrRestore.CheckManifest(oGame.ID) Then
-                    sMsg = mgrCommon.FormatString(frmGameManager_ConfirmRestoreAnyway, oGame.Name)
-                Else
-                    sMsg = mgrCommon.FormatString(frmGameManager_ConfirmRestore, oGame.Name)
                 End If
             ElseIf RestoreList.Count > 1 Then
                 bDoRestore = True

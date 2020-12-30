@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-12-30T13:46:12
+        '''  Looks up a localized string similar to 2020-12-30T14:49:20
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2335,11 +2335,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] is already up to date.[BR][BR]Would you like to restore this backup anyway?.
+        '''  Looks up a localized string similar to [PARAM] is already up to date.[BR][BR]Would you like to restore this backup anyway?  This will close the form..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmRestoreAnyway() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ConfirmRestoreAnyway", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to restore the selected backup for [PARAM]?  This will close the form.[BR][BR][PARAM] ([PARAM]).
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ConfirmRestoreSelected() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ConfirmRestoreSelected", resourceCulture)
             End Get
         End Property
         
@@ -3717,16 +3726,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property frmMain_Backup() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("frmMain_Backup", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Backup in Progress....
         '''</summary>
         Friend ReadOnly Property frmMain_BackupInProgress() As String
@@ -5099,16 +5098,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_RemoteCompactInit() As String
             Get
                 Return ResourceManager.GetString("frmMain_RemoteCompactInit", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property frmMain_Restore() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("frmMain_Restore", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -8375,6 +8364,26 @@ Namespace My.Resources
         Friend ReadOnly Property mgrXML_ErrorImportFailure() As String
             Get
                 Return ResourceManager.GetString("mgrXML_ErrorImportFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Multi_Backup() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Multi_Backup", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Multi_Restore() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Multi_Restore", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         

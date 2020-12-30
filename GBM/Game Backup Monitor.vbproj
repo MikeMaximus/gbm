@@ -439,7 +439,7 @@
     </Content>
     <Content Include="References\Mono.Data.Sqlite.dll" />
     <None Include="Resources\frmGameManager_Arrow_Submenu_Right.png" />
-    <Content Include="Resources\frmMain_Backup.png" />
+    <Content Include="Resources\Multi_Backup.png" />
     <Content Include="Resources\BuildDate.txt" />
     <None Include="Resources\frmMain_Collapse_Left.png" />
     <None Include="Resources\frmMain_Expand_Right.png" />
@@ -452,7 +452,7 @@
     <Content Include="Resources\frmAdvancedImport_New.png" />
     <Content Include="Resources\frmMain_Play.png" />
     <Content Include="Resources\frmGameManager_Backup_Data.png" />
-    <Content Include="Resources\frmMain_Restore.png" />
+    <Content Include="Resources\Multi_Restore.png" />
     <Content Include="Resources\frmAdvancedImport_Update.png" />
     <Content Include="Utilities\x64\7za.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
