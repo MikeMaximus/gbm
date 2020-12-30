@@ -2905,4 +2905,19 @@
   <data name="frmSettings_BrowseTempFolder" xml:space="preserve">
     <value>Choose a temporary folder:</value>
   </data>
+  <data name="frmSettings_cboDetectSpeed_Fast" xml:space="preserve">
+    <value>Fast</value>
+  </data>
+  <data name="frmSettings_cboDetectSpeed_Medium" xml:space="preserve">
+    <value>Moderate</value>
+  </data>
+  <data name="frmSettings_cboDetectSpeed_Slow" xml:space="preserve">
+    <value>Slow</value>
+  </data>
+  <data name="frmSettings_cboDetectSpeed_VerySlow" xml:space="preserve">
+    <value>Very Slow</value>
+  </data>
+  <data name="frmSettings_lblDetectSpeed" xml:space="preserve">
+    <value>Detection Speed:</value>
+  </data>
 </root>

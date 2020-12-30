@@ -1338,6 +1338,7 @@ Public Class frmMain
             LoadGameSettings()
             HandleFeatures()
             HandleLauncherMenu()
+            SetDetectionSpeed()
         Else
             mgrSettings.LoadSettings()
         End If
@@ -1520,6 +1521,9 @@ Public Class frmMain
 
         'Set UI based on settings
         HandleUISettings()
+
+        'Set Detection Speed based on settings
+        SetDetectionSpeed()
 
         If Not bFirstRun Then
             'The application cannot continue if this fails
@@ -2220,6 +2224,10 @@ Public Class frmMain
         ResetGameInfo()
     End Sub
 
+    Private Sub SetDetectionSpeed()
+        tmScanTimer.Interval = mgrSettings.DetectionSpeed
+    End Sub
+
     Private Sub HandleUISettings()
         If mgrSettings.MainHideGameList Then
             slcMain.Panel1Collapsed = True
@@ -2896,7 +2904,7 @@ Public Class frmMain
 
         Try
             Do While Not (oProcess.FoundProcess.HasExited Or bwMonitor.CancellationPending)
-                System.Threading.Thread.Sleep(5000)
+                System.Threading.Thread.Sleep(10000)
                 If Not oProcess.Duplicate And oProcess.GameInfo.UseWindowTitle Then
                     'We need a new instance of the process each time we check if the window title has changed.
                     oCheckProcess = Process.GetProcessById(oProcess.FoundProcess.Id)

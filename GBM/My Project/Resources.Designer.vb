@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-12-30T15:59:45
+        '''  Looks up a localized string similar to 2020-12-30T18:58:34
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5889,6 +5889,42 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Fast.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_cboDetectSpeed_Fast() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_cboDetectSpeed_Fast", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Moderate.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_cboDetectSpeed_Medium() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_cboDetectSpeed_Medium", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Slow.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_cboDetectSpeed_Slow() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_cboDetectSpeed_Slow", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Very Slow.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_cboDetectSpeed_VerySlow() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_cboDetectSpeed_VerySlow", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Automatically mark new backups as restored when appropriate.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkAutoMark() As String
@@ -6326,6 +6362,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_lblCompression() As String
             Get
                 Return ResourceManager.GetString("frmSettings_lblCompression", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Detection Speed:.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_lblDetectSpeed() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_lblDetectSpeed", resourceCulture)
             End Get
         End Property
         

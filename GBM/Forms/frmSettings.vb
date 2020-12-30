@@ -79,6 +79,7 @@ Public Class frmSettings
         mgrSettings.MainHideGameList = chkHideGameList.Checked
         mgrSettings.MainHideButtons = chkHideButtons.Checked
         mgrSettings.ShowDetectionToolTips = chkShowDetectionTips.Checked
+        mgrSettings.DetectionSpeed = cboDetectSpeed.SelectedValue
         mgrSettings.DisableSyncMessages = chkDisableSyncMessages.Checked
         mgrSettings.AutoSaveLog = chkAutoSaveLog.Checked
         mgrSettings.DisableConfirmation = chkBackupConfirm.Checked
@@ -223,6 +224,7 @@ Public Class frmSettings
         chkHideGameList.Checked = mgrSettings.MainHideGameList
         chkHideButtons.Checked = mgrSettings.MainHideButtons
         chkShowDetectionTips.Checked = mgrSettings.ShowDetectionToolTips
+        cboDetectSpeed.SelectedValue = mgrSettings.DetectionSpeed
         chkDisableSyncMessages.Checked = mgrSettings.DisableSyncMessages
         chkAutoSaveLog.Checked = mgrSettings.AutoSaveLog
         chkBackupConfirm.Checked = mgrSettings.DisableConfirmation
@@ -253,34 +255,46 @@ Public Class frmSettings
     End Sub
 
     Private Sub LoadCombos()
-        Dim oComboItems As New List(Of KeyValuePair(Of Integer, String))
-        Dim mgrSettingsItems As New List(Of KeyValuePair(Of Integer, String))
+        Dim oCompressionItems As New List(Of KeyValuePair(Of Integer, String))
+        Dim oDetectSpeedItems As New List(Of KeyValuePair(Of Integer, String))
+        Dim oSettingsItems As New List(Of KeyValuePair(Of Integer, String))
 
         'cboCompression
         cboCompression.ValueMember = "Key"
         cboCompression.DisplayMember = "Value"
 
-        oComboItems.Add(New KeyValuePair(Of Integer, String)(0, frmSettings_cboCompression_None))
-        oComboItems.Add(New KeyValuePair(Of Integer, String)(1, frmSettings_cboCompression_Fastest))
-        oComboItems.Add(New KeyValuePair(Of Integer, String)(3, frmSettings_cboCompression_Fast))
-        oComboItems.Add(New KeyValuePair(Of Integer, String)(5, frmSettings_cboCompression_Normal))
-        oComboItems.Add(New KeyValuePair(Of Integer, String)(7, frmSettings_cboCompression_Maximum))
-        oComboItems.Add(New KeyValuePair(Of Integer, String)(9, frmSettings_cboCompression_Ultra))
+        oCompressionItems.Add(New KeyValuePair(Of Integer, String)(0, frmSettings_cboCompression_None))
+        oCompressionItems.Add(New KeyValuePair(Of Integer, String)(1, frmSettings_cboCompression_Fastest))
+        oCompressionItems.Add(New KeyValuePair(Of Integer, String)(3, frmSettings_cboCompression_Fast))
+        oCompressionItems.Add(New KeyValuePair(Of Integer, String)(5, frmSettings_cboCompression_Normal))
+        oCompressionItems.Add(New KeyValuePair(Of Integer, String)(7, frmSettings_cboCompression_Maximum))
+        oCompressionItems.Add(New KeyValuePair(Of Integer, String)(9, frmSettings_cboCompression_Ultra))
 
-        cboCompression.DataSource = oComboItems
+        cboCompression.DataSource = oCompressionItems
+
+        'cboDetectSpeed
+        cboDetectSpeed.ValueMember = "Key"
+        cboDetectSpeed.DisplayMember = "Value"
+
+        oDetectSpeedItems.Add(New KeyValuePair(Of Integer, String)(5000, frmSettings_cboDetectSpeed_Fast))
+        oDetectSpeedItems.Add(New KeyValuePair(Of Integer, String)(10000, frmSettings_cboDetectSpeed_Medium))
+        oDetectSpeedItems.Add(New KeyValuePair(Of Integer, String)(15000, frmSettings_cboDetectSpeed_Slow))
+        oDetectSpeedItems.Add(New KeyValuePair(Of Integer, String)(30000, frmSettings_cboDetectSpeed_VerySlow))
+
+        cboDetectSpeed.DataSource = oDetectSpeedItems
 
         'lstSettings
         lstSettings.ValueMember = "Key"
         lstSettings.DisplayMember = "Value"
 
-        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(0, frmSettings_lstSettings_General))
-        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(1, frmSettings_lstSettings_FilesAndFolders))
-        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(2, frmSettings_lstSettings_BackupRestore))
-        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(3, frmSettings_lstSettings_Startup))
-        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(4, frmSettings_lstSettings_UserInterface))
-        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(5, frmSettings_lstSettings_7z))
+        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(0, frmSettings_lstSettings_General))
+        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(1, frmSettings_lstSettings_FilesAndFolders))
+        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(2, frmSettings_lstSettings_BackupRestore))
+        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(3, frmSettings_lstSettings_Startup))
+        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(4, frmSettings_lstSettings_UserInterface))
+        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(5, frmSettings_lstSettings_7z))
 
-        lstSettings.DataSource = mgrSettingsItems
+        lstSettings.DataSource = oSettingsItems
 
         'Select Default
         lstSettings.SelectedIndex = 0
@@ -399,6 +413,7 @@ Public Class frmSettings
         chkExitOnClose.Text = frmSettings_chkExitOnClose
         chkExitNoWarning.Text = frmSettings_chkExitNoWarning
         grpGameManagerOptions.Text = frmSettings_grpGameManagerOptions
+        lblDetectSpeed.Text = frmSettings_lblDetectSpeed
 
         If mgrCommon.IsUnix Then
             'Only enable this option on Linux if GBM was installed with an official method

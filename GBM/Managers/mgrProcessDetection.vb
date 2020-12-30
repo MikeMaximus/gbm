@@ -310,6 +310,7 @@ Public Class mgrProcessDetection
         Dim prsList() As Process = Process.GetProcesses
         Dim sProcessCheck As String = String.Empty
         Dim sWindowTitle As String = String.Empty
+        Dim bMatch As Boolean = False
         Dim oDetectedGames As New ArrayList
 
         If bDebugMode Then
@@ -344,8 +345,12 @@ Public Class mgrProcessDetection
             End Try
 
             For Each oCurrentGame As clsGame In hshScanList.Values
-                If oCurrentGame.UseWindowTitle Then sProcessCheck = sWindowTitle
-                If IsMatch(oCurrentGame, sProcessCheck) Then
+                If oCurrentGame.UseWindowTitle Then
+                    bMatch = IsMatch(oCurrentGame, sWindowTitle)
+                Else
+                    bMatch = IsMatch(oCurrentGame, sProcessCheck)
+                End If
+                If bMatch Then
                     prsFoundProcess = prsCurrent
                     oGame = oCurrentGame.ShallowCopy
                     oDetectedGames.Add(oGame.ShallowCopy)

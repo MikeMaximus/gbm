@@ -53,6 +53,8 @@ Partial Class frmSettings
         Me.grp7zInformation = New System.Windows.Forms.GroupBox()
         Me.pnlGeneral = New System.Windows.Forms.Panel()
         Me.grpGameMonitoringOptions = New System.Windows.Forms.GroupBox()
+        Me.cboDetectSpeed = New System.Windows.Forms.ComboBox()
+        Me.lblDetectSpeed = New System.Windows.Forms.Label()
         Me.chkSuppressBackup = New System.Windows.Forms.CheckBox()
         Me.lblMinutes = New System.Windows.Forms.Label()
         Me.nudSuppressBackupThreshold = New System.Windows.Forms.NumericUpDown()
@@ -412,16 +414,36 @@ Partial Class frmSettings
         '
         'grpGameMonitoringOptions
         '
+        Me.grpGameMonitoringOptions.Controls.Add(Me.cboDetectSpeed)
+        Me.grpGameMonitoringOptions.Controls.Add(Me.lblDetectSpeed)
         Me.grpGameMonitoringOptions.Controls.Add(Me.chkSuppressBackup)
         Me.grpGameMonitoringOptions.Controls.Add(Me.lblMinutes)
         Me.grpGameMonitoringOptions.Controls.Add(Me.chkShowDetectionTips)
         Me.grpGameMonitoringOptions.Controls.Add(Me.nudSuppressBackupThreshold)
         Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 107)
         Me.grpGameMonitoringOptions.Name = "grpGameMonitoringOptions"
-        Me.grpGameMonitoringOptions.Size = New System.Drawing.Size(354, 65)
+        Me.grpGameMonitoringOptions.Size = New System.Drawing.Size(354, 90)
         Me.grpGameMonitoringOptions.TabIndex = 1
         Me.grpGameMonitoringOptions.TabStop = False
         Me.grpGameMonitoringOptions.Text = "Game Monitoring Options"
+        '
+        'cboDetectSpeed
+        '
+        Me.cboDetectSpeed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboDetectSpeed.FormattingEnabled = True
+        Me.cboDetectSpeed.Location = New System.Drawing.Point(98, 61)
+        Me.cboDetectSpeed.Name = "cboDetectSpeed"
+        Me.cboDetectSpeed.Size = New System.Drawing.Size(122, 21)
+        Me.cboDetectSpeed.TabIndex = 19
+        '
+        'lblDetectSpeed
+        '
+        Me.lblDetectSpeed.AutoSize = True
+        Me.lblDetectSpeed.Location = New System.Drawing.Point(2, 64)
+        Me.lblDetectSpeed.Name = "lblDetectSpeed"
+        Me.lblDetectSpeed.Size = New System.Drawing.Size(90, 13)
+        Me.lblDetectSpeed.TabIndex = 18
+        Me.lblDetectSpeed.Text = "Detection Speed:"
         '
         'chkSuppressBackup
         '
@@ -454,7 +476,7 @@ Partial Class frmSettings
         '
         Me.grpLogOptions.Controls.Add(Me.chkDisableSyncMessages)
         Me.grpLogOptions.Controls.Add(Me.chkAutoSaveLog)
-        Me.grpLogOptions.Location = New System.Drawing.Point(6, 178)
+        Me.grpLogOptions.Location = New System.Drawing.Point(6, 203)
         Me.grpLogOptions.Name = "grpLogOptions"
         Me.grpLogOptions.Size = New System.Drawing.Size(354, 65)
         Me.grpLogOptions.TabIndex = 2
@@ -901,4 +923,6 @@ Partial Class frmSettings
     Friend WithEvents txtBackupFolder As TextBox
     Friend WithEvents chkCreateFolder As CheckBox
     Friend WithEvents btnOptionalFields As Button
+    Friend WithEvents cboDetectSpeed As ComboBox
+    Friend WithEvents lblDetectSpeed As Label
 End Class
