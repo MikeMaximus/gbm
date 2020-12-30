@@ -64,9 +64,9 @@ Partial Class frmIncludeExclude
         '
         Me.imgIcons.ImageStream = CType(resources.GetObject("imgIcons.ImageStream"), System.Windows.Forms.ImageListStreamer)
         Me.imgIcons.TransparentColor = System.Drawing.Color.Transparent
-        Me.imgIcons.Images.SetKeyName(0, "folder.ico")
-        Me.imgIcons.Images.SetKeyName(1, "file.ico")
-        Me.imgIcons.Images.SetKeyName(2, "type.ico")
+        Me.imgIcons.Images.SetKeyName(0, "frmIncludeExclude_Folder.ico")
+        Me.imgIcons.Images.SetKeyName(1, "frmIncludeExclude_File.ico")
+        Me.imgIcons.Images.SetKeyName(2, "frmIncludeExclude_Type.ico")
         '
         'btnSave
         '
@@ -107,6 +107,7 @@ Partial Class frmIncludeExclude
         'lstBuilder
         '
         Me.lstBuilder.ContextMenuStrip = Me.cmsItems
+        Me.lstBuilder.HideSelection = False
         Me.lstBuilder.LabelEdit = True
         Me.lstBuilder.Location = New System.Drawing.Point(322, 38)
         Me.lstBuilder.Name = "lstBuilder"

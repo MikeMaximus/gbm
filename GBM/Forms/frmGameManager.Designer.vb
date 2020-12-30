@@ -716,7 +716,7 @@ Partial Class frmGameManager
         '
         'btnProcessOptions
         '
-        Me.btnProcessOptions.Image = Global.GBM.My.Resources.Resources.Icon_Chip
+        Me.btnProcessOptions.Image = Global.GBM.My.Resources.Resources.frmGameManager_Process
         Me.btnProcessOptions.Location = New System.Drawing.Point(443, 38)
         Me.btnProcessOptions.Name = "btnProcessOptions"
         Me.btnProcessOptions.Size = New System.Drawing.Size(22, 22)
@@ -857,7 +857,7 @@ Partial Class frmGameManager
         '
         'btnMarkAsRestored
         '
-        Me.btnMarkAsRestored.Image = Global.GBM.My.Resources.Resources.Icon_Checkmark
+        Me.btnMarkAsRestored.Image = Global.GBM.My.Resources.Resources.frmGameManager_Mark
         Me.btnMarkAsRestored.Location = New System.Drawing.Point(480, 40)
         Me.btnMarkAsRestored.Name = "btnMarkAsRestored"
         Me.btnMarkAsRestored.Size = New System.Drawing.Size(22, 22)
@@ -875,7 +875,7 @@ Partial Class frmGameManager
         '
         'btnBackupData
         '
-        Me.btnBackupData.Image = Global.GBM.My.Resources.Resources.Icon_Recycle
+        Me.btnBackupData.Image = Global.GBM.My.Resources.Resources.frmGameManager_Backup_Data
         Me.btnBackupData.Location = New System.Drawing.Point(480, 13)
         Me.btnBackupData.Name = "btnBackupData"
         Me.btnBackupData.Size = New System.Drawing.Size(22, 22)
@@ -905,7 +905,7 @@ Partial Class frmGameManager
         '
         'btnOpenBackupFolder
         '
-        Me.btnOpenBackupFolder.Image = Global.GBM.My.Resources.Resources.Icon_FolderOpen
+        Me.btnOpenBackupFolder.Image = Global.GBM.My.Resources.Resources.frmGameManager_Folder_Open
         Me.btnOpenBackupFolder.Location = New System.Drawing.Point(480, 66)
         Me.btnOpenBackupFolder.Name = "btnOpenBackupFolder"
         Me.btnOpenBackupFolder.Size = New System.Drawing.Size(22, 22)

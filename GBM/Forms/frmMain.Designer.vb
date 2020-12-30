@@ -353,7 +353,7 @@ Partial Class frmMain
         'gMonStripCollapse
         '
         Me.gMonStripCollapse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.gMonStripCollapse.Image = Global.GBM.My.Resources.Resources.Collapse_Left
+        Me.gMonStripCollapse.Image = Global.GBM.My.Resources.Resources.frmMain_Collapse_Left
         Me.gMonStripCollapse.Margin = New System.Windows.Forms.Padding(5, 3, 0, 2)
         Me.gMonStripCollapse.Name = "gMonStripCollapse"
         Me.gMonStripCollapse.Size = New System.Drawing.Size(16, 17)
@@ -361,7 +361,7 @@ Partial Class frmMain
         'gMonStripAdminButton
         '
         Me.gMonStripAdminButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.gMonStripAdminButton.Image = Global.GBM.My.Resources.Resources.Icon_User
+        Me.gMonStripAdminButton.Image = Global.GBM.My.Resources.Resources.frmMain_User
         Me.gMonStripAdminButton.Margin = New System.Windows.Forms.Padding(5, 3, 0, 2)
         Me.gMonStripAdminButton.Name = "gMonStripAdminButton"
         Me.gMonStripAdminButton.Size = New System.Drawing.Size(16, 17)
@@ -662,7 +662,7 @@ Partial Class frmMain
         'btnCancelOperation
         '
         Me.btnCancelOperation.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancelOperation.Image = Global.GBM.My.Resources.Resources.Main_Cancel
+        Me.btnCancelOperation.Image = Global.GBM.My.Resources.Resources.frmMain_Cancel
         Me.btnCancelOperation.Location = New System.Drawing.Point(414, 118)
         Me.btnCancelOperation.Name = "btnCancelOperation"
         Me.btnCancelOperation.Size = New System.Drawing.Size(60, 45)
@@ -754,7 +754,7 @@ Partial Class frmMain
         'btnClearSelected
         '
         Me.btnClearSelected.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnClearSelected.Image = Global.GBM.My.Resources.Resources.Main_Cancel_Small
+        Me.btnClearSelected.Image = Global.GBM.My.Resources.Resources.frmMain_Cancel_Small
         Me.btnClearSelected.Location = New System.Drawing.Point(216, 9)
         Me.btnClearSelected.Name = "btnClearSelected"
         Me.btnClearSelected.Size = New System.Drawing.Size(24, 24)
@@ -793,7 +793,7 @@ Partial Class frmMain
         '
         'btnBackup
         '
-        Me.btnBackup.Image = Global.GBM.My.Resources.Resources.Main_Backup
+        Me.btnBackup.Image = Global.GBM.My.Resources.Resources.frmMain_Backup
         Me.btnBackup.Location = New System.Drawing.Point(81, 118)
         Me.btnBackup.Name = "btnBackup"
         Me.btnBackup.Size = New System.Drawing.Size(60, 45)
@@ -804,7 +804,7 @@ Partial Class frmMain
         '
         'btnRestore
         '
-        Me.btnRestore.Image = Global.GBM.My.Resources.Resources.Main_Restore
+        Me.btnRestore.Image = Global.GBM.My.Resources.Resources.frmMain_Restore
         Me.btnRestore.Location = New System.Drawing.Point(147, 118)
         Me.btnRestore.Name = "btnRestore"
         Me.btnRestore.Size = New System.Drawing.Size(60, 45)
@@ -815,7 +815,7 @@ Partial Class frmMain
         '
         'btnEdit
         '
-        Me.btnEdit.Image = Global.GBM.My.Resources.Resources.Main_Edit
+        Me.btnEdit.Image = Global.GBM.My.Resources.Resources.frmMain_Edit
         Me.btnEdit.Location = New System.Drawing.Point(15, 118)
         Me.btnEdit.Name = "btnEdit"
         Me.btnEdit.Size = New System.Drawing.Size(60, 45)
@@ -826,7 +826,7 @@ Partial Class frmMain
         '
         'btnPlay
         '
-        Me.btnPlay.Image = Global.GBM.My.Resources.Resources.Main_Play
+        Me.btnPlay.Image = Global.GBM.My.Resources.Resources.frmMain_Play
         Me.btnPlay.Location = New System.Drawing.Point(213, 118)
         Me.btnPlay.Name = "btnPlay"
         Me.btnPlay.Size = New System.Drawing.Size(60, 45)

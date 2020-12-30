@@ -53,7 +53,7 @@ Public Class mgrCommon
             oReturnImage = New Bitmap(oImage, oImageSize)
             oImage.Dispose()
         Catch
-            oReturnImage = Icon_Unknown
+            oReturnImage = Multi_Unknown
         End Try
 
         Return oReturnImage

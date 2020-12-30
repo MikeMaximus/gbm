@@ -585,8 +585,8 @@ Public Class frmMain
             Else
                 sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationSingle, iCount)
             End If
-            gMonNotification.Image = Icon_Inbox
-            gMonTrayNotification.Image = Icon_Inbox
+            gMonNotification.Image = frmMain_Notification
+            gMonTrayNotification.Image = frmMain_Notification
             gMonNotification.Text = sNotification
             gMonTrayNotification.Text = sNotification
             gMonNotification.Visible = True
@@ -843,7 +843,7 @@ Public Class frmMain
             UpdateLog(mgrCommon.FormatString(App_GenericError, ex.Message), False,, False)
         End Try
 
-        Return Icon_Unknown
+        Return Multi_Unknown
     End Function
 
     Private Sub SetGameInfo(Optional ByVal bMulti As Boolean = False)
@@ -859,7 +859,7 @@ Public Class frmMain
         lblStatus1.Text = String.Empty
         lblStatus2.Text = String.Empty
         lblStatus3.Text = String.Empty
-        pbIcon.Image = Icon_Unknown
+        pbIcon.Image = Multi_Unknown
 
         'Set Game Icon
         If Not mgrCommon.IsUnix Then
@@ -884,7 +884,7 @@ Public Class frmMain
             lblGameTitle.Text = frmMain_MultipleGames
             pbTime.Visible = False
             lblTimeSpent.Visible = False
-            pbIcon.Image = Icon_Unknown
+            pbIcon.Image = Multi_Unknown
             If sFileName = String.Empty Then
                 lblStatus1.Text = frmMain_NoDetails
             Else
@@ -962,7 +962,7 @@ Public Class frmMain
                 End If
                 eDisplayMode = eDisplayModes.Normal
             Else
-                pbIcon.Image = Icon_Searching
+                pbIcon.Image = frmMain_Searching
                 lblGameTitle.Text = frmMain_NoGameDetected
                 lblStatus1.Text = String.Empty
                 lblStatus2.Text = String.Empty
@@ -996,7 +996,7 @@ Public Class frmMain
 
             pbTime.Visible = False
             lblTimeSpent.Visible = False
-            pbIcon.Image = Icon_Working
+            pbIcon.Image = frmMain_Working
             lblGameTitle.Text = sTitle
             lblStatus1.Text = sStatus1
             lblStatus2.Text = sStatus2
@@ -1031,7 +1031,7 @@ Public Class frmMain
         ElseIf File.Exists(sCachedIcon) Then
             pbIcon.Image = mgrCommon.SafeIconFromFile(sCachedIcon)
         Else
-            pbIcon.Image = Icon_Unknown
+            pbIcon.Image = Multi_Unknown
         End If
 
         lblGameTitle.Text = oSelectedGame.Name
@@ -1617,7 +1617,7 @@ Public Class frmMain
                 End If
 
                 If oProcess.Duplicate Then
-                    sGame = frmMain_UnknownGame
+                    sGame = Multi_UnknownGame
                 End If
 
                 If mgrCommon.ShowMessage(frmMain_ConfirmMonitorCancel, sGame, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
@@ -2182,30 +2182,30 @@ Public Class frmMain
         gMonStripStatusButton.Text = frmMain_gMonStripStatusButton
         gMonStripStatusButton.ToolTipText = frmMain_gMonStripStatusButtonToolTip
         gMonStripCollapse.ToolTipText = frmMain_gMonStripCollapseHideToolTip
-        gMonStripCollapse.Image = Collapse_Left
+        gMonStripCollapse.Image = frmMain_Collapse_Left
         btnRestore.Text = frmMain_btnRestore
-        btnRestore.Image = Main_Restore
+        btnRestore.Image = frmMain_Restore
         btnBackup.Text = frmMain_btnBackup
-        btnBackup.Image = Main_Backup
+        btnBackup.Image = frmMain_Backup
         btnEdit.Text = frmMain_btnEdit
-        btnEdit.Image = Main_Edit
+        btnEdit.Image = frmMain_Edit
         btnPlay.Text = frmMain_btnPlay
-        btnPlay.Image = Main_Play
+        btnPlay.Image = frmMain_Play
         btnCancelOperation.Text = frmMain_btnCancelOperation
-        btnCancelOperation.Image = Main_Cancel
-        btnClearSelected.Image = Main_Cancel_Small
+        btnCancelOperation.Image = frmMain_Cancel
+        btnClearSelected.Image = frmMain_Cancel_Small
 
         If mgrCommon.IsElevated Then
-            gMonStripAdminButton.Image = Icon_Admin
+            gMonStripAdminButton.Image = frmMain_Admin
             gMonStripAdminButton.ToolTipText = frmMain_RunningAsAdmin
 
         Else
-            gMonStripAdminButton.Image = Icon_User
+            gMonStripAdminButton.Image = frmMain_User
             gMonStripAdminButton.ToolTipText = frmMain_RunningAsNormal
         End If
         btnCancelOperation.Visible = False
         pbTime.SizeMode = PictureBoxSizeMode.AutoSize
-        pbTime.Image = Icon_Clock
+        pbTime.Image = frmGameManager_Clock
 
         'Init Timers
         tmScanTimer.Interval = 5000
@@ -2224,7 +2224,7 @@ Public Class frmMain
         If mgrSettings.MainHideGameList Then
             slcMain.Panel1Collapsed = True
             gMonStripCollapse.ToolTipText = frmMain_gMonStripCollapseShowToolTip
-            gMonStripCollapse.Image = Expand_Right
+            gMonStripCollapse.Image = frmMain_Expand_Right
         End If
 
         If mgrSettings.MainHideLog And mgrSettings.MainHideGameList Then
@@ -2308,15 +2308,15 @@ Public Class frmMain
             tmScanTimer.Stop()
             eCurrentStatus = eStatus.Stopped
             UpdateStatus(frmMain_NotScanning)
-            gMonStripStatusButton.Image = Icon_Stopped
-            gMonTray.Icon = GBM_Tray_Stopped
+            gMonStripStatusButton.Image = frmMain_Stopped
+            gMonTray.Icon = GBM_Icon_Stopped
         Else
             StartScan()
             StartSyncWatcher()
             eCurrentStatus = eStatus.Running
             UpdateStatus(frmMain_NoGameDetected)
-            gMonStripStatusButton.Image = Icon_Ready
-            gMonTray.Icon = GBM_Tray_Ready
+            gMonStripStatusButton.Image = frmMain_Ready
+            gMonTray.Icon = GBM_Icon_Ready
         End If
         ToggleMenuText()
     End Sub
@@ -2327,8 +2327,8 @@ Public Class frmMain
             tmScanTimer.Stop()
             eCurrentStatus = eStatus.Paused
             UpdateStatus(frmMain_NotScanning)
-            gMonStripStatusButton.Image = Icon_Detected
-            gMonTray.Icon = GBM_Tray_Detected
+            gMonStripStatusButton.Image = frmGameManager_Detected
+            gMonTray.Icon = GBM_Icon_Detected
         End If
         ToggleMenuText()
         ToggleMenuEnable(bGameDetected)
@@ -2339,8 +2339,8 @@ Public Class frmMain
             StartScan()
             StartSyncWatcher()
             eCurrentStatus = eStatus.Running
-            gMonStripStatusButton.Image = Icon_Ready
-            gMonTray.Icon = GBM_Tray_Ready
+            gMonStripStatusButton.Image = frmMain_Ready
+            gMonTray.Icon = GBM_Icon_Ready
             UpdateStatus(frmMain_NoGameDetected)
         End If
         ToggleMenuText()
@@ -2352,8 +2352,8 @@ Public Class frmMain
         tmScanTimer.Stop()
         eCurrentStatus = eStatus.Stopped
         UpdateStatus(frmMain_NotScanning)
-        gMonStripStatusButton.Image = Icon_Stopped
-        gMonTray.Icon = GBM_Tray_Stopped
+        gMonStripStatusButton.Image = frmMain_Stopped
+        gMonTray.Icon = GBM_Icon_Stopped
         ToggleMenuText()
         ToggleMenuEnable()
     End Sub
@@ -2681,10 +2681,10 @@ Public Class frmMain
         slcMain.Panel1Collapsed = Not slcMain.Panel1Collapsed
 
         If slcMain.Panel1Collapsed Then
-            gMonStripCollapse.Image = Expand_Right
+            gMonStripCollapse.Image = frmMain_Expand_Right
             gMonStripCollapse.ToolTipText = frmMain_gMonStripCollapseShowToolTip
         Else
-            gMonStripCollapse.Image = Collapse_Left
+            gMonStripCollapse.Image = frmMain_Collapse_Left
             gMonStripCollapse.ToolTipText = frmMain_gMonStripCollapseHideToolTip
         End If
     End Sub
@@ -2962,7 +2962,7 @@ Public Class frmMain
                     RunBackup()
                 Else
                     oLastGame = Nothing
-                    UpdateLog(frmMain_UnknownGameEnded, False)
+                    UpdateLog(Multi_UnknownGameEnded, False)
                     oProcess.GameInfo = Nothing
                     ResetGameInfo()
                     ResumeScan()

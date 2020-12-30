@@ -438,22 +438,22 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="References\Mono.Data.Sqlite.dll" />
-    <None Include="Resources\Arrow_Submenu_Right.png" />
-    <Content Include="Resources\backup.png" />
+    <None Include="Resources\frmGameManager_Arrow_Submenu_Right.png" />
+    <Content Include="Resources\frmMain_Backup.png" />
     <Content Include="Resources\BuildDate.txt" />
-    <None Include="Resources\collapse.png" />
-    <None Include="Resources\expand.png" />
-    <Content Include="Resources\cancel.png" />
-    <Content Include="Resources\cancel_small.png" />
-    <Content Include="Resources\checkmark.png" />
-    <Content Include="Resources\chip.png" />
-    <Content Include="Resources\edit.png" />
-    <Content Include="Resources\folder_open.png" />
-    <Content Include="Resources\New.png" />
-    <Content Include="Resources\play.png" />
-    <Content Include="Resources\recycle_bin.png" />
-    <Content Include="Resources\restore.png" />
-    <Content Include="Resources\Update.png" />
+    <None Include="Resources\frmMain_Collapse_Left.png" />
+    <None Include="Resources\frmMain_Expand_Right.png" />
+    <Content Include="Resources\frmMain_Cancel.png" />
+    <Content Include="Resources\frmMain_Cancel_Small.png" />
+    <Content Include="Resources\frmGameManager_Mark.png" />
+    <Content Include="Resources\frmGameManager_Process.png" />
+    <Content Include="Resources\frmMain_Edit.png" />
+    <Content Include="Resources\frmGameManager_Folder_Open.png" />
+    <Content Include="Resources\frmAdvancedImport_New.png" />
+    <Content Include="Resources\frmMain_Play.png" />
+    <Content Include="Resources\frmGameManager_Backup_Data.png" />
+    <Content Include="Resources\frmMain_Restore.png" />
+    <Content Include="Resources\frmAdvancedImport_Update.png" />
     <Content Include="Utilities\x64\7za.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -462,23 +462,23 @@
     </Content>
     <Content Include="x64\sqlite3.dll" />
     <Content Include="x86\sqlite3.dll" />
-    <None Include="Resources\gbm.ico" />
-    <Content Include="Resources\Admin.png" />
-    <Content Include="Resources\Clock.png" />
-    <Content Include="Resources\file.ico" />
-    <Content Include="Resources\folder.ico" />
-    <Content Include="Resources\GBM_Tray_Detected.ico" />
-    <Content Include="Resources\GBM_Tray_Ready.ico" />
-    <Content Include="Resources\GBM_Tray_Stopped.ico" />
-    <Content Include="Resources\Inbox.png" />
-    <Content Include="Resources\type.ico" />
-    <Content Include="Resources\User.png" />
-    <None Include="Resources\Stopped.png" />
-    <None Include="Resources\Detected.png" />
-    <None Include="Resources\Ready.png" />
-    <None Include="Resources\Working.png" />
-    <None Include="Resources\Searching.png" />
-    <None Include="Resources\Unknown.png" />
+    <None Include="Resources\GBM_Icon.ico" />
+    <Content Include="Resources\frmMain_Admin.png" />
+    <Content Include="Resources\frmGameManager_Clock.png" />
+    <Content Include="Resources\frmIncludeExclude_File.ico" />
+    <Content Include="Resources\frmIncludeExclude_Folder.ico" />
+    <Content Include="Resources\GBM_Icon_Detected.ico" />
+    <Content Include="Resources\GBM_Icon_Ready.ico" />
+    <Content Include="Resources\GBM_Icon_Stopped.ico" />
+    <Content Include="Resources\frmMain_Notification.png" />
+    <Content Include="Resources\frmIncludeExclude_Type.ico" />
+    <Content Include="Resources\frmMain_User.png" />
+    <None Include="Resources\frmMain_Stopped.png" />
+    <None Include="Resources\frmGameManager_Detected.png" />
+    <None Include="Resources\frmMain_Ready.png" />
+    <None Include="Resources\frmMain_Working.png" />
+    <None Include="Resources\frmMain_Searching.png" />
+    <None Include="Resources\Multi_Unknown.png" />
     <Content Include="License\7z license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

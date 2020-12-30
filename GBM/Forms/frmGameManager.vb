@@ -1113,7 +1113,7 @@ Public Class frmGameManager
         ElseIf IO.File.Exists(sCachedIcon) Then
             pbIcon.Image = mgrCommon.SafeIconFromFile(sCachedIcon)
         Else
-            pbIcon.Image = Icon_Unknown
+            pbIcon.Image = Multi_Unknown
         End If
 
         'Stats
@@ -1200,7 +1200,7 @@ Public Class frmGameManager
                 cmsRegEx.Checked = False
                 cmsUseWindowTitle.Checked = False
                 chkCleanFolder.Enabled = False
-                pbIcon.Image = Icon_Unknown
+                pbIcon.Image = Multi_Unknown
                 chkEnabled.Enabled = True
                 chkMonitorOnly.Enabled = True
                 btnSave.Enabled = True
@@ -1283,7 +1283,7 @@ Public Class frmGameManager
                 WipeControls(grpCoreConfig.Controls)
                 WipeControls(grpGameInfo.Controls)
                 WipeControls(grpBackupInfo.Controls)
-                pbIcon.Image = Icon_Unknown
+                pbIcon.Image = Multi_Unknown
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
                 tbConfig.Enabled = False
@@ -1314,7 +1314,7 @@ Public Class frmGameManager
                 WipeControls(grpCoreConfig.Controls)
                 WipeControls(grpGameInfo.Controls)
                 WipeControls(grpBackupInfo.Controls)
-                pbIcon.Image = Icon_Unknown
+                pbIcon.Image = Multi_Unknown
                 btnSave.Enabled = True
                 btnCancel.Enabled = False
                 ToggleControls(grpCoreConfig.Controls, False)
@@ -1967,7 +1967,7 @@ Public Class frmGameManager
         btnExport.Text = frmGameManager_btnExport
         btnImport.Text = frmGameManager_btnImport
         btnImport.ImageAlign = ContentAlignment.MiddleRight
-        btnImport.Image = Arrow_Submenu_Right
+        btnImport.Image = frmGameManager_Arrow_Submenu_Right
         lblFilters.Text = frmGameManager_lblFilters
         chkEnabled.Text = frmGameManager_chkEnabled
         btnCancel.Text = frmGameManager_btnCancel
@@ -2012,11 +2012,11 @@ Public Class frmGameManager
         lblComments.Text = frmGameManager_lblComments
         cmsRegEx.Text = frmGameManager_cmsRegEx
         cmsUseWindowTitle.Text = frmGameManager_cmsUseWindowTitle
-        btnProcessOptions.Image = Icon_Chip
+        btnProcessOptions.Image = frmGameManager_Process
         cmsGameID.Text = frmGameManager_cmsGameID
         btnAdvanced.Text = frmGameManager_btnAdvanced
         btnAdvanced.ImageAlign = ContentAlignment.MiddleRight
-        btnAdvanced.Image = Arrow_Submenu_Right
+        btnAdvanced.Image = frmGameManager_Arrow_Submenu_Right
         lblOS.Text = frmGameManager_lblOS
         cmsWineConfig.Text = frmGameManager_cmsWineConfig
         cmsProcess.Text = frmGameManager_cmsProcess
@@ -2024,9 +2024,9 @@ Public Class frmGameManager
         cmsLaunchSettings.Text = frmGamemanager_cmsLaunchSettings
         lblGameTags.Text = frmGameManager_lblGameTags
         lblTags.Text = frmGameManager_lblTags
-        btnBackupData.Image = Icon_Recycle
-        btnMarkAsRestored.Image = Icon_Checkmark
-        btnOpenBackupFolder.Image = Icon_FolderOpen
+        btnBackupData.Image = frmGameManager_Backup_Data
+        btnMarkAsRestored.Image = frmGameManager_Mark
+        btnOpenBackupFolder.Image = frmGameManager_Folder_Open
 
         'Tool Tips
         ttHelp.SetToolTip(btnBackupData, frmGameManager_ttHelp_btnBackupData)

@@ -193,8 +193,8 @@ Public Class frmAdvancedImport
 
         'Set Icons
         oImageList = New ImageList()
-        oImageList.Images.Add(Icon_New)
-        oImageList.Images.Add(Icon_Update)
+        oImageList.Images.Add(frmAdvancedImport_New)
+        oImageList.Images.Add(frmAdvancedImport_Update)
         lstGames.SmallImageList = oImageList
 
         chkSelectAll.Checked = True
