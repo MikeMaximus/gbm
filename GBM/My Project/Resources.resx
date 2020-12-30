@@ -1539,8 +1539,8 @@
   <data name="frmSettings_chkAutoSaveLog" xml:space="preserve">
     <value>Autosave log when max length is exceeded</value>
   </data>
-  <data name="frmSettings_grpGameData" xml:space="preserve">
-    <value>Optional Features and Game Data Options</value>
+  <data name="frmSettings_grpOptionalFeatures" xml:space="preserve">
+    <value>Optional Features</value>
   </data>
   <data name="frmSettings_lstSettings_7z" xml:space="preserve">
     <value>7-Zip</value>
@@ -2074,7 +2074,7 @@
     <value>Log Options</value>
   </data>
   <data name="frmSettings_lstSettings_Startup" xml:space="preserve">
-    <value>Startup and UI</value>
+    <value>Startup</value>
   </data>
   <data name="mgrBackup_ConfirmOverwriteRelative" xml:space="preserve">
     <value>[PARAM] already exists in the backup folder.[BR][BR]This game stores saves in a relative location, you may need to restore the current backup if the game was recently re-installed.[BR][BR]Do you want to overwrite this file?</value>
@@ -2110,7 +2110,7 @@
     <value>An error occured while building a list of environment variables.[BR][BR][PARAM]</value>
   </data>
   <data name="frmSettings_chkShowResolvedPaths" xml:space="preserve">
-    <value>Show resolved save paths in Game Manager</value>
+    <value>Show resolved paths</value>
   </data>
   <data name="frmGameManager_7zBackup" xml:space="preserve">
     <value>7-Zip</value>
@@ -2483,10 +2483,10 @@
     <value>Exit without confirmation</value>
   </data>
   <data name="frmSettings_chkExitOnClose" xml:space="preserve">
-    <value>Exit when closing main window</value>
+    <value>Exit when closing window</value>
   </data>
-  <data name="frmSettings_grpUIOptions" xml:space="preserve">
-    <value>User Interface Options</value>
+  <data name="frmSettings_grpMainWindowOptions" xml:space="preserve">
+    <value>Main Window Options</value>
   </data>
   <data name="frmAdvancedImport_chkSelectedOnly" xml:space="preserve">
     <value>Show Only Selected</value>
@@ -2747,10 +2747,10 @@
     <value>Manage Tags</value>
   </data>
   <data name="frmSettings_chkHideButtons" xml:space="preserve">
-    <value>Hide buttons on main window</value>
+    <value>Hide buttons</value>
   </data>
   <data name="frmSettings_chkHideGameList" xml:space="preserve">
-    <value>Hide game list on main window by default</value>
+    <value>Hide game list by default</value>
   </data>
   <data name="frmSettings_chkHideLog" xml:space="preserve">
     <value>Hide log by default</value>
@@ -2892,5 +2892,17 @@
   </data>
   <data name="Multi_Restore" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Multi_Restore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmSettings_grpGameManagerOptions" xml:space="preserve">
+    <value>Game Manager Options</value>
+  </data>
+  <data name="frmSettings_lstSettings_FilesAndFolders" xml:space="preserve">
+    <value>Files and Folders</value>
+  </data>
+  <data name="frmSettings_lstSettings_UserInterface" xml:space="preserve">
+    <value>User Interface</value>
+  </data>
+  <data name="frmSettings_BrowseTempFolder" xml:space="preserve">
+    <value>Choose a temporary folder:</value>
   </data>
 </root>

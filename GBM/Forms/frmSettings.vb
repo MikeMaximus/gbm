@@ -274,9 +274,11 @@ Public Class frmSettings
         lstSettings.DisplayMember = "Value"
 
         mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(0, frmSettings_lstSettings_General))
-        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(1, frmSettings_lstSettings_BackupRestore))
-        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(2, frmSettings_lstSettings_Startup))
-        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(3, frmSettings_lstSettings_7z))
+        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(1, frmSettings_lstSettings_FilesAndFolders))
+        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(2, frmSettings_lstSettings_BackupRestore))
+        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(3, frmSettings_lstSettings_Startup))
+        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(4, frmSettings_lstSettings_UserInterface))
+        mgrSettingsItems.Add(New KeyValuePair(Of Integer, String)(5, frmSettings_lstSettings_7z))
 
         lstSettings.DataSource = mgrSettingsItems
 
@@ -300,24 +302,45 @@ Public Class frmSettings
             Select Case mgrSettingsItem.Key
                 Case 0
                     pnlGeneral.Visible = True
-                    pnlStartup.Visible = False
+                    pnlFilesAndFolders.Visible = False
                     pnlBackup.Visible = False
+                    pnlStartup.Visible = False
+                    pnlInterface.Visible = False
                     pnl7z.Visible = False
                 Case 1
                     pnlGeneral.Visible = False
-                    pnlBackup.Visible = True
+                    pnlFilesAndFolders.Visible = True
+                    pnlBackup.Visible = False
                     pnlStartup.Visible = False
+                    pnlInterface.Visible = False
                     pnl7z.Visible = False
                 Case 2
                     pnlGeneral.Visible = False
-                    pnlBackup.Visible = False
-                    pnlStartup.Visible = True
+                    pnlFilesAndFolders.Visible = False
+                    pnlBackup.Visible = True
+                    pnlStartup.Visible = False
+                    pnlInterface.Visible = False
                     pnl7z.Visible = False
-
                 Case 3
                     pnlGeneral.Visible = False
+                    pnlFilesAndFolders.Visible = False
+                    pnlBackup.Visible = False
+                    pnlStartup.Visible = True
+                    pnlInterface.Visible = False
+                    pnl7z.Visible = False
+                Case 4
+                    pnlGeneral.Visible = False
+                    pnlFilesAndFolders.Visible = False
                     pnlBackup.Visible = False
                     pnlStartup.Visible = False
+                    pnlInterface.Visible = True
+                    pnl7z.Visible = False
+                Case 5
+                    pnlGeneral.Visible = False
+                    pnlFilesAndFolders.Visible = False
+                    pnlBackup.Visible = False
+                    pnlStartup.Visible = False
+                    pnlInterface.Visible = False
                     pnl7z.Visible = True
             End Select
         End If
@@ -347,7 +370,7 @@ Public Class frmSettings
         lblBackupFolder.Text = frmSettings_lblBackupFolder
         lblTempFolder.Text = frmSettings_lblTempFolder
         grpStartup.Text = frmSettings_grpStartup
-        grpGameData.Text = frmSettings_grpGameData
+        grpOptionalFeeatures.Text = frmSettings_grpOptionalFeatures
         chkTimeTracking.Text = frmSettings_chkTimeTracking
         chkSessionTracking.Text = frmSettings_chkSessionTracking
         chkEnableLauncher.Text = frmSettings_chkEnableLauncher
@@ -372,9 +395,10 @@ Public Class frmSettings
         grpGameMonitoringOptions.Text = frmSettings_grpGameMonitoringOptions
         chkShowResolvedPaths.Text = frmSettings_chkShowResolvedPaths
         chkDisableDiskSpaceCheck.Text = frmSettings_chkDisableDiskSpaceCheck
-        grpUIOptions.Text = frmSettings_grpUIOptions
+        grpMainWindowOptions.Text = frmSettings_grpMainWindowOptions
         chkExitOnClose.Text = frmSettings_chkExitOnClose
         chkExitNoWarning.Text = frmSettings_chkExitNoWarning
+        grpGameManagerOptions.Text = frmSettings_grpGameManagerOptions
 
         If mgrCommon.IsUnix Then
             'Only enable this option on Linux if GBM was installed with an official method
@@ -417,7 +441,7 @@ Public Class frmSettings
 
     Private Sub btnTempFolder_Click(sender As Object, e As EventArgs) Handles btnTempFolder.Click
         Dim sNewFolder As String
-        sNewFolder = mgrCommon.OpenClassicFolderBrowser("Settings_Temp_Path", frmSettings_BrowseFolder, mgrSettings.TemporaryFolder, True, False)
+        sNewFolder = mgrCommon.OpenClassicFolderBrowser("Settings_Temp_Path", frmSettings_BrowseTempFolder, mgrSettings.TemporaryFolder, True, False)
         If sNewFolder <> String.Empty Then txtTempFolder.Text = sNewFolder
     End Sub
 

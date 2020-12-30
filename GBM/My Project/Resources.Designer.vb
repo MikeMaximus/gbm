@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-12-30T14:49:20
+        '''  Looks up a localized string similar to 2020-12-30T15:59:45
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5772,6 +5772,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Choose a temporary folder:.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_BrowseTempFolder() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_BrowseTempFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to ....
         '''</summary>
         Friend ReadOnly Property frmSettings_btnBackupFolder() As String
@@ -5988,7 +5997,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Exit when closing main window.
+        '''  Looks up a localized string similar to Exit when closing window.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkExitOnClose() As String
             Get
@@ -5997,7 +6006,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Hide buttons on main window.
+        '''  Looks up a localized string similar to Hide buttons.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkHideButtons() As String
             Get
@@ -6006,7 +6015,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Hide game list on main window by default.
+        '''  Looks up a localized string similar to Hide game list by default.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkHideGameList() As String
             Get
@@ -6069,7 +6078,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Show resolved save paths in Game Manager.
+        '''  Looks up a localized string similar to Show resolved paths.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkShowResolvedPaths() As String
             Get
@@ -6240,11 +6249,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Optional Features and Game Data Options.
+        '''  Looks up a localized string similar to Game Manager Options.
         '''</summary>
-        Friend ReadOnly Property frmSettings_grpGameData() As String
+        Friend ReadOnly Property frmSettings_grpGameManagerOptions() As String
             Get
-                Return ResourceManager.GetString("frmSettings_grpGameData", resourceCulture)
+                Return ResourceManager.GetString("frmSettings_grpGameManagerOptions", resourceCulture)
             End Get
         End Property
         
@@ -6267,20 +6276,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Main Window Options.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grpMainWindowOptions() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grpMainWindowOptions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Optional Features.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grpOptionalFeatures() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grpOptionalFeatures", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Startup Options.
         '''</summary>
         Friend ReadOnly Property frmSettings_grpStartup() As String
             Get
                 Return ResourceManager.GetString("frmSettings_grpStartup", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to User Interface Options.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_grpUIOptions() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_grpUIOptions", resourceCulture)
             End Get
         End Property
         
@@ -6357,6 +6375,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Files and Folders.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_lstSettings_FilesAndFolders() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_lstSettings_FilesAndFolders", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to General.
         '''</summary>
         Friend ReadOnly Property frmSettings_lstSettings_General() As String
@@ -6366,11 +6393,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Startup and UI.
+        '''  Looks up a localized string similar to Startup.
         '''</summary>
         Friend ReadOnly Property frmSettings_lstSettings_Startup() As String
             Get
                 Return ResourceManager.GetString("frmSettings_lstSettings_Startup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to User Interface.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_lstSettings_UserInterface() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_lstSettings_UserInterface", resourceCulture)
             End Get
         End Property
         
