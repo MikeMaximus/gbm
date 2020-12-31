@@ -185,7 +185,7 @@ Partial Class frmSettings
         'lblCompression
         '
         Me.lblCompression.AutoSize = True
-        Me.lblCompression.Location = New System.Drawing.Point(6, 20)
+        Me.lblCompression.Location = New System.Drawing.Point(5, 20)
         Me.lblCompression.Name = "lblCompression"
         Me.lblCompression.Size = New System.Drawing.Size(70, 13)
         Me.lblCompression.TabIndex = 0
@@ -210,7 +210,7 @@ Partial Class frmSettings
         'lblLocation
         '
         Me.lblLocation.AutoSize = True
-        Me.lblLocation.Location = New System.Drawing.Point(6, 44)
+        Me.lblLocation.Location = New System.Drawing.Point(5, 44)
         Me.lblLocation.Name = "lblLocation"
         Me.lblLocation.Size = New System.Drawing.Size(89, 13)
         Me.lblLocation.TabIndex = 4
@@ -226,7 +226,7 @@ Partial Class frmSettings
         'lblArguments
         '
         Me.lblArguments.AutoSize = True
-        Me.lblArguments.Location = New System.Drawing.Point(6, 20)
+        Me.lblArguments.Location = New System.Drawing.Point(5, 20)
         Me.lblArguments.Name = "lblArguments"
         Me.lblArguments.Size = New System.Drawing.Size(98, 13)
         Me.lblArguments.TabIndex = 2
@@ -338,7 +338,7 @@ Partial Class frmSettings
         'chkAutoRestore
         '
         Me.chkAutoRestore.AutoSize = True
-        Me.chkAutoRestore.Location = New System.Drawing.Point(5, 41)
+        Me.chkAutoRestore.Location = New System.Drawing.Point(5, 40)
         Me.chkAutoRestore.Margin = New System.Windows.Forms.Padding(2)
         Me.chkAutoRestore.Name = "chkAutoRestore"
         Me.chkAutoRestore.Size = New System.Drawing.Size(190, 17)
@@ -349,7 +349,7 @@ Partial Class frmSettings
         'chkRestoreNotify
         '
         Me.chkRestoreNotify.AutoSize = True
-        Me.chkRestoreNotify.Location = New System.Drawing.Point(5, 18)
+        Me.chkRestoreNotify.Location = New System.Drawing.Point(5, 17)
         Me.chkRestoreNotify.Margin = New System.Windows.Forms.Padding(2)
         Me.chkRestoreNotify.Name = "chkRestoreNotify"
         Me.chkRestoreNotify.Size = New System.Drawing.Size(216, 17)
@@ -439,7 +439,7 @@ Partial Class frmSettings
         'lblDetectSpeed
         '
         Me.lblDetectSpeed.AutoSize = True
-        Me.lblDetectSpeed.Location = New System.Drawing.Point(2, 64)
+        Me.lblDetectSpeed.Location = New System.Drawing.Point(5, 64)
         Me.lblDetectSpeed.Name = "lblDetectSpeed"
         Me.lblDetectSpeed.Size = New System.Drawing.Size(90, 13)
         Me.lblDetectSpeed.TabIndex = 18
@@ -547,7 +547,7 @@ Partial Class frmSettings
         '
         'btnOptionalFields
         '
-        Me.btnOptionalFields.Location = New System.Drawing.Point(6, 39)
+        Me.btnOptionalFields.Location = New System.Drawing.Point(5, 39)
         Me.btnOptionalFields.Name = "btnOptionalFields"
         Me.btnOptionalFields.Size = New System.Drawing.Size(216, 23)
         Me.btnOptionalFields.TabIndex = 1
@@ -557,7 +557,7 @@ Partial Class frmSettings
         'chkShowResolvedPaths
         '
         Me.chkShowResolvedPaths.AutoSize = True
-        Me.chkShowResolvedPaths.Location = New System.Drawing.Point(6, 18)
+        Me.chkShowResolvedPaths.Location = New System.Drawing.Point(5, 18)
         Me.chkShowResolvedPaths.Name = "chkShowResolvedPaths"
         Me.chkShowResolvedPaths.Size = New System.Drawing.Size(125, 17)
         Me.chkShowResolvedPaths.TabIndex = 0
@@ -581,7 +581,7 @@ Partial Class frmSettings
         'chkHideLog
         '
         Me.chkHideLog.AutoSize = True
-        Me.chkHideLog.Location = New System.Drawing.Point(6, 63)
+        Me.chkHideLog.Location = New System.Drawing.Point(5, 62)
         Me.chkHideLog.Name = "chkHideLog"
         Me.chkHideLog.Size = New System.Drawing.Size(114, 17)
         Me.chkHideLog.TabIndex = 2
@@ -591,7 +591,7 @@ Partial Class frmSettings
         'chkHideButtons
         '
         Me.chkHideButtons.AutoSize = True
-        Me.chkHideButtons.Location = New System.Drawing.Point(6, 109)
+        Me.chkHideButtons.Location = New System.Drawing.Point(5, 108)
         Me.chkHideButtons.Name = "chkHideButtons"
         Me.chkHideButtons.Size = New System.Drawing.Size(86, 17)
         Me.chkHideButtons.TabIndex = 4
@@ -601,7 +601,7 @@ Partial Class frmSettings
         'chkHideGameList
         '
         Me.chkHideGameList.AutoSize = True
-        Me.chkHideGameList.Location = New System.Drawing.Point(6, 86)
+        Me.chkHideGameList.Location = New System.Drawing.Point(5, 85)
         Me.chkHideGameList.Name = "chkHideGameList"
         Me.chkHideGameList.Size = New System.Drawing.Size(141, 17)
         Me.chkHideGameList.TabIndex = 3
@@ -611,7 +611,7 @@ Partial Class frmSettings
         'chkExitNoWarning
         '
         Me.chkExitNoWarning.AutoSize = True
-        Me.chkExitNoWarning.Location = New System.Drawing.Point(6, 40)
+        Me.chkExitNoWarning.Location = New System.Drawing.Point(5, 39)
         Me.chkExitNoWarning.Name = "chkExitNoWarning"
         Me.chkExitNoWarning.Size = New System.Drawing.Size(140, 17)
         Me.chkExitNoWarning.TabIndex = 1
@@ -621,7 +621,7 @@ Partial Class frmSettings
         'chkExitOnClose
         '
         Me.chkExitOnClose.AutoSize = True
-        Me.chkExitOnClose.Location = New System.Drawing.Point(6, 18)
+        Me.chkExitOnClose.Location = New System.Drawing.Point(5, 17)
         Me.chkExitOnClose.Name = "chkExitOnClose"
         Me.chkExitOnClose.Size = New System.Drawing.Size(147, 17)
         Me.chkExitOnClose.TabIndex = 0
@@ -669,7 +669,7 @@ Partial Class frmSettings
         'chkBackupOnLaunch
         '
         Me.chkBackupOnLaunch.AutoSize = True
-        Me.chkBackupOnLaunch.Location = New System.Drawing.Point(5, 88)
+        Me.chkBackupOnLaunch.Location = New System.Drawing.Point(5, 86)
         Me.chkBackupOnLaunch.Name = "chkBackupOnLaunch"
         Me.chkBackupOnLaunch.Size = New System.Drawing.Size(185, 17)
         Me.chkBackupOnLaunch.TabIndex = 3
@@ -679,7 +679,7 @@ Partial Class frmSettings
         'chkAutoStart
         '
         Me.chkAutoStart.AutoSize = True
-        Me.chkAutoStart.Location = New System.Drawing.Point(5, 18)
+        Me.chkAutoStart.Location = New System.Drawing.Point(5, 17)
         Me.chkAutoStart.Name = "chkAutoStart"
         Me.chkAutoStart.Size = New System.Drawing.Size(155, 17)
         Me.chkAutoStart.TabIndex = 0
@@ -689,7 +689,7 @@ Partial Class frmSettings
         'chkStartMinimized
         '
         Me.chkStartMinimized.AutoSize = True
-        Me.chkStartMinimized.Location = New System.Drawing.Point(5, 42)
+        Me.chkStartMinimized.Location = New System.Drawing.Point(5, 39)
         Me.chkStartMinimized.Name = "chkStartMinimized"
         Me.chkStartMinimized.Size = New System.Drawing.Size(96, 17)
         Me.chkStartMinimized.TabIndex = 1
@@ -699,7 +699,7 @@ Partial Class frmSettings
         'chkMonitorOnStartup
         '
         Me.chkMonitorOnStartup.AutoSize = True
-        Me.chkMonitorOnStartup.Location = New System.Drawing.Point(5, 65)
+        Me.chkMonitorOnStartup.Location = New System.Drawing.Point(5, 62)
         Me.chkMonitorOnStartup.Name = "chkMonitorOnStartup"
         Me.chkMonitorOnStartup.Size = New System.Drawing.Size(149, 17)
         Me.chkMonitorOnStartup.TabIndex = 2
@@ -743,7 +743,7 @@ Partial Class frmSettings
         'lblTempFolder
         '
         Me.lblTempFolder.AutoSize = True
-        Me.lblTempFolder.Location = New System.Drawing.Point(6, 43)
+        Me.lblTempFolder.Location = New System.Drawing.Point(5, 43)
         Me.lblTempFolder.Name = "lblTempFolder"
         Me.lblTempFolder.Size = New System.Drawing.Size(69, 13)
         Me.lblTempFolder.TabIndex = 0
@@ -759,7 +759,7 @@ Partial Class frmSettings
         'chkUseGameID
         '
         Me.chkUseGameID.AutoSize = True
-        Me.chkUseGameID.Location = New System.Drawing.Point(8, 87)
+        Me.chkUseGameID.Location = New System.Drawing.Point(5, 87)
         Me.chkUseGameID.Name = "chkUseGameID"
         Me.chkUseGameID.Size = New System.Drawing.Size(205, 17)
         Me.chkUseGameID.TabIndex = 5
@@ -778,7 +778,7 @@ Partial Class frmSettings
         'lblBackupFolder
         '
         Me.lblBackupFolder.AutoSize = True
-        Me.lblBackupFolder.Location = New System.Drawing.Point(6, 20)
+        Me.lblBackupFolder.Location = New System.Drawing.Point(5, 20)
         Me.lblBackupFolder.Name = "lblBackupFolder"
         Me.lblBackupFolder.Size = New System.Drawing.Size(79, 13)
         Me.lblBackupFolder.TabIndex = 0
@@ -794,7 +794,7 @@ Partial Class frmSettings
         'chkCreateFolder
         '
         Me.chkCreateFolder.AutoSize = True
-        Me.chkCreateFolder.Location = New System.Drawing.Point(8, 65)
+        Me.chkCreateFolder.Location = New System.Drawing.Point(5, 65)
         Me.chkCreateFolder.Name = "chkCreateFolder"
         Me.chkCreateFolder.Size = New System.Drawing.Size(186, 17)
         Me.chkCreateFolder.TabIndex = 4
@@ -808,9 +808,9 @@ Partial Class frmSettings
         Me.ClientSize = New System.Drawing.Size(554, 361)
         Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlFilesAndFolders)
-        Me.Controls.Add(Me.pnlBackup)
-        Me.Controls.Add(Me.pnlInterface)
         Me.Controls.Add(Me.pnlStartup)
+        Me.Controls.Add(Me.pnlInterface)
+        Me.Controls.Add(Me.pnlBackup)
         Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.btnResetMessages)
         Me.Controls.Add(Me.lstSettings)

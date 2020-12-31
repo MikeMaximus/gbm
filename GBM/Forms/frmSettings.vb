@@ -277,7 +277,7 @@ Public Class frmSettings
         cboDetectSpeed.DisplayMember = "Value"
 
         oDetectSpeedItems.Add(New KeyValuePair(Of Integer, String)(5000, frmSettings_cboDetectSpeed_Fast))
-        oDetectSpeedItems.Add(New KeyValuePair(Of Integer, String)(10000, frmSettings_cboDetectSpeed_Medium))
+        oDetectSpeedItems.Add(New KeyValuePair(Of Integer, String)(10000, frmSettings_cboDetectSpeed_Moderate))
         oDetectSpeedItems.Add(New KeyValuePair(Of Integer, String)(15000, frmSettings_cboDetectSpeed_Slow))
         oDetectSpeedItems.Add(New KeyValuePair(Of Integer, String)(30000, frmSettings_cboDetectSpeed_VerySlow))
 

@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020-12-30T18:58:34
+        '''  Looks up a localized string similar to 2020-12-31T14:55:10
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5900,9 +5900,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Moderate.
         '''</summary>
-        Friend ReadOnly Property frmSettings_cboDetectSpeed_Medium() As String
+        Friend ReadOnly Property frmSettings_cboDetectSpeed_Moderate() As String
             Get
-                Return ResourceManager.GetString("frmSettings_cboDetectSpeed_Medium", resourceCulture)
+                Return ResourceManager.GetString("frmSettings_cboDetectSpeed_Moderate", resourceCulture)
             End Get
         End Property
         

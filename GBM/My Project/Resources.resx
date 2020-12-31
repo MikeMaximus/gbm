@@ -2908,7 +2908,7 @@
   <data name="frmSettings_cboDetectSpeed_Fast" xml:space="preserve">
     <value>Fast</value>
   </data>
-  <data name="frmSettings_cboDetectSpeed_Medium" xml:space="preserve">
+  <data name="frmSettings_cboDetectSpeed_Moderate" xml:space="preserve">
     <value>Moderate</value>
   </data>
   <data name="frmSettings_cboDetectSpeed_Slow" xml:space="preserve">
