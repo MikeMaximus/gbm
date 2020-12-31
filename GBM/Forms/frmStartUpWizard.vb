@@ -140,14 +140,15 @@ Public Class frmStartUpWizard
         Dim frm As New frmAddWizard
         frm.GameData = oGameData
         frm.ShowDialog()
-        LoadGameSettings()
         mgrMonitorList.SyncMonitorLists()
+        LoadGameSettings()
     End Sub
 
     Private Sub OpenMonitorList()
         Dim frm As New frmGameManager
         frm.DisableExternalFunctions = True
         frm.ShowDialog()
+        mgrMonitorList.SyncMonitorLists()
         LoadGameSettings()
     End Sub
 
