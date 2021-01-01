@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.5 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-December 31, 2020
+January 1, 2021
 
 New in 1.2.5
 

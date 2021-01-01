@@ -576,7 +576,7 @@ Public Class frmGameManager
 
         sCurrentID = txtID.Text
 
-        sNewID = InputBox(frmGameManager_GameIDEditInfo, frmGameManager_GameIDEditTitle, sCurrentID)
+        sNewID = InputBox(frmGameManager_GameIDEditInfo, mgrCommon.FormatString(frmGameManager_GameIDEditTitle, oCurrentGame.CroppedName), sCurrentID)
 
         If sNewID <> String.Empty And sCurrentID <> sNewID Then
             txtID.Text = sNewID
@@ -836,6 +836,7 @@ Public Class frmGameManager
     Public Sub OpenWineConfiguration()
         Dim frm As New frmWineConfiguration
         frm.MonitorID = oCurrentGame.ID
+        frm.GameName = oCurrentGame.CroppedName
         frm.ShowDialog()
     End Sub
 
@@ -974,7 +975,7 @@ Public Class frmGameManager
             btnMarkAsRestored.Enabled = False
         End If
 
-        If chkMonitorOnly.Checked Then
+        If cmsMonitorOnly.Checked Then
             cmsImportData.Enabled = False
         Else
             cmsImportData.Enabled = True
@@ -1085,8 +1086,8 @@ Public Class frmGameManager
         chkTimeStamp.Checked = oApp.AppendTimeStamp
         nudLimit.Value = oApp.BackupLimit
         txtComments.Text = oApp.Comments
-        chkEnabled.Checked = oApp.Enabled
-        chkMonitorOnly.Checked = oApp.MonitorOnly
+        cmsEnabled.Checked = oApp.Enabled
+        cmsMonitorOnly.Checked = oApp.MonitorOnly
 
         'Update Buttons
         UpdateBuilderButtonLabel(oApp.FileType, frmGameManager_IncludeShortcut, btnInclude, False)
@@ -1191,7 +1192,7 @@ Public Class frmGameManager
                 lblSearch.Enabled = False
                 txtSearch.Enabled = False
                 tbConfig.Enabled = True
-                chkMonitorOnly.Enabled = True
+                cmsMonitorOnly.Enabled = True
                 tbGameInfo.Enabled = True
                 tbBackupInfo.Enabled = True
                 WipeControls(grpCoreConfig.Controls)
@@ -1201,24 +1202,23 @@ Public Class frmGameManager
                 cmsUseWindowTitle.Checked = False
                 chkCleanFolder.Enabled = False
                 pbIcon.Image = Multi_Unknown
-                chkEnabled.Enabled = True
-                chkMonitorOnly.Enabled = True
+                cmsEnabled.Enabled = True
+                cmsMonitorOnly.Enabled = True
                 btnSave.Enabled = True
                 btnCancel.Enabled = True
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
-                cmsLaunchSettings.Enabled = False
+                btnAdvanced.Enabled = False
                 btnMarkAsRestored.Enabled = False
                 btnRestore.Enabled = False
                 btnBackupData.Enabled = False
                 lblBackupFileData.Enabled = False
                 btnOpenBackupFolder.Enabled = False
                 lblRestorePathData.Enabled = False
-                chkEnabled.Checked = True
-                chkMonitorOnly.Checked = False
+                cmsEnabled.Checked = True
+                cmsMonitorOnly.Checked = False
                 chkRecurseSubFolders.Checked = True
-                btnAdvanced.Enabled = True
                 lblGameTags.Text = frmGameManager_lblGameTags
                 lblGameTags.LinkBehavior = LinkBehavior.SystemDefault
                 btnInclude.Text = frmGameManager_btnInclude
@@ -1226,7 +1226,6 @@ Public Class frmGameManager
                 btnImport.Enabled = False
                 btnExport.Enabled = False
                 cboOS.SelectedValue = CInt(mgrCommon.GetCurrentOS)
-                HandleWineConfig()
                 TimeStampModeChange()
             Case eModes.Edit
                 eLastMode = eModes.Edit
@@ -1236,8 +1235,8 @@ Public Class frmGameManager
                 lblSearch.Enabled = False
                 txtSearch.Enabled = False
                 tbConfig.Enabled = True
-                chkEnabled.Enabled = True
-                chkMonitorOnly.Enabled = True
+                cmsEnabled.Enabled = True
+                cmsMonitorOnly.Enabled = True
                 tbGameInfo.Enabled = True
                 tbBackupInfo.Enabled = False
                 btnSave.Enabled = True
@@ -1246,7 +1245,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
                 btnRestore.Enabled = False
-                btnAdvanced.Enabled = True
+                btnAdvanced.Enabled = False
                 btnImport.Enabled = False
                 btnExport.Enabled = False
             Case eModes.View
@@ -1258,12 +1257,11 @@ Public Class frmGameManager
                 lblSearch.Enabled = True
                 txtSearch.Enabled = True
                 tbConfig.Enabled = True
-                chkEnabled.Enabled = True
-                chkMonitorOnly.Enabled = True
+                cmsEnabled.Enabled = True
+                cmsMonitorOnly.Enabled = True
                 tbGameInfo.Enabled = True
                 tbBackupInfo.Enabled = True
-                cmsLaunchSettings.Enabled = True
-                cmsGameID.Enabled = True
+                btnGameID.Enabled = True
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
                 btnAdd.Enabled = True
@@ -1287,8 +1285,8 @@ Public Class frmGameManager
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
                 tbConfig.Enabled = False
-                chkEnabled.Enabled = False
-                chkMonitorOnly.Enabled = False
+                cmsEnabled.Enabled = False
+                cmsMonitorOnly.Enabled = False
                 tbGameInfo.Enabled = False
                 tbBackupInfo.Enabled = False
                 btnAdd.Enabled = True
@@ -1320,10 +1318,12 @@ Public Class frmGameManager
                 ToggleControls(grpCoreConfig.Controls, False)
                 ToggleControls(grpGameInfo.Controls, False)
                 ToggleControls(grpBackupInfo.Controls, False)
-                chkMonitorOnly.Enabled = True
-                chkMonitorOnly.Checked = False
-                chkEnabled.Enabled = True
-                chkEnabled.Checked = False
+                btnLinks.Enabled = True
+                btnMonitorOptions.Enabled = True
+                cmsMonitorOnly.Enabled = True
+                cmsMonitorOnly.Checked = False
+                cmsEnabled.Enabled = True
+                cmsEnabled.Checked = False
                 btnMarkAsRestored.Enabled = True
                 lblGameTags.Enabled = True
                 HandleTags(mgrGameTags.PrintTagsbyIDMulti(GetSelectedGames))
@@ -1334,9 +1334,8 @@ Public Class frmGameManager
                 cmsDeleteAll.Enabled = False
                 cmsDeleteOne.Enabled = False
                 cmsImportData.Enabled = False
-                cmsLaunchSettings.Enabled = False
-                cmsGameID.Enabled = False
-                btnAdvanced.Enabled = True
+                btnAdvanced.Enabled = False
+                btnGameID.Enabled = False
                 btnImport.Enabled = True
                 btnExport.Enabled = True
         End Select
@@ -1358,7 +1357,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub MonitorOnlyModeChange()
-        If chkMonitorOnly.Checked Then
+        If cmsMonitorOnly.Checked Then
             chkFolderSave.Enabled = False
             chkTimeStamp.Enabled = False
             lblLimit.Enabled = False
@@ -1412,7 +1411,7 @@ Public Class frmGameManager
 
     Private Sub VerifyImportBackup()
         If Not IsLoading Then
-            If chkMonitorOnly.Checked Then
+            If cmsMonitorOnly.Checked Then
                 cmsImportData.Enabled = False
             Else
                 cmsImportData.Enabled = True
@@ -1422,7 +1421,7 @@ Public Class frmGameManager
 
     Private Sub VerifyCleanFolder()
         If Not IsLoading Then
-            If (chkFolderSave.Checked = True And txtExclude.Text = String.Empty And txtSavePath.Text <> String.Empty) And Not mgrPath.IsSupportedRegistryPath(txtSavePath.Text) And Not chkMonitorOnly.Checked Then
+            If (chkFolderSave.Checked = True And txtExclude.Text = String.Empty And txtSavePath.Text <> String.Empty) And Not mgrPath.IsSupportedRegistryPath(txtSavePath.Text) And Not cmsMonitorOnly.Checked Then
                 chkCleanFolder.Enabled = True
             Else
                 chkCleanFolder.Checked = False
@@ -1561,8 +1560,8 @@ Public Class frmGameManager
         oApp.AppendTimeStamp = chkTimeStamp.Checked
         oApp.BackupLimit = nudLimit.Value
         oApp.Comments = txtComments.Text
-        oApp.Enabled = chkEnabled.Checked
-        oApp.MonitorOnly = chkMonitorOnly.Checked
+        oApp.Enabled = cmsEnabled.Checked
+        oApp.MonitorOnly = cmsMonitorOnly.Checked
         oApp.ProcessPath = mgrPath.ValidatePath(txtAppPath.Text)
         oApp.Company = txtCompany.Text
         oApp.Version = txtVersion.Text
@@ -1661,7 +1660,7 @@ Public Class frmGameManager
             Return False
         End If
 
-        If (chkFolderSave.Checked = False And txtFileType.Text = String.Empty) And Not chkMonitorOnly.Checked Then
+        If (chkFolderSave.Checked = False And txtFileType.Text = String.Empty) And Not cmsMonitorOnly.Checked Then
             mgrCommon.ShowMessage(frmGameManager_ErrorNoItems, MsgBoxStyle.Exclamation)
             btnInclude.Focus()
             Return False
@@ -1967,17 +1966,19 @@ Public Class frmGameManager
         tbGameInfo.Text = frmGameManager_tbGameInfo
         tbBackupInfo.Text = frmGameManager_tbBackupInfo
         btnExport.Text = frmGameManager_btnExport
+        btnExport.Image = frmGameManager_Export
         btnImport.Text = frmGameManager_btnImport
-        btnImport.ImageAlign = ContentAlignment.MiddleRight
-        btnImport.Image = frmGameManager_Arrow_Submenu_Right
+        btnImport.Image = frmGameManager_Import
         lblFilters.Text = frmGameManager_lblFilters
-        chkEnabled.Text = frmGameManager_chkEnabled
+        cmsEnabled.Text = frmGameManager_cmsEnabled
         btnCancel.Text = frmGameManager_btnCancel
-        chkMonitorOnly.Text = frmGameManager_chkMonitorOnly
+        btnCancel.Image = Multi_Cancel
+        cmsMonitorOnly.Text = frmGameManager_cmsMonitorOnly
         btnRestore.Text = frmGameManager_btnRestore
         btnBackup.Text = frmGameManager_btnBackup
         cmsImportData.Text = frmGameManager_cmsImportData
         btnSave.Text = frmGameManager_btnSave
+        btnSave.Image = Multi_Save
         lblRestorePath.Text = frmGameManager_lblRestorePath
         lblBackupFile.Text = frmGameManager_lblBackupFile
         lblRemote.Text = frmGameManager_lblRemote
@@ -2001,7 +2002,9 @@ Public Class frmGameManager
         chkFolderSave.Text = frmGameManager_chkFolderSave
         chkCleanFolder.Text = frmGameManager_chkCleanFolder
         btnDelete.Text = frmGameManager_btnDelete
+        btnDelete.Image = Multi_Delete
         btnAdd.Text = frmGameManager_btnAdd
+        btnAdd.Image = Multi_Add
         cmsOfficial.Text = frmGameManager_cmsOfficial
         cmsOfficialLinux.Text = frmGameManager_cmsOfficialLinux
         cmsOfficialWindows.Text = frmGameManager_cmsOfficialWindows
@@ -2010,19 +2013,18 @@ Public Class frmGameManager
         lblLimit.Text = frmGameManager_lblLimit
         cmsDeleteOne.Text = frmGameManager_cmsDeleteOne
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
-
+        btnLinks.Image = frmGameManager_Link
+        btnMonitorOptions.Image = frmGameManager_MonitorOptions
+        btnGameID.Image = frmGameManager_GameID
         lblComments.Text = frmGameManager_lblComments
         cmsRegEx.Text = frmGameManager_cmsRegEx
         cmsUseWindowTitle.Text = frmGameManager_cmsUseWindowTitle
         btnProcessOptions.Image = frmGameManager_Process
-        cmsGameID.Text = frmGameManager_cmsGameID
         btnAdvanced.Text = frmGameManager_btnAdvanced
-        btnAdvanced.ImageAlign = ContentAlignment.MiddleRight
-        btnAdvanced.Image = frmGameManager_Arrow_Submenu_Right
-        lblOS.Text = frmGameManager_lblOS
+        btnAdvanced.Image = frmGameManager_Advanced
         cmsWineConfig.Text = frmGameManager_cmsWineConfig
-        cmsProcess.Text = frmGameManager_cmsProcess
-        cmsConfiguration.Text = frmGameManager_cmsConfiguration
+        cmsLinkProcess.Text = frmGameManager_cmsLinkProcess
+        cmsLinkConfiguration.Text = frmGameManager_cmsLinkConfiguration
         cmsLaunchSettings.Text = frmGamemanager_cmsLaunchSettings
         lblGameTags.Text = frmGameManager_lblGameTags
         lblTags.Text = frmGameManager_lblTags
@@ -2037,12 +2039,20 @@ Public Class frmGameManager
         ttHelp.SetToolTip(lblBackupFileData, frmGameManager_ttHelp_lblBackupFileData)
         ttHelp.SetToolTip(lblGameTags, frmGameManager_ttHelp_lblTags)
         ttHelp.SetToolTip(btnProcessOptions, frmGameManager_ttHelp_btnProcessOptions)
+        ttHelp.SetToolTip(btnLinks, frmGameManager_ttHelp_btnLinks)
+        ttHelp.SetToolTip(btnMonitorOptions, frmGameManager_ttHelp_btnMonitorOptions)
+        ttHelp.SetToolTip(btnGameID, frmGameManager_ttHelp_btnGameID)
+        ttHelp.SetToolTip(cboOS, frmGameManager_ttHelp_cboOS)
 
         LoadCombos()
 
+        'Hide advanced button when not needed
+        If Not mgrCommon.IsUnix And Not mgrSettings.EnableLauncher Then
+            btnAdvanced.Visible = False
+        End If
+
         'Hide OS on Windows
         If Not mgrCommon.IsUnix Then
-            lblOS.Visible = False
             cboOS.Visible = False
             cmsWineConfig.Visible = False
         End If
@@ -2089,6 +2099,8 @@ Public Class frmGameManager
         AssignDirtyHandlers(grpGameInfo.Controls)
         AddHandler cmsRegEx.CheckedChanged, AddressOf DirtyCheck_ValueChanged
         AddHandler cmsUseWindowTitle.CheckedChanged, AddressOf DirtyCheck_ValueChanged
+        AddHandler cmsEnabled.CheckedChanged, AddressOf DirtyCheck_ValueChanged
+        AddHandler cmsMonitorOnly.CheckedChanged, AddressOf DirtyCheck_ValueChanged
 
         LoadData(False)
         InitialLoad = False
@@ -2177,15 +2189,15 @@ Public Class frmGameManager
         OpenTags()
     End Sub
 
-    Private Sub ModifyGameIDToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles cmsGameID.Click
+    Private Sub ModifyGameIDToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles btnGameID.Click
         OpenGameIDEdit()
     End Sub
 
-    Private Sub cmsLink_Click(sender As Object, e As EventArgs) Handles cmsConfiguration.Click
+    Private Sub cmsLink_Click(sender As Object, e As EventArgs) Handles cmsLinkConfiguration.Click
         OpenConfigLinks()
     End Sub
 
-    Private Sub cmsProcess_Click(sender As Object, e As EventArgs) Handles cmsProcess.Click
+    Private Sub cmsProcess_Click(sender As Object, e As EventArgs) Handles cmsLinkProcess.Click
         OpenProcesses()
     End Sub
 
@@ -2265,6 +2277,14 @@ Public Class frmGameManager
         mgrCommon.OpenButtonSubMenu(cmsImport, btnImport)
     End Sub
 
+    Private Sub btnMonitorOptions_Click(sender As Object, e As EventArgs) Handles btnMonitorOptions.Click
+        mgrCommon.OpenButtonSubMenu(cmsMonitorOptions, btnMonitorOptions)
+    End Sub
+
+    Private Sub btnLinks_Click(sender As Object, e As EventArgs) Handles btnLinks.Click
+        mgrCommon.OpenButtonSubMenu(cmsLinks, btnLinks)
+    End Sub
+
     Private Sub cmsOfficialWindows_Click(sender As Object, e As EventArgs) Handles cmsOfficialWindows.Click, cmsOfficial.Click
         'Show one time warning about Windows configs in Linux
         If mgrCommon.IsUnix Then
@@ -2335,7 +2355,7 @@ Public Class frmGameManager
         txtSearch.Focus()
     End Sub
 
-    Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkMonitorOnly.CheckedChanged
+    Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles cmsMonitorOnly.CheckedChanged
         MonitorOnlyModeChange()
     End Sub
 

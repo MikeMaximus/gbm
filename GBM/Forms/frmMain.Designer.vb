@@ -662,7 +662,7 @@ Partial Class frmMain
         'btnCancelOperation
         '
         Me.btnCancelOperation.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancelOperation.Image = Global.GBM.My.Resources.Resources.frmMain_Cancel
+        Me.btnCancelOperation.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
         Me.btnCancelOperation.Location = New System.Drawing.Point(414, 118)
         Me.btnCancelOperation.Name = "btnCancelOperation"
         Me.btnCancelOperation.Size = New System.Drawing.Size(60, 45)

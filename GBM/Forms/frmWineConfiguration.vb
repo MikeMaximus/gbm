@@ -2,6 +2,7 @@
 
 Public Class frmWineConfiguration
     Private sMonitorID As String
+    Private sGameName As String
 
     Property MonitorID As String
         Get
@@ -12,9 +13,18 @@ Public Class frmWineConfiguration
         End Set
     End Property
 
+    Property GameName As String
+        Get
+            Return sGameName
+        End Get
+        Set(value As String)
+            sGameName = value
+        End Set
+    End Property
+
     Private Sub SetForm()
         'Set Form Name
-        Me.Text = frmWineConfiguration_FormName
+        Me.Text = mgrCommon.FormatString(frmWineConfiguration_FormName, GameName)
         Me.Icon = GBM_Icon
 
         'Set Form Text

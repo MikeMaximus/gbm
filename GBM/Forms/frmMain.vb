@@ -2196,7 +2196,7 @@ Public Class frmMain
         btnPlay.Text = frmMain_btnPlay
         btnPlay.Image = frmMain_Play
         btnCancelOperation.Text = frmMain_btnCancelOperation
-        btnCancelOperation.Image = frmMain_Cancel
+        btnCancelOperation.Image = Multi_Cancel
         btnClearSelected.Image = frmMain_Cancel_Small
 
         If mgrCommon.IsElevated Then
