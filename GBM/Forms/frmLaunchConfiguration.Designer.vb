@@ -23,6 +23,7 @@ Partial Class frmLaunchConfiguration
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.grpOtherConfig = New System.Windows.Forms.GroupBox()
+        Me.chkNoArgs = New System.Windows.Forms.CheckBox()
         Me.btnBrowse = New System.Windows.Forms.Button()
         Me.txtArguments = New System.Windows.Forms.TextBox()
         Me.txtExePath = New System.Windows.Forms.TextBox()
@@ -38,7 +39,6 @@ Partial Class frmLaunchConfiguration
         Me.btnSave = New System.Windows.Forms.Button()
         Me.grpCommand = New System.Windows.Forms.GroupBox()
         Me.txtCommand = New System.Windows.Forms.TextBox()
-        Me.chkNoArgs = New System.Windows.Forms.CheckBox()
         Me.grpOtherConfig.SuspendLayout()
         Me.grpStoreLauncher.SuspendLayout()
         Me.grpCommand.SuspendLayout()
@@ -58,6 +58,16 @@ Partial Class frmLaunchConfiguration
         Me.grpOtherConfig.TabIndex = 1
         Me.grpOtherConfig.TabStop = False
         Me.grpOtherConfig.Text = "Alternate Configuration"
+        '
+        'chkNoArgs
+        '
+        Me.chkNoArgs.AutoSize = True
+        Me.chkNoArgs.Location = New System.Drawing.Point(9, 75)
+        Me.chkNoArgs.Name = "chkNoArgs"
+        Me.chkNoArgs.Size = New System.Drawing.Size(115, 17)
+        Me.chkNoArgs.TabIndex = 3
+        Me.chkNoArgs.Text = "Use no parameters"
+        Me.chkNoArgs.UseVisualStyleBackColor = True
         '
         'btnBrowse
         '
@@ -159,20 +169,24 @@ Partial Class frmLaunchConfiguration
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(402, 301)
+        Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
+        Me.btnCancel.Location = New System.Drawing.Point(417, 304)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
         Me.btnCancel.TabIndex = 4
         Me.btnCancel.Text = "&Cancel"
+        Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(321, 301)
+        Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
+        Me.btnSave.Location = New System.Drawing.Point(351, 304)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(75, 23)
+        Me.btnSave.Size = New System.Drawing.Size(60, 45)
         Me.btnSave.TabIndex = 3
         Me.btnSave.Text = "&Save"
+        Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'grpCommand
@@ -180,7 +194,7 @@ Partial Class frmLaunchConfiguration
         Me.grpCommand.Controls.Add(Me.txtCommand)
         Me.grpCommand.Location = New System.Drawing.Point(12, 207)
         Me.grpCommand.Name = "grpCommand"
-        Me.grpCommand.Size = New System.Drawing.Size(465, 88)
+        Me.grpCommand.Size = New System.Drawing.Size(465, 91)
         Me.grpCommand.TabIndex = 2
         Me.grpCommand.TabStop = False
         Me.grpCommand.Text = "Current Launch Command"
@@ -194,21 +208,11 @@ Partial Class frmLaunchConfiguration
         Me.txtCommand.Size = New System.Drawing.Size(453, 60)
         Me.txtCommand.TabIndex = 0
         '
-        'chkNoArgs
-        '
-        Me.chkNoArgs.AutoSize = True
-        Me.chkNoArgs.Location = New System.Drawing.Point(9, 75)
-        Me.chkNoArgs.Name = "chkNoArgs"
-        Me.chkNoArgs.Size = New System.Drawing.Size(115, 17)
-        Me.chkNoArgs.TabIndex = 3
-        Me.chkNoArgs.Text = "Use no parameters"
-        Me.chkNoArgs.UseVisualStyleBackColor = True
-        '
         'frmLaunchConfiguration
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(489, 336)
+        Me.ClientSize = New System.Drawing.Size(489, 361)
         Me.Controls.Add(Me.grpCommand)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)

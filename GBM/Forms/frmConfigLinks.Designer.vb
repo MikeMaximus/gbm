@@ -22,7 +22,6 @@ Partial Class frmConfigLinks
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnClose = New System.Windows.Forms.Button()
         Me.lblLinkedConfigs = New System.Windows.Forms.Label()
         Me.lblConfigs = New System.Windows.Forms.Label()
         Me.btnRemove = New System.Windows.Forms.Button()
@@ -32,15 +31,6 @@ Partial Class frmConfigLinks
         Me.txtQuickFilter = New System.Windows.Forms.TextBox()
         Me.lblFilter = New System.Windows.Forms.Label()
         Me.SuspendLayout()
-        '
-        'btnClose
-        '
-        Me.btnClose.Location = New System.Drawing.Point(397, 331)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 8
-        Me.btnClose.Text = "&Close"
-        Me.btnClose.UseVisualStyleBackColor = True
         '
         'lblLinkedConfigs
         '
@@ -84,7 +74,7 @@ Partial Class frmConfigLinks
         Me.lstLinks.Location = New System.Drawing.Point(272, 22)
         Me.lstLinks.Name = "lstLinks"
         Me.lstLinks.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstLinks.Size = New System.Drawing.Size(200, 303)
+        Me.lstLinks.Size = New System.Drawing.Size(200, 251)
         Me.lstLinks.Sorted = True
         Me.lstLinks.TabIndex = 7
         '
@@ -94,7 +84,7 @@ Partial Class frmConfigLinks
         Me.lstConfigs.Location = New System.Drawing.Point(12, 48)
         Me.lstConfigs.Name = "lstConfigs"
         Me.lstConfigs.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstConfigs.Size = New System.Drawing.Size(200, 277)
+        Me.lstConfigs.Size = New System.Drawing.Size(200, 225)
         Me.lstConfigs.Sorted = True
         Me.lstConfigs.TabIndex = 3
         '
@@ -118,10 +108,9 @@ Partial Class frmConfigLinks
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(484, 361)
+        Me.ClientSize = New System.Drawing.Size(484, 286)
         Me.Controls.Add(Me.lblFilter)
         Me.Controls.Add(Me.txtQuickFilter)
-        Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.lblLinkedConfigs)
         Me.Controls.Add(Me.lblConfigs)
         Me.Controls.Add(Me.btnRemove)
@@ -140,8 +129,6 @@ Partial Class frmConfigLinks
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents btnClose As Button
     Friend WithEvents lblLinkedConfigs As Label
     Friend WithEvents lblConfigs As Label
     Friend WithEvents btnRemove As Button

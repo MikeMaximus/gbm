@@ -42,11 +42,13 @@ Partial Class frmFileFolderSearch
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(397, 146)
+        Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
+        Me.btnCancel.Location = New System.Drawing.Point(412, 146)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
         Me.btnCancel.TabIndex = 4
         Me.btnCancel.Text = "&Cancel"
+        Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'bwSearch
@@ -63,11 +65,13 @@ Partial Class frmFileFolderSearch
         '
         'btnOk
         '
-        Me.btnOk.Location = New System.Drawing.Point(316, 146)
+        Me.btnOk.Image = Global.GBM.My.Resources.Resources.Multi_Ok
+        Me.btnOk.Location = New System.Drawing.Point(346, 146)
         Me.btnOk.Name = "btnOk"
-        Me.btnOk.Size = New System.Drawing.Size(75, 23)
+        Me.btnOk.Size = New System.Drawing.Size(60, 45)
         Me.btnOk.TabIndex = 3
         Me.btnOk.Text = "&OK"
+        Me.btnOk.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnOk.UseVisualStyleBackColor = True
         '
         'lblResults
@@ -92,7 +96,7 @@ Partial Class frmFileFolderSearch
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(484, 181)
+        Me.ClientSize = New System.Drawing.Size(484, 201)
         Me.Controls.Add(Me.cboDrive)
         Me.Controls.Add(Me.lblResults)
         Me.Controls.Add(Me.btnOk)

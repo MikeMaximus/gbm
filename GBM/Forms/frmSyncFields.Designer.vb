@@ -42,7 +42,7 @@ Partial Class frmSyncFields
         Me.grpFields.Controls.Add(Me.chkGamePath)
         Me.grpFields.Location = New System.Drawing.Point(12, 12)
         Me.grpFields.Name = "grpFields"
-        Me.grpFields.Size = New System.Drawing.Size(195, 135)
+        Me.grpFields.Size = New System.Drawing.Size(195, 136)
         Me.grpFields.TabIndex = 0
         Me.grpFields.TabStop = False
         Me.grpFields.Text = "Available Fields"
@@ -100,28 +100,32 @@ Partial Class frmSyncFields
         'btnCancel
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(132, 153)
+        Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
+        Me.btnCancel.Location = New System.Drawing.Point(147, 154)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
         Me.btnCancel.TabIndex = 2
         Me.btnCancel.Text = "&Cancel"
+        Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'btnSave
         '
         Me.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnSave.Location = New System.Drawing.Point(52, 153)
+        Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
+        Me.btnSave.Location = New System.Drawing.Point(81, 154)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(75, 23)
+        Me.btnSave.Size = New System.Drawing.Size(60, 45)
         Me.btnSave.TabIndex = 1
         Me.btnSave.Text = "&Save"
+        Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'frmSyncFields
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(219, 186)
+        Me.ClientSize = New System.Drawing.Size(219, 211)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.grpFields)

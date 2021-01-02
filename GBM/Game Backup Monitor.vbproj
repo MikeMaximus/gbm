@@ -440,11 +440,13 @@
     <Content Include="References\Mono.Data.Sqlite.dll" />
     <None Include="Resources\frmGameManager_Arrow_Submenu_Right.png" />
     <Content Include="Resources\frmGameManager_Advanced.png" />
-    <Content Include="Resources\frmGameManager_Export.png" />
+    <Content Include="Resources\Multi_Export.png" />
     <Content Include="Resources\frmGameManager_GameID.png" />
-    <Content Include="Resources\frmGameManager_Import.png" />
+    <Content Include="Resources\Multi_Import.png" />
     <Content Include="Resources\frmGameManager_Link.png" />
-    <Content Include="Resources\frmGameManager_MonitorOptions.png" />
+    <Content Include="Resources\Multi_Search.png" />
+    <Content Include="Resources\Multi_Ok.png" />
+    <Content Include="Resources\Multi_Reset.png" />
     <Content Include="Resources\Multi_Add.png" />
     <Content Include="Resources\Multi_Backup.png" />
     <Content Include="Resources\BuildDate.txt" />
@@ -454,7 +456,7 @@
     <Content Include="Resources\frmMain_Cancel_Small.png" />
     <Content Include="Resources\frmGameManager_Mark.png" />
     <Content Include="Resources\frmGameManager_Process.png" />
-    <Content Include="Resources\frmMain_Edit.png" />
+    <Content Include="Resources\Multi_Edit.png" />
     <Content Include="Resources\frmGameManager_Folder_Open.png" />
     <Content Include="Resources\frmAdvancedImport_New.png" />
     <Content Include="Resources\frmMain_Play.png" />

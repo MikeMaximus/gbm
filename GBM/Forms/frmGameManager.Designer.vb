@@ -478,7 +478,7 @@ Partial Class frmGameManager
         '
         'btnImport
         '
-        Me.btnImport.Image = Global.GBM.My.Resources.Resources.frmGameManager_Import
+        Me.btnImport.Image = Global.GBM.My.Resources.Resources.Multi_Import
         Me.btnImport.Location = New System.Drawing.Point(124, 329)
         Me.btnImport.Name = "btnImport"
         Me.btnImport.Size = New System.Drawing.Size(55, 45)
@@ -489,7 +489,7 @@ Partial Class frmGameManager
         '
         'btnExport
         '
-        Me.btnExport.Image = Global.GBM.My.Resources.Resources.frmGameManager_Export
+        Me.btnExport.Image = Global.GBM.My.Resources.Resources.Multi_Export
         Me.btnExport.Location = New System.Drawing.Point(185, 329)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.Size = New System.Drawing.Size(55, 45)
@@ -736,7 +736,7 @@ Partial Class frmGameManager
         '
         'btnMonitorOptions
         '
-        Me.btnMonitorOptions.Image = Global.GBM.My.Resources.Resources.frmGameManager_MonitorOptions
+        Me.btnMonitorOptions.Image = Global.GBM.My.Resources.Resources.Multi_Search
         Me.btnMonitorOptions.Location = New System.Drawing.Point(9, 226)
         Me.btnMonitorOptions.Name = "btnMonitorOptions"
         Me.btnMonitorOptions.Size = New System.Drawing.Size(32, 32)

@@ -641,6 +641,7 @@ Public Class frmFilter
         btnExcludeRemove.Text = frmFilter_btnExcludeRemove
         btnExcludeAdd.Text = frmFilter_btnExcludeAdd
         btnOK.Text = frmFilter_btnOK
+        btnOK.Image = Multi_Ok
         grpTagOptions.Text = frmFilter_grpTagOptions
         chkTag.Text = frmFilter_chkTag
         chkGameInfo.Text = frmFilter_chkGameInfo
@@ -649,7 +650,9 @@ Public Class frmFilter
         optSortAsc.Text = frmFilter_optSortAsc
         optSortDesc.Text = frmFilter_optSortDesc
         btnAddFilter.Text = frmFilter_btnAddFilter
+        btnAddFilter.Image = Multi_Add
         btnRemoveFilter.Text = frmFilter_btnRemoveFilter
+        btnRemoveFilter.Image = Multi_Delete
         lblCurrentFilters.Text = frmFilter_lblCurrentFilters
         lblFields.Text = frmFilter_lblFields
         lblFilterData.Text = frmFilter_lblFilterData

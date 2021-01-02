@@ -31,7 +31,6 @@ Partial Class frmProcessManager
         Me.txtPath = New System.Windows.Forms.TextBox()
         Me.lblProcess = New System.Windows.Forms.Label()
         Me.lblName = New System.Windows.Forms.Label()
-        Me.btnClose = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.lstProcesses = New System.Windows.Forms.ListBox()
@@ -51,9 +50,9 @@ Partial Class frmProcessManager
         Me.grpProcess.Controls.Add(Me.txtPath)
         Me.grpProcess.Controls.Add(Me.lblProcess)
         Me.grpProcess.Controls.Add(Me.lblName)
-        Me.grpProcess.Location = New System.Drawing.Point(238, 12)
+        Me.grpProcess.Location = New System.Drawing.Point(210, 12)
         Me.grpProcess.Name = "grpProcess"
-        Me.grpProcess.Size = New System.Drawing.Size(334, 120)
+        Me.grpProcess.Size = New System.Drawing.Size(362, 120)
         Me.grpProcess.TabIndex = 3
         Me.grpProcess.TabStop = False
         Me.grpProcess.Text = "Configuration"
@@ -72,7 +71,7 @@ Partial Class frmProcessManager
         '
         Me.txtArguments.Location = New System.Drawing.Point(72, 70)
         Me.txtArguments.Name = "txtArguments"
-        Me.txtArguments.Size = New System.Drawing.Size(256, 20)
+        Me.txtArguments.Size = New System.Drawing.Size(284, 20)
         Me.txtArguments.TabIndex = 3
         '
         'lblArguments
@@ -86,7 +85,7 @@ Partial Class frmProcessManager
         '
         'btnProcessBrowse
         '
-        Me.btnProcessBrowse.Location = New System.Drawing.Point(298, 45)
+        Me.btnProcessBrowse.Location = New System.Drawing.Point(326, 45)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
         Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnProcessBrowse.TabIndex = 2
@@ -97,14 +96,14 @@ Partial Class frmProcessManager
         '
         Me.txtName.Location = New System.Drawing.Point(72, 19)
         Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(256, 20)
+        Me.txtName.Size = New System.Drawing.Size(284, 20)
         Me.txtName.TabIndex = 0
         '
         'txtPath
         '
         Me.txtPath.Location = New System.Drawing.Point(72, 45)
         Me.txtPath.Name = "txtPath"
-        Me.txtPath.Size = New System.Drawing.Size(220, 20)
+        Me.txtPath.Size = New System.Drawing.Size(248, 20)
         Me.txtPath.TabIndex = 1
         '
         'lblProcess
@@ -125,36 +124,30 @@ Partial Class frmProcessManager
         Me.lblName.TabIndex = 0
         Me.lblName.Text = "Name:"
         '
-        'btnClose
-        '
-        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnClose.Location = New System.Drawing.Point(497, 226)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 6
-        Me.btnClose.Text = "C&lose"
-        Me.btnClose.UseVisualStyleBackColor = True
-        '
         'btnDelete
         '
         Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnDelete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDelete.Location = New System.Drawing.Point(48, 226)
+        Me.btnDelete.Image = Global.GBM.My.Resources.Resources.Multi_Delete
+        Me.btnDelete.Location = New System.Drawing.Point(78, 165)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(30, 23)
+        Me.btnDelete.Size = New System.Drawing.Size(60, 45)
         Me.btnDelete.TabIndex = 2
-        Me.btnDelete.Text = "-"
+        Me.btnDelete.Text = "&Delete"
+        Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnDelete.UseVisualStyleBackColor = True
         '
         'btnAdd
         '
         Me.btnAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAdd.Location = New System.Drawing.Point(12, 226)
+        Me.btnAdd.Image = Global.GBM.My.Resources.Resources.Multi_Add
+        Me.btnAdd.Location = New System.Drawing.Point(12, 165)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(30, 23)
+        Me.btnAdd.Size = New System.Drawing.Size(60, 45)
         Me.btnAdd.TabIndex = 1
-        Me.btnAdd.Text = "+"
+        Me.btnAdd.Text = "&New"
+        Me.btnAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnAdd.UseVisualStyleBackColor = True
         '
         'lstProcesses
@@ -162,14 +155,14 @@ Partial Class frmProcessManager
         Me.lstProcesses.FormattingEnabled = True
         Me.lstProcesses.Location = New System.Drawing.Point(12, 12)
         Me.lstProcesses.Name = "lstProcesses"
-        Me.lstProcesses.Size = New System.Drawing.Size(220, 212)
+        Me.lstProcesses.Size = New System.Drawing.Size(192, 147)
         Me.lstProcesses.Sorted = True
         Me.lstProcesses.TabIndex = 0
         '
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(374, 150)
+        Me.txtID.Location = New System.Drawing.Point(539, 138)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(33, 20)
         Me.txtID.TabIndex = 0
@@ -179,30 +172,33 @@ Partial Class frmProcessManager
         'btnCancel
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancel.Location = New System.Drawing.Point(494, 149)
+        Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
+        Me.btnCancel.Location = New System.Drawing.Point(512, 165)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
         Me.btnCancel.TabIndex = 5
         Me.btnCancel.Text = "&Cancel"
+        Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'btnSave
         '
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSave.Location = New System.Drawing.Point(413, 149)
+        Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
+        Me.btnSave.Location = New System.Drawing.Point(446, 165)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(75, 23)
+        Me.btnSave.Size = New System.Drawing.Size(60, 45)
         Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "&Save"
+        Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'frmProcessManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(584, 261)
+        Me.ClientSize = New System.Drawing.Size(584, 221)
         Me.Controls.Add(Me.grpProcess)
-        Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.lstProcesses)
@@ -230,7 +226,6 @@ Partial Class frmProcessManager
     Friend WithEvents txtPath As TextBox
     Friend WithEvents lblProcess As Label
     Friend WithEvents lblName As Label
-    Friend WithEvents btnClose As Button
     Friend WithEvents btnDelete As Button
     Friend WithEvents btnAdd As Button
     Friend WithEvents lstProcesses As ListBox

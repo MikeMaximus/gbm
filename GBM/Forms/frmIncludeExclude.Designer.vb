@@ -70,20 +70,24 @@ Partial Class frmIncludeExclude
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(416, 426)
+        Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
+        Me.btnSave.Location = New System.Drawing.Point(446, 404)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(75, 23)
+        Me.btnSave.Size = New System.Drawing.Size(60, 45)
         Me.btnSave.TabIndex = 7
         Me.btnSave.Text = "&Save"
+        Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(497, 426)
+        Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
+        Me.btnCancel.Location = New System.Drawing.Point(512, 404)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
         Me.btnCancel.TabIndex = 8
         Me.btnCancel.Text = "&Cancel"
+        Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'txtRootFolder
@@ -212,11 +216,13 @@ Partial Class frmIncludeExclude
         '
         'btnRawEdit
         '
-        Me.btnRawEdit.Location = New System.Drawing.Point(335, 426)
+        Me.btnRawEdit.Image = Global.GBM.My.Resources.Resources.Multi_Edit
+        Me.btnRawEdit.Location = New System.Drawing.Point(380, 404)
         Me.btnRawEdit.Name = "btnRawEdit"
-        Me.btnRawEdit.Size = New System.Drawing.Size(75, 23)
+        Me.btnRawEdit.Size = New System.Drawing.Size(60, 45)
         Me.btnRawEdit.TabIndex = 6
         Me.btnRawEdit.Text = "Raw &Edit"
+        Me.btnRawEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnRawEdit.UseVisualStyleBackColor = True
         '
         'lblSaveFolder

@@ -145,21 +145,25 @@ Partial Class frmSettings
         'btnSave
         '
         Me.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnSave.Location = New System.Drawing.Point(386, 326)
+        Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
+        Me.btnSave.Location = New System.Drawing.Point(421, 329)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(75, 23)
+        Me.btnSave.Size = New System.Drawing.Size(60, 45)
         Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "&Save"
+        Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'btnCancel
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(467, 326)
+        Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
+        Me.btnCancel.Location = New System.Drawing.Point(487, 329)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
         Me.btnCancel.TabIndex = 5
         Me.btnCancel.Text = "&Cancel"
+        Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'grp7zGeneral
@@ -252,11 +256,13 @@ Partial Class frmSettings
         '
         'btnDefaults
         '
-        Me.btnDefaults.Location = New System.Drawing.Point(12, 326)
+        Me.btnDefaults.Image = Global.GBM.My.Resources.Resources.Multi_Reset
+        Me.btnDefaults.Location = New System.Drawing.Point(12, 329)
         Me.btnDefaults.Name = "btnDefaults"
-        Me.btnDefaults.Size = New System.Drawing.Size(110, 23)
+        Me.btnDefaults.Size = New System.Drawing.Size(60, 45)
         Me.btnDefaults.TabIndex = 2
-        Me.btnDefaults.Text = "Set &Defaults"
+        Me.btnDefaults.Text = "&Defaults"
+        Me.btnDefaults.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnDefaults.UseVisualStyleBackColor = True
         '
         'pnlBackup
@@ -265,7 +271,7 @@ Partial Class frmSettings
         Me.pnlBackup.Controls.Add(Me.grpBackupHandling)
         Me.pnlBackup.Location = New System.Drawing.Point(180, 0)
         Me.pnlBackup.Name = "pnlBackup"
-        Me.pnlBackup.Size = New System.Drawing.Size(367, 315)
+        Me.pnlBackup.Size = New System.Drawing.Size(367, 323)
         Me.pnlBackup.TabIndex = 1
         '
         'grpBackupConfirmations
@@ -374,7 +380,7 @@ Partial Class frmSettings
         Me.pnl7z.Controls.Add(Me.grp7zGeneral)
         Me.pnl7z.Location = New System.Drawing.Point(180, 0)
         Me.pnl7z.Name = "pnl7z"
-        Me.pnl7z.Size = New System.Drawing.Size(367, 315)
+        Me.pnl7z.Size = New System.Drawing.Size(367, 323)
         Me.pnl7z.TabIndex = 1
         '
         'grp7zAdvanced
@@ -409,7 +415,7 @@ Partial Class frmSettings
         Me.pnlGeneral.Controls.Add(Me.grpOptionalFeeatures)
         Me.pnlGeneral.Location = New System.Drawing.Point(180, 0)
         Me.pnlGeneral.Name = "pnlGeneral"
-        Me.pnlGeneral.Size = New System.Drawing.Size(367, 315)
+        Me.pnlGeneral.Size = New System.Drawing.Size(367, 323)
         Me.pnlGeneral.TabIndex = 1
         '
         'grpGameMonitoringOptions
@@ -531,7 +537,7 @@ Partial Class frmSettings
         Me.pnlInterface.Controls.Add(Me.grpMainWindowOptions)
         Me.pnlInterface.Location = New System.Drawing.Point(180, 0)
         Me.pnlInterface.Name = "pnlInterface"
-        Me.pnlInterface.Size = New System.Drawing.Size(367, 315)
+        Me.pnlInterface.Size = New System.Drawing.Size(367, 323)
         Me.pnlInterface.TabIndex = 1
         '
         'grpGameManagerOptions
@@ -631,18 +637,21 @@ Partial Class frmSettings
         'lstSettings
         '
         Me.lstSettings.FormattingEnabled = True
+        Me.lstSettings.IntegralHeight = False
         Me.lstSettings.Location = New System.Drawing.Point(12, 12)
         Me.lstSettings.Name = "lstSettings"
-        Me.lstSettings.Size = New System.Drawing.Size(162, 303)
+        Me.lstSettings.Size = New System.Drawing.Size(162, 311)
         Me.lstSettings.TabIndex = 0
         '
         'btnResetMessages
         '
-        Me.btnResetMessages.Location = New System.Drawing.Point(128, 326)
+        Me.btnResetMessages.Image = Global.GBM.My.Resources.Resources.Multi_Reset
+        Me.btnResetMessages.Location = New System.Drawing.Point(78, 329)
         Me.btnResetMessages.Name = "btnResetMessages"
-        Me.btnResetMessages.Size = New System.Drawing.Size(110, 23)
+        Me.btnResetMessages.Size = New System.Drawing.Size(96, 45)
         Me.btnResetMessages.TabIndex = 3
         Me.btnResetMessages.Text = "&Reset Warnings"
+        Me.btnResetMessages.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnResetMessages.UseVisualStyleBackColor = True
         '
         'pnlStartup
@@ -650,7 +659,7 @@ Partial Class frmSettings
         Me.pnlStartup.Controls.Add(Me.grpStartup)
         Me.pnlStartup.Location = New System.Drawing.Point(180, 0)
         Me.pnlStartup.Name = "pnlStartup"
-        Me.pnlStartup.Size = New System.Drawing.Size(367, 315)
+        Me.pnlStartup.Size = New System.Drawing.Size(367, 323)
         Me.pnlStartup.TabIndex = 1
         '
         'grpStartup
@@ -711,7 +720,7 @@ Partial Class frmSettings
         Me.pnlFilesAndFolders.Controls.Add(Me.grpFolderOptions)
         Me.pnlFilesAndFolders.Location = New System.Drawing.Point(180, 0)
         Me.pnlFilesAndFolders.Name = "pnlFilesAndFolders"
-        Me.pnlFilesAndFolders.Size = New System.Drawing.Size(367, 315)
+        Me.pnlFilesAndFolders.Size = New System.Drawing.Size(367, 323)
         Me.pnlFilesAndFolders.TabIndex = 1
         '
         'grpFolderOptions
@@ -805,7 +814,7 @@ Partial Class frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(554, 361)
+        Me.ClientSize = New System.Drawing.Size(554, 386)
         Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlFilesAndFolders)
         Me.Controls.Add(Me.pnlStartup)

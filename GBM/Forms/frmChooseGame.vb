@@ -67,7 +67,9 @@ Public Class frmChooseGame
 
         'Set Form Text
         btnCancel.Text = frmChooseGame_btnCancel
+        btnCancel.Image = Multi_Cancel
         btnChoose.Text = frmChooseGame_btnChoose
+        btnChoose.Image = Multi_Ok
         lblChoose.Text = frmChooseGame_lblChoose
     End Sub
 

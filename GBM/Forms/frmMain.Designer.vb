@@ -815,7 +815,7 @@ Partial Class frmMain
         '
         'btnEdit
         '
-        Me.btnEdit.Image = Global.GBM.My.Resources.Resources.frmMain_Edit
+        Me.btnEdit.Image = Global.GBM.My.Resources.Resources.Multi_Edit
         Me.btnEdit.Location = New System.Drawing.Point(15, 118)
         Me.btnEdit.Name = "btnEdit"
         Me.btnEdit.Size = New System.Drawing.Size(60, 45)

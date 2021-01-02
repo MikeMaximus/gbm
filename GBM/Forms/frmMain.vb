@@ -2192,7 +2192,7 @@ Public Class frmMain
         btnBackup.Text = frmMain_btnBackup
         btnBackup.Image = Multi_Backup
         btnEdit.Text = frmMain_btnEdit
-        btnEdit.Image = frmMain_Edit
+        btnEdit.Image = Multi_Edit
         btnPlay.Text = frmMain_btnPlay
         btnPlay.Image = frmMain_Play
         btnCancelOperation.Text = frmMain_btnCancelOperation

@@ -1966,9 +1966,9 @@ Public Class frmGameManager
         tbGameInfo.Text = frmGameManager_tbGameInfo
         tbBackupInfo.Text = frmGameManager_tbBackupInfo
         btnExport.Text = frmGameManager_btnExport
-        btnExport.Image = frmGameManager_Export
+        btnExport.Image = Multi_Export
         btnImport.Text = frmGameManager_btnImport
-        btnImport.Image = frmGameManager_Import
+        btnImport.Image = Multi_Import
         lblFilters.Text = frmGameManager_lblFilters
         cmsEnabled.Text = frmGameManager_cmsEnabled
         btnCancel.Text = frmGameManager_btnCancel
@@ -2014,7 +2014,7 @@ Public Class frmGameManager
         cmsDeleteOne.Text = frmGameManager_cmsDeleteOne
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
         btnLinks.Image = frmGameManager_Link
-        btnMonitorOptions.Image = frmGameManager_MonitorOptions
+        btnMonitorOptions.Image = Multi_Search
         btnGameID.Image = frmGameManager_GameID
         lblComments.Text = frmGameManager_lblComments
         cmsRegEx.Text = frmGameManager_cmsRegEx

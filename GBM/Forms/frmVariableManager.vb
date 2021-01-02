@@ -302,14 +302,17 @@ Public Class frmVariableManager
 
         'Set Form Text
         btnCancel.Text = frmVariableManager_btnCancel
+        btnCancel.Image = Multi_Cancel
         btnSave.Text = frmVariableManager_btnSave
+        btnSave.Image = Multi_Save
         grpVariable.Text = frmVariableManager_grpVariable
         btnPathBrowse.Text = frmVariableManager_btnPathBrowse
         lblPath.Text = frmVariableManager_lblPath
         lblName.Text = frmVariableManager_lblName
-        btnClose.Text = frmVariableManager_btnClose
         btnDelete.Text = frmVariableManager_btnDelete
+        btnDelete.Image = Multi_Delete
         btnAdd.Text = frmVariableManager_btnAdd
+        btnAdd.Image = Multi_Add
     End Sub
 
     Private Sub frmVariableManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -339,7 +342,7 @@ Public Class frmVariableManager
         CancelEdit()
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+    Private Sub btnClose_Click(sender As Object, e As EventArgs)
         Me.Close()
     End Sub
 

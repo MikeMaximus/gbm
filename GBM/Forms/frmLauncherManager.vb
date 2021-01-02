@@ -283,13 +283,18 @@ Public Class frmLauncherManager
 
         'Set Form Text
         btnCancel.Text = frmLauncherManager_btnCancel
+        btnCancel.Image = Multi_Cancel
         btnSave.Text = frmLauncherManager_btnSave
+        btnSave.Image = Multi_Save
         grpLauncher.Text = frmLauncherManager_grpLauncher
         lblCommand.Text = frmLauncherManager_lblCommand
         lblName.Text = frmLauncherManager_lblName
-        btnClose.Text = frmLauncherManager_btnClose
         btnDelete.Text = frmLauncherManager_btnDelete
+        btnDelete.Image = Multi_Delete
         btnAdd.Text = frmLauncherManager_btnAdd
+        btnAdd.Image = Multi_Add
+        btnAddDefaults.Text = frmLauncherManager_btnAddDefaults
+        btnAddDefaults.Image = Multi_Reset
     End Sub
 
     Private Sub frmLauncherManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -324,10 +329,6 @@ Public Class frmLauncherManager
             mgrLaunchers.AddDefaultLaunchers()
             LoadData()
         End If
-    End Sub
-
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
-        Me.Close()
     End Sub
 
     Private Sub frmLauncherManager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing

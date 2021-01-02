@@ -831,9 +831,6 @@
   <data name="frmGameTags_btnAdd" xml:space="preserve">
     <value>&gt;</value>
   </data>
-  <data name="frmGameTags_btnClose" xml:space="preserve">
-    <value>&amp;Close</value>
-  </data>
   <data name="frmGameTags_btnOpenTags" xml:space="preserve">
     <value>&amp;Tag Manager...</value>
   </data>
@@ -1096,16 +1093,13 @@
     <value>Game Backup Monitor Manual</value>
   </data>
   <data name="frmTags_btnAdd" xml:space="preserve">
-    <value>+</value>
+    <value>&amp;Add</value>
   </data>
   <data name="frmTags_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>
   </data>
-  <data name="frmTags_btnClose" xml:space="preserve">
-    <value>C&amp;lose</value>
-  </data>
   <data name="frmTags_btnDelete" xml:space="preserve">
-    <value>-</value>
+    <value>&amp;Delete</value>
   </data>
   <data name="frmTags_btnSave" xml:space="preserve">
     <value>&amp;Save</value>
@@ -1129,16 +1123,13 @@
     <value>Name:</value>
   </data>
   <data name="frmVariableManager_btnAdd" xml:space="preserve">
-    <value>+</value>
+    <value>&amp;New</value>
   </data>
   <data name="frmVariableManager_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>
   </data>
-  <data name="frmVariableManager_btnClose" xml:space="preserve">
-    <value>C&amp;lose</value>
-  </data>
   <data name="frmVariableManager_btnDelete" xml:space="preserve">
-    <value>-</value>
+    <value>&amp;Delete</value>
   </data>
   <data name="frmVariableManager_btnPathBrowse" xml:space="preserve">
     <value>...</value>
@@ -1462,7 +1453,7 @@
     <value>Search Aborted!</value>
   </data>
   <data name="frmSettings_btnDefaults" xml:space="preserve">
-    <value>Set &amp;Defaults</value>
+    <value>&amp;Defaults</value>
   </data>
   <data name="frmSettings_lblArguments" xml:space="preserve">
     <value>Custom Arguments:</value>
@@ -1803,9 +1794,6 @@
   <data name="frmMain_ErrorNoSessions" xml:space="preserve">
     <value>There is currently no session data to display.</value>
   </data>
-  <data name="frmSessions_btnClose" xml:space="preserve">
-    <value>&amp;Close</value>
-  </data>
   <data name="frmSessions_btnDelete" xml:space="preserve">
     <value>&amp;Delete Session</value>
   </data>
@@ -1960,16 +1948,13 @@
     <value>An error occured when attempting to start a process associated with [PARAM].</value>
   </data>
   <data name="frmProcessManager_btnAdd" xml:space="preserve">
-    <value>+</value>
+    <value>&amp;New</value>
   </data>
   <data name="frmProcessManager_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>
   </data>
-  <data name="frmProcessManager_btnClose" xml:space="preserve">
-    <value>C&amp;lose</value>
-  </data>
   <data name="frmProcessManager_btnDelete" xml:space="preserve">
-    <value>-</value>
+    <value>&amp;Delete</value>
   </data>
   <data name="frmProcessManager_btnProcessBrowse" xml:space="preserve">
     <value>...</value>
@@ -2018,9 +2003,6 @@
   </data>
   <data name="frmGameProcesses_btnAdd" xml:space="preserve">
     <value>&gt;</value>
-  </data>
-  <data name="frmGameProcesses_btnClose" xml:space="preserve">
-    <value>&amp;Close</value>
   </data>
   <data name="frmGameProcesses_btnOpenProcesses" xml:space="preserve">
     <value>&amp;Process Manager...</value>
@@ -2362,9 +2344,6 @@
   <data name="frmConfigLinks_btnAdd" xml:space="preserve">
     <value>&gt;</value>
   </data>
-  <data name="frmConfigLinks_btnClose" xml:space="preserve">
-    <value>&amp;Close</value>
-  </data>
   <data name="frmConfigLinks_btnRemove" xml:space="preserve">
     <value>&lt;</value>
   </data>
@@ -2492,16 +2471,13 @@
     <value>Enable game launching</value>
   </data>
   <data name="frmLauncherManager_btnAdd" xml:space="preserve">
-    <value>+</value>
+    <value>&amp;New</value>
   </data>
   <data name="frmLauncherManager_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>
   </data>
-  <data name="frmLauncherManager_btnClose" xml:space="preserve">
-    <value>C&amp;lose</value>
-  </data>
   <data name="frmLauncherManager_btnDelete" xml:space="preserve">
-    <value>-</value>
+    <value>&amp;Delete</value>
   </data>
   <data name="frmLauncherManager_btnSave" xml:space="preserve">
     <value>&amp;Save</value>
@@ -2806,9 +2782,6 @@
   <data name="frmMain_Cancel_Small" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frmMain_Cancel_Small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="frmMain_Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="frmMain_Notification" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frmMain_Notification.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -2923,17 +2896,8 @@
   <data name="frmGameManager_Advanced" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frmGameManager_Advanced.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="frmGameManager_Export" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_Export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="frmGameManager_GameID" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frmGameManager_GameID.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmGameManager_Import" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_Import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmGameManager_MonitorOptions" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_MonitorOptions.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="frmGameManager_ttHelp_btnGameID" xml:space="preserve">
     <value>Modify Game ID</value>
@@ -2952,5 +2916,26 @@
   </data>
   <data name="Multi_Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Multi_Delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmLauncherManager_btnAddDefaults" xml:space="preserve">
+    <value>&amp;D&amp;efaults</value>
+  </data>
+  <data name="Multi_Export" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Import" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Reset" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Reset.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Ok.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Search" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

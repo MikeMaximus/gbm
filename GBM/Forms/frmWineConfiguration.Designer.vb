@@ -44,7 +44,7 @@ Partial Class frmWineConfiguration
         Me.grpWineConfig.Controls.Add(Me.lblWineBinaryPath)
         Me.grpWineConfig.Location = New System.Drawing.Point(12, 12)
         Me.grpWineConfig.Name = "grpWineConfig"
-        Me.grpWineConfig.Size = New System.Drawing.Size(460, 107)
+        Me.grpWineConfig.Size = New System.Drawing.Size(460, 111)
         Me.grpWineConfig.TabIndex = 0
         Me.grpWineConfig.TabStop = False
         Me.grpWineConfig.Text = "Configuration"
@@ -99,27 +99,31 @@ Partial Class frmWineConfiguration
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(316, 125)
+        Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
+        Me.btnSave.Location = New System.Drawing.Point(346, 129)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(75, 23)
+        Me.btnSave.Size = New System.Drawing.Size(60, 45)
         Me.btnSave.TabIndex = 1
         Me.btnSave.Text = "&Save"
+        Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(397, 125)
+        Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
+        Me.btnCancel.Location = New System.Drawing.Point(412, 129)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
         Me.btnCancel.TabIndex = 2
         Me.btnCancel.Text = "&Cancel"
+        Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'frmWineConfiguration
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(484, 161)
+        Me.ClientSize = New System.Drawing.Size(484, 186)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.grpWineConfig)

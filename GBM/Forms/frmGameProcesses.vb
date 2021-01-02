@@ -215,7 +215,7 @@ Public Class frmGameProcesses
 
         'Set Form Text
         btnOpenProcesses.Text = frmGameProcesses_btnOpenProcesses
-        btnClose.Text = frmGameProcesses_btnClose
+        btnOpenProcesses.Image = Multi_Edit
         lblGameProcesses.Text = frmGameProcesses_lblGameProccesses
         lblProcesses.Text = frmGameProcesses_lblProcesses
         btnRemove.Text = frmGameProcesses_btnRemove
@@ -228,7 +228,7 @@ Public Class frmGameProcesses
         SetForm()
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+    Private Sub btnClose_Click(sender As Object, e As EventArgs)
         If bNewMode Then BuildProcessList()
         Me.Close()
     End Sub

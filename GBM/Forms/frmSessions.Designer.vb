@@ -30,7 +30,6 @@ Partial Class frmSessions
         Me.lblTo = New System.Windows.Forms.Label()
         Me.btnReset = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
-        Me.btnClose = New System.Windows.Forms.Button()
         Me.lblDateRange = New System.Windows.Forms.Label()
         Me.lblTotalHours = New System.Windows.Forms.Label()
         Me.btnExport = New System.Windows.Forms.Button()
@@ -67,7 +66,7 @@ Partial Class frmSessions
         Me.dgSessions.ReadOnly = True
         Me.dgSessions.RowHeadersVisible = False
         Me.dgSessions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgSessions.Size = New System.Drawing.Size(760, 488)
+        Me.dgSessions.Size = New System.Drawing.Size(760, 463)
         Me.dgSessions.TabIndex = 6
         '
         'dtpStart
@@ -99,32 +98,26 @@ Partial Class frmSessions
         'btnReset
         '
         Me.btnReset.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnReset.Location = New System.Drawing.Point(591, 526)
+        Me.btnReset.Image = Global.GBM.My.Resources.Resources.Multi_Reset
+        Me.btnReset.Location = New System.Drawing.Point(682, 504)
         Me.btnReset.Name = "btnReset"
-        Me.btnReset.Size = New System.Drawing.Size(100, 23)
+        Me.btnReset.Size = New System.Drawing.Size(90, 45)
         Me.btnReset.TabIndex = 10
         Me.btnReset.Text = "&Reset Filters"
+        Me.btnReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnReset.UseVisualStyleBackColor = True
         '
         'btnDelete
         '
         Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnDelete.Location = New System.Drawing.Point(12, 526)
+        Me.btnDelete.Image = Global.GBM.My.Resources.Resources.Multi_Delete
+        Me.btnDelete.Location = New System.Drawing.Point(12, 504)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(100, 23)
+        Me.btnDelete.Size = New System.Drawing.Size(90, 45)
         Me.btnDelete.TabIndex = 7
         Me.btnDelete.Text = "&Delete Session"
+        Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnDelete.UseVisualStyleBackColor = True
-        '
-        'btnClose
-        '
-        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnClose.Location = New System.Drawing.Point(697, 526)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 11
-        Me.btnClose.Text = "&Close"
-        Me.btnClose.UseVisualStyleBackColor = True
         '
         'lblDateRange
         '
@@ -140,9 +133,9 @@ Partial Class frmSessions
         '
         Me.lblTotalHours.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblTotalHours.Location = New System.Drawing.Point(118, 531)
+        Me.lblTotalHours.Location = New System.Drawing.Point(108, 520)
         Me.lblTotalHours.Name = "lblTotalHours"
-        Me.lblTotalHours.Size = New System.Drawing.Size(361, 13)
+        Me.lblTotalHours.Size = New System.Drawing.Size(472, 13)
         Me.lblTotalHours.TabIndex = 8
         Me.lblTotalHours.Text = "Total Hours:"
         Me.lblTotalHours.TextAlign = System.Drawing.ContentAlignment.TopCenter
@@ -150,11 +143,13 @@ Partial Class frmSessions
         'btnExport
         '
         Me.btnExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExport.Location = New System.Drawing.Point(485, 526)
+        Me.btnExport.Image = Global.GBM.My.Resources.Resources.Multi_Export
+        Me.btnExport.Location = New System.Drawing.Point(586, 504)
         Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(100, 23)
+        Me.btnExport.Size = New System.Drawing.Size(90, 45)
         Me.btnExport.TabIndex = 9
         Me.btnExport.Text = "&Export Grid"
+        Me.btnExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnExport.UseVisualStyleBackColor = True
         '
         'frmSessions
@@ -165,7 +160,6 @@ Partial Class frmSessions
         Me.Controls.Add(Me.btnExport)
         Me.Controls.Add(Me.lblTotalHours)
         Me.Controls.Add(Me.lblDateRange)
-        Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnReset)
         Me.Controls.Add(Me.lblTo)
@@ -192,7 +186,6 @@ Partial Class frmSessions
     Friend WithEvents lblTo As Label
     Friend WithEvents btnReset As Button
     Friend WithEvents btnDelete As Button
-    Friend WithEvents btnClose As Button
     Friend WithEvents lblDateRange As Label
     Friend WithEvents lblTotalHours As Label
     Friend WithEvents btnExport As Button

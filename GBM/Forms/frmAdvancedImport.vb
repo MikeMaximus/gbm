@@ -112,7 +112,6 @@ Public Class frmAdvancedImport
                 If oApp.AbsolutePath Then
                     If Directory.Exists(oApp.Path) And Not mgrPath.IsSpecialPath(oApp.Path, True) Then
                         oListViewItem.Checked = True
-                        SaveChecked(oListViewItem)
                     End If
                 End If
             End If
@@ -146,6 +145,7 @@ Public Class frmAdvancedImport
             If bAddItem Then
                 If oListViewItem.Checked Then bResetSelectAll = True
                 lstGames.Items.Add(oListViewItem)
+                SaveChecked(oListViewItem)
             End If
         Next
 
@@ -186,8 +186,11 @@ Public Class frmAdvancedImport
         'Set Form Text
         lblFilter.Text = frmAdvancedImport_lblFilter
         btnDetectSavedGames.Text = frmAdvancedImport_btnDetectSavedGames
+        btnDetectSavedGames.Image = Multi_Search
         btnCancel.Text = frmAdvancedImport_btnCancel
+        btnCancel.Image = Multi_Cancel
         btnImport.Text = frmAdvancedImport_btnImport
+        btnImport.Image = Multi_Import
         chkSelectAll.Text = frmAdvancedImport_chkSelectAll
         chkSelectedOnly.Text = frmAdvancedImport_chkSelectedOnly
 

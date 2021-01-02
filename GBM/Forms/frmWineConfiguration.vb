@@ -33,7 +33,9 @@ Public Class frmWineConfiguration
         lblWinePrefix.Text = frmWineConfiguration_lblWinePrefix
         lblWineSavePath.Text = frmWineConfiguration_lblWineSavePath
         btnSave.Text = frmWineConfiguration_btnSave
+        btnSave.Image = Multi_Save
         btnCancel.Text = frmWineConfiguration_btnCancel
+        btnCancel.Image = Multi_Cancel
     End Sub
 
     Private Sub LoadData()

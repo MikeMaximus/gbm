@@ -39,20 +39,24 @@ Partial Class frmChooseGame
         '
         'btnChoose
         '
-        Me.btnChoose.Location = New System.Drawing.Point(201, 176)
+        Me.btnChoose.Image = Global.GBM.My.Resources.Resources.Multi_Ok
+        Me.btnChoose.Location = New System.Drawing.Point(216, 160)
         Me.btnChoose.Name = "btnChoose"
-        Me.btnChoose.Size = New System.Drawing.Size(90, 23)
+        Me.btnChoose.Size = New System.Drawing.Size(90, 45)
         Me.btnChoose.TabIndex = 1
         Me.btnChoose.Text = "C&hoose Game"
+        Me.btnChoose.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnChoose.UseVisualStyleBackColor = True
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(297, 176)
+        Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
+        Me.btnCancel.Location = New System.Drawing.Point(312, 160)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
         Me.btnCancel.TabIndex = 2
         Me.btnCancel.Text = "&Cancel"
+        Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'lstGameBox
@@ -62,7 +66,7 @@ Partial Class frmChooseGame
         Me.lstGameBox.Location = New System.Drawing.Point(12, 25)
         Me.lstGameBox.MultiSelect = False
         Me.lstGameBox.Name = "lstGameBox"
-        Me.lstGameBox.Size = New System.Drawing.Size(360, 145)
+        Me.lstGameBox.Size = New System.Drawing.Size(360, 129)
         Me.lstGameBox.TabIndex = 0
         Me.lstGameBox.UseCompatibleStateImageBehavior = False
         Me.lstGameBox.View = System.Windows.Forms.View.Details
