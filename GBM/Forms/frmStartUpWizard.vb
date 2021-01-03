@@ -24,7 +24,9 @@ Public Class frmStartUpWizard
 
         'Set Form Text
         btnNext.Text = frmStartUpWizard_btnNext
+        btnNext.Image = Multi_Next
         btnBack.Text = frmStartUpWizard_btnBack
+        btnBack.Image = Multi_Back
         lblStep1Instructions2.Text = frmStartUpWizard_lblStep1Instructions2
         llbManual.Text = frmStartUpWizard_llbManual
         lblStep1Title.Text = frmStartUpWizard_lblStep1Title
@@ -105,11 +107,13 @@ Public Class frmStartUpWizard
                 btnBack.Enabled = False
                 btnNext.Enabled = True
                 btnNext.Text = frmStartUpWizard_btnNext
+                btnNext.Image = Multi_Next
                 tabWizard.SelectTab(2)
             Case eSteps.Step4
                 btnBack.Enabled = True
                 btnNext.Enabled = True
                 btnNext.Text = frmStartUpWizard_btnNext_Finish
+                btnNext.Image = Multi_Ok
                 tabWizard.SelectTab(3)
         End Select
     End Sub

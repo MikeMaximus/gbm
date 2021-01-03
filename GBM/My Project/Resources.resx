@@ -1051,7 +1051,7 @@
     <value>Existing GBM data was detected in the backup folder and has been imported. </value>
   </data>
   <data name="frmStartUpWizard_FormName" xml:space="preserve">
-    <value>GBM Setup</value>
+    <value>Game Backup Monitor -  Setup</value>
   </data>
   <data name="frmStartUpWizard_lblStep1Instructions" xml:space="preserve">
     <value>This guide will help you through some quick and easy steps to get started.</value>
@@ -1060,13 +1060,13 @@
     <value>If you'd like to learn about advanced features or have any other questions before you get started, there is a detailed online manual available.</value>
   </data>
   <data name="frmStartUpWizard_lblStep1Title" xml:space="preserve">
-    <value>Welcome to GBM</value>
+    <value>Welcome to Game Backup Monitor</value>
   </data>
   <data name="frmStartUpWizard_lblStep2Instructions" xml:space="preserve">
-    <value>GBM will store all your backup files along with a manifest database (gbm.s3db) in this location.  Any existing GBM data in this folder will be automatically imported.</value>
+    <value>All your backup files along with a manifest database (gbm.s3db) will be stored in this location.  Any existing GBM data in this folder will be automatically imported.</value>
   </data>
   <data name="frmStartUpWizard_lblStep2Intro" xml:space="preserve">
-    <value>Choose where GBM saves your backup files:</value>
+    <value>Choose where backup files will be saved:</value>
   </data>
   <data name="frmStartUpWizard_lblStep2Title" xml:space="preserve">
     <value>Backup Location</value>
@@ -1078,16 +1078,16 @@
     <value>Monitoring Games</value>
   </data>
   <data name="frmStartUpWizard_lblStep4Instructions" xml:space="preserve">
-    <value>GBM will automatically monitor and backup your games each time they are closed.</value>
+    <value>Game Backup Monitor will automatically monitor and backup your games each time they are closed.</value>
   </data>
   <data name="frmStartUpWizard_lblStep4Instructions2" xml:space="preserve">
     <value>Remember that GBM can only currently monitor one game at a time.</value>
   </data>
   <data name="frmStartUpWizard_lblStep4Instructions3" xml:space="preserve">
-    <value>You can change anything you've setup in this wizard and find more settings and features by exploring the menus.  Thanks!</value>
+    <value>You can change anything you've setup in this wizard and find more settings and features by exploring the menus.</value>
   </data>
   <data name="frmStartUpWizard_lblStep4Title" xml:space="preserve">
-    <value>Finished!</value>
+    <value>Setup Complete!</value>
   </data>
   <data name="frmStartUpWizard_llbManual" xml:space="preserve">
     <value>Game Backup Monitor Manual</value>
@@ -2937,5 +2937,11 @@
   </data>
   <data name="Multi_Search" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Multi_Search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Next" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Next.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-01-02T17:12:53
+        '''  Looks up a localized string similar to 2021-01-03T14:12:42
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -6610,7 +6610,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to GBM Setup.
+        '''  Looks up a localized string similar to Game Backup Monitor -  Setup.
         '''</summary>
         Friend ReadOnly Property frmStartUpWizard_FormName() As String
             Get
@@ -6637,7 +6637,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Welcome to GBM.
+        '''  Looks up a localized string similar to Welcome to Game Backup Monitor.
         '''</summary>
         Friend ReadOnly Property frmStartUpWizard_lblStep1Title() As String
             Get
@@ -6646,7 +6646,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to GBM will store all your backup files along with a manifest database (gbm.s3db) in this location.  Any existing GBM data in this folder will be automatically imported..
+        '''  Looks up a localized string similar to All your backup files along with a manifest database (gbm.s3db) will be stored in this location.  Any existing GBM data in this folder will be automatically imported..
         '''</summary>
         Friend ReadOnly Property frmStartUpWizard_lblStep2Instructions() As String
             Get
@@ -6655,7 +6655,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Choose where GBM saves your backup files:.
+        '''  Looks up a localized string similar to Choose where backup files will be saved:.
         '''</summary>
         Friend ReadOnly Property frmStartUpWizard_lblStep2Intro() As String
             Get
@@ -6700,7 +6700,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to GBM will automatically monitor and backup your games each time they are closed..
+        '''  Looks up a localized string similar to Game Backup Monitor will automatically monitor and backup your games each time they are closed..
         '''</summary>
         Friend ReadOnly Property frmStartUpWizard_lblStep4Instructions() As String
             Get
@@ -6718,7 +6718,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to You can change anything you&apos;ve setup in this wizard and find more settings and features by exploring the menus.  Thanks!.
+        '''  Looks up a localized string similar to You can change anything you&apos;ve setup in this wizard and find more settings and features by exploring the menus..
         '''</summary>
         Friend ReadOnly Property frmStartUpWizard_lblStep4Instructions3() As String
             Get
@@ -6727,7 +6727,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Finished!.
+        '''  Looks up a localized string similar to Setup Complete!.
         '''</summary>
         Friend ReadOnly Property frmStartUpWizard_lblStep4Title() As String
             Get
@@ -8426,6 +8426,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property Multi_Back() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Multi_Back", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property Multi_Backup() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Multi_Backup", resourceCulture)
@@ -8479,6 +8489,16 @@ Namespace My.Resources
         Friend ReadOnly Property Multi_Import() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Multi_Import", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Multi_Next() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Multi_Next", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
