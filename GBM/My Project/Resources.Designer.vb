@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-01-03T14:12:42
+        '''  Looks up a localized string similar to 2021-01-03T15:14:53
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2555,7 +2555,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Modify [PARAM].
+        '''  Looks up a localized string similar to Modify Game ID.
         '''</summary>
         Friend ReadOnly Property frmGameManager_GameIDEditTitle() As String
             Get

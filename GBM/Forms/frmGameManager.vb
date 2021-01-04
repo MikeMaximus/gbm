@@ -576,7 +576,7 @@ Public Class frmGameManager
 
         sCurrentID = txtID.Text
 
-        sNewID = InputBox(frmGameManager_GameIDEditInfo, mgrCommon.FormatString(frmGameManager_GameIDEditTitle, oCurrentGame.CroppedName), sCurrentID)
+        sNewID = InputBox(frmGameManager_GameIDEditInfo, frmGameManager_GameIDEditTitle, sCurrentID)
 
         If sNewID <> String.Empty And sCurrentID <> sNewID Then
             txtID.Text = sNewID
