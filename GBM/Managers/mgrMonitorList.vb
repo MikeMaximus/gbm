@@ -10,19 +10,25 @@ Public Class mgrMonitorList
         ScanList = 2
     End Enum
 
+    Public Enum eSupportedClasses As Integer
+        clsGame = 1
+        clsBackup = 2
+    End Enum
+
     Public Shared Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
 
     'This function supports filling class types that inherit clsGameBase
-    Public Shared Function MapToObject(ByVal dr As DataRow, ByVal oClass As Type) As Object
-        Dim bFullClass As Boolean = True
+    Public Shared Function MapToObject(ByVal dr As DataRow, Optional ByVal eClass As eSupportedClasses = eSupportedClasses.clsGame) As Object
+        Dim bFullClass As Boolean = False
         Dim oGame As Object
 
-        If oClass = GetType(clsBackup) Then
-            oGame = New clsBackup
-            bFullClass = False
-        Else
-            oGame = New clsGame
-        End If
+        Select Case eClass
+            Case eSupportedClasses.clsBackup
+                oGame = New clsBackup
+            Case Else
+                bFullClass = True
+                oGame = New clsGame
+        End Select
 
         oGame.ID = CStr(dr("MonitorID"))
         oGame.Name = CStr(dr("Name"))
@@ -98,7 +104,7 @@ Public Class mgrMonitorList
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
 
         For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = MapToObject(dr, GetType(clsGame))
+            oGame = MapToObject(dr)
             Select Case eListType
                 Case eListTypes.FullList
                     hshList.Add(oGame.ID, oGame)
@@ -124,7 +130,7 @@ Public Class mgrMonitorList
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
         For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = MapToObject(dr, GetType(clsGame))
+            oGame = MapToObject(dr)
             oList.Add(oGame.ID, oGame)
         Next
 
@@ -386,7 +392,7 @@ Public Class mgrMonitorList
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
         For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = MapToObject(dr, GetType(clsGame))
+            oGame = MapToObject(dr)
             hshGames.Add(iCounter, oGame)
             iCounter += 1
         Next

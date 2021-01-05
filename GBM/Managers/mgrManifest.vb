@@ -4,7 +4,7 @@
         Dim oBackupItem As clsBackup
 
         'Inherited
-        oBackupItem = mgrMonitorList.MapToObject(dr, GetType(clsBackup))
+        oBackupItem = mgrMonitorList.MapToObject(dr, mgrMonitorList.eSupportedClasses.clsBackup)
 
         'Base
         oBackupItem.ManifestID = CStr(dr("ManifestID"))
