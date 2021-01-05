@@ -230,9 +230,8 @@ Public Class frmGameTags
         SetForm()
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs)
+    Private Sub frmGameTags_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If bNewMode Then BuildTagList()
-        Me.Close()
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click

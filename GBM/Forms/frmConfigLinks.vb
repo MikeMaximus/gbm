@@ -242,9 +242,8 @@ Public Class frmConfigLinks
         SetForm()
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs)
+    Private Sub frmConfigLinks_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If bNewMode Then BuildConfigLinkList()
-        Me.Close()
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
