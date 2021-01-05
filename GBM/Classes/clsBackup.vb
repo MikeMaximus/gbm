@@ -1,5 +1,5 @@
 ﻿Public Class clsBackup
-    Inherits clsGameBase
+    Inherits clsGame
 
     Private sBackupID As String = Guid.NewGuid.ToString
     Private sMonitorID As String = String.Empty
