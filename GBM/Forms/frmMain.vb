@@ -57,6 +57,7 @@ Public Class frmMain
     Private oLastGame As clsGame
     Private oSelectedGame As clsGame
     Private bListLoading As Boolean = False
+    Private bListRefresh As Boolean = False
     Private oExecutableIcon As Bitmap
 
     'Developer Debug Flags
@@ -1409,12 +1410,18 @@ Public Class frmMain
     Private Sub RefreshGameList()
         oGameList = mgrMonitorList.ReadFilteredList(New List(Of clsTag), New List(Of clsTag), New List(Of clsGameFilter), frmFilter.eFilterType.BaseFilter, False, True, "Name", txtSearch.Text)
         FormatAndFillList()
+        bListRefresh = False
     End Sub
 
     Private Sub LoadGameSettings()
         'Load Monitor List
         hshScanList = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.ScanList)
-        RefreshGameList()
+        'Load the game list only if the panel is shown, otherwise queue it for when the panel state changes. 
+        If slcMain.Panel1Collapsed Then
+            bListRefresh = True
+        Else
+            RefreshGameList()
+        End If
         UpdateLog(mgrCommon.FormatString(frmMain_GameListLoaded, hshScanList.Keys.Count), False)
     End Sub
 
@@ -2686,6 +2693,7 @@ Public Class frmMain
     End Sub
 
     Private Sub gMonStripCollapse_Click(sender As Object, e As EventArgs) Handles gMonStripCollapse.Click
+        If bListRefresh Then RefreshGameList()
         slcMain.Panel1Collapsed = Not slcMain.Panel1Collapsed
 
         If slcMain.Panel1Collapsed Then
