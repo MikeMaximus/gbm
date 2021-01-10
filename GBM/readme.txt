@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.5 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-January 1, 2021
+January 10, 2021
 
 New in 1.2.5
 
@@ -26,9 +26,9 @@ All Platforms:
 	- Changes how quickly GBM detects games, faster settings have a slightly higher CPU usage.
 	- Allows those monitoring for hundreds or even thousands of games at once to greatly lower CPU usage at the cost of detection speed.
 	- The average user with a normal sized game list should never need to adjust this setting, even the "Fast" setting will use less than 1% of the CPU.
-- AbsolutePath is now a calculated field and no longer stored.
-	- This is a bigger change than it seems, but I feel it was worth it.  It never should have been stored and this will clean up some issues and prepare for future updates.
-	- This will break future official lists for prior versions of GBM (v1.1.5 - v1.2.4).  The last official list(s) compatible with these prior versions will be archived so they can still be accessed.
+- AbsolutePath is now a calculated field and no longer stored.	
+	- This will break official lists for prior versions of GBM (v1.1.5 - v1.2.4).  The last official list(s) compatible with these versions will be archived so they can still be accessed.
+- The "Icon" field now supports the use of Environment and Custom Path variables.
 - "Search" on the Main Window and Game Manager now supports searching by tag.
 - Application settings are now handled more efficiently.
 - Added missing code to properly update or delete existing launch data when certain configuration changes are made.

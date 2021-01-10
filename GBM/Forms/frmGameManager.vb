@@ -1098,13 +1098,16 @@ Public Class frmGameManager
         If mgrSettings.ShowResolvedPaths Then
             txtAppPath.Text = oApp.ProcessPath
             ttFullPath.SetToolTip(txtAppPath, oApp.TrueProcessPath)
+            txtIcon.Text = oApp.Icon
+            ttFullPath.SetToolTip(txtIcon, oApp.TrueIcon)
         Else
             txtAppPath.Text = oApp.TrueProcessPath
             ttFullPath.SetToolTip(txtAppPath, oApp.ProcessPath)
+            txtIcon.Text = oApp.TrueIcon
+            ttFullPath.SetToolTip(txtIcon, oApp.Icon)
         End If
         txtCompany.Text = oApp.Company
         txtVersion.Text = oApp.Version
-        txtIcon.Text = oApp.Icon
 
         HandleTags(sTags)
 

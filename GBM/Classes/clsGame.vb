@@ -198,12 +198,12 @@ Public Class clsGame
     End Property
 
     Property Icon As String
-        Get
-            Return sIcon
-        End Get
         Set(value As String)
-            sIcon = value
+            sIcon = mgrPath.ReverseSpecialPaths(value)
         End Set
+        Get
+            Return mgrPath.ReplaceSpecialPaths(sIcon)
+        End Get
     End Property
 
     Property Hours As Double
@@ -296,10 +296,8 @@ Public Class clsGame
         End Set
     End Property
 
-    Property TruePath As String
-        Set(value As String)
-            sPath = value
-        End Set
+    ReadOnly Property TruePath As String
+
         Get
             Return sPath
         End Get
@@ -308,6 +306,12 @@ Public Class clsGame
     ReadOnly Property TrueProcessPath As String
         Get
             Return sProcessPath
+        End Get
+    End Property
+
+    ReadOnly Property TrueIcon As String
+        Get
+            Return sIcon
         End Get
     End Property
 
