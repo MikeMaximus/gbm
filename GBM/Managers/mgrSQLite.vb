@@ -1062,7 +1062,7 @@ Public Class mgrSQLite
                         MonitorOnly BOOLEAN NOT NULL, BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, 
                         RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL, UseWindowTitle BOOLEAN NOT NULL);
                         INSERT INTO monitorlist_new (MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, 
-                        BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS) SELECT MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, 
+                        BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle) SELECT MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, 
                         ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS, 0 AS UseWindowTitle FROM monitorlist;
                         DROP TABLE monitorlist; ALTER TABLE monitorlist_new RENAME TO monitorlist;"
 
