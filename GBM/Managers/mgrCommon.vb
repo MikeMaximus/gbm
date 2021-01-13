@@ -876,6 +876,11 @@ Public Class mgrCommon
         Return sString
     End Function
 
+    'Escape the ampersand character, for use with dynamic controls that don't have the UseMnemonic property
+    Public Shared Function EscapeAmpersand(ByVal sItem As String) As String
+        Return sItem.Replace("&", "&&")
+    End Function
+
     'Compare functions
     Public Shared Function CompareImportTagsByName(oItem1 As Tag, oItem2 As Tag) As Integer
         Return String.Compare(oItem1.Name, oItem2.Name)

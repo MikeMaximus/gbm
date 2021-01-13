@@ -1765,12 +1765,12 @@ Public Class frmMain
 
                 If bModdedTrayMenu Then
                     gMonTrayMenu.Items.Item(iMenuOrder).Tag = sID
-                    gMonTrayMenu.Items.Item(iMenuOrder).Text = sName
+                    gMonTrayMenu.Items.Item(iMenuOrder).Text = mgrCommon.EscapeAmpersand(sName)
                 Else
                     oMenuItem = New ToolStripMenuItem
                     oMenuItem.Name = "gMonLaunchGame" & iMenuOrder
                     oMenuItem.Tag = sID
-                    oMenuItem.Text = sName
+                    oMenuItem.Text = mgrCommon.EscapeAmpersand(sName)
                     gMonTrayMenu.Items.Insert(iMenuOrder, oMenuItem)
                     AddHandler oMenuItem.Click, AddressOf GameLaunchHandler
                 End If
