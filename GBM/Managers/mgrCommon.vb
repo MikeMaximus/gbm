@@ -877,8 +877,17 @@ Public Class mgrCommon
     End Function
 
     'Escape the ampersand character, for use with dynamic controls that don't have the UseMnemonic property
-    Public Shared Function EscapeAmpersand(ByVal sItem As String) As String
-        Return sItem.Replace("&", "&&")
+    Public Shared Function EscapeAmpersand(ByVal sItem As String, Optional ByVal bIsToolTip As Boolean = False) As String
+        Dim sNewValue As String
+
+        'Ampersands displayed in a tooltip require a double escape
+        If bIsToolTip Then
+            sNewValue = "&&&"
+        Else
+            sNewValue = "&&"
+        End If
+
+        Return sItem.Replace("&", sNewValue)
     End Function
 
     'Compare functions

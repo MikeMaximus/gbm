@@ -1100,7 +1100,7 @@ Public Class frmMain
             End If
 
             lblTimeSpent.Text = sSessionTime & " (" & sTotalTime & ")"
-            gMonTray.Text = mgrCommon.FormatString(frmMain_GameDetectedWithSessionTime, New String() {oProcess.GameInfo.CroppedName, sSessionTime})
+            gMonTray.Text = mgrCommon.FormatString(frmMain_GameDetectedWithSessionTime, New String() {mgrCommon.EscapeAmpersand(oProcess.GameInfo.CroppedName, True), sSessionTime})
 
             pbTime.Visible = True
             lblTimeSpent.Visible = True
