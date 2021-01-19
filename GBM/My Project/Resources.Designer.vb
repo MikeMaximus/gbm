@@ -22,7 +22,7 @@ Namespace My.Resources
     '''<summary>
     '''  A strongly-typed resource class, for looking up localized strings, etc.
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0"),  _
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0"),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
      Global.Microsoft.VisualBasic.HideModuleNameAttribute()>  _
@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-01-03T15:14:53
+        '''  Looks up a localized string similar to 2021-01-19T15:24:21
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1831,7 +1831,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to E&amp;xclude Items....
+        '''  Looks up a localized string similar to E&amp;xclude....
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnExclude() As String
             Get
@@ -1867,7 +1867,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Incl&amp;ude Items....
+        '''  Looks up a localized string similar to Incl&amp;ude....
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnInclude() As String
             Get
@@ -2499,7 +2499,17 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to E&amp;xclude.
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_Exclude_Items() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmGameManager_Exclude_Items", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to E&amp;xclude....
         '''</summary>
         Friend ReadOnly Property frmGameManager_ExcludeShortcut() As String
             Get
@@ -2582,7 +2592,17 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Incl&amp;ude.
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_Include_Items() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmGameManager_Include_Items", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Incl&amp;ude....
         '''</summary>
         Friend ReadOnly Property frmGameManager_IncludeShortcut() As String
             Get
@@ -2591,16 +2611,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Items....
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_Items() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_Items", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Items... ([PARAM]).
+        '''  Looks up a localized string similar to ([PARAM]).
         '''</summary>
         Friend ReadOnly Property frmGameManager_ItemsExist() As String
             Get

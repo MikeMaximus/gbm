@@ -168,9 +168,9 @@ Partial Class frmGameManager
         '
         Me.cboOS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboOS.FormattingEnabled = True
-        Me.cboOS.Location = New System.Drawing.Point(85, 233)
+        Me.cboOS.Location = New System.Drawing.Point(82, 226)
         Me.cboOS.Name = "cboOS"
-        Me.cboOS.Size = New System.Drawing.Size(108, 21)
+        Me.cboOS.Size = New System.Drawing.Size(130, 21)
         Me.cboOS.TabIndex = 25
         '
         'chkRecurseSubFolders
@@ -203,7 +203,7 @@ Partial Class frmGameManager
         'chkCleanFolder
         '
         Me.chkCleanFolder.AutoSize = True
-        Me.chkCleanFolder.Location = New System.Drawing.Point(338, 172)
+        Me.chkCleanFolder.Location = New System.Drawing.Point(357, 168)
         Me.chkCleanFolder.Name = "chkCleanFolder"
         Me.chkCleanFolder.Size = New System.Drawing.Size(136, 17)
         Me.chkCleanFolder.TabIndex = 19
@@ -213,7 +213,7 @@ Partial Class frmGameManager
         'lblLimit
         '
         Me.lblLimit.AutoSize = True
-        Me.lblLimit.Location = New System.Drawing.Point(382, 202)
+        Me.lblLimit.Location = New System.Drawing.Point(403, 197)
         Me.lblLimit.Name = "lblLimit"
         Me.lblLimit.Size = New System.Drawing.Size(98, 13)
         Me.lblLimit.TabIndex = 23
@@ -221,27 +221,31 @@ Partial Class frmGameManager
         '
         'nudLimit
         '
-        Me.nudLimit.Location = New System.Drawing.Point(338, 200)
+        Me.nudLimit.Location = New System.Drawing.Point(357, 195)
         Me.nudLimit.Name = "nudLimit"
         Me.nudLimit.Size = New System.Drawing.Size(40, 20)
         Me.nudLimit.TabIndex = 22
         '
         'btnExclude
         '
-        Me.btnExclude.Location = New System.Drawing.Point(9, 197)
+        Me.btnExclude.Image = Global.GBM.My.Resources.Resources.frmGameManager_Exclude_Items
+        Me.btnExclude.Location = New System.Drawing.Point(112, 168)
         Me.btnExclude.Name = "btnExclude"
-        Me.btnExclude.Size = New System.Drawing.Size(184, 23)
+        Me.btnExclude.Size = New System.Drawing.Size(100, 45)
         Me.btnExclude.TabIndex = 20
-        Me.btnExclude.Text = "E&xclude Items..."
+        Me.btnExclude.Text = "E&xclude..."
+        Me.btnExclude.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnExclude.UseVisualStyleBackColor = True
         '
         'btnInclude
         '
-        Me.btnInclude.Location = New System.Drawing.Point(9, 168)
+        Me.btnInclude.Image = Global.GBM.My.Resources.Resources.frmGameManager_Include_Items
+        Me.btnInclude.Location = New System.Drawing.Point(6, 168)
         Me.btnInclude.Name = "btnInclude"
-        Me.btnInclude.Size = New System.Drawing.Size(184, 23)
+        Me.btnInclude.Size = New System.Drawing.Size(100, 45)
         Me.btnInclude.TabIndex = 17
-        Me.btnInclude.Text = "Incl&ude Items..."
+        Me.btnInclude.Text = "Incl&ude..."
+        Me.btnInclude.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnInclude.UseVisualStyleBackColor = True
         '
         'txtID
@@ -320,7 +324,7 @@ Partial Class frmGameManager
         'chkTimeStamp
         '
         Me.chkTimeStamp.AutoSize = True
-        Me.chkTimeStamp.Location = New System.Drawing.Point(199, 201)
+        Me.chkTimeStamp.Location = New System.Drawing.Point(218, 196)
         Me.chkTimeStamp.Name = "chkTimeStamp"
         Me.chkTimeStamp.Size = New System.Drawing.Size(133, 17)
         Me.chkTimeStamp.TabIndex = 21
@@ -330,7 +334,7 @@ Partial Class frmGameManager
         'chkFolderSave
         '
         Me.chkFolderSave.AutoSize = True
-        Me.chkFolderSave.Location = New System.Drawing.Point(199, 172)
+        Me.chkFolderSave.Location = New System.Drawing.Point(218, 168)
         Me.chkFolderSave.Name = "chkFolderSave"
         Me.chkFolderSave.Size = New System.Drawing.Size(109, 17)
         Me.chkFolderSave.TabIndex = 18
@@ -728,7 +732,7 @@ Partial Class frmGameManager
         'btnLinks
         '
         Me.btnLinks.Image = Global.GBM.My.Resources.Resources.frmGameManager_Link
-        Me.btnLinks.Location = New System.Drawing.Point(47, 226)
+        Me.btnLinks.Location = New System.Drawing.Point(44, 219)
         Me.btnLinks.Name = "btnLinks"
         Me.btnLinks.Size = New System.Drawing.Size(32, 32)
         Me.btnLinks.TabIndex = 27
@@ -737,7 +741,7 @@ Partial Class frmGameManager
         'btnMonitorOptions
         '
         Me.btnMonitorOptions.Image = Global.GBM.My.Resources.Resources.Multi_Search
-        Me.btnMonitorOptions.Location = New System.Drawing.Point(9, 226)
+        Me.btnMonitorOptions.Location = New System.Drawing.Point(6, 219)
         Me.btnMonitorOptions.Name = "btnMonitorOptions"
         Me.btnMonitorOptions.Size = New System.Drawing.Size(32, 32)
         Me.btnMonitorOptions.TabIndex = 26

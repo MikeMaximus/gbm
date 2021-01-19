@@ -601,7 +601,7 @@ Public Class frmGameManager
         If sBuilderString <> String.Empty And iCount > 0 Then
             btn.Text = sLabel & " " & mgrCommon.FormatString(frmGameManager_ItemsExist, iCount)
         Else
-            btn.Text = sLabel & " " & frmGameManager_Items
+            btn.Text = sLabel
         End If
 
         If bDirty Then
@@ -1994,7 +1994,9 @@ Public Class frmGameManager
         lblGamePath.Text = frmGameManager_lblGamePath
         lblHours.Text = frmGameManager_lblHours
         btnExclude.Text = frmGameManager_btnExclude
+        btnExclude.Image = frmGameManager_Exclude_Items
         btnInclude.Text = frmGameManager_btnInclude
+        btnInclude.Image = frmGameManager_Include_Items
         btnSavePathBrowse.Text = frmGameManager_btnSavePathBrowse
         btnProcessBrowse.Text = frmGameManager_btnProcessBrowse
         lblSavePath.Text = frmGameManager_lblSavePath

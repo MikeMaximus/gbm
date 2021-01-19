@@ -439,6 +439,8 @@
     <Content Include="References\Mono.Data.Sqlite.dll" />
     <None Include="Resources\frmGameManager_Arrow_Submenu_Right.png" />
     <Content Include="Resources\frmGameManager_Advanced.png" />
+    <Content Include="Resources\frmGameManager_Exclude_Items.png" />
+    <Content Include="Resources\frmGameManager_Include_Items.png" />
     <Content Include="Resources\Multi_Back.png" />
     <Content Include="Resources\Multi_Export.png" />
     <Content Include="Resources\frmGameManager_GameID.png" />

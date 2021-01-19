@@ -391,7 +391,7 @@
     <value>&amp;Delete</value>
   </data>
   <data name="frmGameManager_btnExclude" xml:space="preserve">
-    <value>E&amp;xclude Items...</value>
+    <value>E&amp;xclude...</value>
   </data>
   <data name="frmGameManager_btnExport" xml:space="preserve">
     <value>&amp;Export</value>
@@ -403,7 +403,7 @@
     <value>&amp;Import</value>
   </data>
   <data name="frmGameManager_btnInclude" xml:space="preserve">
-    <value>Incl&amp;ude Items...</value>
+    <value>Incl&amp;ude...</value>
   </data>
   <data name="frmGameManager_btnProcessBrowse" xml:space="preserve">
     <value>...</value>
@@ -502,7 +502,7 @@
     <value>Exclude</value>
   </data>
   <data name="frmGameManager_ExcludeShortcut" xml:space="preserve">
-    <value>E&amp;xclude</value>
+    <value>E&amp;xclude...</value>
   </data>
   <data name="frmGameManager_Executable" xml:space="preserve">
     <value>Executable</value>
@@ -517,13 +517,10 @@
     <value>Include</value>
   </data>
   <data name="frmGameManager_IncludeShortcut" xml:space="preserve">
-    <value>Incl&amp;ude</value>
-  </data>
-  <data name="frmGameManager_Items" xml:space="preserve">
-    <value>Items...</value>
+    <value>Incl&amp;ude...</value>
   </data>
   <data name="frmGameManager_ItemsExist" xml:space="preserve">
-    <value>Items... ([PARAM])</value>
+    <value>([PARAM])</value>
   </data>
   <data name="frmGameManager_lblCompany" xml:space="preserve">
     <value>Company:</value>
@@ -2943,5 +2940,11 @@
   </data>
   <data name="Multi_Next" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Multi_Next.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Exclude_Items" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Exclude_Items.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Include_Items" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Include_Items.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
