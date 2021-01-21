@@ -2745,18 +2745,21 @@ Public Class frmMain
 
     Private Sub btnRestore_Click(sender As Object, e As EventArgs) Handles btnRestore.Click
         Dim oBackup As New List(Of clsBackup)
+        Dim oGame As New clsGame
         Dim hshRestoreList As New Hashtable
 
         Select Case eDisplayMode
             Case eDisplayModes.Normal
                 oBackup = mgrManifest.DoManifestGetByMonitorID(oLastGame.ID, mgrSQLite.Database.Remote)
+                oGame = oLastGame
             Case eDisplayModes.GameSelected
                 oBackup = mgrManifest.DoManifestGetByMonitorID(oSelectedGame.ID, mgrSQLite.Database.Remote)
+                oGame = oSelectedGame
         End Select
 
         If oBackup.Count >= 1 Then
             If mgrCommon.ShowMessage(frmMain_ConfirmRestore, New String() {oBackup(0).CroppedName, oBackup(0).DateUpdated, oBackup(0).UpdatedBy}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                hshRestoreList.Add(oLastGame, oBackup)
+                hshRestoreList.Add(oGame, oBackup)
                 RunRestore(hshRestoreList)
             End If
         End If
