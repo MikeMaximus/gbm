@@ -922,7 +922,7 @@
     <value>Game Information</value>
   </data>
   <data name="frmGameManager_tbBackupInfo" xml:space="preserve">
-    <value>Backup Information</value>
+    <value>Backup Management</value>
   </data>
   <data name="App_URLImport" xml:space="preserve">
     <value>http://mikemaximus.github.io/gbm-web/GBM_Official.xml</value>

@@ -819,7 +819,7 @@ Partial Class frmGameManager
         Me.tbBackupInfo.Name = "tbBackupInfo"
         Me.tbBackupInfo.Size = New System.Drawing.Size(518, 286)
         Me.tbBackupInfo.TabIndex = 2
-        Me.tbBackupInfo.Text = "Backup Information"
+        Me.tbBackupInfo.Text = "Backup Management"
         '
         'grpBackupInfo
         '

@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-01-19T15:24:21
+        '''  Looks up a localized string similar to 2021-01-19T15:28:04
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2857,7 +2857,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Backup Information.
+        '''  Looks up a localized string similar to Backup Management.
         '''</summary>
         Friend ReadOnly Property frmGameManager_tbBackupInfo() As String
             Get
