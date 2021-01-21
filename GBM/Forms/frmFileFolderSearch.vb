@@ -225,7 +225,9 @@ Public Class frmFileFolderSearch
         'Set Form Text
         lblResults.Text = frmFileFolderSearch_lblResults
         btnOk.Text = frmFileFolderSearch_btnOk
+        btnOk.Image = Multi_Ok
         btnCancel.Text = frmFileFolderSearch_btnCancel
+        btnCancel.Image = Multi_Cancel
     End Sub
 
     Private Sub frmFileFolderSearch_Load(sender As Object, e As EventArgs) Handles MyBase.Load

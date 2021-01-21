@@ -1,14 +1,15 @@
-﻿Imports System.Text.RegularExpressions
-Imports System.Xml.Serialization
+﻿Imports System.Xml.Serialization
+Imports System.IO.Path
+Imports System.Text.RegularExpressions
 
 <Serializable()>
 Public Class clsGame
+
     Private sGameID As String = Guid.NewGuid.ToString
     Private sGameName As String = String.Empty
     Private sProcessName As String = String.Empty
     Private sParameter As String = String.Empty
     Private sPath As String = String.Empty
-    Private bAbsolutePath As Boolean = False
     Private bFolderSave As Boolean = False
     Private sFileType As String = String.Empty
     Private bAppendTimeStamp As Boolean = False
@@ -26,6 +27,7 @@ Public Class clsGame
     Private bIsRegEx As Boolean = False
     Private bRecurseSubFolders As Boolean = True
     Private iOS As eOS = mgrCommon.GetCurrentOS()
+    Private bUseWindowTitle As Boolean = False
     Private oImportTags As New List(Of Tag)
     Private oImportConfigLinks As New List(Of ConfigLink)
     Private bImportUpdate As Boolean = False
@@ -111,17 +113,24 @@ Public Class clsGame
         End Get
     End Property
 
-    Property AbsolutePath As Boolean
-        Set(value As Boolean)
-            bAbsolutePath = value
-        End Set
+    ReadOnly Property AbsolutePath As Boolean
         Get
+            'We need to handle a special case here when working with Windows configurations in Linux
+            If mgrCommon.IsUnix And mgrVariables.CheckForReservedVariables(TruePath) And OS = clsGame.eOS.Windows Then
+                Return True
+            End If
+
             'This makes sure a registry key path isn't seen as a relative path.
             If mgrPath.IsSupportedRegistryPath(TruePath) Then
                 Return True
-            Else
-                Return bAbsolutePath
             End If
+
+            'Root Check (This should always be last check)
+            If IsPathRooted(Path) Then
+                Return True
+            End If
+
+            Return False
         End Get
     End Property
 
@@ -189,12 +198,12 @@ Public Class clsGame
     End Property
 
     Property Icon As String
-        Get
-            Return sIcon
-        End Get
         Set(value As String)
-            sIcon = value
+            sIcon = mgrPath.ReverseSpecialPaths(value)
         End Set
+        Get
+            Return mgrPath.ReplaceSpecialPaths(sIcon)
+        End Get
     End Property
 
     Property Hours As Double
@@ -278,10 +287,17 @@ Public Class clsGame
         End Set
     End Property
 
-    Property TruePath As String
-        Set(value As String)
-            sPath = value
+    Property UseWindowTitle As Boolean
+        Get
+            Return bUseWindowTitle
+        End Get
+        Set(value As Boolean)
+            bUseWindowTitle = value
         End Set
+    End Property
+
+    ReadOnly Property TruePath As String
+
         Get
             Return sPath
         End Get
@@ -290,6 +306,32 @@ Public Class clsGame
     ReadOnly Property TrueProcessPath As String
         Get
             Return sProcessPath
+        End Get
+    End Property
+
+    ReadOnly Property TrueIcon As String
+        Get
+            Return sIcon
+        End Get
+    End Property
+
+    ReadOnly Property IncludeArray As String()
+        Get
+            If FileType = String.Empty Then
+                Return New String() {}
+            Else
+                Return FileType.Split(":")
+            End If
+        End Get
+    End Property
+
+    ReadOnly Property ExcludeArray As String()
+        Get
+            If ExcludeList = String.Empty Then
+                Return New String() {}
+            Else
+                Return ExcludeList.Split(":")
+            End If
         End Get
     End Property
 
@@ -329,26 +371,6 @@ Public Class clsGame
         End Set
     End Property
 
-    ReadOnly Property IncludeArray As String()
-        Get
-            If FileType = String.Empty Then
-                Return New String() {}
-            Else
-                Return FileType.Split(":")
-            End If
-        End Get
-    End Property
-
-    ReadOnly Property ExcludeArray As String()
-        Get
-            If ExcludeList = String.Empty Then
-                Return New String() {}
-            Else
-                Return ExcludeList.Split(":")
-            End If
-        End Get
-    End Property
-
     Public Function ConvertClass() As Game
         Dim oGame As New Game
 
@@ -357,7 +379,6 @@ Public Class clsGame
         oGame.ProcessName = ProcessName
         oGame.Parameter = Parameter
         oGame.Path = TruePath
-        oGame.AbsolutePath = AbsolutePath
         oGame.FolderSave = FolderSave
         oGame.AppendTimeStamp = AppendTimeStamp
         oGame.BackupLimit = BackupLimit
@@ -368,6 +389,7 @@ Public Class clsGame
         oGame.IsRegEx = IsRegEx
         oGame.RecurseSubFolders = RecurseSubFolders
         oGame.OS = OS
+        oGame.UseWindowTitle = UseWindowTitle
         oGame.Tags = mgrGameTags.GetTagsByGameForExport(ID)
         oGame.ConfigLinks = mgrConfigLinks.GetConfigLinksByGameForExport(ID)
 
@@ -401,9 +423,6 @@ Public Class clsGame
             If ExcludeList <> oGame.ExcludeList Then
                 Return False
             End If
-            If AbsolutePath <> oGame.AbsolutePath Then
-                Return False
-            End If
             If FolderSave <> oGame.FolderSave Then
                 Return False
             End If
@@ -432,6 +451,9 @@ Public Class clsGame
                 Return False
             End If
             If OS <> oGame.OS Then
+                Return False
+            End If
+            If UseWindowTitle <> oGame.UseWindowTitle Then
                 Return False
             End If
 
@@ -492,9 +514,6 @@ Public Class clsGame
             If ExcludeList <> oGame.ExcludeList Then
                 Return False
             End If
-            If AbsolutePath <> oGame.AbsolutePath Then
-                Return False
-            End If
             If FolderSave <> oGame.FolderSave Then
                 Return False
             End If
@@ -514,6 +533,9 @@ Public Class clsGame
                 Return False
             End If
             If OS <> oGame.OS Then
+                Return False
+            End If
+            If UseWindowTitle <> oGame.UseWindowTitle Then
                 Return False
             End If
             Return True

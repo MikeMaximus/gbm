@@ -148,6 +148,8 @@ Public Class frmConfigLinks
         hshConfigs = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
 
         'Handle Lists
+        lstConfigs.BeginUpdate()
+        lstLinks.BeginUpdate()
         lstConfigs.Items.Clear()
         lstLinks.Items.Clear()
 
@@ -200,6 +202,9 @@ Public Class frmConfigLinks
                 End If
             End If
         Next
+
+        lstConfigs.EndUpdate()
+        lstLinks.EndUpdate()
     End Sub
 
     Private Sub BuildConfigLinkList()
@@ -220,7 +225,6 @@ Public Class frmConfigLinks
         Me.Icon = GBM_Icon
 
         'Set Form Text
-        btnClose.Text = frmConfigLinks_btnClose
         lblFilter.Text = frmConfigLinks_lblFilter
         lblConfigs.Text = frmConfigLinks_lblConfigs
         lblLinkedConfigs.Text = frmConfigLinks_lblLinkedConfigs
@@ -238,9 +242,8 @@ Public Class frmConfigLinks
         SetForm()
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+    Private Sub frmConfigLinks_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If bNewMode Then BuildConfigLinkList()
-        Me.Close()
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click

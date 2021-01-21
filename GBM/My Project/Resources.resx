@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Icon_Admin" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Admin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="frmMain_About" xml:space="preserve">
     <value>Game Backup Monitor[BR]Version: [PARAM] ([PARAM])[BR]Build: [PARAM][BR]Platform: [PARAM][BR]SQLite: [PARAM][BR][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details.</value>
   </data>
@@ -159,12 +155,6 @@
   </data>
   <data name="frmMain_RemoteCompactInit" xml:space="preserve">
     <value>Remote Database Vacuum Initialized: [PARAM] KB</value>
-  </data>
-  <data name="Icon_Clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Clock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Detected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="frmMain_BackupInProgress" xml:space="preserve">
     <value>Backup in Progress...</value>
@@ -313,44 +303,14 @@
   <data name="frmMain_SessionMinutes" xml:space="preserve">
     <value>[PARAM] minutes</value>
   </data>
-  <data name="frmMain_UnknownGame" xml:space="preserve">
+  <data name="Multi_UnknownGame" xml:space="preserve">
     <value>the unidentified game</value>
   </data>
-  <data name="frmMain_UnknownGameEnded" xml:space="preserve">
+  <data name="Multi_UnknownGameEnded" xml:space="preserve">
     <value>The unidentified game has ended.</value>
   </data>
   <data name="frmMain_UpdatedBy" xml:space="preserve">
     <value>Updated by [PARAM] on [PARAM]</value>
-  </data>
-  <data name="GBM_Tray_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GBM_Tray_Detected.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GBM_Tray_Ready" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GBM_Tray_Ready.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GBM_Tray_Stopped" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GBM_Tray_Stopped.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon_Inbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Inbox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon_Ready" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Ready.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon_Searching" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Searching.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon_Stopped" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Stopped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon_Unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Unknown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon_User" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\User.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon_Working" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Working.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="frmMain_btnCancelOperation" xml:space="preserve">
     <value>&amp;Cancel</value>
@@ -419,28 +379,19 @@
     <value>[PARAM] ([PARAM])</value>
   </data>
   <data name="frmGameManager_btnAdd" xml:space="preserve">
-    <value>+</value>
+    <value>&amp;New</value>
   </data>
   <data name="frmGameManager_btnAppPathBrowse" xml:space="preserve">
     <value>...</value>
   </data>
-  <data name="frmGameManager_btnBackup" xml:space="preserve">
-    <value>&amp;Backup</value>
-  </data>
   <data name="frmGameManager_btnCancel" xml:space="preserve">
     <value>Ca&amp;ncel</value>
   </data>
-  <data name="frmGameManager_btnClose" xml:space="preserve">
-    <value>&amp;Close</value>
-  </data>
   <data name="frmGameManager_btnDelete" xml:space="preserve">
-    <value>-</value>
-  </data>
-  <data name="frmGameManager_btnDeleteBackup" xml:space="preserve">
-    <value>&amp;Delete Backup</value>
+    <value>&amp;Delete</value>
   </data>
   <data name="frmGameManager_btnExclude" xml:space="preserve">
-    <value>E&amp;xclude Items...</value>
+    <value>E&amp;xclude...</value>
   </data>
   <data name="frmGameManager_btnExport" xml:space="preserve">
     <value>&amp;Export</value>
@@ -452,22 +403,10 @@
     <value>&amp;Import</value>
   </data>
   <data name="frmGameManager_btnInclude" xml:space="preserve">
-    <value>Incl&amp;ude Items...</value>
-  </data>
-  <data name="frmGameManager_btnMarkAsRestored" xml:space="preserve">
-    <value>&amp;Mark as Restored</value>
-  </data>
-  <data name="frmGameManager_btnOpenBackup" xml:space="preserve">
-    <value>&amp;Open Backup</value>
-  </data>
-  <data name="frmGameManager_btnOpenRestorePath" xml:space="preserve">
-    <value>O&amp;pen Restore Path</value>
+    <value>Incl&amp;ude...</value>
   </data>
   <data name="frmGameManager_btnProcessBrowse" xml:space="preserve">
     <value>...</value>
-  </data>
-  <data name="frmGameManager_btnRestore" xml:space="preserve">
-    <value>&amp;Restore</value>
   </data>
   <data name="frmGameManager_btnSave" xml:space="preserve">
     <value>&amp;Save</value>
@@ -475,17 +414,14 @@
   <data name="frmGameManager_btnSavePathBrowse" xml:space="preserve">
     <value>...</value>
   </data>
-  <data name="frmGameManager_btnTags" xml:space="preserve">
-    <value>&amp;Tags...</value>
-  </data>
-  <data name="frmGameManager_chkEnabled" xml:space="preserve">
-    <value>Monitor this game</value>
+  <data name="frmGameManager_cmsEnabled" xml:space="preserve">
+    <value>&amp;Monitor this game</value>
   </data>
   <data name="frmGameManager_chkFolderSave" xml:space="preserve">
     <value>Save entire folder</value>
   </data>
-  <data name="frmGameManager_chkMonitorOnly" xml:space="preserve">
-    <value>Monitor only</value>
+  <data name="frmGameManager_cmsMonitorOnly" xml:space="preserve">
+    <value>Monitor &amp;only</value>
   </data>
   <data name="frmGameManager_chkTimeStamp" xml:space="preserve">
     <value>Save multiple backups</value>
@@ -539,7 +475,7 @@
     <value>Are you sure you want to restore the backup for [PARAM]?  This will close the form.</value>
   </data>
   <data name="frmGameManager_ConfirmRestoreAnyway" xml:space="preserve">
-    <value>[PARAM] is already up to date.[BR][BR]Would you like to restore this backup anyway?</value>
+    <value>[PARAM] is already up to date.[BR][BR]Would you like to restore this backup anyway?  This will close the form.</value>
   </data>
   <data name="frmGameManager_ErrorGameDupe" xml:space="preserve">
     <value>A game with the same ID ([PARAM]) already exists.</value>
@@ -566,7 +502,7 @@
     <value>Exclude</value>
   </data>
   <data name="frmGameManager_ExcludeShortcut" xml:space="preserve">
-    <value>E&amp;xclude</value>
+    <value>E&amp;xclude...</value>
   </data>
   <data name="frmGameManager_Executable" xml:space="preserve">
     <value>Executable</value>
@@ -581,13 +517,10 @@
     <value>Include</value>
   </data>
   <data name="frmGameManager_IncludeShortcut" xml:space="preserve">
-    <value>Incl&amp;ude</value>
-  </data>
-  <data name="frmGameManager_Items" xml:space="preserve">
-    <value>Items...</value>
+    <value>Incl&amp;ude...</value>
   </data>
   <data name="frmGameManager_ItemsExist" xml:space="preserve">
-    <value>Items... ([PARAM])</value>
+    <value>([PARAM])</value>
   </data>
   <data name="frmGameManager_lblCompany" xml:space="preserve">
     <value>Company:</value>
@@ -627,18 +560,6 @@
   </data>
   <data name="frmGameManager_None" xml:space="preserve">
     <value>None</value>
-  </data>
-  <data name="frmGameManager_optAllGames" xml:space="preserve">
-    <value>All</value>
-  </data>
-  <data name="frmGameManager_optBackupData" xml:space="preserve">
-    <value>Backups Only</value>
-  </data>
-  <data name="frmGameManager_optCustom" xml:space="preserve">
-    <value>Custom</value>
-  </data>
-  <data name="frmGameManager_optPendingRestores" xml:space="preserve">
-    <value>New Backups Pending</value>
   </data>
   <data name="frmGameManager_OutofSync" xml:space="preserve">
     <value>Out of Sync</value>
@@ -907,9 +828,6 @@
   <data name="frmGameTags_btnAdd" xml:space="preserve">
     <value>&gt;</value>
   </data>
-  <data name="frmGameTags_btnClose" xml:space="preserve">
-    <value>&amp;Close</value>
-  </data>
   <data name="frmGameTags_btnOpenTags" xml:space="preserve">
     <value>&amp;Tag Manager...</value>
   </data>
@@ -997,17 +915,14 @@
   <data name="frmFilter_grpTagOptions" xml:space="preserve">
     <value>Include Options</value>
   </data>
-  <data name="frmGameManager_grpConfig" xml:space="preserve">
-    <value>Configuration</value>
+  <data name="frmGameManager_tbConfig" xml:space="preserve">
+    <value>Core Configuration</value>
   </data>
-  <data name="frmGameManager_grpExtra" xml:space="preserve">
+  <data name="frmGameManager_tbGameInfo" xml:space="preserve">
     <value>Game Information</value>
   </data>
-  <data name="frmGameManager_grpFilter" xml:space="preserve">
-    <value>Games Filter</value>
-  </data>
-  <data name="frmGameManager_grpStats" xml:space="preserve">
-    <value>Backup Information</value>
+  <data name="frmGameManager_tbBackupInfo" xml:space="preserve">
+    <value>Backup Management</value>
   </data>
   <data name="App_URLImport" xml:space="preserve">
     <value>http://mikemaximus.github.io/gbm-web/GBM_Official.xml</value>
@@ -1049,7 +964,7 @@
     <value>Create a sub-folder for each game</value>
   </data>
   <data name="frmSettings_chkMonitorOnStartup" xml:space="preserve">
-    <value>Start monitoring at launch</value>
+    <value>Start monitoring on launch</value>
   </data>
   <data name="frmSettings_chkOverwriteWarning" xml:space="preserve">
     <value>Show overwrite warning</value>
@@ -1133,7 +1048,7 @@
     <value>Existing GBM data was detected in the backup folder and has been imported. </value>
   </data>
   <data name="frmStartUpWizard_FormName" xml:space="preserve">
-    <value>GBM Setup</value>
+    <value>Game Backup Monitor -  Setup</value>
   </data>
   <data name="frmStartUpWizard_lblStep1Instructions" xml:space="preserve">
     <value>This guide will help you through some quick and easy steps to get started.</value>
@@ -1142,13 +1057,13 @@
     <value>If you'd like to learn about advanced features or have any other questions before you get started, there is a detailed online manual available.</value>
   </data>
   <data name="frmStartUpWizard_lblStep1Title" xml:space="preserve">
-    <value>Welcome to GBM</value>
+    <value>Welcome to Game Backup Monitor</value>
   </data>
   <data name="frmStartUpWizard_lblStep2Instructions" xml:space="preserve">
-    <value>GBM will store all your backup files along with a manifest database (gbm.s3db) in this location.  Any existing GBM data in this folder will be automatically imported.</value>
+    <value>All your backup files along with a manifest database (gbm.s3db) will be stored in this location.  Any existing GBM data in this folder will be automatically imported.</value>
   </data>
   <data name="frmStartUpWizard_lblStep2Intro" xml:space="preserve">
-    <value>Choose where GBM saves your backup files:</value>
+    <value>Choose where backup files will be saved:</value>
   </data>
   <data name="frmStartUpWizard_lblStep2Title" xml:space="preserve">
     <value>Backup Location</value>
@@ -1160,31 +1075,28 @@
     <value>Monitoring Games</value>
   </data>
   <data name="frmStartUpWizard_lblStep4Instructions" xml:space="preserve">
-    <value>GBM will automatically monitor and backup your games each time they are closed.</value>
+    <value>Game Backup Monitor will automatically monitor and backup your games each time they are closed.</value>
   </data>
   <data name="frmStartUpWizard_lblStep4Instructions2" xml:space="preserve">
     <value>Remember that GBM can only currently monitor one game at a time.</value>
   </data>
   <data name="frmStartUpWizard_lblStep4Instructions3" xml:space="preserve">
-    <value>You can change anything you've setup in this wizard and find more settings and features by exploring the menus.  Thanks!</value>
+    <value>You can change anything you've setup in this wizard and find more settings and features by exploring the menus.</value>
   </data>
   <data name="frmStartUpWizard_lblStep4Title" xml:space="preserve">
-    <value>Finished!</value>
+    <value>Setup Complete!</value>
   </data>
   <data name="frmStartUpWizard_llbManual" xml:space="preserve">
     <value>Game Backup Monitor Manual</value>
   </data>
   <data name="frmTags_btnAdd" xml:space="preserve">
-    <value>+</value>
+    <value>&amp;Add</value>
   </data>
   <data name="frmTags_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>
   </data>
-  <data name="frmTags_btnClose" xml:space="preserve">
-    <value>C&amp;lose</value>
-  </data>
   <data name="frmTags_btnDelete" xml:space="preserve">
-    <value>-</value>
+    <value>&amp;Delete</value>
   </data>
   <data name="frmTags_btnSave" xml:space="preserve">
     <value>&amp;Save</value>
@@ -1208,16 +1120,13 @@
     <value>Name:</value>
   </data>
   <data name="frmVariableManager_btnAdd" xml:space="preserve">
-    <value>+</value>
+    <value>&amp;New</value>
   </data>
   <data name="frmVariableManager_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>
   </data>
-  <data name="frmVariableManager_btnClose" xml:space="preserve">
-    <value>C&amp;lose</value>
-  </data>
   <data name="frmVariableManager_btnDelete" xml:space="preserve">
-    <value>-</value>
+    <value>&amp;Delete</value>
   </data>
   <data name="frmVariableManager_btnPathBrowse" xml:space="preserve">
     <value>...</value>
@@ -1541,7 +1450,7 @@
     <value>Search Aborted!</value>
   </data>
   <data name="frmSettings_btnDefaults" xml:space="preserve">
-    <value>Set &amp;Defaults</value>
+    <value>&amp;Defaults</value>
   </data>
   <data name="frmSettings_lblArguments" xml:space="preserve">
     <value>Custom Arguments:</value>
@@ -1573,8 +1482,8 @@
   <data name="App_Invalid7zDetected" xml:space="preserve">
     <value>7-Zip (7za.exe) is invalid and has been prevented from running.</value>
   </data>
-  <data name="frmGameManager_lblQuickFilter" xml:space="preserve">
-    <value>Quick Filter:</value>
+  <data name="frmGameManager_lblSearch" xml:space="preserve">
+    <value>Search:</value>
   </data>
   <data name="frmGameManager_ErrorNoValidBackup" xml:space="preserve">
     <value>A backup cannot be run on the selected game(s) with their current configuration.</value>
@@ -1618,8 +1527,8 @@
   <data name="frmSettings_chkAutoSaveLog" xml:space="preserve">
     <value>Autosave log when max length is exceeded</value>
   </data>
-  <data name="frmSettings_grpGameData" xml:space="preserve">
-    <value>Optional Features and Game Data Options</value>
+  <data name="frmSettings_grpOptionalFeatures" xml:space="preserve">
+    <value>Optional Features</value>
   </data>
   <data name="frmSettings_lstSettings_7z" xml:space="preserve">
     <value>7-Zip</value>
@@ -1664,16 +1573,16 @@
     <value>You cannot choose a file located outside the current [PARAM] backup folder.</value>
   </data>
   <data name="frmGameManager_lblLimit" xml:space="preserve">
-    <value>Backup Limit (0 = Unlimited)</value>
+    <value>Limit (0 = Unlimited)</value>
   </data>
   <data name="mgrBackup_BackupLimitExceeded" xml:space="preserve">
     <value>[PARAM] was automatically removed.</value>
   </data>
   <data name="frmGameManager_cmsDeleteAll" xml:space="preserve">
-    <value>&amp;All Files</value>
+    <value>Delete &amp;All</value>
   </data>
   <data name="frmGameManager_cmsDeleteOne" xml:space="preserve">
-    <value>&amp;Selected File</value>
+    <value>Delete &amp;Selected</value>
   </data>
   <data name="frmGameManager_ConfirmBackupDeleteAll" xml:space="preserve">
     <value>This will delete all backup files for [PARAM].  This cannot be undone. [BR][BR]Do you want to continue?</value>
@@ -1882,9 +1791,6 @@
   <data name="frmMain_ErrorNoSessions" xml:space="preserve">
     <value>There is currently no session data to display.</value>
   </data>
-  <data name="frmSessions_btnClose" xml:space="preserve">
-    <value>&amp;Close</value>
-  </data>
   <data name="frmSessions_btnDelete" xml:space="preserve">
     <value>&amp;Delete Session</value>
   </data>
@@ -1975,8 +1881,8 @@
   <data name="frmFilter_FieldIsRegEx" xml:space="preserve">
     <value>Regular Expression</value>
   </data>
-  <data name="frmGameManager_chkRegEx" xml:space="preserve">
-    <value>Regular Expression</value>
+  <data name="frmGameManager_cmsRegEx" xml:space="preserve">
+    <value>&amp;Regular Expression</value>
   </data>
   <data name="frmGameManager_lblComments" xml:space="preserve">
     <value>Comments:</value>
@@ -1987,14 +1893,11 @@
   <data name="frmGameManager_ErrorRegExFailure" xml:space="preserve">
     <value>The process is not a a valid regular expression.[BR][BR]Would you like help validating and testing your regular expression? [BR][BR]This will open your web browser and requires the internet.</value>
   </data>
-  <data name="frmGameManager_btnGameID" xml:space="preserve">
-    <value>&amp;Game ID...</value>
-  </data>
   <data name="frmGameManager_GameIDEditInfo" xml:space="preserve">
     <value>The unique Game ID is generated by GBM.  Changing this value is not recommended.</value>
   </data>
   <data name="frmGameManager_GameIDEditTitle" xml:space="preserve">
-    <value>Edit Game ID</value>
+    <value>Modify Game ID</value>
   </data>
   <data name="frmFilter_FieldGameID" xml:space="preserve">
     <value>Game ID</value>
@@ -2026,12 +1929,6 @@
   <data name="frmSettings_ConfirmMessageReset" xml:space="preserve">
     <value>Do you want to reset all hidden warnings and messages?</value>
   </data>
-  <data name="Icon_New" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\New.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon_Update" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="mgrMonitorList_GameIDSyncCompleted" xml:space="preserve">
     <value>Sync Complete.[BR][BR][PARAM] game configurations were matched and updated.</value>
   </data>
@@ -2048,16 +1945,13 @@
     <value>An error occured when attempting to start a process associated with [PARAM].</value>
   </data>
   <data name="frmProcessManager_btnAdd" xml:space="preserve">
-    <value>+</value>
+    <value>&amp;New</value>
   </data>
   <data name="frmProcessManager_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>
   </data>
-  <data name="frmProcessManager_btnClose" xml:space="preserve">
-    <value>C&amp;lose</value>
-  </data>
   <data name="frmProcessManager_btnDelete" xml:space="preserve">
-    <value>-</value>
+    <value>&amp;Delete</value>
   </data>
   <data name="frmProcessManager_btnProcessBrowse" xml:space="preserve">
     <value>...</value>
@@ -2106,9 +2000,6 @@
   </data>
   <data name="frmGameProcesses_btnAdd" xml:space="preserve">
     <value>&gt;</value>
-  </data>
-  <data name="frmGameProcesses_btnClose" xml:space="preserve">
-    <value>&amp;Close</value>
   </data>
   <data name="frmGameProcesses_btnOpenProcesses" xml:space="preserve">
     <value>&amp;Process Manager...</value>
@@ -2159,7 +2050,7 @@
     <value>Log Options</value>
   </data>
   <data name="frmSettings_lstSettings_Startup" xml:space="preserve">
-    <value>Startup and UI</value>
+    <value>Startup</value>
   </data>
   <data name="mgrBackup_ConfirmOverwriteRelative" xml:space="preserve">
     <value>[PARAM] already exists in the backup folder.[BR][BR]This game stores saves in a relative location, you may need to restore the current backup if the game was recently re-installed.[BR][BR]Do you want to overwrite this file?</value>
@@ -2195,13 +2086,10 @@
     <value>An error occured while building a list of environment variables.[BR][BR][PARAM]</value>
   </data>
   <data name="frmSettings_chkShowResolvedPaths" xml:space="preserve">
-    <value>Show resolved save paths in Game Manager</value>
+    <value>Show resolved paths</value>
   </data>
   <data name="frmGameManager_7zBackup" xml:space="preserve">
     <value>7-Zip</value>
-  </data>
-  <data name="frmGameManager_btnImportBackup" xml:space="preserve">
-    <value>Import B&amp;ackup Files</value>
   </data>
   <data name="frmGameManager_Choose7zImport" xml:space="preserve">
     <value>Choose compatible backup file(s)</value>
@@ -2218,8 +2106,8 @@
   <data name="mgrBackup_ImportSuccess" xml:space="preserve">
     <value>Imported backup file [PARAM] for [PARAM].</value>
   </data>
-  <data name="frmGameManager_btnLink" xml:space="preserve">
-    <value>Lin&amp;k</value>
+  <data name="frmGameManager_btnAdvanced" xml:space="preserve">
+    <value>&amp;Advanced</value>
   </data>
   <data name="frmVariableManager_ErrorVariableReserved" xml:space="preserve">
     <value>[PARAM] is a reserved variable, you must enter a different name.</value>
@@ -2257,10 +2145,7 @@
   <data name="App_WindowsOS" xml:space="preserve">
     <value>Windows</value>
   </data>
-  <data name="frmGameManager_lblOS" xml:space="preserve">
-    <value>OS:</value>
-  </data>
-  <data name="frmGameManager_btnWineConfig" xml:space="preserve">
+  <data name="frmGameManager_cmsWineConfig" xml:space="preserve">
     <value>&amp;Wine Configuration...</value>
   </data>
   <data name="frmFilter_FieldOS" xml:space="preserve">
@@ -2285,7 +2170,7 @@
     <value>The Wine Prefix is required.[BR][BR]Clear all fields and save to remove all Wine data for this game.</value>
   </data>
   <data name="frmWineConfiguration_FormName" xml:space="preserve">
-    <value>Wine Configuration</value>
+    <value>[PARAM] - Wine Configuration</value>
   </data>
   <data name="frmWineConfiguration_grpWineConfig" xml:space="preserve">
     <value>Configuration</value>
@@ -2350,15 +2235,6 @@
   <data name="frmChooseGame_ColumnTags" xml:space="preserve">
     <value>Tags</value>
   </data>
-  <data name="GBM_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\gbm.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmGameManager_cmsOpenBackupFile" xml:space="preserve">
-    <value>&amp;File</value>
-  </data>
-  <data name="frmGameManager_cmsOpenBackupFolder" xml:space="preserve">
-    <value>F&amp;older</value>
-  </data>
   <data name="frmGameManager_ErrorNoBackupFolderExists" xml:space="preserve">
     <value>The backup folder does not exist.</value>
   </data>
@@ -2368,6 +2244,7 @@
   <data name="frmStartUpWizard_lblStep2Warning" xml:space="preserve">
     <value>You cannot return to this step after clicking Next.  The Backup Location can be changed any time once Setup is complete.</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="BuildDate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BuildDate.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
@@ -2464,9 +2341,6 @@
   <data name="frmConfigLinks_btnAdd" xml:space="preserve">
     <value>&gt;</value>
   </data>
-  <data name="frmConfigLinks_btnClose" xml:space="preserve">
-    <value>&amp;Close</value>
-  </data>
   <data name="frmConfigLinks_btnRemove" xml:space="preserve">
     <value>&lt;</value>
   </data>
@@ -2494,14 +2368,11 @@
   <data name="frmConfigLinks_lblFilter" xml:space="preserve">
     <value>Filter:</value>
   </data>
-  <data name="frmGameManager_cmsConfiguration" xml:space="preserve">
-    <value>&amp;Configuration...</value>
+  <data name="frmGameManager_cmsLinkConfiguration" xml:space="preserve">
+    <value>&amp;Link Configuration...</value>
   </data>
-  <data name="frmGameManager_cmsProcess" xml:space="preserve">
-    <value>&amp;Process...</value>
-  </data>
-  <data name="Arrow_Submenu_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Arrow_Submenu_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="frmGameManager_cmsLinkProcess" xml:space="preserve">
+    <value>&amp;Link Process...</value>
   </data>
   <data name="frmGameManager_TipLinkConfiguration" xml:space="preserve">
     <value>The following screen allows you to link other game configuations to this one.  Each time this configuration triggers a backup or restore, the linked configurations will run as well.  Please see the Online Manual for more details.[BR][BR]This message will only be displayed once.</value>
@@ -2582,10 +2453,10 @@
     <value>Exit without confirmation</value>
   </data>
   <data name="frmSettings_chkExitOnClose" xml:space="preserve">
-    <value>Exit when closing main window</value>
+    <value>Exit when closing window</value>
   </data>
-  <data name="frmSettings_grpUIOptions" xml:space="preserve">
-    <value>User Interface Options</value>
+  <data name="frmSettings_grpMainWindowOptions" xml:space="preserve">
+    <value>Main Window Options</value>
   </data>
   <data name="frmAdvancedImport_chkSelectedOnly" xml:space="preserve">
     <value>Show Only Selected</value>
@@ -2596,20 +2467,14 @@
   <data name="frmSettings_chkEnableLauncher" xml:space="preserve">
     <value>Enable game launching</value>
   </data>
-  <data name="frmGameManager_btnLaunchOptions" xml:space="preserve">
-    <value>&amp;Launch Options</value>
-  </data>
   <data name="frmLauncherManager_btnAdd" xml:space="preserve">
-    <value>+</value>
+    <value>&amp;New</value>
   </data>
   <data name="frmLauncherManager_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>
   </data>
-  <data name="frmLauncherManager_btnClose" xml:space="preserve">
-    <value>C&amp;lose</value>
-  </data>
   <data name="frmLauncherManager_btnDelete" xml:space="preserve">
-    <value>-</value>
+    <value>&amp;Delete</value>
   </data>
   <data name="frmLauncherManager_btnSave" xml:space="preserve">
     <value>&amp;Save</value>
@@ -2710,12 +2575,6 @@
   <data name="mgrLaunchGame_ErrorNoProcessPath" xml:space="preserve">
     <value>[PARAM] cannot be launched, it's configuration has no process path.</value>
   </data>
-  <data name="frmGameManager_cmsLaunchGame" xml:space="preserve">
-    <value>&amp;Launch Game</value>
-  </data>
-  <data name="frmGameManager_cmsLaunchSettings" xml:space="preserve">
-    <value>&amp;Settings...</value>
-  </data>
   <data name="mgrLaunchGame_ErrorNoExe" xml:space="preserve">
     <value>The game executable could not be found at:[BR][BR][PARAM]</value>
   </data>
@@ -2779,9 +2638,6 @@
   <data name="frmQuickLauncher_FormName" xml:space="preserve">
     <value>Quick Launcher</value>
   </data>
-  <data name="frmMain_gMonTrayQuickLauncher" xml:space="preserve">
-    <value>&amp;Quick Launcher</value>
-  </data>
   <data name="frmMain_gMonTraySetup" xml:space="preserve">
     <value>S&amp;etup</value>
   </data>
@@ -2790,5 +2646,305 @@
   </data>
   <data name="frmMain_GameDetectedWithSessionTime" xml:space="preserve">
     <value>[PARAM][BR][PARAM]</value>
+  </data>
+  <data name="frmMain_gMonStripCollapseHideToolTip" xml:space="preserve">
+    <value>Click to hide the game list panel.</value>
+  </data>
+  <data name="frmMain_gMonStripCollapseShowToolTip" xml:space="preserve">
+    <value>Click to show the game list panel.</value>
+  </data>
+  <data name="frmMain_btnBackup" xml:space="preserve">
+    <value>&amp;Backup</value>
+  </data>
+  <data name="frmMain_btnEdit" xml:space="preserve">
+    <value>&amp;Edit</value>
+  </data>
+  <data name="frmMain_btnPlay" xml:space="preserve">
+    <value>&amp;Play</value>
+  </data>
+  <data name="frmMain_btnRestore" xml:space="preserve">
+    <value>&amp;Restore</value>
+  </data>
+  <data name="frmMain_LastBackup" xml:space="preserve">
+    <value>Last Backup: [PARAM]</value>
+  </data>
+  <data name="frmMain_Lastplayed" xml:space="preserve">
+    <value>Last Played: [PARAM]</value>
+  </data>
+  <data name="frmMain_NoBackups" xml:space="preserve">
+    <value>No Backups</value>
+  </data>
+  <data name="frmMain_NoSessions" xml:space="preserve">
+    <value>No Sessions</value>
+  </data>
+  <data name="frmMain_ConfirmManualBackup" xml:space="preserve">
+    <value>Are you sure you want to run a backup for [PARAM]? </value>
+  </data>
+  <data name="frmMain_ConfirmRestore" xml:space="preserve">
+    <value>Are you sure you want to restore the latest backup for [PARAM]?[BR][BR][PARAM] ([PARAM])</value>
+  </data>
+  <data name="frmMain_ErrorIconCache" xml:space="preserve">
+    <value>An error has occured while saving the icon for [PARAM]:[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmMain_lblLastAction" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="frmGameManager_cmsImportData" xml:space="preserve">
+    <value>&amp;Import Backup</value>
+  </data>
+  <data name="frmGamemanager_cmsLaunchSettings" xml:space="preserve">
+    <value>Launch &amp;Settings...</value>
+  </data>
+  <data name="frmGameManager_lblGameTags" xml:space="preserve">
+    <value>Manage Tags...</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnBackupData" xml:space="preserve">
+    <value>Manage backup data</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnMarkAsRestored" xml:space="preserve">
+    <value>Mark backup as restored</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnOpenBackupFolder" xml:space="preserve">
+    <value>Open backup folder</value>
+  </data>
+  <data name="frmGameManager_ttHelp_lblBackupFileData" xml:space="preserve">
+    <value>Open backup file</value>
+  </data>
+  <data name="frmGameManager_ttHelp_lblTags" xml:space="preserve">
+    <value>Manage Tags</value>
+  </data>
+  <data name="frmSettings_chkHideButtons" xml:space="preserve">
+    <value>Hide buttons</value>
+  </data>
+  <data name="frmSettings_chkHideGameList" xml:space="preserve">
+    <value>Hide game list by default</value>
+  </data>
+  <data name="frmSettings_chkHideLog" xml:space="preserve">
+    <value>Hide log by default</value>
+  </data>
+  <data name="frmGameManager_lblTags" xml:space="preserve">
+    <value>Tags:</value>
+  </data>
+  <data name="frmGameManager_cboFilters_All" xml:space="preserve">
+    <value>All Games</value>
+  </data>
+  <data name="frmGameManager_cboFilters_Backups" xml:space="preserve">
+    <value>Games with Backups</value>
+  </data>
+  <data name="frmGameManager_cboFilters_Custom" xml:space="preserve">
+    <value>Custom Filter...</value>
+  </data>
+  <data name="frmGameManager_cboFilters_Pending" xml:space="preserve">
+    <value>Games with Pending Backups</value>
+  </data>
+  <data name="frmGameManager_lblFilters" xml:space="preserve">
+    <value>Filters:</value>
+  </data>
+  <data name="frmGameManager_btnBackup" xml:space="preserve">
+    <value>&amp;Backup</value>
+  </data>
+  <data name="frmGameManager_btnRestore" xml:space="preserve">
+    <value>&amp;Restore</value>
+  </data>
+  <data name="frmMain_NoTags" xml:space="preserve">
+    <value>No Tags</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnProcessOptions" xml:space="preserve">
+    <value>Process options</value>
+  </data>
+  <data name="frmGameManager_cmsUseWindowTitle" xml:space="preserve">
+    <value>Use &amp;Window Title</value>
+  </data>
+  <data name="frmGameManager_lblProcess_WindowTitle" xml:space="preserve">
+    <value>Window Title:</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorUseWindowTitle" xml:space="preserve">
+    <value>[PARAM] cannot be launched using a window title.</value>
+  </data>
+  <data name="frmSettings_chkBackupNotification" xml:space="preserve">
+    <value>Show notification when a backup is completed</value>
+  </data>
+  <data name="mgrBackup_NotificationMulti" xml:space="preserve">
+    <value>[PARAM] backups have been completed.</value>
+  </data>
+  <data name="mgrBackup_NotificationSingle" xml:space="preserve">
+    <value>[PARAM] backup has been completed.</value>
+  </data>
+  <data name="frmAdvancedImport_New" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmAdvancedImport_New.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmAdvancedImport_Update" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmAdvancedImport_Update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Cancel_Small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Cancel_Small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Notification" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Notification.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Ready" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Ready.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Searching" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Searching.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Stopped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Stopped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_User" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_User.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Working" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Working.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GBM_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GBM_Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Unknown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Arrow_Submenu_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Arrow_Submenu_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Backup_Data" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Backup_Data.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Clock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Detected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Folder_Open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Folder_Open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Mark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Mark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Process" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Process.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Admin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Admin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Collapse_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Collapse_Left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Expand_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Expand_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GBM_Icon_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GBM_Icon_Detected.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GBM_Icon_Ready" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GBM_Icon_Ready.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GBM_Icon_Stopped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GBM_Icon_Stopped.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_ConfirmRestoreSelected" xml:space="preserve">
+    <value>Are you sure you want to restore the selected backup for [PARAM]?  This will close the form.[BR][BR][PARAM] ([PARAM])</value>
+  </data>
+  <data name="Multi_Backup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Backup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Restore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Restore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmSettings_grpGameManagerOptions" xml:space="preserve">
+    <value>Game Manager Options</value>
+  </data>
+  <data name="frmSettings_lstSettings_FilesAndFolders" xml:space="preserve">
+    <value>Files and Folders</value>
+  </data>
+  <data name="frmSettings_lstSettings_UserInterface" xml:space="preserve">
+    <value>User Interface</value>
+  </data>
+  <data name="frmSettings_BrowseTempFolder" xml:space="preserve">
+    <value>Choose a temporary folder:</value>
+  </data>
+  <data name="frmSettings_cboDetectSpeed_Fast" xml:space="preserve">
+    <value>Fast</value>
+  </data>
+  <data name="frmSettings_cboDetectSpeed_Moderate" xml:space="preserve">
+    <value>Moderate</value>
+  </data>
+  <data name="frmSettings_cboDetectSpeed_Slow" xml:space="preserve">
+    <value>Slow</value>
+  </data>
+  <data name="frmSettings_cboDetectSpeed_VerySlow" xml:space="preserve">
+    <value>Very Slow</value>
+  </data>
+  <data name="frmSettings_lblDetectSpeed" xml:space="preserve">
+    <value>Detection Speed:</value>
+  </data>
+  <data name="frmGameManager_Link" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Link.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Cancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Cancel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Advanced" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Advanced.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_GameID" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_GameID.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnGameID" xml:space="preserve">
+    <value>Modify Game ID</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnLinks" xml:space="preserve">
+    <value>Link options</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnMonitorOptions" xml:space="preserve">
+    <value>Monitor options</value>
+  </data>
+  <data name="frmGameManager_ttHelp_cboOS" xml:space="preserve">
+    <value>Operating System</value>
+  </data>
+  <data name="Multi_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmLauncherManager_btnAddDefaults" xml:space="preserve">
+    <value>&amp;D&amp;efaults</value>
+  </data>
+  <data name="Multi_Export" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Import" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Reset" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Reset.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Ok.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Search" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Next" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Next.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Exclude_Items" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Exclude_Items.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Include_Items" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Include_Items.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

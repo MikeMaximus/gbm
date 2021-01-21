@@ -4,7 +4,6 @@
     Private sProcessName As String
     Private sParameter As String
     Private sPath As String
-    Private bAbsolutePath As Boolean
     Private bFolderSave As Boolean
     Private bAppendTimeStamp As Boolean
     Private iBackupLimit As Integer
@@ -15,6 +14,7 @@
     Private bIsRegEx As Boolean
     Private bRecurseSubFolders As Boolean
     Private iOS As clsGame.eOS
+    Private bUseWindowTitle As Boolean
     Private oTags As List(Of Tag)
     Private oConfigLinks As List(Of ConfigLink)
 
@@ -60,15 +60,6 @@
         End Set
         Get
             Return sPath
-        End Get
-    End Property
-
-    Property AbsolutePath As Boolean
-        Set(value As Boolean)
-            bAbsolutePath = value
-        End Set
-        Get
-            Return bAbsolutePath
         End Get
     End Property
 
@@ -162,6 +153,15 @@
         End Get
     End Property
 
+    Property UseWindowTitle As Boolean
+        Set(value As Boolean)
+            bUseWindowTitle = value
+        End Set
+        Get
+            Return bUseWindowTitle
+        End Get
+    End Property
+
     Property Tags As List(Of Tag)
         Get
             Return oTags
@@ -187,7 +187,6 @@
         oGame.ProcessName = ProcessName
         oGame.Parameter = Parameter
         oGame.Path = Path
-        oGame.AbsolutePath = AbsolutePath
         oGame.FolderSave = FolderSave
         oGame.AppendTimeStamp = AppendTimeStamp
         oGame.BackupLimit = BackupLimit
@@ -198,7 +197,9 @@
         oGame.IsRegEx = IsRegEx
         oGame.RecurseSubFolders = RecurseSubFolders
         oGame.OS = OS
+        oGame.UseWindowTitle = UseWindowTitle
         oGame.ImportTags = Tags
+        oGame.ImportConfigLinks = ConfigLinks
 
         Return oGame
     End Function

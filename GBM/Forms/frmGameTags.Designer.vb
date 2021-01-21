@@ -28,7 +28,6 @@ Partial Class frmGameTags
         Me.btnRemove = New System.Windows.Forms.Button()
         Me.lblTags = New System.Windows.Forms.Label()
         Me.lblGameTags = New System.Windows.Forms.Label()
-        Me.btnClose = New System.Windows.Forms.Button()
         Me.btnOpenTags = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
@@ -88,31 +87,23 @@ Partial Class frmGameTags
         Me.lblGameTags.TabIndex = 0
         Me.lblGameTags.Text = "Current Tags"
         '
-        'btnClose
-        '
-        Me.btnClose.Location = New System.Drawing.Point(297, 230)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 5
-        Me.btnClose.Text = "&Close"
-        Me.btnClose.UseVisualStyleBackColor = True
-        '
         'btnOpenTags
         '
+        Me.btnOpenTags.Image = Global.GBM.My.Resources.Resources.Multi_Edit
         Me.btnOpenTags.Location = New System.Drawing.Point(12, 230)
         Me.btnOpenTags.Name = "btnOpenTags"
-        Me.btnOpenTags.Size = New System.Drawing.Size(90, 23)
+        Me.btnOpenTags.Size = New System.Drawing.Size(110, 45)
         Me.btnOpenTags.TabIndex = 4
-        Me.btnOpenTags.Text = "Setup &Tags..."
+        Me.btnOpenTags.Text = "&Tag Manager..."
+        Me.btnOpenTags.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnOpenTags.UseVisualStyleBackColor = True
         '
         'frmGameTags
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(384, 261)
+        Me.ClientSize = New System.Drawing.Size(384, 286)
         Me.Controls.Add(Me.btnOpenTags)
-        Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.lblGameTags)
         Me.Controls.Add(Me.lblTags)
         Me.Controls.Add(Me.btnRemove)
@@ -137,6 +128,5 @@ Partial Class frmGameTags
     Friend WithEvents btnRemove As System.Windows.Forms.Button
     Friend WithEvents lblTags As System.Windows.Forms.Label
     Friend WithEvents lblGameTags As System.Windows.Forms.Label
-    Friend WithEvents btnClose As System.Windows.Forms.Button
     Friend WithEvents btnOpenTags As System.Windows.Forms.Button
 End Class

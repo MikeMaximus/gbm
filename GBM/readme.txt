@@ -1,46 +1,54 @@
-Game Backup Monitor v1.2.4 Readme
+Game Backup Monitor v1.2.5 Readme
 http://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-November 27, 2020
+January 21, 2021
 
-New in 1.2.4
+New in 1.2.5
 
 All Platforms:
 
-- Added the ability to launch games.
-	- Games are launched using information GBM has automatically detected or can be fully customized via the Game Manager.
-		- Most games will need to be detected at least once in v1.2.4 or higher before they can be automatically launched using this feature.
-	- Launch any configured game using the "Quick Launcher".
-		- The Quick Launcher is available in the File menu, system tray menu and by using "Ctrl + L" on the main window.
-	- Launch any configured game directly from the Game Manager.
-	- Launch the last five games played from the system tray menu
-		- The "Session Tracking" feature needs to be enabled and have enough recorded data to display any recently played games in the system tray menu.
-- Added the ability to customize game launch options.
-	- Added "Launch Settings..." button to Game Manager.
-		- Allows the configuration of another launcher (such as Steam) to start the game instead of directly using an executable.
-			- You can manage available launchers using the Launcher Manager.  Some popular launchers will be preconfigured.			
-		- Allows the use of an alternate executable or script.
-		- Allows setting alternate launch parameters (or disabling them).		
-- The process path is now always saved once a game has been detected.
-	- Priors versions of GBM only saved the process path when it was required for backup or detection purposes.
-	- A warning will now be displayed in the log when the process path cannot be determined.
-- Session time (and total time played) will now update(once per minute) on the main window, instead of only being displayed after the game ends.
-- Session time will now be displayed and update(once per minute) on the GBM tray icon tooltip.
-- Disabled features will now have their options removed from all menus.  This currently only applies to session tracking and game launching.
-- Fixed issues that prevented configuration save paths from being updated correctly when a custom variable is modified or deleted.
-- Deleting a custom variable will now properly remove the environment variable in the current session and update any affected game configurations.
-- Editing a configuration while using a Custom filter on the Game Manager will no longer lose the changes if any tags are modified before saving.
-- Modifying tags on a single configuration while using a Custom filter on the Game Maanger will no longer unselect the current configuration.
-- Any form that asks to save unchanged data on closing, will no longer just close and lose the changes if the form fails validation when choosing to save.
-- Double right-clicking the tray icon no longer triggers "Restore Window".
+- Overhauled the user interface.
+	- The "Start-Up Wizard" and "Add Game Wizard" instructions are now easier to read with a larger font.
+	- Most buttons in the application are now larger with icons.
+	- The redundant "Close" button has been removed from many forms.
+	- The "Main Window" now has a collapsible game list with a search filter, this allows quicker access to features such backup, restore and game launching.
+		- These new features can be disabled or hidden by default in Settings -> User Interface.
+	- The "Game Manager" has been slimmed down for ease of use.
+		- The size of the form has been reduced and the sections have been split into tabs.
+		- Certain buttons and checkboxes have been moved into sub-menus.
+	- The "Settings" form has been reorganized into more sections.
+	- The "Quick Launch" feature introduced in v1.2.4 has been removed.
+- Added the option to detect games using a window title instead of a process name.
+	- This adds another option for detecting games that all run from the same executable. Such as emulated games, browser games, or cloud service games.
+	- In addition to the process ending, GBM will also end monitoring when the window title no longer matches the game configuration.
+	- This feature is not supported in Linux, see the "Known Issues" section for details.
+- Added option to show a notification when a backup operation has been completed.
+	- This option is available in the "Backup and Restore" section of the Settings window, it defaults to disabled.
+	- A single notification will be shown when a backup operation is completed, even if the operation included multiple games.
+- Added "Detection Speed" option.
+	- Changes how quickly GBM detects games, faster settings have slightly higher CPU usage.
+	- Allows users monitoring for hundreds or even thousands of games at once to greatly lower CPU usage at the cost of detection speed.
+	- The average user with a normal sized game list should never need to adjust this setting, even the "Fast" setting will use less than 1% of the CPU.
+	- This option is available in the "General" section of the Settings window, it defaults to "Fast".
+- The "Icon" field now supports the use of Environment and Custom Path variables.
+- The "Search" filter on the Main Window and Game Manager now supports filtering by tag.
+	- Tags must be an exact text match.
+- AbsolutePath is now a calculated field and no longer stored.
+	- This will break official lists for prior versions of GBM (v1.1.5 - v1.2.4).  The last official list(s) compatible with these versions will be archived so they can still be accessed.
+- Application settings are now handled more efficiently.
+- Added missing code to properly update or delete existing launch data when certain configuration changes are made.
+- Fixed issues with changing the Game ID when that configuration had existing backup files.
 
 Windows:
 
-- GBM will no longer crash if the UAC prompt is cancelled while restarting as Administrator.
-
+- The icons from game executables are now cached after a session.
+	- The "Main Window" and "Game Manager" will display the cached icon when viewing the game details, unless a custom icon has been set.
+	- Cached icons are stored using the PNG format in the GBM temporary folder (can be customized in Settings).
+	
 Known Issues (Linux):
 
-- The "Quick Launcher" may not accept using the "Enter" key on the game list combo box to trigger closing the form and launching the game.  You need to hit "Tab" then "Enter".
-		
+- Detecting games by window title does not work.
+	- Mono hasn't implemented the "MainWindowTitle" property in System.Diagnostics.Process, so this feature is not supported in Linux at this time.
+	
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

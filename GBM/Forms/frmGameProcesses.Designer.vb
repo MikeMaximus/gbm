@@ -23,7 +23,6 @@ Partial Class frmGameProcesses
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.btnOpenProcesses = New System.Windows.Forms.Button()
-        Me.btnClose = New System.Windows.Forms.Button()
         Me.lblGameProcesses = New System.Windows.Forms.Label()
         Me.lblProcesses = New System.Windows.Forms.Label()
         Me.btnRemove = New System.Windows.Forms.Button()
@@ -34,21 +33,14 @@ Partial Class frmGameProcesses
         '
         'btnOpenProcesses
         '
+        Me.btnOpenProcesses.Image = Global.GBM.My.Resources.Resources.Multi_Edit
         Me.btnOpenProcesses.Location = New System.Drawing.Point(12, 229)
         Me.btnOpenProcesses.Name = "btnOpenProcesses"
-        Me.btnOpenProcesses.Size = New System.Drawing.Size(110, 23)
+        Me.btnOpenProcesses.Size = New System.Drawing.Size(110, 45)
         Me.btnOpenProcesses.TabIndex = 4
         Me.btnOpenProcesses.Text = "&Process Manager..."
+        Me.btnOpenProcesses.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnOpenProcesses.UseVisualStyleBackColor = True
-        '
-        'btnClose
-        '
-        Me.btnClose.Location = New System.Drawing.Point(297, 229)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 5
-        Me.btnClose.Text = "&Close"
-        Me.btnClose.UseVisualStyleBackColor = True
         '
         'lblGameProcesses
         '
@@ -110,9 +102,8 @@ Partial Class frmGameProcesses
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(384, 261)
+        Me.ClientSize = New System.Drawing.Size(384, 286)
         Me.Controls.Add(Me.btnOpenProcesses)
-        Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.lblGameProcesses)
         Me.Controls.Add(Me.lblProcesses)
         Me.Controls.Add(Me.btnRemove)
@@ -133,7 +124,6 @@ Partial Class frmGameProcesses
     End Sub
 
     Friend WithEvents btnOpenProcesses As Button
-    Friend WithEvents btnClose As Button
     Friend WithEvents lblGameProcesses As Label
     Friend WithEvents lblProcesses As Label
     Friend WithEvents btnRemove As Button

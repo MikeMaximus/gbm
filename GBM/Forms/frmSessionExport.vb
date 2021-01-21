@@ -60,7 +60,9 @@ Public Class frmSessionExport
         chkCSVHeaders.Text = frmSessionExport_chkCSVHeaders
 
         btnExport.Text = frmSessionExport_btnExport
+        btnExport.Image = Multi_Export
         btnCancel.Text = frmSessionExport_btnCancel
+        btnCancel.Image = Multi_Cancel
 
         optCSV.Checked = True
         optCurrentLocale.Checked = True

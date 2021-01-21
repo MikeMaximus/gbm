@@ -2,36 +2,41 @@
 Imports GBM.My.Resources
 
 Public Class mgrSettings
-    Private bStartWithWindows As Boolean
-    Private bMonitoronStartup As Boolean
-    Private bStartToTray As Boolean
-    Private bShowDetectionToolTips As Boolean
-    Private bDisableConfirmation As Boolean
-    Private bCreateSubFolder As Boolean
-    Private bShowOverwriteWarning As Boolean
-    Private bRestoreOnLaunch As Boolean
-    Private bAutoRestore As Boolean
-    Private bAutoMark As Boolean
-    Private bTimeTracking As Boolean
-    Private bSessionTracking As Boolean
-    Private bSuppressBackup As Boolean
-    Private iSuppressBackupThreshold As Integer
-    Private iCompressionLevel As Integer
-    Private s7zArguments As String
-    Private s7zLocation As String
-    Private sBackupFolder As String
-    Private sTemporaryFolder As String
-    Private eSyncFields As clsGame.eOptionalSyncFields
-    Private eMessages As eSuppressMessages
-    Private bAutoSaveLog As Boolean
-    Private bBackupOnLaunch As Boolean
-    Private bUseGameID As Boolean
-    Private bDisableSyncMessages As Boolean
-    Private bShowResolvedPaths As Boolean
-    Private bDisableDiskSpaceCheck As Boolean
-    Private bExitOnClose As Boolean
-    Private bExitNoWarning As Boolean
-    Private bEnableLauncher As Boolean
+    Shared bStartWithWindows As Boolean
+    Shared bMonitoronStartup As Boolean
+    Shared bStartToTray As Boolean
+    Shared bShowDetectionToolTips As Boolean
+    Shared bDisableConfirmation As Boolean
+    Shared bCreateSubFolder As Boolean
+    Shared bShowOverwriteWarning As Boolean
+    Shared bRestoreOnLaunch As Boolean
+    Shared bAutoRestore As Boolean
+    Shared bAutoMark As Boolean
+    Shared bTimeTracking As Boolean
+    Shared bSessionTracking As Boolean
+    Shared bSuppressBackup As Boolean
+    Shared iSuppressBackupThreshold As Integer
+    Shared iCompressionLevel As Integer
+    Shared s7zArguments As String
+    Shared s7zLocation As String
+    Shared sBackupFolder As String
+    Shared sTemporaryFolder As String
+    Shared eSyncFields As clsGame.eOptionalSyncFields
+    Shared eMessages As eSuppressMessages
+    Shared bAutoSaveLog As Boolean
+    Shared bBackupOnLaunch As Boolean
+    Shared bUseGameID As Boolean
+    Shared bDisableSyncMessages As Boolean
+    Shared bShowResolvedPaths As Boolean
+    Shared bDisableDiskSpaceCheck As Boolean
+    Shared bExitOnClose As Boolean
+    Shared bExitNoWarning As Boolean
+    Shared bEnableLauncher As Boolean
+    Shared bMainHideGameList As Boolean
+    Shared bMainHideButtons As Boolean
+    Shared bMainHideLog As Boolean
+    Shared bBackupNotification As Boolean
+    Shared iDetectionSpeed As Integer
 
     <Flags()> Public Enum eSuppressMessages
         None = 0
@@ -42,7 +47,7 @@ Public Class mgrSettings
         LinkConfigTip = 32
     End Enum
 
-    Property StartWithWindows As Boolean
+    Shared Property StartWithWindows As Boolean
         Get
             Return bStartWithWindows
         End Get
@@ -51,7 +56,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property MonitorOnStartup As Boolean
+    Shared Property MonitorOnStartup As Boolean
         Get
             Return bMonitoronStartup
         End Get
@@ -60,7 +65,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property StartToTray As Boolean
+    Shared Property StartToTray As Boolean
         Get
             Return bStartToTray
         End Get
@@ -69,7 +74,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property ShowDetectionToolTips As Boolean
+    Shared Property ShowDetectionToolTips As Boolean
         Get
             Return bShowDetectionToolTips
         End Get
@@ -78,7 +83,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property DisableConfirmation As Boolean
+    Shared Property DisableConfirmation As Boolean
         Get
             Return bDisableConfirmation
         End Get
@@ -87,7 +92,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property CreateSubFolder As Boolean
+    Shared Property CreateSubFolder As Boolean
         Get
             Return bCreateSubFolder
         End Get
@@ -96,7 +101,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property ShowOverwriteWarning As Boolean
+    Shared Property ShowOverwriteWarning As Boolean
         Get
             Return bShowOverwriteWarning
         End Get
@@ -105,7 +110,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property RestoreOnLaunch As Boolean
+    Shared Property RestoreOnLaunch As Boolean
         Get
             Return bRestoreOnLaunch
         End Get
@@ -114,7 +119,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property AutoRestore As Boolean
+    Shared Property AutoRestore As Boolean
         Get
             Return bAutoRestore
         End Get
@@ -123,7 +128,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property AutoMark As Boolean
+    Shared Property AutoMark As Boolean
         Get
             Return bAutoMark
         End Get
@@ -132,7 +137,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property TimeTracking As Boolean
+    Shared Property TimeTracking As Boolean
         Get
             Return bTimeTracking
         End Get
@@ -141,7 +146,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property SessionTracking As Boolean
+    Shared Property SessionTracking As Boolean
         Get
             Return bSessionTracking
         End Get
@@ -150,7 +155,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property SuppressBackup As Boolean
+    Shared Property SuppressBackup As Boolean
         Get
             Return bSuppressBackup
         End Get
@@ -159,7 +164,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property SuppressBackupThreshold As Integer
+    Shared Property SuppressBackupThreshold As Integer
         Get
             Return iSuppressBackupThreshold
         End Get
@@ -168,7 +173,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property CompressionLevel As Integer
+    Shared Property CompressionLevel As Integer
         Get
             Return iCompressionLevel
         End Get
@@ -177,7 +182,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property Custom7zArguments As String
+    Shared Property Custom7zArguments As String
         Get
             Return s7zArguments
         End Get
@@ -186,7 +191,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property ShowResolvedPaths As Boolean
+    Shared Property ShowResolvedPaths As Boolean
         Get
             Return bShowResolvedPaths
         End Get
@@ -195,7 +200,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    ReadOnly Property Prepared7zArguments As String
+    Shared ReadOnly Property Prepared7zArguments As String
         Get
             'Prepare custom 7z arguments
             Dim sPreparedArguments As String
@@ -210,7 +215,7 @@ Public Class mgrSettings
         End Get
     End Property
 
-    Property Custom7zLocation As String
+    Shared Property Custom7zLocation As String
         Get
             Return s7zLocation
         End Get
@@ -219,7 +224,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    ReadOnly Property Is7zUtilityValid As Boolean
+    Shared ReadOnly Property Is7zUtilityValid As Boolean
         Get
             'We don't use a packaged 7za on Unix, assume valid.
             If mgrCommon.IsUnix Then
@@ -236,7 +241,7 @@ Public Class mgrSettings
         End Get
     End Property
 
-    ReadOnly Property Utility7zLocation As String
+    Shared ReadOnly Property Utility7zLocation As String
         Get
             'Return default utility when custom setting is not used
             If s7zLocation = String.Empty Then
@@ -252,7 +257,7 @@ Public Class mgrSettings
         End Get
     End Property
 
-    Property BackupFolder As String
+    Shared Property BackupFolder As String
         Get
             Return sBackupFolder
         End Get
@@ -261,7 +266,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property TemporaryFolder As String
+    Shared Property TemporaryFolder As String
         Get
             Return sTemporaryFolder
         End Get
@@ -270,25 +275,25 @@ Public Class mgrSettings
         End Set
     End Property
 
-    ReadOnly Property MetadataLocation As String
+    Shared ReadOnly Property MetadataLocation As String
         Get
             Return sTemporaryFolder & Path.DirectorySeparatorChar & App_MetadataFilename
         End Get
     End Property
 
-    ReadOnly Property IncludeFileLocation As String
+    Shared ReadOnly Property IncludeFileLocation As String
         Get
             Return sTemporaryFolder & Path.DirectorySeparatorChar & App_BackupIncludeFileName
         End Get
     End Property
 
-    ReadOnly Property ExcludeFileLocation As String
+    Shared ReadOnly Property ExcludeFileLocation As String
         Get
             Return sTemporaryFolder & Path.DirectorySeparatorChar & App_BackupExcludeFileName
         End Get
     End Property
 
-    Property SyncFields As clsGame.eOptionalSyncFields
+    Shared Property SyncFields As clsGame.eOptionalSyncFields
         Get
             Return eSyncFields
         End Get
@@ -297,7 +302,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property AutoSaveLog As Boolean
+    Shared Property AutoSaveLog As Boolean
         Get
             Return bAutoSaveLog
         End Get
@@ -306,7 +311,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property SuppressMessages As eSuppressMessages
+    Shared Property SuppressMessages As eSuppressMessages
         Get
             Return eMessages
         End Get
@@ -315,7 +320,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property BackupOnLaunch As Boolean
+    Shared Property BackupOnLaunch As Boolean
         Get
             Return bBackupOnLaunch
         End Get
@@ -324,7 +329,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property UseGameID As Boolean
+    Shared Property UseGameID As Boolean
         Get
             Return bUseGameID
         End Get
@@ -333,7 +338,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property DisableSyncMessages As Boolean
+    Shared Property DisableSyncMessages As Boolean
         Get
             Return bDisableSyncMessages
         End Get
@@ -342,7 +347,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property DisableDiskSpaceCheck As Boolean
+    Shared Property DisableDiskSpaceCheck As Boolean
         Get
             Return bDisableDiskSpaceCheck
         End Get
@@ -351,7 +356,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property ExitOnClose As Boolean
+    Shared Property ExitOnClose As Boolean
         Get
             Return bExitOnClose
         End Get
@@ -360,7 +365,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property ExitNoWarning As Boolean
+    Shared Property ExitNoWarning As Boolean
         Get
             Return bExitNoWarning
         End Get
@@ -369,7 +374,7 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Property EnableLauncher As Boolean
+    Shared Property EnableLauncher As Boolean
         Get
             Return bEnableLauncher
         End Get
@@ -378,7 +383,56 @@ Public Class mgrSettings
         End Set
     End Property
 
-    Public Sub New()
+    Shared Property MainHideGameList As Boolean
+        Get
+            Return bMainHideGameList
+        End Get
+        Set(value As Boolean)
+            bMainHideGameList = value
+        End Set
+    End Property
+
+    Shared Property MainHideLog As Boolean
+        Get
+            Return bMainHideLog
+        End Get
+        Set(value As Boolean)
+            bMainHideLog = value
+        End Set
+    End Property
+
+    Shared Property MainHideButtons As Boolean
+        Get
+            Return bMainHideButtons
+        End Get
+        Set(value As Boolean)
+            bMainHideButtons = value
+        End Set
+    End Property
+
+    Shared Property BackupNotification As Boolean
+        Get
+            Return bBackupNotification
+        End Get
+        Set(value As Boolean)
+            bBackupNotification = value
+        End Set
+    End Property
+
+    Shared Property DetectionSpeed As Integer
+        Get
+            Return iDetectionSpeed
+        End Get
+        Set(value As Integer)
+            iDetectionSpeed = value
+        End Set
+    End Property
+
+    Shared Sub New()
+        SetDefaults()
+    End Sub
+
+    Public Shared Sub SetDefaults()
         'Defaults
         bStartWithWindows = False
         bMonitoronStartup = True
@@ -409,6 +463,11 @@ Public Class mgrSettings
         bDisableDiskSpaceCheck = False
         bExitNoWarning = False
         bEnableLauncher = False
+        bMainHideGameList = False
+        bMainHideButtons = False
+        bMainHideLog = False
+        bBackupNotification = False
+        iDetectionSpeed = 5000
 
         'OS Based Defaults
         If mgrCommon.IsUnix Then
@@ -418,7 +477,7 @@ Public Class mgrSettings
         End If
     End Sub
 
-    Private Sub SaveFromClass()
+    Private Shared Sub SaveFromClass()
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSQL As String
         Dim hshParams As New Hashtable
@@ -427,7 +486,8 @@ Public Class mgrSettings
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SuppressBackup, @SuppressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
         sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, @UseGameID, "
-        sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck, @TemporaryFolder, @ExitOnClose, @ExitNoWarning, @EnableLauncher)"
+        sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck, @TemporaryFolder, @ExitOnClose, @ExitNoWarning, @EnableLauncher, "
+        sSQL &= "@MainHideGameList, @MainHideButtons, @MainHideLog, @BackupNotification, @DetectionSpeed)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -459,11 +519,16 @@ Public Class mgrSettings
         hshParams.Add("ExitOnClose", ExitOnClose)
         hshParams.Add("ExitNoWarning", ExitNoWarning)
         hshParams.Add("EnableLauncher", EnableLauncher)
+        hshParams.Add("MainHideGameList", MainHideGameList)
+        hshParams.Add("MainHideButtons", MainHideButtons)
+        hshParams.Add("MainHideLog", MainHideLog)
+        hshParams.Add("BackupNotification", BackupNotification)
+        hshParams.Add("DetectionSpeed", DetectionSpeed)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
-    Private Sub MapToClass()
+    Private Shared Sub MapToClass()
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim oData As DataSet
         Dim sSQL As String
@@ -504,30 +569,35 @@ Public Class mgrSettings
             ExitOnClose = CBool(dr("ExitOnClose"))
             ExitNoWarning = CBool(dr("ExitNoWarning"))
             EnableLauncher = CBool(dr("EnableLauncher"))
+            MainHideGameList = CBool(dr("MainHideGameList"))
+            MainHideButtons = CBool(dr("MainHideButtons"))
+            MainHideLog = CBool(dr("MainHideLog"))
+            BackupNotification = CBool(dr("BackupNotification"))
+            DetectionSpeed = CInt(dr("DetectionSpeed"))
         Next
 
         oDatabase.Disconnect()
     End Sub
 
-    Public Sub LoadSettings()
+    Public Shared Sub LoadSettings()
         MapToClass()
 
         'Set Remote Manifest Location     
-        mgrPath.RemoteDatabaseLocation = Me.BackupFolder
+        mgrPath.RemoteDatabaseLocation = BackupFolder
     End Sub
 
-    Public Sub SaveSettings()
+    Public Shared Sub SaveSettings()
         SaveFromClass()
 
         'Set Remote Manifest Location        
-        mgrPath.RemoteDatabaseLocation = Me.BackupFolder
+        mgrPath.RemoteDatabaseLocation = BackupFolder
     End Sub
 
-    Public Function SetMessageField(ByVal eMessages As eSuppressMessages, ByVal eMessage As eSuppressMessages) As eSuppressMessages
+    Public Shared Function SetMessageField(ByVal eMessages As eSuppressMessages, ByVal eMessage As eSuppressMessages) As eSuppressMessages
         Return eMessages Or eMessage
     End Function
 
-    Public Function RemoveMessageField(ByVal eMessages As eSuppressMessages, ByVal eMessage As eSuppressMessages) As eSuppressMessages
+    Public Shared Function RemoveMessageField(ByVal eMessages As eSuppressMessages, ByVal eMessage As eSuppressMessages) As eSuppressMessages
         Return eMessages And (Not eMessage)
     End Function
 

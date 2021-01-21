@@ -3,17 +3,7 @@ Imports System.IO
 
 Public Class mgrRestore
 
-    Private oSettings As mgrSettings
     Private bCancelOperation As Boolean
-
-    Property Settings As mgrSettings
-        Get
-            Return oSettings
-        End Get
-        Set(value As mgrSettings)
-            oSettings = value
-        End Set
-    End Property
 
     Property CancelOperation As Boolean
         Get
@@ -35,7 +25,7 @@ Public Class mgrRestore
 
         If Not oRestoreInfo.AbsolutePath Then
             If oGame.ProcessPath <> String.Empty Then
-                oRestoreInfo.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oRestoreInfo.RestorePath
+                oRestoreInfo.RelativeRestorePath = oGame.ProcessPath & Path.DirectorySeparatorChar & oRestoreInfo.Path
             ElseIf Not bFastMode Then
                 sProcess = oGame.ProcessName
                 If mgrCommon.IsProcessNotSearchable(oGame) Then bNoAuto = True
@@ -48,7 +38,7 @@ Public Class mgrRestore
                     bTriggerReload = True
 
                     'Set path for restore
-                    oRestoreInfo.RelativeRestorePath = sRestorePath & Path.DirectorySeparatorChar & oRestoreInfo.RestorePath
+                    oRestoreInfo.RelativeRestorePath = sRestorePath & Path.DirectorySeparatorChar & oRestoreInfo.Path
                 Else
                     Return False
                 End If
@@ -137,7 +127,7 @@ Public Class mgrRestore
         Dim sHash As String
         Dim sExtractPath As String
         Dim bRegistry As Boolean
-        Dim sBackupFile As String = oSettings.BackupFolder & Path.DirectorySeparatorChar & oBackupInfo.FileName
+        Dim sBackupFile As String = mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oBackupInfo.FileName
 
         'Check if this is a registry backup
         bRegistry = mgrPath.IsSupportedRegistryPath(oBackupInfo.TruePath)
@@ -150,7 +140,7 @@ Public Class mgrRestore
             End If
         Else
             If oBackupInfo.AbsolutePath Then
-                sExtractPath = oBackupInfo.RestorePath
+                sExtractPath = oBackupInfo.Path
             Else
                 sExtractPath = oBackupInfo.RelativeRestorePath
             End If
@@ -269,16 +259,16 @@ Public Class mgrRestore
         Dim bRestoreCompleted As Boolean = False
 
         If oBackupInfo.AbsolutePath Then
-            sExtractPath = oBackupInfo.RestorePath
+            sExtractPath = oBackupInfo.Path
         Else
             sExtractPath = oBackupInfo.RelativeRestorePath
         End If
 
         Try
             If File.Exists(sBackupFile) Then
-                If Settings.Is7zUtilityValid Then
-                    prs7z.StartInfo.Arguments = "x" & oSettings.Prepared7zArguments & """" & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -x!" & App_MetadataFilename & " -aoa -r"
-                    prs7z.StartInfo.FileName = oSettings.Utility7zLocation
+                If mgrSettings.Is7zUtilityValid Then
+                    prs7z.StartInfo.Arguments = "x" & mgrSettings.Prepared7zArguments & """" & sBackupFile & """ -o""" & sExtractPath & Path.DirectorySeparatorChar & """ -x!" & App_MetadataFilename & " -aoa -r"
+                    prs7z.StartInfo.FileName = mgrSettings.Utility7zLocation
                     prs7z.StartInfo.UseShellExecute = False
                     prs7z.StartInfo.RedirectStandardOutput = True
                     prs7z.StartInfo.CreateNoWindow = True
@@ -328,7 +318,7 @@ Public Class mgrRestore
             End If
 
             'Init
-            sBackupFile = oSettings.BackupFolder & Path.DirectorySeparatorChar & oBackupInfo.FileName
+            sBackupFile = mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oBackupInfo.FileName
             sExtractPath = String.Empty
             bRestoreCompleted = False
             CancelOperation = False

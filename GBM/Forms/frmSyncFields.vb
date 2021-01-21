@@ -38,7 +38,9 @@ Public Class frmSyncFields
 
         'Set Form Text
         btnCancel.Text = frmSyncFields_btnCancel
+        btnCancel.Image = Multi_Cancel
         btnSave.Text = frmSyncFields_btnSave
+        btnSave.Image = Multi_Save
         grpFields.Text = frmSyncFields_grpFields
         chkMonitorGame.Text = frmSyncFields_chkMonitorGame
         chkIcon.Text = frmSyncFields_chkIcon

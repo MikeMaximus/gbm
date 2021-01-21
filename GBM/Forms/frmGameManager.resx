@@ -117,22 +117,50 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAu
+        IwAALiMBeKU/dgAAAAd0SU1FB+UBAQ40HKo07PYAAANaSURBVEhL3ZRLTFNpGIZZuhlcGBPiwsTNxMUY
+        VpCYOHHhzGbCwowLIY7OH5HEhJoYwQygnQYUUaC0o6QGB9uCeMNSO1MZ7Y3eoLSecivDpdAWWgoiRZTE
+        BbvX8x3qaZqzOsuZL3lyki//877nnMVf8P8ZlSNY1BL4l7VxC6wtvMDsDifzD4+wkUAgj2F+5/X5mdfr
+        E55O1xDThmYF5/boTHmTe2xPNjJ/mnwR9iK5hcGNHQxmdhAMhpBYWsZyMsmTEqHdfDSKufkoFmNxTE5O
+        YTD9SXAMyW20ji/5rzs4aYnKN8M0sW10ruwI8F+AEBfGW24sD0+QQ890CsZIEo5gGENuL+7HPu56qR10
+        zH+A0h0pz8bmpn4owu7MbUEd/yxgMr+E3emSMPDGKZ556vDB8rcVmpkNcUcZlJWNzU2NbYI1TmXQPLct
+        oDcY0W8awAuTOQ9Dv1k802V+jZ7ePrSMr4m7Jj6jxjYpLVBYw6yBW4dyiv9EHo32Lv7s1kv442GveEb9
+        yIR7nTr8PpoUdw3hdShejUkLqswhVhNI4yr3XkDV2IS29g60qfNpv6uDxsahg0fdZcDN5hZc9cZEjzKq
+        XoakBeeeB1i1exmXhtd2uXwFv9VfQ13DddRfU4ooVY1oV2uEMnqJy1dqobBHRa/aswzKysbm5vQjP6u0
+        xVE1lBI4/zyASqNd4ILRIfJ195XzfW7RISrtcZzu80sLTurd7Iw1irNvErhkj0HpWpAFOeSeeRXFSb1H
+        WvBTl4udGpjFL9YFLCaSyGQ2ZUFOhXURp8yzoKxsbG5OdNpY2dMIfrXMYnV1DVtbH2VBDrllzyKgrGxs
+        bo51/MN+6B1HRf800uk0Njc/yIIccinjmOa1tKD0jpV9383h58cTSKVWsLGRkQU55FJGaatVWlB808JK
+        dKMoM4aFC+7d+ntZkENuiS6I4maLtOCwysSOaP348cHuLbq69k4W5JB7RDuMw6oBacGhhn72basHx3UB
+        xBMJrKRXZUEOuZRBWdnY3ByofcwO3nDgqNYn3PNJ/p/KgRxyD95w4kDtE2nBPoWe7a+z4LtmG8JjEwiP
+        y4R3im/Zsb/uL+xTGKQF31TeKyq82M32Vvcwp2+kxeX2GORADrmFFx8yysrG/uenoOALCvzJRYEksrgA
+        AAAASUVORK5CYII=
+</value>
+  </data>
   <metadata name="cmsImport.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="cmsDeleteBackup.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="cmsBackupData.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>127, 17</value>
   </metadata>
   <metadata name="ttFullPath.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>275, 17</value>
+    <value>809, 17</value>
   </metadata>
-  <metadata name="cmsOpenBackup.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>378, 17</value>
+  <metadata name="cmsAdvanced.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>265, 17</value>
   </metadata>
-  <metadata name="cmsLink.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>521, 17</value>
+  <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>912, 17</value>
   </metadata>
-  <metadata name="cmsLaunch.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>616, 17</value>
+  <metadata name="cmsProcessOptions.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>492, 17</value>
+  </metadata>
+  <metadata name="cmsLinks.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>392, 17</value>
+  </metadata>
+  <metadata name="cmsMonitorOptions.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>649, 17</value>
   </metadata>
 </root>

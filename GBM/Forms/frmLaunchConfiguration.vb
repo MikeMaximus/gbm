@@ -32,7 +32,9 @@ Public Class frmLaunchConfiguration
         chkNoArgs.Text = frmLaunchConfiguration_chkNoArgs
         grpCommand.Text = frmLaunchConfiguration_grpCommand
         btnSave.Text = frmLaunchConfiguration_btnSave
+        btnSave.Image = Multi_Save
         btnCancel.Text = frmLaunchConfiguration_btnCancel
+        btnCancel.Image = Multi_Cancel
 
         'Init Command Update Timer
         tmUpdateTimer = New Timer()

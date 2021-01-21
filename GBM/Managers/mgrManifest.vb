@@ -3,13 +3,13 @@
     Private Shared Function MapToObject(ByVal dr As DataRow) As clsBackup
         Dim oBackupItem As clsBackup
 
-        oBackupItem = New clsBackup
+        'Inherited
+        oBackupItem = mgrMonitorList.MapToObject(dr, mgrMonitorList.eSupportedClasses.clsBackup)
+
+        'Base
         oBackupItem.ManifestID = CStr(dr("ManifestID"))
         oBackupItem.MonitorID = CStr(dr("MonitorID"))
-        oBackupItem.Name = CStr(dr("Name"))
         oBackupItem.FileName = CStr(dr("FileName"))
-        oBackupItem.RestorePath = CStr(dr("Path"))
-        oBackupItem.AbsolutePath = CBool(dr("AbsolutePath"))
         oBackupItem.DateUpdated = mgrCommon.UnixToDate(dr("DateUpdated"))
         oBackupItem.UpdatedBy = CStr(dr("UpdatedBy"))
         If Not IsDBNull(dr("CheckSum")) Then oBackupItem.CheckSum = CStr(dr("CheckSum"))
@@ -37,7 +37,7 @@
         Dim oBackupItem As clsBackup
         Dim slList As New SortedList
 
-        sSQL = "SELECT * from manifest NATURAL JOIN monitorlist ORDER BY Name Asc"
+        sSQL = "SELECT * from manifest NATURAL JOIN monitorlist ORDER BY Name ASC"
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
 
         For Each dr As DataRow In oData.Tables(0).Rows
@@ -56,7 +56,7 @@
         Dim oBackupItem As clsBackup
         Dim slList As New SortedList
 
-        sSQL = "SELECT ManifestID, MonitorID, Name, FileName, Path, AbsolutePath, Max(DateUpdated) As DateUpdated, UpdatedBy, CheckSum FROM manifest NATURAL JOIN monitorlist GROUP BY Name ORDER By Name ASC"
+        sSQL = "SELECT *, Max(DateUpdated) As DateUpdated FROM manifest NATURAL JOIN monitorlist GROUP BY Name ORDER BY Name ASC"
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
 
         For Each dr As DataRow In oData.Tables(0).Rows
@@ -78,7 +78,7 @@
 
 
         sSQL = "SELECT * FROM manifest NATURAL JOIN monitorlist "
-        sSQL &= "WHERE MonitorID = @MonitorID ORDER BY DateUpdated Desc"
+        sSQL &= "WHERE MonitorID = @MonitorID ORDER BY DateUpdated DESC"
 
         hshParams.Add("MonitorID", sMonitorID)
 
@@ -101,7 +101,7 @@
         Dim oList As New List(Of clsBackup)
 
         sSQL = "SELECT * FROM manifest NATURAL JOIN monitorlist "
-        sSQL &= "WHERE ManifestID = @ManifestID ORDER BY DateUpdated Desc"
+        sSQL &= "WHERE ManifestID = @ManifestID ORDER BY DateUpdated DESC"
 
         hshParams.Add("ManifestID", sManifestID)
 

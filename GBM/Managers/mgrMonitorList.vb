@@ -10,16 +10,30 @@ Public Class mgrMonitorList
         ScanList = 2
     End Enum
 
+    Public Enum eSupportedClasses As Integer
+        clsGame = 1
+        clsBackup = 2
+    End Enum
+
     Public Shared Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
 
-    Private Shared Function MapToObject(ByVal dr As DataRow) As clsGame
-        Dim oGame As New clsGame
+    'This function supports filling class types that inherit clsGameBase
+    Public Shared Function MapToObject(ByVal dr As DataRow, Optional ByVal eClass As eSupportedClasses = eSupportedClasses.clsGame) As Object
+        Dim bFullClass As Boolean = False
+        Dim oGame As Object
+
+        Select Case eClass
+            Case eSupportedClasses.clsBackup
+                oGame = New clsBackup
+            Case Else
+                bFullClass = True
+                oGame = New clsGame
+        End Select
 
         oGame.ID = CStr(dr("MonitorID"))
         oGame.Name = CStr(dr("Name"))
         oGame.ProcessName = CStr(dr("Process"))
         If Not IsDBNull(dr("Path")) Then oGame.Path = CStr(dr("Path"))
-        oGame.AbsolutePath = CBool(dr("AbsolutePath"))
         oGame.FolderSave = CBool(dr("FolderSave"))
         If Not IsDBNull(dr("FileType")) Then oGame.FileType = CStr(dr("FileType"))
         oGame.AppendTimeStamp = CBool(dr("TimeStamp"))
@@ -38,9 +52,10 @@ Public Class mgrMonitorList
         oGame.IsRegEx = CBool(dr("IsRegEx"))
         oGame.RecurseSubFolders = CBool(dr("RecurseSubFolders"))
         oGame.OS = CInt(dr("OS"))
+        oGame.UseWindowTitle = CBool(dr("UseWindowTitle"))
 
         'Compile RegEx
-        If oGame.IsRegEx Then
+        If oGame.IsRegEx And bFullClass Then
             oGame.CompiledRegEx = New Regex(oGame.ProcessName, RegexOptions.Compiled)
         End If
 
@@ -54,7 +69,6 @@ Public Class mgrMonitorList
         hshParams.Add("Name", oGame.Name)
         hshParams.Add("Process", oGame.ProcessName)
         hshParams.Add("Path", oGame.TruePath)
-        hshParams.Add("AbsolutePath", oGame.AbsolutePath)
         hshParams.Add("FolderSave", oGame.FolderSave)
         hshParams.Add("FileType", oGame.FileType)
         hshParams.Add("TimeStamp", oGame.AppendTimeStamp)
@@ -73,6 +87,7 @@ Public Class mgrMonitorList
         hshParams.Add("IsRegEx", oGame.IsRegEx)
         hshParams.Add("RecurseSubFolders", oGame.RecurseSubFolders)
         hshParams.Add("OS", oGame.OS)
+        hshParams.Add("UseWindowTitle", oGame.UseWindowTitle)
 
         Return hshParams
     End Function
@@ -101,14 +116,35 @@ Public Class mgrMonitorList
         Return hshList
     End Function
 
+    Public Shared Function ReadFilteredList(ByVal oIncludeTagFilters As List(Of clsTag), ByVal oExcludeTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter), ByVal eFilterType As frmFilter.eFilterType, ByVal bAndOperator As Boolean,
+                                            ByVal bSortAsc As Boolean, ByVal sSortField As String, Optional ByVal sQuickFilter As String = "", Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As OrderedDictionary
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim oData As DataSet
+        Dim sSQL As String = String.Empty
+        Dim oList As New OrderedDictionary
+        Dim oGame As clsGame
+        Dim hshParams As New Hashtable
+
+        sSQL = BuildFilterQuery(oIncludeTagFilters, oExcludeTagFilters, oFilters, eFilterType, bAndOperator, bSortAsc, sSortField, sQuickFilter, hshParams)
+
+        oData = oDatabase.ReadParamData(sSQL, hshParams)
+
+        For Each dr As DataRow In oData.Tables(0).Rows
+            oGame = MapToObject(dr)
+            oList.Add(oGame.ID, oGame)
+        Next
+
+        Return oList
+    End Function
+
     Public Shared Sub DoListAdd(ByVal oGame As clsGame, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "INSERT INTO monitorlist VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, @TimeStamp, "
+        sSQL = "INSERT INTO monitorlist VALUES (@ID, @Name, @Process, @Path, @FolderSave, @FileType, @TimeStamp, "
         sSQL &= "@ExcludeList, @ProcessPath, @Icon, @Hours, @Version, @Company, @Enabled, @MonitorOnly, @BackupLimit, @CleanFolder, "
-        sSQL &= "@Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS)"
+        sSQL &= "@Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS, @UseWindowTitle)"
 
         'Parameters
         hshParams = SetCoreParameters(oGame)
@@ -122,10 +158,11 @@ Public Class mgrMonitorList
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "UPDATE monitorlist SET MonitorID=@ID, Name=@Name, Process=@Process, Path=@Path, AbsolutePath=@AbsolutePath, FolderSave=@FolderSave, "
+        sSQL = "UPDATE monitorlist SET MonitorID=@ID, Name=@Name, Process=@Process, Path=@Path, FolderSave=@FolderSave, "
         sSQL &= "FileType=@FileType, TimeStamp=@TimeStamp, ExcludeList=@ExcludeList, ProcessPath=@ProcessPath, Icon=@Icon, "
         sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit, "
-        sSQL &= "CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments, IsRegEx=@IsRegEx, RecurseSubFolders=@RecurseSubFolders, OS=@OS WHERE MonitorID=@QueryID;"
+        sSQL &= "CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments, IsRegEx=@IsRegEx, RecurseSubFolders=@RecurseSubFolders, OS=@OS, UseWindowTitle=@UseWindowTitle "
+        sSQL &= "WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE gametags SET MonitorID=@ID WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE configlinks SET MonitorID=@ID WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE configlinks SET LinkID=@ID WHERE LinkID=@QueryID;"
@@ -429,11 +466,11 @@ Public Class mgrMonitorList
             sVersion = "(SELECT Version FROM monitorlist WHERE MonitorID=@ID)"
         End If
 
-        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS) "
-        sSQL &= "VALUES (@ID, @Name, @Process, @Path, @AbsolutePath, @FolderSave, @FileType, "
+        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle) "
+        sSQL &= "VALUES (@ID, @Name, @Process, @Path, @FolderSave, @FileType, "
         sSQL &= "@TimeStamp, @ExcludeList, " & sGamePath & ", "
         sSQL &= sIcon & ", @Hours, " & sVersion & ", "
-        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS);"
+        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS, @UseWindowTitle);"
 
         For Each oGame As clsGame In hshGames.Values
             hshParams = New Hashtable
@@ -443,7 +480,6 @@ Public Class mgrMonitorList
             hshParams.Add("Name", oGame.Name)
             hshParams.Add("Process", oGame.ProcessName)
             hshParams.Add("Path", oGame.TruePath)
-            hshParams.Add("AbsolutePath", oGame.AbsolutePath)
             hshParams.Add("FolderSave", oGame.FolderSave)
             hshParams.Add("TimeStamp", oGame.AppendTimeStamp)
             hshParams.Add("BackupLimit", oGame.BackupLimit)
@@ -457,6 +493,7 @@ Public Class mgrMonitorList
             hshParams.Add("IsRegEx", oGame.IsRegEx)
             hshParams.Add("RecurseSubFolders", oGame.RecurseSubFolders)
             hshParams.Add("OS", oGame.OS)
+            hshParams.Add("UseWindowTitle", oGame.UseWindowTitle)
 
             'Optional Parameters
             If (eSyncFields And clsGame.eOptionalSyncFields.Company) = clsGame.eOptionalSyncFields.Company Then
@@ -501,6 +538,10 @@ Public Class mgrMonitorList
             sSQL &= "WHERE MonitorID = @MonitorID;"
             sSQL &= "DELETE FROM sessions "
             sSQL &= "WHERE MonitorID = @MonitorID;"
+            sSQL &= "DELETE FROM winedata "
+            sSQL &= "WHERE MonitorID = @MonitorID;"
+            sSQL &= "DELETE FROM launchdata "
+            sSQL &= "WHERE MonitorID = @MonitorID;"
         End If
         sSQL &= "DELETE FROM monitorlist "
         sSQL &= "WHERE MonitorID = @MonitorID;"
@@ -514,7 +555,7 @@ Public Class mgrMonitorList
         oDatabase.RunMassParamQuery(sSQL, oParamList)
     End Sub
 
-    Public Shared Sub SyncMonitorLists(ByVal oSettings As mgrSettings, Optional ByVal bToRemote As Boolean = True, Optional ByVal bSyncProtection As Boolean = True)
+    Public Shared Sub SyncMonitorLists(Optional ByVal bToRemote As Boolean = True, Optional ByVal bSyncProtection As Boolean = True)
         Dim hshCompareFrom As Hashtable
         Dim hshCompareTo As Hashtable
         Dim hshSyncItems As Hashtable
@@ -525,7 +566,7 @@ Public Class mgrMonitorList
 
         Cursor.Current = Cursors.WaitCursor
 
-        If Not oSettings.DisableSyncMessages Then
+        If Not mgrSettings.DisableSyncMessages Then
             If bToRemote Then
                 RaiseEvent UpdateLog(mgrMonitorList_SyncToMaster, False, ToolTipIcon.Info, True)
             Else
@@ -560,16 +601,16 @@ Public Class mgrMonitorList
         For Each oFromItem In hshCompareFrom.Values
             If hshCompareTo.Contains(oFromItem.ID) Then
                 oToItem = DirectCast(hshCompareTo(oFromItem.ID), clsGame)
-                If oFromItem.SyncEquals(oToItem, oSettings.SyncFields) Then
+                If oFromItem.SyncEquals(oToItem, mgrSettings.SyncFields) Then
                     hshSyncItems.Remove(oFromItem.ID)
                 End If
             End If
         Next
 
         If bToRemote Then
-            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Remote, oSettings.SyncFields)
+            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Remote, mgrSettings.SyncFields)
         Else
-            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Local, oSettings.SyncFields)
+            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Local, mgrSettings.SyncFields)
         End If
 
         'Sync Tags
@@ -603,7 +644,7 @@ Public Class mgrMonitorList
             DoListDeleteSync(hshDeleteItems, mgrSQLite.Database.Local)
         End If
 
-        If Not oSettings.DisableSyncMessages Then
+        If Not mgrSettings.DisableSyncMessages Then
             RaiseEvent UpdateLog(mgrCommon.FormatString(mgrMonitorList_SyncChanges, (hshDeleteItems.Count + hshSyncItems.Count + iChanges).ToString), False, ToolTipIcon.Info, True)
         End If
 
@@ -614,10 +655,10 @@ Public Class mgrMonitorList
     'Filter Functions
     Private Shared Function BuildFilterQuery(ByVal oIncludeTagFilters As List(Of clsTag), ByVal oExcludeTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter),
                                              ByVal eFilterType As frmFilter.eFilterType, ByVal bAndOperator As Boolean, ByVal bSortAsc As Boolean, ByVal sSortField As String,
-                                             ByRef hshParams As Hashtable) As String
+                                             ByVal sQuickFilter As String, ByRef hshParams As Hashtable) As String
         Dim sSQL As String = String.Empty
         Dim iCounter As Integer = 0
-        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, AbsolutePath, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS FROM monitorlist"
+        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle FROM monitorlist"
         Dim sSort As String = " ORDER BY " & sSortField
 
         If bSortAsc Then
@@ -753,36 +794,23 @@ Public Class mgrMonitorList
             sSQL &= ")"
         End If
 
+        'Handle Quick Filter
+        If Not sQuickFilter = String.Empty Then
+            If eFilterType = frmFilter.eFilterType.BaseFilter And oFilters.Count = 0 Then
+                sSQL &= " WHERE "
+            Else
+                sSQL &= " AND "
+            End If
+            sSQL &= "MonitorID IN (SELECT MonitorID FROM monitorlist WHERE Name LIKE @QuickName OR MonitorID IN (SELECT MonitorID FROM gametags NATURAL JOIN tags WHERE tags.Name=@QuickTag COLLATE NOCASE))"
+            hshParams.Add("QuickName", "%" & sQuickFilter & "%")
+            hshParams.Add("QuickTag", sQuickFilter)
+        End If
+
         'Handle Sorting
         sSQL &= sSort
 
         Return sSQL
-
     End Function
-
-    Public Shared Function ReadFilteredList(ByVal oIncludeTagFilters As List(Of clsTag), ByVal oExcludeTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter), ByVal eFilterType As frmFilter.eFilterType, ByVal bAndOperator As Boolean,
-                                            ByVal bSortAsc As Boolean, ByVal sSortField As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As OrderedDictionary
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim oData As DataSet
-        Dim sSQL As String = String.Empty
-        Dim oList As New OrderedDictionary
-        Dim oGame As clsGame
-        Dim hshParams As New Hashtable
-        Dim iCounter As Integer = 0
-
-        sSQL = BuildFilterQuery(oIncludeTagFilters, oExcludeTagFilters, oFilters, eFilterType, bAndOperator, bSortAsc, sSortField, hshParams)
-
-        oData = oDatabase.ReadParamData(sSQL, hshParams)
-
-        For Each dr As DataRow In oData.Tables(0).Rows
-            oGame = MapToObject(dr)
-
-            oList.Add(oGame.ID, oGame)
-        Next
-
-        Return oList
-    End Function
-
 
     'Import / Export Functions
     Public Shared Function ReadListForExport(ByVal oIncludeTagFilters As List(Of clsTag), ByVal oExcludeTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter), ByVal eFilterType As frmFilter.eFilterType, ByVal bAndOperator As Boolean,
@@ -794,7 +822,7 @@ Public Class mgrMonitorList
         Dim oGame As Game
         Dim hshParams As New Hashtable
 
-        sSQL = BuildFilterQuery(oIncludeTagFilters, oExcludeTagFilters, oFilters, eFilterType, bAndOperator, bSortAsc, sSortField, hshParams)
+        sSQL = BuildFilterQuery(oIncludeTagFilters, oExcludeTagFilters, oFilters, eFilterType, bAndOperator, bSortAsc, sSortField, String.Empty, hshParams)
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
@@ -804,7 +832,6 @@ Public Class mgrMonitorList
             oGame.Name = CStr(dr("Name"))
             oGame.ProcessName = CStr(dr("Process"))
             If Not IsDBNull(dr("Path")) Then oGame.Path = CStr(dr("Path"))
-            oGame.AbsolutePath = CBool(dr("AbsolutePath"))
             oGame.FolderSave = CBool(dr("FolderSave"))
             oGame.AppendTimeStamp = CBool(dr("TimeStamp"))
             oGame.BackupLimit = CInt(dr("BackupLimit"))
@@ -816,6 +843,7 @@ Public Class mgrMonitorList
             oGame.IsRegEx = CBool(dr("IsRegEx"))
             oGame.RecurseSubFolders = CBool(dr("RecurseSubFolders"))
             oGame.OS = CInt(dr("OS"))
+            oGame.UseWindowTitle = CBool(dr("UseWindowTitle"))
             oGame.Tags = mgrGameTags.GetTagsByGameForExport(oGame.ID)
             oGame.ConfigLinks = mgrConfigLinks.GetConfigLinksByGameForExport(oGame.ID)
             oList.Add(oGame)
@@ -989,11 +1017,15 @@ Public Class mgrMonitorList
         sSQL = "UPDATE monitorlist SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE gametags SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE manifest SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
+        sSQL &= "UPDATE configlinks SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
+        sSQL &= "UPDATE configlinks SET LinkID=@MonitorID WHERE MonitorID=@QueryID;"
 
         oRemoteDatabase.RunMassParamQuery(sSQL, oParamList)
 
         sSQL &= "UPDATE sessions SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE gameprocesses SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
+        sSQL &= "UPDATE winedata SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
+        sSQL &= "UPDATE launchdata SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
 
         oLocalDatabase.RunMassParamQuery(sSQL, oParamList)
 
@@ -1036,7 +1068,7 @@ Public Class mgrMonitorList
     End Sub
 
     'Other Functions
-    Public Shared Sub HandleBackupLocationChange(ByVal oSettings As mgrSettings)
+    Public Shared Sub HandleBackupLocationChange()
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
         Dim iGameCount As Integer
 
@@ -1051,15 +1083,15 @@ Public Class mgrMonitorList
             'If the remote database actually contains a list, then ask what to do
             If iGameCount > 0 Then
                 If mgrCommon.ShowPriorityMessage(mgrMonitorList_ConfirmExistingData, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    mgrMonitorList.SyncMonitorLists(oSettings)
+                    mgrMonitorList.SyncMonitorLists()
                 Else
-                    mgrMonitorList.SyncMonitorLists(oSettings, False)
+                    mgrMonitorList.SyncMonitorLists(False)
                 End If
             Else
-                mgrMonitorList.SyncMonitorLists(oSettings)
+                mgrMonitorList.SyncMonitorLists()
             End If
         Else
-            mgrMonitorList.SyncMonitorLists(oSettings)
+            mgrMonitorList.SyncMonitorLists()
         End If
     End Sub
 End Class

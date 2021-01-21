@@ -3,17 +3,7 @@ Imports System.IO
 
 Public Class mgrBackup
 
-    Private oSettings As mgrSettings
     Private bCancelOperation As Boolean
-
-    Property Settings As mgrSettings
-        Get
-            Return oSettings
-        End Get
-        Set(value As mgrSettings)
-            oSettings = value
-        End Set
-    End Property
 
     Property CancelOperation As Boolean
         Get
@@ -50,7 +40,7 @@ Public Class mgrBackup
         'Create manifest item
         oItem.MonitorID = oGameInfo.ID
         'Keep the path relative to the manifest location
-        oItem.FileName = sBackupFile.Replace(Settings.BackupFolder & Path.DirectorySeparatorChar, String.Empty)
+        oItem.FileName = sBackupFile.Replace(mgrSettings.BackupFolder & Path.DirectorySeparatorChar, String.Empty)
         oItem.DateUpdated = dTimeStamp
         oItem.UpdatedBy = My.Computer.Name
         oItem.CheckSum = sCheckSum
@@ -61,7 +51,7 @@ Public Class mgrBackup
                 mgrManifest.DoManifestAdd(oItem, mgrSQLite.Database.Remote)
             End If
         Else
-                mgrManifest.DoManifestAdd(oItem, mgrSQLite.Database.Remote)
+            mgrManifest.DoManifestAdd(oItem, mgrSQLite.Database.Remote)
         End If
 
         'Save Local Manifest
@@ -112,7 +102,7 @@ Public Class mgrBackup
     Private Function GetFileName(ByVal oGame As clsGame) As String
         Dim sName As String
 
-        If oSettings.UseGameID Then
+        If mgrSettings.UseGameID Then
             sName = oGame.ID
         Else
             sName = oGame.FileSafeName
@@ -128,7 +118,7 @@ Public Class mgrBackup
     End Sub
 
     Public Function CheckBackupPrereq(ByVal oGame As clsGame, ByRef lBackupSize As Long, Optional ByVal bFastMode As Boolean = False) As Boolean
-        Dim sBackupFile As String = oSettings.BackupFolder
+        Dim sBackupFile As String = mgrSettings.BackupFolder
         Dim sSavePath As String
         Dim sOverwriteMessage As String
         Dim lFolderSize As Long
@@ -153,10 +143,10 @@ Public Class mgrBackup
             sSavePath = VerifySavePath(oGame)
 
             'Check if disk space check should be disabled (UNC path, Setting, forced fast mode)
-            If Not mgrPath.IsPathUNC(oSettings.BackupFolder) And Not mgrPath.IsPathUNC(oSettings.TemporaryFolder) And Not Settings.DisableDiskSpaceCheck Then
+            If Not mgrPath.IsPathUNC(mgrSettings.BackupFolder) And Not mgrPath.IsPathUNC(mgrSettings.TemporaryFolder) And Not mgrSettings.DisableDiskSpaceCheck Then
                 'Calculate space
-                lAvailableSpace = mgrCommon.GetAvailableDiskSpace(oSettings.BackupFolder)
-                lAvailableTempSpace = mgrCommon.GetAvailableDiskSpace(oSettings.TemporaryFolder)
+                lAvailableSpace = mgrCommon.GetAvailableDiskSpace(mgrSettings.BackupFolder)
+                lAvailableTempSpace = mgrCommon.GetAvailableDiskSpace(mgrSettings.TemporaryFolder)
 
                 'If any includes are using a deep path and we aren't using recursion,  we need to go directly to folders to do file size calculations or they will be missed.
                 If Not oGame.RecurseSubFolders Then
@@ -190,7 +180,7 @@ Public Class mgrBackup
                         Return False
                     End If
                 End If
-            ElseIf (mgrPath.IsPathUNC(oSettings.BackupFolder) Or mgrPath.IsPathUNC(oSettings.TemporaryFolder)) And Not Settings.DisableDiskSpaceCheck And Not bFastMode Then
+            ElseIf (mgrPath.IsPathUNC(mgrSettings.BackupFolder) Or mgrPath.IsPathUNC(mgrSettings.TemporaryFolder)) And Not mgrSettings.DisableDiskSpaceCheck And Not bFastMode Then
                 'Show that disk space check was skipped due to UNC path                
                 RaiseEvent UpdateLog(mgrBackup_ErrorPathIsUNC, False, ToolTipIcon.Info, True)
             End If
@@ -198,7 +188,7 @@ Public Class mgrBackup
             sExtension = ".7z"
         End If
 
-        If oSettings.CreateSubFolder Then sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
+        If mgrSettings.CreateSubFolder Then sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
 
         sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & sExtension
 
@@ -213,7 +203,7 @@ Public Class mgrBackup
             End If
         End If
 
-        If oSettings.ShowOverwriteWarning And File.Exists(sBackupFile) And Not oGame.AppendTimeStamp And Not bFastMode Then
+        If mgrSettings.ShowOverwriteWarning And File.Exists(sBackupFile) And Not oGame.AppendTimeStamp And Not bFastMode Then
             If oGame.AbsolutePath Then
                 sOverwriteMessage = mgrCommon.FormatString(mgrBackup_ConfirmOverwrite, Path.GetFileName(sBackupFile))
             Else
@@ -245,12 +235,12 @@ Public Class mgrBackup
             'Delete the oldest backup(s) (Manifest entry and backup file)
             For i = 1 To iDelCount
                 oGameBackup = oGameBackups(oGameBackups.Count - i)
-                sOldBackup = Settings.BackupFolder & Path.DirectorySeparatorChar & oGameBackup.FileName
+                sOldBackup = mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oGameBackup.FileName
 
                 mgrManifest.DoManifestDeleteByManifestID(oGameBackup, mgrSQLite.Database.Remote)
                 mgrManifest.DoManifestDeleteByManifestID(oGameBackup, mgrSQLite.Database.Local)
                 mgrCommon.DeleteFile(sOldBackup)
-                mgrCommon.DeleteDirectoryByBackup(Settings.BackupFolder & Path.DirectorySeparatorChar, oGameBackup)
+                mgrCommon.DeleteDirectoryByBackup(mgrSettings.BackupFolder & Path.DirectorySeparatorChar, oGameBackup)
 
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupLimitExceeded, Path.GetFileName(sOldBackup)), False, ToolTipIcon.Info, True)
             Next
@@ -287,7 +277,6 @@ Public Class mgrBackup
         Dim oBackupMetadata As BackupMetadata
         Dim iFilesImported As Integer = 0
         Dim iGamesAdded As Integer = 0
-        oMetadata.Settings = Settings
 
         For Each sFileToImport As String In sFileList
             RaiseEvent UpdateImportInfo(sFileToImport)
@@ -297,7 +286,7 @@ Public Class mgrBackup
             oBackup = New clsBackup
 
             If File.Exists(sFileToImport) Then
-                sBackupFile = oSettings.BackupFolder
+                sBackupFile = mgrSettings.BackupFolder
 
                 If oMetadata.CheckForMetadata(sFileToImport) Then
                     If oMetadata.ExtractMetadataFromArchive(sFileToImport) Then
@@ -343,7 +332,7 @@ Public Class mgrBackup
                     'Enter overwite mode if "Save Multiple Backups" is not enabled.
                     If Not oGame.AppendTimeStamp Then bOverwriteCurrent = True
 
-                    If oSettings.CreateSubFolder Then
+                    If mgrSettings.CreateSubFolder Then
                         sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
                         bContinue = HandleSubFolder(oGame, sBackupFile)
                     End If
@@ -356,7 +345,7 @@ Public Class mgrBackup
                         sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & BuildFileTimeStamp(oBackup.DateUpdated) & ".7z"
                     End If
 
-                    oBackup.FileName = sBackupFile.Replace(Settings.BackupFolder & Path.DirectorySeparatorChar, String.Empty)
+                    oBackup.FileName = sBackupFile.Replace(mgrSettings.BackupFolder & Path.DirectorySeparatorChar, String.Empty)
 
                     If sFileToImport = sBackupFile Then
                         bUpdateManifest = True
@@ -394,7 +383,7 @@ Public Class mgrBackup
         Next
 
         If iGamesAdded > 0 Then
-            mgrMonitorList.SyncMonitorLists(Settings)
+            mgrMonitorList.SyncMonitorLists()
             mgrTags.SyncTags()
             mgrGameTags.SyncGameTags()
         End If
@@ -414,7 +403,6 @@ Public Class mgrBackup
         Dim sBackupFile As String
         Dim oBackup As clsBackup
         Dim oBackupMetadata As BackupMetadata
-        oMetadata.Settings = Settings
 
         For Each de As DictionaryEntry In hshImportList
             bContinue = True
@@ -430,9 +418,9 @@ Public Class mgrBackup
             If hshImportList.Count = 1 And Not oGame.AppendTimeStamp Then bOverwriteCurrent = True
 
             If File.Exists(sFileToImport) Then
-                sBackupFile = oSettings.BackupFolder
+                sBackupFile = mgrSettings.BackupFolder
 
-                If oSettings.CreateSubFolder Then
+                If mgrSettings.CreateSubFolder Then
                     sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
                     bContinue = HandleSubFolder(oGame, sBackupFile)
                 End If
@@ -472,7 +460,7 @@ Public Class mgrBackup
                         sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & BuildFileTimeStamp(oBackup.DateUpdated) & ".7z"
                     End If
 
-                    oBackup.FileName = sBackupFile.Replace(Settings.BackupFolder & Path.DirectorySeparatorChar, String.Empty)
+                    oBackup.FileName = sBackupFile.Replace(mgrSettings.BackupFolder & Path.DirectorySeparatorChar, String.Empty)
 
                     If sFileToImport = sBackupFile Then
                         bUpdateManifest = True
@@ -498,7 +486,7 @@ Public Class mgrBackup
                         bImportComplete = True
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImport, oGame.Name}), False, ToolTipIcon.Info, True)
                     End If
-                    Else
+                Else
                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportCancel, sFileToImport), False, ToolTipIcon.Error, True)
                 End If
 
@@ -593,20 +581,20 @@ Public Class mgrBackup
         sSavePath = VerifySavePath(oGame)
 
         If oGame.FolderSave = True Then
-            BuildFileList("*", Settings.IncludeFileLocation)
+            BuildFileList("*", mgrSettings.IncludeFileLocation)
         Else
-            BuildFileList(oGame.FileType, Settings.IncludeFileLocation)
+            BuildFileList(oGame.FileType, mgrSettings.IncludeFileLocation)
         End If
 
-        BuildFileList(oGame.ExcludeList, Settings.ExcludeFileLocation)
+        BuildFileList(oGame.ExcludeList, mgrSettings.ExcludeFileLocation)
 
-        sArguments = "a" & oSettings.Prepared7zArguments & "-t7z -mx" & oSettings.CompressionLevel & " -i@""" & Settings.IncludeFileLocation & """ -x@""" & Settings.ExcludeFileLocation & """ """ & sBackupFile & """"
+        sArguments = "a" & mgrSettings.Prepared7zArguments & "-t7z -mx" & mgrSettings.CompressionLevel & " -i@""" & mgrSettings.IncludeFileLocation & """ -x@""" & mgrSettings.ExcludeFileLocation & """ """ & sBackupFile & """"
 
         If oGame.RecurseSubFolders Then sArguments &= " -r"
 
         Try
             If Directory.Exists(sSavePath) Then
-                If Settings.Is7zUtilityValid Then
+                If mgrSettings.Is7zUtilityValid Then
                     'Need to delete any prior archive if it exists, the 7za utility does not support overwriting or deleting existing archives.
                     'If we let 7za update existing archives it will lead to excessive bloat with games that routinely add and remove files with many different file names.
                     If File.Exists(sBackupFile) Then
@@ -614,7 +602,7 @@ Public Class mgrBackup
                     End If
 
                     prs7z.StartInfo.Arguments = sArguments
-                    prs7z.StartInfo.FileName = oSettings.Utility7zLocation
+                    prs7z.StartInfo.FileName = mgrSettings.Utility7zLocation
                     prs7z.StartInfo.WorkingDirectory = sSavePath
                     prs7z.StartInfo.UseShellExecute = False
                     prs7z.StartInfo.RedirectStandardOutput = True
@@ -659,11 +647,11 @@ Public Class mgrBackup
     End Function
 
     Private Function MoveBackupToFinalLocation(ByRef sSourceFile As String, ByVal oGame As clsGame) As Boolean
-        Dim sBackupFile As String = Settings.BackupFolder
+        Dim sBackupFile As String = mgrSettings.BackupFolder
         Dim sFileName As String = Path.GetFileName(sSourceFile)
         Dim bDoMove As Boolean = True
 
-        If oSettings.CreateSubFolder Then
+        If mgrSettings.CreateSubFolder Then
             sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
             bDoMove = HandleSubFolder(oGame, sBackupFile)
         End If
@@ -691,8 +679,6 @@ Public Class mgrBackup
         Dim bMetadataGenerated As Boolean
         Dim bBackupCompleted As Boolean
 
-        oMetadata.Settings = Settings
-
         For Each oGame In oBackupList
             'Break out when a cancel signal is received
             If CancelOperation Then
@@ -701,7 +687,7 @@ Public Class mgrBackup
             End If
 
             'Init
-            sBackupFile = Settings.TemporaryFolder
+            sBackupFile = mgrSettings.TemporaryFolder
             dTimeStamp = Date.Now
             sTimeStamp = BuildFileTimeStamp(dTimeStamp)
             sHash = String.Empty
@@ -737,7 +723,7 @@ Public Class mgrBackup
                 Else
                     bBackupCompleted = Run7zBackup(oGame, sBackupFile)
                     If bBackupCompleted Then
-                        bMetadataGenerated = oMetadata.SerializeAndExport(Settings.MetadataLocation, oGame.ID, My.Computer.Name, dTimeStamp)
+                        bMetadataGenerated = oMetadata.SerializeAndExport(mgrSettings.MetadataLocation, oGame.ID, My.Computer.Name, dTimeStamp)
                         If bMetadataGenerated Then
                             If oMetadata.AddMetadataToArchive(sBackupFile, App_MetadataFilename) Then
                                 If Not MoveBackupToFinalLocation(sBackupFile, oGame) Then
@@ -754,14 +740,19 @@ Public Class mgrBackup
                     End If
                 End If
 
-                'Write Main Manifest
                 If bBackupCompleted Then
                     'Generate checksum for new backup
                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_GenerateHash, oGame.Name), False, ToolTipIcon.Info, True)
                     sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
 
+                    'Write Main Manifest
                     If Not DoManifestUpdate(oGame, sBackupFile, dTimeStamp, sHash) Then
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorManifestFailure, oGame.Name), True, ToolTipIcon.Error, True)
+                    End If
+
+                    'Handle Single Notification
+                    If oBackupList.Count = 1 And mgrSettings.BackupNotification Then
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_NotificationSingle, oGame.CroppedName), True, ToolTipIcon.Info, True)
                     End If
 
                     RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionComplete, oGame.CroppedName))
@@ -772,6 +763,11 @@ Public Class mgrBackup
                 End If
             End If
         Next
+
+        'Handle Multi Notification
+        If oBackupList.Count > 1 And mgrSettings.BackupNotification Then
+            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_NotificationMulti, oBackupList.Count.ToString), True, ToolTipIcon.Info, True)
+        End If
     End Sub
 
 End Class

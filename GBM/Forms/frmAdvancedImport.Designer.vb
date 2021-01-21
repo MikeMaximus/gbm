@@ -37,11 +37,13 @@ Partial Class frmAdvancedImport
         'btnImport
         '
         Me.btnImport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnImport.Location = New System.Drawing.Point(616, 575)
+        Me.btnImport.Image = Global.GBM.My.Resources.Resources.Multi_Import
+        Me.btnImport.Location = New System.Drawing.Point(646, 559)
         Me.btnImport.Name = "btnImport"
-        Me.btnImport.Size = New System.Drawing.Size(75, 23)
-        Me.btnImport.TabIndex = 5
+        Me.btnImport.Size = New System.Drawing.Size(60, 45)
+        Me.btnImport.TabIndex = 6
         Me.btnImport.Text = "&Import"
+        Me.btnImport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnImport.UseVisualStyleBackColor = True
         '
         'chkSelectAll
@@ -57,7 +59,7 @@ Partial Class frmAdvancedImport
         'lblGames
         '
         Me.lblGames.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.lblGames.Location = New System.Drawing.Point(12, 580)
+        Me.lblGames.Location = New System.Drawing.Point(12, 575)
         Me.lblGames.Name = "lblGames"
         Me.lblGames.Size = New System.Drawing.Size(760, 14)
         Me.lblGames.TabIndex = 0
@@ -66,22 +68,24 @@ Partial Class frmAdvancedImport
         '
         'lblSelected
         '
-        Me.lblSelected.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblSelected.AutoSize = True
-        Me.lblSelected.Location = New System.Drawing.Point(9, 580)
+        Me.lblSelected.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.lblSelected.Location = New System.Drawing.Point(12, 12)
         Me.lblSelected.Name = "lblSelected"
-        Me.lblSelected.Size = New System.Drawing.Size(77, 13)
+        Me.lblSelected.Size = New System.Drawing.Size(760, 13)
         Me.lblSelected.TabIndex = 0
         Me.lblSelected.Text = "Selected Items"
+        Me.lblSelected.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'btnCancel
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancel.Location = New System.Drawing.Point(697, 575)
+        Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
+        Me.btnCancel.Location = New System.Drawing.Point(712, 559)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 6
+        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
+        Me.btnCancel.TabIndex = 7
         Me.btnCancel.Text = "&Cancel"
+        Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'lstGames
@@ -94,7 +98,7 @@ Partial Class frmAdvancedImport
         Me.lstGames.HideSelection = False
         Me.lstGames.Location = New System.Drawing.Point(12, 35)
         Me.lstGames.Name = "lstGames"
-        Me.lstGames.Size = New System.Drawing.Size(760, 529)
+        Me.lstGames.Size = New System.Drawing.Size(760, 518)
         Me.lstGames.TabIndex = 4
         Me.lstGames.UseCompatibleStateImageBehavior = False
         Me.lstGames.View = System.Windows.Forms.View.Details
@@ -129,12 +133,14 @@ Partial Class frmAdvancedImport
         '
         'btnDetectSavedGames
         '
-        Me.btnDetectSavedGames.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDetectSavedGames.Location = New System.Drawing.Point(425, 7)
+        Me.btnDetectSavedGames.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnDetectSavedGames.Image = Global.GBM.My.Resources.Resources.Multi_Search
+        Me.btnDetectSavedGames.Location = New System.Drawing.Point(12, 559)
         Me.btnDetectSavedGames.Name = "btnDetectSavedGames"
-        Me.btnDetectSavedGames.Size = New System.Drawing.Size(140, 23)
-        Me.btnDetectSavedGames.TabIndex = 2
-        Me.btnDetectSavedGames.Text = "Detect Saved Games"
+        Me.btnDetectSavedGames.Size = New System.Drawing.Size(140, 45)
+        Me.btnDetectSavedGames.TabIndex = 5
+        Me.btnDetectSavedGames.Text = "&Detect Saved Games"
+        Me.btnDetectSavedGames.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnDetectSavedGames.UseVisualStyleBackColor = True
         '
         'frmAdvancedImport
@@ -148,10 +154,10 @@ Partial Class frmAdvancedImport
         Me.Controls.Add(Me.txtFilter)
         Me.Controls.Add(Me.lstGames)
         Me.Controls.Add(Me.btnCancel)
-        Me.Controls.Add(Me.lblSelected)
         Me.Controls.Add(Me.chkSelectAll)
         Me.Controls.Add(Me.btnImport)
         Me.Controls.Add(Me.lblGames)
+        Me.Controls.Add(Me.lblSelected)
         Me.Name = "frmAdvancedImport"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

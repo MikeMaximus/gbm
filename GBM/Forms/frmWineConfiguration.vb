@@ -1,17 +1,8 @@
 ﻿Imports GBM.My.Resources
 
 Public Class frmWineConfiguration
-    Private oSettings As mgrSettings
     Private sMonitorID As String
-
-    Property Settings As mgrSettings
-        Get
-            Return oSettings
-        End Get
-        Set(value As mgrSettings)
-            oSettings = value
-        End Set
-    End Property
+    Private sGameName As String
 
     Property MonitorID As String
         Get
@@ -22,9 +13,18 @@ Public Class frmWineConfiguration
         End Set
     End Property
 
+    Property GameName As String
+        Get
+            Return sGameName
+        End Get
+        Set(value As String)
+            sGameName = value
+        End Set
+    End Property
+
     Private Sub SetForm()
         'Set Form Name
-        Me.Text = frmWineConfiguration_FormName
+        Me.Text = mgrCommon.FormatString(frmWineConfiguration_FormName, GameName)
         Me.Icon = GBM_Icon
 
         'Set Form Text
@@ -33,7 +33,9 @@ Public Class frmWineConfiguration
         lblWinePrefix.Text = frmWineConfiguration_lblWinePrefix
         lblWineSavePath.Text = frmWineConfiguration_lblWineSavePath
         btnSave.Text = frmWineConfiguration_btnSave
+        btnSave.Image = Multi_Save
         btnCancel.Text = frmWineConfiguration_btnCancel
+        btnCancel.Image = Multi_Cancel
     End Sub
 
     Private Sub LoadData()
@@ -45,10 +47,10 @@ Public Class frmWineConfiguration
     End Sub
 
     Private Sub HandleWarning()
-        If Not (oSettings.SuppressMessages And mgrSettings.eSuppressMessages.WineConfig) = mgrSettings.eSuppressMessages.WineConfig Then
+        If Not (mgrSettings.SuppressMessages And mgrSettings.eSuppressMessages.WineConfig) = mgrSettings.eSuppressMessages.WineConfig Then
             mgrCommon.ShowMessage(frmWineConfiguration_WarningSingle, MsgBoxStyle.Information)
-            oSettings.SuppressMessages = oSettings.SetMessageField(oSettings.SuppressMessages, mgrSettings.eSuppressMessages.WineConfig)
-            oSettings.SaveSettings()
+            mgrSettings.SuppressMessages = mgrSettings.SetMessageField(mgrSettings.SuppressMessages, mgrSettings.eSuppressMessages.WineConfig)
+            mgrSettings.SaveSettings()
         End If
     End Sub
 

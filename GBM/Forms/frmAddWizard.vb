@@ -34,8 +34,11 @@ Public Class frmAddWizard
 
         'Set Form Text
         btnCancel.Text = frmAddWizard_btnCancel
+        btnCancel.Image = Multi_Cancel
         btnNext.Text = frmAddWizard_btnNext
+        btnNext.Image = Multi_Next
         btnBack.Text = frmAddWizard_btnBack
+        btnBack.Image = Multi_Back
         lblStep1Title.Text = frmAddWizard_lblStep1Title
         lblStep1Instructions.Text = frmAddWizard_lblStep1Instructions
         lblStep1Intro.Text = frmAddWizard_lblStep1Intro
@@ -158,7 +161,6 @@ Public Class frmAddWizard
         oGame.Name = sName
         oGame.ProcessName = sProcess
         oGame.Path = sSavePath
-        oGame.AbsolutePath = bIsAbsolute
         oGame.FolderSave = bFolderBackup
         oGame.FileType = sFileType
         oGame.AppendTimeStamp = bTimeStamp
@@ -192,10 +194,12 @@ Public Class frmAddWizard
                 btnBack.Enabled = True
                 btnNext.Enabled = True
                 btnNext.Text = frmAddWizard_btnNext
+                btnNext.Image = Multi_Next
                 tabWizard.SelectTab(4)
             Case eSteps.Step5
                 btnBack.Enabled = True
                 btnNext.Text = frmAddWizard_btnNext_Finish
+                btnNext.Image = Multi_Ok
                 tabWizard.SelectTab(5)
         End Select
     End Sub

@@ -249,6 +249,7 @@ Public Class frmIncludeExclude
         'Set Form Text
         lblSaveFolder.Text = frmIncludeExclude_lblSaveFolder
         btnRawEdit.Text = frmIncludeExclude_btnRawEdit
+        btnRawEdit.Image = Multi_Edit
         lblItems.Text = mgrCommon.FormatString(frmIncludeExclude_lblItems, FormName)
         grpOptions.Text = mgrCommon.FormatString(frmIncludeExclude_grpOptions, FormName)
         optFileTypes.Text = frmIncludeExclude_optFileTypes
@@ -258,7 +259,9 @@ Public Class frmIncludeExclude
         btnAdd.Text = frmIncludeExclude_btnAdd
         btnBrowse.Text = frmIncludeExclude_btnBrowse
         btnCancel.Text = frmIncludeExclude_btnCancel
+        btnCancel.Image = Multi_Cancel
         btnSave.Text = frmIncludeExclude_btnSave
+        btnSave.Image = Multi_Save
         cmsAdd.Text = frmIncludeExclude_cmsAdd
         cmsEdit.Text = frmIncludeExclude_cmsEdit
         cmsRemove.Text = frmIncludeExclude_cmsRemove

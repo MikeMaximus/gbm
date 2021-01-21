@@ -26,6 +26,8 @@ Public Class mgrLaunchGame
                 'Give the user a specific error message
                 If mgrCommon.IsUnix And oGame.OS = clsGame.eOS.Windows Then
                     sErrorMessage = mgrCommon.FormatString(mgrLaunchGame_ErrorNoAutoWineSupport, oGame.CroppedName)
+                ElseIf oGame.UseWindowTitle Then
+                    sErrorMessage = mgrCommon.FormatString(mgrLaunchGame_ErrorUseWindowTitle, oGame.CroppedName)
                 ElseIf oGame.ProcessName = String.Empty Then
                     sErrorMessage = mgrCommon.FormatString(mgrLaunchGame_ErrorNoProcess, oGame.CroppedName)
                 ElseIf oGame.ProcessPath = String.Empty Then

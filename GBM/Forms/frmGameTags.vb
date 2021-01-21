@@ -217,7 +217,7 @@ Public Class frmGameTags
 
         'Set Form Text
         btnOpenTags.Text = frmGameTags_btnOpenTags
-        btnClose.Text = frmGameTags_btnClose
+        btnOpenTags.Image = Multi_Edit
         lblGameTags.Text = frmGameTags_lblGameTags
         lblTags.Text = frmGameTags_lblTags
         btnRemove.Text = frmGameTags_btnRemove
@@ -230,9 +230,8 @@ Public Class frmGameTags
         SetForm()
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+    Private Sub frmGameTags_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If bNewMode Then BuildTagList()
-        Me.Close()
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click

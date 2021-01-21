@@ -4,17 +4,7 @@ Imports System.IO
 Public Class frmStartUpWizard
 
     Private oGameData As Hashtable
-    Private oSettings As mgrSettings
     Private bShutdown As Boolean = False
-
-    Property Settings As mgrSettings
-        Get
-            Return oSettings
-        End Get
-        Set(value As mgrSettings)
-            oSettings = value
-        End Set
-    End Property
 
     Private Enum eSteps As Integer
         Step1 = 1
@@ -34,7 +24,9 @@ Public Class frmStartUpWizard
 
         'Set Form Text
         btnNext.Text = frmStartUpWizard_btnNext
+        btnNext.Image = Multi_Next
         btnBack.Text = frmStartUpWizard_btnBack
+        btnBack.Image = Multi_Back
         lblStep1Instructions2.Text = frmStartUpWizard_lblStep1Instructions2
         llbManual.Text = frmStartUpWizard_llbManual
         lblStep1Title.Text = frmStartUpWizard_lblStep1Title
@@ -56,7 +48,7 @@ Public Class frmStartUpWizard
         lblStep4Instructions.Text = frmStartUpWizard_lblStep4Instructions
 
         llbManual.Links.Add(0, 26, App_URLManual)
-        txtBackupPath.Text = oSettings.BackupFolder
+        txtBackupPath.Text = mgrSettings.BackupFolder
 
         StepHandler()
     End Sub
@@ -70,7 +62,7 @@ Public Class frmStartUpWizard
         If oDatabase.CheckDB() Then
             'Make sure database is the latest version
             oDatabase.DatabaseUpgrade()
-            mgrMonitorList.SyncMonitorLists(oSettings, False)
+            mgrMonitorList.SyncMonitorLists(False)
             bExistingData = True
             mgrCommon.ShowMessage(frmStartUpWizard_ExistingData, MsgBoxStyle.Information)
         End If
@@ -78,7 +70,7 @@ Public Class frmStartUpWizard
         'Scan for any archives to import
         Cursor.Current = Cursors.WaitCursor
         Dim sFilesFound As List(Of String)
-        sFilesFound = mgrCommon.GetFileListByFolder(oSettings.BackupFolder, New String() {"*.7z"})
+        sFilesFound = mgrCommon.GetFileListByFolder(mgrSettings.BackupFolder, New String() {"*.7z"})
         Dim sFilesToImport(sFilesFound.Count) As String
         sFilesFound.CopyTo(sFilesToImport)
         Cursor.Current = Cursors.Default
@@ -95,7 +87,6 @@ Public Class frmStartUpWizard
             If mgrCommon.ShowMessage(sMessage, sFilesFound.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 Cursor.Current = Cursors.WaitCursor
                 Dim oBackup As New mgrBackup
-                oBackup.Settings = oSettings
                 oBackup.ImportBackupFiles(sFilesToImport)
                 Cursor.Current = Cursors.Default
             End If
@@ -116,11 +107,13 @@ Public Class frmStartUpWizard
                 btnBack.Enabled = False
                 btnNext.Enabled = True
                 btnNext.Text = frmStartUpWizard_btnNext
+                btnNext.Image = Multi_Next
                 tabWizard.SelectTab(2)
             Case eSteps.Step4
                 btnBack.Enabled = True
                 btnNext.Enabled = True
                 btnNext.Text = frmStartUpWizard_btnNext_Finish
+                btnNext.Image = Multi_Ok
                 tabWizard.SelectTab(3)
         End Select
     End Sub
@@ -137,7 +130,7 @@ Public Class frmStartUpWizard
         If mgrCommon.ShowMessage(frmStartUpWizard_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             If mgrMonitorList.DoImport(sImportURL, True) Then
                 oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
-                mgrMonitorList.SyncMonitorLists(oSettings)
+                mgrMonitorList.SyncMonitorLists()
             End If
         End If
     End Sub
@@ -151,15 +144,15 @@ Public Class frmStartUpWizard
         Dim frm As New frmAddWizard
         frm.GameData = oGameData
         frm.ShowDialog()
+        mgrMonitorList.SyncMonitorLists()
         LoadGameSettings()
-        mgrMonitorList.SyncMonitorLists(oSettings)
     End Sub
 
     Private Sub OpenMonitorList()
         Dim frm As New frmGameManager
-        frm.Settings = oSettings
         frm.DisableExternalFunctions = True
         frm.ShowDialog()
+        mgrMonitorList.SyncMonitorLists()
         LoadGameSettings()
     End Sub
 
@@ -213,10 +206,9 @@ Public Class frmStartUpWizard
                 chkCreateFolder.Checked = True
             Case eSteps.Step2
                 If ValidateBackupPath(txtBackupPath.Text, sErrorMessage) Then
-                    oSettings.BackupFolder = txtBackupPath.Text
-                    oSettings.CreateSubFolder = chkCreateFolder.Checked
-                    oSettings.SaveSettings()
-                    oSettings.LoadSettings()
+                    mgrSettings.BackupFolder = txtBackupPath.Text
+                    mgrSettings.CreateSubFolder = chkCreateFolder.Checked
+                    mgrSettings.SaveSettings()
                     CheckSync()
                     eCurrentStep = eSteps.Step3
                 Else

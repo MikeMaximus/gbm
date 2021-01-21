@@ -268,11 +268,14 @@ Public Class frmTags
         'Set Form Text
         grpTag.Text = frmTags_grpTag
         lblName.Text = frmTags_lblName
-        btnClose.Text = frmTags_btnClose
         btnDelete.Text = frmTags_btnDelete
+        btnDelete.Image = Multi_Delete
         btnAdd.Text = frmTags_btnAdd
+        btnAdd.Image = Multi_Add
         btnCancel.Text = frmTags_btnCancel
+        btnCancel.Image = Multi_Cancel
         btnSave.Text = frmTags_btnSave
+        btnSave.Image = Multi_Save
     End Sub
 
     Private Sub frmTags_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -302,7 +305,7 @@ Public Class frmTags
         CancelEdit()
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+    Private Sub btnClose_Click(sender As Object, e As EventArgs)
         Me.Close()
     End Sub
 

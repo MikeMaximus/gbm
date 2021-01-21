@@ -83,6 +83,18 @@ Public Class mgrSessions
         Return oDatabase.ReadParamData(sSQL, hshParams)
     End Function
 
+    Public Shared Function GetLastSessionDateTime(ByVal oGame As clsGame, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Object
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim hshParams As New Hashtable
+
+        sSQL = "SELECT End FROM sessions WHERE MonitorID = @MonitorID ORDER BY End DESC LIMIT 1;"
+
+        hshParams.Add("MonitorID", oGame.ID)
+
+        Return oDatabase.ReadSingleValue(sSQL, hshParams)
+    End Function
+
     Public Shared Sub DeleteSession(ByVal oSessions As List(Of clsSession), Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String

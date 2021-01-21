@@ -81,8 +81,11 @@ Public Class frmSessions
         lblFilter.Text = frmSessions_lblFilter
         lblDateRange.Text = frmSessions_lblDateRange
         btnDelete.Text = frmSessions_btnDelete
+        btnDelete.Image = Multi_Delete
         btnReset.Text = frmSessions_btnReset
-        btnClose.Text = frmSessions_btnClose
+        btnReset.Image = Multi_Reset
+        btnExport.Text = frmSessions_btnExport
+        btnExport.Image = Multi_Export
 
         'Init Filter Timer
         tmFilterTimer = New Timer()
@@ -238,7 +241,7 @@ Public Class frmSessions
         Reset()
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+    Private Sub btnClose_Click(sender As Object, e As EventArgs)
         Me.Close()
     End Sub
 

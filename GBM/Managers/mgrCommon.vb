@@ -53,11 +53,16 @@ Public Class mgrCommon
             oReturnImage = New Bitmap(oImage, oImageSize)
             oImage.Dispose()
         Catch
-            oReturnImage = Icon_Unknown
+            oReturnImage = Multi_Unknown
         End Try
 
         Return oReturnImage
     End Function
+
+    Public Shared Function GetCachedIconPath(ByVal sID As String) As String
+        Return mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & sID & ".png"
+    End Function
+
 
     Public Shared Function IsURI(ByVal sURI As String) As Boolean
         If (sURI.IndexOf("://", 1, StringComparison.CurrentCultureIgnoreCase) > -1) Or (sURI.IndexOf("://", 1, StringComparison.CurrentCultureIgnoreCase) > -1) Then
@@ -869,6 +874,20 @@ Public Class mgrCommon
         Next
 
         Return sString
+    End Function
+
+    'Escape the ampersand character, for use with dynamic controls that don't have the UseMnemonic property
+    Public Shared Function EscapeAmpersand(ByVal sItem As String, Optional ByVal bIsToolTip As Boolean = False) As String
+        Dim sNewValue As String
+
+        'Ampersands displayed in a tooltip require a double escape
+        If bIsToolTip Then
+            sNewValue = "&&&"
+        Else
+            sNewValue = "&&"
+        End If
+
+        Return sItem.Replace("&", sNewValue)
     End Function
 
     'Compare functions

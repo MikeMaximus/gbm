@@ -308,14 +308,17 @@ Public Class frmProcessManager
 
         'Set Form Text
         btnCancel.Text = frmProcessManager_btnCancel
+        btnCancel.Image = Multi_Cancel
         btnSave.Text = frmProcessManager_btnSave
+        btnSave.Image = Multi_Save
         grpProcess.Text = frmProcessManager_grpProcess
         btnProcessBrowse.Text = frmProcessManager_btnProcessBrowse
         lblProcess.Text = frmProcessManager_lblPath
         lblName.Text = frmProcessManager_lblName
-        btnClose.Text = frmProcessManager_btnClose
         btnDelete.Text = frmProcessManager_btnDelete
+        btnDelete.Image = Multi_Delete
         btnAdd.Text = frmProcessManager_btnAdd
+        btnAdd.Image = Multi_Add
         chkKillProcess.Text = frmProcessManager_chkKillProcess
     End Sub
 
@@ -346,7 +349,7 @@ Public Class frmProcessManager
         CancelEdit()
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+    Private Sub btnClose_Click(sender As Object, e As EventArgs)
         Me.Close()
     End Sub
 

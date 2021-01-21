@@ -23,21 +23,13 @@ Partial Class frmGameManager
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmGameManager))
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
-        Me.btnBackup = New System.Windows.Forms.Button()
-        Me.btnClose = New System.Windows.Forms.Button()
-        Me.grpConfig = New System.Windows.Forms.GroupBox()
-        Me.btnWineConfig = New System.Windows.Forms.Button()
-        Me.lblOS = New System.Windows.Forms.Label()
         Me.cboOS = New System.Windows.Forms.ComboBox()
         Me.chkRecurseSubFolders = New System.Windows.Forms.CheckBox()
-        Me.btnGameID = New System.Windows.Forms.Button()
-        Me.chkRegEx = New System.Windows.Forms.CheckBox()
-        Me.lblComments = New System.Windows.Forms.Label()
         Me.txtParameter = New System.Windows.Forms.TextBox()
         Me.lblParameter = New System.Windows.Forms.Label()
-        Me.txtComments = New System.Windows.Forms.TextBox()
         Me.chkCleanFolder = New System.Windows.Forms.CheckBox()
         Me.lblLimit = New System.Windows.Forms.Label()
         Me.nudLimit = New System.Windows.Forms.NumericUpDown()
@@ -56,9 +48,6 @@ Partial Class frmGameManager
         Me.txtSavePath = New System.Windows.Forms.TextBox()
         Me.txtProcess = New System.Windows.Forms.TextBox()
         Me.txtName = New System.Windows.Forms.TextBox()
-        Me.chkMonitorOnly = New System.Windows.Forms.CheckBox()
-        Me.grpExtra = New System.Windows.Forms.GroupBox()
-        Me.lblTags = New System.Windows.Forms.Label()
         Me.btnIconBrowse = New System.Windows.Forms.Button()
         Me.txtIcon = New System.Windows.Forms.TextBox()
         Me.lblVersion = New System.Windows.Forms.Label()
@@ -67,36 +56,11 @@ Partial Class frmGameManager
         Me.lblCompany = New System.Windows.Forms.Label()
         Me.pbIcon = New System.Windows.Forms.PictureBox()
         Me.lblIcon = New System.Windows.Forms.Label()
-        Me.btnAppPathBrowse = New System.Windows.Forms.Button()
-        Me.lblGamePath = New System.Windows.Forms.Label()
-        Me.txtAppPath = New System.Windows.Forms.TextBox()
         Me.nudHours = New System.Windows.Forms.NumericUpDown()
         Me.lblHours = New System.Windows.Forms.Label()
-        Me.btnTags = New System.Windows.Forms.Button()
-        Me.grpStats = New System.Windows.Forms.GroupBox()
-        Me.btnImportBackup = New System.Windows.Forms.Button()
-        Me.cboRemoteBackup = New System.Windows.Forms.ComboBox()
-        Me.lblRestorePathData = New System.Windows.Forms.Label()
-        Me.lblBackupFileData = New System.Windows.Forms.Label()
-        Me.lblLocalBackupData = New System.Windows.Forms.Label()
-        Me.lblRestorePath = New System.Windows.Forms.Label()
-        Me.btnOpenRestorePath = New System.Windows.Forms.Button()
-        Me.btnOpenBackup = New System.Windows.Forms.Button()
-        Me.btnDeleteBackup = New System.Windows.Forms.Button()
-        Me.lblBackupFile = New System.Windows.Forms.Label()
-        Me.lblRemote = New System.Windows.Forms.Label()
-        Me.lblLocalData = New System.Windows.Forms.Label()
-        Me.btnMarkAsRestored = New System.Windows.Forms.Button()
-        Me.btnRestore = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.lstGames = New System.Windows.Forms.ListBox()
         Me.btnCancel = New System.Windows.Forms.Button()
-        Me.chkEnabled = New System.Windows.Forms.CheckBox()
-        Me.grpFilter = New System.Windows.Forms.GroupBox()
-        Me.optCustom = New System.Windows.Forms.RadioButton()
-        Me.optBackupData = New System.Windows.Forms.RadioButton()
-        Me.optPendingRestores = New System.Windows.Forms.RadioButton()
-        Me.optAllGames = New System.Windows.Forms.RadioButton()
         Me.btnImport = New System.Windows.Forms.Button()
         Me.btnExport = New System.Windows.Forms.Button()
         Me.cmsImport = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -104,149 +68,115 @@ Partial Class frmGameManager
         Me.cmsOfficialWindows = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsOfficialLinux = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsFile = New System.Windows.Forms.ToolStripMenuItem()
-        Me.txtQuickFilter = New System.Windows.Forms.TextBox()
-        Me.lblQuickFilter = New System.Windows.Forms.Label()
-        Me.cmsDeleteBackup = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.lblSearch = New System.Windows.Forms.Label()
+        Me.cmsBackupData = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsDeleteOne = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btnLink = New System.Windows.Forms.Button()
+        Me.cmsImportData = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnAdvanced = New System.Windows.Forms.Button()
         Me.ttFullPath = New System.Windows.Forms.ToolTip(Me.components)
-        Me.cmsOpenBackup = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.cmsOpenBackupFile = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmsOpenBackupFolder = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmsLink = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.cmsProcess = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmsConfiguration = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btnLaunchOptions = New System.Windows.Forms.Button()
-        Me.cmsLaunch = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmsAdvanced = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsLaunchSettings = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmsLaunchGame = New System.Windows.Forms.ToolStripMenuItem()
-        Me.grpConfig.SuspendLayout()
+        Me.cmsWineConfig = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ttHelp = New System.Windows.Forms.ToolTip(Me.components)
+        Me.tabGameManager = New System.Windows.Forms.TabControl()
+        Me.tbConfig = New System.Windows.Forms.TabPage()
+        Me.grpCoreConfig = New System.Windows.Forms.GroupBox()
+        Me.btnGameID = New System.Windows.Forms.Button()
+        Me.lblGameTags = New System.Windows.Forms.LinkLabel()
+        Me.lblTags = New System.Windows.Forms.Label()
+        Me.btnProcessOptions = New System.Windows.Forms.Button()
+        Me.btnAppPathBrowse = New System.Windows.Forms.Button()
+        Me.btnLinks = New System.Windows.Forms.Button()
+        Me.btnMonitorOptions = New System.Windows.Forms.Button()
+        Me.lblGamePath = New System.Windows.Forms.Label()
+        Me.txtAppPath = New System.Windows.Forms.TextBox()
+        Me.tbGameInfo = New System.Windows.Forms.TabPage()
+        Me.grpGameInfo = New System.Windows.Forms.GroupBox()
+        Me.lblComments = New System.Windows.Forms.Label()
+        Me.txtComments = New System.Windows.Forms.TextBox()
+        Me.tbBackupInfo = New System.Windows.Forms.TabPage()
+        Me.grpBackupInfo = New System.Windows.Forms.GroupBox()
+        Me.btnRestore = New System.Windows.Forms.Button()
+        Me.btnBackup = New System.Windows.Forms.Button()
+        Me.btnMarkAsRestored = New System.Windows.Forms.Button()
+        Me.lblRemote = New System.Windows.Forms.Label()
+        Me.btnBackupData = New System.Windows.Forms.Button()
+        Me.lblRestorePath = New System.Windows.Forms.Label()
+        Me.lblLocalBackupData = New System.Windows.Forms.Label()
+        Me.btnOpenBackupFolder = New System.Windows.Forms.Button()
+        Me.lblBackupFile = New System.Windows.Forms.Label()
+        Me.cboRemoteBackup = New System.Windows.Forms.ComboBox()
+        Me.lblBackupFileData = New System.Windows.Forms.LinkLabel()
+        Me.lblLocalData = New System.Windows.Forms.Label()
+        Me.lblRestorePathData = New System.Windows.Forms.LinkLabel()
+        Me.cboFilters = New System.Windows.Forms.ComboBox()
+        Me.lblFilters = New System.Windows.Forms.Label()
+        Me.cmsProcessOptions = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmsRegEx = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsUseWindowTitle = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsLinks = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmsLinkConfiguration = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsLinkProcess = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsMonitorOptions = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmsEnabled = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsMonitorOnly = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.grpExtra.SuspendLayout()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudHours, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.grpStats.SuspendLayout()
-        Me.grpFilter.SuspendLayout()
         Me.cmsImport.SuspendLayout()
-        Me.cmsDeleteBackup.SuspendLayout()
-        Me.cmsOpenBackup.SuspendLayout()
-        Me.cmsLink.SuspendLayout()
-        Me.cmsLaunch.SuspendLayout()
+        Me.cmsBackupData.SuspendLayout()
+        Me.cmsAdvanced.SuspendLayout()
+        Me.tabGameManager.SuspendLayout()
+        Me.tbConfig.SuspendLayout()
+        Me.grpCoreConfig.SuspendLayout()
+        Me.tbGameInfo.SuspendLayout()
+        Me.grpGameInfo.SuspendLayout()
+        Me.tbBackupInfo.SuspendLayout()
+        Me.grpBackupInfo.SuspendLayout()
+        Me.cmsProcessOptions.SuspendLayout()
+        Me.cmsLinks.SuspendLayout()
+        Me.cmsMonitorOptions.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnAdd
         '
-        Me.btnAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAdd.Location = New System.Drawing.Point(12, 626)
+        Me.btnAdd.Image = Global.GBM.My.Resources.Resources.Multi_Add
+        Me.btnAdd.Location = New System.Drawing.Point(12, 329)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(30, 23)
-        Me.btnAdd.TabIndex = 4
-        Me.btnAdd.Text = "+"
+        Me.btnAdd.Size = New System.Drawing.Size(50, 45)
+        Me.btnAdd.TabIndex = 5
+        Me.btnAdd.Text = "New"
+        Me.btnAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnAdd.UseVisualStyleBackColor = True
         '
         'btnDelete
         '
-        Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnDelete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDelete.Location = New System.Drawing.Point(48, 626)
+        Me.btnDelete.Image = Global.GBM.My.Resources.Resources.Multi_Delete
+        Me.btnDelete.Location = New System.Drawing.Point(68, 329)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(30, 23)
-        Me.btnDelete.TabIndex = 5
-        Me.btnDelete.Text = "-"
+        Me.btnDelete.Size = New System.Drawing.Size(50, 45)
+        Me.btnDelete.TabIndex = 6
+        Me.btnDelete.Text = "Delete"
+        Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnDelete.UseVisualStyleBackColor = True
-        '
-        'btnBackup
-        '
-        Me.btnBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnBackup.Location = New System.Drawing.Point(616, 626)
-        Me.btnBackup.Name = "btnBackup"
-        Me.btnBackup.Size = New System.Drawing.Size(75, 23)
-        Me.btnBackup.TabIndex = 20
-        Me.btnBackup.Text = "&Backup"
-        Me.btnBackup.UseVisualStyleBackColor = True
-        '
-        'btnClose
-        '
-        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnClose.Location = New System.Drawing.Point(697, 626)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnClose.TabIndex = 21
-        Me.btnClose.Text = "&Close"
-        Me.btnClose.UseVisualStyleBackColor = True
-        '
-        'grpConfig
-        '
-        Me.grpConfig.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.grpConfig.Controls.Add(Me.btnWineConfig)
-        Me.grpConfig.Controls.Add(Me.lblOS)
-        Me.grpConfig.Controls.Add(Me.cboOS)
-        Me.grpConfig.Controls.Add(Me.chkRecurseSubFolders)
-        Me.grpConfig.Controls.Add(Me.btnGameID)
-        Me.grpConfig.Controls.Add(Me.chkRegEx)
-        Me.grpConfig.Controls.Add(Me.lblComments)
-        Me.grpConfig.Controls.Add(Me.txtParameter)
-        Me.grpConfig.Controls.Add(Me.lblParameter)
-        Me.grpConfig.Controls.Add(Me.txtComments)
-        Me.grpConfig.Controls.Add(Me.chkCleanFolder)
-        Me.grpConfig.Controls.Add(Me.lblLimit)
-        Me.grpConfig.Controls.Add(Me.nudLimit)
-        Me.grpConfig.Controls.Add(Me.btnExclude)
-        Me.grpConfig.Controls.Add(Me.btnInclude)
-        Me.grpConfig.Controls.Add(Me.txtID)
-        Me.grpConfig.Controls.Add(Me.btnSavePathBrowse)
-        Me.grpConfig.Controls.Add(Me.btnProcessBrowse)
-        Me.grpConfig.Controls.Add(Me.lblSavePath)
-        Me.grpConfig.Controls.Add(Me.lblProcess)
-        Me.grpConfig.Controls.Add(Me.lblName)
-        Me.grpConfig.Controls.Add(Me.txtExclude)
-        Me.grpConfig.Controls.Add(Me.txtFileType)
-        Me.grpConfig.Controls.Add(Me.chkTimeStamp)
-        Me.grpConfig.Controls.Add(Me.chkFolderSave)
-        Me.grpConfig.Controls.Add(Me.txtSavePath)
-        Me.grpConfig.Controls.Add(Me.txtProcess)
-        Me.grpConfig.Controls.Add(Me.txtName)
-        Me.grpConfig.Enabled = False
-        Me.grpConfig.Location = New System.Drawing.Point(247, 12)
-        Me.grpConfig.Name = "grpConfig"
-        Me.grpConfig.Size = New System.Drawing.Size(525, 258)
-        Me.grpConfig.TabIndex = 8
-        Me.grpConfig.TabStop = False
-        Me.grpConfig.Text = "Configuration"
-        '
-        'btnWineConfig
-        '
-        Me.btnWineConfig.Location = New System.Drawing.Point(191, 167)
-        Me.btnWineConfig.Name = "btnWineConfig"
-        Me.btnWineConfig.Size = New System.Drawing.Size(175, 23)
-        Me.btnWineConfig.TabIndex = 16
-        Me.btnWineConfig.Text = "&Wine Configuration..."
-        Me.btnWineConfig.UseVisualStyleBackColor = True
-        '
-        'lblOS
-        '
-        Me.lblOS.AutoSize = True
-        Me.lblOS.Location = New System.Drawing.Point(7, 172)
-        Me.lblOS.Name = "lblOS"
-        Me.lblOS.Size = New System.Drawing.Size(25, 13)
-        Me.lblOS.TabIndex = 14
-        Me.lblOS.Text = "OS:"
         '
         'cboOS
         '
         Me.cboOS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboOS.FormattingEnabled = True
-        Me.cboOS.Location = New System.Drawing.Point(70, 169)
+        Me.cboOS.Location = New System.Drawing.Point(82, 226)
         Me.cboOS.Name = "cboOS"
-        Me.cboOS.Size = New System.Drawing.Size(115, 21)
-        Me.cboOS.TabIndex = 15
+        Me.cboOS.Size = New System.Drawing.Size(130, 21)
+        Me.cboOS.TabIndex = 25
         '
         'chkRecurseSubFolders
         '
         Me.chkRecurseSubFolders.AutoSize = True
-        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(489, 206)
+        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(486, 256)
         Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
         Me.chkRecurseSubFolders.Size = New System.Drawing.Size(15, 14)
         Me.chkRecurseSubFolders.TabIndex = 0
@@ -254,63 +184,26 @@ Partial Class frmGameManager
         Me.chkRecurseSubFolders.UseVisualStyleBackColor = True
         Me.chkRecurseSubFolders.Visible = False
         '
-        'btnGameID
-        '
-        Me.btnGameID.Location = New System.Drawing.Point(402, 17)
-        Me.btnGameID.Name = "btnGameID"
-        Me.btnGameID.Size = New System.Drawing.Size(117, 23)
-        Me.btnGameID.TabIndex = 2
-        Me.btnGameID.Text = "&Game ID..."
-        Me.btnGameID.UseVisualStyleBackColor = True
-        '
-        'chkRegEx
-        '
-        Me.chkRegEx.AutoSize = True
-        Me.chkRegEx.Location = New System.Drawing.Point(402, 46)
-        Me.chkRegEx.Name = "chkRegEx"
-        Me.chkRegEx.Size = New System.Drawing.Size(117, 17)
-        Me.chkRegEx.TabIndex = 6
-        Me.chkRegEx.Text = "Regular Expression"
-        Me.chkRegEx.UseVisualStyleBackColor = True
-        '
-        'lblComments
-        '
-        Me.lblComments.AutoSize = True
-        Me.lblComments.Location = New System.Drawing.Point(7, 128)
-        Me.lblComments.Name = "lblComments"
-        Me.lblComments.Size = New System.Drawing.Size(59, 13)
-        Me.lblComments.TabIndex = 12
-        Me.lblComments.Text = "Comments:"
-        '
         'txtParameter
         '
-        Me.txtParameter.Location = New System.Drawing.Point(70, 71)
+        Me.txtParameter.Location = New System.Drawing.Point(78, 64)
         Me.txtParameter.Name = "txtParameter"
-        Me.txtParameter.Size = New System.Drawing.Size(414, 20)
+        Me.txtParameter.Size = New System.Drawing.Size(387, 20)
         Me.txtParameter.TabIndex = 8
         '
         'lblParameter
         '
         Me.lblParameter.AutoSize = True
-        Me.lblParameter.Location = New System.Drawing.Point(7, 74)
+        Me.lblParameter.Location = New System.Drawing.Point(6, 67)
         Me.lblParameter.Name = "lblParameter"
         Me.lblParameter.Size = New System.Drawing.Size(58, 13)
         Me.lblParameter.TabIndex = 7
         Me.lblParameter.Text = "Parameter:"
         '
-        'txtComments
-        '
-        Me.txtComments.Location = New System.Drawing.Point(70, 123)
-        Me.txtComments.Multiline = True
-        Me.txtComments.Name = "txtComments"
-        Me.txtComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtComments.Size = New System.Drawing.Size(414, 40)
-        Me.txtComments.TabIndex = 13
-        '
         'chkCleanFolder
         '
         Me.chkCleanFolder.AutoSize = True
-        Me.chkCleanFolder.Location = New System.Drawing.Point(330, 200)
+        Me.chkCleanFolder.Location = New System.Drawing.Point(357, 168)
         Me.chkCleanFolder.Name = "chkCleanFolder"
         Me.chkCleanFolder.Size = New System.Drawing.Size(136, 17)
         Me.chkCleanFolder.TabIndex = 19
@@ -320,43 +213,45 @@ Partial Class frmGameManager
         'lblLimit
         '
         Me.lblLimit.AutoSize = True
-        Me.lblLimit.Location = New System.Drawing.Point(376, 229)
+        Me.lblLimit.Location = New System.Drawing.Point(403, 197)
         Me.lblLimit.Name = "lblLimit"
-        Me.lblLimit.Size = New System.Drawing.Size(138, 13)
+        Me.lblLimit.Size = New System.Drawing.Size(98, 13)
         Me.lblLimit.TabIndex = 23
-        Me.lblLimit.Text = "Backup Limit (0 = Unlimited)"
-        Me.lblLimit.Visible = False
+        Me.lblLimit.Text = "Limit (0 = Unlimited)"
         '
         'nudLimit
         '
-        Me.nudLimit.Location = New System.Drawing.Point(330, 227)
+        Me.nudLimit.Location = New System.Drawing.Point(357, 195)
         Me.nudLimit.Name = "nudLimit"
         Me.nudLimit.Size = New System.Drawing.Size(40, 20)
         Me.nudLimit.TabIndex = 22
-        Me.nudLimit.Visible = False
         '
         'btnExclude
         '
-        Me.btnExclude.Location = New System.Drawing.Point(10, 224)
+        Me.btnExclude.Image = Global.GBM.My.Resources.Resources.frmGameManager_Exclude_Items
+        Me.btnExclude.Location = New System.Drawing.Point(112, 168)
         Me.btnExclude.Name = "btnExclude"
-        Me.btnExclude.Size = New System.Drawing.Size(175, 23)
+        Me.btnExclude.Size = New System.Drawing.Size(100, 45)
         Me.btnExclude.TabIndex = 20
-        Me.btnExclude.Text = "E&xclude Items..."
+        Me.btnExclude.Text = "E&xclude..."
+        Me.btnExclude.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnExclude.UseVisualStyleBackColor = True
         '
         'btnInclude
         '
-        Me.btnInclude.Location = New System.Drawing.Point(10, 196)
+        Me.btnInclude.Image = Global.GBM.My.Resources.Resources.frmGameManager_Include_Items
+        Me.btnInclude.Location = New System.Drawing.Point(6, 168)
         Me.btnInclude.Name = "btnInclude"
-        Me.btnInclude.Size = New System.Drawing.Size(175, 23)
+        Me.btnInclude.Size = New System.Drawing.Size(100, 45)
         Me.btnInclude.TabIndex = 17
-        Me.btnInclude.Text = "Incl&ude Items..."
+        Me.btnInclude.Text = "Incl&ude..."
+        Me.btnInclude.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnInclude.UseVisualStyleBackColor = True
         '
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(489, 180)
+        Me.txtID.Location = New System.Drawing.Point(450, 253)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(30, 20)
         Me.txtID.TabIndex = 0
@@ -365,35 +260,35 @@ Partial Class frmGameManager
         '
         'btnSavePathBrowse
         '
-        Me.btnSavePathBrowse.Location = New System.Drawing.Point(490, 97)
+        Me.btnSavePathBrowse.Location = New System.Drawing.Point(471, 116)
         Me.btnSavePathBrowse.Name = "btnSavePathBrowse"
         Me.btnSavePathBrowse.Size = New System.Drawing.Size(30, 20)
-        Me.btnSavePathBrowse.TabIndex = 11
+        Me.btnSavePathBrowse.TabIndex = 14
         Me.btnSavePathBrowse.Text = "..."
         Me.btnSavePathBrowse.UseVisualStyleBackColor = True
         '
         'btnProcessBrowse
         '
-        Me.btnProcessBrowse.Location = New System.Drawing.Point(366, 44)
+        Me.btnProcessBrowse.Location = New System.Drawing.Point(471, 39)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
         Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 20)
-        Me.btnProcessBrowse.TabIndex = 5
+        Me.btnProcessBrowse.TabIndex = 6
         Me.btnProcessBrowse.Text = "..."
         Me.btnProcessBrowse.UseVisualStyleBackColor = True
         '
         'lblSavePath
         '
         Me.lblSavePath.AutoSize = True
-        Me.lblSavePath.Location = New System.Drawing.Point(7, 101)
+        Me.lblSavePath.Location = New System.Drawing.Point(6, 120)
         Me.lblSavePath.Name = "lblSavePath"
         Me.lblSavePath.Size = New System.Drawing.Size(60, 13)
-        Me.lblSavePath.TabIndex = 9
+        Me.lblSavePath.TabIndex = 12
         Me.lblSavePath.Text = "Save Path:"
         '
         'lblProcess
         '
         Me.lblProcess.AutoSize = True
-        Me.lblProcess.Location = New System.Drawing.Point(7, 47)
+        Me.lblProcess.Location = New System.Drawing.Point(6, 42)
         Me.lblProcess.Name = "lblProcess"
         Me.lblProcess.Size = New System.Drawing.Size(48, 13)
         Me.lblProcess.TabIndex = 3
@@ -402,7 +297,7 @@ Partial Class frmGameManager
         'lblName
         '
         Me.lblName.AutoSize = True
-        Me.lblName.Location = New System.Drawing.Point(7, 22)
+        Me.lblName.Location = New System.Drawing.Point(6, 17)
         Me.lblName.Name = "lblName"
         Me.lblName.Size = New System.Drawing.Size(38, 13)
         Me.lblName.TabIndex = 0
@@ -410,7 +305,7 @@ Partial Class frmGameManager
         '
         'txtExclude
         '
-        Me.txtExclude.Location = New System.Drawing.Point(489, 154)
+        Me.txtExclude.Location = New System.Drawing.Point(414, 253)
         Me.txtExclude.Name = "txtExclude"
         Me.txtExclude.Size = New System.Drawing.Size(30, 20)
         Me.txtExclude.TabIndex = 0
@@ -419,7 +314,7 @@ Partial Class frmGameManager
         '
         'txtFileType
         '
-        Me.txtFileType.Location = New System.Drawing.Point(489, 125)
+        Me.txtFileType.Location = New System.Drawing.Point(378, 253)
         Me.txtFileType.Name = "txtFileType"
         Me.txtFileType.Size = New System.Drawing.Size(30, 20)
         Me.txtFileType.TabIndex = 0
@@ -429,7 +324,7 @@ Partial Class frmGameManager
         'chkTimeStamp
         '
         Me.chkTimeStamp.AutoSize = True
-        Me.chkTimeStamp.Location = New System.Drawing.Point(191, 228)
+        Me.chkTimeStamp.Location = New System.Drawing.Point(218, 196)
         Me.chkTimeStamp.Name = "chkTimeStamp"
         Me.chkTimeStamp.Size = New System.Drawing.Size(133, 17)
         Me.chkTimeStamp.TabIndex = 21
@@ -439,7 +334,7 @@ Partial Class frmGameManager
         'chkFolderSave
         '
         Me.chkFolderSave.AutoSize = True
-        Me.chkFolderSave.Location = New System.Drawing.Point(191, 200)
+        Me.chkFolderSave.Location = New System.Drawing.Point(218, 168)
         Me.chkFolderSave.Name = "chkFolderSave"
         Me.chkFolderSave.Size = New System.Drawing.Size(109, 17)
         Me.chkFolderSave.TabIndex = 18
@@ -448,122 +343,77 @@ Partial Class frmGameManager
         '
         'txtSavePath
         '
-        Me.txtSavePath.Location = New System.Drawing.Point(70, 97)
+        Me.txtSavePath.Location = New System.Drawing.Point(78, 116)
         Me.txtSavePath.Name = "txtSavePath"
-        Me.txtSavePath.Size = New System.Drawing.Size(414, 20)
-        Me.txtSavePath.TabIndex = 10
+        Me.txtSavePath.Size = New System.Drawing.Size(387, 20)
+        Me.txtSavePath.TabIndex = 13
         '
         'txtProcess
         '
-        Me.txtProcess.Location = New System.Drawing.Point(70, 44)
+        Me.txtProcess.Location = New System.Drawing.Point(78, 39)
         Me.txtProcess.Name = "txtProcess"
-        Me.txtProcess.Size = New System.Drawing.Size(290, 20)
+        Me.txtProcess.Size = New System.Drawing.Size(359, 20)
         Me.txtProcess.TabIndex = 4
         '
         'txtName
         '
-        Me.txtName.Location = New System.Drawing.Point(70, 19)
+        Me.txtName.Location = New System.Drawing.Point(78, 13)
         Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(326, 20)
+        Me.txtName.Size = New System.Drawing.Size(387, 20)
         Me.txtName.TabIndex = 1
-        '
-        'chkMonitorOnly
-        '
-        Me.chkMonitorOnly.AutoSize = True
-        Me.chkMonitorOnly.Location = New System.Drawing.Point(363, 441)
-        Me.chkMonitorOnly.Name = "chkMonitorOnly"
-        Me.chkMonitorOnly.Size = New System.Drawing.Size(83, 17)
-        Me.chkMonitorOnly.TabIndex = 11
-        Me.chkMonitorOnly.Text = "Monitor only"
-        Me.chkMonitorOnly.UseVisualStyleBackColor = True
-        '
-        'grpExtra
-        '
-        Me.grpExtra.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.grpExtra.Controls.Add(Me.lblTags)
-        Me.grpExtra.Controls.Add(Me.btnIconBrowse)
-        Me.grpExtra.Controls.Add(Me.txtIcon)
-        Me.grpExtra.Controls.Add(Me.lblVersion)
-        Me.grpExtra.Controls.Add(Me.txtVersion)
-        Me.grpExtra.Controls.Add(Me.txtCompany)
-        Me.grpExtra.Controls.Add(Me.lblCompany)
-        Me.grpExtra.Controls.Add(Me.pbIcon)
-        Me.grpExtra.Controls.Add(Me.lblIcon)
-        Me.grpExtra.Controls.Add(Me.btnAppPathBrowse)
-        Me.grpExtra.Controls.Add(Me.lblGamePath)
-        Me.grpExtra.Controls.Add(Me.txtAppPath)
-        Me.grpExtra.Controls.Add(Me.nudHours)
-        Me.grpExtra.Controls.Add(Me.lblHours)
-        Me.grpExtra.Location = New System.Drawing.Point(248, 276)
-        Me.grpExtra.Name = "grpExtra"
-        Me.grpExtra.Size = New System.Drawing.Size(525, 155)
-        Me.grpExtra.TabIndex = 9
-        Me.grpExtra.TabStop = False
-        Me.grpExtra.Text = "Game Information"
-        '
-        'lblTags
-        '
-        Me.lblTags.AutoEllipsis = True
-        Me.lblTags.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTags.Location = New System.Drawing.Point(161, 124)
-        Me.lblTags.Name = "lblTags"
-        Me.lblTags.Size = New System.Drawing.Size(304, 20)
-        Me.lblTags.TabIndex = 0
-        Me.lblTags.Text = "#Tags"
-        Me.lblTags.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'btnIconBrowse
         '
-        Me.btnIconBrowse.Location = New System.Drawing.Point(435, 97)
+        Me.btnIconBrowse.Location = New System.Drawing.Point(421, 114)
         Me.btnIconBrowse.Name = "btnIconBrowse"
         Me.btnIconBrowse.Size = New System.Drawing.Size(30, 20)
-        Me.btnIconBrowse.TabIndex = 10
+        Me.btnIconBrowse.TabIndex = 8
         Me.btnIconBrowse.Text = "..."
         Me.btnIconBrowse.UseVisualStyleBackColor = True
         '
         'txtIcon
         '
-        Me.txtIcon.Location = New System.Drawing.Point(69, 97)
+        Me.txtIcon.Location = New System.Drawing.Point(74, 114)
         Me.txtIcon.Name = "txtIcon"
-        Me.txtIcon.Size = New System.Drawing.Size(360, 20)
-        Me.txtIcon.TabIndex = 9
+        Me.txtIcon.Size = New System.Drawing.Size(341, 20)
+        Me.txtIcon.TabIndex = 7
         '
         'lblVersion
         '
         Me.lblVersion.AutoSize = True
-        Me.lblVersion.Location = New System.Drawing.Point(6, 74)
+        Me.lblVersion.Location = New System.Drawing.Point(6, 91)
         Me.lblVersion.Name = "lblVersion"
         Me.lblVersion.Size = New System.Drawing.Size(45, 13)
-        Me.lblVersion.TabIndex = 2
+        Me.lblVersion.TabIndex = 4
         Me.lblVersion.Text = "Version:"
         '
         'txtVersion
         '
-        Me.txtVersion.Location = New System.Drawing.Point(69, 71)
+        Me.txtVersion.Location = New System.Drawing.Point(74, 88)
         Me.txtVersion.Name = "txtVersion"
-        Me.txtVersion.Size = New System.Drawing.Size(414, 20)
-        Me.txtVersion.TabIndex = 8
+        Me.txtVersion.Size = New System.Drawing.Size(431, 20)
+        Me.txtVersion.TabIndex = 5
         '
         'txtCompany
         '
-        Me.txtCompany.Location = New System.Drawing.Point(69, 45)
+        Me.txtCompany.Location = New System.Drawing.Point(74, 62)
         Me.txtCompany.Name = "txtCompany"
-        Me.txtCompany.Size = New System.Drawing.Size(414, 20)
-        Me.txtCompany.TabIndex = 7
+        Me.txtCompany.Size = New System.Drawing.Size(431, 20)
+        Me.txtCompany.TabIndex = 3
         '
         'lblCompany
         '
         Me.lblCompany.AutoSize = True
-        Me.lblCompany.Location = New System.Drawing.Point(6, 48)
+        Me.lblCompany.Location = New System.Drawing.Point(6, 65)
         Me.lblCompany.Name = "lblCompany"
         Me.lblCompany.Size = New System.Drawing.Size(54, 13)
-        Me.lblCompany.TabIndex = 1
+        Me.lblCompany.TabIndex = 2
         Me.lblCompany.Text = "Company:"
         '
         'pbIcon
         '
         Me.pbIcon.InitialImage = Nothing
-        Me.pbIcon.Location = New System.Drawing.Point(471, 97)
+        Me.pbIcon.Location = New System.Drawing.Point(457, 114)
         Me.pbIcon.Name = "pbIcon"
         Me.pbIcon.Size = New System.Drawing.Size(48, 48)
         Me.pbIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -573,337 +423,83 @@ Partial Class frmGameManager
         'lblIcon
         '
         Me.lblIcon.AutoSize = True
-        Me.lblIcon.Location = New System.Drawing.Point(6, 100)
+        Me.lblIcon.Location = New System.Drawing.Point(6, 118)
         Me.lblIcon.Name = "lblIcon"
         Me.lblIcon.Size = New System.Drawing.Size(31, 13)
-        Me.lblIcon.TabIndex = 3
+        Me.lblIcon.TabIndex = 6
         Me.lblIcon.Text = "Icon:"
-        '
-        'btnAppPathBrowse
-        '
-        Me.btnAppPathBrowse.Location = New System.Drawing.Point(489, 19)
-        Me.btnAppPathBrowse.Name = "btnAppPathBrowse"
-        Me.btnAppPathBrowse.Size = New System.Drawing.Size(30, 20)
-        Me.btnAppPathBrowse.TabIndex = 6
-        Me.btnAppPathBrowse.Text = "..."
-        Me.btnAppPathBrowse.UseVisualStyleBackColor = True
-        '
-        'lblGamePath
-        '
-        Me.lblGamePath.AutoSize = True
-        Me.lblGamePath.Location = New System.Drawing.Point(6, 23)
-        Me.lblGamePath.Name = "lblGamePath"
-        Me.lblGamePath.Size = New System.Drawing.Size(63, 13)
-        Me.lblGamePath.TabIndex = 0
-        Me.lblGamePath.Text = "Game Path:"
-        '
-        'txtAppPath
-        '
-        Me.txtAppPath.Location = New System.Drawing.Point(69, 19)
-        Me.txtAppPath.Name = "txtAppPath"
-        Me.txtAppPath.Size = New System.Drawing.Size(414, 20)
-        Me.txtAppPath.TabIndex = 5
         '
         'nudHours
         '
         Me.nudHours.DecimalPlaces = 1
         Me.nudHours.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.nudHours.Location = New System.Drawing.Point(69, 124)
+        Me.nudHours.Location = New System.Drawing.Point(74, 142)
         Me.nudHours.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudHours.Name = "nudHours"
         Me.nudHours.Size = New System.Drawing.Size(88, 20)
-        Me.nudHours.TabIndex = 12
+        Me.nudHours.TabIndex = 10
         '
         'lblHours
         '
         Me.lblHours.AutoSize = True
-        Me.lblHours.Location = New System.Drawing.Point(6, 126)
+        Me.lblHours.Location = New System.Drawing.Point(6, 144)
         Me.lblHours.Name = "lblHours"
         Me.lblHours.Size = New System.Drawing.Size(38, 13)
-        Me.lblHours.TabIndex = 11
+        Me.lblHours.TabIndex = 9
         Me.lblHours.Text = "Hours:"
-        '
-        'btnTags
-        '
-        Me.btnTags.Location = New System.Drawing.Point(535, 437)
-        Me.btnTags.Name = "btnTags"
-        Me.btnTags.Size = New System.Drawing.Size(75, 23)
-        Me.btnTags.TabIndex = 13
-        Me.btnTags.Text = "&Tags..."
-        Me.btnTags.UseVisualStyleBackColor = True
-        '
-        'grpStats
-        '
-        Me.grpStats.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.grpStats.Controls.Add(Me.btnImportBackup)
-        Me.grpStats.Controls.Add(Me.cboRemoteBackup)
-        Me.grpStats.Controls.Add(Me.lblRestorePathData)
-        Me.grpStats.Controls.Add(Me.lblBackupFileData)
-        Me.grpStats.Controls.Add(Me.lblLocalBackupData)
-        Me.grpStats.Controls.Add(Me.lblRestorePath)
-        Me.grpStats.Controls.Add(Me.btnOpenRestorePath)
-        Me.grpStats.Controls.Add(Me.btnOpenBackup)
-        Me.grpStats.Controls.Add(Me.btnDeleteBackup)
-        Me.grpStats.Controls.Add(Me.lblBackupFile)
-        Me.grpStats.Controls.Add(Me.lblRemote)
-        Me.grpStats.Controls.Add(Me.lblLocalData)
-        Me.grpStats.Location = New System.Drawing.Point(248, 466)
-        Me.grpStats.Name = "grpStats"
-        Me.grpStats.Size = New System.Drawing.Size(525, 154)
-        Me.grpStats.TabIndex = 16
-        Me.grpStats.TabStop = False
-        Me.grpStats.Text = "Backup Information"
-        '
-        'btnImportBackup
-        '
-        Me.btnImportBackup.Location = New System.Drawing.Point(9, 125)
-        Me.btnImportBackup.Name = "btnImportBackup"
-        Me.btnImportBackup.Size = New System.Drawing.Size(114, 23)
-        Me.btnImportBackup.TabIndex = 8
-        Me.btnImportBackup.Text = "Import B&ackup Files"
-        Me.btnImportBackup.UseVisualStyleBackColor = True
-        '
-        'cboRemoteBackup
-        '
-        Me.cboRemoteBackup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboRemoteBackup.FormattingEnabled = True
-        Me.cboRemoteBackup.Location = New System.Drawing.Point(96, 24)
-        Me.cboRemoteBackup.Name = "cboRemoteBackup"
-        Me.cboRemoteBackup.Size = New System.Drawing.Size(387, 21)
-        Me.cboRemoteBackup.TabIndex = 12
-        Me.cboRemoteBackup.Tag = "wipe"
-        '
-        'lblRestorePathData
-        '
-        Me.lblRestorePathData.AutoEllipsis = True
-        Me.lblRestorePathData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblRestorePathData.Location = New System.Drawing.Point(96, 98)
-        Me.lblRestorePathData.Name = "lblRestorePathData"
-        Me.lblRestorePathData.Size = New System.Drawing.Size(387, 20)
-        Me.lblRestorePathData.TabIndex = 7
-        Me.lblRestorePathData.Tag = "wipe"
-        Me.lblRestorePathData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblRestorePathData.UseMnemonic = False
-        '
-        'lblBackupFileData
-        '
-        Me.lblBackupFileData.AutoEllipsis = True
-        Me.lblBackupFileData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblBackupFileData.Location = New System.Drawing.Point(96, 73)
-        Me.lblBackupFileData.Name = "lblBackupFileData"
-        Me.lblBackupFileData.Size = New System.Drawing.Size(387, 20)
-        Me.lblBackupFileData.TabIndex = 6
-        Me.lblBackupFileData.Tag = "wipe"
-        Me.lblBackupFileData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblBackupFileData.UseMnemonic = False
-        '
-        'lblLocalBackupData
-        '
-        Me.lblLocalBackupData.AutoEllipsis = True
-        Me.lblLocalBackupData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblLocalBackupData.Location = New System.Drawing.Point(96, 49)
-        Me.lblLocalBackupData.Name = "lblLocalBackupData"
-        Me.lblLocalBackupData.Size = New System.Drawing.Size(387, 20)
-        Me.lblLocalBackupData.TabIndex = 5
-        Me.lblLocalBackupData.Tag = "wipe"
-        Me.lblLocalBackupData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblLocalBackupData.UseMnemonic = False
-        '
-        'lblRestorePath
-        '
-        Me.lblRestorePath.AutoSize = True
-        Me.lblRestorePath.Location = New System.Drawing.Point(6, 102)
-        Me.lblRestorePath.Name = "lblRestorePath"
-        Me.lblRestorePath.Size = New System.Drawing.Size(72, 13)
-        Me.lblRestorePath.TabIndex = 3
-        Me.lblRestorePath.Text = "Restore Path:"
-        '
-        'btnOpenRestorePath
-        '
-        Me.btnOpenRestorePath.Location = New System.Drawing.Point(369, 125)
-        Me.btnOpenRestorePath.Name = "btnOpenRestorePath"
-        Me.btnOpenRestorePath.Size = New System.Drawing.Size(114, 23)
-        Me.btnOpenRestorePath.TabIndex = 11
-        Me.btnOpenRestorePath.Text = "O&pen Restore Path"
-        Me.btnOpenRestorePath.UseVisualStyleBackColor = True
-        '
-        'btnOpenBackup
-        '
-        Me.btnOpenBackup.Location = New System.Drawing.Point(249, 125)
-        Me.btnOpenBackup.Name = "btnOpenBackup"
-        Me.btnOpenBackup.Size = New System.Drawing.Size(114, 23)
-        Me.btnOpenBackup.TabIndex = 10
-        Me.btnOpenBackup.Text = "&Open Backup"
-        Me.btnOpenBackup.UseVisualStyleBackColor = True
-        '
-        'btnDeleteBackup
-        '
-        Me.btnDeleteBackup.Location = New System.Drawing.Point(129, 125)
-        Me.btnDeleteBackup.Name = "btnDeleteBackup"
-        Me.btnDeleteBackup.Size = New System.Drawing.Size(114, 23)
-        Me.btnDeleteBackup.TabIndex = 9
-        Me.btnDeleteBackup.Text = "&Delete Backup"
-        Me.btnDeleteBackup.UseVisualStyleBackColor = True
-        '
-        'lblBackupFile
-        '
-        Me.lblBackupFile.AutoSize = True
-        Me.lblBackupFile.Location = New System.Drawing.Point(6, 77)
-        Me.lblBackupFile.Name = "lblBackupFile"
-        Me.lblBackupFile.Size = New System.Drawing.Size(66, 13)
-        Me.lblBackupFile.TabIndex = 2
-        Me.lblBackupFile.Text = "Backup File:"
-        '
-        'lblRemote
-        '
-        Me.lblRemote.AutoSize = True
-        Me.lblRemote.Location = New System.Drawing.Point(6, 27)
-        Me.lblRemote.Name = "lblRemote"
-        Me.lblRemote.Size = New System.Drawing.Size(73, 13)
-        Me.lblRemote.TabIndex = 0
-        Me.lblRemote.Text = "Backup Data:"
-        '
-        'lblLocalData
-        '
-        Me.lblLocalData.AutoSize = True
-        Me.lblLocalData.Location = New System.Drawing.Point(6, 53)
-        Me.lblLocalData.Name = "lblLocalData"
-        Me.lblLocalData.Size = New System.Drawing.Size(62, 13)
-        Me.lblLocalData.TabIndex = 1
-        Me.lblLocalData.Text = "Local Data:"
-        '
-        'btnMarkAsRestored
-        '
-        Me.btnMarkAsRestored.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnMarkAsRestored.Location = New System.Drawing.Point(429, 626)
-        Me.btnMarkAsRestored.Name = "btnMarkAsRestored"
-        Me.btnMarkAsRestored.Size = New System.Drawing.Size(100, 23)
-        Me.btnMarkAsRestored.TabIndex = 18
-        Me.btnMarkAsRestored.Text = "&Mark as Restored"
-        Me.btnMarkAsRestored.UseVisualStyleBackColor = True
-        '
-        'btnRestore
-        '
-        Me.btnRestore.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnRestore.Location = New System.Drawing.Point(535, 626)
-        Me.btnRestore.Name = "btnRestore"
-        Me.btnRestore.Size = New System.Drawing.Size(75, 23)
-        Me.btnRestore.TabIndex = 19
-        Me.btnRestore.Text = "&Restore"
-        Me.btnRestore.UseVisualStyleBackColor = True
         '
         'btnSave
         '
-        Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSave.Location = New System.Drawing.Point(616, 437)
+        Me.btnSave.Image = CType(resources.GetObject("btnSave.Image"), System.Drawing.Image)
+        Me.btnSave.Location = New System.Drawing.Point(638, 329)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 14
+        Me.btnSave.Size = New System.Drawing.Size(60, 45)
+        Me.btnSave.TabIndex = 11
         Me.btnSave.Text = "&Save"
+        Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'lstGames
         '
         Me.lstGames.FormattingEnabled = True
-        Me.lstGames.Location = New System.Drawing.Point(12, 160)
+        Me.lstGames.IntegralHeight = False
+        Me.lstGames.Location = New System.Drawing.Point(12, 69)
         Me.lstGames.Name = "lstGames"
         Me.lstGames.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstGames.Size = New System.Drawing.Size(228, 459)
-        Me.lstGames.TabIndex = 3
+        Me.lstGames.Size = New System.Drawing.Size(228, 251)
+        Me.lstGames.TabIndex = 4
         '
         'btnCancel
         '
-        Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancel.Location = New System.Drawing.Point(697, 437)
+        Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
+        Me.btnCancel.Location = New System.Drawing.Point(704, 329)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 15
+        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
+        Me.btnCancel.TabIndex = 12
         Me.btnCancel.Text = "Ca&ncel"
+        Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
-        '
-        'chkEnabled
-        '
-        Me.chkEnabled.AutoSize = True
-        Me.chkEnabled.Location = New System.Drawing.Point(248, 441)
-        Me.chkEnabled.Name = "chkEnabled"
-        Me.chkEnabled.Size = New System.Drawing.Size(109, 17)
-        Me.chkEnabled.TabIndex = 10
-        Me.chkEnabled.Text = "Monitor this game"
-        Me.chkEnabled.UseVisualStyleBackColor = True
-        '
-        'grpFilter
-        '
-        Me.grpFilter.Controls.Add(Me.optCustom)
-        Me.grpFilter.Controls.Add(Me.optBackupData)
-        Me.grpFilter.Controls.Add(Me.optPendingRestores)
-        Me.grpFilter.Controls.Add(Me.optAllGames)
-        Me.grpFilter.Location = New System.Drawing.Point(12, 12)
-        Me.grpFilter.Name = "grpFilter"
-        Me.grpFilter.Size = New System.Drawing.Size(228, 113)
-        Me.grpFilter.TabIndex = 0
-        Me.grpFilter.TabStop = False
-        Me.grpFilter.Text = "Games Filter"
-        '
-        'optCustom
-        '
-        Me.optCustom.AutoSize = True
-        Me.optCustom.Location = New System.Drawing.Point(6, 87)
-        Me.optCustom.Name = "optCustom"
-        Me.optCustom.Size = New System.Drawing.Size(60, 17)
-        Me.optCustom.TabIndex = 3
-        Me.optCustom.TabStop = True
-        Me.optCustom.Text = "Custom"
-        Me.optCustom.UseVisualStyleBackColor = True
-        '
-        'optBackupData
-        '
-        Me.optBackupData.AutoSize = True
-        Me.optBackupData.Location = New System.Drawing.Point(6, 41)
-        Me.optBackupData.Name = "optBackupData"
-        Me.optBackupData.Size = New System.Drawing.Size(91, 17)
-        Me.optBackupData.TabIndex = 1
-        Me.optBackupData.TabStop = True
-        Me.optBackupData.Text = "Backups Only"
-        Me.optBackupData.UseVisualStyleBackColor = True
-        '
-        'optPendingRestores
-        '
-        Me.optPendingRestores.AutoSize = True
-        Me.optPendingRestores.Location = New System.Drawing.Point(6, 64)
-        Me.optPendingRestores.Name = "optPendingRestores"
-        Me.optPendingRestores.Size = New System.Drawing.Size(134, 17)
-        Me.optPendingRestores.TabIndex = 2
-        Me.optPendingRestores.TabStop = True
-        Me.optPendingRestores.Text = "New Backups Pending"
-        Me.optPendingRestores.UseVisualStyleBackColor = True
-        '
-        'optAllGames
-        '
-        Me.optAllGames.AutoSize = True
-        Me.optAllGames.Location = New System.Drawing.Point(6, 20)
-        Me.optAllGames.Name = "optAllGames"
-        Me.optAllGames.Size = New System.Drawing.Size(36, 17)
-        Me.optAllGames.TabIndex = 0
-        Me.optAllGames.TabStop = True
-        Me.optAllGames.Text = "All"
-        Me.optAllGames.UseVisualStyleBackColor = True
         '
         'btnImport
         '
-        Me.btnImport.Location = New System.Drawing.Point(84, 626)
+        Me.btnImport.Image = Global.GBM.My.Resources.Resources.Multi_Import
+        Me.btnImport.Location = New System.Drawing.Point(124, 329)
         Me.btnImport.Name = "btnImport"
-        Me.btnImport.Size = New System.Drawing.Size(75, 23)
-        Me.btnImport.TabIndex = 6
+        Me.btnImport.Size = New System.Drawing.Size(55, 45)
+        Me.btnImport.TabIndex = 7
         Me.btnImport.Text = "&Import"
+        Me.btnImport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnImport.UseVisualStyleBackColor = True
         '
         'btnExport
         '
-        Me.btnExport.Location = New System.Drawing.Point(165, 626)
+        Me.btnExport.Image = Global.GBM.My.Resources.Resources.Multi_Export
+        Me.btnExport.Location = New System.Drawing.Point(185, 329)
         Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(75, 23)
-        Me.btnExport.TabIndex = 7
+        Me.btnExport.Size = New System.Drawing.Size(55, 45)
+        Me.btnExport.TabIndex = 8
         Me.btnExport.Text = "&Export"
+        Me.btnExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnExport.UseVisualStyleBackColor = True
         '
         'cmsImport
@@ -938,49 +534,57 @@ Partial Class frmGameManager
         Me.cmsFile.Size = New System.Drawing.Size(117, 22)
         Me.cmsFile.Text = "&File..."
         '
-        'txtQuickFilter
+        'txtSearch
         '
-        Me.txtQuickFilter.Location = New System.Drawing.Point(80, 134)
-        Me.txtQuickFilter.Name = "txtQuickFilter"
-        Me.txtQuickFilter.Size = New System.Drawing.Size(160, 20)
-        Me.txtQuickFilter.TabIndex = 2
+        Me.txtSearch.Location = New System.Drawing.Point(59, 40)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(181, 20)
+        Me.txtSearch.TabIndex = 3
         '
-        'lblQuickFilter
+        'lblSearch
         '
-        Me.lblQuickFilter.AutoSize = True
-        Me.lblQuickFilter.Location = New System.Drawing.Point(12, 137)
-        Me.lblQuickFilter.Name = "lblQuickFilter"
-        Me.lblQuickFilter.Size = New System.Drawing.Size(63, 13)
-        Me.lblQuickFilter.TabIndex = 1
-        Me.lblQuickFilter.Text = "Quick Filter:"
+        Me.lblSearch.AutoSize = True
+        Me.lblSearch.Location = New System.Drawing.Point(9, 43)
+        Me.lblSearch.Name = "lblSearch"
+        Me.lblSearch.Size = New System.Drawing.Size(44, 13)
+        Me.lblSearch.TabIndex = 2
+        Me.lblSearch.Text = "Search:"
         '
-        'cmsDeleteBackup
+        'cmsBackupData
         '
-        Me.cmsDeleteBackup.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsDeleteOne, Me.cmsDeleteAll})
-        Me.cmsDeleteBackup.Name = "cmsDeleteBackup"
-        Me.cmsDeleteBackup.ShowImageMargin = False
-        Me.cmsDeleteBackup.Size = New System.Drawing.Size(115, 48)
+        Me.cmsBackupData.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsDeleteOne, Me.cmsDeleteAll, Me.cmsImportData})
+        Me.cmsBackupData.Name = "cmsDeleteBackup"
+        Me.cmsBackupData.ShowImageMargin = False
+        Me.cmsBackupData.Size = New System.Drawing.Size(130, 70)
         '
         'cmsDeleteOne
         '
         Me.cmsDeleteOne.Name = "cmsDeleteOne"
-        Me.cmsDeleteOne.Size = New System.Drawing.Size(114, 22)
-        Me.cmsDeleteOne.Text = "&Selected File"
+        Me.cmsDeleteOne.Size = New System.Drawing.Size(129, 22)
+        Me.cmsDeleteOne.Text = "Delete &Selected"
         '
         'cmsDeleteAll
         '
         Me.cmsDeleteAll.Name = "cmsDeleteAll"
-        Me.cmsDeleteAll.Size = New System.Drawing.Size(114, 22)
-        Me.cmsDeleteAll.Text = "&All Files"
+        Me.cmsDeleteAll.Size = New System.Drawing.Size(129, 22)
+        Me.cmsDeleteAll.Text = "Delete &All"
         '
-        'btnLink
+        'cmsImportData
         '
-        Me.btnLink.Location = New System.Drawing.Point(454, 437)
-        Me.btnLink.Name = "btnLink"
-        Me.btnLink.Size = New System.Drawing.Size(75, 23)
-        Me.btnLink.TabIndex = 12
-        Me.btnLink.Text = "Lin&k"
-        Me.btnLink.UseVisualStyleBackColor = True
+        Me.cmsImportData.Name = "cmsImportData"
+        Me.cmsImportData.Size = New System.Drawing.Size(129, 22)
+        Me.cmsImportData.Text = "&Import Backup"
+        '
+        'btnAdvanced
+        '
+        Me.btnAdvanced.Image = Global.GBM.My.Resources.Resources.frmGameManager_Advanced
+        Me.btnAdvanced.Location = New System.Drawing.Point(567, 329)
+        Me.btnAdvanced.Name = "btnAdvanced"
+        Me.btnAdvanced.Size = New System.Drawing.Size(65, 45)
+        Me.btnAdvanced.TabIndex = 10
+        Me.btnAdvanced.Text = "&Advanced"
+        Me.btnAdvanced.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btnAdvanced.UseVisualStyleBackColor = True
         '
         'ttFullPath
         '
@@ -988,98 +592,488 @@ Partial Class frmGameManager
         Me.ttFullPath.InitialDelay = 300
         Me.ttFullPath.ReshowDelay = 60
         '
-        'cmsOpenBackup
+        'cmsAdvanced
         '
-        Me.cmsOpenBackup.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsOpenBackupFile, Me.cmsOpenBackupFolder})
-        Me.cmsOpenBackup.Name = "cmsOpenBackup"
-        Me.cmsOpenBackup.ShowImageMargin = False
-        Me.cmsOpenBackup.Size = New System.Drawing.Size(83, 48)
-        '
-        'cmsOpenBackupFile
-        '
-        Me.cmsOpenBackupFile.Name = "cmsOpenBackupFile"
-        Me.cmsOpenBackupFile.Size = New System.Drawing.Size(82, 22)
-        Me.cmsOpenBackupFile.Text = "&File"
-        '
-        'cmsOpenBackupFolder
-        '
-        Me.cmsOpenBackupFolder.Name = "cmsOpenBackupFolder"
-        Me.cmsOpenBackupFolder.Size = New System.Drawing.Size(82, 22)
-        Me.cmsOpenBackupFolder.Text = "F&older"
-        '
-        'cmsLink
-        '
-        Me.cmsLink.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsProcess, Me.cmsConfiguration})
-        Me.cmsLink.Name = "cmsLinks"
-        Me.cmsLink.ShowImageMargin = False
-        Me.cmsLink.Size = New System.Drawing.Size(133, 48)
-        '
-        'cmsProcess
-        '
-        Me.cmsProcess.Name = "cmsProcess"
-        Me.cmsProcess.Size = New System.Drawing.Size(132, 22)
-        Me.cmsProcess.Text = "&Process..."
-        '
-        'cmsConfiguration
-        '
-        Me.cmsConfiguration.Name = "cmsConfiguration"
-        Me.cmsConfiguration.Size = New System.Drawing.Size(132, 22)
-        Me.cmsConfiguration.Text = "&Configuration..."
-        '
-        'btnLaunchOptions
-        '
-        Me.btnLaunchOptions.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnLaunchOptions.Location = New System.Drawing.Point(303, 626)
-        Me.btnLaunchOptions.Name = "btnLaunchOptions"
-        Me.btnLaunchOptions.Size = New System.Drawing.Size(120, 23)
-        Me.btnLaunchOptions.TabIndex = 17
-        Me.btnLaunchOptions.Text = "&Launch Options"
-        Me.btnLaunchOptions.UseVisualStyleBackColor = True
-        '
-        'cmsLaunch
-        '
-        Me.cmsLaunch.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsLaunchSettings, Me.cmsLaunchGame})
-        Me.cmsLaunch.Name = "cmsLaunch"
-        Me.cmsLaunch.ShowImageMargin = False
-        Me.cmsLaunch.Size = New System.Drawing.Size(156, 70)
+        Me.cmsAdvanced.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsLaunchSettings, Me.cmsWineConfig})
+        Me.cmsAdvanced.Name = "cmsLinks"
+        Me.cmsAdvanced.ShowImageMargin = False
+        Me.cmsAdvanced.Size = New System.Drawing.Size(163, 48)
         '
         'cmsLaunchSettings
         '
         Me.cmsLaunchSettings.Name = "cmsLaunchSettings"
-        Me.cmsLaunchSettings.Size = New System.Drawing.Size(155, 22)
-        Me.cmsLaunchSettings.Text = "&Settings"
+        Me.cmsLaunchSettings.Size = New System.Drawing.Size(162, 22)
+        Me.cmsLaunchSettings.Text = "&Launch Settings..."
         '
-        'cmsLaunchGame
+        'cmsWineConfig
         '
-        Me.cmsLaunchGame.Name = "cmsLaunchGame"
-        Me.cmsLaunchGame.Size = New System.Drawing.Size(155, 22)
-        Me.cmsLaunchGame.Text = "&Launch Game"
+        Me.cmsWineConfig.Name = "cmsWineConfig"
+        Me.cmsWineConfig.Size = New System.Drawing.Size(162, 22)
+        Me.cmsWineConfig.Text = "&Wine Configuration..."
+        '
+        'ttHelp
+        '
+        Me.ttHelp.AutoPopDelay = 5000
+        Me.ttHelp.InitialDelay = 300
+        Me.ttHelp.ReshowDelay = 60
+        '
+        'tabGameManager
+        '
+        Me.tabGameManager.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
+        Me.tabGameManager.Controls.Add(Me.tbConfig)
+        Me.tabGameManager.Controls.Add(Me.tbGameInfo)
+        Me.tabGameManager.Controls.Add(Me.tbBackupInfo)
+        Me.tabGameManager.Location = New System.Drawing.Point(246, 12)
+        Me.tabGameManager.Multiline = True
+        Me.tabGameManager.Name = "tabGameManager"
+        Me.tabGameManager.SelectedIndex = 0
+        Me.tabGameManager.Size = New System.Drawing.Size(526, 315)
+        Me.tabGameManager.TabIndex = 9
+        '
+        'tbConfig
+        '
+        Me.tbConfig.BackColor = System.Drawing.SystemColors.Control
+        Me.tbConfig.Controls.Add(Me.grpCoreConfig)
+        Me.tbConfig.Location = New System.Drawing.Point(4, 25)
+        Me.tbConfig.Name = "tbConfig"
+        Me.tbConfig.Size = New System.Drawing.Size(518, 286)
+        Me.tbConfig.TabIndex = 0
+        Me.tbConfig.Text = "Core Configuration"
+        '
+        'grpCoreConfig
+        '
+        Me.grpCoreConfig.Controls.Add(Me.btnGameID)
+        Me.grpCoreConfig.Controls.Add(Me.lblGameTags)
+        Me.grpCoreConfig.Controls.Add(Me.lblTags)
+        Me.grpCoreConfig.Controls.Add(Me.btnProcessOptions)
+        Me.grpCoreConfig.Controls.Add(Me.btnAppPathBrowse)
+        Me.grpCoreConfig.Controls.Add(Me.lblName)
+        Me.grpCoreConfig.Controls.Add(Me.btnLinks)
+        Me.grpCoreConfig.Controls.Add(Me.btnMonitorOptions)
+        Me.grpCoreConfig.Controls.Add(Me.txtFileType)
+        Me.grpCoreConfig.Controls.Add(Me.txtExclude)
+        Me.grpCoreConfig.Controls.Add(Me.lblGamePath)
+        Me.grpCoreConfig.Controls.Add(Me.chkTimeStamp)
+        Me.grpCoreConfig.Controls.Add(Me.txtAppPath)
+        Me.grpCoreConfig.Controls.Add(Me.chkFolderSave)
+        Me.grpCoreConfig.Controls.Add(Me.txtName)
+        Me.grpCoreConfig.Controls.Add(Me.btnSavePathBrowse)
+        Me.grpCoreConfig.Controls.Add(Me.txtSavePath)
+        Me.grpCoreConfig.Controls.Add(Me.lblSavePath)
+        Me.grpCoreConfig.Controls.Add(Me.txtProcess)
+        Me.grpCoreConfig.Controls.Add(Me.btnInclude)
+        Me.grpCoreConfig.Controls.Add(Me.cboOS)
+        Me.grpCoreConfig.Controls.Add(Me.txtID)
+        Me.grpCoreConfig.Controls.Add(Me.btnProcessBrowse)
+        Me.grpCoreConfig.Controls.Add(Me.btnExclude)
+        Me.grpCoreConfig.Controls.Add(Me.chkRecurseSubFolders)
+        Me.grpCoreConfig.Controls.Add(Me.txtParameter)
+        Me.grpCoreConfig.Controls.Add(Me.nudLimit)
+        Me.grpCoreConfig.Controls.Add(Me.chkCleanFolder)
+        Me.grpCoreConfig.Controls.Add(Me.lblProcess)
+        Me.grpCoreConfig.Controls.Add(Me.lblParameter)
+        Me.grpCoreConfig.Controls.Add(Me.lblLimit)
+        Me.grpCoreConfig.Location = New System.Drawing.Point(3, 3)
+        Me.grpCoreConfig.Name = "grpCoreConfig"
+        Me.grpCoreConfig.Size = New System.Drawing.Size(511, 280)
+        Me.grpCoreConfig.TabIndex = 0
+        Me.grpCoreConfig.TabStop = False
+        '
+        'btnGameID
+        '
+        Me.btnGameID.Image = Global.GBM.My.Resources.Resources.frmGameManager_GameID
+        Me.btnGameID.Location = New System.Drawing.Point(471, 12)
+        Me.btnGameID.Name = "btnGameID"
+        Me.btnGameID.Size = New System.Drawing.Size(22, 22)
+        Me.btnGameID.TabIndex = 2
+        Me.btnGameID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnGameID.UseVisualStyleBackColor = True
+        '
+        'lblGameTags
+        '
+        Me.lblGameTags.ActiveLinkColor = System.Drawing.SystemColors.ControlText
+        Me.lblGameTags.AutoEllipsis = True
+        Me.lblGameTags.LinkColor = System.Drawing.SystemColors.ControlText
+        Me.lblGameTags.Location = New System.Drawing.Point(75, 145)
+        Me.lblGameTags.Name = "lblGameTags"
+        Me.lblGameTags.Size = New System.Drawing.Size(426, 13)
+        Me.lblGameTags.TabIndex = 16
+        Me.lblGameTags.TabStop = True
+        Me.lblGameTags.Text = "Manage Tags"
+        '
+        'lblTags
+        '
+        Me.lblTags.AutoSize = True
+        Me.lblTags.Location = New System.Drawing.Point(6, 145)
+        Me.lblTags.Name = "lblTags"
+        Me.lblTags.Size = New System.Drawing.Size(34, 13)
+        Me.lblTags.TabIndex = 15
+        Me.lblTags.Text = "Tags:"
+        '
+        'btnProcessOptions
+        '
+        Me.btnProcessOptions.Image = Global.GBM.My.Resources.Resources.frmGameManager_Process
+        Me.btnProcessOptions.Location = New System.Drawing.Point(443, 38)
+        Me.btnProcessOptions.Name = "btnProcessOptions"
+        Me.btnProcessOptions.Size = New System.Drawing.Size(22, 22)
+        Me.btnProcessOptions.TabIndex = 5
+        Me.btnProcessOptions.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnProcessOptions.UseVisualStyleBackColor = True
+        '
+        'btnAppPathBrowse
+        '
+        Me.btnAppPathBrowse.Location = New System.Drawing.Point(471, 90)
+        Me.btnAppPathBrowse.Name = "btnAppPathBrowse"
+        Me.btnAppPathBrowse.Size = New System.Drawing.Size(30, 20)
+        Me.btnAppPathBrowse.TabIndex = 11
+        Me.btnAppPathBrowse.Text = "..."
+        Me.btnAppPathBrowse.UseVisualStyleBackColor = True
+        '
+        'btnLinks
+        '
+        Me.btnLinks.Image = Global.GBM.My.Resources.Resources.frmGameManager_Link
+        Me.btnLinks.Location = New System.Drawing.Point(44, 219)
+        Me.btnLinks.Name = "btnLinks"
+        Me.btnLinks.Size = New System.Drawing.Size(32, 32)
+        Me.btnLinks.TabIndex = 27
+        Me.btnLinks.UseVisualStyleBackColor = True
+        '
+        'btnMonitorOptions
+        '
+        Me.btnMonitorOptions.Image = Global.GBM.My.Resources.Resources.Multi_Search
+        Me.btnMonitorOptions.Location = New System.Drawing.Point(6, 219)
+        Me.btnMonitorOptions.Name = "btnMonitorOptions"
+        Me.btnMonitorOptions.Size = New System.Drawing.Size(32, 32)
+        Me.btnMonitorOptions.TabIndex = 26
+        Me.btnMonitorOptions.UseVisualStyleBackColor = True
+        '
+        'lblGamePath
+        '
+        Me.lblGamePath.AutoSize = True
+        Me.lblGamePath.Location = New System.Drawing.Point(6, 93)
+        Me.lblGamePath.Name = "lblGamePath"
+        Me.lblGamePath.Size = New System.Drawing.Size(63, 13)
+        Me.lblGamePath.TabIndex = 9
+        Me.lblGamePath.Text = "Game Path:"
+        '
+        'txtAppPath
+        '
+        Me.txtAppPath.Location = New System.Drawing.Point(78, 90)
+        Me.txtAppPath.Name = "txtAppPath"
+        Me.txtAppPath.Size = New System.Drawing.Size(387, 20)
+        Me.txtAppPath.TabIndex = 10
+        '
+        'tbGameInfo
+        '
+        Me.tbGameInfo.BackColor = System.Drawing.SystemColors.Control
+        Me.tbGameInfo.Controls.Add(Me.grpGameInfo)
+        Me.tbGameInfo.Location = New System.Drawing.Point(4, 25)
+        Me.tbGameInfo.Name = "tbGameInfo"
+        Me.tbGameInfo.Size = New System.Drawing.Size(518, 286)
+        Me.tbGameInfo.TabIndex = 1
+        Me.tbGameInfo.Text = "Game Information"
+        '
+        'grpGameInfo
+        '
+        Me.grpGameInfo.Controls.Add(Me.lblComments)
+        Me.grpGameInfo.Controls.Add(Me.txtComments)
+        Me.grpGameInfo.Controls.Add(Me.pbIcon)
+        Me.grpGameInfo.Controls.Add(Me.lblIcon)
+        Me.grpGameInfo.Controls.Add(Me.btnIconBrowse)
+        Me.grpGameInfo.Controls.Add(Me.nudHours)
+        Me.grpGameInfo.Controls.Add(Me.txtIcon)
+        Me.grpGameInfo.Controls.Add(Me.txtCompany)
+        Me.grpGameInfo.Controls.Add(Me.lblVersion)
+        Me.grpGameInfo.Controls.Add(Me.lblHours)
+        Me.grpGameInfo.Controls.Add(Me.lblCompany)
+        Me.grpGameInfo.Controls.Add(Me.txtVersion)
+        Me.grpGameInfo.Location = New System.Drawing.Point(3, 3)
+        Me.grpGameInfo.Name = "grpGameInfo"
+        Me.grpGameInfo.Size = New System.Drawing.Size(511, 280)
+        Me.grpGameInfo.TabIndex = 0
+        Me.grpGameInfo.TabStop = False
+        '
+        'lblComments
+        '
+        Me.lblComments.AutoSize = True
+        Me.lblComments.Location = New System.Drawing.Point(6, 16)
+        Me.lblComments.Name = "lblComments"
+        Me.lblComments.Size = New System.Drawing.Size(59, 13)
+        Me.lblComments.TabIndex = 0
+        Me.lblComments.Text = "Comments:"
+        '
+        'txtComments
+        '
+        Me.txtComments.Location = New System.Drawing.Point(74, 16)
+        Me.txtComments.Multiline = True
+        Me.txtComments.Name = "txtComments"
+        Me.txtComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtComments.Size = New System.Drawing.Size(431, 40)
+        Me.txtComments.TabIndex = 1
+        '
+        'tbBackupInfo
+        '
+        Me.tbBackupInfo.BackColor = System.Drawing.SystemColors.Control
+        Me.tbBackupInfo.Controls.Add(Me.grpBackupInfo)
+        Me.tbBackupInfo.Location = New System.Drawing.Point(4, 25)
+        Me.tbBackupInfo.Name = "tbBackupInfo"
+        Me.tbBackupInfo.Size = New System.Drawing.Size(518, 286)
+        Me.tbBackupInfo.TabIndex = 2
+        Me.tbBackupInfo.Text = "Backup Management"
+        '
+        'grpBackupInfo
+        '
+        Me.grpBackupInfo.Controls.Add(Me.btnRestore)
+        Me.grpBackupInfo.Controls.Add(Me.btnBackup)
+        Me.grpBackupInfo.Controls.Add(Me.btnMarkAsRestored)
+        Me.grpBackupInfo.Controls.Add(Me.lblRemote)
+        Me.grpBackupInfo.Controls.Add(Me.btnBackupData)
+        Me.grpBackupInfo.Controls.Add(Me.lblRestorePath)
+        Me.grpBackupInfo.Controls.Add(Me.lblLocalBackupData)
+        Me.grpBackupInfo.Controls.Add(Me.btnOpenBackupFolder)
+        Me.grpBackupInfo.Controls.Add(Me.lblBackupFile)
+        Me.grpBackupInfo.Controls.Add(Me.cboRemoteBackup)
+        Me.grpBackupInfo.Controls.Add(Me.lblBackupFileData)
+        Me.grpBackupInfo.Controls.Add(Me.lblLocalData)
+        Me.grpBackupInfo.Controls.Add(Me.lblRestorePathData)
+        Me.grpBackupInfo.Location = New System.Drawing.Point(3, 3)
+        Me.grpBackupInfo.Name = "grpBackupInfo"
+        Me.grpBackupInfo.Size = New System.Drawing.Size(511, 280)
+        Me.grpBackupInfo.TabIndex = 0
+        Me.grpBackupInfo.TabStop = False
+        '
+        'btnRestore
+        '
+        Me.btnRestore.Image = Global.GBM.My.Resources.Resources.Multi_Restore
+        Me.btnRestore.Location = New System.Drawing.Point(414, 121)
+        Me.btnRestore.Name = "btnRestore"
+        Me.btnRestore.Size = New System.Drawing.Size(60, 45)
+        Me.btnRestore.TabIndex = 12
+        Me.btnRestore.Text = "&Restore"
+        Me.btnRestore.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btnRestore.UseVisualStyleBackColor = True
+        '
+        'btnBackup
+        '
+        Me.btnBackup.Image = Global.GBM.My.Resources.Resources.Multi_Backup
+        Me.btnBackup.Location = New System.Drawing.Point(348, 121)
+        Me.btnBackup.Name = "btnBackup"
+        Me.btnBackup.Size = New System.Drawing.Size(60, 45)
+        Me.btnBackup.TabIndex = 13
+        Me.btnBackup.Text = "&Backup"
+        Me.btnBackup.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btnBackup.UseVisualStyleBackColor = True
+        '
+        'btnMarkAsRestored
+        '
+        Me.btnMarkAsRestored.Image = Global.GBM.My.Resources.Resources.frmGameManager_Mark
+        Me.btnMarkAsRestored.Location = New System.Drawing.Point(480, 40)
+        Me.btnMarkAsRestored.Name = "btnMarkAsRestored"
+        Me.btnMarkAsRestored.Size = New System.Drawing.Size(22, 22)
+        Me.btnMarkAsRestored.TabIndex = 5
+        Me.btnMarkAsRestored.UseVisualStyleBackColor = True
+        '
+        'lblRemote
+        '
+        Me.lblRemote.AutoSize = True
+        Me.lblRemote.Location = New System.Drawing.Point(6, 18)
+        Me.lblRemote.Name = "lblRemote"
+        Me.lblRemote.Size = New System.Drawing.Size(73, 13)
+        Me.lblRemote.TabIndex = 0
+        Me.lblRemote.Text = "Backup Data:"
+        '
+        'btnBackupData
+        '
+        Me.btnBackupData.Image = Global.GBM.My.Resources.Resources.frmGameManager_Backup_Data
+        Me.btnBackupData.Location = New System.Drawing.Point(480, 13)
+        Me.btnBackupData.Name = "btnBackupData"
+        Me.btnBackupData.Size = New System.Drawing.Size(22, 22)
+        Me.btnBackupData.TabIndex = 2
+        Me.btnBackupData.UseVisualStyleBackColor = True
+        '
+        'lblRestorePath
+        '
+        Me.lblRestorePath.AutoSize = True
+        Me.lblRestorePath.Location = New System.Drawing.Point(6, 97)
+        Me.lblRestorePath.Name = "lblRestorePath"
+        Me.lblRestorePath.Size = New System.Drawing.Size(72, 13)
+        Me.lblRestorePath.TabIndex = 9
+        Me.lblRestorePath.Text = "Restore Path:"
+        '
+        'lblLocalBackupData
+        '
+        Me.lblLocalBackupData.AutoEllipsis = True
+        Me.lblLocalBackupData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblLocalBackupData.Location = New System.Drawing.Point(85, 40)
+        Me.lblLocalBackupData.Name = "lblLocalBackupData"
+        Me.lblLocalBackupData.Size = New System.Drawing.Size(389, 20)
+        Me.lblLocalBackupData.TabIndex = 4
+        Me.lblLocalBackupData.Tag = "wipe"
+        Me.lblLocalBackupData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblLocalBackupData.UseMnemonic = False
+        '
+        'btnOpenBackupFolder
+        '
+        Me.btnOpenBackupFolder.Image = Global.GBM.My.Resources.Resources.frmGameManager_Folder_Open
+        Me.btnOpenBackupFolder.Location = New System.Drawing.Point(480, 66)
+        Me.btnOpenBackupFolder.Name = "btnOpenBackupFolder"
+        Me.btnOpenBackupFolder.Size = New System.Drawing.Size(22, 22)
+        Me.btnOpenBackupFolder.TabIndex = 8
+        Me.btnOpenBackupFolder.UseVisualStyleBackColor = True
+        '
+        'lblBackupFile
+        '
+        Me.lblBackupFile.AutoSize = True
+        Me.lblBackupFile.Location = New System.Drawing.Point(6, 71)
+        Me.lblBackupFile.Name = "lblBackupFile"
+        Me.lblBackupFile.Size = New System.Drawing.Size(66, 13)
+        Me.lblBackupFile.TabIndex = 6
+        Me.lblBackupFile.Text = "Backup File:"
+        '
+        'cboRemoteBackup
+        '
+        Me.cboRemoteBackup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboRemoteBackup.FormattingEnabled = True
+        Me.cboRemoteBackup.Location = New System.Drawing.Point(85, 13)
+        Me.cboRemoteBackup.Name = "cboRemoteBackup"
+        Me.cboRemoteBackup.Size = New System.Drawing.Size(389, 21)
+        Me.cboRemoteBackup.TabIndex = 1
+        Me.cboRemoteBackup.Tag = "wipe"
+        '
+        'lblBackupFileData
+        '
+        Me.lblBackupFileData.ActiveLinkColor = System.Drawing.SystemColors.ControlText
+        Me.lblBackupFileData.AutoEllipsis = True
+        Me.lblBackupFileData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblBackupFileData.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.lblBackupFileData.LinkColor = System.Drawing.SystemColors.ControlText
+        Me.lblBackupFileData.Location = New System.Drawing.Point(85, 67)
+        Me.lblBackupFileData.Name = "lblBackupFileData"
+        Me.lblBackupFileData.Size = New System.Drawing.Size(389, 20)
+        Me.lblBackupFileData.TabIndex = 7
+        Me.lblBackupFileData.Tag = "wipe"
+        Me.lblBackupFileData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblLocalData
+        '
+        Me.lblLocalData.AutoSize = True
+        Me.lblLocalData.Location = New System.Drawing.Point(6, 44)
+        Me.lblLocalData.Name = "lblLocalData"
+        Me.lblLocalData.Size = New System.Drawing.Size(62, 13)
+        Me.lblLocalData.TabIndex = 3
+        Me.lblLocalData.Text = "Local Data:"
+        '
+        'lblRestorePathData
+        '
+        Me.lblRestorePathData.ActiveLinkColor = System.Drawing.SystemColors.ControlText
+        Me.lblRestorePathData.AutoEllipsis = True
+        Me.lblRestorePathData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblRestorePathData.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.lblRestorePathData.LinkColor = System.Drawing.SystemColors.ControlText
+        Me.lblRestorePathData.Location = New System.Drawing.Point(85, 93)
+        Me.lblRestorePathData.Name = "lblRestorePathData"
+        Me.lblRestorePathData.Size = New System.Drawing.Size(389, 20)
+        Me.lblRestorePathData.TabIndex = 10
+        Me.lblRestorePathData.Tag = "wipe"
+        Me.lblRestorePathData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'cboFilters
+        '
+        Me.cboFilters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboFilters.FormattingEnabled = True
+        Me.cboFilters.Location = New System.Drawing.Point(59, 12)
+        Me.cboFilters.Name = "cboFilters"
+        Me.cboFilters.Size = New System.Drawing.Size(181, 21)
+        Me.cboFilters.TabIndex = 1
+        '
+        'lblFilters
+        '
+        Me.lblFilters.AutoSize = True
+        Me.lblFilters.Location = New System.Drawing.Point(9, 15)
+        Me.lblFilters.Name = "lblFilters"
+        Me.lblFilters.Size = New System.Drawing.Size(37, 13)
+        Me.lblFilters.TabIndex = 0
+        Me.lblFilters.Text = "Filters:"
+        '
+        'cmsProcessOptions
+        '
+        Me.cmsProcessOptions.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsRegEx, Me.cmsUseWindowTitle})
+        Me.cmsProcessOptions.Name = "ContextMenuStrip1"
+        Me.cmsProcessOptions.Size = New System.Drawing.Size(174, 48)
+        '
+        'cmsRegEx
+        '
+        Me.cmsRegEx.CheckOnClick = True
+        Me.cmsRegEx.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.cmsRegEx.Name = "cmsRegEx"
+        Me.cmsRegEx.Size = New System.Drawing.Size(173, 22)
+        Me.cmsRegEx.Text = "&Regular Expression"
+        '
+        'cmsUseWindowTitle
+        '
+        Me.cmsUseWindowTitle.CheckOnClick = True
+        Me.cmsUseWindowTitle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.cmsUseWindowTitle.Name = "cmsUseWindowTitle"
+        Me.cmsUseWindowTitle.Size = New System.Drawing.Size(173, 22)
+        Me.cmsUseWindowTitle.Text = "Use &Window Title"
+        '
+        'cmsLinks
+        '
+        Me.cmsLinks.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsLinkConfiguration, Me.cmsLinkProcess})
+        Me.cmsLinks.Name = "cmsLinks"
+        Me.cmsLinks.ShowImageMargin = False
+        Me.cmsLinks.Size = New System.Drawing.Size(158, 48)
+        '
+        'cmsLinkConfiguration
+        '
+        Me.cmsLinkConfiguration.Name = "cmsLinkConfiguration"
+        Me.cmsLinkConfiguration.Size = New System.Drawing.Size(157, 22)
+        Me.cmsLinkConfiguration.Text = "Link &Configuration..."
+        '
+        'cmsLinkProcess
+        '
+        Me.cmsLinkProcess.Name = "cmsLinkProcess"
+        Me.cmsLinkProcess.Size = New System.Drawing.Size(157, 22)
+        Me.cmsLinkProcess.Text = "Link &Process..."
+        '
+        'cmsMonitorOptions
+        '
+        Me.cmsMonitorOptions.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsEnabled, Me.cmsMonitorOnly})
+        Me.cmsMonitorOptions.Name = "cmsMonitorOptions"
+        Me.cmsMonitorOptions.ShowCheckMargin = True
+        Me.cmsMonitorOptions.ShowImageMargin = False
+        Me.cmsMonitorOptions.Size = New System.Drawing.Size(173, 48)
+        '
+        'cmsEnabled
+        '
+        Me.cmsEnabled.CheckOnClick = True
+        Me.cmsEnabled.Name = "cmsEnabled"
+        Me.cmsEnabled.Size = New System.Drawing.Size(172, 22)
+        Me.cmsEnabled.Text = "&Monitor this game"
+        '
+        'cmsMonitorOnly
+        '
+        Me.cmsMonitorOnly.CheckOnClick = True
+        Me.cmsMonitorOnly.Name = "cmsMonitorOnly"
+        Me.cmsMonitorOnly.Size = New System.Drawing.Size(172, 22)
+        Me.cmsMonitorOnly.Text = "Monitor &Only"
         '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(784, 661)
-        Me.Controls.Add(Me.btnLaunchOptions)
-        Me.Controls.Add(Me.btnLink)
-        Me.Controls.Add(Me.lblQuickFilter)
-        Me.Controls.Add(Me.txtQuickFilter)
+        Me.ClientSize = New System.Drawing.Size(784, 386)
+        Me.Controls.Add(Me.lblFilters)
+        Me.Controls.Add(Me.cboFilters)
+        Me.Controls.Add(Me.tabGameManager)
+        Me.Controls.Add(Me.btnAdvanced)
+        Me.Controls.Add(Me.lblSearch)
+        Me.Controls.Add(Me.txtSearch)
         Me.Controls.Add(Me.btnExport)
         Me.Controls.Add(Me.btnImport)
-        Me.Controls.Add(Me.grpFilter)
-        Me.Controls.Add(Me.btnTags)
-        Me.Controls.Add(Me.chkEnabled)
         Me.Controls.Add(Me.btnCancel)
-        Me.Controls.Add(Me.chkMonitorOnly)
-        Me.Controls.Add(Me.btnMarkAsRestored)
-        Me.Controls.Add(Me.btnRestore)
         Me.Controls.Add(Me.lstGames)
         Me.Controls.Add(Me.btnSave)
-        Me.Controls.Add(Me.grpStats)
-        Me.Controls.Add(Me.grpExtra)
-        Me.Controls.Add(Me.grpConfig)
-        Me.Controls.Add(Me.btnBackup)
-        Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnAdd)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -1088,36 +1082,34 @@ Partial Class frmGameManager
         Me.Name = "frmGameManager"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Game Manager"
-        Me.grpConfig.ResumeLayout(False)
-        Me.grpConfig.PerformLayout()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.grpExtra.ResumeLayout(False)
-        Me.grpExtra.PerformLayout()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.nudHours, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.grpStats.ResumeLayout(False)
-        Me.grpStats.PerformLayout()
-        Me.grpFilter.ResumeLayout(False)
-        Me.grpFilter.PerformLayout()
         Me.cmsImport.ResumeLayout(False)
-        Me.cmsDeleteBackup.ResumeLayout(False)
-        Me.cmsOpenBackup.ResumeLayout(False)
-        Me.cmsLink.ResumeLayout(False)
-        Me.cmsLaunch.ResumeLayout(False)
+        Me.cmsBackupData.ResumeLayout(False)
+        Me.cmsAdvanced.ResumeLayout(False)
+        Me.tabGameManager.ResumeLayout(False)
+        Me.tbConfig.ResumeLayout(False)
+        Me.grpCoreConfig.ResumeLayout(False)
+        Me.grpCoreConfig.PerformLayout()
+        Me.tbGameInfo.ResumeLayout(False)
+        Me.grpGameInfo.ResumeLayout(False)
+        Me.grpGameInfo.PerformLayout()
+        Me.tbBackupInfo.ResumeLayout(False)
+        Me.grpBackupInfo.ResumeLayout(False)
+        Me.grpBackupInfo.PerformLayout()
+        Me.cmsProcessOptions.ResumeLayout(False)
+        Me.cmsLinks.ResumeLayout(False)
+        Me.cmsMonitorOptions.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents btnAdd As System.Windows.Forms.Button
     Friend WithEvents btnDelete As System.Windows.Forms.Button
-    Friend WithEvents btnBackup As System.Windows.Forms.Button
-    Friend WithEvents btnClose As System.Windows.Forms.Button
-    Friend WithEvents grpConfig As System.Windows.Forms.GroupBox
     Friend WithEvents txtSavePath As System.Windows.Forms.TextBox
     Friend WithEvents txtProcess As System.Windows.Forms.TextBox
     Friend WithEvents txtName As System.Windows.Forms.TextBox
-    Friend WithEvents grpExtra As System.Windows.Forms.GroupBox
-    Friend WithEvents grpStats As System.Windows.Forms.GroupBox
     Friend WithEvents chkTimeStamp As System.Windows.Forms.CheckBox
     Friend WithEvents chkFolderSave As System.Windows.Forms.CheckBox
     Friend WithEvents lblSavePath As System.Windows.Forms.Label
@@ -1128,9 +1120,6 @@ Partial Class frmGameManager
     Friend WithEvents btnSavePathBrowse As System.Windows.Forms.Button
     Friend WithEvents btnProcessBrowse As System.Windows.Forms.Button
     Friend WithEvents btnSave As System.Windows.Forms.Button
-    Friend WithEvents btnAppPathBrowse As System.Windows.Forms.Button
-    Friend WithEvents lblGamePath As System.Windows.Forms.Label
-    Friend WithEvents txtAppPath As System.Windows.Forms.TextBox
     Friend WithEvents lblIcon As System.Windows.Forms.Label
     Friend WithEvents pbIcon As System.Windows.Forms.PictureBox
     Friend WithEvents lblVersion As System.Windows.Forms.Label
@@ -1139,71 +1128,79 @@ Partial Class frmGameManager
     Friend WithEvents lblCompany As System.Windows.Forms.Label
     Friend WithEvents nudHours As System.Windows.Forms.NumericUpDown
     Friend WithEvents lblHours As System.Windows.Forms.Label
-    Friend WithEvents chkMonitorOnly As System.Windows.Forms.CheckBox
     Friend WithEvents lstGames As System.Windows.Forms.ListBox
     Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents btnIconBrowse As System.Windows.Forms.Button
     Friend WithEvents txtIcon As System.Windows.Forms.TextBox
     Friend WithEvents txtID As System.Windows.Forms.TextBox
-    Friend WithEvents lblRemote As System.Windows.Forms.Label
-    Friend WithEvents lblLocalData As System.Windows.Forms.Label
-    Friend WithEvents chkEnabled As System.Windows.Forms.CheckBox
-    Friend WithEvents lblBackupFile As System.Windows.Forms.Label
-    Friend WithEvents btnMarkAsRestored As System.Windows.Forms.Button
-    Friend WithEvents btnRestore As System.Windows.Forms.Button
-    Friend WithEvents btnDeleteBackup As System.Windows.Forms.Button
-    Friend WithEvents btnOpenBackup As System.Windows.Forms.Button
-    Friend WithEvents grpFilter As System.Windows.Forms.GroupBox
-    Friend WithEvents optPendingRestores As System.Windows.Forms.RadioButton
-    Friend WithEvents optAllGames As System.Windows.Forms.RadioButton
-    Friend WithEvents optBackupData As System.Windows.Forms.RadioButton
-    Friend WithEvents btnOpenRestorePath As System.Windows.Forms.Button
-    Friend WithEvents btnTags As System.Windows.Forms.Button
-    Friend WithEvents lblTags As System.Windows.Forms.Label
-    Friend WithEvents optCustom As System.Windows.Forms.RadioButton
     Friend WithEvents btnInclude As System.Windows.Forms.Button
     Friend WithEvents btnExclude As System.Windows.Forms.Button
-    Friend WithEvents lblRestorePath As Label
     Friend WithEvents btnImport As System.Windows.Forms.Button
     Friend WithEvents btnExport As System.Windows.Forms.Button
     Friend WithEvents cmsImport As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents cmsOfficial As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmsFile As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents txtQuickFilter As TextBox
-    Friend WithEvents lblQuickFilter As Label
-    Friend WithEvents lblLocalBackupData As Label
-    Friend WithEvents lblRestorePathData As Label
-    Friend WithEvents lblBackupFileData As Label
+    Friend WithEvents txtSearch As TextBox
+    Friend WithEvents lblSearch As Label
     Friend WithEvents lblLimit As Label
     Friend WithEvents nudLimit As NumericUpDown
-    Friend WithEvents cboRemoteBackup As ComboBox
-    Friend WithEvents cmsDeleteBackup As ContextMenuStrip
+    Friend WithEvents cmsBackupData As ContextMenuStrip
     Friend WithEvents cmsDeleteOne As ToolStripMenuItem
     Friend WithEvents cmsDeleteAll As ToolStripMenuItem
     Friend WithEvents chkCleanFolder As CheckBox
     Friend WithEvents txtParameter As TextBox
     Friend WithEvents lblParameter As Label
-    Friend WithEvents lblComments As Label
-    Friend WithEvents txtComments As TextBox
-    Friend WithEvents chkRegEx As CheckBox
-    Friend WithEvents btnGameID As Button
-    Friend WithEvents btnLink As Button
+    Friend WithEvents btnAdvanced As Button
     Friend WithEvents ttFullPath As ToolTip
-    Friend WithEvents btnImportBackup As Button
     Friend WithEvents cmsOfficialWindows As ToolStripMenuItem
     Friend WithEvents cmsOfficialLinux As ToolStripMenuItem
     Friend WithEvents chkRecurseSubFolders As CheckBox
-    Friend WithEvents lblOS As Label
     Friend WithEvents cboOS As ComboBox
-    Friend WithEvents btnWineConfig As Button
-    Friend WithEvents cmsOpenBackup As ContextMenuStrip
-    Friend WithEvents cmsOpenBackupFile As ToolStripMenuItem
-    Friend WithEvents cmsOpenBackupFolder As ToolStripMenuItem
-    Friend WithEvents cmsLink As ContextMenuStrip
-    Friend WithEvents cmsProcess As ToolStripMenuItem
-    Friend WithEvents cmsConfiguration As ToolStripMenuItem
-    Friend WithEvents btnLaunchOptions As Button
-    Friend WithEvents cmsLaunch As ContextMenuStrip
+    Friend WithEvents cmsAdvanced As ContextMenuStrip
+    Friend WithEvents ttHelp As ToolTip
     Friend WithEvents cmsLaunchSettings As ToolStripMenuItem
-    Friend WithEvents cmsLaunchGame As ToolStripMenuItem
+    Friend WithEvents tabGameManager As TabControl
+    Friend WithEvents tbConfig As TabPage
+    Friend WithEvents tbGameInfo As TabPage
+    Friend WithEvents tbBackupInfo As TabPage
+    Friend WithEvents btnAppPathBrowse As Button
+    Friend WithEvents lblGamePath As Label
+    Friend WithEvents txtAppPath As TextBox
+    Friend WithEvents lblComments As Label
+    Friend WithEvents txtComments As TextBox
+    Friend WithEvents btnMarkAsRestored As Button
+    Friend WithEvents btnBackupData As Button
+    Friend WithEvents btnOpenBackupFolder As Button
+    Friend WithEvents lblBackupFileData As LinkLabel
+    Friend WithEvents lblRemote As Label
+    Friend WithEvents lblRestorePathData As LinkLabel
+    Friend WithEvents lblLocalData As Label
+    Friend WithEvents cboRemoteBackup As ComboBox
+    Friend WithEvents lblBackupFile As Label
+    Friend WithEvents lblLocalBackupData As Label
+    Friend WithEvents lblRestorePath As Label
+    Friend WithEvents grpCoreConfig As GroupBox
+    Friend WithEvents grpGameInfo As GroupBox
+    Friend WithEvents grpBackupInfo As GroupBox
+    Friend WithEvents cboFilters As ComboBox
+    Friend WithEvents lblFilters As Label
+    Friend WithEvents cmsWineConfig As ToolStripMenuItem
+    Friend WithEvents btnProcessOptions As Button
+    Friend WithEvents cmsProcessOptions As ContextMenuStrip
+    Friend WithEvents cmsRegEx As ToolStripMenuItem
+    Friend WithEvents cmsUseWindowTitle As ToolStripMenuItem
+    Friend WithEvents lblGameTags As LinkLabel
+    Friend WithEvents lblTags As Label
+    Friend WithEvents btnRestore As Button
+    Friend WithEvents btnBackup As Button
+    Friend WithEvents cmsImportData As ToolStripMenuItem
+    Friend WithEvents btnLinks As Button
+    Friend WithEvents cmsLinks As ContextMenuStrip
+    Friend WithEvents cmsMonitorOptions As ContextMenuStrip
+    Friend WithEvents btnMonitorOptions As Button
+    Friend WithEvents cmsEnabled As ToolStripMenuItem
+    Friend WithEvents cmsMonitorOnly As ToolStripMenuItem
+    Friend WithEvents cmsLinkConfiguration As ToolStripMenuItem
+    Friend WithEvents cmsLinkProcess As ToolStripMenuItem
+    Friend WithEvents btnGameID As Button
 End Class

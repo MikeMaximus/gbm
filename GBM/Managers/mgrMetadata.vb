@@ -4,17 +4,7 @@ Imports System.IO
 
 Public Class mgrMetadata
 
-    Private oSettings As mgrSettings
     Private bCancelOperation As Boolean
-
-    Property Settings As mgrSettings
-        Get
-            Return oSettings
-        End Get
-        Set(value As mgrSettings)
-            oSettings = value
-        End Set
-    End Property
 
     Public Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
 
@@ -23,7 +13,7 @@ Public Class mgrMetadata
         Dim oSerializer As XmlSerializer
 
         Try
-            oReader = New StreamReader(Settings.MetadataLocation)
+            oReader = New StreamReader(mgrSettings.MetadataLocation)
             oSerializer = New XmlSerializer(GetType(BackupMetadata), New XmlRootAttribute("GBM_Backup"))
             oBackupMetadata = oSerializer.Deserialize(oReader)
             oReader.Close()
@@ -66,14 +56,14 @@ Public Class mgrMetadata
         Dim sOutput As String = String.Empty
         Dim bOperationCompleted As Boolean = False
 
-        sArguments = "a -t7z -mx" & oSettings.CompressionLevel & " """ & sBackupFile & """ """ & sMetadata & """"
+        sArguments = "a -t7z -mx" & mgrSettings.CompressionLevel & " """ & sBackupFile & """ """ & sMetadata & """"
 
         Try
-            If File.Exists(sBackupFile) And File.Exists(Settings.MetadataLocation) Then
-                If Settings.Is7zUtilityValid Then
+            If File.Exists(sBackupFile) And File.Exists(mgrSettings.MetadataLocation) Then
+                If mgrSettings.Is7zUtilityValid Then
                     prs7z.StartInfo.Arguments = sArguments
-                    prs7z.StartInfo.FileName = oSettings.Utility7zLocation
-                    prs7z.StartInfo.WorkingDirectory = Settings.TemporaryFolder
+                    prs7z.StartInfo.FileName = mgrSettings.Utility7zLocation
+                    prs7z.StartInfo.WorkingDirectory = mgrSettings.TemporaryFolder
                     prs7z.StartInfo.UseShellExecute = False
                     prs7z.StartInfo.RedirectStandardOutput = True
                     prs7z.StartInfo.CreateNoWindow = True
@@ -115,9 +105,9 @@ Public Class mgrMetadata
 
         Try
             If File.Exists(sBackupFileWithPath) Then
-                If Settings.Is7zUtilityValid Then
-                    prs7z.StartInfo.Arguments = "x " & """" & sBackupFileWithPath & """ -o""" & Settings.TemporaryFolder & """ -i!" & App_MetadataFilename & " -aoa"
-                    prs7z.StartInfo.FileName = oSettings.Utility7zLocation
+                If mgrSettings.Is7zUtilityValid Then
+                    prs7z.StartInfo.Arguments = "x " & """" & sBackupFileWithPath & """ -o""" & mgrSettings.TemporaryFolder & """ -i!" & App_MetadataFilename & " -aoa"
+                    prs7z.StartInfo.FileName = mgrSettings.Utility7zLocation
                     prs7z.StartInfo.UseShellExecute = False
                     prs7z.StartInfo.RedirectStandardOutput = True
                     prs7z.StartInfo.CreateNoWindow = True
@@ -156,9 +146,9 @@ Public Class mgrMetadata
 
         Try
             If File.Exists(sBackupFileWithPath) Then
-                If Settings.Is7zUtilityValid Then
+                If mgrSettings.Is7zUtilityValid Then
                     prs7z.StartInfo.Arguments = sArguments
-                    prs7z.StartInfo.FileName = oSettings.Utility7zLocation
+                    prs7z.StartInfo.FileName = mgrSettings.Utility7zLocation
                     prs7z.StartInfo.UseShellExecute = False
                     prs7z.StartInfo.RedirectStandardOutput = True
                     prs7z.StartInfo.CreateNoWindow = True
