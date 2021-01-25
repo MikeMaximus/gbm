@@ -1822,6 +1822,16 @@ Public Class frmMain
         Next
     End Sub
 
+    Private Sub ToggleLaunchMenuItems(ByVal bEnable As Boolean)
+        Dim iItem As Integer
+        For i = 0 To 4
+            iItem = gMonTrayMenu.Items.IndexOfKey("gMonLaunchGame" & i)
+            If Not iItem = -1 Then
+                gMonTrayMenu.Items.Item(iItem).Enabled = bEnable
+            End If
+        Next
+    End Sub
+
     Private Sub LockDownMenuEnable()
         If bLockdown Then
             gMonStripStatusButton.Enabled = False
@@ -1829,6 +1839,7 @@ Public Class frmMain
             gMonFileExit.Enabled = False
             gMonTrayMon.Enabled = False
             gMonTrayExit.Enabled = False
+            ToggleLaunchMenuItems(False)
             bLockdown = False
         Else
             gMonStripStatusButton.Enabled = True
@@ -1836,6 +1847,7 @@ Public Class frmMain
             gMonFileExit.Enabled = True
             gMonTrayMon.Enabled = True
             gMonTrayExit.Enabled = True
+            ToggleLaunchMenuItems(True)
             bLockdown = True
         End If
     End Sub
@@ -1863,14 +1875,7 @@ Public Class frmMain
                 gMonTrayExit.Enabled = False
                 gMonStatusStrip.Enabled = False
             End If
-            'Disable Game Launchers (if they exist)
-            Dim iItem As Integer
-            For i = 0 To 4
-                iItem = gMonTrayMenu.Items.IndexOfKey("gMonLaunchGame" & i)
-                If Not iItem = -1 Then
-                    gMonTrayMenu.Items.Item(iItem).Enabled = False
-                End If
-            Next
+            ToggleLaunchMenuItems(False)
             bMenuEnabled = False
         Else
             ToggleMenuItems(True, gMonFile)
@@ -1887,14 +1892,7 @@ Public Class frmMain
             gMonTrayMon.Enabled = True
             gMonTrayExit.Enabled = True
             gMonStatusStrip.Enabled = True
-            'Enable Game Launchers (if they exist)
-            Dim iItem As Integer
-            For i = 0 To 4
-                iItem = gMonTrayMenu.Items.IndexOfKey("gMonLaunchGame" & i)
-                If Not iItem = -1 Then
-                    gMonTrayMenu.Items.Item(iItem).Enabled = True
-                End If
-            Next
+            ToggleLaunchMenuItems(True)
             bMenuEnabled = True
         End If
     End Sub
