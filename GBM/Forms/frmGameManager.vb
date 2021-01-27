@@ -1213,12 +1213,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
                 btnAdvanced.Enabled = False
-                btnMarkAsRestored.Enabled = False
-                btnRestore.Enabled = False
-                btnBackupData.Enabled = False
-                lblBackupFileData.Enabled = False
-                btnOpenBackupFolder.Enabled = False
-                lblRestorePathData.Enabled = False
+                tbBackupInfo.Enabled = False
                 cmsEnabled.Checked = True
                 cmsMonitorOnly.Checked = False
                 chkRecurseSubFolders.Checked = True
@@ -1246,8 +1241,6 @@ Public Class frmGameManager
                 btnCancel.Enabled = True
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
-                btnBackup.Enabled = False
-                btnRestore.Enabled = False
                 btnAdvanced.Enabled = False
                 btnImport.Enabled = False
                 btnExport.Enabled = False
@@ -1294,9 +1287,6 @@ Public Class frmGameManager
                 tbBackupInfo.Enabled = False
                 btnAdd.Enabled = True
                 btnDelete.Enabled = True
-                btnBackup.Enabled = False
-                btnRestore.Enabled = False
-                btnMarkAsRestored.Enabled = False
                 btnAdvanced.Enabled = False
                 lblGameTags.Text = frmGameManager_lblGameTags
                 lblGameTags.LinkBehavior = LinkBehavior.HoverUnderline
