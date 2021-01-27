@@ -1318,15 +1318,15 @@ Public Class frmGameManager
                 pbIcon.Image = Multi_Unknown
                 btnSave.Enabled = True
                 btnCancel.Enabled = False
+                cmsMonitorOnly.Checked = False
+                cmsEnabled.Checked = False
                 ToggleControls(grpCoreConfig.Controls, False)
                 ToggleControls(grpGameInfo.Controls, False)
                 ToggleControls(grpBackupInfo.Controls, False)
                 btnLinks.Enabled = True
                 btnMonitorOptions.Enabled = True
                 cmsMonitorOnly.Enabled = True
-                cmsMonitorOnly.Checked = False
                 cmsEnabled.Enabled = True
-                cmsEnabled.Checked = False
                 btnMarkAsRestored.Enabled = True
                 lblGameTags.Enabled = True
                 HandleTags(mgrGameTags.PrintTagsbyIDMulti(GetSelectedGames))
