@@ -1213,12 +1213,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
                 btnAdvanced.Enabled = False
-                btnMarkAsRestored.Enabled = False
-                btnRestore.Enabled = False
-                btnBackupData.Enabled = False
-                lblBackupFileData.Enabled = False
-                btnOpenBackupFolder.Enabled = False
-                lblRestorePathData.Enabled = False
+                tbBackupInfo.Enabled = False
                 cmsEnabled.Checked = True
                 cmsMonitorOnly.Checked = False
                 chkRecurseSubFolders.Checked = True
@@ -1246,8 +1241,6 @@ Public Class frmGameManager
                 btnCancel.Enabled = True
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
-                btnBackup.Enabled = False
-                btnRestore.Enabled = False
                 btnAdvanced.Enabled = False
                 btnImport.Enabled = False
                 btnExport.Enabled = False
@@ -1294,9 +1287,6 @@ Public Class frmGameManager
                 tbBackupInfo.Enabled = False
                 btnAdd.Enabled = True
                 btnDelete.Enabled = True
-                btnBackup.Enabled = False
-                btnRestore.Enabled = False
-                btnMarkAsRestored.Enabled = False
                 btnAdvanced.Enabled = False
                 lblGameTags.Text = frmGameManager_lblGameTags
                 lblGameTags.LinkBehavior = LinkBehavior.HoverUnderline
@@ -1318,15 +1308,15 @@ Public Class frmGameManager
                 pbIcon.Image = Multi_Unknown
                 btnSave.Enabled = True
                 btnCancel.Enabled = False
+                cmsMonitorOnly.Checked = False
+                cmsEnabled.Checked = False
                 ToggleControls(grpCoreConfig.Controls, False)
                 ToggleControls(grpGameInfo.Controls, False)
                 ToggleControls(grpBackupInfo.Controls, False)
                 btnLinks.Enabled = True
                 btnMonitorOptions.Enabled = True
                 cmsMonitorOnly.Enabled = True
-                cmsMonitorOnly.Checked = False
                 cmsEnabled.Enabled = True
-                cmsEnabled.Checked = False
                 btnMarkAsRestored.Enabled = True
                 lblGameTags.Enabled = True
                 HandleTags(mgrGameTags.PrintTagsbyIDMulti(GetSelectedGames))
