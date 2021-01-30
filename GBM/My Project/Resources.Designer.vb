@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-01-19T15:28:04
+        '''  Looks up a localized string similar to 2021-01-30T14:26:50
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -6846,7 +6846,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Add.
+        '''  Looks up a localized string similar to &amp;New.
         '''</summary>
         Friend ReadOnly Property frmTags_btnAdd() As String
             Get

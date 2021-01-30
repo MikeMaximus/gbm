@@ -1090,7 +1090,7 @@
     <value>Game Backup Monitor Manual</value>
   </data>
   <data name="frmTags_btnAdd" xml:space="preserve">
-    <value>&amp;Add</value>
+    <value>&amp;New</value>
   </data>
   <data name="frmTags_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>
