@@ -23,7 +23,6 @@ Partial Class frmGameManager
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmGameManager))
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.cboOS = New System.Windows.Forms.ComboBox()
@@ -450,7 +449,7 @@ Partial Class frmGameManager
         '
         'btnSave
         '
-        Me.btnSave.Image = CType(resources.GetObject("btnSave.Image"), System.Drawing.Image)
+        Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
         Me.btnSave.Location = New System.Drawing.Point(638, 329)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(60, 45)
