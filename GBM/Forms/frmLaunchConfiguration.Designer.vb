@@ -112,7 +112,6 @@ Partial Class frmLaunchConfiguration
         '
         'grpStoreLauncher
         '
-        Me.grpStoreLauncher.Controls.Add(Me.btnOpenLaunchers)
         Me.grpStoreLauncher.Controls.Add(Me.cboLauncher)
         Me.grpStoreLauncher.Controls.Add(Me.txtGameID)
         Me.grpStoreLauncher.Controls.Add(Me.lblGameID)
@@ -126,11 +125,13 @@ Partial Class frmLaunchConfiguration
         '
         'btnOpenLaunchers
         '
-        Me.btnOpenLaunchers.Location = New System.Drawing.Point(314, 21)
+        Me.btnOpenLaunchers.Image = Global.GBM.My.Resources.Resources.Multi_Edit
+        Me.btnOpenLaunchers.Location = New System.Drawing.Point(12, 304)
         Me.btnOpenLaunchers.Name = "btnOpenLaunchers"
-        Me.btnOpenLaunchers.Size = New System.Drawing.Size(129, 23)
-        Me.btnOpenLaunchers.TabIndex = 1
+        Me.btnOpenLaunchers.Size = New System.Drawing.Size(125, 45)
+        Me.btnOpenLaunchers.TabIndex = 3
         Me.btnOpenLaunchers.Text = "&Launcher Manager..."
+        Me.btnOpenLaunchers.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnOpenLaunchers.UseVisualStyleBackColor = True
         '
         'cboLauncher
@@ -139,7 +140,7 @@ Partial Class frmLaunchConfiguration
         Me.cboLauncher.FormattingEnabled = True
         Me.cboLauncher.Location = New System.Drawing.Point(85, 23)
         Me.cboLauncher.Name = "cboLauncher"
-        Me.cboLauncher.Size = New System.Drawing.Size(223, 21)
+        Me.cboLauncher.Size = New System.Drawing.Size(358, 21)
         Me.cboLauncher.TabIndex = 0
         '
         'txtGameID
@@ -173,7 +174,7 @@ Partial Class frmLaunchConfiguration
         Me.btnCancel.Location = New System.Drawing.Point(417, 304)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(60, 45)
-        Me.btnCancel.TabIndex = 4
+        Me.btnCancel.TabIndex = 5
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
@@ -184,7 +185,7 @@ Partial Class frmLaunchConfiguration
         Me.btnSave.Location = New System.Drawing.Point(351, 304)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(60, 45)
-        Me.btnSave.TabIndex = 3
+        Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnSave.UseVisualStyleBackColor = True
@@ -213,6 +214,7 @@ Partial Class frmLaunchConfiguration
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(489, 361)
+        Me.Controls.Add(Me.btnOpenLaunchers)
         Me.Controls.Add(Me.grpCommand)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
