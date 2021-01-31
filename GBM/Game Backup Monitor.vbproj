@@ -478,7 +478,7 @@
     <Content Include="x86\sqlite3.dll" />
     <None Include="Resources\GBM_Icon.ico" />
     <Content Include="Resources\frmMain_Admin.png" />
-    <Content Include="Resources\frmGameManager_Clock.png" />
+    <Content Include="Resources\frmMain_Clock.png" />
     <Content Include="Resources\frmIncludeExclude_File.ico" />
     <Content Include="Resources\frmIncludeExclude_Folder.ico" />
     <Content Include="Resources\GBM_Icon_Detected.ico" />
@@ -488,7 +488,7 @@
     <Content Include="Resources\frmIncludeExclude_Type.ico" />
     <Content Include="Resources\frmMain_User.png" />
     <None Include="Resources\frmMain_Stopped.png" />
-    <None Include="Resources\frmGameManager_Detected.png" />
+    <None Include="Resources\frmMain_Detected.png" />
     <None Include="Resources\frmMain_Ready.png" />
     <None Include="Resources\frmMain_Working.png" />
     <None Include="Resources\frmMain_Searching.png" />

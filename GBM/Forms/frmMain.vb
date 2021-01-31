@@ -2214,7 +2214,7 @@ Public Class frmMain
         End If
         btnCancelOperation.Visible = False
         pbTime.SizeMode = PictureBoxSizeMode.AutoSize
-        pbTime.Image = frmGameManager_Clock
+        pbTime.Image = frmMain_Clock
 
         'Init Timers
         tmScanTimer.Interval = 5000
@@ -2340,7 +2340,7 @@ Public Class frmMain
             tmScanTimer.Stop()
             eCurrentStatus = eStatus.Paused
             UpdateStatus(frmMain_NotScanning)
-            gMonStripStatusButton.Image = frmGameManager_Detected
+            gMonStripStatusButton.Image = frmMain_Detected
             gMonTray.Icon = GBM_Icon_Detected
         End If
         ToggleMenuText()

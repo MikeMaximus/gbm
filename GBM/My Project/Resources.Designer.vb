@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-01-30T14:26:50
+        '''  Looks up a localized string similar to 2021-01-30T18:38:34
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2038,16 +2038,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_Clock() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("frmGameManager_Clock", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Delete &amp;All.
         '''</summary>
         Friend ReadOnly Property frmGameManager_cmsDeleteAll() As String
@@ -2350,16 +2340,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_DefaultExportFileName() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_DefaultExportFileName", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_Detected() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("frmGameManager_Detected", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -3887,6 +3867,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property frmMain_Clock() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmMain_Clock", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property frmMain_Collapse_Left() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("frmMain_Collapse_Left", resourceCulture)
@@ -3990,6 +3980,16 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_DefaultLogFileName() As String
             Get
                 Return ResourceManager.GetString("frmMain_DefaultLogFileName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmMain_Detected() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmMain_Detected", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
