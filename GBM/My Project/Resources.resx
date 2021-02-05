@@ -928,13 +928,13 @@
     <value>http://mikemaximus.github.io/gbm-web/GBM_Official.xml</value>
   </data>
   <data name="App_URLManual" xml:space="preserve">
-    <value>http://mikemaximus.github.io/gbm-web/manual.html</value>
+    <value>https://mikemaximus.github.io/gbm-web/manual.html</value>
   </data>
   <data name="App_URLUpdates" xml:space="preserve">
     <value>https://github.com/MikeMaximus/gbm/releases</value>
   </data>
   <data name="App_URLWebsite" xml:space="preserve">
-    <value>http://mikemaximus.github.io/gbm-web/</value>
+    <value>https://mikemaximus.github.io/gbm-web/</value>
   </data>
   <data name="frmIncludeExclude_cmsAdd" xml:space="preserve">
     <value>Add Custom Item</value>
@@ -1888,7 +1888,7 @@
     <value>Comments:</value>
   </data>
   <data name="AppURL_RegExr" xml:space="preserve">
-    <value>http://regexr.com/?expression=[PARAM]&amp;text=test</value>
+    <value>https://regexr.com/?expression=[PARAM]&amp;text=test</value>
   </data>
   <data name="frmGameManager_ErrorRegExFailure" xml:space="preserve">
     <value>The process is not a a valid regular expression.[BR][BR]Would you like help validating and testing your regular expression? [BR][BR]This will open your web browser and requires the internet.</value>

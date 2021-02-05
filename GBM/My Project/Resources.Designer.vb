@@ -295,7 +295,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to http://mikemaximus.github.io/gbm-web/manual.html.
+        '''  Looks up a localized string similar to https://mikemaximus.github.io/gbm-web/manual.html.
         '''</summary>
         Friend ReadOnly Property App_URLManual() As String
             Get
@@ -313,7 +313,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to http://mikemaximus.github.io/gbm-web/.
+        '''  Looks up a localized string similar to https://mikemaximus.github.io/gbm-web/.
         '''</summary>
         Friend ReadOnly Property App_URLWebsite() As String
             Get
@@ -331,7 +331,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to http://regexr.com/?expression=[PARAM]&amp;text=test.
+        '''  Looks up a localized string similar to https://regexr.com/?expression=[PARAM]&amp;text=test.
         '''</summary>
         Friend ReadOnly Property AppURL_RegExr() As String
             Get
@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-01-30T18:38:34
+        '''  Looks up a localized string similar to 2021-02-05T15:15:31
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
