@@ -1390,16 +1390,15 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Sub TimeStampModeChange()
+    Private Sub TimeStampModeChange(Optional ByVal bResetValue As Boolean = False)
         If chkTimeStamp.Checked Then
             nudLimit.Enabled = True
             lblLimit.Enabled = True
-            nudLimit.Value = 0
         Else
             nudLimit.Enabled = False
-            nudLimit.Value = nudLimit.Minimum
             lblLimit.Enabled = False
         End If
+        If bResetValue Then nudLimit.Value = nudLimit.Minimum
     End Sub
 
     Private Sub VerifyImportBackup()
@@ -2249,7 +2248,9 @@ Public Class frmGameManager
     End Sub
 
     Private Sub chkTimeStamp_CheckedChanged(sender As Object, e As EventArgs) Handles chkTimeStamp.CheckedChanged
-        TimeStampModeChange()
+        If Not IsLoading Then
+            TimeStampModeChange(True)
+        End If
     End Sub
 
     Private Sub cboRemoteBackup_Enter(sender As Object, e As EventArgs) Handles cboRemoteBackup.Enter, cboRemoteBackup.Click
