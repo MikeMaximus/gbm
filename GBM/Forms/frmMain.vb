@@ -73,6 +73,7 @@ Public Class frmMain
     WithEvents tmFileWatcherQueue As New System.Timers.Timer
     WithEvents tmSessionTimeUpdater As New System.Timers.Timer
     WithEvents tmFilterTimer As New System.Timers.Timer
+    WithEvents tmPlayTimer As New System.Timers.Timer
 
     Public WithEvents oProcess As New mgrProcessDetection
     Public WithEvents oBackup As New mgrBackup
@@ -89,6 +90,7 @@ Public Class frmMain
     Delegate Sub OperationEndedCallBack()
     Delegate Sub FormatAndFillListCallback()
     Delegate Sub RestoreCompletedCallBack()
+    Delegate Sub EnablePlayButtonCallBack()
 
     'Handlers
     Private Sub SetLastAction(ByVal sMessage As String) Handles oBackup.SetLastAction, oRestore.SetLastAction
@@ -1704,6 +1706,16 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub EnablePlayButton()
+        'Thread Safe
+        If btnPlay.InvokeRequired = True Then
+            Dim d As New EnablePlayButtonCallBack(AddressOf EnablePlayButton)
+            Me.Invoke(d, New Object() {})
+        Else
+            btnPlay.Enabled = True
+        End If
+    End Sub
+
     Private Sub LaunchGame(ByVal oGame As clsGame)
         Dim oLaunchData As clsLaunchData = mgrLaunchData.DoLaunchDataGetbyID(oGame.ID)
         Dim eLaunchType As mgrLaunchGame.eLaunchType
@@ -1712,6 +1724,8 @@ Public Class frmMain
 
         If mgrLaunchGame.CanLaunchGame(oGame, oLaunchData, eLaunchType, sErrorMessage) Then
             If mgrLaunchGame.LaunchGame(oGame, oLaunchData, eLaunchType, sMessage) Then
+                btnPlay.Enabled = False
+                tmPlayTimer.Enabled = True
                 UpdateLog(sMessage, False, ToolTipIcon.Info, True)
             End If
         Else
@@ -2224,6 +2238,8 @@ Public Class frmMain
         tmSessionTimeUpdater.Interval = 60000
         tmFilterTimer.Interval = 1000
         tmFilterTimer.Enabled = False
+        tmPlayTimer.Interval = 5000
+        tmPlayTimer.AutoReset = False
 
         AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
         ResetGameInfo()
@@ -2799,6 +2815,10 @@ Public Class frmMain
             Case Else
                 ShutdownApp(False)
         End Select
+    End Sub
+
+    Private Sub PlayButtonEventProcessor(sender As Object, ByVal e As EventArgs) Handles tmPlayTimer.Elapsed
+        EnablePlayButton()
     End Sub
 
     Private Sub FilterEventProcessor(sender As Object, ByVal e As EventArgs) Handles tmFilterTimer.Elapsed
