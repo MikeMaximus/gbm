@@ -137,15 +137,6 @@ Public Class frmGameManager
         End Set
     End Property
 
-    Property TriggerLaunch As Boolean
-        Get
-            Return bTriggerLaunch
-        End Get
-        Set(value As Boolean)
-            bTriggerLaunch = value
-        End Set
-    End Property
-
     Property NoRestoreQueue As Boolean
         Get
             Return bNoRestoreQueue

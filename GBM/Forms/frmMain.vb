@@ -1322,11 +1322,6 @@ Public Class frmMain
             RunImportBackupByGame(frm.ImportBackupList)
         End If
 
-        'Handle launch trigger
-        If frm.TriggerLaunch Then
-            LaunchGame(frm.CurrentGame)
-        End If
-
         'Rebuild launch menu just in case something was deleted.
         HandleLauncherMenu()
     End Sub
