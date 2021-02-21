@@ -99,8 +99,7 @@ Public Class frmMain
             Dim d As New SetLastActionCallBack(AddressOf SetLastAction)
             Me.Invoke(d, New Object() {sMessage})
         Else
-            Dim sPattern As String = "h:mm tt"
-            lblLastAction.Text = sMessage.TrimEnd(".") & " " & mgrCommon.FormatString(frmMain_AtTime, TimeOfDay.ToString(sPattern))
+            lblLastAction.Text = sMessage.TrimEnd(".") & " " & mgrCommon.FormatString(frmMain_AtTime, TimeOfDay.ToShortTimeString)
         End If
     End Sub
 
