@@ -526,10 +526,6 @@ Public Class frmMain
         Dim hshGame As Hashtable
         Dim oGame As clsGame
 
-        'Empty, then generate a stored queue of the rootlist
-        mgrBackupQueue.DoBackupQueueEmpty()
-        mgrBackupQueue.DoBackupQueueAddBatch(oRootList)
-
         For Each oRoot As clsGame In oRootList
             mgrConfigLinks.BuildLinkChain(oRoot.ID, oLinkChain)
         Next
@@ -548,6 +544,10 @@ Public Class frmMain
                 End If
             End If
         Next
+
+        'Empty, then generate the stored failsafe queue.
+        mgrBackupQueue.DoBackupQueueEmpty()
+        mgrBackupQueue.DoBackupQueueAddBatch(oBackupList)
     End Sub
 
     Private Sub RunBackup()
