@@ -1100,32 +1100,32 @@ Public Class mgrSQLite
 
                 CompactDatabase()
             End If
+        End If
 
-            '1.26 Upgrade
-            If GetDatabaseVersion() < 126 Then
-                If eDatabase = Database.Local Then
-                    'Backup DB before starting
-                    BackupDB("v125")
+        '1.26 Upgrade
+        If GetDatabaseVersion() < 126 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v125")
 
-                    'Create queue table
-                    sSQL = "CREATE TABLE backupqueue (MonitorID TEXT NOT NULL PRIMARY KEY);"
+                'Create queue table
+                sSQL = "CREATE TABLE backupqueue (MonitorID TEXT NOT NULL PRIMARY KEY);"
 
-                    sSQL &= "PRAGMA user_version=126"
+                sSQL &= "PRAGMA user_version=126"
 
-                    RunParamQuery(sSQL, New Hashtable)
+                RunParamQuery(sSQL, New Hashtable)
 
-                    CompactDatabase()
-                End If
-                If eDatabase = Database.Remote Then
-                    'Backup DB before starting
-                    BackupDB("v125")
+                CompactDatabase()
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v125")
 
-                    sSQL = "PRAGMA user_version=126"
+                sSQL = "PRAGMA user_version=126"
 
-                    RunParamQuery(sSQL, New Hashtable)
+                RunParamQuery(sSQL, New Hashtable)
 
-                    CompactDatabase()
-                End If
+                CompactDatabase()
             End If
         End If
     End Sub
