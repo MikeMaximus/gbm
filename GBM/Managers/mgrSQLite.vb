@@ -122,6 +122,9 @@ Public Class mgrSQLite
             'Add Tables (Launch Data)
             sSql &= "CREATE TABLE launchdata (MonitorID	TEXT NOT NULL PRIMARY KEY, Path	TEXT NOT NULL, Args TEXT NOT NULL, NoArgs BOOLEAN NOT NULL, LauncherID TEXT NOT NULL, LauncherGameID TEXT NOT NULL);"
 
+            'Add Tables (Backup Queue)
+            sSql &= "CREATE TABLE backupqueue (MonitorID TEXT NOT NULL PRIMARY KEY);"
+
             'Set Version
             sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
 
@@ -1098,6 +1101,32 @@ Public Class mgrSQLite
                 CompactDatabase()
             End If
 
+            '1.26 Upgrade
+            If GetDatabaseVersion() < 126 Then
+                If eDatabase = Database.Local Then
+                    'Backup DB before starting
+                    BackupDB("v125")
+
+                    'Create queue table
+                    sSQL = "CREATE TABLE backupqueue (MonitorID TEXT NOT NULL PRIMARY KEY);"
+
+                    sSQL &= "PRAGMA user_version=126"
+
+                    RunParamQuery(sSQL, New Hashtable)
+
+                    CompactDatabase()
+                End If
+                If eDatabase = Database.Remote Then
+                    'Backup DB before starting
+                    BackupDB("v125")
+
+                    sSQL = "PRAGMA user_version=126"
+
+                    RunParamQuery(sSQL, New Hashtable)
+
+                    CompactDatabase()
+                End If
+            End If
         End If
     End Sub
 

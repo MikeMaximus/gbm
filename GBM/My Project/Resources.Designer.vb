@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-02-05T15:15:31
+        '''  Looks up a localized string similar to 2021-02-23T15:27:00
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5155,6 +5155,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_RestoreQueue() As String
             Get
                 Return ResourceManager.GetString("frmMain_RestoreQueue", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Incomplete backup operations ([PARAM]) are being automatically resumed..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ResumeBackupQueue() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ResumeBackupQueue", resourceCulture)
             End Get
         End Property
         

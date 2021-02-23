@@ -193,6 +193,7 @@ Public Class frmMain
             Case eOperation.Backup, eOperation.Import
                 oBackup.CancelOperation = True
                 btnCancelOperation.Enabled = False
+                mgrBackupQueue.DoBackupQueueEmpty()
             Case eOperation.Restore
                 oRestore.CancelOperation = True
                 btnCancelOperation.Enabled = False
@@ -357,6 +358,25 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub ResumeIncompleteBackups()
+        Dim hshGame As Hashtable
+        Dim oGame As clsGame
+        Dim oList As List(Of String)
+        Dim oBackupList As New List(Of clsGame)
+
+        oList = mgrBackupQueue.DoGetBackupQueue()
+
+        For Each sMonitorID As String In oList
+            hshGame = mgrMonitorList.DoListGetbyMonitorID(sMonitorID)
+            If hshGame.Count = 1 Then
+                oGame = DirectCast(hshGame(0), clsGame)
+                oBackupList.Add(oGame)
+            End If
+        Next
+
+        RunManualBackup(oBackupList, True)
+    End Sub
+
     Private Sub RunBackupAll()
         Dim hshGames As Hashtable
         Dim oGames As New List(Of clsGame)
@@ -505,6 +525,10 @@ Public Class frmMain
         Dim lBackupSize As Long = 0
         Dim hshGame As Hashtable
         Dim oGame As clsGame
+
+        'Empty, then generate a stored queue of the rootlist
+        mgrBackupQueue.DoBackupQueueEmpty()
+        mgrBackupQueue.DoBackupQueueAddBatch(oRootList)
 
         For Each oRoot As clsGame In oRootList
             mgrConfigLinks.BuildLinkChain(oRoot.ID, oLinkChain)
@@ -1396,6 +1420,15 @@ Public Class frmMain
         mgrCommon.OpenInOS(App_URLUpdates, , True)
     End Sub
 
+    Private Sub CheckForFailedBackups()
+        Dim iCount As Integer = mgrBackupQueue.DoBackupQueueCount
+
+        If iCount > 0 Then
+            UpdateLog(mgrCommon.FormatString(frmMain_ResumeBackupQueue, iCount))
+            ResumeIncompleteBackups()
+        End If
+    End Sub
+
     Private Sub CheckForNewBackups()
         If mgrSettings.RestoreOnLaunch Or mgrSettings.AutoRestore Or mgrSettings.AutoMark Then
             StartRestoreCheck()
@@ -1675,6 +1708,7 @@ Public Class frmMain
             End If
 
             HandleScan()
+            CheckForFailedBackups()
             CheckForNewBackups()
         End If
     End Sub
