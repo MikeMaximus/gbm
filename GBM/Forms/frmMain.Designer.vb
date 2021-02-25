@@ -337,7 +337,6 @@ Partial Class frmMain
         Me.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtLog.Size = New System.Drawing.Size(459, 167)
         Me.txtLog.TabIndex = 12
-        Me.txtLog.TabStop = False
         '
         'gMonStatusStrip
         '
@@ -748,7 +747,7 @@ Partial Class frmMain
         Me.slcMain.Size = New System.Drawing.Size(734, 365)
         Me.slcMain.SplitterDistance = 243
         Me.slcMain.SplitterWidth = 5
-        Me.slcMain.TabIndex = 1
+        Me.slcMain.TabIndex = 99
         Me.slcMain.TabStop = False
         '
         'btnClearSelected

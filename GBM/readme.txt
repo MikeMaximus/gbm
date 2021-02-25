@@ -2,7 +2,11 @@ Game Backup Monitor v1.2.6 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-February 23, 2021
+February 25, 2021
+
+Disclaimer:
+
+v1.2.6 is still in development.  This file will be updated as changes are made.
 
 New in 1.2.6
 
@@ -13,5 +17,6 @@ All Platforms:
 - The "Play" button on the main form is now disabled for a few seconds after clicking.
 	- This prevents attempting to launch a game multiple times by accident.
 - The "Last Action" field on the main form now uses the regional setting for "Short Time" instead of being set to a specific format.
-	
+- Prevented the container splitter on the main window from sometimes gaining focus after a game is detected.	
+
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
