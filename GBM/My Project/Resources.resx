@@ -1939,7 +1939,7 @@
     <value>Backup GBM data files on launch</value>
   </data>
   <data name="frmMain_ErrorEndChildProcess" xml:space="preserve">
-    <value>An error occured when attempting to end a process associated with [PARAM].</value>
+    <value>An error occured when attempting to end a process associated with [PARAM].[BR][BR][PARAM]</value>
   </data>
   <data name="frmMain_ErrorStartChildProcess" xml:space="preserve">
     <value>An error occured when attempting to start a process associated with [PARAM].[BR][BR][PARAM]</value>

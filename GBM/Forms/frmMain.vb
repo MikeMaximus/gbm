@@ -2340,33 +2340,36 @@ Public Class frmMain
         Dim oCurrentProcess As clsProcess
         Dim prsChild As Process
 
-        For Each de As DictionaryEntry In oChildProcesses
-            oCurrentProcess = DirectCast(de.Key, clsProcess)
-            prsChild = DirectCast(de.Value, Process)
-            If StartChildProcess(prsChild) Then
-                UpdateLog(mgrCommon.FormatString(frmMain_ProcessStarted, oCurrentProcess.Name), False)
-            End If
-        Next
+        If BuildChildProcesses() > 0 Then
+            For Each de As DictionaryEntry In oChildProcesses
+                oCurrentProcess = DirectCast(de.Key, clsProcess)
+                prsChild = DirectCast(de.Value, Process)
+                If StartChildProcess(prsChild) Then
+                    UpdateLog(mgrCommon.FormatString(frmMain_ProcessStarted, oCurrentProcess.Name), False)
+                End If
+            Next
+        End If
     End Sub
 
     Private Sub EndChildProcesses()
         Dim oCurrentProcess As clsProcess
         Dim prsChild As Process
 
-        Try
-            For Each de As DictionaryEntry In oChildProcesses
-                oCurrentProcess = DirectCast(de.Key, clsProcess)
-                prsChild = DirectCast(de.Value, Process)
-                If oCurrentProcess.Kill Then
-                    prsChild.Kill()
-                    UpdateLog(mgrCommon.FormatString(frmMain_ProcessKilled, oCurrentProcess.Name), False)
-                End If
-            Next
+        If oChildProcesses.Count > 0 Then
+            Try
+                For Each de As DictionaryEntry In oChildProcesses
+                    oCurrentProcess = DirectCast(de.Key, clsProcess)
+                    prsChild = DirectCast(de.Value, Process)
+                    If oCurrentProcess.Kill Then
+                        prsChild.Kill()
+                        UpdateLog(mgrCommon.FormatString(frmMain_ProcessKilled, oCurrentProcess.Name), False)
+                    End If
+                Next
 
-        Catch ex As Exception
-            UpdateLog(mgrCommon.FormatString(frmMain_ErrorEndChildProcess, oProcess.GameInfo.CroppedName), True, ToolTipIcon.Error)
-            UpdateLog(mgrCommon.FormatString(App_GenericError, ex.Message), False,, False)
-        End Try
+            Catch ex As Exception
+                UpdateLog(mgrCommon.FormatString(frmMain_ErrorEndChildProcess, New String() {oProcess.GameInfo.CroppedName, ex.Message}), True, ToolTipIcon.Error)
+            End Try
+        End If
     End Sub
 
     'Functions that control the scanning for games
@@ -2951,9 +2954,6 @@ Public Class frmMain
                     UpdateLog(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.Name), mgrSettings.ShowDetectionToolTips)
                     UpdateStatus(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.CroppedName), oProcess.GameInfo.CroppedName)
                     SetGameInfo()
-                End If
-
-                If BuildChildProcesses() > 0 And Not oProcess.Duplicate Then
                     StartChildProcesses()
                 End If
 
@@ -3002,9 +3002,7 @@ Public Class frmMain
     Private Sub bwMain_RunWorkerCompleted(sender As System.Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwMonitor.RunWorkerCompleted
         Dim bContinue As Boolean = True
 
-        If oChildProcesses.Count > 0 And Not oProcess.Duplicate Then
-            EndChildProcesses()
-        End If
+        EndChildProcesses()
 
         oProcess.EndTime = Now
 
