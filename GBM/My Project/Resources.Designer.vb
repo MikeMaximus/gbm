@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-02-23T15:27:00
+        '''  Looks up a localized string similar to 2021-02-26T21:55:26
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4291,7 +4291,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured when attempting to start a process associated with [PARAM]..
+        '''  Looks up a localized string similar to An error occured when attempting to start a process associated with [PARAM].[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorStartChildProcess() As String
             Get

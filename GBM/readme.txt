@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.6 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-February 25, 2021
+February 26, 2021
 
 Disclaimer:
 
@@ -12,6 +12,8 @@ New in 1.2.6
 
 All Platforms:
 
+- Any linked process that requires administrator privileges will now ask for elevation when being launched from GBM.
+	- This means GBM no longer needs to be running as administrator to launch these linked processes.
 - If GBM quits unexpectedly during a backup operation, such as a power outage or OS shutdown, any incompleted backup operations will be resumed automatically the next time you run the app.
 - Fixed the "Limit" field always displaying zero on the Game Manager.
 - The "Play" button on the main form is now disabled for a few seconds after clicking.
