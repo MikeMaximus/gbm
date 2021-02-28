@@ -887,13 +887,13 @@ Public Class frmMain
         lblStatus3.Text = String.Empty
         pbIcon.Image = Multi_Unknown
 
-        'Set Game Icon
-        If Not mgrCommon.IsUnix Then
-            oExecutableIcon = GetGameIcon(oProcess.FoundProcess.MainModule.FileName)
-            pbIcon.Image = oExecutableIcon
-        End If
-
         Try
+            'Set Game Icon
+            If Not mgrCommon.IsUnix Then
+                oExecutableIcon = GetGameIcon(oProcess.FoundProcess.MainModule.FileName)
+                pbIcon.Image = oExecutableIcon
+            End If
+
             'Set Game Details
             sFileName = oProcess.FoundProcess.MainModule.FileName
             sFileVersion = oProcess.FoundProcess.MainModule.FileVersionInfo.FileVersion
