@@ -899,6 +899,7 @@ Public Class frmMain
             sFileVersion = oProcess.FoundProcess.MainModule.FileVersionInfo.FileVersion
             sCompanyName = oProcess.FoundProcess.MainModule.FileVersionInfo.CompanyName
         Catch ex As Exception
+            oExecutableIcon = Nothing
             UpdateLog(mgrCommon.FormatString(frmMain_ErrorGameDetails), False, ToolTipIcon.Error)
             UpdateLog(mgrCommon.FormatString(App_GenericError, ex.Message), False,, False)
         End Try
@@ -1189,7 +1190,10 @@ Public Class frmMain
 
     Private Sub HandleIconCache()
         Try
-            oExecutableIcon.Save(mgrCommon.GetCachedIconPath(oLastGame.ID), Imaging.ImageFormat.Png)
+            'It's normal for this to be nothing if an icon can't be extracted from the executable.
+            If Not oExecutableIcon Is Nothing Then
+                oExecutableIcon.Save(mgrCommon.GetCachedIconPath(oLastGame.ID), Imaging.ImageFormat.Png)
+            End If
         Catch ex As Exception
             UpdateLog(mgrCommon.FormatString(frmMain_ErrorIconCache, New String() {oLastGame.Name, ex.Message}), False, ToolTipIcon.Warning, True)
         End Try
