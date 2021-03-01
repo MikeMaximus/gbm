@@ -2904,7 +2904,7 @@ Public Class frmMain
                         UpdateLog(sErrorMessage, True, ToolTipIcon.Warning, True)
                     Else
                         If Not CheckForSavedPath() Then
-                            If Not oProcess.GameInfo.AbsolutePath Then
+                            If Not oProcess.GameInfo.AbsolutePath And Not oProcess.GameInfo.MonitorOnly Then
                                 bPathDetectionFailure = True
                                 sPathDetectionError = mgrCommon.FormatString(frmMain_ErrorAdminBackup, oProcess.GameInfo.Name)
                             Else
@@ -2919,7 +2919,7 @@ Public Class frmMain
                         UpdateLog(sErrorMessage, True, ToolTipIcon.Warning, True)
                     Else
                         If Not CheckForSavedPath() Then
-                            If Not oProcess.GameInfo.AbsolutePath Then
+                            If Not oProcess.GameInfo.AbsolutePath And Not oProcess.GameInfo.MonitorOnly Then
                                 bPathDetectionFailure = True
                                 sPathDetectionError = mgrCommon.FormatString(frmMain_Error64Backup, oProcess.GameInfo.Name)
                             Else

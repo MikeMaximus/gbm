@@ -23,6 +23,6 @@ All Platforms:
 - Prevented the container splitter on the main window from sometimes gaining focus after a game is detected.
 - Prevented a confusing error from being shown in the log when an icon can't be cached for expected reasons.
 - Fixed the possibility of caching the incorrect icon in rare situations.
-
+- Fixed a rare issue that caused GBM to require a "Game Path" after detecting a game with a "Monitor Only" configuration.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
