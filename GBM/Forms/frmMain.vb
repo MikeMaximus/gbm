@@ -33,7 +33,8 @@ Public Class frmMain
     Private eCurrentStatus As eStatus = eStatus.Stopped
     Private eCurrentOperation As eOperation = eOperation.None
     Private eDisplayMode As eDisplayModes = eDisplayModes.Normal
-    Private bCancelledByUser As Boolean = False
+    Private bDetectionCancelled As Boolean = False
+    Private bDetectionFailure As Boolean = False
     Private bShutdown As Boolean = False
     Private bInitFail As Boolean = False
     Private bPathDetectionFailure As Boolean = False
@@ -2992,12 +2993,24 @@ Public Class frmMain
                 End If
             Loop
             If bwMonitor.CancellationPending Then
-                bCancelledByUser = True
+                bDetectionCancelled = True
             End If
-        Catch ex As Exception
-            bProcessIsAdmin = True
-            oProcess.FoundProcess.WaitForExit()
-            bProcessIsAdmin = False
+        Catch exWin32 As System.ComponentModel.Win32Exception
+            'We are only expecting "Access Denied" here, anything else is a critical failure.
+            If exWin32.NativeErrorCode = 5 Then
+                bProcessIsAdmin = True
+                oProcess.FoundProcess.WaitForExit()
+                bProcessIsAdmin = False
+            Else
+                bDetectionFailure = True
+                UpdateLog(mgrCommon.FormatString(frmMain_ErrorCriticalDetectionFailure, oProcess.GameInfo.CroppedName), True, ToolTipIcon.Error)
+                UpdateLog(mgrCommon.FormatString(App_GenericError, exWin32.Message), False,, False)
+            End If
+        Catch exAll As Exception
+            'Any other exception is also a critical failure.
+            bDetectionFailure = True
+            UpdateLog(mgrCommon.FormatString(frmMain_ErrorCriticalDetectionFailure, oProcess.GameInfo.CroppedName), True, ToolTipIcon.Error)
+            UpdateLog(mgrCommon.FormatString(App_GenericError, exAll.Message), False,, False)
         End Try
 
         tmSessionTimeUpdater.Stop()
@@ -3010,7 +3023,13 @@ Public Class frmMain
 
         oProcess.EndTime = Now
 
-        If Not bCancelledByUser Then
+        'Stop scanning after a critical detection failure to prevent looping
+        If bDetectionFailure Then
+            ResetGameInfo()
+            StopScan()
+        End If
+
+        If Not bDetectionCancelled And Not bDetectionFailure Then
             'Check if we failed to detect the game path
             If bPathDetectionFailure Then
                 oProcess.GameInfo.ProcessPath = mgrPath.ProcessPathSearch(oProcess.GameInfo.Name, oProcess.GameInfo.ProcessName, sPathDetectionError)
@@ -3055,7 +3074,8 @@ Public Class frmMain
         'Refresh
         bPathDetectionFailure = False
         sPathDetectionError = String.Empty
-        bCancelledByUser = False
+        bDetectionCancelled = False
+        bDetectionFailure = False
         oProcess.StartTime = Now : oProcess.EndTime = Now
         RefreshGameList()
     End Sub
