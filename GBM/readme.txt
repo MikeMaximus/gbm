@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.6 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-March 2, 2021
+March 3, 2021
 
 Disclaimer:
 
@@ -24,5 +24,6 @@ All Platforms:
 - Fixed a rare detection issue that caused GBM repeatedly detect the same process when an unexpected error occurs while waiting for it to end.
 - The "Last Action" field on the main form now uses the regional setting for "Short Time" instead of being set to a specific format.
 - Fixed the "Limit" field always displaying zero on the Game Manager.
+- Fixed various small issues with the user interface.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

@@ -1635,7 +1635,11 @@ Public Class frmMain
             'When toggling back to normal, we want to make the window visible first so the user sees the restore animation.
             ToggleVisibility(bVisible)
             Me.WindowState = FormWindowState.Normal
-            txtSearch.Focus()
+            If txtSearch.CanFocus Then
+                txtSearch.Focus()
+            Else
+                lblGameTitle.Focus()
+            End If
         Else
             'When toggling to hide the window, we want to make the window invisible after a minimize to prevent the odd flickering animation.
             Me.WindowState = FormWindowState.Minimized
