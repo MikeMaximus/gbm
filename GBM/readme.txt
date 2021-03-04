@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.6 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-March 3, 2021
+March 4, 2021
 
 Disclaimer:
 
@@ -21,7 +21,8 @@ All Platforms:
 - Fixed the possibility of caching the incorrect icon in some situations.
 - Prevented a confusing error from being shown in the log when an icon can't be cached for expected reasons.
 - Fixed an issue that caused GBM to unnecessarily require the "Game Path" when detecting a game with a "Monitor Only" configuration.
-- Fixed a rare detection issue that caused GBM repeatedly detect the same process when an unexpected error occurs while waiting for it to end.
+- Fixed issue with the automatic restore feature that could cause restore operations to trigger multiple times when using linked configurations.
+- Fixed a rare detection issue that caused GBM to repeatedly detect the same process when an unexpected error occurs while waiting for it to end.
 - The "Last Action" field on the main form now uses the regional setting for "Short Time" instead of being set to a specific format.
 - Fixed the "Limit" field always displaying zero on the Game Manager.
 - Fixed various small issues with the user interface.

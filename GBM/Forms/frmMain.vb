@@ -739,7 +739,7 @@ Public Class frmMain
                         End If
                     End If
 
-                    RunRestore(hshRestore)
+                    RunRestore(hshRestore, True, True)
                 End If
             End If
 
