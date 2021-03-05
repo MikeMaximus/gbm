@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-02-05T15:15:31
+        '''  Looks up a localized string similar to 2021-03-02T14:13:24
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4120,6 +4120,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An unexpected error has occured while detecting [PARAM], detection will be stopped..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorCriticalDetectionFailure() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorCriticalDetectionFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to The following monitored game(s) are using a custom path variable that is not set.[BR][PARAM][BR][BR]You will encounter backup/restore errors or detection issues with these games until the variables are set..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorCustomVariable() As String
@@ -4147,7 +4156,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured when attempting to end a process associated with [PARAM]..
+        '''  Looks up a localized string similar to An error occured when attempting to end a process associated with [PARAM].[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorEndChildProcess() As String
             Get
@@ -4291,7 +4300,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured when attempting to start a process associated with [PARAM]..
+        '''  Looks up a localized string similar to An error occured when attempting to start a process associated with [PARAM].[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorStartChildProcess() As String
             Get
@@ -5155,6 +5164,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_RestoreQueue() As String
             Get
                 Return ResourceManager.GetString("frmMain_RestoreQueue", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Incomplete backup operations ([PARAM]) are being automatically resumed..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ResumeBackupQueue() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ResumeBackupQueue", resourceCulture)
             End Get
         End Property
         

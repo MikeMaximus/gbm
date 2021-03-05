@@ -1,53 +1,30 @@
-Game Backup Monitor v1.2.5 Readme
+Game Backup Monitor v1.2.6 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-February 5, 2021
+March 4, 2021
 
-New in 1.2.5
+Disclaimer:
+
+v1.2.6 is still in development.  This file will be updated as changes are made.
+
+New in 1.2.6
 
 All Platforms:
 
-- Overhauled the user interface.
-	- The "Start-Up Wizard" and "Add Game Wizard" instructions are now easier to read with a larger font.
-	- Most buttons in the application are now larger with icons (Thanks to Darthagnon for help with icons).
-	- The redundant "Close" button has been removed from many forms.
-	- The "Main Window" now has a collapsible game list with a search filter and quick access to features such backup, restore and game launching.
-		- These new features can be disabled or hidden by default in Settings -> User Interface.
-	- The "Game Manager" has been slimmed down for ease of use.
-		- The size of the form has been reduced and the sections have been split into tabs.
-		- Certain buttons and checkboxes have been moved into sub-menus.
-	- The "Settings" form has been reorganized into more sections.
-	- The "Quick Launch" feature introduced in v1.2.4 has been removed since games can now be launched directly from the main window.
-- Added the option to detect games using a window title instead of a process name.
-	- This adds another option for detecting games that all run from the same executable. Such as emulated games, browser games, or cloud service games.
-	- In addition to the process ending, GBM will also end monitoring when the window title no longer matches the game configuration.
-	- This feature is not supported in Linux, see the "Known Issues" section for details.
-- Added option to show a notification when a backup operation has been completed.
-	- This option is available in the "Backup and Restore" section of the Settings window, it defaults to disabled.
-	- A single notification will be shown when a backup operation is completed, even if the operation included multiple games.
-- Added "Detection Speed" setting.
-	- Allows users monitoring for hundreds or even thousands of games at once to greatly lower CPU usage at the cost of detection speed.
-	- The average user with a normal sized game list should never need to adjust this setting, even the "Fast" setting will use very little CPU power every few seconds.
-	- This option is available in the "General" section of the Settings window, it defaults to "Fast".
-- The "Icon" field now supports the use of Environment and Custom Path variables.
-- The "Search" filter on the Main Window and Game Manager now supports filtering by tag.
-	- Tags must be an exact match.
-- AbsolutePath is now a calculated field and no longer stored.
-	- This will break official lists for prior versions of GBM (v1.1.5 - v1.2.4).  The last official list(s) compatible with these versions will be archived so they can still be accessed.
-- Application settings are now handled more efficiently.
-- Added missing code to properly update or delete existing launch data when certain configuration changes are made.
-- Fixed issues with changing the Game ID when that configuration had existing backup files.
+- Any linked process that requires administrator privileges will now ask for elevation when being launched from GBM.
+	- This means GBM no longer needs to be running as administrator to launch these linked processes.
+- If GBM quits unexpectedly during a backup operation, such as a power outage or OS shutdown, any incompleted backup operations will be resumed automatically the next time you run the app.
+- The "Play" button on the main form is now disabled for a few seconds after a game launch is triggered.
+	- This prevents attempting to launch a game multiple times by accident.
+- Fixed a crash that occurs on game detection when GBM cannot access the process details.
+- Fixed the possibility of caching the incorrect icon in some situations.
+- Prevented a confusing error from being shown in the log when an icon can't be cached for expected reasons.
+- Fixed an issue that caused GBM to unnecessarily require the "Game Path" when detecting a game with a "Monitor Only" configuration.
+- Fixed issue with the automatic restore feature that could cause restore operations to trigger multiple times when using linked configurations.
+- Fixed a rare detection issue that caused GBM to repeatedly detect the same process when an unexpected error occurs while waiting for it to end.
+- The "Last Action" field on the main form now uses the regional setting for "Short Time" instead of being set to a specific format.
+- Fixed the "Limit" field always displaying zero on the Game Manager.
+- Fixed various small issues with the user interface.
 
-Windows:
-
-- The icons from game executables are now cached after a session.
-	- The "Main Window" and "Game Manager" will display the cached icon when viewing the game details, unless a custom icon has been set.
-	- Cached icons are stored using the PNG format in the GBM temporary folder (can be customized in Settings).
-	
-Known Issues (Linux):
-
-- Detecting games by window title does not work.
-	- Mono hasn't implemented the "MainWindowTitle" property in System.Diagnostics.Process, so this feature is not supported in Linux at this time.
-	
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

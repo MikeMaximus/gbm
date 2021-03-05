@@ -756,6 +756,9 @@ Public Class mgrBackup
                     End If
 
                     RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionComplete, oGame.CroppedName))
+
+                    'Remove game from the failsafe queue
+                    mgrBackupQueue.DoBackupQueueDeleteByID(oGame.ID)
                 Else
                     'Delete the temporary backup file on failures
                     mgrCommon.DeleteFile(sBackupFile, False)

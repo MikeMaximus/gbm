@@ -278,6 +278,7 @@
     <Compile Include="Forms\frmVariableManager.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Managers\mgrBackupQueue.vb" />
     <Compile Include="Managers\mgrConfigLinks.vb" />
     <Compile Include="Managers\mgrGameProcesses.vb" />
     <Compile Include="Managers\mgrLaunchData.vb" />

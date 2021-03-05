@@ -1939,10 +1939,10 @@
     <value>Backup GBM data files on launch</value>
   </data>
   <data name="frmMain_ErrorEndChildProcess" xml:space="preserve">
-    <value>An error occured when attempting to end a process associated with [PARAM].</value>
+    <value>An error occured when attempting to end a process associated with [PARAM].[BR][BR][PARAM]</value>
   </data>
   <data name="frmMain_ErrorStartChildProcess" xml:space="preserve">
-    <value>An error occured when attempting to start a process associated with [PARAM].</value>
+    <value>An error occured when attempting to start a process associated with [PARAM].[BR][BR][PARAM]</value>
   </data>
   <data name="frmProcessManager_btnAdd" xml:space="preserve">
     <value>&amp;New</value>
@@ -2946,5 +2946,11 @@
   </data>
   <data name="frmMain_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frmMain_Detected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_ResumeBackupQueue" xml:space="preserve">
+    <value>Incomplete backup operations ([PARAM]) are being automatically resumed.</value>
+  </data>
+  <data name="frmMain_ErrorCriticalDetectionFailure" xml:space="preserve">
+    <value>An unexpected error has occured while detecting [PARAM], detection will be stopped.</value>
   </data>
 </root>

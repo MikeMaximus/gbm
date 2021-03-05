@@ -33,7 +33,8 @@ Public Class frmMain
     Private eCurrentStatus As eStatus = eStatus.Stopped
     Private eCurrentOperation As eOperation = eOperation.None
     Private eDisplayMode As eDisplayModes = eDisplayModes.Normal
-    Private bCancelledByUser As Boolean = False
+    Private bDetectionCancelled As Boolean = False
+    Private bDetectionFailure As Boolean = False
     Private bShutdown As Boolean = False
     Private bInitFail As Boolean = False
     Private bPathDetectionFailure As Boolean = False
@@ -193,6 +194,7 @@ Public Class frmMain
             Case eOperation.Backup, eOperation.Import
                 oBackup.CancelOperation = True
                 btnCancelOperation.Enabled = False
+                mgrBackupQueue.DoBackupQueueEmpty()
             Case eOperation.Restore
                 oRestore.CancelOperation = True
                 btnCancelOperation.Enabled = False
@@ -355,6 +357,25 @@ Public Class frmMain
         If mgrCommon.ShowMessage(frmMain_WarningFullRestore, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             RunRestore(oRestoreList,, True)
         End If
+    End Sub
+
+    Private Sub ResumeIncompleteBackups()
+        Dim hshGame As Hashtable
+        Dim oGame As clsGame
+        Dim oList As List(Of String)
+        Dim oBackupList As New List(Of clsGame)
+
+        oList = mgrBackupQueue.DoGetBackupQueue()
+
+        For Each sMonitorID As String In oList
+            hshGame = mgrMonitorList.DoListGetbyMonitorID(sMonitorID)
+            If hshGame.Count = 1 Then
+                oGame = DirectCast(hshGame(0), clsGame)
+                oBackupList.Add(oGame)
+            End If
+        Next
+
+        RunManualBackup(oBackupList, True)
     End Sub
 
     Private Sub RunBackupAll()
@@ -524,6 +545,10 @@ Public Class frmMain
                 End If
             End If
         Next
+
+        'Empty, then generate the stored failsafe queue.
+        mgrBackupQueue.DoBackupQueueEmpty()
+        mgrBackupQueue.DoBackupQueueAddBatch(oBackupList)
     End Sub
 
     Private Sub RunBackup()
@@ -714,7 +739,7 @@ Public Class frmMain
                         End If
                     End If
 
-                    RunRestore(hshRestore)
+                    RunRestore(hshRestore, True, True)
                 End If
             End If
 
@@ -863,18 +888,19 @@ Public Class frmMain
         lblStatus3.Text = String.Empty
         pbIcon.Image = Multi_Unknown
 
-        'Set Game Icon
-        If Not mgrCommon.IsUnix Then
-            oExecutableIcon = GetGameIcon(oProcess.FoundProcess.MainModule.FileName)
-            pbIcon.Image = oExecutableIcon
-        End If
-
         Try
+            'Set Game Icon
+            If Not mgrCommon.IsUnix Then
+                oExecutableIcon = GetGameIcon(oProcess.FoundProcess.MainModule.FileName)
+                pbIcon.Image = oExecutableIcon
+            End If
+
             'Set Game Details
             sFileName = oProcess.FoundProcess.MainModule.FileName
             sFileVersion = oProcess.FoundProcess.MainModule.FileVersionInfo.FileVersion
             sCompanyName = oProcess.FoundProcess.MainModule.FileVersionInfo.CompanyName
         Catch ex As Exception
+            oExecutableIcon = Nothing
             UpdateLog(mgrCommon.FormatString(frmMain_ErrorGameDetails), False, ToolTipIcon.Error)
             UpdateLog(mgrCommon.FormatString(App_GenericError, ex.Message), False,, False)
         End Try
@@ -1165,7 +1191,10 @@ Public Class frmMain
 
     Private Sub HandleIconCache()
         Try
-            oExecutableIcon.Save(mgrCommon.GetCachedIconPath(oLastGame.ID), Imaging.ImageFormat.Png)
+            'It's normal for this to be nothing if an icon can't be extracted from the executable.
+            If Not oExecutableIcon Is Nothing Then
+                oExecutableIcon.Save(mgrCommon.GetCachedIconPath(oLastGame.ID), Imaging.ImageFormat.Png)
+            End If
         Catch ex As Exception
             UpdateLog(mgrCommon.FormatString(frmMain_ErrorIconCache, New String() {oLastGame.Name, ex.Message}), False, ToolTipIcon.Warning, True)
         End Try
@@ -1396,6 +1425,15 @@ Public Class frmMain
         mgrCommon.OpenInOS(App_URLUpdates, , True)
     End Sub
 
+    Private Sub CheckForFailedBackups()
+        Dim iCount As Integer = mgrBackupQueue.DoBackupQueueCount
+
+        If iCount > 0 Then
+            UpdateLog(mgrCommon.FormatString(frmMain_ResumeBackupQueue, iCount))
+            ResumeIncompleteBackups()
+        End If
+    End Sub
+
     Private Sub CheckForNewBackups()
         If mgrSettings.RestoreOnLaunch Or mgrSettings.AutoRestore Or mgrSettings.AutoMark Then
             StartRestoreCheck()
@@ -1597,7 +1635,11 @@ Public Class frmMain
             'When toggling back to normal, we want to make the window visible first so the user sees the restore animation.
             ToggleVisibility(bVisible)
             Me.WindowState = FormWindowState.Normal
-            txtSearch.Focus()
+            If txtSearch.CanFocus Then
+                txtSearch.Focus()
+            Else
+                lblGameTitle.Focus()
+            End If
         Else
             'When toggling to hide the window, we want to make the window invisible after a minimize to prevent the odd flickering animation.
             Me.WindowState = FormWindowState.Minimized
@@ -1675,6 +1717,7 @@ Public Class frmMain
             End If
 
             HandleScan()
+            CheckForFailedBackups()
             CheckForNewBackups()
         End If
     End Sub
@@ -2273,8 +2316,8 @@ Public Class frmMain
                 prsChild = New Process
                 prsChild.StartInfo.Arguments = oCurrentProcess.Args
                 prsChild.StartInfo.FileName = oCurrentProcess.Path
-                prsChild.StartInfo.UseShellExecute = False
-                prsChild.StartInfo.RedirectStandardOutput = True
+                prsChild.StartInfo.WorkingDirectory = Path.GetDirectoryName(oCurrentProcess.Path)
+                prsChild.StartInfo.UseShellExecute = True
                 prsChild.StartInfo.CreateNoWindow = True
                 oChildProcesses.Add(oCurrentProcess, prsChild)
             Next
@@ -2283,41 +2326,59 @@ Public Class frmMain
         Return oChildProcesses.Count
     End Function
 
+    Private Function StartChildProcess(ByRef prsChild As Process, Optional ByVal bAdmin As Boolean = False) As Boolean
+        Try
+            If bAdmin Then prsChild.StartInfo.Verb = "runas"
+            prsChild.Start()
+            Return True
+        Catch exWin32 As System.ComponentModel.Win32Exception
+            'If the launch fails due to required elevation, try it again and request elevation.
+            If exWin32.ErrorCode = 740 Then
+                StartChildProcess(prsChild, True)
+            Else
+                UpdateLog(mgrCommon.FormatString(frmMain_ErrorStartChildProcess, New String() {oProcess.GameInfo.CroppedName, exWin32.Message}), True, ToolTipIcon.Error)
+            End If
+            Return False
+        Catch exAll As Exception
+            UpdateLog(mgrCommon.FormatString(frmMain_ErrorStartChildProcess, New String() {oProcess.GameInfo.CroppedName, exAll.Message}), True, ToolTipIcon.Error)
+            Return False
+        End Try
+    End Function
+
     Private Sub StartChildProcesses()
         Dim oCurrentProcess As clsProcess
         Dim prsChild As Process
 
-        Try
+        If BuildChildProcesses() > 0 Then
             For Each de As DictionaryEntry In oChildProcesses
                 oCurrentProcess = DirectCast(de.Key, clsProcess)
                 prsChild = DirectCast(de.Value, Process)
-                prsChild.Start()
-                UpdateLog(mgrCommon.FormatString(frmMain_ProcessStarted, oCurrentProcess.Name), False)
+                If StartChildProcess(prsChild) Then
+                    UpdateLog(mgrCommon.FormatString(frmMain_ProcessStarted, oCurrentProcess.Name), False)
+                End If
             Next
-        Catch ex As Exception
-            UpdateLog(mgrCommon.FormatString(frmMain_ErrorStartChildProcess, oProcess.GameInfo.CroppedName), True, ToolTipIcon.Error)
-            UpdateLog(mgrCommon.FormatString(App_GenericError, ex.Message), False,, False)
-        End Try
+        End If
     End Sub
 
     Private Sub EndChildProcesses()
         Dim oCurrentProcess As clsProcess
         Dim prsChild As Process
 
-        Try
-            For Each de As DictionaryEntry In oChildProcesses
-                oCurrentProcess = DirectCast(de.Key, clsProcess)
-                prsChild = DirectCast(de.Value, Process)
-                If oCurrentProcess.Kill Then
-                    prsChild.Kill()
-                    UpdateLog(mgrCommon.FormatString(frmMain_ProcessKilled, oCurrentProcess.Name), False)
-                End If
-            Next
+        If oChildProcesses.Count > 0 Then
+            Try
+                For Each de As DictionaryEntry In oChildProcesses
+                    oCurrentProcess = DirectCast(de.Key, clsProcess)
+                    prsChild = DirectCast(de.Value, Process)
+                    If oCurrentProcess.Kill Then
+                        prsChild.Kill()
+                        UpdateLog(mgrCommon.FormatString(frmMain_ProcessKilled, oCurrentProcess.Name), False)
+                    End If
+                Next
 
-        Catch ex As Exception
-            UpdateLog(mgrCommon.FormatString(frmMain_ErrorEndChildProcess, oProcess.GameInfo.CroppedName), True, ToolTipIcon.Error)
-            UpdateLog(mgrCommon.FormatString(App_GenericError, ex.Message), False,, False)
-        End Try
+            Catch ex As Exception
+                UpdateLog(mgrCommon.FormatString(frmMain_ErrorEndChildProcess, New String() {oProcess.GameInfo.CroppedName, ex.Message}), True, ToolTipIcon.Error)
+            End Try
+        End If
     End Sub
 
     'Functions that control the scanning for games
@@ -2848,7 +2909,7 @@ Public Class frmMain
                         UpdateLog(sErrorMessage, True, ToolTipIcon.Warning, True)
                     Else
                         If Not CheckForSavedPath() Then
-                            If Not oProcess.GameInfo.AbsolutePath Then
+                            If Not oProcess.GameInfo.AbsolutePath And Not oProcess.GameInfo.MonitorOnly Then
                                 bPathDetectionFailure = True
                                 sPathDetectionError = mgrCommon.FormatString(frmMain_ErrorAdminBackup, oProcess.GameInfo.Name)
                             Else
@@ -2863,7 +2924,7 @@ Public Class frmMain
                         UpdateLog(sErrorMessage, True, ToolTipIcon.Warning, True)
                     Else
                         If Not CheckForSavedPath() Then
-                            If Not oProcess.GameInfo.AbsolutePath Then
+                            If Not oProcess.GameInfo.AbsolutePath And Not oProcess.GameInfo.MonitorOnly Then
                                 bPathDetectionFailure = True
                                 sPathDetectionError = mgrCommon.FormatString(frmMain_Error64Backup, oProcess.GameInfo.Name)
                             Else
@@ -2902,9 +2963,6 @@ Public Class frmMain
                     UpdateLog(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.Name), mgrSettings.ShowDetectionToolTips)
                     UpdateStatus(mgrCommon.FormatString(frmMain_GameDetected, oProcess.GameInfo.CroppedName), oProcess.GameInfo.CroppedName)
                     SetGameInfo()
-                End If
-
-                If BuildChildProcesses() > 0 And Not oProcess.Duplicate Then
                     StartChildProcesses()
                 End If
 
@@ -2939,12 +2997,24 @@ Public Class frmMain
                 End If
             Loop
             If bwMonitor.CancellationPending Then
-                bCancelledByUser = True
+                bDetectionCancelled = True
             End If
-        Catch ex As Exception
-            bProcessIsAdmin = True
-            oProcess.FoundProcess.WaitForExit()
-            bProcessIsAdmin = False
+        Catch exWin32 As System.ComponentModel.Win32Exception
+            'We are only expecting "Access Denied" here, anything else is a critical failure.
+            If exWin32.NativeErrorCode = 5 Then
+                bProcessIsAdmin = True
+                oProcess.FoundProcess.WaitForExit()
+                bProcessIsAdmin = False
+            Else
+                bDetectionFailure = True
+                UpdateLog(mgrCommon.FormatString(frmMain_ErrorCriticalDetectionFailure, oProcess.GameInfo.CroppedName), True, ToolTipIcon.Error)
+                UpdateLog(mgrCommon.FormatString(App_GenericError, exWin32.Message), False,, False)
+            End If
+        Catch exAll As Exception
+            'Any other exception is also a critical failure.
+            bDetectionFailure = True
+            UpdateLog(mgrCommon.FormatString(frmMain_ErrorCriticalDetectionFailure, oProcess.GameInfo.CroppedName), True, ToolTipIcon.Error)
+            UpdateLog(mgrCommon.FormatString(App_GenericError, exAll.Message), False,, False)
         End Try
 
         tmSessionTimeUpdater.Stop()
@@ -2953,13 +3023,17 @@ Public Class frmMain
     Private Sub bwMain_RunWorkerCompleted(sender As System.Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwMonitor.RunWorkerCompleted
         Dim bContinue As Boolean = True
 
-        If oChildProcesses.Count > 0 And Not oProcess.Duplicate Then
-            EndChildProcesses()
-        End If
+        EndChildProcesses()
 
         oProcess.EndTime = Now
 
-        If Not bCancelledByUser Then
+        'Stop scanning after a critical detection failure to prevent looping
+        If bDetectionFailure Then
+            ResetGameInfo()
+            StopScan()
+        End If
+
+        If Not bDetectionCancelled And Not bDetectionFailure Then
             'Check if we failed to detect the game path
             If bPathDetectionFailure Then
                 oProcess.GameInfo.ProcessPath = mgrPath.ProcessPathSearch(oProcess.GameInfo.Name, oProcess.GameInfo.ProcessName, sPathDetectionError)
@@ -3004,7 +3078,8 @@ Public Class frmMain
         'Refresh
         bPathDetectionFailure = False
         sPathDetectionError = String.Empty
-        bCancelledByUser = False
+        bDetectionCancelled = False
+        bDetectionFailure = False
         oProcess.StartTime = Now : oProcess.EndTime = Now
         RefreshGameList()
     End Sub
