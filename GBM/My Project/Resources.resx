@@ -2953,4 +2953,7 @@
   <data name="frmMain_ErrorCriticalDetectionFailure" xml:space="preserve">
     <value>An unexpected error has occured while detecting [PARAM], detection will be stopped.</value>
   </data>
+  <data name="frmSettings_chkTwoPassDetection" xml:space="preserve">
+    <value>Two-Pass Detection</value>
+  </data>
 </root>

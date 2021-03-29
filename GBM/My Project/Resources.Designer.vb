@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-03-02T14:13:24
+        '''  Looks up a localized string similar to 2021-03-29T14:18:51
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -6158,6 +6158,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_chkTimeTracking() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkTimeTracking", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Two-Pass Detection.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkTwoPassDetection() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkTwoPassDetection", resourceCulture)
             End Get
         End Property
         

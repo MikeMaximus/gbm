@@ -91,6 +91,7 @@ Partial Class frmSettings
         Me.lblBackupFolder = New System.Windows.Forms.Label()
         Me.txtBackupFolder = New System.Windows.Forms.TextBox()
         Me.chkCreateFolder = New System.Windows.Forms.CheckBox()
+        Me.chkTwoPassDetection = New System.Windows.Forms.CheckBox()
         Me.grp7zGeneral.SuspendLayout()
         Me.pnlBackup.SuspendLayout()
         Me.grpBackupConfirmations.SuspendLayout()
@@ -138,7 +139,7 @@ Partial Class frmSettings
         Me.chkShowDetectionTips.Location = New System.Drawing.Point(6, 42)
         Me.chkShowDetectionTips.Name = "chkShowDetectionTips"
         Me.chkShowDetectionTips.Size = New System.Drawing.Size(159, 17)
-        Me.chkShowDetectionTips.TabIndex = 4
+        Me.chkShowDetectionTips.TabIndex = 2
         Me.chkShowDetectionTips.Text = "Show detection notifications"
         Me.chkShowDetectionTips.UseVisualStyleBackColor = True
         '
@@ -420,6 +421,7 @@ Partial Class frmSettings
         '
         'grpGameMonitoringOptions
         '
+        Me.grpGameMonitoringOptions.Controls.Add(Me.chkTwoPassDetection)
         Me.grpGameMonitoringOptions.Controls.Add(Me.cboDetectSpeed)
         Me.grpGameMonitoringOptions.Controls.Add(Me.lblDetectSpeed)
         Me.grpGameMonitoringOptions.Controls.Add(Me.chkSuppressBackup)
@@ -428,7 +430,7 @@ Partial Class frmSettings
         Me.grpGameMonitoringOptions.Controls.Add(Me.nudSuppressBackupThreshold)
         Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 107)
         Me.grpGameMonitoringOptions.Name = "grpGameMonitoringOptions"
-        Me.grpGameMonitoringOptions.Size = New System.Drawing.Size(354, 99)
+        Me.grpGameMonitoringOptions.Size = New System.Drawing.Size(354, 118)
         Me.grpGameMonitoringOptions.TabIndex = 1
         Me.grpGameMonitoringOptions.TabStop = False
         Me.grpGameMonitoringOptions.Text = "Game Monitoring Options"
@@ -440,7 +442,7 @@ Partial Class frmSettings
         Me.cboDetectSpeed.Location = New System.Drawing.Point(99, 65)
         Me.cboDetectSpeed.Name = "cboDetectSpeed"
         Me.cboDetectSpeed.Size = New System.Drawing.Size(122, 21)
-        Me.cboDetectSpeed.TabIndex = 19
+        Me.cboDetectSpeed.TabIndex = 4
         '
         'lblDetectSpeed
         '
@@ -448,7 +450,7 @@ Partial Class frmSettings
         Me.lblDetectSpeed.Location = New System.Drawing.Point(3, 68)
         Me.lblDetectSpeed.Name = "lblDetectSpeed"
         Me.lblDetectSpeed.Size = New System.Drawing.Size(90, 13)
-        Me.lblDetectSpeed.TabIndex = 18
+        Me.lblDetectSpeed.TabIndex = 3
         Me.lblDetectSpeed.Text = "Detection Speed:"
         '
         'chkSuppressBackup
@@ -457,7 +459,7 @@ Partial Class frmSettings
         Me.chkSuppressBackup.Location = New System.Drawing.Point(6, 19)
         Me.chkSuppressBackup.Name = "chkSuppressBackup"
         Me.chkSuppressBackup.Size = New System.Drawing.Size(158, 17)
-        Me.chkSuppressBackup.TabIndex = 2
+        Me.chkSuppressBackup.TabIndex = 0
         Me.chkSuppressBackup.Text = "Ignore sessions shorter than"
         Me.chkSuppressBackup.UseVisualStyleBackColor = True
         '
@@ -476,13 +478,13 @@ Partial Class frmSettings
         Me.nudSuppressBackupThreshold.Maximum = New Decimal(New Integer() {999, 0, 0, 0})
         Me.nudSuppressBackupThreshold.Name = "nudSuppressBackupThreshold"
         Me.nudSuppressBackupThreshold.Size = New System.Drawing.Size(51, 20)
-        Me.nudSuppressBackupThreshold.TabIndex = 3
+        Me.nudSuppressBackupThreshold.TabIndex = 1
         '
         'grpLogOptions
         '
         Me.grpLogOptions.Controls.Add(Me.chkDisableSyncMessages)
         Me.grpLogOptions.Controls.Add(Me.chkAutoSaveLog)
-        Me.grpLogOptions.Location = New System.Drawing.Point(6, 212)
+        Me.grpLogOptions.Location = New System.Drawing.Point(6, 231)
         Me.grpLogOptions.Name = "grpLogOptions"
         Me.grpLogOptions.Size = New System.Drawing.Size(354, 65)
         Me.grpLogOptions.TabIndex = 2
@@ -810,6 +812,16 @@ Partial Class frmSettings
         Me.chkCreateFolder.Text = "Create a sub-folder for each game"
         Me.chkCreateFolder.UseVisualStyleBackColor = True
         '
+        'chkTwoPassDetection
+        '
+        Me.chkTwoPassDetection.AutoSize = True
+        Me.chkTwoPassDetection.Location = New System.Drawing.Point(6, 92)
+        Me.chkTwoPassDetection.Name = "chkTwoPassDetection"
+        Me.chkTwoPassDetection.Size = New System.Drawing.Size(122, 17)
+        Me.chkTwoPassDetection.TabIndex = 5
+        Me.chkTwoPassDetection.Text = "Two-Pass Detection"
+        Me.chkTwoPassDetection.UseVisualStyleBackColor = True
+        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -934,4 +946,5 @@ Partial Class frmSettings
     Friend WithEvents btnOptionalFields As Button
     Friend WithEvents cboDetectSpeed As ComboBox
     Friend WithEvents lblDetectSpeed As Label
+    Friend WithEvents chkTwoPassDetection As CheckBox
 End Class

@@ -80,6 +80,7 @@ Public Class frmSettings
         mgrSettings.MainHideButtons = chkHideButtons.Checked
         mgrSettings.ShowDetectionToolTips = chkShowDetectionTips.Checked
         mgrSettings.DetectionSpeed = cboDetectSpeed.SelectedValue
+        mgrSettings.TwoPassDetection = chkTwoPassDetection.Checked
         mgrSettings.DisableSyncMessages = chkDisableSyncMessages.Checked
         mgrSettings.AutoSaveLog = chkAutoSaveLog.Checked
         mgrSettings.DisableConfirmation = chkBackupConfirm.Checked
@@ -225,6 +226,7 @@ Public Class frmSettings
         chkHideButtons.Checked = mgrSettings.MainHideButtons
         chkShowDetectionTips.Checked = mgrSettings.ShowDetectionToolTips
         cboDetectSpeed.SelectedValue = mgrSettings.DetectionSpeed
+        chkTwoPassDetection.Checked = mgrSettings.TwoPassDetection
         chkDisableSyncMessages.Checked = mgrSettings.DisableSyncMessages
         chkAutoSaveLog.Checked = mgrSettings.AutoSaveLog
         chkBackupConfirm.Checked = mgrSettings.DisableConfirmation
@@ -418,6 +420,7 @@ Public Class frmSettings
         chkExitNoWarning.Text = frmSettings_chkExitNoWarning
         grpGameManagerOptions.Text = frmSettings_grpGameManagerOptions
         lblDetectSpeed.Text = frmSettings_lblDetectSpeed
+        chkTwoPassDetection.Text = frmSettings_chkTwoPassDetection
 
         If mgrCommon.IsUnix Then
             'Only enable this option on Linux if GBM was installed with an official method
