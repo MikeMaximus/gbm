@@ -13,6 +13,8 @@ Public Class mgrProcessDetection
     Private oDuplicateGames As New ArrayList
     Private bDuplicates As Boolean
     Private bVerified As Boolean = False
+    Private iVerifyPid As Integer = -1
+    Private sVerifyName As String = String.Empty
 
     Property FoundProcess As Process
         Get
@@ -384,13 +386,18 @@ Public Class mgrProcessDetection
                     Return False
                 End Try
 
-                'This will force two cycles for detection to try and prevent issues with UAC prompt
+                'The same process needs to be detected on two seperate passes to trigger GBM.
+                'Two pass detection prevents issues with the Windows UAC prompt and makes detection more reliable in general.             
                 If Not bVerified Then
+                    iVerifyPid = prsCurrent.Id
+                    sVerifyName = prsCurrent.ProcessName
                     bVerified = True
                     Return False
-                Else
+                ElseIf iVerifyPid = prsCurrent.id And sVerifyName = prsCurrent.ProcessName Then
                     If bDebugMode Then DebugDumpDetectedProcess(prsCurrent)
                     bVerified = False
+                    iVerifyPid = -1
+                    sVerifyName = String.Empty
                     Return True
                 End If
             End If
