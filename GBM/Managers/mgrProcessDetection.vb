@@ -364,6 +364,8 @@ Public Class mgrProcessDetection
             End If
 
             If oDetectedGames.Count > 0 Then
+                If bDebugMode Then DebugDumpDetectedProcess(prsCurrent)
+
                 Try
                     If Not bWineProcess Then
                         oGame.ProcessPath = Path.GetDirectoryName(prsCurrent.MainModule.FileName)
@@ -386,18 +388,21 @@ Public Class mgrProcessDetection
                     Return False
                 End Try
 
-                'The same process needs to be detected on two seperate passes to trigger GBM.
-                'Two pass detection prevents issues with the Windows UAC prompt and makes detection more reliable in general.             
-                If Not bVerified Then
-                    iVerifyPid = prsCurrent.Id
-                    sVerifyName = prsCurrent.ProcessName
-                    bVerified = True
-                    Return False
-                ElseIf iVerifyPid = prsCurrent.id And sVerifyName = prsCurrent.ProcessName Then
-                    If bDebugMode Then DebugDumpDetectedProcess(prsCurrent)
-                    bVerified = False
-                    iVerifyPid = -1
-                    sVerifyName = String.Empty
+                'When two pass detection is enabled, the same process needs to be detected on two seperate passes to trigger GBM.
+                'Two pass detection is slower, but prevents issues with the Windows UAC prompt and makes detection more reliable in general.
+                If mgrSettings.TwoPassDetection Then
+                    If Not bVerified Then
+                        iVerifyPid = prsCurrent.Id
+                        sVerifyName = prsCurrent.ProcessName
+                        bVerified = True
+                        Return False
+                    ElseIf iVerifyPid = prsCurrent.Id And sVerifyName = prsCurrent.ProcessName Then
+                        bVerified = False
+                        iVerifyPid = -1
+                        sVerifyName = String.Empty
+                        Return True
+                    End If
+                Else
                     Return True
                 End If
             End If

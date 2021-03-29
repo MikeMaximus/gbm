@@ -1,27 +1,25 @@
-Game Backup Monitor v1.2.6 Readme
+Game Backup Monitor v1.2.7 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-March 6, 2021
+March 29, 2021
 
-New in 1.2.6
+New in 1.2.7
+
+Disclaimer:
+
+v1.2.7 is still in development.  This file will be updated as changes are made.
 
 All Platforms:
 
-- Any linked process that requires administrator privileges will now ask for elevation when being launched from GBM.
-	- This means GBM no longer needs to be running as administrator to launch these linked processes.
-- If GBM quits unexpectedly during a backup operation, such as a power outage or OS shutdown, any incompleted backup operations will be resumed automatically the next time you run the app.
-- The "Play" button on the main form is now disabled for a few seconds after a game launch is triggered.
-	- This prevents attempting to launch a game multiple times by accident.
-- Fixed a crash that occurs on game detection when GBM cannot access the process details.
-- Fixed the possibility of caching the incorrect icon in some situations.
-- Prevented a confusing error from being shown in the log when an icon can't be cached for expected reasons.
-- Fixed an issue that caused GBM to unnecessarily require the "Game Path" when detecting a game with a "Monitor Only" configuration.
-- Fixed an issue with the automatic restore feature that could cause restore operations to trigger multiple times when using linked configurations.
-- Fixed an issue that caused GBM to repeatedly detect the same process if an unexpected error occured while waiting for that process to end.
-	- The error message will now be displayed in the log and monitoring will be automatically stopped.
-- The "Last Action" field on the main form now uses the regional setting for "Short Time" instead of being set to a specific format.
-- Fixed the "Limit" field always displaying zero on the Game Manager.
-- Fixed various small issues with the user interface.
+- Fixed unreliable logic when detecting a process.
+- Added a new setting to control "Two-Pass Detection"
+	- This setting is enabled by default, GBM has always used two-pass detection.	
+	- When this setting is enabled, the same process needs to be detected on two seperate passes to trigger GBM.
+		- This makes detection slower, but it prevents issues with the Windows UAC prompt and makes detection more reliable in general.
+	- When this setting is disabled, a process is registered as detected after a single pass.
+		- This makes detection faster, but may be unreliable in some rare situations.
+			- Single pass detection is generally reliable on Linux, and on Windows when UAC is disabled.
+			- Faster detection can be useful when using linked processes.	
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
