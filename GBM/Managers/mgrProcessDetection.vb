@@ -12,7 +12,7 @@ Public Class mgrProcessDetection
     Private oWineData As clsWineData
     Private oDuplicateGames As New ArrayList
     Private bDuplicates As Boolean
-    Private bVerified As Boolean = False
+    Private bVerify As Boolean = False
     Private iVerifyPid As Integer = -1
     Private sVerifyName As String = String.Empty
 
@@ -391,16 +391,27 @@ Public Class mgrProcessDetection
                 'When two pass detection is enabled, the same process needs to be detected on two seperate passes to trigger GBM.
                 'Two pass detection is slower, but prevents issues with the Windows UAC prompt and makes detection more reliable in general.
                 If mgrSettings.TwoPassDetection Then
-                    If Not bVerified Then
-                        iVerifyPid = prsCurrent.Id
-                        sVerifyName = prsCurrent.ProcessName
-                        bVerified = True
-                        Return False
-                    ElseIf iVerifyPid = prsCurrent.Id And sVerifyName = prsCurrent.ProcessName Then
-                        bVerified = False
+                    If bVerify Then
+                        'Check if it's still the same process on the second pass
+                        If iVerifyPid = prsCurrent.Id And sVerifyName = prsCurrent.ProcessName Then
+                            bVerify = False
+                        End If
+
+                        'Reset on success or failure
                         iVerifyPid = -1
                         sVerifyName = String.Empty
-                        Return True
+
+                        If Not bVerify Then
+                            Return True
+                        Else
+                            bVerify = False
+                            Return False
+                        End If
+                    Else
+                        iVerifyPid = prsCurrent.Id
+                        sVerifyName = prsCurrent.ProcessName
+                        bVerify = True
+                        Return False
                     End If
                 Else
                     Return True
