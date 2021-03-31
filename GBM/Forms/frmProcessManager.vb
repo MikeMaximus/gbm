@@ -120,6 +120,8 @@ Public Class frmProcessManager
         For Each ctl As Control In oCtls
             If TypeOf ctl Is TextBox Then
                 AddHandler DirectCast(ctl, TextBox).TextChanged, AddressOf DirtyCheck_ValueChanged
+            ElseIf TypeOf ctl Is CheckBox Then
+                AddHandler DirectCast(ctl, CheckBox).CheckedChanged, AddressOf DirtyCheck_ValueChanged
             End If
         Next
     End Sub
@@ -145,7 +147,7 @@ Public Class frmProcessManager
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
                 lstProcesses.Enabled = False
-                chkKillProcess.Checked = True
+                chkKillProcess.Checked = False
             Case eModes.Edit
                 lstProcesses.Enabled = False
                 grpProcess.Enabled = True
