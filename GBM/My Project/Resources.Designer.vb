@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-03-29T14:18:51
+        '''  Looks up a localized string similar to 2021-03-31T18:07:58
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5073,6 +5073,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_PNGFilter() As String
             Get
                 Return ResourceManager.GetString("frmMain_PNGFilter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] (Process ID: [PARAM]) is already running..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ProcessAlreadyRunning() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ProcessAlreadyRunning", resourceCulture)
             End Get
         End Property
         

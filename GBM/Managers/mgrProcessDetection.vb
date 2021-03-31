@@ -422,4 +422,24 @@ Public Class mgrProcessDetection
         Return False
     End Function
 
+    Public Shared Function CheckForRunningProcess(ByVal sPath As String) As Integer
+        Dim prsList() As Process = Process.GetProcesses
+        Dim sProcessCheck As String = String.Empty
+
+        For Each prsCurrent As Process In prsList
+            Try
+                'Some processes may return the ProcessName as a full path instead of the executable name.
+                sProcessCheck = Path.GetFileName(prsCurrent.ProcessName)
+            Catch ex As Exception
+                'Do Nothing
+            End Try
+
+            If Path.GetFileNameWithoutExtension(sPath) = sProcessCheck Then
+                Return prsCurrent.Id
+            End If
+        Next
+
+        Return -1
+    End Function
+
 End Class

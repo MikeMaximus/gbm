@@ -2306,6 +2306,7 @@ Public Class frmMain
         Dim oCurrentProcess As clsProcess
         Dim oProcessList As Hashtable
         Dim prsChild As Process
+        Dim iRunningPid As Integer
 
         oChildProcesses.Clear()
 
@@ -2313,13 +2314,18 @@ Public Class frmMain
 
         If oProcessList.Count > 0 Then
             For Each oCurrentProcess In oProcessList.Values
-                prsChild = New Process
-                prsChild.StartInfo.Arguments = oCurrentProcess.Args
-                prsChild.StartInfo.FileName = oCurrentProcess.Path
-                prsChild.StartInfo.WorkingDirectory = Path.GetDirectoryName(oCurrentProcess.Path)
-                prsChild.StartInfo.UseShellExecute = True
-                prsChild.StartInfo.CreateNoWindow = True
-                oChildProcesses.Add(oCurrentProcess, prsChild)
+                iRunningPid = mgrProcessDetection.CheckForRunningProcess(oCurrentProcess.Path)
+                If iRunningPid = -1 Then
+                    prsChild = New Process
+                    prsChild.StartInfo.Arguments = oCurrentProcess.Args
+                    prsChild.StartInfo.FileName = oCurrentProcess.Path
+                    prsChild.StartInfo.WorkingDirectory = Path.GetDirectoryName(oCurrentProcess.Path)
+                    prsChild.StartInfo.UseShellExecute = True
+                    prsChild.StartInfo.CreateNoWindow = True
+                    oChildProcesses.Add(oCurrentProcess, prsChild)
+                Else
+                    UpdateLog(mgrCommon.FormatString(frmMain_ProcessAlreadyRunning, New String() {oCurrentProcess.Name, iRunningPid}), False)
+                End If
             Next
         End If
 

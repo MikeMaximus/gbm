@@ -2956,4 +2956,7 @@
   <data name="frmSettings_chkTwoPassDetection" xml:space="preserve">
     <value>Two-Pass Detection</value>
   </data>
+  <data name="frmMain_ProcessAlreadyRunning" xml:space="preserve">
+    <value>[PARAM] (Process ID: [PARAM]) is already running.</value>
+  </data>
 </root>
