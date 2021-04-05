@@ -8,6 +8,8 @@ Public Class mgrLaunchers
         oLauncher.LauncherID = CStr(dr("LauncherID"))
         oLauncher.Name = CStr(dr("Name"))
         oLauncher.LaunchString = CStr(dr("LaunchString"))
+        oLauncher.IsUri = CBool(dr("Uri"))
+        oLauncher.LaunchParameters = CStr(dr("Args"))
 
         Return oLauncher
     End Function
@@ -18,6 +20,8 @@ Public Class mgrLaunchers
         hshParams.Add("LauncherID", oLauncher.LauncherID)
         hshParams.Add("Name", oLauncher.Name)
         hshParams.Add("LaunchString", oLauncher.LaunchString)
+        hshParams.Add("Uri", oLauncher.IsUri)
+        hshParams.Add("Args", oLauncher.LaunchParameters)
 
         Return hshParams
     End Function
@@ -27,7 +31,7 @@ Public Class mgrLaunchers
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "INSERT INTO launchers VALUES (@LauncherID, @Name, @LaunchString)"
+        sSQL = "INSERT INTO launchers VALUES (@LauncherID, @Name, @LaunchString, @Uri, @Args)"
         hshParams = SetCoreParameters(oLauncher)
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -37,7 +41,7 @@ Public Class mgrLaunchers
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "UPDATE launchers SET Name=@Name, LaunchString=@LaunchString "
+        sSQL = "UPDATE launchers SET Name=@Name, LaunchString=@LaunchString, Uri=@Uri, Args=@Args "
         sSQL &= "WHERE LauncherID = @LauncherID"
 
         hshParams = SetCoreParameters(oLauncher)

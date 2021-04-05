@@ -2503,9 +2503,6 @@
   <data name="frmLauncherManager_lblName" xml:space="preserve">
     <value>Name:</value>
   </data>
-  <data name="frmLauncherManager_WarningMissingVariable" xml:space="preserve">
-    <value>The launch command is missing the %ID% variable.[BR][BR]When the variable is missing, GBM will assume it belongs at the end of the command string.[BR][BR]Please see the manual for more details.</value>
-  </data>
   <data name="frmLaunchConfiguration_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>
   </data>
@@ -2958,5 +2955,26 @@
   </data>
   <data name="frmMain_ProcessAlreadyRunning" xml:space="preserve">
     <value>[PARAM] (Process ID: [PARAM]) is already running.</value>
+  </data>
+  <data name="frmLauncherManager_ChooseLauncherExe" xml:space="preserve">
+    <value>Choose the executable of the launcher</value>
+  </data>
+  <data name="frmLauncherManager_ErrorValidParameters" xml:space="preserve">
+    <value>Launch parameters are required when the launcher is an Executable type.</value>
+  </data>
+  <data name="frmLauncherManager_Executable" xml:space="preserve">
+    <value>Executable</value>
+  </data>
+  <data name="frmLauncherManager_grpLauncherType" xml:space="preserve">
+    <value>Launcher Type</value>
+  </data>
+  <data name="frmLauncherManager_lblParameters" xml:space="preserve">
+    <value>Parameters</value>
+  </data>
+  <data name="frmLauncherManager_optExecutable" xml:space="preserve">
+    <value>Executable</value>
+  </data>
+  <data name="frmLauncherManager_optURI" xml:space="preserve">
+    <value>URI</value>
   </data>
 </root>

@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-03-31T18:07:58
+        '''  Looks up a localized string similar to 2021-04-05T16:10:17
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3593,6 +3593,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Choose the executable of the launcher.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_ChooseLauncherExe() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_ChooseLauncherExe", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Do you want to re-add the default launchers?[BR][BR]This will not overwrite any existing launchers of the same name..
         '''</summary>
         Friend ReadOnly Property frmLauncherManager_ConfirmAddDefaults() As String
@@ -3647,6 +3656,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Launch parameters are required when the launcher is an Executable type..
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_ErrorValidParameters() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_ErrorValidParameters", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Executable.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_Executable() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_Executable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Launcher Manager.
         '''</summary>
         Friend ReadOnly Property frmLauncherManager_FormName() As String
@@ -3661,6 +3688,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmLauncherManager_grpLauncher() As String
             Get
                 Return ResourceManager.GetString("frmLauncherManager_grpLauncher", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Launcher Type.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_grpLauncherType() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_grpLauncherType", resourceCulture)
             End Get
         End Property
         
@@ -3683,11 +3719,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The launch command is missing the %ID% variable.[BR][BR]When the variable is missing, GBM will assume it belongs at the end of the command string.[BR][BR]Please see the manual for more details..
+        '''  Looks up a localized string similar to Parameters.
         '''</summary>
-        Friend ReadOnly Property frmLauncherManager_WarningMissingVariable() As String
+        Friend ReadOnly Property frmLauncherManager_lblParameters() As String
             Get
-                Return ResourceManager.GetString("frmLauncherManager_WarningMissingVariable", resourceCulture)
+                Return ResourceManager.GetString("frmLauncherManager_lblParameters", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Executable.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_optExecutable() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_optExecutable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to URI.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_optURI() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_optURI", resourceCulture)
             End Get
         End Property
         
