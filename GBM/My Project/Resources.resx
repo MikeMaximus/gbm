@@ -2977,4 +2977,13 @@
   <data name="frmLauncherManager_optURI" xml:space="preserve">
     <value>URI</value>
   </data>
+  <data name="mgrLaunchers_Galaxy" xml:space="preserve">
+    <value>GOG Galaxy</value>
+  </data>
+  <data name="mgrLaunchers_GalaxyArgs" xml:space="preserve">
+    <value>/command=runGame /gameId=%ID% /path="%GAMEPATH%"</value>
+  </data>
+  <data name="mgrLaunchers_GalaxyDefaultLocation" xml:space="preserve">
+    <value>C:\Program Files (x86)\GOG Galaxy\GalaxyClient.exe</value>
+  </data>
 </root>

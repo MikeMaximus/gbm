@@ -118,7 +118,7 @@ Public Class mgrSQLite
             sSql &= "CREATE TABLE configlinks (MonitorID TEXT NOT NULL, LinkID TEXT NOT NULL, PRIMARY KEY(MonitorID, LinkID)); "
 
             'Add Tables (Launchers)
-            sSql &= "CREATE TABLE launchers (LauncherID	TEXT NOT NULL PRIMARY KEY, Name	TEXT NOT NULL, LaunchString	TEXT NOT NULL, Uri AS BOOLEAN NOT NULL, Args AS TEXT NOT NULL);"
+            sSql &= "CREATE TABLE launchers (LauncherID	TEXT NOT NULL PRIMARY KEY, Name	TEXT NOT NULL, LaunchString	TEXT NOT NULL, Uri BOOLEAN NOT NULL, Args TEXT NOT NULL);"
 
             'Add Tables (Launch Data)
             sSql &= "CREATE TABLE launchdata (MonitorID	TEXT NOT NULL PRIMARY KEY, Path	TEXT NOT NULL, Args TEXT NOT NULL, NoArgs BOOLEAN NOT NULL, LauncherID TEXT NOT NULL, LauncherGameID TEXT NOT NULL);"
@@ -1142,6 +1142,9 @@ Public Class mgrSQLite
                 sSQL &= "PRAGMA user_version=127"
 
                 RunParamQuery(sSQL, New Hashtable)
+
+                'Add new default data
+                mgrLaunchers.AddDefaultLaunchers()
             End If
             If eDatabase = Database.Remote Then
                 'Backup DB before starting

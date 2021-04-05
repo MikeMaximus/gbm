@@ -54,7 +54,7 @@
         'Empty
     End Sub
 
-    Sub New(ByVal sName As String, ByVal sLaunchString As String)
+    Sub New(ByVal bIsUri As Boolean, ByVal sName As String, ByVal sLaunchString As String, ByVal sArgs As String)
         IsUri = bIsUri
         Name = sName
         LaunchString = sLaunchString

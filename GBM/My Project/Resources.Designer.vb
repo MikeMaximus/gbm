@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-04-05T16:10:17
+        '''  Looks up a localized string similar to 2021-04-05T16:41:08
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -7863,6 +7863,33 @@ Namespace My.Resources
         Friend ReadOnly Property mgrLaunchers_EpicURI() As String
             Get
                 Return ResourceManager.GetString("mgrLaunchers_EpicURI", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to GOG Galaxy.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchers_Galaxy() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchers_Galaxy", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to /command=runGame /gameId=%ID% /path=&quot;%GAMEPATH%&quot;.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchers_GalaxyArgs() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchers_GalaxyArgs", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to C:\Program Files (x86)\GOG Galaxy\GalaxyClient.exe.
+        '''</summary>
+        Friend ReadOnly Property mgrLaunchers_GalaxyDefaultLocation() As String
+            Get
+                Return ResourceManager.GetString("mgrLaunchers_GalaxyDefaultLocation", resourceCulture)
             End Get
         End Property
         

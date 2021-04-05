@@ -22,7 +22,8 @@ All Platforms:
 			- Faster detection can be useful when using linked processes.
 	- This setting is enabled by default, GBM has always used two-pass detection.
 - Added better support for launching games using external game launchers
-	- Store launchers that use their own executable to launch games, such as GOG Galaxy, are now fully supported.
+	- Launchers that use their own executable to launch games are now supported.
+		- GOG Galaxy is now available as a preconfigured launcher if it's installed in the default location.
 	- More variables are now available to use when configuring launcher commands and parameters. See the online manual for details.
 	- The %ID% variable is no longer automatically appended to launch commands if it's missing.	
 - GBM no longer attempts to start a linked process if it's already running.	
