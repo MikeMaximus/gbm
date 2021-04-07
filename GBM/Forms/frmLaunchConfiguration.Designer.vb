@@ -30,11 +30,11 @@ Partial Class frmLaunchConfiguration
         Me.lblArguments = New System.Windows.Forms.Label()
         Me.lblExe = New System.Windows.Forms.Label()
         Me.grpStoreLauncher = New System.Windows.Forms.GroupBox()
-        Me.btnOpenLaunchers = New System.Windows.Forms.Button()
         Me.cboLauncher = New System.Windows.Forms.ComboBox()
         Me.txtGameID = New System.Windows.Forms.TextBox()
         Me.lblGameID = New System.Windows.Forms.Label()
         Me.lblLauncher = New System.Windows.Forms.Label()
+        Me.btnOpenLaunchers = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.grpCommand = New System.Windows.Forms.GroupBox()
@@ -121,18 +121,7 @@ Partial Class frmLaunchConfiguration
         Me.grpStoreLauncher.Size = New System.Drawing.Size(465, 81)
         Me.grpStoreLauncher.TabIndex = 0
         Me.grpStoreLauncher.TabStop = False
-        Me.grpStoreLauncher.Text = "Store Launcher Configuration"
-        '
-        'btnOpenLaunchers
-        '
-        Me.btnOpenLaunchers.Image = Global.GBM.My.Resources.Resources.Multi_Edit
-        Me.btnOpenLaunchers.Location = New System.Drawing.Point(12, 304)
-        Me.btnOpenLaunchers.Name = "btnOpenLaunchers"
-        Me.btnOpenLaunchers.Size = New System.Drawing.Size(125, 45)
-        Me.btnOpenLaunchers.TabIndex = 3
-        Me.btnOpenLaunchers.Text = "&Launcher Manager..."
-        Me.btnOpenLaunchers.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btnOpenLaunchers.UseVisualStyleBackColor = True
+        Me.grpStoreLauncher.Text = "Launcher Configuration"
         '
         'cboLauncher
         '
@@ -167,6 +156,17 @@ Partial Class frmLaunchConfiguration
         Me.lblLauncher.Size = New System.Drawing.Size(55, 13)
         Me.lblLauncher.TabIndex = 0
         Me.lblLauncher.Text = "Launcher:"
+        '
+        'btnOpenLaunchers
+        '
+        Me.btnOpenLaunchers.Image = Global.GBM.My.Resources.Resources.Multi_Edit
+        Me.btnOpenLaunchers.Location = New System.Drawing.Point(12, 304)
+        Me.btnOpenLaunchers.Name = "btnOpenLaunchers"
+        Me.btnOpenLaunchers.Size = New System.Drawing.Size(125, 45)
+        Me.btnOpenLaunchers.TabIndex = 3
+        Me.btnOpenLaunchers.Text = "&Launcher Manager..."
+        Me.btnOpenLaunchers.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btnOpenLaunchers.UseVisualStyleBackColor = True
         '
         'btnCancel
         '

@@ -123,6 +123,7 @@ Public Class mgrLaunchGame
 
         'Handle supported variables
         sCommandString = sCommandString.Replace("%ID%", oLaunchData.LauncherGameID)
+        sCommandString = sCommandString.Replace("%INTERNALID%", oGame.ID)
         sCommandString = sCommandString.Replace("%NAME%", oGame.Name)
         sCommandString = sCommandString.Replace("%PROCESS%", oGame.ProcessName)
         sCommandString = sCommandString.Replace("%PARAMETER%", oGame.Parameter)
@@ -177,7 +178,7 @@ Public Class mgrLaunchGame
                 oLauncher = mgrLaunchers.DoLauncherGetbyID(oLaunchData.LauncherID)
                 sLaunchCommand = HandleLauncherVariables(oGame, oLauncher, oLaunchData)
                 If Not oLauncher.IsUri Then
-                    sLaunchCommand = oLauncher.LaunchString & sLaunchCommand
+                    sLaunchCommand = oLauncher.LaunchString & " " & sLaunchCommand
                 End If
                 Return sLaunchCommand
             Case eLaunchType.AlternateExe

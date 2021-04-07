@@ -118,7 +118,7 @@ Public Class frmLauncherManager
 
     Private Sub LauncherBrowse()
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
-        Dim sCurrentPath As String = txtLaunchString.Text
+        Dim sCurrentPath As String = Path.GetDirectoryName(txtLaunchString.Text)
         Dim sNewPath As String
         Dim oExtensions As New SortedList
 
@@ -182,10 +182,12 @@ Public Class frmLauncherManager
 
     Private Sub LauncherTypeChange()
         If optURI.Checked Then
+            lblCommand.Text = frmLauncherManager_lblCommand
             btnLauncherBrowse.Enabled = False
             lblParameters.Enabled = False
             txtLaunchParameters.Enabled = False
         Else
+            lblCommand.Text = frmLauncherManager_lblCommandAlt
             btnLauncherBrowse.Enabled = True
             lblParameters.Enabled = True
             txtLaunchParameters.Enabled = True

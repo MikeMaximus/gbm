@@ -74,7 +74,7 @@ Partial Class frmLauncherManager
         Me.txtLaunchParameters.Location = New System.Drawing.Point(72, 71)
         Me.txtLaunchParameters.Name = "txtLaunchParameters"
         Me.txtLaunchParameters.Size = New System.Drawing.Size(284, 20)
-        Me.txtLaunchParameters.TabIndex = 3
+        Me.txtLaunchParameters.TabIndex = 6
         '
         'lblParameters
         '
@@ -82,7 +82,7 @@ Partial Class frmLauncherManager
         Me.lblParameters.Location = New System.Drawing.Point(6, 74)
         Me.lblParameters.Name = "lblParameters"
         Me.lblParameters.Size = New System.Drawing.Size(63, 13)
-        Me.lblParameters.TabIndex = 2
+        Me.lblParameters.TabIndex = 5
         Me.lblParameters.Text = "Parameters:"
         '
         'txtName
@@ -90,14 +90,14 @@ Partial Class frmLauncherManager
         Me.txtName.Location = New System.Drawing.Point(72, 19)
         Me.txtName.Name = "txtName"
         Me.txtName.Size = New System.Drawing.Size(284, 20)
-        Me.txtName.TabIndex = 0
+        Me.txtName.TabIndex = 1
         '
         'txtLaunchString
         '
         Me.txtLaunchString.Location = New System.Drawing.Point(72, 45)
         Me.txtLaunchString.Name = "txtLaunchString"
         Me.txtLaunchString.Size = New System.Drawing.Size(248, 20)
-        Me.txtLaunchString.TabIndex = 1
+        Me.txtLaunchString.TabIndex = 3
         '
         'lblCommand
         '
@@ -105,7 +105,7 @@ Partial Class frmLauncherManager
         Me.lblCommand.Location = New System.Drawing.Point(6, 48)
         Me.lblCommand.Name = "lblCommand"
         Me.lblCommand.Size = New System.Drawing.Size(57, 13)
-        Me.lblCommand.TabIndex = 0
+        Me.lblCommand.TabIndex = 2
         Me.lblCommand.Text = "Command:"
         '
         'lblName

@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-04-05T16:41:08
+        '''  Looks up a localized string similar to 2021-04-07T13:39:17
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3440,7 +3440,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to A game ID is required when using a store launcher..
+        '''  Looks up a localized string similar to A valid Game ID is required to use [PARAM]..
         '''</summary>
         Friend ReadOnly Property frmLaunchConfiguration_ErrorNoGameID() As String
             Get
@@ -3485,7 +3485,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Store Launcher Configuration.
+        '''  Looks up a localized string similar to Launcher Configuration.
         '''</summary>
         Friend ReadOnly Property frmLaunchConfiguration_grpStoreLauncher() As String
             Get
@@ -3706,6 +3706,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmLauncherManager_lblCommand() As String
             Get
                 Return ResourceManager.GetString("frmLauncherManager_lblCommand", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Executable:.
+        '''</summary>
+        Friend ReadOnly Property frmLauncherManager_lblCommandAlt() As String
+            Get
+                Return ResourceManager.GetString("frmLauncherManager_lblCommandAlt", resourceCulture)
             End Get
         End Property
         

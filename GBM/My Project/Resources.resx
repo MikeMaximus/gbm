@@ -2516,7 +2516,7 @@
     <value>The executable cannot be found.</value>
   </data>
   <data name="frmLaunchConfiguration_ErrorNoGameID" xml:space="preserve">
-    <value>A game ID is required when using a store launcher.</value>
+    <value>A valid Game ID is required to use [PARAM].</value>
   </data>
   <data name="frmLaunchConfiguration_Executable" xml:space="preserve">
     <value>Executable</value>
@@ -2528,7 +2528,7 @@
     <value>Alternate Configuration</value>
   </data>
   <data name="frmLaunchConfiguration_grpStoreLauncher" xml:space="preserve">
-    <value>Store Launcher Configuration</value>
+    <value>Launcher Configuration</value>
   </data>
   <data name="frmLaunchConfiguration_lblArguments" xml:space="preserve">
     <value>Parameters:</value>
@@ -2985,5 +2985,8 @@
   </data>
   <data name="mgrLaunchers_GalaxyDefaultLocation" xml:space="preserve">
     <value>C:\Program Files (x86)\GOG Galaxy\GalaxyClient.exe</value>
+  </data>
+  <data name="frmLauncherManager_lblCommandAlt" xml:space="preserve">
+    <value>Executable:</value>
   </data>
 </root>
