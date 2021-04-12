@@ -2948,7 +2948,7 @@
     <value>Incomplete backup operations ([PARAM]) are being automatically resumed.</value>
   </data>
   <data name="frmMain_ErrorCriticalDetectionFailure" xml:space="preserve">
-    <value>An unexpected error has occured while detecting [PARAM], detection will be stopped.</value>
+    <value>An unexpected error has occured while monitoring [PARAM], detection will be stopped.</value>
   </data>
   <data name="frmSettings_chkTwoPassDetection" xml:space="preserve">
     <value>Two-Pass Detection</value>

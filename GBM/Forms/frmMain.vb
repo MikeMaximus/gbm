@@ -2991,7 +2991,6 @@ Public Class frmMain
 
         Try
             Do While Not (oProcess.FoundProcess.HasExited Or bwMonitor.CancellationPending)
-                System.Threading.Thread.Sleep(10000)
                 If Not oProcess.Duplicate And oProcess.GameInfo.UseWindowTitle Then
                     'We need a new instance of the process each time we check if the window title has changed.
                     oCheckProcess = Process.GetProcessById(oProcess.FoundProcess.Id)
@@ -3001,6 +3000,7 @@ Public Class frmMain
                     End If
                     oCheckProcess.Dispose()
                 End If
+                System.Threading.Thread.Sleep(10000)
             Loop
             If bwMonitor.CancellationPending Then
                 bDetectionCancelled = True

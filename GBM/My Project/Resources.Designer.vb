@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-04-07T13:39:17
+        '''  Looks up a localized string similar to 2021-04-07T13:51:19
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4183,7 +4183,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An unexpected error has occured while detecting [PARAM], detection will be stopped..
+        '''  Looks up a localized string similar to An unexpected error has occured while monitoring [PARAM], detection will be stopped..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorCriticalDetectionFailure() As String
             Get
