@@ -2992,13 +2992,18 @@ Public Class frmMain
         Try
             Do While Not (oProcess.FoundProcess.HasExited Or bwMonitor.CancellationPending)
                 If Not oProcess.Duplicate And oProcess.GameInfo.UseWindowTitle Then
-                    'We need a new instance of the process each time we check if the window title has changed.
-                    oCheckProcess = Process.GetProcessById(oProcess.FoundProcess.Id)
-                    'If we are matching via a window title, we'll stop monitoring when the window title no longer matches or when the process ends
-                    If Not mgrProcessDetection.IsMatch(oProcess.GameInfo, oCheckProcess.MainWindowTitle) Then
+                    Try
+                        'We need a new instance of the process each time we check if the window title has changed.
+                        oCheckProcess = Process.GetProcessById(oProcess.FoundProcess.Id)
+                        'If we are matching via a window title, we'll stop monitoring when the window title no longer matches or when the process ends
+                        If Not mgrProcessDetection.IsMatch(oProcess.GameInfo, oCheckProcess.MainWindowTitle) Then
+                            Exit Do
+                        End If
+                        oCheckProcess.Dispose()
+                    Catch exArg As ArgumentException
+                        'An argument exception here indicates the process ended before we could get another instance of it, we can proceed normally.
                         Exit Do
-                    End If
-                    oCheckProcess.Dispose()
+                    End Try
                 End If
                 System.Threading.Thread.Sleep(10000)
             Loop
