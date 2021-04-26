@@ -12,6 +12,7 @@ v1.2.7 is still in development.  This file will be updated as changes are made.
 
 All Platforms:
 
+- Fixed an issue with manually triggered backups being flagged as incomplete when they fail a prerequisite condition. 
 - Fixed unreliable logic when detecting a process.
 - Fixed an unexpected error that could occur while monitoring games detected with a window title.
 - Added a new setting to control "Two-Pass Detection"		

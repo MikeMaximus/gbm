@@ -449,6 +449,11 @@ Public Class frmMain
         'Run backups
         If oReadyList.Count > 0 And Not oBackup.CancelOperation Then
             If Not mgrSettings.DisableDiskSpaceCheck And Not oReadyList.Count = 1 Then UpdateLog(mgrCommon.FormatString(mgrBackup_BackupBatchSize, mgrCommon.FormatDiskSpace(lBackupSize)), False, ToolTipIcon.Info, True)
+
+            'Populate the failsafe queue
+            mgrBackupQueue.DoBackupQueueEmpty()
+            mgrBackupQueue.DoBackupQueueAddBatch(oReadyList)
+
             Dim oThread As New System.Threading.Thread(AddressOf ExecuteBackup)
             oThread.IsBackground = True
             oThread.Start(oReadyList)
@@ -546,9 +551,12 @@ Public Class frmMain
             End If
         Next
 
-        'Empty, then generate the stored failsafe queue.
-        mgrBackupQueue.DoBackupQueueEmpty()
-        mgrBackupQueue.DoBackupQueueAddBatch(oBackupList)
+        'Only populate the failsafe queue if prerequisite checks have been completed.
+        If bDoPreCheck Then
+            'Empty, then generate the stored failsafe queue.
+            mgrBackupQueue.DoBackupQueueEmpty()
+            mgrBackupQueue.DoBackupQueueAddBatch(oBackupList)
+        End If
     End Sub
 
     Private Sub RunBackup()
