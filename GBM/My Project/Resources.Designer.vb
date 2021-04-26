@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-04-07T13:51:19
+        '''  Looks up a localized string similar to 2021-04-26T14:55:28
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -7570,15 +7570,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to perform this backup..
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_ErrorRegBackupElevation() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_ErrorRegBackupElevation", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to The backup has failed, please ensure the registry path is correct..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorRegBackupFailed() As String
@@ -8394,15 +8385,6 @@ Namespace My.Resources
         Friend ReadOnly Property mgrRestore_ErrorNoPath() As String
             Get
                 Return ResourceManager.GetString("mgrRestore_ErrorNoPath", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to [PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to restore this backup..
-        '''</summary>
-        Friend ReadOnly Property mgrRestore_ErrorRegBackupElevation() As String
-            Get
-                Return ResourceManager.GetString("mgrRestore_ErrorRegBackupElevation", resourceCulture)
             End Get
         End Property
         

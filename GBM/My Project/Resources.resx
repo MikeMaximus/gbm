@@ -2202,12 +2202,6 @@
   <data name="frmSettings_ErrorLinuxAutoStart" xml:space="preserve">
     <value>An error occured while configuring autostart:[BR][BR][PARAM]</value>
   </data>
-  <data name="mgrBackup_ErrorRegBackupElevation" xml:space="preserve">
-    <value>[PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to perform this backup.</value>
-  </data>
-  <data name="mgrBackup_ErrorRegBackupFailed" xml:space="preserve">
-    <value>The backup has failed, please ensure the registry path is correct.</value>
-  </data>
   <data name="mgrBackup_ErrorRegNotFound" xml:space="preserve">
     <value>The utility reg.exe could not be located at [PARAM].  The backup cannot continue.</value>
   </data>
@@ -2219,9 +2213,6 @@
   </data>
   <data name="mgrRestore_ErrorWineNotFound" xml:space="preserve">
     <value>The wine binary could not be located at [PARAM].  The restore cannot continue.</value>
-  </data>
-  <data name="mgrRestore_ErrorRegBackupElevation" xml:space="preserve">
-    <value>[PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to restore this backup.</value>
   </data>
   <data name="frmMain_ErrorLinuxAutoStartLinkMissing" xml:space="preserve">
     <value>GBM is set to start automatically, but the desktop link is missing.  Automatic start has been disabled,  please re-install GBM using a package manager or the makefile.</value>
@@ -2988,5 +2979,8 @@
   </data>
   <data name="frmLauncherManager_lblCommandAlt" xml:space="preserve">
     <value>Executable:</value>
+  </data>
+  <data name="mgrBackup_ErrorRegBackupFailed" xml:space="preserve">
+    <value>The backup has failed, please ensure the registry path is correct.</value>
   </data>
 </root>

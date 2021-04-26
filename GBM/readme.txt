@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.7 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-April 13, 2021
+April 26, 2021
 
 New in 1.2.7
 
@@ -28,6 +28,7 @@ All Platforms:
 	- More variables are now available to use when configuring launcher commands and parameters. See the online manual for details.
 	- The %ID% variable is no longer automatically appended to launch commands if it's missing.	
 - GBM no longer attempts to start a linked process if it's already running.	
+- GBM no longer needs to be running as Administrator to do Windows registry backups.
 - Fixed and changed the "Kill process when game is closed" field on the "Process Manager" 
 	- The form now properly changes to edit mode when this field is changed.
 	- This field is no longer enabled by default when adding a new process.

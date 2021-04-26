@@ -132,11 +132,6 @@ Public Class mgrBackup
         bRegistry = mgrPath.IsSupportedRegistryPath(oGame.TruePath)
 
         If bRegistry Then
-            'If this is a registry backup, we need to have elevated permissions in Windows to use reg.exe
-            If Not mgrCommon.IsUnix And Not mgrCommon.IsElevated Then
-                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorRegBackupElevation, oGame.Name), False, ToolTipIcon.Info, True)
-                Return False
-            End If
             sExtension = ".reg"
         Else
             'Verify saved game path
@@ -503,7 +498,7 @@ Public Class mgrBackup
         Next
     End Sub
 
-    Private Function RunRegistryBackup(ByVal oGame As clsGame, ByVal sBackupFile As String) As Boolean
+    Private Function RunRegistryBackup(ByVal oGame As clsGame, ByVal sBackupFile As String, Optional ByVal bAdmin As Boolean = False) As Boolean
         Dim prsReg As New Process
         Dim sBinaryPath As String
         Dim sArguments As String
@@ -545,6 +540,7 @@ Public Class mgrBackup
                 prsReg.StartInfo.UseShellExecute = False
                 prsReg.StartInfo.RedirectStandardOutput = True
                 prsReg.StartInfo.CreateNoWindow = True
+                If bAdmin Then prsReg.StartInfo.Verb = "runas"
                 prsReg.Start()
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupInProgress, oGame.TruePath), False, ToolTipIcon.Info, True)
                 While Not prsReg.StandardOutput.EndOfStream
@@ -564,8 +560,15 @@ Public Class mgrBackup
                         RaiseEvent UpdateLog(mgrBackup_ErrorRegBackupFailed, False, ToolTipIcon.Info, True)
                 End Select
                 prsReg.Dispose()
-            Catch ex As Exception
-                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_OtherFailure, New String() {App_OperationType_Backup, ex.Message}), False, ToolTipIcon.Error, True)
+            Catch exWin32 As System.ComponentModel.Win32Exception
+                'If the launch fails due to required elevation, try it again and request elevation.
+                If exWin32.ErrorCode = 740 Then
+                    RunRegistryBackup(oGame, sBackupFile, True)
+                Else
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_OtherFailure, New String() {App_OperationType_Backup, exWin32.Message}), False, ToolTipIcon.Error, True)
+                End If
+            Catch exAll As Exception
+                RaiseEvent UpdateLog(mgrCommon.FormatString(App_Operation_OtherFailure, New String() {App_OperationType_Backup, exAll.Message}), False, ToolTipIcon.Error, True)
             End Try
         End If
 
