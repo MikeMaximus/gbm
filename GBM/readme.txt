@@ -12,7 +12,6 @@ v1.2.7 is still in development.  This file will be updated as changes are made.
 
 All Platforms:
 
-- Fixed an issue with manually triggered backups being flagged as incomplete when they fail a prerequisite condition. 
 - Fixed unreliable logic when detecting a process.
 - Fixed an unexpected error that could occur while monitoring games detected with a window title.
 - Added a new setting to control "Two-Pass Detection"		
@@ -33,5 +32,8 @@ All Platforms:
 - Fixed and changed the "Kill process when game is closed" field on the "Process Manager" 
 	- The form now properly changes to edit mode when this field is changed.
 	- This field is no longer enabled by default when adding a new process.
+- Fixed an issue with manually triggered backups being flagged as incomplete when they fail a prerequisite condition. 
+- Incomplete backup operations and automatic restore operations will no longer run at the same time when starting GBM.
+	- Automatic restore operations will now wait for incomplete backup operations to be finished.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

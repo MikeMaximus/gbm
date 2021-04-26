@@ -632,7 +632,9 @@ Public Class frmMain
     Private Sub StartRestoreCheck()
         iRestoreTimeOut = -1
         tmRestoreCheck.Start()
-        AutoRestoreCheck()
+        If eCurrentOperation = eOperation.None Then
+            AutoRestoreCheck()
+        End If
     End Sub
 
     Private Sub AutoRestoreCheck()
@@ -2897,7 +2899,7 @@ Public Class frmMain
     End Sub
 
     Private Sub AutoRestoreEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmRestoreCheck.Elapsed
-        If eCurrentStatus <> eStatus.Paused Then
+        If eCurrentOperation = eOperation.None And eCurrentStatus <> eStatus.Paused Then
             AutoRestoreCheck()
         End If
     End Sub
