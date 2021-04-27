@@ -1137,7 +1137,7 @@ Public Class mgrSQLite
 
                 'Add new launcher options
                 sSQL &= "ALTER TABLE launchers ADD COLUMN Uri BOOLEAN NOT NULL DEFAULT 1;"
-                sSQL &= "ALTER TABLE launchers ADD COLUMN Args TEXT NOT NULL DEFAULT "";"
+                sSQL &= "ALTER TABLE launchers ADD COLUMN Args TEXT NOT NULL DEFAULT '';"
 
                 sSQL &= "PRAGMA user_version=127"
 
