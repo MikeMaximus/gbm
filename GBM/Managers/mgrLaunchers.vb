@@ -1,4 +1,5 @@
 ﻿Imports GBM.My.Resources
+Imports System.IO
 
 Public Class mgrLaunchers
 
@@ -8,6 +9,8 @@ Public Class mgrLaunchers
         oLauncher.LauncherID = CStr(dr("LauncherID"))
         oLauncher.Name = CStr(dr("Name"))
         oLauncher.LaunchString = CStr(dr("LaunchString"))
+        oLauncher.IsUri = CBool(dr("Uri"))
+        oLauncher.LaunchParameters = CStr(dr("Args"))
 
         Return oLauncher
     End Function
@@ -18,6 +21,8 @@ Public Class mgrLaunchers
         hshParams.Add("LauncherID", oLauncher.LauncherID)
         hshParams.Add("Name", oLauncher.Name)
         hshParams.Add("LaunchString", oLauncher.LaunchString)
+        hshParams.Add("Uri", oLauncher.IsUri)
+        hshParams.Add("Args", oLauncher.LaunchParameters)
 
         Return hshParams
     End Function
@@ -27,7 +32,7 @@ Public Class mgrLaunchers
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "INSERT INTO launchers VALUES (@LauncherID, @Name, @LaunchString)"
+        sSQL = "INSERT INTO launchers VALUES (@LauncherID, @Name, @LaunchString, @Uri, @Args)"
         hshParams = SetCoreParameters(oLauncher)
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -37,7 +42,7 @@ Public Class mgrLaunchers
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "UPDATE launchers SET Name=@Name, LaunchString=@LaunchString "
+        sSQL = "UPDATE launchers SET Name=@Name, LaunchString=@LaunchString, Uri=@Uri, Args=@Args "
         sSQL &= "WHERE LauncherID = @LauncherID"
 
         hshParams = SetCoreParameters(oLauncher)
@@ -153,19 +158,21 @@ Public Class mgrLaunchers
         Dim oParamList As New List(Of Hashtable)
         Dim oDefaults As New List(Of clsLauncher)
 
-        'Default Launchers
-        oDefaults.Add(New clsLauncher(mgrLaunchers_Steam, mgrLaunchers_SteamURI))
-        oDefaults.Add(New clsLauncher(mgrLaunchers_Ubisoft, mgrLaunchers_UbisoftURI))
-        oDefaults.Add(New clsLauncher(mgrLaunchers_Epic, mgrLaunchers_EpicURI))
+        'Default URI Launchers
+        oDefaults.Add(New clsLauncher(True, mgrLaunchers_Steam, mgrLaunchers_SteamURI, String.Empty))
+        oDefaults.Add(New clsLauncher(True, mgrLaunchers_Ubisoft, mgrLaunchers_UbisoftURI, String.Empty))
+        oDefaults.Add(New clsLauncher(True, mgrLaunchers_Epic, mgrLaunchers_EpicURI, String.Empty))
 
-        sSQL = "INSERT INTO launchers (LauncherID, Name, LaunchString) VALUES (@LauncherID, @Name, @LaunchString);"
+        'Default Executable Launchers (Only added when installed to their default location)
+        If File.Exists(mgrLaunchers_GalaxyDefaultLocation) Then
+            oDefaults.Add(New clsLauncher(False, mgrLaunchers_Galaxy, mgrLaunchers_GalaxyDefaultLocation, mgrLaunchers_GalaxyArgs))
+        End If
+
+        sSQL = "INSERT INTO launchers (LauncherID, Name, LaunchString, Uri, Args) VALUES (@LauncherID, @Name, @LaunchString, @Uri, @Args);"
 
         For Each oLauncher As clsLauncher In oDefaults
             If Not DoCheckDuplicate(oLauncher.Name) Then
-                hshParams = New Hashtable
-                hshParams.Add("LauncherID", oLauncher.LauncherID)
-                hshParams.Add("Name", oLauncher.Name)
-                hshParams.Add("LaunchString", oLauncher.LaunchString)
+                hshParams = SetCoreParameters(oLauncher)
                 oParamList.Add(hshParams)
             End If
         Next

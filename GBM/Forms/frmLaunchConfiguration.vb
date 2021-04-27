@@ -135,10 +135,21 @@ Public Class frmLaunchConfiguration
     End Sub
 
     Private Function ValidateData() As Boolean
-        If cboLauncher.SelectedValue <> "nolauncher" And txtGameID.Text = String.Empty Then
-            mgrCommon.ShowMessage(frmLaunchConfiguration_ErrorNoGameID, MsgBoxStyle.Exclamation)
-            txtGameID.Focus()
-            Return False
+        Dim oLauncher As clsLauncher
+        Dim sCheckString As String
+
+        If cboLauncher.SelectedValue <> "nolauncher" Then
+            oLauncher = mgrLaunchers.DoLauncherGetbyID(cboLauncher.SelectedValue)
+            If oLauncher.IsUri Then
+                sCheckString = oLauncher.LaunchString
+            Else
+                sCheckString = oLauncher.LaunchParameters
+            End If
+            If sCheckString.Contains("%ID%") And txtGameID.Text = String.Empty Then
+                mgrCommon.ShowMessage(frmLaunchConfiguration_ErrorNoGameID, oLauncher.Name, MsgBoxStyle.Exclamation)
+                txtGameID.Focus()
+                Return False
+            End If
         ElseIf Not txtExePath.Text = String.Empty Then
             txtExePath.Text = mgrPath.ValidatePath(txtExePath.Text)
             If Not File.Exists(txtExePath.Text) Then

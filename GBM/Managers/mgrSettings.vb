@@ -37,6 +37,7 @@ Public Class mgrSettings
     Shared bMainHideLog As Boolean
     Shared bBackupNotification As Boolean
     Shared iDetectionSpeed As Integer
+    Shared bTwoPassDetection As Boolean
 
     <Flags()> Public Enum eSuppressMessages
         None = 0
@@ -428,6 +429,15 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Shared Property TwoPassDetection As Boolean
+        Get
+            Return bTwoPassDetection
+        End Get
+        Set(value As Boolean)
+            bTwoPassDetection = value
+        End Set
+    End Property
+
     Shared Sub New()
         SetDefaults()
     End Sub
@@ -468,6 +478,7 @@ Public Class mgrSettings
         bMainHideLog = False
         bBackupNotification = False
         iDetectionSpeed = 5000
+        bTwoPassDetection = True
 
         'OS Based Defaults
         If mgrCommon.IsUnix Then
@@ -487,7 +498,7 @@ Public Class mgrSettings
         sSQL &= "@TimeTracking, @SuppressBackup, @SuppressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
         sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, @UseGameID, "
         sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck, @TemporaryFolder, @ExitOnClose, @ExitNoWarning, @EnableLauncher, "
-        sSQL &= "@MainHideGameList, @MainHideButtons, @MainHideLog, @BackupNotification, @DetectionSpeed)"
+        sSQL &= "@MainHideGameList, @MainHideButtons, @MainHideLog, @BackupNotification, @DetectionSpeed, @TwoPassDetection)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -524,6 +535,7 @@ Public Class mgrSettings
         hshParams.Add("MainHideLog", MainHideLog)
         hshParams.Add("BackupNotification", BackupNotification)
         hshParams.Add("DetectionSpeed", DetectionSpeed)
+        hshParams.Add("TwoPassDetection", TwoPassDetection)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -574,6 +586,7 @@ Public Class mgrSettings
             MainHideLog = CBool(dr("MainHideLog"))
             BackupNotification = CBool(dr("BackupNotification"))
             DetectionSpeed = CInt(dr("DetectionSpeed"))
+            TwoPassDetection = CBool(dr("TwoPassDetection"))
         Next
 
         oDatabase.Disconnect()

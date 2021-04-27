@@ -449,6 +449,11 @@ Public Class frmMain
         'Run backups
         If oReadyList.Count > 0 And Not oBackup.CancelOperation Then
             If Not mgrSettings.DisableDiskSpaceCheck And Not oReadyList.Count = 1 Then UpdateLog(mgrCommon.FormatString(mgrBackup_BackupBatchSize, mgrCommon.FormatDiskSpace(lBackupSize)), False, ToolTipIcon.Info, True)
+
+            'Populate the failsafe queue
+            mgrBackupQueue.DoBackupQueueEmpty()
+            mgrBackupQueue.DoBackupQueueAddBatch(oReadyList)
+
             Dim oThread As New System.Threading.Thread(AddressOf ExecuteBackup)
             oThread.IsBackground = True
             oThread.Start(oReadyList)
@@ -546,9 +551,12 @@ Public Class frmMain
             End If
         Next
 
-        'Empty, then generate the stored failsafe queue.
-        mgrBackupQueue.DoBackupQueueEmpty()
-        mgrBackupQueue.DoBackupQueueAddBatch(oBackupList)
+        'Only populate the failsafe queue if prerequisite checks have been completed.
+        If bDoPreCheck Then
+            'Empty, then generate the stored failsafe queue.
+            mgrBackupQueue.DoBackupQueueEmpty()
+            mgrBackupQueue.DoBackupQueueAddBatch(oBackupList)
+        End If
     End Sub
 
     Private Sub RunBackup()
@@ -624,7 +632,9 @@ Public Class frmMain
     Private Sub StartRestoreCheck()
         iRestoreTimeOut = -1
         tmRestoreCheck.Start()
-        AutoRestoreCheck()
+        If eCurrentOperation = eOperation.None Then
+            AutoRestoreCheck()
+        End If
     End Sub
 
     Private Sub AutoRestoreCheck()
@@ -2306,6 +2316,7 @@ Public Class frmMain
         Dim oCurrentProcess As clsProcess
         Dim oProcessList As Hashtable
         Dim prsChild As Process
+        Dim iRunningPid As Integer
 
         oChildProcesses.Clear()
 
@@ -2313,13 +2324,18 @@ Public Class frmMain
 
         If oProcessList.Count > 0 Then
             For Each oCurrentProcess In oProcessList.Values
-                prsChild = New Process
-                prsChild.StartInfo.Arguments = oCurrentProcess.Args
-                prsChild.StartInfo.FileName = oCurrentProcess.Path
-                prsChild.StartInfo.WorkingDirectory = Path.GetDirectoryName(oCurrentProcess.Path)
-                prsChild.StartInfo.UseShellExecute = True
-                prsChild.StartInfo.CreateNoWindow = True
-                oChildProcesses.Add(oCurrentProcess, prsChild)
+                iRunningPid = mgrProcessDetection.CheckForRunningProcess(oCurrentProcess.Path)
+                If iRunningPid = -1 Then
+                    prsChild = New Process
+                    prsChild.StartInfo.Arguments = oCurrentProcess.Args
+                    prsChild.StartInfo.FileName = oCurrentProcess.Path
+                    prsChild.StartInfo.WorkingDirectory = Path.GetDirectoryName(oCurrentProcess.Path)
+                    prsChild.StartInfo.UseShellExecute = True
+                    prsChild.StartInfo.CreateNoWindow = True
+                    oChildProcesses.Add(oCurrentProcess, prsChild)
+                Else
+                    UpdateLog(mgrCommon.FormatString(frmMain_ProcessAlreadyRunning, New String() {oCurrentProcess.Name, iRunningPid}), False)
+                End If
             Next
         End If
 
@@ -2883,7 +2899,7 @@ Public Class frmMain
     End Sub
 
     Private Sub AutoRestoreEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmRestoreCheck.Elapsed
-        If eCurrentStatus <> eStatus.Paused Then
+        If eCurrentOperation = eOperation.None And eCurrentStatus <> eStatus.Paused Then
             AutoRestoreCheck()
         End If
     End Sub
@@ -2985,16 +3001,21 @@ Public Class frmMain
 
         Try
             Do While Not (oProcess.FoundProcess.HasExited Or bwMonitor.CancellationPending)
-                System.Threading.Thread.Sleep(10000)
                 If Not oProcess.Duplicate And oProcess.GameInfo.UseWindowTitle Then
-                    'We need a new instance of the process each time we check if the window title has changed.
-                    oCheckProcess = Process.GetProcessById(oProcess.FoundProcess.Id)
-                    'If we are matching via a window title, we'll stop monitoring when the window title no longer matches or when the process ends
-                    If Not mgrProcessDetection.IsMatch(oProcess.GameInfo, oCheckProcess.MainWindowTitle) Then
+                    Try
+                        'We need a new instance of the process each time we check if the window title has changed.
+                        oCheckProcess = Process.GetProcessById(oProcess.FoundProcess.Id)
+                        'If we are matching via a window title, we'll stop monitoring when the window title no longer matches or when the process ends
+                        If Not mgrProcessDetection.IsMatch(oProcess.GameInfo, oCheckProcess.MainWindowTitle) Then
+                            Exit Do
+                        End If
+                        oCheckProcess.Dispose()
+                    Catch exArg As ArgumentException
+                        'An argument exception here indicates the process ended before we could get another instance of it, we can proceed normally.
                         Exit Do
-                    End If
-                    oCheckProcess.Dispose()
+                    End Try
                 End If
+                System.Threading.Thread.Sleep(10000)
             Loop
             If bwMonitor.CancellationPending Then
                 bDetectionCancelled = True

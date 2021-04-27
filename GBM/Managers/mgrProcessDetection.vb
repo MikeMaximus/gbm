@@ -12,7 +12,9 @@ Public Class mgrProcessDetection
     Private oWineData As clsWineData
     Private oDuplicateGames As New ArrayList
     Private bDuplicates As Boolean
-    Private bVerified As Boolean = False
+    Private bVerify As Boolean = False
+    Private iVerifyPid As Integer = -1
+    Private sVerifyName As String = String.Empty
 
     Property FoundProcess As Process
         Get
@@ -362,6 +364,8 @@ Public Class mgrProcessDetection
             End If
 
             If oDetectedGames.Count > 0 Then
+                If bDebugMode Then DebugDumpDetectedProcess(prsCurrent)
+
                 Try
                     If Not bWineProcess Then
                         oGame.ProcessPath = Path.GetDirectoryName(prsCurrent.MainModule.FileName)
@@ -384,19 +388,58 @@ Public Class mgrProcessDetection
                     Return False
                 End Try
 
-                'This will force two cycles for detection to try and prevent issues with UAC prompt
-                If Not bVerified Then
-                    bVerified = True
-                    Return False
+                'When two pass detection is enabled, the same process needs to be detected on two seperate passes to trigger GBM.
+                'Two pass detection is slower, but prevents issues with the Windows UAC prompt and makes detection more reliable in general.
+                If mgrSettings.TwoPassDetection Then
+                    If bVerify Then
+                        'Check if it's still the same process on the second pass
+                        If iVerifyPid = prsCurrent.Id And sVerifyName = prsCurrent.ProcessName Then
+                            bVerify = False
+                        End If
+
+                        'Reset on success or failure
+                        iVerifyPid = -1
+                        sVerifyName = String.Empty
+
+                        If Not bVerify Then
+                            Return True
+                        Else
+                            bVerify = False
+                            Return False
+                        End If
+                    Else
+                        iVerifyPid = prsCurrent.Id
+                        sVerifyName = prsCurrent.ProcessName
+                        bVerify = True
+                        Return False
+                    End If
                 Else
-                    If bDebugMode Then DebugDumpDetectedProcess(prsCurrent)
-                    bVerified = False
                     Return True
                 End If
             End If
         Next
 
         Return False
+    End Function
+
+    Public Shared Function CheckForRunningProcess(ByVal sPath As String) As Integer
+        Dim prsList() As Process = Process.GetProcesses
+        Dim sProcessCheck As String = String.Empty
+
+        For Each prsCurrent As Process In prsList
+            Try
+                'Some processes may return the ProcessName as a full path instead of the executable name.
+                sProcessCheck = Path.GetFileName(prsCurrent.ProcessName)
+            Catch ex As Exception
+                'Do Nothing
+            End Try
+
+            If Path.GetFileNameWithoutExtension(sPath) = sProcessCheck Then
+                Return prsCurrent.Id
+            End If
+        Next
+
+        Return -1
     End Function
 
 End Class

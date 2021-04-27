@@ -77,7 +77,8 @@ Public Class mgrSQLite
                    "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL, SessionTracking BOOLEAN NOT NULL, " &
                    "SuppressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL, UseGameID BOOLEAN NOT NULL, DisableSyncMessages BOOLEAN NOT NULL, ShowResolvedPaths BOOLEAN NOT NULL, " &
                    "DisableDiskSpaceCheck BOOLEAN NOT NULL, TemporaryFolder TEXT, ExitOnClose BOOLEAN NOT NULL, ExitNoWarning BOOLEAN NOT NULL, EnableLauncher BOOLEAN NOT NULL, " &
-                   "MainHideGameList BOOLEAN NOT NULL, MainHideButtons BOOLEAN NOT NULL, MainHideLog BOOLEAN NOT NULL, BackupNotification BOOLEAN NOT NULL, DetectionSpeed INTEGER NOT NULL);"
+                   "MainHideGameList BOOLEAN NOT NULL, MainHideButtons BOOLEAN NOT NULL, MainHideLog BOOLEAN NOT NULL, BackupNotification BOOLEAN NOT NULL, DetectionSpeed INTEGER NOT NULL, " &
+                   "TwoPassDetection BOOLEAN NOT NULL);"
 
             'Add Tables (SavedPath)
             sSql &= "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
@@ -117,7 +118,7 @@ Public Class mgrSQLite
             sSql &= "CREATE TABLE configlinks (MonitorID TEXT NOT NULL, LinkID TEXT NOT NULL, PRIMARY KEY(MonitorID, LinkID)); "
 
             'Add Tables (Launchers)
-            sSql &= "CREATE TABLE launchers (LauncherID	TEXT NOT NULL PRIMARY KEY, Name	TEXT NOT NULL, LaunchString	TEXT NOT NULL);"
+            sSql &= "CREATE TABLE launchers (LauncherID	TEXT NOT NULL PRIMARY KEY, Name	TEXT NOT NULL, LaunchString	TEXT NOT NULL, Uri BOOLEAN NOT NULL, Args TEXT NOT NULL);"
 
             'Add Tables (Launch Data)
             sSql &= "CREATE TABLE launchdata (MonitorID	TEXT NOT NULL PRIMARY KEY, Path	TEXT NOT NULL, Args TEXT NOT NULL, NoArgs BOOLEAN NOT NULL, LauncherID TEXT NOT NULL, LauncherGameID TEXT NOT NULL);"
@@ -1114,8 +1115,6 @@ Public Class mgrSQLite
                 sSQL &= "PRAGMA user_version=126"
 
                 RunParamQuery(sSQL, New Hashtable)
-
-                CompactDatabase()
             End If
             If eDatabase = Database.Remote Then
                 'Backup DB before starting
@@ -1124,8 +1123,36 @@ Public Class mgrSQLite
                 sSQL = "PRAGMA user_version=126"
 
                 RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
 
-                CompactDatabase()
+        '1.27 Upgrade
+        If GetDatabaseVersion() < 127 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v126")
+
+                'Add new setting
+                sSQL = "ALTER TABLE settings ADD COLUMN TwoPassDetection BOOLEAN NOT NULL DEFAULT 1;"
+
+                'Add new launcher options
+                sSQL &= "ALTER TABLE launchers ADD COLUMN Uri BOOLEAN NOT NULL DEFAULT 1;"
+                sSQL &= "ALTER TABLE launchers ADD COLUMN Args TEXT NOT NULL DEFAULT '';"
+
+                sSQL &= "PRAGMA user_version=127"
+
+                RunParamQuery(sSQL, New Hashtable)
+
+                'Add new default data
+                mgrLaunchers.AddDefaultLaunchers()
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v126")
+
+                sSQL = "PRAGMA user_version=127"
+
+                RunParamQuery(sSQL, New Hashtable)
             End If
         End If
     End Sub

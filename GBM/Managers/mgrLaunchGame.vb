@@ -111,6 +111,27 @@ Public Class mgrLaunchGame
         Return sLaunchPath
     End Function
 
+    Private Shared Function HandleLauncherVariables(ByVal oGame As clsGame, ByVal oLauncher As clsLauncher, ByVal oLaunchData As clsLaunchData) As String
+        Dim sCommandString As String
+
+        'Choose the proper string to handle based on launcher type
+        If oLauncher.IsUri Then
+            sCommandString = oLauncher.LaunchString
+        Else
+            sCommandString = oLauncher.LaunchParameters
+        End If
+
+        'Handle supported variables
+        sCommandString = sCommandString.Replace("%ID%", oLaunchData.LauncherGameID)
+        sCommandString = sCommandString.Replace("%INTERNALID%", oGame.ID)
+        sCommandString = sCommandString.Replace("%NAME%", oGame.Name)
+        sCommandString = sCommandString.Replace("%PROCESS%", oGame.ProcessName)
+        sCommandString = sCommandString.Replace("%PARAMETER%", oGame.Parameter)
+        sCommandString = sCommandString.Replace("%GAMEPATH%", oGame.ProcessPath)
+
+        Return sCommandString
+    End Function
+
     Public Shared Function LaunchGame(ByVal oGame As clsGame, ByVal oLaunchData As clsLaunchData, ByVal eLaunchType As eLaunchType, ByRef sMessage As String) As Boolean
         Dim oLauncher As clsLauncher
         Dim sLaunchCommand As String
@@ -120,15 +141,17 @@ Public Class mgrLaunchGame
         Select Case eLaunchType
             Case eLaunchType.ExternalLauncher
                 oLauncher = mgrLaunchers.DoLauncherGetbyID(oLaunchData.LauncherID)
-                'Replace the ID variable if it exists, if not append it to the command.
-                If oLauncher.LaunchString.Contains("%ID%") Then
-                    sLaunchCommand = oLauncher.LaunchString.Replace("%ID%", oLaunchData.LauncherGameID)
+                sLaunchCommand = HandleLauncherVariables(oGame, oLauncher, oLaunchData)
+                If oLauncher.IsUri Then
+                    mgrCommon.OpenInOS(sLaunchCommand,, True)
+                    sMessage = mgrCommon.FormatString(frmMain_LaunchGame, New String() {oGame.Name, oLauncher.Name})
+                    Return True
                 Else
-                    sLaunchCommand = oLauncher.LaunchString & oLaunchData.LauncherGameID
+                    If RunGameExecutable(oLauncher.LaunchString, sLaunchCommand) Then
+                        sMessage = mgrCommon.FormatString(frmMain_LaunchGame, New String() {oGame.Name, oLauncher.Name})
+                        Return True
+                    End If
                 End If
-                mgrCommon.OpenInOS(sLaunchCommand,, True)
-                sMessage = mgrCommon.FormatString(frmMain_LaunchGame, New String() {oGame.Name, oLauncher.Name})
-                Return True
             Case eLaunchType.AlternateExe
                 If RunGameExecutable(oLaunchData.Path, sLaunchArgs) Then
                     sMessage = mgrCommon.FormatString(frmMain_LaunchGame, New String() {oGame.Name, oLaunchData.Path})
@@ -153,11 +176,9 @@ Public Class mgrLaunchGame
         Select Case eLaunchType
             Case eLaunchType.ExternalLauncher
                 oLauncher = mgrLaunchers.DoLauncherGetbyID(oLaunchData.LauncherID)
-                'Replace the ID variable if it exists, if not append it to the command.
-                If oLauncher.LaunchString.Contains("%ID%") Then
-                    sLaunchCommand = oLauncher.LaunchString.Replace("%ID%", oLaunchData.LauncherGameID)
-                Else
-                    sLaunchCommand = oLauncher.LaunchString & oLaunchData.LauncherGameID
+                sLaunchCommand = HandleLauncherVariables(oGame, oLauncher, oLaunchData)
+                If Not oLauncher.IsUri Then
+                    sLaunchCommand = oLauncher.LaunchString & " " & sLaunchCommand
                 End If
                 Return sLaunchCommand
             Case eLaunchType.AlternateExe

@@ -1,4 +1,5 @@
 ﻿Imports GBM.My.Resources
+Imports System.IO
 
 Public Class frmLauncherManager
     Dim hshLauncherData As Hashtable
@@ -78,8 +79,11 @@ Public Class frmLauncherManager
         oCurrentLauncher = DirectCast(LauncherData(lstLaunchers.SelectedItems(0).ToString), clsLauncher)
 
         txtID.Text = oCurrentLauncher.LauncherID
+        optURI.Checked = oCurrentLauncher.IsUri
+        optExecutable.Checked = Not oCurrentLauncher.IsUri
         txtName.Text = oCurrentLauncher.Name
         txtLaunchString.Text = oCurrentLauncher.LaunchString
+        txtLaunchParameters.Text = oCurrentLauncher.LaunchParameters
 
         IsLoading = False
     End Sub
@@ -96,6 +100,9 @@ Public Class frmLauncherManager
             If TypeOf ctl Is TextBox Then
                 AddHandler DirectCast(ctl, TextBox).TextChanged, AddressOf DirtyCheck_ValueChanged
             End If
+            If TypeOf ctl Is RadioButton Then
+                AddHandler DirectCast(ctl, RadioButton).CheckedChanged, AddressOf DirtyCheck_ValueChanged
+            End If
         Next
     End Sub
 
@@ -106,6 +113,28 @@ Public Class frmLauncherManager
             End If
         Next
         txtID.Text = String.Empty
+        optURI.Checked = True
+    End Sub
+
+    Private Sub LauncherBrowse()
+        Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+        Dim sCurrentPath As String = Path.GetDirectoryName(txtLaunchString.Text)
+        Dim sNewPath As String
+        Dim oExtensions As New SortedList
+
+        If sCurrentPath <> String.Empty Then
+            If Directory.Exists(sCurrentPath) Then
+                sDefaultFolder = sCurrentPath
+            End If
+        End If
+
+        oExtensions.Add(frmLauncherManager_Executable, "exe")
+        sNewPath = mgrCommon.OpenFileBrowser("LM_LaunchString", frmLauncherManager_ChooseLauncherExe, oExtensions, 1, sDefaultFolder, False)
+
+        If sNewPath <> String.Empty Then
+            txtLaunchString.Text = sNewPath
+        End If
+
     End Sub
 
     Private Sub ModeChange()
@@ -113,6 +142,7 @@ Public Class frmLauncherManager
 
         Select Case eCurrentMode
             Case eModes.Add
+                grpLauncherType.Enabled = True
                 grpLauncher.Enabled = True
                 WipeControls(grpLauncher.Controls)
                 btnSave.Enabled = True
@@ -122,6 +152,7 @@ Public Class frmLauncherManager
                 lstLaunchers.Enabled = False
             Case eModes.Edit
                 lstLaunchers.Enabled = False
+                grpLauncherType.Enabled = True
                 grpLauncher.Enabled = True
                 btnSave.Enabled = True
                 btnCancel.Enabled = True
@@ -129,6 +160,7 @@ Public Class frmLauncherManager
                 btnDelete.Enabled = False
             Case eModes.View
                 lstLaunchers.Enabled = True
+                grpLauncherType.Enabled = True
                 grpLauncher.Enabled = True
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
@@ -137,6 +169,7 @@ Public Class frmLauncherManager
             Case eModes.Disabled
                 lstLaunchers.Enabled = True
                 WipeControls(grpLauncher.Controls)
+                grpLauncherType.Enabled = False
                 grpLauncher.Enabled = False
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
@@ -145,6 +178,20 @@ Public Class frmLauncherManager
         End Select
 
         IsLoading = False
+    End Sub
+
+    Private Sub LauncherTypeChange()
+        If optURI.Checked Then
+            lblCommand.Text = frmLauncherManager_lblCommand
+            btnLauncherBrowse.Enabled = False
+            lblParameters.Enabled = False
+            txtLaunchParameters.Enabled = False
+        Else
+            lblCommand.Text = frmLauncherManager_lblCommandAlt
+            btnLauncherBrowse.Enabled = True
+            lblParameters.Enabled = True
+            txtLaunchParameters.Enabled = True
+        End If
     End Sub
 
     Private Sub EditLauncher()
@@ -196,8 +243,10 @@ Public Class frmLauncherManager
         If txtID.Text <> String.Empty Then
             oLauncher.LauncherID = txtID.Text
         End If
+        oLauncher.IsUri = optURI.Checked
         oLauncher.Name = txtName.Text
         oLauncher.LaunchString = txtLaunchString.Text
+        oLauncher.LaunchParameters = txtLaunchParameters.Text
 
         Select Case eCurrentMode
             Case eModes.Add
@@ -257,13 +306,18 @@ Public Class frmLauncherManager
             txtLaunchString.Focus()
             Return False
         Else
-            If Not mgrCommon.IsURI(txtLaunchString.Text) Then
-                mgrCommon.ShowMessage(frmLauncherManager_ErrorInvalidURI, MsgBoxStyle.Exclamation)
-                txtLaunchString.Focus()
-                Return False
-            End If
-            If Not txtLaunchString.Text.Contains("%ID%") Then
-                mgrCommon.ShowMessage(frmLauncherManager_WarningMissingVariable, MsgBoxStyle.Information)
+            If optURI.Checked Then
+                If Not mgrCommon.IsURI(txtLaunchString.Text) Then
+                    mgrCommon.ShowMessage(frmLauncherManager_ErrorInvalidURI, MsgBoxStyle.Exclamation)
+                    txtLaunchString.Focus()
+                    Return False
+                End If
+            Else
+                If txtLaunchParameters.Text.Trim = String.Empty Then
+                    mgrCommon.ShowMessage(frmLauncherManager_ErrorValidParameters, MsgBoxStyle.Exclamation)
+                    txtLaunchParameters.Focus()
+                    Return False
+                End If
             End If
         End If
 
@@ -286,8 +340,12 @@ Public Class frmLauncherManager
         btnCancel.Image = Multi_Cancel
         btnSave.Text = frmLauncherManager_btnSave
         btnSave.Image = Multi_Save
+        grpLauncherType.Text = frmLauncherManager_grpLauncherType
+        optURI.Text = frmLauncherManager_optURI
+        optExecutable.Text = frmLauncherManager_optExecutable
         grpLauncher.Text = frmLauncherManager_grpLauncher
         lblCommand.Text = frmLauncherManager_lblCommand
+        lblParameters.Text = frmLauncherManager_lblParameters
         lblName.Text = frmLauncherManager_lblName
         btnDelete.Text = frmLauncherManager_btnDelete
         btnDelete.Image = Multi_Delete
@@ -301,6 +359,7 @@ Public Class frmLauncherManager
         SetForm()
         LoadData()
         ModeChange()
+        AssignDirtyHandlers(grpLauncherType.Controls)
         AssignDirtyHandlers(grpLauncher.Controls)
     End Sub
 
@@ -322,6 +381,14 @@ Public Class frmLauncherManager
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         CancelEdit()
+    End Sub
+
+    Private Sub btnLauncherBrowse_Click(sender As Object, e As EventArgs) Handles btnLauncherBrowse.Click
+        LauncherBrowse()
+    End Sub
+
+    Private Sub optURI_CheckedChanged(sender As Object, e As EventArgs) Handles optURI.CheckedChanged
+        LauncherTypeChange()
     End Sub
 
     Private Sub btnAddDefaults_Click(sender As Object, e As EventArgs) Handles btnAddDefaults.Click

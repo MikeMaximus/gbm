@@ -23,6 +23,9 @@ Partial Class frmLauncherManager
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.grpLauncher = New System.Windows.Forms.GroupBox()
+        Me.btnLauncherBrowse = New System.Windows.Forms.Button()
+        Me.txtLaunchParameters = New System.Windows.Forms.TextBox()
+        Me.lblParameters = New System.Windows.Forms.Label()
         Me.txtName = New System.Windows.Forms.TextBox()
         Me.txtLaunchString = New System.Windows.Forms.TextBox()
         Me.lblCommand = New System.Windows.Forms.Label()
@@ -34,35 +37,67 @@ Partial Class frmLauncherManager
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnAddDefaults = New System.Windows.Forms.Button()
+        Me.grpLauncherType = New System.Windows.Forms.GroupBox()
+        Me.optExecutable = New System.Windows.Forms.RadioButton()
+        Me.optURI = New System.Windows.Forms.RadioButton()
         Me.grpLauncher.SuspendLayout()
+        Me.grpLauncherType.SuspendLayout()
         Me.SuspendLayout()
         '
         'grpLauncher
         '
+        Me.grpLauncher.Controls.Add(Me.btnLauncherBrowse)
+        Me.grpLauncher.Controls.Add(Me.txtLaunchParameters)
+        Me.grpLauncher.Controls.Add(Me.lblParameters)
         Me.grpLauncher.Controls.Add(Me.txtName)
         Me.grpLauncher.Controls.Add(Me.txtLaunchString)
         Me.grpLauncher.Controls.Add(Me.lblCommand)
         Me.grpLauncher.Controls.Add(Me.lblName)
-        Me.grpLauncher.Location = New System.Drawing.Point(210, 12)
+        Me.grpLauncher.Location = New System.Drawing.Point(210, 55)
         Me.grpLauncher.Name = "grpLauncher"
-        Me.grpLauncher.Size = New System.Drawing.Size(362, 78)
-        Me.grpLauncher.TabIndex = 4
+        Me.grpLauncher.Size = New System.Drawing.Size(362, 104)
+        Me.grpLauncher.TabIndex = 5
         Me.grpLauncher.TabStop = False
         Me.grpLauncher.Text = "Configuration"
+        '
+        'btnLauncherBrowse
+        '
+        Me.btnLauncherBrowse.Location = New System.Drawing.Point(326, 45)
+        Me.btnLauncherBrowse.Name = "btnLauncherBrowse"
+        Me.btnLauncherBrowse.Size = New System.Drawing.Size(30, 20)
+        Me.btnLauncherBrowse.TabIndex = 4
+        Me.btnLauncherBrowse.Text = "..."
+        Me.btnLauncherBrowse.UseVisualStyleBackColor = True
+        '
+        'txtLaunchParameters
+        '
+        Me.txtLaunchParameters.Location = New System.Drawing.Point(72, 71)
+        Me.txtLaunchParameters.Name = "txtLaunchParameters"
+        Me.txtLaunchParameters.Size = New System.Drawing.Size(284, 20)
+        Me.txtLaunchParameters.TabIndex = 6
+        '
+        'lblParameters
+        '
+        Me.lblParameters.AutoSize = True
+        Me.lblParameters.Location = New System.Drawing.Point(6, 74)
+        Me.lblParameters.Name = "lblParameters"
+        Me.lblParameters.Size = New System.Drawing.Size(63, 13)
+        Me.lblParameters.TabIndex = 5
+        Me.lblParameters.Text = "Parameters:"
         '
         'txtName
         '
         Me.txtName.Location = New System.Drawing.Point(72, 19)
         Me.txtName.Name = "txtName"
         Me.txtName.Size = New System.Drawing.Size(284, 20)
-        Me.txtName.TabIndex = 0
+        Me.txtName.TabIndex = 1
         '
         'txtLaunchString
         '
         Me.txtLaunchString.Location = New System.Drawing.Point(72, 45)
         Me.txtLaunchString.Name = "txtLaunchString"
-        Me.txtLaunchString.Size = New System.Drawing.Size(284, 20)
-        Me.txtLaunchString.TabIndex = 1
+        Me.txtLaunchString.Size = New System.Drawing.Size(248, 20)
+        Me.txtLaunchString.TabIndex = 3
         '
         'lblCommand
         '
@@ -70,7 +105,7 @@ Partial Class frmLauncherManager
         Me.lblCommand.Location = New System.Drawing.Point(6, 48)
         Me.lblCommand.Name = "lblCommand"
         Me.lblCommand.Size = New System.Drawing.Size(57, 13)
-        Me.lblCommand.TabIndex = 0
+        Me.lblCommand.TabIndex = 2
         Me.lblCommand.Text = "Command:"
         '
         'lblName
@@ -118,7 +153,7 @@ Partial Class frmLauncherManager
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(539, 96)
+        Me.txtID.Location = New System.Drawing.Point(407, 178)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(33, 20)
         Me.txtID.TabIndex = 0
@@ -131,7 +166,7 @@ Partial Class frmLauncherManager
         Me.btnCancel.Location = New System.Drawing.Point(512, 165)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(60, 45)
-        Me.btnCancel.TabIndex = 6
+        Me.btnCancel.TabIndex = 7
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
@@ -142,7 +177,7 @@ Partial Class frmLauncherManager
         Me.btnSave.Location = New System.Drawing.Point(446, 165)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(60, 45)
-        Me.btnSave.TabIndex = 5
+        Me.btnSave.TabIndex = 6
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnSave.UseVisualStyleBackColor = True
@@ -158,11 +193,45 @@ Partial Class frmLauncherManager
         Me.btnAddDefaults.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnAddDefaults.UseVisualStyleBackColor = True
         '
+        'grpLauncherType
+        '
+        Me.grpLauncherType.Controls.Add(Me.optExecutable)
+        Me.grpLauncherType.Controls.Add(Me.optURI)
+        Me.grpLauncherType.Location = New System.Drawing.Point(210, 12)
+        Me.grpLauncherType.Name = "grpLauncherType"
+        Me.grpLauncherType.Size = New System.Drawing.Size(362, 37)
+        Me.grpLauncherType.TabIndex = 4
+        Me.grpLauncherType.TabStop = False
+        Me.grpLauncherType.Text = "Launcher Type"
+        '
+        'optExecutable
+        '
+        Me.optExecutable.AutoSize = True
+        Me.optExecutable.Location = New System.Drawing.Point(59, 14)
+        Me.optExecutable.Name = "optExecutable"
+        Me.optExecutable.Size = New System.Drawing.Size(78, 17)
+        Me.optExecutable.TabIndex = 1
+        Me.optExecutable.TabStop = True
+        Me.optExecutable.Text = "Executable"
+        Me.optExecutable.UseVisualStyleBackColor = True
+        '
+        'optURI
+        '
+        Me.optURI.AutoSize = True
+        Me.optURI.Location = New System.Drawing.Point(9, 14)
+        Me.optURI.Name = "optURI"
+        Me.optURI.Size = New System.Drawing.Size(44, 17)
+        Me.optURI.TabIndex = 0
+        Me.optURI.TabStop = True
+        Me.optURI.Text = "URI"
+        Me.optURI.UseVisualStyleBackColor = True
+        '
         'frmLauncherManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(584, 221)
+        Me.Controls.Add(Me.grpLauncherType)
         Me.Controls.Add(Me.btnAddDefaults)
         Me.Controls.Add(Me.grpLauncher)
         Me.Controls.Add(Me.btnDelete)
@@ -179,6 +248,8 @@ Partial Class frmLauncherManager
         Me.Text = "Launcher Manager"
         Me.grpLauncher.ResumeLayout(False)
         Me.grpLauncher.PerformLayout()
+        Me.grpLauncherType.ResumeLayout(False)
+        Me.grpLauncherType.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -196,4 +267,10 @@ Partial Class frmLauncherManager
     Friend WithEvents btnCancel As Button
     Friend WithEvents btnSave As Button
     Friend WithEvents btnAddDefaults As Button
+    Friend WithEvents txtLaunchParameters As TextBox
+    Friend WithEvents lblParameters As Label
+    Friend WithEvents grpLauncherType As GroupBox
+    Friend WithEvents optExecutable As RadioButton
+    Friend WithEvents optURI As RadioButton
+    Friend WithEvents btnLauncherBrowse As Button
 End Class

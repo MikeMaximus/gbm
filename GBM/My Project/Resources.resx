@@ -2202,12 +2202,6 @@
   <data name="frmSettings_ErrorLinuxAutoStart" xml:space="preserve">
     <value>An error occured while configuring autostart:[BR][BR][PARAM]</value>
   </data>
-  <data name="mgrBackup_ErrorRegBackupElevation" xml:space="preserve">
-    <value>[PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to perform this backup.</value>
-  </data>
-  <data name="mgrBackup_ErrorRegBackupFailed" xml:space="preserve">
-    <value>The backup has failed, please ensure the registry path is correct.</value>
-  </data>
   <data name="mgrBackup_ErrorRegNotFound" xml:space="preserve">
     <value>The utility reg.exe could not be located at [PARAM].  The backup cannot continue.</value>
   </data>
@@ -2219,9 +2213,6 @@
   </data>
   <data name="mgrRestore_ErrorWineNotFound" xml:space="preserve">
     <value>The wine binary could not be located at [PARAM].  The restore cannot continue.</value>
-  </data>
-  <data name="mgrRestore_ErrorRegBackupElevation" xml:space="preserve">
-    <value>[PARAM] stores saved games in the Windows registry, accessing the registry requires elevated permissions.  Please restart GBM as Administrator to restore this backup.</value>
   </data>
   <data name="frmMain_ErrorLinuxAutoStartLinkMissing" xml:space="preserve">
     <value>GBM is set to start automatically, but the desktop link is missing.  Automatic start has been disabled,  please re-install GBM using a package manager or the makefile.</value>
@@ -2503,9 +2494,6 @@
   <data name="frmLauncherManager_lblName" xml:space="preserve">
     <value>Name:</value>
   </data>
-  <data name="frmLauncherManager_WarningMissingVariable" xml:space="preserve">
-    <value>The launch command is missing the %ID% variable.[BR][BR]When the variable is missing, GBM will assume it belongs at the end of the command string.[BR][BR]Please see the manual for more details.</value>
-  </data>
   <data name="frmLaunchConfiguration_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>
   </data>
@@ -2519,7 +2507,7 @@
     <value>The executable cannot be found.</value>
   </data>
   <data name="frmLaunchConfiguration_ErrorNoGameID" xml:space="preserve">
-    <value>A game ID is required when using a store launcher.</value>
+    <value>A valid Game ID is required to use [PARAM].</value>
   </data>
   <data name="frmLaunchConfiguration_Executable" xml:space="preserve">
     <value>Executable</value>
@@ -2531,7 +2519,7 @@
     <value>Alternate Configuration</value>
   </data>
   <data name="frmLaunchConfiguration_grpStoreLauncher" xml:space="preserve">
-    <value>Store Launcher Configuration</value>
+    <value>Launcher Configuration</value>
   </data>
   <data name="frmLaunchConfiguration_lblArguments" xml:space="preserve">
     <value>Parameters:</value>
@@ -2951,6 +2939,48 @@
     <value>Incomplete backup operations ([PARAM]) are being automatically resumed.</value>
   </data>
   <data name="frmMain_ErrorCriticalDetectionFailure" xml:space="preserve">
-    <value>An unexpected error has occured while detecting [PARAM], detection will be stopped.</value>
+    <value>An unexpected error has occured while monitoring [PARAM], detection will be stopped.</value>
+  </data>
+  <data name="frmSettings_chkTwoPassDetection" xml:space="preserve">
+    <value>Two-Pass Detection</value>
+  </data>
+  <data name="frmMain_ProcessAlreadyRunning" xml:space="preserve">
+    <value>[PARAM] (Process ID: [PARAM]) is already running.</value>
+  </data>
+  <data name="frmLauncherManager_ChooseLauncherExe" xml:space="preserve">
+    <value>Choose the executable of the launcher</value>
+  </data>
+  <data name="frmLauncherManager_ErrorValidParameters" xml:space="preserve">
+    <value>Launch parameters are required when the launcher is an Executable type.</value>
+  </data>
+  <data name="frmLauncherManager_Executable" xml:space="preserve">
+    <value>Executable</value>
+  </data>
+  <data name="frmLauncherManager_grpLauncherType" xml:space="preserve">
+    <value>Launcher Type</value>
+  </data>
+  <data name="frmLauncherManager_lblParameters" xml:space="preserve">
+    <value>Parameters</value>
+  </data>
+  <data name="frmLauncherManager_optExecutable" xml:space="preserve">
+    <value>Executable</value>
+  </data>
+  <data name="frmLauncherManager_optURI" xml:space="preserve">
+    <value>URI</value>
+  </data>
+  <data name="mgrLaunchers_Galaxy" xml:space="preserve">
+    <value>GOG Galaxy</value>
+  </data>
+  <data name="mgrLaunchers_GalaxyArgs" xml:space="preserve">
+    <value>/command=runGame /gameId=%ID% /path="%GAMEPATH%"</value>
+  </data>
+  <data name="mgrLaunchers_GalaxyDefaultLocation" xml:space="preserve">
+    <value>C:\Program Files (x86)\GOG Galaxy\GalaxyClient.exe</value>
+  </data>
+  <data name="frmLauncherManager_lblCommandAlt" xml:space="preserve">
+    <value>Executable:</value>
+  </data>
+  <data name="mgrBackup_ErrorRegBackupFailed" xml:space="preserve">
+    <value>The backup has failed, please ensure the registry path is correct.</value>
   </data>
 </root>
