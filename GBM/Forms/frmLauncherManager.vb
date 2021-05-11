@@ -118,9 +118,13 @@ Public Class frmLauncherManager
 
     Private Sub LauncherBrowse()
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
-        Dim sCurrentPath As String = Path.GetDirectoryName(txtLaunchString.Text)
+        Dim sCurrentPath As String = String.Empty
         Dim sNewPath As String
         Dim oExtensions As New SortedList
+
+        If txtLaunchString.Text <> String.Empty Then
+            sCurrentPath = Path.GetDirectoryName(txtLaunchString.Text)
+        End If
 
         If sCurrentPath <> String.Empty Then
             If Directory.Exists(sCurrentPath) Then
