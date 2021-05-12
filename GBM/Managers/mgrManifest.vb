@@ -13,6 +13,8 @@
         oBackupItem.DateUpdated = mgrCommon.UnixToDate(dr("DateUpdated"))
         oBackupItem.UpdatedBy = CStr(dr("UpdatedBy"))
         If Not IsDBNull(dr("CheckSum")) Then oBackupItem.CheckSum = CStr(dr("CheckSum"))
+        oBackupItem.IsDifferentialParent = CBool(dr("IsDifferentialParent"))
+        oBackupItem.DifferentialParent = CStr(dr("DifferentialParent"))
 
         Return oBackupItem
     End Function
@@ -26,6 +28,8 @@
         hshParams.Add("DateUpdated", oBackupItem.DateUpdatedUnix)
         hshParams.Add("UpdatedBy", oBackupItem.UpdatedBy)
         hshParams.Add("CheckSum", oBackupItem.CheckSum)
+        hshParams.Add("IsDifferentialParent", oBackupItem.IsDifferentialParent)
+        hshParams.Add("DifferentialParent", oBackupItem.DifferentialParent)
 
         Return hshParams
     End Function
@@ -165,13 +169,16 @@
         Dim hshParams As New Hashtable
 
         sSQL = "SELECT ManifestID FROM manifest "
-        sSQL &= "WHERE MonitorID = @MonitorID AND FileName = @FileName AND DateUpdated = @DateUpdated AND UpdatedBy = @UpdatedBy AND CheckSum=@CheckSum LIMIT 1;"
+        sSQL &= "WHERE MonitorID = @MonitorID AND FileName = @FileName AND DateUpdated = @DateUpdated AND UpdatedBy = @UpdatedBy AND CheckSum=@CheckSum AND "
+        sSQL &= "IsDifferentialParent = @IsDifferentialParent AND DifferentialParent=@DifferentialParent LIMIT 1;"
 
         hshParams.Add("MonitorID", oItem.MonitorID)
         hshParams.Add("FileName", oItem.FileName)
         hshParams.Add("DateUpdated", oItem.DateUpdatedUnix)
         hshParams.Add("UpdatedBy", oItem.UpdatedBy)
         hshParams.Add("CheckSum", oItem.CheckSum)
+        hshParams.Add("IsDifferentialParent", oItem.IsDifferentialParent)
+        hshParams.Add("DifferentialParent", oItem.DifferentialParent)
 
         oData = oDatabase.ReadSingleValue(sSQL, hshParams)
 
@@ -188,7 +195,7 @@
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "INSERT INTO manifest VALUES (@ManifestID, @MonitorID, @FileName, @DateUpdated, @UpdatedBy, @CheckSum)"
+        sSQL = "INSERT INTO manifest VALUES (@ManifestID, @MonitorID, @FileName, @DateUpdated, @UpdatedBy, @CheckSum, @IsDifferentialParent, @DifferentialParent)"
 
         hshParams = SetCoreParameters(oBackupItem)
 
@@ -201,7 +208,7 @@
         Dim hshParams As Hashtable
 
         sSQL = "UPDATE manifest SET MonitorID = @MonitorID, FileName = @FileName, DateUpdated = @DateUpdated, "
-        sSQL &= "UpdatedBy = @UpdatedBy, CheckSum = @CheckSum WHERE MonitorID = @QueryID"
+        sSQL &= "UpdatedBy = @UpdatedBy, CheckSum = @CheckSum, @IsDifferentialParent, @DifferentialParent WHERE MonitorID = @QueryID"
 
         hshParams = SetCoreParameters(oBackupItem)
         hshParams.Add("QueryID", oBackupItem.MonitorID)
@@ -215,7 +222,7 @@
         Dim hshParams As Hashtable
 
         sSQL = "UPDATE manifest SET MonitorID = @MonitorID, FileName = @FileName, DateUpdated = @DateUpdated, "
-        sSQL &= "UpdatedBy = @UpdatedBy, CheckSum = @CheckSum WHERE ManifestID = @QueryID"
+        sSQL &= "UpdatedBy = @UpdatedBy, CheckSum = @CheckSum, IsDifferentialParent = @IsDifferentialParent, DifferentialParent = @DifferentialParent WHERE ManifestID = @QueryID"
 
         hshParams = SetCoreParameters(oBackupItem)
         hshParams.Add("QueryID", oBackupItem.ManifestID)

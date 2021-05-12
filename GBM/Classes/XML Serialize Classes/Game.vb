@@ -15,6 +15,7 @@
     Private bRecurseSubFolders As Boolean
     Private iOS As clsGame.eOS
     Private bUseWindowTitle As Boolean
+    Private bDifferential As Boolean
     Private oTags As List(Of Tag)
     Private oConfigLinks As List(Of ConfigLink)
 
@@ -162,6 +163,15 @@
         End Get
     End Property
 
+    Property Differential As Boolean
+        Set(value As Boolean)
+            bDifferential = value
+        End Set
+        Get
+            Return bDifferential
+        End Get
+    End Property
+
     Property Tags As List(Of Tag)
         Get
             Return oTags
@@ -198,6 +208,7 @@
         oGame.RecurseSubFolders = RecurseSubFolders
         oGame.OS = OS
         oGame.UseWindowTitle = UseWindowTitle
+        oGame.Differential = Differential
         oGame.ImportTags = Tags
         oGame.ImportConfigLinks = ConfigLinks
 

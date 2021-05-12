@@ -87,7 +87,7 @@ Public Class mgrSQLite
             sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, FolderSave BOOLEAN NOT NULL, FileType TEXT, 
                     TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, 
                     MonitorOnly BOOLEAN NOT NULL, BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, 
-                    RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL, UseWindowTitle BOOLEAN NOT NULL);"
+                    RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL, UseWindowTitle BOOLEAN NOT NULL, Differential BOOLEAN NOT NULL);"
 
             'Add Tables (Tags)
             sSql &= "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
@@ -100,7 +100,7 @@ Public Class mgrSQLite
 
             'Add Tables (Local Manifest)
             sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL PRIMARY KEY, MonitorID TEXT NOT NULL, FileName TEXT NOT NULL, " &
-                   "DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT);"
+                   "DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT, IsDifferentialParent BOOLEAN NOT NULL, DifferentialParent TEXT NOT NULL);"
 
             'Add Tables (Sessions)
             sSql &= "CREATE TABLE sessions (MonitorID TEXT NOT NULL, Start INTEGER NOT NULL, End INTEGER NOT NULL, PRIMARY KEY(MonitorID, Start));"
@@ -152,11 +152,11 @@ Public Class mgrSQLite
             sSql = "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, FolderSave BOOLEAN NOT NULL, FileType TEXT, 
                     TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, 
                     MonitorOnly BOOLEAN NOT NULL, BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, 
-                    RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL, UseWindowTitle BOOLEAN NOT NULL);"
+                    RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL, UseWindowTitle BOOLEAN NOT NULL, Differential BOOLEAN NOT NULL);"
 
             'Add Tables (Remote Manifest)
             sSql &= "CREATE TABLE manifest (ManifestID TEXT Not NULL PRIMARY KEY, MonitorID TEXT Not NULL, FileName TEXT Not NULL, " &
-                   "DateUpdated TEXT Not NULL, UpdatedBy TEXT Not NULL, CheckSum TEXT);"
+                   "DateUpdated TEXT Not NULL, UpdatedBy TEXT Not NULL, CheckSum TEXT, IsDifferentialParent BOOLEAN NOT NULL, DifferentialParent TEXT NOT NULL);"
 
             'Add Tables (Remote Tags)
             sSql &= "CREATE TABLE tags (TagID TEXT Not NULL UNIQUE, Name TEXT Not NULL PRIMARY KEY); "
@@ -1151,6 +1151,43 @@ Public Class mgrSQLite
                 BackupDB("v126")
 
                 sSQL = "PRAGMA user_version=127"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '1.28 Upgrade
+        If GetDatabaseVersion() < 128 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v127")
+
+                'Add differential backup option
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN Differential BOOLEAN NOT NULL DEFAULT 0;"
+
+                'Add differential backup information
+                sSQL &= "ALTER TABLE manifest ADD COLUMN IsDifferentialParent BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE manifest ADD COLUMN DifferentialParent TEXT NOT NULL DEFAULT '';"
+
+                sSQL &= "PRAGMA user_version=128"
+
+                RunParamQuery(sSQL, New Hashtable)
+
+                'Add new default data
+                mgrLaunchers.AddDefaultLaunchers()
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v127")
+
+                'Add differential backup option
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN Differential BOOLEAN NOT NULL DEFAULT 0;"
+
+                'Add differential backup information
+                sSQL &= "ALTER TABLE manifest ADD COLUMN IsDifferentialParent BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE manifest ADD COLUMN DifferentialParent TEXT NOT NULL DEFAULT '';"
+
+                sSQL &= "PRAGMA user_version=128"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If
