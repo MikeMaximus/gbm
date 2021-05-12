@@ -1024,7 +1024,18 @@ Public Class frmGameManager
     End Sub
 
     Private Sub DeleteBackup()
-        If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupDelete, Path.GetFileName(CurrentBackupItem.FileName), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+        Dim sMessage As String
+        Dim oDiffChildren As New List(Of clsBackup)
+
+        If CurrentBackupItem.IsDifferentialParent Then
+            oDiffChildren = mgrManifest.DoManfiestGetDifferentialChildren(CurrentBackupItem, mgrSQLite.Database.Remote)
+            sMessage = frmGameManager_ConfirmBackupDeleteDiffParent
+        Else
+            sMessage = frmGameManager_ConfirmBackupDelete
+        End If
+
+        If mgrCommon.ShowMessage(sMessage, Path.GetFileName(CurrentBackupItem.FileName), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+
             'Delete the specific remote manifest entry
             mgrManifest.DoManifestDeleteByManifestID(CurrentBackupItem, mgrSQLite.Database.Remote)
 
@@ -1035,6 +1046,11 @@ Public Class frmGameManager
 
             'Delete referenced backup file from the backup folder
             mgrCommon.DeleteFile(BackupFolder & CurrentBackupItem.FileName)
+
+            'Delete any differential backups that relied upon this file
+            For Each oDiffChild As clsBackup In oDiffChildren
+                mgrCommon.DeleteFile(BackupFolder & oDiffChild.FileName)
+            Next
 
             'Check for sub-directory and delete if empty
             mgrCommon.DeleteDirectoryByBackup(BackupFolder, CurrentBackupItem)

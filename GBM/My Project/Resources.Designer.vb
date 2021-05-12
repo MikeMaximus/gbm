@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-05-12T15:33:42
+        '''  Looks up a localized string similar to 2021-05-12T15:50:37
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2223,6 +2223,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ConfirmBackupDeleteAll() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ConfirmBackupDeleteAll", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to This is the full backup file for a set of differential backups, all the differential backup files that rely on this file will also be deleted. This cannot be undone.[BR][BR]Are you sure you want to delete [PARAM]? .
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ConfirmBackupDeleteDiffParent() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ConfirmBackupDeleteDiffParent", resourceCulture)
             End Get
         End Property
         

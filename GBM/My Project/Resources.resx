@@ -2995,4 +2995,7 @@
   <data name="mgrBackup_Label_DiffFull" xml:space="preserve">
     <value>Full</value>
   </data>
+  <data name="frmGameManager_ConfirmBackupDeleteDiffParent" xml:space="preserve">
+    <value>This is the full backup file for a set of differential backups, all the differential backup files that rely on this file will also be deleted. This cannot be undone.[BR][BR]Are you sure you want to delete [PARAM]? </value>
+  </data>
 </root>

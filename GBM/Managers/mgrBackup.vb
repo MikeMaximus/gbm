@@ -736,9 +736,9 @@ Public Class mgrBackup
                     End If
                 End If
                 If bRunDifferential Then
-                    sDiffLabel = " - " & mgrBackup_Label_Diff
+                    sDiffLabel = "-" & mgrBackup_Label_Diff
                 Else
-                    sDiffLabel = " - " & mgrBackup_Label_DiffFull
+                    sDiffLabel = "-" & mgrBackup_Label_DiffFull
                 End If
             End If
 
