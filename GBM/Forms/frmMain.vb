@@ -286,6 +286,7 @@ Public Class frmMain
         Dim bTriggerReload As Boolean = False
         Dim bOSVerified As Boolean
         Dim bPathVerified As Boolean
+        Dim oDiffParent As clsBackup
         Dim oQueue As New Hashtable
         eCurrentOperation = eOperation.Restore
         OperationStarted()
@@ -317,6 +318,10 @@ Public Class frmMain
 
             If bOSVerified And bPathVerified Then
                 If oRestore.CheckRestorePrereq(oRestoreInfo, oGame.CleanFolder, bFastMode) Then
+                    If oGame.Differential And oRestoreInfo.DifferentialParent <> String.Empty Then
+                        oDiffParent = mgrManifest.DoManfiestGetDifferentialParent(oGame.ID, mgrSQLite.Database.Remote)
+                        oReadyList.Add(oDiffParent)
+                    End If
                     oReadyList.Add(oRestoreInfo)
                 End If
             End If
