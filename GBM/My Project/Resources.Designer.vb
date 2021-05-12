@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-04-26T14:55:28
+        '''  Looks up a localized string similar to 2021-05-12T15:33:42
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1953,6 +1953,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_chkCleanFolder() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_chkCleanFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Differential backup.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_chkDifferentialBackup() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_chkDifferentialBackup", resourceCulture)
             End Get
         End Property
         
@@ -7435,6 +7444,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The full backup for [PARAM] could not be found.  A differential backup cannot be done, a new full backup will be created..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorDiffParentNotFound() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorDiffParentNotFound", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup aborted due to lack of disk space..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorDiskSpace() As String
@@ -7647,6 +7665,24 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_ImportSuccess() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ImportSuccess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Diff.
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_Label_Diff() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_Label_Diff", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Full.
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_Label_DiffFull() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_Label_DiffFull", resourceCulture)
             End Get
         End Property
         

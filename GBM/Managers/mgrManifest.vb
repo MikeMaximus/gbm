@@ -72,7 +72,7 @@
 
     End Function
 
-    Public Shared Function DoManifestGetByMonitorID(ByVal sMonitorID As String, ByVal iSelectDB As mgrSQLite.Database) As List(Of clsBackup)
+    Public Shared Function DoManifestGetByMonitorID(ByVal sMonitorID As String, ByVal iSelectDB As mgrSQLite.Database, Optional ByVal bExcludeDiffParents As Boolean = False) As List(Of clsBackup)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
         Dim sSQL As String
@@ -82,7 +82,11 @@
 
 
         sSQL = "SELECT * FROM manifest NATURAL JOIN monitorlist "
-        sSQL &= "WHERE MonitorID = @MonitorID ORDER BY DateUpdated DESC"
+        sSQL &= "WHERE MonitorID = @MonitorID"
+        If bExcludeDiffParents Then
+            sSQL &= " AND IsDifferentialParent = 0"
+        End If
+        sSQL &= " ORDER BY DateUpdated DESC"
 
         hshParams.Add("MonitorID", sMonitorID)
 
@@ -108,6 +112,28 @@
         sSQL &= "WHERE ManifestID = @ManifestID ORDER BY DateUpdated DESC"
 
         hshParams.Add("ManifestID", sManifestID)
+
+        oData = oDatabase.ReadParamData(sSQL, hshParams)
+
+        For Each dr As DataRow In oData.Tables(0).Rows
+            oBackupItem = MapToObject(dr)
+        Next
+
+        Return oBackupItem
+    End Function
+
+    Public Shared Function DoManfiestGetDifferentialParent(ByVal sMonitorID As String, ByVal iSelectDB As mgrSQLite.Database) As clsBackup
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim oData As DataSet
+        Dim sSQL As String
+        Dim hshParams As New Hashtable
+        Dim oBackupItem As New clsBackup
+        Dim oList As New List(Of clsBackup)
+
+        sSQL = "SELECT * FROM manifest NATURAL JOIN monitorlist "
+        sSQL &= "WHERE MonitorID = @MonitorID AND IsDifferentialParent = 1 ORDER BY DateUpdated DESC LIMIT 1"
+
+        hshParams.Add("MonitorID", sMonitorID)
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
@@ -149,6 +175,27 @@
 
         sSQL = "SELECT * FROM manifest "
         sSQL &= "WHERE MonitorID = @MonitorID"
+
+        hshParams.Add("MonitorID", sMonitorID)
+
+        oData = oDatabase.ReadParamData(sSQL, hshParams)
+
+        If oData.Tables(0).Rows.Count > 0 Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
+    Public Shared Function DoManifestParentCheck(ByVal sMonitorID As String, ByVal iSelectDB As mgrSQLite.Database) As Boolean
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim oData As DataSet
+        Dim sSQL As String
+        Dim hshParams As New Hashtable
+
+        sSQL = "SELECT * FROM manifest "
+        sSQL &= "WHERE MonitorID = @MonitorID AND IsDifferentialParent = 1"
 
         hshParams.Add("MonitorID", sMonitorID)
 
@@ -208,7 +255,7 @@
         Dim hshParams As Hashtable
 
         sSQL = "UPDATE manifest SET MonitorID = @MonitorID, FileName = @FileName, DateUpdated = @DateUpdated, "
-        sSQL &= "UpdatedBy = @UpdatedBy, CheckSum = @CheckSum, @IsDifferentialParent, @DifferentialParent WHERE MonitorID = @QueryID"
+        sSQL &= "UpdatedBy = @UpdatedBy, CheckSum = @CheckSum, IsDifferentialParent = @IsDifferentialParent, DifferentialParent = @DifferentialParent WHERE MonitorID = @QueryID"
 
         hshParams = SetCoreParameters(oBackupItem)
         hshParams.Add("QueryID", oBackupItem.MonitorID)

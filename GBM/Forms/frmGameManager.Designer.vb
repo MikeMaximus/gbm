@@ -82,6 +82,7 @@ Partial Class frmGameManager
         Me.tabGameManager = New System.Windows.Forms.TabControl()
         Me.tbConfig = New System.Windows.Forms.TabPage()
         Me.grpCoreConfig = New System.Windows.Forms.GroupBox()
+        Me.chkDifferentialBackup = New System.Windows.Forms.CheckBox()
         Me.btnGameID = New System.Windows.Forms.Button()
         Me.lblGameTags = New System.Windows.Forms.LinkLabel()
         Me.lblTags = New System.Windows.Forms.Label()
@@ -641,6 +642,7 @@ Partial Class frmGameManager
         '
         'grpCoreConfig
         '
+        Me.grpCoreConfig.Controls.Add(Me.chkDifferentialBackup)
         Me.grpCoreConfig.Controls.Add(Me.btnGameID)
         Me.grpCoreConfig.Controls.Add(Me.lblGameTags)
         Me.grpCoreConfig.Controls.Add(Me.lblTags)
@@ -677,6 +679,16 @@ Partial Class frmGameManager
         Me.grpCoreConfig.Size = New System.Drawing.Size(511, 280)
         Me.grpCoreConfig.TabIndex = 0
         Me.grpCoreConfig.TabStop = False
+        '
+        'chkDifferentialBackup
+        '
+        Me.chkDifferentialBackup.AutoSize = True
+        Me.chkDifferentialBackup.Location = New System.Drawing.Point(218, 224)
+        Me.chkDifferentialBackup.Name = "chkDifferentialBackup"
+        Me.chkDifferentialBackup.Size = New System.Drawing.Size(115, 17)
+        Me.chkDifferentialBackup.TabIndex = 26
+        Me.chkDifferentialBackup.Text = "Differential backup"
+        Me.chkDifferentialBackup.UseVisualStyleBackColor = True
         '
         'btnGameID
         '
@@ -1202,4 +1214,5 @@ Partial Class frmGameManager
     Friend WithEvents cmsLinkConfiguration As ToolStripMenuItem
     Friend WithEvents cmsLinkProcess As ToolStripMenuItem
     Friend WithEvents btnGameID As Button
+    Friend WithEvents chkDifferentialBackup As CheckBox
 End Class

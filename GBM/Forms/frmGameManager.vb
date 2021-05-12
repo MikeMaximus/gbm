@@ -1076,6 +1076,7 @@ Public Class frmGameManager
         chkCleanFolder.Checked = oApp.CleanFolder
         chkTimeStamp.Checked = oApp.AppendTimeStamp
         nudLimit.Value = oApp.BackupLimit
+        chkDifferentialBackup.Checked = oApp.Differential
         txtComments.Text = oApp.Comments
         cmsEnabled.Checked = oApp.Enabled
         cmsMonitorOnly.Checked = oApp.MonitorOnly
@@ -1346,6 +1347,7 @@ Public Class frmGameManager
             chkTimeStamp.Enabled = False
             lblLimit.Enabled = False
             nudLimit.Enabled = False
+            chkDifferentialBackup.Enabled = False
             lblSavePath.Enabled = False
             txtSavePath.Enabled = False
             btnSavePathBrowse.Enabled = False
@@ -1357,6 +1359,7 @@ Public Class frmGameManager
             chkFolderSave.Enabled = True
             chkTimeStamp.Enabled = True
             TimeStampModeChange()
+            chkDifferentialBackup.Enabled = True
             lblSavePath.Enabled = True
             txtSavePath.Enabled = True
             btnSavePathBrowse.Enabled = True
@@ -1374,10 +1377,12 @@ Public Class frmGameManager
             chkFolderSave.Enabled = False
             btnInclude.Enabled = False
             btnExclude.Enabled = False
+            chkDifferentialBackup.Enabled = False
         Else
             chkFolderSave.Enabled = True
             btnInclude.Enabled = True
             btnExclude.Enabled = True
+            chkDifferentialBackup.Enabled = True
         End If
     End Sub
 
@@ -1542,6 +1547,7 @@ Public Class frmGameManager
         oApp.CleanFolder = chkCleanFolder.Checked
         oApp.AppendTimeStamp = chkTimeStamp.Checked
         oApp.BackupLimit = nudLimit.Value
+        oApp.Differential = chkDifferentialBackup.Checked
         oApp.Comments = txtComments.Text
         oApp.Enabled = cmsEnabled.Checked
         oApp.MonitorOnly = cmsMonitorOnly.Checked
@@ -1996,6 +2002,7 @@ Public Class frmGameManager
         cmsFile.Text = frmGameManager_cmsFile
         lblSearch.Text = frmGameManager_lblSearch
         lblLimit.Text = frmGameManager_lblLimit
+        chkDifferentialBackup.Text = frmGameManager_chkDifferentialBackup
         cmsDeleteOne.Text = frmGameManager_cmsDeleteOne
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
         btnLinks.Image = frmGameManager_Link
@@ -2344,6 +2351,15 @@ Public Class frmGameManager
 
     Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles cmsMonitorOnly.CheckedChanged
         MonitorOnlyModeChange()
+    End Sub
+
+    Private Sub chkDifferentialBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkDifferentialBackup.CheckedChanged
+        If chkDifferentialBackup.Checked Then
+            chkTimeStamp.Checked = True
+            chkTimeStamp.Enabled = False
+        Else
+            chkTimeStamp.Enabled = True
+        End If
     End Sub
 
     Private Sub cmsUseWindowTitle_CheckChanged(sender As Object, e As EventArgs) Handles cmsUseWindowTitle.CheckedChanged

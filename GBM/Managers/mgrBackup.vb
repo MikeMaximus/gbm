@@ -34,7 +34,7 @@ Public Class mgrBackup
         End If
     End Function
 
-    Private Function DoManifestUpdate(ByVal oGameInfo As clsGame, ByVal sBackupFile As String, ByVal dTimeStamp As DateTime, ByVal sCheckSum As String) As Boolean
+    Private Function DoManifestUpdate(ByVal oGameInfo As clsGame, ByVal sBackupFile As String, ByVal dTimeStamp As DateTime, ByVal sCheckSum As String, ByVal bIsDifferentialParent As Boolean, ByVal sDifferentialParent As String) As Boolean
         Dim oItem As New clsBackup
 
         'Create manifest item
@@ -44,6 +44,8 @@ Public Class mgrBackup
         oItem.DateUpdated = dTimeStamp
         oItem.UpdatedBy = My.Computer.Name
         oItem.CheckSum = sCheckSum
+        oItem.IsDifferentialParent = bIsDifferentialParent
+        oItem.DifferentialParent = sDifferentialParent
 
         'Save Remote Manifest
         If Not oGameInfo.AppendTimeStamp Then
@@ -216,7 +218,7 @@ Public Class mgrBackup
     End Function
 
     Private Sub CheckOldBackups(ByVal oGame As clsGame)
-        Dim oGameBackups As List(Of clsBackup) = mgrManifest.DoManifestGetByMonitorID(oGame.ID, mgrSQLite.Database.Remote)
+        Dim oGameBackups As List(Of clsBackup) = mgrManifest.DoManifestGetByMonitorID(oGame.ID, mgrSQLite.Database.Remote, True)
         Dim oGameBackup As clsBackup
         Dim sOldBackup As String
         Dim iBackupCount As Integer = oGameBackups.Count
@@ -575,7 +577,7 @@ Public Class mgrBackup
         Return bBackupCompleted
     End Function
 
-    Private Function Run7zBackup(ByVal oGame As clsGame, ByVal sBackupFile As String) As Boolean
+    Private Function Run7zBackup(ByVal oGame As clsGame, ByVal sBackupFile As String, ByVal bRunDifferential As Boolean, ByVal sDiffParentFile As String) As Boolean
         Dim prs7z As New Process
         Dim sSavePath As String
         Dim sArguments As String
@@ -591,7 +593,11 @@ Public Class mgrBackup
 
         BuildFileList(oGame.ExcludeList, mgrSettings.ExcludeFileLocation)
 
-        sArguments = "a" & mgrSettings.Prepared7zArguments & "-t7z -mx" & mgrSettings.CompressionLevel & " -i@""" & mgrSettings.IncludeFileLocation & """ -x@""" & mgrSettings.ExcludeFileLocation & """ """ & sBackupFile & """"
+        If bRunDifferential Then
+            sArguments = "u" & " """ & sDiffParentFile & """" & mgrSettings.Prepared7zArguments & "-t7z -mx" & mgrSettings.CompressionLevel & " -i@""" & mgrSettings.IncludeFileLocation & """ -x@""" & mgrSettings.ExcludeFileLocation & """ -u- -up0q3r2x2y2z0w2!""" & sBackupFile & """"
+        Else
+            sArguments = "a" & mgrSettings.Prepared7zArguments & "-t7z -mx" & mgrSettings.CompressionLevel & " -i@""" & mgrSettings.IncludeFileLocation & """ -x@""" & mgrSettings.ExcludeFileLocation & """ """ & sBackupFile & """"
+        End If
 
         If oGame.RecurseSubFolders Then sArguments &= " -r"
 
@@ -679,6 +685,11 @@ Public Class mgrBackup
         Dim dTimeStamp As DateTime
         Dim sTimeStamp As String
         Dim sHash As String
+        Dim bRunDifferential As Boolean
+        Dim oDiffParent As clsBackup
+        Dim sDiffParentID As String
+        Dim sDiffParentFile As String
+        Dim sDiffLabel As String
         Dim bMetadataGenerated As Boolean
         Dim bBackupCompleted As Boolean
 
@@ -694,6 +705,8 @@ Public Class mgrBackup
             dTimeStamp = Date.Now
             sTimeStamp = BuildFileTimeStamp(dTimeStamp)
             sHash = String.Empty
+            sDiffParentID = String.Empty
+            sDiffLabel = String.Empty
             bDoBackup = True
             bBackupCompleted = False
             bMetadataGenerated = False
@@ -706,9 +719,32 @@ Public Class mgrBackup
                 sBackupExt = ".7z"
             End If
 
+            bRunDifferential = False
+            sDiffParentFile = String.Empty
+            If oGame.Differential Then
+                If mgrManifest.DoManifestParentCheck(oGame.ID, mgrSQLite.Database.Remote) Then
+                    oDiffParent = mgrManifest.DoManfiestGetDifferentialParent(oGame.ID, mgrSQLite.Database.Remote)
+                    sDiffParentFile = mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oDiffParent.FileName
+                    If File.Exists(sDiffParentFile) Then
+                        bRunDifferential = True
+                        sDiffParentID = oDiffParent.ManifestID
+                    Else
+                        mgrManifest.DoManifestDeleteByManifestID(oDiffParent, mgrSQLite.Database.Remote)
+                        mgrManifest.DoManifestDeleteByManifestID(oDiffParent, mgrSQLite.Database.Local)
+                        bRunDifferential = False
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorDiffParentNotFound, oGame.CroppedName), True, ToolTipIcon.Warning, True)
+                    End If
+                End If
+                If bRunDifferential Then
+                    sDiffLabel = " - " & mgrBackup_Label_Diff
+                Else
+                    sDiffLabel = " - " & mgrBackup_Label_DiffFull
+                End If
+            End If
+
             If oGame.AppendTimeStamp Then
                 If oGame.BackupLimit > 0 Then CheckOldBackups(oGame)
-                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & sTimeStamp & sBackupExt
+                sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & sTimeStamp & sDiffLabel & sBackupExt
             Else
                 sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & sBackupExt
             End If
@@ -724,7 +760,7 @@ Public Class mgrBackup
                         End If
                     End If
                 Else
-                    bBackupCompleted = Run7zBackup(oGame, sBackupFile)
+                    bBackupCompleted = Run7zBackup(oGame, sBackupFile, bRunDifferential, sDiffParentFile)
                     If bBackupCompleted Then
                         bMetadataGenerated = oMetadata.SerializeAndExport(mgrSettings.MetadataLocation, oGame.ID, My.Computer.Name, dTimeStamp)
                         If bMetadataGenerated Then
@@ -749,7 +785,7 @@ Public Class mgrBackup
                     sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
 
                     'Write Main Manifest
-                    If Not DoManifestUpdate(oGame, sBackupFile, dTimeStamp, sHash) Then
+                    If Not DoManifestUpdate(oGame, sBackupFile, dTimeStamp, sHash, (oGame.Differential And Not bRunDifferential), sDiffParentID) Then
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorManifestFailure, oGame.Name), True, ToolTipIcon.Error, True)
                     End If
 
