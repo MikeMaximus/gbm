@@ -274,12 +274,18 @@ Public Class mgrBackup
         Dim oBackupMetadata As BackupMetadata
         Dim iFilesImported As Integer = 0
         Dim iGamesAdded As Integer = 0
+        Dim sDiffLabel As String
+        Dim oDiffParent As clsBackup
+
+        'Sort the file list so differential backups are imported in order of creation.
+        Array.Sort(sFileList)
 
         For Each sFileToImport As String In sFileList
             RaiseEvent UpdateImportInfo(sFileToImport)
             bContinue = True
             bImportComplete = False
             bUpdateManifest = False
+            sDiffLabel = String.Empty
             oBackup = New clsBackup
 
             If File.Exists(sFileToImport) Then
@@ -336,10 +342,29 @@ Public Class mgrBackup
                 End If
 
                 If bContinue Then
+                    'Handle differential backups
+                    If oGame.Differential Then
+                        If Path.GetFileNameWithoutExtension(sFileToImport).EndsWith(mgrBackup_Label_DiffFull) Then
+                            sDiffLabel = "-" & mgrBackup_Label_DiffFull
+                            oBackup.IsDifferentialParent = True
+                        Else
+                            sDiffLabel = "-" & mgrBackup_Label_Diff
+                            oDiffParent = mgrManifest.DoManfiestGetDifferentialParent(oGame.ID, mgrSQLite.Database.Remote)
+                            If oDiffParent IsNot Nothing Then
+                                oBackup.DifferentialParent = oDiffParent.ManifestID
+                            Else
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportNoDifferentialParent, sFileToImport), False, ToolTipIcon.Error, True)
+                                bContinue = False
+                            End If
+                        End If
+                    End If
+                End If
+
+                If bContinue Then
                     If bOverwriteCurrent Then
                         sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & ".7z"
                     Else
-                        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & BuildFileTimeStamp(oBackup.DateUpdated) & ".7z"
+                        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & BuildFileTimeStamp(oBackup.DateUpdated) & sDiffLabel & ".7z"
                     End If
 
                     oBackup.FileName = sBackupFile.Replace(mgrSettings.BackupFolder & Path.DirectorySeparatorChar, String.Empty)
@@ -356,8 +381,14 @@ Public Class mgrBackup
 
                     If bUpdateManifest Then
                         oBackup.CheckSum = mgrHash.Generate_SHA256_Hash(sBackupFile)
-                        If Not mgrManifest.DoUpdateLatestManifest(oBackup, mgrSQLite.Database.Remote) Then
-                            mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
+                        If bOverwriteCurrent Then
+                            If Not mgrManifest.DoUpdateLatestManifest(oBackup, mgrSQLite.Database.Remote) Then
+                                mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
+                            End If
+                        Else
+                            If Not mgrManifest.DoManifestDuplicateCheck(oBackup, mgrSQLite.Database.Remote) Then
+                                mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
+                            End If
                         End If
                         iFilesImported += 1
                         bImportComplete = True
@@ -389,7 +420,7 @@ Public Class mgrBackup
         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_GamesAddedDuringImport, iGamesAdded.ToString), False, ToolTipIcon.Info, True)
     End Sub
 
-    Public Sub ImportBackupFilesByGame(ByVal hshImportList As Hashtable)
+    Public Sub ImportBackupFilesByGame(ByVal oImportList As SortedList)
         Dim oGame As clsGame
         Dim bOverwriteCurrent As Boolean = False
         Dim bContinue As Boolean
@@ -400,8 +431,10 @@ Public Class mgrBackup
         Dim sBackupFile As String
         Dim oBackup As clsBackup
         Dim oBackupMetadata As BackupMetadata
+        Dim sDiffLabel As String
+        Dim oDiffParent As clsBackup
 
-        For Each de As DictionaryEntry In hshImportList
+        For Each de As DictionaryEntry In oImportList
             bContinue = True
             bImportComplete = False
             bMatch = False
@@ -409,10 +442,11 @@ Public Class mgrBackup
             sFileToImport = CStr(de.Key)
             RaiseEvent UpdateImportInfo(sFileToImport)
             oGame = DirectCast(de.Value, clsGame)
+            sDiffLabel = String.Empty
             oBackup = New clsBackup
 
             'Enter overwite mode if we are importing a single backup and "Save Multiple Backups" is not enabled.
-            If hshImportList.Count = 1 And Not oGame.AppendTimeStamp Then bOverwriteCurrent = True
+            If oImportList.Count = 1 And Not oGame.AppendTimeStamp Then bOverwriteCurrent = True
 
             If File.Exists(sFileToImport) Then
                 sBackupFile = mgrSettings.BackupFolder
@@ -451,10 +485,29 @@ Public Class mgrBackup
                 End If
 
                 If bContinue Then
+                    'Handle differential backups
+                    If oGame.Differential Then
+                        If Path.GetFileNameWithoutExtension(sFileToImport).EndsWith(mgrBackup_Label_DiffFull) Then
+                            sDiffLabel = "-" & mgrBackup_Label_DiffFull
+                            oBackup.IsDifferentialParent = True
+                        Else
+                            sDiffLabel = "-" & mgrBackup_Label_Diff
+                            oDiffParent = mgrManifest.DoManfiestGetDifferentialParent(oGame.ID, mgrSQLite.Database.Remote)
+                            If oDiffParent IsNot Nothing Then
+                                oBackup.DifferentialParent = oDiffParent.ManifestID
+                            Else
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportNoDifferentialParent, sFileToImport), False, ToolTipIcon.Error, True)
+                                bContinue = False
+                            End If
+                        End If
+                    End If
+                End If
+
+                If bContinue Then
                     If bOverwriteCurrent Then
                         sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & ".7z"
                     Else
-                        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & BuildFileTimeStamp(oBackup.DateUpdated) & ".7z"
+                        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & BuildFileTimeStamp(oBackup.DateUpdated) & sDiffLabel & ".7z"
                     End If
 
                     oBackup.FileName = sBackupFile.Replace(mgrSettings.BackupFolder & Path.DirectorySeparatorChar, String.Empty)

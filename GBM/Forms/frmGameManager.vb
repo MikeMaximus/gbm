@@ -20,7 +20,7 @@ Public Class frmGameManager
     Private bNoRestoreQueue As Boolean = False
     Private oBackupList As New List(Of clsGame)
     Private oRestoreList As New Hashtable
-    Private oImportBackupList As New Hashtable
+    Private oImportBackupList As New SortedList
     Private oGameData As OrderedDictionary
     Private oLocalBackupData As SortedList
     Private oRemoteBackupData As SortedList
@@ -164,11 +164,11 @@ Public Class frmGameManager
         End Set
     End Property
 
-    Property ImportBackupList As Hashtable
+    Property ImportBackupList As SortedList
         Get
             Return oImportBackupList
         End Get
-        Set(value As Hashtable)
+        Set(value As SortedList)
             oImportBackupList = value
         End Set
     End Property

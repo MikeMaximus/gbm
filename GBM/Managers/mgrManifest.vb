@@ -126,7 +126,7 @@
         Dim oData As DataSet
         Dim sSQL As String
         Dim hshParams As New Hashtable
-        Dim oBackupItem As New clsBackup
+        Dim oBackupItem As clsBackup = Nothing
 
         sSQL = "SELECT * FROM manifest NATURAL JOIN monitorlist "
         sSQL &= "WHERE MonitorID = @MonitorID AND IsDifferentialParent = 1 ORDER BY DateUpdated DESC LIMIT 1"

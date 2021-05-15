@@ -1300,7 +1300,7 @@
     <value>Restored aborted.  The path [PARAM] does not exist.</value>
   </data>
   <data name="mgrRestore_NoVerify" xml:space="preserve">
-    <value>[PARAM] has no stored checksum,  verification has been skipped.</value>
+    <value>[PARAM] ([PARAM]) has no stored checksum,  verification has been skipped.</value>
   </data>
   <data name="mgrRestore_RelativeNeedPath" xml:space="preserve">
     <value>[PARAM] uses a relative path and has never been detected on this computer.</value>
@@ -1312,7 +1312,7 @@
     <value>Restore to [PARAM] in progress...</value>
   </data>
   <data name="mgrRestore_Verified" xml:space="preserve">
-    <value>[PARAM] backup has been verified.</value>
+    <value>[PARAM] backup ([PARAM]) has been verified.</value>
   </data>
   <data name="mgrSQLite_ErrorBackupFailure" xml:space="preserve">
     <value>An error occured creating a backup of the database file at [PARAM][BR][BR][PARAM]</value>
@@ -2997,5 +2997,17 @@
   </data>
   <data name="frmGameManager_ConfirmBackupDeleteDiffParent" xml:space="preserve">
     <value>This is the full backup file for a set of differential backups, all the differential backup files that rely on this file will also be deleted. This cannot be undone.[BR][BR]Are you sure you want to delete [PARAM]? </value>
+  </data>
+  <data name="frmMain_ErrorDifferentialParentMismatch" xml:space="preserve">
+    <value>The restore for [PARAM] cannot continue.  The backup being restored is a differential backup, but it was not created using the current full backup.  </value>
+  </data>
+  <data name="frmMain_ErrorDifferentialParentNotFound" xml:space="preserve">
+    <value>The restore for [PARAM] cannot continue.  The backup being restored is a differential backup, but the required full backup cannot be found.  </value>
+  </data>
+  <data name="mgrBackup_ErrorImportNoDifferentialParent" xml:space="preserve">
+    <value>[PARAM] cannot be imported.  It is a differential backup and no full backup exists for this game.</value>
+  </data>
+  <data name="frmMain_RestoreQueueDiffParent" xml:space="preserve">
+    <value>The required full backup [PARAM] ([PARAM]) was added to restore queue.</value>
   </data>
 </root>
