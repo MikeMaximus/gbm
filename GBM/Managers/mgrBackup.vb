@@ -261,7 +261,7 @@ Public Class mgrBackup
         Return True
     End Function
 
-    Public Sub ImportBackupFiles(ByVal sFileList As String())
+    Public Sub ImportBackupFiles(ByVal sFileList As String(), Optional ByVal bDiffPass As Boolean = False)
         Dim oGame As New clsGame
         Dim oExistingGame As clsGame
         Dim hshGame As Hashtable
@@ -276,9 +276,7 @@ Public Class mgrBackup
         Dim iGamesAdded As Integer = 0
         Dim sDiffLabel As String
         Dim oDiffParent As clsBackup
-
-        'Sort the file list so differential backups are imported in order of creation.
-        Array.Sort(sFileList)
+        Dim oDiffQueue As New List(Of String)
 
         For Each sFileToImport As String In sFileList
             RaiseEvent UpdateImportInfo(sFileToImport)
@@ -345,16 +343,25 @@ Public Class mgrBackup
                     'Handle differential backups
                     If oGame.Differential Then
                         If Path.GetFileNameWithoutExtension(sFileToImport).EndsWith(mgrBackup_Label_DiffFull) Then
-                            sDiffLabel = "-" & mgrBackup_Label_DiffFull
-                            oBackup.IsDifferentialParent = True
+                            If mgrManifest.DoManifestParentCheck(oGame.ID, mgrSQLite.Database.Remote) Then
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportDifferentialParentExists, sFileToImport), False, ToolTipIcon.Error, True)
+                                bContinue = False
+                            Else
+                                sDiffLabel = "-" & mgrBackup_Label_DiffFull
+                                oBackup.IsDifferentialParent = True
+                            End If
                         Else
                             sDiffLabel = "-" & mgrBackup_Label_Diff
                             oDiffParent = mgrManifest.DoManfiestGetDifferentialParent(oGame.ID, mgrSQLite.Database.Remote)
                             If oDiffParent IsNot Nothing Then
                                 oBackup.DifferentialParent = oDiffParent.ManifestID
                             Else
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportNoDifferentialParent, sFileToImport), False, ToolTipIcon.Error, True)
-                                bContinue = False
+                                If bDiffPass Or sFileList.Length = 1 Then
+                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportNoDifferentialParent, sFileToImport), False, ToolTipIcon.Error, True)
+                                    bContinue = False
+                                Else
+                                    oDiffQueue.Add(sFileToImport)
+                                End If
                             End If
                         End If
                     End If
@@ -418,9 +425,13 @@ Public Class mgrBackup
 
         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupsImported, iFilesImported.ToString), False, ToolTipIcon.Info, True)
         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_GamesAddedDuringImport, iGamesAdded.ToString), False, ToolTipIcon.Info, True)
+
+        If Not bDiffPass And oDiffQueue.Count > 0 Then
+            ImportBackupFiles(oDiffQueue.ToArray, True)
+        End If
     End Sub
 
-    Public Sub ImportBackupFilesByGame(ByVal oImportList As SortedList)
+    Public Sub ImportBackupFilesByGame(ByVal oImportList As SortedList, Optional ByVal bDiffPass As Boolean = False)
         Dim oGame As clsGame
         Dim bOverwriteCurrent As Boolean = False
         Dim bContinue As Boolean
@@ -433,6 +444,7 @@ Public Class mgrBackup
         Dim oBackupMetadata As BackupMetadata
         Dim sDiffLabel As String
         Dim oDiffParent As clsBackup
+        Dim oDiffQueue As New SortedList
 
         For Each de As DictionaryEntry In oImportList
             bContinue = True
@@ -488,16 +500,25 @@ Public Class mgrBackup
                     'Handle differential backups
                     If oGame.Differential Then
                         If Path.GetFileNameWithoutExtension(sFileToImport).EndsWith(mgrBackup_Label_DiffFull) Then
-                            sDiffLabel = "-" & mgrBackup_Label_DiffFull
-                            oBackup.IsDifferentialParent = True
+                            If mgrManifest.DoManifestParentCheck(oGame.ID, mgrSQLite.Database.Remote) Then
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportDifferentialParentExists, sFileToImport), False, ToolTipIcon.Error, True)
+                                bContinue = False
+                            Else
+                                sDiffLabel = "-" & mgrBackup_Label_DiffFull
+                                oBackup.IsDifferentialParent = True
+                            End If
                         Else
                             sDiffLabel = "-" & mgrBackup_Label_Diff
                             oDiffParent = mgrManifest.DoManfiestGetDifferentialParent(oGame.ID, mgrSQLite.Database.Remote)
                             If oDiffParent IsNot Nothing Then
                                 oBackup.DifferentialParent = oDiffParent.ManifestID
                             Else
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportNoDifferentialParent, sFileToImport), False, ToolTipIcon.Error, True)
-                                bContinue = False
+                                If bDiffPass Or oImportList.Count = 1 Then
+                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportNoDifferentialParent, sFileToImport), False, ToolTipIcon.Error, True)
+                                    bContinue = False
+                                Else
+                                    oDiffQueue.Add(sFileToImport, oGame)
+                                End If
                             End If
                         End If
                     End If
@@ -551,6 +572,10 @@ Public Class mgrBackup
                 Exit For
             End If
         Next
+
+        If Not bDiffPass And oDiffQueue.Count > 0 Then
+            ImportBackupFilesByGame(oDiffQueue, True)
+        End If
     End Sub
 
     Private Function RunRegistryBackup(ByVal oGame As clsGame, ByVal sBackupFile As String, Optional ByVal bAdmin As Boolean = False) As Boolean

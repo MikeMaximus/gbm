@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-05-15T16:33:48
+        '''  Looks up a localized string similar to 2021-05-16T14:35:08
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -7530,6 +7530,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_ErrorImportCancel() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ErrorImportCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] cannot be imported.  This game uses differential backups and a full backup already exists..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorImportDifferentialParentExists() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorImportDifferentialParentExists", resourceCulture)
             End Get
         End Property
         

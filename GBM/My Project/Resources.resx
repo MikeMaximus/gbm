@@ -3010,4 +3010,7 @@
   <data name="frmMain_RestoreQueueDiffParent" xml:space="preserve">
     <value>The required full backup [PARAM] ([PARAM]) was added to restore queue.</value>
   </data>
+  <data name="mgrBackup_ErrorImportDifferentialParentExists" xml:space="preserve">
+    <value>[PARAM] cannot be imported.  This game uses differential backups and a full backup already exists.</value>
+  </data>
 </root>
