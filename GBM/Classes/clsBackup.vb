@@ -101,4 +101,16 @@
             sDifferentialParent = value
         End Set
     End Property
+
+    Public Function ConvertToBackup() As Backup
+        Dim oBackup As New Backup
+
+        oBackup.ManifestID = ManifestID
+        oBackup.DateUpdated = DateUpdatedUnix
+        oBackup.UpdatedBy = UpdatedBy
+        oBackup.IsDifferentialParent = IsDifferentialParent
+        oBackup.DifferentialParent = DifferentialParent
+
+        Return oBackup
+    End Function
 End Class

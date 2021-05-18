@@ -381,7 +381,7 @@ Public Class clsGame
         End Set
     End Property
 
-    Public Function ConvertClass() As Game
+    Public Function ConvertToGame() As Game
         Dim oGame As New Game
 
         oGame.ID = ID

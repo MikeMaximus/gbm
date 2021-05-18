@@ -3,8 +3,7 @@
 <XmlRoot("GBM_Backup")>
 Public Class BackupMetadata
     Private iAppVer As Integer
-    Private iDateUpdated As Int64
-    Private sUpdatedBy As String
+    Private oBackup As Backup
     Private oGame As Game
 
     <XmlAttribute("AppVer")>
@@ -17,24 +16,14 @@ Public Class BackupMetadata
         End Get
     End Property
 
-    <XmlAttribute("DateUpdated")>
-    Property DateUpdated As Int64
-        Get
-            Return iDateUpdated
-        End Get
-        Set(value As Int64)
-            iDateUpdated = value
+    <XmlElement("BackupData")>
+    Property Backup As Backup
+        Set(value As Backup)
+            oBackup = value
         End Set
-    End Property
-
-    <XmlAttribute("UpdatedBy")>
-    Property UpdatedBy As String
         Get
-            Return sUpdatedBy
+            Return oBackup
         End Get
-        Set(value As String)
-            sUpdatedBy = value
-        End Set
     End Property
 
     <XmlElement("GameData")>
@@ -49,15 +38,13 @@ Public Class BackupMetadata
 
     Public Sub New()
         iAppVer = 0
-        iDateUpdated = mgrCommon.DateToUnix(Date.Now)
-        sUpdatedBy = String.Empty
+        oBackup = New Backup
         oGame = New Game
     End Sub
 
-    Public Sub New(ByVal iInitAppVer As Integer, ByVal iInitDateUpdated As Int64, ByVal sInitUpdatedBy As String, ByVal oInitGame As Game)
+    Public Sub New(ByVal iInitAppVer As Integer, ByVal oInitBackup As Backup, ByVal oInitGame As Game)
         iAppVer = iInitAppVer
-        iDateUpdated = iInitDateUpdated
-        sUpdatedBy = sInitUpdatedBy
+        oBackup = oInitBackup
         oGame = oInitGame
     End Sub
 
@@ -65,8 +52,15 @@ Public Class BackupMetadata
         Dim oBackup As New clsBackup
 
         oBackup.MonitorID = Game.ID
-        oBackup.DateUpdated = mgrCommon.UnixToDate(DateUpdated)
-        oBackup.UpdatedBy = UpdatedBy
+        oBackup.UpdatedBy = GBM.My.Resources.mgrBackup_ImportedFile
+
+        If AppVer >= 128 Then
+            oBackup.ManifestID = Backup.ManifestID
+            oBackup.DateUpdated = mgrCommon.UnixToDate(Backup.DateUpdated)
+            oBackup.UpdatedBy = Backup.UpdatedBy
+            oBackup.IsDifferentialParent = Backup.IsDifferentialParent
+            oBackup.DifferentialParent = Backup.DifferentialParent
+        End If
 
         Return oBackup
     End Function

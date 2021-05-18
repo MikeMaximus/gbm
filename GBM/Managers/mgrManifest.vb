@@ -105,7 +105,7 @@
         Dim oData As DataSet
         Dim sSQL As String
         Dim hshParams As New Hashtable
-        Dim oBackupItem As New clsBackup
+        Dim oBackupItem As clsBackup = Nothing
 
         sSQL = "SELECT * FROM manifest NATURAL JOIN monitorlist "
         sSQL &= "WHERE ManifestID = @ManifestID ORDER BY DateUpdated DESC"

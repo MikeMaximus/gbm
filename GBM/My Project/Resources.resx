@@ -3005,12 +3005,15 @@
     <value>The restore for [PARAM] cannot continue.  The backup being restored is a differential backup, but the required full backup cannot be found.  </value>
   </data>
   <data name="mgrBackup_ErrorImportNoDifferentialParent" xml:space="preserve">
-    <value>[PARAM] cannot be imported.  It is a differential backup and no full backup exists for this game.</value>
+    <value>[PARAM] cannot be imported.  It is a differential backup and the full backup could not be found.</value>
   </data>
   <data name="frmMain_RestoreQueueDiffParent" xml:space="preserve">
     <value>The required full backup [PARAM] ([PARAM]) was added to restore queue.</value>
   </data>
   <data name="mgrBackup_ErrorImportDifferentialParentExists" xml:space="preserve">
     <value>[PARAM] cannot be imported.  This game uses differential backups and a full backup already exists.</value>
+  </data>
+  <data name="mgrBackup_WarningOldMetadata" xml:space="preserve">
+    <value>The metadata is no longer fully compatible with this version, some information may not be imported. </value>
   </data>
 </root>
