@@ -254,25 +254,30 @@ Public Class mgrBackup
         Return True
     End Function
 
-    Public Sub ImportBackupFiles(ByVal sFileList As String(), Optional ByVal bDiffPass As Boolean = False)
+    Public Sub ImportBackupFiles(ByVal sFileList As String(), Optional ByVal oExistingGame As clsGame = Nothing, Optional ByVal bDiffPass As Boolean = False)
         Dim oGame As New clsGame
-        Dim oExistingGame As clsGame
         Dim hshGame As Hashtable
+        Dim bForcedMode As Boolean
+        Dim sFileToImportShort As String
         Dim bOverwriteCurrent As Boolean
         Dim bContinue As Boolean
         Dim bImportComplete As Boolean
         Dim bUpdateManifest As Boolean
         Dim sBackupFile As String
         Dim oBackup As clsBackup
-        Dim oBackupMetadata As New BackupMetadata
+        Dim oBackupMetadata As BackupMetadata = Nothing
         Dim iFilesImported As Integer = 0
         Dim iGamesAdded As Integer = 0
         Dim sDiffLabel As String
         Dim oDiffParent As clsBackup
         Dim oDiffQueue As New List(Of String)
 
+        'When an specific game object is passed in, we enter a less strict "forced" import mode.
+        If oExistingGame IsNot Nothing Then bForcedMode = True
+
         For Each sFileToImport As String In sFileList
             RaiseEvent UpdateImportInfo(sFileToImport)
+            sFileToImportShort = Path.GetFileName(sFileToImport)
             bContinue = True
             bImportComplete = False
             bUpdateManifest = False
@@ -291,40 +296,67 @@ Public Class mgrBackup
                             If oBackupMetadata.AppVer < 128 Then
                                 RaiseEvent UpdateLog(mgrBackup_WarningOldMetadata, False, ToolTipIcon.Warning, True)
                             End If
-                            oGame = oBackupMetadata.Game.ConvertClass
-                            oBackup = oBackupMetadata.CreateBackupInfo
 
-                            If oGame.OS = mgrCommon.GetCurrentOS Or mgrCommon.GetCurrentOS = clsGame.eOS.Linux Then
-                                If mgrMonitorList.DoDuplicateListCheck(oGame.ID) Then
-                                    hshGame = mgrMonitorList.DoListGetbyMonitorID(oGame.ID)
-                                    If hshGame.Count = 1 Then
-                                        oExistingGame = DirectCast(hshGame(0), clsGame)
-                                        If Not oExistingGame.CoreEquals(oGame) Then
-                                            oGame.Hours = oExistingGame.Hours
-                                            oGame.CleanFolder = oExistingGame.CleanFolder
-                                            mgrMonitorList.DoListUpdate(oGame)
-                                            iGamesAdded += 1
-                                        End If
-                                    End If
+                            oGame = oBackupMetadata.Game.ConvertClass
+                            oBackup = oBackupMetadata.CreateBackupInfo(mgrBackup_ImportedFile, File.GetLastWriteTime(sFileToImport))
+
+                            If bForcedMode Then
+                                If oExistingGame.CoreEquals(oGame) Then
+                                    'When the metadata exactly matches the game selected, we can exit forced mode for the rest of the function.
+                                    bForcedMode = False
                                 Else
-                                    Dim oTagsToAdd As New Hashtable
-                                    oTagsToAdd.Add(0, oGame)
-                                    mgrMonitorList.DoListAdd(oGame)
-                                    mgrTags.DoTagAddImport(oTagsToAdd)
-                                    iGamesAdded += 1
+                                    If mgrCommon.ShowMessage(mgrBackup_WarningMetadataMismatch, sFileToImportShort, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                                        bContinue = False
+                                    End If
                                 End If
                             Else
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportOSMismatch, New String() {sFileToImport, oGame.OS.ToString, mgrCommon.GetCurrentOS.ToString}), False, ToolTipIcon.Warning, True)
-                                bContinue = False
+                                If oGame.OS = mgrCommon.GetCurrentOS Or mgrCommon.GetCurrentOS = clsGame.eOS.Linux Then
+                                    If mgrMonitorList.DoDuplicateListCheck(oGame.ID) Then
+                                        hshGame = mgrMonitorList.DoListGetbyMonitorID(oGame.ID)
+                                        If hshGame.Count = 1 Then
+                                            oExistingGame = DirectCast(hshGame(0), clsGame)
+                                            If Not oExistingGame.CoreEquals(oGame) Then
+                                                oGame.Hours = oExistingGame.Hours
+                                                oGame.CleanFolder = oExistingGame.CleanFolder
+                                                mgrMonitorList.DoListUpdate(oGame)
+                                                iGamesAdded += 1
+                                            End If
+                                        End If
+                                    Else
+                                        Dim oTagsToAdd As New Hashtable
+                                        oTagsToAdd.Add(0, oGame)
+                                        mgrMonitorList.DoListAdd(oGame)
+                                        mgrTags.DoTagAddImport(oTagsToAdd)
+                                        iGamesAdded += 1
+                                    End If
+                                Else
+                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportOSMismatch, New String() {sFileToImportShort, oGame.OS.ToString, mgrCommon.GetCurrentOS.ToString}), False, ToolTipIcon.Warning, True)
+                                    bContinue = False
+                                End If
                             End If
                         Else
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorReadingMetadata, sFileToImport), False, ToolTipIcon.Warning, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorReadingMetadata, sFileToImportShort), False, ToolTipIcon.Warning, True)
                             bContinue = False
                         End If
                     End If
                 Else
-                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorNoMetadata, sFileToImport), False, ToolTipIcon.Warning, True)
-                    bContinue = False
+                    If bForcedMode Then
+                        If mgrCommon.ShowMessage(mgrBackup_WarningNoMetadata, sFileToImportShort, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                            bContinue = False
+                        End If
+                    Else
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorNoMetadata, sFileToImportShort), False, ToolTipIcon.Warning, True)
+                        bContinue = False
+                    End If
+                End If
+
+                'If we are still in forced mode at this point we need to initialize required objects.
+                If bContinue And bForcedMode Then
+                    oGame = oExistingGame
+                    oBackup = New clsBackup
+                    oBackup.MonitorID = oGame.ID
+                    oBackup.DateUpdated = File.GetLastWriteTime(sFileToImport)
+                    oBackup.UpdatedBy = mgrBackup_ImportedFile
                 End If
 
                 If bContinue Then
@@ -340,27 +372,33 @@ Public Class mgrBackup
                 If bContinue Then
                     'Handle differential backups
                     If oGame.Differential Then
-                        If oBackupMetadata.Backup.IsDifferentialParent Then
-                            If mgrManifest.DoManifestParentCheck(oGame.ID, mgrSQLite.Database.Remote) Then
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportDifferentialParentExists, sFileToImport), False, ToolTipIcon.Error, True)
-                                bContinue = False
-                            Else
-                                sDiffLabel = "-" & mgrBackup_Label_DiffFull
-                                oBackup.IsDifferentialParent = True
-                            End If
-                        Else
-                            sDiffLabel = "-" & mgrBackup_Label_Diff
-                            oDiffParent = mgrManifest.DoManifestGetByManifestID(oBackupMetadata.Backup.DifferentialParent, mgrSQLite.Database.Remote)
-                            If oDiffParent IsNot Nothing Then
-                                oBackup.DifferentialParent = oDiffParent.ManifestID
-                            Else
-                                If bDiffPass Or sFileList.Length = 1 Then
-                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportNoDifferentialParent, sFileToImport), False, ToolTipIcon.Error, True)
+                        If oBackupMetadata IsNot Nothing Then
+                            If oBackupMetadata.Backup.IsDifferentialParent Then
+                                If mgrManifest.DoManifestParentCheck(oGame.ID, mgrSQLite.Database.Remote) Then
+                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportDifferentialParentExists, New String() {sFileToImportShort, oGame.Name}), False, ToolTipIcon.Error, True)
                                     bContinue = False
                                 Else
-                                    oDiffQueue.Add(sFileToImport)
+                                    sDiffLabel = "-" & mgrBackup_Label_DiffFull
+                                    oBackup.IsDifferentialParent = True
+                                End If
+                            Else
+                                sDiffLabel = "-" & mgrBackup_Label_Diff
+                                oDiffParent = mgrManifest.DoManifestGetByManifestID(oBackupMetadata.Backup.DifferentialParent, mgrSQLite.Database.Remote)
+                                If oDiffParent IsNot Nothing Then
+                                    oBackup.DifferentialParent = oDiffParent.ManifestID
+                                Else
+                                    If bDiffPass Or sFileList.Length = 1 Then
+                                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportNoDifferentialParent, sFileToImportShort), False, ToolTipIcon.Error, True)
+                                    Else
+                                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_WarningImportNoDifferentialParent, sFileToImportShort), False, ToolTipIcon.Error, True)
+                                        oDiffQueue.Add(sFileToImport)
+                                    End If
+                                    bContinue = False
                                 End If
                             End If
+                        Else
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportDifferentialWithNoMetadata, New String() {oGame.Name, sFileToImportShort}), False, ToolTipIcon.Error, True)
+                            bContinue = False
                         End If
                     End If
                 End If
@@ -380,7 +418,7 @@ Public Class mgrBackup
                         If mgrCommon.CopyFile(sFileToImport, sBackupFile, True) Then
                             bUpdateManifest = True
                         Else
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportBackupCopy, sFileToImport), False, ToolTipIcon.Error, True)
+                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportBackupCopy, sFileToImportShort), False, ToolTipIcon.Error, True)
                         End If
                     End If
 
@@ -397,10 +435,10 @@ Public Class mgrBackup
                         End If
                         iFilesImported += 1
                         bImportComplete = True
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImport, oGame.Name}), False, ToolTipIcon.Info, True)
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImportShort, oGame.Name}), False, ToolTipIcon.Info, True)
                     End If
                 Else
-                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportCancel, sFileToImport), False, ToolTipIcon.Error, True)
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportCancel, sFileToImportShort), False, ToolTipIcon.Error, True)
                 End If
 
                 If bImportComplete Then
@@ -425,158 +463,11 @@ Public Class mgrBackup
         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_GamesAddedDuringImport, iGamesAdded.ToString), False, ToolTipIcon.Info, True)
 
         If Not bDiffPass And oDiffQueue.Count > 0 Then
-            ImportBackupFiles(oDiffQueue.ToArray, True)
-        End If
-    End Sub
-
-    Public Sub ImportBackupFilesByGame(ByVal oImportList As SortedList, Optional ByVal bDiffPass As Boolean = False)
-        Dim oGame As clsGame
-        Dim bOverwriteCurrent As Boolean = False
-        Dim bContinue As Boolean
-        Dim bImportComplete As Boolean
-        Dim bUpdateManifest As Boolean
-        Dim bMatch As Boolean
-        Dim sFileToImport As String
-        Dim sBackupFile As String
-        Dim oBackup As clsBackup
-        Dim oBackupMetadata As BackupMetadata
-        Dim sDiffLabel As String
-        Dim oDiffParent As clsBackup
-        Dim oDiffQueue As New SortedList
-
-        For Each de As DictionaryEntry In oImportList
-            bContinue = True
-            bImportComplete = False
-            bMatch = False
-            bUpdateManifest = False
-            sFileToImport = CStr(de.Key)
-            RaiseEvent UpdateImportInfo(sFileToImport)
-            oGame = DirectCast(de.Value, clsGame)
-            sDiffLabel = String.Empty
-            oBackup = New clsBackup
-
-            'Enter overwite mode if we are importing a single backup and "Save Multiple Backups" is not enabled.
-            If oImportList.Count = 1 And Not oGame.AppendTimeStamp Then bOverwriteCurrent = True
-
-            If File.Exists(sFileToImport) Then
-                sBackupFile = mgrSettings.BackupFolder
-
-                If mgrSettings.CreateSubFolder Then
-                    sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
-                    bContinue = HandleSubFolder(oGame, sBackupFile)
-                End If
-
-                If bContinue Then
-                    If oMetadata.CheckForMetadata(sFileToImport) Then
-                        If oMetadata.ExtractMetadataFromArchive(sFileToImport) Then
-                            oBackupMetadata = New BackupMetadata
-                            If oMetadata.ImportandDeserialize(oBackupMetadata) Then
-                                'Version warning
-                                If oBackupMetadata.AppVer < 128 Then
-                                    RaiseEvent UpdateLog(mgrBackup_WarningOldMetadata, False, ToolTipIcon.Warning, True)
-                                End If
-                                If oBackupMetadata.Game.ID = oGame.ID Then
-                                    bMatch = True
-                                    oBackup = oBackupMetadata.CreateBackupInfo
-                                Else
-                                    If mgrCommon.ShowMessage(mgrBackup_WarningMetadataMismatch, Path.GetFileName(sFileToImport), MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                                        bContinue = False
-                                    End If
-                                End If
-                            End If
-                        End If
-                    Else
-                        If mgrCommon.ShowMessage(mgrBackup_WarningNoMetadata, Path.GetFileName(sFileToImport), MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                            bContinue = False
-                        End If
-                    End If
-
-                    If Not bMatch Then
-                        oBackup.MonitorID = oGame.ID
-                        oBackup.DateUpdated = File.GetLastWriteTime(sFileToImport)
-                        oBackup.UpdatedBy = mgrBackup_ImportedFile
-                    End If
-                End If
-
-                If bContinue Then
-                    'Handle differential backups
-                    If oGame.Differential Then
-                        If Path.GetFileNameWithoutExtension(sFileToImport).EndsWith(mgrBackup_Label_DiffFull) Then
-                            If mgrManifest.DoManifestParentCheck(oGame.ID, mgrSQLite.Database.Remote) Then
-                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportDifferentialParentExists, sFileToImport), False, ToolTipIcon.Error, True)
-                                bContinue = False
-                            Else
-                                sDiffLabel = "-" & mgrBackup_Label_DiffFull
-                                oBackup.IsDifferentialParent = True
-                            End If
-                        Else
-                            sDiffLabel = "-" & mgrBackup_Label_Diff
-                            oDiffParent = mgrManifest.DoManfiestGetDifferentialParent(oGame.ID, mgrSQLite.Database.Remote)
-                            If oDiffParent IsNot Nothing Then
-                                oBackup.DifferentialParent = oDiffParent.ManifestID
-                            Else
-                                If bDiffPass Or oImportList.Count = 1 Then
-                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportNoDifferentialParent, sFileToImport), False, ToolTipIcon.Error, True)
-                                    bContinue = False
-                                Else
-                                    oDiffQueue.Add(sFileToImport, oGame)
-                                End If
-                            End If
-                        End If
-                    End If
-                End If
-
-                If bContinue Then
-                    If bOverwriteCurrent Then
-                        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & ".7z"
-                    Else
-                        sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & BuildFileTimeStamp(oBackup.DateUpdated) & sDiffLabel & ".7z"
-                    End If
-
-                    oBackup.FileName = sBackupFile.Replace(mgrSettings.BackupFolder & Path.DirectorySeparatorChar, String.Empty)
-
-                    If sFileToImport = sBackupFile Then
-                        bUpdateManifest = True
-                    Else
-                        If mgrCommon.CopyFile(sFileToImport, sBackupFile, True) Then
-                            bUpdateManifest = True
-                        Else
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportBackupCopy, sFileToImport), False, ToolTipIcon.Error, True)
-                        End If
-                    End If
-
-                    If bUpdateManifest Then
-                        oBackup.CheckSum = mgrHash.Generate_SHA256_Hash(sBackupFile)
-                        If bOverwriteCurrent Then
-                            If Not mgrManifest.DoUpdateLatestManifest(oBackup, mgrSQLite.Database.Remote) Then
-                                mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
-                            End If
-                        Else
-                            If Not mgrManifest.DoManifestDuplicateCheck(oBackup, mgrSQLite.Database.Remote) Then
-                                mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
-                            End If
-                        End If
-                        bImportComplete = True
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ImportSuccess, New String() {sFileToImport, oGame.Name}), False, ToolTipIcon.Info, True)
-                    End If
-                Else
-                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportCancel, sFileToImport), False, ToolTipIcon.Error, True)
-                End If
-
-                If bImportComplete Then
-                    RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionImportComplete, oGame.CroppedName))
-                Else
-                    RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionImportFailed, oGame.CroppedName))
-                End If
+            If bForcedMode Then
+                ImportBackupFiles(oDiffQueue.ToArray, oExistingGame, True)
+            Else
+                ImportBackupFiles(oDiffQueue.ToArray, , True)
             End If
-
-            If CancelOperation Then
-                Exit For
-            End If
-        Next
-
-        If Not bDiffPass And oDiffQueue.Count > 0 Then
-            ImportBackupFilesByGame(oDiffQueue, True)
         End If
     End Sub
 

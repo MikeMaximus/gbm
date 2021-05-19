@@ -48,11 +48,12 @@ Public Class BackupMetadata
         oGame = oInitGame
     End Sub
 
-    Public Function CreateBackupInfo() As clsBackup
+    Public Function CreateBackupInfo(ByVal sDefaultUpdatedBy As String, ByVal dDefaultDate As DateTime) As clsBackup
         Dim oBackup As New clsBackup
 
         oBackup.MonitorID = Game.ID
-        oBackup.UpdatedBy = GBM.My.Resources.mgrBackup_ImportedFile
+        oBackup.DateUpdated = dDefaultDate
+        oBackup.UpdatedBy = sDefaultUpdatedBy
 
         If AppVer >= 128 Then
             oBackup.ManifestID = Backup.ManifestID

@@ -481,10 +481,10 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub RunImportBackupByGame(ByVal oImportBackupList As SortedList)
+    Private Sub RunImportBackupByGame(ByVal sFilesToImport As String(), ByVal oGame As clsGame)
         eCurrentOperation = eOperation.Import
         OperationStarted()
-        oBackup.ImportBackupFilesByGame(oImportBackupList)
+        oBackup.ImportBackupFiles(sFilesToImport, oGame)
         OperationEnded()
     End Sub
 
@@ -1375,7 +1375,7 @@ Public Class frmMain
 
         'Handle import backup trigger
         If frm.TriggerImportBackup Then
-            RunImportBackupByGame(frm.ImportBackupList)
+            RunImportBackupByGame(frm.ImportBackupList, frm.ImportBackupGame)
         End If
 
         'Rebuild launch menu just in case something was deleted.

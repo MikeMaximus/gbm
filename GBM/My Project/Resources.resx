@@ -2285,7 +2285,7 @@
     <value>The import of [PARAM] was cancelled.</value>
   </data>
   <data name="mgrBackup_WarningMetadataMismatch" xml:space="preserve">
-    <value>The metadata in the backup file ([PARAM]) does not match the game you selected.[BR][BR]Do you want to continue importing this file? (Not Recommended)</value>
+    <value>The configuration metadata in the backup file ([PARAM]) does not match the game you selected.[BR][BR]Do you want to continue importing this file anyway? (Not Recommended)</value>
   </data>
   <data name="mgrBackup_WarningNoMetadata" xml:space="preserve">
     <value>The backup file ([PARAM]) contains no metadata or is an invalid archive.[BR][BR]Do you want to continue importing this file? (Not Recommended)</value>
@@ -3005,15 +3005,21 @@
     <value>The restore for [PARAM] cannot continue.  The backup being restored is a differential backup, but the required full backup cannot be found.  </value>
   </data>
   <data name="mgrBackup_ErrorImportNoDifferentialParent" xml:space="preserve">
-    <value>[PARAM] cannot be imported.  It is a differential backup and the full backup could not be found.</value>
+    <value>[PARAM] cannot be imported.  It is a differential backup and it's associated full backup could not be found.</value>
   </data>
   <data name="frmMain_RestoreQueueDiffParent" xml:space="preserve">
     <value>The required full backup [PARAM] ([PARAM]) was added to restore queue.</value>
   </data>
   <data name="mgrBackup_ErrorImportDifferentialParentExists" xml:space="preserve">
-    <value>[PARAM] cannot be imported.  This game uses differential backups and a full backup already exists.</value>
+    <value>[PARAM] cannot be imported.  [PARAM] uses differential backups and a full backup already exists. </value>
   </data>
   <data name="mgrBackup_WarningOldMetadata" xml:space="preserve">
     <value>The metadata is no longer fully compatible with this version, some information may not be imported. </value>
+  </data>
+  <data name="mgrBackup_ErrorImportDifferentialWithNoMetadata" xml:space="preserve">
+    <value>[PARAM] is configured to use differential backups, but [PARAM] contains no metadata to properly identify the type of backup file.  This file cannot be imported.</value>
+  </data>
+  <data name="mgrBackup_WarningImportNoDifferentialParent" xml:space="preserve">
+    <value>[PARAM] is a differential backup,  but it's associated full backup could not be found.  It has been pushed to the bottom of the import queue.</value>
   </data>
 </root>

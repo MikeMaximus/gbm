@@ -20,7 +20,8 @@ Public Class frmGameManager
     Private bNoRestoreQueue As Boolean = False
     Private oBackupList As New List(Of clsGame)
     Private oRestoreList As New Hashtable
-    Private oImportBackupList As New SortedList
+    Private oImportBackupGame As clsGame
+    Private sImportBackupList As String()
     Private oGameData As OrderedDictionary
     Private oLocalBackupData As SortedList
     Private oRemoteBackupData As SortedList
@@ -164,12 +165,21 @@ Public Class frmGameManager
         End Set
     End Property
 
-    Property ImportBackupList As SortedList
+    Property ImportBackupGame As clsGame
         Get
-            Return oImportBackupList
+            Return oImportBackupGame
         End Get
-        Set(value As SortedList)
-            oImportBackupList = value
+        Set(value As clsGame)
+            oImportBackupGame = value
+        End Set
+    End Property
+
+    Property ImportBackupList As String()
+        Get
+            Return sImportBackupList
+        End Get
+        Set(value As String())
+            sImportBackupList = value
         End Set
     End Property
 
@@ -1755,21 +1765,15 @@ Public Class frmGameManager
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         Dim oBackup As New mgrBackup
         Dim sConfirm As String = frmGameManager_ConfirmBackupImport
-        Dim sFile As String
         Dim sFiles As String()
         Dim oExtensions As New SortedList
-
-        ImportBackupList.Clear()
 
         oExtensions.Add(frmGameManager_7zBackup, "7z")
         sFiles = mgrCommon.OpenMultiFileBrowser("GM_ImportBackup", frmGameManager_Choose7zImport, oExtensions, 1, sDefaultFolder, True)
 
         If sFiles.Length > 0 Then
-            For Each sFile In sFiles
-                If Not ImportBackupList.Contains(sFile) Then
-                    ImportBackupList.Add(sFile, oCurrentGame)
-                End If
-            Next
+            ImportBackupList = sFiles
+            ImportBackupGame = oCurrentGame
 
             If sFiles.Length > 1 And Not CurrentGame.AppendTimeStamp Then
                 mgrCommon.ShowMessage(frmGameManager_WarningImportBackupSaveMulti, MsgBoxStyle.Exclamation)
