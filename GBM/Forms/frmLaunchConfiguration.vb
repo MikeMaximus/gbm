@@ -151,6 +151,7 @@ Public Class frmLaunchConfiguration
                 Return False
             End If
         ElseIf Not txtExePath.Text = String.Empty Then
+            txtExePath.Text = mgrPath.ValidatePath(txtExePath.Text)
             If Not File.Exists(txtExePath.Text) Then
                 mgrCommon.ShowMessage(frmLaunchConfiguration_ErrorExeNotFound, MsgBoxStyle.Exclamation)
                 txtExePath.Focus()

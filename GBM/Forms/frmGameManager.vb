@@ -1577,7 +1577,7 @@ Public Class frmGameManager
         oApp.Comments = txtComments.Text
         oApp.Enabled = cmsEnabled.Checked
         oApp.MonitorOnly = cmsMonitorOnly.Checked
-        oApp.ProcessPath = mgrPath.ValidatePath(txtAppPath.Text)
+        oApp.ProcessPath = mgrPath.ValidatePath(txtAppPath.Text, True)
         oApp.Company = txtCompany.Text
         oApp.Version = txtVersion.Text
         oApp.Icon = txtIcon.Text
