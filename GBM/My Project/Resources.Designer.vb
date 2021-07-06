@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-07-06T21:36:26
+        '''  Looks up a localized string similar to 2021-07-06T22:18:34
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1984,6 +1984,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Full backup interval.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_chkTimeStamp_DiffAlt() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_chkTimeStamp_DiffAlt", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Choose compatible backup file(s).
         '''</summary>
         Friend ReadOnly Property frmGameManager_Choose7zImport() As String
@@ -2695,6 +2704,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_lblLimit() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_lblLimit", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Interval ( 0 = None).
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblLimit_DiffAlt() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblLimit_DiffAlt", resourceCulture)
             End Get
         End Property
         

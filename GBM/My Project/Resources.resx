@@ -3016,4 +3016,10 @@
   <data name="mgrBackup_WarningImportNoDifferentialParent" xml:space="preserve">
     <value>[PARAM] is a differential backup,  but it's associated full backup could not be found.  It has been pushed to the bottom of the import queue.</value>
   </data>
+  <data name="frmGameManager_chkTimeStamp_DiffAlt" xml:space="preserve">
+    <value>Full backup interval</value>
+  </data>
+  <data name="frmGameManager_lblLimit_DiffAlt" xml:space="preserve">
+    <value>Interval ( 0 = None)</value>
+  </data>
 </root>

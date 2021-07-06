@@ -2377,8 +2377,12 @@ Public Class frmGameManager
         If chkDifferentialBackup.Checked Then
             chkTimeStamp.Checked = True
             chkTimeStamp.Enabled = False
+            chkTimeStamp.Text = frmGameManager_chkTimeStamp_DiffAlt
+            lblLimit.Text = frmGameManager_lblLimit_DiffAlt
         Else
             chkTimeStamp.Enabled = True
+            chkTimeStamp.Text = frmGameManager_chkTimeStamp
+            lblLimit.Text = frmGameManager_lblLimit
         End If
     End Sub
 
