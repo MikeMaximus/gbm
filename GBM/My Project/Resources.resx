@@ -2987,7 +2987,7 @@
     <value>Differential backup</value>
   </data>
   <data name="mgrBackup_ErrorDiffParentNotFound" xml:space="preserve">
-    <value>The full backup for [PARAM] could not be found.  A differential backup cannot be done, a new full backup will be created.</value>
+    <value>A current full backup for [PARAM] could not be found or the interval has been reached.  A new full backup will be created.</value>
   </data>
   <data name="mgrBackup_Label_Diff" xml:space="preserve">
     <value>Diff</value>
@@ -2998,9 +2998,6 @@
   <data name="frmGameManager_ConfirmBackupDeleteDiffParent" xml:space="preserve">
     <value>This is the full backup file for a set of differential backups, all the differential backup files that rely on this file will also be deleted. This cannot be undone.[BR][BR]Are you sure you want to delete [PARAM]? </value>
   </data>
-  <data name="frmMain_ErrorDifferentialParentMismatch" xml:space="preserve">
-    <value>The restore for [PARAM] cannot continue.  The backup being restored is a differential backup, but it was not created using the current full backup.  </value>
-  </data>
   <data name="frmMain_ErrorDifferentialParentNotFound" xml:space="preserve">
     <value>The restore for [PARAM] cannot continue.  The backup being restored is a differential backup, but the required full backup cannot be found.  </value>
   </data>
@@ -3009,9 +3006,6 @@
   </data>
   <data name="frmMain_RestoreQueueDiffParent" xml:space="preserve">
     <value>The required full backup [PARAM] ([PARAM]) was added to restore queue.</value>
-  </data>
-  <data name="mgrBackup_ErrorImportDifferentialParentExists" xml:space="preserve">
-    <value>[PARAM] cannot be imported.  [PARAM] uses differential backups and a full backup already exists. </value>
   </data>
   <data name="mgrBackup_WarningOldMetadata" xml:space="preserve">
     <value>The metadata is no longer fully compatible with this version, some information may not be imported. </value>

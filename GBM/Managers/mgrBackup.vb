@@ -374,13 +374,8 @@ Public Class mgrBackup
                     If oGame.Differential Then
                         If oBackupMetadata IsNot Nothing Then
                             If oBackupMetadata.Backup.IsDifferentialParent Then
-                                If mgrManifest.DoManifestParentCheck(oGame.ID, mgrSQLite.Database.Remote) Then
-                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorImportDifferentialParentExists, New String() {sFileToImportShort, oGame.Name}), False, ToolTipIcon.Error, True)
-                                    bContinue = False
-                                Else
-                                    sDiffLabel = "-" & mgrBackup_Label_DiffFull
-                                    oBackup.IsDifferentialParent = True
-                                End If
+                                sDiffLabel = "-" & mgrBackup_Label_DiffFull
+                                oBackup.IsDifferentialParent = True
                             Else
                                 sDiffLabel = "-" & mgrBackup_Label_Diff
                                 oDiffParent = mgrManifest.DoManifestGetByManifestID(oBackupMetadata.Backup.DifferentialParent, mgrSQLite.Database.Remote)
@@ -659,6 +654,7 @@ Public Class mgrBackup
         Dim sHash As String
         Dim bRunDifferential As Boolean
         Dim oDiffParent As clsBackup
+        Dim oDiffChildren As List(Of clsBackup)
         Dim sDiffParentID As String
         Dim sDiffParentFile As String
         Dim sDiffLabel As String
@@ -697,15 +693,14 @@ Public Class mgrBackup
             If oGame.Differential Then
                 If mgrManifest.DoManifestParentCheck(oGame.ID, mgrSQLite.Database.Remote) Then
                     oDiffParent = mgrManifest.DoManfiestGetDifferentialParent(oGame.ID, mgrSQLite.Database.Remote)
+                    oDiffChildren = mgrManifest.DoManfiestGetDifferentialChildren(oDiffParent, mgrSQLite.Database.Remote)
                     sDiffParentFile = mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oDiffParent.FileName
-                    If File.Exists(sDiffParentFile) Then
+                    If File.Exists(sDiffParentFile) And oDiffChildren.Count < oGame.BackupLimit Then
                         bRunDifferential = True
                         sDiffParentID = oDiffParent.ManifestID
                     Else
-                        mgrManifest.DoManifestDeleteByManifestID(oDiffParent, mgrSQLite.Database.Remote)
-                        mgrManifest.DoManifestDeleteByManifestID(oDiffParent, mgrSQLite.Database.Local)
                         bRunDifferential = False
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorDiffParentNotFound, oGame.CroppedName), True, ToolTipIcon.Warning, True)
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorDiffParentNotFound, oGame.CroppedName), False, ToolTipIcon.Warning, True)
                     End If
                 End If
                 If bRunDifferential Then
@@ -716,7 +711,7 @@ Public Class mgrBackup
             End If
 
             If oGame.AppendTimeStamp Then
-                If oGame.BackupLimit > 0 Then CheckOldBackups(oGame)
+                If Not oGame.Differential And oGame.BackupLimit > 0 Then CheckOldBackups(oGame)
                 sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & sTimeStamp & sDiffLabel & sBackupExt
             Else
                 sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & sBackupExt

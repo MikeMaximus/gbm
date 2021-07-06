@@ -319,16 +319,12 @@ Public Class frmMain
             If bOSVerified And bPathVerified Then
                 If oRestore.CheckRestorePrereq(oRestoreInfo, oGame.CleanFolder, bFastMode) Then
                     If oGame.Differential And Not oRestoreInfo.IsDifferentialParent Then
-                        oDiffParent = mgrManifest.DoManfiestGetDifferentialParent(oGame.ID, mgrSQLite.Database.Remote)
+                        oDiffParent = mgrManifest.DoManifestGetByManifestID(oRestoreInfo.DifferentialParent, mgrSQLite.Database.Remote)
                         If oDiffParent IsNot Nothing Then
-                            If oRestoreInfo.DifferentialParent = oDiffParent.ManifestID Then
-                                If oRestore.CheckRestorePrereq(oDiffParent, False, True) Then
-                                    UpdateLog(mgrCommon.FormatString(frmMain_RestoreQueueDiffParent, New String() {oRestoreInfo.Name, oDiffParent.DateUpdated.ToString}), False, ToolTipIcon.Error, True)
-                                    oReadyList.Add(oDiffParent)
-                                    oReadyList.Add(oRestoreInfo)
-                                End If
-                            Else
-                                UpdateLog(mgrCommon.FormatString(frmMain_ErrorDifferentialParentMismatch, oRestoreInfo.Name), False, ToolTipIcon.Error, True)
+                            If oRestore.CheckRestorePrereq(oDiffParent, False, True) Then
+                                UpdateLog(mgrCommon.FormatString(frmMain_RestoreQueueDiffParent, New String() {oRestoreInfo.Name, oDiffParent.DateUpdated.ToString}), False, ToolTipIcon.Error, True)
+                                oReadyList.Add(oDiffParent)
+                                oReadyList.Add(oRestoreInfo)
                             End If
                         Else
                             UpdateLog(mgrCommon.FormatString(frmMain_ErrorDifferentialParentNotFound, oRestoreInfo.Name), False, ToolTipIcon.Error, True)

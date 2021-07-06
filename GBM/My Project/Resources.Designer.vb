@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-05-19T14:20:19
+        '''  Looks up a localized string similar to 2021-07-06T21:36:26
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4237,15 +4237,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The restore for [PARAM] cannot continue.  The backup being restored is a differential backup, but it was not created using the current full backup.  .
-        '''</summary>
-        Friend ReadOnly Property frmMain_ErrorDifferentialParentMismatch() As String
-            Get
-                Return ResourceManager.GetString("frmMain_ErrorDifferentialParentMismatch", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to The restore for [PARAM] cannot continue.  The backup being restored is a differential backup, but the required full backup cannot be found.  .
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorDifferentialParentNotFound() As String
@@ -7480,7 +7471,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The full backup for [PARAM] could not be found.  A differential backup cannot be done, a new full backup will be created..
+        '''  Looks up a localized string similar to A current full backup for [PARAM] could not be found or the interval has been reached.  A new full backup will be created..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorDiffParentNotFound() As String
             Get
@@ -7530,15 +7521,6 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_ErrorImportCancel() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ErrorImportCancel", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to [PARAM] cannot be imported.  [PARAM] uses differential backups and a full backup already exists. .
-        '''</summary>
-        Friend ReadOnly Property mgrBackup_ErrorImportDifferentialParentExists() As String
-            Get
-                Return ResourceManager.GetString("mgrBackup_ErrorImportDifferentialParentExists", resourceCulture)
             End Get
         End Property
         
