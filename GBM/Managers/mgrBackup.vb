@@ -695,7 +695,7 @@ Public Class mgrBackup
                     oDiffParent = mgrManifest.DoManfiestGetDifferentialParent(oGame.ID, mgrSQLite.Database.Remote)
                     oDiffChildren = mgrManifest.DoManfiestGetDifferentialChildren(oDiffParent, mgrSQLite.Database.Remote)
                     sDiffParentFile = mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oDiffParent.FileName
-                    If File.Exists(sDiffParentFile) And oDiffChildren.Count < oGame.BackupLimit Then
+                    If File.Exists(sDiffParentFile) And (oGame.BackupLimit = 0 Or oDiffChildren.Count < oGame.BackupLimit) Then
                         bRunDifferential = True
                         sDiffParentID = oDiffParent.ManifestID
                     Else
