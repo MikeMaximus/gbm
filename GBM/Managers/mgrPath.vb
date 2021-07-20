@@ -134,6 +134,11 @@ Public Class mgrPath
         Dim cDS As Char = Path.DirectorySeparatorChar 'Set the directory seperator based on the OS
 
         If Not mgrCommon.IsUnix Then
+            'If we are using Windows, it only makes sense to continue with this function when the process path and save path are on the same drive
+            If Not Path.GetPathRoot(sProcessPath) = Path.GetPathRoot(sSavePath) Then
+                Return sSavePath
+            End If
+
             'If we are working with a case insenstive file system, use a uniform case to reduce possible issues 
             sProcessPath = sProcessPath.ToLower
             sSavePath = sSavePath.ToLower
