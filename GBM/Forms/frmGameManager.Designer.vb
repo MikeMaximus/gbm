@@ -122,6 +122,8 @@ Partial Class frmGameManager
         Me.cmsMonitorOptions = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsEnabled = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsMonitorOnly = New System.Windows.Forms.ToolStripMenuItem()
+        Me.nudInterval = New System.Windows.Forms.NumericUpDown()
+        Me.lblInterval = New System.Windows.Forms.Label()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudHours, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -138,6 +140,7 @@ Partial Class frmGameManager
         Me.cmsProcessOptions.SuspendLayout()
         Me.cmsLinks.SuspendLayout()
         Me.cmsMonitorOptions.SuspendLayout()
+        CType(Me.nudInterval, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnAdd
@@ -215,9 +218,9 @@ Partial Class frmGameManager
         Me.lblLimit.AutoSize = True
         Me.lblLimit.Location = New System.Drawing.Point(403, 197)
         Me.lblLimit.Name = "lblLimit"
-        Me.lblLimit.Size = New System.Drawing.Size(98, 13)
+        Me.lblLimit.Size = New System.Drawing.Size(64, 13)
         Me.lblLimit.TabIndex = 23
-        Me.lblLimit.Text = "Limit (0 = Unlimited)"
+        Me.lblLimit.Text = "Backup limit"
         '
         'nudLimit
         '
@@ -642,6 +645,8 @@ Partial Class frmGameManager
         '
         'grpCoreConfig
         '
+        Me.grpCoreConfig.Controls.Add(Me.lblInterval)
+        Me.grpCoreConfig.Controls.Add(Me.nudInterval)
         Me.grpCoreConfig.Controls.Add(Me.chkDifferentialBackup)
         Me.grpCoreConfig.Controls.Add(Me.btnGameID)
         Me.grpCoreConfig.Controls.Add(Me.lblGameTags)
@@ -1069,6 +1074,22 @@ Partial Class frmGameManager
         Me.cmsMonitorOnly.Size = New System.Drawing.Size(172, 22)
         Me.cmsMonitorOnly.Text = "Monitor &Only"
         '
+        'nudInterval
+        '
+        Me.nudInterval.Location = New System.Drawing.Point(357, 223)
+        Me.nudInterval.Name = "nudInterval"
+        Me.nudInterval.Size = New System.Drawing.Size(40, 20)
+        Me.nudInterval.TabIndex = 27
+        '
+        'lblInterval
+        '
+        Me.lblInterval.AutoSize = True
+        Me.lblInterval.Location = New System.Drawing.Point(403, 225)
+        Me.lblInterval.Name = "lblInterval"
+        Me.lblInterval.Size = New System.Drawing.Size(99, 13)
+        Me.lblInterval.TabIndex = 28
+        Me.lblInterval.Text = "Full backup interval"
+        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1112,6 +1133,7 @@ Partial Class frmGameManager
         Me.cmsProcessOptions.ResumeLayout(False)
         Me.cmsLinks.ResumeLayout(False)
         Me.cmsMonitorOptions.ResumeLayout(False)
+        CType(Me.nudInterval, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1215,4 +1237,6 @@ Partial Class frmGameManager
     Friend WithEvents cmsLinkProcess As ToolStripMenuItem
     Friend WithEvents btnGameID As Button
     Friend WithEvents chkDifferentialBackup As CheckBox
+    Friend WithEvents lblInterval As Label
+    Friend WithEvents nudInterval As NumericUpDown
 End Class

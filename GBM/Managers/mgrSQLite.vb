@@ -87,7 +87,7 @@ Public Class mgrSQLite
             sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, FolderSave BOOLEAN NOT NULL, FileType TEXT, 
                     TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, 
                     MonitorOnly BOOLEAN NOT NULL, BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, 
-                    RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL, UseWindowTitle BOOLEAN NOT NULL, Differential BOOLEAN NOT NULL);"
+                    RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL, UseWindowTitle BOOLEAN NOT NULL, Differential BOOLEAN NOT NULL, DiffInterval INTEGER NOT NULL);"
 
             'Add Tables (Tags)
             sSql &= "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
@@ -152,7 +152,7 @@ Public Class mgrSQLite
             sSql = "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, FolderSave BOOLEAN NOT NULL, FileType TEXT, 
                     TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, 
                     MonitorOnly BOOLEAN NOT NULL, BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, 
-                    RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL, UseWindowTitle BOOLEAN NOT NULL, Differential BOOLEAN NOT NULL);"
+                    RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL, UseWindowTitle BOOLEAN NOT NULL, Differential BOOLEAN NOT NULL, DiffInterval INTEGER NOT NULL);"
 
             'Add Tables (Remote Manifest)
             sSql &= "CREATE TABLE manifest (ManifestID TEXT Not NULL PRIMARY KEY, MonitorID TEXT Not NULL, FileName TEXT Not NULL, " &
@@ -1164,6 +1164,7 @@ Public Class mgrSQLite
 
                 'Add differential backup option
                 sSQL = "ALTER TABLE monitorlist ADD COLUMN Differential BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE monitorlist ADD COLUMN DiffInterval INTEGER NOT NULL DEFAULT 0;"
 
                 'Add differential backup information
                 sSQL &= "ALTER TABLE manifest ADD COLUMN IsDifferentialParent BOOLEAN NOT NULL DEFAULT 0;"
@@ -1182,6 +1183,7 @@ Public Class mgrSQLite
 
                 'Add differential backup option
                 sSQL = "ALTER TABLE monitorlist ADD COLUMN Differential BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE monitorlist ADD COLUMN DiffInterval INTEGER NOT NULL DEFAULT 0;"
 
                 'Add differential backup information
                 sSQL &= "ALTER TABLE manifest ADD COLUMN IsDifferentialParent BOOLEAN NOT NULL DEFAULT 0;"

@@ -210,7 +210,7 @@ Public Class mgrBackup
         Return True
     End Function
 
-    Private Sub CheckOldBackups(ByVal oGame As clsGame)
+    Private Sub DeleteOldBackups(ByVal oGame As clsGame)
         Dim oGameBackups As List(Of clsBackup) = mgrManifest.DoManifestGetByMonitorID(oGame.ID, mgrSQLite.Database.Remote, True)
         Dim oGameBackup As clsBackup
         Dim sOldBackup As String
@@ -220,7 +220,7 @@ Public Class mgrBackup
         'If we've hit or exceeded the maximum backup limit
         If oGameBackups.Count >= oGame.BackupLimit Then
             'How many do we need to delete
-            iDelCount = (oGameBackups.Count - oGame.BackupLimit) + 1
+            iDelCount = (oGameBackups.Count - oGame.BackupLimit)
 
             'Delete the oldest backup(s) (Manifest entry and backup file)
             For i = 1 To iDelCount
@@ -228,11 +228,48 @@ Public Class mgrBackup
                 sOldBackup = mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oGameBackup.FileName
 
                 mgrManifest.DoManifestDeleteByManifestID(oGameBackup, mgrSQLite.Database.Remote)
-                mgrManifest.DoManifestDeleteByManifestID(oGameBackup, mgrSQLite.Database.Local)
                 mgrCommon.DeleteFile(sOldBackup)
                 mgrCommon.DeleteDirectoryByBackup(mgrSettings.BackupFolder & Path.DirectorySeparatorChar, oGameBackup)
 
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupLimitExceeded, Path.GetFileName(sOldBackup)), False, ToolTipIcon.Info, True)
+            Next
+        End If
+    End Sub
+
+    Private Sub DeleteOldDiffBackups(ByVal oGame As clsGame)
+        Dim oBackupSets As List(Of clsBackup) = mgrManifest.DoManfiestGetDifferentialParents(oGame.ID, mgrSQLite.Database.Remote)
+        Dim oCurrentParent As clsBackup
+        Dim sCurrentFileName As String
+        Dim oBackupChildren As List(Of clsBackup)
+        Dim iDelCount As Integer
+
+        'Have we exceeded the maximum set of backups
+        If oBackupSets.Count >= oGame.BackupLimit Then
+            'How many sets of backups do we need to delete
+            iDelCount = (oBackupSets.Count - oGame.BackupLimit)
+
+            'Delete the oldest sets of backups
+            For i = 1 To iDelCount
+                oCurrentParent = oBackupSets(oBackupSets.Count - i)
+                oBackupChildren = mgrManifest.DoManfiestGetDifferentialChildren(oCurrentParent, mgrSQLite.Database.Remote)
+
+                'Delete all associated diffs
+                For Each oChild As clsBackup In oBackupChildren
+                    sCurrentFileName = mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oChild.FileName
+                    mgrManifest.DoManifestDeleteByManifestID(oChild, mgrSQLite.Database.Remote)
+                    mgrManifest.DoManifestDeleteByManifestID(oChild, mgrSQLite.Database.Local)
+                    mgrCommon.DeleteFile(sCurrentFileName)
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupLimitExceeded, Path.GetFileName(sCurrentFileName)), False, ToolTipIcon.Info, True)
+                Next
+
+                'Delete full
+                sCurrentFileName = mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oCurrentParent.FileName
+                mgrManifest.DoManifestDeleteByManifestID(oCurrentParent, mgrSQLite.Database.Remote)
+                mgrCommon.DeleteFile(sCurrentFileName)
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupLimitExceeded, Path.GetFileName(sCurrentFileName)), False, ToolTipIcon.Info, True)
+
+                'Delete directory if empty
+                mgrCommon.DeleteDirectoryByBackup(mgrSettings.BackupFolder & Path.DirectorySeparatorChar, oCurrentParent)
             Next
         End If
     End Sub
@@ -690,12 +727,13 @@ Public Class mgrBackup
 
             bRunDifferential = False
             sDiffParentFile = String.Empty
+
             If oGame.Differential Then
                 If mgrManifest.DoManifestParentCheck(oGame.ID, mgrSQLite.Database.Remote) Then
-                    oDiffParent = mgrManifest.DoManfiestGetDifferentialParent(oGame.ID, mgrSQLite.Database.Remote)
+                    oDiffParent = mgrManifest.DoManfiestGetLatestDifferentialParent(oGame.ID, mgrSQLite.Database.Remote)
                     oDiffChildren = mgrManifest.DoManfiestGetDifferentialChildren(oDiffParent, mgrSQLite.Database.Remote)
                     sDiffParentFile = mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oDiffParent.FileName
-                    If File.Exists(sDiffParentFile) And (oGame.BackupLimit = 0 Or oDiffChildren.Count < oGame.BackupLimit) Then
+                    If File.Exists(sDiffParentFile) And (oGame.DiffInterval = 0 Or oDiffChildren.Count <= oGame.DiffInterval - 1) Then
                         bRunDifferential = True
                         sDiffParentID = oDiffParent.ManifestID
                     Else
@@ -710,8 +748,7 @@ Public Class mgrBackup
                 End If
             End If
 
-            If oGame.AppendTimeStamp Then
-                If Not oGame.Differential And oGame.BackupLimit > 0 Then CheckOldBackups(oGame)
+            If oGame.AppendTimeStamp Or oGame.Differential Then
                 sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & sTimeStamp & sDiffLabel & sBackupExt
             Else
                 sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame) & sBackupExt
@@ -760,7 +797,7 @@ Public Class mgrBackup
                     sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
 
                     'Write Main Manifest
-                    If Not DoManifestUpdate(oBackup, oGame.AppendTimeStamp, sBackupFile, sHash) Then
+                    If Not DoManifestUpdate(oBackup, oGame.AppendTimeStamp Or oGame.Differential, sBackupFile, sHash) Then
                         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorManifestFailure, oGame.Name), True, ToolTipIcon.Error, True)
                     End If
 
@@ -773,6 +810,16 @@ Public Class mgrBackup
 
                     'Remove game from the failsafe queue
                     mgrBackupQueue.DoBackupQueueDeleteByID(oGame.ID)
+
+                    'Handle old backups if required
+                    If oGame.AppendTimeStamp And Not oGame.Differential And oGame.BackupLimit > 0 Then
+                        DeleteOldBackups(oGame)
+                    ElseIf oGame.AppendTimeStamp And oGame.Differential And oGame.BackupLimit > 0 Then
+                        DeleteOldDiffBackups(oGame)
+                    ElseIf oGame.Differential And Not oGame.AppendTimeStamp Then
+                        oGame.BackupLimit = 1
+                        DeleteOldDiffBackups(oGame)
+                    End If
                 Else
                     'Delete the temporary backup file on failures
                     mgrCommon.DeleteFile(sBackupFile, False)

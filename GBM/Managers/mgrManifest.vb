@@ -121,7 +121,7 @@
         Return oBackupItem
     End Function
 
-    Public Shared Function DoManfiestGetDifferentialParent(ByVal sMonitorID As String, ByVal iSelectDB As mgrSQLite.Database) As clsBackup
+    Public Shared Function DoManfiestGetLatestDifferentialParent(ByVal sMonitorID As String, ByVal iSelectDB As mgrSQLite.Database) As clsBackup
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim oData As DataSet
         Dim sSQL As String
@@ -140,6 +140,29 @@
         Next
 
         Return oBackupItem
+    End Function
+
+    Public Shared Function DoManfiestGetDifferentialParents(ByVal sMonitorID As String, ByVal iSelectDB As mgrSQLite.Database) As List(Of clsBackup)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim oData As DataSet
+        Dim sSQL As String
+        Dim hshParams As New Hashtable
+        Dim oBackupItem As New clsBackup
+        Dim oList As New List(Of clsBackup)
+
+        sSQL = "SELECT * FROM manifest NATURAL JOIN monitorlist "
+        sSQL &= "WHERE IsDifferentialParent = 1 AND MonitorID = @MonitorID ORDER BY DateUpdated DESC"
+
+        hshParams.Add("MonitorID", sMonitorID)
+
+        oData = oDatabase.ReadParamData(sSQL, hshParams)
+
+        For Each dr As DataRow In oData.Tables(0).Rows
+            oBackupItem = MapToObject(dr)
+            oList.Add(oBackupItem)
+        Next
+
+        Return oList
     End Function
 
     Public Shared Function DoManfiestGetDifferentialChildren(ByRef oItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database) As List(Of clsBackup)

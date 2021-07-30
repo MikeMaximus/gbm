@@ -1103,6 +1103,7 @@ Public Class frmGameManager
         chkTimeStamp.Checked = oApp.AppendTimeStamp
         nudLimit.Value = oApp.BackupLimit
         chkDifferentialBackup.Checked = oApp.Differential
+        nudInterval.Value = oApp.DiffInterval
         txtComments.Text = oApp.Comments
         cmsEnabled.Checked = oApp.Enabled
         cmsMonitorOnly.Checked = oApp.MonitorOnly
@@ -1243,6 +1244,7 @@ Public Class frmGameManager
                 btnExport.Enabled = False
                 cboOS.SelectedValue = CInt(mgrCommon.GetCurrentOS)
                 TimeStampModeChange()
+                DifferentialModeChange()
             Case eModes.Edit
                 eLastMode = eModes.Edit
                 lblFilters.Enabled = False
@@ -1285,6 +1287,7 @@ Public Class frmGameManager
                 btnImport.Enabled = True
                 btnExport.Enabled = True
                 TimeStampModeChange()
+                DifferentialModeChange()
             Case eModes.Disabled
                 eLastMode = eModes.Disabled
                 lblFilters.Enabled = True
@@ -1421,6 +1424,16 @@ Public Class frmGameManager
             lblLimit.Enabled = False
         End If
         If bResetValue Then nudLimit.Value = nudLimit.Minimum
+    End Sub
+
+    Private Sub DifferentialModeChange()
+        If chkDifferentialBackup.Checked Then
+            nudInterval.Enabled = True
+            lblInterval.Enabled = True
+        Else
+            nudInterval.Enabled = False
+            lblInterval.Enabled = False
+        End If
     End Sub
 
     Private Sub VerifyImportBackup()
@@ -1574,6 +1587,7 @@ Public Class frmGameManager
         oApp.AppendTimeStamp = chkTimeStamp.Checked
         oApp.BackupLimit = nudLimit.Value
         oApp.Differential = chkDifferentialBackup.Checked
+        oApp.DiffInterval = nudInterval.Value
         oApp.Comments = txtComments.Text
         oApp.Enabled = cmsEnabled.Checked
         oApp.MonitorOnly = cmsMonitorOnly.Checked
@@ -2022,6 +2036,7 @@ Public Class frmGameManager
         cmsFile.Text = frmGameManager_cmsFile
         lblSearch.Text = frmGameManager_lblSearch
         lblLimit.Text = frmGameManager_lblLimit
+        lblInterval.Text = frmGameManager_lblInterval
         chkDifferentialBackup.Text = frmGameManager_chkDifferentialBackup
         cmsDeleteOne.Text = frmGameManager_cmsDeleteOne
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
@@ -2374,16 +2389,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub chkDifferentialBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkDifferentialBackup.CheckedChanged
-        If chkDifferentialBackup.Checked Then
-            chkTimeStamp.Checked = True
-            chkTimeStamp.Enabled = False
-            chkTimeStamp.Text = frmGameManager_chkTimeStamp_DiffAlt
-            lblLimit.Text = frmGameManager_lblLimit_DiffAlt
-        Else
-            chkTimeStamp.Enabled = True
-            chkTimeStamp.Text = frmGameManager_chkTimeStamp
-            lblLimit.Text = frmGameManager_lblLimit
-        End If
+        DifferentialModeChange()
     End Sub
 
     Private Sub cmsUseWindowTitle_CheckChanged(sender As Object, e As EventArgs) Handles cmsUseWindowTitle.CheckedChanged

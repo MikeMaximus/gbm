@@ -54,6 +54,7 @@ Public Class mgrMonitorList
         oGame.OS = CInt(dr("OS"))
         oGame.UseWindowTitle = CBool(dr("UseWindowTitle"))
         oGame.Differential = CBool(dr("Differential"))
+        oGame.DiffInterval = CInt(dr("DiffInterval"))
 
         'Compile RegEx
         If oGame.IsRegEx And bFullClass Then
@@ -90,6 +91,7 @@ Public Class mgrMonitorList
         hshParams.Add("OS", oGame.OS)
         hshParams.Add("UseWindowTitle", oGame.UseWindowTitle)
         hshParams.Add("Differential", oGame.Differential)
+        hshParams.Add("DiffInterval", oGame.DiffInterval)
 
         Return hshParams
     End Function
@@ -146,7 +148,7 @@ Public Class mgrMonitorList
 
         sSQL = "INSERT INTO monitorlist VALUES (@ID, @Name, @Process, @Path, @FolderSave, @FileType, @TimeStamp, "
         sSQL &= "@ExcludeList, @ProcessPath, @Icon, @Hours, @Version, @Company, @Enabled, @MonitorOnly, @BackupLimit, @CleanFolder, "
-        sSQL &= "@Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS, @UseWindowTitle, @Differential)"
+        sSQL &= "@Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS, @UseWindowTitle, @Differential, @DiffInterval)"
 
         'Parameters
         hshParams = SetCoreParameters(oGame)
@@ -164,7 +166,7 @@ Public Class mgrMonitorList
         sSQL &= "FileType=@FileType, TimeStamp=@TimeStamp, ExcludeList=@ExcludeList, ProcessPath=@ProcessPath, Icon=@Icon, "
         sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit, "
         sSQL &= "CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments, IsRegEx=@IsRegEx, RecurseSubFolders=@RecurseSubFolders, "
-        sSQL &= "OS=@OS, UseWindowTitle=@UseWindowTitle, Differential=@Differential "
+        sSQL &= "OS=@OS, UseWindowTitle=@UseWindowTitle, Differential=@Differential, DiffInterval=@DiffInterval "
         sSQL &= "WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE gametags SET MonitorID=@ID WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE configlinks SET MonitorID=@ID WHERE MonitorID=@QueryID;"
@@ -469,11 +471,11 @@ Public Class mgrMonitorList
             sVersion = "(SELECT Version FROM monitorlist WHERE MonitorID=@ID)"
         End If
 
-        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle, Differential) "
+        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle, Differential, DiffInterval) "
         sSQL &= "VALUES (@ID, @Name, @Process, @Path, @FolderSave, @FileType, "
         sSQL &= "@TimeStamp, @ExcludeList, " & sGamePath & ", "
         sSQL &= sIcon & ", @Hours, " & sVersion & ", "
-        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS, @UseWindowTitle, @Differential);"
+        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS, @UseWindowTitle, @Differential, @DiffInterval);"
 
         For Each oGame As clsGame In hshGames.Values
             hshParams = New Hashtable
@@ -498,6 +500,7 @@ Public Class mgrMonitorList
             hshParams.Add("OS", oGame.OS)
             hshParams.Add("UseWindowTitle", oGame.UseWindowTitle)
             hshParams.Add("Differential", oGame.Differential)
+            hshParams.Add("DiffInterval", oGame.DiffInterval)
 
             'Optional Parameters
             If (eSyncFields And clsGame.eOptionalSyncFields.Company) = clsGame.eOptionalSyncFields.Company Then
@@ -662,7 +665,7 @@ Public Class mgrMonitorList
                                              ByVal sQuickFilter As String, ByRef hshParams As Hashtable) As String
         Dim sSQL As String = String.Empty
         Dim iCounter As Integer = 0
-        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle, Differential FROM monitorlist"
+        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle, Differential, DiffInterval FROM monitorlist"
         Dim sSort As String = " ORDER BY " & sSortField
 
         If bSortAsc Then
@@ -849,6 +852,7 @@ Public Class mgrMonitorList
             oGame.OS = CInt(dr("OS"))
             oGame.UseWindowTitle = CBool(dr("UseWindowTitle"))
             oGame.Differential = CBool(dr("Differential"))
+            oGame.DiffInterval = CInt(dr("DiffInterval"))
             oGame.Tags = mgrGameTags.GetTagsByGameForExport(oGame.ID)
             oGame.ConfigLinks = mgrConfigLinks.GetConfigLinksByGameForExport(oGame.ID)
             oList.Add(oGame)
