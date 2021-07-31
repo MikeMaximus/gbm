@@ -3022,4 +3022,10 @@
   <data name="frmGameManager_lblInterval" xml:space="preserve">
     <value>Full backup interval</value>
   </data>
+  <data name="frmFilter_FieldDifferential" xml:space="preserve">
+    <value>Differential Backup</value>
+  </data>
+  <data name="frmFilter_FieldDiffInterval" xml:space="preserve">
+    <value>Full Backup Interval</value>
+  </data>
 </root>

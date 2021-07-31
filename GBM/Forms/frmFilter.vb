@@ -234,6 +234,22 @@ Public Class frmFilter
         oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
         oValidFields.Add(oField)
 
+        'Differential backup
+        oField = New clsGameFilterField
+        oField.FieldName = "Differential"
+        oField.FriendlyFieldName = frmFilter_FieldDifferential
+        oField.Type = clsGameFilterField.eDataType.fBool
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Full backup interval
+        oField = New clsGameFilterField
+        oField.FieldName = "DiffInterval"
+        oField.FriendlyFieldName = frmFilter_FieldDiffInterval
+        oField.Type = clsGameFilterField.eDataType.fNumeric
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
         'Comments
         oField = New clsGameFilterField
         oField.FieldName = "Comments"

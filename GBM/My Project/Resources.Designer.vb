@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-07-29T16:52:12
+        '''  Looks up a localized string similar to 2021-07-31T14:02:14
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1347,6 +1347,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmFilter_FieldCompany() As String
             Get
                 Return ResourceManager.GetString("frmFilter_FieldCompany", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Differential Backup.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_FieldDifferential() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_FieldDifferential", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Full Backup Interval.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_FieldDiffInterval() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_FieldDiffInterval", resourceCulture)
             End Get
         End Property
         
