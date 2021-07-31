@@ -210,17 +210,17 @@ Public Class mgrBackup
         Return True
     End Function
 
-    Private Sub DeleteOldBackups(ByVal oGame As clsGame)
-        Dim oGameBackups As List(Of clsBackup) = mgrManifest.DoManifestGetByMonitorID(oGame.ID, mgrSQLite.Database.Remote, True)
+    Private Sub DeleteOldBackups(ByVal sGameID As String, ByVal iBackupLimit As Integer)
+        Dim oGameBackups As List(Of clsBackup) = mgrManifest.DoManifestGetByMonitorID(sGameID, mgrSQLite.Database.Remote, True)
         Dim oGameBackup As clsBackup
         Dim sOldBackup As String
         Dim iBackupCount As Integer = oGameBackups.Count
         Dim iDelCount As Integer
 
         'If we've hit or exceeded the maximum backup limit
-        If oGameBackups.Count >= oGame.BackupLimit Then
+        If oGameBackups.Count >= iBackupLimit Then
             'How many do we need to delete
-            iDelCount = (oGameBackups.Count - oGame.BackupLimit)
+            iDelCount = (oGameBackups.Count - iBackupLimit)
 
             'Delete the oldest backup(s) (Manifest entry and backup file)
             For i = 1 To iDelCount
@@ -236,17 +236,17 @@ Public Class mgrBackup
         End If
     End Sub
 
-    Private Sub DeleteOldDiffBackups(ByVal oGame As clsGame)
-        Dim oBackupSets As List(Of clsBackup) = mgrManifest.DoManfiestGetDifferentialParents(oGame.ID, mgrSQLite.Database.Remote)
+    Private Sub DeleteOldDiffBackups(ByVal sGameID As String, ByVal iBackupLimit As Integer)
+        Dim oBackupSets As List(Of clsBackup) = mgrManifest.DoManfiestGetDifferentialParents(sGameID, mgrSQLite.Database.Remote)
         Dim oCurrentParent As clsBackup
         Dim sCurrentFileName As String
         Dim oBackupChildren As List(Of clsBackup)
         Dim iDelCount As Integer
 
         'Have we exceeded the maximum set of backups
-        If oBackupSets.Count >= oGame.BackupLimit Then
+        If oBackupSets.Count >= iBackupLimit Then
             'How many sets of backups do we need to delete
-            iDelCount = (oBackupSets.Count - oGame.BackupLimit)
+            iDelCount = (oBackupSets.Count - iBackupLimit)
 
             'Delete the oldest sets of backups
             For i = 1 To iDelCount
@@ -813,12 +813,11 @@ Public Class mgrBackup
 
                     'Handle old backups if required
                     If oGame.AppendTimeStamp And Not oGame.Differential And oGame.BackupLimit > 0 Then
-                        DeleteOldBackups(oGame)
+                        DeleteOldBackups(oGame.ID, oGame.BackupLimit)
                     ElseIf oGame.AppendTimeStamp And oGame.Differential And oGame.BackupLimit > 0 Then
-                        DeleteOldDiffBackups(oGame)
+                        DeleteOldDiffBackups(oGame.ID, oGame.BackupLimit)
                     ElseIf oGame.Differential And Not oGame.AppendTimeStamp Then
-                        oGame.BackupLimit = 1
-                        DeleteOldDiffBackups(oGame)
+                        DeleteOldDiffBackups(oGame.ID, 1)
                     End If
                 Else
                     'Delete the temporary backup file on failures

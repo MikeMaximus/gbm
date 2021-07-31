@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.8 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-July 20, 2021
+July 31, 2021
 
 Disclaimer:
 
@@ -14,10 +14,12 @@ New in 1.2.8
 All Platforms:
 
 - Differential backups are now supported and can be enabled in the Game Manager.
+	- If you're unsure, read the online manual for details on how and when to use this new feature.
 - Validation on "Game Path" will now trim off a file name if it's been included.
-- Fixed unhandled exception on the Launcher Manager when using the "..." (Browse) button with an empty "Executable" field.
 - Fixed importing multiple backup files for a single game.
 	- GBM will now create manifest entries for each file when appropriate, instead of just the newest file.
+- The "Save multiple backups" option with a specific backup limit will now clean up expired backups when a new backup is successfully completed, not before.
+- Fixed unhandled exception on the Launcher Manager when using the "..." (Browse) button with an empty "Executable" field.
 	
 Windows:
 
