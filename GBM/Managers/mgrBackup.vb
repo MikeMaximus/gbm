@@ -397,8 +397,8 @@ Public Class mgrBackup
                 End If
 
                 If bContinue Then
-                    'Enter overwite mode if "Save Multiple Backups" is not enabled.
-                    If Not oGame.AppendTimeStamp Then bOverwriteCurrent = True
+                    'Enter overwite mode if "Save Multiple Backups" and "Differential Backup" are disabled.
+                    If Not oGame.AppendTimeStamp And Not oGame.Differential Then bOverwriteCurrent = True
 
                     If mgrSettings.CreateSubFolder Then
                         sBackupFile = sBackupFile & Path.DirectorySeparatorChar & GetFileName(oGame)
