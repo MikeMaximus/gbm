@@ -1429,9 +1429,11 @@ Public Class frmGameManager
     Private Sub DifferentialModeChange()
         If chkDifferentialBackup.Checked Then
             nudInterval.Enabled = True
+            nudInterval.Value = 6
             lblInterval.Enabled = True
         Else
             nudInterval.Enabled = False
+            nudInterval.Value = 0
             lblInterval.Enabled = False
         End If
     End Sub
