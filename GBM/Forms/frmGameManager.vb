@@ -1426,15 +1426,15 @@ Public Class frmGameManager
         If bResetValue Then nudLimit.Value = nudLimit.Minimum
     End Sub
 
-    Private Sub DifferentialModeChange()
+    Private Sub DifferentialModeChange(Optional ByVal bResetValue As Boolean = False)
         If chkDifferentialBackup.Checked Then
             nudInterval.Enabled = True
-            nudInterval.Value = 6
             lblInterval.Enabled = True
+            If bResetValue Then nudInterval.Value = 6
         Else
             nudInterval.Enabled = False
-            nudInterval.Value = 0
             lblInterval.Enabled = False
+            If bResetValue Then nudInterval.Value = nudInterval.Minimum
         End If
     End Sub
 
@@ -1478,8 +1478,8 @@ Public Class frmGameManager
                 Case MsgBoxResult.No
                     If lstGames.SelectedItems.Count > 0 Then
                         eCurrentMode = eModes.View
-                        ModeChange()
                         FillData()
+                        ModeChange()
                         lstGames.Focus()
                     Else
                         eCurrentMode = eModes.Disabled
@@ -1491,8 +1491,8 @@ Public Class frmGameManager
         Else
             If lstGames.SelectedItems.Count > 0 Then
                 eCurrentMode = eModes.View
-                ModeChange()
                 FillData()
+                ModeChange()
                 lstGames.Focus()
             Else
                 eCurrentMode = eModes.Disabled
@@ -2391,7 +2391,9 @@ Public Class frmGameManager
     End Sub
 
     Private Sub chkDifferentialBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkDifferentialBackup.CheckedChanged
-        DifferentialModeChange()
+        If Not IsLoading Then
+            DifferentialModeChange(True)
+        End If
     End Sub
 
     Private Sub cmsUseWindowTitle_CheckChanged(sender As Object, e As EventArgs) Handles cmsUseWindowTitle.CheckedChanged
