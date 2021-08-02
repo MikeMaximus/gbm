@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.8 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-July 31, 2021
+August 2, 2021
 
 Disclaimer:
 
@@ -24,5 +24,6 @@ All Platforms:
 Windows:
 
 - GBM no longer tries to determine a relative save path when the "Game Path" and "Save Path" are on different drives.
+- Updated SQLite to 3.36.0
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
