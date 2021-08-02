@@ -257,7 +257,6 @@ Public Class mgrBackup
                 For Each oChild As clsBackup In oBackupChildren
                     sCurrentFileName = mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oChild.FileName
                     mgrManifest.DoManifestDeleteByManifestID(oChild, mgrSQLite.Database.Remote)
-                    mgrManifest.DoManifestDeleteByManifestID(oChild, mgrSQLite.Database.Local)
                     mgrCommon.DeleteFile(sCurrentFileName)
                     RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupLimitExceeded, Path.GetFileName(sCurrentFileName)), False, ToolTipIcon.Info, True)
                 Next

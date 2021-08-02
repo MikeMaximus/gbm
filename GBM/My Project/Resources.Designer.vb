@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-07-31T14:02:14
+        '''  Looks up a localized string similar to 2021-08-02T13:59:50
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2735,6 +2735,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Full backup limit.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblLimit_Alt() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblLimit_Alt", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Local Data:.
         '''</summary>
         Friend ReadOnly Property frmGameManager_lblLocalData() As String
@@ -3022,6 +3031,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ttHelp_lblTags() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ttHelp_lblTags", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 0 = No Interval.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ttHelp_nudInterval() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ttHelp_nudInterval", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 0 = Unlimited.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ttHelp_nudLimit() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ttHelp_nudLimit", resourceCulture)
             End Get
         End Property
         

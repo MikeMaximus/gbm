@@ -3028,4 +3028,13 @@
   <data name="frmFilter_FieldDiffInterval" xml:space="preserve">
     <value>Full Backup Interval</value>
   </data>
+  <data name="frmGameManager_lblLimit_Alt" xml:space="preserve">
+    <value>Full backup limit</value>
+  </data>
+  <data name="frmGameManager_ttHelp_nudInterval" xml:space="preserve">
+    <value>0 = No Interval</value>
+  </data>
+  <data name="frmGameManager_ttHelp_nudLimit" xml:space="preserve">
+    <value>0 = Unlimited</value>
+  </data>
 </root>

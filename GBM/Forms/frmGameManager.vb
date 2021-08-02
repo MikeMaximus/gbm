@@ -1430,10 +1430,12 @@ Public Class frmGameManager
         If chkDifferentialBackup.Checked Then
             nudInterval.Enabled = True
             lblInterval.Enabled = True
+            lblLimit.Text = frmGameManager_lblLimit_Alt
             If bResetValue Then nudInterval.Value = 6
         Else
             nudInterval.Enabled = False
             lblInterval.Enabled = False
+            lblLimit.Text = frmGameManager_lblLimit
             If bResetValue Then nudInterval.Value = nudInterval.Minimum
         End If
     End Sub
@@ -2072,6 +2074,8 @@ Public Class frmGameManager
         ttHelp.SetToolTip(btnMonitorOptions, frmGameManager_ttHelp_btnMonitorOptions)
         ttHelp.SetToolTip(btnGameID, frmGameManager_ttHelp_btnGameID)
         ttHelp.SetToolTip(cboOS, frmGameManager_ttHelp_cboOS)
+        ttHelp.SetToolTip(nudLimit, frmGameManager_ttHelp_nudLimit)
+        ttHelp.SetToolTip(nudInterval, frmGameManager_ttHelp_nudInterval)
 
         LoadCombos()
 
