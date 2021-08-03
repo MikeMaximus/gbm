@@ -23,7 +23,7 @@ Public Class mgrMetadata
         End Try
     End Function
 
-    Public Function SerializeAndExport(ByVal sLocation As String, ByVal sGameID As String, ByVal sUpdatedBy As String, ByVal dTimeStamp As Date) As Boolean
+    Public Function SerializeAndExport(ByVal sLocation As String, ByVal sGameID As String, ByVal oBackup As clsBackup) As Boolean
         Dim oSerializer As XmlSerializer
         Dim oWriter As StreamWriter
         Dim oBackupMetadata As BackupMetadata
@@ -38,7 +38,7 @@ Public Class mgrMetadata
             Else
                 Return False
             End If
-            oBackupMetadata = New BackupMetadata(mgrCommon.AppVersion, mgrCommon.DateToUnix(dTimeStamp), sUpdatedBy, oGame.ConvertClass)
+            oBackupMetadata = New BackupMetadata(mgrCommon.AppVersion, oBackup.ConvertToBackup, oGame.ConvertToGame)
             oSerializer = New XmlSerializer(oBackupMetadata.GetType())
             oWriter = New StreamWriter(sLocation)
             oSerializer.Serialize(oWriter.BaseStream, oBackupMetadata)

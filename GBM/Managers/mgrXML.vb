@@ -43,6 +43,9 @@ Public Class mgrXML
             oGame.RecurseSubFolders = g.RecurseSubFolders
             oGame.OS = g.OS
             oGame.UseWindowTitle = g.UseWindowTitle
+            oGame.Differential = g.Differential
+            oGame.DiffInterval = g.DiffInterval
+
             'Retain compatability when the OS value is not set
             If oGame.OS = 0 Then
                 oGame.OS = mgrCommon.GetCurrentOS

@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-04-26T14:55:28
+        '''  Looks up a localized string similar to 2021-08-02T13:59:50
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1351,6 +1351,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Differential Backup.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_FieldDifferential() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_FieldDifferential", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Full Backup Interval.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_FieldDiffInterval() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_FieldDiffInterval", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Monitor Game.
         '''</summary>
         Friend ReadOnly Property frmFilter_FieldEnabled() As String
@@ -1957,6 +1975,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Differential backup.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_chkDifferentialBackup() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_chkDifferentialBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Save entire folder.
         '''</summary>
         Friend ReadOnly Property frmGameManager_chkFolderSave() As String
@@ -1971,6 +1998,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_chkTimeStamp() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_chkTimeStamp", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Full backup interval.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_chkTimeStamp_DiffAlt() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_chkTimeStamp_DiffAlt", resourceCulture)
             End Get
         End Property
         
@@ -2214,6 +2250,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ConfirmBackupDeleteAll() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ConfirmBackupDeleteAll", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to This is the full backup file for a set of differential backups, all the differential backup files that rely on this file will also be deleted. This cannot be undone.[BR][BR]Are you sure you want to delete [PARAM]? .
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ConfirmBackupDeleteDiffParent() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ConfirmBackupDeleteDiffParent", resourceCulture)
             End Get
         End Property
         
@@ -2672,11 +2717,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Limit (0 = Unlimited).
+        '''  Looks up a localized string similar to Full backup interval.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblInterval() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblInterval", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backup limit.
         '''</summary>
         Friend ReadOnly Property frmGameManager_lblLimit() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_lblLimit", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Full backup limit.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblLimit_Alt() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblLimit_Alt", resourceCulture)
             End Get
         End Property
         
@@ -2968,6 +3031,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ttHelp_lblTags() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ttHelp_lblTags", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 0 = No Interval.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ttHelp_nudInterval() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ttHelp_nudInterval", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 0 = Unlimited.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ttHelp_nudLimit() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ttHelp_nudLimit", resourceCulture)
             End Get
         End Property
         
@@ -4219,6 +4300,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The restore for [PARAM] cannot continue.  The backup being restored is a differential backup, but the required full backup cannot be found.  .
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorDifferentialParentNotFound() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorDifferentialParentNotFound", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to An error occured when attempting to end a process associated with [PARAM].[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorEndChildProcess() As String
@@ -5236,6 +5326,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_RestoreQueue() As String
             Get
                 Return ResourceManager.GetString("frmMain_RestoreQueue", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The required full backup [PARAM] ([PARAM]) was added to restore queue..
+        '''</summary>
+        Friend ReadOnly Property frmMain_RestoreQueueDiffParent() As String
+            Get
+                Return ResourceManager.GetString("frmMain_RestoreQueueDiffParent", resourceCulture)
             End Get
         End Property
         
@@ -7435,6 +7534,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to A current full backup for [PARAM] could not be found or the interval has been reached.  A new full backup will be created..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorDiffParentNotFound() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorDiffParentNotFound", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup aborted due to lack of disk space..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorDiskSpace() As String
@@ -7476,6 +7584,24 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_ErrorImportCancel() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_ErrorImportCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] is configured to use differential backups, but [PARAM] contains no metadata to properly identify the type of backup file.  This file cannot be imported..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorImportDifferentialWithNoMetadata() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorImportDifferentialWithNoMetadata", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] cannot be imported.  It is a differential backup and it&apos;s associated full backup could not be found..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_ErrorImportNoDifferentialParent() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_ErrorImportNoDifferentialParent", resourceCulture)
             End Get
         End Property
         
@@ -7651,6 +7777,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Diff.
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_Label_Diff() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_Label_Diff", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Full.
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_Label_DiffFull() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_Label_DiffFull", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] backups have been completed..
         '''</summary>
         Friend ReadOnly Property mgrBackup_NotificationMulti() As String
@@ -7687,7 +7831,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The metadata in the backup file ([PARAM]) does not match the game you selected.[BR][BR]Do you want to continue importing this file? (Not Recommended).
+        '''  Looks up a localized string similar to [PARAM] is a differential backup,  but it&apos;s associated full backup could not be found.  It has been pushed to the bottom of the import queue..
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_WarningImportNoDifferentialParent() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_WarningImportNoDifferentialParent", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The configuration metadata in the backup file ([PARAM]) does not match the game you selected.[BR][BR]Do you want to continue importing this file anyway? (Not Recommended).
         '''</summary>
         Friend ReadOnly Property mgrBackup_WarningMetadataMismatch() As String
             Get
@@ -7701,6 +7854,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrBackup_WarningNoMetadata() As String
             Get
                 Return ResourceManager.GetString("mgrBackup_WarningNoMetadata", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The metadata is no longer fully compatible with this version, some information may not be imported. .
+        '''</summary>
+        Friend ReadOnly Property mgrBackup_WarningOldMetadata() As String
+            Get
+                Return ResourceManager.GetString("mgrBackup_WarningOldMetadata", resourceCulture)
             End Get
         End Property
         
@@ -8416,7 +8578,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] has no stored checksum,  verification has been skipped..
+        '''  Looks up a localized string similar to [PARAM] ([PARAM]) has no stored checksum,  verification has been skipped..
         '''</summary>
         Friend ReadOnly Property mgrRestore_NoVerify() As String
             Get
@@ -8452,7 +8614,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] backup has been verified..
+        '''  Looks up a localized string similar to [PARAM] backup ([PARAM]) has been verified..
         '''</summary>
         Friend ReadOnly Property mgrRestore_Verified() As String
             Get

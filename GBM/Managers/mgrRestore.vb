@@ -177,10 +177,10 @@ Public Class mgrRestore
                     Return False
                 End If
             Else
-                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_Verified, oBackupInfo.Name), False, ToolTipIcon.Info, True)
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_Verified, New String() {oBackupInfo.Name, oBackupInfo.DateUpdated.ToString}), False, ToolTipIcon.Info, True)
             End If
         Else
-            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_NoVerify, oBackupInfo.Name), False, ToolTipIcon.Info, True)
+            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrRestore_NoVerify, New String() {oBackupInfo.Name, oBackupInfo.DateUpdated.ToString}), False, ToolTipIcon.Info, True)
         End If
 
         Return True

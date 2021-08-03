@@ -28,6 +28,8 @@ Public Class clsGame
     Private bRecurseSubFolders As Boolean = True
     Private iOS As eOS = mgrCommon.GetCurrentOS()
     Private bUseWindowTitle As Boolean = False
+    Private bDifferential As Boolean = False
+    Private iDiffInterval As Integer = 0
     Private oImportTags As New List(Of Tag)
     Private oImportConfigLinks As New List(Of ConfigLink)
     Private bImportUpdate As Boolean = False
@@ -296,6 +298,24 @@ Public Class clsGame
         End Set
     End Property
 
+    Property Differential As Boolean
+        Get
+            Return bDifferential
+        End Get
+        Set(value As Boolean)
+            bDifferential = value
+        End Set
+    End Property
+
+    Property DiffInterval As Integer
+        Get
+            Return iDiffInterval
+        End Get
+        Set(value As Integer)
+            iDiffInterval = value
+        End Set
+    End Property
+
     ReadOnly Property TruePath As String
 
         Get
@@ -371,7 +391,7 @@ Public Class clsGame
         End Set
     End Property
 
-    Public Function ConvertClass() As Game
+    Public Function ConvertToGame() As Game
         Dim oGame As New Game
 
         oGame.ID = ID
@@ -390,6 +410,8 @@ Public Class clsGame
         oGame.RecurseSubFolders = RecurseSubFolders
         oGame.OS = OS
         oGame.UseWindowTitle = UseWindowTitle
+        oGame.Differential = Differential
+        oGame.DiffInterval = DiffInterval
         oGame.Tags = mgrGameTags.GetTagsByGameForExport(ID)
         oGame.ConfigLinks = mgrConfigLinks.GetConfigLinksByGameForExport(ID)
 
@@ -454,6 +476,12 @@ Public Class clsGame
                 Return False
             End If
             If UseWindowTitle <> oGame.UseWindowTitle Then
+                Return False
+            End If
+            If Differential <> oGame.Differential Then
+                Return False
+            End If
+            If DiffInterval <> oGame.DiffInterval Then
                 Return False
             End If
 
@@ -536,6 +564,12 @@ Public Class clsGame
                 Return False
             End If
             If UseWindowTitle <> oGame.UseWindowTitle Then
+                Return False
+            End If
+            If Differential <> oGame.Differential Then
+                Return False
+            End If
+            If DiffInterval <> oGame.DiffInterval Then
                 Return False
             End If
             Return True

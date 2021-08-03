@@ -1300,7 +1300,7 @@
     <value>Restored aborted.  The path [PARAM] does not exist.</value>
   </data>
   <data name="mgrRestore_NoVerify" xml:space="preserve">
-    <value>[PARAM] has no stored checksum,  verification has been skipped.</value>
+    <value>[PARAM] ([PARAM]) has no stored checksum,  verification has been skipped.</value>
   </data>
   <data name="mgrRestore_RelativeNeedPath" xml:space="preserve">
     <value>[PARAM] uses a relative path and has never been detected on this computer.</value>
@@ -1312,7 +1312,7 @@
     <value>Restore to [PARAM] in progress...</value>
   </data>
   <data name="mgrRestore_Verified" xml:space="preserve">
-    <value>[PARAM] backup has been verified.</value>
+    <value>[PARAM] backup ([PARAM]) has been verified.</value>
   </data>
   <data name="mgrSQLite_ErrorBackupFailure" xml:space="preserve">
     <value>An error occured creating a backup of the database file at [PARAM][BR][BR][PARAM]</value>
@@ -1573,7 +1573,7 @@
     <value>You cannot choose a file located outside the current [PARAM] backup folder.</value>
   </data>
   <data name="frmGameManager_lblLimit" xml:space="preserve">
-    <value>Limit (0 = Unlimited)</value>
+    <value>Backup limit</value>
   </data>
   <data name="mgrBackup_BackupLimitExceeded" xml:space="preserve">
     <value>[PARAM] was automatically removed.</value>
@@ -2285,7 +2285,7 @@
     <value>The import of [PARAM] was cancelled.</value>
   </data>
   <data name="mgrBackup_WarningMetadataMismatch" xml:space="preserve">
-    <value>The metadata in the backup file ([PARAM]) does not match the game you selected.[BR][BR]Do you want to continue importing this file? (Not Recommended)</value>
+    <value>The configuration metadata in the backup file ([PARAM]) does not match the game you selected.[BR][BR]Do you want to continue importing this file anyway? (Not Recommended)</value>
   </data>
   <data name="mgrBackup_WarningNoMetadata" xml:space="preserve">
     <value>The backup file ([PARAM]) contains no metadata or is an invalid archive.[BR][BR]Do you want to continue importing this file? (Not Recommended)</value>
@@ -2982,5 +2982,59 @@
   </data>
   <data name="mgrBackup_ErrorRegBackupFailed" xml:space="preserve">
     <value>The backup has failed, please ensure the registry path is correct.</value>
+  </data>
+  <data name="frmGameManager_chkDifferentialBackup" xml:space="preserve">
+    <value>Differential backup</value>
+  </data>
+  <data name="mgrBackup_ErrorDiffParentNotFound" xml:space="preserve">
+    <value>A current full backup for [PARAM] could not be found or the interval has been reached.  A new full backup will be created.</value>
+  </data>
+  <data name="mgrBackup_Label_Diff" xml:space="preserve">
+    <value>Diff</value>
+  </data>
+  <data name="mgrBackup_Label_DiffFull" xml:space="preserve">
+    <value>Full</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackupDeleteDiffParent" xml:space="preserve">
+    <value>This is the full backup file for a set of differential backups, all the differential backup files that rely on this file will also be deleted. This cannot be undone.[BR][BR]Are you sure you want to delete [PARAM]? </value>
+  </data>
+  <data name="frmMain_ErrorDifferentialParentNotFound" xml:space="preserve">
+    <value>The restore for [PARAM] cannot continue.  The backup being restored is a differential backup, but the required full backup cannot be found.  </value>
+  </data>
+  <data name="mgrBackup_ErrorImportNoDifferentialParent" xml:space="preserve">
+    <value>[PARAM] cannot be imported.  It is a differential backup and it's associated full backup could not be found.</value>
+  </data>
+  <data name="frmMain_RestoreQueueDiffParent" xml:space="preserve">
+    <value>The required full backup [PARAM] ([PARAM]) was added to restore queue.</value>
+  </data>
+  <data name="mgrBackup_WarningOldMetadata" xml:space="preserve">
+    <value>The metadata is no longer fully compatible with this version, some information may not be imported. </value>
+  </data>
+  <data name="mgrBackup_ErrorImportDifferentialWithNoMetadata" xml:space="preserve">
+    <value>[PARAM] is configured to use differential backups, but [PARAM] contains no metadata to properly identify the type of backup file.  This file cannot be imported.</value>
+  </data>
+  <data name="mgrBackup_WarningImportNoDifferentialParent" xml:space="preserve">
+    <value>[PARAM] is a differential backup,  but it's associated full backup could not be found.  It has been pushed to the bottom of the import queue.</value>
+  </data>
+  <data name="frmGameManager_chkTimeStamp_DiffAlt" xml:space="preserve">
+    <value>Full backup interval</value>
+  </data>
+  <data name="frmGameManager_lblInterval" xml:space="preserve">
+    <value>Full backup interval</value>
+  </data>
+  <data name="frmFilter_FieldDifferential" xml:space="preserve">
+    <value>Differential Backup</value>
+  </data>
+  <data name="frmFilter_FieldDiffInterval" xml:space="preserve">
+    <value>Full Backup Interval</value>
+  </data>
+  <data name="frmGameManager_lblLimit_Alt" xml:space="preserve">
+    <value>Full backup limit</value>
+  </data>
+  <data name="frmGameManager_ttHelp_nudInterval" xml:space="preserve">
+    <value>0 = No Interval</value>
+  </data>
+  <data name="frmGameManager_ttHelp_nudLimit" xml:space="preserve">
+    <value>0 = Unlimited</value>
   </data>
 </root>

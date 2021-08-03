@@ -286,6 +286,7 @@ Public Class frmMain
         Dim bTriggerReload As Boolean = False
         Dim bOSVerified As Boolean
         Dim bPathVerified As Boolean
+        Dim oDiffParent As clsBackup
         Dim oQueue As New Hashtable
         eCurrentOperation = eOperation.Restore
         OperationStarted()
@@ -317,7 +318,20 @@ Public Class frmMain
 
             If bOSVerified And bPathVerified Then
                 If oRestore.CheckRestorePrereq(oRestoreInfo, oGame.CleanFolder, bFastMode) Then
-                    oReadyList.Add(oRestoreInfo)
+                    If oGame.Differential And Not oRestoreInfo.IsDifferentialParent Then
+                        oDiffParent = mgrManifest.DoManifestGetByManifestID(oRestoreInfo.DifferentialParent, mgrSQLite.Database.Remote)
+                        If oDiffParent IsNot Nothing Then
+                            If oRestore.CheckRestorePrereq(oDiffParent, False, True) Then
+                                UpdateLog(mgrCommon.FormatString(frmMain_RestoreQueueDiffParent, New String() {oRestoreInfo.Name, oDiffParent.DateUpdated.ToString}), False, ToolTipIcon.Error, True)
+                                oReadyList.Add(oDiffParent)
+                                oReadyList.Add(oRestoreInfo)
+                            End If
+                        Else
+                            UpdateLog(mgrCommon.FormatString(frmMain_ErrorDifferentialParentNotFound, oRestoreInfo.Name), False, ToolTipIcon.Error, True)
+                        End If
+                    Else
+                        oReadyList.Add(oRestoreInfo)
+                    End If
                 End If
             End If
         Next
@@ -463,10 +477,10 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub RunImportBackupByGame(ByVal oImportBackupList As Hashtable)
+    Private Sub RunImportBackupByGame(ByVal sFilesToImport As String(), ByVal oGame As clsGame)
         eCurrentOperation = eOperation.Import
         OperationStarted()
-        oBackup.ImportBackupFilesByGame(oImportBackupList)
+        oBackup.ImportBackupFiles(sFilesToImport, oGame)
         OperationEnded()
     End Sub
 
@@ -1357,7 +1371,7 @@ Public Class frmMain
 
         'Handle import backup trigger
         If frm.TriggerImportBackup Then
-            RunImportBackupByGame(frm.ImportBackupList)
+            RunImportBackupByGame(frm.ImportBackupList, frm.ImportBackupGame)
         End If
 
         'Rebuild launch menu just in case something was deleted.

@@ -20,7 +20,8 @@ Public Class frmGameManager
     Private bNoRestoreQueue As Boolean = False
     Private oBackupList As New List(Of clsGame)
     Private oRestoreList As New Hashtable
-    Private oImportBackupList As New Hashtable
+    Private oImportBackupGame As clsGame
+    Private sImportBackupList As String()
     Private oGameData As OrderedDictionary
     Private oLocalBackupData As SortedList
     Private oRemoteBackupData As SortedList
@@ -164,12 +165,21 @@ Public Class frmGameManager
         End Set
     End Property
 
-    Property ImportBackupList As Hashtable
+    Property ImportBackupGame As clsGame
         Get
-            Return oImportBackupList
+            Return oImportBackupGame
         End Get
-        Set(value As Hashtable)
-            oImportBackupList = value
+        Set(value As clsGame)
+            oImportBackupGame = value
+        End Set
+    End Property
+
+    Property ImportBackupList As String()
+        Get
+            Return sImportBackupList
+        End Get
+        Set(value As String())
+            sImportBackupList = value
         End Set
     End Property
 
@@ -1024,7 +1034,18 @@ Public Class frmGameManager
     End Sub
 
     Private Sub DeleteBackup()
-        If mgrCommon.ShowMessage(frmGameManager_ConfirmBackupDelete, Path.GetFileName(CurrentBackupItem.FileName), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+        Dim sMessage As String
+        Dim oDiffChildren As New List(Of clsBackup)
+
+        If CurrentBackupItem.IsDifferentialParent Then
+            oDiffChildren = mgrManifest.DoManfiestGetDifferentialChildren(CurrentBackupItem, mgrSQLite.Database.Remote)
+            sMessage = frmGameManager_ConfirmBackupDeleteDiffParent
+        Else
+            sMessage = frmGameManager_ConfirmBackupDelete
+        End If
+
+        If mgrCommon.ShowMessage(sMessage, Path.GetFileName(CurrentBackupItem.FileName), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+
             'Delete the specific remote manifest entry
             mgrManifest.DoManifestDeleteByManifestID(CurrentBackupItem, mgrSQLite.Database.Remote)
 
@@ -1035,6 +1056,11 @@ Public Class frmGameManager
 
             'Delete referenced backup file from the backup folder
             mgrCommon.DeleteFile(BackupFolder & CurrentBackupItem.FileName)
+
+            'Delete any differential backups that relied upon this file
+            For Each oDiffChild As clsBackup In oDiffChildren
+                mgrCommon.DeleteFile(BackupFolder & oDiffChild.FileName)
+            Next
 
             'Check for sub-directory and delete if empty
             mgrCommon.DeleteDirectoryByBackup(BackupFolder, CurrentBackupItem)
@@ -1076,6 +1102,8 @@ Public Class frmGameManager
         chkCleanFolder.Checked = oApp.CleanFolder
         chkTimeStamp.Checked = oApp.AppendTimeStamp
         nudLimit.Value = oApp.BackupLimit
+        chkDifferentialBackup.Checked = oApp.Differential
+        nudInterval.Value = oApp.DiffInterval
         txtComments.Text = oApp.Comments
         cmsEnabled.Checked = oApp.Enabled
         cmsMonitorOnly.Checked = oApp.MonitorOnly
@@ -1216,6 +1244,7 @@ Public Class frmGameManager
                 btnExport.Enabled = False
                 cboOS.SelectedValue = CInt(mgrCommon.GetCurrentOS)
                 TimeStampModeChange()
+                DifferentialModeChange()
             Case eModes.Edit
                 eLastMode = eModes.Edit
                 lblFilters.Enabled = False
@@ -1258,6 +1287,7 @@ Public Class frmGameManager
                 btnImport.Enabled = True
                 btnExport.Enabled = True
                 TimeStampModeChange()
+                DifferentialModeChange()
             Case eModes.Disabled
                 eLastMode = eModes.Disabled
                 lblFilters.Enabled = True
@@ -1346,6 +1376,7 @@ Public Class frmGameManager
             chkTimeStamp.Enabled = False
             lblLimit.Enabled = False
             nudLimit.Enabled = False
+            chkDifferentialBackup.Enabled = False
             lblSavePath.Enabled = False
             txtSavePath.Enabled = False
             btnSavePathBrowse.Enabled = False
@@ -1357,6 +1388,7 @@ Public Class frmGameManager
             chkFolderSave.Enabled = True
             chkTimeStamp.Enabled = True
             TimeStampModeChange()
+            chkDifferentialBackup.Enabled = True
             lblSavePath.Enabled = True
             txtSavePath.Enabled = True
             btnSavePathBrowse.Enabled = True
@@ -1374,10 +1406,12 @@ Public Class frmGameManager
             chkFolderSave.Enabled = False
             btnInclude.Enabled = False
             btnExclude.Enabled = False
+            chkDifferentialBackup.Enabled = False
         Else
             chkFolderSave.Enabled = True
             btnInclude.Enabled = True
             btnExclude.Enabled = True
+            chkDifferentialBackup.Enabled = True
         End If
     End Sub
 
@@ -1390,6 +1424,20 @@ Public Class frmGameManager
             lblLimit.Enabled = False
         End If
         If bResetValue Then nudLimit.Value = nudLimit.Minimum
+    End Sub
+
+    Private Sub DifferentialModeChange(Optional ByVal bResetValue As Boolean = False)
+        If chkDifferentialBackup.Checked Then
+            nudInterval.Enabled = True
+            lblInterval.Enabled = True
+            lblLimit.Text = frmGameManager_lblLimit_Alt
+            If bResetValue Then nudInterval.Value = 6
+        Else
+            nudInterval.Enabled = False
+            lblInterval.Enabled = False
+            lblLimit.Text = frmGameManager_lblLimit
+            If bResetValue Then nudInterval.Value = nudInterval.Minimum
+        End If
     End Sub
 
     Private Sub VerifyImportBackup()
@@ -1432,8 +1480,8 @@ Public Class frmGameManager
                 Case MsgBoxResult.No
                     If lstGames.SelectedItems.Count > 0 Then
                         eCurrentMode = eModes.View
-                        ModeChange()
                         FillData()
+                        ModeChange()
                         lstGames.Focus()
                     Else
                         eCurrentMode = eModes.Disabled
@@ -1445,8 +1493,8 @@ Public Class frmGameManager
         Else
             If lstGames.SelectedItems.Count > 0 Then
                 eCurrentMode = eModes.View
-                ModeChange()
                 FillData()
+                ModeChange()
                 lstGames.Focus()
             Else
                 eCurrentMode = eModes.Disabled
@@ -1542,10 +1590,12 @@ Public Class frmGameManager
         oApp.CleanFolder = chkCleanFolder.Checked
         oApp.AppendTimeStamp = chkTimeStamp.Checked
         oApp.BackupLimit = nudLimit.Value
+        oApp.Differential = chkDifferentialBackup.Checked
+        oApp.DiffInterval = nudInterval.Value
         oApp.Comments = txtComments.Text
         oApp.Enabled = cmsEnabled.Checked
         oApp.MonitorOnly = cmsMonitorOnly.Checked
-        oApp.ProcessPath = mgrPath.ValidatePath(txtAppPath.Text)
+        oApp.ProcessPath = mgrPath.ValidatePath(txtAppPath.Text, True)
         oApp.Company = txtCompany.Text
         oApp.Version = txtVersion.Text
         oApp.Icon = txtIcon.Text
@@ -1733,21 +1783,15 @@ Public Class frmGameManager
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         Dim oBackup As New mgrBackup
         Dim sConfirm As String = frmGameManager_ConfirmBackupImport
-        Dim sFile As String
         Dim sFiles As String()
         Dim oExtensions As New SortedList
-
-        ImportBackupList.Clear()
 
         oExtensions.Add(frmGameManager_7zBackup, "7z")
         sFiles = mgrCommon.OpenMultiFileBrowser("GM_ImportBackup", frmGameManager_Choose7zImport, oExtensions, 1, sDefaultFolder, True)
 
         If sFiles.Length > 0 Then
-            For Each sFile In sFiles
-                If Not ImportBackupList.Contains(sFile) Then
-                    ImportBackupList.Add(sFile, oCurrentGame)
-                End If
-            Next
+            ImportBackupList = sFiles
+            ImportBackupGame = oCurrentGame
 
             If sFiles.Length > 1 And Not CurrentGame.AppendTimeStamp Then
                 mgrCommon.ShowMessage(frmGameManager_WarningImportBackupSaveMulti, MsgBoxStyle.Exclamation)
@@ -1996,6 +2040,8 @@ Public Class frmGameManager
         cmsFile.Text = frmGameManager_cmsFile
         lblSearch.Text = frmGameManager_lblSearch
         lblLimit.Text = frmGameManager_lblLimit
+        lblInterval.Text = frmGameManager_lblInterval
+        chkDifferentialBackup.Text = frmGameManager_chkDifferentialBackup
         cmsDeleteOne.Text = frmGameManager_cmsDeleteOne
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
         btnLinks.Image = frmGameManager_Link
@@ -2028,6 +2074,8 @@ Public Class frmGameManager
         ttHelp.SetToolTip(btnMonitorOptions, frmGameManager_ttHelp_btnMonitorOptions)
         ttHelp.SetToolTip(btnGameID, frmGameManager_ttHelp_btnGameID)
         ttHelp.SetToolTip(cboOS, frmGameManager_ttHelp_cboOS)
+        ttHelp.SetToolTip(nudLimit, frmGameManager_ttHelp_nudLimit)
+        ttHelp.SetToolTip(nudInterval, frmGameManager_ttHelp_nudInterval)
 
         LoadCombos()
 
@@ -2344,6 +2392,12 @@ Public Class frmGameManager
 
     Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles cmsMonitorOnly.CheckedChanged
         MonitorOnlyModeChange()
+    End Sub
+
+    Private Sub chkDifferentialBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkDifferentialBackup.CheckedChanged
+        If Not IsLoading Then
+            DifferentialModeChange(True)
+        End If
     End Sub
 
     Private Sub cmsUseWindowTitle_CheckChanged(sender As Object, e As EventArgs) Handles cmsUseWindowTitle.CheckedChanged
