@@ -87,16 +87,10 @@ Public Class mgrPath
         End Set
     End Property
 
-    Public Shared Function ValidatePath(ByVal sCheckString As String, Optional ByVal bTrimFile As Boolean = False) As String
+    Public Shared Function ValidatePath(ByVal sCheckString As String) As String
         Dim cInvalidCharacters As Char() = {Chr(0), Chr(1), Chr(2), Chr(3), Chr(4), Chr(5), Chr(6), Chr(7), Chr(8), Chr(9), Chr(10), Chr(11), Chr(12), Chr(13), Chr(14), Chr(15),
                                            Chr(16), Chr(17), Chr(18), Chr(19), Chr(20), Chr(21), Chr(22), Chr(23), Chr(24), Chr(25), Chr(26), Chr(27), Chr(28), Chr(29), Chr(30),
                                            Chr(31), Chr(34), Chr(60), Chr(62), Chr(124)}
-
-        If bTrimFile Then
-            If sCheckString <> String.Empty And Path.HasExtension(sCheckString) Then
-                sCheckString = Path.GetDirectoryName(sCheckString)
-            End If
-        End If
 
         For Each c As Char In cInvalidCharacters
             sCheckString = sCheckString.Replace(c, "")
