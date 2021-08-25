@@ -2481,22 +2481,24 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Function VerifyBackupPath(ByRef sBackupPath As String) As Boolean
+    Private Function WaitForBackupPath(ByRef sBackupPath As String) As Boolean
         Dim dBrowser As FolderBrowserDialog
         Dim oDialogResult As DialogResult
         Dim iTotalWait As Integer
         Dim iTimeOut As Integer = 60000
         Dim iTimeRemaining As Integer
 
-        gMonTray.Icon = GBM_Icon_Stopped
-        gMonTray.Text = mgrCommon.FormatString(frmMain_BackupPathNotAvailable, (iTimeOut / 1000).ToString)
-
         Do While Not (Directory.Exists(sBackupPath))
-            Sleep(5000)
-            iTotalWait += 5000
+            If iTotalWait = 0 Then
+                gMonTray.Icon = GBM_Icon_Stopped
+                gMonTray.Text = mgrCommon.FormatString(frmMain_BackupPathNotAvailable, (iTimeOut / 1000).ToString)
+            End If
 
+            Sleep(5000)
+
+            iTotalWait += 5000
             iTimeRemaining = iTimeOut - iTotalWait
-            If Not iTimeRemaining = 0 Then iTimeRemaining = iTimeRemaining / 1000
+            If Not iTimeRemaining = 0 Then iTimeRemaining /= 1000
             gMonTray.Text = mgrCommon.FormatString(frmMain_BackupPathNotAvailable, iTimeRemaining.ToString)
 
             If iTotalWait >= iTimeOut Then
@@ -2524,7 +2526,7 @@ Public Class frmMain
     Private Function VerifyBackupLocation() As Boolean
         Dim sBackupPath As String = mgrSettings.BackupFolder
 
-        If VerifyBackupPath(sBackupPath) Then
+        If WaitForBackupPath(sBackupPath) Then
             If mgrSettings.BackupFolder <> sBackupPath Then
                 mgrSettings.BackupFolder = sBackupPath
                 mgrSettings.SaveSettings()
