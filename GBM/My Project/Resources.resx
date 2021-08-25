@@ -3037,4 +3037,7 @@
   <data name="frmGameManager_ttHelp_nudLimit" xml:space="preserve">
     <value>0 = Unlimited</value>
   </data>
+  <data name="frmMain_BackupPathNotAvailable" xml:space="preserve">
+    <value>Backup path not available.  Timeout: [PARAM] seconds</value>
+  </data>
 </root>

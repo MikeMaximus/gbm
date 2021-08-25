@@ -1,6 +1,7 @@
 ﻿Imports GBM.My.Resources
 Imports System.Collections.Specialized
 Imports System.IO
+Imports System.Threading.Thread
 
 'Name: frmMain
 'Description: Game Backup Monitor Main Screen
@@ -2480,9 +2481,50 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Function VerifyBackupPath(ByRef sBackupPath As String) As Boolean
+        Dim dBrowser As FolderBrowserDialog
+        Dim oDialogResult As DialogResult
+        Dim iTotalWait As Integer
+        Dim iTimeOut As Integer = 60000
+        Dim iTimeRemaining As Integer
+
+        gMonTray.Icon = GBM_Icon_Stopped
+        gMonTray.Text = mgrCommon.FormatString(frmMain_BackupPathNotAvailable, (iTimeOut / 1000).ToString)
+
+        Do While Not (Directory.Exists(sBackupPath))
+            Sleep(5000)
+            iTotalWait += 5000
+
+            iTimeRemaining = iTimeOut - iTotalWait
+            If Not iTimeRemaining = 0 Then iTimeRemaining = iTimeRemaining / 1000
+            gMonTray.Text = mgrCommon.FormatString(frmMain_BackupPathNotAvailable, iTimeRemaining.ToString)
+
+            If iTotalWait >= iTimeOut Then
+                oDialogResult = mgrCommon.ShowPriorityMessage(mgrPath_ConfirmBackupLocation, sBackupPath, MsgBoxStyle.YesNoCancel)
+                If oDialogResult = MsgBoxResult.Yes Then
+                    dBrowser = New FolderBrowserDialog
+                    dBrowser.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                    If dBrowser.ShowDialog = DialogResult.OK Then
+                        sBackupPath = dBrowser.SelectedPath
+                        Return True
+                    Else
+                        Return False
+                    End If
+                ElseIf oDialogResult = DialogResult.No Then
+                    Return False
+                Else
+                    iTotalWait = 0
+                End If
+            End If
+        Loop
+
+        Return True
+    End Function
+
     Private Function VerifyBackupLocation() As Boolean
         Dim sBackupPath As String = mgrSettings.BackupFolder
-        If mgrPath.VerifyBackupPath(sBackupPath) Then
+
+        If VerifyBackupPath(sBackupPath) Then
             If mgrSettings.BackupFolder <> sBackupPath Then
                 mgrSettings.BackupFolder = sBackupPath
                 mgrSettings.SaveSettings()

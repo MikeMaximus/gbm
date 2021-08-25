@@ -2,7 +2,6 @@
 Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Reflection
-Imports System.Threading.Thread
 
 Public Class mgrPath
     'Important Note: Any changes to sSettingsRoot & sDBLocation need to be mirrored in frmMain.vb -> VerifyGameDataPath
@@ -645,37 +644,6 @@ Public Class mgrPath
         End If
 
         Return sFolder
-    End Function
-
-    Public Shared Function VerifyBackupPath(ByRef sBackupPath As String) As Boolean
-        Dim dBrowser As FolderBrowserDialog
-        Dim oDialogResult As DialogResult
-        Dim iTotalWait As Integer
-        Dim iTimeOut As Integer = 60000
-
-        Do While Not (Directory.Exists(sBackupPath))
-            Sleep(5000)
-            iTotalWait += 5000
-            If iTotalWait >= iTimeOut Then
-                oDialogResult = mgrCommon.ShowPriorityMessage(mgrPath_ConfirmBackupLocation, sBackupPath, MsgBoxStyle.YesNoCancel)
-                If oDialogResult = MsgBoxResult.Yes Then
-                    dBrowser = New FolderBrowserDialog
-                    dBrowser.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-                    If dBrowser.ShowDialog = DialogResult.OK Then
-                        sBackupPath = dBrowser.SelectedPath
-                        Return True
-                    Else
-                        Return False
-                    End If
-                ElseIf oDialogResult = DialogResult.No Then
-                    Return False
-                Else
-                    iTotalWait = 0
-                End If
-            End If
-        Loop
-
-        Return True
     End Function
 
     Public Shared Function VerifyLinuxDesktopFileLocation(Optional ByRef sFoundPath As String = "") As Boolean
