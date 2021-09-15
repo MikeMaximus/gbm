@@ -2246,6 +2246,7 @@ Public Class frmMain
         gMonTrayExit.Text = frmMain_gMonFileExit
 
         'Set Form Text
+        lblSearch.Text = frmMain_lblSearch
         lblLastActionTitle.Text = frmMain_lblLastActionTitle
         lblLastAction.Text = frmMain_lblLastAction
         gMonStripStatusButton.Text = frmMain_gMonStripStatusButton

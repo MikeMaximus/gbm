@@ -3040,4 +3040,7 @@
   <data name="frmMain_BackupPathNotAvailable" xml:space="preserve">
     <value>Backup path not available.  Timeout: [PARAM] seconds</value>
   </data>
+  <data name="frmMain_lblSearch" xml:space="preserve">
+    <value>Search:</value>
+  </data>
 </root>

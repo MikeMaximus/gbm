@@ -418,6 +418,9 @@ Public Class frmSettings
         grpMainWindowOptions.Text = frmSettings_grpMainWindowOptions
         chkExitOnClose.Text = frmSettings_chkExitOnClose
         chkExitNoWarning.Text = frmSettings_chkExitNoWarning
+        chkHideLog.Text = frmSettings_chkHideLog
+        chkHideGameList.Text = frmSettings_chkHideGameList
+        chkHideButtons.Text = frmSettings_chkHideButtons
         grpGameManagerOptions.Text = frmSettings_grpGameManagerOptions
         lblDetectSpeed.Text = frmSettings_lblDetectSpeed
         chkTwoPassDetection.Text = frmSettings_chkTwoPassDetection

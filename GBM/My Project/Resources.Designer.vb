@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-08-25T15:48:59
+        '''  Looks up a localized string similar to 2021-09-15T21:58:29
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4999,6 +4999,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_lblLastActionTitle() As String
             Get
                 Return ResourceManager.GetString("frmMain_lblLastActionTitle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Search:.
+        '''</summary>
+        Friend ReadOnly Property frmMain_lblSearch() As String
+            Get
+                Return ResourceManager.GetString("frmMain_lblSearch", resourceCulture)
             End Get
         End Property
         

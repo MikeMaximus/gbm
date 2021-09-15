@@ -3039,4 +3039,7 @@
   <data name="frmGameManager_ttHelp_nudLimit" xml:space="preserve">
     <value>0 = 无限制</value>
   </data>
+  <data name="frmMain_lblSearch" xml:space="preserve">
+    <value>搜索：</value>
+  </data>
 </root>
