@@ -389,6 +389,7 @@
     <EmbeddedResource Include="Forms\frmVariableManager.resx">
       <DependentUpon>frmVariableManager.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Languages\Resources.zh.resx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>

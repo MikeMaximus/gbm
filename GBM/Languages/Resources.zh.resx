@@ -1,0 +1,3042 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="frmMain_About" xml:space="preserve">
+    <value>游戏备份监控器[BR]版本：[PARAM]（[PARAM]）[BR]构建：[PARAM][BR]平台：[PARAM][BR]SQLite：[PARAM][BR][BR][PARAM][BR]本程序绝对没有任何质保。[BR]这是自由软件，欢迎你在一定条件下重新发布。[BR][BR]详情见程序文件夹中的gpl-3.0.html。</value>
+  </data>
+  <data name="frmMain_ManifestAreadyClean" xml:space="preserve">
+    <value>本地列表已清除。</value>
+  </data>
+  <data name="frmMain_ManifestRemovedEntry" xml:space="preserve">
+    <value>[PARAM]条目已从本地列表中删除。</value>
+  </data>
+  <data name="frmMain_ManifestTotalRemoved" xml:space="preserve">
+    <value>已从本地清单中删除[PARAM]条目。</value>
+  </data>
+  <data name="frmMain_ConfirmRebuild" xml:space="preserve">
+    <value>这将重建所有数据库并将其缩小到最佳大小。[BR]只有在gbm.s3db文件变得非常大时才应使用此选项。[BR][BR]是否继续？</value>
+  </data>
+  <data name="App_Copyright" xml:space="preserve">
+    <value> 2014 - [PARAM] 迈克尔·J·塞弗林和游戏备份监控器的贡献者</value>
+  </data>
+  <data name="frmMain_Exit" xml:space="preserve">
+    <value>你确定要退出吗？你的游戏将不再被监视。</value>
+  </data>
+  <data name="frmMain_LocalCompactComplete" xml:space="preserve">
+    <value>已完成本地数据库清理：[PARAM] KB</value>
+  </data>
+  <data name="frmMain_LocalCompactInit" xml:space="preserve">
+    <value>已初始化本地数据库：[PARAM]KB</value>
+  </data>
+  <data name="App_NameLong" xml:space="preserve">
+    <value>游戏备份监控器</value>
+  </data>
+  <data name="App_NameShort" xml:space="preserve">
+    <value>游戏备份监控器</value>
+  </data>
+  <data name="frmMain_RemoteCompactComplete" xml:space="preserve">
+    <value>已完成远程数据库清理：[PARAM] KB</value>
+  </data>
+  <data name="frmMain_RemoteCompactInit" xml:space="preserve">
+    <value>远程数据库已经初始化：[PARAM] KB</value>
+  </data>
+  <data name="frmMain_BackupInProgress" xml:space="preserve">
+    <value>正在进行备份...</value>
+  </data>
+  <data name="frmMain_btnToggleLog_Hide" xml:space="preserve">
+    <value>隐藏记录</value>
+  </data>
+  <data name="frmMain_btnToggleLog_Show" xml:space="preserve">
+    <value>显示记录</value>
+  </data>
+  <data name="frmMain_ChooseIcon" xml:space="preserve">
+    <value>选择[PARAM]的图标</value>
+  </data>
+  <data name="frmMain_ConfirmBackup" xml:space="preserve">
+    <value>是否要从[PARAM]备份数据？</value>
+  </data>
+  <data name="frmMain_ConfirmMonitorCancel" xml:space="preserve">
+    <value>是否要取消对[PARAM]的监控？[BR][BR]警告：取消监控时，不会保存会话时间。</value>
+  </data>
+  <data name="frmMain_ConfirmRunAsAdmin" xml:space="preserve">
+    <value>是否要以管理员身份重新启动游戏备份监控器？</value>
+  </data>
+  <data name="frmMain_Error64Backup" xml:space="preserve">
+    <value>[PARAM]是一款64位游戏，游戏备份监控器是32位的。GBM无法检测到保存备份所需的信息。</value>
+  </data>
+  <data name="frmMain_Error7zip" xml:space="preserve">
+    <value>找不到7-Zip，应用程序无法继续。</value>
+  </data>
+  <data name="frmMain_ErrorAdminBackup" xml:space="preserve">
+    <value>[PARAM]是以管理员身份运行的，而游戏备份监控器不是，所以无法检测到保存备份所需的信息。</value>
+  </data>
+  <data name="frmMain_ErrorAdminDetect" xml:space="preserve">
+    <value>[PARAM]正在以管理员身份运行，而游戏备份监控器不是。[BR]此时无法取消监视。[BR][BR]以管理员身份运行游戏备份监控器以防止此问题。</value>
+  </data>
+  <data name="frmMain_ErrorAlreadyAdmin" xml:space="preserve">
+    <value>游戏备份监控器已作以管理员运行。</value>
+  </data>
+  <data name="frmMain_ErrorAppLocationChanged" xml:space="preserve">
+    <value>游戏备份监控器正在从新位置运行，Windows启动项已更新。</value>
+  </data>
+  <data name="frmMain_ErrorBackupCancel" xml:space="preserve">
+    <value>[PARAM]备份已取消。</value>
+  </data>
+  <data name="frmMain_ErrorBackupSessionLength" xml:space="preserve">
+    <value>[PARAM]由于会话长度，备份被取消。</value>
+  </data>
+  <data name="frmMain_ErrorBackupUnknownPath" xml:space="preserve">
+    <value>[PARAM]由于路径未知，备份已取消。</value>
+  </data>
+  <data name="frmMain_ErrorCustomVariable" xml:space="preserve">
+    <value>以下受监控的游戏正在使用未设置的自定义路径变量。[BR][PARAM][BR][BR]在设置变量之前，这些游戏将遇到备份/还原错误或检测问题。</value>
+  </data>
+  <data name="frmMain_ErrorDBVerLocal" xml:space="preserve">
+    <value>你的本地游戏备份监控器数据（版本[PARAM]）对于程序（版本[PARAM]）来说太新。[BR][BR]请升级游戏备份监控器或还原适合你的版本的数据库文件。应用程序无法继续。</value>
+  </data>
+  <data name="frmMain_ErrorDBVerRemote" xml:space="preserve">
+    <value>备份文件夹中的游戏备份监控器数据（版本[PARAM]）对于程序（版本[PARAM]）[BR][BR]来说太新，共享备份文件夹的所有计算机都必须使用相同版本的游戏备份监控器。应用程序无法继续。</value>
+  </data>
+  <data name="frmMain_ErrorMulti64" xml:space="preserve">
+    <value>安装64位版本的游戏备份监控器以检测上次运行的游戏。</value>
+  </data>
+  <data name="frmMain_ErrorMultiAdmin" xml:space="preserve">
+    <value>以管理员身份重新启动游戏备份监控器以检测上次运行的游戏。</value>
+  </data>
+  <data name="frmMain_ErrorRelativePath" xml:space="preserve">
+    <value>[PARAM]使用相对路径，从未在此计算机上检测到。</value>
+  </data>
+  <data name="frmMain_ErrorRestorePath" xml:space="preserve">
+    <value>[PARAM]由于还原路径问题，已取消还原。</value>
+  </data>
+  <data name="frmMain_ErrorSettingsFolder" xml:space="preserve">
+    <value>创建应用程序设置文件夹时出错。应用程序无法继续。[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmMain_ExePath" xml:space="preserve">
+    <value>[PARAM]（可执行路径）</value>
+  </data>
+  <data name="frmMain_GameDetected" xml:space="preserve">
+    <value>检测到[PARAM]</value>
+  </data>
+  <data name="frmMain_GameEnded" xml:space="preserve">
+    <value>[PARAM]已经结束。</value>
+  </data>
+  <data name="frmMain_GameListLoaded" xml:space="preserve">
+    <value>游戏列表（[PARAM]）已加载。</value>
+  </data>
+  <data name="frmMain_gMonFileMonitor_Cancel" xml:space="preserve">
+    <value>取消监控</value>
+  </data>
+  <data name="frmMain_gMonFileMonitor_Start" xml:space="preserve">
+    <value>启动监控</value>
+  </data>
+  <data name="frmMain_gMonFileMonitor_Stop" xml:space="preserve">
+    <value>停止监控</value>
+  </data>
+  <data name="frmMain_IconFilter" xml:space="preserve">
+    <value>图标文件 (*.ico)|*.ico</value>
+  </data>
+  <data name="frmMain_LastGame" xml:space="preserve">
+    <value>最近游戏：[PARAM]</value>
+  </data>
+  <data name="frmMain_MasterListChanged" xml:space="preserve">
+    <value>主游戏列表已被游戏备份监控器以外的程序更改。</value>
+  </data>
+  <data name="frmMain_MonitorCancel" xml:space="preserve">
+    <value>对[PARAM]的监控被取消了。</value>
+  </data>
+  <data name="frmMain_MonitorEnded" xml:space="preserve">
+    <value>[PARAM]监控已结束。</value>
+  </data>
+  <data name="frmMain_MultipleGames" xml:space="preserve">
+    <value>多个游戏</value>
+  </data>
+  <data name="frmMain_MultipleGamesDetected" xml:space="preserve">
+    <value>检测到多个游戏</value>
+  </data>
+  <data name="frmMain_NewSaveNotificationMulti" xml:space="preserve">
+    <value>[PARAM] 新备份待处理</value>
+  </data>
+  <data name="frmMain_NewSaveNotificationSingle" xml:space="preserve">
+    <value>[PARAM] 新的备份正在等待</value>
+  </data>
+  <data name="frmMain_NoDetails" xml:space="preserve">
+    <value>游戏详情不可用。</value>
+  </data>
+  <data name="frmMain_NoGameDetected" xml:space="preserve">
+    <value>未检测到游戏</value>
+  </data>
+  <data name="frmMain_NotAvailable" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="frmMain_NotScanning" xml:space="preserve">
+    <value>不扫描</value>
+  </data>
+  <data name="frmMain_RestoreInProgress" xml:space="preserve">
+    <value>正在还原中...</value>
+  </data>
+  <data name="frmMain_RunningAsAdmin" xml:space="preserve">
+    <value>游戏备份监控器正在以管理员权限运行。</value>
+  </data>
+  <data name="frmMain_RunningAsNormal" xml:space="preserve">
+    <value>游戏备份监控器正在以正常权限运行。单击以管理员身份重新启动。</value>
+  </data>
+  <data name="frmMain_SessionHours" xml:space="preserve">
+    <value>[PARAM]小时</value>
+  </data>
+  <data name="frmMain_SessionMinutes" xml:space="preserve">
+    <value>[PARAM]分钟</value>
+  </data>
+  <data name="Multi_UnknownGame" xml:space="preserve">
+    <value>未知的游戏</value>
+  </data>
+  <data name="Multi_UnknownGameEnded" xml:space="preserve">
+    <value>未知的游戏已经结束。</value>
+  </data>
+  <data name="frmMain_UpdatedBy" xml:space="preserve">
+    <value>由[PARAM]于[PARAM]更新</value>
+  </data>
+  <data name="frmMain_btnCancelOperation" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmMain_gMonFile" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="frmMain_gMonFileExit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="frmMain_gMonFileSettings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="frmMain_gMonHelp" xml:space="preserve">
+    <value>帮助</value>
+  </data>
+  <data name="frmMain_gMonHelpAbout" xml:space="preserve">
+    <value>关于游戏备份监控器</value>
+  </data>
+  <data name="frmMain_gMonHelpCheckForUpdates" xml:space="preserve">
+    <value>检查更新</value>
+  </data>
+  <data name="frmMain_gMonHelpManual" xml:space="preserve">
+    <value>在线手册</value>
+  </data>
+  <data name="frmMain_gMonHelpWebSite" xml:space="preserve">
+    <value>官方网站</value>
+  </data>
+  <data name="frmMain_gMonSetup" xml:space="preserve">
+    <value>高级设置</value>
+  </data>
+  <data name="frmMain_gMonSetupAddWizard" xml:space="preserve">
+    <value>添加游戏向导</value>
+  </data>
+  <data name="frmMain_gMonSetupCustomVariables" xml:space="preserve">
+    <value>自定义路径变量</value>
+  </data>
+  <data name="frmMain_gMonSetupGameManager" xml:space="preserve">
+    <value>游戏管理器</value>
+  </data>
+  <data name="frmMain_gMonSetupTags" xml:space="preserve">
+    <value>标签管理器</value>
+  </data>
+  <data name="frmMain_gMonStripStatusButton" xml:space="preserve">
+    <value>监控状态：</value>
+  </data>
+  <data name="frmMain_gMonTools" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="frmMain_gMonToolsCompact" xml:space="preserve">
+    <value>紧凑型数据库</value>
+  </data>
+  <data name="frmMain_gMonTrayShow" xml:space="preserve">
+    <value>恢复窗口</value>
+  </data>
+  <data name="frmMain_lblLastActionTitle" xml:space="preserve">
+    <value>最近游玩：</value>
+  </data>
+  <data name="frmMain_gMonStripStatusButtonToolTip" xml:space="preserve">
+    <value>单击以打开或关闭监控。</value>
+  </data>
+  <data name="App_ConfirmDirty" xml:space="preserve">
+    <value>有未保存的更改，你需要保存吗？</value>
+  </data>
+  <data name="frmGameManager_BackupTimeAndName" xml:space="preserve">
+    <value>[PARAM] ([PARAM])</value>
+  </data>
+  <data name="frmGameManager_btnAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="frmGameManager_btnAppPathBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmGameManager_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmGameManager_btnDelete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="frmGameManager_btnExclude" xml:space="preserve">
+    <value>排除选项</value>
+  </data>
+  <data name="frmGameManager_btnExport" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="frmGameManager_btnIconBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmGameManager_btnImport" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="frmGameManager_btnInclude" xml:space="preserve">
+    <value>包括选项</value>
+  </data>
+  <data name="frmGameManager_btnProcessBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmGameManager_btnSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="frmGameManager_btnSavePathBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmGameManager_cmsEnabled" xml:space="preserve">
+    <value>监控这个游戏</value>
+  </data>
+  <data name="frmGameManager_chkFolderSave" xml:space="preserve">
+    <value>保存整个文件夹</value>
+  </data>
+  <data name="frmGameManager_cmsMonitorOnly" xml:space="preserve">
+    <value>仅监控</value>
+  </data>
+  <data name="frmGameManager_chkTimeStamp" xml:space="preserve">
+    <value>保存多项备份</value>
+  </data>
+  <data name="frmGameManager_ChooseCustomIcon" xml:space="preserve">
+    <value>为游戏选择一个自定义的图标</value>
+  </data>
+  <data name="frmGameManager_ChooseExe" xml:space="preserve">
+    <value>选择启动应用程序的exe文件</value>
+  </data>
+  <data name="frmGameManager_ChooseExePath" xml:space="preserve">
+    <value>浏览到包含游戏可执行文件的文件夹，然后单击打开</value>
+  </data>
+  <data name="frmGameManager_ChooseExportXML" xml:space="preserve">
+    <value>选择导出文件的位置</value>
+  </data>
+  <data name="frmGameManager_ChooseImportXML" xml:space="preserve">
+    <value>选择一个有效的xml文件来导入</value>
+  </data>
+  <data name="frmGameManager_ChooseSaveFolder" xml:space="preserve">
+    <value>浏览到游戏存档文件夹，然后单击打开</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackup" xml:space="preserve">
+    <value>你确定要对[PARAM]进行备份吗？ 这将关闭该窗口。</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackupDelete" xml:space="preserve">
+    <value>这将删除选定的备份文件。 这将无法撤消。[BR][BR]是否要删除[PARAM]？</value>
+  </data>
+  <data name="frmGameManager_ConfirmGameDelete" xml:space="preserve">
+    <value>是否确实要删除[PARAM]？此操作无法撤消。[BR][BR]此操作不会删除此游戏已有的任何备份文件。</value>
+  </data>
+  <data name="frmGameManager_ConfirmMark" xml:space="preserve">
+    <value>是否要将[PARAM]标记为已还原？这将无法撤消。</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiBackup" xml:space="preserve">
+    <value>是否确实要为[PARAM]游戏运行备份？这将关闭窗口。</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiGameDelete" xml:space="preserve">
+    <value>是否确实要删除[PARAM]选定的游戏？这将无法撤消。</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiMark" xml:space="preserve">
+    <value>是否要将[PARAM]游戏标记为已还原？这将无法撤消。</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiRestore" xml:space="preserve">
+    <value>是否确实要还原[PARAM]游戏的备份？这将关闭窗口。</value>
+  </data>
+  <data name="frmGameManager_ConfirmOfficialImport" xml:space="preserve">
+    <value>是否要从官方列表中选择要导入的游戏？[BR][BR]这需要有效的网络连接。</value>
+  </data>
+  <data name="frmGameManager_ConfirmRestore" xml:space="preserve">
+    <value>是否确实要还原[PARAM]的备份？这将关闭窗口。</value>
+  </data>
+  <data name="frmGameManager_ConfirmRestoreAnyway" xml:space="preserve">
+    <value>[PARAM]已是最新的。[BR][BR]是否仍要还原此备份？这将关闭窗口。</value>
+  </data>
+  <data name="frmGameManager_ErrorGameDupe" xml:space="preserve">
+    <value>一个具有相同ID（[PARAM]）的游戏已经存在。</value>
+  </data>
+  <data name="frmGameManager_ErrorNoBackupData" xml:space="preserve">
+    <value>所选的游戏没有备份数据或不能以其当前的配置进行还原。</value>
+  </data>
+  <data name="frmGameManager_ErrorNoBackupFileExists" xml:space="preserve">
+    <value>备份文件不存在。</value>
+  </data>
+  <data name="frmGameManager_ErrorNoItems" xml:space="preserve">
+    <value>你必须选择包括在备份中的项目，或者选择保存整个文件夹。</value>
+  </data>
+  <data name="frmGameManager_ErrorNoRestorePathExists" xml:space="preserve">
+    <value>还原路径不存在。</value>
+  </data>
+  <data name="frmGameManager_ErrorPathNotSet" xml:space="preserve">
+    <value>[PARAM]使用相对路径，而游戏路径尚未设置。</value>
+  </data>
+  <data name="frmGameManager_ErrorValidName" xml:space="preserve">
+    <value>你必须输入一个有效的游戏名称。</value>
+  </data>
+  <data name="frmGameManager_Exclude" xml:space="preserve">
+    <value>排除</value>
+  </data>
+  <data name="frmGameManager_ExcludeShortcut" xml:space="preserve">
+    <value>排除选项</value>
+  </data>
+  <data name="frmGameManager_Executable" xml:space="preserve">
+    <value>可执行文件</value>
+  </data>
+  <data name="frmGameManager_FormName" xml:space="preserve">
+    <value>游戏管理器</value>
+  </data>
+  <data name="frmGameManager_Icon" xml:space="preserve">
+    <value>图标</value>
+  </data>
+  <data name="frmGameManager_Include" xml:space="preserve">
+    <value>包括选项</value>
+  </data>
+  <data name="frmGameManager_IncludeShortcut" xml:space="preserve">
+    <value>包括选项</value>
+  </data>
+  <data name="frmGameManager_ItemsExist" xml:space="preserve">
+    <value>([PARAM])</value>
+  </data>
+  <data name="frmGameManager_lblCompany" xml:space="preserve">
+    <value>公司：</value>
+  </data>
+  <data name="frmGameManager_lblRemote" xml:space="preserve">
+    <value>备份数据：</value>
+  </data>
+  <data name="frmGameManager_lblBackupFile" xml:space="preserve">
+    <value>备份文件：</value>
+  </data>
+  <data name="frmGameManager_lblGamePath" xml:space="preserve">
+    <value>游戏路径：</value>
+  </data>
+  <data name="frmGameManager_lblHours" xml:space="preserve">
+    <value>游玩时间(H)：</value>
+  </data>
+  <data name="frmGameManager_lblIcon" xml:space="preserve">
+    <value>图标：</value>
+  </data>
+  <data name="frmGameManager_lblLocalData" xml:space="preserve">
+    <value>本地数据：</value>
+  </data>
+  <data name="frmGameManager_lblName" xml:space="preserve">
+    <value>游戏名称：</value>
+  </data>
+  <data name="frmGameManager_lblProcess" xml:space="preserve">
+    <value>游戏进程：</value>
+  </data>
+  <data name="frmGameManager_lblRestorePath" xml:space="preserve">
+    <value>还原路径：</value>
+  </data>
+  <data name="frmGameManager_lblSavePath" xml:space="preserve">
+    <value>存档路径：</value>
+  </data>
+  <data name="frmGameManager_lblVersion" xml:space="preserve">
+    <value>版本：</value>
+  </data>
+  <data name="frmGameManager_None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="frmGameManager_OutofSync" xml:space="preserve">
+    <value>不同步</value>
+  </data>
+  <data name="frmGameManager_UpToDate" xml:space="preserve">
+    <value>最新！</value>
+  </data>
+  <data name="frmGameManager_XML" xml:space="preserve">
+    <value>XML</value>
+  </data>
+  <data name="frmGameManager_cmsFile" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="frmGameManager_cmsOfficial" xml:space="preserve">
+    <value>官方列表</value>
+  </data>
+  <data name="frmAddWizard_btnBack" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="frmAddWizard_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmAddWizard_btnExclude" xml:space="preserve">
+    <value>选择要排除的项目</value>
+  </data>
+  <data name="frmAddWizard_btnInclude" xml:space="preserve">
+    <value>选择要包含的项目</value>
+  </data>
+  <data name="frmAddWizard_btnNext" xml:space="preserve">
+    <value>下一个</value>
+  </data>
+  <data name="frmAddWizard_btnNext_Finish" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="frmAddWizard_btnProcessBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmAddWizard_btnSaveBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmAddWizard_chkFolderSave" xml:space="preserve">
+    <value>保存整个文件夹</value>
+  </data>
+  <data name="frmAddWizard_chkTimeStamp" xml:space="preserve">
+    <value>保存多项备份</value>
+  </data>
+  <data name="frmAddWizard_ChooseProcess" xml:space="preserve">
+    <value>选择启动游戏的exe文件</value>
+  </data>
+  <data name="frmAddWizard_ChooseSavePath" xml:space="preserve">
+    <value>选择游戏存档文件夹：</value>
+  </data>
+  <data name="frmAddWizard_ConfirmSaveTags" xml:space="preserve">
+    <value>[PARAM]已保存。[BR][BR]是否要为[PARAM]添加标签吗？</value>
+  </data>
+  <data name="frmAddWizard_ErrorBadProcessPath" xml:space="preserve">
+    <value>可执行文件的路径必须是完整路径。</value>
+  </data>
+  <data name="frmAddWizard_ErrorBadSavePath" xml:space="preserve">
+    <value>所选路径必须是完整路径。</value>
+  </data>
+  <data name="frmAddWizard_ErrorGameDupe" xml:space="preserve">
+    <value>已有相同名称和进程的游戏存在。</value>
+  </data>
+  <data name="frmAddWizard_ErrorNotAProcess" xml:space="preserve">
+    <value>你所选择的文件不是可执行文件。</value>
+  </data>
+  <data name="frmAddWizard_ErrorNotAShortcut" xml:space="preserve">
+    <value>此文件不是快捷方式。</value>
+  </data>
+  <data name="frmAddWizard_ErrorProcessNotExist" xml:space="preserve">
+    <value>所选的可执行文件不存在。</value>
+  </data>
+  <data name="frmAddWizard_ErrorSavePathNotExist" xml:space="preserve">
+    <value>你选择的文件夹不存在或不是有效的文件夹。</value>
+  </data>
+  <data name="frmAddWizard_ErrorValidName" xml:space="preserve">
+    <value>你必须输入有效的游戏名称。</value>
+  </data>
+  <data name="frmAddWizard_ErrorValidProcess" xml:space="preserve">
+    <value>你必须选择游戏的可执行文件（.exe）才能继续。</value>
+  </data>
+  <data name="frmAddWizard_ErrorValidSavePath" xml:space="preserve">
+    <value>你必须选择游戏的存档文件路径才能继续</value>
+  </data>
+  <data name="frmAddWizard_ErrorValidSaveType" xml:space="preserve">
+    <value>你必须选择要包括在备份中的项目，或者选择保存整个文件夹。</value>
+  </data>
+  <data name="frmAddWizard_ErrorWithShortcut" xml:space="preserve">
+    <value>使用快捷方式文件时出错。[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmAddWizard_Exclude" xml:space="preserve">
+    <value>排除</value>
+  </data>
+  <data name="frmAddWizard_Executable" xml:space="preserve">
+    <value>可执行文件</value>
+  </data>
+  <data name="frmAddWizard_FormName" xml:space="preserve">
+    <value>添加游戏向导</value>
+  </data>
+  <data name="frmAddWizard_Include" xml:space="preserve">
+    <value>包括</value>
+  </data>
+  <data name="frmAddWizard_ItemsSelectedMulti" xml:space="preserve">
+    <value>[PARAM所选项目</value>
+  </data>
+  <data name="frmAddWizard_ItemsSelectedNone" xml:space="preserve">
+    <value>选择了0个项目</value>
+  </data>
+  <data name="frmAddWizard_lblExcludePath" xml:space="preserve">
+    <value>游戏存档路径</value>
+  </data>
+  <data name="frmAddWizard_lblExcludePathTitle" xml:space="preserve">
+    <value>游戏存档文件夹：</value>
+  </data>
+  <data name="frmAddWizard_lblIncludePath" xml:space="preserve">
+    <value>游戏存档路径</value>
+  </data>
+  <data name="frmAddWizard_lblIncludePathTitle" xml:space="preserve">
+    <value>游戏存档文件夹：</value>
+  </data>
+  <data name="frmAddWizard_lblStep1Instructions" xml:space="preserve">
+    <value>你可以在这里拖放一个快捷方式来完成这个步骤，目前只支持Windows快捷方式。</value>
+  </data>
+  <data name="frmAddWizard_lblStep1Intro" xml:space="preserve">
+    <value>输入要监控的游戏名称：</value>
+  </data>
+  <data name="frmAddWizard_lblStep1Title" xml:space="preserve">
+    <value>游戏名称</value>
+  </data>
+  <data name="frmAddWizard_lblStep2Instructions" xml:space="preserve">
+    <value>有些游戏是使用启动器运行。 不要监视启动器，一定要选择游戏的实际可执行文件。 你可以在这里拖放一个快捷方式来完成这一步骤，目前只支持Windows快捷方式。</value>
+  </data>
+  <data name="frmAddWizard_lblStep2Intro" xml:space="preserve">
+    <value>选择游戏的可执行文件或快捷方式：</value>
+  </data>
+  <data name="frmAddWizard_lblStep2Title" xml:space="preserve">
+    <value>监控进程</value>
+  </data>
+  <data name="frmAddWizard_lblStep3aInstructions" xml:space="preserve">
+    <value>选择你希望包括在备份中的任何文件类型、特定文件或文件夹。 如果你不确定，可以返回一步，选择保存整个文件夹。</value>
+  </data>
+  <data name="frmAddWizard_lblStep3aTitle" xml:space="preserve">
+    <value>选择要备份的文件</value>
+  </data>
+  <data name="frmAddWizard_lblStep3Instructions" xml:space="preserve">
+    <value>如果你不确定到底要备份哪些文件，请确保勾选保存整个文件夹。 你还可以选择保存多个备份，并设定保存数量的限制。</value>
+  </data>
+  <data name="frmAddWizard_lblStep3Intro" xml:space="preserve">
+    <value>选择游戏存档文件的位置：</value>
+  </data>
+  <data name="frmAddWizard_lblStep3Title" xml:space="preserve">
+    <value>游戏存档备份路径</value>
+  </data>
+  <data name="frmAddWizard_lblStep4Instructions" xml:space="preserve">
+    <value>选择你想从备份中排除的任何文件类型、特定文件或文件夹。 你可以选择多个项目来排除。 这一步可以跳过。</value>
+  </data>
+  <data name="frmAddWizard_lblStep4Title" xml:space="preserve">
+    <value>排除文件或文件夹</value>
+  </data>
+  <data name="frmAddWizard_lblStep5Intro" xml:space="preserve">
+    <value>验证下面的设置，然后单击“完成”保存。</value>
+  </data>
+  <data name="frmAddWizard_lblStep5Title" xml:space="preserve">
+    <value>游戏摘要</value>
+  </data>
+  <data name="frmAddWizard_None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="frmAddWizard_Summary_AbsolutePath" xml:space="preserve">
+    <value>绝对路径</value>
+  </data>
+  <data name="frmAddWizard_Summary_Exclude" xml:space="preserve">
+    <value>排除项目</value>
+  </data>
+  <data name="frmAddWizard_Summary_FolderSave" xml:space="preserve">
+    <value>文件夹保存</value>
+  </data>
+  <data name="frmAddWizard_Summary_Include" xml:space="preserve">
+    <value>包括的项目</value>
+  </data>
+  <data name="frmAddWizard_Summary_Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="frmAddWizard_Summary_Process" xml:space="preserve">
+    <value>游戏进程</value>
+  </data>
+  <data name="frmAddWizard_Summary_SavePath" xml:space="preserve">
+    <value>游戏存档路径</value>
+  </data>
+  <data name="frmAddWizard_Summary_Timestamp" xml:space="preserve">
+    <value>多重备份</value>
+  </data>
+  <data name="frmAdvancedImport_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmAdvancedImport_btnImport" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="frmAdvancedImport_FormName" xml:space="preserve">
+    <value>导入游戏配置</value>
+  </data>
+  <data name="frmAdvancedImport_Configs" xml:space="preserve">
+    <value>配置([PARAM])</value>
+  </data>
+  <data name="frmAdvancedImport_Selected" xml:space="preserve">
+    <value>已选([PARAM])</value>
+  </data>
+  <data name="frmChooseGame_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmChooseGame_btnChoose" xml:space="preserve">
+    <value>选择游戏</value>
+  </data>
+  <data name="frmChooseGame_FormName" xml:space="preserve">
+    <value>选择游戏</value>
+  </data>
+  <data name="frmChooseGame_lblChoose" xml:space="preserve">
+    <value>请选择你正在玩的游戏：</value>
+  </data>
+  <data name="frmFileFolderSearch_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmFileFolderSearch_FormName" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="frmFileFolderSearch_SwitchDrives" xml:space="preserve">
+    <value>是否要搜索[PARAM]驱动器？</value>
+  </data>
+  <data name="frmFilter_btnIncludeAdd" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmFilter_btnOK" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="frmFilter_btnIncludeRemove" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmFilter_FormName" xml:space="preserve">
+    <value>自定义过滤器</value>
+  </data>
+  <data name="frmFilter_lblIncludeTags" xml:space="preserve">
+    <value>包含标签</value>
+  </data>
+  <data name="frmFilter_lblTags" xml:space="preserve">
+    <value>可用标签</value>
+  </data>
+  <data name="frmFilter_optAll" xml:space="preserve">
+    <value>全部标签</value>
+  </data>
+  <data name="frmFilter_optAnd" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="frmFilter_optAny" xml:space="preserve">
+    <value>任意标签</value>
+  </data>
+  <data name="frmFilter_chkGameInfo" xml:space="preserve">
+    <value>游戏信息</value>
+  </data>
+  <data name="frmFilter_optOr" xml:space="preserve">
+    <value>任意</value>
+  </data>
+  <data name="frmFilter_chkTag" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="frmGameTags_btnAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmGameTags_btnOpenTags" xml:space="preserve">
+    <value>标签管理器</value>
+  </data>
+  <data name="frmGameTags_btnRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmGameTags_FormNameMulti" xml:space="preserve">
+    <value>编辑多个游戏的标签</value>
+  </data>
+  <data name="frmGameTags_FormNameSingle" xml:space="preserve">
+    <value>编辑[PARAM]的标签</value>
+  </data>
+  <data name="frmGameTags_lblGameTags" xml:space="preserve">
+    <value>当前标签</value>
+  </data>
+  <data name="frmGameTags_lblTags" xml:space="preserve">
+    <value>Available T当前标签
+
+可用标签</value>
+  </data>
+  <data name="frmIncludeExclude_BrowseSaveFolder" xml:space="preserve">
+    <value>选择游戏存档文件夹的位置：</value>
+  </data>
+  <data name="frmIncludeExclude_btnAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmIncludeExclude_btnBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmIncludeExclude_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmIncludeExclude_btnRawEdit" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="frmIncludeExclude_btnRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmIncludeExclude_btnSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="frmIncludeExclude_CustomItem" xml:space="preserve">
+    <value>自定义项目</value>
+  </data>
+  <data name="frmIncludeExclude_ErrorFileSystemRead" xml:space="preserve">
+    <value>读取文件系统时发生了一个意外的错误：[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmIncludeExclude_FormName" xml:space="preserve">
+    <value>[PARAM]生成器</value>
+  </data>
+  <data name="frmIncludeExclude_grpOptions" xml:space="preserve">
+    <value>[PARAM]选项</value>
+  </data>
+  <data name="frmIncludeExclude_lblItems" xml:space="preserve">
+    <value>[PARAM]项目</value>
+  </data>
+  <data name="frmIncludeExclude_lblSaveFolder" xml:space="preserve">
+    <value>游戏存档浏览器</value>
+  </data>
+  <data name="frmIncludeExclude_optFileTypes" xml:space="preserve">
+    <value>文件类型</value>
+  </data>
+  <data name="frmIncludeExclude_optIndividualFiles" xml:space="preserve">
+    <value>个人文件</value>
+  </data>
+  <data name="frmIncludeExclude_RawEditInfo" xml:space="preserve">
+    <value>项目以冒号分隔。</value>
+  </data>
+  <data name="frmIncludeExclude_RawEditTitle" xml:space="preserve">
+    <value>[PARAM]编辑默认选项</value>
+  </data>
+  <data name="frmIncludeExclude_ToolTipBrowse" xml:space="preserve">
+    <value>单击此处设置游戏存档文件夹。</value>
+  </data>
+  <data name="frmIncludeExclude_ToolTipFiles" xml:space="preserve">
+    <value>使用上面的按钮设置保存游戏的文件夹。</value>
+  </data>
+  <data name="frmIncludeExclude_ToolTipFolder" xml:space="preserve">
+    <value>无法确定保存的游戏文件夹或不存在。</value>
+  </data>
+  <data name="frmIncludeExclude_ToolTipTitle" xml:space="preserve">
+    <value>游戏存档管理器</value>
+  </data>
+  <data name="frmFilter_grpFilterType" xml:space="preserve">
+    <value>过滤器类型</value>
+  </data>
+  <data name="frmFilter_grpTagOptions" xml:space="preserve">
+    <value>包含选项</value>
+  </data>
+  <data name="frmGameManager_tbConfig" xml:space="preserve">
+    <value>核心配置</value>
+  </data>
+  <data name="frmGameManager_tbGameInfo" xml:space="preserve">
+    <value>游戏信息</value>
+  </data>
+  <data name="frmGameManager_tbBackupInfo" xml:space="preserve">
+    <value>备份管理</value>
+  </data>
+  <data name="App_URLImport" xml:space="preserve">
+    <value>http://mikemaximus.github.io/gbm-web/GBM_Official.xml</value>
+  </data>
+  <data name="App_URLManual" xml:space="preserve">
+    <value>https://mikemaximus.github.io/gbm-web/manual.html</value>
+  </data>
+  <data name="App_URLUpdates" xml:space="preserve">
+    <value>https://github.com/MikeMaximus/gbm/releases</value>
+  </data>
+  <data name="App_URLWebsite" xml:space="preserve">
+    <value>https://mikemaximus.github.io/gbm-web/</value>
+  </data>
+  <data name="frmIncludeExclude_cmsAdd" xml:space="preserve">
+    <value>添加自定义项目</value>
+  </data>
+  <data name="frmIncludeExclude_cmsEdit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="frmIncludeExclude_cmsRemove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="frmSettings_BrowseFolder" xml:space="preserve">
+    <value>选择备份文件夹：</value>
+  </data>
+  <data name="frmSettings_btnBackupFolder" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmSettings_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmSettings_btnSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="frmSettings_chkBackupConfirm" xml:space="preserve">
+    <value>禁用备份确认</value>
+  </data>
+  <data name="frmSettings_chkCreateFolder" xml:space="preserve">
+    <value>为每个游戏创建一个子文件夹</value>
+  </data>
+  <data name="frmSettings_chkMonitorOnStartup" xml:space="preserve">
+    <value>在启动时开始监控</value>
+  </data>
+  <data name="frmSettings_chkOverwriteWarning" xml:space="preserve">
+    <value>显示覆盖警告</value>
+  </data>
+  <data name="frmSettings_chkRestoreNotify" xml:space="preserve">
+    <value>显示有关新备份的通知</value>
+  </data>
+  <data name="frmSettings_chkShowDetectionTips" xml:space="preserve">
+    <value>显示检测通知</value>
+  </data>
+  <data name="frmSettings_chkStartMinimized" xml:space="preserve">
+    <value>启动时最小化</value>
+  </data>
+  <data name="frmSettings_chkAutoStart" xml:space="preserve">
+    <value>登录时自动启动</value>
+  </data>
+  <data name="frmSettings_chkSuppressBackup" xml:space="preserve">
+    <value>忽略短于</value>
+  </data>
+  <data name="frmSettings_chkTimeTracking" xml:space="preserve">
+    <value>启用时间跟踪</value>
+  </data>
+  <data name="frmSettings_ErrorBackupFolder" xml:space="preserve">
+    <value>备份文件夹不存在。请选择一个有效的备份文件夹。</value>
+  </data>
+  <data name="frmSettings_FormName" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="frmSettings_grpStartup" xml:space="preserve">
+    <value>启动选项</value>
+  </data>
+  <data name="frmSettings_grpFolderOptions" xml:space="preserve">
+    <value>文件和文件夹</value>
+  </data>
+  <data name="frmSettings_lblBackupFolder" xml:space="preserve">
+    <value>备份文件夹：</value>
+  </data>
+  <data name="frmSettings_lblMinutes" xml:space="preserve">
+    <value>会议记录</value>
+  </data>
+  <data name="frmStartUpWizard_BrowseFolder" xml:space="preserve">
+    <value>选择备份文件夹：</value>
+  </data>
+  <data name="frmStartUpWizard_btnBack" xml:space="preserve">
+    <value>备份</value>
+  </data>
+  <data name="frmStartUpWizard_btnDownloadList" xml:space="preserve">
+    <value>从官方列表导入</value>
+  </data>
+  <data name="frmStartUpWizard_btnFolderBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmStartUpWizard_btnNext" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="frmStartUpWizard_btnNext_Finish" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="frmStartUpWizard_btnOpenMonitorList" xml:space="preserve">
+    <value>游戏管理器</value>
+  </data>
+  <data name="frmStartUpWizard_btnOpenWizard" xml:space="preserve">
+    <value>添加游戏向导</value>
+  </data>
+  <data name="frmStartUpWizard_chkCreateFolder" xml:space="preserve">
+    <value>为每个游戏创建一个子文件夹</value>
+  </data>
+  <data name="frmStartUpWizard_ConfirmOfficialImport" xml:space="preserve">
+    <value>是否要从官方列表中选择要导入的游戏？[BR][BR]这需要有效的网络连接。</value>
+  </data>
+  <data name="frmStartUpWizard_ErrorBadFolder" xml:space="preserve">
+    <value>所选路径必须是完整路径。</value>
+  </data>
+  <data name="frmStartUpWizard_ErrorNoFolder" xml:space="preserve">
+    <value>必须选择备份路径才能继续。</value>
+  </data>
+  <data name="frmStartUpWizard_ErrorNoFolderExists" xml:space="preserve">
+    <value>所选备份位置不存在，无法创建。[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmStartUpWizard_ExistingData" xml:space="preserve">
+    <value>在备份文件夹中检测到现有游戏备份监控器数据，并已导入。</value>
+  </data>
+  <data name="frmStartUpWizard_FormName" xml:space="preserve">
+    <value>游戏备份监控器-设置</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep1Instructions" xml:space="preserve">
+    <value>本指南将帮助你通过一些快速简单的步骤开始。</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep1Instructions2" xml:space="preserve">
+    <value>如果你想在开始之前了解高级功能或有任何其他问题，请参阅详细的在线手册。</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep1Title" xml:space="preserve">
+    <value>欢迎来到游戏备份监视器</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep2Instructions" xml:space="preserve">
+    <value>所有备份文件以及清单数据库（gbm.s3db）都将存储在此位置。此文件夹中的任何现有游戏备份监控器数据都将自动导入。</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep2Intro" xml:space="preserve">
+    <value>选择将保存备份文件的位置：</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep2Title" xml:space="preserve">
+    <value>备份位置</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep3Intro" xml:space="preserve">
+    <value>在开始监控游戏之前，需要对游戏进行配置，以便游戏备份监控器知道要查找什么以及如何处理它们。你可以从官方列表下载预先制作的配置，也可以使用以下工具自行添加这些配置。你现在也可以跳过这一步！</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep3Title" xml:space="preserve">
+    <value>监控游戏</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep4Instructions" xml:space="preserve">
+    <value>游戏备份监控器将在每次游戏关闭时自动监视和备份游戏。</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep4Instructions2" xml:space="preserve">
+    <value>请记住，游戏备份监控器当前一次只能监控一个游戏。</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep4Instructions3" xml:space="preserve">
+    <value>你可以更改在此向导中设置的任何内容，并通过浏览菜单查找更多设置和功能。</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep4Title" xml:space="preserve">
+    <value>安装完成！</value>
+  </data>
+  <data name="frmStartUpWizard_llbManual" xml:space="preserve">
+    <value>游戏备份监控器手册</value>
+  </data>
+  <data name="frmTags_btnAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="frmTags_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmTags_btnDelete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="frmTags_btnSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="frmTags_ConfirmDelete" xml:space="preserve">
+    <value>是否确实要删除[PARAM]？[BR][BR]所有使用此标签的游戏都将删除此标签。</value>
+  </data>
+  <data name="frmTags_ErrorTagDupe" xml:space="preserve">
+    <value>具有此名称的标签已存在。</value>
+  </data>
+  <data name="frmTags_ErrorValidName" xml:space="preserve">
+    <value>必须输入有效的标签名。</value>
+  </data>
+  <data name="frmTags_FormName" xml:space="preserve">
+    <value>标签管理器</value>
+  </data>
+  <data name="frmTags_grpTag" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="frmTags_lblName" xml:space="preserve">
+    <value>名称：</value>
+  </data>
+  <data name="frmVariableManager_btnAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="frmVariableManager_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmVariableManager_btnDelete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="frmVariableManager_btnPathBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmVariableManager_btnSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="frmVariableManager_ConfirmDelete" xml:space="preserve">
+    <value>是否确实要删除[PARAM]？</value>
+  </data>
+  <data name="frmVariableManager_ErrorValidName" xml:space="preserve">
+    <value>必须输入有效的变量名。</value>
+  </data>
+  <data name="frmVariableManager_ErrorValidPath" xml:space="preserve">
+    <value>必须输入有效路径。</value>
+  </data>
+  <data name="frmVariableManager_ErrorVariableDupe" xml:space="preserve">
+    <value>具有此名称的自定义变量已存在。</value>
+  </data>
+  <data name="frmVariableManager_FormName" xml:space="preserve">
+    <value>自定义变量管理器</value>
+  </data>
+  <data name="frmVariableManager_grpVariable" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="frmVariableManager_lblName" xml:space="preserve">
+    <value>名称：</value>
+  </data>
+  <data name="frmVariableManager_lblPath" xml:space="preserve">
+    <value>路径：</value>
+  </data>
+  <data name="frmVariableManager_PathBrowse" xml:space="preserve">
+    <value>浏览到变量所代表的文件夹，然后单击“打开”</value>
+  </data>
+  <data name="mgPath_ConfirmManualPathNoParam" xml:space="preserve">
+    <value>是否要手动设置游戏路径？(路径将被保存)</value>
+  </data>
+  <data name="mgrBackup_ActionComplete" xml:space="preserve">
+    <value>[PARAM]备份完成</value>
+  </data>
+  <data name="mgrBackup_ActionFailed" xml:space="preserve">
+    <value>[PARAM]备份失败</value>
+  </data>
+  <data name="mgrBackup_BackupComplete" xml:space="preserve">
+    <value>[PARAM] 备份（[PARAM]）完成。</value>
+  </data>
+  <data name="mgrBackup_BackupInProgress" xml:space="preserve">
+    <value>正在进行[PARAM]的备份...</value>
+  </data>
+  <data name="App_Operation_Warnings" xml:space="preserve">
+    <value>[PARAM]操作完成，但出现警告。</value>
+  </data>
+  <data name="mgrBackup_ConfirmManifestConflict" xml:space="preserve">
+    <value>列表显示备份文件夹包含[PARAM]的最新备份，该备份尚未在此计算机上还原。[BR][BR]是否仍要覆盖此文件？</value>
+  </data>
+  <data name="mgrBackup_ConfirmOverwrite" xml:space="preserve">
+    <value>备份文件夹中已存在[PARAM]。是否覆盖此文件？</value>
+  </data>
+  <data name="mgrBackup_ErrorFileList" xml:space="preserve">
+    <value>创建文件列表时出错：[PARAM]</value>
+  </data>
+  <data name="mgrBackup_ErrorFullAbort" xml:space="preserve">
+    <value>备份已中止。[PARAM]的备份文件可能无法使用。</value>
+  </data>
+  <data name="mgrBackup_ErrorManifestConflict" xml:space="preserve">
+    <value>由于列表冲突，用户中止了备份。</value>
+  </data>
+  <data name="mgrBackup_ErrorManifestFailure" xml:space="preserve">
+    <value>[PARAM]的列表更新失败。</value>
+  </data>
+  <data name="mgrBackup_ErrorNoSavePath" xml:space="preserve">
+    <value>备份已中止。[PARAM]保存的游戏路径不存在。</value>
+  </data>
+  <data name="mgrBackup_ErrorOverwriteAbort" xml:space="preserve">
+    <value>[PARAM]由于覆盖，用户中止了备份。</value>
+  </data>
+  <data name="mgrBackup_ErrorSubFolderCreate" xml:space="preserve">
+    <value>为[PARAM].[BR][PARAM]创建备份子文件夹时出错</value>
+  </data>
+  <data name="mgrBackup_GenerateHash" xml:space="preserve">
+    <value>正在为[PARAM]备份文件生成SHA-256哈希值。</value>
+  </data>
+  <data name="mgrCommon_FilesFilter" xml:space="preserve">
+    <value>[PARAM]文件(*.[PARAM])|*.[PARAM]</value>
+  </data>
+  <data name="mgrCommon_No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="mgrCommon_Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="mgrMonitorList_ConfirmApplyFilter" xml:space="preserve">
+    <value>是否要对导出应用过滤器？</value>
+  </data>
+  <data name="mgrMonitorList_ConfirmExistingData" xml:space="preserve">
+    <value>同步设置已更改，备份文件夹中已存在数据。[BR][BR]是否将此电脑上的当前游戏数据设为此文件夹中的新主游戏数据(强烈推荐）[BR][BR]选择“否”会将此电脑上的游戏数据同步到此文件夹中的当前主游戏数据。</value>
+  </data>
+  <data name="mgrMonitorList_ExportComplete" xml:space="preserve">
+    <value>导出完成[PARAM]项已导出。</value>
+  </data>
+  <data name="mgrMonitorList_FileNotFound" xml:space="preserve">
+    <value>找不到文件：[BR][PARAM][BR]。</value>
+  </data>
+  <data name="mgrMonitorList_ImportComplete" xml:space="preserve">
+    <value>导入完成。</value>
+  </data>
+  <data name="mgrMonitorList_ImportNothing" xml:space="preserve">
+    <value>此列表不包含任何要导入的新游戏。</value>
+  </data>
+  <data name="mgrMonitorList_SyncChanges" xml:space="preserve">
+    <value>已同步[PARAM]更改。</value>
+  </data>
+  <data name="mgrMonitorList_SyncFromMaster" xml:space="preserve">
+    <value>已触发主游戏列表中的同步。</value>
+  </data>
+  <data name="mgrMonitorList_SyncToMaster" xml:space="preserve">
+    <value>已触发与主游戏列表的同步。</value>
+  </data>
+  <data name="mgrMonitorList_WebNoReponse" xml:space="preserve">
+    <value>[BR][PARAM][BR]没有响应，可能是服务器没有响应，或者URL无效。</value>
+  </data>
+  <data name="mgrPath_ChoosePath" xml:space="preserve">
+    <value>选择包含可执行文件的游戏文件夹。</value>
+  </data>
+  <data name="mgrPath_ConfirmAutoFailure" xml:space="preserve">
+    <value>搜索未能找到[PARAM]的路径。[BR][BR]是否手动设置游戏路径？(路径将被保存）</value>
+  </data>
+  <data name="mgrPath_ConfirmAutoPath" xml:space="preserve">
+    <value>[PARAM][BR][BR]是否要自动搜索游戏路径？(路径将被保存）</value>
+  </data>
+  <data name="mgrPath_ConfirmBackupLocation" xml:space="preserve">
+    <value>备份位置[PARAM]不可用。[BR]它可能位于未连接的外部或网络驱动器上。[BR][BR]是否要选择其他备份位置？[BR][BR]选择“否”退出，或选择“取消”继续等待该位置可用。</value>
+  </data>
+  <data name="mgrPath_ConfirmManualPath" xml:space="preserve">
+    <value>[PARAM][BR][BR]你是否想手动设置游戏路径？(路径将被保存)</value>
+  </data>
+  <data name="mgrPath_ConfirmPathCorrect" xml:space="preserve">
+    <value>[PARAM]位于以下文件夹中：[BR][BR][PARAM][BR][BR]是否正确？</value>
+  </data>
+  <data name="mgrRestore_ActionComplete" xml:space="preserve">
+    <value>[PARAM]备份已还原。</value>
+  </data>
+  <data name="mgrRestore_ActionFailed" xml:space="preserve">
+    <value>[PARAM]还原失败。</value>
+  </data>
+  <data name="mgrRestore_ConfirmCreatePath" xml:space="preserve">
+    <value>还原路径[PARAM]不存在。[BR][BR]是否要创建文件夹并继续？</value>
+  </data>
+  <data name="mgrRestore_ConfirmFailedCheck" xml:space="preserve">
+    <value>[PARAM]的备份文件未通过文件完整性检查。它可能已损坏、不存在或已被其他应用程序修改。[BR][BR]是否仍要还原此备份(（不推荐）</value>
+  </data>
+  <data name="mgrRestore_ConfirmPathMismatch" xml:space="preserve">
+    <value>[PARAM]的还原路径与其当前保存路径不匹配。[BR][BR]是否改为还原到当前保存路径(（推荐）</value>
+  </data>
+  <data name="mgrRestore_ErrorCheckAbort" xml:space="preserve">
+    <value>由于文件完整性检查失败，用户已中止还原。</value>
+  </data>
+  <data name="mgrRestore_ErrorCreatePath" xml:space="preserve">
+    <value>由于意外错误，无法创建还原路径。[BR][PARAM]</value>
+  </data>
+  <data name="mgrRestore_ErrorFailedCheck" xml:space="preserve">
+    <value>[PARAM]的备份文件未通过文件完整性检查。</value>
+  </data>
+  <data name="mgrRestore_ErrorFullAbort" xml:space="preserve">
+    <value>恢复已中止。为[PARAM]保存的游戏现在可能无效。</value>
+  </data>
+  <data name="mgrRestore_ErrorNoBackup" xml:space="preserve">
+    <value>恢复已中止。找不到备份文件。</value>
+  </data>
+  <data name="mgrRestore_ErrorNoPath" xml:space="preserve">
+    <value>恢复已中止。路径[PARAM]不存在。</value>
+  </data>
+  <data name="mgrRestore_NoVerify" xml:space="preserve">
+    <value>[PARAM]（[PARAM]）没有存储校验，已跳过验证。</value>
+  </data>
+  <data name="mgrRestore_RelativeNeedPath" xml:space="preserve">
+    <value>[PARAM]使用相对路径，从未在此计算机上检测到。</value>
+  </data>
+  <data name="mgrRestore_RestoreComplete" xml:space="preserve">
+    <value>[PARAM]备份已恢复。</value>
+  </data>
+  <data name="mgrRestore_RestoreInProgress" xml:space="preserve">
+    <value>正在还原到[PARAM]...</value>
+  </data>
+  <data name="mgrRestore_Verified" xml:space="preserve">
+    <value>[PARAM]备份（[PARAM]）已验证。</value>
+  </data>
+  <data name="mgrSQLite_ErrorBackupFailure" xml:space="preserve">
+    <value>在[PARAM][BR][BR][PARAM]创建数据库文件备份时出错</value>
+  </data>
+  <data name="mgrSQLite_ErrorCreatingLocalDB" xml:space="preserve">
+    <value>尝试创建本地应用程序数据库时出错：[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrSQLite_ErrorCreatingRemoteDB" xml:space="preserve">
+    <value>尝试创建远程应用程序数据库时出错：[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrSQLite_ErrorQueryFailure" xml:space="preserve">
+    <value>尝试运行查询时出错。[BR][BR][PARAM][BR][BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrXML_ErrorExportFailure" xml:space="preserve">
+    <value>导出XML数据时出错。[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrXML_ErrorImportFailure" xml:space="preserve">
+    <value>无法读取XML文件，它可能是无效格式或已损坏。[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmGameManager_DefaultExportFileName" xml:space="preserve">
+    <value>游戏备份监控器导出</value>
+  </data>
+  <data name="frmMain_ChooseLogFile" xml:space="preserve">
+    <value>为日志文件选择一个位置</value>
+  </data>
+  <data name="frmMain_ConfirmLogClear" xml:space="preserve">
+    <value>是否确实要清除日志？</value>
+  </data>
+  <data name="frmMain_DefaultLogFileName" xml:space="preserve">
+    <value>游戏备份监控器日志</value>
+  </data>
+  <data name="frmMain_gMonLogClear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="frmMain_gMonLogSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="frmMain_gMonToolsLog" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="frmMain_LogAutoSave" xml:space="preserve">
+    <value>会话日志已达到最大长度，并已自动保存到[PARAM]。</value>
+  </data>
+  <data name="frmMain_Text" xml:space="preserve">
+    <value>文本</value>
+  </data>
+  <data name="mgrCommon_ErrorWritingTextFile" xml:space="preserve">
+    <value>写入文本文件时出错。[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmSettings_cboCompression_Fast" xml:space="preserve">
+    <value>很快</value>
+  </data>
+  <data name="frmSettings_cboCompression_Fastest" xml:space="preserve">
+    <value>快速</value>
+  </data>
+  <data name="frmSettings_cboCompression_Maximum" xml:space="preserve">
+    <value>超快</value>
+  </data>
+  <data name="frmSettings_cboCompression_None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="frmSettings_cboCompression_Normal" xml:space="preserve">
+    <value>正常</value>
+  </data>
+  <data name="frmSettings_cboCompression_Ultra" xml:space="preserve">
+    <value>超级</value>
+  </data>
+  <data name="frmSettings_grp7zGeneral" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="frmSettings_lblCompression" xml:space="preserve">
+    <value>压缩：</value>
+  </data>
+  <data name="frmMain_CommandFail" xml:space="preserve">
+    <value>该命令执行失败。</value>
+  </data>
+  <data name="frmMain_CommandSucess" xml:space="preserve">
+    <value>该命令已成功执行。</value>
+  </data>
+  <data name="frmMain_DeveloperConsole" xml:space="preserve">
+    <value>开发者控制台</value>
+  </data>
+  <data name="frmMain_EnterCommand" xml:space="preserve">
+    <value>输入命令</value>
+  </data>
+  <data name="frmMain_ErrorCommandBadParam" xml:space="preserve">
+    <value>命令[PARAM]的参数（[PARAM]）不正确。</value>
+  </data>
+  <data name="frmMain_ErrorCommandInvalid" xml:space="preserve">
+    <value>无法识别命令[PARAM]。</value>
+  </data>
+  <data name="frmMain_ErrorMissingParams" xml:space="preserve">
+    <value>命令[PARAM]需要更多参数。</value>
+  </data>
+  <data name="frmMain_ErrorInitFailure" xml:space="preserve">
+    <value>初始化游戏备份监控器时发生意外错误。[BR][BR][PARAM][BR][BR]是否仍要继续(（不推荐）</value>
+  </data>
+  <data name="App_ErrorUnixNotAvailable" xml:space="preserve">
+    <value>这个功能目前在基于Unix的操作系统上还不能使用。</value>
+  </data>
+  <data name="frmMain_PNGFilter" xml:space="preserve">
+    <value>PNG 文件(*.png)|*.png</value>
+  </data>
+  <data name="frmAdvancedImport_lblFilter" xml:space="preserve">
+    <value>过滤器：</value>
+  </data>
+  <data name="frmAdvancedImport_ColumnName" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="frmAdvancedImport_ColumnProcess" xml:space="preserve">
+    <value>监控进程</value>
+  </data>
+  <data name="frmAdvancedImport_ColumnTags" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="frmAdvancedImport_Filtered" xml:space="preserve">
+    <value>[Filtered]</value>
+  </data>
+  <data name="frmAdvancedImport_chkSelectAll" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="frmMain_AtTime" xml:space="preserve">
+    <value>在[PARAM]。</value>
+  </data>
+  <data name="frmFileFolderSearch_btnOk" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="frmFileFolderSearch_lblResults" xml:space="preserve">
+    <value>搜索结果</value>
+  </data>
+  <data name="frmFileFolderSearch_SearchComplete" xml:space="preserve">
+    <value>搜索完成！</value>
+  </data>
+  <data name="frmFileFolderSearch_SearchCancel" xml:space="preserve">
+    <value>搜索中止！</value>
+  </data>
+  <data name="frmSettings_btnDefaults" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="frmSettings_lblArguments" xml:space="preserve">
+    <value>自定义参数：</value>
+  </data>
+  <data name="frmSettings_lblLocation" xml:space="preserve">
+    <value>自定义位置：</value>
+  </data>
+  <data name="frmSettings_7zaFileType" xml:space="preserve">
+    <value>可执行文件</value>
+  </data>
+  <data name="frmSettings_Browse7za" xml:space="preserve">
+    <value>找到 7-Zip 控制台 (7za)</value>
+  </data>
+  <data name="frmSettings_WarningArguments" xml:space="preserve">
+    <value>无效或格式不正确的7-Zip参数可能导致备份或还原操作失败。[BR][BR]如果出现问题，请清除自定义参数，然后重试。</value>
+  </data>
+  <data name="frmMain_Error7zCustom" xml:space="preserve">
+    <value>在[BR][BR][PARAM][BR][BR]中找不到自定义7-Zip实用程序。请检查你的设置，将使用默认的7-Zip应用程序。</value>
+  </data>
+  <data name="frmSettings_ConfirmDefaults" xml:space="preserve">
+    <value>是否要将所有设置还原为默认设置？</value>
+  </data>
+  <data name="frmSettings_ErrorLocation" xml:space="preserve">
+    <value>自定义7-Zip位置[PARAM]不存在。</value>
+  </data>
+  <data name="frmSettings_WarningLocation" xml:space="preserve">
+    <value>你选择的自定义实用程序似乎不是7-Zip[BR][BR]GBM仅支持使用7-Zip控制台（7za）。</value>
+  </data>
+  <data name="App_Invalid7zDetected" xml:space="preserve">
+    <value>7-Zip（7za.exe）无效，已被阻止运行。</value>
+  </data>
+  <data name="frmGameManager_lblSearch" xml:space="preserve">
+    <value>搜索：</value>
+  </data>
+  <data name="frmGameManager_ErrorNoValidBackup" xml:space="preserve">
+    <value>不能在所选游戏的当前配置下运行备份。</value>
+  </data>
+  <data name="frmSettings_btnOptionalFields" xml:space="preserve">
+    <value>选择可选的同步选项</value>
+  </data>
+  <data name="frmSyncFields_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmSyncFields_btnSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="frmSyncFields_chkCompany" xml:space="preserve">
+    <value>公司</value>
+  </data>
+  <data name="frmSyncFields_chkGamePath" xml:space="preserve">
+    <value>游戏路径（不推荐）</value>
+  </data>
+  <data name="frmSyncFields_chkIcon" xml:space="preserve">
+    <value>图标（不推荐）</value>
+  </data>
+  <data name="frmSyncFields_chkMonitorGame" xml:space="preserve">
+    <value>监控此游戏</value>
+  </data>
+  <data name="frmSyncFields_chkTimeStamp" xml:space="preserve">
+    <value>保存多项备份</value>
+  </data>
+  <data name="frmSyncFields_chkVersion" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="frmSyncFields_FormName" xml:space="preserve">
+    <value>可选同步选项</value>
+  </data>
+  <data name="frmSyncFields_grpFields" xml:space="preserve">
+    <value>可用选项</value>
+  </data>
+  <data name="frmMain_LogAutoClear" xml:space="preserve">
+    <value>会话日志已达到最大长度，已被清除。</value>
+  </data>
+  <data name="frmSettings_chkAutoSaveLog" xml:space="preserve">
+    <value>超过最大长度时自动保存日志</value>
+  </data>
+  <data name="frmSettings_grpOptionalFeatures" xml:space="preserve">
+    <value>可选功能</value>
+  </data>
+  <data name="frmSettings_lstSettings_7z" xml:space="preserve">
+    <value>7-Zip</value>
+  </data>
+  <data name="frmSettings_lstSettings_BackupRestore" xml:space="preserve">
+    <value>备份和还原</value>
+  </data>
+  <data name="frmSettings_lstSettings_General" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="frmSettings_grp7zAdvanced" xml:space="preserve">
+    <value>高级</value>
+  </data>
+  <data name="frmSettings_grp7zInformation" xml:space="preserve">
+    <value>版本信息</value>
+  </data>
+  <data name="App_NotAvailable" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="App_URLImportLinux" xml:space="preserve">
+    <value>http://mikemaximus.github.io/gbm-web/GBM_Official_Linux.xml</value>
+  </data>
+  <data name="frmGameManager_BrowseBackup" xml:space="preserve">
+    <value>选择一个新的[PARAM]备份文件</value>
+  </data>
+  <data name="frmGameManager_BrowseBackupType" xml:space="preserve">
+    <value>7-Zip</value>
+  </data>
+  <data name="frmGameManager_btnChangeBackup" xml:space="preserve">
+    <value>更改备份文件</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackupChange" xml:space="preserve">
+    <value>[PARAM]将成为[PARAM]的新备份文件。[BR][BR]是否正确？</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackupChangeRestore" xml:space="preserve">
+    <value>你想现在还原[PARAM]吗？</value>
+  </data>
+  <data name="frmGameManager_ErrorBackupChangeFileName" xml:space="preserve">
+    <value>[PARAM]已经是当前备份文件。</value>
+  </data>
+  <data name="frmGameManager_ErrorBackupChangePath" xml:space="preserve">
+    <value>你不能选择位于当前[PARAM]备份文件夹之外的文件。</value>
+  </data>
+  <data name="frmGameManager_lblLimit" xml:space="preserve">
+    <value>备份限制</value>
+  </data>
+  <data name="mgrBackup_BackupLimitExceeded" xml:space="preserve">
+    <value>[PARAM]已自动删除。</value>
+  </data>
+  <data name="frmGameManager_cmsDeleteAll" xml:space="preserve">
+    <value>全部删除</value>
+  </data>
+  <data name="frmGameManager_cmsDeleteOne" xml:space="preserve">
+    <value>删除选定项</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackupDeleteAll" xml:space="preserve">
+    <value>这将删除[PARAM]的所有备份文件。 这将无法撤消。[BR][BR]是否要删除[PARAM]？</value>
+  </data>
+  <data name="frmAddWizard_lblLimit" xml:space="preserve">
+    <value>备份限制（0=无限制）</value>
+  </data>
+  <data name="frmGameManager_Unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="frmGameManager_chkCleanFolder" xml:space="preserve">
+    <value>还原时删除文件夹</value>
+  </data>
+  <data name="frmMain_AutoMark" xml:space="preserve">
+    <value>[PARAM]保存的游戏文件夹不存在或无法确定，备份已自动标记为已还原。</value>
+  </data>
+  <data name="frmMain_RestoreNotReady" xml:space="preserve">
+    <value>[PARAM]的备份文件尚未准备好还原。</value>
+  </data>
+  <data name="frmSettings_chkAutoMark" xml:space="preserve">
+    <value>适当时自动将新备份标记为已还原</value>
+  </data>
+  <data name="frmSettings_grpBackupHandling" xml:space="preserve">
+    <value>备份处理</value>
+  </data>
+  <data name="frmSettings_chkAutoRestore" xml:space="preserve">
+    <value>自动还原新备份</value>
+  </data>
+  <data name="frmMain_AutoRestoreFailure" xml:space="preserve">
+    <value>[PARAM]具有多个配置，无法自动还原。</value>
+  </data>
+  <data name="frmMain_RestoreNotificationMulti" xml:space="preserve">
+    <value>[PARAM]新保存的游戏备份正在自动还原。</value>
+  </data>
+  <data name="frmMain_RestoreNotificationSingle" xml:space="preserve">
+    <value>正在自动恢复[PARAM]的新保存的游戏备份。</value>
+  </data>
+  <data name="frmMain_NoAutoMark" xml:space="preserve">
+    <value>[PARAM]的游戏存档文件夹不存在或无法确定，该备份已被跳过。</value>
+  </data>
+  <data name="frmMain_NoCheckSum" xml:space="preserve">
+    <value>[PARAM] 的备份文件没有校验，无法自动恢复。</value>
+  </data>
+  <data name="mgrBackup_ConfirmDiskSpace" xml:space="preserve">
+    <value>你可能没有足够的可用磁盘空间来执行备份。[BR][BR]是否仍要继续？</value>
+  </data>
+  <data name="mgrBackup_ErrorDiskSpace" xml:space="preserve">
+    <value>由于磁盘空间不足，备份中止。</value>
+  </data>
+  <data name="mgrCommon_AvailableDiskSpace" xml:space="preserve">
+    <value>可用磁盘空间（[PARAM]）：[PARAM]</value>
+  </data>
+  <data name="mgrCommon_GB" xml:space="preserve">
+    <value>[PARAM] GB</value>
+  </data>
+  <data name="mgrCommon_KB" xml:space="preserve">
+    <value>[PARAM] KB</value>
+  </data>
+  <data name="mgrCommon_MB" xml:space="preserve">
+    <value>[PARAM] MB</value>
+  </data>
+  <data name="mgrCommon_PB" xml:space="preserve">
+    <value>[PARAM] PB</value>
+  </data>
+  <data name="mgrBackup_SavedGameFolderSize" xml:space="preserve">
+    <value>[PARAM]保存文件夹大小：[PARAM]</value>
+  </data>
+  <data name="mgrCommon_TB" xml:space="preserve">
+    <value>[PARAM] TB</value>
+  </data>
+  <data name="frmGameManager_lblParameter" xml:space="preserve">
+    <value>运行参数：</value>
+  </data>
+  <data name="mgrCommon_B" xml:space="preserve">
+    <value>[PARAM]B</value>
+  </data>
+  <data name="App_Operation_CommandFailure" xml:space="preserve">
+    <value>[PARAM]操作失败，原因是命令格式错误。</value>
+  </data>
+  <data name="App_Operation_FatalError" xml:space="preserve">
+    <value>[PARAM]操作因错误而失败。</value>
+  </data>
+  <data name="frmFilter_grpSorting" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="frmFilter_optSortAsc" xml:space="preserve">
+    <value>升序</value>
+  </data>
+  <data name="frmFilter_optSortDesc" xml:space="preserve">
+    <value>降序</value>
+  </data>
+  <data name="frmFilter_FieldCompany" xml:space="preserve">
+    <value>公司</value>
+  </data>
+  <data name="frmFilter_FieldHours" xml:space="preserve">
+    <value>游玩时间</value>
+  </data>
+  <data name="frmFilter_FieldName" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="frmFilter_FieldProcess" xml:space="preserve">
+    <value>游戏进程</value>
+  </data>
+  <data name="frmFilter_btnAddFilter" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="frmFilter_btnRemoveFilter" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="frmFilter_FieldParameter" xml:space="preserve">
+    <value>参数</value>
+  </data>
+  <data name="frmFilter_FieldVersion" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="frmFilter_lblCurrentFilters" xml:space="preserve">
+    <value>当前过滤器</value>
+  </data>
+  <data name="frmFilter_lblFields" xml:space="preserve">
+    <value>可用选项</value>
+  </data>
+  <data name="frmFilter_lblFilterData" xml:space="preserve">
+    <value>过滤器</value>
+  </data>
+  <data name="frmFilter_cboBoolFilterDisabled" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="frmFilter_cboBoolFilterEnabled" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="frmFilter_FieldBackupLimit" xml:space="preserve">
+    <value>备份限制*</value>
+  </data>
+  <data name="frmFilter_FieldCleanFolder" xml:space="preserve">
+    <value>还原时删除文件夹</value>
+  </data>
+  <data name="frmFilter_FieldEnabled" xml:space="preserve">
+    <value>监控游戏</value>
+  </data>
+  <data name="frmFilter_FieldExcludeList" xml:space="preserve">
+    <value>排除项目</value>
+  </data>
+  <data name="frmFilter_FieldFileType" xml:space="preserve">
+    <value>包括项目</value>
+  </data>
+  <data name="frmFilter_FieldFolderSave" xml:space="preserve">
+    <value>保存整个文件夹</value>
+  </data>
+  <data name="frmFilter_FieldIcon" xml:space="preserve">
+    <value>图标</value>
+  </data>
+  <data name="frmFilter_FieldMonitorOnly" xml:space="preserve">
+    <value>仅监控</value>
+  </data>
+  <data name="frmFilter_FieldPath" xml:space="preserve">
+    <value>游戏存档路径*</value>
+  </data>
+  <data name="frmFilter_FieldProcessPath" xml:space="preserve">
+    <value>游戏路径</value>
+  </data>
+  <data name="frmFilter_FieldTimeStamp" xml:space="preserve">
+    <value>保存多项备份</value>
+  </data>
+  <data name="frmFilter_lblSortsFields" xml:space="preserve">
+    <value>可用选项</value>
+  </data>
+  <data name="frmFilter_lblWarning" xml:space="preserve">
+    <value>*指示可能产生意外结果的字段。</value>
+  </data>
+  <data name="frmFilter_lstFilterContains" xml:space="preserve">
+    <value>包含</value>
+  </data>
+  <data name="frmFilter_grpSortOptions" xml:space="preserve">
+    <value>排序选项</value>
+  </data>
+  <data name="frmFilter_FieldComments" xml:space="preserve">
+    <value>评分</value>
+  </data>
+  <data name="frmFilter_btnExcludeAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmFilter_btnExcludeRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmFilter_lblExcludeTags" xml:space="preserve">
+    <value>排除标签</value>
+  </data>
+  <data name="frmFilter_lblNot" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="frmMain_gMonToolsSessions" xml:space="preserve">
+    <value>会话查看器</value>
+  </data>
+  <data name="frmSessions_ColumnEnd" xml:space="preserve">
+    <value>结束</value>
+  </data>
+  <data name="frmSessions_ColumnGameName" xml:space="preserve">
+    <value>游戏</value>
+  </data>
+  <data name="frmSessions_ColumnStart" xml:space="preserve">
+    <value>开始</value>
+  </data>
+  <data name="frmSessions_Name" xml:space="preserve">
+    <value>会话查看器</value>
+  </data>
+  <data name="frmMain_ErrorNoSessions" xml:space="preserve">
+    <value>当前没有要显示的会话数据。</value>
+  </data>
+  <data name="frmSessions_btnDelete" xml:space="preserve">
+    <value>删除会话</value>
+  </data>
+  <data name="frmSessions_btnReset" xml:space="preserve">
+    <value>重置过滤器</value>
+  </data>
+  <data name="frmSessions_ColumnMonitorID" xml:space="preserve">
+    <value>监控器ID</value>
+  </data>
+  <data name="frmSessions_ConfirmDelete" xml:space="preserve">
+    <value>确实要删除选定的会话吗？</value>
+  </data>
+  <data name="frmSessions_lblDateRange" xml:space="preserve">
+    <value>日期范围：</value>
+  </data>
+  <data name="frmSessions_lblFilter" xml:space="preserve">
+    <value>游戏过滤器：</value>
+  </data>
+  <data name="frmMain_WarningSessionsDisabled" xml:space="preserve">
+    <value>会话跟踪当前已禁用。[BR][BR]如果要跟踪单个游戏会话的数据，请在“设置”中启用会话跟踪。</value>
+  </data>
+  <data name="frmSettings_chkSessionTracking" xml:space="preserve">
+    <value>启用会话跟踪</value>
+  </data>
+  <data name="frmSettings_WarningAdminStart" xml:space="preserve">
+    <value>请注意，游戏备份监控器不会以管理员身份“使用Windows启动”。[BR][BR]有关详细信息，请参阅“帮助”菜单中的联机手册。</value>
+  </data>
+  <data name="frmSessions_ColumnHours" xml:space="preserve">
+    <value>小时</value>
+  </data>
+  <data name="frmSessions_lblTotalHours" xml:space="preserve">
+    <value>总小时数：[PARAM]</value>
+  </data>
+  <data name="frmSessions_ChooseExportLocation" xml:space="preserve">
+    <value>选择导出文件的位置</value>
+  </data>
+  <data name="frmSessions_CSV" xml:space="preserve">
+    <value>CSV</value>
+  </data>
+  <data name="frmSessions_DefaultExportFileName" xml:space="preserve">
+    <value>游戏会话导出</value>
+  </data>
+  <data name="frmSessions_XML" xml:space="preserve">
+    <value>XML</value>
+  </data>
+  <data name="mgrSessions_ErrorExportFailure" xml:space="preserve">
+    <value>导出会话数据时出错。[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrSessions_ExportSuccess" xml:space="preserve">
+    <value>数据已成功导出。</value>
+  </data>
+  <data name="frmSessionExport_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmSessionExport_btnExport" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="frmSessionExport_chkCSVHeaders" xml:space="preserve">
+    <value>导出列标题 (CSV)</value>
+  </data>
+  <data name="frmSessionExport_FormName" xml:space="preserve">
+    <value>会话导出选项</value>
+  </data>
+  <data name="frmSessionExport_grpDateType" xml:space="preserve">
+    <value>日期类型</value>
+  </data>
+  <data name="frmSessionExport_grpExportType" xml:space="preserve">
+    <value>导出类型</value>
+  </data>
+  <data name="frmSessionExport_grpOptions" xml:space="preserve">
+    <value>其他选项</value>
+  </data>
+  <data name="frmSessionExport_optCSV" xml:space="preserve">
+    <value>CSV</value>
+  </data>
+  <data name="frmSessionExport_optCurrentLocale" xml:space="preserve">
+    <value>当前区域设置</value>
+  </data>
+  <data name="frmSessionExport_optUnix" xml:space="preserve">
+    <value>Unix时间戳</value>
+  </data>
+  <data name="frmSessionExport_optXML" xml:space="preserve">
+    <value>XML</value>
+  </data>
+  <data name="frmSessions_btnExport" xml:space="preserve">
+    <value>导出网格</value>
+  </data>
+  <data name="frmFilter_FieldIsRegEx" xml:space="preserve">
+    <value>正则表达式</value>
+  </data>
+  <data name="frmGameManager_cmsRegEx" xml:space="preserve">
+    <value>正则表达式</value>
+  </data>
+  <data name="frmGameManager_lblComments" xml:space="preserve">
+    <value>评分：</value>
+  </data>
+  <data name="AppURL_RegExr" xml:space="preserve">
+    <value>https://regexr.com/?expression=[PARAM]&amp;text=test</value>
+  </data>
+  <data name="frmGameManager_ErrorRegExFailure" xml:space="preserve">
+    <value>该进程不是一个有效的正则表达式。[BR][BR]你需要帮助验证和测试你的正则表达式吗？[BR][BR]这将打开你的浏览器，需要有效的网络连接。</value>
+  </data>
+  <data name="frmGameManager_GameIDEditInfo" xml:space="preserve">
+    <value>唯一的游戏ID是由游戏备份监控器生成的。 不建议改变这个值。</value>
+  </data>
+  <data name="frmGameManager_GameIDEditTitle" xml:space="preserve">
+    <value>修改游戏ID</value>
+  </data>
+  <data name="frmFilter_FieldGameID" xml:space="preserve">
+    <value>游戏ID</value>
+  </data>
+  <data name="mgrMonitorList_ErrorGameIDVerFailure" xml:space="preserve">
+    <value>此文件不能用于同步游戏标识。它是使用旧版本的GBM创建的。</value>
+  </data>
+  <data name="mgrMonitorList_ImportVersionWarning" xml:space="preserve">
+    <value>此导出文件是使用1.1.5之前的GBM版本创建的，可能包含不兼容的配置数据。[BR][BR]是否仍要从此文件导入配置(（不推荐）</value>
+  </data>
+  <data name="mgrMonitorList_ConfirmFileGameIDSync" xml:space="preserve">
+    <value>是否要将游戏标识符与此导出文件同步？[BR][BR]此工具用于非常特定的情况，请在使用此功能之前阅读联机手册的“工具”部分。</value>
+  </data>
+  <data name="frmMain_gMonToolsSyncGameID" xml:space="preserve">
+    <value>同步游戏ID</value>
+  </data>
+  <data name="frmMain_gMonToolsSyncGameIDFile" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="frmMain_gMonToolsSyncGameIDOfficial" xml:space="preserve">
+    <value>官方列表</value>
+  </data>
+  <data name="mgrMonitorList_ConfirmOfficialGameIDSync" xml:space="preserve">
+    <value>是否要将你的游戏标识符与官方游戏列表同步？[BR][BR]此工具用于非常特定的情况，请在使用此功能之前阅读联机手册的“工具”部分。</value>
+  </data>
+  <data name="frmSettings_btnResetMessages" xml:space="preserve">
+    <value>重置警告</value>
+  </data>
+  <data name="frmSettings_ConfirmMessageReset" xml:space="preserve">
+    <value>是否要重置所有隐藏的警告和消息？</value>
+  </data>
+  <data name="mgrMonitorList_GameIDSyncCompleted" xml:space="preserve">
+    <value>同步完成。[BR][BR][PARAM]游戏配置已匹配并更新。</value>
+  </data>
+  <data name="App_BackupOnLaunchFileDescription" xml:space="preserve">
+    <value>启动</value>
+  </data>
+  <data name="frmSettings_chkBackupOnLaunch" xml:space="preserve">
+    <value>启动时备份游戏备份监控数据文件</value>
+  </data>
+  <data name="frmMain_ErrorEndChildProcess" xml:space="preserve">
+    <value>试图结束与[PARAM].[BR][BR][PARAM]关联的进程时出错</value>
+  </data>
+  <data name="frmMain_ErrorStartChildProcess" xml:space="preserve">
+    <value>尝试启动与[PARAM].[BR][BR][PARAM]关联的进程时出错</value>
+  </data>
+  <data name="frmProcessManager_btnAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="frmProcessManager_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmProcessManager_btnDelete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="frmProcessManager_btnProcessBrowse" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="frmProcessManager_btnSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="frmProcessManager_ConfirmDelete" xml:space="preserve">
+    <value>是否确实要删除[PARAM]？这将是无法撤消的。</value>
+  </data>
+  <data name="frmProcessManager_ErrorDupe" xml:space="preserve">
+    <value>具有此名称的进程已存在。</value>
+  </data>
+  <data name="frmProcessManager_ErrorPathNotFound" xml:space="preserve">
+    <value>这个过程并不存在。</value>
+  </data>
+  <data name="frmProcessManager_ErrorValidName" xml:space="preserve">
+    <value>必须为此进程输入有效名称。</value>
+  </data>
+  <data name="frmProcessManager_ErrorValidPath" xml:space="preserve">
+    <value>你必须选择一个有效的进程。</value>
+  </data>
+  <data name="frmProcessManager_FormName" xml:space="preserve">
+    <value>进程管理器</value>
+  </data>
+  <data name="frmProcessManager_grpProcess" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="frmProcessManager_lblName" xml:space="preserve">
+    <value>名称：</value>
+  </data>
+  <data name="frmProcessManager_lblPath" xml:space="preserve">
+    <value>路径：</value>
+  </data>
+  <data name="frmMain_gMonSetupProcessManager" xml:space="preserve">
+    <value>进程管理器</value>
+  </data>
+  <data name="frmProcessManager_ChooseProcess" xml:space="preserve">
+    <value>选择启动进程的文件</value>
+  </data>
+  <data name="frmProcessManager_Executable" xml:space="preserve">
+    <value>可执行文件</value>
+  </data>
+  <data name="frmProcessManager_chkKillProcess" xml:space="preserve">
+    <value>游戏关闭时杀死进程</value>
+  </data>
+  <data name="frmGameProcesses_btnAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmGameProcesses_btnOpenProcesses" xml:space="preserve">
+    <value>进程管理器</value>
+  </data>
+  <data name="frmGameProcesses_btnRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmGameProcesses_FormNameMulti" xml:space="preserve">
+    <value>编辑多个游戏的进程</value>
+  </data>
+  <data name="frmGameProcesses_FormNameSingle" xml:space="preserve">
+    <value>编辑[PARAM]的进程</value>
+  </data>
+  <data name="frmGameProcesses_lblGameProccesses" xml:space="preserve">
+    <value>当前进程</value>
+  </data>
+  <data name="frmGameProcesses_lblProcesses" xml:space="preserve">
+    <value>可用进程</value>
+  </data>
+  <data name="App_GenericError" xml:space="preserve">
+    <value>错误：[PARAM]</value>
+  </data>
+  <data name="frmMain_ProcessKilled" xml:space="preserve">
+    <value>为[PARAM]发送了终止信号。</value>
+  </data>
+  <data name="frmMain_ProcessStarted" xml:space="preserve">
+    <value>[PARAM]已启动。</value>
+  </data>
+  <data name="frmSettings_chkUseGameID" xml:space="preserve">
+    <value>使用游戏ID作为文件夹和文件名</value>
+  </data>
+  <data name="mgrMonitorList_ErrorSyncCancel" xml:space="preserve">
+    <value>用户已中止同步。</value>
+  </data>
+  <data name="mgrMonitorList_WarningSyncProtection" xml:space="preserve">
+    <value>游戏备份监控器尝试与同步的数据库似乎为空，与此数据库同步将删除所有数据。是否仍要与此数据库同步(（不推荐）</value>
+  </data>
+  <data name="frmSettings_chkDisableSyncMessages" xml:space="preserve">
+    <value>禁用同步事件消息</value>
+  </data>
+  <data name="frmSettings_grpBackupConfirmations" xml:space="preserve">
+    <value>备份确认</value>
+  </data>
+  <data name="frmSettings_grpGameMonitoringOptions" xml:space="preserve">
+    <value>游戏监控选项</value>
+  </data>
+  <data name="frmSettings_grpLogOptions" xml:space="preserve">
+    <value>日志选项</value>
+  </data>
+  <data name="frmSettings_lstSettings_Startup" xml:space="preserve">
+    <value>启动</value>
+  </data>
+  <data name="mgrBackup_ConfirmOverwriteRelative" xml:space="preserve">
+    <value>[PARAM]已存在于备份文件夹中。[BR][BR]此游戏将保存存储在相对位置，如果最近重新安装了游戏，你可能需要恢复当前备份。[BR][BR]是否覆盖此文件？</value>
+  </data>
+  <data name="mgrPath_SpecialPathError" xml:space="preserve">
+    <value>确定所需的系统路径时出错[BR][BR]参数的环境值为空。[BR][BR]应用程序现在将退出。</value>
+  </data>
+  <data name="frmMain_ErrorGameDetails" xml:space="preserve">
+    <value>获取检测到的游戏的详细信息时出错。</value>
+  </data>
+  <data name="frmMain_ErrorGameIcon" xml:space="preserve">
+    <value>提取可执行文件图标时出错。</value>
+  </data>
+  <data name="frmGameManager_ErrorRenameFilesExist" xml:space="preserve">
+    <value>备份文件夹包含一个或多个备份文件，不能重命名为[PARAM]，因为使用该名称的文件已经存在。</value>
+  </data>
+  <data name="frmGameManager_ErrorRenameFolderExists" xml:space="preserve">
+    <value>备份文件夹[PARAM]不能重命名为[PARAM]，因为使用该名称的文件夹已经存在。[BR][BR]你想继续并删除现有的文件夹吗？</value>
+  </data>
+  <data name="frmMain_WinePrefix" xml:space="preserve">
+    <value>Wine前缀：[PARAM]</value>
+  </data>
+  <data name="mgrPath_ErrorBuildingWinePath" xml:space="preserve">
+    <value>构建Wine路径时发生了错误。[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrPath_ErrorConvertWineSavePath" xml:space="preserve">
+    <value>在转换为Wine保存路径时发生了错误。[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrPath_ErrorWinePrefix" xml:space="preserve">
+    <value>确定Wine前缀时出错。[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrPath_ErrorUnixEnv" xml:space="preserve">
+    <value>生成环境变量列表时出错。[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmSettings_chkShowResolvedPaths" xml:space="preserve">
+    <value>显示解析路径</value>
+  </data>
+  <data name="frmGameManager_7zBackup" xml:space="preserve">
+    <value>7-Zip</value>
+  </data>
+  <data name="frmGameManager_Choose7zImport" xml:space="preserve">
+    <value>选择兼容的备份文件</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackupImport" xml:space="preserve">
+    <value>是否确实要为[PARAM]导入选定的文件。这将关闭窗口。</value>
+  </data>
+  <data name="mgrBackup_ErrorImportBackupCopy" xml:space="preserve">
+    <value>导入[PARAM]失败，无法复制文件。</value>
+  </data>
+  <data name="mgrBackup_ImportedFile" xml:space="preserve">
+    <value>强制导入</value>
+  </data>
+  <data name="mgrBackup_ImportSuccess" xml:space="preserve">
+    <value>为[PARAM]导入了备份文件[PARAM]。</value>
+  </data>
+  <data name="frmGameManager_btnAdvanced" xml:space="preserve">
+    <value>高级</value>
+  </data>
+  <data name="frmVariableManager_ErrorVariableReserved" xml:space="preserve">
+    <value>[PARAM]是保留变量，必须输入其他名称。</value>
+  </data>
+  <data name="frmGameManager_WarningImportBackupSaveMulti" xml:space="preserve">
+    <value>必须在此配置上启用 "保存多项备份 "选项，以导入多个备份文件。</value>
+  </data>
+  <data name="frmGameManager_cmsOfficialLinux" xml:space="preserve">
+    <value>Linux</value>
+  </data>
+  <data name="frmGameManager_cmsOfficialWindows" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="frmGameManager_WarningWinConfigsInLinux" xml:space="preserve">
+    <value>官方的Windows配置可以在Linux中用于在Wine或Proton中运行的游戏。[BR][BR]你不需要修改这些配置，游戏备份监控器会在检测到游戏时自动做任何需要的路径转换。[BR][BR]这个信息只会显示一次。</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackupImportOverwriteSingle" xml:space="preserve">
+    <value>导入此备份文件将覆盖[PARAM]的当前备份文件。[BR][BR]是否继续？这将关闭窗口。</value>
+  </data>
+  <data name="frmFilter_FieldRecurseSubFolders" xml:space="preserve">
+    <value>搜索子文件夹</value>
+  </data>
+  <data name="frmIncludeExclude_chkRecurseSubFolders" xml:space="preserve">
+    <value>重新搜索子文件夹</value>
+  </data>
+  <data name="frmMain_DebugMemoryAllocation" xml:space="preserve">
+    <value>内存分配：[PARAM]MB</value>
+  </data>
+  <data name="frmMain_ErrorInvalidMode" xml:space="preserve">
+    <value>命令[PARAM]的模式（[PARAM]）无效。</value>
+  </data>
+  <data name="App_LinuxOS" xml:space="preserve">
+    <value>Linux</value>
+  </data>
+  <data name="App_WindowsOS" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="frmGameManager_cmsWineConfig" xml:space="preserve">
+    <value>Wine配置</value>
+  </data>
+  <data name="frmFilter_FieldOS" xml:space="preserve">
+    <value>操作系统</value>
+  </data>
+  <data name="frmMain_WineBinaryPath" xml:space="preserve">
+    <value>Wine二进制路径：[PARAM]</value>
+  </data>
+  <data name="frmMain_ErrorNoWineSavePath" xml:space="preserve">
+    <value>[PARAM]使用Windows配置并需要Wine保存路径来执行此操作。</value>
+  </data>
+  <data name="frmWineConfiguration_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmWineConfiguration_btnSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="frmWineConfiguration_ErrorValidationBinaryPath" xml:space="preserve">
+    <value>需要Wine二进制路径。[BR][BR]清除所有字段并保存以删除此游戏的所有Wine数据。</value>
+  </data>
+  <data name="frmWineConfiguration_ErrorValidationPrefix" xml:space="preserve">
+    <value>需要Wine前缀。[BR][BR]清除所有字段并保存以删除此游戏的所有Wine数据。</value>
+  </data>
+  <data name="frmWineConfiguration_FormName" xml:space="preserve">
+    <value>[PARAM] - Wine配置</value>
+  </data>
+  <data name="frmWineConfiguration_grpWineConfig" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="frmWineConfiguration_lblWineBinaryPath" xml:space="preserve">
+    <value>二进制路径：</value>
+  </data>
+  <data name="frmWineConfiguration_lblWinePrefix" xml:space="preserve">
+    <value>前缀：</value>
+  </data>
+  <data name="frmWineConfiguration_lblWineSavePath" xml:space="preserve">
+    <value>保存路径：</value>
+  </data>
+  <data name="frmWineConfiguration_WarningSingle" xml:space="preserve">
+    <value>游戏备份监控器会在每次检测到游戏时自动更新游戏的Wine配置。在大多数情况下，不建议手动修改这些字段。[BR][BR]此警告仅显示一次。</value>
+  </data>
+  <data name="App_ErrorLaunchExternal" xml:space="preserve">
+    <value>尝试启动应用程序时发生了一个错误：[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrBackup_ErrorPathIsUNC" xml:space="preserve">
+    <value>临时文件夹或备份文件夹是UNC路径。已跳过磁盘空间检查。</value>
+  </data>
+  <data name="frmSettings_chkDisableDiskSpaceCheck" xml:space="preserve">
+    <value>在备份之前禁用磁盘空间检查</value>
+  </data>
+  <data name="frmMain_ErrorLinuxAutoStartMissing" xml:space="preserve">
+    <value>游戏备份监控器设置为自动启动，但缺少启动启动链接。已重新创建自动启动链接。</value>
+  </data>
+  <data name="frmSettings_ErrorLinuxAutoStart" xml:space="preserve">
+    <value>配置自动启动时出错：[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrBackup_ErrorRegNotFound" xml:space="preserve">
+    <value>在[PARAM]上找不到应用程序reg.exe。备份无法继续。</value>
+  </data>
+  <data name="mgrBackup_ErrorWineNotFound" xml:space="preserve">
+    <value>无法在[PARAM]找到Wine二进制文件。备份无法继续。</value>
+  </data>
+  <data name="mgrRestore_ErrorRegNotFound" xml:space="preserve">
+    <value>在[PARAM]上找不到应用程序reg.exe。还原无法继续。</value>
+  </data>
+  <data name="mgrRestore_ErrorWineNotFound" xml:space="preserve">
+    <value>无法在[PARAM]找到Wine二进制文件。还原无法继续。</value>
+  </data>
+  <data name="frmMain_ErrorLinuxAutoStartLinkMissing" xml:space="preserve">
+    <value>游戏备份监控器设置为自动启动，但缺少桌面链接。已禁用自动启动，请重新安装。</value>
+  </data>
+  <data name="mgrCommon_FolderSelection" xml:space="preserve">
+    <value>当前文件夹</value>
+  </data>
+  <data name="frmChooseGame_ColumnName" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="frmChooseGame_ColumnTags" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="frmGameManager_ErrorNoBackupFolderExists" xml:space="preserve">
+    <value>备份文件夹不存在。</value>
+  </data>
+  <data name="frmAddWizard_Summary_NoLimit" xml:space="preserve">
+    <value>无限制</value>
+  </data>
+  <data name="frmStartUpWizard_lblStep2Warning" xml:space="preserve">
+    <value>单击“下一步”后无法返回此步骤。安装完成后，可以随时更改备份位置。</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="BuildDate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BuildDate.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="frmGameManager_ConfirmMultiSave" xml:space="preserve">
+    <value>确定要保存对[PARAM]选定游戏的以下更改吗？[BR][BR]监控此游戏：[PARAM][BR]仅监视：[PARAM]</value>
+  </data>
+  <data name="frmGameManager_WarningEmptyProcess" xml:space="preserve">
+    <value>需要一个有效的进程名称或正则表达式来自动监控和备份你保存的游戏。[BR][BR]你可以将进程字段留空，以便为这个游戏创建手动备份配置，这些配置将被自动排除在监控之外。[BR][BR]这个警告只会显示一次。</value>
+  </data>
+  <data name="App_MetadataFilename" xml:space="preserve">
+    <value>_gbm_backup_metadata.xml</value>
+  </data>
+  <data name="mgrBackup_ErrorMetadataFailure" xml:space="preserve">
+    <value>备份已中止。为[PARAM]创建备份元数据时出错。</value>
+  </data>
+  <data name="mgrMetadata_InProgress" xml:space="preserve">
+    <value>向备份文件添加元数据。</value>
+  </data>
+  <data name="App_OperationType_Backup" xml:space="preserve">
+    <value>备份</value>
+  </data>
+  <data name="App_OperationType_Metadata" xml:space="preserve">
+    <value>元数据</value>
+  </data>
+  <data name="App_OperationType_Restore" xml:space="preserve">
+    <value>还原</value>
+  </data>
+  <data name="App_Operation_Cancel" xml:space="preserve">
+    <value>[PARAM]操作被用户取消。</value>
+  </data>
+  <data name="App_Operation_Completed" xml:space="preserve">
+    <value>[PARAM]操作完成。</value>
+  </data>
+  <data name="App_Operation_FileNotFound" xml:space="preserve">
+    <value>[PARAM]操作失败，因为没有找到所需的文件。</value>
+  </data>
+  <data name="App_Operation_OtherFailure" xml:space="preserve">
+    <value>[PARAM]操作遇到意外错误。[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrMetaData_CheckingArchive" xml:space="preserve">
+    <value>正在检查[PARAM]中的元数据。</value>
+  </data>
+  <data name="mgrMetaData_ExtractingFromArchive" xml:space="preserve">
+    <value>正在从[PARAM]提取元数据。</value>
+  </data>
+  <data name="mgrBackup_ErrorImportCancel" xml:space="preserve">
+    <value>[PARAM]的导入已取消。</value>
+  </data>
+  <data name="mgrBackup_WarningMetadataMismatch" xml:space="preserve">
+    <value>备份文件（[PARAM]）中的配置元数据与你选择的游戏不匹配。[BR][BR]是否仍要继续导入此文件(（不推荐）</value>
+  </data>
+  <data name="mgrBackup_WarningNoMetadata" xml:space="preserve">
+    <value>备份文件（[PARAM]）不包含元数据或是无效的存档。[BR][BR]是否继续导入此文件(（不推荐）</value>
+  </data>
+  <data name="frmMain_ChooseImportFiles" xml:space="preserve">
+    <value>选择要导入的文件</value>
+  </data>
+  <data name="frmMain_ChooseImportFolder" xml:space="preserve">
+    <value>选择一个要导入的文件夹</value>
+  </data>
+  <data name="frmMain_gMonToolsImportBackup" xml:space="preserve">
+    <value>导入备份</value>
+  </data>
+  <data name="frmMain_gMonToolsImportBackupFiles" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="frmMain_gMonToolsImportBackupFolder" xml:space="preserve">
+    <value>文件夹</value>
+  </data>
+  <data name="frmMain_gMonTrayToolsImportBackup" xml:space="preserve">
+    <value>导入备份</value>
+  </data>
+  <data name="frmMain_gMonTrayToolsImportBackupFiles" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="frmMain_gMonTrayToolsImportBackupFolder" xml:space="preserve">
+    <value>文件夹</value>
+  </data>
+  <data name="mgrBackup_BackupsImported" xml:space="preserve">
+    <value>[PARAM]备份文件已成功导入。</value>
+  </data>
+  <data name="mgrBackup_ErrorNoMetadata" xml:space="preserve">
+    <value>文件[PARAM]不包含元数据或是无效的存档。</value>
+  </data>
+  <data name="mgrBackup_ErrorReadingMetadata" xml:space="preserve">
+    <value>读取文件[PARAM]中的元数据时出错。</value>
+  </data>
+  <data name="mgrBackup_GamesAddedDuringImport" xml:space="preserve">
+    <value>[PARAM]在导入过程中添加或更新的游戏配置。</value>
+  </data>
+  <data name="frmMain_ImportInProgress" xml:space="preserve">
+    <value>导入正在进行中...</value>
+  </data>
+  <data name="frmConfigLinks_btnAdd" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="frmConfigLinks_btnRemove" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="frmConfigLinks_FormNameMulti" xml:space="preserve">
+    <value>编辑多个游戏的配置链接</value>
+  </data>
+  <data name="frmConfigLinks_FormNameSingle" xml:space="preserve">
+    <value>编辑[PARAM]的配置链接</value>
+  </data>
+  <data name="frmConfigLinks_lblConfigs" xml:space="preserve">
+    <value>可用配置</value>
+  </data>
+  <data name="frmConfigLinks_lblLinkedConfigs" xml:space="preserve">
+    <value>链接配置</value>
+  </data>
+  <data name="frmMain_BackupQueue" xml:space="preserve">
+    <value>正在将[PARAM]添加到备份队列。</value>
+  </data>
+  <data name="frmGameManager_RestoreLinkWarning" xml:space="preserve">
+    <value>[PARAM]链接到另一个游戏配置。选择较旧的备份文件时无法执行链接还原。[BR][BR]是否要继续而不还原任何链接配置？</value>
+  </data>
+  <data name="frmMain_RestoreQueue" xml:space="preserve">
+    <value>正在添加[PARAM]（[PARAM]）还原队列。</value>
+  </data>
+  <data name="frmConfigLinks_lblFilter" xml:space="preserve">
+    <value>过滤器：</value>
+  </data>
+  <data name="frmGameManager_cmsLinkConfiguration" xml:space="preserve">
+    <value>链接配.</value>
+  </data>
+  <data name="frmGameManager_cmsLinkProcess" xml:space="preserve">
+    <value>链接进程</value>
+  </data>
+  <data name="frmGameManager_TipLinkConfiguration" xml:space="preserve">
+    <value>下面的屏幕允许你将其他游戏配置链接到此配置。每次此配置触发备份或还原时，链接的配置也将运行。有关详细信息，请参阅联机手册。[BR][BR]此消息仅显示一次。</value>
+  </data>
+  <data name="frmGameManager_TipLinkProcess" xml:space="preserve">
+    <value>以下屏幕允许你在每次检测到此游戏配置时链接其他软件以运行。使用进程管理器设置要链接的软件。[BR][BR]此消息仅显示一次。</value>
+  </data>
+  <data name="mgrBackup_ErrorImportOSMismatch" xml:space="preserve">
+    <value>[PARAM]是在[PARAM]上创建的，你当前正在运行[PARAM]。无法使用此方法导入此备份文件。</value>
+  </data>
+  <data name="frmStartUpWizard_ExistingFilesDetected" xml:space="preserve">
+    <value>[PARAM]在备份文件夹中检测到可能的备份文件。是否要扫描并导入任何有效文件？</value>
+  </data>
+  <data name="frmMain_gMonFileFullBackup" xml:space="preserve">
+    <value>运行全部备份</value>
+  </data>
+  <data name="frmMain_gMonFileFullRestore" xml:space="preserve">
+    <value>运行全部还原</value>
+  </data>
+  <data name="frmMain_gMonTrayFullBackup" xml:space="preserve">
+    <value>运行全部备份</value>
+  </data>
+  <data name="frmMain_gMonTrayFullRestore" xml:space="preserve">
+    <value>运行全部还原</value>
+  </data>
+  <data name="frmMain_WarningFullBackup" xml:space="preserve">
+    <value>是否确实要为每个游戏运行备份？[BR][BR]游戏备份监控器会自动确定可以执行哪些备份，并处理通常需要用户输入的任何确认。有关更多详细信息，请参阅联机手册。</value>
+  </data>
+  <data name="frmMain_WarningFullRestore" xml:space="preserve">
+    <value>是否确实要还原每个游戏的最新备份？[BR][BR]游戏备份监控器自动确定可以还原哪些备份，并处理通常需要用户输入的任何确认。有关更多详细信息，请参阅联机手册。</value>
+  </data>
+  <data name="mgrBackup_FullAbort" xml:space="preserve">
+    <value>任何剩余的备份操作都已中止。</value>
+  </data>
+  <data name="mgrRestore_FullAbort" xml:space="preserve">
+    <value>所有剩余的还原操作都已中止。</value>
+  </data>
+  <data name="frmStartUpWizard_ExistingDataAndFilesDetected" xml:space="preserve">
+    <value>在备份文件夹中检测到[PARAM]备份文件。是否要扫描并验证所有备份文件？[BR][BR]这可能是不必要的，因为备份文件夹已包含游戏备份监控器数据库。</value>
+  </data>
+  <data name="frmSettings_ErrorTempFolder" xml:space="preserve">
+    <value>临时文件夹不存在。请选择一个有效的临时文件夹。</value>
+  </data>
+  <data name="frmSettings_lblTempFolder" xml:space="preserve">
+    <value>临时文件夹：</value>
+  </data>
+  <data name="mgrBackup_BackupFolder" xml:space="preserve">
+    <value>备份文件夹</value>
+  </data>
+  <data name="mgrBackup_ErrorMovingBackupFile" xml:space="preserve">
+    <value>将[PARAM]备份文件从临时文件夹移动到备份文件夹时出错。</value>
+  </data>
+  <data name="mgrBackup_TemporaryFolder" xml:space="preserve">
+    <value>临时文件夹</value>
+  </data>
+  <data name="mgrBackup_BackupBatchSize" xml:space="preserve">
+    <value>总批处理量：[PARAM]</value>
+  </data>
+  <data name="App_BackupExcludeFileName" xml:space="preserve">
+    <value>gbm_exclude.txt</value>
+  </data>
+  <data name="App_BackupIncludeFileName" xml:space="preserve">
+    <value>gbm_include.txt</value>
+  </data>
+  <data name="mgrBackup_ActionImportComplete" xml:space="preserve">
+    <value>[PARAM]导入完成</value>
+  </data>
+  <data name="mgrBackup_ActionImportFailed" xml:space="preserve">
+    <value>[PARAM]导入失败</value>
+  </data>
+  <data name="mgrCommon_DotNet" xml:space="preserve">
+    <value>.NET Framework（[PARAM]）</value>
+  </data>
+  <data name="mgrCommon_Mono" xml:space="preserve">
+    <value>单声道 ([PARAM])</value>
+  </data>
+  <data name="frmSettings_chkExitNoWarning" xml:space="preserve">
+    <value>未经确认退出</value>
+  </data>
+  <data name="frmSettings_chkExitOnClose" xml:space="preserve">
+    <value>关闭窗口时退出</value>
+  </data>
+  <data name="frmSettings_grpMainWindowOptions" xml:space="preserve">
+    <value>主窗口选项</value>
+  </data>
+  <data name="frmAdvancedImport_chkSelectedOnly" xml:space="preserve">
+    <value>仅显示选定的</value>
+  </data>
+  <data name="frmAdvancedImport_btnDetectSavedGames" xml:space="preserve">
+    <value>检测已保存的游戏</value>
+  </data>
+  <data name="frmSettings_chkEnableLauncher" xml:space="preserve">
+    <value>启用游戏启动</value>
+  </data>
+  <data name="frmLauncherManager_btnAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="frmLauncherManager_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmLauncherManager_btnDelete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="frmLauncherManager_btnSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="frmLauncherManager_ConfirmDelete" xml:space="preserve">
+    <value>你确定要删除[PARAM]吗？ 这将是无法撤销的。</value>
+  </data>
+  <data name="frmLauncherManager_ErrorDupe" xml:space="preserve">
+    <value>已经存在名称的启动器。</value>
+  </data>
+  <data name="frmLauncherManager_ErrorValidCommand" xml:space="preserve">
+    <value>需要有效的启动命令。</value>
+  </data>
+  <data name="frmLauncherManager_ErrorValidName" xml:space="preserve">
+    <value>你必须为此启动器输入有效名称。</value>
+  </data>
+  <data name="frmLauncherManager_FormName" xml:space="preserve">
+    <value>启动器管理器</value>
+  </data>
+  <data name="frmLauncherManager_grpLauncher" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="frmLauncherManager_lblCommand" xml:space="preserve">
+    <value>命令：</value>
+  </data>
+  <data name="frmLauncherManager_lblName" xml:space="preserve">
+    <value>名称：</value>
+  </data>
+  <data name="frmLaunchConfiguration_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmLaunchConfiguration_btnOpenLaunchers" xml:space="preserve">
+    <value>启动器管理器</value>
+  </data>
+  <data name="frmLaunchConfiguration_btnSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="frmLaunchConfiguration_ErrorExeNotFound" xml:space="preserve">
+    <value>找不到可执行程序。</value>
+  </data>
+  <data name="frmLaunchConfiguration_ErrorNoGameID" xml:space="preserve">
+    <value>需要一个有效的游戏ID来使用[PARAM]。</value>
+  </data>
+  <data name="frmLaunchConfiguration_Executable" xml:space="preserve">
+    <value>可执行文件</value>
+  </data>
+  <data name="frmLaunchConfiguration_FormName" xml:space="preserve">
+    <value>为[PARAM]启动配置</value>
+  </data>
+  <data name="frmLaunchConfiguration_grpOtherConfig" xml:space="preserve">
+    <value>备选配置</value>
+  </data>
+  <data name="frmLaunchConfiguration_grpStoreLauncher" xml:space="preserve">
+    <value>启动器配置</value>
+  </data>
+  <data name="frmLaunchConfiguration_lblArguments" xml:space="preserve">
+    <value>运行参数：</value>
+  </data>
+  <data name="frmLaunchConfiguration_lblExe" xml:space="preserve">
+    <value>可执行文件：</value>
+  </data>
+  <data name="frmLaunchConfiguration_lblGameID" xml:space="preserve">
+    <value>游戏ID:</value>
+  </data>
+  <data name="frmLaunchConfiguration_lblLauncher" xml:space="preserve">
+    <value>启动器:</value>
+  </data>
+  <data name="frmLaunchConfiguration_NoLauncher" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorException" xml:space="preserve">
+    <value>尝试启动游戏时出错。[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorNoProcess" xml:space="preserve">
+    <value>无法启动[PARAM]，它的配置没有进程。</value>
+  </data>
+  <data name="frmMain_LaunchGame" xml:space="preserve">
+    <value>使用[PARAM]启动[PARAM]。</value>
+  </data>
+  <data name="mgrCommon_ErrorRestartAsAdmin" xml:space="preserve">
+    <value>以管理员身份启动游戏备份监控器时出错。[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmMain_Warning64NoPath" xml:space="preserve">
+    <value>[PARAM]是一款64位游戏，游戏备份监控器是32位的。无法确定进程路径，但此备份配置不需要该路径。</value>
+  </data>
+  <data name="frmMain_WarningAdminNoPath" xml:space="preserve">
+    <value>[PARAM]正在以管理员身份运行，而游戏备份监控器不是。无法确定进程路径，但此备份配置不需要该路径。</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorIsBlacklisted" xml:space="preserve">
+    <value>[PARAM]无法启动，它使用的是没有参数的可识别仿真器或解释器。[BR][BR]设置参数字段，或在此游戏的启动设置中使用备用可执行文件和参数。</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorIsRegex" xml:space="preserve">
+    <value>无法启动[PARAM]，它的配置使用正则表达式。[BR][BR]设置一个特定的可执行文件，用于此游戏的启动设置。</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorNoProcessPath" xml:space="preserve">
+    <value>无法启动[PARAM]，它的配置没有进程路径。</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorNoExe" xml:space="preserve">
+    <value>在以下位置找不到游戏可执行文件：[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmLauncherManager_ConfirmAddDefaults" xml:space="preserve">
+    <value>你想重新添加默认的启动器吗？[BR][BR]这将不会覆盖任何现有的同名启动器。</value>
+  </data>
+  <data name="mgrLaunchers_Epic" xml:space="preserve">
+    <value>Epic Games</value>
+  </data>
+  <data name="mgrLaunchers_EpicURI" xml:space="preserve">
+    <value>com.epicgames.launcher://apps/%ID%?action=launch&amp;silent=true</value>
+  </data>
+  <data name="mgrLaunchers_Steam" xml:space="preserve">
+    <value>Steam</value>
+  </data>
+  <data name="mgrLaunchers_SteamURI" xml:space="preserve">
+    <value>steam://rungameid/%ID%</value>
+  </data>
+  <data name="mgrLaunchers_Ubisoft" xml:space="preserve">
+    <value>Ubisoft Connect</value>
+  </data>
+  <data name="mgrLaunchers_UbisoftURI" xml:space="preserve">
+    <value>uplay://launch/%ID%/0</value>
+  </data>
+  <data name="mgrLaunchGame_WarningLaunchElevation" xml:space="preserve">
+    <value>游戏备份监控器正在以管理员身份运行。[BR][BR]确实要以管理员身份启动[PARAM]吗？</value>
+  </data>
+  <data name="frmMain_gMonSetupLauncherManager" xml:space="preserve">
+    <value>启动器管理器</value>
+  </data>
+  <data name="frmMain_gMonTraySetupLauncherManager" xml:space="preserve">
+    <value>启动器管理器</value>
+  </data>
+  <data name="frmLauncherManager_ErrorInvalidURI" xml:space="preserve">
+    <value>启动命令必须是有效的URI。</value>
+  </data>
+  <data name="frmLaunchConfiguration_grpCommand" xml:space="preserve">
+    <value>当前的启动命令</value>
+  </data>
+  <data name="frmLaunchConfiguration_chkNoArgs" xml:space="preserve">
+    <value>不使用参数</value>
+  </data>
+  <data name="frmLaunchConfiguration_Batch" xml:space="preserve">
+    <value>批量处理</value>
+  </data>
+  <data name="frmLaunchConfiguration_Link" xml:space="preserve">
+    <value>链接</value>
+  </data>
+  <data name="mgrCommon_FilesFilterAll" xml:space="preserve">
+    <value>所有文件 (*.*)|*.*</value>
+  </data>
+  <data name="frmLaunchConfiguration_Command" xml:space="preserve">
+    <value>命令</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorNoAutoWineSupport" xml:space="preserve">
+    <value>当前不支持在Linux中使用自动生成的命令启动Windows游戏。[BR][BR]你可以手动配置此游戏以使用外部启动器或脚本。</value>
+  </data>
+  <data name="frmQuickLauncher_btnGo" xml:space="preserve">
+    <value>运行</value>
+  </data>
+  <data name="frmQuickLauncher_FormName" xml:space="preserve">
+    <value>快速启动器</value>
+  </data>
+  <data name="frmMain_gMonTraySetup" xml:space="preserve">
+    <value>高级设置</value>
+  </data>
+  <data name="frmSettings_ConfirmEnableLauncherSessions" xml:space="preserve">
+    <value>会话跟踪功能可用于显示最近玩过的游戏，以便从系统托盘菜单启动。[BR][BR]是否要启用会话跟踪？</value>
+  </data>
+  <data name="frmMain_GameDetectedWithSessionTime" xml:space="preserve">
+    <value>[PARAM][BR][PARAM]</value>
+  </data>
+  <data name="frmMain_gMonStripCollapseHideToolTip" xml:space="preserve">
+    <value>点击隐藏游戏列表面板。</value>
+  </data>
+  <data name="frmMain_gMonStripCollapseShowToolTip" xml:space="preserve">
+    <value>单击显示游戏列表面板。</value>
+  </data>
+  <data name="frmMain_btnBackup" xml:space="preserve">
+    <value>备份</value>
+  </data>
+  <data name="frmMain_btnEdit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="frmMain_btnPlay" xml:space="preserve">
+    <value>游玩</value>
+  </data>
+  <data name="frmMain_btnRestore" xml:space="preserve">
+    <value>还原</value>
+  </data>
+  <data name="frmMain_LastBackup" xml:space="preserve">
+    <value>最近备份：[PARAM]</value>
+  </data>
+  <data name="frmMain_Lastplayed" xml:space="preserve">
+    <value>最近游玩：[PARAM]</value>
+  </data>
+  <data name="frmMain_NoBackups" xml:space="preserve">
+    <value>没有备份</value>
+  </data>
+  <data name="frmMain_NoSessions" xml:space="preserve">
+    <value>没有会话</value>
+  </data>
+  <data name="frmMain_ConfirmManualBackup" xml:space="preserve">
+    <value>是否确实要为[PARAM]运行备份？</value>
+  </data>
+  <data name="frmMain_ConfirmRestore" xml:space="preserve">
+    <value>是否确实要还原[PARAM]的最新备份？[BR][BR][PARAM]（[PARAM]）</value>
+  </data>
+  <data name="frmMain_ErrorIconCache" xml:space="preserve">
+    <value>保存[PARAM]的图标时出错：[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmMain_lblLastAction" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="frmGameManager_cmsImportData" xml:space="preserve">
+    <value>导入备份</value>
+  </data>
+  <data name="frmGamemanager_cmsLaunchSettings" xml:space="preserve">
+    <value>启动与设置</value>
+  </data>
+  <data name="frmGameManager_lblGameTags" xml:space="preserve">
+    <value>管理标签</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnBackupData" xml:space="preserve">
+    <value>管理备份数据</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnMarkAsRestored" xml:space="preserve">
+    <value>将备份标记为已还原</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnOpenBackupFolder" xml:space="preserve">
+    <value>打开备份文件夹</value>
+  </data>
+  <data name="frmGameManager_ttHelp_lblBackupFileData" xml:space="preserve">
+    <value>打开备份文件</value>
+  </data>
+  <data name="frmGameManager_ttHelp_lblTags" xml:space="preserve">
+    <value>管理标签</value>
+  </data>
+  <data name="frmSettings_chkHideButtons" xml:space="preserve">
+    <value>隐藏按钮</value>
+  </data>
+  <data name="frmSettings_chkHideGameList" xml:space="preserve">
+    <value>默认隐藏游戏列表</value>
+  </data>
+  <data name="frmSettings_chkHideLog" xml:space="preserve">
+    <value>默认隐藏日志</value>
+  </data>
+  <data name="frmGameManager_lblTags" xml:space="preserve">
+    <value>标签：</value>
+  </data>
+  <data name="frmGameManager_cboFilters_All" xml:space="preserve">
+    <value>全部游戏</value>
+  </data>
+  <data name="frmGameManager_cboFilters_Backups" xml:space="preserve">
+    <value>有备份的游戏</value>
+  </data>
+  <data name="frmGameManager_cboFilters_Custom" xml:space="preserve">
+    <value>自定义过滤器</value>
+  </data>
+  <data name="frmGameManager_cboFilters_Pending" xml:space="preserve">
+    <value>有待备份的游戏</value>
+  </data>
+  <data name="frmGameManager_lblFilters" xml:space="preserve">
+    <value>过滤器：</value>
+  </data>
+  <data name="frmGameManager_btnBackup" xml:space="preserve">
+    <value>备份</value>
+  </data>
+  <data name="frmGameManager_btnRestore" xml:space="preserve">
+    <value>还原</value>
+  </data>
+  <data name="frmMain_NoTags" xml:space="preserve">
+    <value>没有标签</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnProcessOptions" xml:space="preserve">
+    <value>进程选项</value>
+  </data>
+  <data name="frmGameManager_cmsUseWindowTitle" xml:space="preserve">
+    <value>使用窗口标题</value>
+  </data>
+  <data name="frmGameManager_lblProcess_WindowTitle" xml:space="preserve">
+    <value>窗口标题：</value>
+  </data>
+  <data name="mgrLaunchGame_ErrorUseWindowTitle" xml:space="preserve">
+    <value>无法使用窗口标题启动[PARAM]。</value>
+  </data>
+  <data name="frmSettings_chkBackupNotification" xml:space="preserve">
+    <value>备份完成时显示通知</value>
+  </data>
+  <data name="mgrBackup_NotificationMulti" xml:space="preserve">
+    <value>[PARAM]备份已完成。</value>
+  </data>
+  <data name="mgrBackup_NotificationSingle" xml:space="preserve">
+    <value>[PARAM] 备份已完成。</value>
+  </data>
+  <data name="frmAdvancedImport_New" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmAdvancedImport_New.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmAdvancedImport_Update" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmAdvancedImport_Update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Cancel_Small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Cancel_Small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Notification" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Notification.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Ready" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Ready.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Searching" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Searching.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Stopped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Stopped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_User" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_User.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Working" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Working.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GBM_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GBM_Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Unknown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Arrow_Submenu_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Arrow_Submenu_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Backup_Data" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Backup_Data.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Folder_Open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Folder_Open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Mark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Mark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Process" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Process.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Admin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Admin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Collapse_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Collapse_Left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Expand_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Expand_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GBM_Icon_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GBM_Icon_Detected.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GBM_Icon_Ready" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GBM_Icon_Ready.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GBM_Icon_Stopped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GBM_Icon_Stopped.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_ConfirmRestoreSelected" xml:space="preserve">
+    <value>是否确实要还原[PARAM]的选定备份？这将关闭窗口。[BR][BR][PARAM]（[PARAM]）</value>
+  </data>
+  <data name="Multi_Backup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Backup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Restore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Restore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmSettings_grpGameManagerOptions" xml:space="preserve">
+    <value>游戏管理器选项</value>
+  </data>
+  <data name="frmSettings_lstSettings_FilesAndFolders" xml:space="preserve">
+    <value>文件和文件夹</value>
+  </data>
+  <data name="frmSettings_lstSettings_UserInterface" xml:space="preserve">
+    <value>用户界面</value>
+  </data>
+  <data name="frmSettings_BrowseTempFolder" xml:space="preserve">
+    <value>选择临时文件夹：</value>
+  </data>
+  <data name="frmSettings_cboDetectSpeed_Fast" xml:space="preserve">
+    <value>快速</value>
+  </data>
+  <data name="frmSettings_cboDetectSpeed_Moderate" xml:space="preserve">
+    <value>中等</value>
+  </data>
+  <data name="frmSettings_cboDetectSpeed_Slow" xml:space="preserve">
+    <value>缓慢</value>
+  </data>
+  <data name="frmSettings_cboDetectSpeed_VerySlow" xml:space="preserve">
+    <value>很慢</value>
+  </data>
+  <data name="frmSettings_lblDetectSpeed" xml:space="preserve">
+    <value>检测速度：</value>
+  </data>
+  <data name="frmGameManager_Link" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Link.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Cancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Cancel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Advanced" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Advanced.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_GameID" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_GameID.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnGameID" xml:space="preserve">
+    <value>修改游戏ID</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnLinks" xml:space="preserve">
+    <value>链接选项</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnMonitorOptions" xml:space="preserve">
+    <value>监控器选项</value>
+  </data>
+  <data name="frmGameManager_ttHelp_cboOS" xml:space="preserve">
+    <value>操作系统</value>
+  </data>
+  <data name="Multi_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmLauncherManager_btnAddDefaults" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="Multi_Export" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Import" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Reset" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Reset.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Ok.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Search" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Multi_Next" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Multi_Next.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Exclude_Items" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Exclude_Items.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_Include_Items" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Include_Items.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Clock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Detected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_ResumeBackupQueue" xml:space="preserve">
+    <value>正在自动恢复不完整的备份操作（[PARAM]）。</value>
+  </data>
+  <data name="frmMain_ErrorCriticalDetectionFailure" xml:space="preserve">
+    <value>监控[PARAM]时发生意外错误，检测将停止。</value>
+  </data>
+  <data name="frmSettings_chkTwoPassDetection" xml:space="preserve">
+    <value>双程检测</value>
+  </data>
+  <data name="frmMain_ProcessAlreadyRunning" xml:space="preserve">
+    <value>[PARAM]（进程ID:[PARAM]）已在运行。</value>
+  </data>
+  <data name="frmLauncherManager_ChooseLauncherExe" xml:space="preserve">
+    <value>选择启动器的可执行文件</value>
+  </data>
+  <data name="frmLauncherManager_ErrorValidParameters" xml:space="preserve">
+    <value>当启动器是可执行文件类型时，需要启动参数。</value>
+  </data>
+  <data name="frmLauncherManager_Executable" xml:space="preserve">
+    <value>可执行文件</value>
+  </data>
+  <data name="frmLauncherManager_grpLauncherType" xml:space="preserve">
+    <value>启动器类型</value>
+  </data>
+  <data name="frmLauncherManager_lblParameters" xml:space="preserve">
+    <value>参数</value>
+  </data>
+  <data name="frmLauncherManager_optExecutable" xml:space="preserve">
+    <value>可执行文件</value>
+  </data>
+  <data name="frmLauncherManager_optURI" xml:space="preserve">
+    <value>URI</value>
+  </data>
+  <data name="mgrLaunchers_Galaxy" xml:space="preserve">
+    <value>GOG Galaxy</value>
+  </data>
+  <data name="mgrLaunchers_GalaxyArgs" xml:space="preserve">
+    <value>/command=runGame /gameId=%ID% /path="%GAMEPATH%"</value>
+  </data>
+  <data name="mgrLaunchers_GalaxyDefaultLocation" xml:space="preserve">
+    <value>C:\Program Files (x86)\GOG Galaxy\GalaxyClient.exe</value>
+  </data>
+  <data name="frmLauncherManager_lblCommandAlt" xml:space="preserve">
+    <value>可执行文件：</value>
+  </data>
+  <data name="mgrBackup_ErrorRegBackupFailed" xml:space="preserve">
+    <value>备份失败，请确保注册表路径正确。</value>
+  </data>
+  <data name="frmGameManager_chkDifferentialBackup" xml:space="preserve">
+    <value>差异备份</value>
+  </data>
+  <data name="mgrBackup_ErrorDiffParentNotFound" xml:space="preserve">
+    <value>找不到[PARAM]的当前完整备份，或已达到间隔。将创建一个新的完整备份。</value>
+  </data>
+  <data name="mgrBackup_Label_Diff" xml:space="preserve">
+    <value>差异</value>
+  </data>
+  <data name="mgrBackup_Label_DiffFull" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="frmGameManager_ConfirmBackupDeleteDiffParent" xml:space="preserve">
+    <value>这是一组差异备份的完整备份文件，所有依赖该文件的差异备份文件也将被删除。这将无法撤消。[BR][BR]是否要删除[PARAM]？</value>
+  </data>
+  <data name="frmMain_ErrorDifferentialParentNotFound" xml:space="preserve">
+    <value>[PARAM]的还原无法继续。正在还原的备份是差异备份，但找不到所需的完整备份。</value>
+  </data>
+  <data name="mgrBackup_ErrorImportNoDifferentialParent" xml:space="preserve">
+    <value>无法导入[PARAM]。这是一个差异备份，找不到其关联的完整备份。</value>
+  </data>
+  <data name="frmMain_RestoreQueueDiffParent" xml:space="preserve">
+    <value>已将所需的完全备份[PARAM]（[PARAM]）添加到还原队列。</value>
+  </data>
+  <data name="mgrBackup_WarningOldMetadata" xml:space="preserve">
+    <value>元数据不再与此版本完全兼容，某些信息可能无法导入。</value>
+  </data>
+  <data name="mgrBackup_ErrorImportDifferentialWithNoMetadata" xml:space="preserve">
+    <value>[PARAM]配置为使用差异备份，但[PARAM]不包含正确标识备份文件类型的元数据。无法导入此文件。</value>
+  </data>
+  <data name="mgrBackup_WarningImportNoDifferentialParent" xml:space="preserve">
+    <value>[PARAM]是差异备份，但找不到其关联的完整备份。它已被推到导入队列的底部。</value>
+  </data>
+  <data name="frmGameManager_chkTimeStamp_DiffAlt" xml:space="preserve">
+    <value>完整备份间隔</value>
+  </data>
+  <data name="frmGameManager_lblInterval" xml:space="preserve">
+    <value>完整备份间隔</value>
+  </data>
+  <data name="frmFilter_FieldDifferential" xml:space="preserve">
+    <value>差异备份</value>
+  </data>
+  <data name="frmFilter_FieldDiffInterval" xml:space="preserve">
+    <value>完整备份间隔</value>
+  </data>
+  <data name="frmGameManager_lblLimit_Alt" xml:space="preserve">
+    <value>完整备份限制</value>
+  </data>
+  <data name="frmGameManager_ttHelp_nudInterval" xml:space="preserve">
+    <value>0 = 无间隔</value>
+  </data>
+  <data name="frmGameManager_ttHelp_nudLimit" xml:space="preserve">
+    <value>0 = 无限制</value>
+  </data>
+</root>
