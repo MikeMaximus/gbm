@@ -2183,7 +2183,7 @@ Public Class frmMain
         Me.MinimumSize = New Size(Me.Size.Width - slcMain.SplitterDistance, Me.Size.Height - txtLog.Size.Height)
 
         'Set Form Name
-        Me.Name = App_NameLong
+        Me.Text = App_NameLong
         Me.Icon = GBM_Icon
 
         'Set Menu Text
