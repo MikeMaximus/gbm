@@ -49,14 +49,35 @@ Public Class mgrCommon
         Dim oImageSize As Size = New Size(48, 48)
 
         Try
-            oImage = Image.FromFile(sPath)
-            oReturnImage = New Bitmap(oImage, oImageSize)
-            oImage.Dispose()
+            If Path.GetExtension(sPath).ToLower = ".exe" Then
+                oReturnImage = GetIconFromExecutable(sPath)
+            Else
+                oImage = Image.FromFile(sPath)
+                oReturnImage = New Bitmap(oImage, oImageSize)
+                oImage.Dispose()
+            End If
         Catch
             oReturnImage = Multi_Unknown
         End Try
 
         Return oReturnImage
+    End Function
+
+    Public Shared Function GetIconFromExecutable(ByVal sFileName As String) As Bitmap
+        Dim ic As Icon
+        Dim oBitmap As Bitmap
+
+        Try
+            'Grab icon from the executable
+            ic = System.Drawing.Icon.ExtractAssociatedIcon(sFileName)
+            'Set the icon, we need to use an intermediary object to prevent file locking
+            oBitmap = New Bitmap(ic.ToBitmap)
+            ic.Dispose()
+        Catch
+            oBitmap = Multi_Unknown
+        End Try
+
+        Return oBitmap
     End Function
 
     Public Shared Function GetCachedIconPath(ByVal sID As String) As String

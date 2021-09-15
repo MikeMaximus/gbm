@@ -790,28 +790,34 @@ Public Class frmMain
     'Functions handling the display of game information
     Private Sub SetIcon()
         Dim sIcon As String
-        Dim fbBrowser As New OpenFileDialog
+        Dim sDefaultFolder As String
+        Dim oExtensions As New SortedList
 
-        fbBrowser.Title = mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName)
+        Try
+            sDefaultFolder = Path.GetDirectoryName(oProcess.FoundProcess.MainModule.FileName)
+        Catch ex As Exception
+            sDefaultFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+        End Try
 
         'Unix Handler
         If Not mgrCommon.IsUnix Then
-            fbBrowser.DefaultExt = "ico"
-            fbBrowser.Filter = frmMain_IconFilter
+            oExtensions.Add("BMP", "bmp")
+            oExtensions.Add(frmGameManager_Executable, "exe")
+            oExtensions.Add("GIF", "gif")
+            oExtensions.Add(frmGameManager_Icon, "ico")
+            oExtensions.Add("JPG", "jpg")
+            oExtensions.Add("PNG", "png")
+            oExtensions.Add("TIF", "tif")
+            sIcon = mgrCommon.OpenFileBrowser("Main_Icon", mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName), oExtensions, 4, sDefaultFolder, False)
         Else
-            fbBrowser.DefaultExt = "png"
-            fbBrowser.Filter = frmMain_PNGFilter
+            oExtensions.Add("GIF", "gif")
+            oExtensions.Add("JPG", "jpg")
+            oExtensions.Add("PNG", "png")
+            oExtensions.Add("TIF", "tif")
+            sIcon = mgrCommon.OpenFileBrowser("Main_Icon", mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName), oExtensions, 3, sDefaultFolder, False)
         End If
 
-        Try
-            fbBrowser.InitialDirectory = Path.GetDirectoryName(oProcess.FoundProcess.MainModule.FileName)
-        Catch ex As Exception
-            fbBrowser.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-        End Try
-        fbBrowser.Multiselect = False
-
-        If fbBrowser.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            sIcon = fbBrowser.FileName
+        If sIcon <> String.Empty Then
             If File.Exists(sIcon) Then
                 oProcess.GameInfo.Icon = sIcon
                 pbIcon.Image = mgrCommon.SafeIconFromFile(sIcon)
@@ -876,28 +882,6 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Function GetGameIcon(ByVal sFileName As String) As Bitmap
-        Dim ic As Icon
-        Dim oBitmap As Bitmap
-
-        Try
-            If File.Exists(sFileName) Then
-                'Grab icon from the executable
-                ic = System.Drawing.Icon.ExtractAssociatedIcon(sFileName)
-                oBitmap = New Bitmap(ic.ToBitmap)
-                ic.Dispose()
-
-                'Set the icon, we need to use an intermediary object to prevent file locking
-                Return oBitmap
-            End If
-        Catch ex As Exception
-            UpdateLog(mgrCommon.FormatString(frmMain_ErrorGameIcon), False, ToolTipIcon.Error)
-            UpdateLog(mgrCommon.FormatString(App_GenericError, ex.Message), False,, False)
-        End Try
-
-        Return Multi_Unknown
-    End Function
-
     Private Sub SetGameInfo(Optional ByVal bMulti As Boolean = False)
         Dim sFileName As String = String.Empty
         Dim sFileVersion As String = String.Empty
@@ -916,7 +900,7 @@ Public Class frmMain
         Try
             'Set Game Icon
             If Not mgrCommon.IsUnix Then
-                oExecutableIcon = GetGameIcon(oProcess.FoundProcess.MainModule.FileName)
+                oExecutableIcon = mgrCommon.GetIconFromExecutable(oProcess.FoundProcess.MainModule.FileName)
                 pbIcon.Image = oExecutableIcon
             End If
 
