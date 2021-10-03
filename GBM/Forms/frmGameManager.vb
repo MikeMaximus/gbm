@@ -1405,6 +1405,7 @@ Public Class frmGameManager
             btnExclude.Enabled = True
             cmsWineConfig.Enabled = True
             FolderSaveModeChange()
+            RegistryModeChange()
         End If
     End Sub
 
@@ -1413,12 +1414,10 @@ Public Class frmGameManager
             cboOS.SelectedValue = CInt(clsGame.eOS.Windows)
             chkFolderSave.Checked = True
             chkFolderSave.Enabled = False
-            btnInclude.Enabled = False
             btnExclude.Enabled = False
             chkDifferentialBackup.Enabled = False
         Else
             chkFolderSave.Enabled = True
-            btnInclude.Enabled = True
             btnExclude.Enabled = True
             chkDifferentialBackup.Enabled = True
         End If
