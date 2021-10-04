@@ -672,7 +672,7 @@ Public Class frmGameManager
 
         txtBox.Text = frm.BuilderString
         chkRecurseSubFolders.Checked = frm.RecurseSubFolders
-        VerifyCleanFolder()
+        ModeChangeHandler()
     End Sub
 
     Private Function FindRestorePath() As Boolean
@@ -1252,8 +1252,7 @@ Public Class frmGameManager
                 btnImport.Enabled = False
                 btnExport.Enabled = False
                 cboOS.SelectedValue = CInt(mgrCommon.GetCurrentOS)
-                TimeStampModeChange()
-                DifferentialModeChange()
+                ModeChangeHandler()
             Case eModes.Edit
                 eLastMode = eModes.Edit
                 lblFilters.Enabled = False
@@ -1295,8 +1294,7 @@ Public Class frmGameManager
                 btnAdvanced.Enabled = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
-                TimeStampModeChange()
-                DifferentialModeChange()
+                ModeChangeHandler()
             Case eModes.Disabled
                 eLastMode = eModes.Disabled
                 lblFilters.Enabled = True
@@ -1366,7 +1364,52 @@ Public Class frmGameManager
         IsLoading = False
     End Sub
 
-    Private Sub FolderSaveModeChange()
+    Private Sub ModeChangeHandler(Optional ByVal bResetValues As Boolean = False)
+        If Not cmsMonitorOnly.Checked Then
+            chkFolderSave.Enabled = True
+            chkTimeStamp.Enabled = True
+            chkDifferentialBackup.Enabled = True
+            lblSavePath.Enabled = True
+            txtSavePath.Enabled = True
+            btnSavePathBrowse.Enabled = True
+            btnInclude.Enabled = True
+            btnExclude.Enabled = True
+            cmsWineConfig.Enabled = True
+        End If
+
+        If chkTimeStamp.Checked Then
+            nudLimit.Enabled = True
+            lblLimit.Enabled = True
+        Else
+            nudLimit.Enabled = False
+            lblLimit.Enabled = False
+        End If
+        If bResetValues Then nudLimit.Value = nudLimit.Minimum
+
+        If chkDifferentialBackup.Checked Then
+            nudInterval.Enabled = True
+            lblInterval.Enabled = True
+            lblLimit.Text = frmGameManager_lblLimit_Alt
+            If bResetValues Then nudInterval.Value = 6
+        Else
+            nudInterval.Enabled = False
+            lblInterval.Enabled = False
+            lblLimit.Text = frmGameManager_lblLimit
+            If bResetValues Then nudInterval.Value = nudInterval.Minimum
+        End If
+
+        If mgrPath.IsSupportedRegistryPath(txtSavePath.Text) Then
+            cboOS.SelectedValue = CInt(clsGame.eOS.Windows)
+            chkFolderSave.Checked = True
+            chkFolderSave.Enabled = False
+            btnExclude.Enabled = False
+            chkDifferentialBackup.Enabled = False
+        Else
+            chkFolderSave.Enabled = True
+            btnExclude.Enabled = True
+            chkDifferentialBackup.Enabled = True
+        End If
+
         If chkFolderSave.Checked Then
             btnInclude.Enabled = False
             If txtFileType.Text <> String.Empty Then
@@ -1376,10 +1419,14 @@ Public Class frmGameManager
         Else
             btnInclude.Enabled = True
         End If
-        VerifyCleanFolder()
-    End Sub
 
-    Private Sub MonitorOnlyModeChange()
+        If (chkFolderSave.Checked = True And txtExclude.Text = String.Empty And txtSavePath.Text <> String.Empty) And Not mgrPath.IsSupportedRegistryPath(txtSavePath.Text) And Not cmsMonitorOnly.Checked Then
+            chkCleanFolder.Enabled = True
+        Else
+            chkCleanFolder.Checked = False
+            chkCleanFolder.Enabled = False
+        End If
+
         If cmsMonitorOnly.Checked Then
             chkFolderSave.Enabled = False
             chkTimeStamp.Enabled = False
@@ -1393,69 +1440,6 @@ Public Class frmGameManager
             btnExclude.Enabled = False
             chkCleanFolder.Enabled = False
             cmsWineConfig.Enabled = False
-        Else
-            chkFolderSave.Enabled = True
-            chkTimeStamp.Enabled = True
-            chkDifferentialBackup.Enabled = True
-            lblSavePath.Enabled = True
-            txtSavePath.Enabled = True
-            btnSavePathBrowse.Enabled = True
-            btnInclude.Enabled = True
-            btnExclude.Enabled = True
-            cmsWineConfig.Enabled = True
-            TimeStampModeChange()
-            FolderSaveModeChange()
-            RegistryModeChange()
-        End If
-    End Sub
-
-    Private Sub RegistryModeChange()
-        If mgrPath.IsSupportedRegistryPath(txtSavePath.Text) Then
-            cboOS.SelectedValue = CInt(clsGame.eOS.Windows)
-            chkFolderSave.Checked = True
-            chkFolderSave.Enabled = False
-            btnExclude.Enabled = False
-            chkDifferentialBackup.Enabled = False
-        Else
-            chkFolderSave.Enabled = True
-            btnExclude.Enabled = True
-            chkDifferentialBackup.Enabled = True
-        End If
-    End Sub
-
-    Private Sub TimeStampModeChange(Optional ByVal bResetValue As Boolean = False)
-        If chkTimeStamp.Checked Then
-            nudLimit.Enabled = True
-            lblLimit.Enabled = True
-        Else
-            nudLimit.Enabled = False
-            lblLimit.Enabled = False
-        End If
-        If bResetValue Then nudLimit.Value = nudLimit.Minimum
-    End Sub
-
-    Private Sub DifferentialModeChange(Optional ByVal bResetValue As Boolean = False)
-        If chkDifferentialBackup.Checked Then
-            nudInterval.Enabled = True
-            lblInterval.Enabled = True
-            lblLimit.Text = frmGameManager_lblLimit_Alt
-            If bResetValue Then nudInterval.Value = 6
-        Else
-            nudInterval.Enabled = False
-            lblInterval.Enabled = False
-            lblLimit.Text = frmGameManager_lblLimit
-            If bResetValue Then nudInterval.Value = nudInterval.Minimum
-        End If
-    End Sub
-
-    Private Sub VerifyCleanFolder()
-        If Not IsLoading Then
-            If (chkFolderSave.Checked = True And txtExclude.Text = String.Empty And txtSavePath.Text <> String.Empty) And Not mgrPath.IsSupportedRegistryPath(txtSavePath.Text) And Not cmsMonitorOnly.Checked Then
-                chkCleanFolder.Enabled = True
-            Else
-                chkCleanFolder.Checked = False
-                chkCleanFolder.Enabled = False
-            End If
         End If
     End Sub
 
@@ -1668,7 +1652,6 @@ Public Class frmGameManager
                 eCurrentMode = eModes.View
                 FillData()
                 ModeChange()
-                VerifyCleanFolder()
             ElseIf lstGames.SelectedItems.Count > 1 Then
                 eCurrentMode = eModes.MultiSelect
                 ModeChange()
@@ -2281,13 +2264,11 @@ Public Class frmGameManager
     End Sub
 
     Private Sub chkFolderSave_CheckedChanged(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged
-        FolderSaveModeChange()
+        If Not IsLoading Then ModeChangeHandler()
     End Sub
 
     Private Sub chkTimeStamp_CheckedChanged(sender As Object, e As EventArgs) Handles chkTimeStamp.CheckedChanged
-        If Not IsLoading Then
-            TimeStampModeChange(True)
-        End If
+        If Not IsLoading Then ModeChangeHandler(True)
     End Sub
 
     Private Sub cboRemoteBackup_Enter(sender As Object, e As EventArgs) Handles cboRemoteBackup.Enter, cboRemoteBackup.Click
@@ -2367,9 +2348,10 @@ Public Class frmGameManager
     End Sub
 
     Private Sub txtSavePath_TextChanged(sender As Object, e As EventArgs) Handles txtSavePath.TextChanged
-        ttFullPath.RemoveAll()
-        RegistryModeChange()
-        VerifyCleanFolder()
+        If Not IsLoading Then
+            ttFullPath.RemoveAll()
+            ModeChangeHandler()
+        End If
     End Sub
 
     Private Sub tmFilterTimer_Tick(sender As Object, ByVal e As EventArgs) Handles tmFilterTimer.Tick
@@ -2389,13 +2371,11 @@ Public Class frmGameManager
     End Sub
 
     Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles cmsMonitorOnly.CheckedChanged
-        MonitorOnlyModeChange()
+        If Not IsLoading Then ModeChangeHandler()
     End Sub
 
     Private Sub chkDifferentialBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkDifferentialBackup.CheckedChanged
-        If Not IsLoading Then
-            DifferentialModeChange(True)
-        End If
+        If Not IsLoading Then ModeChangeHandler(True)
     End Sub
 
     Private Sub cmsUseWindowTitle_CheckChanged(sender As Object, e As EventArgs) Handles cmsUseWindowTitle.CheckedChanged
