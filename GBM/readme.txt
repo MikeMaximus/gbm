@@ -2,7 +2,7 @@ Game Backup Monitor v1.2.9 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-September 15, 2021
+October 4, 2021
 
 Disclaimer:
 
@@ -18,6 +18,7 @@ All Platforms:
 	- Unfortunately this feature caused too many other issues and simply does not work in all situations.
 - The GBM tray icon and tooltip is now more informative when the backup path is not available on startup.
 - The Custom Filter window in the Game Manager can now be closed by using the X button.
-
+- Fixed issues on the Game Manager.
+	- Some UI elements weren't being properly disabled or enabled in certain situations.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

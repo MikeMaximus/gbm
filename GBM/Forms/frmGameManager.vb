@@ -1396,7 +1396,6 @@ Public Class frmGameManager
         Else
             chkFolderSave.Enabled = True
             chkTimeStamp.Enabled = True
-            TimeStampModeChange()
             chkDifferentialBackup.Enabled = True
             lblSavePath.Enabled = True
             txtSavePath.Enabled = True
@@ -1404,6 +1403,7 @@ Public Class frmGameManager
             btnInclude.Enabled = True
             btnExclude.Enabled = True
             cmsWineConfig.Enabled = True
+            TimeStampModeChange()
             FolderSaveModeChange()
             RegistryModeChange()
         End If
@@ -1445,16 +1445,6 @@ Public Class frmGameManager
             lblInterval.Enabled = False
             lblLimit.Text = frmGameManager_lblLimit
             If bResetValue Then nudInterval.Value = nudInterval.Minimum
-        End If
-    End Sub
-
-    Private Sub VerifyImportBackup()
-        If Not IsLoading Then
-            If cmsMonitorOnly.Checked Then
-                cmsImportData.Enabled = False
-            Else
-                cmsImportData.Enabled = True
-            End If
         End If
     End Sub
 
