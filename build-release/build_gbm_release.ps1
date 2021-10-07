@@ -1,13 +1,13 @@
 ﻿#Script Name: Game Backup Monitor - Release Package Builder
 #Author: Michael J. Seiferling
-#Revised: May 26, 2020
+#Revised: October 7, 2021
 #Warning: This script only prepares Windows packages for release, it does not build GBM.
 
 $7z_bin = "C:\Program Files\7-Zip\7z.exe"
 $nsis_bin = "C:\Program Files (x86)\NSIS\makensis.exe"
 
-$release_version = "1.2.1"
-$base_project = "$env:USERPROFILE\Documents\Visual Studio 2017\Projects\gbm"
+$release_version = "1.2.9"
+$base_project = "$env:USERPROFILE\Documents\Visual Studio 2019\Projects\gbm"
 $x86_build_folder = $base_project + "\GBM\bin\x86\Release"
 $x64_build_folder = $base_project + "\GBM\bin\x64\Release"
 $base_release_folder = "$env:USERPROFILE\Desktop\$release_version"
