@@ -18,7 +18,6 @@ Public Class frmFilter
     Dim bSortAsc As Boolean = True
     Dim sSortField As String = "Name"
     Dim hshTags As New Hashtable
-    Dim bShutdown As Boolean = False
 
     Public Property GameFilters As List(Of clsGameFilter)
         Get
@@ -694,8 +693,6 @@ Public Class frmFilter
     End Sub
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        GetFilters()
-        bShutdown = True
         Me.Close()
     End Sub
 
@@ -716,9 +713,7 @@ Public Class frmFilter
     End Sub
 
     Private Sub frmFilter_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If Not bShutdown Then
-            e.Cancel = True
-        End If
+        GetFilters()
     End Sub
 
     Private Sub chkGameInfo_CheckedChanged(sender As Object, e As EventArgs) Handles chkGameInfo.CheckedChanged

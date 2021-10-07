@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-08-02T13:59:50
+        '''  Looks up a localized string similar to 2021-09-15T21:58:29
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3891,6 +3891,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backup path not available.  Timeout: [PARAM] seconds.
+        '''</summary>
+        Friend ReadOnly Property frmMain_BackupPathNotAvailable() As String
+            Get
+                Return ResourceManager.GetString("frmMain_BackupPathNotAvailable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Adding [PARAM] to backup queue..
         '''</summary>
         Friend ReadOnly Property frmMain_BackupQueue() As String
@@ -4990,6 +4999,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_lblLastActionTitle() As String
             Get
                 Return ResourceManager.GetString("frmMain_lblLastActionTitle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Search:.
+        '''</summary>
+        Friend ReadOnly Property frmMain_lblSearch() As String
+            Get
+                Return ResourceManager.GetString("frmMain_lblSearch", resourceCulture)
             End Get
         End Property
         
