@@ -2,23 +2,18 @@ Game Backup Monitor v1.2.9 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-October 4, 2021
-
-Disclaimer:
-
-v1.2.9 is still in development, this file will be updated as changes are made.
-The development branch is currently backwards compatible with v1.2.8.
+October 7, 2021
 
 New in 1.2.9
 
 All Platforms:
 
-- Added support for Chinese language (Translation provided by @Juijote)
-- The "Game Path" field in the Game Manager no longer automatically trims a file name when included.
-	- Unfortunately this feature caused too many other issues and simply does not work in all situations.
-- The GBM tray icon and tooltip is now more informative when the backup path is not available on startup.
-- The Custom Filter window in the Game Manager can now be closed by using the X button.
-- Fixed issues on the Game Manager.
-	- Some UI elements weren't being properly disabled or enabled in certain situations.
+- Added support for Simplified Chinese (Translation provided by @Juijote)
+	- Language is automatically selected based on the regional setting of the operating system.
+- The GBM tray icon and tooltip is now more informative when the backup path is not available at startup.
+- Fixed issues with the Game Manager.
+	- UI elements weren't being properly disabled or enabled in some situations.
+	- Custom Filter window can now be closed by using the X button.
+	- Game Path no longer automatically trims a file name when included, this feature did not work consistently.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
