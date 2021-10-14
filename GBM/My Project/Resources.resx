@@ -1902,35 +1902,14 @@
   <data name="frmFilter_FieldGameID" xml:space="preserve">
     <value>Game ID</value>
   </data>
-  <data name="mgrMonitorList_ErrorGameIDVerFailure" xml:space="preserve">
-    <value>This file cannot be used to sync game indentifiers.  It was created with an older version of GBM.</value>
-  </data>
   <data name="mgrMonitorList_ImportVersionWarning" xml:space="preserve">
     <value>This export file was created with a version of GBM prior to 1.1.5 and may contain incompatible configuration data.[BR][BR]Do you still want to import configurations from this file? (Not Recommended)</value>
-  </data>
-  <data name="mgrMonitorList_ConfirmFileGameIDSync" xml:space="preserve">
-    <value>Do you want to sync your game identifiers with this export file?[BR][BR]This tool is provided for very specific situations, please read the "Tools" section of the online manual before using this feature.</value>
-  </data>
-  <data name="frmMain_gMonToolsSyncGameID" xml:space="preserve">
-    <value>S&amp;ync Game IDs</value>
-  </data>
-  <data name="frmMain_gMonToolsSyncGameIDFile" xml:space="preserve">
-    <value>&amp;File...</value>
-  </data>
-  <data name="frmMain_gMonToolsSyncGameIDOfficial" xml:space="preserve">
-    <value>&amp;Official List...</value>
-  </data>
-  <data name="mgrMonitorList_ConfirmOfficialGameIDSync" xml:space="preserve">
-    <value>Do you want to sync your game identifiers with the official game list?[BR][BR]This tool is provided for very specific situations, please read the "Tools" section of the online manual before using this feature.</value>
   </data>
   <data name="frmSettings_btnResetMessages" xml:space="preserve">
     <value>&amp;Reset Warnings</value>
   </data>
   <data name="frmSettings_ConfirmMessageReset" xml:space="preserve">
     <value>Do you want to reset all hidden warnings and messages?</value>
-  </data>
-  <data name="mgrMonitorList_GameIDSyncCompleted" xml:space="preserve">
-    <value>Sync Complete.[BR][BR][PARAM] game configurations were matched and updated.</value>
   </data>
   <data name="App_BackupOnLaunchFileDescription" xml:space="preserve">
     <value>launch</value>

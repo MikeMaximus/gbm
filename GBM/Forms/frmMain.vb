@@ -1505,32 +1505,6 @@ Public Class frmMain
         mgrMonitorList.SyncMonitorLists(False)
     End Sub
 
-    Private Sub SyncGameIDs(ByVal bOfficial As Boolean)
-        Dim sLocation As String
-        Dim oExtensions As New SortedList
-
-        PauseScan()
-
-        If mgrCommon.IsUnix Then
-            sLocation = App_URLImportLinux
-        Else
-            sLocation = App_URLImport
-        End If
-
-        If bOfficial Then
-            mgrMonitorList.SyncGameIDs(sLocation, True)
-        Else
-            oExtensions.Add(frmGameManager_XML, "xml")
-            sLocation = mgrCommon.OpenFileBrowser("XML_Import", frmGameManager_ChooseImportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
-
-            If sLocation <> String.Empty Then
-                mgrMonitorList.SyncGameIDs(sLocation, False)
-            End If
-        End If
-
-        ResumeScan()
-    End Sub
-
     Private Sub LocalDatabaseCheck()
         Dim oLocalDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         oLocalDatabase.DatabaseUpgrade()
@@ -2207,9 +2181,6 @@ Public Class frmMain
         gMonToolsCompact.Text = frmMain_gMonToolsCompact
         gMonToolsLog.Text = frmMain_gMonToolsLog
         gMonToolsSessions.Text = frmMain_gMonToolsSessions
-        gMonToolsSyncGameID.Text = frmMain_gMonToolsSyncGameID
-        gMonToolsSyncGameIDOfficial.Text = frmMain_gMonToolsSyncGameIDOfficial
-        gMonToolsSyncGameIDFile.Text = frmMain_gMonToolsSyncGameIDFile
         gMonLogClear.Text = frmMain_gMonLogClear
         gMonLogSave.Text = frmMain_gMonLogSave
         gMonHelp.Text = frmMain_gMonHelp
@@ -2238,9 +2209,6 @@ Public Class frmMain
         gMonTrayToolsCompact.Text = frmMain_gMonToolsCompact
         gMonTrayToolsLog.Text = frmMain_gMonToolsLog
         gMonTrayToolsSessions.Text = frmMain_gMonToolsSessions
-        gMonTrayToolsSyncGameID.Text = frmMain_gMonToolsSyncGameID
-        gMonTrayToolsSyncGameIDOfficial.Text = frmMain_gMonToolsSyncGameIDOfficial
-        gMonTrayToolsSyncGameIDFile.Text = frmMain_gMonToolsSyncGameIDFile
         gMonTrayLogClear.Text = frmMain_gMonLogClear
         gMonTrayLogSave.Text = frmMain_gMonLogSave
         gMonTrayExit.Text = frmMain_gMonFileExit
@@ -2800,14 +2768,6 @@ Public Class frmMain
 
     Private Sub gMonToolsSessions_Click(sender As Object, e As EventArgs) Handles gMonToolsSessions.Click, gMonTrayToolsSessions.Click
         OpenSessions()
-    End Sub
-
-    Private Sub gMonToolsSyncGameIDOfficial_Click(sender As Object, e As EventArgs) Handles gMonToolsSyncGameIDOfficial.Click, gMonTrayToolsSyncGameIDOfficial.Click
-        SyncGameIDs(True)
-    End Sub
-
-    Private Sub gMonToolsSyncGameIDFile_Click(sender As Object, e As EventArgs) Handles gMonToolsSyncGameIDFile.Click, gMonTrayToolsSyncGameIDFile.Click
-        SyncGameIDs(False)
     End Sub
 
     Private Sub gMonNotification_Click(sender As Object, e As EventArgs) Handles gMonNotification.Click, gMonTrayNotification.Click

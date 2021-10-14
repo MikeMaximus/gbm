@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-09-15T21:58:29
+        '''  Looks up a localized string similar to 2021-10-11T16:23:34
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4832,33 +4832,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to S&amp;ync Game IDs.
-        '''</summary>
-        Friend ReadOnly Property frmMain_gMonToolsSyncGameID() As String
-            Get
-                Return ResourceManager.GetString("frmMain_gMonToolsSyncGameID", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to &amp;File....
-        '''</summary>
-        Friend ReadOnly Property frmMain_gMonToolsSyncGameIDFile() As String
-            Get
-                Return ResourceManager.GetString("frmMain_gMonToolsSyncGameIDFile", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to &amp;Official List....
-        '''</summary>
-        Friend ReadOnly Property frmMain_gMonToolsSyncGameIDOfficial() As String
-            Get
-                Return ResourceManager.GetString("frmMain_gMonToolsSyncGameIDOfficial", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Run Full &amp;Backup.
         '''</summary>
         Friend ReadOnly Property frmMain_gMonTrayFullBackup() As String
@@ -8236,33 +8209,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Do you want to sync your game identifiers with this export file?[BR][BR]This tool is provided for very specific situations, please read the &quot;Tools&quot; section of the online manual before using this feature..
-        '''</summary>
-        Friend ReadOnly Property mgrMonitorList_ConfirmFileGameIDSync() As String
-            Get
-                Return ResourceManager.GetString("mgrMonitorList_ConfirmFileGameIDSync", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Do you want to sync your game identifiers with the official game list?[BR][BR]This tool is provided for very specific situations, please read the &quot;Tools&quot; section of the online manual before using this feature..
-        '''</summary>
-        Friend ReadOnly Property mgrMonitorList_ConfirmOfficialGameIDSync() As String
-            Get
-                Return ResourceManager.GetString("mgrMonitorList_ConfirmOfficialGameIDSync", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to This file cannot be used to sync game indentifiers.  It was created with an older version of GBM..
-        '''</summary>
-        Friend ReadOnly Property mgrMonitorList_ErrorGameIDVerFailure() As String
-            Get
-                Return ResourceManager.GetString("mgrMonitorList_ErrorGameIDVerFailure", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to The sync was aborted by the user..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ErrorSyncCancel() As String
@@ -8286,15 +8232,6 @@ Namespace My.Resources
         Friend ReadOnly Property mgrMonitorList_FileNotFound() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_FileNotFound", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Sync Complete.[BR][BR][PARAM] game configurations were matched and updated..
-        '''</summary>
-        Friend ReadOnly Property mgrMonitorList_GameIDSyncCompleted() As String
-            Get
-                Return ResourceManager.GetString("mgrMonitorList_GameIDSyncCompleted", resourceCulture)
             End Get
         End Property
         
