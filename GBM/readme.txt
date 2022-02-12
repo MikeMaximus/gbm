@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.0 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-October 14, 2021
+February 12, 2022
 
 New in 1.3.0
 
@@ -15,5 +15,9 @@ All Platforms:
 
 - Removed the "Sync Game IDs" feature.
 	- This feature was designed to ease upgrades from old versions of GBM and should no longer be required.
+
+Windows:
+
+- Updated 7-Zip to 21.07
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
