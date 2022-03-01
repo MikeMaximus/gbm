@@ -415,7 +415,7 @@ Public Class frmGameManager
 
     Private Sub ProcessBrowse()
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
-        Dim sCurrentPath As String = txtAppPath.Text
+        Dim sCurrentPath As String = mgrPath.ReplaceSpecialPaths(txtAppPath.Text)
         Dim sNewPath As String
         Dim oExtensions As New SortedList
 
@@ -437,7 +437,7 @@ Public Class frmGameManager
 
     Private Sub ProcessPathBrowse()
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-        Dim sCurrentPath As String = txtAppPath.Text
+        Dim sCurrentPath As String = mgrPath.ReplaceSpecialPaths(txtAppPath.Text)
         Dim sNewPath As String
 
         If sCurrentPath <> String.Empty Then
@@ -472,7 +472,7 @@ Public Class frmGameManager
 
     Private Sub IconBrowse()
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
-        Dim sCurrentPath As String = txtAppPath.Text
+        Dim sCurrentPath As String = mgrPath.ReplaceSpecialPaths(txtAppPath.Text)
         Dim sNewPath As String
         Dim oExtensions As New SortedList
 
