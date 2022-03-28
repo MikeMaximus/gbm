@@ -978,6 +978,78 @@ Public Class mgrMonitorList
         End If
     End Sub
 
+    'Shared Import / Export UI Functions
+    Public Shared Function ImportGameListURL() As Boolean
+        Dim oSavedPath As clsSavedPath = mgrSavedPath.GetPathByName("Import_Custom_URL")
+        Dim sLocation As String
+
+        sLocation = InputBox(mgrMonitorList_CustomListURLInfo, mgrMonitorList_CustomListURLTitle, oSavedPath.Path).Trim
+
+        If sLocation <> String.Empty Then
+            If mgrCommon.IsAddress(sLocation) Then
+                If DoImport(sLocation, False) Then
+                    'Save valid URL for next time
+                    oSavedPath.PathName = "Import_Custom_URL"
+                    oSavedPath.Path = sLocation
+                    mgrSavedPath.AddUpdatePath(oSavedPath)
+                    Return True
+                End If
+            Else
+                mgrCommon.ShowMessage(mgrMonitorList_CustomListURLError, MsgBoxStyle.Exclamation)
+            End If
+        End If
+
+        Return False
+    End Function
+
+    Public Shared Function ImportGameListFile() As Boolean
+        Dim sLocation As String
+        Dim oExtensions As New SortedList
+
+        oExtensions.Add(mgrMonitorList_XML, "xml")
+        sLocation = mgrCommon.OpenFileBrowser("XML_Import", mgrMonitorList_ChooseImportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
+
+        If sLocation <> String.Empty Then
+            If mgrMonitorList.DoImport(sLocation, False) Then
+                Return True
+            End If
+        End If
+
+        Return False
+    End Function
+
+    Public Shared Sub ExportGameList()
+        Dim sLocation As String
+        Dim oExtensions As New SortedList
+
+        oExtensions.Add(mgrMonitorList_XML, "xml")
+        sLocation = mgrCommon.SaveFileBrowser("XML_Export", mgrMonitorList_ChooseExportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), mgrMonitorList_DefaultExportFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
+
+        If sLocation <> String.Empty Then
+            ExportMonitorList(sLocation)
+        End If
+
+    End Sub
+
+    Public Shared Function ImportOfficialGameList(ByVal sImportUrl As String, Optional ByVal bIsWindowsList As Boolean = False) As Boolean
+        'Show one time warning about Windows configs in Linux
+        If bIsWindowsList And mgrCommon.IsUnix Then
+            If Not (mgrSettings.SuppressMessages And mgrSettings.eSuppressMessages.WinConfigsInLinux) = mgrSettings.eSuppressMessages.WinConfigsInLinux Then
+                mgrCommon.ShowMessage(mgrMonitorList_WarningWinConfigsInLinux, MsgBoxStyle.Information)
+                mgrSettings.SuppressMessages = mgrSettings.SetMessageField(mgrSettings.SuppressMessages, mgrSettings.eSuppressMessages.WinConfigsInLinux)
+                mgrSettings.SaveSettings()
+            End If
+        End If
+
+        If mgrCommon.ShowMessage(mgrMonitorList_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If mgrMonitorList.DoImport(sImportUrl, True) Then
+                Return True
+            End If
+        End If
+
+        Return False
+    End Function
+
     'Other Functions
     Public Shared Sub HandleBackupLocationChange()
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Remote)

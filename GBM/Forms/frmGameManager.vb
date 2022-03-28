@@ -1903,65 +1903,6 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Sub ImportGameListURL()
-        Dim oSavedPath As clsSavedPath = mgrSavedPath.GetPathByName("Import_Custom_URL")
-        Dim sLocation As String
-
-        sLocation = InputBox(frmGameManager_CustomListURLInfo, frmGameManager_CustomListURLTitle, oSavedPath.Path).Trim
-
-        If sLocation <> String.Empty Then
-            If mgrCommon.IsAddress(sLocation) Then
-                If mgrMonitorList.DoImport(sLocation, False) Then
-                    LoadData()
-                    LoadBackupData()
-                    'Save valid URL for next time
-                    oSavedPath.PathName = "Import_Custom_URL"
-                    oSavedPath.Path = sLocation
-                    mgrSavedPath.AddUpdatePath(oSavedPath)
-                End If
-            Else
-                mgrCommon.ShowMessage(frmGameManager_CustomListURLError, MsgBoxStyle.Exclamation)
-            End If
-        End If
-    End Sub
-
-    Private Sub ImportGameListFile()
-        Dim sLocation As String
-        Dim oExtensions As New SortedList
-
-        oExtensions.Add(frmGameManager_XML, "xml")
-        sLocation = mgrCommon.OpenFileBrowser("XML_Import", frmGameManager_ChooseImportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
-
-        If sLocation <> String.Empty Then
-            If mgrMonitorList.DoImport(sLocation, False) Then
-                LoadData()
-                LoadBackupData()
-            End If
-        End If
-    End Sub
-
-    Private Sub ExportGameList()
-        Dim sLocation As String
-        Dim oExtensions As New SortedList
-
-        oExtensions.Add(frmGameManager_XML, "xml")
-        sLocation = mgrCommon.SaveFileBrowser("XML_Export", frmGameManager_ChooseExportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmGameManager_DefaultExportFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
-
-        If sLocation <> String.Empty Then
-            mgrMonitorList.ExportMonitorList(sLocation)
-        End If
-
-    End Sub
-
-    Private Sub ImportOfficialGameList(ByVal sImportUrl As String)
-        If mgrCommon.ShowMessage(frmGameManager_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(sImportUrl, True) Then
-                LoadData()
-                LoadBackupData()
-            End If
-        End If
-    End Sub
-
     Private Sub LoadCombos()
         Dim oOSItems As New List(Of KeyValuePair(Of Integer, String))
         Dim oFilterItems As New List(Of KeyValuePair(Of Integer, String))
@@ -2333,44 +2274,47 @@ Public Class frmGameManager
     End Sub
 
     Private Sub cmsOfficialWindows_Click(sender As Object, e As EventArgs) Handles cmsOfficialWindows.Click, cmsOfficial.Click
-        'Show one time warning about Windows configs in Linux
-        If mgrCommon.IsUnix Then
-            If Not (mgrSettings.SuppressMessages And mgrSettings.eSuppressMessages.WinConfigsInLinux) = mgrSettings.eSuppressMessages.WinConfigsInLinux Then
-                mgrCommon.ShowMessage(frmGameManager_WarningWinConfigsInLinux, MsgBoxStyle.Information)
-                mgrSettings.SuppressMessages = mgrSettings.SetMessageField(mgrSettings.SuppressMessages, mgrSettings.eSuppressMessages.WinConfigsInLinux)
-                mgrSettings.SaveSettings()
-            End If
-        End If
-
         lstGames.ClearSelected()
         eCurrentMode = eModes.Disabled
         ModeChange()
-        ImportOfficialGameList(App_URLImport)
+        If mgrMonitorList.ImportOfficialGameList(App_URLImport, True) Then
+            LoadData()
+            LoadBackupData()
+        End If
     End Sub
 
     Private Sub cmsOfficialLinux_Click(sender As Object, e As EventArgs) Handles cmsOfficialLinux.Click
         lstGames.ClearSelected()
         eCurrentMode = eModes.Disabled
         ModeChange()
-        ImportOfficialGameList(App_URLImportLinux)
+        If mgrMonitorList.ImportOfficialGameList(App_URLImportLinux) Then
+            LoadData()
+            LoadBackupData()
+        End If
     End Sub
 
     Private Sub cmsFile_Click(sender As Object, e As EventArgs) Handles cmsFile.Click
         lstGames.ClearSelected()
         eCurrentMode = eModes.Disabled
         ModeChange()
-        ImportGameListFile()
+        If mgrMonitorList.ImportGameListFile Then
+            LoadData()
+            LoadBackupData()
+        End If
     End Sub
 
     Private Sub cmsURL_Click(sender As Object, e As EventArgs) Handles cmsURL.Click
         lstGames.ClearSelected()
         eCurrentMode = eModes.Disabled
         ModeChange()
-        ImportGameListURL()
+        If mgrMonitorList.ImportGameListURL Then
+            LoadData()
+            LoadBackupData()
+        End If
     End Sub
 
     Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
-        ExportGameList()
+        mgrMonitorList.ExportGameList()
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged

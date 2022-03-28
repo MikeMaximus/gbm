@@ -435,10 +435,10 @@
   <data name="frmGameManager_ChooseExePath" xml:space="preserve">
     <value>Browse to the folder containing the game executable and click Open</value>
   </data>
-  <data name="frmGameManager_ChooseExportXML" xml:space="preserve">
+  <data name="mgrMonitorList_ChooseExportXML" xml:space="preserve">
     <value>Choose a location for the export file</value>
   </data>
-  <data name="frmGameManager_ChooseImportXML" xml:space="preserve">
+  <data name="mgrMonitorList_ChooseImportXML" xml:space="preserve">
     <value>Choose a valid xml file to import</value>
   </data>
   <data name="frmGameManager_ChooseSaveFolder" xml:space="preserve">
@@ -468,7 +468,7 @@
   <data name="frmGameManager_ConfirmMultiRestore" xml:space="preserve">
     <value>Are you sure you want to restore the backups for [PARAM] games?  This will close the form.</value>
   </data>
-  <data name="frmGameManager_ConfirmOfficialImport" xml:space="preserve">
+  <data name="mgrMonitorList_ConfirmOfficialImport" xml:space="preserve">
     <value>Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection.</value>
   </data>
   <data name="frmGameManager_ConfirmRestore" xml:space="preserve">
@@ -567,7 +567,7 @@
   <data name="frmGameManager_UpToDate" xml:space="preserve">
     <value>Up to Date!</value>
   </data>
-  <data name="frmGameManager_XML" xml:space="preserve">
+  <data name="mgrMonitorList_XML" xml:space="preserve">
     <value>XML</value>
   </data>
   <data name="frmGameManager_cmsFile" xml:space="preserve">
@@ -1332,7 +1332,7 @@
   <data name="mgrXML_ErrorImportFailure" xml:space="preserve">
     <value>The XML file cannot be read, it may be an invalid format or corrupted.[BR][BR][PARAM]</value>
   </data>
-  <data name="frmGameManager_DefaultExportFileName" xml:space="preserve">
+  <data name="mgrMonitorList_DefaultExportFileName" xml:space="preserve">
     <value>Game Backup Monitor Export</value>
   </data>
   <data name="frmMain_ChooseLogFile" xml:space="preserve">
@@ -2100,7 +2100,7 @@
   <data name="frmGameManager_cmsOfficialWindows" xml:space="preserve">
     <value>&amp;Windows...</value>
   </data>
-  <data name="frmGameManager_WarningWinConfigsInLinux" xml:space="preserve">
+  <data name="mgrMonitorList_WarningWinConfigsInLinux" xml:space="preserve">
     <value>Official Windows configurations can be used in Linux for games running in Wine or Proton.[BR][BR]You do not need to modify these configurations, GBM will automatically do any required path conversions when the game is detected.[BR][BR]This message will only be shown once.</value>
   </data>
   <data name="frmGameManager_ConfirmBackupImportOverwriteSingle" xml:space="preserve">
@@ -3025,13 +3025,13 @@
   <data name="frmGameManager_cmsURL" xml:space="preserve">
     <value>&amp;URL...</value>
   </data>
-  <data name="frmGameManager_CustomListURLInfo" xml:space="preserve">
+  <data name="mgrMonitorList_CustomListURLInfo" xml:space="preserve">
     <value>Enter the full URL of a valid XML file to import.</value>
   </data>
-  <data name="frmGameManager_CustomListURLTitle" xml:space="preserve">
+  <data name="mgrMonitorList_CustomListURLTitle" xml:space="preserve">
     <value>Import XML file from URL</value>
   </data>
-  <data name="frmGameManager_CustomListURLError" xml:space="preserve">
+  <data name="mgrMonitorList_CustomListURLError" xml:space="preserve">
     <value>The value must be a valid HTTP or HTTPS location.</value>
   </data>
 </root>

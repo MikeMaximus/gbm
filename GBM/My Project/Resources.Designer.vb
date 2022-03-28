@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-03-28T00:49:43
+        '''  Looks up a localized string similar to 2022-03-28T00:50:53
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2047,24 +2047,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Choose a location for the export file.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_ChooseExportXML() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_ChooseExportXML", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Choose a valid xml file to import.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_ChooseImportXML() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_ChooseImportXML", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Browse to the saved game folder and click Open.
         '''</summary>
         Friend ReadOnly Property frmGameManager_ChooseSaveFolder() As String
@@ -2353,15 +2335,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection..
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_ConfirmOfficialImport() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_ConfirmOfficialImport", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to restore the backup for [PARAM]?  This will close the form..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmRestore() As String
@@ -2385,42 +2358,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ConfirmRestoreSelected() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ConfirmRestoreSelected", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to The value must be a valid HTTP or HTTPS location..
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_CustomListURLError() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_CustomListURLError", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Enter the full URL of a valid XML file to import..
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_CustomListURLInfo() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_CustomListURLInfo", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Import XML file from URL.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_CustomListURLTitle() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_CustomListURLTitle", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Game Backup Monitor Export.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_DefaultExportFileName() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_DefaultExportFileName", resourceCulture)
             End Get
         End Property
         
@@ -3121,24 +3058,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_WarningImportBackupSaveMulti() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_WarningImportBackupSaveMulti", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Official Windows configurations can be used in Linux for games running in Wine or Proton.[BR][BR]You do not need to modify these configurations, GBM will automatically do any required path conversions when the game is detected.[BR][BR]This message will only be shown once..
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_WarningWinConfigsInLinux() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_WarningWinConfigsInLinux", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to XML.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_XML() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_XML", resourceCulture)
             End Get
         End Property
         
@@ -8227,6 +8146,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Choose a location for the export file.
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_ChooseExportXML() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_ChooseExportXML", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Choose a valid xml file to import.
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_ChooseImportXML() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_ChooseImportXML", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Would you like to apply a filter to your export?.
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ConfirmApplyFilter() As String
@@ -8241,6 +8178,51 @@ Namespace My.Resources
         Friend ReadOnly Property mgrMonitorList_ConfirmExistingData() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_ConfirmExistingData", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_ConfirmOfficialImport() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_ConfirmOfficialImport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The value must be a valid HTTP or HTTPS location..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_CustomListURLError() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_CustomListURLError", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Enter the full URL of a valid XML file to import..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_CustomListURLInfo() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_CustomListURLInfo", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Import XML file from URL.
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_CustomListURLTitle() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_CustomListURLTitle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game Backup Monitor Export.
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_DefaultExportFileName() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_DefaultExportFileName", resourceCulture)
             End Get
         End Property
         
@@ -8335,11 +8317,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Official Windows configurations can be used in Linux for games running in Wine or Proton.[BR][BR]You do not need to modify these configurations, GBM will automatically do any required path conversions when the game is detected.[BR][BR]This message will only be shown once..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_WarningWinConfigsInLinux() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_WarningWinConfigsInLinux", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to There&apos;s no response from:[BR][BR][PARAM][BR][BR]The server is not responding, has an invalid SSL certificate or the URL is invalid..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_WebNoReponse() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_WebNoReponse", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to XML.
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_XML() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_XML", resourceCulture)
             End Get
         End Property
         
