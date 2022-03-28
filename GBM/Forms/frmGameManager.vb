@@ -586,7 +586,7 @@ Public Class frmGameManager
 
         sCurrentID = txtID.Text
 
-        sNewID = InputBox(frmGameManager_GameIDEditInfo, frmGameManager_GameIDEditTitle, sCurrentID)
+        sNewID = InputBox(frmGameManager_GameIDEditInfo, frmGameManager_GameIDEditTitle, sCurrentID).Trim
 
         If sNewID <> String.Empty And sCurrentID <> sNewID Then
             txtID.Text = sNewID
@@ -1903,6 +1903,28 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub ImportGameListURL()
+        Dim oSavedPath As clsSavedPath = mgrSavedPath.GetPathByName("Import_Custom_URL")
+        Dim sLocation As String
+
+        sLocation = InputBox(frmGameManager_CustomListURLInfo, frmGameManager_CustomListURLTitle, oSavedPath.Path).Trim
+
+        If sLocation <> String.Empty Then
+            If mgrCommon.IsAddress(sLocation) Then
+                If mgrMonitorList.DoImport(sLocation, False) Then
+                    LoadData()
+                    LoadBackupData()
+                    'Save valid URL for next time
+                    oSavedPath.PathName = "Import_Custom_URL"
+                    oSavedPath.Path = sLocation
+                    mgrSavedPath.AddUpdatePath(oSavedPath)
+                End If
+            Else
+                mgrCommon.ShowMessage(frmGameManager_CustomListURLError, MsgBoxStyle.Exclamation)
+            End If
+        End If
+    End Sub
+
     Private Sub ImportGameListFile()
         Dim sLocation As String
         Dim oExtensions As New SortedList
@@ -1916,7 +1938,6 @@ Public Class frmGameManager
                 LoadBackupData()
             End If
         End If
-
     End Sub
 
     Private Sub ExportGameList()
@@ -2022,6 +2043,7 @@ Public Class frmGameManager
         cmsOfficialLinux.Text = frmGameManager_cmsOfficialLinux
         cmsOfficialWindows.Text = frmGameManager_cmsOfficialWindows
         cmsFile.Text = frmGameManager_cmsFile
+        cmsURL.Text = frmGameManager_cmsURL
         lblSearch.Text = frmGameManager_lblSearch
         lblLimit.Text = frmGameManager_lblLimit
         lblInterval.Text = frmGameManager_lblInterval
@@ -2338,6 +2360,13 @@ Public Class frmGameManager
         eCurrentMode = eModes.Disabled
         ModeChange()
         ImportGameListFile()
+    End Sub
+
+    Private Sub cmsURL_Click(sender As Object, e As EventArgs) Handles cmsURL.Click
+        lstGames.ClearSelected()
+        eCurrentMode = eModes.Disabled
+        ModeChange()
+        ImportGameListURL()
     End Sub
 
     Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click

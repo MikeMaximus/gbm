@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-10-11T16:23:34
+        '''  Looks up a localized string similar to 2022-03-28T00:49:43
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2191,6 +2191,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;URL....
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsURL() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsURL", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Use &amp;Window Title.
         '''</summary>
         Friend ReadOnly Property frmGameManager_cmsUseWindowTitle() As String
@@ -2376,6 +2385,33 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ConfirmRestoreSelected() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ConfirmRestoreSelected", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The value must be a valid HTTP or HTTPS location..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_CustomListURLError() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_CustomListURLError", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Enter the full URL of a valid XML file to import..
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_CustomListURLInfo() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_CustomListURLInfo", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Import XML file from URL.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_CustomListURLTitle() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_CustomListURLTitle", resourceCulture)
             End Get
         End Property
         
@@ -8299,7 +8335,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to There&apos;s no response from:[BR][PARAM][BR]Either the server is not responding or the URL is invalid..
+        '''  Looks up a localized string similar to There&apos;s no response from:[BR][BR][PARAM][BR][BR]The server is not responding, has an invalid SSL certificate or the URL is invalid..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_WebNoReponse() As String
             Get

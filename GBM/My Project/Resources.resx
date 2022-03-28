@@ -1246,7 +1246,7 @@
     <value>A sync to the master game list has been triggered.</value>
   </data>
   <data name="mgrMonitorList_WebNoReponse" xml:space="preserve">
-    <value>There's no response from:[BR][PARAM][BR]Either the server is not responding or the URL is invalid.</value>
+    <value>There's no response from:[BR][BR][PARAM][BR][BR]The server is not responding, has an invalid SSL certificate or the URL is invalid.</value>
   </data>
   <data name="mgrPath_ChoosePath" xml:space="preserve">
     <value>Choose the game folder containing the executable.</value>
@@ -3021,5 +3021,17 @@
   </data>
   <data name="frmMain_lblSearch" xml:space="preserve">
     <value>Search:</value>
+  </data>
+  <data name="frmGameManager_cmsURL" xml:space="preserve">
+    <value>&amp;URL...</value>
+  </data>
+  <data name="frmGameManager_CustomListURLInfo" xml:space="preserve">
+    <value>Enter the full URL of a valid XML file to import.</value>
+  </data>
+  <data name="frmGameManager_CustomListURLTitle" xml:space="preserve">
+    <value>Import XML file from URL</value>
+  </data>
+  <data name="frmGameManager_CustomListURLError" xml:space="preserve">
+    <value>The value must be a valid HTTP or HTTPS location.</value>
   </data>
 </root>

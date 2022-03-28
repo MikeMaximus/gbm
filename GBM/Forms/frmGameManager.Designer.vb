@@ -67,6 +67,7 @@ Partial Class frmGameManager
         Me.cmsOfficialWindows = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsOfficialLinux = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsFile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsURL = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.lblSearch = New System.Windows.Forms.Label()
         Me.cmsBackupData = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -82,6 +83,8 @@ Partial Class frmGameManager
         Me.tabGameManager = New System.Windows.Forms.TabControl()
         Me.tbConfig = New System.Windows.Forms.TabPage()
         Me.grpCoreConfig = New System.Windows.Forms.GroupBox()
+        Me.lblInterval = New System.Windows.Forms.Label()
+        Me.nudInterval = New System.Windows.Forms.NumericUpDown()
         Me.chkDifferentialBackup = New System.Windows.Forms.CheckBox()
         Me.btnGameID = New System.Windows.Forms.Button()
         Me.lblGameTags = New System.Windows.Forms.LinkLabel()
@@ -122,8 +125,6 @@ Partial Class frmGameManager
         Me.cmsMonitorOptions = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsEnabled = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsMonitorOnly = New System.Windows.Forms.ToolStripMenuItem()
-        Me.nudInterval = New System.Windows.Forms.NumericUpDown()
-        Me.lblInterval = New System.Windows.Forms.Label()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudHours, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -133,6 +134,7 @@ Partial Class frmGameManager
         Me.tabGameManager.SuspendLayout()
         Me.tbConfig.SuspendLayout()
         Me.grpCoreConfig.SuspendLayout()
+        CType(Me.nudInterval, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tbGameInfo.SuspendLayout()
         Me.grpGameInfo.SuspendLayout()
         Me.tbBackupInfo.SuspendLayout()
@@ -140,7 +142,6 @@ Partial Class frmGameManager
         Me.cmsProcessOptions.SuspendLayout()
         Me.cmsLinks.SuspendLayout()
         Me.cmsMonitorOptions.SuspendLayout()
-        CType(Me.nudInterval, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnAdd
@@ -507,10 +508,10 @@ Partial Class frmGameManager
         '
         'cmsImport
         '
-        Me.cmsImport.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsOfficial, Me.cmsFile})
+        Me.cmsImport.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsOfficial, Me.cmsFile, Me.cmsURL})
         Me.cmsImport.Name = "cmsImport"
         Me.cmsImport.ShowImageMargin = False
-        Me.cmsImport.Size = New System.Drawing.Size(118, 48)
+        Me.cmsImport.Size = New System.Drawing.Size(118, 70)
         '
         'cmsOfficial
         '
@@ -536,6 +537,12 @@ Partial Class frmGameManager
         Me.cmsFile.Name = "cmsFile"
         Me.cmsFile.Size = New System.Drawing.Size(117, 22)
         Me.cmsFile.Text = "&File..."
+        '
+        'cmsURL
+        '
+        Me.cmsURL.Name = "cmsURL"
+        Me.cmsURL.Size = New System.Drawing.Size(117, 22)
+        Me.cmsURL.Text = "&URL..."
         '
         'txtSearch
         '
@@ -684,6 +691,22 @@ Partial Class frmGameManager
         Me.grpCoreConfig.Size = New System.Drawing.Size(511, 280)
         Me.grpCoreConfig.TabIndex = 0
         Me.grpCoreConfig.TabStop = False
+        '
+        'lblInterval
+        '
+        Me.lblInterval.AutoSize = True
+        Me.lblInterval.Location = New System.Drawing.Point(403, 225)
+        Me.lblInterval.Name = "lblInterval"
+        Me.lblInterval.Size = New System.Drawing.Size(99, 13)
+        Me.lblInterval.TabIndex = 28
+        Me.lblInterval.Text = "Full backup interval"
+        '
+        'nudInterval
+        '
+        Me.nudInterval.Location = New System.Drawing.Point(357, 223)
+        Me.nudInterval.Name = "nudInterval"
+        Me.nudInterval.Size = New System.Drawing.Size(40, 20)
+        Me.nudInterval.TabIndex = 27
         '
         'chkDifferentialBackup
         '
@@ -1074,22 +1097,6 @@ Partial Class frmGameManager
         Me.cmsMonitorOnly.Size = New System.Drawing.Size(172, 22)
         Me.cmsMonitorOnly.Text = "Monitor &Only"
         '
-        'nudInterval
-        '
-        Me.nudInterval.Location = New System.Drawing.Point(357, 223)
-        Me.nudInterval.Name = "nudInterval"
-        Me.nudInterval.Size = New System.Drawing.Size(40, 20)
-        Me.nudInterval.TabIndex = 27
-        '
-        'lblInterval
-        '
-        Me.lblInterval.AutoSize = True
-        Me.lblInterval.Location = New System.Drawing.Point(403, 225)
-        Me.lblInterval.Name = "lblInterval"
-        Me.lblInterval.Size = New System.Drawing.Size(99, 13)
-        Me.lblInterval.TabIndex = 28
-        Me.lblInterval.Text = "Full backup interval"
-        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1124,6 +1131,7 @@ Partial Class frmGameManager
         Me.tbConfig.ResumeLayout(False)
         Me.grpCoreConfig.ResumeLayout(False)
         Me.grpCoreConfig.PerformLayout()
+        CType(Me.nudInterval, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tbGameInfo.ResumeLayout(False)
         Me.grpGameInfo.ResumeLayout(False)
         Me.grpGameInfo.PerformLayout()
@@ -1133,7 +1141,6 @@ Partial Class frmGameManager
         Me.cmsProcessOptions.ResumeLayout(False)
         Me.cmsLinks.ResumeLayout(False)
         Me.cmsMonitorOptions.ResumeLayout(False)
-        CType(Me.nudInterval, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1239,4 +1246,5 @@ Partial Class frmGameManager
     Friend WithEvents chkDifferentialBackup As CheckBox
     Friend WithEvents lblInterval As Label
     Friend WithEvents nudInterval As NumericUpDown
+    Friend WithEvents cmsURL As ToolStripMenuItem
 End Class
