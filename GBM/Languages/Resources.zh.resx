@@ -2885,4 +2885,25 @@
   <data name="frmMain_lblSearch" xml:space="preserve">
     <value>搜索：</value>
   </data>
+  <data name="frmMain_gMonFileExport" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="frmMain_gMonFileImport" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="frmMain_gMonFileImportFile" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="frmMain_gMonFileImportOfficial" xml:space="preserve">
+    <value>官方列表</value>
+  </data>
+  <data name="frmMain_gMonFileImportOfficialLinux" xml:space="preserve">
+    <value>Linux</value>
+  </data>
+  <data name="frmMain_gMonFileImportOfficialWindows" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="frmMain_gMonFileImportURL" xml:space="preserve">
+    <value>URL</value>
+  </data>
 </root>

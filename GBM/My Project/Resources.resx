@@ -3034,4 +3034,25 @@
   <data name="mgrMonitorList_CustomListURLError" xml:space="preserve">
     <value>The value must be a valid HTTP or HTTPS location.</value>
   </data>
+  <data name="frmMain_gMonFileExport" xml:space="preserve">
+    <value>&amp;Export Games...</value>
+  </data>
+  <data name="frmMain_gMonFileImport" xml:space="preserve">
+    <value>&amp;Import Games</value>
+  </data>
+  <data name="frmMain_gMonFileImportFile" xml:space="preserve">
+    <value>&amp;File...</value>
+  </data>
+  <data name="frmMain_gMonFileImportOfficial" xml:space="preserve">
+    <value>&amp;Official List...</value>
+  </data>
+  <data name="frmMain_gMonFileImportOfficialLinux" xml:space="preserve">
+    <value>&amp;Linux...</value>
+  </data>
+  <data name="frmMain_gMonFileImportOfficialWindows" xml:space="preserve">
+    <value>&amp;Windows...</value>
+  </data>
+  <data name="frmMain_gMonFileImportURL" xml:space="preserve">
+    <value>&amp;URL...</value>
+  </data>
 </root>

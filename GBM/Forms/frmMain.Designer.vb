@@ -30,10 +30,17 @@ Partial Class frmMain
         Me.gMonTrayShow = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayMon = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySep2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.gMonTrayFullBackup = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonTrayFullRestore = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonTraySep3 = New System.Windows.Forms.ToolStripSeparator()
         Me.gMonTraySettings = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayFile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayFileFullBackup = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayFileFullRestore = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayFileImport = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayFileImportOfficial = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayFileImportOfficialLinux = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayFileImportOfficialWindows = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayFileImportFile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayFileImportURL = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayFileExport = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetup = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetupAddWizard = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTraySetupGameManager = New System.Windows.Forms.ToolStripMenuItem()
@@ -50,7 +57,7 @@ Partial Class frmMain
         Me.gMonTrayLogClear = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayLogSave = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayToolsSessions = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonTraySep1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.gMonTrayExitSep = New System.Windows.Forms.ToolStripSeparator()
         Me.gMonTrayExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.bwMonitor = New System.ComponentModel.BackgroundWorker()
         Me.txtLog = New System.Windows.Forms.TextBox()
@@ -65,9 +72,17 @@ Partial Class frmMain
         Me.gMonFullSep = New System.Windows.Forms.ToolStripSeparator()
         Me.gMonFileFullBackup = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileFullRestore = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonExitSep = New System.Windows.Forms.ToolStripSeparator()
+        Me.gMonFileImport = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonFileImportOfficial = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonFileImportOfficialLinux = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonFileImportOfficialWindows = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonFileImportFile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonFileImportURL = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonFileExport = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSettingsSep = New System.Windows.Forms.ToolStripSeparator()
         Me.gMonFileSettings = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gMonExitSep = New System.Windows.Forms.ToolStripSeparator()
+        Me.gMonImportExportSep = New System.Windows.Forms.ToolStripSeparator()
         Me.gMonFileExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSetup = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSetupGameManager = New System.Windows.Forms.ToolStripMenuItem()
@@ -132,9 +147,9 @@ Partial Class frmMain
         '
         'gMonTrayMenu
         '
-        Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayNotification, Me.gMonTrayShow, Me.gMonTrayMon, Me.gMonTraySep2, Me.gMonTrayFullBackup, Me.gMonTrayFullRestore, Me.gMonTraySep3, Me.gMonTraySettings, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTraySep1, Me.gMonTrayExit})
+        Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayNotification, Me.gMonTrayShow, Me.gMonTrayMon, Me.gMonTraySep2, Me.gMonTraySettings, Me.gMonTrayFile, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTrayExitSep, Me.gMonTrayExit})
         Me.gMonTrayMenu.Name = "gMonTrayMenu"
-        Me.gMonTrayMenu.Size = New System.Drawing.Size(181, 242)
+        Me.gMonTrayMenu.Size = New System.Drawing.Size(181, 214)
         '
         'gMonTrayNotification
         '
@@ -160,28 +175,74 @@ Partial Class frmMain
         Me.gMonTraySep2.Name = "gMonTraySep2"
         Me.gMonTraySep2.Size = New System.Drawing.Size(177, 6)
         '
-        'gMonTrayFullBackup
-        '
-        Me.gMonTrayFullBackup.Name = "gMonTrayFullBackup"
-        Me.gMonTrayFullBackup.Size = New System.Drawing.Size(180, 22)
-        Me.gMonTrayFullBackup.Text = "Run Full &Backup"
-        '
-        'gMonTrayFullRestore
-        '
-        Me.gMonTrayFullRestore.Name = "gMonTrayFullRestore"
-        Me.gMonTrayFullRestore.Size = New System.Drawing.Size(180, 22)
-        Me.gMonTrayFullRestore.Text = "Run Full &Restore"
-        '
-        'gMonTraySep3
-        '
-        Me.gMonTraySep3.Name = "gMonTraySep3"
-        Me.gMonTraySep3.Size = New System.Drawing.Size(177, 6)
-        '
         'gMonTraySettings
         '
         Me.gMonTraySettings.Name = "gMonTraySettings"
         Me.gMonTraySettings.Size = New System.Drawing.Size(180, 22)
         Me.gMonTraySettings.Text = "S&ettings"
+        '
+        'gMonTrayFile
+        '
+        Me.gMonTrayFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayFileFullBackup, Me.gMonTrayFileFullRestore, Me.gMonTrayFileImport, Me.gMonTrayFileExport})
+        Me.gMonTrayFile.Name = "gMonTrayFile"
+        Me.gMonTrayFile.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayFile.Text = "&File"
+        '
+        'gMonTrayFileFullBackup
+        '
+        Me.gMonTrayFileFullBackup.Name = "gMonTrayFileFullBackup"
+        Me.gMonTrayFileFullBackup.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayFileFullBackup.Text = "Run Full &Backup"
+        '
+        'gMonTrayFileFullRestore
+        '
+        Me.gMonTrayFileFullRestore.Name = "gMonTrayFileFullRestore"
+        Me.gMonTrayFileFullRestore.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayFileFullRestore.Text = "Run Full &Restore"
+        '
+        'gMonTrayFileImport
+        '
+        Me.gMonTrayFileImport.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayFileImportOfficial, Me.gMonTrayFileImportFile, Me.gMonTrayFileImportURL})
+        Me.gMonTrayFileImport.Name = "gMonTrayFileImport"
+        Me.gMonTrayFileImport.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayFileImport.Text = "&Import Games"
+        '
+        'gMonTrayFileImportOfficial
+        '
+        Me.gMonTrayFileImportOfficial.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayFileImportOfficialLinux, Me.gMonTrayFileImportOfficialWindows})
+        Me.gMonTrayFileImportOfficial.Name = "gMonTrayFileImportOfficial"
+        Me.gMonTrayFileImportOfficial.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayFileImportOfficial.Text = "&Official List..."
+        '
+        'gMonTrayFileImportOfficialLinux
+        '
+        Me.gMonTrayFileImportOfficialLinux.Name = "gMonTrayFileImportOfficialLinux"
+        Me.gMonTrayFileImportOfficialLinux.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayFileImportOfficialLinux.Text = "&Linux"
+        '
+        'gMonTrayFileImportOfficialWindows
+        '
+        Me.gMonTrayFileImportOfficialWindows.Name = "gMonTrayFileImportOfficialWindows"
+        Me.gMonTrayFileImportOfficialWindows.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayFileImportOfficialWindows.Text = "&Windows"
+        '
+        'gMonTrayFileImportFile
+        '
+        Me.gMonTrayFileImportFile.Name = "gMonTrayFileImportFile"
+        Me.gMonTrayFileImportFile.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayFileImportFile.Text = "&File..."
+        '
+        'gMonTrayFileImportURL
+        '
+        Me.gMonTrayFileImportURL.Name = "gMonTrayFileImportURL"
+        Me.gMonTrayFileImportURL.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayFileImportURL.Text = "&URL..."
+        '
+        'gMonTrayFileExport
+        '
+        Me.gMonTrayFileExport.Name = "gMonTrayFileExport"
+        Me.gMonTrayFileExport.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayFileExport.Text = "&Export Games..."
         '
         'gMonTraySetup
         '
@@ -236,14 +297,14 @@ Partial Class frmMain
         'gMonTrayToolsCompact
         '
         Me.gMonTrayToolsCompact.Name = "gMonTrayToolsCompact"
-        Me.gMonTrayToolsCompact.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayToolsCompact.Size = New System.Drawing.Size(179, 22)
         Me.gMonTrayToolsCompact.Text = "&Compact Databases"
         '
         'gMonTrayToolsImportBackup
         '
         Me.gMonTrayToolsImportBackup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayToolsImportBackupFiles, Me.gMonTrayToolsImportBackupFolder})
         Me.gMonTrayToolsImportBackup.Name = "gMonTrayToolsImportBackup"
-        Me.gMonTrayToolsImportBackup.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayToolsImportBackup.Size = New System.Drawing.Size(179, 22)
         Me.gMonTrayToolsImportBackup.Text = "&Import Backup"
         '
         'gMonTrayToolsImportBackupFiles
@@ -262,7 +323,7 @@ Partial Class frmMain
         '
         Me.gMonTrayToolsLog.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayLogClear, Me.gMonTrayLogSave})
         Me.gMonTrayToolsLog.Name = "gMonTrayToolsLog"
-        Me.gMonTrayToolsLog.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayToolsLog.Size = New System.Drawing.Size(179, 22)
         Me.gMonTrayToolsLog.Text = "&Log"
         '
         'gMonTrayLogClear
@@ -280,13 +341,13 @@ Partial Class frmMain
         'gMonTrayToolsSessions
         '
         Me.gMonTrayToolsSessions.Name = "gMonTrayToolsSessions"
-        Me.gMonTrayToolsSessions.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayToolsSessions.Size = New System.Drawing.Size(179, 22)
         Me.gMonTrayToolsSessions.Text = "&Session Viewer..."
         '
-        'gMonTraySep1
+        'gMonTrayExitSep
         '
-        Me.gMonTraySep1.Name = "gMonTraySep1"
-        Me.gMonTraySep1.Size = New System.Drawing.Size(177, 6)
+        Me.gMonTrayExitSep.Name = "gMonTrayExitSep"
+        Me.gMonTrayExitSep.Size = New System.Drawing.Size(177, 6)
         '
         'gMonTrayExit
         '
@@ -369,7 +430,7 @@ Partial Class frmMain
         '
         'gMonFile
         '
-        Me.gMonFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonFileMonitor, Me.gMonFullSep, Me.gMonFileFullBackup, Me.gMonFileFullRestore, Me.gMonSettingsSep, Me.gMonFileSettings, Me.gMonExitSep, Me.gMonFileExit})
+        Me.gMonFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonFileMonitor, Me.gMonFullSep, Me.gMonFileFullBackup, Me.gMonFileFullRestore, Me.gMonExitSep, Me.gMonFileImport, Me.gMonFileExport, Me.gMonSettingsSep, Me.gMonFileSettings, Me.gMonImportExportSep, Me.gMonFileExit})
         Me.gMonFile.Name = "gMonFile"
         Me.gMonFile.Size = New System.Drawing.Size(37, 20)
         Me.gMonFile.Text = "&File"
@@ -377,46 +438,95 @@ Partial Class frmMain
         'gMonFileMonitor
         '
         Me.gMonFileMonitor.Name = "gMonFileMonitor"
-        Me.gMonFileMonitor.Size = New System.Drawing.Size(161, 22)
+        Me.gMonFileMonitor.Size = New System.Drawing.Size(180, 22)
         Me.gMonFileMonitor.Text = "Start &Monitoring"
         '
         'gMonFullSep
         '
         Me.gMonFullSep.Name = "gMonFullSep"
-        Me.gMonFullSep.Size = New System.Drawing.Size(158, 6)
+        Me.gMonFullSep.Size = New System.Drawing.Size(177, 6)
         '
         'gMonFileFullBackup
         '
         Me.gMonFileFullBackup.Name = "gMonFileFullBackup"
-        Me.gMonFileFullBackup.Size = New System.Drawing.Size(161, 22)
+        Me.gMonFileFullBackup.Size = New System.Drawing.Size(180, 22)
         Me.gMonFileFullBackup.Text = "Run Full &Backup"
         '
         'gMonFileFullRestore
         '
         Me.gMonFileFullRestore.Name = "gMonFileFullRestore"
-        Me.gMonFileFullRestore.Size = New System.Drawing.Size(161, 22)
+        Me.gMonFileFullRestore.Size = New System.Drawing.Size(180, 22)
         Me.gMonFileFullRestore.Text = "Run Full &Restore"
-        '
-        'gMonSettingsSep
-        '
-        Me.gMonSettingsSep.Name = "gMonSettingsSep"
-        Me.gMonSettingsSep.Size = New System.Drawing.Size(158, 6)
-        '
-        'gMonFileSettings
-        '
-        Me.gMonFileSettings.Name = "gMonFileSettings"
-        Me.gMonFileSettings.Size = New System.Drawing.Size(161, 22)
-        Me.gMonFileSettings.Text = "&Settings..."
         '
         'gMonExitSep
         '
         Me.gMonExitSep.Name = "gMonExitSep"
-        Me.gMonExitSep.Size = New System.Drawing.Size(158, 6)
+        Me.gMonExitSep.Size = New System.Drawing.Size(177, 6)
+        '
+        'gMonFileImport
+        '
+        Me.gMonFileImport.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonFileImportOfficial, Me.gMonFileImportFile, Me.gMonFileImportURL})
+        Me.gMonFileImport.Name = "gMonFileImport"
+        Me.gMonFileImport.Size = New System.Drawing.Size(180, 22)
+        Me.gMonFileImport.Text = "&Import Games"
+        '
+        'gMonFileImportOfficial
+        '
+        Me.gMonFileImportOfficial.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonFileImportOfficialLinux, Me.gMonFileImportOfficialWindows})
+        Me.gMonFileImportOfficial.Name = "gMonFileImportOfficial"
+        Me.gMonFileImportOfficial.Size = New System.Drawing.Size(180, 22)
+        Me.gMonFileImportOfficial.Text = "&Official List..."
+        '
+        'gMonFileImportOfficialLinux
+        '
+        Me.gMonFileImportOfficialLinux.Name = "gMonFileImportOfficialLinux"
+        Me.gMonFileImportOfficialLinux.Size = New System.Drawing.Size(132, 22)
+        Me.gMonFileImportOfficialLinux.Text = "&Linux..."
+        '
+        'gMonFileImportOfficialWindows
+        '
+        Me.gMonFileImportOfficialWindows.Name = "gMonFileImportOfficialWindows"
+        Me.gMonFileImportOfficialWindows.Size = New System.Drawing.Size(132, 22)
+        Me.gMonFileImportOfficialWindows.Text = "&Windows..."
+        '
+        'gMonFileImportFile
+        '
+        Me.gMonFileImportFile.Name = "gMonFileImportFile"
+        Me.gMonFileImportFile.Size = New System.Drawing.Size(180, 22)
+        Me.gMonFileImportFile.Text = "&File..."
+        '
+        'gMonFileImportURL
+        '
+        Me.gMonFileImportURL.Name = "gMonFileImportURL"
+        Me.gMonFileImportURL.Size = New System.Drawing.Size(180, 22)
+        Me.gMonFileImportURL.Text = "&URL..."
+        '
+        'gMonFileExport
+        '
+        Me.gMonFileExport.Name = "gMonFileExport"
+        Me.gMonFileExport.Size = New System.Drawing.Size(180, 22)
+        Me.gMonFileExport.Text = "&Export Games..."
+        '
+        'gMonSettingsSep
+        '
+        Me.gMonSettingsSep.Name = "gMonSettingsSep"
+        Me.gMonSettingsSep.Size = New System.Drawing.Size(177, 6)
+        '
+        'gMonFileSettings
+        '
+        Me.gMonFileSettings.Name = "gMonFileSettings"
+        Me.gMonFileSettings.Size = New System.Drawing.Size(180, 22)
+        Me.gMonFileSettings.Text = "&Settings..."
+        '
+        'gMonImportExportSep
+        '
+        Me.gMonImportExportSep.Name = "gMonImportExportSep"
+        Me.gMonImportExportSep.Size = New System.Drawing.Size(177, 6)
         '
         'gMonFileExit
         '
         Me.gMonFileExit.Name = "gMonFileExit"
-        Me.gMonFileExit.Size = New System.Drawing.Size(161, 22)
+        Me.gMonFileExit.Size = New System.Drawing.Size(180, 22)
         Me.gMonFileExit.Text = "E&xit"
         '
         'gMonSetup
@@ -472,14 +582,14 @@ Partial Class frmMain
         'gMonToolsCompact
         '
         Me.gMonToolsCompact.Name = "gMonToolsCompact"
-        Me.gMonToolsCompact.Size = New System.Drawing.Size(180, 22)
+        Me.gMonToolsCompact.Size = New System.Drawing.Size(179, 22)
         Me.gMonToolsCompact.Text = "&Compact Databases"
         '
         'gMonToolsImportBackup
         '
         Me.gMonToolsImportBackup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonToolsImportBackupFiles, Me.gMonToolsImportBackupFolder})
         Me.gMonToolsImportBackup.Name = "gMonToolsImportBackup"
-        Me.gMonToolsImportBackup.Size = New System.Drawing.Size(180, 22)
+        Me.gMonToolsImportBackup.Size = New System.Drawing.Size(179, 22)
         Me.gMonToolsImportBackup.Text = "&Import Backup"
         '
         'gMonToolsImportBackupFiles
@@ -498,7 +608,7 @@ Partial Class frmMain
         '
         Me.gMonToolsLog.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonLogClear, Me.gMonLogSave})
         Me.gMonToolsLog.Name = "gMonToolsLog"
-        Me.gMonToolsLog.Size = New System.Drawing.Size(180, 22)
+        Me.gMonToolsLog.Size = New System.Drawing.Size(179, 22)
         Me.gMonToolsLog.Text = "&Log"
         '
         'gMonLogClear
@@ -516,7 +626,7 @@ Partial Class frmMain
         'gMonToolsSessions
         '
         Me.gMonToolsSessions.Name = "gMonToolsSessions"
-        Me.gMonToolsSessions.Size = New System.Drawing.Size(180, 22)
+        Me.gMonToolsSessions.Size = New System.Drawing.Size(179, 22)
         Me.gMonToolsSessions.Text = "&Session Viewer..."
         '
         'gMonHelp
@@ -826,7 +936,7 @@ Partial Class frmMain
     Friend WithEvents gMonTrayMenu As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents gMonTrayExit As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTrayShow As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents gMonTraySep1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents gMonTrayExitSep As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents bwMonitor As System.ComponentModel.BackgroundWorker
     Friend WithEvents txtLog As System.Windows.Forms.TextBox
     Friend WithEvents gMonTrayMon As System.Windows.Forms.ToolStripMenuItem
@@ -893,9 +1003,6 @@ Partial Class frmMain
     Friend WithEvents gMonFileFullBackup As ToolStripMenuItem
     Friend WithEvents gMonFileFullRestore As ToolStripMenuItem
     Friend WithEvents gMonSettingsSep As ToolStripSeparator
-    Friend WithEvents gMonTrayFullBackup As ToolStripMenuItem
-    Friend WithEvents gMonTrayFullRestore As ToolStripMenuItem
-    Friend WithEvents gMonTraySep3 As ToolStripSeparator
     Friend WithEvents gMonSetupLauncherManager As ToolStripMenuItem
     Friend WithEvents gMonTraySetupLauncherManager As ToolStripMenuItem
     Friend WithEvents slcMain As SplitContainer
@@ -908,4 +1015,22 @@ Partial Class frmMain
     Friend WithEvents btnEdit As Button
     Friend WithEvents btnPlay As Button
     Friend WithEvents btnClearSelected As Button
+    Friend WithEvents gMonFileImport As ToolStripMenuItem
+    Friend WithEvents gMonFileImportOfficial As ToolStripMenuItem
+    Friend WithEvents gMonFileImportOfficialLinux As ToolStripMenuItem
+    Friend WithEvents gMonFileImportOfficialWindows As ToolStripMenuItem
+    Friend WithEvents gMonFileImportFile As ToolStripMenuItem
+    Friend WithEvents gMonFileImportURL As ToolStripMenuItem
+    Friend WithEvents gMonFileExport As ToolStripMenuItem
+    Friend WithEvents gMonImportExportSep As ToolStripSeparator
+    Friend WithEvents gMonTrayFile As ToolStripMenuItem
+    Friend WithEvents gMonTrayFileFullBackup As ToolStripMenuItem
+    Friend WithEvents gMonTrayFileFullRestore As ToolStripMenuItem
+    Friend WithEvents gMonTrayFileImport As ToolStripMenuItem
+    Friend WithEvents gMonTrayFileImportOfficial As ToolStripMenuItem
+    Friend WithEvents gMonTrayFileImportOfficialLinux As ToolStripMenuItem
+    Friend WithEvents gMonTrayFileImportOfficialWindows As ToolStripMenuItem
+    Friend WithEvents gMonTrayFileImportFile As ToolStripMenuItem
+    Friend WithEvents gMonTrayFileImportURL As ToolStripMenuItem
+    Friend WithEvents gMonTrayFileExport As ToolStripMenuItem
 End Class

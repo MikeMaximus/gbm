@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-03-28T00:50:53
+        '''  Looks up a localized string similar to 2022-03-28T15:57:42
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4508,6 +4508,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Export Games....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileExport() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileExport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Run Full &amp;Backup.
         '''</summary>
         Friend ReadOnly Property frmMain_gMonFileFullBackup() As String
@@ -4522,6 +4531,60 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_gMonFileFullRestore() As String
             Get
                 Return ResourceManager.GetString("frmMain_gMonFileFullRestore", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Import Games.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileImport() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileImport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;File....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileImportFile() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileImportFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Official List....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileImportOfficial() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileImportOfficial", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Linux....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileImportOfficialLinux() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileImportOfficialLinux", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Windows....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileImportOfficialWindows() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileImportOfficialWindows", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;URL....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileImportURL() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileImportURL", resourceCulture)
             End Get
         End Property
         
