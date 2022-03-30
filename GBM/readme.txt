@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.0 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-March 29, 2022
+March 30, 2022
 
 New in 1.3.0
 
@@ -16,6 +16,8 @@ All Platforms:
 - New features for importing & exporting game configurations.
 	- Added the ability to import any valid XML file from a HTTP or HTTPS URL.
 	- Added the ability to use import and export features from the "File" menu on the main window and system tray.
+- System tray menu has been changed to prevent it from getting too large.
+	- A "File" sub-menu has been added and some features have been moved to this menu.
 - Removed the "Sync Game IDs" feature.
 	- This feature was designed to ease upgrades from old versions of GBM and should no longer be required.
 - Fixed an issue with some browse windows on the Game Manager not opening to the correct location when using path variables.
