@@ -99,6 +99,11 @@ Public Class mgrCommon
         Return False
     End Function
 
+    Public Shared Sub SetTLSVersion()
+        'Force TLS 1.2 for all HTTPS connections
+        ServicePointManager.SecurityProtocol = 3072
+    End Sub
+
     Public Shared Function CheckAddress(ByVal sURL As String) As Boolean
         Try
             Dim request As WebRequest = WebRequest.Create(sURL)

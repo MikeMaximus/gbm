@@ -1673,6 +1673,7 @@ Public Class frmMain
     Private Sub InitApp()
         SetForm()
         Try
+            mgrCommon.SetTLSVersion()
             VerifyGameDataPath()
             If bFirstRun Then OpenStartupWizard()
             LoadAndVerify()
