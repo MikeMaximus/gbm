@@ -104,11 +104,23 @@ Public Class mgrCommon
         ServicePointManager.SecurityProtocol = 3072
     End Sub
 
-    Public Shared Function CheckAddress(ByVal sURL As String) As Boolean
+    Public Shared Function CheckAddress(ByVal sURL As String, ByVal sExt As String) As Boolean
+        Dim oURL As Uri
+        Dim sEndSegment As String
+        Dim request As WebRequest
+        Dim response As WebResponse
+
         Try
-            Dim request As WebRequest = WebRequest.Create(sURL)
-            Dim response As WebResponse = request.GetResponse()
-            response.Close()
+            oURL = New Uri(sURL)
+            sEndSegment = oURL.Segments(oURL.Segments.Length - 1)
+
+            If Path.GetExtension(sEndSegment).ToLower = sExt.ToLower Then
+                request = WebRequest.Create(sURL)
+                response = request.GetResponse()
+                response.Close()
+            Else
+                Return False
+            End If
         Catch ex As Exception
             Return False
         End Try

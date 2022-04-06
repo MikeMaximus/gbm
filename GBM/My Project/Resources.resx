@@ -1246,7 +1246,7 @@
     <value>A sync to the master game list has been triggered.</value>
   </data>
   <data name="mgrMonitorList_WebNoReponse" xml:space="preserve">
-    <value>There's no response from:[BR][BR][PARAM][BR][BR]The server is not responding, has an invalid SSL certificate or the URL is invalid.</value>
+    <value>There's a problem with:[BR][BR][PARAM][BR][BR]The server is not responding, has an invalid SSL certificate or the URL is invalid for this action.</value>
   </data>
   <data name="mgrPath_ChoosePath" xml:space="preserve">
     <value>Choose the game folder containing the executable.</value>

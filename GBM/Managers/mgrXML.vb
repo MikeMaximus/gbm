@@ -69,7 +69,7 @@ Public Class mgrXML
         Return True
     End Function
 
-    Private Shared Function ReadImportData(ByVal sLocation As String, ByVal bWebRead As Boolean)
+    Private Shared Function ReadImportData(ByVal sLocation As String, ByVal bWebRead As Boolean) As StreamReader
         Dim oReader As StreamReader
         Dim oWriter As StreamWriter
         Dim oURL As Uri
@@ -95,7 +95,7 @@ Public Class mgrXML
                 Next
                 sSigLocation &= Path.GetFileNameWithoutExtension(sCachedFileName) & ".sha256"
 
-                If mgrCommon.CheckAddress(sSigLocation) Then
+                If mgrCommon.CheckAddress(sSigLocation, ".sha256") Then
                     oReader = New StreamReader(oWebClient.OpenRead(sSigLocation))
                     sSig = oReader.ReadToEnd
                     sLocalSig = mgrHash.Generate_SHA256_Hash(sCachedFileName)

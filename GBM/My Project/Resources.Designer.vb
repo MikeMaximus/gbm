@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-03-28T15:57:42
+        '''  Looks up a localized string similar to 2022-04-06T21:50:03
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -8389,7 +8389,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to There&apos;s no response from:[BR][BR][PARAM][BR][BR]The server is not responding, has an invalid SSL certificate or the URL is invalid..
+        '''  Looks up a localized string similar to There&apos;s a problem with:[BR][BR][PARAM][BR][BR]The server is not responding, has an invalid SSL certificate or the URL is invalid for this action..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_WebNoReponse() As String
             Get

@@ -863,7 +863,7 @@ Public Class mgrMonitorList
 
     Public Shared Function DoImport(ByVal sPath As String, ByVal bOfficial As Boolean) As Boolean
         If mgrCommon.IsAddress(sPath) Then
-            If mgrCommon.CheckAddress(sPath) Then
+            If mgrCommon.CheckAddress(sPath, ".xml") Then
                 ImportMonitorList(sPath, True)
                 Return True
             Else
