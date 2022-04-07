@@ -435,10 +435,10 @@
   <data name="frmGameManager_ChooseExePath" xml:space="preserve">
     <value>Browse to the folder containing the game executable and click Open</value>
   </data>
-  <data name="frmGameManager_ChooseExportXML" xml:space="preserve">
+  <data name="mgrMonitorList_ChooseExportXML" xml:space="preserve">
     <value>Choose a location for the export file</value>
   </data>
-  <data name="frmGameManager_ChooseImportXML" xml:space="preserve">
+  <data name="mgrMonitorList_ChooseImportXML" xml:space="preserve">
     <value>Choose a valid xml file to import</value>
   </data>
   <data name="frmGameManager_ChooseSaveFolder" xml:space="preserve">
@@ -468,7 +468,7 @@
   <data name="frmGameManager_ConfirmMultiRestore" xml:space="preserve">
     <value>Are you sure you want to restore the backups for [PARAM] games?  This will close the form.</value>
   </data>
-  <data name="frmGameManager_ConfirmOfficialImport" xml:space="preserve">
+  <data name="mgrMonitorList_ConfirmOfficialImport" xml:space="preserve">
     <value>Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection.</value>
   </data>
   <data name="frmGameManager_ConfirmRestore" xml:space="preserve">
@@ -567,7 +567,7 @@
   <data name="frmGameManager_UpToDate" xml:space="preserve">
     <value>Up to Date!</value>
   </data>
-  <data name="frmGameManager_XML" xml:space="preserve">
+  <data name="mgrMonitorList_XML" xml:space="preserve">
     <value>XML</value>
   </data>
   <data name="frmGameManager_cmsFile" xml:space="preserve">
@@ -1246,7 +1246,7 @@
     <value>A sync to the master game list has been triggered.</value>
   </data>
   <data name="mgrMonitorList_WebNoReponse" xml:space="preserve">
-    <value>There's no response from:[BR][PARAM][BR]Either the server is not responding or the URL is invalid.</value>
+    <value>There's a problem with:[BR][BR][PARAM][BR][BR]The server is not responding, has an invalid SSL certificate or the URL is invalid for this action.</value>
   </data>
   <data name="mgrPath_ChoosePath" xml:space="preserve">
     <value>Choose the game folder containing the executable.</value>
@@ -1332,7 +1332,7 @@
   <data name="mgrXML_ErrorImportFailure" xml:space="preserve">
     <value>The XML file cannot be read, it may be an invalid format or corrupted.[BR][BR][PARAM]</value>
   </data>
-  <data name="frmGameManager_DefaultExportFileName" xml:space="preserve">
+  <data name="mgrMonitorList_DefaultExportFileName" xml:space="preserve">
     <value>Game Backup Monitor Export</value>
   </data>
   <data name="frmMain_ChooseLogFile" xml:space="preserve">
@@ -1902,35 +1902,14 @@
   <data name="frmFilter_FieldGameID" xml:space="preserve">
     <value>Game ID</value>
   </data>
-  <data name="mgrMonitorList_ErrorGameIDVerFailure" xml:space="preserve">
-    <value>This file cannot be used to sync game indentifiers.  It was created with an older version of GBM.</value>
-  </data>
   <data name="mgrMonitorList_ImportVersionWarning" xml:space="preserve">
     <value>This export file was created with a version of GBM prior to 1.1.5 and may contain incompatible configuration data.[BR][BR]Do you still want to import configurations from this file? (Not Recommended)</value>
-  </data>
-  <data name="mgrMonitorList_ConfirmFileGameIDSync" xml:space="preserve">
-    <value>Do you want to sync your game identifiers with this export file?[BR][BR]This tool is provided for very specific situations, please read the "Tools" section of the online manual before using this feature.</value>
-  </data>
-  <data name="frmMain_gMonToolsSyncGameID" xml:space="preserve">
-    <value>S&amp;ync Game IDs</value>
-  </data>
-  <data name="frmMain_gMonToolsSyncGameIDFile" xml:space="preserve">
-    <value>&amp;File...</value>
-  </data>
-  <data name="frmMain_gMonToolsSyncGameIDOfficial" xml:space="preserve">
-    <value>&amp;Official List...</value>
-  </data>
-  <data name="mgrMonitorList_ConfirmOfficialGameIDSync" xml:space="preserve">
-    <value>Do you want to sync your game identifiers with the official game list?[BR][BR]This tool is provided for very specific situations, please read the "Tools" section of the online manual before using this feature.</value>
   </data>
   <data name="frmSettings_btnResetMessages" xml:space="preserve">
     <value>&amp;Reset Warnings</value>
   </data>
   <data name="frmSettings_ConfirmMessageReset" xml:space="preserve">
     <value>Do you want to reset all hidden warnings and messages?</value>
-  </data>
-  <data name="mgrMonitorList_GameIDSyncCompleted" xml:space="preserve">
-    <value>Sync Complete.[BR][BR][PARAM] game configurations were matched and updated.</value>
   </data>
   <data name="App_BackupOnLaunchFileDescription" xml:space="preserve">
     <value>launch</value>
@@ -2121,7 +2100,7 @@
   <data name="frmGameManager_cmsOfficialWindows" xml:space="preserve">
     <value>&amp;Windows...</value>
   </data>
-  <data name="frmGameManager_WarningWinConfigsInLinux" xml:space="preserve">
+  <data name="mgrMonitorList_WarningWinConfigsInLinux" xml:space="preserve">
     <value>Official Windows configurations can be used in Linux for games running in Wine or Proton.[BR][BR]You do not need to modify these configurations, GBM will automatically do any required path conversions when the game is detected.[BR][BR]This message will only be shown once.</value>
   </data>
   <data name="frmGameManager_ConfirmBackupImportOverwriteSingle" xml:space="preserve">
@@ -3042,5 +3021,38 @@
   </data>
   <data name="frmMain_lblSearch" xml:space="preserve">
     <value>Search:</value>
+  </data>
+  <data name="frmGameManager_cmsURL" xml:space="preserve">
+    <value>&amp;URL...</value>
+  </data>
+  <data name="mgrMonitorList_CustomListURLInfo" xml:space="preserve">
+    <value>Enter the full URL of an XML file exported by GBM.</value>
+  </data>
+  <data name="mgrMonitorList_CustomListURLTitle" xml:space="preserve">
+    <value>Import XML file from URL</value>
+  </data>
+  <data name="mgrMonitorList_CustomListURLError" xml:space="preserve">
+    <value>The value must be a valid HTTP or HTTPS location.</value>
+  </data>
+  <data name="frmMain_gMonFileExport" xml:space="preserve">
+    <value>&amp;Export Games...</value>
+  </data>
+  <data name="frmMain_gMonFileImport" xml:space="preserve">
+    <value>&amp;Import Games</value>
+  </data>
+  <data name="frmMain_gMonFileImportFile" xml:space="preserve">
+    <value>&amp;File...</value>
+  </data>
+  <data name="frmMain_gMonFileImportOfficial" xml:space="preserve">
+    <value>&amp;Official List...</value>
+  </data>
+  <data name="frmMain_gMonFileImportOfficialLinux" xml:space="preserve">
+    <value>&amp;Linux...</value>
+  </data>
+  <data name="frmMain_gMonFileImportOfficialWindows" xml:space="preserve">
+    <value>&amp;Windows...</value>
+  </data>
+  <data name="frmMain_gMonFileImportURL" xml:space="preserve">
+    <value>&amp;URL...</value>
   </data>
 </root>

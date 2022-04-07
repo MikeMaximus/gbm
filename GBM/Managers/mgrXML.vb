@@ -3,7 +3,6 @@ Imports System.Xml.Serialization
 Imports System.IO
 Imports System.Net
 
-
 Public Class mgrXML
 
     Public Shared Function ReadMonitorList(ByVal sLocation As String, ByRef oExportInfo As ExportData, ByRef hshList As Hashtable, Optional ByVal bWebRead As Boolean = False) As Boolean
@@ -70,16 +69,56 @@ Public Class mgrXML
         Return True
     End Function
 
-    Private Shared Function ReadImportData(ByVal sLocation As String, ByVal bWebRead As Boolean)
+    Private Shared Function ReadImportData(ByVal sLocation As String, ByVal bWebRead As Boolean) As StreamReader
         Dim oReader As StreamReader
-        Dim oWebClient As WebClient
+        Dim oWriter As StreamWriter
+        Dim oURL As Uri
+        Dim sCachedFileName As String
+        Dim sSigLocation As String
+        Dim sSig As String
+        Dim sLocalSig As String
+        Dim bDownload As Boolean = True
+        Dim oWebClient As New WebClient
 
         If bWebRead Then
-            oWebClient = New WebClient
-            oReader = New StreamReader(oWebClient.OpenRead(sLocation))
-        Else
-            oReader = New StreamReader(sLocation)
+            'Setup for local cache file
+            oURL = New Uri(sLocation)
+            sCachedFileName = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & oURL.Segments(oURL.Segments.Length - 1)
+
+            'If we already have a cached file with the same name, check for a signature in the same web location and compare before downloading entire import file again
+            'Using a signature file will prevent excessive bandwidth waste from clients automatially checking for game list updates.
+            If File.Exists(sCachedFileName) Then
+                'Build URL for the expected signature file
+                sSigLocation = oURL.GetLeftPart(UriPartial.Scheme) & oURL.Host
+                For i = 0 To oURL.Segments.Length - 2
+                    sSigLocation &= oURL.Segments(i)
+                Next
+                sSigLocation &= Path.GetFileNameWithoutExtension(sCachedFileName) & ".sha256"
+
+                If mgrCommon.CheckAddress(sSigLocation, ".sha256") Then
+                    oReader = New StreamReader(oWebClient.OpenRead(sSigLocation))
+                    sSig = oReader.ReadToEnd
+                    sLocalSig = mgrHash.Generate_SHA256_Hash(sCachedFileName)
+
+                    'Only download a new copy when the signature doesn't match
+                    If mgrHash.Compare(sSig, sLocalSig) Then bDownload = False
+                End If
+            End If
+
+            'Read import file from web and cache it
+            If bDownload Then
+                oReader = New StreamReader(oWebClient.OpenRead(sLocation))
+                oWriter = New StreamWriter(sCachedFileName, False)
+                oWriter.Write(oReader.ReadToEnd)
+                oWriter.Flush()
+                oWriter.Close()
+            End If
+
+            'Always use the cached file
+            sLocation = sCachedFileName
         End If
+
+        oReader = New StreamReader(sLocation)
 
         Return oReader
     End Function

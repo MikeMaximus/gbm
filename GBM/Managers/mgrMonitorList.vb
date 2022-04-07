@@ -861,39 +861,9 @@ Public Class mgrMonitorList
         Return oList
     End Function
 
-    Public Shared Function SyncGameIDs(ByVal sPath As String, ByVal bOfficial As Boolean) As Boolean
-        Dim sWarning As String
-
-        If bOfficial Then
-            sWarning = mgrMonitorList_ConfirmOfficialGameIDSync
-        Else
-            sWarning = mgrMonitorList_ConfirmFileGameIDSync
-        End If
-
-        If mgrCommon.ShowMessage(sWarning, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If mgrCommon.IsAddress(sPath) Then
-                If mgrCommon.CheckAddress(sPath) Then
-                    DoGameIDSync(sPath, True)
-                Else
-                    mgrCommon.ShowMessage(mgrMonitorList_WebNoReponse, sPath, MsgBoxStyle.Exclamation)
-                    Return False
-                End If
-            Else
-                If File.Exists(sPath) Then
-                    DoGameIDSync(sPath)
-                Else
-                    mgrCommon.ShowMessage(mgrMonitorList_FileNotFound, sPath, MsgBoxStyle.Exclamation)
-                    Return False
-                End If
-            End If
-        End If
-
-        Return True
-    End Function
-
     Public Shared Function DoImport(ByVal sPath As String, ByVal bOfficial As Boolean) As Boolean
         If mgrCommon.IsAddress(sPath) Then
-            If mgrCommon.CheckAddress(sPath) Then
+            If mgrCommon.CheckAddress(sPath, ".xml") Then
                 ImportMonitorList(sPath, True)
                 Return True
             Else
@@ -976,74 +946,6 @@ Public Class mgrMonitorList
         Application.DoEvents()
     End Sub
 
-    Private Shared Sub DoGameIDSync(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False)
-        Dim oLocalDatabase As New mgrSQLite(mgrSQLite.Database.Local)
-        Dim oRemoteDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
-        Dim sSQL As String
-        Dim hshParams As Hashtable
-        Dim oParamList As New List(Of Hashtable)
-        Dim hshCompareFrom As New Hashtable
-        Dim hshCompareTo As Hashtable
-        Dim hshSyncIDs As New Hashtable
-        Dim oFromItem As clsGame
-        Dim oToItem As clsGame
-        Dim oExportInfo As New ExportData
-
-        Cursor.Current = Cursors.WaitCursor
-
-        If Not mgrXML.ReadMonitorList(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
-            Exit Sub
-        End If
-
-        If oExportInfo.AppVer < 110 Then
-            mgrCommon.ShowMessage(mgrMonitorList_ErrorGameIDVerFailure, MsgBoxStyle.Exclamation)
-            Exit Sub
-        End If
-
-        hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
-
-        For Each oFromItem In hshCompareFrom.Values
-            If Not hshCompareTo.Contains(oFromItem.ID) Then
-                For Each oToItem In hshCompareTo.Values
-                    'Strip all special characters and compare names
-                    If Regex.Replace(oToItem.Name, "[^\w]+", "").ToLower = Regex.Replace(oFromItem.Name, "[^\w]+", "").ToLower Then
-                        'Ignore games with duplicate names
-                        If Not hshSyncIDs.Contains(oFromItem.ID) Then
-                            hshSyncIDs.Add(oFromItem.ID, oToItem.ID)
-                        End If
-                    End If
-                Next
-            End If
-        Next
-
-        For Each de As DictionaryEntry In hshSyncIDs
-            hshParams = New Hashtable
-            hshParams.Add("MonitorID", CStr(de.Key))
-            hshParams.Add("QueryID", CStr(de.Value))
-            oParamList.Add(hshParams)
-        Next
-
-        sSQL = "UPDATE monitorlist SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
-        sSQL &= "UPDATE gametags SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
-        sSQL &= "UPDATE manifest SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
-        sSQL &= "UPDATE configlinks SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
-        sSQL &= "UPDATE configlinks SET LinkID=@MonitorID WHERE MonitorID=@QueryID;"
-
-        oRemoteDatabase.RunMassParamQuery(sSQL, oParamList)
-
-        sSQL &= "UPDATE sessions SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
-        sSQL &= "UPDATE gameprocesses SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
-        sSQL &= "UPDATE winedata SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
-        sSQL &= "UPDATE launchdata SET MonitorID=@MonitorID WHERE MonitorID=@QueryID;"
-
-        oLocalDatabase.RunMassParamQuery(sSQL, oParamList)
-
-        Cursor.Current = Cursors.Default
-
-        mgrCommon.ShowMessage(mgrMonitorList_GameIDSyncCompleted, hshSyncIDs.Count.ToString, MsgBoxStyle.Information)
-
-    End Sub
-
     Public Shared Sub ExportMonitorList(ByVal sLocation As String)
         Dim oList As List(Of Game)
         Dim bSuccess As Boolean = False
@@ -1075,6 +977,78 @@ Public Class mgrMonitorList
             mgrCommon.ShowMessage(mgrMonitorList_ExportComplete, oList.Count, MsgBoxStyle.Information)
         End If
     End Sub
+
+    'Shared Import / Export UI Functions
+    Public Shared Function ImportGameListURL() As Boolean
+        Dim oSavedPath As clsSavedPath = mgrSavedPath.GetPathByName("Import_Custom_URL")
+        Dim sLocation As String
+
+        sLocation = InputBox(mgrMonitorList_CustomListURLInfo, mgrMonitorList_CustomListURLTitle, oSavedPath.Path).Trim
+
+        If sLocation <> String.Empty Then
+            If mgrCommon.IsAddress(sLocation) Then
+                If DoImport(sLocation, False) Then
+                    'Save valid URL for next time
+                    oSavedPath.PathName = "Import_Custom_URL"
+                    oSavedPath.Path = sLocation
+                    mgrSavedPath.AddUpdatePath(oSavedPath)
+                    Return True
+                End If
+            Else
+                mgrCommon.ShowMessage(mgrMonitorList_CustomListURLError, MsgBoxStyle.Exclamation)
+            End If
+        End If
+
+        Return False
+    End Function
+
+    Public Shared Function ImportGameListFile() As Boolean
+        Dim sLocation As String
+        Dim oExtensions As New SortedList
+
+        oExtensions.Add(mgrMonitorList_XML, "xml")
+        sLocation = mgrCommon.OpenFileBrowser("XML_Import", mgrMonitorList_ChooseImportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
+
+        If sLocation <> String.Empty Then
+            If mgrMonitorList.DoImport(sLocation, False) Then
+                Return True
+            End If
+        End If
+
+        Return False
+    End Function
+
+    Public Shared Sub ExportGameList()
+        Dim sLocation As String
+        Dim oExtensions As New SortedList
+
+        oExtensions.Add(mgrMonitorList_XML, "xml")
+        sLocation = mgrCommon.SaveFileBrowser("XML_Export", mgrMonitorList_ChooseExportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), mgrMonitorList_DefaultExportFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
+
+        If sLocation <> String.Empty Then
+            ExportMonitorList(sLocation)
+        End If
+
+    End Sub
+
+    Public Shared Function ImportOfficialGameList(ByVal sImportUrl As String, Optional ByVal bIsWindowsList As Boolean = False) As Boolean
+        'Show one time warning about Windows configs in Linux
+        If bIsWindowsList And mgrCommon.IsUnix Then
+            If Not (mgrSettings.SuppressMessages And mgrSettings.eSuppressMessages.WinConfigsInLinux) = mgrSettings.eSuppressMessages.WinConfigsInLinux Then
+                mgrCommon.ShowMessage(mgrMonitorList_WarningWinConfigsInLinux, MsgBoxStyle.Information)
+                mgrSettings.SuppressMessages = mgrSettings.SetMessageField(mgrSettings.SuppressMessages, mgrSettings.eSuppressMessages.WinConfigsInLinux)
+                mgrSettings.SaveSettings()
+            End If
+        End If
+
+        If mgrCommon.ShowMessage(mgrMonitorList_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If mgrMonitorList.DoImport(sImportUrl, True) Then
+                Return True
+            End If
+        End If
+
+        Return False
+    End Function
 
     'Other Functions
     Public Shared Sub HandleBackupLocationChange()

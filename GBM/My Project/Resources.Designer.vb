@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2021-09-15T21:58:29
+        '''  Looks up a localized string similar to 2022-04-06T22:05:38
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2047,24 +2047,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Choose a location for the export file.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_ChooseExportXML() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_ChooseExportXML", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Choose a valid xml file to import.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_ChooseImportXML() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_ChooseImportXML", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Browse to the saved game folder and click Open.
         '''</summary>
         Friend ReadOnly Property frmGameManager_ChooseSaveFolder() As String
@@ -2187,6 +2169,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_cmsRegEx() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_cmsRegEx", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;URL....
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsURL() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsURL", resourceCulture)
             End Get
         End Property
         
@@ -2344,15 +2335,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection..
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_ConfirmOfficialImport() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_ConfirmOfficialImport", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to restore the backup for [PARAM]?  This will close the form..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmRestore() As String
@@ -2376,15 +2358,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ConfirmRestoreSelected() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ConfirmRestoreSelected", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Game Backup Monitor Export.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_DefaultExportFileName() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_DefaultExportFileName", resourceCulture)
             End Get
         End Property
         
@@ -3085,24 +3058,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_WarningImportBackupSaveMulti() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_WarningImportBackupSaveMulti", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Official Windows configurations can be used in Linux for games running in Wine or Proton.[BR][BR]You do not need to modify these configurations, GBM will automatically do any required path conversions when the game is detected.[BR][BR]This message will only be shown once..
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_WarningWinConfigsInLinux() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_WarningWinConfigsInLinux", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to XML.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_XML() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_XML", resourceCulture)
             End Get
         End Property
         
@@ -4553,6 +4508,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Export Games....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileExport() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileExport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Run Full &amp;Backup.
         '''</summary>
         Friend ReadOnly Property frmMain_gMonFileFullBackup() As String
@@ -4567,6 +4531,60 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_gMonFileFullRestore() As String
             Get
                 Return ResourceManager.GetString("frmMain_gMonFileFullRestore", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Import Games.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileImport() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileImport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;File....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileImportFile() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileImportFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Official List....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileImportOfficial() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileImportOfficial", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Linux....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileImportOfficialLinux() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileImportOfficialLinux", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Windows....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileImportOfficialWindows() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileImportOfficialWindows", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;URL....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileImportURL() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileImportURL", resourceCulture)
             End Get
         End Property
         
@@ -4828,33 +4846,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_gMonToolsSessions() As String
             Get
                 Return ResourceManager.GetString("frmMain_gMonToolsSessions", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to S&amp;ync Game IDs.
-        '''</summary>
-        Friend ReadOnly Property frmMain_gMonToolsSyncGameID() As String
-            Get
-                Return ResourceManager.GetString("frmMain_gMonToolsSyncGameID", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to &amp;File....
-        '''</summary>
-        Friend ReadOnly Property frmMain_gMonToolsSyncGameIDFile() As String
-            Get
-                Return ResourceManager.GetString("frmMain_gMonToolsSyncGameIDFile", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to &amp;Official List....
-        '''</summary>
-        Friend ReadOnly Property frmMain_gMonToolsSyncGameIDOfficial() As String
-            Get
-                Return ResourceManager.GetString("frmMain_gMonToolsSyncGameIDOfficial", resourceCulture)
             End Get
         End Property
         
@@ -8218,6 +8209,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Choose a location for the export file.
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_ChooseExportXML() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_ChooseExportXML", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Choose a valid xml file to import.
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_ChooseImportXML() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_ChooseImportXML", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Would you like to apply a filter to your export?.
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ConfirmApplyFilter() As String
@@ -8236,29 +8245,47 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Do you want to sync your game identifiers with this export file?[BR][BR]This tool is provided for very specific situations, please read the &quot;Tools&quot; section of the online manual before using this feature..
+        '''  Looks up a localized string similar to Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection..
         '''</summary>
-        Friend ReadOnly Property mgrMonitorList_ConfirmFileGameIDSync() As String
+        Friend ReadOnly Property mgrMonitorList_ConfirmOfficialImport() As String
             Get
-                Return ResourceManager.GetString("mgrMonitorList_ConfirmFileGameIDSync", resourceCulture)
+                Return ResourceManager.GetString("mgrMonitorList_ConfirmOfficialImport", resourceCulture)
             End Get
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Do you want to sync your game identifiers with the official game list?[BR][BR]This tool is provided for very specific situations, please read the &quot;Tools&quot; section of the online manual before using this feature..
+        '''  Looks up a localized string similar to The value must be a valid HTTP or HTTPS location..
         '''</summary>
-        Friend ReadOnly Property mgrMonitorList_ConfirmOfficialGameIDSync() As String
+        Friend ReadOnly Property mgrMonitorList_CustomListURLError() As String
             Get
-                Return ResourceManager.GetString("mgrMonitorList_ConfirmOfficialGameIDSync", resourceCulture)
+                Return ResourceManager.GetString("mgrMonitorList_CustomListURLError", resourceCulture)
             End Get
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to This file cannot be used to sync game indentifiers.  It was created with an older version of GBM..
+        '''  Looks up a localized string similar to Enter the full URL of an XML file exported by GBM..
         '''</summary>
-        Friend ReadOnly Property mgrMonitorList_ErrorGameIDVerFailure() As String
+        Friend ReadOnly Property mgrMonitorList_CustomListURLInfo() As String
             Get
-                Return ResourceManager.GetString("mgrMonitorList_ErrorGameIDVerFailure", resourceCulture)
+                Return ResourceManager.GetString("mgrMonitorList_CustomListURLInfo", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Import XML file from URL.
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_CustomListURLTitle() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_CustomListURLTitle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Game Backup Monitor Export.
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_DefaultExportFileName() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_DefaultExportFileName", resourceCulture)
             End Get
         End Property
         
@@ -8286,15 +8313,6 @@ Namespace My.Resources
         Friend ReadOnly Property mgrMonitorList_FileNotFound() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_FileNotFound", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Sync Complete.[BR][BR][PARAM] game configurations were matched and updated..
-        '''</summary>
-        Friend ReadOnly Property mgrMonitorList_GameIDSyncCompleted() As String
-            Get
-                Return ResourceManager.GetString("mgrMonitorList_GameIDSyncCompleted", resourceCulture)
             End Get
         End Property
         
@@ -8362,11 +8380,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to There&apos;s no response from:[BR][PARAM][BR]Either the server is not responding or the URL is invalid..
+        '''  Looks up a localized string similar to Official Windows configurations can be used in Linux for games running in Wine or Proton.[BR][BR]You do not need to modify these configurations, GBM will automatically do any required path conversions when the game is detected.[BR][BR]This message will only be shown once..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_WarningWinConfigsInLinux() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_WarningWinConfigsInLinux", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to There&apos;s a problem with:[BR][BR][PARAM][BR][BR]The server is not responding, has an invalid SSL certificate or the URL is invalid for this action..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_WebNoReponse() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_WebNoReponse", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to XML.
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_XML() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_XML", resourceCulture)
             End Get
         End Property
         

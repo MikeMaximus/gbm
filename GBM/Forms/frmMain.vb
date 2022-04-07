@@ -1505,32 +1505,6 @@ Public Class frmMain
         mgrMonitorList.SyncMonitorLists(False)
     End Sub
 
-    Private Sub SyncGameIDs(ByVal bOfficial As Boolean)
-        Dim sLocation As String
-        Dim oExtensions As New SortedList
-
-        PauseScan()
-
-        If mgrCommon.IsUnix Then
-            sLocation = App_URLImportLinux
-        Else
-            sLocation = App_URLImport
-        End If
-
-        If bOfficial Then
-            mgrMonitorList.SyncGameIDs(sLocation, True)
-        Else
-            oExtensions.Add(frmGameManager_XML, "xml")
-            sLocation = mgrCommon.OpenFileBrowser("XML_Import", frmGameManager_ChooseImportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
-
-            If sLocation <> String.Empty Then
-                mgrMonitorList.SyncGameIDs(sLocation, False)
-            End If
-        End If
-
-        ResumeScan()
-    End Sub
-
     Private Sub LocalDatabaseCheck()
         Dim oLocalDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         oLocalDatabase.DatabaseUpgrade()
@@ -1699,6 +1673,7 @@ Public Class frmMain
     Private Sub InitApp()
         SetForm()
         Try
+            mgrCommon.SetTLSVersion()
             VerifyGameDataPath()
             If bFirstRun Then OpenStartupWizard()
             LoadAndVerify()
@@ -1923,13 +1898,12 @@ Public Class frmMain
             ToggleMenuItems(False, gMonSetup)
             ToggleMenuItems(False, gMonSetupAddWizard)
             ToggleMenuItems(False, gMonTools)
+            ToggleMenuItems(False, gMonTrayFile)
             ToggleMenuItems(False, gMonTraySetup)
             ToggleMenuItems(False, gMonTrayTools)
             gMonNotification.Enabled = False
             gMonTrayNotification.Enabled = False
             gMonTraySettings.Enabled = False
-            gMonTrayFullBackup.Enabled = False
-            gMonTrayFullRestore.Enabled = False
             If Not bGameDetected Then
                 gMonTrayMon.Enabled = False
                 gMonTrayExit.Enabled = False
@@ -1942,13 +1916,12 @@ Public Class frmMain
             ToggleMenuItems(True, gMonSetup)
             ToggleMenuItems(True, gMonSetupAddWizard)
             ToggleMenuItems(True, gMonTools)
+            ToggleMenuItems(True, gMonTrayFile)
             ToggleMenuItems(True, gMonTraySetup)
             ToggleMenuItems(True, gMonTrayTools)
             gMonNotification.Enabled = True
             gMonTrayNotification.Enabled = True
             gMonTraySettings.Enabled = True
-            gMonTrayFullBackup.Enabled = True
-            gMonTrayFullRestore.Enabled = True
             gMonTrayMon.Enabled = True
             gMonTrayExit.Enabled = True
             gMonStatusStrip.Enabled = True
@@ -2191,6 +2164,13 @@ Public Class frmMain
         gMonFileMonitor.Text = frmMain_gMonFileMonitor_Start
         gMonFileFullBackup.Text = frmMain_gMonFileFullBackup
         gMonFileFullRestore.Text = frmMain_gMonFileFullRestore
+        gMonFileImport.Text = frmMain_gMonFileImport
+        gMonFileImportOfficial.Text = frmMain_gMonFileImportOfficial
+        gMonFileImportOfficialWindows.Text = frmMain_gMonFileImportOfficialWindows
+        gMonFileImportOfficialLinux.Text = frmMain_gMonFileImportOfficialLinux
+        gMonFileImportFile.Text = frmMain_gMonFileImportFile
+        gMonFileImportURL.Text = frmMain_gMonFileImportURL
+        gMonFileExport.Text = frmMain_gMonFileExport
         gMonFileSettings.Text = frmMain_gMonFileSettings
         gMonFileExit.Text = frmMain_gMonFileExit
         gMonSetup.Text = frmMain_gMonSetup
@@ -2207,9 +2187,6 @@ Public Class frmMain
         gMonToolsCompact.Text = frmMain_gMonToolsCompact
         gMonToolsLog.Text = frmMain_gMonToolsLog
         gMonToolsSessions.Text = frmMain_gMonToolsSessions
-        gMonToolsSyncGameID.Text = frmMain_gMonToolsSyncGameID
-        gMonToolsSyncGameIDOfficial.Text = frmMain_gMonToolsSyncGameIDOfficial
-        gMonToolsSyncGameIDFile.Text = frmMain_gMonToolsSyncGameIDFile
         gMonLogClear.Text = frmMain_gMonLogClear
         gMonLogSave.Text = frmMain_gMonLogSave
         gMonHelp.Text = frmMain_gMonHelp
@@ -2221,8 +2198,16 @@ Public Class frmMain
         'Set Tray Menu Text
         gMonTrayShow.Text = frmMain_gMonTrayShow
         gMonTrayMon.Text = frmMain_gMonFileMonitor_Start
-        gMonTrayFullBackup.Text = frmMain_gMonTrayFullBackup
-        gMonTrayFullRestore.Text = frmMain_gMonTrayFullRestore
+        gMonTrayFile.Text = frmMain_gMonFile
+        gMonTrayFileFullBackup.Text = frmMain_gMonTrayFullBackup
+        gMonTrayFileFullRestore.Text = frmMain_gMonTrayFullRestore
+        gMonTrayFileImport.Text = frmMain_gMonFileImport
+        gMonTrayFileImportOfficial.Text = frmMain_gMonFileImportOfficial
+        gMonTrayFileImportOfficialLinux.Text = frmMain_gMonFileImportOfficialLinux
+        gMonTrayFileImportOfficialWindows.Text = frmMain_gMonFileImportOfficialWindows
+        gMonTrayFileImportFile.Text = frmMain_gMonFileImportFile
+        gMonTrayFileImportURL.Text = frmMain_gMonFileImportURL
+        gMonTrayFileExport.Text = frmMain_gMonFileExport
         gMonTraySettings.Text = frmMain_gMonFileSettings
         gMonTraySetup.Text = frmMain_gMonTraySetup
         gMonTraySetupGameManager.Text = frmMain_gMonSetupGameManager
@@ -2238,9 +2223,6 @@ Public Class frmMain
         gMonTrayToolsCompact.Text = frmMain_gMonToolsCompact
         gMonTrayToolsLog.Text = frmMain_gMonToolsLog
         gMonTrayToolsSessions.Text = frmMain_gMonToolsSessions
-        gMonTrayToolsSyncGameID.Text = frmMain_gMonToolsSyncGameID
-        gMonTrayToolsSyncGameIDOfficial.Text = frmMain_gMonToolsSyncGameIDOfficial
-        gMonTrayToolsSyncGameIDFile.Text = frmMain_gMonToolsSyncGameIDFile
         gMonTrayLogClear.Text = frmMain_gMonLogClear
         gMonTrayLogSave.Text = frmMain_gMonLogSave
         gMonTrayExit.Text = frmMain_gMonFileExit
@@ -2276,6 +2258,19 @@ Public Class frmMain
         btnCancelOperation.Visible = False
         pbTime.SizeMode = PictureBoxSizeMode.AutoSize
         pbTime.Image = frmMain_Clock
+
+        'Init Official Import Menu
+        If mgrCommon.IsUnix Then
+            gMonFileImportOfficial.Text = gMonFileImportOfficial.Text.TrimEnd(".")
+            gMonTrayFileImportOfficial.Text = gMonTrayFileImportOfficial.Text.TrimEnd(".")
+            RemoveHandler gMonFileImportOfficial.Click, AddressOf gMonFileImportOfficial_Click
+            RemoveHandler gMonTrayFileImportOfficial.Click, AddressOf gMonFileImportOfficial_Click
+        Else
+            gMonFileImportOfficialLinux.Visible = False
+            gMonFileImportOfficialWindows.Visible = False
+            gMonTrayFileImportOfficialLinux.Visible = False
+            gMonTrayFileImportOfficialWindows.Visible = False
+        End If
 
         'Init Timers
         tmScanTimer.Interval = 5000
@@ -2710,11 +2705,11 @@ Public Class frmMain
         ScanToggle()
     End Sub
 
-    Private Sub gMonFileFullBackup_Click(sender As Object, e As EventArgs) Handles gMonFileFullBackup.Click, gMonTrayFullBackup.Click
+    Private Sub gMonFileFullBackup_Click(sender As Object, e As EventArgs) Handles gMonFileFullBackup.Click, gMonTrayFileFullBackup.Click
         RunBackupAll()
     End Sub
 
-    Private Sub gMonFileFullRestore_Click(sender As Object, e As EventArgs) Handles gMonFileFullRestore.Click, gMonTrayFullRestore.Click
+    Private Sub gMonFileFullRestore_Click(sender As Object, e As EventArgs) Handles gMonFileFullRestore.Click, gMonTrayFileFullRestore.Click
         RunRestoreAll()
     End Sub
 
@@ -2732,6 +2727,42 @@ Public Class frmMain
 
     Private Sub FileExit_Click(sender As Object, e As EventArgs) Handles gMonFileExit.Click, gMonTrayExit.Click
         ShutdownApp()
+    End Sub
+
+    Private Sub gMonFileImportOfficial_Click(sender As Object, e As EventArgs) Handles gMonFileImportOfficialWindows.Click, gMonFileImportOfficial.Click, gMonTrayFileImportOfficialWindows.Click, gMonTrayFileImportOfficial.Click
+        PauseScan()
+        If mgrMonitorList.ImportOfficialGameList(App_URLImport, True) Then
+            LoadGameSettings()
+        End If
+        ResumeScan()
+    End Sub
+
+    Private Sub gMonFileImportOfficialLinux_Click(sender As Object, e As EventArgs) Handles gMonFileImportOfficialLinux.Click, gMonTrayFileImportOfficialLinux.Click
+        PauseScan()
+        If mgrMonitorList.ImportOfficialGameList(App_URLImportLinux) Then
+            LoadGameSettings()
+        End If
+        ResumeScan()
+    End Sub
+
+    Private Sub gMonFileImportFile_Click(sender As Object, e As EventArgs) Handles gMonFileImportFile.Click, gMonTrayFileImportFile.Click
+        PauseScan()
+        If mgrMonitorList.ImportGameListFile Then
+            LoadGameSettings()
+        End If
+        ResumeScan()
+    End Sub
+
+    Private Sub gMonFileImportURL_Click(sender As Object, e As EventArgs) Handles gMonFileImportURL.Click, gMonTrayFileImportURL.Click
+        PauseScan()
+        If mgrMonitorList.ImportGameListURL Then
+            LoadGameSettings()
+        End If
+        ResumeScan()
+    End Sub
+
+    Private Sub gMonFileExport_Click(sender As Object, e As EventArgs) Handles gMonFileExport.Click, gMonTrayFileExport.Click
+        mgrMonitorList.ExportGameList()
     End Sub
 
     Private Sub FileSettings_Click(sender As Object, e As EventArgs) Handles gMonFileSettings.Click, gMonTraySettings.Click
@@ -2800,14 +2831,6 @@ Public Class frmMain
 
     Private Sub gMonToolsSessions_Click(sender As Object, e As EventArgs) Handles gMonToolsSessions.Click, gMonTrayToolsSessions.Click
         OpenSessions()
-    End Sub
-
-    Private Sub gMonToolsSyncGameIDOfficial_Click(sender As Object, e As EventArgs) Handles gMonToolsSyncGameIDOfficial.Click, gMonTrayToolsSyncGameIDOfficial.Click
-        SyncGameIDs(True)
-    End Sub
-
-    Private Sub gMonToolsSyncGameIDFile_Click(sender As Object, e As EventArgs) Handles gMonToolsSyncGameIDFile.Click, gMonTrayToolsSyncGameIDFile.Click
-        SyncGameIDs(False)
     End Sub
 
     Private Sub gMonNotification_Click(sender As Object, e As EventArgs) Handles gMonNotification.Click, gMonTrayNotification.Click

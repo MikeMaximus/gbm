@@ -435,10 +435,10 @@
   <data name="frmGameManager_ChooseExePath" xml:space="preserve">
     <value>浏览到包含游戏可执行文件的文件夹，然后单击打开</value>
   </data>
-  <data name="frmGameManager_ChooseExportXML" xml:space="preserve">
+  <data name="mgrMonitorList_ChooseExportXML" xml:space="preserve">
     <value>选择导出文件的位置</value>
   </data>
-  <data name="frmGameManager_ChooseImportXML" xml:space="preserve">
+  <data name="mgrMonitorList_ChooseImportXML" xml:space="preserve">
     <value>选择一个有效的xml文件来导入</value>
   </data>
   <data name="frmGameManager_ChooseSaveFolder" xml:space="preserve">
@@ -468,7 +468,7 @@
   <data name="frmGameManager_ConfirmMultiRestore" xml:space="preserve">
     <value>是否确实要还原[PARAM]游戏的备份？这将关闭窗口。</value>
   </data>
-  <data name="frmGameManager_ConfirmOfficialImport" xml:space="preserve">
+  <data name="mgrMonitorList_ConfirmOfficialImport" xml:space="preserve">
     <value>是否要从官方列表中选择要导入的游戏？[BR][BR]这需要有效的网络连接。</value>
   </data>
   <data name="frmGameManager_ConfirmRestore" xml:space="preserve">
@@ -567,7 +567,7 @@
   <data name="frmGameManager_UpToDate" xml:space="preserve">
     <value>最新！</value>
   </data>
-  <data name="frmGameManager_XML" xml:space="preserve">
+  <data name="mgrMonitorList_XML" xml:space="preserve">
     <value>XML</value>
   </data>
   <data name="frmGameManager_cmsFile" xml:space="preserve">
@@ -1334,7 +1334,7 @@
   <data name="mgrXML_ErrorImportFailure" xml:space="preserve">
     <value>无法读取XML文件，它可能是无效格式或已损坏。[BR][BR][PARAM]</value>
   </data>
-  <data name="frmGameManager_DefaultExportFileName" xml:space="preserve">
+  <data name="mgrMonitorList_DefaultExportFileName" xml:space="preserve">
     <value>游戏备份监控器导出</value>
   </data>
   <data name="frmMain_ChooseLogFile" xml:space="preserve">
@@ -1904,35 +1904,14 @@
   <data name="frmFilter_FieldGameID" xml:space="preserve">
     <value>游戏ID</value>
   </data>
-  <data name="mgrMonitorList_ErrorGameIDVerFailure" xml:space="preserve">
-    <value>此文件不能用于同步游戏标识。它是使用旧版本的GBM创建的。</value>
-  </data>
   <data name="mgrMonitorList_ImportVersionWarning" xml:space="preserve">
     <value>此导出文件是使用1.1.5之前的GBM版本创建的，可能包含不兼容的配置数据。[BR][BR]是否仍要从此文件导入配置(（不推荐）</value>
-  </data>
-  <data name="mgrMonitorList_ConfirmFileGameIDSync" xml:space="preserve">
-    <value>是否要将游戏标识符与此导出文件同步？[BR][BR]此工具用于非常特定的情况，请在使用此功能之前阅读联机手册的“工具”部分。</value>
-  </data>
-  <data name="frmMain_gMonToolsSyncGameID" xml:space="preserve">
-    <value>同步游戏ID</value>
-  </data>
-  <data name="frmMain_gMonToolsSyncGameIDFile" xml:space="preserve">
-    <value>文件</value>
-  </data>
-  <data name="frmMain_gMonToolsSyncGameIDOfficial" xml:space="preserve">
-    <value>官方列表</value>
-  </data>
-  <data name="mgrMonitorList_ConfirmOfficialGameIDSync" xml:space="preserve">
-    <value>是否要将你的游戏标识符与官方游戏列表同步？[BR][BR]此工具用于非常特定的情况，请在使用此功能之前阅读联机手册的“工具”部分。</value>
   </data>
   <data name="frmSettings_btnResetMessages" xml:space="preserve">
     <value>重置警告</value>
   </data>
   <data name="frmSettings_ConfirmMessageReset" xml:space="preserve">
     <value>是否要重置所有隐藏的警告和消息？</value>
-  </data>
-  <data name="mgrMonitorList_GameIDSyncCompleted" xml:space="preserve">
-    <value>同步完成。[BR][BR][PARAM]游戏配置已匹配并更新。</value>
   </data>
   <data name="App_BackupOnLaunchFileDescription" xml:space="preserve">
     <value>启动</value>
@@ -2123,7 +2102,7 @@
   <data name="frmGameManager_cmsOfficialWindows" xml:space="preserve">
     <value>Windows</value>
   </data>
-  <data name="frmGameManager_WarningWinConfigsInLinux" xml:space="preserve">
+  <data name="mgrMonitorList_WarningWinConfigsInLinux" xml:space="preserve">
     <value>官方的Windows配置可以在Linux中用于在Wine或Proton中运行的游戏。[BR][BR]你不需要修改这些配置，游戏备份监控器会在检测到游戏时自动做任何需要的路径转换。[BR][BR]这个信息只会显示一次。</value>
   </data>
   <data name="frmGameManager_ConfirmBackupImportOverwriteSingle" xml:space="preserve">
@@ -2905,5 +2884,26 @@
   </data>
   <data name="frmMain_lblSearch" xml:space="preserve">
     <value>搜索：</value>
+  </data>
+  <data name="frmMain_gMonFileExport" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="frmMain_gMonFileImport" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="frmMain_gMonFileImportFile" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="frmMain_gMonFileImportOfficial" xml:space="preserve">
+    <value>官方列表</value>
+  </data>
+  <data name="frmMain_gMonFileImportOfficialLinux" xml:space="preserve">
+    <value>Linux</value>
+  </data>
+  <data name="frmMain_gMonFileImportOfficialWindows" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="frmMain_gMonFileImportURL" xml:space="preserve">
+    <value>URL</value>
   </data>
 </root>

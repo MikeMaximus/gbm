@@ -4,7 +4,7 @@ Imports System.Security.Cryptography
 Public Class mgrHash
 
     'Generate SHA256 Hash
-    Public Shared Function Generate_SHA256_Hash(ByVal sPath As String)
+    Public Shared Function Generate_SHA256_Hash(ByVal sPath As String) As String
 
         Dim bHashValue() As Byte
         Dim oSHA As SHA256 = SHA256.Create()
@@ -24,6 +24,14 @@ Public Class mgrHash
         End If
 
         Return sHash
+    End Function
+
+    'Safe Compare
+    Public Shared Function Compare(ByVal s1 As String, ByVal s2 As String) As Boolean
+        If s1.ToUpper = s2.ToUpper Then
+            Return True
+        End If
+        Return False
     End Function
 
     ' Print the byte array in a readable format.
