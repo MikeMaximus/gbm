@@ -3026,7 +3026,7 @@
     <value>&amp;URL...</value>
   </data>
   <data name="mgrMonitorList_CustomListURLInfo" xml:space="preserve">
-    <value>Enter the full URL of a valid XML file to import.</value>
+    <value>Enter the full URL of an XML file exported by GBM.</value>
   </data>
   <data name="mgrMonitorList_CustomListURLTitle" xml:space="preserve">
     <value>Import XML file from URL</value>
