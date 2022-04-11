@@ -784,6 +784,7 @@ Public Class frmMain
             If slRestoreData.Count > 0 Then
                 UpdateNotifier(slRestoreData.Count)
             End If
+            tmRestoreCheck.Stop()
         End If
     End Sub
 
