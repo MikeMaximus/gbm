@@ -861,7 +861,7 @@ Public Class mgrMonitorList
         Return oList
     End Function
 
-    Public Shared Function DoImport(ByVal sPath As String, ByVal bOfficial As Boolean) As Boolean
+    Public Shared Function DoImport(ByVal sPath As String) As Boolean
         If mgrCommon.IsAddress(sPath) Then
             If mgrCommon.CheckAddress(sPath, ".xml") Then
                 ImportMonitorList(sPath, True)
@@ -987,7 +987,7 @@ Public Class mgrMonitorList
 
         If sLocation <> String.Empty Then
             If mgrCommon.IsAddress(sLocation) Then
-                If DoImport(sLocation, False) Then
+                If DoImport(sLocation) Then
                     'Save valid URL for next time
                     oSavedPath.PathName = "Import_Custom_URL"
                     oSavedPath.Path = sLocation
@@ -1010,7 +1010,7 @@ Public Class mgrMonitorList
         sLocation = mgrCommon.OpenFileBrowser("XML_Import", mgrMonitorList_ChooseImportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
 
         If sLocation <> String.Empty Then
-            If mgrMonitorList.DoImport(sLocation, False) Then
+            If mgrMonitorList.DoImport(sLocation) Then
                 Return True
             End If
         End If
@@ -1042,7 +1042,7 @@ Public Class mgrMonitorList
         End If
 
         If mgrCommon.ShowMessage(mgrMonitorList_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(sImportUrl, True) Then
+            If mgrMonitorList.DoImport(sImportUrl) Then
                 Return True
             End If
         End If
