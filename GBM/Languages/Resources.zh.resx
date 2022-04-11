@@ -1904,9 +1904,6 @@
   <data name="frmFilter_FieldGameID" xml:space="preserve">
     <value>游戏ID</value>
   </data>
-  <data name="mgrMonitorList_ImportVersionWarning" xml:space="preserve">
-    <value>此导出文件是使用1.1.5之前的GBM版本创建的，可能包含不兼容的配置数据。[BR][BR]是否仍要从此文件导入配置(（不推荐）</value>
-  </data>
   <data name="frmSettings_btnResetMessages" xml:space="preserve">
     <value>重置警告</value>
   </data>

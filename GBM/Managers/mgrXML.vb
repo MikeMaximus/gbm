@@ -85,8 +85,8 @@ Public Class mgrXML
             oURL = New Uri(sLocation)
             sCachedFileName = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & oURL.Segments(oURL.Segments.Length - 1)
 
-            'If we already have a cached file with the same name, check for a signature in the same web location and compare before downloading entire import file again
-            'Using a signature file will prevent excessive bandwidth waste from clients automatially checking for game list updates.
+            'If we already have a cached file with the same name, check for a signature in the same web location and compare before downloading entire import file again.
+            'Using a signature file will prevent bandwidth waste when clients repeatedly check for game list updates.
             If File.Exists(sCachedFileName) Then
                 'Build URL for the expected signature file
                 sSigLocation = oURL.GetLeftPart(UriPartial.Scheme) & oURL.Host

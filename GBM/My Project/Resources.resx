@@ -1902,9 +1902,6 @@
   <data name="frmFilter_FieldGameID" xml:space="preserve">
     <value>Game ID</value>
   </data>
-  <data name="mgrMonitorList_ImportVersionWarning" xml:space="preserve">
-    <value>This export file was created with a version of GBM prior to 1.1.5 and may contain incompatible configuration data.[BR][BR]Do you still want to import configurations from this file? (Not Recommended)</value>
-  </data>
   <data name="frmSettings_btnResetMessages" xml:space="preserve">
     <value>&amp;Reset Warnings</value>
   </data>

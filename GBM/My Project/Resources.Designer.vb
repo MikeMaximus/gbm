@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-04-06T22:05:38
+        '''  Looks up a localized string similar to 2022-04-11T23:00:45
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -8331,15 +8331,6 @@ Namespace My.Resources
         Friend ReadOnly Property mgrMonitorList_ImportNothing() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_ImportNothing", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to This export file was created with a version of GBM prior to 1.1.5 and may contain incompatible configuration data.[BR][BR]Do you still want to import configurations from this file? (Not Recommended).
-        '''</summary>
-        Friend ReadOnly Property mgrMonitorList_ImportVersionWarning() As String
-            Get
-                Return ResourceManager.GetString("mgrMonitorList_ImportVersionWarning", resourceCulture)
             End Get
         End Property
         
