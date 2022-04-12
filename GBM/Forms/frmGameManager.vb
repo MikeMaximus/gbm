@@ -2071,6 +2071,7 @@ Public Class frmGameManager
 
         If PendingRestores Then
             cboFilters.SelectedValue = 2
+            tabGameManager.SelectedTab = tbBackupInfo
         Else
             cboFilters.SelectedValue = 0
         End If
@@ -2083,6 +2084,9 @@ Public Class frmGameManager
         AddHandler cmsMonitorOnly.CheckedChanged, AddressOf DirtyCheck_ValueChanged
 
         LoadData(False)
+
+        If PendingRestores And lstGames.Items.Count >= 1 Then lstGames.SelectedIndex = 0
+
         InitialLoad = False
     End Sub
 
