@@ -865,6 +865,7 @@ Public Class mgrMonitorList
         If mgrCommon.IsAddress(sPath) Then
             If mgrCommon.CheckAddress(sPath, ".xml") Then
                 ImportMonitorList(sPath, True)
+                SyncMonitorLists()
                 Return True
             Else
                 mgrCommon.ShowMessage(mgrMonitorList_WebNoReponse, sPath, MsgBoxStyle.Exclamation)
@@ -873,13 +874,13 @@ Public Class mgrMonitorList
         Else
             If File.Exists(sPath) Then
                 ImportMonitorList(sPath)
+                SyncMonitorLists()
                 Return True
             Else
                 mgrCommon.ShowMessage(mgrMonitorList_FileNotFound, sPath, MsgBoxStyle.Exclamation)
                 Return False
             End If
         End If
-        Return True
     End Function
 
     Private Shared Sub ImportMonitorList(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False)
@@ -1004,7 +1005,7 @@ Public Class mgrMonitorList
         sLocation = mgrCommon.OpenFileBrowser("XML_Import", mgrMonitorList_ChooseImportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
 
         If sLocation <> String.Empty Then
-            If mgrMonitorList.DoImport(sLocation) Then
+            If DoImport(sLocation) Then
                 Return True
             End If
         End If
@@ -1036,7 +1037,7 @@ Public Class mgrMonitorList
         End If
 
         If mgrCommon.ShowMessage(mgrMonitorList_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(sImportUrl) Then
+            If DoImport(sImportUrl) Then
                 Return True
             End If
         End If
