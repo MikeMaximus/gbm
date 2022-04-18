@@ -73,49 +73,44 @@ Public Class mgrXML
         Dim oReader As StreamReader
         Dim oWriter As StreamWriter
         Dim oURL As Uri
-        Dim sCachedFileName As String
-        Dim sSigLocation As String
-        Dim sSig As String
-        Dim sLocalSig As String
+        Dim sCachedFile As String
+        Dim sETagFile As String
+        Dim sETag As String = String.Empty
         Dim bDownload As Boolean = True
         Dim oWebClient As New WebClient
 
         If bWebRead Then
-            'Setup for local cache file
+            'Set local file locations
             oURL = New Uri(sLocation)
-            sCachedFileName = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & oURL.Segments(oURL.Segments.Length - 1)
+            sCachedFile = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & oURL.Segments(oURL.Segments.Length - 1)
+            sETagFile = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & Path.GetFileNameWithoutExtension(sCachedFile) & ".etag"
 
-            'If we already have a cached file with the same name, check for a signature in the same web location and compare before downloading entire import file again.
-            'Using a signature file will prevent bandwidth waste when clients repeatedly check for game list updates.
-            If File.Exists(sCachedFileName) Then
-                'Build URL for the expected signature file
-                sSigLocation = oURL.GetLeftPart(UriPartial.Scheme) & oURL.Host
-                For i = 0 To oURL.Segments.Length - 2
-                    sSigLocation &= oURL.Segments(i)
-                Next
-                sSigLocation &= Path.GetFileNameWithoutExtension(sCachedFileName) & ".sha256"
-
-                If mgrCommon.CheckAddress(sSigLocation, ".sha256") Then
-                    oReader = New StreamReader(oWebClient.OpenRead(sSigLocation))
-                    sSig = oReader.ReadToEnd
-                    sLocalSig = mgrHash.Generate_SHA256_Hash(sCachedFileName)
-
-                    'Only download a new copy when the signature doesn't match
-                    If mgrHash.Compare(sSig, sLocalSig) Then bDownload = False
-                End If
+            'Check for a saved ETag
+            If File.Exists(sETagFile) Then
+                oReader = New StreamReader(oWebClient.OpenRead(sETagFile))
+                sETag = oReader.ReadToEnd
+                oReader.Close()
             End If
 
-            'Read import file from web and cache it
+            'Query address using ETag
+            If mgrCommon.CheckAddressForUpdates(sLocation, sETag) Then
+                bDownload = True
+                mgrCommon.SaveText(sETag, sETagFile)
+            Else
+                bDownload = False
+            End If
+
+            'Read import file from web if we need to
             If bDownload Then
                 oReader = New StreamReader(oWebClient.OpenRead(sLocation))
-                oWriter = New StreamWriter(sCachedFileName, False)
+                oWriter = New StreamWriter(sCachedFile, False)
                 oWriter.Write(oReader.ReadToEnd)
                 oWriter.Flush()
                 oWriter.Close()
             End If
 
             'Always use the cached file
-            sLocation = sCachedFileName
+            sLocation = sCachedFile
         End If
 
         oReader = New StreamReader(sLocation)

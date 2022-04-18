@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.1 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-April 13, 2022
+April 18, 2022
 
 New in 1.3.1
 
@@ -18,6 +18,6 @@ All Platforms:
 - Improved the pending backup notification feature.	
 	- Clicking notification now opens the Game Manager to the "Backup Management" tab with the first game selected.
 	- The notification will no longer keep reappearing during a session when all pending backups are not restored.
-
+- Improved method of saving bandwidth when checking for game list updates.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

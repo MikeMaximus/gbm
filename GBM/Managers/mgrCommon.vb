@@ -104,6 +104,29 @@ Public Class mgrCommon
         ServicePointManager.SecurityProtocol = 3072
     End Sub
 
+    Public Shared Function CheckAddressForUpdates(ByVal sURL As String, ByRef sETag As String) As Boolean
+        Dim request As HttpWebRequest
+        Dim response As HttpWebResponse
+
+        Try
+            request = WebRequest.Create(sURL)
+            request.Headers.Set("If-None-Match", sETag)
+            response = request.GetResponse()
+            If response.StatusCode = HttpStatusCode.OK Then
+                sETag = response.Headers.Get("ETag")
+            End If
+            response.Close()
+            Return True
+        Catch exWeb As WebException
+            If DirectCast(exWeb.Response, HttpWebResponse).StatusCode = HttpStatusCode.NotModified Then
+                Return False
+            End If
+        Catch ex As Exception
+            'Do Nothing
+        End Try
+        Return False
+    End Function
+
     Public Shared Function CheckAddress(ByVal sURL As String, ByVal sExt As String) As Boolean
         Dim oURL As Uri
         Dim sEndSegment As String
