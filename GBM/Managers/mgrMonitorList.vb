@@ -864,26 +864,28 @@ Public Class mgrMonitorList
     Public Shared Function DoImport(ByVal sPath As String) As Boolean
         If mgrCommon.IsAddress(sPath) Then
             If mgrCommon.CheckAddress(sPath, ".xml") Then
-                ImportMonitorList(sPath, True)
-                SyncMonitorLists()
-                Return True
+                If ImportMonitorList(sPath, True) Then
+                    SyncMonitorLists()
+                    Return True
+                End If
             Else
                 mgrCommon.ShowMessage(mgrMonitorList_WebNoReponse, sPath, MsgBoxStyle.Exclamation)
-                Return False
             End If
         Else
             If File.Exists(sPath) Then
-                ImportMonitorList(sPath)
-                SyncMonitorLists()
-                Return True
+                If ImportMonitorList(sPath) Then
+                    SyncMonitorLists()
+                    Return True
+                End If
             Else
                 mgrCommon.ShowMessage(mgrMonitorList_FileNotFound, sPath, MsgBoxStyle.Exclamation)
-                Return False
             End If
         End If
+
+        Return False
     End Function
 
-    Private Shared Sub ImportMonitorList(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False)
+    Private Shared Function ImportMonitorList(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False) As Boolean
         Dim hshCompareFrom As New Hashtable
         Dim hshCompareTo As Hashtable
         Dim hshSyncItems As Hashtable
@@ -894,7 +896,7 @@ Public Class mgrMonitorList
         Cursor.Current = Cursors.WaitCursor
 
         If Not mgrXML.ReadMonitorList(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
-            Exit Sub
+            Return False
         End If
 
         hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
@@ -939,7 +941,8 @@ Public Class mgrMonitorList
         End If
 
         Application.DoEvents()
-    End Sub
+        Return True
+    End Function
 
     Public Shared Sub ExportMonitorList(ByVal sLocation As String)
         Dim oList As List(Of Game)

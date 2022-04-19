@@ -3052,4 +3052,13 @@
   <data name="frmMain_gMonFileImportURL" xml:space="preserve">
     <value>&amp;URL...</value>
   </data>
+  <data name="mgrCommon_ErrorAccessingWebLocation" xml:space="preserve">
+    <value>An unexpected error occured when accessing: [BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrCommon_ErrorReadingTextFile" xml:space="preserve">
+    <value>An error has occured reading the text file.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrCommon_ErrorUnexpectedWebResponse" xml:space="preserve">
+    <value>An unexpected error or response ([PARAM]) was received from:[BR][BR][PARAM]</value>
+  </data>
 </root>

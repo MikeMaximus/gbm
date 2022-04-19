@@ -119,11 +119,15 @@ Public Class mgrCommon
             Return True
         Catch exWeb As WebException
             If DirectCast(exWeb.Response, HttpWebResponse).StatusCode = HttpStatusCode.NotModified Then
+                exWeb.Response.Close()
                 Return False
             End If
+            ShowMessage(mgrCommon_ErrorUnexpectedWebResponse, New String() {DirectCast(exWeb.Response, HttpWebResponse).StatusCode, sURL}, MsgBoxStyle.Critical)
+            exWeb.Response.Close()
         Catch ex As Exception
-            'Do Nothing
+            ShowMessage(mgrCommon_ErrorAccessingWebLocation, sURL, MsgBoxStyle.Critical)
         End Try
+
         Return False
     End Function
 
@@ -147,6 +151,7 @@ Public Class mgrCommon
         Catch ex As Exception
             Return False
         End Try
+
         Return True
     End Function
 
@@ -801,13 +806,28 @@ Public Class mgrCommon
         DeleteEmptyDirectory(sDir)
     End Sub
 
-    'Save string as text file
-    Public Shared Sub SaveText(ByVal sText As String, ByVal sPath As String)
-        Dim oStream As StreamWriter
+    'Read text from location
+    Public Shared Function ReadText(ByVal sLocation As String) As String
+        Dim oReader As StreamReader
+        Dim oWebClient As New WebClient
+        Dim sContent As String = String.Empty
 
         Try
-            If File.Exists(sPath) Then DeleteFile(sPath, False)
-            oStream = New StreamWriter(sPath)
+            oReader = New StreamReader(oWebClient.OpenRead(sLocation))
+            sContent = oReader.ReadToEnd
+            oReader.Close()
+        Catch ex As Exception
+            ShowMessage(mgrCommon_ErrorReadingTextFile, ex.Message, MsgBoxStyle.Critical)
+        End Try
+
+        Return sContent
+    End Function
+
+    'Save string as a local text file
+    Public Shared Sub SaveText(ByVal sText As String, ByVal sPath As String)
+        Dim oStream As StreamWriter
+        Try
+            oStream = New StreamWriter(sPath, False)
             oStream.Write(sText)
             oStream.Flush()
             oStream.Close()

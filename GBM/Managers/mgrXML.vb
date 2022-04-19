@@ -1,7 +1,6 @@
 ﻿Imports GBM.My.Resources
 Imports System.Xml.Serialization
 Imports System.IO
-Imports System.Net
 
 Public Class mgrXML
 
@@ -71,13 +70,11 @@ Public Class mgrXML
 
     Private Shared Function ReadImportData(ByVal sLocation As String, ByVal bWebRead As Boolean) As StreamReader
         Dim oReader As StreamReader
-        Dim oWriter As StreamWriter
         Dim oURL As Uri
         Dim sCachedFile As String
         Dim sETagFile As String
         Dim sETag As String = String.Empty
         Dim bDownload As Boolean = True
-        Dim oWebClient As New WebClient
 
         If bWebRead Then
             'Set local file locations
@@ -87,12 +84,10 @@ Public Class mgrXML
 
             'Check for a saved ETag
             If File.Exists(sETagFile) Then
-                oReader = New StreamReader(oWebClient.OpenRead(sETagFile))
-                sETag = oReader.ReadToEnd
-                oReader.Close()
+                sETag = mgrCommon.ReadText(sETagFile)
             End If
 
-            'Query address using ETag
+            'Query address using ETag if available
             If mgrCommon.CheckAddressForUpdates(sLocation, sETag) Then
                 bDownload = True
                 mgrCommon.SaveText(sETag, sETagFile)
@@ -100,13 +95,9 @@ Public Class mgrXML
                 bDownload = False
             End If
 
-            'Read import file from web if we need to
+            'Read updated file from web if we need to
             If bDownload Then
-                oReader = New StreamReader(oWebClient.OpenRead(sLocation))
-                oWriter = New StreamWriter(sCachedFile, False)
-                oWriter.Write(oReader.ReadToEnd)
-                oWriter.Flush()
-                oWriter.Close()
+                mgrCommon.SaveText(mgrCommon.ReadText(sLocation), sCachedFile)
             End If
 
             'Always use the cached file

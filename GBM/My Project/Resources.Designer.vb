@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-04-11T23:00:45
+        '''  Looks up a localized string similar to 2022-04-19T01:54:30
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -7903,11 +7903,38 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An unexpected error occured when accessing: [BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_ErrorAccessingWebLocation() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_ErrorAccessingWebLocation", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error has occured reading the text file.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_ErrorReadingTextFile() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_ErrorReadingTextFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to An error occured starting GBM as Administrator.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_ErrorRestartAsAdmin() As String
             Get
                 Return ResourceManager.GetString("mgrCommon_ErrorRestartAsAdmin", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An unexpected error or response ([PARAM]) was received from:[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_ErrorUnexpectedWebResponse() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_ErrorUnexpectedWebResponse", resourceCulture)
             End Get
         End Property
         
