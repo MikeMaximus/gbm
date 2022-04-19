@@ -892,6 +892,7 @@ Public Class mgrMonitorList
         Dim oFromItem As clsGame
         Dim oToItem As clsGame
         Dim oExportInfo As New ExportData
+        Dim bDataImported As Boolean = False
 
         Cursor.Current = Cursors.WaitCursor
 
@@ -934,14 +935,16 @@ Public Class mgrMonitorList
                 mgrConfigLinks.DoConfigLinkImport(frm.FinalData)
 
                 Cursor.Current = Cursors.Default
+                bDataImported = True
                 mgrCommon.ShowMessage(mgrMonitorList_ImportComplete, MsgBoxStyle.Information)
             End If
         Else
+            bDataImported = False
             mgrCommon.ShowMessage(mgrMonitorList_ImportNothing, MsgBoxStyle.Information)
         End If
 
         Application.DoEvents()
-        Return True
+        Return bDataImported
     End Function
 
     Public Shared Sub ExportMonitorList(ByVal sLocation As String)
