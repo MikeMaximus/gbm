@@ -101,7 +101,7 @@ Public Class mgrCommon
 
     Public Shared Sub SetTLSVersion()
         'Force TLS 1.2 for all HTTPS connections
-        ServicePointManager.SecurityProtocol = 3072
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
     End Sub
 
     Public Shared Function CheckAddressForUpdates(ByVal sURL As String, ByRef sETag As String) As Boolean
