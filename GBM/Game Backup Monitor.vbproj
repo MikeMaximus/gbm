@@ -154,6 +154,7 @@
     <Compile Include="Classes\clsBackup.vb" />
     <Compile Include="Classes\clsGame.vb" />
     <Compile Include="Classes\clsTag.vb" />
+    <Compile Include="Classes\YAML Serialize Classes\Ludusavi.vb" />
     <Compile Include="Forms\frmConfigLinks.Designer.vb">
       <DependentUpon>frmConfigLinks.vb</DependentUpon>
     </Compile>
@@ -293,6 +294,7 @@
     <Compile Include="Managers\mgrLaunchData.vb" />
     <Compile Include="Managers\mgrLaunchers.vb" />
     <Compile Include="Managers\mgrLaunchGame.vb" />
+    <Compile Include="Managers\mgrLudusavi.vb" />
     <Compile Include="Managers\mgrMetadata.vb" />
     <Compile Include="Managers\mgrWineData.vb" />
     <Compile Include="Managers\mgrProcess.vb" />

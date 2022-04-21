@@ -340,7 +340,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-04-20T21:12:38
+        '''  Looks up a localized string similar to 2022-04-21T15:26:35
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -949,6 +949,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmAdvancedImport_ColumnName() As String
             Get
                 Return ResourceManager.GetString("frmAdvancedImport_ColumnName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Path.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_ColumnPath() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_ColumnPath", resourceCulture)
             End Get
         End Property
         
@@ -2577,6 +2586,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_Icon() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_Icon", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Image.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_Image() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_Image", resourceCulture)
             End Get
         End Property
         
@@ -7948,7 +7966,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] files (*.[PARAM])|*.[PARAM].
+        '''  Looks up a localized string similar to [PARAM] files ([PARAM])|[PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_FilesFilter() As String
             Get
@@ -8245,11 +8263,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Choose a valid xml file to import.
+        '''  Looks up a localized string similar to Choose a valid file to import.
         '''</summary>
-        Friend ReadOnly Property mgrMonitorList_ChooseImportXML() As String
+        Friend ReadOnly Property mgrMonitorList_ChooseImport() As String
             Get
-                Return ResourceManager.GetString("mgrMonitorList_ChooseImportXML", resourceCulture)
+                Return ResourceManager.GetString("mgrMonitorList_ChooseImport", resourceCulture)
             End Get
         End Property
         
@@ -8416,11 +8434,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to XML.
+        '''  Looks up a localized string similar to GBM Export.
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_XML() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_XML", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Ludusavi Manifest.
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_YAML() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_YAML", resourceCulture)
             End Get
         End Property
         

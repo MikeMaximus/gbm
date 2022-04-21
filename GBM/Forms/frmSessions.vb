@@ -192,9 +192,9 @@ Public Class frmSessions
         If frm.DialogResult = DialogResult.OK Then
 
             If frm.XML Then
-                oExtensions.Add(frmSessions_XML, "xml")
+                oExtensions.Add(frmSessions_XML, "*.xml")
             Else
-                oExtensions.Add(frmSessions_CSV, "csv")
+                oExtensions.Add(frmSessions_CSV, "*.csv")
             End If
 
             sLocation = mgrCommon.SaveFileBrowser("Session_Export", frmSessions_ChooseExportLocation, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmSessions_DefaultExportFileName)

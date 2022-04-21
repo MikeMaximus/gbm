@@ -1,9 +1,10 @@
 ﻿Imports System.IO
 Imports System.Security.Cryptography
+Imports System.Text.Encoding
 
 Public Class mgrHash
 
-    'Generate SHA256 Hash
+    'Generate SHA256 Hash from file
     Public Shared Function Generate_SHA256_Hash(ByVal sPath As String) As String
 
         Dim bHashValue() As Byte
@@ -24,6 +25,16 @@ Public Class mgrHash
         End If
 
         Return sHash
+    End Function
+
+    'Generate a guid using MD5 from a string
+    Public Shared Function Generate_MD5_GUID(ByVal sItem As String) As String
+        Dim bHashValue() As Byte
+        Dim oMD5 As MD5 = MD5.Create()
+
+        bHashValue = oMD5.ComputeHash(UTF8.GetBytes(sItem))
+
+        Return New Guid(bHashValue).ToString
     End Function
 
     'Safe Compare

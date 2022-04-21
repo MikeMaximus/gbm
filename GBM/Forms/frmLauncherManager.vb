@@ -132,7 +132,7 @@ Public Class frmLauncherManager
             End If
         End If
 
-        oExtensions.Add(frmLauncherManager_Executable, "exe")
+        oExtensions.Add(frmLauncherManager_Executable, "*.exe")
         sNewPath = mgrCommon.OpenFileBrowser("LM_LaunchString", frmLauncherManager_ChooseLauncherExe, oExtensions, 1, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then

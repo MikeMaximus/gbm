@@ -438,8 +438,8 @@
   <data name="mgrMonitorList_ChooseExportXML" xml:space="preserve">
     <value>Choose a location for the export file</value>
   </data>
-  <data name="mgrMonitorList_ChooseImportXML" xml:space="preserve">
-    <value>Choose a valid xml file to import</value>
+  <data name="mgrMonitorList_ChooseImport" xml:space="preserve">
+    <value>Choose a valid file to import</value>
   </data>
   <data name="frmGameManager_ChooseSaveFolder" xml:space="preserve">
     <value>Browse to the saved game folder and click Open</value>
@@ -568,7 +568,7 @@
     <value>Up to Date!</value>
   </data>
   <data name="mgrMonitorList_XML" xml:space="preserve">
-    <value>XML</value>
+    <value>GBM Export</value>
   </data>
   <data name="frmGameManager_cmsFile" xml:space="preserve">
     <value>&amp;File...</value>
@@ -1210,7 +1210,7 @@
     <value>Generating SHA-256 hash for [PARAM] backup file.</value>
   </data>
   <data name="mgrCommon_FilesFilter" xml:space="preserve">
-    <value>[PARAM] files (*.[PARAM])|*.[PARAM]</value>
+    <value>[PARAM] files ([PARAM])|[PARAM]</value>
   </data>
   <data name="mgrCommon_No" xml:space="preserve">
     <value>No</value>
@@ -3060,5 +3060,14 @@
   </data>
   <data name="mgrCommon_ErrorUnexpectedWebResponse" xml:space="preserve">
     <value>An unexpected error or response ([PARAM]) was received from:[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmGameManager_Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="mgrMonitorList_YAML" xml:space="preserve">
+    <value>Ludusavi Manifest</value>
+  </data>
+  <data name="frmAdvancedImport_ColumnPath" xml:space="preserve">
+    <value>Path</value>
   </data>
 </root>

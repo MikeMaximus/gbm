@@ -83,10 +83,12 @@ Public Class frmAdvancedImport
         lstGames.BeginUpdate()
 
         lstGames.Clear()
+        lstGames.ListViewItemSorter = Nothing
 
         lstGames.Columns.Add(frmAdvancedImport_ColumnName, 315)
         lstGames.Columns.Add(frmAdvancedImport_ColumnProcess, 130)
-        lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 290)
+        lstGames.Columns.Add(frmAdvancedImport_ColumnPath, 200)
+        lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 90)
 
         For Each de As DictionaryEntry In ImportData
             bAddItem = False
@@ -99,7 +101,7 @@ Public Class frmAdvancedImport
             Next
             sTags = sTags.TrimEnd(New Char() {",", " "})
 
-            oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.ProcessName, sTags})
+            oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.ProcessName, oApp.TruePath, sTags})
             oListViewItem.Tag = oApp.ID
 
             If FinalData.ContainsKey(oApp.ID) Then

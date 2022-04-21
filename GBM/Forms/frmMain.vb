@@ -802,19 +802,12 @@ Public Class frmMain
 
         'Unix Handler
         If Not mgrCommon.IsUnix Then
-            oExtensions.Add("BMP", "bmp")
             oExtensions.Add(frmGameManager_Executable, "exe")
-            oExtensions.Add("GIF", "gif")
             oExtensions.Add(frmGameManager_Icon, "ico")
-            oExtensions.Add("JPG", "jpg")
-            oExtensions.Add("PNG", "png")
-            oExtensions.Add("TIF", "tif")
+            oExtensions.Add(frmGameManager_Image, "*.bmp;*.gif;*.jpg,*.png,*.tif")
             sIcon = mgrCommon.OpenFileBrowser("Main_Icon", mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName), oExtensions, 4, sDefaultFolder, False)
         Else
-            oExtensions.Add("GIF", "gif")
-            oExtensions.Add("JPG", "jpg")
-            oExtensions.Add("PNG", "png")
-            oExtensions.Add("TIF", "tif")
+            oExtensions.Add(frmGameManager_Image, "*.gif;*.jpg,*.png,*.tif")
             sIcon = mgrCommon.OpenFileBrowser("Main_Icon", mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName), oExtensions, 3, sDefaultFolder, False)
         End If
 
@@ -2067,7 +2060,7 @@ Public Class frmMain
         Dim sLocation As String
         Dim oExtensions As New SortedList
 
-        oExtensions.Add(frmMain_Text, "txt")
+        oExtensions.Add(frmMain_Text, "*.txt")
         sLocation = mgrCommon.SaveFileBrowser("Log_File", frmMain_ChooseLogFile, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmMain_DefaultLogFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
 
         If sLocation <> String.Empty Then

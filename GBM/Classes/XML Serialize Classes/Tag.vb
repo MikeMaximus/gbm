@@ -11,4 +11,11 @@ Public Class Tag
         End Set
     End Property
 
+    Sub New()
+        Name = String.Empty
+    End Sub
+
+    Sub New(ByVal sInitName As String)
+        Name = sInitName
+    End Sub
 End Class

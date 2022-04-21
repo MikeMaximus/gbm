@@ -896,9 +896,17 @@ Public Class mgrMonitorList
 
         Cursor.Current = Cursors.WaitCursor
 
-        If Not mgrXML.ReadMonitorList(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
-            Return False
-        End If
+        Select Case Path.GetExtension(sLocation)
+            Case ".xml"
+                If Not mgrXML.ReadMonitorList(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
+                    Return False
+                End If
+
+            Case ".yaml", ".yml"
+                If Not mgrLudusavi.ReadLudusaviManifest(sLocation, hshCompareFrom) Then
+                    Return False
+                End If
+        End Select
 
         hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
 
@@ -1007,8 +1015,9 @@ Public Class mgrMonitorList
         Dim sLocation As String
         Dim oExtensions As New SortedList
 
-        oExtensions.Add(mgrMonitorList_XML, "xml")
-        sLocation = mgrCommon.OpenFileBrowser("XML_Import", mgrMonitorList_ChooseImportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
+        oExtensions.Add(mgrMonitorList_XML, "*.xml")
+        oExtensions.Add(mgrMonitorList_YAML, "*.yaml;*.yml")
+        sLocation = mgrCommon.OpenFileBrowser("XML_Import", mgrMonitorList_ChooseImport, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), True)
 
         If sLocation <> String.Empty Then
             If DoImport(sLocation) Then
@@ -1023,7 +1032,7 @@ Public Class mgrMonitorList
         Dim sLocation As String
         Dim oExtensions As New SortedList
 
-        oExtensions.Add(mgrMonitorList_XML, "xml")
+        oExtensions.Add(mgrMonitorList_XML, "*.xml")
         sLocation = mgrCommon.SaveFileBrowser("XML_Export", mgrMonitorList_ChooseExportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), mgrMonitorList_DefaultExportFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
 
         If sLocation <> String.Empty Then

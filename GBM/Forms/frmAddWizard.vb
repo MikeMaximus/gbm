@@ -425,7 +425,7 @@ Public Class frmAddWizard
             End If
         End If
 
-        oExtensions.Add(frmAddWizard_Executable, "exe")
+        oExtensions.Add(frmAddWizard_Executable, "*.exe")
 
         sNewPath = mgrCommon.OpenFileBrowser("Wizard_Process_Path", frmAddWizard_ChooseProcess, oExtensions, 1, sDefaultFolder, False)
 
