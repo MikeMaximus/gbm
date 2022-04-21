@@ -16,28 +16,38 @@ Public Class mgrLudusavi
         Return True
     End Function
 
-    'We can try to detect path entries that are file includes so we can convert them for GBM to use.
-    Private Shared Function IsInclude(ByVal sPath As String) As Boolean
-        If sPath.Contains("*") Or sPath.Contains("?") Then
+    'We can try to detect and convert path entries that are file includes to something that GBM can understand.
+    'TODO: This doesn't really work in a lot of cases.
+    Private Shared Function ConvertInclude(ByRef sPath As String, ByRef sInclude As String) As Boolean
+        If Not IsPathRooted(sPath) And (sPath.Contains("*") Or sPath.Contains("?")) Then
+            sInclude = sPath
+            sPath = String.Empty
             Return True
         End If
+
         Return False
     End Function
 
     'We need to convert ludusavi manifest path variables to ones that GBM can understand
-    Private Shared Function ConvertPath(ByVal sPath As String) As String
-        sPath = sPath.Replace("<base>/", String.Empty)
-        sPath = sPath.Replace("<home>", "%USERPROFILE%")
-        sPath = sPath.Replace("<winAppData>", "%APPDATA%")
-        sPath = sPath.Replace("<winLocalAppData>", "%LOCALAPPDATA%")
-        sPath = sPath.Replace("<winDocuments>", "%USERDOCUMENTS%")
-        sPath = sPath.Replace("<winPublic>", "%COMMONDOCUMENTS%")
-        sPath = sPath.Replace("<winProgramData>", "%PROGRAMDATA%")
-        sPath = sPath.Replace("<xdgData>", "${XDG_DATA_HOME}")
-        sPath = sPath.Replace("<xdgConfig>", "${XDG_CONFIG_HOME}")
+    Private Shared Function ConvertPath(ByVal sPath As String, ByVal oOS As clsGame.eOS) As String
 
-        'On Windows, we will replace the path seperator with one users are familiar with on that OS
-        If Not mgrCommon.IsUnix Then sPath = sPath.Replace("/", DirectorySeparatorChar)
+        'Replacing <base> with an empty string should make relative locations compatible with GBM
+        sPath = sPath.Replace("<base>/", String.Empty)
+
+        Select Case oOS
+            Case clsGame.eOS.Windows
+                sPath = sPath.Replace("<home>", "%USERPROFILE%")
+                sPath = sPath.Replace("<winAppData>", "%APPDATA%")
+                sPath = sPath.Replace("<winLocalAppData>", "%LOCALAPPDATA%")
+                sPath = sPath.Replace("<winDocuments>", "%USERDOCUMENTS%")
+                sPath = sPath.Replace("<winPublic>", "%COMMONDOCUMENTS%")
+                sPath = sPath.Replace("<winProgramData>", "%PROGRAMDATA%")
+                If Not mgrCommon.IsUnix Then sPath = sPath.Replace("/", DirectorySeparatorChar)
+            Case clsGame.eOS.Linux
+                sPath = sPath.Replace("<home>", "~")
+                sPath = sPath.Replace("<xdgData>", "${XDG_DATA_HOME}")
+                sPath = sPath.Replace("<xdgConfig>", "${XDG_CONFIG_HOME}")
+        End Select
 
         'Once we reach this point we need to make sure the path still doesn't contain any invalid characters.
         Return mgrPath.ValidatePath(sPath)
@@ -50,11 +60,9 @@ Public Class mgrLudusavi
         Dim oLudusaviPathPair As KeyValuePair(Of String, LudusaviPath)
         Dim oLudusaviPath As LudusaviPath
         Dim oGame As clsGame
-        Dim sCurrentPath As String
 
         Try
             For Each oLudusaviGamePair In oList
-                sCurrentPath = String.Empty
                 oLudusaviGame = DirectCast(oLudusaviGamePair.Value, LudusaviGame)
                 If Not oLudusaviGame.files Is Nothing Then
                     For Each oLudusaviPathPair In oLudusaviGame.files
@@ -69,19 +77,20 @@ Public Class mgrLudusavi
                                                     oGame = New clsGame
                                                     oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
                                                     oGame.Name = oLudusaviGamePair.Key
-                                                    sCurrentPath = ConvertPath(oLudusaviPathPair.Key)
-                                                    If IsInclude(sCurrentPath) Then
-                                                        oGame.Path = String.Empty
-                                                        oGame.FileType = sCurrentPath
+                                                    oGame.Path = ConvertPath(oLudusaviPathPair.Key, oOS)
+                                                    oGame.OS = oOS
+
+                                                    If ConvertInclude(oGame.Path, oGame.FileType) Then
+                                                        oGame.FolderSave = False
                                                     Else
-                                                        oGame.Path = sCurrentPath
                                                         oGame.FolderSave = True
                                                     End If
-                                                    oGame.OS = oOS
+
                                                     If Not w.store Is Nothing Then
                                                         oGame.ImportTags.Add(New Tag(w.store))
                                                     End If
                                                     oGame.ImportTags.Add(New Tag("Ludusavi"))
+
                                                     If Not hshList.ContainsKey(oGame.ID) Then hshList.Add(oGame.ID, oGame)
                                                 End If
                                             Next
