@@ -484,12 +484,12 @@ Public Class frmGameManager
 
         'Unix Handler
         If Not mgrCommon.IsUnix Then
-            oExtensions.Add(frmGameManager_Executable, "exe")
-            oExtensions.Add(frmGameManager_Icon, "ico")
-            oExtensions.Add(frmGameManager_Image, "*.bmp;*.gif;*.jpg,*.png,*.tif")
+            oExtensions.Add(frmGameManager_Executable, "*.exe")
+            oExtensions.Add(frmGameManager_Icon, "*.ico")
+            oExtensions.Add(frmGameManager_Image, "*.bmp;*.gif;*.jpg;*.png;*.tif")
             sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, oExtensions, 4, sDefaultFolder, False)
         Else
-            oExtensions.Add(frmGameManager_Image, "*.gif;*.jpg,*.png,*.tif")
+            oExtensions.Add(frmGameManager_Image, "*.gif;*.jpg;*.png;*.tif")
             sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, oExtensions, 3, sDefaultFolder, False)
         End If
 
