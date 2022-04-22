@@ -18,22 +18,67 @@ Public Class mgrLudusavi
 
     'We can try to detect and convert path entries that are file includes to something that GBM can understand.
     Private Shared Function ConvertInclude(ByRef sPath As String, ByRef sInclude As String) As Boolean
-        Dim bRooted = IsPathRooted(sPath)
+        Dim bRooted As Boolean
+        Dim bHasExt As Boolean = False
+        Dim iExtLength As Integer
 
-        If (Not bRooted And HasExtension(sPath)) Or (Not bRooted And (sPath.Contains("*") Or sPath.Contains("?"))) Then
-            sInclude = sPath
-            sPath = String.Empty
-            Return True
-        End If
+        Try
+            bRooted = IsPathRooted(sPath)
 
+            'Only recognize a file extension of 4 characters or less. This will make detecting includes more reliable, especially for Linux configurations.
+            If HasExtension(sPath) Then
+                iExtLength = GetExtension(sPath).Length
+                If iExtLength <= 4 Then
+                    bHasExt = True
+                End If
+            End If
 
-        If bRooted And (sPath.Contains("*") Or sPath.Contains("?")) Then
-            sInclude = GetFileName(sPath)
-            sPath = GetDirectoryName(sPath)
-            Return True
-        End If
+            If (Not bRooted And bHasExt) Or (Not bRooted And (sPath.Contains("*") Or sPath.Contains("?"))) Then
+                sInclude = sPath
+                sPath = String.Empty
+                Return True
+            End If
+
+            If (bRooted And bHasExt) Or (bRooted And (sPath.Contains("*") Or sPath.Contains("?"))) Then
+                sInclude = GetFileName(sPath)
+                sPath = GetDirectoryName(sPath)
+                Return True
+            End If
+        Catch
+            'Do Nothing
+        End Try
 
         Return False
+    End Function
+
+    'If a game is using a multi-file configuration we can combine them into a single GBM config when it makes sense.
+    Private Shared Function ConvertConfigurations(ByVal oConfigurations As List(Of clsGame)) As List(Of clsGame)
+        Dim oFinal As New List(Of clsGame)
+        Dim oFrom As clsGame
+        Dim oTo As clsGame
+
+        For i = 0 To oConfigurations.Count - 1
+            oFrom = oConfigurations(i)
+            For j = i + 1 To oConfigurations.Count - 1
+                oTo = oConfigurations(j)
+                If oFrom.Path = oTo.Path Then
+                    If oTo.FileType <> String.Empty Then
+                        If oFrom.FileType = String.Empty Then
+                            oFrom.FileType = oTo.FileType
+                        Else
+                            oFrom.FileType &= ":" & oTo.FileType
+                        End If
+                    End If
+                    oFinal.Add(oFrom)
+                    i += 1
+                Else
+                    oFinal.Add(oFrom)
+                    oFinal.Add(oTo)
+                End If
+            Next
+        Next
+
+        Return oFinal
     End Function
 
     'We need to convert ludusavi manifest path variables to ones that GBM can understand
@@ -68,11 +113,13 @@ Public Class mgrLudusavi
         Dim oLudusaviPathPair As KeyValuePair(Of String, LudusaviPath)
         Dim oLudusaviPath As LudusaviPath
         Dim oGame As clsGame
+        Dim oConfigurations As New List(Of clsGame)
 
         Try
             For Each oLudusaviGamePair In oList
                 oLudusaviGame = DirectCast(oLudusaviGamePair.Value, LudusaviGame)
                 If Not oLudusaviGame.files Is Nothing Then
+                    oConfigurations.Clear()
                     For Each oLudusaviPathPair In oLudusaviGame.files
                         If SupportedPath(oLudusaviPathPair.Key) Then
                             oLudusaviPath = DirectCast(oLudusaviPathPair.Value, LudusaviPath)
@@ -98,8 +145,7 @@ Public Class mgrLudusavi
                                                         oGame.ImportTags.Add(New Tag(w.store))
                                                     End If
                                                     oGame.ImportTags.Add(New Tag("Ludusavi"))
-
-                                                    If Not hshList.ContainsKey(oGame.ID) Then hshList.Add(oGame.ID, oGame)
+                                                    oConfigurations.Add(oGame)
                                                 End If
                                             Next
                                         End If
@@ -108,6 +154,14 @@ Public Class mgrLudusavi
                             End If
                         End If
                     Next
+                    If oConfigurations.Count = 1 Then
+                        If Not hshList.ContainsKey(oConfigurations(0).ID) Then hshList.Add(oConfigurations(0).ID, oConfigurations(0))
+                    ElseIf oConfigurations.Count > 1 Then
+                        oConfigurations = ConvertConfigurations(oConfigurations)
+                        For Each o As clsGame In oConfigurations
+                            If Not hshList.ContainsKey(o.ID) Then hshList.Add(o.ID, o)
+                        Next
+                    End If
                 End If
             Next
             Return True

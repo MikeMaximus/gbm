@@ -906,6 +906,7 @@ Public Class mgrMonitorList
                 If Not mgrLudusavi.ReadLudusaviManifest(sLocation, hshCompareFrom) Then
                     Return False
                 End If
+                oExportInfo.Exported = mgrCommon.DateToUnix(File.GetLastWriteTime(sLocation))
         End Select
 
         hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
