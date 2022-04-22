@@ -27,7 +27,7 @@ Public Class mgrLudusavi
 
             'Only recognize a file extension of 4 characters or less. This will make detecting includes more reliable, especially for Linux configurations.
             If HasExtension(sPath) Then
-                iExtLength = GetExtension(sPath).Length
+                iExtLength = GetExtension(sPath).Length - 1
                 If iExtLength <= 4 Then
                     bHasExt = True
                 End If
@@ -69,13 +69,10 @@ Public Class mgrLudusavi
                             oFrom.FileType &= ":" & oTo.FileType
                         End If
                     End If
-                    oFinal.Add(oFrom)
                     i += 1
-                Else
-                    oFinal.Add(oFrom)
-                    oFinal.Add(oTo)
                 End If
             Next
+            oFinal.Add(oFrom)
         Next
 
         Return oFinal
