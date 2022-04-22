@@ -17,11 +17,19 @@ Public Class mgrLudusavi
     End Function
 
     'We can try to detect and convert path entries that are file includes to something that GBM can understand.
-    'TODO: This doesn't really work in a lot of cases.
     Private Shared Function ConvertInclude(ByRef sPath As String, ByRef sInclude As String) As Boolean
-        If Not IsPathRooted(sPath) And (sPath.Contains("*") Or sPath.Contains("?")) Then
+        Dim bRooted = IsPathRooted(sPath)
+
+        If (Not bRooted And HasExtension(sPath)) Or (Not bRooted And (sPath.Contains("*") Or sPath.Contains("?"))) Then
             sInclude = sPath
             sPath = String.Empty
+            Return True
+        End If
+
+
+        If bRooted And (sPath.Contains("*") Or sPath.Contains("?")) Then
+            sInclude = GetFileName(sPath)
+            sPath = GetDirectoryName(sPath)
             Return True
         End If
 
