@@ -3070,4 +3070,7 @@
   <data name="frmAdvancedImport_ColumnPath" xml:space="preserve">
     <value>Path</value>
   </data>
+  <data name="frmAdvancedImport_ColumnInclude" xml:space="preserve">
+    <value>Files</value>
+  </data>
 </root>

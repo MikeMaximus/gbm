@@ -893,6 +893,7 @@ Public Class mgrMonitorList
         Dim oToItem As clsGame
         Dim oExportInfo As New ExportData
         Dim bDataImported As Boolean = False
+        Dim bClassicMode As Boolean
 
         Cursor.Current = Cursors.WaitCursor
 
@@ -901,11 +902,12 @@ Public Class mgrMonitorList
                 If Not mgrXML.ReadMonitorList(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
                     Return False
                 End If
-
+                bClassicMode = True
             Case ".yaml", ".yml"
                 If Not mgrLudusavi.ReadLudusaviManifest(sLocation, hshCompareFrom) Then
                     Return False
                 End If
+                bClassicMode = False
                 oExportInfo.Exported = mgrCommon.DateToUnix(File.GetLastWriteTime(sLocation))
         End Select
 
@@ -936,6 +938,7 @@ Public Class mgrMonitorList
             Dim frm As New frmAdvancedImport
             frm.ImportInfo = oExportInfo
             frm.ImportData = hshSyncItems
+            frm.ClassicMode = bClassicMode
             If frm.ShowDialog() = DialogResult.OK Then
                 Cursor.Current = Cursors.WaitCursor
 

@@ -6,6 +6,7 @@ Public Class frmAdvancedImport
     Private oImportData As ExportData
     Private hshImportData As Hashtable
     Private hshFinalData As New Hashtable
+    Private bClassicMode As Boolean = True
     Private bSelectAll As Boolean = True
     Private bIsLoading As Boolean = False
     Private iCurrentSort As Integer = 0
@@ -33,6 +34,15 @@ Public Class frmAdvancedImport
     Public ReadOnly Property FinalData As Hashtable
         Get
             Return hshFinalData
+        End Get
+    End Property
+
+    Public Property ClassicMode As Boolean
+        Set(value As Boolean)
+            bClassicMode = value
+        End Set
+        Get
+            Return bClassicMode
         End Get
     End Property
 
@@ -85,10 +95,16 @@ Public Class frmAdvancedImport
         lstGames.Clear()
         lstGames.ListViewItemSorter = Nothing
 
-        lstGames.Columns.Add(frmAdvancedImport_ColumnName, 315)
-        lstGames.Columns.Add(frmAdvancedImport_ColumnProcess, 130)
-        lstGames.Columns.Add(frmAdvancedImport_ColumnPath, 200)
-        lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 90)
+        If bClassicMode Then
+            lstGames.Columns.Add(frmAdvancedImport_ColumnName, 315)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnProcess, 130)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 290)
+        Else
+            lstGames.Columns.Add(frmAdvancedImport_ColumnName, 315)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnPath, 200)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnInclude, 130)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 90)
+        End If
 
         For Each de As DictionaryEntry In ImportData
             bAddItem = False
@@ -101,7 +117,12 @@ Public Class frmAdvancedImport
             Next
             sTags = sTags.TrimEnd(New Char() {",", " "})
 
-            oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.ProcessName, oApp.TruePath, sTags})
+            If bClassicMode Then
+                oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.ProcessName, sTags})
+            Else
+                oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.TruePath, oApp.FileType, sTags})
+            End If
+
             oListViewItem.Tag = oApp.ID
 
             If FinalData.ContainsKey(oApp.ID) Then
