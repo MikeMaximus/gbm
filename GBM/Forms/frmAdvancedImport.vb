@@ -110,13 +110,27 @@ Public Class frmAdvancedImport
                 oListViewItem.Checked = False
             End If
 
-            If bAutoDetect Then
-                If oApp.AbsolutePath Then
-                    If Directory.Exists(oApp.Path) And Not mgrPath.IsSpecialPath(oApp.Path, True) Then
-                        oListViewItem.Checked = True
+            Try
+                If bAutoDetect Then
+                    If oApp.AbsolutePath And oApp.FolderSave Then
+                        If Directory.Exists(oApp.Path) Then
+                            oListViewItem.Checked = True
+                        End If
+                    ElseIf oApp.AbsolutePath And Not oApp.FolderSave Then
+                        If Directory.Exists(oApp.Path) Then
+                            For Each s As String In oApp.FileType.Split(":")
+                                'For performance reasons we are not using a recursive search.
+                                If Directory.GetFiles(oApp.Path, s, SearchOption.TopDirectoryOnly).Length > 0 Then
+                                    oListViewItem.Checked = True
+                                    Exit For
+                                End If
+                            Next
+                        End If
                     End If
                 End If
-            End If
+            Catch
+                'It should never happen at this point, but if the auto detect fails due to bad data we just ignore it and move on.
+            End Try
 
             If oApp.ImportUpdate Then
                 oListViewItem.ImageIndex = 1
