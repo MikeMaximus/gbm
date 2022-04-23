@@ -1,5 +1,6 @@
 ﻿Imports YamlDotNet.Serialization
 Imports System.IO.Path
+Imports System.Text.RegularExpressions
 
 Public Class mgrLudusavi
 
@@ -17,13 +18,13 @@ Public Class mgrLudusavi
     End Function
 
     'We can try to detect and convert path entries that are file includes to something that GBM can understand.
-    Private Shared Function ConvertInclude(ByRef sPath As String, ByRef sInclude As String) As Boolean
+    Private Shared Function ConvertInclude(ByRef sPath As String, ByRef sInclude As String, ByVal bIsRootedOverride As Boolean) As Boolean
         Dim bRooted As Boolean
         Dim bHasExt As Boolean = False
         Dim iExtLength As Integer
 
         Try
-            bRooted = IsPathRooted(sPath)
+            bRooted = IsPathRooted(sPath) Or bIsRootedOverride
 
             'Only recognize a file extension of 4 characters or less. This will make detecting includes more reliable, especially for Linux configurations.
             If HasExtension(sPath) Then
@@ -92,7 +93,6 @@ Public Class mgrLudusavi
                 sPath = sPath.Replace("<winDocuments>", "%USERDOCUMENTS%")
                 sPath = sPath.Replace("<winPublic>", "%COMMONDOCUMENTS%")
                 sPath = sPath.Replace("<winProgramData>", "%PROGRAMDATA%")
-                sPath = sPath.Replace("/", DirectorySeparatorChar)
             Case clsGame.eOS.Linux
                 sPath = sPath.Replace("<home>", "~")
                 sPath = sPath.Replace("<xdgData>", "${XDG_DATA_HOME}")
@@ -126,11 +126,14 @@ Public Class mgrLudusavi
     End Function
 
     'This function converts ludusavi manifest data into a structure that can be imported.
-    Private Shared Function ConvertYAML(ByRef hshList As Hashtable, ByRef oList As Dictionary(Of String, LudusaviGame), ByVal oOS As clsGame.eOS) As Boolean
+    Private Shared Function ConvertYAML(ByRef hshList As Hashtable, ByRef oList As Dictionary(Of String, LudusaviGame)) As Boolean
         Dim oLudusaviGamePair As KeyValuePair(Of String, LudusaviGame)
         Dim oLudusaviGame As LudusaviGame
         Dim oLudusaviPathPair As KeyValuePair(Of String, LudusaviPath)
         Dim oLudusaviPath As LudusaviPath
+        Dim oWinRegEx As New Regex("^(\<win.*\>)+", RegexOptions.Compiled)
+        Dim bIsInclude As Boolean
+        Dim oOS As clsGame.eOS = mgrCommon.GetCurrentOS
         Dim oGame As clsGame
         Dim oConfigurations As New List(Of clsGame)
 
@@ -151,13 +154,24 @@ Public Class mgrLudusavi
                                                     oGame = New clsGame
                                                     oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
                                                     oGame.Name = oLudusaviGamePair.Key
-                                                    oGame.Path = ConvertPath(oLudusaviPathPair.Key, oOS)
-                                                    oGame.OS = oOS
 
-                                                    If ConvertInclude(oGame.Path, oGame.FileType) Then
-                                                        oGame.FolderSave = False
+                                                    If oOS = clsGame.eOS.Linux And oWinRegEx.IsMatch(oLudusaviPathPair.Key) Then
+                                                        oGame.Path = ConvertPath(oLudusaviPathPair.Key, clsGame.eOS.Windows)
+                                                        oGame.OS = clsGame.eOS.Windows
+                                                        bIsInclude = ConvertInclude(oGame.Path, oGame.FileType, True)
+                                                        oGame.ImportTags.Add(New Tag("Windows"))
                                                     Else
+                                                        oGame.Path = ConvertPath(oLudusaviPathPair.Key, oOS)
+                                                        oGame.OS = oOS
+                                                        bIsInclude = ConvertInclude(oGame.Path, oGame.FileType, False)
+                                                    End If
+
+                                                    If oGame.OS = clsGame.eOS.Windows Then oGame.Path = oGame.Path.Replace("/", "\")
+
+                                                    If bIsInclude Then
                                                         oGame.FolderSave = True
+                                                    Else
+                                                        oGame.FolderSave = False
                                                     End If
 
                                                     If Not w.store Is Nothing Then
@@ -210,7 +224,7 @@ Public Class mgrLudusavi
 
             FormatYAML(sYAML)
             oList = oDeserializer.Deserialize(Of Dictionary(Of String, LudusaviGame))(sYAML)
-            ConvertYAML(hshList, oList, mgrCommon.GetCurrentOS)
+            ConvertYAML(hshList, oList)
 
             Return True
         Catch ex As Exception
