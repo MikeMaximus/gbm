@@ -37,19 +37,19 @@ Public Class mgrLudusavi
             If (Not bRooted And bHasExt) Or (Not bRooted And (sPath.Contains("*") Or sPath.Contains("?"))) Then
                 sInclude = sPath
                 sPath = String.Empty
-                Return True
+                Return False
             End If
 
             If (bRooted And bHasExt) Or (bRooted And (sPath.Contains("*") Or sPath.Contains("?"))) Then
                 sInclude = GetFileName(sPath)
                 sPath = GetDirectoryName(sPath)
-                Return True
+                Return False
             End If
         Catch
             'Do Nothing
         End Try
 
-        Return False
+        Return True
     End Function
 
     'If a game is using a multi-file configuration we can combine them into a single GBM config when it makes sense.
@@ -132,7 +132,6 @@ Public Class mgrLudusavi
         Dim oLudusaviPathPair As KeyValuePair(Of String, LudusaviPath)
         Dim oLudusaviPath As LudusaviPath
         Dim oWinRegEx As New Regex("^(\<win.*\>)+", RegexOptions.Compiled)
-        Dim bIsInclude As Boolean
         Dim oOS As clsGame.eOS = mgrCommon.GetCurrentOS
         Dim oGame As clsGame
         Dim oConfigurations As New List(Of clsGame)
@@ -158,21 +157,15 @@ Public Class mgrLudusavi
                                                     If oOS = clsGame.eOS.Linux And oWinRegEx.IsMatch(oLudusaviPathPair.Key) Then
                                                         oGame.Path = ConvertPath(oLudusaviPathPair.Key, clsGame.eOS.Windows)
                                                         oGame.OS = clsGame.eOS.Windows
-                                                        bIsInclude = ConvertInclude(oGame.Path, oGame.FileType, True)
+                                                        oGame.FolderSave = ConvertInclude(oGame.Path, oGame.FileType, True)
                                                         oGame.ImportTags.Add(New Tag("Windows"))
                                                     Else
                                                         oGame.Path = ConvertPath(oLudusaviPathPair.Key, oOS)
                                                         oGame.OS = oOS
-                                                        bIsInclude = ConvertInclude(oGame.Path, oGame.FileType, False)
+                                                        oGame.FolderSave = ConvertInclude(oGame.Path, oGame.FileType, False)
                                                     End If
 
                                                     If oGame.OS = clsGame.eOS.Windows Then oGame.Path = oGame.Path.Replace("/", "\")
-
-                                                    If bIsInclude Then
-                                                        oGame.FolderSave = True
-                                                    Else
-                                                        oGame.FolderSave = False
-                                                    End If
 
                                                     If Not w.store Is Nothing Then
                                                         oGame.ImportTags.Add(New Tag(ConvertTag(w.store)))
