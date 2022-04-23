@@ -92,7 +92,7 @@ Public Class mgrLudusavi
                 sPath = sPath.Replace("<winDocuments>", "%USERDOCUMENTS%")
                 sPath = sPath.Replace("<winPublic>", "%COMMONDOCUMENTS%")
                 sPath = sPath.Replace("<winProgramData>", "%PROGRAMDATA%")
-                If Not mgrCommon.IsUnix Then sPath = sPath.Replace("/", DirectorySeparatorChar)
+                sPath = sPath.Replace("/", DirectorySeparatorChar)
             Case clsGame.eOS.Linux
                 sPath = sPath.Replace("<home>", "~")
                 sPath = sPath.Replace("<xdgData>", "${XDG_DATA_HOME}")
@@ -101,6 +101,28 @@ Public Class mgrLudusavi
 
         'Once we reach this point we need to make sure the path still doesn't contain any invalid characters.
         Return mgrPath.ValidatePath(sPath)
+    End Function
+
+    'This function will convert store tags used in Ludusavi manifest to tag values that GBM currently uses.
+    Private Shared Function ConvertTag(ByVal sTag As String) As String
+        Select Case sTag
+            Case "discord"
+                Return "Discord"
+            Case "epic"
+                Return "EGS"
+            Case "gog"
+                Return "GOG"
+            Case "origin"
+                Return "Origin"
+            Case "uplay"
+                Return "uPlay"
+            Case "microsoft"
+                Return "Microsoft Store"
+            Case "steam"
+                Return "Steam"
+            Case Else
+                Return "Unknown Store"
+        End Select
     End Function
 
     'This function converts ludusavi manifest data into a structure that can be imported.
@@ -122,7 +144,7 @@ Public Class mgrLudusavi
                             oLudusaviPath = DirectCast(oLudusaviPathPair.Value, LudusaviPath)
                             If Not oLudusaviPath.when Is Nothing Then
                                 For Each w As LudusaviWhen In oLudusaviPath.when
-                                    If w.os = oOS.ToString.ToLower Then
+                                    If w.os = oOS.ToString.ToLower Or w.os Is Nothing Then
                                         If Not oLudusaviPath.tags Is Nothing Then
                                             For Each t As String In oLudusaviPath.tags
                                                 If t = "save" Then
@@ -139,7 +161,7 @@ Public Class mgrLudusavi
                                                     End If
 
                                                     If Not w.store Is Nothing Then
-                                                        oGame.ImportTags.Add(New Tag(w.store))
+                                                        oGame.ImportTags.Add(New Tag(ConvertTag(w.store)))
                                                     End If
                                                     oGame.ImportTags.Add(New Tag("Ludusavi"))
                                                     oConfigurations.Add(oGame)
