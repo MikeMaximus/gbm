@@ -805,10 +805,10 @@ Public Class frmMain
             oExtensions.Add(frmGameManager_Executable, "*.exe")
             oExtensions.Add(frmGameManager_Icon, "*.ico")
             oExtensions.Add(frmGameManager_Image, "*.bmp;*.gif;*.jpg;*.png;*.tif")
-            sIcon = mgrCommon.OpenFileBrowser("Main_Icon", mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName), oExtensions, 4, sDefaultFolder, False)
+            sIcon = mgrCommon.OpenFileBrowser("Main_Icon", mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName), oExtensions, 2, sDefaultFolder, False)
         Else
             oExtensions.Add(frmGameManager_Image, "*.gif;*.jpg;*.png;*.tif")
-            sIcon = mgrCommon.OpenFileBrowser("Main_Icon", mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName), oExtensions, 3, sDefaultFolder, False)
+            sIcon = mgrCommon.OpenFileBrowser("Main_Icon", mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName), oExtensions, 1, sDefaultFolder, False)
         End If
 
         If sIcon <> String.Empty Then
