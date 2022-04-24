@@ -2162,6 +2162,7 @@ Public Class frmMain
         gMonFileImportOfficial.Text = frmMain_gMonFileImportOfficial
         gMonFileImportOfficialWindows.Text = frmMain_gMonFileImportOfficialWindows
         gMonFileImportOfficialLinux.Text = frmMain_gMonFileImportOfficialLinux
+        gMonFileImportLudusavi.Text = frmMain_gMonFileImportLudusavi
         gMonFileImportFile.Text = frmMain_gMonFileImportFile
         gMonFileImportURL.Text = frmMain_gMonFileImportURL
         gMonFileExport.Text = frmMain_gMonFileExport
@@ -2199,6 +2200,7 @@ Public Class frmMain
         gMonTrayFileImportOfficial.Text = frmMain_gMonFileImportOfficial
         gMonTrayFileImportOfficialLinux.Text = frmMain_gMonFileImportOfficialLinux
         gMonTrayFileImportOfficialWindows.Text = frmMain_gMonFileImportOfficialWindows
+        gMonTrayFileImportLudusavi.Text = frmMain_gMonFileImportLudusavi
         gMonTrayFileImportFile.Text = frmMain_gMonFileImportFile
         gMonTrayFileImportURL.Text = frmMain_gMonFileImportURL
         gMonTrayFileExport.Text = frmMain_gMonFileExport
@@ -2734,6 +2736,14 @@ Public Class frmMain
     Private Sub gMonFileImportOfficialLinux_Click(sender As Object, e As EventArgs) Handles gMonFileImportOfficialLinux.Click, gMonTrayFileImportOfficialLinux.Click
         PauseScan()
         If mgrMonitorList.ImportOfficialGameList(App_URLImportLinux) Then
+            LoadGameSettings()
+        End If
+        ResumeScan()
+    End Sub
+
+    Private Sub gMonFileImportLudusavi_Click(sender As Object, e As EventArgs) Handles gMonFileImportLudusavi.Click, gMonTrayFileImportLudusavi.Click
+        PauseScan()
+        If mgrMonitorList.ImportLudusaviManifest(App_URLImportLudusavi) Then
             LoadGameSettings()
         End If
         ResumeScan()

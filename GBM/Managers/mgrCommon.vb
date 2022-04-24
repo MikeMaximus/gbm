@@ -131,23 +131,15 @@ Public Class mgrCommon
         Return False
     End Function
 
-    Public Shared Function CheckAddress(ByVal sURL As String, ByVal sExt As String) As Boolean
-        Dim oURL As Uri
-        Dim sEndSegment As String
+    'TODO: Look into validating with HTTP Content-Type here instead of a half assed way.
+    Public Shared Function CheckAddress(ByVal sURL As String) As Boolean
         Dim request As WebRequest
         Dim response As WebResponse
 
         Try
-            oURL = New Uri(sURL)
-            sEndSegment = oURL.Segments(oURL.Segments.Length - 1)
-
-            If Path.GetExtension(sEndSegment).ToLower = sExt.ToLower Then
-                request = WebRequest.Create(sURL)
-                response = request.GetResponse()
-                response.Close()
-            Else
-                Return False
-            End If
+            request = WebRequest.Create(sURL)
+            response = request.GetResponse()
+            response.Close()
         Catch ex As Exception
             Return False
         End Try
@@ -805,6 +797,50 @@ Public Class mgrCommon
 
         DeleteEmptyDirectory(sDir)
     End Sub
+
+    'Read text from a location, use local cache when appropriate for web locations.
+    Public Shared Function ReadTextFromCache(ByVal sLocation As String, ByVal bWebRead As Boolean, Optional ByRef lLastModified As Long = 0) As StreamReader
+        Dim oReader As StreamReader
+        Dim oURL As Uri
+        Dim sCachedFile As String
+        Dim sETagFile As String
+        Dim sETag As String = String.Empty
+        Dim bDownload As Boolean
+
+        If bWebRead Then
+            'Set local file locations
+            oURL = New Uri(sLocation)
+            sCachedFile = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & oURL.Segments(oURL.Segments.Length - 1)
+            sETagFile = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & Path.GetFileNameWithoutExtension(sCachedFile) & ".etag"
+
+            'Check for a saved ETag
+            If File.Exists(sETagFile) Then
+                sETag = mgrCommon.ReadText(sETagFile)
+            End If
+
+            'Query address using ETag if available
+            If mgrCommon.CheckAddressForUpdates(sLocation, sETag) Then
+                bDownload = True
+                mgrCommon.SaveText(sETag, sETagFile)
+            Else
+                bDownload = False
+            End If
+
+            'Read updated file from web if we need to
+            If bDownload Then
+                mgrCommon.SaveText(mgrCommon.ReadText(sLocation), sCachedFile)
+            End If
+
+            'Always use the cached file
+            sLocation = sCachedFile
+        End If
+
+        lLastModified = mgrCommon.DateToUnix(File.GetLastWriteTime(sLocation))
+
+        oReader = New StreamReader(sLocation)
+
+        Return oReader
+    End Function
 
     'Read text from location
     Public Shared Function ReadText(ByVal sLocation As String) As String

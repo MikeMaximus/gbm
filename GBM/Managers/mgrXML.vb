@@ -68,60 +68,19 @@ Public Class mgrXML
         Return True
     End Function
 
-    Private Shared Function ReadImportData(ByVal sLocation As String, ByVal bWebRead As Boolean) As StreamReader
-        Dim oReader As StreamReader
-        Dim oURL As Uri
-        Dim sCachedFile As String
-        Dim sETagFile As String
-        Dim sETag As String = String.Empty
-        Dim bDownload As Boolean = True
-
-        If bWebRead Then
-            'Set local file locations
-            oURL = New Uri(sLocation)
-            sCachedFile = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & oURL.Segments(oURL.Segments.Length - 1)
-            sETagFile = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & Path.GetFileNameWithoutExtension(sCachedFile) & ".etag"
-
-            'Check for a saved ETag
-            If File.Exists(sETagFile) Then
-                sETag = mgrCommon.ReadText(sETagFile)
-            End If
-
-            'Query address using ETag if available
-            If mgrCommon.CheckAddressForUpdates(sLocation, sETag) Then
-                bDownload = True
-                mgrCommon.SaveText(sETag, sETagFile)
-            Else
-                bDownload = False
-            End If
-
-            'Read updated file from web if we need to
-            If bDownload Then
-                mgrCommon.SaveText(mgrCommon.ReadText(sLocation), sCachedFile)
-            End If
-
-            'Always use the cached file
-            sLocation = sCachedFile
-        End If
-
-        oReader = New StreamReader(sLocation)
-
-        Return oReader
-    End Function
-
     Public Shared Function ImportandDeserialize(ByVal sLocation As String, ByRef oExportData As ExportData, Optional ByVal bWebRead As Boolean = False) As Boolean
         Dim oReader As StreamReader
         Dim oSerializer As XmlSerializer
 
         Try
-            oReader = ReadImportData(sLocation, bWebRead)
+            oReader = mgrCommon.ReadTextFromCache(sLocation, bWebRead)
             oSerializer = New XmlSerializer(GetType(ExportData), New XmlRootAttribute("gbm"))
             oExportData = oSerializer.Deserialize(oReader)
             oReader.Close()
 
             'Compatability Mode
             If oExportData.AppVer = 0 Then
-                oReader = ReadImportData(sLocation, bWebRead)
+                oReader = mgrCommon.ReadTextFromCache(sLocation, bWebRead)
                 oSerializer = New XmlSerializer(GetType(List(Of Game)), New XmlRootAttribute("gbm"))
                 oExportData.Configurations = oSerializer.Deserialize(oReader)
                 oReader.Close()

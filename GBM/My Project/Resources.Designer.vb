@@ -295,6 +295,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml.
+        '''</summary>
+        Friend ReadOnly Property App_URLImportLudusavi() As String
+            Get
+                Return ResourceManager.GetString("App_URLImportLudusavi", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to https://mikemaximus.github.io/gbm-web/manual.html.
         '''</summary>
         Friend ReadOnly Property App_URLManual() As String
@@ -340,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-04-23T13:49:23
+        '''  Looks up a localized string similar to 2022-04-24T14:34:26
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2142,6 +2151,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_cmsLinkProcess() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_cmsLinkProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Ludusavi Manifest....
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsLudusavi() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsLudusavi", resourceCulture)
             End Get
         End Property
         
@@ -4576,6 +4594,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_gMonFileImportFile() As String
             Get
                 Return ResourceManager.GetString("frmMain_gMonFileImportFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Ludusavi Manifest....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileImportLudusavi() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileImportLudusavi", resourceCulture)
             End Get
         End Property
         
@@ -8299,6 +8326,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Would you like to choose games to import from the Ludusavi Manifest?[BR][BR]This requires an active internet connection..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_ConfirmLudusaviImport() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_ConfirmLudusaviImport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ConfirmOfficialImport() As String
@@ -8412,6 +8448,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrMonitorList_SyncToMaster() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_SyncToMaster", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The Ludusavi Manifest contains thousands of saved game configurations sourced from the PC Gaming Wiki.[BR][BR]These configurations are only suitable for manual backups by default and may not be fully compatible with GBM.[BR][BR]This message will only be shown once..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_WarningLudusaviImport() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_WarningLudusaviImport", resourceCulture)
             End Get
         End Property
         

@@ -125,6 +125,7 @@ Partial Class frmGameManager
         Me.cmsMonitorOptions = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsEnabled = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsMonitorOnly = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsLudusavi = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudHours, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -508,40 +509,40 @@ Partial Class frmGameManager
         '
         'cmsImport
         '
-        Me.cmsImport.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsOfficial, Me.cmsFile, Me.cmsURL})
+        Me.cmsImport.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsOfficial, Me.cmsLudusavi, Me.cmsFile, Me.cmsURL})
         Me.cmsImport.Name = "cmsImport"
         Me.cmsImport.ShowImageMargin = False
-        Me.cmsImport.Size = New System.Drawing.Size(118, 70)
+        Me.cmsImport.Size = New System.Drawing.Size(156, 114)
         '
         'cmsOfficial
         '
         Me.cmsOfficial.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsOfficialWindows, Me.cmsOfficialLinux})
         Me.cmsOfficial.Name = "cmsOfficial"
-        Me.cmsOfficial.Size = New System.Drawing.Size(117, 22)
+        Me.cmsOfficial.Size = New System.Drawing.Size(155, 22)
         Me.cmsOfficial.Text = "&Official List..."
         '
         'cmsOfficialWindows
         '
         Me.cmsOfficialWindows.Name = "cmsOfficialWindows"
-        Me.cmsOfficialWindows.Size = New System.Drawing.Size(132, 22)
+        Me.cmsOfficialWindows.Size = New System.Drawing.Size(180, 22)
         Me.cmsOfficialWindows.Text = "&Windows..."
         '
         'cmsOfficialLinux
         '
         Me.cmsOfficialLinux.Name = "cmsOfficialLinux"
-        Me.cmsOfficialLinux.Size = New System.Drawing.Size(132, 22)
+        Me.cmsOfficialLinux.Size = New System.Drawing.Size(180, 22)
         Me.cmsOfficialLinux.Text = "&Linux..."
         '
         'cmsFile
         '
         Me.cmsFile.Name = "cmsFile"
-        Me.cmsFile.Size = New System.Drawing.Size(117, 22)
+        Me.cmsFile.Size = New System.Drawing.Size(155, 22)
         Me.cmsFile.Text = "&File..."
         '
         'cmsURL
         '
         Me.cmsURL.Name = "cmsURL"
-        Me.cmsURL.Size = New System.Drawing.Size(117, 22)
+        Me.cmsURL.Size = New System.Drawing.Size(155, 22)
         Me.cmsURL.Text = "&URL..."
         '
         'txtSearch
@@ -1097,6 +1098,12 @@ Partial Class frmGameManager
         Me.cmsMonitorOnly.Size = New System.Drawing.Size(172, 22)
         Me.cmsMonitorOnly.Text = "Monitor &Only"
         '
+        'cmsLudusavi
+        '
+        Me.cmsLudusavi.Name = "cmsLudusavi"
+        Me.cmsLudusavi.Size = New System.Drawing.Size(155, 22)
+        Me.cmsLudusavi.Text = "&Ludusavi Manifest..."
+        '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1247,4 +1254,5 @@ Partial Class frmGameManager
     Friend WithEvents lblInterval As Label
     Friend WithEvents nudInterval As NumericUpDown
     Friend WithEvents cmsURL As ToolStripMenuItem
+    Friend WithEvents cmsLudusavi As ToolStripMenuItem
 End Class

@@ -863,7 +863,7 @@ Public Class mgrMonitorList
 
     Public Shared Function DoImport(ByVal sPath As String) As Boolean
         If mgrCommon.IsAddress(sPath) Then
-            If mgrCommon.CheckAddress(sPath, ".xml") Then
+            If mgrCommon.CheckAddress(sPath) Then
                 If ImportMonitorList(sPath, True) Then
                     SyncMonitorLists()
                     Return True
@@ -904,11 +904,10 @@ Public Class mgrMonitorList
                 End If
                 bClassicMode = True
             Case ".yaml", ".yml"
-                If Not mgrLudusavi.ReadLudusaviManifest(sLocation, hshCompareFrom) Then
+                If Not mgrLudusavi.ReadLudusaviManifest(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
                     Return False
                 End If
                 bClassicMode = False
-                oExportInfo.Exported = mgrCommon.DateToUnix(File.GetLastWriteTime(sLocation))
         End Select
 
         hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
@@ -1056,6 +1055,22 @@ Public Class mgrMonitorList
         End If
 
         If mgrCommon.ShowMessage(mgrMonitorList_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If DoImport(sImportUrl) Then
+                Return True
+            End If
+        End If
+
+        Return False
+    End Function
+
+    Public Shared Function ImportLudusaviManifest(ByVal sImportUrl As String) As Boolean
+        If Not (mgrSettings.SuppressMessages And mgrSettings.eSuppressMessages.LudusaviImportWarning) = mgrSettings.eSuppressMessages.LudusaviImportWarning Then
+            mgrCommon.ShowMessage(mgrMonitorList_WarningLudusaviImport, MsgBoxStyle.Information)
+            mgrSettings.SuppressMessages = mgrSettings.SetMessageField(mgrSettings.SuppressMessages, mgrSettings.eSuppressMessages.LudusaviImportWarning)
+            mgrSettings.SaveSettings()
+        End If
+
+        If mgrCommon.ShowMessage(mgrMonitorList_ConfirmLudusaviImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             If DoImport(sImportUrl) Then
                 Return True
             End If

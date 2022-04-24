@@ -3073,4 +3073,19 @@
   <data name="frmAdvancedImport_ColumnInclude" xml:space="preserve">
     <value>Files</value>
   </data>
+  <data name="App_URLImportLudusavi" xml:space="preserve">
+    <value>https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml</value>
+  </data>
+  <data name="frmGameManager_cmsLudusavi" xml:space="preserve">
+    <value>&amp;Ludusavi Manifest...</value>
+  </data>
+  <data name="frmMain_gMonFileImportLudusavi" xml:space="preserve">
+    <value>&amp;Ludusavi Manifest...</value>
+  </data>
+  <data name="mgrMonitorList_ConfirmLudusaviImport" xml:space="preserve">
+    <value>Would you like to choose games to import from the Ludusavi Manifest?[BR][BR]This requires an active internet connection.</value>
+  </data>
+  <data name="mgrMonitorList_WarningLudusaviImport" xml:space="preserve">
+    <value>The Ludusavi Manifest contains thousands of saved game configurations sourced from the PC Gaming Wiki.[BR][BR]These configurations are only suitable for manual backups by default and may not be fully compatible with GBM.[BR][BR]This message will only be shown once.</value>
+  </data>
 </root>

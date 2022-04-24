@@ -1976,6 +1976,7 @@ Public Class frmGameManager
         cmsOfficial.Text = frmGameManager_cmsOfficial
         cmsOfficialLinux.Text = frmGameManager_cmsOfficialLinux
         cmsOfficialWindows.Text = frmGameManager_cmsOfficialWindows
+        cmsLudusavi.Text = frmGameManager_cmsLudusavi
         cmsFile.Text = frmGameManager_cmsFile
         cmsURL.Text = frmGameManager_cmsURL
         lblSearch.Text = frmGameManager_lblSearch
@@ -2285,6 +2286,16 @@ Public Class frmGameManager
         eCurrentMode = eModes.Disabled
         ModeChange()
         If mgrMonitorList.ImportOfficialGameList(App_URLImportLinux) Then
+            LoadData()
+            LoadBackupData()
+        End If
+    End Sub
+
+    Private Sub cmsLudusavi_Click(sender As Object, e As EventArgs) Handles cmsLudusavi.Click
+        lstGames.ClearSelected()
+        eCurrentMode = eModes.Disabled
+        ModeChange()
+        If mgrMonitorList.ImportLudusaviManifest(App_URLImportLudusavi) Then
             LoadData()
             LoadBackupData()
         End If

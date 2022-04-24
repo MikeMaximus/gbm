@@ -1,5 +1,5 @@
 ﻿Imports YamlDotNet.Serialization
-Imports System.IO.Path
+Imports System.IO
 Imports System.Text.RegularExpressions
 
 Public Class mgrLudusavi
@@ -24,11 +24,11 @@ Public Class mgrLudusavi
         Dim iExtLength As Integer
 
         Try
-            bRooted = IsPathRooted(sPath) Or bIsRootedOverride
+            bRooted = Path.IsPathRooted(sPath) Or bIsRootedOverride
 
             'Only recognize a file extension of 4 characters or less. This will make detecting includes more reliable, especially for Linux configurations.
-            If HasExtension(sPath) Then
-                iExtLength = GetExtension(sPath).Length - 1
+            If Path.HasExtension(sPath) Then
+                iExtLength = Path.GetExtension(sPath).Length - 1
                 If iExtLength <= 4 Then
                     bHasExt = True
                 End If
@@ -41,8 +41,8 @@ Public Class mgrLudusavi
             End If
 
             If (bRooted And bHasExt) Or (bRooted And (sPath.Contains("*") Or sPath.Contains("?"))) Then
-                sInclude = GetFileName(sPath)
-                sPath = GetDirectoryName(sPath)
+                sInclude = Path.GetFileName(sPath)
+                sPath = Path.GetDirectoryName(sPath)
                 Return False
             End If
         Catch
@@ -203,17 +203,27 @@ Public Class mgrLudusavi
         'DotNetYAML can't properly parse lines that end in <space>*: so we will remove the space.
         sYAML = sYAML.Replace(" *:", "*:")
     End Sub
-    Public Shared Function ReadLudusaviManifest(ByVal sLocation As String, ByRef hshList As Hashtable) As Boolean
+
+    Public Shared Function ReadLudusaviManifest(ByVal sLocation As String, ByRef oExportInfo As ExportData, ByRef hshList As Hashtable, Optional ByVal bWedRead As Boolean = False) As Boolean
         Dim oBuilder As DeserializerBuilder
         Dim oDeserializer As Deserializer
+        Dim oReader As StreamReader
         Dim sYAML As String
         Dim oList As Dictionary(Of String, LudusaviGame)
+
 
         Try
             oBuilder = New DeserializerBuilder
             oBuilder.IgnoreUnmatchedProperties()
             oDeserializer = oBuilder.Build()
-            sYAML = mgrCommon.ReadText(sLocation)
+
+            If bWedRead Then
+                oReader = mgrCommon.ReadTextFromCache(sLocation, True, oExportInfo.Exported)
+                sYAML = oReader.ReadToEnd
+                oReader.Close()
+            Else
+                sYAML = mgrCommon.ReadText(sLocation)
+            End If
 
             FormatYAML(sYAML)
             oList = oDeserializer.Deserialize(Of Dictionary(Of String, LudusaviGame))(sYAML)
