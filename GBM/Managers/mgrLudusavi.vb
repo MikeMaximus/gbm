@@ -1,6 +1,5 @@
 ﻿Imports YamlDotNet.Serialization
 Imports System.IO
-Imports System.Text.RegularExpressions
 
 Public Class mgrLudusavi
 
@@ -126,12 +125,12 @@ Public Class mgrLudusavi
     End Function
 
     'This function converts ludusavi manifest data into a structure that can be imported.
+    'TODO: Support for converting registry save configurations.
     Private Shared Function ConvertYAML(ByRef hshList As Hashtable, ByRef oList As Dictionary(Of String, LudusaviGame)) As Boolean
         Dim oLudusaviGamePair As KeyValuePair(Of String, LudusaviGame)
         Dim oLudusaviGame As LudusaviGame
         Dim oLudusaviPathPair As KeyValuePair(Of String, LudusaviPath)
         Dim oLudusaviPath As LudusaviPath
-        Dim oWinRegEx As New Regex("^(\<win.*\>)+", RegexOptions.Compiled)
         Dim oOS As clsGame.eOS = mgrCommon.GetCurrentOS
         Dim oGame As clsGame
         Dim oConfigurations As New List(Of clsGame)
@@ -154,11 +153,11 @@ Public Class mgrLudusavi
                                                     oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
                                                     oGame.Name = oLudusaviGamePair.Key
 
-                                                    If oOS = clsGame.eOS.Linux And oWinRegEx.IsMatch(oLudusaviPathPair.Key) Then
+                                                    'If we are in Linux and the config's OS is not defined, we are just going to assume it's for Windows and convert it accordingly.
+                                                    If oOS = clsGame.eOS.Linux And w.os Is Nothing Then
                                                         oGame.Path = ConvertPath(oLudusaviPathPair.Key, clsGame.eOS.Windows)
                                                         oGame.OS = clsGame.eOS.Windows
                                                         oGame.FolderSave = ConvertInclude(oGame.Path, oGame.FileType, True)
-                                                        oGame.ImportTags.Add(New Tag("Windows"))
                                                     Else
                                                         oGame.Path = ConvertPath(oLudusaviPathPair.Key, oOS)
                                                         oGame.OS = oOS
