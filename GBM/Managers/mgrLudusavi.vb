@@ -3,6 +3,28 @@ Imports System.IO
 
 Public Class mgrLudusavi
 
+    Public Enum OsTypes
+        dos
+        linux
+        mac
+        windows
+    End Enum
+
+    Public Enum StoreTypes
+        discord
+        epic
+        gog
+        microsoft
+        origin
+        steam
+        uplay
+    End Enum
+
+    Public Enum TagTypes
+        config
+        save
+    End Enum
+
     'We can't currently handle some of the path variables used by ludusavi manifest 
     'TODO: Check into implementing support for steam userdata(<root> and <storeUserId>).
     'TODO: Check into supporting <winDir>
@@ -103,21 +125,21 @@ Public Class mgrLudusavi
     End Function
 
     'This function will convert store tags used in Ludusavi manifest to tag values that GBM currently uses.
-    Private Shared Function ConvertTag(ByVal sTag As String) As String
-        Select Case sTag
-            Case "discord"
+    Private Shared Function ConvertStore(ByVal sStore As String) As String
+        Select Case sStore
+            Case StoreTypes.discord.ToString
                 Return "Discord"
-            Case "epic"
+            Case StoreTypes.epic.ToString
                 Return "EGS"
-            Case "gog"
+            Case StoreTypes.gog.ToString
                 Return "GOG"
-            Case "origin"
+            Case StoreTypes.origin.ToString
                 Return "Origin"
-            Case "uplay"
-                Return "uPlay"
-            Case "microsoft"
+            Case StoreTypes.uplay.ToString
+                Return "Ubisoft Connect"
+            Case StoreTypes.microsoft.ToString
                 Return "Microsoft Store"
-            Case "steam"
+            Case StoreTypes.steam.ToString
                 Return "Steam"
             Case Else
                 Return "Unknown Store"
@@ -131,9 +153,11 @@ Public Class mgrLudusavi
         Dim oLudusaviGame As LudusaviGame
         Dim oLudusaviPathPair As KeyValuePair(Of String, LudusaviPath)
         Dim oLudusaviPath As LudusaviPath
-        Dim oOS As clsGame.eOS = mgrCommon.GetCurrentOS
+        Dim oPlatform As clsGame.eOS = mgrCommon.GetCurrentOS
         Dim oGame As clsGame
         Dim oConfigurations As New List(Of clsGame)
+        Dim bSupportedPlatform As Boolean
+        Dim bForcedWinConvert As Boolean
 
         Try
             For Each oLudusaviGamePair In oList
@@ -145,21 +169,44 @@ Public Class mgrLudusavi
                             oLudusaviPath = DirectCast(oLudusaviPathPair.Value, LudusaviPath)
                             If Not oLudusaviPath.when Is Nothing Then
                                 For Each w As LudusaviWhen In oLudusaviPath.when
-                                    If w.os = oOS.ToString.ToLower Or w.os Is Nothing Or (oOS = clsGame.eOS.Linux And w.os = clsGame.eOS.Windows.ToString.ToLower) Then
+                                    bForcedWinConvert = False
+                                    If w.os Is Nothing Then w.os = OsTypes.windows.ToString
+
+                                    Select Case oPlatform
+                                        Case clsGame.eOS.Windows
+                                            Select Case w.os
+                                                Case OsTypes.dos.ToString, OsTypes.windows.ToString
+                                                    bSupportedPlatform = True
+                                                Case Else
+                                                    bSupportedPlatform = False
+                                            End Select
+                                        Case clsGame.eOS.Linux
+                                            Select Case w.os
+                                                Case OsTypes.dos.ToString, OsTypes.windows.ToString
+                                                    bSupportedPlatform = True
+                                                    bForcedWinConvert = True
+                                                Case OsTypes.linux.ToString
+                                                    bSupportedPlatform = True
+                                                Case Else
+                                                    bSupportedPlatform = False
+                                            End Select
+                                    End Select
+
+                                    If bSupportedPlatform Then
                                         If Not oLudusaviPath.tags Is Nothing Then
                                             For Each t As String In oLudusaviPath.tags
-                                                If t = "save" Then
+                                                If t = TagTypes.save.ToString Then
                                                     oGame = New clsGame
                                                     oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
                                                     oGame.Name = oLudusaviGamePair.Key
 
-                                                    If (oOS = clsGame.eOS.Linux And w.os = clsGame.eOS.Windows.ToString.ToLower) Or (clsGame.eOS.Linux And w.os Is Nothing) Then
+                                                    If bForcedWinConvert Then
                                                         oGame.Path = ConvertPath(oLudusaviPathPair.Key, clsGame.eOS.Windows)
                                                         oGame.OS = clsGame.eOS.Windows
                                                         oGame.FolderSave = ConvertInclude(oGame.Path, oGame.FileType, True)
                                                     Else
-                                                        oGame.Path = ConvertPath(oLudusaviPathPair.Key, oOS)
-                                                        oGame.OS = oOS
+                                                        oGame.Path = ConvertPath(oLudusaviPathPair.Key, oPlatform)
+                                                        oGame.OS = oPlatform
                                                         oGame.FolderSave = ConvertInclude(oGame.Path, oGame.FileType, False)
                                                     End If
 
@@ -168,7 +215,7 @@ Public Class mgrLudusavi
                                                     End If
 
                                                     If Not w.store Is Nothing Then
-                                                        oGame.ImportTags.Add(New Tag(ConvertTag(w.store)))
+                                                        oGame.ImportTags.Add(New Tag(ConvertStore(w.store)))
                                                     End If
                                                     oGame.ImportTags.Add(New Tag("Ludusavi"))
                                                     oConfigurations.Add(oGame)

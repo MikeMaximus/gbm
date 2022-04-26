@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.1 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-April 24, 2022
+April 26, 2022
 
 New in 1.3.1
 
@@ -18,7 +18,7 @@ All Platforms:
 		- A "Ludusavi Manifest" option is available from all import menus, importing any file with the Ludusavi YAML format is also supported.
 		- Ludusavi configurations are suitable for manual backups only, they cannot automatically detect running games until a process to monitor is selected for each configuration.
 		- Windows and Linux are supported.
-			- Linux currently displays configurations for native games and games with no OS clearly identified in PCGamingWiki.
+			- Linux displays configurations for native and windows/dos games.
 		- Ludusavi configurations are unique and will not overwrite GBM's official or manually created configurations.		
 		- This is a work in progress!
 			- Certain configurations may not always convert to GBM correctly.
