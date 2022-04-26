@@ -147,7 +147,6 @@ Public Class mgrLudusavi
     End Function
 
     'This function converts ludusavi manifest data into a structure that can be imported.
-    'TODO: Support for converting registry save configurations.
     Private Shared Function ConvertYAML(ByRef hshList As Hashtable, ByRef oList As Dictionary(Of String, LudusaviGame)) As Boolean
         Dim oLudusaviGamePair As KeyValuePair(Of String, LudusaviGame)
         Dim oLudusaviGame As LudusaviGame
@@ -161,9 +160,10 @@ Public Class mgrLudusavi
 
         Try
             For Each oLudusaviGamePair In oList
+                oConfigurations.Clear()
                 oLudusaviGame = DirectCast(oLudusaviGamePair.Value, LudusaviGame)
+
                 If Not oLudusaviGame.files Is Nothing Then
-                    oConfigurations.Clear()
                     For Each oLudusaviPathPair In oLudusaviGame.files
                         If SupportedPath(oLudusaviPathPair.Key) Then
                             oLudusaviPath = DirectCast(oLudusaviPathPair.Value, LudusaviPath)
@@ -227,14 +227,37 @@ Public Class mgrLudusavi
                             End If
                         End If
                     Next
-                    If oConfigurations.Count = 1 Then
-                        If Not hshList.ContainsKey(oConfigurations(0).ID) Then hshList.Add(oConfigurations(0).ID, oConfigurations(0))
-                    ElseIf oConfigurations.Count > 1 Then
-                        oConfigurations = ConvertConfigurations(oConfigurations)
-                        For Each o As clsGame In oConfigurations
-                            If Not hshList.ContainsKey(o.ID) Then hshList.Add(o.ID, o)
-                        Next
-                    End If
+                End If
+
+                If Not oLudusaviGame.registry Is Nothing Then
+                    For Each oLudusaviPathPair In oLudusaviGame.registry
+                        If mgrPath.IsSupportedRegistryPath(oLudusaviPathPair.Key.Replace("/", "\")) Then
+                            oLudusaviPath = DirectCast(oLudusaviPathPair.Value, LudusaviPath)
+                            If Not oLudusaviPath.tags Is Nothing Then
+                                For Each t As String In oLudusaviPath.tags
+                                    If t = TagTypes.save.ToString Then
+                                        oGame = New clsGame
+                                        oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
+                                        oGame.Name = oLudusaviGamePair.Key
+                                        oGame.Path = oLudusaviPathPair.Key.Replace("/", "\")
+                                        oGame.OS = clsGame.eOS.Windows
+                                        oGame.ImportTags.Add(New Tag("Registry"))
+                                        oGame.ImportTags.Add(New Tag("Ludusavi"))
+                                        oConfigurations.Add(oGame)
+                                    End If
+                                Next
+                            End If
+                        End If
+                    Next
+                End If
+
+                If oConfigurations.Count = 1 Then
+                    If Not hshList.ContainsKey(oConfigurations(0).ID) Then hshList.Add(oConfigurations(0).ID, oConfigurations(0))
+                ElseIf oConfigurations.Count > 1 Then
+                    oConfigurations = ConvertConfigurations(oConfigurations)
+                    For Each o As clsGame In oConfigurations
+                        If Not hshList.ContainsKey(o.ID) Then hshList.Add(o.ID, o)
+                    Next
                 End If
             Next
             Return True
