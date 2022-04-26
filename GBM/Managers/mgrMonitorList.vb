@@ -867,8 +867,6 @@ Public Class mgrMonitorList
                 If ImportMonitorList(sPath, True) Then
                     SyncMonitorLists()
                     Return True
-                Else
-                    mgrCommon.ShowMessage(mgrMonitorList_ErrorImportFileType, MsgBoxStyle.Exclamation)
                 End If
             Else
                 mgrCommon.ShowMessage(mgrMonitorList_WebNoReponse, sPath, MsgBoxStyle.Exclamation)
@@ -878,8 +876,6 @@ Public Class mgrMonitorList
                 If ImportMonitorList(sPath) Then
                     SyncMonitorLists()
                     Return True
-                Else
-                    mgrCommon.ShowMessage(mgrMonitorList_ErrorImportFileType, MsgBoxStyle.Exclamation)
                 End If
             Else
                 mgrCommon.ShowMessage(mgrMonitorList_FileNotFound, sPath, MsgBoxStyle.Exclamation)
@@ -913,6 +909,7 @@ Public Class mgrMonitorList
                 End If
                 bClassicMode = False
             Case Else
+                mgrCommon.ShowMessage(mgrMonitorList_ErrorImportFileType, MsgBoxStyle.Exclamation)
                 Return False
         End Select
 
