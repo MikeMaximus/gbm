@@ -100,10 +100,11 @@ Public Class frmAdvancedImport
             lstGames.Columns.Add(frmAdvancedImport_ColumnProcess, 130)
             lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 290)
         Else
-            lstGames.Columns.Add(frmAdvancedImport_ColumnName, 315)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnName, 295)
             lstGames.Columns.Add(frmAdvancedImport_ColumnPath, 200)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnInclude, 130)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 90)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnInclude, 100)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnOs, 70)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 70)
         End If
 
         For Each de As DictionaryEntry In ImportData
@@ -120,7 +121,7 @@ Public Class frmAdvancedImport
             If bClassicMode Then
                 oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.ProcessName, sTags})
             Else
-                oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.TruePath, oApp.FileType, sTags})
+                oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.TruePath, oApp.FileType, oApp.OS.ToString, sTags})
             End If
 
             oListViewItem.Tag = oApp.ID

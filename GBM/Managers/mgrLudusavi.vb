@@ -145,7 +145,7 @@ Public Class mgrLudusavi
                             oLudusaviPath = DirectCast(oLudusaviPathPair.Value, LudusaviPath)
                             If Not oLudusaviPath.when Is Nothing Then
                                 For Each w As LudusaviWhen In oLudusaviPath.when
-                                    If w.os = oOS.ToString.ToLower Or w.os Is Nothing Then
+                                    If w.os = oOS.ToString.ToLower Or w.os Is Nothing Or (oOS = clsGame.eOS.Linux And w.os = clsGame.eOS.Windows.ToString.ToLower) Then
                                         If Not oLudusaviPath.tags Is Nothing Then
                                             For Each t As String In oLudusaviPath.tags
                                                 If t = "save" Then
@@ -153,8 +153,7 @@ Public Class mgrLudusavi
                                                     oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
                                                     oGame.Name = oLudusaviGamePair.Key
 
-                                                    'If we are in Linux and the config's OS is not defined, we are just going to assume it's for Windows and convert it accordingly.
-                                                    If oOS = clsGame.eOS.Linux And w.os Is Nothing Then
+                                                    If (oOS = clsGame.eOS.Linux And w.os = clsGame.eOS.Windows.ToString.ToLower) Or (clsGame.eOS.Linux And w.os Is Nothing) Then
                                                         oGame.Path = ConvertPath(oLudusaviPathPair.Key, clsGame.eOS.Windows)
                                                         oGame.OS = clsGame.eOS.Windows
                                                         oGame.FolderSave = ConvertInclude(oGame.Path, oGame.FileType, True)
@@ -164,7 +163,9 @@ Public Class mgrLudusavi
                                                         oGame.FolderSave = ConvertInclude(oGame.Path, oGame.FileType, False)
                                                     End If
 
-                                                    If oGame.OS = clsGame.eOS.Windows Then oGame.Path = oGame.Path.Replace("/", "\")
+                                                    If oGame.OS = clsGame.eOS.Windows Then
+                                                        oGame.Path = oGame.Path.Replace("/", "\")
+                                                    End If
 
                                                     If Not w.store Is Nothing Then
                                                         oGame.ImportTags.Add(New Tag(ConvertTag(w.store)))

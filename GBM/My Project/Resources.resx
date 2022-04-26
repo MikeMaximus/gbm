@@ -3088,4 +3088,7 @@
   <data name="mgrMonitorList_WarningLudusaviImport" xml:space="preserve">
     <value>The Ludusavi Manifest contains thousands of saved game configurations sourced from the PC Gaming Wiki.[BR][BR]These configurations are only suitable for manual backups by default and may not be fully compatible with GBM.[BR][BR]This message will only be shown once.</value>
   </data>
+  <data name="frmAdvancedImport_ColumnOs" xml:space="preserve">
+    <value>OS</value>
+  </data>
 </root>
