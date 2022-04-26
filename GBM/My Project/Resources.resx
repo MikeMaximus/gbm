@@ -3091,4 +3091,13 @@
   <data name="frmAdvancedImport_ColumnOs" xml:space="preserve">
     <value>OS</value>
   </data>
+  <data name="mgrLudusavi_ErrorConverting" xml:space="preserve">
+    <value>An error has occured during Ludusavi data conversion.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrLudusavi_ErrorReading" xml:space="preserve">
+    <value>An error has occured while reading or deserializing Ludusavi data.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrMonitorList_ErrorImportFileType" xml:space="preserve">
+    <value>The file or URL does not contain a supported file extension.</value>
+  </data>
 </root>

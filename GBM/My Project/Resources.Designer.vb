@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-04-26T12:43:01
+        '''  Looks up a localized string similar to 2022-04-26T20:57:43
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -8272,6 +8272,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An error has occured during Ludusavi data conversion.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrLudusavi_ErrorConverting() As String
+            Get
+                Return ResourceManager.GetString("mgrLudusavi_ErrorConverting", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error has occured while reading or deserializing Ludusavi data.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrLudusavi_ErrorReading() As String
+            Get
+                Return ResourceManager.GetString("mgrLudusavi_ErrorReading", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Checking [PARAM] for metadata..
         '''</summary>
         Friend ReadOnly Property mgrMetaData_CheckingArchive() As String
@@ -8385,6 +8403,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrMonitorList_DefaultExportFileName() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_DefaultExportFileName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The file or URL does not contain a supported file extension..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_ErrorImportFileType() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_ErrorImportFileType", resourceCulture)
             End Get
         End Property
         

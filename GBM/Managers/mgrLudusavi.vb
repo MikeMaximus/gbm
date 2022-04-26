@@ -1,4 +1,5 @@
-﻿Imports YamlDotNet.Serialization
+﻿Imports GBM.My.Resources
+Imports YamlDotNet.Serialization
 Imports System.IO
 
 Public Class mgrLudusavi
@@ -262,9 +263,7 @@ Public Class mgrLudusavi
             Next
             Return True
         Catch ex As Exception
-            'TODO: Proper error message
-            MsgBox(ex.Message)
-            MsgBox(ex.StackTrace)
+            mgrCommon.ShowMessage(mgrLudusavi_ErrorConverting, ex.Message, MsgBoxStyle.Critical)
             Return False
         End Try
     End Function
@@ -301,9 +300,7 @@ Public Class mgrLudusavi
 
             Return True
         Catch ex As Exception
-            'TODO: Proper error message
-            MsgBox(ex.Message)
-            MsgBox(ex.StackTrace)
+            mgrCommon.ShowMessage(mgrLudusavi_ErrorReading, ex.Message, MsgBoxStyle.Critical)
             Return False
         End Try
 

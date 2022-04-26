@@ -131,10 +131,9 @@ Public Class mgrCommon
         Return False
     End Function
 
-    'TODO: Look into validating with HTTP Content-Type here instead of a half assed way.
     Public Shared Function CheckAddress(ByVal sURL As String) As Boolean
-        Dim request As WebRequest
-        Dim response As WebResponse
+        Dim request As HttpWebRequest
+        Dim response As HttpWebResponse
 
         Try
             request = WebRequest.Create(sURL)
