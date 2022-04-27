@@ -24,11 +24,12 @@ All Platforms:
 			- Certain configurations may not always convert to GBM correctly.
 			- Configurations currently not supported (Ex. Steam Cloud save locations) will not be displayed for import.
 - Experimental official support for games that use Steam Cloud save locations.
-	- GBM will attempt to auto-configure the custom variables required for Steam Cloud locations on every start-up and show a one-time warning if it fails.
+	- GBM will attempt to auto-configure the custom path variables required for Steam Cloud locations on each start-up and show a one-time warning if it fails.
 		- Future official list updates can now contain games that use Steam Cloud save location.
-		- Ludusavi Manifest configurations that use a Steam Cloud location can be imported. (not yet)
-	- Users that already have custom variables and configurations setup for Steam Cloud games will not be affected.
-		- The "Steam Cloud" section of the online manual details how to migrate your current Steam Cloud variable(s) to the official ones. (not written yet)
+		- Ludusavi Manifest configurations that use a Steam Cloud location can be imported. (not implemented yet)
+	- Users that created Steam Cloud path variables for their own configuations will not be affected, these configurations will still function.
+		- The current variables may be automatically renamed to the official ones or duplicated depending on how they were setup.
+		- See the "Steam Cloud" section of the online manual for details on how to migrate your current Steam Cloud variable(s) to the official ones if necessary. (not written yet)
 - Improved saved game detection on the Import window.
 - Fixed performance issues when filtering on the Import window with large data sets.
 - Fixed an issue with the import feature not syncing immediately after being used from the main window or system tray.

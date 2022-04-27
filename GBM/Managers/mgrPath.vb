@@ -564,38 +564,31 @@ Public Class mgrPath
     End Function
 
     Public Shared Sub AutoConfigureSteamVariables()
-        Dim sUserData As String
+        Dim sSteam As String
         Dim sStoreID As String
-        Dim oUserDataVariable As clsPathVariable
-        Dim oUserIdVariable As clsPathVariable
+        Dim oExistingVariable As clsPathVariable
+        Dim oVariables As New List(Of clsPathVariable)
 
         'Auto configure Steam 
-        sUserData = mgrCommon.DetectSteamUserData()
-        sStoreID = mgrCommon.DetectSteamUserId(sUserData)
+        sSteam = mgrCommon.DetectSteam()
+        sStoreID = mgrCommon.DetectSteamUser(sSteam)
 
-        If (Not sUserData = String.Empty And Not sStoreID = String.Empty) Then
-            oUserDataVariable = New clsPathVariable
-            oUserDataVariable.Name = "SteamUserData"
-            oUserDataVariable.Path = sUserData
+        If (Not sSteam = String.Empty And Not sStoreID = String.Empty) Then
+            oVariables.Add(New clsPathVariable("Steam", sSteam))
+            oVariables.Add(New clsPathVariable("SteamUser", sStoreID))
 
-            oUserIdVariable = New clsPathVariable
-            oUserIdVariable.Name = "SteamUserId"
-            oUserIdVariable.Path = sStoreID
+            'Create or migrate existing variables
+            For Each oVariable In oVariables
+                oExistingVariable = mgrVariables.DoVariableGetbyNameOrPath(oVariable)
 
-            If mgrVariables.DoCheckDuplicate("SteamUserData") Then
-                mgrVariables.DoVariableUpdatebyName(oUserDataVariable)
-            Else
-                mgrVariables.DoVariableAdd(oUserDataVariable)
-                mgrVariables.DoPathUpdate(oUserDataVariable.Path, oUserDataVariable.FormattedName)
-            End If
-
-            If mgrVariables.DoCheckDuplicate("SteamUserId") Then
-                mgrVariables.DoVariableUpdatebyName(oUserIdVariable)
-            Else
-
-                mgrVariables.DoVariableAdd(oUserIdVariable)
-                mgrVariables.DoPathUpdate(oUserIdVariable.Path, oUserIdVariable.FormattedName)
-            End If
+                If oExistingVariable Is Nothing Then
+                    mgrVariables.DoVariableAdd(oVariable)
+                    mgrVariables.DoPathUpdate(oVariable.Path, oVariable.FormattedName)
+                ElseIf Not oExistingVariable.CoreEquals(oVariable) Then
+                    oVariable.ID = oExistingVariable.ID
+                    mgrVariables.DoVariableUpdate(oVariable)
+                End If
+            Next
         Else
             If Not (mgrSettings.SuppressMessages And mgrSettings.eSuppressMessages.SteamAutoConfigWarning) = mgrSettings.eSuppressMessages.SteamAutoConfigWarning Then
                 mgrCommon.ShowPriorityMessage(mgrPath_WarningSteamAutoDetect, MsgBoxStyle.Information)

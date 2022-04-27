@@ -396,11 +396,11 @@ Public Class mgrCommon
         Return iProcessType
     End Function
 
-    Public Shared Function DetectSteamUserData() As String
+    Public Shared Function DetectSteam() As String
         Dim oKey As Microsoft.Win32.RegistryKey
 
         If IsUnix() Then
-            Return mgrPath.ReplaceSpecialPaths("$HOME/.local/share/Steam/userdata")
+            Return mgrPath.ReplaceSpecialPaths("$HOME/.local/share/Steam")
         Else
             Try
                 'Steam always seems to use this registry node regardless of architecture.
@@ -408,7 +408,7 @@ Public Class mgrCommon
 
                 If Not oKey Is Nothing Then
                     If Not oKey.GetValue("InstallPath") Is Nothing Then
-                        Return oKey.GetValue("InstallPath").ToString & "\userdata"
+                        Return oKey.GetValue("InstallPath").ToString
                     End If
                 End If
 
@@ -419,11 +419,13 @@ Public Class mgrCommon
         End If
     End Function
 
-    Public Shared Function DetectSteamUserId(ByVal sSteamUserData As String) As String
+    Public Shared Function DetectSteamUser(ByVal sSteamFolder As String) As String
         Dim sFolders As String()
+        Dim sSteamUserData As String
 
         Try
-            If Not sSteamUserData = String.Empty Then
+            If sSteamFolder <> String.Empty Then
+                sSteamUserData = sSteamFolder & Path.DirectorySeparatorChar & "userdata"
                 If Directory.Exists(sSteamUserData) Then
                     sFolders = Directory.GetDirectories(sSteamUserData, "*", SearchOption.TopDirectoryOnly)
                     If sFolders.Length = 1 Then
@@ -431,6 +433,7 @@ Public Class mgrCommon
                     End If
                 End If
             End If
+
             Return String.Empty
         Catch
             Return String.Empty
