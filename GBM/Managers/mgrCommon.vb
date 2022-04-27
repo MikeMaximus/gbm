@@ -397,23 +397,14 @@ Public Class mgrCommon
     End Function
 
     Public Shared Function DetectSteamUserData() As String
-        Dim sRegKey As String
         Dim oKey As Microsoft.Win32.RegistryKey
 
         If IsUnix() Then
             Return mgrPath.ReplaceSpecialPaths("$HOME/.local/share/Steam/userdata")
         Else
             Try
-                Select Case GetArchitecture()
-                    Case ProcessorArchitecture.Amd64, ProcessorArchitecture.IA64
-                        sRegKey = "SOFTWARE\WOW6432Node\Valve\Steam"
-                    Case ProcessorArchitecture.X86
-                        sRegKey = "SOFTWARE\Valve\Steam"
-                    Case Else
-                        Return String.Empty
-                End Select
-
-                oKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(sRegKey)
+                'Steam always seems to use this registry node regardless of architecture.
+                oKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\Wow6432Node\Valve\Steam")
 
                 If Not oKey Is Nothing Then
                     If Not oKey.GetValue("InstallPath") Is Nothing Then
