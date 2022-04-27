@@ -228,10 +228,9 @@ Public Class frmVariableManager
                 If CoreValidatation(oCustomVariable) Then
                     bSuccess = True
                     mgrVariables.DoVariableUpdate(oCustomVariable)
-                    mgrVariables.DoPathUpdate(oCurrentVariable.FormattedName, oCurrentVariable.Path)
-                    mgrVariables.DoPathUpdate(oCustomVariable.Path, oCustomVariable.FormattedName)
+                    If oCurrentVariable.Name <> oCustomVariable.Name Then mgrVariables.DoPathUpdate(oCurrentVariable.FormattedName, oCustomVariable.FormattedName)
                     eCurrentMode = eModes.View
-                End If
+                    End If
         End Select
 
         If bSuccess Then
