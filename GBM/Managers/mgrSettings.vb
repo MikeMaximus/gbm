@@ -47,6 +47,7 @@ Public Class mgrSettings
         WineConfig = 16
         LinkConfigTip = 32
         LudusaviImportWarning = 64
+        SteamAutoConfigWarning = 128
     End Enum
 
     Shared Property StartWithWindows As Boolean

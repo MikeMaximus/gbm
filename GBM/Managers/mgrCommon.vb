@@ -396,6 +396,56 @@ Public Class mgrCommon
         Return iProcessType
     End Function
 
+    Public Shared Function DetectSteamUserData() As String
+        Dim sRegKey As String
+        Dim oKey As Microsoft.Win32.RegistryKey
+
+        If IsUnix() Then
+            Return mgrPath.ReplaceSpecialPaths("$HOME/.local/share/Steam/userdata")
+        Else
+            Try
+                Select Case GetArchitecture()
+                    Case ProcessorArchitecture.Amd64, ProcessorArchitecture.IA64
+                        sRegKey = "SOFTWARE\WOW6432Node\Valve\Steam"
+                    Case ProcessorArchitecture.X86
+                        sRegKey = "SOFTWARE\Valve\Steam"
+                    Case Else
+                        Return String.Empty
+                End Select
+
+                oKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(sRegKey)
+
+                If Not oKey Is Nothing Then
+                    If Not oKey.GetValue("InstallPath") Is Nothing Then
+                        Return oKey.GetValue("InstallPath").ToString & "\userdata"
+                    End If
+                End If
+
+                Return String.Empty
+            Catch
+                Return String.Empty
+            End Try
+        End If
+    End Function
+
+    Public Shared Function DetectSteamUserId(ByVal sSteamUserData As String) As String
+        Dim sFolders As String()
+
+        Try
+            If Not sSteamUserData = String.Empty Then
+                If Directory.Exists(sSteamUserData) Then
+                    sFolders = Directory.GetDirectories(sSteamUserData, "*", SearchOption.TopDirectoryOnly)
+                    If sFolders.Length = 1 Then
+                        Return Path.GetFileName(sFolders(0))
+                    End If
+                End If
+            End If
+            Return String.Empty
+        Catch
+            Return String.Empty
+        End Try
+    End Function
+
     Public Shared Function GetFrameworkInfo() As String
         If IsUnix() Then
             Dim oType As Type

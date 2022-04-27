@@ -2452,8 +2452,12 @@ Public Class frmMain
     'Functions to handle verification
     Private Sub VerifyCustomPathVariables()
         Dim sGames As String = String.Empty
+
+        'Automatically configure variables for supported applications
+        mgrPath.AutoConfigureSteamVariables()
+
         If Not mgrPath.VerifyCustomVariables(hshScanList, sGames) Then
-            mgrCommon.ShowMessage(frmMain_ErrorCustomVariable, sGames, MsgBoxStyle.Exclamation)
+            mgrCommon.ShowPriorityMessage(frmMain_ErrorCustomVariable, sGames, MsgBoxStyle.Exclamation)
         End If
     End Sub
 

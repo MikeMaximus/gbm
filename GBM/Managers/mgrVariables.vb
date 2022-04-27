@@ -61,7 +61,19 @@
         hshParams = SetCoreParameters(oCustomVariable)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
+    End Sub
 
+    Public Shared Sub DoVariableUpdatebyName(ByVal oCustomVariable As clsPathVariable)
+        Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
+        Dim sSQL As String
+        Dim hshParams As Hashtable
+
+        sSQL = "UPDATE variables SET Name=@Name, Path = @Path "
+        sSQL &= "WHERE Name = @Name"
+
+        hshParams = SetCoreParameters(oCustomVariable)
+
+        oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
     Public Shared Sub DoVariableDelete(ByVal sVariableID As String)

@@ -17,6 +17,10 @@ Public Class mgrPath
         LoadCustomVariables()
     End Sub
 
+    Enum SupportedAutoConfigApps
+        Steam
+    End Enum
+
     Shared ReadOnly Property ReleaseType As Integer
         Get
             Select Case oReleaseType
@@ -547,6 +551,59 @@ Public Class mgrPath
 
         Return False
     End Function
+
+    Public Shared Function IsAppConfigured(ByVal iSupported As SupportedAutoConfigApps) As Boolean
+        Select Case iSupported
+            Case SupportedAutoConfigApps.Steam
+                If mgrVariables.DoCheckDuplicate("SteamUserData") And mgrVariables.DoCheckDuplicate("SteamUserId") Then
+                    Return True
+                End If
+        End Select
+
+        Return False
+    End Function
+
+    Public Shared Sub AutoConfigureSteamVariables()
+        Dim sUserData As String
+        Dim sStoreID As String
+        Dim oUserDataVariable As clsPathVariable
+        Dim oUserIdVariable As clsPathVariable
+
+        'Auto configure Steam 
+        sUserData = mgrCommon.DetectSteamUserData()
+        sStoreID = mgrCommon.DetectSteamUserId(sUserData)
+
+        If (Not sUserData = String.Empty And Not sStoreID = String.Empty) Then
+            oUserDataVariable = New clsPathVariable
+            oUserDataVariable.Name = "SteamUserData"
+            oUserDataVariable.Path = sUserData
+
+            oUserIdVariable = New clsPathVariable
+            oUserIdVariable.Name = "SteamUserId"
+            oUserIdVariable.Path = sStoreID
+
+            If mgrVariables.DoCheckDuplicate("SteamUserData") Then
+                mgrVariables.DoVariableUpdatebyName(oUserDataVariable)
+            Else
+                mgrVariables.DoVariableAdd(oUserDataVariable)
+                mgrVariables.DoPathUpdate(oUserDataVariable.Path, oUserDataVariable.FormattedName)
+            End If
+
+            If mgrVariables.DoCheckDuplicate("SteamUserId") Then
+                mgrVariables.DoVariableUpdatebyName(oUserIdVariable)
+            Else
+
+                mgrVariables.DoVariableAdd(oUserIdVariable)
+                mgrVariables.DoPathUpdate(oUserIdVariable.Path, oUserIdVariable.FormattedName)
+            End If
+        Else
+            If Not (mgrSettings.SuppressMessages And mgrSettings.eSuppressMessages.SteamAutoConfigWarning) = mgrSettings.eSuppressMessages.SteamAutoConfigWarning Then
+                mgrCommon.ShowPriorityMessage(mgrPath_WarningSteamAutoDetect, MsgBoxStyle.Information)
+                mgrSettings.SuppressMessages = mgrSettings.SetMessageField(mgrSettings.SuppressMessages, mgrSettings.eSuppressMessages.SteamAutoConfigWarning)
+                mgrSettings.SaveSettings()
+            End If
+        End If
+    End Sub
 
     Public Shared Function VerifyCustomVariables(ByVal hshScanlist As Hashtable, ByRef sGames As String) As Boolean
         Dim hshCustomVariables As Hashtable = mgrVariables.ReadVariables
