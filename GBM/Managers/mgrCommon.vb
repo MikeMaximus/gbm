@@ -400,7 +400,7 @@ Public Class mgrCommon
         Dim oKey As Microsoft.Win32.RegistryKey
 
         If IsUnix() Then
-            Return mgrPath.ReplaceSpecialPaths("$HOME/.local/share/Steam")
+            Return mgrPath.ReplaceSpecialPaths("$HOME/.steam/steam")
         Else
             Try
                 'Steam always seems to use this registry node regardless of architecture.
