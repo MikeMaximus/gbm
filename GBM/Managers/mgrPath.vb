@@ -555,7 +555,7 @@ Public Class mgrPath
     Public Shared Function IsAppConfigured(ByVal iSupported As SupportedAutoConfigApps) As Boolean
         Select Case iSupported
             Case SupportedAutoConfigApps.Steam
-                If mgrVariables.DoCheckDuplicate("SteamUserData") And mgrVariables.DoCheckDuplicate("SteamUserId") Then
+                If mgrVariables.DoCheckDuplicate("Steam") And mgrVariables.DoCheckDuplicate("SteamUser") Then
                     Return True
                 End If
         End Select
@@ -603,7 +603,7 @@ Public Class mgrPath
         'Reserved variables will be resolved on Windows, but not on a Linux.  Therefore we an ignore list here, otherwise GBM will bitch about them when using Windows configurations for Wine.
         Dim oReservedVariables As List(Of String) = mgrVariables.GetReservedVariables
         Dim sVariableCheck As String
-        Dim sPattern As String = "\%(.*)\%"
+        Dim sPattern As String = "\%[^\%]*\%"
         Dim oGame As clsGame
         Dim oMatch As Match
         Dim bClean As Boolean = True

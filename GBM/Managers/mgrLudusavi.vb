@@ -27,16 +27,22 @@ Public Class mgrLudusavi
     End Enum
 
     'We can't currently handle some of the path variables used by ludusavi manifest 
-    'TODO: Check into implementing support for steam userdata(<root> and <storeUserId>).
-    'TODO: Check into supporting <winDir>
-    Private Shared Function SupportedPath(ByVal sPath As String) As Boolean
-        Dim sNotSupported As String() = {"<root>", "<game>", "<storeUserId>", "<osUserName>", "<winDir>"}
+    Private Shared Function IsSupportedPath(ByVal sPath As String) As Boolean
+        Dim sNotSupported As String() = {"<game>", "<osUserName>", "<winDir>"}
 
         For Each s As String In sNotSupported
             If sPath.Contains(s) Then Return False
         Next
 
         Return True
+    End Function
+
+    Private Shared Function HasStorePath(ByVal sPath As String) As Boolean
+        Return sPath.Contains("<root>")
+    End Function
+
+    Private Shared Function HasStoreId(ByVal sPath As String) As Boolean
+        Return sPath.Contains("<storeUserId>")
     End Function
 
     'We can try to detect and convert path entries that are file includes to something that GBM can understand.
@@ -102,7 +108,7 @@ Public Class mgrLudusavi
     End Function
 
     'We need to convert ludusavi manifest path variables to ones that GBM can understand
-    Private Shared Function ConvertPath(ByVal sPath As String, ByVal oOS As clsGame.eOS) As String
+    Private Shared Function ConvertPath(ByVal sPath As String, ByVal oOS As clsGame.eOS, ByVal sStore As String) As String
 
         'Replacing <base> with an empty string should make relative locations compatible with GBM
         sPath = sPath.Replace("<base>/", String.Empty)
@@ -120,6 +126,14 @@ Public Class mgrLudusavi
                 sPath = sPath.Replace("<xdgData>", "${XDG_DATA_HOME}")
                 sPath = sPath.Replace("<xdgConfig>", "${XDG_CONFIG_HOME}")
         End Select
+
+        If Not sStore Is Nothing Then
+            Select Case sStore
+                Case StoreTypes.steam.ToString
+                    sPath = sPath.Replace("<root>", "%Steam%")
+                    sPath = sPath.Replace("<storeUserId>", "%SteamUser%")
+            End Select
+        End If
 
         'Once we reach this point we need to make sure the path still doesn't contain any invalid characters.
         Return mgrPath.ValidatePath(sPath)
@@ -147,6 +161,16 @@ Public Class mgrLudusavi
         End Select
     End Function
 
+    Private Shared Function DetectSupportedStorePaths() As List(Of String)
+        Dim oStores As New List(Of String)
+
+        If mgrPath.IsAppConfigured(mgrPath.SupportedAutoConfigApps.Steam) Then
+            oStores.Add(StoreTypes.steam.ToString)
+        End If
+
+        Return oStores
+    End Function
+
     'This function converts ludusavi manifest data into a structure that can be imported.
     Private Shared Function ConvertYAML(ByRef hshList As Hashtable, ByRef oList As Dictionary(Of String, LudusaviGame)) As Boolean
         Dim oLudusaviGamePair As KeyValuePair(Of String, LudusaviGame)
@@ -154,9 +178,11 @@ Public Class mgrLudusavi
         Dim oLudusaviPathPair As KeyValuePair(Of String, LudusaviPath)
         Dim oLudusaviPath As LudusaviPath
         Dim oPlatform As clsGame.eOS = mgrCommon.GetCurrentOS
+        Dim oSupportedStorePaths As List(Of String) = DetectSupportedStorePaths()
         Dim oGame As clsGame
         Dim oConfigurations As New List(Of clsGame)
         Dim bSupportedPlatform As Boolean
+        Dim bSupportedStore As Boolean
         Dim bForcedWinConvert As Boolean
 
         Try
@@ -166,7 +192,7 @@ Public Class mgrLudusavi
 
                 If Not oLudusaviGame.files Is Nothing Then
                     For Each oLudusaviPathPair In oLudusaviGame.files
-                        If SupportedPath(oLudusaviPathPair.Key) Then
+                        If IsSupportedPath(oLudusaviPathPair.Key) Then
                             oLudusaviPath = DirectCast(oLudusaviPathPair.Value, LudusaviPath)
                             If Not oLudusaviPath.when Is Nothing Then
                                 For Each w As LudusaviWhen In oLudusaviPath.when
@@ -193,7 +219,23 @@ Public Class mgrLudusavi
                                             End Select
                                     End Select
 
-                                    If bSupportedPlatform Then
+                                    If HasStorePath(oLudusaviPathPair.Key) Or HasStoreId(oLudusaviPathPair.Key) Then
+                                        If w.store Is Nothing Then w.store = StoreTypes.steam.ToString
+
+                                        If HasStorePath(oLudusaviPathPair.Key) Then
+                                            bForcedWinConvert = False
+                                        End If
+
+                                        If oSupportedStorePaths.Contains(w.store) Then
+                                            bSupportedStore = True
+                                        Else
+                                            bSupportedStore = False
+                                        End If
+                                    Else
+                                        bSupportedStore = True
+                                    End If
+
+                                    If bSupportedPlatform And bSupportedStore Then
                                         If Not oLudusaviPath.tags Is Nothing Then
                                             For Each t As String In oLudusaviPath.tags
                                                 If t = TagTypes.save.ToString Then
@@ -202,11 +244,11 @@ Public Class mgrLudusavi
                                                     oGame.Name = oLudusaviGamePair.Key
 
                                                     If bForcedWinConvert Then
-                                                        oGame.Path = ConvertPath(oLudusaviPathPair.Key, clsGame.eOS.Windows)
+                                                        oGame.Path = ConvertPath(oLudusaviPathPair.Key, clsGame.eOS.Windows, w.store)
                                                         oGame.OS = clsGame.eOS.Windows
                                                         oGame.FolderSave = ConvertInclude(oGame.Path, oGame.FileType, True)
                                                     Else
-                                                        oGame.Path = ConvertPath(oLudusaviPathPair.Key, oPlatform)
+                                                        oGame.Path = ConvertPath(oLudusaviPathPair.Key, oPlatform, w.store)
                                                         oGame.OS = oPlatform
                                                         oGame.FolderSave = ConvertInclude(oGame.Path, oGame.FileType, False)
                                                     End If
