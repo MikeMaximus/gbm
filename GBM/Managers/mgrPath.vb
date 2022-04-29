@@ -555,7 +555,7 @@ Public Class mgrPath
     Public Shared Function IsAppConfigured(ByVal iSupported As SupportedAutoConfigApps) As Boolean
         Select Case iSupported
             Case SupportedAutoConfigApps.Steam
-                If mgrVariables.DoCheckDuplicate("Steam") And mgrVariables.DoCheckDuplicate("SteamUser") Then
+                If mgrVariables.DoCheck("Steam") And mgrVariables.DoCheck("SteamID3") Then
                     Return True
                 End If
         End Select
@@ -575,18 +575,17 @@ Public Class mgrPath
 
         If (Not sSteam = String.Empty And Not sStoreID = String.Empty) Then
             oVariables.Add(New clsPathVariable("Steam", sSteam))
-            oVariables.Add(New clsPathVariable("SteamUser", sStoreID))
+            oVariables.Add(New clsPathVariable("SteamID3", sStoreID))
 
             'Create or migrate existing variables
             For Each oVariable In oVariables
                 oExistingVariable = mgrVariables.DoVariableGetbyNameOrPath(oVariable)
 
                 If oExistingVariable Is Nothing Then
-                    mgrVariables.DoVariableAdd(oVariable)
-                    mgrVariables.DoPathUpdate(oVariable.Path, oVariable.FormattedName)
+                    mgrVariables.DoVariableAdd(oVariable)                    
                 ElseIf Not oExistingVariable.CoreEquals(oVariable) Then
                     oVariable.ID = oExistingVariable.ID
-                    mgrVariables.DoVariableUpdate(oVariable)
+                    mgrVariables.DoVariableUpdate(oVariable, oExistingVariable)
                 End If
             Next
         Else

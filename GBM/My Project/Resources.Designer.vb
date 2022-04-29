@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-04-27T15:39:34
+        '''  Looks up a localized string similar to 2022-04-29T13:13:10
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -8641,7 +8641,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Game Backup Monitor supports games that use Steam Cloud saved games, but was unable to automatically detect the required information.[BR][BR]This is normal if Steam is not installed, if Steam is installed please review the &quot;Steam Cloud&quot; section of the online manual for help.[BR][BR]This message will only be shown once..
+        '''  Looks up a localized string similar to Game Backup Monitor supports Steam Cloud saved game locations, but was unable to automatically detect the required information.[BR][BR]This is normal if Steam is not installed, if Steam is installed please review the &quot;Steam Cloud&quot; section of the online manual for help.[BR][BR]This message will only be shown once..
         '''</summary>
         Friend ReadOnly Property mgrPath_WarningSteamAutoDetect() As String
             Get

@@ -1566,6 +1566,9 @@ Public Class frmMain
         'Setup Sync Watcher
         SetupSyncWatcher()
 
+        'Automatically configure variables for supported applications
+        mgrPath.AutoConfigureSteamVariables()
+
         'Load Game Settings
         LoadGameSettings()
 
@@ -2452,9 +2455,6 @@ Public Class frmMain
     'Functions to handle verification
     Private Sub VerifyCustomPathVariables()
         Dim sGames As String = String.Empty
-
-        'Automatically configure variables for supported applications
-        mgrPath.AutoConfigureSteamVariables()
 
         If Not mgrPath.VerifyCustomVariables(hshScanList, sGames) Then
             mgrCommon.ShowPriorityMessage(frmMain_ErrorCustomVariable, sGames, MsgBoxStyle.Exclamation)

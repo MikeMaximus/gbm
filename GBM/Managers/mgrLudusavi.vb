@@ -131,7 +131,7 @@ Public Class mgrLudusavi
             Select Case sStore
                 Case StoreTypes.steam.ToString
                     sPath = sPath.Replace("<root>", "%Steam%")
-                    sPath = sPath.Replace("<storeUserId>", "%SteamUser%")
+                    sPath = sPath.Replace("<storeUserId>", "%SteamID3%")
             End Select
         End If
 
