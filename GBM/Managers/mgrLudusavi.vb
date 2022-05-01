@@ -255,6 +255,7 @@ Public Class mgrLudusavi
 
                                                     If oGame.OS = clsGame.eOS.Windows Then
                                                         oGame.Path = oGame.Path.Replace("/", "\")
+                                                        oGame.FileType = oGame.FileType.Replace("/", "\")
                                                     End If
 
                                                     If Not w.store Is Nothing Then

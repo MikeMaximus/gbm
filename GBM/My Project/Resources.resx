@@ -3086,7 +3086,7 @@
     <value>Would you like to choose games to import from the Ludusavi Manifest?[BR][BR]This requires an active internet connection.</value>
   </data>
   <data name="mgrMonitorList_WarningLudusaviImport" xml:space="preserve">
-    <value>The Ludusavi Manifest contains thousands of saved game configurations sourced from the PC Gaming Wiki.[BR][BR]These configurations are only suitable for manual backups by default and may not be fully compatible with GBM.[BR][BR]This message will only be shown once.</value>
+    <value>The Ludusavi Manifest contains thousands of saved game configurations sourced from the PC Gaming Wiki.[BR][BR]These are untested configurations only suitable for manual backups by default and may not be fully compatible with GBM.[BR][BR]This message will only be shown once.</value>
   </data>
   <data name="frmAdvancedImport_ColumnOs" xml:space="preserve">
     <value>OS</value>

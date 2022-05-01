@@ -6,6 +6,7 @@ Public Class frmAdvancedImport
     Private oImportData As ExportData
     Private hshImportData As Hashtable
     Private hshFinalData As New Hashtable
+    Private hshIgnorePaths As Hashtable
     Private bClassicMode As Boolean = True
     Private bSelectAll As Boolean = True
     Private bIsLoading As Boolean = False
@@ -82,6 +83,23 @@ Public Class frmAdvancedImport
         Return True
     End Function
 
+    Private Sub LoadIgnorePaths()
+        hshIgnorePaths = mgrPath.GetSpecialPaths()
+        If Not mgrCommon.IsUnix Then
+            hshIgnorePaths.Add("SavedGames", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & "\Saved Games")
+            hshIgnorePaths.Add("LocalLow", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "Low")
+        End If
+    End Sub
+
+    Private Function IgnorePath(ByVal sPath As String) As Boolean
+        If hshIgnorePaths.ContainsValue(sPath.TrimEnd(Path.DirectorySeparatorChar)) Then
+            Return True
+        End If
+
+        Return False
+    End Function
+
+
     Private Sub LoadData(Optional ByVal sFilter As String = "", Optional ByVal bSelectedOnly As Boolean = False, Optional ByVal bAutoDetect As Boolean = False)
         Dim oApp As clsGame
         Dim oListViewItem As ListViewItem
@@ -135,7 +153,7 @@ Public Class frmAdvancedImport
             Try
                 If bAutoDetect Then
                     If oApp.AbsolutePath And oApp.FolderSave Then
-                        If Directory.Exists(oApp.Path) Then
+                        If Directory.Exists(oApp.Path) And Not IgnorePath(oApp.Path) Then
                             oListViewItem.Checked = True
                         End If
                     ElseIf oApp.AbsolutePath And Not oApp.FolderSave Then
@@ -253,6 +271,7 @@ Public Class frmAdvancedImport
     Private Sub frmAdvancedImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         bIsLoading = True
         SetForm()
+        LoadIgnorePaths()
         LoadData(String.Empty, False, True)
         bIsLoading = False
     End Sub
