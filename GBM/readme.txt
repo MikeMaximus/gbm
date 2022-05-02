@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.1 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-April 28, 2022
+May 2, 2022
 
 New in 1.3.1
 
@@ -13,17 +13,18 @@ Database changes made in development builds may not be compatible with the final
 
 All Platforms:
 
-- Experimental support for importing configurations from a Ludusavi YAML manifest file.
+- Support for importing configurations from a Ludusavi YAML manifest file.
 	- Choose from thousands of backup configurations in the Ludusavi Manifest(https://github.com/mtkennerly/ludusavi-manifest) sourced from PCGamingWiki.
 		- A "Ludusavi Manifest" option is available from all import menus, importing any file with the Ludusavi YAML format is also supported.
 		- Ludusavi configurations are suitable for manual backups only, they cannot automatically detect running games until a process to monitor is selected for each configuration.
 		- Windows and Linux are supported.
 			- Linux also displays configurations for Windows games in a format that will work once they are updated with a process and detected at least once running in Wine.
 		- Ludusavi configurations are unique and will not overwrite GBM's official or manually created configurations.		
-- Experimental official support for games that use Steam Cloud save locations.
+- Official support for games that use Steam Cloud save locations.
 	- GBM will attempt to auto-configure the custom path variables required for Steam Cloud locations on each start-up and show a one-time warning if it fails.
-		- Future official list updates can now contain games that use Steam Cloud save location.
-		- Ludusavi Manifest configurations that use a Steam Cloud location are supported.			
+		- The official list will now contain games that use Steam Cloud save locations.
+		- Ludusavi Manifest configurations that use a Steam Cloud save location are supported, but may not always be converted correctly.
+			- PCGamingWiki currently doesn't differentiate between SteamID types.  GBM always uses SteamID3, but some games (Ex. FromSoftware games) require SteamID64.
 	- Users that created Steam Cloud path variables for their own configuations will not be affected, these configurations will still function.
 		- The current variables may be automatically renamed to the official ones or duplicated depending on how they were setup.
 		- See the "Steam Cloud" section of the online manual for details on how to migrate your current Steam Cloud variable(s) to the official ones if necessary. (not written yet)
