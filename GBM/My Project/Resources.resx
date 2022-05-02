@@ -763,7 +763,7 @@
     <value>Import Game Configurations</value>
   </data>
   <data name="frmAdvancedImport_Configs" xml:space="preserve">
-    <value>Configurations ([PARAM])</value>
+    <value>Configurations ([PARAM] / [PARAM])</value>
   </data>
   <data name="frmAdvancedImport_Selected" xml:space="preserve">
     <value>Selected ([PARAM])</value>

@@ -763,7 +763,7 @@
     <value>导入游戏配置</value>
   </data>
   <data name="frmAdvancedImport_Configs" xml:space="preserve">
-    <value>配置([PARAM])</value>
+    <value>配置([PARAM] / [PARAM])</value>
   </data>
   <data name="frmAdvancedImport_Selected" xml:space="preserve">
     <value>已选([PARAM])</value>

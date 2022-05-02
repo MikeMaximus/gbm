@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-04-29T14:24:07
+        '''  Looks up a localized string similar to 2022-05-02T14:34:33
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1007,7 +1007,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Configurations ([PARAM]).
+        '''  Looks up a localized string similar to Configurations ([PARAM] / [PARAM]).
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_Configs() As String
             Get

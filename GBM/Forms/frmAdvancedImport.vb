@@ -139,7 +139,7 @@ Public Class frmAdvancedImport
             If bClassicMode Then
                 oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.ProcessName, sTags})
             Else
-                oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.TruePath, oApp.FileType, oApp.OS.ToString, sTags})
+                oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.Path, oApp.FileType, oApp.OS.ToString, sTags})
             End If
 
             oListViewItem.Tag = oApp.ID
@@ -214,6 +214,9 @@ Public Class frmAdvancedImport
             bSelectAll = True
             chkSelectAll.Checked = True
         End If
+        If bSelectedOnly And Not chkSelectedOnly.Checked Then
+            chkSelectedOnly.Checked = True
+        End If
         bIsLoading = False
 
         lstGames.ListViewItemSorter = New ListViewItemComparer(iCurrentSort)
@@ -221,9 +224,9 @@ Public Class frmAdvancedImport
         UpdateSelected()
 
         If txtFilter.Text = String.Empty And Not chkSelectedOnly.Checked Then
-            lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_Configs, lstGames.Items.Count)
+            lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_Configs, New String() {lstGames.Items.Count, hshImportData.Count})
         Else
-            lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_Configs, lstGames.Items.Count) & " " & frmAdvancedImport_Filtered
+            lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_Configs, New String() {lstGames.Items.Count, hshImportData.Count}) & " " & frmAdvancedImport_Filtered
         End If
 
         Cursor.Current = Cursors.Default
@@ -281,7 +284,7 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub chkSelectedOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectedOnly.CheckedChanged
-        LoadData(txtFilter.Text, chkSelectedOnly.Checked, False)
+        if Not bIsLoading Then LoadData(txtFilter.Text, chkSelectedOnly.Checked, False)
     End Sub
 
     Private Sub lstGames_ItemChecked(sender As Object, e As ItemCheckedEventArgs) Handles lstGames.ItemChecked
@@ -292,7 +295,7 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub btnDetect_Click(sender As Object, e As EventArgs) Handles btnDetectSavedGames.Click
-        LoadData(txtFilter.Text, chkSelectedOnly.Checked, True)
+        LoadData(txtFilter.Text, True, True)
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
