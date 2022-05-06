@@ -97,6 +97,11 @@ Public Class mgrLudusavi
                         Else
                             oFrom.FileType &= ":" & oTo.FileType
                         End If
+                        For Each t As Tag In oTo.ImportTags
+                            If Not oFrom.ImportTags.Contains(t) Then
+                                oFrom.ImportTags.Add(t)
+                            End If
+                        Next
                     End If
                     i += 1
                 End If
@@ -161,6 +166,24 @@ Public Class mgrLudusavi
         End Select
     End Function
 
+    Private Shared Sub HandleTags(ByRef sTags As String(), ByRef sStore As String, ByRef oGame As clsGame)
+        If Not sStore Is Nothing Then
+            oGame.ImportTags.Add(New Tag(ConvertStore(sStore)))
+        End If
+
+        For Each t As String In sTags
+            If t = TagTypes.config.ToString Then
+                oGame.ImportTags.Add(New Tag("Configuration"))
+            End If
+        Next
+
+        If mgrPath.IsSupportedRegistryPath(oGame.Path) Then
+            oGame.ImportTags.Add(New Tag("Registry"))
+        End If
+
+        oGame.ImportTags.Add(New Tag("Ludusavi"))
+    End Sub
+
     Private Shared Function DetectSupportedStorePaths() As List(Of String)
         Dim oStores As New List(Of String)
 
@@ -172,7 +195,7 @@ Public Class mgrLudusavi
     End Function
 
     'This function converts ludusavi manifest data into a structure that can be imported.
-    Private Shared Function ConvertYAML(ByRef hshList As Hashtable, ByRef oList As Dictionary(Of String, LudusaviGame)) As Boolean
+    Private Shared Function ConvertYAML(ByRef hshList As Hashtable, ByRef oList As Dictionary(Of String, LudusaviGame), Optional ByVal bIncludeConfigs As Boolean = True) As Boolean
         Dim oLudusaviGamePair As KeyValuePair(Of String, LudusaviGame)
         Dim oLudusaviGame As LudusaviGame
         Dim oLudusaviPathPair As KeyValuePair(Of String, LudusaviPath)
@@ -238,7 +261,7 @@ Public Class mgrLudusavi
                                     If bSupportedPlatform And bSupportedStore Then
                                         If Not oLudusaviPath.tags Is Nothing Then
                                             For Each t As String In oLudusaviPath.tags
-                                                If t = TagTypes.save.ToString Then
+                                                If t = TagTypes.save.ToString Or (t = TagTypes.config.ToString And bIncludeConfigs) Then
                                                     oGame = New clsGame
                                                     oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
                                                     oGame.Name = oLudusaviGamePair.Key
@@ -258,10 +281,7 @@ Public Class mgrLudusavi
                                                         oGame.FileType = oGame.FileType.Replace("/", "\")
                                                     End If
 
-                                                    If Not w.store Is Nothing Then
-                                                        oGame.ImportTags.Add(New Tag(ConvertStore(w.store)))
-                                                    End If
-                                                    oGame.ImportTags.Add(New Tag("Ludusavi"))
+                                                    HandleTags(oLudusaviPath.tags, w.store, oGame)
                                                     oConfigurations.Add(oGame)
                                                 End If
                                             Next
@@ -279,14 +299,14 @@ Public Class mgrLudusavi
                             oLudusaviPath = DirectCast(oLudusaviPathPair.Value, LudusaviPath)
                             If Not oLudusaviPath.tags Is Nothing Then
                                 For Each t As String In oLudusaviPath.tags
-                                    If t = TagTypes.save.ToString Then
+                                    If t = TagTypes.save.ToString Or (t = TagTypes.config.ToString And bIncludeConfigs) Then
                                         oGame = New clsGame
                                         oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
                                         oGame.Name = oLudusaviGamePair.Key
                                         oGame.Path = oLudusaviPathPair.Key.Replace("/", "\")
                                         oGame.OS = clsGame.eOS.Windows
-                                        oGame.ImportTags.Add(New Tag("Registry"))
-                                        oGame.ImportTags.Add(New Tag("Ludusavi"))
+
+                                        HandleTags(oLudusaviPath.tags, Nothing, oGame)
                                         oConfigurations.Add(oGame)
                                     End If
                                 Next
