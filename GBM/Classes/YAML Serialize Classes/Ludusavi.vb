@@ -1,6 +1,7 @@
 ﻿Public Class LudusaviGame
     Private oFiles As Dictionary(Of String, LudusaviPath)
     Private oRegistry As Dictionary(Of String, LudusaviPath)
+    Private oInstallDir As Dictionary(Of String, Dictionary(Of String, String))
     Private oSteam As LudusaviSteam
 
     Property files As Dictionary(Of String, LudusaviPath)
@@ -18,6 +19,15 @@
         End Get
         Set(value As Dictionary(Of String, LudusaviPath))
             oRegistry = value
+        End Set
+    End Property
+
+    Property installDir As Dictionary(Of String, Dictionary(Of String, String))
+        Get
+            Return oInstallDir
+        End Get
+        Set(value As Dictionary(Of String, Dictionary(Of String, String)))
+            oInstallDir = value
         End Set
     End Property
 
