@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.1 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-May 6, 2022
+May 7, 2022
 
 New in 1.3.1
 
@@ -15,12 +15,12 @@ All Platforms:
 
 - Support for importing configurations from a Ludusavi YAML manifest file.
 	- Choose from thousands of backup configurations in the Ludusavi Manifest(https://github.com/mtkennerly/ludusavi-manifest) sourced from PCGamingWiki.
-		- A choice of configurations that backup saved games and/or the game's configuration data.
+		- A choice of configurations that backup saved games and/or the game's configuration files.
 		- A "Ludusavi Manifest" option is available from all import menus, importing any file with the Ludusavi YAML format is also supported.
 		- Ludusavi configurations are suitable for manual backups only, they cannot automatically detect running games until a process to monitor is selected for each configuration.
 		- Windows and Linux are supported.
-			- Linux also displays configurations for Windows games in a format that will work once they are updated with a process and detected at least once running in Wine.
-		- Ludusavi configurations are unique and will not overwrite GBM's official or manually created configurations.		
+			- Linux keeps the Windows game configurations in a format that will function once they are updated with a process to monitor and detected at least once.
+		- Ludusavi configurations are unique and will not overwrite GBM's official or manually created configurations.
 - Official support for games that use Steam Cloud save locations.
 	- GBM will attempt to auto-configure the custom path variables required for Steam Cloud locations on each start-up and show a one-time warning if it fails.
 		- The official list will now contain games that use Steam Cloud save locations.

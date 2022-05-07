@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-05-02T14:34:33
+        '''  Looks up a localized string similar to 2022-05-07T15:15:57
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3841,6 +3841,105 @@ Namespace My.Resources
         Friend ReadOnly Property frmLauncherManager_optURI() As String
             Get
                 Return ResourceManager.GetString("frmLauncherManager_optURI", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Cancel.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_btnCancel() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_btnCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Import.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_btnImport() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_btnImport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Configuration Files.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_chkConfigurationFiles() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_chkConfigurationFiles", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Linux.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_chkLinux() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_chkLinux", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Saved Games.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_chkSavedGames() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_chkSavedGames", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Windows.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_chkWindows() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_chkWindows", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to At least one operating system must be selected..
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_ErrorOperatingSystem() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_ErrorOperatingSystem", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to At least one profile type must be selected..
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_ErrorProfileType() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_ErrorProfileType", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Ludusavi Options.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Operating Systems.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_grpOperatingSystems() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_grpOperatingSystems", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Profile Types.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_grpProfileTypes() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_grpProfileTypes", resourceCulture)
             End Get
         End Property
         

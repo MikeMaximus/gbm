@@ -4,75 +4,22 @@ Imports System.IO
 
 Public Class mgrXML
 
-    Public Shared Function ReadMonitorList(ByVal sLocation As String, ByRef oExportInfo As ExportData, ByRef hshList As Hashtable, Optional ByVal bWebRead As Boolean = False) As Boolean
-        Dim oList As List(Of Game)
-        Dim hshDupeList As New Hashtable
-        Dim oExportData As New ExportData
-        Dim oGame As clsGame
-
-
-        'If the file doesn't exist return an empty list
-        If Not File.Exists(sLocation) And Not bWebRead Then
-            Return False
-        End If
-
-        If Not ImportandDeserialize(sLocation, oExportData, bWebRead) Then
-            Return False
-        End If
-
-        oList = oExportData.Configurations
-        oExportInfo = oExportData
-
-        For Each g As Game In oList
-            oGame = New clsGame
-            oGame.ID = g.ID
-            oGame.Name = g.Name
-            oGame.ProcessName = g.ProcessName
-            oGame.Path = g.Path
-            oGame.FolderSave = g.FolderSave
-            oGame.AppendTimeStamp = g.AppendTimeStamp
-            oGame.BackupLimit = g.BackupLimit
-            oGame.FileType = g.FileType
-            oGame.ExcludeList = g.ExcludeList
-            oGame.MonitorOnly = g.MonitorOnly
-            oGame.Parameter = g.Parameter
-            oGame.Comments = g.Comments
-            oGame.IsRegEx = g.IsRegEx
-            oGame.RecurseSubFolders = g.RecurseSubFolders
-            oGame.OS = g.OS
-            oGame.UseWindowTitle = g.UseWindowTitle
-            oGame.Differential = g.Differential
-            oGame.DiffInterval = g.DiffInterval
-
-            'Retain compatability when the OS value is not set
-            If oGame.OS = 0 Then
-                oGame.OS = mgrCommon.GetCurrentOS
-            End If
-
-            For Each t As Tag In g.Tags
-                oGame.ImportTags.Add(t)
-            Next
-
-            For Each c As ConfigLink In g.ConfigLinks
-                oGame.ImportConfigLinks.Add(c)
-            Next
-
-            'This should be wrapped just in case we get some bad data
-            Try
-                hshList.Add(oGame.ID, oGame)
-            Catch e As Exception
-                'Do Nothing
-            End Try
-        Next
-
-        Return True
-    End Function
-
-    Public Shared Function ImportandDeserialize(ByVal sLocation As String, ByRef oExportData As ExportData, Optional ByVal bWebRead As Boolean = False) As Boolean
+    Public Shared Function DeserializeAndImport(ByVal sLocation As String, ByRef oExportInfo As ExportData, ByRef hshList As Hashtable, Optional ByVal bWebRead As Boolean = False) As Boolean
         Dim oReader As StreamReader
         Dim oSerializer As XmlSerializer
+        Dim oList As List(Of Game)
+        Dim hshDupeList As New Hashtable
+        Dim oExportData As ExportData
+        Dim oGame As clsGame
 
         Try
+            Cursor.Current = Cursors.WaitCursor
+
+            'If the file doesn't exist return an empty list
+            If Not File.Exists(sLocation) And Not bWebRead Then
+                Return False
+            End If
+
             oReader = mgrCommon.ReadTextFromCache(sLocation, bWebRead)
             oSerializer = New XmlSerializer(GetType(ExportData), New XmlRootAttribute("gbm"))
             oExportData = oSerializer.Deserialize(oReader)
@@ -85,12 +32,54 @@ Public Class mgrXML
                 oExportData.Configurations = oSerializer.Deserialize(oReader)
                 oReader.Close()
             End If
+
+            oList = oExportData.Configurations
+            oExportInfo = oExportData
+
+            For Each g As Game In oList
+                oGame = New clsGame
+                oGame.ID = g.ID
+                oGame.Name = g.Name
+                oGame.ProcessName = g.ProcessName
+                oGame.Path = g.Path
+                oGame.FolderSave = g.FolderSave
+                oGame.AppendTimeStamp = g.AppendTimeStamp
+                oGame.BackupLimit = g.BackupLimit
+                oGame.FileType = g.FileType
+                oGame.ExcludeList = g.ExcludeList
+                oGame.MonitorOnly = g.MonitorOnly
+                oGame.Parameter = g.Parameter
+                oGame.Comments = g.Comments
+                oGame.IsRegEx = g.IsRegEx
+                oGame.RecurseSubFolders = g.RecurseSubFolders
+                oGame.OS = g.OS
+                oGame.UseWindowTitle = g.UseWindowTitle
+                oGame.Differential = g.Differential
+                oGame.DiffInterval = g.DiffInterval
+
+                'Retain compatability when the OS value is not set
+                If oGame.OS = 0 Then
+                    oGame.OS = mgrCommon.GetCurrentOS
+                End If
+
+                For Each t As Tag In g.Tags
+                    oGame.ImportTags.Add(t)
+                Next
+
+                For Each c As ConfigLink In g.ConfigLinks
+                    oGame.ImportConfigLinks.Add(c)
+                Next
+
+                hshList.Add(oGame.ID, oGame)
+            Next
+
             Return True
         Catch ex As Exception
             mgrCommon.ShowMessage(mgrXML_ErrorImportFailure, ex.Message, MsgBoxStyle.Exclamation)
             Return False
+        Finally
+            Cursor.Current = Cursors.Default
         End Try
-
     End Function
 
     Public Shared Function SerializeAndExport(ByVal oList As List(Of Game), ByVal sLocation As String) As Boolean
@@ -111,6 +100,4 @@ Public Class mgrXML
             Return False
         End Try
     End Function
-
-
 End Class

@@ -136,6 +136,7 @@
     <Compile Include="Classes\clsGameProcess.vb" />
     <Compile Include="Classes\clsLaunchData.vb" />
     <Compile Include="Classes\clsLauncher.vb" />
+    <Compile Include="Classes\clsLudusaviOptions.vb" />
     <Compile Include="Classes\clsWineData.vb" />
     <Compile Include="Classes\clsProcess.vb" />
     <Compile Include="Classes\clsGameFilter.vb" />
@@ -159,6 +160,12 @@
       <DependentUpon>frmConfigLinks.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmConfigLinks.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLudusaviConfig.Designer.vb">
+      <DependentUpon>frmLudusaviConfig.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLudusaviConfig.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmLaunchConfiguration.Designer.vb">
@@ -334,6 +341,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms\frmConfigLinks.resx">
       <DependentUpon>frmConfigLinks.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLudusaviConfig.resx">
+      <DependentUpon>frmLudusaviConfig.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmLaunchConfiguration.resx">
       <DependentUpon>frmLaunchConfiguration.vb</DependentUpon>

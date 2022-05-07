@@ -895,11 +895,9 @@ Public Class mgrMonitorList
         Dim bDataImported As Boolean = False
         Dim bClassicMode As Boolean
 
-        Cursor.Current = Cursors.WaitCursor
-
         Select Case Path.GetExtension(sLocation)
             Case ".xml"
-                If Not mgrXML.ReadMonitorList(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
+                If Not mgrXML.DeserializeAndImport(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
                     Return False
                 End If
                 bClassicMode = True
@@ -912,6 +910,8 @@ Public Class mgrMonitorList
                 mgrCommon.ShowMessage(mgrMonitorList_ErrorImportFileType, MsgBoxStyle.Exclamation)
                 Return False
         End Select
+
+        Cursor.Current = Cursors.WaitCursor
 
         hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
 

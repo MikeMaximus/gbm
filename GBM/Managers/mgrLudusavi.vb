@@ -195,7 +195,7 @@ Public Class mgrLudusavi
     End Function
 
     'This function converts ludusavi manifest data into a structure that can be imported.
-    Private Shared Function ConvertYAML(ByRef hshList As Hashtable, ByRef oList As Dictionary(Of String, LudusaviGame), Optional ByVal bIncludeConfigs As Boolean = True) As Boolean
+    Private Shared Function ConvertYAML(ByRef hshList As Hashtable, ByRef oList As Dictionary(Of String, LudusaviGame), ByVal oOptions As clsLudusaviOptions) As Boolean
         Dim oLudusaviGamePair As KeyValuePair(Of String, LudusaviGame)
         Dim oLudusaviGame As LudusaviGame
         Dim oLudusaviPathPair As KeyValuePair(Of String, LudusaviPath)
@@ -226,17 +226,29 @@ Public Class mgrLudusavi
                                         Case clsGame.eOS.Windows
                                             Select Case w.os
                                                 Case OsTypes.dos.ToString, OsTypes.windows.ToString
-                                                    bSupportedPlatform = True
+                                                    If oOptions.IncludeOS.HasFlag(clsLudusaviOptions.eSupportedOS.Windows) Then
+                                                        bSupportedPlatform = True
+                                                    Else
+                                                        bSupportedPlatform = False
+                                                    End If
                                                 Case Else
                                                     bSupportedPlatform = False
                                             End Select
                                         Case clsGame.eOS.Linux
                                             Select Case w.os
                                                 Case OsTypes.dos.ToString, OsTypes.windows.ToString
-                                                    bSupportedPlatform = True
-                                                    bForcedWinConvert = True
+                                                    If oOptions.IncludeOS.HasFlag(clsLudusaviOptions.eSupportedOS.Windows) Then
+                                                        bSupportedPlatform = True
+                                                        bForcedWinConvert = True
+                                                    Else
+                                                        bSupportedPlatform = False
+                                                    End If
                                                 Case OsTypes.linux.ToString
-                                                    bSupportedPlatform = True
+                                                    If oOptions.IncludeOS.HasFlag(clsLudusaviOptions.eSupportedOS.Linux) Then
+                                                        bSupportedPlatform = True
+                                                    Else
+                                                        bSupportedPlatform = False
+                                                    End If
                                                 Case Else
                                                     bSupportedPlatform = False
                                             End Select
@@ -261,7 +273,7 @@ Public Class mgrLudusavi
                                     If bSupportedPlatform And bSupportedStore Then
                                         If Not oLudusaviPath.tags Is Nothing Then
                                             For Each t As String In oLudusaviPath.tags
-                                                If t = TagTypes.save.ToString Or (t = TagTypes.config.ToString And bIncludeConfigs) Then
+                                                If (t = TagTypes.save.ToString And oOptions.IncludeSaves) Or (t = TagTypes.config.ToString And oOptions.IncludeConfigs) Then
                                                     oGame = New clsGame
                                                     oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
                                                     oGame.Name = oLudusaviGamePair.Key
@@ -299,7 +311,7 @@ Public Class mgrLudusavi
                             oLudusaviPath = DirectCast(oLudusaviPathPair.Value, LudusaviPath)
                             If Not oLudusaviPath.tags Is Nothing Then
                                 For Each t As String In oLudusaviPath.tags
-                                    If t = TagTypes.save.ToString Or (t = TagTypes.config.ToString And bIncludeConfigs) Then
+                                    If (t = TagTypes.save.ToString And oOptions.IncludeSaves) Or (t = TagTypes.config.ToString And oOptions.IncludeConfigs) Then
                                         oGame = New clsGame
                                         oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
                                         oGame.Name = oLudusaviGamePair.Key
@@ -341,10 +353,14 @@ Public Class mgrLudusavi
         Dim oDeserializer As Deserializer
         Dim oReader As StreamReader
         Dim sYAML As String
+        Dim frmOptions As New frmLudusaviConfig
         Dim oList As Dictionary(Of String, LudusaviGame)
 
-
         Try
+            If frmOptions.ShowDialog() = DialogResult.Cancel Then Return False
+
+            Cursor.Current = Cursors.WaitCursor
+
             oBuilder = New DeserializerBuilder
             oBuilder.IgnoreUnmatchedProperties()
             oDeserializer = oBuilder.Build()
@@ -359,12 +375,14 @@ Public Class mgrLudusavi
 
             FormatYAML(sYAML)
             oList = oDeserializer.Deserialize(Of Dictionary(Of String, LudusaviGame))(sYAML)
-            ConvertYAML(hshList, oList)
+            ConvertYAML(hshList, oList, frmOptions.ImportOptions)
 
             Return True
         Catch ex As Exception
             mgrCommon.ShowMessage(mgrLudusavi_ErrorReading, ex.Message, MsgBoxStyle.Critical)
             Return False
+        Finally
+            Cursor.Current = Cursors.Default
         End Try
 
     End Function

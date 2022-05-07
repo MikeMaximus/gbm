@@ -3103,4 +3103,37 @@
   <data name="mgrPath_WarningSteamAutoDetect" xml:space="preserve">
     <value>Game Backup Monitor supports Steam Cloud saved game locations, but was unable to automatically detect the required information.[BR][BR]This is normal if Steam is not installed, if Steam is installed please review the "Steam Cloud" section of the online manual for help.[BR][BR]This message will only be shown once.</value>
   </data>
+  <data name="frmLudusaviConfig_btnCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="frmLudusaviConfig_btnImport" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="frmLudusaviConfig_chkConfigurationFiles" xml:space="preserve">
+    <value>Configuration Files</value>
+  </data>
+  <data name="frmLudusaviConfig_chkLinux" xml:space="preserve">
+    <value>Linux</value>
+  </data>
+  <data name="frmLudusaviConfig_chkSavedGames" xml:space="preserve">
+    <value>Saved Games</value>
+  </data>
+  <data name="frmLudusaviConfig_chkWindows" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="frmLudusaviConfig_ErrorOperatingSystem" xml:space="preserve">
+    <value>At least one operating system must be selected.</value>
+  </data>
+  <data name="frmLudusaviConfig_ErrorProfileType" xml:space="preserve">
+    <value>At least one profile type must be selected.</value>
+  </data>
+  <data name="frmLudusaviConfig_FormName" xml:space="preserve">
+    <value>Ludusavi Options</value>
+  </data>
+  <data name="frmLudusaviConfig_grpOperatingSystems" xml:space="preserve">
+    <value>Operating Systems</value>
+  </data>
+  <data name="frmLudusaviConfig_grpProfileTypes" xml:space="preserve">
+    <value>Profile Types</value>
+  </data>
 </root>
