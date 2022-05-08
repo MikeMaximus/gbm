@@ -627,6 +627,7 @@ Public Class frmGameManager
     Private Function GetBuilderRoot() As String
         Dim sRoot As String = String.Empty
         Dim sPath As String = String.Empty
+        Dim sAppPath As String = mgrPath.ValidatePath(txtAppPath.Text)
 
         'Use the wine save path when we are in Linux working with a Windows configuration
         If mgrCommon.IsUnix And cboOS.SelectedValue = clsGame.eOS.Windows Then
@@ -638,16 +639,19 @@ Public Class frmGameManager
             sPath = mgrPath.ValidatePath(txtSavePath.Text)
         End If
 
-        If Not mgrSettings.ShowResolvedPaths Then sPath = mgrPath.ReplaceSpecialPaths(sPath)
+        If Not mgrSettings.ShowResolvedPaths Then
+            sPath = mgrPath.ReplaceSpecialPaths(sPath)
+            sAppPath = mgrPath.ReplaceSpecialPaths(sAppPath)
+        End If
 
         If Path.IsPathRooted(sPath) Then
             If Directory.Exists(sPath) Then
                 sRoot = sPath
             End If
         Else
-            If txtAppPath.Text <> String.Empty Then
-                If Directory.Exists(txtAppPath.Text & Path.DirectorySeparatorChar & sPath) Then
-                    sRoot = txtAppPath.Text & Path.DirectorySeparatorChar & sPath
+            If sAppPath <> String.Empty Then
+                If Directory.Exists(sAppPath & Path.DirectorySeparatorChar & sPath) Then
+                    sRoot = sAppPath & Path.DirectorySeparatorChar & sPath
                 End If
             End If
         End If

@@ -34,6 +34,7 @@ All Platforms:
 - Fixed an issue with the import feature not syncing immediately after being used from the main window or system tray.
 	- This would cause imported changes to be lost if GBM was closed before a sync was triggered by another action.
 - Fixed an issue with configuration paths not be updated correctly when changing a custom path variable name and path at the same time.
+- Fixed an issue with the Include/Exclude builder in the Game Manager not opening to the correct folder when using a custom path variable in the "Game Path" and a relative "Save Path".
 - Improved the pending backup notification feature.	
 	- Clicking notification now opens the Game Manager to the "Backup Management" tab with the first game selected.
 	- The notification will no longer keep reappearing during a session when all pending backups are not restored.
