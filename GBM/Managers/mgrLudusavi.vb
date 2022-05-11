@@ -166,6 +166,12 @@ Public Class mgrLudusavi
         End Select
     End Function
 
+    Private Shared Sub TransformName(ByRef sTag As String, ByRef oGame As clsGame)
+        If sTag = TagTypes.config.ToString Then
+            oGame.Name &= " (Configuration)"
+        End If
+    End Sub
+
     Private Shared Sub HandleTags(ByRef sTags As String(), ByRef sStore As String, ByRef oGame As clsGame)
         If Not sStore Is Nothing Then
             oGame.ImportTags.Add(New Tag(ConvertStore(sStore)))
@@ -293,6 +299,7 @@ Public Class mgrLudusavi
                                                         oGame.FileType = oGame.FileType.Replace("/", "\")
                                                     End If
 
+                                                    TransformName(t, oGame)
                                                     HandleTags(oLudusaviPath.tags, w.store, oGame)
                                                     oConfigurations.Add(oGame)
                                                 End If
@@ -318,6 +325,7 @@ Public Class mgrLudusavi
                                         oGame.Path = oLudusaviPathPair.Key.Replace("/", "\")
                                         oGame.OS = clsGame.eOS.Windows
 
+                                        TransformName(t, oGame)
                                         HandleTags(oLudusaviPath.tags, Nothing, oGame)
                                         oConfigurations.Add(oGame)
                                     End If
