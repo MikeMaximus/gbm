@@ -152,7 +152,9 @@ Public Class frmAdvancedImport
 
             Try
                 If bAutoDetect Then
-                    If oApp.AbsolutePath And oApp.FolderSave Then
+                    If mgrPath.IsPopulatedRegistryKey(oApp.Path) Then
+                        oListViewItem.Checked = True
+                    ElseIf oApp.AbsolutePath And oApp.FolderSave Then
                         If Directory.Exists(oApp.Path) And Not IgnorePath(oApp.Path) Then
                             oListViewItem.Checked = True
                         End If

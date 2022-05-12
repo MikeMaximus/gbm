@@ -483,6 +483,39 @@ Public Class mgrPath
         Return sValue
     End Function
 
+    Public Shared Sub FormatRegistryPath(ByRef sPath As String, Optional ByRef bHKCU As Boolean = False)
+        If sPath.ToUpper.StartsWith("HKEY_CURRENT_USER\") Or sPath.ToUpper.StartsWith("HKCU\") Then
+            bHKCU = True
+            sPath = sPath.Replace("HKCU\", String.Empty)
+            sPath = sPath.Replace("HKEY_CURRENT_USER\", String.Empty)
+        ElseIf sPath.ToUpper.StartsWith("HKEY_LOCAL_MACHINE\") Or sPath.ToUpper.StartsWith("HKLM\") Then
+            bHKCU = False
+            sPath = sPath.Replace("HKLM\", String.Empty)
+            sPath = sPath.Replace("HKEY_LOCAL_MACHINE\", String.Empty)
+        End If
+    End Sub
+
+    Public Shared Function IsPopulatedRegistryKey(ByVal sPath As String) As Boolean
+        Dim oKey As Microsoft.Win32.RegistryKey
+        Dim bHKCU As Boolean
+
+        If IsSupportedRegistryPath(sPath) Then
+            FormatRegistryPath(sPath, bHKCU)
+            If bHKCU Then
+                oKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(sPath)
+            Else
+                oKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(sPath)
+            End If
+            If Not oKey Is Nothing Then
+                If oKey.SubKeyCount > 0 Or oKey.ValueCount > 0 Then
+                    Return True
+                End If
+            End If
+        End If
+
+        Return False
+    End Function
+
     Public Shared Function IsSupportedRegistryPath(ByVal sPath As String) As Boolean
         If sPath.ToUpper.StartsWith("HKEY_CURRENT_USER\") Or sPath.ToUpper.StartsWith("HKCU\") Then
             Return True

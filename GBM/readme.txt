@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.1 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-May 7, 2022
+May 12, 2022
 
 New in 1.3.1
 
@@ -30,6 +30,8 @@ All Platforms:
 		- The current variables may be automatically renamed to the official ones or duplicated depending on how they were setup.
 		- See the "Steam Cloud" section of the online manual for details on how to migrate your current Steam Cloud variable(s) to the official ones if necessary. (not written yet)
 - Improved saved game detection on the Import window.
+	- Windows registry configurations are now detected.
+	- Better detection of configurations that use file includes.
 - Fixed performance issues when filtering on the Import window with large data sets.
 - Fixed an issue with the import feature not syncing immediately after being used from the main window or system tray.
 	- This would cause imported changes to be lost if GBM was closed before a sync was triggered by another action.
