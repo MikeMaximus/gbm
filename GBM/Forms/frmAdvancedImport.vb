@@ -220,6 +220,10 @@ Public Class frmAdvancedImport
         UpdateTotals()
 
         Cursor.Current = Cursors.Default
+
+        If bAutoDetect And lstGames.Items.Count = 0 Then
+            chkSelectedOnly.Checked = False
+        End If
     End Sub
 
     Private Sub SetForm()
