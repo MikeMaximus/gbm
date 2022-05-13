@@ -13,26 +13,26 @@ Database changes made in development builds may not be compatible with the final
 
 All Platforms:
 
-- Support for importing configurations from a Ludusavi YAML manifest file.
-	- Choose from thousands of backup configurations in the Ludusavi Manifest(https://github.com/mtkennerly/ludusavi-manifest) sourced from PCGamingWiki.
-		- A choice of configurations that backup saved games and/or the game's configuration files.
-		- A "Ludusavi Manifest" option is available from all import menus, importing any file with the Ludusavi YAML format is also supported.
-		- Ludusavi configurations are suitable for manual backups only, they cannot automatically detect running games until a process to monitor is selected for each configuration.
-		- Windows and Linux are supported.
-			- Linux keeps the Windows game configurations in a format that will function once they are updated with a process to monitor and detected at least once.
-		- Ludusavi configurations are unique and will not overwrite GBM's official or manually created configurations.
+- Support for importing configurations from the primary Ludusavi Manifest or any file using the manifest strucuture.
+	- The primary Ludusavi Manifest(https://github.com/mtkennerly/ludusavi-manifest) contains thousands of backup configurations sourced from PCGamingWiki(https://www.pcgamingwiki.com).
+	- See the Ludusavi Manifest(https://mikemaximus.github.io/gbm-web/manual.html#ludusavi) section of the manual for more information about this feature.
 - Official support for games that use Steam Cloud save locations.
 	- GBM will attempt to auto-configure the custom path variables required for Steam Cloud locations on each start-up and show a one-time warning if it fails.
 		- The official list will now contain games that use Steam Cloud save locations.
-		- Ludusavi Manifest configurations that use a Steam Cloud save location are supported, but may not always be converted correctly.
-			- PCGamingWiki currently doesn't differentiate between SteamID types.  GBM always uses SteamID3, but some games (Ex. FromSoftware games) require SteamID64.
 	- Users that created Steam Cloud path variables for their own configuations will not be affected, these configurations will still function.
 		- The current variables may be automatically renamed to the official ones or duplicated depending on how they were setup.
 		- See the "Steam Cloud" section of the online manual for details on how to migrate your current Steam Cloud variable(s) to the official ones if necessary. (not written yet)
+- UI improvements on the Import window.
+	- Only configurations with detected saved games are shown and selected by default.
+		- This should be much less confusing and intimidating for new users.
+		- If no saved games are detected, the full list is shown.
+	- The "Select All" checkbox should now function in a more expected manner.
+	- Column sizes will not longer reset when filters are applied.
+	- Added columns to display more information about each configuration.
+	- Fixed performance issues when filtering or sorting large data sets.
 - Improved saved game detection on the Import window.
 	- Windows registry configurations are now detected.
 	- Better detection of configurations that use file includes.
-- Fixed performance issues when filtering on the Import window with large data sets.
 - Fixed an issue with the import feature not syncing immediately after being used from the main window or system tray.
 	- This would cause imported changes to be lost if GBM was closed before a sync was triggered by another action.
 - Fixed an issue with configuration paths not be updated correctly when changing a custom path variable name and path at the same time.

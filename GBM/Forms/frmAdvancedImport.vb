@@ -105,26 +105,13 @@ Public Class frmAdvancedImport
         Dim oListViewItem As ListViewItem
         Dim sTags As String
         Dim bAddItem As Boolean
-        Dim bResetSelectAll As Boolean = False
 
         Cursor.Current = Cursors.WaitCursor
         bIsLoading = True
         lstGames.BeginUpdate()
 
-        lstGames.Clear()
+        lstGames.Items.Clear()
         lstGames.ListViewItemSorter = Nothing
-
-        If bClassicMode Then
-            lstGames.Columns.Add(frmAdvancedImport_ColumnName, 315)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnProcess, 130)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 290)
-        Else
-            lstGames.Columns.Add(frmAdvancedImport_ColumnName, 295)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnPath, 200)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnInclude, 100)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnOs, 70)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 70)
-        End If
 
         If bAutoDetect Then
             chkSelectedOnly.Checked = True
@@ -142,7 +129,7 @@ Public Class frmAdvancedImport
             sTags = sTags.TrimEnd(New Char() {",", " "})
 
             If bClassicMode Then
-                oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.ProcessName, sTags})
+                oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.ProcessName, oApp.Path, oApp.FileType, sTags})
             Else
                 oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.Path, oApp.FileType, oApp.OS.ToString, sTags})
             End If
@@ -252,6 +239,21 @@ Public Class frmAdvancedImport
         oImageList.Images.Add(frmAdvancedImport_New)
         oImageList.Images.Add(frmAdvancedImport_Update)
         lstGames.SmallImageList = oImageList
+
+        'Setup Columns
+        If bClassicMode Then
+            lstGames.Columns.Add(frmAdvancedImport_ColumnName, 250)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnProcess, 115)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnPath, 200)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnInclude, 100)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 70)
+        Else
+            lstGames.Columns.Add(frmAdvancedImport_ColumnName, 295)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnPath, 200)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnInclude, 100)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnOs, 70)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 70)
+        End If
 
         'Init Filter Timer
         tmFilterTimer = New Timer()
