@@ -3100,9 +3100,6 @@
   <data name="mgrMonitorList_ErrorImportFileType" xml:space="preserve">
     <value>The file or URL does not contain a supported file extension.</value>
   </data>
-  <data name="mgrPath_WarningSteamAutoDetect" xml:space="preserve">
-    <value>Game Backup Monitor supports Steam Cloud saved game locations, but was unable to automatically detect the required information.[BR][BR]This is normal if Steam is not installed, if Steam is installed please review the "Steam Cloud" section of the online manual for help.[BR][BR]This message will only be shown once.</value>
-  </data>
   <data name="frmLudusaviConfig_btnCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>

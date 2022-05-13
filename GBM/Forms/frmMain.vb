@@ -1567,7 +1567,9 @@ Public Class frmMain
         SetupSyncWatcher()
 
         'Automatically configure variables for supported applications
-        mgrPath.AutoConfigureSteamVariables()
+        If Not mgrStoreVariables.IsAppConfigured(mgrStoreVariables.SupportedAutoConfigApps.Steam) Then
+            mgrStoreVariables.AutoConfigureSteamVariables()
+        End If
 
         'Load Game Settings
         LoadGameSettings()

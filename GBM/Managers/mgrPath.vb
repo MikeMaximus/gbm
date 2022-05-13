@@ -17,10 +17,6 @@ Public Class mgrPath
         LoadCustomVariables()
     End Sub
 
-    Enum SupportedAutoConfigApps
-        Steam
-    End Enum
-
     Shared ReadOnly Property ReleaseType As Integer
         Get
             Select Case oReleaseType
@@ -563,51 +559,6 @@ Public Class mgrPath
 
         Return False
     End Function
-
-    Public Shared Function IsAppConfigured(ByVal iSupported As SupportedAutoConfigApps) As Boolean
-        Select Case iSupported
-            Case SupportedAutoConfigApps.Steam
-                If mgrVariables.DoCheck("Steam") And mgrVariables.DoCheck("SteamID3") Then
-                    Return True
-                End If
-        End Select
-
-        Return False
-    End Function
-
-    Public Shared Sub AutoConfigureSteamVariables()
-        Dim sSteam As String
-        Dim sStoreID As String
-        Dim oExistingVariable As clsPathVariable
-        Dim oVariables As New List(Of clsPathVariable)
-
-        'Auto configure Steam 
-        sSteam = mgrCommon.DetectSteam()
-        sStoreID = mgrCommon.DetectSteamUser(sSteam)
-
-        If (Not sSteam = String.Empty And Not sStoreID = String.Empty) Then
-            oVariables.Add(New clsPathVariable("Steam", sSteam))
-            oVariables.Add(New clsPathVariable("SteamID3", sStoreID))
-
-            'Create or migrate existing variables
-            For Each oVariable In oVariables
-                oExistingVariable = mgrVariables.DoVariableGetbyNameOrPath(oVariable)
-
-                If oExistingVariable Is Nothing Then
-                    mgrVariables.DoVariableAdd(oVariable)                    
-                ElseIf Not oExistingVariable.CoreEquals(oVariable) Then
-                    oVariable.ID = oExistingVariable.ID
-                    mgrVariables.DoVariableUpdate(oVariable, oExistingVariable)
-                End If
-            Next
-        Else
-            If Not (mgrSettings.SuppressMessages And mgrSettings.eSuppressMessages.SteamAutoConfigWarning) = mgrSettings.eSuppressMessages.SteamAutoConfigWarning Then
-                mgrCommon.ShowPriorityMessage(mgrPath_WarningSteamAutoDetect, MsgBoxStyle.Information)
-                mgrSettings.SuppressMessages = mgrSettings.SetMessageField(mgrSettings.SuppressMessages, mgrSettings.eSuppressMessages.SteamAutoConfigWarning)
-                mgrSettings.SaveSettings()
-            End If
-        End If
-    End Sub
 
     Public Shared Function VerifyCustomVariables(ByVal hshScanlist As Hashtable, ByRef sGames As String) As Boolean
         Dim hshCustomVariables As Hashtable = mgrVariables.ReadVariables

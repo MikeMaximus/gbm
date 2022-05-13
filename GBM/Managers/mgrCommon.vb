@@ -396,50 +396,6 @@ Public Class mgrCommon
         Return iProcessType
     End Function
 
-    Public Shared Function DetectSteam() As String
-        Dim oKey As Microsoft.Win32.RegistryKey
-
-        If IsUnix() Then
-            Return mgrPath.ReplaceSpecialPaths("$HOME/.steam/steam")
-        Else
-            Try
-                'Steam always seems to use this registry node regardless of architecture.
-                oKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\Wow6432Node\Valve\Steam")
-
-                If Not oKey Is Nothing Then
-                    If Not oKey.GetValue("InstallPath") Is Nothing Then
-                        Return oKey.GetValue("InstallPath").ToString
-                    End If
-                End If
-
-                Return String.Empty
-            Catch
-                Return String.Empty
-            End Try
-        End If
-    End Function
-
-    Public Shared Function DetectSteamUser(ByVal sSteamFolder As String) As String
-        Dim sFolders As String()
-        Dim sSteamUserData As String
-
-        Try
-            If sSteamFolder <> String.Empty Then
-                sSteamUserData = sSteamFolder & Path.DirectorySeparatorChar & "userdata"
-                If Directory.Exists(sSteamUserData) Then
-                    sFolders = Directory.GetDirectories(sSteamUserData, "*", SearchOption.TopDirectoryOnly)
-                    If sFolders.Length = 1 Then
-                        Return Path.GetFileName(sFolders(0))
-                    End If
-                End If
-            End If
-
-            Return String.Empty
-        Catch
-            Return String.Empty
-        End Try
-    End Function
-
     Public Shared Function GetFrameworkInfo() As String
         If IsUnix() Then
             Dim oType As Type

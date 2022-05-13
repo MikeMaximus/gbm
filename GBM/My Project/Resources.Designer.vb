@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-05-07T15:15:57
+        '''  Looks up a localized string similar to 2022-05-13T00:03:14
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -8736,15 +8736,6 @@ Namespace My.Resources
         Friend ReadOnly Property mgrPath_SpecialPathError() As String
             Get
                 Return ResourceManager.GetString("mgrPath_SpecialPathError", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Game Backup Monitor supports Steam Cloud saved game locations, but was unable to automatically detect the required information.[BR][BR]This is normal if Steam is not installed, if Steam is installed please review the &quot;Steam Cloud&quot; section of the online manual for help.[BR][BR]This message will only be shown once..
-        '''</summary>
-        Friend ReadOnly Property mgrPath_WarningSteamAutoDetect() As String
-            Get
-                Return ResourceManager.GetString("mgrPath_WarningSteamAutoDetect", resourceCulture)
             End Get
         End Property
         

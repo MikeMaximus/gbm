@@ -187,7 +187,7 @@ Public Class mgrLudusavi
     Private Shared Function DetectSupportedStorePaths() As List(Of String)
         Dim oStores As New List(Of String)
 
-        If mgrPath.IsAppConfigured(mgrPath.SupportedAutoConfigApps.Steam) Then
+        If mgrStoreVariables.IsAppConfigured(mgrStoreVariables.SupportedAutoConfigApps.Steam) Then
             oStores.Add(StoreTypes.steam.ToString)
         End If
 

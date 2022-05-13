@@ -18,8 +18,8 @@ All Platforms:
 	- See the Ludusavi Manifest(https://mikemaximus.github.io/gbm-web/manual.html#ludusavi) section of the manual for more information about this feature.
 - Official support for games that use Steam Cloud save locations.
 	- The official game lists will now contain games that use Steam Cloud save locations.
-	- GBM will attempt to auto-configure the custom path variables required for Steam Cloud locations on each start-up and show a one-time warning if it fails.	
-	- See the Preconfigured Store Variables(https://mikemaximus.github.io/gbm-web/manual.html#storevariables) section of the manual for more information about this feature.
+	- GBM will auto-configure the custom path variables required for Steam Cloud locations on each start-up if they don't exist.	
+		- See the Preconfigured Store Variables(https://mikemaximus.github.io/gbm-web/manual.html#storevariables) section of the manual for more information about this feature.
 - UI improvements on the Import window.
 	- Only configurations with detected saved games are shown and selected by default.
 		- This should be much less confusing and intimidating for new users.
