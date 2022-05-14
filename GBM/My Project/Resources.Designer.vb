@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-05-14T14:52:38
+        '''  Looks up a localized string similar to 2022-05-14T14:58:06
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -8479,7 +8479,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enter the full URL of an XML file exported by GBM..
+        '''  Looks up a localized string similar to Enter the full URL of a supported file.  GBM XML and Ludusavi YAML files are supported..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_CustomListURLInfo() As String
             Get
@@ -8488,7 +8488,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Import XML file from URL.
+        '''  Looks up a localized string similar to Import file from URL.
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_CustomListURLTitle() As String
             Get

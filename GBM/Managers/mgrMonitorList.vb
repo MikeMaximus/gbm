@@ -1002,11 +1002,12 @@ Public Class mgrMonitorList
 
         If sLocation <> String.Empty Then
             If mgrCommon.IsAddress(sLocation) Then
+                'Save a valid URL for next time
+                oSavedPath.PathName = "Import_Custom_URL"
+                oSavedPath.Path = sLocation
+                mgrSavedPath.AddUpdatePath(oSavedPath)
+
                 If DoImport(sLocation) Then
-                    'Save valid URL for next time
-                    oSavedPath.PathName = "Import_Custom_URL"
-                    oSavedPath.Path = sLocation
-                    mgrSavedPath.AddUpdatePath(oSavedPath)
                     Return True
                 End If
             Else

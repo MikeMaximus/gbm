@@ -3023,10 +3023,10 @@
     <value>&amp;URL...</value>
   </data>
   <data name="mgrMonitorList_CustomListURLInfo" xml:space="preserve">
-    <value>Enter the full URL of an XML file exported by GBM.</value>
+    <value>Enter the full URL of a supported file.  GBM XML and Ludusavi YAML files are supported.</value>
   </data>
   <data name="mgrMonitorList_CustomListURLTitle" xml:space="preserve">
-    <value>Import XML file from URL</value>
+    <value>Import file from URL</value>
   </data>
   <data name="mgrMonitorList_CustomListURLError" xml:space="preserve">
     <value>The value must be a valid HTTP or HTTPS location.</value>
