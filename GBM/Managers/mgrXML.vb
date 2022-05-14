@@ -4,6 +4,15 @@ Imports System.IO
 
 Public Class mgrXML
 
+    Private Shared Function IsSupportedPath(ByRef sPath As String) As Boolean
+        'Check Steam
+        If sPath.Contains("%Steam") Or sPath.Contains("%SteamID3") Then
+            Return mgrStoreVariables.IsAppConfigured(mgrStoreVariables.SupportedAutoConfigApps.Steam)
+        End If
+
+        Return True
+    End Function
+
     Public Shared Function DeserializeAndImport(ByVal sLocation As String, ByRef oExportInfo As ExportData, ByRef hshList As Hashtable, Optional ByVal bWebRead As Boolean = False) As Boolean
         Dim oReader As StreamReader
         Dim oSerializer As XmlSerializer
@@ -11,6 +20,7 @@ Public Class mgrXML
         Dim hshDupeList As New Hashtable
         Dim oExportData As ExportData
         Dim oGame As clsGame
+        Dim bAdd As Boolean
 
         Try
             Cursor.Current = Cursors.WaitCursor
@@ -37,6 +47,7 @@ Public Class mgrXML
             oExportInfo = oExportData
 
             For Each g As Game In oList
+                bAdd = False
                 oGame = New clsGame
                 oGame.ID = g.ID
                 oGame.Name = g.Name
@@ -70,7 +81,10 @@ Public Class mgrXML
                     oGame.ImportConfigLinks.Add(c)
                 Next
 
-                hshList.Add(oGame.ID, oGame)
+
+                bAdd = IsSupportedPath(oGame.TruePath)
+
+                If bAdd Then hshList.Add(oGame.ID, oGame)
             Next
 
             Return True
