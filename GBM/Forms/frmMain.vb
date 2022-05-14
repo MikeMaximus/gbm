@@ -1570,6 +1570,7 @@ Public Class frmMain
         If Not mgrStoreVariables.IsAppConfigured(mgrStoreVariables.SupportedAutoConfigApps.Steam) Then
             mgrStoreVariables.AutoConfigureSteamVariables()
         End If
+        mgrPath.LoadCustomVariables()
 
         'Load Game Settings
         LoadGameSettings()
