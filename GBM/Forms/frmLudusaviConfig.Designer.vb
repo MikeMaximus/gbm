@@ -29,7 +29,7 @@ Partial Class frmLudusaviConfig
         Me.chkLinux = New System.Windows.Forms.CheckBox()
         Me.chkWindows = New System.Windows.Forms.CheckBox()
         Me.btnCancel = New System.Windows.Forms.Button()
-        Me.btnImport = New System.Windows.Forms.Button()
+        Me.btnOK = New System.Windows.Forms.Button()
         Me.grpProfileTypes.SuspendLayout()
         Me.grpOperatingSystems.SuspendLayout()
         Me.SuspendLayout()
@@ -108,23 +108,23 @@ Partial Class frmLudusaviConfig
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'btnImport
+        'btnOK
         '
-        Me.btnImport.Image = Global.GBM.My.Resources.Resources.Multi_Import
-        Me.btnImport.Location = New System.Drawing.Point(91, 164)
-        Me.btnImport.Name = "btnImport"
-        Me.btnImport.Size = New System.Drawing.Size(55, 45)
-        Me.btnImport.TabIndex = 2
-        Me.btnImport.Text = "&Import"
-        Me.btnImport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btnImport.UseVisualStyleBackColor = True
+        Me.btnOK.Image = Global.GBM.My.Resources.Resources.Multi_Ok
+        Me.btnOK.Location = New System.Drawing.Point(86, 164)
+        Me.btnOK.Name = "btnOK"
+        Me.btnOK.Size = New System.Drawing.Size(60, 45)
+        Me.btnOK.TabIndex = 2
+        Me.btnOK.Text = "&OK"
+        Me.btnOK.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btnOK.UseVisualStyleBackColor = True
         '
         'frmLudusaviConfig
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(224, 221)
-        Me.Controls.Add(Me.btnImport)
+        Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.grpOperatingSystems)
         Me.Controls.Add(Me.grpProfileTypes)
@@ -151,5 +151,5 @@ Partial Class frmLudusaviConfig
     Friend WithEvents chkLinux As CheckBox
     Friend WithEvents chkWindows As CheckBox
     Friend WithEvents btnCancel As Button
-    Friend WithEvents btnImport As Button
+    Friend WithEvents btnOK As Button
 End Class

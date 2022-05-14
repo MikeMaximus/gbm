@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-05-13T00:03:14
+        '''  Looks up a localized string similar to 2022-05-14T14:52:38
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3854,11 +3854,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Import.
+        '''  Looks up a localized string similar to OK.
         '''</summary>
-        Friend ReadOnly Property frmLudusaviConfig_btnImport() As String
+        Friend ReadOnly Property frmLudusaviConfig_btnOK() As String
             Get
-                Return ResourceManager.GetString("frmLudusaviConfig_btnImport", resourceCulture)
+                Return ResourceManager.GetString("frmLudusaviConfig_btnOK", resourceCulture)
             End Get
         End Property
         
@@ -8587,7 +8587,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The Ludusavi Manifest contains thousands of saved game configurations sourced from the PC Gaming Wiki.[BR][BR]These are untested configurations only suitable for manual backups by default and may not be fully compatible with GBM.[BR][BR]This message will only be shown once..
+        '''  Looks up a localized string similar to The primary Ludusavi Manifest contains thousands of saved game configurations sourced from PCGamingWiki.[BR][BR]These are untested configurations only suitable for manual backups by default and may not be fully compatible with GBM.[BR][BR]This message will only be shown once..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_WarningLudusaviImport() As String
             Get

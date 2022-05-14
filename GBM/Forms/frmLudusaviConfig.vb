@@ -24,8 +24,8 @@ Public Class frmLudusaviConfig
         grpOperatingSystems.Text = frmLudusaviConfig_grpOperatingSystems
         chkWindows.Text = frmLudusaviConfig_chkWindows
         chkLinux.Text = frmLudusaviConfig_chkLinux
-        btnImport.Text = frmLudusaviConfig_btnImport
-        btnImport.Image = Multi_Import
+        btnOK.Text = frmLudusaviConfig_btnOK
+        btnOK.Image = Multi_Ok
         btnCancel.Text = frmLudusaviConfig_btnCancel
         btnCancel.Image = Multi_Cancel
 
@@ -64,7 +64,7 @@ Public Class frmLudusaviConfig
         SetForm()
     End Sub
 
-    Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
+    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         If ValidateOptions() Then
             BuildOptions()
             Me.DialogResult = DialogResult.OK
