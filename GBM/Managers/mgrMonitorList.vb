@@ -405,6 +405,25 @@ Public Class mgrMonitorList
         Return hshGames
     End Function
 
+    Public Shared Function IsDuplicateName(ByVal sName As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Boolean
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim oData As Object
+        Dim hshParams As New Hashtable
+
+        sSQL = "SELECT Name from monitorlist WHERE NAME = @Name COLLATE NOCASE GROUP BY Name HAVING Count(Name) > 1"
+
+        hshParams.Add("Name", sName)
+
+        oData = oDatabase.ReadSingleValue(sSQL, hshParams)
+
+        If oData Is Nothing Then
+            Return False
+        Else
+            Return True
+        End If
+    End Function
+
     Public Shared Function DoDuplicateListCheck(ByVal sMonitorID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local, Optional ByVal sExcludeID As String = "") As Boolean
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
