@@ -60,7 +60,7 @@
         Dim oBackupItem As clsBackup
         Dim slList As New SortedList
 
-        sSQL = "SELECT *, Max(DateUpdated) As DateUpdated FROM manifest NATURAL JOIN monitorlist GROUP BY Name ORDER BY Name ASC"
+        sSQL = "SELECT *, Max(DateUpdated) As DateUpdated FROM manifest NATURAL JOIN monitorlist GROUP BY MonitorID ORDER BY Name ASC"
         oData = oDatabase.ReadParamData(sSQL, New Hashtable)
 
         For Each dr As DataRow In oData.Tables(0).Rows

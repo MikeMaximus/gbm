@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.1 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-May 15, 2022
+May 16, 2022
 
 New in 1.3.1
 
@@ -31,9 +31,10 @@ All Platforms:
 - Improved saved game detection on the Import window.
 	- Windows registry configurations are now detected.
 	- Better detection of configurations that use file includes.
-- The GameID will now automatically be used for the backup sub-folder and file name of any configuration using duplicate names, regardless of the global setting for names.
+- The GameID will now automatically be used for the backup sub-folder and file name of any configuration using duplicate names, regardless of the global setting for folder & file names.
 	- This is done as a safety measure to prevent unknowingly overwriting the backup file of another configuration using the same name.
 	- Edit any duplicate configuration names and make them unique to prevent this from happening.
+- Fixed a long-standing issue with backup manifest data not loading for some configurations sharing the same name.
 - Fixed an issue with the import feature not syncing immediately after being used from the main window or system tray.
 	- This would cause imported changes to be lost if GBM was closed before a sync was triggered by another action.
 - Fixed an issue with configuration paths not be updated correctly when changing a custom path variable name and path at the same time.
