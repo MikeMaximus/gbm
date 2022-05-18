@@ -306,25 +306,27 @@ Public Class mgrLudusavi
                 End If
 
                 If Not oLudusaviGame.registry Is Nothing Then
-                    For Each oLudusaviPathPair In oLudusaviGame.registry
-                        If mgrPath.IsSupportedRegistryPath(oLudusaviPathPair.Key.Replace("/", "\")) Then
-                            oLudusaviPath = DirectCast(oLudusaviPathPair.Value, LudusaviPath)
-                            If Not oLudusaviPath.tags Is Nothing Then
-                                For Each t As String In oLudusaviPath.tags
-                                    If (t = TagTypes.save.ToString And oOptions.IncludeSaves) Or (t = TagTypes.config.ToString And oOptions.IncludeConfigs) Then
-                                        oGame = New clsGame
-                                        oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
-                                        oGame.Name = oLudusaviGamePair.Key
-                                        oGame.Path = oLudusaviPathPair.Key.Replace("/", "\")
-                                        oGame.OS = clsGame.eOS.Windows
+                    If oOptions.IncludeOS.HasFlag(clsLudusaviOptions.eSupportedOS.Windows) Then
+                        For Each oLudusaviPathPair In oLudusaviGame.registry
+                            If mgrPath.IsSupportedRegistryPath(oLudusaviPathPair.Key.Replace("/", "\")) Then
+                                oLudusaviPath = DirectCast(oLudusaviPathPair.Value, LudusaviPath)
+                                If Not oLudusaviPath.tags Is Nothing Then
+                                    For Each t As String In oLudusaviPath.tags
+                                        If (t = TagTypes.save.ToString And oOptions.IncludeSaves) Or (t = TagTypes.config.ToString And oOptions.IncludeConfigs) Then
+                                            oGame = New clsGame
+                                            oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
+                                            oGame.Name = oLudusaviGamePair.Key
+                                            oGame.Path = oLudusaviPathPair.Key.Replace("/", "\")
+                                            oGame.OS = clsGame.eOS.Windows
 
-                                        HandleTags(oLudusaviPath.tags, Nothing, oGame)
-                                        oConfigurations.Add(oGame)
-                                    End If
-                                Next
+                                            HandleTags(oLudusaviPath.tags, Nothing, oGame)
+                                            oConfigurations.Add(oGame)
+                                        End If
+                                    Next
+                                End If
                             End If
-                        End If
-                    Next
+                        Next
+                    End If
                 End If
 
                 If oConfigurations.Count = 1 Then
