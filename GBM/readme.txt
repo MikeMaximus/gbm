@@ -2,14 +2,9 @@ Game Backup Monitor v1.3.1 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-May 17, 2022
+May 20, 2022
 
 New in 1.3.1
-
-Disclaimer:
-
-v1.3.1 is still in development, this file will be updated as changes are made.
-Database changes made in development builds may not be compatible with the final release.  Use at your own risk!
 
 All Platforms:
 
@@ -37,7 +32,6 @@ All Platforms:
 	- Edit any duplicate configuration names and make them unique to prevent this from happening.
 - Fixed a long-standing issue with backup manifest data not loading for some configurations sharing the same name.
 - Fixed an issue with the import feature not syncing immediately after being used from the main window or system tray.
-	- This would cause imported changes to be lost if GBM was closed before a sync was triggered by another action.
 - Fixed an issue with configuration paths not being updated correctly when changing a custom path variable name and path at the same time.
 - Fixed an issue with the Include/Exclude builder in the Game Manager not opening to the correct folder when using a custom path variable in the "Game Path" and a relative "Save Path".
 - Improved the pending backup notification feature.	
