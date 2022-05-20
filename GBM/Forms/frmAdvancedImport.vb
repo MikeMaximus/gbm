@@ -6,7 +6,8 @@ Public Class frmAdvancedImport
     Private oImportData As ExportData
     Private hshImportData As Hashtable
     Private hshFinalData As New Hashtable
-    Private bSelectAll As Boolean = True
+    Private hshIgnorePaths As Hashtable
+    Private bClassicMode As Boolean = True
     Private bIsLoading As Boolean = False
     Private iCurrentSort As Integer = 0
     Private oImageList As ImageList
@@ -36,14 +37,25 @@ Public Class frmAdvancedImport
         End Get
     End Property
 
+    Public Property ClassicMode As Boolean
+        Set(value As Boolean)
+            bClassicMode = value
+        End Set
+        Get
+            Return bClassicMode
+        End Get
+    End Property
+
     Private Sub SelectToggle()
         Cursor.Current = Cursors.WaitCursor
+        bIsLoading = True
         lstGames.BeginUpdate()
-        bSelectAll = Not bSelectAll
         For i As Integer = 0 To lstGames.Items.Count - 1
-            lstGames.Items(i).Checked = bSelectAll
+            lstGames.Items(i).Checked = chkSelectAll.Checked
+            SaveChecked(lstGames.Items(i))
         Next
         lstGames.EndUpdate()
+        bIsLoading = False
         Cursor.Current = Cursors.Default
         UpdateSelected()
     End Sub
@@ -72,21 +84,38 @@ Public Class frmAdvancedImport
         Return True
     End Function
 
-    Private Sub LoadData(Optional ByVal sFilter As String = "", Optional ByVal bSelectedOnly As Boolean = False, Optional ByVal bAutoDetect As Boolean = False)
+    Private Sub LoadIgnorePaths()
+        hshIgnorePaths = mgrPath.GetSpecialPaths()
+        If Not mgrCommon.IsUnix Then
+            hshIgnorePaths.Add("SavedGames", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & "\Saved Games")
+            hshIgnorePaths.Add("LocalLow", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "Low")
+        End If
+    End Sub
+
+    Private Function IgnorePath(ByVal sPath As String) As Boolean
+        If hshIgnorePaths.ContainsValue(sPath.TrimEnd(Path.DirectorySeparatorChar)) Then
+            Return True
+        End If
+
+        Return False
+    End Function
+
+    Private Sub LoadData(Optional ByVal sFilter As String = "", Optional ByVal bAutoDetect As Boolean = False)
         Dim oApp As clsGame
         Dim oListViewItem As ListViewItem
         Dim sTags As String
         Dim bAddItem As Boolean
-        Dim bResetSelectAll As Boolean = False
 
         Cursor.Current = Cursors.WaitCursor
+        bIsLoading = True
         lstGames.BeginUpdate()
 
-        lstGames.Clear()
+        lstGames.Items.Clear()
+        lstGames.ListViewItemSorter = Nothing
 
-        lstGames.Columns.Add(frmAdvancedImport_ColumnName, 315)
-        lstGames.Columns.Add(frmAdvancedImport_ColumnProcess, 130)
-        lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 290)
+        If bAutoDetect Then
+            chkSelectedOnly.Checked = True
+        End If
 
         For Each de As DictionaryEntry In ImportData
             bAddItem = False
@@ -99,7 +128,12 @@ Public Class frmAdvancedImport
             Next
             sTags = sTags.TrimEnd(New Char() {",", " "})
 
-            oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.ProcessName, sTags})
+            If bClassicMode Then
+                oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.ProcessName, oApp.Path, oApp.FileType, sTags})
+            Else
+                oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.Path, oApp.FileType, oApp.OS.ToString, sTags})
+            End If
+
             oListViewItem.Tag = oApp.ID
 
             If FinalData.ContainsKey(oApp.ID) Then
@@ -108,13 +142,29 @@ Public Class frmAdvancedImport
                 oListViewItem.Checked = False
             End If
 
-            If bAutoDetect Then
-                If oApp.AbsolutePath Then
-                    If Directory.Exists(oApp.Path) And Not mgrPath.IsSpecialPath(oApp.Path, True) Then
+            Try
+                If bAutoDetect Then
+                    If mgrPath.IsPopulatedRegistryKey(oApp.Path) Then
                         oListViewItem.Checked = True
+                    ElseIf oApp.AbsolutePath And oApp.FolderSave Then
+                        If Directory.Exists(oApp.Path) And Not IgnorePath(oApp.Path) Then
+                            oListViewItem.Checked = True
+                        End If
+                    ElseIf oApp.AbsolutePath And Not oApp.FolderSave Then
+                        If Directory.Exists(oApp.Path) Then
+                            For Each s As String In oApp.FileType.Split(":")
+                                'For performance reasons we are not using a recursive search.
+                                If Directory.GetFiles(oApp.Path, s, SearchOption.TopDirectoryOnly).Length > 0 Then
+                                    oListViewItem.Checked = True
+                                    Exit For
+                                End If
+                            Next
+                        End If
                     End If
                 End If
-            End If
+            Catch
+                'It should never happen at this point, but if the auto detect fails due to bad data we just ignore it and move on.
+            End Try
 
             If oApp.ImportUpdate Then
                 oListViewItem.ImageIndex = 1
@@ -131,7 +181,7 @@ Public Class frmAdvancedImport
                 End If
             End If
 
-            If bSelectedOnly Then
+            If chkSelectedOnly.Checked Then
                 If Not oListViewItem.Checked Then
                     bAddItem = False
                 End If
@@ -143,34 +193,24 @@ Public Class frmAdvancedImport
             End If
 
             If bAddItem Then
-                If oListViewItem.Checked Then bResetSelectAll = True
                 lstGames.Items.Add(oListViewItem)
                 SaveChecked(oListViewItem)
             End If
         Next
 
-        'Change the status of the "Select All" checkbox depending on the status of the items filter results.  Set loading flag so we don't trigger any events
-        bIsLoading = True
-        If Not bResetSelectAll And bSelectAll Then
-            bSelectAll = False
-            chkSelectAll.Checked = False
-        ElseIf bResetSelectAll And Not bSelectAll Then
-            bSelectAll = True
-            chkSelectAll.Checked = True
-        End If
-        bIsLoading = False
-
         lstGames.ListViewItemSorter = New ListViewItemComparer(iCurrentSort)
         lstGames.EndUpdate()
-        UpdateSelected()
+        bIsLoading = False
 
-        If txtFilter.Text = String.Empty And Not chkSelectedOnly.Checked Then
-            lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_Configs, lstGames.Items.Count)
-        Else
-            lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_Configs, lstGames.Items.Count) & " " & frmAdvancedImport_Filtered
-        End If
+        UpdateSelected()
+        UpdateSelectToggle()
+        UpdateTotals()
 
         Cursor.Current = Cursors.Default
+
+        If bAutoDetect And lstGames.Items.Count = 0 Then
+            chkSelectedOnly.Checked = False
+        End If
     End Sub
 
     Private Sub SetForm()
@@ -200,7 +240,20 @@ Public Class frmAdvancedImport
         oImageList.Images.Add(frmAdvancedImport_Update)
         lstGames.SmallImageList = oImageList
 
-        chkSelectAll.Checked = True
+        'Setup Columns
+        If bClassicMode Then
+            lstGames.Columns.Add(frmAdvancedImport_ColumnName, 250)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnProcess, 115)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnPath, 200)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnInclude, 100)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 70)
+        Else
+            lstGames.Columns.Add(frmAdvancedImport_ColumnName, 295)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnPath, 200)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnInclude, 100)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnOs, 70)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 70)
+        End If
 
         'Init Filter Timer
         tmFilterTimer = New Timer()
@@ -212,11 +265,28 @@ Public Class frmAdvancedImport
         lblSelected.Text = mgrCommon.FormatString(frmAdvancedImport_Selected, FinalData.Count)
     End Sub
 
-    Private Sub frmAdvancedImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub UpdateSelectToggle()
         bIsLoading = True
-        SetForm()
-        LoadData(String.Empty, False, True)
+        If lstGames.CheckedItems.Count = lstGames.Items.Count Then
+            chkSelectAll.Checked = True
+        Else
+            chkSelectAll.Checked = False
+        End If
         bIsLoading = False
+    End Sub
+
+    Private Sub UpdateTotals()
+        If txtFilter.Text = String.Empty And Not chkSelectedOnly.Checked Then
+            lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_Configs, New String() {lstGames.Items.Count, hshImportData.Count})
+        Else
+            lblGames.Text = mgrCommon.FormatString(frmAdvancedImport_Configs, New String() {lstGames.Items.Count, hshImportData.Count}) & " " & frmAdvancedImport_Filtered
+        End If
+    End Sub
+
+    Private Sub frmAdvancedImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetForm()
+        LoadIgnorePaths()
+        LoadData(String.Empty, True)
     End Sub
 
     Private Sub chkSelectAll_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectAll.CheckedChanged
@@ -224,18 +294,19 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub chkSelectedOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectedOnly.CheckedChanged
-        LoadData(txtFilter.Text, chkSelectedOnly.Checked, False)
+        If Not bIsLoading Then LoadData(txtFilter.Text)
     End Sub
 
     Private Sub lstGames_ItemChecked(sender As Object, e As ItemCheckedEventArgs) Handles lstGames.ItemChecked
-        SaveChecked(e.Item)
         If Not bIsLoading Then
+            SaveChecked(e.Item)
             UpdateSelected()
+            UpdateSelectToggle()
         End If
     End Sub
 
     Private Sub btnDetect_Click(sender As Object, e As EventArgs) Handles btnDetectSavedGames.Click
-        LoadData(txtFilter.Text, chkSelectedOnly.Checked, True)
+        If Not bIsLoading Then LoadData(txtFilter.Text, True)
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click

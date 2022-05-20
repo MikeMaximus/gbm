@@ -438,8 +438,8 @@
   <data name="mgrMonitorList_ChooseExportXML" xml:space="preserve">
     <value>选择导出文件的位置</value>
   </data>
-  <data name="mgrMonitorList_ChooseImportXML" xml:space="preserve">
-    <value>选择一个有效的xml文件来导入</value>
+  <data name="mgrMonitorList_ChooseImport" xml:space="preserve">
+    <value>选择一个有效的文件来导入</value>
   </data>
   <data name="frmGameManager_ChooseSaveFolder" xml:space="preserve">
     <value>浏览到游戏存档文件夹，然后单击打开</value>
@@ -763,7 +763,7 @@
     <value>导入游戏配置</value>
   </data>
   <data name="frmAdvancedImport_Configs" xml:space="preserve">
-    <value>配置([PARAM])</value>
+    <value>配置([PARAM] / [PARAM])</value>
   </data>
   <data name="frmAdvancedImport_Selected" xml:space="preserve">
     <value>已选([PARAM])</value>
@@ -1212,7 +1212,7 @@
     <value>正在为[PARAM]备份文件生成SHA-256哈希值。</value>
   </data>
   <data name="mgrCommon_FilesFilter" xml:space="preserve">
-    <value>[PARAM]文件(*.[PARAM])|*.[PARAM]</value>
+    <value>[PARAM]文件([PARAM])|[PARAM]</value>
   </data>
   <data name="mgrCommon_No" xml:space="preserve">
     <value>否</value>
@@ -1903,9 +1903,6 @@
   </data>
   <data name="frmFilter_FieldGameID" xml:space="preserve">
     <value>游戏ID</value>
-  </data>
-  <data name="mgrMonitorList_ImportVersionWarning" xml:space="preserve">
-    <value>此导出文件是使用1.1.5之前的GBM版本创建的，可能包含不兼容的配置数据。[BR][BR]是否仍要从此文件导入配置(（不推荐）</value>
   </data>
   <data name="frmSettings_btnResetMessages" xml:space="preserve">
     <value>重置警告</value>

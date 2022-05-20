@@ -128,9 +128,8 @@ Public Class frmStartUpWizard
         End If
 
         If mgrCommon.ShowMessage(frmStartUpWizard_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(sImportURL, True) Then
+            If mgrMonitorList.DoImport(sImportURL) Then
                 oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
-                mgrMonitorList.SyncMonitorLists()
             End If
         End If
     End Sub

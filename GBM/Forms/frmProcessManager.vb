@@ -56,7 +56,7 @@ Public Class frmProcessManager
             End If
         End If
 
-        oExtensions.Add(frmProcessManager_Executable, "exe")
+        oExtensions.Add(frmProcessManager_Executable, "*.exe")
         sNewPath = mgrCommon.OpenFileBrowser("PM_Process", frmProcessManager_ChooseProcess, oExtensions, 1, sDefaultFolder, True)
 
         If sNewPath <> String.Empty Then

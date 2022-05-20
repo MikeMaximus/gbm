@@ -221,17 +221,14 @@ Public Class frmVariableManager
                 If CoreValidatation(oCustomVariable) Then
                     bSuccess = True
                     mgrVariables.DoVariableAdd(oCustomVariable)
-                    mgrVariables.DoPathUpdate(oCustomVariable.Path, oCustomVariable.FormattedName)
                     eCurrentMode = eModes.View
                 End If
             Case eModes.Edit
                 If CoreValidatation(oCustomVariable) Then
                     bSuccess = True
-                    mgrVariables.DoVariableUpdate(oCustomVariable)
-                    mgrVariables.DoPathUpdate(oCurrentVariable.FormattedName, oCurrentVariable.Path)
-                    mgrVariables.DoPathUpdate(oCustomVariable.Path, oCustomVariable.FormattedName)
+                    mgrVariables.DoVariableUpdate(oCustomVariable, oCurrentVariable)
                     eCurrentMode = eModes.View
-                End If
+                    End If
         End Select
 
         If bSuccess Then
@@ -249,9 +246,7 @@ Public Class frmVariableManager
             oCustomVariable = DirectCast(VariableData(lstVariables.SelectedItems(0).ToString), clsPathVariable)
 
             If mgrCommon.ShowMessage(frmVariableManager_ConfirmDelete, oCustomVariable.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                mgrVariables.DoVariableDelete(oCustomVariable.ID)
-                mgrVariables.DoPathUpdate(oCustomVariable.FormattedName, oCustomVariable.Path)
-                Environment.SetEnvironmentVariable(oCustomVariable.Name, Nothing)
+                mgrVariables.DoVariableDelete(oCustomVariable)
                 LoadData()
                 eCurrentMode = eModes.Disabled
                 ModeChange()
@@ -280,7 +275,7 @@ Public Class frmVariableManager
             Return False
         End If
 
-        If mgrVariables.DoCheckDuplicate(oCustomVariable.Name, oCustomVariable.ID) Then
+        If mgrVariables.DoCheck(oCustomVariable.Name, oCustomVariable.ID) Then
             mgrCommon.ShowMessage(frmVariableManager_ErrorVariableDupe, MsgBoxStyle.Exclamation)
             txtName.Focus()
             Return False

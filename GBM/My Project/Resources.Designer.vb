@@ -295,6 +295,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml.
+        '''</summary>
+        Friend ReadOnly Property App_URLImportLudusavi() As String
+            Get
+                Return ResourceManager.GetString("App_URLImportLudusavi", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to https://mikemaximus.github.io/gbm-web/manual.html.
         '''</summary>
         Friend ReadOnly Property App_URLManual() As String
@@ -340,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-04-06T22:05:38
+        '''  Looks up a localized string similar to 2022-05-14T14:58:06
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -944,11 +953,38 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Files.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_ColumnInclude() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_ColumnInclude", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Name.
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_ColumnName() As String
             Get
                 Return ResourceManager.GetString("frmAdvancedImport_ColumnName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to OS.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_ColumnOs() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_ColumnOs", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Path.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_ColumnPath() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_ColumnPath", resourceCulture)
             End Get
         End Property
         
@@ -971,7 +1007,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Configurations ([PARAM]).
+        '''  Looks up a localized string similar to Configurations ([PARAM] / [PARAM]).
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_Configs() As String
             Get
@@ -2128,6 +2164,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Ludusavi Manifest....
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_cmsLudusavi() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_cmsLudusavi", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Monitor &amp;only.
         '''</summary>
         Friend ReadOnly Property frmGameManager_cmsMonitorOnly() As String
@@ -2577,6 +2622,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_Icon() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_Icon", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Image.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_Image() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_Image", resourceCulture)
             End Get
         End Property
         
@@ -3791,6 +3845,105 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Cancel.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_btnCancel() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_btnCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to OK.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_btnOK() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_btnOK", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Configuration Files.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_chkConfigurationFiles() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_chkConfigurationFiles", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Linux.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_chkLinux() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_chkLinux", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Saved Games.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_chkSavedGames() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_chkSavedGames", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Windows.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_chkWindows() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_chkWindows", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to At least one operating system must be selected..
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_ErrorOperatingSystem() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_ErrorOperatingSystem", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to At least one profile type must be selected..
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_ErrorProfileType() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_ErrorProfileType", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Ludusavi Options.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_FormName() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Operating Systems.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_grpOperatingSystems() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_grpOperatingSystems", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Profile Types.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_grpProfileTypes() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_grpProfileTypes", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor[BR]Version: [PARAM] ([PARAM])[BR]Build: [PARAM][BR]Platform: [PARAM][BR]SQLite: [PARAM][BR][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details..
         '''</summary>
         Friend ReadOnly Property frmMain_About() As String
@@ -4549,6 +4702,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_gMonFileImportFile() As String
             Get
                 Return ResourceManager.GetString("frmMain_gMonFileImportFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Ludusavi Manifest....
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonFileImportLudusavi() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonFileImportLudusavi", resourceCulture)
             End Get
         End Property
         
@@ -7903,11 +8065,38 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An unexpected error occured when accessing: [BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_ErrorAccessingWebLocation() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_ErrorAccessingWebLocation", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error has occured reading the text file.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_ErrorReadingTextFile() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_ErrorReadingTextFile", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to An error occured starting GBM as Administrator.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_ErrorRestartAsAdmin() As String
             Get
                 Return ResourceManager.GetString("mgrCommon_ErrorRestartAsAdmin", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An unexpected error or response ([PARAM]) was received from:[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrCommon_ErrorUnexpectedWebResponse() As String
+            Get
+                Return ResourceManager.GetString("mgrCommon_ErrorUnexpectedWebResponse", resourceCulture)
             End Get
         End Property
         
@@ -7921,7 +8110,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] files (*.[PARAM])|*.[PARAM].
+        '''  Looks up a localized string similar to [PARAM] files ([PARAM])|[PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_FilesFilter() As String
             Get
@@ -8182,6 +8371,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An error has occured during Ludusavi data conversion.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrLudusavi_ErrorConverting() As String
+            Get
+                Return ResourceManager.GetString("mgrLudusavi_ErrorConverting", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error has occured while reading or deserializing Ludusavi data.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property mgrLudusavi_ErrorReading() As String
+            Get
+                Return ResourceManager.GetString("mgrLudusavi_ErrorReading", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Checking [PARAM] for metadata..
         '''</summary>
         Friend ReadOnly Property mgrMetaData_CheckingArchive() As String
@@ -8218,11 +8425,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Choose a valid xml file to import.
+        '''  Looks up a localized string similar to Choose a valid file to import.
         '''</summary>
-        Friend ReadOnly Property mgrMonitorList_ChooseImportXML() As String
+        Friend ReadOnly Property mgrMonitorList_ChooseImport() As String
             Get
-                Return ResourceManager.GetString("mgrMonitorList_ChooseImportXML", resourceCulture)
+                Return ResourceManager.GetString("mgrMonitorList_ChooseImport", resourceCulture)
             End Get
         End Property
         
@@ -8245,6 +8452,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Would you like to choose games to import from the Ludusavi Manifest?[BR][BR]This requires an active internet connection..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_ConfirmLudusaviImport() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_ConfirmLudusaviImport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ConfirmOfficialImport() As String
@@ -8263,7 +8479,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enter the full URL of an XML file exported by GBM..
+        '''  Looks up a localized string similar to Enter the full URL of a supported file.  GBM XML and Ludusavi YAML files are supported..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_CustomListURLInfo() As String
             Get
@@ -8272,7 +8488,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Import XML file from URL.
+        '''  Looks up a localized string similar to Import file from URL.
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_CustomListURLTitle() As String
             Get
@@ -8286,6 +8502,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrMonitorList_DefaultExportFileName() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_DefaultExportFileName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The file or URL does not contain a supported file extension..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_ErrorImportFileType() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_ErrorImportFileType", resourceCulture)
             End Get
         End Property
         
@@ -8335,15 +8560,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to This export file was created with a version of GBM prior to 1.1.5 and may contain incompatible configuration data.[BR][BR]Do you still want to import configurations from this file? (Not Recommended).
-        '''</summary>
-        Friend ReadOnly Property mgrMonitorList_ImportVersionWarning() As String
-            Get
-                Return ResourceManager.GetString("mgrMonitorList_ImportVersionWarning", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to [PARAM] change(s) synced..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_SyncChanges() As String
@@ -8367,6 +8583,15 @@ Namespace My.Resources
         Friend ReadOnly Property mgrMonitorList_SyncToMaster() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_SyncToMaster", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The primary Ludusavi Manifest contains thousands of saved game configurations sourced from PCGamingWiki.[BR][BR]These are untested configurations only suitable for manual backups by default and may not be fully compatible with GBM.[BR][BR]This message will only be shown once..
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_WarningLudusaviImport() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_WarningLudusaviImport", resourceCulture)
             End Get
         End Property
         
@@ -8398,11 +8623,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to XML.
+        '''  Looks up a localized string similar to GBM Export.
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_XML() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_XML", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Ludusavi Manifest.
+        '''</summary>
+        Friend ReadOnly Property mgrMonitorList_YAML() As String
+            Get
+                Return ResourceManager.GetString("mgrMonitorList_YAML", resourceCulture)
             End Get
         End Property
         

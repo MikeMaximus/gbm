@@ -13,8 +13,9 @@
     <AssemblyName>GBM</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -40,6 +41,7 @@
     <OutputPath>bin\x86\Debug\</OutputPath>
     <DocumentationFile>GBM.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -50,6 +52,7 @@
     <OutputPath>bin\x86\Release\</OutputPath>
     <DocumentationFile>GBM.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -79,6 +82,7 @@
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <DefineTrace>true</DefineTrace>
@@ -89,6 +93,7 @@
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>echo Dumping Build Date...
@@ -112,6 +117,9 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
+    <Reference Include="YamlDotNet, Version=11.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.11.2.1\lib\net45\YamlDotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -128,6 +136,7 @@
     <Compile Include="Classes\clsGameProcess.vb" />
     <Compile Include="Classes\clsLaunchData.vb" />
     <Compile Include="Classes\clsLauncher.vb" />
+    <Compile Include="Classes\clsLudusaviOptions.vb" />
     <Compile Include="Classes\clsWineData.vb" />
     <Compile Include="Classes\clsProcess.vb" />
     <Compile Include="Classes\clsGameFilter.vb" />
@@ -146,10 +155,17 @@
     <Compile Include="Classes\clsBackup.vb" />
     <Compile Include="Classes\clsGame.vb" />
     <Compile Include="Classes\clsTag.vb" />
+    <Compile Include="Classes\YAML Serialize Classes\Ludusavi.vb" />
     <Compile Include="Forms\frmConfigLinks.Designer.vb">
       <DependentUpon>frmConfigLinks.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmConfigLinks.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLudusaviConfig.Designer.vb">
+      <DependentUpon>frmLudusaviConfig.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLudusaviConfig.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmLaunchConfiguration.Designer.vb">
@@ -285,7 +301,9 @@
     <Compile Include="Managers\mgrLaunchData.vb" />
     <Compile Include="Managers\mgrLaunchers.vb" />
     <Compile Include="Managers\mgrLaunchGame.vb" />
+    <Compile Include="Managers\mgrLudusavi.vb" />
     <Compile Include="Managers\mgrMetadata.vb" />
+    <Compile Include="Managers\mgrStoreVariables.vb" />
     <Compile Include="Managers\mgrWineData.vb" />
     <Compile Include="Managers\mgrProcess.vb" />
     <Compile Include="Managers\mgrCommon.vb" />
@@ -308,6 +326,7 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -323,6 +342,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms\frmConfigLinks.resx">
       <DependentUpon>frmConfigLinks.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLudusaviConfig.resx">
+      <DependentUpon>frmLudusaviConfig.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmLaunchConfiguration.resx">
       <DependentUpon>frmLaunchConfiguration.vb</DependentUpon>
@@ -398,6 +420,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -408,6 +431,7 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="packages.config" />
     <None Include="Testing\Legacy Import Test Files.7z" />
   </ItemGroup>
   <ItemGroup>

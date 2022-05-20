@@ -101,29 +101,48 @@ Public Class mgrCommon
 
     Public Shared Sub SetTLSVersion()
         'Force TLS 1.2 for all HTTPS connections
-        ServicePointManager.SecurityProtocol = 3072
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
     End Sub
 
-    Public Shared Function CheckAddress(ByVal sURL As String, ByVal sExt As String) As Boolean
-        Dim oURL As Uri
-        Dim sEndSegment As String
-        Dim request As WebRequest
-        Dim response As WebResponse
+    Public Shared Function CheckAddressForUpdates(ByVal sURL As String, ByRef sETag As String) As Boolean
+        Dim request As HttpWebRequest
+        Dim response As HttpWebResponse
 
         Try
-            oURL = New Uri(sURL)
-            sEndSegment = oURL.Segments(oURL.Segments.Length - 1)
-
-            If Path.GetExtension(sEndSegment).ToLower = sExt.ToLower Then
-                request = WebRequest.Create(sURL)
-                response = request.GetResponse()
-                response.Close()
-            Else
+            request = WebRequest.Create(sURL)
+            request.Headers.Set("If-None-Match", sETag)
+            response = request.GetResponse()
+            If response.StatusCode = HttpStatusCode.OK Then
+                sETag = response.Headers.Get("ETag")
+            End If
+            response.Close()
+            Return True
+        Catch exWeb As WebException
+            If DirectCast(exWeb.Response, HttpWebResponse).StatusCode = HttpStatusCode.NotModified Then
+                exWeb.Response.Close()
                 Return False
             End If
+            ShowMessage(mgrCommon_ErrorUnexpectedWebResponse, New String() {DirectCast(exWeb.Response, HttpWebResponse).StatusCode, sURL}, MsgBoxStyle.Critical)
+            exWeb.Response.Close()
+        Catch ex As Exception
+            ShowMessage(mgrCommon_ErrorAccessingWebLocation, sURL, MsgBoxStyle.Critical)
+        End Try
+
+        Return False
+    End Function
+
+    Public Shared Function CheckAddress(ByVal sURL As String) As Boolean
+        Dim request As HttpWebRequest
+        Dim response As HttpWebResponse
+
+        Try
+            request = WebRequest.Create(sURL)
+            response = request.GetResponse()
+            response.Close()
         Catch ex As Exception
             Return False
         End Try
+
         Return True
     End Function
 
@@ -778,13 +797,72 @@ Public Class mgrCommon
         DeleteEmptyDirectory(sDir)
     End Sub
 
-    'Save string as text file
-    Public Shared Sub SaveText(ByVal sText As String, ByVal sPath As String)
-        Dim oStream As StreamWriter
+    'Read text from a location, use local cache when appropriate for web locations.
+    Public Shared Function ReadTextFromCache(ByVal sLocation As String, ByVal bWebRead As Boolean, Optional ByRef lLastModified As Long = 0) As StreamReader
+        Dim oReader As StreamReader
+        Dim oURL As Uri
+        Dim sCachedFile As String
+        Dim sETagFile As String
+        Dim sETag As String = String.Empty
+        Dim bDownload As Boolean
+
+        If bWebRead Then
+            'Set local file locations
+            oURL = New Uri(sLocation)
+            sCachedFile = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & oURL.Segments(oURL.Segments.Length - 1)
+            sETagFile = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & Path.GetFileNameWithoutExtension(sCachedFile) & ".etag"
+
+            'Check for a saved ETag
+            If File.Exists(sETagFile) Then
+                sETag = mgrCommon.ReadText(sETagFile)
+            End If
+
+            'Query address using ETag if available
+            If mgrCommon.CheckAddressForUpdates(sLocation, sETag) Then
+                bDownload = True
+                mgrCommon.SaveText(sETag, sETagFile)
+            Else
+                bDownload = False
+            End If
+
+            'Read updated file from web if we need to
+            If bDownload Then
+                mgrCommon.SaveText(mgrCommon.ReadText(sLocation), sCachedFile)
+            End If
+
+            'Always use the cached file
+            sLocation = sCachedFile
+        End If
+
+        lLastModified = mgrCommon.DateToUnix(File.GetLastWriteTime(sLocation))
+
+        oReader = New StreamReader(sLocation)
+
+        Return oReader
+    End Function
+
+    'Read text from location
+    Public Shared Function ReadText(ByVal sLocation As String) As String
+        Dim oReader As StreamReader
+        Dim oWebClient As New WebClient
+        Dim sContent As String = String.Empty
 
         Try
-            If File.Exists(sPath) Then DeleteFile(sPath, False)
-            oStream = New StreamWriter(sPath)
+            oReader = New StreamReader(oWebClient.OpenRead(sLocation))
+            sContent = oReader.ReadToEnd
+            oReader.Close()
+        Catch ex As Exception
+            ShowMessage(mgrCommon_ErrorReadingTextFile, ex.Message, MsgBoxStyle.Critical)
+        End Try
+
+        Return sContent
+    End Function
+
+    'Save string as a local text file
+    Public Shared Sub SaveText(ByVal sText As String, ByVal sPath As String)
+        Dim oStream As StreamWriter
+        Try
+            oStream = New StreamWriter(sPath, False)
             oStream.Write(sText)
             oStream.Flush()
             oStream.Close()

@@ -405,6 +405,25 @@ Public Class mgrMonitorList
         Return hshGames
     End Function
 
+    Public Shared Function IsDuplicateName(ByVal sName As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Boolean
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim sSQL As String
+        Dim oData As Object
+        Dim hshParams As New Hashtable
+
+        sSQL = "SELECT Name from monitorlist WHERE NAME = @Name COLLATE NOCASE GROUP BY Name HAVING Count(Name) > 1"
+
+        hshParams.Add("Name", sName)
+
+        oData = oDatabase.ReadSingleValue(sSQL, hshParams)
+
+        If oData Is Nothing Then
+            Return False
+        Else
+            Return True
+        End If
+    End Function
+
     Public Shared Function DoDuplicateListCheck(ByVal sMonitorID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local, Optional ByVal sExcludeID As String = "") As Boolean
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
@@ -861,46 +880,57 @@ Public Class mgrMonitorList
         Return oList
     End Function
 
-    Public Shared Function DoImport(ByVal sPath As String, ByVal bOfficial As Boolean) As Boolean
+    Public Shared Function DoImport(ByVal sPath As String) As Boolean
         If mgrCommon.IsAddress(sPath) Then
-            If mgrCommon.CheckAddress(sPath, ".xml") Then
-                ImportMonitorList(sPath, True)
-                Return True
+            If mgrCommon.CheckAddress(sPath) Then
+                If ImportMonitorList(sPath, True) Then
+                    SyncMonitorLists()
+                    Return True
+                End If
             Else
                 mgrCommon.ShowMessage(mgrMonitorList_WebNoReponse, sPath, MsgBoxStyle.Exclamation)
-                Return False
             End If
         Else
             If File.Exists(sPath) Then
-                ImportMonitorList(sPath)
-                Return True
+                If ImportMonitorList(sPath) Then
+                    SyncMonitorLists()
+                    Return True
+                End If
             Else
                 mgrCommon.ShowMessage(mgrMonitorList_FileNotFound, sPath, MsgBoxStyle.Exclamation)
-                Return False
             End If
         End If
-        Return True
+
+        Return False
     End Function
 
-    Private Shared Sub ImportMonitorList(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False)
+    Private Shared Function ImportMonitorList(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False) As Boolean
         Dim hshCompareFrom As New Hashtable
         Dim hshCompareTo As Hashtable
         Dim hshSyncItems As Hashtable
         Dim oFromItem As clsGame
         Dim oToItem As clsGame
         Dim oExportInfo As New ExportData
+        Dim bDataImported As Boolean = False
+        Dim bClassicMode As Boolean
+
+        Select Case Path.GetExtension(sLocation)
+            Case ".xml"
+                If Not mgrXML.DeserializeAndImport(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
+                    Return False
+                End If
+                bClassicMode = True
+            Case ".yaml", ".yml"
+                If Not mgrLudusavi.ReadLudusaviManifest(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
+                    Return False
+                End If
+                bClassicMode = False
+            Case Else
+                mgrCommon.ShowMessage(mgrMonitorList_ErrorImportFileType, MsgBoxStyle.Exclamation)
+                Return False
+        End Select
 
         Cursor.Current = Cursors.WaitCursor
-
-        If Not mgrXML.ReadMonitorList(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
-            Exit Sub
-        End If
-
-        If oExportInfo.AppVer < 115 Then
-            If mgrCommon.ShowMessage(mgrMonitorList_ImportVersionWarning, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                Exit Sub
-            End If
-        End If
 
         hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
 
@@ -929,6 +959,7 @@ Public Class mgrMonitorList
             Dim frm As New frmAdvancedImport
             frm.ImportInfo = oExportInfo
             frm.ImportData = hshSyncItems
+            frm.ClassicMode = bClassicMode
             If frm.ShowDialog() = DialogResult.OK Then
                 Cursor.Current = Cursors.WaitCursor
 
@@ -937,14 +968,17 @@ Public Class mgrMonitorList
                 mgrConfigLinks.DoConfigLinkImport(frm.FinalData)
 
                 Cursor.Current = Cursors.Default
+                bDataImported = True
                 mgrCommon.ShowMessage(mgrMonitorList_ImportComplete, MsgBoxStyle.Information)
             End If
         Else
+            bDataImported = False
             mgrCommon.ShowMessage(mgrMonitorList_ImportNothing, MsgBoxStyle.Information)
         End If
 
         Application.DoEvents()
-    End Sub
+        Return bDataImported
+    End Function
 
     Public Shared Sub ExportMonitorList(ByVal sLocation As String)
         Dim oList As List(Of Game)
@@ -987,11 +1021,12 @@ Public Class mgrMonitorList
 
         If sLocation <> String.Empty Then
             If mgrCommon.IsAddress(sLocation) Then
-                If DoImport(sLocation, False) Then
-                    'Save valid URL for next time
-                    oSavedPath.PathName = "Import_Custom_URL"
-                    oSavedPath.Path = sLocation
-                    mgrSavedPath.AddUpdatePath(oSavedPath)
+                'Save a valid URL for next time
+                oSavedPath.PathName = "Import_Custom_URL"
+                oSavedPath.Path = sLocation
+                mgrSavedPath.AddUpdatePath(oSavedPath)
+
+                If DoImport(sLocation) Then
                     Return True
                 End If
             Else
@@ -1006,11 +1041,12 @@ Public Class mgrMonitorList
         Dim sLocation As String
         Dim oExtensions As New SortedList
 
-        oExtensions.Add(mgrMonitorList_XML, "xml")
-        sLocation = mgrCommon.OpenFileBrowser("XML_Import", mgrMonitorList_ChooseImportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), False)
+        oExtensions.Add(mgrMonitorList_XML, "*.xml")
+        oExtensions.Add(mgrMonitorList_YAML, "*.yaml;*.yml")
+        sLocation = mgrCommon.OpenFileBrowser("XML_Import", mgrMonitorList_ChooseImport, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), True)
 
         If sLocation <> String.Empty Then
-            If mgrMonitorList.DoImport(sLocation, False) Then
+            If DoImport(sLocation) Then
                 Return True
             End If
         End If
@@ -1022,7 +1058,7 @@ Public Class mgrMonitorList
         Dim sLocation As String
         Dim oExtensions As New SortedList
 
-        oExtensions.Add(mgrMonitorList_XML, "xml")
+        oExtensions.Add(mgrMonitorList_XML, "*.xml")
         sLocation = mgrCommon.SaveFileBrowser("XML_Export", mgrMonitorList_ChooseExportXML, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), mgrMonitorList_DefaultExportFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
 
         If sLocation <> String.Empty Then
@@ -1042,7 +1078,23 @@ Public Class mgrMonitorList
         End If
 
         If mgrCommon.ShowMessage(mgrMonitorList_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(sImportUrl, True) Then
+            If DoImport(sImportUrl) Then
+                Return True
+            End If
+        End If
+
+        Return False
+    End Function
+
+    Public Shared Function ImportLudusaviManifest(ByVal sImportUrl As String) As Boolean
+        If Not (mgrSettings.SuppressMessages And mgrSettings.eSuppressMessages.LudusaviImportWarning) = mgrSettings.eSuppressMessages.LudusaviImportWarning Then
+            mgrCommon.ShowMessage(mgrMonitorList_WarningLudusaviImport, MsgBoxStyle.Information)
+            mgrSettings.SuppressMessages = mgrSettings.SetMessageField(mgrSettings.SuppressMessages, mgrSettings.eSuppressMessages.LudusaviImportWarning)
+            mgrSettings.SaveSettings()
+        End If
+
+        If mgrCommon.ShowMessage(mgrMonitorList_ConfirmLudusaviImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If DoImport(sImportUrl) Then
                 Return True
             End If
         End If

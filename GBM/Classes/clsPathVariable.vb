@@ -37,4 +37,28 @@
         End Set
     End Property
 
+    Public Sub New()
+        'Empty
+    End Sub
+
+    Public Sub New(ByVal sInitName As String, ByVal sInitPath As String)
+        Name = sInitName
+        Path = sInitPath
+    End Sub
+
+    Public Function CoreEquals(ByVal obj As Object) As Boolean
+        Dim oVariable As clsPathVariable = TryCast(obj, clsPathVariable)
+        If oVariable Is Nothing Then
+            Return False
+        Else
+            If Name <> oVariable.Name Then
+                Return False
+            End If
+            If Path <> oVariable.Path Then
+                Return False
+            End If
+            Return True
+        End If
+    End Function
+
 End Class

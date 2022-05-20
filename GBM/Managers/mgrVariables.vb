@@ -47,10 +47,12 @@
 
         sSQL = "INSERT INTO variables VALUES (@ID, @Name, @Path)"
         hshParams = SetCoreParameters(oCustomVariable)
+
         oDatabase.RunParamQuery(sSQL, hshParams)
+        DoPathUpdate(oCustomVariable.Path, oCustomVariable.FormattedName)
     End Sub
 
-    Public Shared Sub DoVariableUpdate(ByVal oCustomVariable As clsPathVariable)
+    Public Shared Sub DoVariableUpdate(ByVal oNewVariable As clsPathVariable, ByVal oExistingVariable As clsPathVariable)
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSQL As String
         Dim hshParams As Hashtable
@@ -58,13 +60,13 @@
         sSQL = "UPDATE variables SET Name=@Name, Path = @Path "
         sSQL &= "WHERE VariableID = @ID"
 
-        hshParams = SetCoreParameters(oCustomVariable)
+        hshParams = SetCoreParameters(oNewVariable)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
-
+        If oExistingVariable.Name <> oNewVariable.Name Then mgrVariables.DoPathUpdate(oExistingVariable.FormattedName, oNewVariable.FormattedName)
     End Sub
 
-    Public Shared Sub DoVariableDelete(ByVal sVariableID As String)
+    Public Shared Sub DoVariableDelete(ByVal oCustomVariable As clsPathVariable)
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSQL As String
         Dim hshParams As New Hashtable
@@ -72,10 +74,11 @@
         sSQL = "DELETE FROM variables "
         sSQL &= "WHERE VariableID = @ID"
 
-        hshParams.Add("ID", sVariableID)
+        hshParams.Add("ID", oCustomVariable.ID)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
-
+        DoPathUpdate(oCustomVariable.FormattedName, oCustomVariable.Path)
+        Environment.SetEnvironmentVariable(oCustomVariable.Name, Nothing)
     End Sub
 
     Public Shared Function DoVariableGetbyID(ByVal sVariableID As String) As clsPathVariable
@@ -99,7 +102,7 @@
         Return oCustomVariable
     End Function
 
-    Public Shared Function DoVariableGetbyName(ByVal sVariableName As String) As clsPathVariable
+    Public Shared Function DoVariableGetbyNameOrPath(ByVal oVariable As clsPathVariable) As clsPathVariable
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSQL As String
         Dim oData As DataSet
@@ -107,20 +110,22 @@
         Dim hshParams As New Hashtable
 
         sSQL = "SELECT * FROM variables "
-        sSQL &= "WHERE Name = @Name"
+        sSQL &= "WHERE Name = @Name OR Path = @Path"
 
-        hshParams.Add("Name", sVariableName)
+        hshParams.Add("Name", oVariable.Name)
+        hshParams.Add("Path", oVariable.Path)
 
         oData = oDatabase.ReadParamData(sSQL, hshParams)
 
         For Each dr As DataRow In oData.Tables(0).Rows
             oCustomVariable = MapToObject(dr)
+            Return oCustomVariable
         Next
 
-        Return oCustomVariable
+        Return Nothing
     End Function
 
-    Public Shared Function DoCheckDuplicate(ByVal sName As String, Optional ByVal sExcludeID As String = "") As Boolean
+    Public Shared Function DoCheck(ByVal sName As String, Optional ByVal sExcludeID As String = "") As Boolean
         Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim sSQL As String
         Dim oData As DataSet

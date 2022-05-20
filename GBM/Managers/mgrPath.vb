@@ -300,7 +300,7 @@ Public Class mgrPath
         End Try
     End Function
 
-    Public Shared Function GetSpecialPaths(Optional ByVal bIncludeCustom As Boolean = False) As Hashtable
+    Public Shared Function GetSpecialPaths() As Hashtable
         Dim hshEnvs As New Hashtable
         Dim bNoError As Boolean = True
 
@@ -314,28 +314,7 @@ Public Class mgrPath
             hshEnvs.Add("%COMMONDOCUMENTS%", Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments))
         End If
 
-        If bIncludeCustom Then
-            Dim hshCustom As Hashtable = mgrVariables.ReadVariables()
-            Dim oCustomVariable As clsPathVariable
-            For Each de As DictionaryEntry In hshCustom
-                oCustomVariable = DirectCast(de.Value, clsPathVariable)
-                hshEnvs.Add(oCustomVariable.FormattedName, oCustomVariable.Path)
-            Next
-        End If
-
         Return hshEnvs
-    End Function
-
-    Public Shared Function IsSpecialPath(ByVal sPath As String, Optional ByVal bIncludeCustom As Boolean = False) As Boolean
-        Dim hshEnvs As Hashtable = GetSpecialPaths(bIncludeCustom)
-
-        For Each de As DictionaryEntry In hshEnvs
-            If de.Value = sPath.TrimEnd(Path.DirectorySeparatorChar) Then
-                Return True
-            End If
-        Next
-
-        Return False
     End Function
 
     Public Shared Function CheckForEmptySpecialPaths() As Boolean
@@ -500,6 +479,39 @@ Public Class mgrPath
         Return sValue
     End Function
 
+    Public Shared Sub FormatRegistryPath(ByRef sPath As String, Optional ByRef bHKCU As Boolean = False)
+        If sPath.ToUpper.StartsWith("HKEY_CURRENT_USER\") Or sPath.ToUpper.StartsWith("HKCU\") Then
+            bHKCU = True
+            sPath = sPath.Replace("HKCU\", String.Empty)
+            sPath = sPath.Replace("HKEY_CURRENT_USER\", String.Empty)
+        ElseIf sPath.ToUpper.StartsWith("HKEY_LOCAL_MACHINE\") Or sPath.ToUpper.StartsWith("HKLM\") Then
+            bHKCU = False
+            sPath = sPath.Replace("HKLM\", String.Empty)
+            sPath = sPath.Replace("HKEY_LOCAL_MACHINE\", String.Empty)
+        End If
+    End Sub
+
+    Public Shared Function IsPopulatedRegistryKey(ByVal sPath As String) As Boolean
+        Dim oKey As Microsoft.Win32.RegistryKey
+        Dim bHKCU As Boolean
+
+        If IsSupportedRegistryPath(sPath) Then
+            FormatRegistryPath(sPath, bHKCU)
+            If bHKCU Then
+                oKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(sPath)
+            Else
+                oKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(sPath)
+            End If
+            If Not oKey Is Nothing Then
+                If oKey.SubKeyCount > 0 Or oKey.ValueCount > 0 Then
+                    Return True
+                End If
+            End If
+        End If
+
+        Return False
+    End Function
+
     Public Shared Function IsSupportedRegistryPath(ByVal sPath As String) As Boolean
         If sPath.ToUpper.StartsWith("HKEY_CURRENT_USER\") Or sPath.ToUpper.StartsWith("HKCU\") Then
             Return True
@@ -553,7 +565,7 @@ Public Class mgrPath
         'Reserved variables will be resolved on Windows, but not on a Linux.  Therefore we an ignore list here, otherwise GBM will bitch about them when using Windows configurations for Wine.
         Dim oReservedVariables As List(Of String) = mgrVariables.GetReservedVariables
         Dim sVariableCheck As String
-        Dim sPattern As String = "\%(.*)\%"
+        Dim sPattern As String = "\%[^\%]*\%"
         Dim oGame As clsGame
         Dim oMatch As Match
         Dim bClean As Boolean = True

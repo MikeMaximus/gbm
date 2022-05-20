@@ -784,6 +784,7 @@ Public Class frmMain
             If slRestoreData.Count > 0 Then
                 UpdateNotifier(slRestoreData.Count)
             End If
+            tmRestoreCheck.Stop()
         End If
     End Sub
 
@@ -801,20 +802,13 @@ Public Class frmMain
 
         'Unix Handler
         If Not mgrCommon.IsUnix Then
-            oExtensions.Add("BMP", "bmp")
-            oExtensions.Add(frmGameManager_Executable, "exe")
-            oExtensions.Add("GIF", "gif")
-            oExtensions.Add(frmGameManager_Icon, "ico")
-            oExtensions.Add("JPG", "jpg")
-            oExtensions.Add("PNG", "png")
-            oExtensions.Add("TIF", "tif")
-            sIcon = mgrCommon.OpenFileBrowser("Main_Icon", mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName), oExtensions, 4, sDefaultFolder, False)
+            oExtensions.Add(frmGameManager_Executable, "*.exe")
+            oExtensions.Add(frmGameManager_Icon, "*.ico")
+            oExtensions.Add(frmGameManager_Image, "*.bmp;*.gif;*.jpg;*.png;*.tif")
+            sIcon = mgrCommon.OpenFileBrowser("Main_Icon", mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName), oExtensions, 2, sDefaultFolder, False)
         Else
-            oExtensions.Add("GIF", "gif")
-            oExtensions.Add("JPG", "jpg")
-            oExtensions.Add("PNG", "png")
-            oExtensions.Add("TIF", "tif")
-            sIcon = mgrCommon.OpenFileBrowser("Main_Icon", mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName), oExtensions, 3, sDefaultFolder, False)
+            oExtensions.Add(frmGameManager_Image, "*.gif;*.jpg;*.png;*.tif")
+            sIcon = mgrCommon.OpenFileBrowser("Main_Icon", mgrCommon.FormatString(frmMain_ChooseIcon, oProcess.GameInfo.CroppedName), oExtensions, 1, sDefaultFolder, False)
         End If
 
         If sIcon <> String.Empty Then
@@ -1572,6 +1566,12 @@ Public Class frmMain
         'Setup Sync Watcher
         SetupSyncWatcher()
 
+        'Automatically configure variables for supported applications
+        If Not mgrStoreVariables.IsAppConfigured(mgrStoreVariables.SupportedAutoConfigApps.Steam) Then
+            mgrStoreVariables.AutoConfigureSteamVariables()
+        End If
+        mgrPath.LoadCustomVariables()
+
         'Load Game Settings
         LoadGameSettings()
 
@@ -2066,7 +2066,7 @@ Public Class frmMain
         Dim sLocation As String
         Dim oExtensions As New SortedList
 
-        oExtensions.Add(frmMain_Text, "txt")
+        oExtensions.Add(frmMain_Text, "*.txt")
         sLocation = mgrCommon.SaveFileBrowser("Log_File", frmMain_ChooseLogFile, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), frmMain_DefaultLogFileName & " " & Date.Now.ToString("dd-MMM-yyyy"))
 
         If sLocation <> String.Empty Then
@@ -2168,6 +2168,7 @@ Public Class frmMain
         gMonFileImportOfficial.Text = frmMain_gMonFileImportOfficial
         gMonFileImportOfficialWindows.Text = frmMain_gMonFileImportOfficialWindows
         gMonFileImportOfficialLinux.Text = frmMain_gMonFileImportOfficialLinux
+        gMonFileImportLudusavi.Text = frmMain_gMonFileImportLudusavi
         gMonFileImportFile.Text = frmMain_gMonFileImportFile
         gMonFileImportURL.Text = frmMain_gMonFileImportURL
         gMonFileExport.Text = frmMain_gMonFileExport
@@ -2205,6 +2206,7 @@ Public Class frmMain
         gMonTrayFileImportOfficial.Text = frmMain_gMonFileImportOfficial
         gMonTrayFileImportOfficialLinux.Text = frmMain_gMonFileImportOfficialLinux
         gMonTrayFileImportOfficialWindows.Text = frmMain_gMonFileImportOfficialWindows
+        gMonTrayFileImportLudusavi.Text = frmMain_gMonFileImportLudusavi
         gMonTrayFileImportFile.Text = frmMain_gMonFileImportFile
         gMonTrayFileImportURL.Text = frmMain_gMonFileImportURL
         gMonTrayFileExport.Text = frmMain_gMonFileExport
@@ -2456,8 +2458,9 @@ Public Class frmMain
     'Functions to handle verification
     Private Sub VerifyCustomPathVariables()
         Dim sGames As String = String.Empty
+
         If Not mgrPath.VerifyCustomVariables(hshScanList, sGames) Then
-            mgrCommon.ShowMessage(frmMain_ErrorCustomVariable, sGames, MsgBoxStyle.Exclamation)
+            mgrCommon.ShowPriorityMessage(frmMain_ErrorCustomVariable, sGames, MsgBoxStyle.Exclamation)
         End If
     End Sub
 
@@ -2740,6 +2743,14 @@ Public Class frmMain
     Private Sub gMonFileImportOfficialLinux_Click(sender As Object, e As EventArgs) Handles gMonFileImportOfficialLinux.Click, gMonTrayFileImportOfficialLinux.Click
         PauseScan()
         If mgrMonitorList.ImportOfficialGameList(App_URLImportLinux) Then
+            LoadGameSettings()
+        End If
+        ResumeScan()
+    End Sub
+
+    Private Sub gMonFileImportLudusavi_Click(sender As Object, e As EventArgs) Handles gMonFileImportLudusavi.Click, gMonTrayFileImportLudusavi.Click
+        PauseScan()
+        If mgrMonitorList.ImportLudusaviManifest(App_URLImportLudusavi) Then
             LoadGameSettings()
         End If
         ResumeScan()

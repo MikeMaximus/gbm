@@ -438,8 +438,8 @@
   <data name="mgrMonitorList_ChooseExportXML" xml:space="preserve">
     <value>Choose a location for the export file</value>
   </data>
-  <data name="mgrMonitorList_ChooseImportXML" xml:space="preserve">
-    <value>Choose a valid xml file to import</value>
+  <data name="mgrMonitorList_ChooseImport" xml:space="preserve">
+    <value>Choose a valid file to import</value>
   </data>
   <data name="frmGameManager_ChooseSaveFolder" xml:space="preserve">
     <value>Browse to the saved game folder and click Open</value>
@@ -568,7 +568,7 @@
     <value>Up to Date!</value>
   </data>
   <data name="mgrMonitorList_XML" xml:space="preserve">
-    <value>XML</value>
+    <value>GBM Export</value>
   </data>
   <data name="frmGameManager_cmsFile" xml:space="preserve">
     <value>&amp;File...</value>
@@ -763,7 +763,7 @@
     <value>Import Game Configurations</value>
   </data>
   <data name="frmAdvancedImport_Configs" xml:space="preserve">
-    <value>Configurations ([PARAM])</value>
+    <value>Configurations ([PARAM] / [PARAM])</value>
   </data>
   <data name="frmAdvancedImport_Selected" xml:space="preserve">
     <value>Selected ([PARAM])</value>
@@ -1210,7 +1210,7 @@
     <value>Generating SHA-256 hash for [PARAM] backup file.</value>
   </data>
   <data name="mgrCommon_FilesFilter" xml:space="preserve">
-    <value>[PARAM] files (*.[PARAM])|*.[PARAM]</value>
+    <value>[PARAM] files ([PARAM])|[PARAM]</value>
   </data>
   <data name="mgrCommon_No" xml:space="preserve">
     <value>No</value>
@@ -1901,9 +1901,6 @@
   </data>
   <data name="frmFilter_FieldGameID" xml:space="preserve">
     <value>Game ID</value>
-  </data>
-  <data name="mgrMonitorList_ImportVersionWarning" xml:space="preserve">
-    <value>This export file was created with a version of GBM prior to 1.1.5 and may contain incompatible configuration data.[BR][BR]Do you still want to import configurations from this file? (Not Recommended)</value>
   </data>
   <data name="frmSettings_btnResetMessages" xml:space="preserve">
     <value>&amp;Reset Warnings</value>
@@ -3026,10 +3023,10 @@
     <value>&amp;URL...</value>
   </data>
   <data name="mgrMonitorList_CustomListURLInfo" xml:space="preserve">
-    <value>Enter the full URL of an XML file exported by GBM.</value>
+    <value>Enter the full URL of a supported file.  GBM XML and Ludusavi YAML files are supported.</value>
   </data>
   <data name="mgrMonitorList_CustomListURLTitle" xml:space="preserve">
-    <value>Import XML file from URL</value>
+    <value>Import file from URL</value>
   </data>
   <data name="mgrMonitorList_CustomListURLError" xml:space="preserve">
     <value>The value must be a valid HTTP or HTTPS location.</value>
@@ -3054,5 +3051,86 @@
   </data>
   <data name="frmMain_gMonFileImportURL" xml:space="preserve">
     <value>&amp;URL...</value>
+  </data>
+  <data name="mgrCommon_ErrorAccessingWebLocation" xml:space="preserve">
+    <value>An unexpected error occured when accessing: [BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrCommon_ErrorReadingTextFile" xml:space="preserve">
+    <value>An error has occured reading the text file.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrCommon_ErrorUnexpectedWebResponse" xml:space="preserve">
+    <value>An unexpected error or response ([PARAM]) was received from:[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmGameManager_Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="mgrMonitorList_YAML" xml:space="preserve">
+    <value>Ludusavi Manifest</value>
+  </data>
+  <data name="frmAdvancedImport_ColumnPath" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="frmAdvancedImport_ColumnInclude" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="App_URLImportLudusavi" xml:space="preserve">
+    <value>https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml</value>
+  </data>
+  <data name="frmGameManager_cmsLudusavi" xml:space="preserve">
+    <value>&amp;Ludusavi Manifest...</value>
+  </data>
+  <data name="frmMain_gMonFileImportLudusavi" xml:space="preserve">
+    <value>&amp;Ludusavi Manifest...</value>
+  </data>
+  <data name="mgrMonitorList_ConfirmLudusaviImport" xml:space="preserve">
+    <value>Would you like to choose games to import from the Ludusavi Manifest?[BR][BR]This requires an active internet connection.</value>
+  </data>
+  <data name="mgrMonitorList_WarningLudusaviImport" xml:space="preserve">
+    <value>The primary Ludusavi Manifest contains thousands of saved game configurations sourced from PCGamingWiki.[BR][BR]These are untested configurations only suitable for manual backups by default and may not be fully compatible with GBM.[BR][BR]This message will only be shown once.</value>
+  </data>
+  <data name="frmAdvancedImport_ColumnOs" xml:space="preserve">
+    <value>OS</value>
+  </data>
+  <data name="mgrLudusavi_ErrorConverting" xml:space="preserve">
+    <value>An error has occured during Ludusavi data conversion.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrLudusavi_ErrorReading" xml:space="preserve">
+    <value>An error has occured while reading or deserializing Ludusavi data.[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrMonitorList_ErrorImportFileType" xml:space="preserve">
+    <value>The file or URL does not contain a supported file extension.</value>
+  </data>
+  <data name="frmLudusaviConfig_btnCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="frmLudusaviConfig_btnOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="frmLudusaviConfig_chkConfigurationFiles" xml:space="preserve">
+    <value>Configuration Files</value>
+  </data>
+  <data name="frmLudusaviConfig_chkLinux" xml:space="preserve">
+    <value>Linux</value>
+  </data>
+  <data name="frmLudusaviConfig_chkSavedGames" xml:space="preserve">
+    <value>Saved Games</value>
+  </data>
+  <data name="frmLudusaviConfig_chkWindows" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="frmLudusaviConfig_ErrorOperatingSystem" xml:space="preserve">
+    <value>At least one operating system must be selected.</value>
+  </data>
+  <data name="frmLudusaviConfig_ErrorProfileType" xml:space="preserve">
+    <value>At least one profile type must be selected.</value>
+  </data>
+  <data name="frmLudusaviConfig_FormName" xml:space="preserve">
+    <value>Ludusavi Options</value>
+  </data>
+  <data name="frmLudusaviConfig_grpOperatingSystems" xml:space="preserve">
+    <value>Operating Systems</value>
+  </data>
+  <data name="frmLudusaviConfig_grpProfileTypes" xml:space="preserve">
+    <value>Profile Types</value>
   </data>
 </root>

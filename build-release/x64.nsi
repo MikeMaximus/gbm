@@ -97,6 +97,7 @@ Section "Game Installation" GameInstall
 	${File} "<SOURCEDIR>" "GBM.exe"
 	${File} "<SOURCEDIR>" "gbm.ico"
 	${File} "<SOURCEDIR>" "Mono.Data.Sqlite.dll"
+  ${File} "<SOURCEDIR>" "YamlDotNet.dll"
 	${File} "<SOURCEDIR>" "readme.txt"
 	${File} "<SOURCEDIR>" "sqlite3.dll"
 	${CreateDirectory} "$INSTDIR\License"

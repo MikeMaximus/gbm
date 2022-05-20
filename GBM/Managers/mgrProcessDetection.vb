@@ -308,6 +308,16 @@ Public Class mgrProcessDetection
         End If
     End Sub
 
+    Private Function IsWineProcess(ByVal sProcessCheck As String) As Boolean
+        Dim sWine As String() = {"wine-preloader", "wine", "wine64-preloader", "wine64"}
+        For Each s As String In sWine
+            If sProcessCheck = s Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
     Public Function SearchRunningProcesses(ByVal hshScanList As Hashtable, ByRef bNeedsPath As Boolean, ByRef iErrorCode As Integer, ByVal bDebugMode As Boolean) As Boolean
         Dim prsList() As Process = Process.GetProcesses
         Dim sProcessCheck As String = String.Empty
@@ -330,7 +340,7 @@ Public Class mgrProcessDetection
 
                 'Unix Handler
                 'We need some special handling for Wine processes
-                If mgrCommon.IsUnix And (sProcessCheck.ToLower = "wine-preloader" Or sProcessCheck.ToLower = "wine64-preloader") Then
+                If mgrCommon.IsUnix And IsWineProcess(sProcessCheck.ToLower) Then
                     Dim sArgs As String() = GetUnixProcessArguments(prsCurrent)
                     Dim sParameter As String
                     Dim sWinePath As String()

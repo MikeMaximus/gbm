@@ -425,7 +425,7 @@ Public Class frmGameManager
             End If
         End If
 
-        oExtensions.Add(frmGameManager_Executable, "exe")
+        oExtensions.Add(frmGameManager_Executable, "*.exe")
         sNewPath = mgrCommon.OpenFileBrowser("GM_Process", frmGameManager_ChooseExe, oExtensions, 1, sDefaultFolder, False)
 
         If sNewPath <> String.Empty Then
@@ -484,20 +484,13 @@ Public Class frmGameManager
 
         'Unix Handler
         If Not mgrCommon.IsUnix Then
-            oExtensions.Add("BMP", "bmp")
-            oExtensions.Add(frmGameManager_Executable, "exe")
-            oExtensions.Add("GIF", "gif")
-            oExtensions.Add(frmGameManager_Icon, "ico")
-            oExtensions.Add("JPG", "jpg")
-            oExtensions.Add("PNG", "png")
-            oExtensions.Add("TIF", "tif")
-            sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, oExtensions, 4, sDefaultFolder, False)
+            oExtensions.Add(frmGameManager_Executable, "*.exe")
+            oExtensions.Add(frmGameManager_Icon, "*.ico")
+            oExtensions.Add(frmGameManager_Image, "*.bmp;*.gif;*.jpg;*.png;*.tif")
+            sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, oExtensions, 2, sDefaultFolder, False)
         Else
-            oExtensions.Add("GIF", "gif")
-            oExtensions.Add("JPG", "jpg")
-            oExtensions.Add("PNG", "png")
-            oExtensions.Add("TIF", "tif")
-            sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, oExtensions, 3, sDefaultFolder, False)
+            oExtensions.Add(frmGameManager_Image, "*.gif;*.jpg;*.png;*.tif")
+            sNewPath = mgrCommon.OpenFileBrowser("GM_Icon", frmGameManager_ChooseCustomIcon, oExtensions, 1, sDefaultFolder, False)
         End If
 
         If sNewPath <> String.Empty Then
@@ -634,6 +627,7 @@ Public Class frmGameManager
     Private Function GetBuilderRoot() As String
         Dim sRoot As String = String.Empty
         Dim sPath As String = String.Empty
+        Dim sAppPath As String = mgrPath.ValidatePath(txtAppPath.Text)
 
         'Use the wine save path when we are in Linux working with a Windows configuration
         If mgrCommon.IsUnix And cboOS.SelectedValue = clsGame.eOS.Windows Then
@@ -645,16 +639,19 @@ Public Class frmGameManager
             sPath = mgrPath.ValidatePath(txtSavePath.Text)
         End If
 
-        If Not mgrSettings.ShowResolvedPaths Then sPath = mgrPath.ReplaceSpecialPaths(sPath)
+        If Not mgrSettings.ShowResolvedPaths Then
+            sPath = mgrPath.ReplaceSpecialPaths(sPath)
+            sAppPath = mgrPath.ReplaceSpecialPaths(sAppPath)
+        End If
 
         If Path.IsPathRooted(sPath) Then
             If Directory.Exists(sPath) Then
                 sRoot = sPath
             End If
         Else
-            If txtAppPath.Text <> String.Empty Then
-                If Directory.Exists(txtAppPath.Text & Path.DirectorySeparatorChar & sPath) Then
-                    sRoot = txtAppPath.Text & Path.DirectorySeparatorChar & sPath
+            If sAppPath <> String.Empty Then
+                If Directory.Exists(sAppPath & Path.DirectorySeparatorChar & sPath) Then
+                    sRoot = sAppPath & Path.DirectorySeparatorChar & sPath
                 End If
             End If
         End If
@@ -1983,6 +1980,7 @@ Public Class frmGameManager
         cmsOfficial.Text = frmGameManager_cmsOfficial
         cmsOfficialLinux.Text = frmGameManager_cmsOfficialLinux
         cmsOfficialWindows.Text = frmGameManager_cmsOfficialWindows
+        cmsLudusavi.Text = frmGameManager_cmsLudusavi
         cmsFile.Text = frmGameManager_cmsFile
         cmsURL.Text = frmGameManager_cmsURL
         lblSearch.Text = frmGameManager_lblSearch
@@ -2071,6 +2069,7 @@ Public Class frmGameManager
 
         If PendingRestores Then
             cboFilters.SelectedValue = 2
+            tabGameManager.SelectedTab = tbBackupInfo
         Else
             cboFilters.SelectedValue = 0
         End If
@@ -2083,6 +2082,9 @@ Public Class frmGameManager
         AddHandler cmsMonitorOnly.CheckedChanged, AddressOf DirtyCheck_ValueChanged
 
         LoadData(False)
+
+        If PendingRestores And lstGames.Items.Count >= 1 Then lstGames.SelectedIndex = 0
+
         InitialLoad = False
     End Sub
 
@@ -2288,6 +2290,16 @@ Public Class frmGameManager
         eCurrentMode = eModes.Disabled
         ModeChange()
         If mgrMonitorList.ImportOfficialGameList(App_URLImportLinux) Then
+            LoadData()
+            LoadBackupData()
+        End If
+    End Sub
+
+    Private Sub cmsLudusavi_Click(sender As Object, e As EventArgs) Handles cmsLudusavi.Click
+        lstGames.ClearSelected()
+        eCurrentMode = eModes.Disabled
+        ModeChange()
+        If mgrMonitorList.ImportLudusaviManifest(App_URLImportLudusavi) Then
             LoadData()
             LoadBackupData()
         End If
