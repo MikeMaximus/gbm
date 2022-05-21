@@ -113,7 +113,7 @@ Public Class mgrCommon
             request.Headers.Set("If-None-Match", sETag)
             response = request.GetResponse()
             If response.StatusCode = HttpStatusCode.OK Then
-                sETag = response.Headers.Get("ETag")
+                sETag = response.Headers.Get("ETag").Trim("""")
             End If
             response.Close()
             Return True
@@ -804,7 +804,6 @@ Public Class mgrCommon
         Dim sCachedFile As String
         Dim sETagFile As String
         Dim sETag As String = String.Empty
-        Dim bDownload As Boolean
 
         If bWebRead Then
             'Set local file locations
@@ -818,26 +817,21 @@ Public Class mgrCommon
             End If
 
             'Query address using ETag if available
-            If mgrCommon.CheckAddressForUpdates(sLocation, sETag) Then
-                bDownload = True
-                mgrCommon.SaveText(sETag, sETagFile)
-            Else
-                bDownload = False
-            End If
-
-            'Read updated file from web if we need to
-            If bDownload Then
-                mgrCommon.SaveText(mgrCommon.ReadText(sLocation), sCachedFile)
+            If CheckAddressForUpdates(sLocation, sETag) Then
+                'Download updated file
+                SaveText(mgrCommon.ReadText(sLocation), sCachedFile)
+                'Save ETag
+                SaveText(sETag, sETagFile)
             End If
 
             'Always use the cached file
             sLocation = sCachedFile
         End If
 
+        'Provide last modified date to caller
         lLastModified = mgrCommon.DateToUnix(File.GetLastWriteTime(sLocation))
 
         oReader = New StreamReader(sLocation)
-
         Return oReader
     End Function
 
