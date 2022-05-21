@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-05-14T14:58:06
+        '''  Looks up a localized string similar to 2022-05-21T13:06:32
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3854,7 +3854,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to OK.
+        '''  Looks up a localized string similar to &amp;OK.
         '''</summary>
         Friend ReadOnly Property frmLudusaviConfig_btnOK() As String
             Get

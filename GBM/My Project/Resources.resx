@@ -3104,7 +3104,7 @@
     <value>Cancel</value>
   </data>
   <data name="frmLudusaviConfig_btnOK" xml:space="preserve">
-    <value>OK</value>
+    <value>&amp;OK</value>
   </data>
   <data name="frmLudusaviConfig_chkConfigurationFiles" xml:space="preserve">
     <value>Configuration Files</value>

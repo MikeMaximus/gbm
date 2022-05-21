@@ -2903,4 +2903,40 @@
   <data name="frmMain_gMonFileImportURL" xml:space="preserve">
     <value>URL</value>
   </data>
+  <data name="frmAdvancedImport_ColumnInclude" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="frmAdvancedImport_ColumnOs" xml:space="preserve">
+    <value>操作系统</value>
+  </data>
+  <data name="frmAdvancedImport_ColumnPath" xml:space="preserve">
+    <value>路径</value>
+  </data>
+  <data name="frmGameManager_Image" xml:space="preserve">
+    <value>图片</value>
+  </data>
+  <data name="frmLudusaviConfig_btnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="frmLudusaviConfig_btnOK" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="frmLudusaviConfig_chkConfigurationFiles" xml:space="preserve">
+    <value>配置文件</value>
+  </data>
+  <data name="frmLudusaviConfig_chkLinux" xml:space="preserve">
+    <value>Linux</value>
+  </data>
+  <data name="frmLudusaviConfig_chkSavedGames" xml:space="preserve">
+    <value>游戏存档</value>
+  </data>
+  <data name="frmLudusaviConfig_chkWindows" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="frmLudusaviConfig_grpOperatingSystems" xml:space="preserve">
+    <value>操作系统</value>
+  </data>
+  <data name="frmGameManager_cmsURL" xml:space="preserve">
+    <value>URL</value>
+  </data>
 </root>
