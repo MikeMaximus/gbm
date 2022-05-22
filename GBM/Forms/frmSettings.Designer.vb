@@ -53,6 +53,7 @@ Partial Class frmSettings
         Me.grp7zInformation = New System.Windows.Forms.GroupBox()
         Me.pnlGeneral = New System.Windows.Forms.Panel()
         Me.grpGameMonitoringOptions = New System.Windows.Forms.GroupBox()
+        Me.chkTwoPassDetection = New System.Windows.Forms.CheckBox()
         Me.cboDetectSpeed = New System.Windows.Forms.ComboBox()
         Me.lblDetectSpeed = New System.Windows.Forms.Label()
         Me.chkSuppressBackup = New System.Windows.Forms.CheckBox()
@@ -83,6 +84,7 @@ Partial Class frmSettings
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
         Me.pnlFilesAndFolders = New System.Windows.Forms.Panel()
         Me.grpFolderOptions = New System.Windows.Forms.GroupBox()
+        Me.chkStorePathAutoConfig = New System.Windows.Forms.CheckBox()
         Me.btnTempFolder = New System.Windows.Forms.Button()
         Me.lblTempFolder = New System.Windows.Forms.Label()
         Me.txtTempFolder = New System.Windows.Forms.TextBox()
@@ -91,7 +93,6 @@ Partial Class frmSettings
         Me.lblBackupFolder = New System.Windows.Forms.Label()
         Me.txtBackupFolder = New System.Windows.Forms.TextBox()
         Me.chkCreateFolder = New System.Windows.Forms.CheckBox()
-        Me.chkTwoPassDetection = New System.Windows.Forms.CheckBox()
         Me.grp7zGeneral.SuspendLayout()
         Me.pnlBackup.SuspendLayout()
         Me.grpBackupConfirmations.SuspendLayout()
@@ -435,6 +436,16 @@ Partial Class frmSettings
         Me.grpGameMonitoringOptions.TabStop = False
         Me.grpGameMonitoringOptions.Text = "Game Monitoring Options"
         '
+        'chkTwoPassDetection
+        '
+        Me.chkTwoPassDetection.AutoSize = True
+        Me.chkTwoPassDetection.Location = New System.Drawing.Point(6, 92)
+        Me.chkTwoPassDetection.Name = "chkTwoPassDetection"
+        Me.chkTwoPassDetection.Size = New System.Drawing.Size(122, 17)
+        Me.chkTwoPassDetection.TabIndex = 5
+        Me.chkTwoPassDetection.Text = "Two-Pass Detection"
+        Me.chkTwoPassDetection.UseVisualStyleBackColor = True
+        '
         'cboDetectSpeed
         '
         Me.cboDetectSpeed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -727,6 +738,7 @@ Partial Class frmSettings
         '
         'grpFolderOptions
         '
+        Me.grpFolderOptions.Controls.Add(Me.chkStorePathAutoConfig)
         Me.grpFolderOptions.Controls.Add(Me.btnTempFolder)
         Me.grpFolderOptions.Controls.Add(Me.lblTempFolder)
         Me.grpFolderOptions.Controls.Add(Me.txtTempFolder)
@@ -737,10 +749,20 @@ Partial Class frmSettings
         Me.grpFolderOptions.Controls.Add(Me.chkCreateFolder)
         Me.grpFolderOptions.Location = New System.Drawing.Point(6, 12)
         Me.grpFolderOptions.Name = "grpFolderOptions"
-        Me.grpFolderOptions.Size = New System.Drawing.Size(354, 117)
+        Me.grpFolderOptions.Size = New System.Drawing.Size(354, 134)
         Me.grpFolderOptions.TabIndex = 0
         Me.grpFolderOptions.TabStop = False
         Me.grpFolderOptions.Text = "Files and Folders"
+        '
+        'chkStorePathAutoConfig
+        '
+        Me.chkStorePathAutoConfig.AutoSize = True
+        Me.chkStorePathAutoConfig.Location = New System.Drawing.Point(6, 112)
+        Me.chkStorePathAutoConfig.Name = "chkStorePathAutoConfig"
+        Me.chkStorePathAutoConfig.Size = New System.Drawing.Size(222, 17)
+        Me.chkStorePathAutoConfig.TabIndex = 6
+        Me.chkStorePathAutoConfig.Text = "Create path variables for supported stores"
+        Me.chkStorePathAutoConfig.UseVisualStyleBackColor = True
         '
         'btnTempFolder
         '
@@ -812,25 +834,15 @@ Partial Class frmSettings
         Me.chkCreateFolder.Text = "Create a sub-folder for each game"
         Me.chkCreateFolder.UseVisualStyleBackColor = True
         '
-        'chkTwoPassDetection
-        '
-        Me.chkTwoPassDetection.AutoSize = True
-        Me.chkTwoPassDetection.Location = New System.Drawing.Point(6, 92)
-        Me.chkTwoPassDetection.Name = "chkTwoPassDetection"
-        Me.chkTwoPassDetection.Size = New System.Drawing.Size(122, 17)
-        Me.chkTwoPassDetection.TabIndex = 5
-        Me.chkTwoPassDetection.Text = "Two-Pass Detection"
-        Me.chkTwoPassDetection.UseVisualStyleBackColor = True
-        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(554, 386)
-        Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlFilesAndFolders)
-        Me.Controls.Add(Me.pnlStartup)
         Me.Controls.Add(Me.pnlInterface)
+        Me.Controls.Add(Me.pnlGeneral)
+        Me.Controls.Add(Me.pnlStartup)
         Me.Controls.Add(Me.pnlBackup)
         Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.btnResetMessages)
@@ -947,4 +959,5 @@ Partial Class frmSettings
     Friend WithEvents cboDetectSpeed As ComboBox
     Friend WithEvents lblDetectSpeed As Label
     Friend WithEvents chkTwoPassDetection As CheckBox
+    Friend WithEvents chkStorePathAutoConfig As CheckBox
 End Class

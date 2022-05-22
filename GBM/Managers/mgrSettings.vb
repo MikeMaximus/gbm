@@ -26,6 +26,7 @@ Public Class mgrSettings
     Shared bAutoSaveLog As Boolean
     Shared bBackupOnLaunch As Boolean
     Shared bUseGameID As Boolean
+    Shared bStorePathAutoConfig As Boolean
     Shared bDisableSyncMessages As Boolean
     Shared bShowResolvedPaths As Boolean
     Shared bDisableDiskSpaceCheck As Boolean
@@ -340,6 +341,15 @@ Public Class mgrSettings
         End Set
     End Property
 
+    Shared Property StorePathAutoConfig As Boolean
+        Get
+            Return bStorePathAutoConfig
+        End Get
+        Set(value As Boolean)
+            bStorePathAutoConfig = value
+        End Set
+    End Property
+
     Shared Property DisableSyncMessages As Boolean
         Get
             Return bDisableSyncMessages
@@ -469,6 +479,7 @@ Public Class mgrSettings
         bAutoSaveLog = False
         bBackupOnLaunch = True
         bUseGameID = False
+        bStorePathAutoConfig = False
         bDisableSyncMessages = True
         bShowResolvedPaths = True
         bDisableDiskSpaceCheck = False
@@ -499,7 +510,7 @@ Public Class mgrSettings
         sSQL &= "@TimeTracking, @SuppressBackup, @SuppressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
         sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, @UseGameID, "
         sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck, @TemporaryFolder, @ExitOnClose, @ExitNoWarning, @EnableLauncher, "
-        sSQL &= "@MainHideGameList, @MainHideButtons, @MainHideLog, @BackupNotification, @DetectionSpeed, @TwoPassDetection)"
+        sSQL &= "@MainHideGameList, @MainHideButtons, @MainHideLog, @BackupNotification, @DetectionSpeed, @TwoPassDetection, @StorePathAutoConfig)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -537,6 +548,7 @@ Public Class mgrSettings
         hshParams.Add("BackupNotification", BackupNotification)
         hshParams.Add("DetectionSpeed", DetectionSpeed)
         hshParams.Add("TwoPassDetection", TwoPassDetection)
+        hshParams.Add("StorePathAutoConfig", StorePathAutoConfig)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -588,6 +600,7 @@ Public Class mgrSettings
             BackupNotification = CBool(dr("BackupNotification"))
             DetectionSpeed = CInt(dr("DetectionSpeed"))
             TwoPassDetection = CBool(dr("TwoPassDetection"))
+            StorePathAutoConfig = CBool(dr("StorePathAutoConfig"))
         Next
 
         oDatabase.Disconnect()

@@ -78,7 +78,7 @@ Public Class mgrSQLite
                    "SuppressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL, UseGameID BOOLEAN NOT NULL, DisableSyncMessages BOOLEAN NOT NULL, ShowResolvedPaths BOOLEAN NOT NULL, " &
                    "DisableDiskSpaceCheck BOOLEAN NOT NULL, TemporaryFolder TEXT, ExitOnClose BOOLEAN NOT NULL, ExitNoWarning BOOLEAN NOT NULL, EnableLauncher BOOLEAN NOT NULL, " &
                    "MainHideGameList BOOLEAN NOT NULL, MainHideButtons BOOLEAN NOT NULL, MainHideLog BOOLEAN NOT NULL, BackupNotification BOOLEAN NOT NULL, DetectionSpeed INTEGER NOT NULL, " &
-                   "TwoPassDetection BOOLEAN NOT NULL);"
+                   "TwoPassDetection BOOLEAN NOT NULL, StorePathAutoConfig BOOLEAN NOT NULL);"
 
             'Add Tables (SavedPath)
             sSql &= "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
@@ -1190,6 +1190,29 @@ Public Class mgrSQLite
                 sSQL &= "ALTER TABLE manifest ADD COLUMN DifferentialParent TEXT NOT NULL DEFAULT '';"
 
                 sSQL &= "PRAGMA user_version=128"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '1.31 Upgrade
+        If GetDatabaseVersion() < 131 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v128")
+
+                'Add new setting
+                sSQL = "ALTER TABLE settings ADD COLUMN StorePathAutoConfig BOOLEAN NOT NULL DEFAULT 1;"
+
+                sSQL &= "PRAGMA user_version=131"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v128")
+
+                sSQL = "PRAGMA user_version=131"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If

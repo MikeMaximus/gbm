@@ -1364,6 +1364,7 @@ Public Class frmMain
             'Set Remote Database Location
             mgrPath.RemoteDatabaseLocation = mgrSettings.BackupFolder
             SetupSyncWatcher()
+            mgrStoreVariables.AutoConfigureStoreVariables()
             LoadGameSettings()
             HandleFeatures()
             HandleLauncherMenu()
@@ -1567,10 +1568,7 @@ Public Class frmMain
         SetupSyncWatcher()
 
         'Automatically configure variables for supported applications
-        If Not mgrStoreVariables.IsAppConfigured(mgrStoreVariables.SupportedAutoConfigApps.Steam) Then
-            mgrStoreVariables.AutoConfigureSteamVariables()
-        End If
-        mgrPath.LoadCustomVariables()
+        mgrStoreVariables.AutoConfigureStoreVariables()
 
         'Load Game Settings
         LoadGameSettings()

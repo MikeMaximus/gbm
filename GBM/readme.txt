@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.1 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-May 20, 2022
+May 22, 2022
 
 New in 1.3.1
 
@@ -14,8 +14,9 @@ All Platforms:
 	- See the Ludusavi Manifest(https://mikemaximus.github.io/gbm-web/manual.html#ludusavi) section of the manual for more information about this feature.
 - Official support for games that use Steam Cloud save locations.
 	- The official game lists may now contain games that use Steam Cloud save locations.
-	- GBM will auto-configure the path variables required for Steam Cloud locations on each start-up when possible.	
-		- See the Preconfigured Store Variables(https://mikemaximus.github.io/gbm-web/manual.html#storevariables) section of the manual for more information about this feature.
+	- GBM will auto-configure the path variables required for Steam Cloud locations on each start-up when possible.
+		- This can be disabled in the "Files & Folders" section of the Settings window by deselecting "Create path variables for supported stores"
+		- See the Preconfigured Store Variables(https://mikemaximus.github.io/gbm-web/manual.html#storevariables) section of the manual for more information about this feature.		
 - UI improvements on the Import window.
 	- Only configurations with detected saved games are shown and selected by default.
 		- This should be less confusing and intimidating for new users.

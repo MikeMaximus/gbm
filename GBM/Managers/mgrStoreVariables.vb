@@ -57,18 +57,7 @@ Public Class mgrStoreVariables
         Return sSteamID3
     End Function
 
-    Public Shared Function IsAppConfigured(ByVal iSupported As SupportedAutoConfigApps) As Boolean
-        Select Case iSupported
-            Case SupportedAutoConfigApps.Steam
-                If mgrVariables.DoCheck("Steam") And mgrVariables.DoCheck("SteamID3") Then
-                    Return True
-                End If
-        End Select
-
-        Return False
-    End Function
-
-    Public Shared Sub AutoConfigureSteamVariables()
+    Private Shared Sub AutoConfigureSteamVariables()
         Dim sSteam As String
         Dim sStoreID As String
         Dim oExistingVariable As clsPathVariable
@@ -93,6 +82,26 @@ Public Class mgrStoreVariables
                     mgrVariables.DoVariableUpdate(oVariable, oExistingVariable)
                 End If
             Next
+        End If
+    End Sub
+
+    Public Shared Function IsAppConfigured(ByVal iSupported As SupportedAutoConfigApps) As Boolean
+        Select Case iSupported
+            Case SupportedAutoConfigApps.Steam
+                If mgrVariables.DoCheck("Steam") And mgrVariables.DoCheck("SteamID3") Then
+                    Return True
+                End If
+        End Select
+
+        Return False
+    End Function
+
+    Public Shared Sub AutoConfigureStoreVariables()
+        If mgrSettings.StorePathAutoConfig Then
+            If Not IsAppConfigured(mgrStoreVariables.SupportedAutoConfigApps.Steam) Then
+                AutoConfigureSteamVariables()
+            End If
+            mgrPath.LoadCustomVariables()
         End If
     End Sub
 End Class

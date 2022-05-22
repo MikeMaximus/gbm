@@ -87,6 +87,7 @@ Public Class frmSettings
         mgrSettings.DisableDiskSpaceCheck = chkDisableDiskSpaceCheck.Checked
         mgrSettings.CreateSubFolder = chkCreateFolder.Checked
         mgrSettings.UseGameID = chkUseGameID.Checked
+        mgrSettings.StorePathAutoConfig = chkStorePathAutoConfig.Checked
         mgrSettings.ShowOverwriteWarning = chkOverwriteWarning.Checked
         mgrSettings.BackupNotification = chkBackupNotification.Checked
         mgrSettings.RestoreOnLaunch = chkRestoreNotify.Checked
@@ -233,6 +234,7 @@ Public Class frmSettings
         chkDisableDiskSpaceCheck.Checked = mgrSettings.DisableDiskSpaceCheck
         chkCreateFolder.Checked = mgrSettings.CreateSubFolder
         chkUseGameID.Checked = mgrSettings.UseGameID
+        chkStorePathAutoConfig.Checked = mgrSettings.StorePathAutoConfig
         chkOverwriteWarning.Checked = mgrSettings.ShowOverwriteWarning
         chkBackupNotification.Checked = mgrSettings.BackupNotification
         chkRestoreNotify.Checked = mgrSettings.RestoreOnLaunch
@@ -378,6 +380,7 @@ Public Class frmSettings
         chkBackupNotification.Text = frmSettings_chkBackupNotification
         chkCreateFolder.Text = frmSettings_chkCreateFolder
         chkUseGameID.Text = frmSettings_chkUseGameID
+        chkStorePathAutoConfig.Text = frmSettings_chkStorePathAutoConfig
         chkBackupConfirm.Text = frmSettings_chkBackupConfirm
         btnCancel.Text = frmSettings_btnCancel
         btnCancel.Image = Multi_Cancel
