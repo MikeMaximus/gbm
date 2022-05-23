@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-05-21T14:27:21
+        '''  Looks up a localized string similar to 2022-05-23T14:04:37
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -6486,7 +6486,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Create path variables for supported stores.
+        '''  Looks up a localized string similar to Enable automatic configuration of store paths.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkStorePathAutoConfig() As String
             Get

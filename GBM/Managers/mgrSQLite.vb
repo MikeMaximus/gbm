@@ -1202,7 +1202,7 @@ Public Class mgrSQLite
                 BackupDB("v128")
 
                 'Add new setting
-                sSQL = "ALTER TABLE settings ADD COLUMN StorePathAutoConfig BOOLEAN NOT NULL DEFAULT 1;"
+                sSQL = "ALTER TABLE settings ADD COLUMN StorePathAutoConfig BOOLEAN NOT NULL DEFAULT 0;"
 
                 sSQL &= "PRAGMA user_version=131"
 

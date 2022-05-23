@@ -22,7 +22,6 @@ Partial Class frmSettings
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.chkAutoSaveLog = New System.Windows.Forms.CheckBox()
         Me.chkTimeTracking = New System.Windows.Forms.CheckBox()
         Me.chkShowDetectionTips = New System.Windows.Forms.CheckBox()
         Me.btnSave = New System.Windows.Forms.Button()
@@ -59,12 +58,14 @@ Partial Class frmSettings
         Me.chkSuppressBackup = New System.Windows.Forms.CheckBox()
         Me.lblMinutes = New System.Windows.Forms.Label()
         Me.nudSuppressBackupThreshold = New System.Windows.Forms.NumericUpDown()
-        Me.grpLogOptions = New System.Windows.Forms.GroupBox()
-        Me.chkDisableSyncMessages = New System.Windows.Forms.CheckBox()
         Me.grpOptionalFeeatures = New System.Windows.Forms.GroupBox()
+        Me.chkStorePathAutoConfig = New System.Windows.Forms.CheckBox()
         Me.chkEnableLauncher = New System.Windows.Forms.CheckBox()
         Me.chkSessionTracking = New System.Windows.Forms.CheckBox()
         Me.pnlInterface = New System.Windows.Forms.Panel()
+        Me.grpLogOptions = New System.Windows.Forms.GroupBox()
+        Me.chkDisableSyncMessages = New System.Windows.Forms.CheckBox()
+        Me.chkAutoSaveLog = New System.Windows.Forms.CheckBox()
         Me.grpGameManagerOptions = New System.Windows.Forms.GroupBox()
         Me.btnOptionalFields = New System.Windows.Forms.Button()
         Me.chkShowResolvedPaths = New System.Windows.Forms.CheckBox()
@@ -84,7 +85,6 @@ Partial Class frmSettings
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
         Me.pnlFilesAndFolders = New System.Windows.Forms.Panel()
         Me.grpFolderOptions = New System.Windows.Forms.GroupBox()
-        Me.chkStorePathAutoConfig = New System.Windows.Forms.CheckBox()
         Me.btnTempFolder = New System.Windows.Forms.Button()
         Me.lblTempFolder = New System.Windows.Forms.Label()
         Me.txtTempFolder = New System.Windows.Forms.TextBox()
@@ -103,9 +103,9 @@ Partial Class frmSettings
         Me.pnlGeneral.SuspendLayout()
         Me.grpGameMonitoringOptions.SuspendLayout()
         CType(Me.nudSuppressBackupThreshold, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.grpLogOptions.SuspendLayout()
         Me.grpOptionalFeeatures.SuspendLayout()
         Me.pnlInterface.SuspendLayout()
+        Me.grpLogOptions.SuspendLayout()
         Me.grpGameManagerOptions.SuspendLayout()
         Me.grpMainWindowOptions.SuspendLayout()
         Me.pnlStartup.SuspendLayout()
@@ -113,16 +113,6 @@ Partial Class frmSettings
         Me.pnlFilesAndFolders.SuspendLayout()
         Me.grpFolderOptions.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'chkAutoSaveLog
-        '
-        Me.chkAutoSaveLog.AutoSize = True
-        Me.chkAutoSaveLog.Location = New System.Drawing.Point(5, 42)
-        Me.chkAutoSaveLog.Name = "chkAutoSaveLog"
-        Me.chkAutoSaveLog.Size = New System.Drawing.Size(231, 17)
-        Me.chkAutoSaveLog.TabIndex = 1
-        Me.chkAutoSaveLog.Text = "Autosave log when max length is exceeded"
-        Me.chkAutoSaveLog.UseVisualStyleBackColor = True
         '
         'chkTimeTracking
         '
@@ -413,7 +403,6 @@ Partial Class frmSettings
         'pnlGeneral
         '
         Me.pnlGeneral.Controls.Add(Me.grpGameMonitoringOptions)
-        Me.pnlGeneral.Controls.Add(Me.grpLogOptions)
         Me.pnlGeneral.Controls.Add(Me.grpOptionalFeeatures)
         Me.pnlGeneral.Location = New System.Drawing.Point(180, 0)
         Me.pnlGeneral.Name = "pnlGeneral"
@@ -429,7 +418,7 @@ Partial Class frmSettings
         Me.grpGameMonitoringOptions.Controls.Add(Me.lblMinutes)
         Me.grpGameMonitoringOptions.Controls.Add(Me.chkShowDetectionTips)
         Me.grpGameMonitoringOptions.Controls.Add(Me.nudSuppressBackupThreshold)
-        Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 107)
+        Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 131)
         Me.grpGameMonitoringOptions.Name = "grpGameMonitoringOptions"
         Me.grpGameMonitoringOptions.Size = New System.Drawing.Size(354, 118)
         Me.grpGameMonitoringOptions.TabIndex = 1
@@ -491,38 +480,28 @@ Partial Class frmSettings
         Me.nudSuppressBackupThreshold.Size = New System.Drawing.Size(51, 20)
         Me.nudSuppressBackupThreshold.TabIndex = 1
         '
-        'grpLogOptions
-        '
-        Me.grpLogOptions.Controls.Add(Me.chkDisableSyncMessages)
-        Me.grpLogOptions.Controls.Add(Me.chkAutoSaveLog)
-        Me.grpLogOptions.Location = New System.Drawing.Point(6, 231)
-        Me.grpLogOptions.Name = "grpLogOptions"
-        Me.grpLogOptions.Size = New System.Drawing.Size(354, 65)
-        Me.grpLogOptions.TabIndex = 2
-        Me.grpLogOptions.TabStop = False
-        Me.grpLogOptions.Text = "Log Options"
-        '
-        'chkDisableSyncMessages
-        '
-        Me.chkDisableSyncMessages.AutoSize = True
-        Me.chkDisableSyncMessages.Location = New System.Drawing.Point(5, 19)
-        Me.chkDisableSyncMessages.Name = "chkDisableSyncMessages"
-        Me.chkDisableSyncMessages.Size = New System.Drawing.Size(166, 17)
-        Me.chkDisableSyncMessages.TabIndex = 0
-        Me.chkDisableSyncMessages.Text = "Disable sync event messages"
-        Me.chkDisableSyncMessages.UseVisualStyleBackColor = True
-        '
         'grpOptionalFeeatures
         '
+        Me.grpOptionalFeeatures.Controls.Add(Me.chkStorePathAutoConfig)
         Me.grpOptionalFeeatures.Controls.Add(Me.chkEnableLauncher)
         Me.grpOptionalFeeatures.Controls.Add(Me.chkSessionTracking)
         Me.grpOptionalFeeatures.Controls.Add(Me.chkTimeTracking)
         Me.grpOptionalFeeatures.Location = New System.Drawing.Point(6, 12)
         Me.grpOptionalFeeatures.Name = "grpOptionalFeeatures"
-        Me.grpOptionalFeeatures.Size = New System.Drawing.Size(354, 89)
+        Me.grpOptionalFeeatures.Size = New System.Drawing.Size(354, 111)
         Me.grpOptionalFeeatures.TabIndex = 0
         Me.grpOptionalFeeatures.TabStop = False
         Me.grpOptionalFeeatures.Text = "Optional Features"
+        '
+        'chkStorePathAutoConfig
+        '
+        Me.chkStorePathAutoConfig.AutoSize = True
+        Me.chkStorePathAutoConfig.Location = New System.Drawing.Point(6, 88)
+        Me.chkStorePathAutoConfig.Name = "chkStorePathAutoConfig"
+        Me.chkStorePathAutoConfig.Size = New System.Drawing.Size(239, 17)
+        Me.chkStorePathAutoConfig.TabIndex = 3
+        Me.chkStorePathAutoConfig.Text = "Enable automatic configuration of store paths"
+        Me.chkStorePathAutoConfig.UseVisualStyleBackColor = True
         '
         'chkEnableLauncher
         '
@@ -546,12 +525,44 @@ Partial Class frmSettings
         '
         'pnlInterface
         '
+        Me.pnlInterface.Controls.Add(Me.grpLogOptions)
         Me.pnlInterface.Controls.Add(Me.grpGameManagerOptions)
         Me.pnlInterface.Controls.Add(Me.grpMainWindowOptions)
         Me.pnlInterface.Location = New System.Drawing.Point(180, 0)
         Me.pnlInterface.Name = "pnlInterface"
         Me.pnlInterface.Size = New System.Drawing.Size(367, 323)
         Me.pnlInterface.TabIndex = 1
+        '
+        'grpLogOptions
+        '
+        Me.grpLogOptions.Controls.Add(Me.chkDisableSyncMessages)
+        Me.grpLogOptions.Controls.Add(Me.chkAutoSaveLog)
+        Me.grpLogOptions.Location = New System.Drawing.Point(6, 231)
+        Me.grpLogOptions.Name = "grpLogOptions"
+        Me.grpLogOptions.Size = New System.Drawing.Size(356, 65)
+        Me.grpLogOptions.TabIndex = 3
+        Me.grpLogOptions.TabStop = False
+        Me.grpLogOptions.Text = "Log Options"
+        '
+        'chkDisableSyncMessages
+        '
+        Me.chkDisableSyncMessages.AutoSize = True
+        Me.chkDisableSyncMessages.Location = New System.Drawing.Point(5, 19)
+        Me.chkDisableSyncMessages.Name = "chkDisableSyncMessages"
+        Me.chkDisableSyncMessages.Size = New System.Drawing.Size(166, 17)
+        Me.chkDisableSyncMessages.TabIndex = 0
+        Me.chkDisableSyncMessages.Text = "Disable sync event messages"
+        Me.chkDisableSyncMessages.UseVisualStyleBackColor = True
+        '
+        'chkAutoSaveLog
+        '
+        Me.chkAutoSaveLog.AutoSize = True
+        Me.chkAutoSaveLog.Location = New System.Drawing.Point(5, 42)
+        Me.chkAutoSaveLog.Name = "chkAutoSaveLog"
+        Me.chkAutoSaveLog.Size = New System.Drawing.Size(231, 17)
+        Me.chkAutoSaveLog.TabIndex = 1
+        Me.chkAutoSaveLog.Text = "Autosave log when max length is exceeded"
+        Me.chkAutoSaveLog.UseVisualStyleBackColor = True
         '
         'grpGameManagerOptions
         '
@@ -560,7 +571,7 @@ Partial Class frmSettings
         Me.grpGameManagerOptions.Location = New System.Drawing.Point(6, 152)
         Me.grpGameManagerOptions.Name = "grpGameManagerOptions"
         Me.grpGameManagerOptions.Size = New System.Drawing.Size(356, 73)
-        Me.grpGameManagerOptions.TabIndex = 1
+        Me.grpGameManagerOptions.TabIndex = 2
         Me.grpGameManagerOptions.TabStop = False
         Me.grpGameManagerOptions.Text = "Game Manager Options"
         '
@@ -593,7 +604,7 @@ Partial Class frmSettings
         Me.grpMainWindowOptions.Location = New System.Drawing.Point(6, 12)
         Me.grpMainWindowOptions.Name = "grpMainWindowOptions"
         Me.grpMainWindowOptions.Size = New System.Drawing.Size(356, 134)
-        Me.grpMainWindowOptions.TabIndex = 0
+        Me.grpMainWindowOptions.TabIndex = 1
         Me.grpMainWindowOptions.TabStop = False
         Me.grpMainWindowOptions.Text = "Main Window Options"
         '
@@ -738,7 +749,6 @@ Partial Class frmSettings
         '
         'grpFolderOptions
         '
-        Me.grpFolderOptions.Controls.Add(Me.chkStorePathAutoConfig)
         Me.grpFolderOptions.Controls.Add(Me.btnTempFolder)
         Me.grpFolderOptions.Controls.Add(Me.lblTempFolder)
         Me.grpFolderOptions.Controls.Add(Me.txtTempFolder)
@@ -749,20 +759,10 @@ Partial Class frmSettings
         Me.grpFolderOptions.Controls.Add(Me.chkCreateFolder)
         Me.grpFolderOptions.Location = New System.Drawing.Point(6, 12)
         Me.grpFolderOptions.Name = "grpFolderOptions"
-        Me.grpFolderOptions.Size = New System.Drawing.Size(354, 134)
+        Me.grpFolderOptions.Size = New System.Drawing.Size(354, 117)
         Me.grpFolderOptions.TabIndex = 0
         Me.grpFolderOptions.TabStop = False
         Me.grpFolderOptions.Text = "Files and Folders"
-        '
-        'chkStorePathAutoConfig
-        '
-        Me.chkStorePathAutoConfig.AutoSize = True
-        Me.chkStorePathAutoConfig.Location = New System.Drawing.Point(6, 112)
-        Me.chkStorePathAutoConfig.Name = "chkStorePathAutoConfig"
-        Me.chkStorePathAutoConfig.Size = New System.Drawing.Size(222, 17)
-        Me.chkStorePathAutoConfig.TabIndex = 6
-        Me.chkStorePathAutoConfig.Text = "Create path variables for supported stores"
-        Me.chkStorePathAutoConfig.UseVisualStyleBackColor = True
         '
         'btnTempFolder
         '
@@ -839,9 +839,9 @@ Partial Class frmSettings
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(554, 386)
+        Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlFilesAndFolders)
         Me.Controls.Add(Me.pnlInterface)
-        Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlStartup)
         Me.Controls.Add(Me.pnlBackup)
         Me.Controls.Add(Me.pnl7z)
@@ -871,11 +871,11 @@ Partial Class frmSettings
         Me.grpGameMonitoringOptions.ResumeLayout(False)
         Me.grpGameMonitoringOptions.PerformLayout()
         CType(Me.nudSuppressBackupThreshold, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.grpLogOptions.ResumeLayout(False)
-        Me.grpLogOptions.PerformLayout()
         Me.grpOptionalFeeatures.ResumeLayout(False)
         Me.grpOptionalFeeatures.PerformLayout()
         Me.pnlInterface.ResumeLayout(False)
+        Me.grpLogOptions.ResumeLayout(False)
+        Me.grpLogOptions.PerformLayout()
         Me.grpGameManagerOptions.ResumeLayout(False)
         Me.grpGameManagerOptions.PerformLayout()
         Me.grpMainWindowOptions.ResumeLayout(False)
@@ -904,7 +904,6 @@ Partial Class frmSettings
     Friend WithEvents txt7zArguments As TextBox
     Friend WithEvents lblArguments As Label
     Friend WithEvents btnDefaults As Button
-    Friend WithEvents chkAutoSaveLog As CheckBox
     Friend WithEvents pnlBackup As Panel
     Friend WithEvents pnl7z As Panel
     Friend WithEvents pnlGeneral As Panel
@@ -924,8 +923,6 @@ Partial Class frmSettings
     Friend WithEvents chkSuppressBackup As CheckBox
     Friend WithEvents btnResetMessages As Button
     Friend WithEvents grpBackupConfirmations As GroupBox
-    Friend WithEvents grpLogOptions As GroupBox
-    Friend WithEvents chkDisableSyncMessages As CheckBox
     Friend WithEvents pnlStartup As Panel
     Friend WithEvents grpStartup As GroupBox
     Friend WithEvents chkBackupOnLaunch As CheckBox
@@ -959,5 +956,8 @@ Partial Class frmSettings
     Friend WithEvents cboDetectSpeed As ComboBox
     Friend WithEvents lblDetectSpeed As Label
     Friend WithEvents chkTwoPassDetection As CheckBox
+    Friend WithEvents grpLogOptions As GroupBox
+    Friend WithEvents chkDisableSyncMessages As CheckBox
+    Friend WithEvents chkAutoSaveLog As CheckBox
     Friend WithEvents chkStorePathAutoConfig As CheckBox
 End Class

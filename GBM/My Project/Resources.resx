@@ -3134,6 +3134,6 @@
     <value>Profile Types</value>
   </data>
   <data name="frmSettings_chkStorePathAutoConfig" xml:space="preserve">
-    <value>Create path variables for supported stores</value>
+    <value>Enable automatic configuration of store paths</value>
   </data>
 </root>
