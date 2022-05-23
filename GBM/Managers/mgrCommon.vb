@@ -113,7 +113,7 @@ Public Class mgrCommon
             request.Headers.Set("If-None-Match", sETag)
             response = request.GetResponse()
             If response.StatusCode = HttpStatusCode.OK Then
-                sETag = response.Headers.Get("ETag").Trim("""")
+                sETag = response.Headers.Get("ETag")
             End If
             response.Close()
             Return True
