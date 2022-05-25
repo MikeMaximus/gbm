@@ -100,7 +100,52 @@ Public Class frmAdvancedImport
         Return False
     End Function
 
-    Private Sub LoadData(Optional ByVal sFilter As String = "", Optional ByVal bAutoDetect As Boolean = False)
+    Private Function AutoDetect() As Integer
+        Dim oApp As clsGame
+        Dim bAdd As Boolean
+        Dim iCount As Integer
+
+        Cursor.Current = Cursors.WaitCursor
+
+        For Each de As DictionaryEntry In ImportData
+            bAdd = False
+            oApp = DirectCast(de.Value, clsGame)
+            Try
+                If mgrPath.IsPopulatedRegistryKey(oApp.Path) Then
+                    bAdd = True
+                ElseIf oApp.AbsolutePath And oApp.FolderSave Then
+                    If Directory.Exists(oApp.Path) And Not IgnorePath(oApp.Path) Then
+                        bAdd = True
+                    End If
+                ElseIf oApp.AbsolutePath And Not oApp.FolderSave Then
+                    If Directory.Exists(oApp.Path) Then
+                        For Each s As String In oApp.FileType.Split(":")
+                            'For performance reasons we are not using a recursive search.
+                            If Directory.GetFiles(oApp.Path, s, SearchOption.TopDirectoryOnly).Length > 0 Then
+                                bAdd = True
+                                Exit For
+                            End If
+                        Next
+                    End If
+                End If
+
+                If bAdd Then
+                    If Not FinalData.ContainsKey(oApp.ID) Then
+                        iCount += 1
+                        FinalData.Add(oApp.ID, oApp)
+                    End If
+                End If
+            Catch
+                'It should never happen at this point, but if the auto detect fails due to bad data we just ignore it and move on.
+            End Try
+        Next
+
+        Cursor.Current = Cursors.Default
+
+        Return iCount
+    End Function
+
+    Private Sub LoadData(Optional ByVal sFilter As String = "", Optional ByVal bSelectedOnly As Boolean = False)
         Dim oApp As clsGame
         Dim oListViewItem As ListViewItem
         Dim sTags As String
@@ -113,7 +158,7 @@ Public Class frmAdvancedImport
         lstGames.Items.Clear()
         lstGames.ListViewItemSorter = Nothing
 
-        If bAutoDetect Then
+        If bSelectedOnly Then
             chkSelectedOnly.Checked = True
         End If
 
@@ -141,30 +186,6 @@ Public Class frmAdvancedImport
             Else
                 oListViewItem.Checked = False
             End If
-
-            Try
-                If bAutoDetect Then
-                    If mgrPath.IsPopulatedRegistryKey(oApp.Path) Then
-                        oListViewItem.Checked = True
-                    ElseIf oApp.AbsolutePath And oApp.FolderSave Then
-                        If Directory.Exists(oApp.Path) And Not IgnorePath(oApp.Path) Then
-                            oListViewItem.Checked = True
-                        End If
-                    ElseIf oApp.AbsolutePath And Not oApp.FolderSave Then
-                        If Directory.Exists(oApp.Path) Then
-                            For Each s As String In oApp.FileType.Split(":")
-                                'For performance reasons we are not using a recursive search.
-                                If Directory.GetFiles(oApp.Path, s, SearchOption.TopDirectoryOnly).Length > 0 Then
-                                    oListViewItem.Checked = True
-                                    Exit For
-                                End If
-                            Next
-                        End If
-                    End If
-                End If
-            Catch
-                'It should never happen at this point, but if the auto detect fails due to bad data we just ignore it and move on.
-            End Try
 
             If oApp.ImportUpdate Then
                 oListViewItem.ImageIndex = 1
@@ -207,10 +228,6 @@ Public Class frmAdvancedImport
         UpdateTotals()
 
         Cursor.Current = Cursors.Default
-
-        If bAutoDetect And lstGames.Items.Count = 0 Then
-            chkSelectedOnly.Checked = False
-        End If
     End Sub
 
     Private Sub SetForm()
@@ -286,7 +303,7 @@ Public Class frmAdvancedImport
     Private Sub frmAdvancedImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetForm()
         LoadIgnorePaths()
-        LoadData(String.Empty, True)
+        LoadData(String.Empty, AutoDetect() > 0)
     End Sub
 
     Private Sub chkSelectAll_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectAll.CheckedChanged
@@ -306,7 +323,11 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub btnDetect_Click(sender As Object, e As EventArgs) Handles btnDetectSavedGames.Click
-        If Not bIsLoading Then LoadData(txtFilter.Text, True)
+        If Not bIsLoading Then
+            If AutoDetect() > 0 Then
+                LoadData(txtFilter.Text, True)
+            End If
+        End If
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
