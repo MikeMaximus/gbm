@@ -233,6 +233,7 @@ Public Class frmAdvancedImport
 
     Private Sub AutoSizeColumns()
         If lstGames.Columns.Count > 0 Then
+            lstGames.BeginUpdate()
             If bClassicMode Then
                 lstGames.Columns(0).Width = Math.Round(lstGames.Size.Width * 0.3)
                 lstGames.Columns(1).Width = Math.Round(lstGames.Size.Width * 0.15)
@@ -246,6 +247,7 @@ Public Class frmAdvancedImport
                 lstGames.Columns(3).Width = Math.Round(lstGames.Size.Width * 0.09)
                 lstGames.Columns(4).Width = Math.Round(lstGames.Size.Width * 0.09)
             End If
+            lstGames.EndUpdate()
         End If
     End Sub
 
