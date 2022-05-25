@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.1 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-May 23, 2022
+May 25, 2022
 
 New in 1.3.1
 
@@ -24,6 +24,7 @@ All Platforms:
 		- If no saved games are detected, the full list is shown.
 	- The "Select All" checkbox should now function in a more expected manner.
 	- Column sizes will no longer reset when filters are applied.
+	- Columns now automatically resize when the form is resized.	
 	- Added columns to display more information about each configuration.
 	- Fixed performance issues when filtering or sorting large data sets.
 - Improved saved game detection on the Import window.

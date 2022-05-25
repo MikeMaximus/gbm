@@ -12,6 +12,7 @@ Public Class frmAdvancedImport
     Private iCurrentSort As Integer = 0
     Private oImageList As ImageList
     Private WithEvents tmFilterTimer As Timer
+    Private oLastWindowState As FormWindowState
 
     Public Property ImportInfo As ExportData
         Set(value As ExportData)
@@ -230,6 +231,24 @@ Public Class frmAdvancedImport
         Cursor.Current = Cursors.Default
     End Sub
 
+    Private Sub AutoSizeColumns()
+        If lstGames.Columns.Count > 0 Then
+            If bClassicMode Then
+                lstGames.Columns(0).Width = Math.Round(lstGames.Size.Width * 0.3)
+                lstGames.Columns(1).Width = Math.Round(lstGames.Size.Width * 0.15)
+                lstGames.Columns(2).Width = Math.Round(lstGames.Size.Width * 0.29)
+                lstGames.Columns(3).Width = Math.Round(lstGames.Size.Width * 0.13)
+                lstGames.Columns(4).Width = Math.Round(lstGames.Size.Width * 0.09)
+            Else
+                lstGames.Columns(0).Width = Math.Round(lstGames.Size.Width * 0.36)
+                lstGames.Columns(1).Width = Math.Round(lstGames.Size.Width * 0.29)
+                lstGames.Columns(2).Width = Math.Round(lstGames.Size.Width * 0.13)
+                lstGames.Columns(3).Width = Math.Round(lstGames.Size.Width * 0.09)
+                lstGames.Columns(4).Width = Math.Round(lstGames.Size.Width * 0.09)
+            End If
+        End If
+    End Sub
+
     Private Sub SetForm()
         'Set Form Name
         Me.Text = frmAdvancedImport_FormName
@@ -259,18 +278,19 @@ Public Class frmAdvancedImport
 
         'Setup Columns
         If bClassicMode Then
-            lstGames.Columns.Add(frmAdvancedImport_ColumnName, 250)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnProcess, 115)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnPath, 200)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnInclude, 100)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 70)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnName)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnProcess)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnPath)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnInclude)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnTags)
         Else
-            lstGames.Columns.Add(frmAdvancedImport_ColumnName, 295)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnPath, 200)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnInclude, 100)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnOs, 70)
-            lstGames.Columns.Add(frmAdvancedImport_ColumnTags, 70)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnName)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnPath)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnInclude)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnOs)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnTags)
         End If
+        AutoSizeColumns()
 
         'Init Filter Timer
         tmFilterTimer = New Timer()
@@ -355,6 +375,18 @@ Public Class frmAdvancedImport
         LoadData(txtFilter.Text, chkSelectedOnly.Checked)
         tmFilterTimer.Stop()
         tmFilterTimer.Enabled = False
+    End Sub
+
+    Private Sub frmAdvancedImport_ResizeEnd(sender As Object, e As EventArgs) Handles MyBase.ResizeEnd
+        AutoSizeColumns()
+    End Sub
+
+    Private Sub frmAdvancedImport_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+        'We need this work-around because .NET doesn't fire the ResizeEnd event when using the "Maximize" or "Restore" buttons.
+        If Not oLastWindowState = Me.WindowState Then
+            oLastWindowState = Me.WindowState
+            AutoSizeColumns()
+        End If
     End Sub
 End Class
 
