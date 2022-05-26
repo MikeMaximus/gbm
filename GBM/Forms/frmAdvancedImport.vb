@@ -323,9 +323,16 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub frmAdvancedImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim bSelectedOnly As Boolean = False
+
         SetForm()
         LoadIgnorePaths()
-        LoadData(String.Empty, AutoDetect() > 0)
+
+        If bClassicMode Then
+            bSelectedOnly = AutoDetect() > 0
+        End If
+
+        LoadData(String.Empty, bSelectedOnly)
     End Sub
 
     Private Sub chkSelectAll_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectAll.CheckedChanged

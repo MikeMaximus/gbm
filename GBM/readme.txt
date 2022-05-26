@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.1 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-May 25, 2022
+May 26, 2022
 
 New in 1.3.1
 
@@ -18,18 +18,16 @@ All Platforms:
 	- GBM can auto-configure the path variables required for Steam Cloud locations if possible.
 		- This feature must be enabled manually in Settings -> General -> Optional Features -> "Enable automatic configuration of store paths"
 	- See the Store Variables(https://mikemaximus.github.io/gbm-web/manual.html#storevariables) section of the manual for more information about this feature.		
-- UI improvements on the Import window.
-	- Only configurations with detected saved games are shown and selected by default.
-		- This should be less confusing and intimidating for new users.
-		- If no saved games are detected, the full list is shown.
+- Improvements to the Import window.
+	- Configurations with detected saved games are selected and displayed by default when importing from official lists.
 	- The "Select All" checkbox should now function in a more expected manner.
 	- Column sizes will no longer reset when filters are applied.
-	- Columns now automatically resize when the form is resized.	
+	- Columns now automatically resize when the form is resized.
 	- Added columns to display more information about each configuration.
 	- Fixed performance issues when filtering or sorting large data sets.
-- Improved saved game detection on the Import window.
-	- Windows registry configurations are now detected.
-	- Better detection of configurations that use file includes.
+	- Improved saved game detection.
+		- Windows registry configurations are now detected.
+		- Better detection of configurations that use file includes.
 - The GameID will now automatically be used for the backup sub-folder and file name of any configuration using duplicate names, regardless of the global setting for folder & file names.
 	- This is done as a safety measure to prevent unknowingly overwriting the backup file of another configuration using the same name.
 	- Edit any duplicate configuration names and make them unique to prevent this from happening.
@@ -47,5 +45,9 @@ Linux:
 
 - Fixed games running in Wine not being detected.
 	- "wine-preloader, wine, wine64-preloader, wine64" will now be detected instead of just the preloader variants.
+
+Known Issues:
+
+- The Import window can be slow to load and make the application temporarily unresponsive when handling lists with ~10,000 or more configurations.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
