@@ -881,21 +881,24 @@ Public Class mgrMonitorList
     End Function
 
     Public Shared Function DoImport(ByVal sPath As String) As Boolean
-        If mgrCommon.IsAddress(sPath) Then
+        If ImportMonitorList(sPath) Then
+            SyncMonitorLists()
+            Return True
+        End If
+
+        Return False
+    End Function
+
+    Public Shared Function VerifyImport(ByVal sPath As String, ByVal bIsURL As Boolean) As Boolean
+        If bIsURL Then
             If mgrCommon.CheckAddress(sPath) Then
-                If ImportMonitorList(sPath, True) Then
-                    SyncMonitorLists()
-                    Return True
-                End If
+                Return DoImport(sPath)
             Else
                 mgrCommon.ShowMessage(mgrMonitorList_WebNoReponse, sPath, MsgBoxStyle.Exclamation)
             End If
         Else
             If File.Exists(sPath) Then
-                If ImportMonitorList(sPath) Then
-                    SyncMonitorLists()
-                    Return True
-                End If
+                Return DoImport(sPath)
             Else
                 mgrCommon.ShowMessage(mgrMonitorList_FileNotFound, sPath, MsgBoxStyle.Exclamation)
             End If
@@ -904,7 +907,7 @@ Public Class mgrMonitorList
         Return False
     End Function
 
-    Private Shared Function ImportMonitorList(ByVal sLocation As String, Optional ByVal bWebRead As Boolean = False) As Boolean
+    Private Shared Function ImportMonitorList(ByVal sLocation As String) As Boolean
         Dim hshCompareFrom As New Hashtable
         Dim hshCompareTo As Hashtable
         Dim hshSyncItems As Hashtable
@@ -916,12 +919,12 @@ Public Class mgrMonitorList
 
         Select Case Path.GetExtension(sLocation)
             Case ".xml"
-                If Not mgrXML.DeserializeAndImport(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
+                If Not mgrXML.DeserializeAndImport(sLocation, oExportInfo, hshCompareFrom) Then
                     Return False
                 End If
                 bClassicMode = True
             Case ".yaml", ".yml"
-                If Not mgrLudusavi.ReadLudusaviManifest(sLocation, oExportInfo, hshCompareFrom, bWebRead) Then
+                If Not mgrLudusavi.ReadLudusaviManifest(sLocation, oExportInfo, hshCompareFrom) Then
                     Return False
                 End If
                 bClassicMode = False
@@ -1026,7 +1029,7 @@ Public Class mgrMonitorList
                 oSavedPath.Path = sLocation
                 mgrSavedPath.AddUpdatePath(oSavedPath)
 
-                If DoImport(sLocation) Then
+                If VerifyImport(sLocation, True) Then
                     Return True
                 End If
             Else
@@ -1046,7 +1049,7 @@ Public Class mgrMonitorList
         sLocation = mgrCommon.OpenFileBrowser("XML_Import", mgrMonitorList_ChooseImport, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), True)
 
         If sLocation <> String.Empty Then
-            If DoImport(sLocation) Then
+            If VerifyImport(sLocation, False) Then
                 Return True
             End If
         End If

@@ -356,7 +356,7 @@ Public Class mgrLudusavi
         sYAML = sYAML.Replace(" *:", "*:")
     End Sub
 
-    Public Shared Function ReadLudusaviManifest(ByVal sLocation As String, ByRef oExportInfo As ExportData, ByRef hshList As Hashtable, Optional ByVal bWedRead As Boolean = False) As Boolean
+    Public Shared Function ReadLudusaviManifest(ByVal sLocation As String, ByRef oExportInfo As ExportData, ByRef hshList As Hashtable) As Boolean
         Dim oBuilder As DeserializerBuilder
         Dim oDeserializer As Deserializer
         Dim oReader As StreamReader
@@ -373,8 +373,8 @@ Public Class mgrLudusavi
             oBuilder.IgnoreUnmatchedProperties()
             oDeserializer = oBuilder.Build()
 
-            If bWedRead Then
-                oReader = mgrCommon.ReadTextFromCache(sLocation, True, oExportInfo.Exported)
+            If mgrCommon.IsAddress(sLocation) Then
+                oReader = mgrCommon.ReadTextFromCache(sLocation, oExportInfo.Exported)
                 sYAML = oReader.ReadToEnd
                 oReader.Close()
             Else

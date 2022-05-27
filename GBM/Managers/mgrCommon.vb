@@ -118,14 +118,14 @@ Public Class mgrCommon
             response.Close()
             Return True
         Catch exWeb As WebException
-            If DirectCast(exWeb.Response, HttpWebResponse).StatusCode = HttpStatusCode.NotModified Then
+            If Not exWeb.Response Is Nothing Then
+                If Not DirectCast(exWeb.Response, HttpWebResponse).StatusCode = HttpStatusCode.NotModified Then
+                    ShowMessage(mgrCommon_ErrorUnexpectedWebResponse, New String() {DirectCast(exWeb.Response, HttpWebResponse).StatusCode, sURL}, MsgBoxStyle.Critical)
+                End If
                 exWeb.Response.Close()
-                Return False
+            Else
+                ShowMessage(mgrCommon_ErrorAccessingWebLocation, New String() {sURL, exWeb.Message}, MsgBoxStyle.Critical)
             End If
-            ShowMessage(mgrCommon_ErrorUnexpectedWebResponse, New String() {DirectCast(exWeb.Response, HttpWebResponse).StatusCode, sURL}, MsgBoxStyle.Critical)
-            exWeb.Response.Close()
-        Catch ex As Exception
-            ShowMessage(mgrCommon_ErrorAccessingWebLocation, sURL, MsgBoxStyle.Critical)
         End Try
 
         Return False
@@ -798,14 +798,14 @@ Public Class mgrCommon
     End Sub
 
     'Read text from a location, use local cache when appropriate for web locations.
-    Public Shared Function ReadTextFromCache(ByVal sLocation As String, ByVal bWebRead As Boolean, Optional ByRef lLastModified As Long = 0) As StreamReader
+    Public Shared Function ReadTextFromCache(ByVal sLocation As String, Optional ByRef lLastModified As Long = 0) As StreamReader
         Dim oReader As StreamReader
         Dim oURL As Uri
         Dim sCachedFile As String
         Dim sETagFile As String
         Dim sETag As String = String.Empty
 
-        If bWebRead Then
+        If mgrCommon.IsAddress(sLocation) Then
             'Set local file locations
             oURL = New Uri(sLocation)
             sCachedFile = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & oURL.Segments(oURL.Segments.Length - 1)

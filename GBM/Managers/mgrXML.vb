@@ -13,7 +13,7 @@ Public Class mgrXML
         Return True
     End Function
 
-    Public Shared Function DeserializeAndImport(ByVal sLocation As String, ByRef oExportInfo As ExportData, ByRef hshList As Hashtable, Optional ByVal bWebRead As Boolean = False) As Boolean
+    Public Shared Function DeserializeAndImport(ByVal sLocation As String, ByRef oExportInfo As ExportData, ByRef hshList As Hashtable) As Boolean
         Dim oReader As StreamReader
         Dim oSerializer As XmlSerializer
         Dim oList As List(Of Game)
@@ -25,19 +25,14 @@ Public Class mgrXML
         Try
             Cursor.Current = Cursors.WaitCursor
 
-            'If the file doesn't exist return an empty list
-            If Not File.Exists(sLocation) And Not bWebRead Then
-                Return False
-            End If
-
-            oReader = mgrCommon.ReadTextFromCache(sLocation, bWebRead)
+            oReader = mgrCommon.ReadTextFromCache(sLocation)
             oSerializer = New XmlSerializer(GetType(ExportData), New XmlRootAttribute("gbm"))
             oExportData = oSerializer.Deserialize(oReader)
             oReader.Close()
 
             'Compatability Mode
             If oExportData.AppVer = 0 Then
-                oReader = mgrCommon.ReadTextFromCache(sLocation, bWebRead)
+                oReader = mgrCommon.ReadTextFromCache(sLocation)
                 oSerializer = New XmlSerializer(GetType(List(Of Game)), New XmlRootAttribute("gbm"))
                 oExportData.Configurations = oSerializer.Deserialize(oReader)
                 oReader.Close()
@@ -89,7 +84,7 @@ Public Class mgrXML
 
             Return True
         Catch ex As Exception
-            mgrCommon.ShowMessage(mgrXML_ErrorImportFailure, ex.Message, MsgBoxStyle.Exclamation)
+            mgrCommon.ShowMessage(mgrXML_ErrorImportFailure, ex.Message, MsgBoxStyle.Critical)
             Return False
         Finally
             Cursor.Current = Cursors.Default

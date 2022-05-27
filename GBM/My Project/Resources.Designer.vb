@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-05-27T14:10:37
+        '''  Looks up a localized string similar to 2022-05-27T20:28:36
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -8065,7 +8065,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An unexpected error occured when accessing: [BR][BR][PARAM].
+        '''  Looks up a localized string similar to An unexpected error occured when accessing: [BR][BR][PARAM][BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_ErrorAccessingWebLocation() As String
             Get
@@ -8092,7 +8092,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An unexpected error or response ([PARAM]) was received from:[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An unexpected response ([PARAM]) was received from:[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_ErrorUnexpectedWebResponse() As String
             Get
