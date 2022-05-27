@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-05-27T13:38:10
+        '''  Looks up a localized string similar to 2022-05-27T14:10:37
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -8448,24 +8448,6 @@ Namespace My.Resources
         Friend ReadOnly Property mgrMonitorList_ConfirmExistingData() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_ConfirmExistingData", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Would you like to choose games to import from the Ludusavi Manifest?[BR][BR]This requires an active internet connection..
-        '''</summary>
-        Friend ReadOnly Property mgrMonitorList_ConfirmLudusaviImport() As String
-            Get
-                Return ResourceManager.GetString("mgrMonitorList_ConfirmLudusaviImport", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection..
-        '''</summary>
-        Friend ReadOnly Property mgrMonitorList_ConfirmOfficialImport() As String
-            Get
-                Return ResourceManager.GetString("mgrMonitorList_ConfirmOfficialImport", resourceCulture)
             End Get
         End Property
         

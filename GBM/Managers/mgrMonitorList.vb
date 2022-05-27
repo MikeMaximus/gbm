@@ -1077,10 +1077,8 @@ Public Class mgrMonitorList
             End If
         End If
 
-        If mgrCommon.ShowMessage(mgrMonitorList_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If DoImport(sImportUrl) Then
-                Return True
-            End If
+        If DoImport(sImportUrl) Then
+            Return True
         End If
 
         Return False
@@ -1093,10 +1091,8 @@ Public Class mgrMonitorList
             mgrSettings.SaveSettings()
         End If
 
-        If mgrCommon.ShowMessage(mgrMonitorList_ConfirmLudusaviImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If DoImport(sImportUrl) Then
-                Return True
-            End If
+        If DoImport(sImportUrl) Then
+            Return True
         End If
 
         Return False

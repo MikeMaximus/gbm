@@ -468,9 +468,6 @@
   <data name="frmGameManager_ConfirmMultiRestore" xml:space="preserve">
     <value>Are you sure you want to restore the backups for [PARAM] games?  This will close the form.</value>
   </data>
-  <data name="mgrMonitorList_ConfirmOfficialImport" xml:space="preserve">
-    <value>Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection.</value>
-  </data>
   <data name="frmGameManager_ConfirmRestore" xml:space="preserve">
     <value>Are you sure you want to restore the backup for [PARAM]?  This will close the form.</value>
   </data>
@@ -3075,9 +3072,6 @@
   </data>
   <data name="frmMain_gMonFileImportLudusavi" xml:space="preserve">
     <value>&amp;Ludusavi Manifest...</value>
-  </data>
-  <data name="mgrMonitorList_ConfirmLudusaviImport" xml:space="preserve">
-    <value>Would you like to choose games to import from the Ludusavi Manifest?[BR][BR]This requires an active internet connection.</value>
   </data>
   <data name="mgrMonitorList_WarningLudusaviImport" xml:space="preserve">
     <value>The primary Ludusavi Manifest contains thousands of saved game configurations sourced from PCGamingWiki.[BR][BR]These are untested configurations only suitable for manual backups by default and may not be fully compatible with GBM.[BR][BR]This message will only be shown once.</value>
