@@ -18,6 +18,7 @@ Public Class frmLudusaviConfig
         Me.Icon = GBM_Icon
 
         'Set Form Text
+        grpSearch.Text = frmLudusaviConfig_grpSearch
         grpProfileTypes.Text = frmLudusaviConfig_grpProfileTypes
         chkSavedGames.Text = frmLudusaviConfig_chkSavedGames
         chkConfigurationFiles.Text = frmLudusaviConfig_chkConfigurationFiles
@@ -54,6 +55,7 @@ Public Class frmLudusaviConfig
 
     Private Sub BuildOptions()
         oImportOptions = New clsLudusaviOptions()
+        oImportOptions.Query = txtQuery.Text
         oImportOptions.IncludeSaves = chkSavedGames.Checked
         oImportOptions.IncludeConfigs = chkConfigurationFiles.Checked
         If chkWindows.Checked Then oImportOptions.IncludeOS = oImportOptions.IncludeOS Or clsLudusaviOptions.eSupportedOS.Windows

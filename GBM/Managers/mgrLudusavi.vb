@@ -210,6 +210,12 @@ Public Class mgrLudusavi
 
         Try
             For Each oLudusaviGamePair In oList
+                If Not oOptions.QueryAsRegEx Is Nothing Then
+                    If Not oOptions.QueryAsRegEx.IsMatch(oLudusaviGamePair.Key) Then
+                        Continue For
+                    End If
+                End If
+
                 oConfigurations.Clear()
                 oLudusaviGame = DirectCast(oLudusaviGamePair.Value, LudusaviGame)
 

@@ -30,18 +30,21 @@ Partial Class frmLudusaviConfig
         Me.chkWindows = New System.Windows.Forms.CheckBox()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
+        Me.grpSearch = New System.Windows.Forms.GroupBox()
+        Me.txtQuery = New System.Windows.Forms.TextBox()
         Me.grpProfileTypes.SuspendLayout()
         Me.grpOperatingSystems.SuspendLayout()
+        Me.grpSearch.SuspendLayout()
         Me.SuspendLayout()
         '
         'grpProfileTypes
         '
         Me.grpProfileTypes.Controls.Add(Me.chkConfigurationFiles)
         Me.grpProfileTypes.Controls.Add(Me.chkSavedGames)
-        Me.grpProfileTypes.Location = New System.Drawing.Point(12, 12)
+        Me.grpProfileTypes.Location = New System.Drawing.Point(12, 67)
         Me.grpProfileTypes.Name = "grpProfileTypes"
-        Me.grpProfileTypes.Size = New System.Drawing.Size(200, 69)
-        Me.grpProfileTypes.TabIndex = 0
+        Me.grpProfileTypes.Size = New System.Drawing.Size(260, 69)
+        Me.grpProfileTypes.TabIndex = 1
         Me.grpProfileTypes.TabStop = False
         Me.grpProfileTypes.Text = "Profile Types"
         '
@@ -69,10 +72,10 @@ Partial Class frmLudusaviConfig
         '
         Me.grpOperatingSystems.Controls.Add(Me.chkLinux)
         Me.grpOperatingSystems.Controls.Add(Me.chkWindows)
-        Me.grpOperatingSystems.Location = New System.Drawing.Point(12, 87)
+        Me.grpOperatingSystems.Location = New System.Drawing.Point(12, 142)
         Me.grpOperatingSystems.Name = "grpOperatingSystems"
-        Me.grpOperatingSystems.Size = New System.Drawing.Size(200, 71)
-        Me.grpOperatingSystems.TabIndex = 1
+        Me.grpOperatingSystems.Size = New System.Drawing.Size(260, 71)
+        Me.grpOperatingSystems.TabIndex = 2
         Me.grpOperatingSystems.TabStop = False
         Me.grpOperatingSystems.Text = "Operating Systems"
         '
@@ -100,10 +103,10 @@ Partial Class frmLudusaviConfig
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(152, 164)
+        Me.btnCancel.Location = New System.Drawing.Point(212, 219)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(60, 45)
-        Me.btnCancel.TabIndex = 3
+        Me.btnCancel.TabIndex = 4
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
@@ -111,19 +114,37 @@ Partial Class frmLudusaviConfig
         'btnOK
         '
         Me.btnOK.Image = Global.GBM.My.Resources.Resources.Multi_Ok
-        Me.btnOK.Location = New System.Drawing.Point(86, 164)
+        Me.btnOK.Location = New System.Drawing.Point(146, 219)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(60, 45)
-        Me.btnOK.TabIndex = 2
+        Me.btnOK.TabIndex = 3
         Me.btnOK.Text = "&OK"
         Me.btnOK.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnOK.UseVisualStyleBackColor = True
+        '
+        'grpSearch
+        '
+        Me.grpSearch.Controls.Add(Me.txtQuery)
+        Me.grpSearch.Location = New System.Drawing.Point(12, 11)
+        Me.grpSearch.Name = "grpSearch"
+        Me.grpSearch.Size = New System.Drawing.Size(260, 50)
+        Me.grpSearch.TabIndex = 0
+        Me.grpSearch.TabStop = False
+        Me.grpSearch.Text = "Quick Search"
+        '
+        'txtQuery
+        '
+        Me.txtQuery.Location = New System.Drawing.Point(6, 19)
+        Me.txtQuery.Name = "txtQuery"
+        Me.txtQuery.Size = New System.Drawing.Size(248, 20)
+        Me.txtQuery.TabIndex = 0
         '
         'frmLudusaviConfig
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(224, 221)
+        Me.ClientSize = New System.Drawing.Size(284, 276)
+        Me.Controls.Add(Me.grpSearch)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.grpOperatingSystems)
@@ -140,6 +161,8 @@ Partial Class frmLudusaviConfig
         Me.grpProfileTypes.PerformLayout()
         Me.grpOperatingSystems.ResumeLayout(False)
         Me.grpOperatingSystems.PerformLayout()
+        Me.grpSearch.ResumeLayout(False)
+        Me.grpSearch.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -152,4 +175,6 @@ Partial Class frmLudusaviConfig
     Friend WithEvents chkWindows As CheckBox
     Friend WithEvents btnCancel As Button
     Friend WithEvents btnOK As Button
+    Friend WithEvents grpSearch As GroupBox
+    Friend WithEvents txtQuery As TextBox
 End Class

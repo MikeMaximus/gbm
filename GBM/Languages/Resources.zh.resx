@@ -2594,12 +2594,6 @@
   <data name="mgrLaunchGame_ErrorNoAutoWineSupport" xml:space="preserve">
     <value>当前不支持在Linux中使用自动生成的命令启动Windows游戏。[BR][BR]你可以手动配置此游戏以使用外部启动器或脚本。</value>
   </data>
-  <data name="frmQuickLauncher_btnGo" xml:space="preserve">
-    <value>运行</value>
-  </data>
-  <data name="frmQuickLauncher_FormName" xml:space="preserve">
-    <value>快速启动器</value>
-  </data>
   <data name="frmMain_gMonTraySetup" xml:space="preserve">
     <value>高级设置</value>
   </data>

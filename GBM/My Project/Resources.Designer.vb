@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-05-23T14:04:37
+        '''  Looks up a localized string similar to 2022-05-27T13:38:10
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3944,6 +3944,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Quick Search.
+        '''</summary>
+        Friend ReadOnly Property frmLudusaviConfig_grpSearch() As String
+            Get
+                Return ResourceManager.GetString("frmLudusaviConfig_grpSearch", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Game Backup Monitor[BR]Version: [PARAM] ([PARAM])[BR]Build: [PARAM][BR]Platform: [PARAM][BR]SQLite: [PARAM][BR][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details..
         '''</summary>
         Friend ReadOnly Property frmMain_About() As String
@@ -5825,24 +5834,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmProcessManager_lblPath() As String
             Get
                 Return ResourceManager.GetString("frmProcessManager_lblPath", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to &amp;Go.
-        '''</summary>
-        Friend ReadOnly Property frmQuickLauncher_btnGo() As String
-            Get
-                Return ResourceManager.GetString("frmQuickLauncher_btnGo", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Quick Launcher.
-        '''</summary>
-        Friend ReadOnly Property frmQuickLauncher_FormName() As String
-            Get
-                Return ResourceManager.GetString("frmQuickLauncher_FormName", resourceCulture)
             End Get
         End Property
         
