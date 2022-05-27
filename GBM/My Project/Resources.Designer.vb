@@ -106,7 +106,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured attempting to launch the application:[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occurred attempting to launch the application:[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property App_ErrorLaunchExternal() As String
             Get
@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-05-27T20:28:36
+        '''  Looks up a localized string similar to 2022-05-27T20:51:18
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -575,7 +575,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured working with the shortcut file.[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occurred working with the shortcut file.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property frmAddWizard_ErrorWithShortcut() As String
             Get
@@ -3350,7 +3350,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An unexpected error occured while reading the file system:[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An unexpected error occurred while reading the file system:[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property frmIncludeExclude_ErrorFileSystemRead() As String
             Get
@@ -4390,7 +4390,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An unexpected error has occured while monitoring [PARAM], detection will be stopped..
+        '''  Looks up a localized string similar to An unexpected error has occurred while monitoring [PARAM], detection will be stopped..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorCriticalDetectionFailure() As String
             Get
@@ -4435,7 +4435,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured when attempting to end a process associated with [PARAM].[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occurred when attempting to end a process associated with [PARAM].[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorEndChildProcess() As String
             Get
@@ -4444,7 +4444,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured while obtaining the details of the detected game..
+        '''  Looks up a localized string similar to An error occurred while obtaining the details of the detected game..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorGameDetails() As String
             Get
@@ -4453,7 +4453,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured while extracting the executable icon..
+        '''  Looks up a localized string similar to An error occurred while extracting the executable icon..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorGameIcon() As String
             Get
@@ -4462,7 +4462,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error has occured while saving the icon for [PARAM]:[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error has occurred while saving the icon for [PARAM]:[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorIconCache() As String
             Get
@@ -4471,7 +4471,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An unexpected error occured while initializing GBM.[BR][BR][PARAM][BR][BR]Do you wish to continue anyway? (Not Recommended).
+        '''  Looks up a localized string similar to An unexpected error occurred while initializing GBM.[BR][BR][PARAM][BR][BR]Do you wish to continue anyway? (Not Recommended).
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorInitFailure() As String
             Get
@@ -4570,7 +4570,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured creating application settings folder.  The application cannot proceed.[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occurred creating application settings folder.  The application cannot proceed.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorSettingsFolder() As String
             Get
@@ -4579,7 +4579,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured when attempting to start a process associated with [PARAM].[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occurred when attempting to start a process associated with [PARAM].[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorStartChildProcess() As String
             Get
@@ -6558,7 +6558,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured while configuring autostart:[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occurred while configuring autostart:[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property frmSettings_ErrorLinuxAutoStart() As String
             Get
@@ -7723,7 +7723,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured creating a file list: [PARAM].
+        '''  Looks up a localized string similar to An error occurred creating a file list: [PARAM].
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorFileList() As String
             Get
@@ -7804,7 +7804,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Backup Aborted.  An error occured while creating backup metadata for [PARAM]..
+        '''  Looks up a localized string similar to Backup Aborted.  An error occurred while creating backup metadata for [PARAM]..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorMetadataFailure() As String
             Get
@@ -7813,7 +7813,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured while moving the [PARAM] backup file from the temporary folder to the backup folder..
+        '''  Looks up a localized string similar to An error occurred while moving the [PARAM] backup file from the temporary folder to the backup folder..
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorMovingBackupFile() As String
             Get
@@ -7885,7 +7885,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to A failure occured while creating a backup sub-folder for [PARAM].[BR][PARAM].
+        '''  Looks up a localized string similar to A failure occurred while creating a backup sub-folder for [PARAM].[BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrBackup_ErrorSubFolderCreate() As String
             Get
@@ -8065,7 +8065,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An unexpected error occured when accessing: [BR][BR][PARAM][BR][BR][PARAM].
+        '''  Looks up a localized string similar to An unexpected error occurred when accessing: [BR][BR][PARAM][BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_ErrorAccessingWebLocation() As String
             Get
@@ -8074,7 +8074,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error has occured reading the text file.[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error has occurred reading the text file.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_ErrorReadingTextFile() As String
             Get
@@ -8083,7 +8083,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured starting GBM as Administrator.[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occurred starting GBM as Administrator.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_ErrorRestartAsAdmin() As String
             Get
@@ -8101,7 +8101,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error has occured writing the text file.[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error has occurred writing the text file.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrCommon_ErrorWritingTextFile() As String
             Get
@@ -8290,7 +8290,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured while attempting to launch a game.[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occurred while attempting to launch a game.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrLaunchGame_ErrorException() As String
             Get
@@ -8371,7 +8371,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error has occured during Ludusavi data conversion.[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error has occurred during Ludusavi data conversion.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrLudusavi_ErrorConverting() As String
             Get
@@ -8380,7 +8380,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error has occured while reading or deserializing Ludusavi data.[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error has occurred while reading or deserializing Ludusavi data.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrLudusavi_ErrorReading() As String
             Get
@@ -8677,7 +8677,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured when building a Wine path.[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occurred when building a Wine path.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrPath_ErrorBuildingWinePath() As String
             Get
@@ -8686,7 +8686,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured when converting to a Wine save path.[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occurred when converting to a Wine save path.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrPath_ErrorConvertWineSavePath() As String
             Get
@@ -8695,7 +8695,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured while building a list of environment variables.[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occurred while building a list of environment variables.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrPath_ErrorUnixEnv() As String
             Get
@@ -8704,7 +8704,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured when determining a Wine prefix.[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occurred when determining a Wine prefix.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrPath_ErrorWinePrefix() As String
             Get
@@ -8713,7 +8713,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured while determining a required system path. [BR][BR]The environment value for [PARAM] is empty.[BR][BR]The application will now exit..
+        '''  Looks up a localized string similar to An error occurred while determining a required system path. [BR][BR]The environment value for [PARAM] is empty.[BR][BR]The application will now exit..
         '''</summary>
         Friend ReadOnly Property mgrPath_SpecialPathError() As String
             Get
@@ -8893,7 +8893,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured exporting the session data.[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occurred exporting the session data.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrSessions_ErrorExportFailure() As String
             Get
@@ -8911,7 +8911,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured creating a backup of the database file at [PARAM][BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occurred creating a backup of the database file at [PARAM][BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrSQLite_ErrorBackupFailure() As String
             Get
@@ -8920,7 +8920,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error has occured attempting to create the local application database:[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error has occurred attempting to create the local application database:[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrSQLite_ErrorCreatingLocalDB() As String
             Get
@@ -8929,7 +8929,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error has occured attempting to create the remote application database:[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error has occurred attempting to create the remote application database:[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrSQLite_ErrorCreatingRemoteDB() As String
             Get
@@ -8938,7 +8938,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error has occured attempting run the query.[BR][BR][PARAM][BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error has occurred attempting run the query.[BR][BR][PARAM][BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrSQLite_ErrorQueryFailure() As String
             Get
@@ -8947,7 +8947,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occured exporting the XML data.[BR][BR][PARAM].
+        '''  Looks up a localized string similar to An error occurred exporting the XML data.[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property mgrXML_ErrorExportFailure() As String
             Get

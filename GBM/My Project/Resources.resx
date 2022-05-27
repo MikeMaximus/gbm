@@ -226,7 +226,7 @@
     <value>[PARAM] restore was cancelled due to a restore path issue.</value>
   </data>
   <data name="frmMain_ErrorSettingsFolder" xml:space="preserve">
-    <value>An error occured creating application settings folder.  The application cannot proceed.[BR][BR][PARAM]</value>
+    <value>An error occurred creating application settings folder.  The application cannot proceed.[BR][BR][PARAM]</value>
   </data>
   <data name="frmMain_ExePath" xml:space="preserve">
     <value>[PARAM] (Executable Path)</value>
@@ -646,7 +646,7 @@
     <value>You must choose items to include in the backup, or choose to save the entire folder.</value>
   </data>
   <data name="frmAddWizard_ErrorWithShortcut" xml:space="preserve">
-    <value>An error occured working with the shortcut file.[BR][BR][PARAM]</value>
+    <value>An error occurred working with the shortcut file.[BR][BR][PARAM]</value>
   </data>
   <data name="frmAddWizard_Exclude" xml:space="preserve">
     <value>Exclude</value>
@@ -868,7 +868,7 @@
     <value>Custom Item</value>
   </data>
   <data name="frmIncludeExclude_ErrorFileSystemRead" xml:space="preserve">
-    <value>An unexpected error occured while reading the file system:[BR][BR][PARAM]</value>
+    <value>An unexpected error occurred while reading the file system:[BR][BR][PARAM]</value>
   </data>
   <data name="frmIncludeExclude_FormName" xml:space="preserve">
     <value>[PARAM] Builder</value>
@@ -1183,7 +1183,7 @@
     <value>[PARAM] already exists in the backup folder.[BR][BR]Do you want to overwrite this file?</value>
   </data>
   <data name="mgrBackup_ErrorFileList" xml:space="preserve">
-    <value>An error occured creating a file list: [PARAM]</value>
+    <value>An error occurred creating a file list: [PARAM]</value>
   </data>
   <data name="mgrBackup_ErrorFullAbort" xml:space="preserve">
     <value>Backup aborted.  The backup file for [PARAM] may be unusable.</value>
@@ -1201,7 +1201,7 @@
     <value>[PARAM] backup aborted by user due to overwrite.</value>
   </data>
   <data name="mgrBackup_ErrorSubFolderCreate" xml:space="preserve">
-    <value>A failure occured while creating a backup sub-folder for [PARAM].[BR][PARAM]</value>
+    <value>A failure occurred while creating a backup sub-folder for [PARAM].[BR][PARAM]</value>
   </data>
   <data name="mgrBackup_GenerateHash" xml:space="preserve">
     <value>Generating SHA-256 hash for [PARAM] backup file.</value>
@@ -1312,19 +1312,19 @@
     <value>[PARAM] backup ([PARAM]) has been verified.</value>
   </data>
   <data name="mgrSQLite_ErrorBackupFailure" xml:space="preserve">
-    <value>An error occured creating a backup of the database file at [PARAM][BR][BR][PARAM]</value>
+    <value>An error occurred creating a backup of the database file at [PARAM][BR][BR][PARAM]</value>
   </data>
   <data name="mgrSQLite_ErrorCreatingLocalDB" xml:space="preserve">
-    <value>An error has occured attempting to create the local application database:[BR][BR][PARAM]</value>
+    <value>An error has occurred attempting to create the local application database:[BR][BR][PARAM]</value>
   </data>
   <data name="mgrSQLite_ErrorCreatingRemoteDB" xml:space="preserve">
-    <value>An error has occured attempting to create the remote application database:[BR][BR][PARAM]</value>
+    <value>An error has occurred attempting to create the remote application database:[BR][BR][PARAM]</value>
   </data>
   <data name="mgrSQLite_ErrorQueryFailure" xml:space="preserve">
-    <value>An error has occured attempting run the query.[BR][BR][PARAM][BR][BR][PARAM]</value>
+    <value>An error has occurred attempting run the query.[BR][BR][PARAM][BR][BR][PARAM]</value>
   </data>
   <data name="mgrXML_ErrorExportFailure" xml:space="preserve">
-    <value>An error occured exporting the XML data.[BR][BR][PARAM]</value>
+    <value>An error occurred exporting the XML data.[BR][BR][PARAM]</value>
   </data>
   <data name="mgrXML_ErrorImportFailure" xml:space="preserve">
     <value>The XML file cannot be read, it may be an invalid format or corrupted.[BR][BR][PARAM]</value>
@@ -1357,7 +1357,7 @@
     <value>Text</value>
   </data>
   <data name="mgrCommon_ErrorWritingTextFile" xml:space="preserve">
-    <value>An error has occured writing the text file.[BR][BR][PARAM]</value>
+    <value>An error has occurred writing the text file.[BR][BR][PARAM]</value>
   </data>
   <data name="frmSettings_cboCompression_Fast" xml:space="preserve">
     <value>Fast</value>
@@ -1405,7 +1405,7 @@
     <value>The command [PARAM] requires more parameters.</value>
   </data>
   <data name="frmMain_ErrorInitFailure" xml:space="preserve">
-    <value>An unexpected error occured while initializing GBM.[BR][BR][PARAM][BR][BR]Do you wish to continue anyway? (Not Recommended)</value>
+    <value>An unexpected error occurred while initializing GBM.[BR][BR][PARAM][BR][BR]Do you wish to continue anyway? (Not Recommended)</value>
   </data>
   <data name="App_ErrorUnixNotAvailable" xml:space="preserve">
     <value>This function is currently not available on a Unix based operating system.</value>
@@ -1834,7 +1834,7 @@
     <value>XML</value>
   </data>
   <data name="mgrSessions_ErrorExportFailure" xml:space="preserve">
-    <value>An error occured exporting the session data.[BR][BR][PARAM]</value>
+    <value>An error occurred exporting the session data.[BR][BR][PARAM]</value>
   </data>
   <data name="mgrSessions_ExportSuccess" xml:space="preserve">
     <value>The data has been exported successfully.</value>
@@ -1912,10 +1912,10 @@
     <value>Backup GBM data files on launch</value>
   </data>
   <data name="frmMain_ErrorEndChildProcess" xml:space="preserve">
-    <value>An error occured when attempting to end a process associated with [PARAM].[BR][BR][PARAM]</value>
+    <value>An error occurred when attempting to end a process associated with [PARAM].[BR][BR][PARAM]</value>
   </data>
   <data name="frmMain_ErrorStartChildProcess" xml:space="preserve">
-    <value>An error occured when attempting to start a process associated with [PARAM].[BR][BR][PARAM]</value>
+    <value>An error occurred when attempting to start a process associated with [PARAM].[BR][BR][PARAM]</value>
   </data>
   <data name="frmProcessManager_btnAdd" xml:space="preserve">
     <value>&amp;New</value>
@@ -2029,13 +2029,13 @@
     <value>[PARAM] already exists in the backup folder.[BR][BR]This game stores saves in a relative location, you may need to restore the current backup if the game was recently re-installed.[BR][BR]Do you want to overwrite this file?</value>
   </data>
   <data name="mgrPath_SpecialPathError" xml:space="preserve">
-    <value>An error occured while determining a required system path. [BR][BR]The environment value for [PARAM] is empty.[BR][BR]The application will now exit.</value>
+    <value>An error occurred while determining a required system path. [BR][BR]The environment value for [PARAM] is empty.[BR][BR]The application will now exit.</value>
   </data>
   <data name="frmMain_ErrorGameDetails" xml:space="preserve">
-    <value>An error occured while obtaining the details of the detected game.</value>
+    <value>An error occurred while obtaining the details of the detected game.</value>
   </data>
   <data name="frmMain_ErrorGameIcon" xml:space="preserve">
-    <value>An error occured while extracting the executable icon.</value>
+    <value>An error occurred while extracting the executable icon.</value>
   </data>
   <data name="frmGameManager_ErrorRenameFilesExist" xml:space="preserve">
     <value>The backup folder contains one or more backup files that cannot be renamed to [PARAM] because a file using that name already exists.[BR][BR]Do you want to continue and remove the existing files?</value>
@@ -2047,16 +2047,16 @@
     <value>Wine Prefix: [PARAM]</value>
   </data>
   <data name="mgrPath_ErrorBuildingWinePath" xml:space="preserve">
-    <value>An error occured when building a Wine path.[BR][BR][PARAM]</value>
+    <value>An error occurred when building a Wine path.[BR][BR][PARAM]</value>
   </data>
   <data name="mgrPath_ErrorConvertWineSavePath" xml:space="preserve">
-    <value>An error occured when converting to a Wine save path.[BR][BR][PARAM]</value>
+    <value>An error occurred when converting to a Wine save path.[BR][BR][PARAM]</value>
   </data>
   <data name="mgrPath_ErrorWinePrefix" xml:space="preserve">
-    <value>An error occured when determining a Wine prefix.[BR][BR][PARAM]</value>
+    <value>An error occurred when determining a Wine prefix.[BR][BR][PARAM]</value>
   </data>
   <data name="mgrPath_ErrorUnixEnv" xml:space="preserve">
-    <value>An error occured while building a list of environment variables.[BR][BR][PARAM]</value>
+    <value>An error occurred while building a list of environment variables.[BR][BR][PARAM]</value>
   </data>
   <data name="frmSettings_chkShowResolvedPaths" xml:space="preserve">
     <value>Show resolved paths</value>
@@ -2161,7 +2161,7 @@
     <value>Game Backup Monitor automatically updates the Wine configuration for a game each time it is detected.  Modifying any of these fields manually is not recommended in most cases.[BR][BR]This warning will only be displayed once.</value>
   </data>
   <data name="App_ErrorLaunchExternal" xml:space="preserve">
-    <value>An error occured attempting to launch the application:[BR][BR][PARAM]</value>
+    <value>An error occurred attempting to launch the application:[BR][BR][PARAM]</value>
   </data>
   <data name="mgrBackup_ErrorPathIsUNC" xml:space="preserve">
     <value>The temporary or backup folder is a UNC path.  The disk space check has been skipped.</value>
@@ -2173,7 +2173,7 @@
     <value>GBM is set to start automatically, but the autostart link is missing.  The autostart link has been re-created.</value>
   </data>
   <data name="frmSettings_ErrorLinuxAutoStart" xml:space="preserve">
-    <value>An error occured while configuring autostart:[BR][BR][PARAM]</value>
+    <value>An error occurred while configuring autostart:[BR][BR][PARAM]</value>
   </data>
   <data name="mgrBackup_ErrorRegNotFound" xml:space="preserve">
     <value>The utility reg.exe could not be located at [PARAM].  The backup cannot continue.</value>
@@ -2222,7 +2222,7 @@
     <value>_gbm_backup_metadata.xml</value>
   </data>
   <data name="mgrBackup_ErrorMetadataFailure" xml:space="preserve">
-    <value>Backup Aborted.  An error occured while creating backup metadata for [PARAM].</value>
+    <value>Backup Aborted.  An error occurred while creating backup metadata for [PARAM].</value>
   </data>
   <data name="mgrMetadata_InProgress" xml:space="preserve">
     <value>Adding metadata to backup file.</value>
@@ -2387,7 +2387,7 @@
     <value>Backup Folder</value>
   </data>
   <data name="mgrBackup_ErrorMovingBackupFile" xml:space="preserve">
-    <value>An error occured while moving the [PARAM] backup file from the temporary folder to the backup folder.</value>
+    <value>An error occurred while moving the [PARAM] backup file from the temporary folder to the backup folder.</value>
   </data>
   <data name="mgrBackup_TemporaryFolder" xml:space="preserve">
     <value>Temporary Folder</value>
@@ -2510,7 +2510,7 @@
     <value>None</value>
   </data>
   <data name="mgrLaunchGame_ErrorException" xml:space="preserve">
-    <value>An error occured while attempting to launch a game.[BR][BR][PARAM]</value>
+    <value>An error occurred while attempting to launch a game.[BR][BR][PARAM]</value>
   </data>
   <data name="mgrLaunchGame_ErrorNoProcess" xml:space="preserve">
     <value>[PARAM] cannot be launched, it's configuration has no process.</value>
@@ -2519,7 +2519,7 @@
     <value>Launching [PARAM] using [PARAM].</value>
   </data>
   <data name="mgrCommon_ErrorRestartAsAdmin" xml:space="preserve">
-    <value>An error occured starting GBM as Administrator.[BR][BR][PARAM]</value>
+    <value>An error occurred starting GBM as Administrator.[BR][BR][PARAM]</value>
   </data>
   <data name="frmMain_Warning64NoPath" xml:space="preserve">
     <value>[PARAM] is a 64-bit game and GBM is 32-bit.  The process path can not be determined, but is not required for this backup configuration.</value>
@@ -2639,7 +2639,7 @@
     <value>Are you sure you want to restore the latest backup for [PARAM]?[BR][BR][PARAM] ([PARAM])</value>
   </data>
   <data name="frmMain_ErrorIconCache" xml:space="preserve">
-    <value>An error has occured while saving the icon for [PARAM]:[BR][BR][PARAM]</value>
+    <value>An error has occurred while saving the icon for [PARAM]:[BR][BR][PARAM]</value>
   </data>
   <data name="frmMain_lblLastAction" xml:space="preserve">
     <value>None</value>
@@ -2906,7 +2906,7 @@
     <value>Incomplete backup operations ([PARAM]) are being automatically resumed.</value>
   </data>
   <data name="frmMain_ErrorCriticalDetectionFailure" xml:space="preserve">
-    <value>An unexpected error has occured while monitoring [PARAM], detection will be stopped.</value>
+    <value>An unexpected error has occurred while monitoring [PARAM], detection will be stopped.</value>
   </data>
   <data name="frmSettings_chkTwoPassDetection" xml:space="preserve">
     <value>Two-Pass Detection</value>
@@ -3044,10 +3044,10 @@
     <value>&amp;URL...</value>
   </data>
   <data name="mgrCommon_ErrorAccessingWebLocation" xml:space="preserve">
-    <value>An unexpected error occured when accessing: [BR][BR][PARAM][BR][BR][PARAM]</value>
+    <value>An unexpected error occurred when accessing: [BR][BR][PARAM][BR][BR][PARAM]</value>
   </data>
   <data name="mgrCommon_ErrorReadingTextFile" xml:space="preserve">
-    <value>An error has occured reading the text file.[BR][BR][PARAM]</value>
+    <value>An error has occurred reading the text file.[BR][BR][PARAM]</value>
   </data>
   <data name="mgrCommon_ErrorUnexpectedWebResponse" xml:space="preserve">
     <value>An unexpected response ([PARAM]) was received from:[BR][BR][PARAM]</value>
@@ -3080,10 +3080,10 @@
     <value>OS</value>
   </data>
   <data name="mgrLudusavi_ErrorConverting" xml:space="preserve">
-    <value>An error has occured during Ludusavi data conversion.[BR][BR][PARAM]</value>
+    <value>An error has occurred during Ludusavi data conversion.[BR][BR][PARAM]</value>
   </data>
   <data name="mgrLudusavi_ErrorReading" xml:space="preserve">
-    <value>An error has occured while reading or deserializing Ludusavi data.[BR][BR][PARAM]</value>
+    <value>An error has occurred while reading or deserializing Ludusavi data.[BR][BR][PARAM]</value>
   </data>
   <data name="mgrMonitorList_ErrorImportFileType" xml:space="preserve">
     <value>The file or URL does not contain a supported file extension.</value>
