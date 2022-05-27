@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.1 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-May 26, 2022
+May 27, 2022
 
 New in 1.3.1
 
@@ -28,6 +28,7 @@ All Platforms:
 	- Improved saved game detection.
 		- Windows registry configurations are now detected.
 		- Better detection of configurations that use file includes.
+	- Removed the initial confirmation when importing from official lists.
 - The GameID will now automatically be used for the backup sub-folder and file name of any configuration using duplicate names, regardless of the global setting for folder & file names.
 	- This is done as a safety measure to prevent unknowingly overwriting the backup file of another configuration using the same name.
 	- Edit any duplicate configuration names and make them unique to prevent this from happening.
