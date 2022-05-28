@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-05-27T20:51:18
+        '''  Looks up a localized string similar to 2022-05-27T21:10:43
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -8515,15 +8515,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The file:[BR][PARAM][BR]cannot be found..
-        '''</summary>
-        Friend ReadOnly Property mgrMonitorList_FileNotFound() As String
-            Get
-                Return ResourceManager.GetString("mgrMonitorList_FileNotFound", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Import Complete..
         '''</summary>
         Friend ReadOnly Property mgrMonitorList_ImportComplete() As String
@@ -8592,15 +8583,6 @@ Namespace My.Resources
         Friend ReadOnly Property mgrMonitorList_WarningWinConfigsInLinux() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_WarningWinConfigsInLinux", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to There&apos;s a problem with:[BR][BR][PARAM][BR][BR]The server is not responding, has an invalid SSL certificate or the URL is invalid for this action..
-        '''</summary>
-        Friend ReadOnly Property mgrMonitorList_WebNoReponse() As String
-            Get
-                Return ResourceManager.GetString("mgrMonitorList_WebNoReponse", resourceCulture)
             End Get
         End Property
         

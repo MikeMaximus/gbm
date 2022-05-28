@@ -889,24 +889,6 @@ Public Class mgrMonitorList
         Return False
     End Function
 
-    Public Shared Function VerifyImport(ByVal sPath As String, ByVal bIsURL As Boolean) As Boolean
-        If bIsURL Then
-            If mgrCommon.CheckAddress(sPath) Then
-                Return DoImport(sPath)
-            Else
-                mgrCommon.ShowMessage(mgrMonitorList_WebNoReponse, sPath, MsgBoxStyle.Exclamation)
-            End If
-        Else
-            If File.Exists(sPath) Then
-                Return DoImport(sPath)
-            Else
-                mgrCommon.ShowMessage(mgrMonitorList_FileNotFound, sPath, MsgBoxStyle.Exclamation)
-            End If
-        End If
-
-        Return False
-    End Function
-
     Private Shared Function ImportMonitorList(ByVal sLocation As String) As Boolean
         Dim hshCompareFrom As New Hashtable
         Dim hshCompareTo As Hashtable
@@ -1024,13 +1006,15 @@ Public Class mgrMonitorList
 
         If sLocation <> String.Empty Then
             If mgrCommon.IsAddress(sLocation) Then
-                'Save a valid URL for next time
-                oSavedPath.PathName = "Import_Custom_URL"
-                oSavedPath.Path = sLocation
-                mgrSavedPath.AddUpdatePath(oSavedPath)
+                If mgrCommon.CheckAddress(sLocation) Then
+                    'Save a valid URL for next time
+                    oSavedPath.PathName = "Import_Custom_URL"
+                    oSavedPath.Path = sLocation
+                    mgrSavedPath.AddUpdatePath(oSavedPath)
 
-                If VerifyImport(sLocation, True) Then
-                    Return True
+                    If DoImport(sLocation) Then
+                        Return True
+                    End If
                 End If
             Else
                 mgrCommon.ShowMessage(mgrMonitorList_CustomListURLError, MsgBoxStyle.Exclamation)
@@ -1049,7 +1033,7 @@ Public Class mgrMonitorList
         sLocation = mgrCommon.OpenFileBrowser("XML_Import", mgrMonitorList_ChooseImport, oExtensions, 1, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), True)
 
         If sLocation <> String.Empty Then
-            If VerifyImport(sLocation, False) Then
+            If DoImport(sLocation) Then
                 Return True
             End If
         End If

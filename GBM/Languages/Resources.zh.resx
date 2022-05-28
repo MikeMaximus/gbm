@@ -1226,9 +1226,6 @@
   <data name="mgrMonitorList_ExportComplete" xml:space="preserve">
     <value>导出完成[PARAM]项已导出。</value>
   </data>
-  <data name="mgrMonitorList_FileNotFound" xml:space="preserve">
-    <value>找不到文件：[BR][PARAM][BR]。</value>
-  </data>
   <data name="mgrMonitorList_ImportComplete" xml:space="preserve">
     <value>导入完成。</value>
   </data>

@@ -140,6 +140,7 @@ Public Class mgrCommon
             response = request.GetResponse()
             response.Close()
         Catch ex As Exception
+            ShowMessage(mgrCommon_ErrorAccessingWebLocation, New String() {sURL, ex.Message}, MsgBoxStyle.Critical)
             Return False
         End Try
 
