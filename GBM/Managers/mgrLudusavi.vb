@@ -38,7 +38,7 @@ Public Class mgrLudusavi
     End Function
 
     Private Shared Function IsValidProcess(ByVal sProcess As String) As Boolean
-        Dim sExt As String() = {".bat", ".sh"}
+        Dim sExt As String() = {".bat", ".sh", ".txt", ".pdf", ".htm", ".html"}
         Dim sName As String() = {"launch", "start_protected_game", "dowser"}
         Dim s As String
 
@@ -55,6 +55,19 @@ Public Class mgrLudusavi
         Next
 
         Return True
+    End Function
+
+    Private Shared Function RequiresArguments(ByVal sProcess As String) As Boolean
+        Dim sName As String() = {"dosbox", "scummvm", "javaw", "hl2", "portal2"}
+        Dim s As String
+
+        For Each s In sName
+            If sProcess.ToLower = s Then
+                Return True
+            End If
+        Next
+
+        Return False
     End Function
 
     Private Shared Function HasStorePath(ByVal sPath As String) As Boolean
@@ -213,7 +226,7 @@ Public Class mgrLudusavi
         If Not oLudusaviLaunchData Is Nothing Then
             For Each oLudusaviLaunchPair In oLudusaviLaunchData
                 For Each oLudusaviLaunch In oLudusaviLaunchPair.Value
-                    If (oLudusaviLaunch.when(0).os Is Nothing Or oLudusaviLaunch.when(0).os = sOS) Then
+                    If oLudusaviLaunch.when(0).os Is Nothing Or oLudusaviLaunch.when(0).os = sOS Then
                         sProcess = mgrPath.ValidatePath(oLudusaviLaunchPair.Key.Replace("<base>/", String.Empty))
                         If IsValidProcess(sProcess) Then
                             If sProcess.ToLower.EndsWith(".exe") Then
@@ -221,9 +234,11 @@ Public Class mgrLudusavi
                             Else
                                 sProcess = Path.GetFileName(sProcess)
                             End If
-                            If Not oLudusaviLaunch.arguments Is Nothing Then
-                                If oLudusaviLaunch.when(0).os = sOS Or oLudusaviLaunch.when(0).os Is Nothing Then
-                                    sArguments = oLudusaviLaunch.arguments
+                            If RequiresArguments(sProcess) Then
+                                If Not oLudusaviLaunch.arguments Is Nothing Then
+                                    If oLudusaviLaunch.when(0).os Is Nothing Or oLudusaviLaunch.when(0).os = sOS Then
+                                        sArguments = oLudusaviLaunch.arguments
+                                    End If
                                 End If
                             End If
                             Exit For
@@ -232,6 +247,9 @@ Public Class mgrLudusavi
                         End If
                     End If
                 Next
+                If sProcess <> String.Empty Then
+                    Exit For
+                End If
             Next
         End If
 
