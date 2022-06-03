@@ -387,7 +387,7 @@ Public Class mgrLudusavi
 
             Return True
         Catch ex As Exception
-            mgrCommon.ShowMessage(mgrLudusavi_ErrorReading, ex.Message, MsgBoxStyle.Critical)
+            mgrCommon.ShowMessage(mgrLudusavi_ErrorReading, ex.InnerException.Message, MsgBoxStyle.Critical)
             Return False
         Finally
             Cursor.Current = Cursors.Default
