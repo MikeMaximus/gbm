@@ -75,15 +75,15 @@ Public Class LudusaviPath
 End Class
 
 Public Class LudusaviLaunch
-    Private oWhen As List(Of LudusaviWhen)
+    Private oWhen As LudusaviWhen()
     Private sArguments As String
     Private sWorkingDir As String
 
-    Property [when] As List(Of LudusaviWhen)
+    Property [when] As LudusaviWhen()
         Get
             Return oWhen
         End Get
-        Set(value As List(Of LudusaviWhen))
+        Set(value As LudusaviWhen())
             oWhen = value
         End Set
     End Property

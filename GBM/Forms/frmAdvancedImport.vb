@@ -149,6 +149,7 @@ Public Class frmAdvancedImport
     Private Sub LoadData(Optional ByVal sFilter As String = "", Optional ByVal bSelectedOnly As Boolean = False)
         Dim oApp As clsGame
         Dim oListViewItem As ListViewItem
+        Dim sProcess As String
         Dim sTags As String
         Dim bAddItem As Boolean
 
@@ -174,10 +175,16 @@ Public Class frmAdvancedImport
             Next
             sTags = sTags.TrimEnd(New Char() {",", " "})
 
-            If bClassicMode Then
-                oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.ProcessName, oApp.Path, oApp.FileType, sTags})
+            If oApp.Parameter <> String.Empty Then
+                sProcess = oApp.ProcessName & " (" & oApp.Parameter & ")"
             Else
-                oListViewItem = New ListViewItem(New String() {oApp.Name, oApp.Path, oApp.FileType, oApp.OS.ToString, sTags})
+                sProcess = oApp.ProcessName
+            End If
+
+            If bClassicMode Then
+                oListViewItem = New ListViewItem(New String() {oApp.Name, sProcess, oApp.Path, oApp.FileType, sTags})
+            Else
+                oListViewItem = New ListViewItem(New String() {oApp.Name, sProcess, oApp.Path, oApp.FileType, oApp.OS.ToString, sTags})
             End If
 
             oListViewItem.Tag = oApp.ID
@@ -241,11 +248,12 @@ Public Class frmAdvancedImport
                 lstGames.Columns(3).Width = Math.Round(lstGames.Size.Width * 0.13)
                 lstGames.Columns(4).Width = Math.Round(lstGames.Size.Width * 0.09)
             Else
-                lstGames.Columns(0).Width = Math.Round(lstGames.Size.Width * 0.36)
-                lstGames.Columns(1).Width = Math.Round(lstGames.Size.Width * 0.29)
-                lstGames.Columns(2).Width = Math.Round(lstGames.Size.Width * 0.13)
-                lstGames.Columns(3).Width = Math.Round(lstGames.Size.Width * 0.09)
+                lstGames.Columns(0).Width = Math.Round(lstGames.Size.Width * 0.3)
+                lstGames.Columns(1).Width = Math.Round(lstGames.Size.Width * 0.15)
+                lstGames.Columns(2).Width = Math.Round(lstGames.Size.Width * 0.2)
+                lstGames.Columns(3).Width = Math.Round(lstGames.Size.Width * 0.13)
                 lstGames.Columns(4).Width = Math.Round(lstGames.Size.Width * 0.09)
+                lstGames.Columns(5).Width = Math.Round(lstGames.Size.Width * 0.09)
             End If
             lstGames.EndUpdate()
         End If
@@ -287,6 +295,7 @@ Public Class frmAdvancedImport
             lstGames.Columns.Add(frmAdvancedImport_ColumnTags)
         Else
             lstGames.Columns.Add(frmAdvancedImport_ColumnName)
+            lstGames.Columns.Add(frmAdvancedImport_ColumnProcess)
             lstGames.Columns.Add(frmAdvancedImport_ColumnPath)
             lstGames.Columns.Add(frmAdvancedImport_ColumnInclude)
             lstGames.Columns.Add(frmAdvancedImport_ColumnOs)

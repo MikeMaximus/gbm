@@ -37,6 +37,26 @@ Public Class mgrLudusavi
         Return True
     End Function
 
+    Private Shared Function IsValidProcess(ByVal sProcess As String) As Boolean
+        Dim sExt As String() = {".bat", ".sh"}
+        Dim sName As String() = {"launch", "start_protected_game", "dowser"}
+        Dim s As String
+
+        For Each s In sExt
+            If sProcess.ToLower.EndsWith(s) Then
+                Return False
+            End If
+        Next
+
+        For Each s In sName
+            If sProcess.ToLower.Contains(s) Then
+                Return False
+            End If
+        Next
+
+        Return True
+    End Function
+
     Private Shared Function HasStorePath(ByVal sPath As String) As Boolean
         Return sPath.Contains("<root>")
     End Function
@@ -184,6 +204,39 @@ Public Class mgrLudusavi
         oGame.ImportTags.Add(New Tag("Ludusavi"))
     End Sub
 
+    Private Shared Sub HandleLaunch(ByRef oGame As clsGame, ByRef oLudusaviLaunchData As Dictionary(Of String, List(Of LudusaviLaunch)), ByVal sOS As String)
+        Dim oLudusaviLaunchPair As KeyValuePair(Of String, List(Of LudusaviLaunch))
+        Dim oLudusaviLaunch As LudusaviLaunch
+        Dim sProcess As String = String.Empty
+        Dim sArguments As String = String.Empty
+
+        If Not oLudusaviLaunchData Is Nothing Then
+            For Each oLudusaviLaunchPair In oLudusaviLaunchData
+                For Each oLudusaviLaunch In oLudusaviLaunchPair.Value
+                    If (oLudusaviLaunch.when(0).os Is Nothing Or oLudusaviLaunch.when(0).os = sOS) And (oLudusaviLaunch.when(0).bit = 0 Or oLudusaviLaunch.when(0).bit = 64) Then
+                        sProcess = mgrPath.ValidatePath(oLudusaviLaunchPair.Key.Replace("<base>/", String.Empty))
+                        If IsValidProcess(sProcess) Then
+                            If sProcess.ToLower.EndsWith(".exe") Then
+                                sProcess = Path.GetFileNameWithoutExtension(sProcess)
+                            Else
+                                sProcess = Path.GetFileName(sProcess)
+                            End If
+                            If Not oLudusaviLaunch.arguments Is Nothing Then
+                                If oLudusaviLaunch.when(0).os = sOS Or oLudusaviLaunch.when(0).os Is Nothing Then
+                                    sArguments = oLudusaviLaunch.arguments
+                                End If
+                            End If
+                            Exit For
+                        End If
+                    End If
+                Next
+            Next
+        End If
+
+        oGame.ProcessName = sProcess
+        oGame.Parameter = sArguments
+    End Sub
+
     Private Shared Function DetectSupportedStorePaths() As List(Of String)
         Dim oStores As New List(Of String)
 
@@ -300,8 +353,12 @@ Public Class mgrLudusavi
                                                     End If
 
                                                     HandleTags(oLudusaviPath.tags, w.store, oGame)
+                                                    If Not (t = TagTypes.config.ToString And oLudusaviPath.tags.Length = 1) Then
+                                                        HandleLaunch(oGame, oLudusaviGame.launch, w.os)
+                                                    End If
+
                                                     oConfigurations.Add(oGame)
-                                                End If
+                                                    End If
                                             Next
                                         End If
                                     End If
@@ -326,6 +383,9 @@ Public Class mgrLudusavi
                                             oGame.OS = clsGame.eOS.Windows
 
                                             HandleTags(oLudusaviPath.tags, Nothing, oGame)
+                                            If Not (t = TagTypes.config.ToString And oLudusaviPath.tags.Length = 1) Then
+                                                HandleLaunch(oGame, oLudusaviGame.launch, OsTypes.windows.ToString)
+                                            End If
                                             oConfigurations.Add(oGame)
                                         End If
                                     Next
@@ -387,7 +447,7 @@ Public Class mgrLudusavi
 
             Return True
         Catch ex As Exception
-            mgrCommon.ShowMessage(mgrLudusavi_ErrorReading, ex.InnerException.Message, MsgBoxStyle.Critical)
+            mgrCommon.ShowMessage(mgrLudusavi_ErrorReading, ex.Message, MsgBoxStyle.Critical)
             Return False
         Finally
             Cursor.Current = Cursors.Default
