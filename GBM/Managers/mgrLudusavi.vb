@@ -213,7 +213,7 @@ Public Class mgrLudusavi
         If Not oLudusaviLaunchData Is Nothing Then
             For Each oLudusaviLaunchPair In oLudusaviLaunchData
                 For Each oLudusaviLaunch In oLudusaviLaunchPair.Value
-                    If (oLudusaviLaunch.when(0).os Is Nothing Or oLudusaviLaunch.when(0).os = sOS) And (oLudusaviLaunch.when(0).bit = 0 Or oLudusaviLaunch.when(0).bit = 64) Then
+                    If (oLudusaviLaunch.when(0).os Is Nothing Or oLudusaviLaunch.when(0).os = sOS) Then
                         sProcess = mgrPath.ValidatePath(oLudusaviLaunchPair.Key.Replace("<base>/", String.Empty))
                         If IsValidProcess(sProcess) Then
                             If sProcess.ToLower.EndsWith(".exe") Then
@@ -227,6 +227,8 @@ Public Class mgrLudusavi
                                 End If
                             End If
                             Exit For
+                        Else
+                            sProcess = String.Empty
                         End If
                     End If
                 Next
