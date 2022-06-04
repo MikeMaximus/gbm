@@ -217,44 +217,60 @@ Public Class mgrLudusavi
         oGame.ImportTags.Add(New Tag("Ludusavi"))
     End Sub
 
-    Private Shared Sub HandleLaunch(ByRef oGame As clsGame, ByRef oLudusaviLaunchData As Dictionary(Of String, List(Of LudusaviLaunch)), ByVal sOS As String)
+    Private Shared Sub HandleLaunch(ByRef oGame As clsGame, ByRef oLudusaviLaunchData As Dictionary(Of String, List(Of LudusaviLaunch)), ByVal sOS As String, ByVal iBit As Integer)
         Dim oLudusaviLaunchPair As KeyValuePair(Of String, List(Of LudusaviLaunch))
         Dim oLudusaviLaunch As LudusaviLaunch
-        Dim sProcess As String = String.Empty
-        Dim sArguments As String = String.Empty
+        Dim sProcess As String
+        Dim sMatch As String(,)
+        Dim iPrimaryRank As Integer = 1
+        Dim iSecondaryRank As Integer = 1
+        Dim oPrimaryRanked As New Dictionary(Of Integer, String(,))
+        Dim oSecondaryRanked As New Dictionary(Of Integer, String(,))
+        ReDim sMatch(0, 1)
 
         If Not oLudusaviLaunchData Is Nothing Then
             For Each oLudusaviLaunchPair In oLudusaviLaunchData
                 For Each oLudusaviLaunch In oLudusaviLaunchPair.Value
-                    If oLudusaviLaunch.when(0).os Is Nothing Or oLudusaviLaunch.when(0).os = sOS Then
-                        sProcess = mgrPath.ValidatePath(oLudusaviLaunchPair.Key.Replace("<base>/", String.Empty))
-                        If IsValidProcess(sProcess) Then
-                            If sProcess.ToLower.EndsWith(".exe") Then
-                                sProcess = Path.GetFileNameWithoutExtension(sProcess)
-                            Else
-                                sProcess = Path.GetFileName(sProcess)
-                            End If
-                            If RequiresArguments(sProcess) Then
-                                If Not oLudusaviLaunch.arguments Is Nothing Then
-                                    If oLudusaviLaunch.when(0).os Is Nothing Or oLudusaviLaunch.when(0).os = sOS Then
-                                        sArguments = oLudusaviLaunch.arguments
+                    If Not oLudusaviLaunch.when Is Nothing Then
+                        If oLudusaviLaunch.when(0).os Is Nothing Or oLudusaviLaunch.when(0).os = sOS Then
+                            sProcess = mgrPath.ValidatePath(oLudusaviLaunchPair.Key.Replace("<base>/", String.Empty))
+                            If IsValidProcess(sProcess) Then
+                                If sProcess.ToLower.EndsWith(".exe") Then
+                                    sProcess = Path.GetFileNameWithoutExtension(sProcess)
+                                Else
+                                    sProcess = Path.GetFileName(sProcess)
+                                End If
+                                sMatch(0, 0) = sProcess
+
+                                If RequiresArguments(sProcess) Then
+                                    If Not oLudusaviLaunch.arguments Is Nothing Then
+                                        If oLudusaviLaunch.when(0).os Is Nothing Or oLudusaviLaunch.when(0).os = sOS Then
+                                            sMatch(0, 1) = oLudusaviLaunch.arguments
+                                        End If
                                     End If
                                 End If
+
+                                If oLudusaviLaunch.when(0).os = sOS And oLudusaviLaunch.when(0).bit = iBit Then
+                                    oPrimaryRanked.Add(iPrimaryRank, sMatch)
+                                    iPrimaryRank += 1
+                                Else
+                                    oSecondaryRanked.Add(iSecondaryRank, sMatch)
+                                    iSecondaryRank += 1
+                                End If
                             End If
-                            Exit For
-                        Else
-                            sProcess = String.Empty
                         End If
                     End If
                 Next
-                If sProcess <> String.Empty Then
-                    Exit For
-                End If
             Next
         End If
 
-        oGame.ProcessName = sProcess
-        oGame.Parameter = sArguments
+        If oPrimaryRanked.ContainsKey(1) Then
+            oGame.ProcessName = oPrimaryRanked(1)(0, 0)
+            oGame.Parameter = oPrimaryRanked(1)(0, 1)
+        ElseIf oSecondaryRanked.ContainsKey(1) Then
+            oGame.ProcessName = oSecondaryRanked(1)(0, 0)
+            oGame.Parameter = oSecondaryRanked(1)(0, 1)
+        End If
     End Sub
 
     Private Shared Function DetectSupportedStorePaths() As List(Of String)
@@ -274,6 +290,7 @@ Public Class mgrLudusavi
         Dim oLudusaviPathPair As KeyValuePair(Of String, LudusaviPath)
         Dim oLudusaviPath As LudusaviPath
         Dim oPlatform As clsGame.eOS = mgrCommon.GetCurrentOS
+        Dim iPlatformBit As Integer = 32
         Dim oSupportedStorePaths As List(Of String) = DetectSupportedStorePaths()
         Dim oGame As clsGame
         Dim oConfigurations As New List(Of clsGame)
@@ -282,6 +299,10 @@ Public Class mgrLudusavi
         Dim bForcedWinConvert As Boolean
 
         Try
+            If Environment.Is64BitOperatingSystem Then
+                iPlatformBit = 64
+            End If
+
             For Each oLudusaviGamePair In oList
                 If Not oOptions.QueryAsRegEx Is Nothing Then
                     If Not oOptions.QueryAsRegEx.IsMatch(oLudusaviGamePair.Key) Then
@@ -374,11 +395,11 @@ Public Class mgrLudusavi
 
                                                     HandleTags(oLudusaviPath.tags, w.store, oGame)
                                                     If Not (t = TagTypes.config.ToString And oLudusaviPath.tags.Length = 1) Then
-                                                        HandleLaunch(oGame, oLudusaviGame.launch, w.os)
+                                                        HandleLaunch(oGame, oLudusaviGame.launch, w.os, iPlatformBit)
                                                     End If
 
                                                     oConfigurations.Add(oGame)
-                                                    End If
+                                                End If
                                             Next
                                         End If
                                     End If
@@ -404,7 +425,7 @@ Public Class mgrLudusavi
 
                                             HandleTags(oLudusaviPath.tags, Nothing, oGame)
                                             If Not (t = TagTypes.config.ToString And oLudusaviPath.tags.Length = 1) Then
-                                                HandleLaunch(oGame, oLudusaviGame.launch, OsTypes.windows.ToString)
+                                                HandleLaunch(oGame, oLudusaviGame.launch, OsTypes.windows.ToString, iPlatformBit)
                                             End If
                                             oConfigurations.Add(oGame)
                                         End If
