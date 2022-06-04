@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.1 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-May 27, 2022
+June 4, 2022
 
 New in 1.3.1
 
@@ -49,6 +49,7 @@ Linux:
 
 Known Issues:
 
-- The Import window can be slow to load and make the application temporarily unresponsive when handling lists with ~10,000 or more configurations.
+- The Import window can be slow to load and make the application temporarily unresponsive when handling large lists, such as the entire Ludusavi Manifest.
+	- This will be addressed in a future release.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

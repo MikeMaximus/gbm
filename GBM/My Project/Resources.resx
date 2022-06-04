@@ -3068,7 +3068,7 @@
     <value>&amp;Ludusavi Manifest...</value>
   </data>
   <data name="mgrMonitorList_WarningLudusaviImport" xml:space="preserve">
-    <value>The primary Ludusavi Manifest contains thousands of saved game configurations sourced from PCGamingWiki.[BR][BR]These are untested configurations only suitable for manual backups by default and may not be fully compatible with GBM.[BR][BR]This message will only be shown once.</value>
+    <value>The primary Ludusavi Manifest contains thousands of saved game configurations sourced from PCGamingWiki.[BR][BR]These configurations are untested and may not be fully compatible with GBM.[BR][BR]This message will only be shown once.</value>
   </data>
   <data name="frmAdvancedImport_ColumnOs" xml:space="preserve">
     <value>OS</value>
