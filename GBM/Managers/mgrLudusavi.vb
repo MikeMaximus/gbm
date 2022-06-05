@@ -220,6 +220,7 @@ Public Class mgrLudusavi
     Private Shared Sub HandleLaunch(ByRef oGame As clsGame, ByRef oLudusaviLaunchData As Dictionary(Of String, List(Of LudusaviLaunch)), ByVal sOS As String, ByVal iBit As Integer)
         Dim oLudusaviLaunchPair As KeyValuePair(Of String, List(Of LudusaviLaunch))
         Dim oLudusaviLaunch As LudusaviLaunch
+        Dim oLudusaviWhen As LudusaviWhen
         Dim sProcess As String
         Dim sMatch As String(,)
         Dim iPrimaryRank As Integer = 1
@@ -232,33 +233,35 @@ Public Class mgrLudusavi
             For Each oLudusaviLaunchPair In oLudusaviLaunchData
                 For Each oLudusaviLaunch In oLudusaviLaunchPair.Value
                     If Not oLudusaviLaunch.when Is Nothing Then
-                        If oLudusaviLaunch.when(0).os Is Nothing Or oLudusaviLaunch.when(0).os = sOS Then
-                            sProcess = mgrPath.ValidatePath(oLudusaviLaunchPair.Key.Replace("<base>/", String.Empty))
-                            If IsValidProcess(sProcess) Then
-                                If sProcess.ToLower.EndsWith(".exe") Then
-                                    sProcess = Path.GetFileNameWithoutExtension(sProcess)
-                                Else
-                                    sProcess = Path.GetFileName(sProcess)
-                                End If
-                                sMatch(0, 0) = sProcess
+                        For Each oLudusaviWhen In oLudusaviLaunch.when
+                            If oLudusaviWhen.os Is Nothing Or oLudusaviWhen.os = sOS Then
+                                sProcess = mgrPath.ValidatePath(oLudusaviLaunchPair.Key.Replace("<base>/", String.Empty))
+                                If IsValidProcess(sProcess) Then
+                                    If sProcess.ToLower.EndsWith(".exe") Then
+                                        sProcess = Path.GetFileNameWithoutExtension(sProcess)
+                                    Else
+                                        sProcess = Path.GetFileName(sProcess)
+                                    End If
+                                    sMatch(0, 0) = sProcess
 
-                                If RequiresArguments(sProcess) Then
-                                    If Not oLudusaviLaunch.arguments Is Nothing Then
-                                        If oLudusaviLaunch.when(0).os Is Nothing Or oLudusaviLaunch.when(0).os = sOS Then
-                                            sMatch(0, 1) = oLudusaviLaunch.arguments
+                                    If RequiresArguments(sProcess) Then
+                                        If Not oLudusaviLaunch.arguments Is Nothing Then
+                                            If oLudusaviWhen.os Is Nothing Or oLudusaviWhen.os = sOS Then
+                                                sMatch(0, 1) = oLudusaviLaunch.arguments
+                                            End If
                                         End If
                                     End If
-                                End If
 
-                                If oLudusaviLaunch.when(0).os = sOS And oLudusaviLaunch.when(0).bit = iBit Then
-                                    oPrimaryRanked.Add(iPrimaryRank, sMatch)
-                                    iPrimaryRank += 1
-                                Else
-                                    oSecondaryRanked.Add(iSecondaryRank, sMatch)
-                                    iSecondaryRank += 1
+                                    If oLudusaviWhen.os = sOS And oLudusaviWhen.bit = iBit Then
+                                        oPrimaryRanked.Add(iPrimaryRank, sMatch)
+                                        iPrimaryRank += 1
+                                    Else
+                                        oSecondaryRanked.Add(iSecondaryRank, sMatch)
+                                        iSecondaryRank += 1
+                                    End If
                                 End If
                             End If
-                        End If
+                        Next
                     End If
                 Next
             Next
