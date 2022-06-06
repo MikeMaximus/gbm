@@ -39,7 +39,7 @@ Public Class mgrLudusavi
 
     Private Shared Function IsValidProcess(ByVal sProcess As String) As Boolean
         Dim sExt As String() = {".bat", ".sh", ".txt", ".pdf", ".htm", ".html"}
-        Dim sName As String() = {"launch", "start_protected_game", "dowser"}
+        Dim sName As String() = {"launch", "setup", "start_protected_game", "dowser"}
         Dim s As String
 
         For Each s In sExt
@@ -167,9 +167,25 @@ Public Class mgrLudusavi
 
         If Not sStore Is Nothing Then
             Select Case sStore
+                'PCGamingWiki doesn't define which SteamID a path contains, we have to make a guess.
+                '   - A path containing both the Steam root and Steam ID is generally a Steam Cloud path using SteamID3.
+                '   - A path containing only the Steam root is generally an absolute path to a game in the Steam folder.
+                '   - A path containing only a Steam ID is generally a file or folder using SteamID64.
+                '       - We can't detect SteamID64, but we can strip it or replace it to try and retain a working, if sub-optimal backup configuration.
                 Case StoreTypes.steam.ToString
-                    sPath = sPath.Replace("<root>", "%Steam%")
-                    sPath = sPath.Replace("<storeUserId>", "%SteamID3%")
+                    If sPath.Contains("<root>") And sPath.Contains("<storeUserId>") Then
+                        sPath = sPath.Replace("<root>", "%Steam%")
+                        sPath = sPath.Replace("<storeUserId>", "%SteamID3%")
+                    ElseIf sPath.Contains("<root>") Then
+                        sPath = sPath.Replace("<root>", "%Steam%")
+                    ElseIf sPath.Contains("/<storeUserId>") Then
+                        sPath = sPath.Substring(0, sPath.IndexOf("/<storeUserId>"))
+                    ElseIf sPath.Contains("<storeUserId>.") Then
+                        sPath = sPath.Replace("<storeUserId>.", "*.")
+                    ElseIf sPath.Contains("<storeUserId>") Then
+                        sPath = sPath.Substring(0, sPath.IndexOf("<storeUserId>"))
+                        If sPath <> String.Empty Then sPath = sPath.Substring(0, sPath.LastIndexOf("/"))
+                    End If
             End Select
         End If
 
