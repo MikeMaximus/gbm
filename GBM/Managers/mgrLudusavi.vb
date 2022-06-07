@@ -243,7 +243,6 @@ Public Class mgrLudusavi
         Dim iSecondaryRank As Integer = 1
         Dim oPrimaryRanked As New Dictionary(Of Integer, String(,))
         Dim oSecondaryRanked As New Dictionary(Of Integer, String(,))
-        ReDim sMatch(0, 1)
 
         If Not oLudusaviLaunchData Is Nothing Then
             For Each oLudusaviLaunchPair In oLudusaviLaunchData
@@ -258,6 +257,8 @@ Public Class mgrLudusavi
                                     Else
                                         sProcess = Path.GetFileName(sProcess)
                                     End If
+
+                                    ReDim sMatch(0, 1)
                                     sMatch(0, 0) = sProcess
 
                                     If RequiresArguments(sProcess) Then
