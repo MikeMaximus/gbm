@@ -15,6 +15,11 @@ Public Class mgrMonitorList
         clsBackup = 2
     End Enum
 
+    Public Enum eImportTypes As Integer
+        Official = 1
+        Ludusavi = 2
+    End Enum
+
     Public Shared Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
 
     'This function supports filling class types that inherit clsGameBase
@@ -881,88 +886,41 @@ Public Class mgrMonitorList
     End Function
 
     Public Shared Function DoImport(ByVal sPath As String) As Boolean
-        If ImportMonitorList(sPath) Then
-            SyncMonitorLists()
-            Return True
-        End If
+        Dim frmImport As New frmAdvancedImport
+        Dim frmOptions As New frmLudusaviConfig
 
-        Return False
-    End Function
-
-    Private Shared Function ImportMonitorList(ByVal sLocation As String) As Boolean
-        Dim hshCompareFrom As New Hashtable
-        Dim hshCompareTo As Hashtable
-        Dim hshSyncItems As Hashtable
-        Dim oFromItem As clsGame
-        Dim oToItem As clsGame
-        Dim oExportInfo As New ExportData
-        Dim bDataImported As Boolean = False
-        Dim bClassicMode As Boolean
-
-        Select Case Path.GetExtension(sLocation)
+        Select Case Path.GetExtension(sPath)
             Case ".xml"
-                If Not mgrXML.DeserializeAndImport(sLocation, oExportInfo, hshCompareFrom) Then
-                    Return False
-                End If
-                bClassicMode = True
+                frmImport.ImportType = eImportTypes.Official
             Case ".yaml", ".yml"
-                If Not mgrLudusavi.ReadLudusaviManifest(sLocation, oExportInfo, hshCompareFrom) Then
+                If frmOptions.ShowDialog() = DialogResult.OK Then
+                    frmImport.ImportType = eImportTypes.Ludusavi
+                    frmImport.LudusaviOptions = frmOptions.ImportOptions
+                Else
                     Return False
                 End If
-                bClassicMode = False
             Case Else
                 mgrCommon.ShowMessage(mgrMonitorList_ErrorImportFileType, MsgBoxStyle.Exclamation)
                 Return False
         End Select
 
-        Cursor.Current = Cursors.WaitCursor
+        frmImport.ImportPath = sPath
 
-        hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
+        If frmImport.ShowDialog() = DialogResult.OK Then
+            Cursor.Current = Cursors.WaitCursor
 
-        hshSyncItems = hshCompareFrom.Clone
+            DoListAddUpdateSync(frmImport.FinalData)
+            mgrTags.DoTagAddImport(frmImport.FinalData)
+            mgrConfigLinks.DoConfigLinkImport(frmImport.FinalData)
+            SyncMonitorLists()
 
-        For Each oFromItem In hshCompareFrom.Values
-            If hshCompareTo.Contains(oFromItem.ID) Then
-                oToItem = DirectCast(hshCompareTo(oFromItem.ID), clsGame)
-                If oFromItem.MinimalEquals(oToItem) Then
-                    If oFromItem.CoreEquals(oToItem) Then
-                        hshSyncItems.Remove(oFromItem.ID)
-                    Else
-                        DirectCast(hshSyncItems(oFromItem.ID), clsGame).ImportUpdate = True
-                        'These fields need to be set via the object or they will be lost when the configuration is updated
-                        DirectCast(hshSyncItems(oFromItem.ID), clsGame).Hours = oToItem.Hours
-                        DirectCast(hshSyncItems(oFromItem.ID), clsGame).CleanFolder = oToItem.CleanFolder
-                    End If
+            Cursor.Current = Cursors.Default
+            mgrCommon.ShowMessage(mgrMonitorList_ImportComplete, MsgBoxStyle.Information)
 
-                End If
-            End If
-        Next
-
-        Cursor.Current = Cursors.Default
-
-        If hshSyncItems.Count > 0 Then
-            Dim frm As New frmAdvancedImport
-            frm.ImportInfo = oExportInfo
-            frm.ImportData = hshSyncItems
-            frm.ClassicMode = bClassicMode
-            If frm.ShowDialog() = DialogResult.OK Then
-                Cursor.Current = Cursors.WaitCursor
-
-                DoListAddUpdateSync(frm.FinalData)
-                mgrTags.DoTagAddImport(frm.FinalData)
-                mgrConfigLinks.DoConfigLinkImport(frm.FinalData)
-
-                Cursor.Current = Cursors.Default
-                bDataImported = True
-                mgrCommon.ShowMessage(mgrMonitorList_ImportComplete, MsgBoxStyle.Information)
-            End If
-        Else
-            bDataImported = False
-            mgrCommon.ShowMessage(mgrMonitorList_ImportNothing, MsgBoxStyle.Information)
+            Return True
         End If
 
-        Application.DoEvents()
-        Return bDataImported
+        Return False
     End Function
 
     Public Shared Sub ExportMonitorList(ByVal sLocation As String)

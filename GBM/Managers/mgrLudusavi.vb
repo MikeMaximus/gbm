@@ -477,19 +477,15 @@ Public Class mgrLudusavi
         sYAML = sYAML.Replace(" *:", "*:")
     End Sub
 
-    Public Shared Function ReadLudusaviManifest(ByVal sLocation As String, ByRef oExportInfo As ExportData, ByRef hshList As Hashtable) As Boolean
+    Public Shared Function ReadLudusaviManifest(ByVal sLocation As String, ByVal oOptions As clsLudusaviOptions, ByRef oExportInfo As ExportData, ByRef hshList As Hashtable) As Boolean
         Dim oBuilder As DeserializerBuilder
         Dim oDeserializer As Deserializer
         Dim oReader As StreamReader
         Dim sYAML As String
-        Dim frmOptions As New frmLudusaviConfig
+
         Dim oList As Dictionary(Of String, LudusaviGame)
 
         Try
-            If frmOptions.ShowDialog() = DialogResult.Cancel Then Return False
-
-            Cursor.Current = Cursors.WaitCursor
-
             oBuilder = New DeserializerBuilder
             oBuilder.IgnoreUnmatchedProperties()
             oDeserializer = oBuilder.Build()
@@ -504,14 +500,12 @@ Public Class mgrLudusavi
 
             FormatYAML(sYAML)
             oList = oDeserializer.Deserialize(Of Dictionary(Of String, LudusaviGame))(sYAML)
-            ConvertYAML(hshList, oList, frmOptions.ImportOptions)
+            ConvertYAML(hshList, oList, oOptions)
 
             Return True
         Catch ex As Exception
             mgrCommon.ShowMessage(mgrLudusavi_ErrorReading, ex.Message, MsgBoxStyle.Critical)
             Return False
-        Finally
-            Cursor.Current = Cursors.Default
         End Try
 
     End Function

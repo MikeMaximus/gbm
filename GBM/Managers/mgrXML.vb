@@ -23,8 +23,6 @@ Public Class mgrXML
         Dim bAdd As Boolean
 
         Try
-            Cursor.Current = Cursors.WaitCursor
-
             oReader = mgrCommon.ReadTextFromCache(sLocation)
             oSerializer = New XmlSerializer(GetType(ExportData), New XmlRootAttribute("gbm"))
             oExportData = oSerializer.Deserialize(oReader)
@@ -86,8 +84,6 @@ Public Class mgrXML
         Catch ex As Exception
             mgrCommon.ShowMessage(mgrXML_ErrorImportFailure, ex.Message, MsgBoxStyle.Critical)
             Return False
-        Finally
-            Cursor.Current = Cursors.Default
         End Try
     End Function
 

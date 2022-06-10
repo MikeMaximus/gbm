@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-06-04T18:40:33
+        '''  Looks up a localized string similar to 2022-06-10T18:28:23
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1016,6 +1016,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Detecting Saved Games... Please Wait.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_DetectingSavedGames() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_DetectingSavedGames", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [Filtered].
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_Filtered() As String
@@ -1053,6 +1062,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Processing... Please Wait.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_Processing() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_Processing", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Selected ([PARAM]).
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_Selected() As String
@@ -1068,6 +1086,15 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("frmAdvancedImport_Update", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to No new saved games were detected..
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_WarningNoSavesDetected() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_WarningNoSavesDetected", resourceCulture)
             End Get
         End Property
         

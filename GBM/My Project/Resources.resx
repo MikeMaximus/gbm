@@ -3121,4 +3121,13 @@
   <data name="frmLudusaviConfig_grpSearch" xml:space="preserve">
     <value>Quick Search</value>
   </data>
+  <data name="frmAdvancedImport_DetectingSavedGames" xml:space="preserve">
+    <value>Detecting Saved Games... Please Wait</value>
+  </data>
+  <data name="frmAdvancedImport_Processing" xml:space="preserve">
+    <value>Processing... Please Wait</value>
+  </data>
+  <data name="frmAdvancedImport_WarningNoSavesDetected" xml:space="preserve">
+    <value>No new saved games were detected.</value>
+  </data>
 </root>

@@ -24,7 +24,7 @@ Partial Class frmAdvancedImport
     Private Sub InitializeComponent()
         Me.btnImport = New System.Windows.Forms.Button()
         Me.chkSelectAll = New System.Windows.Forms.CheckBox()
-        Me.lblGames = New System.Windows.Forms.Label()
+        Me.lblStatus = New System.Windows.Forms.Label()
         Me.lblSelected = New System.Windows.Forms.Label()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.lstGames = New System.Windows.Forms.ListView()
@@ -32,6 +32,9 @@ Partial Class frmAdvancedImport
         Me.lblFilter = New System.Windows.Forms.Label()
         Me.chkSelectedOnly = New System.Windows.Forms.CheckBox()
         Me.btnDetectSavedGames = New System.Windows.Forms.Button()
+        Me.bwLoader = New System.ComponentModel.BackgroundWorker()
+        Me.btnClearSelected = New System.Windows.Forms.Button()
+        Me.bwDetect = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
         'btnImport
@@ -41,7 +44,7 @@ Partial Class frmAdvancedImport
         Me.btnImport.Location = New System.Drawing.Point(646, 559)
         Me.btnImport.Name = "btnImport"
         Me.btnImport.Size = New System.Drawing.Size(60, 45)
-        Me.btnImport.TabIndex = 6
+        Me.btnImport.TabIndex = 7
         Me.btnImport.Text = "&Import"
         Me.btnImport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnImport.UseVisualStyleBackColor = True
@@ -56,15 +59,15 @@ Partial Class frmAdvancedImport
         Me.chkSelectAll.Text = "Select All"
         Me.chkSelectAll.UseVisualStyleBackColor = True
         '
-        'lblGames
+        'lblStatus
         '
-        Me.lblGames.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.lblGames.Location = New System.Drawing.Point(12, 575)
-        Me.lblGames.Name = "lblGames"
-        Me.lblGames.Size = New System.Drawing.Size(760, 14)
-        Me.lblGames.TabIndex = 0
-        Me.lblGames.Text = "Games"
-        Me.lblGames.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblStatus.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.lblStatus.Location = New System.Drawing.Point(12, 575)
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(760, 14)
+        Me.lblStatus.TabIndex = 0
+        Me.lblStatus.Text = "Status"
+        Me.lblStatus.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lblSelected
         '
@@ -83,7 +86,7 @@ Partial Class frmAdvancedImport
         Me.btnCancel.Location = New System.Drawing.Point(712, 559)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(60, 45)
-        Me.btnCancel.TabIndex = 7
+        Me.btnCancel.TabIndex = 8
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
@@ -99,14 +102,14 @@ Partial Class frmAdvancedImport
         Me.lstGames.Location = New System.Drawing.Point(12, 35)
         Me.lstGames.Name = "lstGames"
         Me.lstGames.Size = New System.Drawing.Size(760, 518)
-        Me.lstGames.TabIndex = 4
+        Me.lstGames.TabIndex = 5
         Me.lstGames.UseCompatibleStateImageBehavior = False
         Me.lstGames.View = System.Windows.Forms.View.Details
         '
         'txtFilter
         '
         Me.txtFilter.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtFilter.Location = New System.Drawing.Point(616, 9)
+        Me.txtFilter.Location = New System.Drawing.Point(586, 8)
         Me.txtFilter.Name = "txtFilter"
         Me.txtFilter.Size = New System.Drawing.Size(156, 20)
         Me.txtFilter.TabIndex = 3
@@ -114,7 +117,7 @@ Partial Class frmAdvancedImport
         'lblFilter
         '
         Me.lblFilter.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblFilter.Location = New System.Drawing.Point(571, 12)
+        Me.lblFilter.Location = New System.Drawing.Point(541, 11)
         Me.lblFilter.Name = "lblFilter"
         Me.lblFilter.Size = New System.Drawing.Size(39, 14)
         Me.lblFilter.TabIndex = 0
@@ -138,16 +141,33 @@ Partial Class frmAdvancedImport
         Me.btnDetectSavedGames.Location = New System.Drawing.Point(12, 559)
         Me.btnDetectSavedGames.Name = "btnDetectSavedGames"
         Me.btnDetectSavedGames.Size = New System.Drawing.Size(140, 45)
-        Me.btnDetectSavedGames.TabIndex = 5
+        Me.btnDetectSavedGames.TabIndex = 6
         Me.btnDetectSavedGames.Text = "&Detect Saved Games"
         Me.btnDetectSavedGames.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnDetectSavedGames.UseVisualStyleBackColor = True
+        '
+        'bwLoader
+        '
+        '
+        'btnClearSelected
+        '
+        Me.btnClearSelected.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnClearSelected.Image = Global.GBM.My.Resources.Resources.frmMain_Cancel_Small
+        Me.btnClearSelected.Location = New System.Drawing.Point(748, 5)
+        Me.btnClearSelected.Name = "btnClearSelected"
+        Me.btnClearSelected.Size = New System.Drawing.Size(24, 24)
+        Me.btnClearSelected.TabIndex = 4
+        Me.btnClearSelected.UseVisualStyleBackColor = True
+        '
+        'bwDetect
+        '
         '
         'frmAdvancedImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 611)
+        Me.Controls.Add(Me.btnClearSelected)
         Me.Controls.Add(Me.btnDetectSavedGames)
         Me.Controls.Add(Me.chkSelectedOnly)
         Me.Controls.Add(Me.lblFilter)
@@ -156,7 +176,7 @@ Partial Class frmAdvancedImport
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.chkSelectAll)
         Me.Controls.Add(Me.btnImport)
-        Me.Controls.Add(Me.lblGames)
+        Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.lblSelected)
         Me.Name = "frmAdvancedImport"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
@@ -168,7 +188,7 @@ Partial Class frmAdvancedImport
     End Sub
     Friend WithEvents btnImport As System.Windows.Forms.Button
     Friend WithEvents chkSelectAll As System.Windows.Forms.CheckBox
-    Friend WithEvents lblGames As System.Windows.Forms.Label
+    Friend WithEvents lblStatus As System.Windows.Forms.Label
     Friend WithEvents lblSelected As System.Windows.Forms.Label
     Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents lstGames As System.Windows.Forms.ListView
@@ -176,4 +196,7 @@ Partial Class frmAdvancedImport
     Friend WithEvents lblFilter As System.Windows.Forms.Label
     Friend WithEvents chkSelectedOnly As CheckBox
     Friend WithEvents btnDetectSavedGames As Button
+    Friend WithEvents bwLoader As System.ComponentModel.BackgroundWorker
+    Friend WithEvents btnClearSelected As Button
+    Friend WithEvents bwDetect As System.ComponentModel.BackgroundWorker
 End Class
