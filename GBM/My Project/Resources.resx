@@ -762,9 +762,6 @@
   <data name="frmAdvancedImport_Configs" xml:space="preserve">
     <value>Configurations ([PARAM] / [PARAM])</value>
   </data>
-  <data name="frmAdvancedImport_Selected" xml:space="preserve">
-    <value>Selected ([PARAM])</value>
-  </data>
   <data name="frmChooseGame_btnCancel" xml:space="preserve">
     <value>&amp;Cancel</value>
   </data>
@@ -1227,7 +1224,7 @@
   <data name="mgrMonitorList_ImportComplete" xml:space="preserve">
     <value>Import Complete.</value>
   </data>
-  <data name="mgrMonitorList_ImportNothing" xml:space="preserve">
+  <data name="frmAdvancedImport_ImportNothing" xml:space="preserve">
     <value>This list does not contain any new games to import.</value>
   </data>
   <data name="mgrMonitorList_SyncChanges" xml:space="preserve">

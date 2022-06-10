@@ -25,7 +25,6 @@ Partial Class frmAdvancedImport
         Me.btnImport = New System.Windows.Forms.Button()
         Me.chkSelectAll = New System.Windows.Forms.CheckBox()
         Me.lblStatus = New System.Windows.Forms.Label()
-        Me.lblSelected = New System.Windows.Forms.Label()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.lstGames = New System.Windows.Forms.ListView()
         Me.txtFilter = New System.Windows.Forms.TextBox()
@@ -68,16 +67,6 @@ Partial Class frmAdvancedImport
         Me.lblStatus.TabIndex = 0
         Me.lblStatus.Text = "Status"
         Me.lblStatus.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'lblSelected
-        '
-        Me.lblSelected.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.lblSelected.Location = New System.Drawing.Point(12, 12)
-        Me.lblSelected.Name = "lblSelected"
-        Me.lblSelected.Size = New System.Drawing.Size(760, 13)
-        Me.lblSelected.TabIndex = 0
-        Me.lblSelected.Text = "Selected Items"
-        Me.lblSelected.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'btnCancel
         '
@@ -177,7 +166,6 @@ Partial Class frmAdvancedImport
         Me.Controls.Add(Me.chkSelectAll)
         Me.Controls.Add(Me.btnImport)
         Me.Controls.Add(Me.lblStatus)
-        Me.Controls.Add(Me.lblSelected)
         Me.Name = "frmAdvancedImport"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -189,7 +177,6 @@ Partial Class frmAdvancedImport
     Friend WithEvents btnImport As System.Windows.Forms.Button
     Friend WithEvents chkSelectAll As System.Windows.Forms.CheckBox
     Friend WithEvents lblStatus As System.Windows.Forms.Label
-    Friend WithEvents lblSelected As System.Windows.Forms.Label
     Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents lstGames As System.Windows.Forms.ListView
     Friend WithEvents txtFilter As System.Windows.Forms.TextBox

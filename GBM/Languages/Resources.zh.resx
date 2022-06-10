@@ -762,9 +762,6 @@
   <data name="frmAdvancedImport_Configs" xml:space="preserve">
     <value>配置([PARAM] / [PARAM])</value>
   </data>
-  <data name="frmAdvancedImport_Selected" xml:space="preserve">
-    <value>已选([PARAM])</value>
-  </data>
   <data name="frmChooseGame_btnCancel" xml:space="preserve">
     <value>取消</value>
   </data>
@@ -1229,7 +1226,7 @@
   <data name="mgrMonitorList_ImportComplete" xml:space="preserve">
     <value>导入完成。</value>
   </data>
-  <data name="mgrMonitorList_ImportNothing" xml:space="preserve">
+  <data name="frmAdvancedImport_ImportNothing" xml:space="preserve">
     <value>此列表不包含任何要导入的新游戏。</value>
   </data>
   <data name="mgrMonitorList_SyncChanges" xml:space="preserve">

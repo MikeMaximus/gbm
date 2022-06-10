@@ -18,6 +18,7 @@ Public Class frmAdvancedImport
     Private oLastWindowState As FormWindowState
     Private iGamesDetected As Integer
     Private bDataLoaded As Boolean
+    Private oListCache As New List(Of ListViewItem)
 
     Public Property ImportPath As String
         Get
@@ -80,17 +81,31 @@ Public Class frmAdvancedImport
     End Property
 
     Private Sub SelectToggle()
-        Cursor.Current = Cursors.WaitCursor
         bIsLoading = True
-        lstGames.BeginUpdate()
+
         For i As Integer = 0 To lstGames.Items.Count - 1
-            lstGames.Items(i).Checked = chkSelectAll.Checked
-            SaveChecked(lstGames.Items(i))
+            oListCache(i).Checked = chkSelectAll.Checked
+            SaveChecked(oListCache(i))
         Next
-        lstGames.EndUpdate()
+        lstGames.Refresh()
+
         bIsLoading = False
-        Cursor.Current = Cursors.Default
-        UpdateSelected()
+    End Sub
+
+    Private Sub UpdateSelectToggle()
+        Dim bSelectAll As Boolean = True
+
+        bIsLoading = True
+
+        For Each oListViewItem As ListViewItem In oListCache
+            If Not oListViewItem.Checked Then
+                bSelectAll = False
+                Exit For
+            End If
+        Next
+        chkSelectAll.Checked = bSelectAll
+
+        bIsLoading = False
     End Sub
 
     Private Sub SaveChecked(ByVal oItem As ListViewItem)
@@ -99,6 +114,12 @@ Public Class frmAdvancedImport
         Else
             FinalData.Remove(oItem.Tag)
         End If
+    End Sub
+
+    Private Sub SaveAllChecked()
+        For Each oListViewItem As ListViewItem In oListCache
+            SaveChecked(oListViewItem)
+        Next
     End Sub
 
     Private Function CheckIgnoreTags(ByVal oTags As List(Of Tag)) As Boolean
@@ -138,8 +159,6 @@ Public Class frmAdvancedImport
         Dim bAdd As Boolean
         Dim iCount As Integer
 
-        Cursor.Current = Cursors.WaitCursor
-
         For Each de As DictionaryEntry In ImportData
             bAdd = False
             oApp = DirectCast(de.Value, clsGame)
@@ -172,8 +191,6 @@ Public Class frmAdvancedImport
                 'It should never happen at this point, but if the auto detect fails due to bad data we just ignore it and move on.
             End Try
         Next
-
-        Cursor.Current = Cursors.Default
 
         Return iCount
     End Function
@@ -248,12 +265,9 @@ Public Class frmAdvancedImport
         Dim sTags As String
         Dim bAddItem As Boolean
 
-        Cursor.Current = Cursors.WaitCursor
         bIsLoading = True
-        lstGames.BeginUpdate()
 
-        lstGames.Items.Clear()
-        lstGames.ListViewItemSorter = Nothing
+        oListCache.Clear()
 
         If bSelectedOnly Then
             chkSelectedOnly.Checked = True
@@ -317,20 +331,19 @@ Public Class frmAdvancedImport
             End If
 
             If bAddItem Then
-                lstGames.Items.Add(oListViewItem)
+                oListCache.Add(oListViewItem)
                 SaveChecked(oListViewItem)
             End If
         Next
 
-        lstGames.ListViewItemSorter = New ListViewItemComparer(iCurrentSort)
-        lstGames.EndUpdate()
+        oListCache.Sort(New ListViewItemComparer(iCurrentSort))
+        lstGames.VirtualListSize = oListCache.Count
+        If oListCache.Count > 0 Then lstGames.EnsureVisible(0)
+
         bIsLoading = False
 
-        UpdateSelected()
         UpdateSelectToggle()
         UpdateTotals()
-
-        Cursor.Current = Cursors.Default
     End Sub
 
     Private Sub AutoSizeColumns()
@@ -385,7 +398,6 @@ Public Class frmAdvancedImport
             Me.UseWaitCursor = False
             chkSelectAll.Enabled = True
             chkSelectedOnly.Enabled = True
-            lblSelected.Visible = True
             lblFilter.Enabled = True
             txtFilter.Enabled = True
             btnClearSelected.Enabled = True
@@ -398,7 +410,6 @@ Public Class frmAdvancedImport
             Me.UseWaitCursor = True
             chkSelectAll.Enabled = False
             chkSelectedOnly.Enabled = False
-            lblSelected.Visible = False
             lblFilter.Enabled = False
             txtFilter.Enabled = False
             btnClearSelected.Enabled = False
@@ -431,24 +442,14 @@ Public Class frmAdvancedImport
         oImageList.Images.Add(frmAdvancedImport_Update)
         lstGames.SmallImageList = oImageList
 
+        'Set ListView
+        lstGames.VirtualMode = True
+        lstGames.OwnerDraw = True
+
         'Init Filter Timer
         tmFilterTimer = New Timer()
         tmFilterTimer.Interval = 1000
         tmFilterTimer.Enabled = False
-    End Sub
-
-    Private Sub UpdateSelected()
-        lblSelected.Text = mgrCommon.FormatString(frmAdvancedImport_Selected, FinalData.Count)
-    End Sub
-
-    Private Sub UpdateSelectToggle()
-        bIsLoading = True
-        If lstGames.CheckedItems.Count = lstGames.Items.Count Then
-            chkSelectAll.Checked = True
-        Else
-            chkSelectAll.Checked = False
-        End If
-        bIsLoading = False
     End Sub
 
     Private Sub UpdateTotals()
@@ -479,14 +480,9 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub chkSelectedOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectedOnly.CheckedChanged
-        If Not bIsLoading Then FillGrid()
-    End Sub
-
-    Private Sub lstGames_ItemChecked(sender As Object, e As ItemCheckedEventArgs) Handles lstGames.ItemChecked
         If Not bIsLoading Then
-            SaveChecked(e.Item)
-            UpdateSelected()
-            UpdateSelectToggle()
+            SaveAllChecked()
+            FillGrid()
         End If
     End Sub
 
@@ -498,6 +494,7 @@ Public Class frmAdvancedImport
         If Not bIsLoading Then
             lblStatus.Text = frmAdvancedImport_DetectingSavedGames
             ToggleForm(False)
+            SaveAllChecked()
             bwDetect.RunWorkerAsync()
         End If
     End Sub
@@ -513,7 +510,8 @@ Public Class frmAdvancedImport
 
     Private Sub lstGames_ColumnClick(sender As Object, e As ColumnClickEventArgs) Handles lstGames.ColumnClick
         iCurrentSort = e.Column
-        lstGames.ListViewItemSorter = New ListViewItemComparer(e.Column)
+        oListCache.Sort(New ListViewItemComparer(e.Column))
+        lstGames.Refresh()
     End Sub
 
     Private Sub txtFilter_TextChanged(sender As Object, e As EventArgs) Handles txtFilter.TextChanged
@@ -524,6 +522,7 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub tmFilterTimer_Tick(sender As Object, ByVal e As EventArgs) Handles tmFilterTimer.Tick
+        SaveAllChecked()
         FillGrid()
         tmFilterTimer.Stop()
         tmFilterTimer.Enabled = False
@@ -559,7 +558,7 @@ Public Class frmAdvancedImport
             FillGrid(bSelectedOnly)
             ToggleForm(True)
         Else
-            mgrCommon.ShowMessage(mgrMonitorList_ImportNothing, MsgBoxStyle.Information)
+            mgrCommon.ShowMessage(frmAdvancedImport_ImportNothing, MsgBoxStyle.Information)
             Me.Close()
         End If
 
@@ -571,6 +570,7 @@ Public Class frmAdvancedImport
 
     Private Sub bwDetect_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwDetect.RunWorkerCompleted
         If iGamesDetected > 0 Then
+            txtFilter.Text = String.Empty
             FillGrid(True)
         Else
             mgrCommon.ShowMessage(frmAdvancedImport_WarningNoSavesDetected, MsgBoxStyle.Information)
@@ -578,11 +578,52 @@ Public Class frmAdvancedImport
         ToggleForm(True)
         UpdateTotals()
     End Sub
+
+    Private Sub lstGames_RetrieveVirtualItem(sender As Object, e As RetrieveVirtualItemEventArgs) Handles lstGames.RetrieveVirtualItem
+        e.Item = oListCache(e.ItemIndex)
+    End Sub
+
+    Private Sub lstGames_MouseClick(sender As Object, e As MouseEventArgs) Handles lstGames.MouseClick
+        Dim oListView As ListView = DirectCast(sender, ListView)
+        Dim oListViewItem As ListViewItem = oListView.GetItemAt(e.X, e.Y)
+        If Not oListViewItem Is Nothing Then
+            If e.X < (oListViewItem.Bounds.Left + 16) Then
+                oListViewItem.Checked = Not oListViewItem.Checked
+                oListView.Invalidate(oListViewItem.Bounds)
+            End If
+        End If
+    End Sub
+
+    Private Sub lstGames_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lstGames.MouseDoubleClick
+        Dim oListView As ListView = DirectCast(sender, ListView)
+        Dim oListViewItem As ListViewItem = oListView.GetItemAt(e.X, e.Y)
+        If Not oListViewItem Is Nothing Then
+            oListView.Invalidate(oListViewItem.Bounds)
+        End If
+    End Sub
+
+    Private Sub lstGames_DrawItem(sender As Object, e As DrawListViewItemEventArgs) Handles lstGames.DrawItem
+        e.DrawDefault = True
+        If Not mgrCommon.IsUnix Then
+            If Not e.Item.Checked Then
+                e.Item.Checked = True
+                e.Item.Checked = False
+            End If
+        End If
+    End Sub
+
+    Private Sub lstGames_DrawSubItem(sender As Object, e As DrawListViewSubItemEventArgs) Handles lstGames.DrawSubItem
+        e.DrawDefault = True
+    End Sub
+
+    Private Sub lstGames_DrawColumnHeader(sender As Object, e As DrawListViewColumnHeaderEventArgs) Handles lstGames.DrawColumnHeader
+        e.DrawDefault = True
+    End Sub
 End Class
 
 ' Column Sorter
 Class ListViewItemComparer
-    Implements IComparer
+    Implements IComparer(Of ListViewItem)
 
     Private col As Integer
 
@@ -594,7 +635,7 @@ Class ListViewItemComparer
         col = column
     End Sub
 
-    Public Function Compare(ByVal x As Object, ByVal y As Object) As Integer Implements IComparer.Compare
-        Return String.Compare(CType(x, ListViewItem).SubItems(col).Text, CType(y, ListViewItem).SubItems(col).Text)
+    Public Function Compare(ByVal x As ListViewItem, ByVal y As ListViewItem) As Integer Implements IComparer(Of ListViewItem).Compare
+        Return String.Compare(x.SubItems(col).Text, y.SubItems(col).Text)
     End Function
 End Class
