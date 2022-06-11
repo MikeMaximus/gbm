@@ -6,11 +6,11 @@ Public Class frmAdvancedImport
     Private sImportPath As String
     Private eImportType As mgrMonitorList.eImportTypes
     Private oLudusaviOptions As clsLudusaviOptions
-    Private oImportData As ExportData
+    Private oImportInfo As ExportData
     Private hshImportData As Hashtable
     Private hshFinalData As New Hashtable
     Private hshIgnorePaths As Hashtable
-    Private bClassicMode As Boolean = True
+    Private bOfficialMode As Boolean = True
     Private bIsLoading As Boolean = False
     Private iCurrentSort As Integer = 0
     Private oImageList As ImageList
@@ -47,39 +47,6 @@ Public Class frmAdvancedImport
         End Set
     End Property
 
-    Private Property ImportInfo As ExportData
-        Set(value As ExportData)
-            oImportData = value
-        End Set
-        Get
-            Return oImportData
-        End Get
-    End Property
-
-    Private Property ImportData As Hashtable
-        Set(value As Hashtable)
-            hshImportData = value
-        End Set
-        Get
-            Return hshImportData
-        End Get
-    End Property
-
-    Public ReadOnly Property FinalData As Hashtable
-        Get
-            Return hshFinalData
-        End Get
-    End Property
-
-    Private Property ClassicMode As Boolean
-        Set(value As Boolean)
-            bClassicMode = value
-        End Set
-        Get
-            Return bClassicMode
-        End Get
-    End Property
-
     Private Sub SelectToggle()
         bIsLoading = True
 
@@ -110,9 +77,9 @@ Public Class frmAdvancedImport
 
     Private Sub SaveChecked(ByVal oItem As ListViewItem)
         If oItem.Checked Then
-            If Not FinalData.ContainsKey(oItem.Tag) Then FinalData.Add(oItem.Tag, ImportData(oItem.Tag))
+            If Not hshFinalData.ContainsKey(oItem.Tag) Then hshFinalData.Add(oItem.Tag, hshImportData(oItem.Tag))
         Else
-            FinalData.Remove(oItem.Tag)
+            hshFinalData.Remove(oItem.Tag)
         End If
     End Sub
 
@@ -159,7 +126,7 @@ Public Class frmAdvancedImport
         Dim bAdd As Boolean
         Dim iCount As Integer
 
-        For Each de As DictionaryEntry In ImportData
+        For Each de As DictionaryEntry In hshImportData
             bAdd = False
             oApp = DirectCast(de.Value, clsGame)
             Try
@@ -182,9 +149,9 @@ Public Class frmAdvancedImport
                 End If
 
                 If bAdd Then
-                    If Not FinalData.ContainsKey(oApp.ID) Then
+                    If Not hshFinalData.ContainsKey(oApp.ID) Then
                         iCount += 1
-                        FinalData.Add(oApp.ID, oApp)
+                        hshFinalData.Add(oApp.ID, oApp)
                     End If
                 End If
             Catch
@@ -210,39 +177,36 @@ Public Class frmAdvancedImport
         Dim oToItem As clsGame
 
         bIsLoading = True
-        ImportInfo = New ExportData
+        oImportInfo = New ExportData
 
-        Select Case Path.GetExtension(ImportPath)
-            Case ".xml"
-                If Not mgrXML.DeserializeAndImport(ImportPath, ImportInfo, hshCompareFrom) Then
+        Select Case ImportType
+            Case mgrMonitorList.eImportTypes.Official
+                If Not mgrXML.DeserializeAndImport(ImportPath, oImportInfo, hshCompareFrom) Then
                     Return False
                 End If
-                ClassicMode = True
-            Case ".yaml", ".yml"
-                If Not mgrLudusavi.ReadLudusaviManifest(ImportPath, LudusaviOptions, ImportInfo, hshCompareFrom) Then
+                bOfficialMode = True
+            Case mgrMonitorList.eImportTypes.Ludusavi
+                If Not mgrLudusavi.ReadLudusaviManifest(ImportPath, LudusaviOptions, oImportInfo, hshCompareFrom) Then
                     Return False
                 End If
-                ClassicMode = False
-            Case Else
-                mgrCommon.ShowMessage(mgrMonitorList_ErrorImportFileType, MsgBoxStyle.Exclamation)
-                Return False
+                bOfficialMode = False
         End Select
 
         hshCompareTo = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList, mgrSQLite.Database.Local)
 
-        ImportData = hshCompareFrom.Clone
+        hshImportData = hshCompareFrom.Clone
 
         For Each oFromItem In hshCompareFrom.Values
             If hshCompareTo.Contains(oFromItem.ID) Then
                 oToItem = DirectCast(hshCompareTo(oFromItem.ID), clsGame)
                 If oFromItem.MinimalEquals(oToItem) Then
                     If oFromItem.CoreEquals(oToItem) Then
-                        ImportData.Remove(oFromItem.ID)
+                        hshImportData.Remove(oFromItem.ID)
                     Else
-                        DirectCast(ImportData(oFromItem.ID), clsGame).ImportUpdate = True
+                        DirectCast(hshImportData(oFromItem.ID), clsGame).ImportUpdate = True
                         'These fields need to be set via the object or they will be lost when the configuration is updated
-                        DirectCast(ImportData(oFromItem.ID), clsGame).Hours = oToItem.Hours
-                        DirectCast(ImportData(oFromItem.ID), clsGame).CleanFolder = oToItem.CleanFolder
+                        DirectCast(hshImportData(oFromItem.ID), clsGame).Hours = oToItem.Hours
+                        DirectCast(hshImportData(oFromItem.ID), clsGame).CleanFolder = oToItem.CleanFolder
                     End If
 
                 End If
@@ -251,7 +215,7 @@ Public Class frmAdvancedImport
 
         bIsLoading = False
 
-        If ImportData.Count > 0 Then
+        If hshImportData.Count > 0 Then
             Return True
         Else
             Return False
@@ -273,7 +237,7 @@ Public Class frmAdvancedImport
             chkSelectedOnly.Checked = True
         End If
 
-        For Each de As DictionaryEntry In ImportData
+        For Each de As DictionaryEntry In hshImportData
             bAddItem = False
             oApp = DirectCast(de.Value, clsGame)
 
@@ -290,7 +254,7 @@ Public Class frmAdvancedImport
                 sProcess = oApp.ProcessName
             End If
 
-            If bClassicMode Then
+            If bOfficialMode Then
                 oListViewItem = New ListViewItem(New String() {oApp.Name, sProcess, oApp.Path, oApp.FileType, sTags})
             Else
                 oListViewItem = New ListViewItem(New String() {oApp.Name, sProcess, oApp.Path, oApp.FileType, oApp.OS.ToString, sTags})
@@ -298,7 +262,7 @@ Public Class frmAdvancedImport
 
             oListViewItem.Tag = oApp.ID
 
-            If FinalData.ContainsKey(oApp.ID) Then
+            If hshFinalData.ContainsKey(oApp.ID) Then
                 oListViewItem.Checked = True
             Else
                 oListViewItem.Checked = False
@@ -346,10 +310,17 @@ Public Class frmAdvancedImport
         UpdateTotals()
     End Sub
 
+    Private Sub ImportConfigurations()
+        mgrMonitorList.DoListAddUpdateSync(hshFinalData)
+        mgrTags.DoTagAddImport(hshFinalData)
+        mgrConfigLinks.DoConfigLinkImport(hshFinalData)
+        mgrMonitorList.SyncMonitorLists()
+    End Sub
+
     Private Sub AutoSizeColumns()
         If lstGames.Columns.Count > 0 Then
             lstGames.BeginUpdate()
-            If bClassicMode Then
+            If bOfficialMode Then
                 lstGames.Columns(0).Width = Math.Round(lstGames.Size.Width * 0.3)
                 lstGames.Columns(1).Width = Math.Round(lstGames.Size.Width * 0.15)
                 lstGames.Columns(2).Width = Math.Round(lstGames.Size.Width * 0.29)
@@ -369,14 +340,14 @@ Public Class frmAdvancedImport
 
     Private Sub SetFormTitle()
         'Add configuration date to title if applicable
-        If ImportInfo.Exported <> 0 Then
-            Me.Text &= " [" & mgrCommon.UnixToDate(ImportInfo.Exported).Date & "]"
+        If oImportInfo.Exported <> 0 Then
+            Me.Text &= " [" & mgrCommon.UnixToDate(oImportInfo.Exported).Date & "]"
         End If
     End Sub
 
     Private Sub SetColumns()
         'Setup Columns
-        If bClassicMode Then
+        If bOfficialMode Then
             lstGames.Columns.Add(frmAdvancedImport_ColumnName)
             lstGames.Columns.Add(frmAdvancedImport_ColumnProcess)
             lstGames.Columns.Add(frmAdvancedImport_ColumnPath)
@@ -504,8 +475,12 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
-        If FinalData.Count > 0 Then Me.DialogResult = Windows.Forms.DialogResult.OK
-        Me.Close()
+        If hshFinalData.Count > 0 Then
+            ToggleForm(False)
+            bwImport.RunWorkerAsync()
+        Else
+            Me.Close()
+        End If
     End Sub
 
     Private Sub lstGames_ColumnClick(sender As Object, e As ColumnClickEventArgs) Handles lstGames.ColumnClick
@@ -551,7 +526,7 @@ Public Class frmAdvancedImport
             SetColumns()
             SetFormTitle()
 
-            If bClassicMode Then
+            If bOfficialMode Then
                 bSelectedOnly = AutoDetect() > 0
             End If
 
@@ -577,6 +552,17 @@ Public Class frmAdvancedImport
         End If
         ToggleForm(True)
         UpdateTotals()
+    End Sub
+
+    Private Sub bwImport_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bwImport.DoWork
+        ImportConfigurations()
+    End Sub
+
+    Private Sub bwImport_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwImport.RunWorkerCompleted
+        ToggleForm(True)
+        mgrCommon.ShowMessage(frmAdvancedImport_ImportComplete, MsgBoxStyle.Information)
+        Me.DialogResult = DialogResult.OK
+        Me.Close()
     End Sub
 
     Private Sub lstGames_RetrieveVirtualItem(sender As Object, e As RetrieveVirtualItemEventArgs) Handles lstGames.RetrieveVirtualItem

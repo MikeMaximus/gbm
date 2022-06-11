@@ -888,6 +888,7 @@ Public Class mgrMonitorList
     Public Shared Function DoImport(ByVal sPath As String) As Boolean
         Dim frmImport As New frmAdvancedImport
         Dim frmOptions As New frmLudusaviConfig
+        Dim oResult As DialogResult
 
         Select Case Path.GetExtension(sPath)
             Case ".xml"
@@ -905,22 +906,13 @@ Public Class mgrMonitorList
         End Select
 
         frmImport.ImportPath = sPath
+        oResult = frmImport.ShowDialog()
 
-        If frmImport.ShowDialog() = DialogResult.OK Then
-            Cursor.Current = Cursors.WaitCursor
+        'We will force a GC here, the import form can use a large amount of memory.
+        frmImport.Dispose()
+        GC.Collect()
 
-            DoListAddUpdateSync(frmImport.FinalData)
-            mgrTags.DoTagAddImport(frmImport.FinalData)
-            mgrConfigLinks.DoConfigLinkImport(frmImport.FinalData)
-            SyncMonitorLists()
-
-            Cursor.Current = Cursors.Default
-            mgrCommon.ShowMessage(mgrMonitorList_ImportComplete, MsgBoxStyle.Information)
-
-            Return True
-        End If
-
-        Return False
+        Return oResult = DialogResult.OK
     End Function
 
     Public Shared Sub ExportMonitorList(ByVal sLocation As String)

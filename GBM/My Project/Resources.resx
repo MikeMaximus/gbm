@@ -1221,7 +1221,7 @@
   <data name="mgrMonitorList_ExportComplete" xml:space="preserve">
     <value>Export Complete.  [PARAM] item(s) have been exported.</value>
   </data>
-  <data name="mgrMonitorList_ImportComplete" xml:space="preserve">
+  <data name="frmAdvancedImport_ImportComplete" xml:space="preserve">
     <value>Import Complete.</value>
   </data>
   <data name="frmAdvancedImport_ImportNothing" xml:space="preserve">

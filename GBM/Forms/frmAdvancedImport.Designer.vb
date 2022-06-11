@@ -34,6 +34,7 @@ Partial Class frmAdvancedImport
         Me.bwLoader = New System.ComponentModel.BackgroundWorker()
         Me.btnClearSelected = New System.Windows.Forms.Button()
         Me.bwDetect = New System.ComponentModel.BackgroundWorker()
+        Me.bwImport = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
         'btnImport
@@ -151,6 +152,9 @@ Partial Class frmAdvancedImport
         'bwDetect
         '
         '
+        'bwImport
+        '
+        '
         'frmAdvancedImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -186,4 +190,5 @@ Partial Class frmAdvancedImport
     Friend WithEvents bwLoader As System.ComponentModel.BackgroundWorker
     Friend WithEvents btnClearSelected As Button
     Friend WithEvents bwDetect As System.ComponentModel.BackgroundWorker
+    Friend WithEvents bwImport As System.ComponentModel.BackgroundWorker
 End Class

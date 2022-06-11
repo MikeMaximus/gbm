@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-06-10T20:53:12
+        '''  Looks up a localized string similar to 2022-06-11T13:53:00
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1039,6 +1039,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmAdvancedImport_FormName() As String
             Get
                 Return ResourceManager.GetString("frmAdvancedImport_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Import Complete..
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_ImportComplete() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_ImportComplete", resourceCulture)
             End Get
         End Property
         
@@ -8538,15 +8547,6 @@ Namespace My.Resources
         Friend ReadOnly Property mgrMonitorList_ExportComplete() As String
             Get
                 Return ResourceManager.GetString("mgrMonitorList_ExportComplete", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Import Complete..
-        '''</summary>
-        Friend ReadOnly Property mgrMonitorList_ImportComplete() As String
-            Get
-                Return ResourceManager.GetString("mgrMonitorList_ImportComplete", resourceCulture)
             End Get
         End Property
         

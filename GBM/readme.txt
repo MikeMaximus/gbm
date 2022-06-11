@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.1 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-June 4, 2022
+June 11, 2022
 
 New in 1.3.1
 
@@ -18,7 +18,7 @@ All Platforms:
 	- GBM can auto-configure the path variables required for Steam Cloud locations if possible.
 		- This feature must be enabled manually in Settings -> General -> Optional Features -> "Enable automatic configuration of store paths"
 	- See the Store Variables(https://mikemaximus.github.io/gbm-web/manual.html#storevariables) section of the manual for more information about this feature.		
-- Improvements to the Import window.
+- Improvements to the Import window.	
 	- Configurations with detected saved games are selected and displayed by default when importing from official lists.
 	- The "Select All" checkbox should now function in a more expected manner.
 	- Column sizes will no longer reset when filters are applied.
@@ -28,6 +28,9 @@ All Platforms:
 	- Improved saved game detection.
 		- Windows registry configurations are now detected.
 		- Better detection of configurations that use file includes.
+	- Improved method of loading and displaying configurations.
+		- This will provide a better user experience when loading and handling lists with thousands of configurations.
+		- Due to the performance improvements, the "Selected" counter was no longer feasible and had to be removed.
 	- Removed the initial confirmation when importing from official lists.
 - The GameID will now automatically be used for the backup sub-folder and file name of any configuration using duplicate names, regardless of the global setting for folder & file names.
 	- This is done as a safety measure to prevent unknowingly overwriting the backup file of another configuration using the same name.
@@ -46,10 +49,5 @@ Linux:
 
 - Fixed games running in Wine not being detected.
 	- "wine-preloader, wine, wine64-preloader, wine64" will now be detected instead of just the preloader variants.
-
-Known Issues:
-
-- The Import window can be slow to load and make the application temporarily unresponsive when handling large lists, such as the entire Ludusavi Manifest.
-	- This will be addressed in a future release.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
