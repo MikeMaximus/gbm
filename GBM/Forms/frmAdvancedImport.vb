@@ -140,7 +140,7 @@ Public Class frmAdvancedImport
                     If Directory.Exists(oApp.Path) Then
                         For Each s As String In oApp.FileType.Split(":")
                             'For performance reasons we are not using a recursive search.
-                            If Directory.GetFiles(oApp.Path, s, SearchOption.TopDirectoryOnly).Length > 0 Then
+                            If Directory.GetDirectories(oApp.Path, s, SearchOption.TopDirectoryOnly).Length > 0 Or Directory.GetFiles(oApp.Path, s, SearchOption.TopDirectoryOnly).Length > 0 Then
                                 bAdd = True
                                 Exit For
                             End If
