@@ -4,6 +4,11 @@ Imports System.IO
 
 Public Class mgrLudusavi
 
+    Public Property FileLocation As String
+    Public Property Options As clsLudusaviOptions
+    Public Property ConvertedList As Hashtable
+    Public Property ImportInfo As ExportData
+
     Public Enum OsTypes
         dos
         linux
@@ -27,7 +32,7 @@ Public Class mgrLudusavi
     End Enum
 
     'We can't currently handle some of the path variables used by ludusavi manifest 
-    Private Shared Function IsSupportedPath(ByVal sPath As String) As Boolean
+    Private Function IsSupportedPath(ByVal sPath As String) As Boolean
         Dim sNotSupported As String() = {"<game>", "<osUserName>", "<winDir>"}
 
         For Each s As String In sNotSupported
@@ -37,7 +42,7 @@ Public Class mgrLudusavi
         Return True
     End Function
 
-    Private Shared Function IsValidProcess(ByVal sProcess As String) As Boolean
+    Private Function IsValidProcess(ByVal sProcess As String) As Boolean
         Dim sExt As String() = {".bat", ".sh", ".txt", ".pdf", ".htm", ".html"}
         Dim sName As String() = {"launch", "setup", "start_protected_game", "dowser"}
         Dim s As String
@@ -57,7 +62,7 @@ Public Class mgrLudusavi
         Return True
     End Function
 
-    Private Shared Function RequiresArguments(ByVal sProcess As String) As Boolean
+    Private Function RequiresArguments(ByVal sProcess As String) As Boolean
         Dim sName As String() = {"dosbox", "scummvm", "javaw", "hl2", "portal2"}
         Dim s As String
 
@@ -70,16 +75,16 @@ Public Class mgrLudusavi
         Return False
     End Function
 
-    Private Shared Function HasStorePath(ByVal sPath As String) As Boolean
+    Private Function HasStorePath(ByVal sPath As String) As Boolean
         Return sPath.Contains("<root>")
     End Function
 
-    Private Shared Function HasStoreId(ByVal sPath As String) As Boolean
+    Private Function HasStoreId(ByVal sPath As String) As Boolean
         Return sPath.Contains("<storeUserId>")
     End Function
 
     'We can try to detect and convert path entries that are file includes to something that GBM can understand.
-    Private Shared Function ConvertInclude(ByRef sPath As String, ByRef sInclude As String, ByVal bIsRootedOverride As Boolean) As Boolean
+    Private Function ConvertInclude(ByRef sPath As String, ByRef sInclude As String, ByVal bIsRootedOverride As Boolean) As Boolean
         Dim bRooted As Boolean
         Dim bHasExt As Boolean = False
         Dim iExtLength As Integer
@@ -114,7 +119,7 @@ Public Class mgrLudusavi
     End Function
 
     'If a game is using a multi-file configuration we can combine them into a single GBM config when it makes sense.
-    Private Shared Function ConvertConfigurations(ByVal oConfigurations As List(Of clsGame)) As List(Of clsGame)
+    Private Function ConvertConfigurations(ByVal oConfigurations As List(Of clsGame)) As List(Of clsGame)
         Dim oFinal As New List(Of clsGame)
         Dim oFrom As clsGame
         Dim oTo As clsGame
@@ -146,7 +151,7 @@ Public Class mgrLudusavi
     End Function
 
     'We need to convert ludusavi manifest path variables to ones that GBM can understand
-    Private Shared Function ConvertPath(ByVal sPath As String, ByVal oOS As clsGame.eOS, ByVal sStore As String) As String
+    Private Function ConvertPath(ByVal sPath As String, ByVal oOS As clsGame.eOS, ByVal sStore As String) As String
 
         'Replacing <base> with an empty string should make relative locations compatible with GBM
         sPath = sPath.Replace("<base>/", String.Empty)
@@ -194,7 +199,7 @@ Public Class mgrLudusavi
     End Function
 
     'This function will convert store tags used in Ludusavi manifest to tag values that GBM currently uses.
-    Private Shared Function ConvertStore(ByVal sStore As String) As String
+    Private Function ConvertStore(ByVal sStore As String) As String
         Select Case sStore
             Case StoreTypes.discord.ToString
                 Return "Discord"
@@ -215,7 +220,7 @@ Public Class mgrLudusavi
         End Select
     End Function
 
-    Private Shared Sub HandleTags(ByRef sTags As String(), ByRef sStore As String, ByRef oGame As clsGame)
+    Private Sub HandleTags(ByRef sTags As String(), ByRef sStore As String, ByRef oGame As clsGame)
         If Not sStore Is Nothing Then
             oGame.ImportTags.Add(New Tag(ConvertStore(sStore)))
         End If
@@ -233,7 +238,7 @@ Public Class mgrLudusavi
         oGame.ImportTags.Add(New Tag("Ludusavi"))
     End Sub
 
-    Private Shared Sub HandleLaunch(ByRef oGame As clsGame, ByRef oLudusaviLaunchData As Dictionary(Of String, List(Of LudusaviLaunch)), ByVal sOS As String, ByVal iBit As Integer)
+    Private Sub HandleLaunch(ByRef oGame As clsGame, ByRef oLudusaviLaunchData As Dictionary(Of String, List(Of LudusaviLaunch)), ByVal sOS As String, ByVal iBit As Integer)
         Dim oLudusaviLaunchPair As KeyValuePair(Of String, List(Of LudusaviLaunch))
         Dim oLudusaviLaunch As LudusaviLaunch
         Dim oLudusaviWhen As LudusaviWhen
@@ -293,7 +298,7 @@ Public Class mgrLudusavi
         End If
     End Sub
 
-    Private Shared Function DetectSupportedStorePaths() As List(Of String)
+    Private Function DetectSupportedStorePaths() As List(Of String)
         Dim oStores As New List(Of String)
 
         If mgrStoreVariables.IsAppConfigured(mgrStoreVariables.SupportedAutoConfigApps.Steam) Then
@@ -304,7 +309,7 @@ Public Class mgrLudusavi
     End Function
 
     'This function converts ludusavi manifest data into a structure that can be imported.
-    Private Shared Function ConvertYAML(ByRef hshList As Hashtable, ByRef oList As Dictionary(Of String, LudusaviGame), ByVal oOptions As clsLudusaviOptions) As Boolean
+    Private Function ConvertYAML(ByRef oList As Dictionary(Of String, LudusaviGame)) As Boolean
         Dim oLudusaviGamePair As KeyValuePair(Of String, LudusaviGame)
         Dim oLudusaviGame As LudusaviGame
         Dim oLudusaviPathPair As KeyValuePair(Of String, LudusaviPath)
@@ -324,8 +329,8 @@ Public Class mgrLudusavi
             End If
 
             For Each oLudusaviGamePair In oList
-                If Not oOptions.QueryAsRegEx Is Nothing Then
-                    If Not oOptions.QueryAsRegEx.IsMatch(oLudusaviGamePair.Key) Then
+                If Not Options.QueryAsRegEx Is Nothing Then
+                    If Not Options.QueryAsRegEx.IsMatch(oLudusaviGamePair.Key) Then
                         Continue For
                     End If
                 End If
@@ -346,7 +351,7 @@ Public Class mgrLudusavi
                                         Case clsGame.eOS.Windows
                                             Select Case w.os
                                                 Case OsTypes.dos.ToString, OsTypes.windows.ToString
-                                                    If oOptions.IncludeOS.HasFlag(clsLudusaviOptions.eSupportedOS.Windows) Then
+                                                    If Options.IncludeOS.HasFlag(clsLudusaviOptions.eSupportedOS.Windows) Then
                                                         bSupportedPlatform = True
                                                     Else
                                                         bSupportedPlatform = False
@@ -357,14 +362,14 @@ Public Class mgrLudusavi
                                         Case clsGame.eOS.Linux
                                             Select Case w.os
                                                 Case OsTypes.dos.ToString, OsTypes.windows.ToString
-                                                    If oOptions.IncludeOS.HasFlag(clsLudusaviOptions.eSupportedOS.Windows) Then
+                                                    If Options.IncludeOS.HasFlag(clsLudusaviOptions.eSupportedOS.Windows) Then
                                                         bSupportedPlatform = True
                                                         bForcedWinConvert = True
                                                     Else
                                                         bSupportedPlatform = False
                                                     End If
                                                 Case OsTypes.linux.ToString
-                                                    If oOptions.IncludeOS.HasFlag(clsLudusaviOptions.eSupportedOS.Linux) Then
+                                                    If Options.IncludeOS.HasFlag(clsLudusaviOptions.eSupportedOS.Linux) Then
                                                         bSupportedPlatform = True
                                                     Else
                                                         bSupportedPlatform = False
@@ -393,7 +398,7 @@ Public Class mgrLudusavi
                                     If bSupportedPlatform And bSupportedStore Then
                                         If Not oLudusaviPath.tags Is Nothing Then
                                             For Each t As String In oLudusaviPath.tags
-                                                If (t = TagTypes.save.ToString And oOptions.IncludeSaves) Or (t = TagTypes.config.ToString And oOptions.IncludeConfigs) Then
+                                                If (t = TagTypes.save.ToString And Options.IncludeSaves) Or (t = TagTypes.config.ToString And Options.IncludeConfigs) Then
                                                     oGame = New clsGame
                                                     oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
                                                     oGame.Name = oLudusaviGamePair.Key
@@ -430,13 +435,13 @@ Public Class mgrLudusavi
                 End If
 
                 If Not oLudusaviGame.registry Is Nothing Then
-                    If oOptions.IncludeOS.HasFlag(clsLudusaviOptions.eSupportedOS.Windows) Then
+                    If Options.IncludeOS.HasFlag(clsLudusaviOptions.eSupportedOS.Windows) Then
                         For Each oLudusaviPathPair In oLudusaviGame.registry
                             If mgrPath.IsSupportedRegistryPath(oLudusaviPathPair.Key.Replace("/", "\")) Then
                                 oLudusaviPath = DirectCast(oLudusaviPathPair.Value, LudusaviPath)
                                 If Not oLudusaviPath.tags Is Nothing Then
                                     For Each t As String In oLudusaviPath.tags
-                                        If (t = TagTypes.save.ToString And oOptions.IncludeSaves) Or (t = TagTypes.config.ToString And oOptions.IncludeConfigs) Then
+                                        If (t = TagTypes.save.ToString And Options.IncludeSaves) Or (t = TagTypes.config.ToString And Options.IncludeConfigs) Then
                                             oGame = New clsGame
                                             oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
                                             oGame.Name = oLudusaviGamePair.Key
@@ -457,11 +462,11 @@ Public Class mgrLudusavi
                 End If
 
                 If oConfigurations.Count = 1 Then
-                    If Not hshList.ContainsKey(oConfigurations(0).ID) Then hshList.Add(oConfigurations(0).ID, oConfigurations(0))
+                    If Not ConvertedList.ContainsKey(oConfigurations(0).ID) Then ConvertedList.Add(oConfigurations(0).ID, oConfigurations(0))
                 ElseIf oConfigurations.Count > 1 Then
                     oConfigurations = ConvertConfigurations(oConfigurations)
                     For Each o As clsGame In oConfigurations
-                        If Not hshList.ContainsKey(o.ID) Then hshList.Add(o.ID, o)
+                        If Not ConvertedList.ContainsKey(o.ID) Then ConvertedList.Add(o.ID, o)
                     Next
                 End If
             Next
@@ -472,12 +477,12 @@ Public Class mgrLudusavi
         End Try
     End Function
 
-    Private Shared Sub FormatYAML(ByRef sYAML As String)
+    Private Sub FormatYAML(ByRef sYAML As String)
         'DotNetYAML can't properly parse lines that end in <space>*: so we will remove the space.
         sYAML = sYAML.Replace(" *:", "*:")
     End Sub
 
-    Public Shared Function ReadLudusaviManifest(ByVal sLocation As String, ByVal oOptions As clsLudusaviOptions, ByRef oExportInfo As ExportData, ByRef hshList As Hashtable) As Boolean
+    Public Function ReadLudusaviManifest() As Boolean
         Dim oBuilder As DeserializerBuilder
         Dim oDeserializer As Deserializer
         Dim oReader As StreamReader
@@ -490,17 +495,17 @@ Public Class mgrLudusavi
             oBuilder.IgnoreUnmatchedProperties()
             oDeserializer = oBuilder.Build()
 
-            If mgrCommon.IsAddress(sLocation) Then
-                oReader = mgrCommon.ReadTextFromCache(sLocation, oExportInfo.Exported)
+            If mgrCommon.IsAddress(FileLocation) Then
+                oReader = mgrCommon.ReadTextFromCache(FileLocation, ImportInfo.Exported)
                 sYAML = oReader.ReadToEnd
                 oReader.Close()
             Else
-                sYAML = mgrCommon.ReadText(sLocation)
+                sYAML = mgrCommon.ReadText(FileLocation)
             End If
 
             FormatYAML(sYAML)
             oList = oDeserializer.Deserialize(Of Dictionary(Of String, LudusaviGame))(sYAML)
-            ConvertYAML(hshList, oList, oOptions)
+            ConvertYAML(oList)
 
             Return True
         Catch ex As Exception
@@ -509,4 +514,11 @@ Public Class mgrLudusavi
         End Try
 
     End Function
+
+    Sub New(sFileLocation As String, oOptions As clsLudusaviOptions)
+        FileLocation = sFileLocation
+        Options = oOptions
+        ImportInfo = New ExportData
+        ConvertedList = New Hashtable
+    End Sub
 End Class

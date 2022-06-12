@@ -3,9 +3,6 @@ Imports System.IO
 
 Public Class frmAdvancedImport
 
-    Private sImportPath As String
-    Private eImportType As mgrMonitorList.eImportTypes
-    Private oLudusaviOptions As clsLudusaviOptions
     Private oImportInfo As ExportData
     Private hshImportData As Hashtable
     Private hshFinalData As New Hashtable
@@ -18,34 +15,15 @@ Public Class frmAdvancedImport
     Private oLastWindowState As FormWindowState
     Private iGamesDetected As Integer
     Private bDataLoaded As Boolean
+    Private oLudusavi As mgrLudusavi
+    Private oOfficialXML As mgrXML
     Private oListCache As New List(Of ListViewItem)
 
     Public Property ImportPath As String
-        Get
-            Return sImportPath
-        End Get
-        Set(value As String)
-            sImportPath = value
-        End Set
-    End Property
 
     Public Property ImportType As mgrMonitorList.eImportTypes
-        Get
-            Return eImportType
-        End Get
-        Set(value As mgrMonitorList.eImportTypes)
-            eImportType = value
-        End Set
-    End Property
 
     Public Property LudusaviOptions As clsLudusaviOptions
-        Get
-            Return oLudusaviOptions
-        End Get
-        Set(value As clsLudusaviOptions)
-            oLudusaviOptions = value
-        End Set
-    End Property
 
     Private Sub SelectToggle()
         bIsLoading = True
@@ -181,14 +159,20 @@ Public Class frmAdvancedImport
 
         Select Case ImportType
             Case mgrMonitorList.eImportTypes.Official
-                If Not mgrXML.DeserializeAndImport(ImportPath, oImportInfo, hshCompareFrom) Then
+                oOfficialXML = New mgrXML(ImportPath)
+                If Not oOfficialXML.DeserializeAndImport() Then
                     Return False
                 End If
+                hshCompareFrom = oOfficialXML.ConvertedList
+                oImportInfo = oOfficialXML.ImportInfo
                 bOfficialMode = True
             Case mgrMonitorList.eImportTypes.Ludusavi
-                If Not mgrLudusavi.ReadLudusaviManifest(ImportPath, LudusaviOptions, oImportInfo, hshCompareFrom) Then
+                oLudusavi = New mgrLudusavi(ImportPath, LudusaviOptions)
+                If Not oLudusavi.ReadLudusaviManifest() Then
                     Return False
                 End If
+                hshCompareFrom = oLudusavi.ConvertedList
+                oImportInfo = oLudusavi.ImportInfo
                 bOfficialMode = False
         End Select
 

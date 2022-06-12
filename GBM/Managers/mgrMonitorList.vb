@@ -916,6 +916,7 @@ Public Class mgrMonitorList
     End Function
 
     Public Shared Sub ExportMonitorList(ByVal sLocation As String)
+        Dim oOfficialXML As New mgrXML(sLocation)
         Dim oList As List(Of Game)
         Dim bSuccess As Boolean = False
         Dim oIncludeTagFilters As New List(Of clsTag)
@@ -940,7 +941,7 @@ Public Class mgrMonitorList
 
         oList = ReadListForExport(oIncludeTagFilters, oExcludeTagFilters, oFilters, eCurrentFilter, bAndOperator, bSortAsc, sSortField)
 
-        bSuccess = mgrXML.SerializeAndExport(oList, sLocation)
+        bSuccess = oOfficialXML.SerializeAndExport(oList)
 
         If bSuccess Then
             mgrCommon.ShowMessage(mgrMonitorList_ExportComplete, oList.Count, MsgBoxStyle.Information)

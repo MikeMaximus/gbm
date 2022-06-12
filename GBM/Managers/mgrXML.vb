@@ -4,7 +4,11 @@ Imports System.IO
 
 Public Class mgrXML
 
-    Private Shared Function IsSupportedPath(ByRef sPath As String) As Boolean
+    Public Property FileLocation As String
+    Public Property ConvertedList As Hashtable
+    Public Property ImportInfo As ExportData
+
+    Private Function IsSupportedPath(ByRef sPath As String) As Boolean
         'Check Steam
         If sPath.Contains("%Steam") Or sPath.Contains("%SteamID3") Then
             Return mgrStoreVariables.IsAppConfigured(mgrStoreVariables.SupportedAutoConfigApps.Steam)
@@ -13,7 +17,7 @@ Public Class mgrXML
         Return True
     End Function
 
-    Public Shared Function DeserializeAndImport(ByVal sLocation As String, ByRef oExportInfo As ExportData, ByRef hshList As Hashtable) As Boolean
+    Public Function DeserializeAndImport() As Boolean
         Dim oReader As StreamReader
         Dim oSerializer As XmlSerializer
         Dim oList As List(Of Game)
@@ -23,21 +27,21 @@ Public Class mgrXML
         Dim bAdd As Boolean
 
         Try
-            oReader = mgrCommon.ReadTextFromCache(sLocation)
+            oReader = mgrCommon.ReadTextFromCache(FileLocation)
             oSerializer = New XmlSerializer(GetType(ExportData), New XmlRootAttribute("gbm"))
             oExportData = oSerializer.Deserialize(oReader)
             oReader.Close()
 
             'Compatability Mode
             If oExportData.AppVer = 0 Then
-                oReader = mgrCommon.ReadTextFromCache(sLocation)
+                oReader = mgrCommon.ReadTextFromCache(FileLocation)
                 oSerializer = New XmlSerializer(GetType(List(Of Game)), New XmlRootAttribute("gbm"))
                 oExportData.Configurations = oSerializer.Deserialize(oReader)
                 oReader.Close()
             End If
 
             oList = oExportData.Configurations
-            oExportInfo = oExportData
+            ImportInfo = oExportData
 
             For Each g As Game In oList
                 bAdd = False
@@ -77,7 +81,7 @@ Public Class mgrXML
 
                 bAdd = IsSupportedPath(oGame.TruePath)
 
-                If bAdd Then hshList.Add(oGame.ID, oGame)
+                If bAdd Then ConvertedList.Add(oGame.ID, oGame)
             Next
 
             Return True
@@ -87,7 +91,7 @@ Public Class mgrXML
         End Try
     End Function
 
-    Public Shared Function SerializeAndExport(ByVal oList As List(Of Game), ByVal sLocation As String) As Boolean
+    Public Function SerializeAndExport(ByVal oList As List(Of Game)) As Boolean
         Dim oSerializer As XmlSerializer
         Dim oWriter As StreamWriter
         Dim oExportData As ExportData
@@ -95,7 +99,7 @@ Public Class mgrXML
         Try
             oExportData = New ExportData(mgrCommon.DateToUnix(Now), oList.Count, mgrCommon.AppVersion, oList)
             oSerializer = New XmlSerializer(oExportData.GetType())
-            oWriter = New StreamWriter(sLocation)
+            oWriter = New StreamWriter(FileLocation)
             oSerializer.Serialize(oWriter.BaseStream, oExportData)
             oWriter.Flush()
             oWriter.Close()
@@ -105,4 +109,11 @@ Public Class mgrXML
             Return False
         End Try
     End Function
+
+    Sub New(sFileLocation As String)
+        FileLocation = sFileLocation
+        ImportInfo = New ExportData
+        ConvertedList = New Hashtable
+    End Sub
+
 End Class
