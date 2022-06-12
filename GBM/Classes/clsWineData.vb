@@ -1,43 +1,20 @@
 ﻿Public Class clsWineData
-    Private sMonitorID As String = String.Empty
-    Private sPrefix As String = String.Empty
-    Private sSavePath As String = String.Empty
-    Private sBinaryPath As String = String.Empty
+    Public Property MonitorID As String
+    Public Property Prefix As String
+    Public Property SavePath As String
+    Public Property BinaryPath As String
 
-    Property MonitorID As String
-        Get
-            Return sMonitorID
-        End Get
-        Set(value As String)
-            sMonitorID = value
-        End Set
-    End Property
+    Sub New()
+        MonitorID = String.Empty
+        Prefix = String.Empty
+        SavePath = String.Empty
+        BinaryPath = String.Empty
+    End Sub
 
-    Property Prefix As String
-        Get
-            Return sPrefix
-        End Get
-        Set(value As String)
-            sPrefix = value
-        End Set
-    End Property
-
-    Property SavePath As String
-        Get
-            Return sSavePath
-        End Get
-        Set(value As String)
-            sSavePath = value
-        End Set
-    End Property
-
-    Property BinaryPath As String
-        Get
-            Return sBinaryPath
-        End Get
-        Set(value As String)
-            sBinaryPath = value
-        End Set
-    End Property
-
+    Sub New(sMonitorID As String, sPrefix As String, sSavePath As String, sBinaryPath As String)
+        MonitorID = sMonitorID
+        Prefix = sPrefix
+        SavePath = sSavePath
+        BinaryPath = sBinaryPath
+    End Sub
 End Class

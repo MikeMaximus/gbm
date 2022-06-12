@@ -1,11 +1,4 @@
 ﻿Public Class clsGameFilter
-
-    Private sID As String
-    Private oField As clsGameFilterField
-    Private bNot As Boolean
-    Private oData As Object
-    Private eNumericOperator As eNumericOperators = eNumericOperators.Equals
-
     Public Enum eNumericOperators
         Equals = 1
         Greater = 2
@@ -15,53 +8,13 @@
     End Enum
 
     Public Property ID As String
-        Get
-            Return sID
-        End Get
-        Set(value As String)
-            sID = value
-        End Set
-    End Property
-
     Public Property Field As clsGameFilterField
-        Get
-            Return oField
-        End Get
-        Set(value As clsGameFilterField)
-            oField = value
-        End Set
-    End Property
-
     Public Property NotCondition As Boolean
-        Get
-            Return bNot
-        End Get
-        Set(value As Boolean)
-            bNot = value
-        End Set
-    End Property
-
     Public Property Data As Object
-        Get
-            Return oData
-        End Get
-        Set(value As Object)
-            oData = value
-        End Set
-    End Property
-
     Public Property NumericOperator As eNumericOperators
-        Get
-            Return eNumericOperator
-        End Get
-        Set(value As eNumericOperators)
-            eNumericOperator = value
-        End Set
-    End Property
-
     Public ReadOnly Property NumericOperatorAsString As String
         Get
-            Select Case eNumericOperator
+            Select Case NumericOperator
                 Case eNumericOperators.Equals
                     Return "="
                 Case eNumericOperators.Greater
@@ -78,4 +31,19 @@
         End Get
     End Property
 
+    Sub New()
+        ID = String.Empty
+        Field = Nothing
+        NotCondition = False
+        Data = Nothing
+        NumericOperator = eNumericOperators.Equals
+    End Sub
+
+    Sub New(sID As String, oField As clsGameFilterField, bNotCondition As Boolean, oData As Object, eNumericOperator As eNumericOperators)
+        ID = sID
+        Field = oField
+        NotCondition = bNotCondition
+        Data = oData
+        NumericOperator = eNumericOperator
+    End Sub
 End Class

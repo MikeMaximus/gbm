@@ -1,24 +1,6 @@
 ﻿Public Class clsConfigLink
-    Private sMonitorID As String = String.Empty
-    Private sLinkID As String = String.Empty
-
-    Property MonitorID As String
-        Get
-            Return sMonitorID
-        End Get
-        Set(value As String)
-            sMonitorID = value
-        End Set
-    End Property
-
-    Property LinkID As String
-        Get
-            Return sLinkID
-        End Get
-        Set(value As String)
-            sLinkID = value
-        End Set
-    End Property
+    Property MonitorID As String = String.Empty
+    Property LinkID As String = String.Empty
 
     Public Function CoreEquals(obj As Object) As Boolean
         Dim oConfigLink As clsConfigLink = TryCast(obj, clsConfigLink)
@@ -34,4 +16,14 @@
             Return True
         End If
     End Function
+
+    Sub New()
+        MonitorID = String.Empty
+        LinkID = String.Empty
+    End Sub
+
+    Sub New(sMonitorID As String, sLinkID As String)
+        MonitorID = sMonitorID
+        LinkID = sLinkID
+    End Sub
 End Class

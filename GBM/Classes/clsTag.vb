@@ -1,24 +1,6 @@
 ﻿Public Class clsTag
-    Private sTagID As String = Guid.NewGuid.ToString
-    Private sTagName As String = String.Empty
-    
-    Property ID As String
-        Get
-            Return sTagID
-        End Get
-        Set(value As String)
-            sTagID = value
-        End Set
-    End Property
-
-    Property Name As String
-        Get
-            Return sTagName
-        End Get
-        Set(value As String)
-            sTagName = value
-        End Set
-    End Property
+    Public Property ID As String
+    Public Property Name As String
 
     Public Function CoreEquals(obj As Object) As Boolean
         Dim oTag As clsTag = TryCast(obj, clsTag)
@@ -47,4 +29,13 @@
         End If
     End Function
 
+    Sub New()
+        ID = Guid.NewGuid.ToString
+        Name = String.Empty
+    End Sub
+
+    Sub New(sName As String)
+        ID = Guid.NewGuid.ToString
+        Name = sName
+    End Sub
 End Class

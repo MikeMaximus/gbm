@@ -1,50 +1,12 @@
 ﻿Public Class clsPathVariable
-    Private sVariableID As String = Guid.NewGuid.ToString
-    Private sVariableName As String = String.Empty
-    Private sVariableDescription As String = String.Empty
-    Private sPath As String = String.Empty
-
-    Property ID As String
+    Public Property ID As String
+    Public Property Name As String
+    Public Property Path As String
+    Public ReadOnly Property FormattedName As String
         Get
-            Return sVariableID
-        End Get
-        Set(value As String)
-            sVariableID = value
-        End Set
-    End Property
-
-    Property Name As String
-        Get
-            Return sVariableName
-        End Get
-        Set(value As String)
-            sVariableName = value
-        End Set
-    End Property
-
-    ReadOnly Property FormattedName As String
-        Get
-            Return "%" & sVariableName & "%"
+            Return "%" & Name & "%"
         End Get
     End Property
-
-    Property Path As String
-        Get
-            Return sPath
-        End Get
-        Set(value As String)
-            sPath = value
-        End Set
-    End Property
-
-    Public Sub New()
-        'Empty
-    End Sub
-
-    Public Sub New(ByVal sInitName As String, ByVal sInitPath As String)
-        Name = sInitName
-        Path = sInitPath
-    End Sub
 
     Public Function CoreEquals(ByVal obj As Object) As Boolean
         Dim oVariable As clsPathVariable = TryCast(obj, clsPathVariable)
@@ -61,4 +23,15 @@
         End If
     End Function
 
+    Sub New()
+        ID = Guid.NewGuid.ToString
+        Name = String.Empty
+        Path = String.Empty
+    End Sub
+
+    Sub New(ByVal sName As String, ByVal sPath As String)
+        ID = Guid.NewGuid.ToString
+        Name = sName
+        Path = sPath
+    End Sub
 End Class

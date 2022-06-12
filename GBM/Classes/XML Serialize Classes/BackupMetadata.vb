@@ -2,51 +2,12 @@
 
 <XmlRoot("GBM_Backup")>
 Public Class BackupMetadata
-    Private iAppVer As Integer
-    Private oBackup As Backup
-    Private oGame As Game
-
     <XmlAttribute("AppVer")>
-    Property AppVer As Integer
-        Set(value As Integer)
-            iAppVer = value
-        End Set
-        Get
-            Return iAppVer
-        End Get
-    End Property
-
+    Public Property AppVer As Integer
     <XmlElement("BackupData")>
-    Property Backup As Backup
-        Set(value As Backup)
-            oBackup = value
-        End Set
-        Get
-            Return oBackup
-        End Get
-    End Property
-
+    Public Property Backup As Backup
     <XmlElement("GameData")>
-    Property Game As Game
-        Set(value As Game)
-            oGame = value
-        End Set
-        Get
-            Return oGame
-        End Get
-    End Property
-
-    Public Sub New()
-        iAppVer = 0
-        oBackup = New Backup
-        oGame = New Game
-    End Sub
-
-    Public Sub New(ByVal iInitAppVer As Integer, ByVal oInitBackup As Backup, ByVal oInitGame As Game)
-        iAppVer = iInitAppVer
-        oBackup = oInitBackup
-        oGame = oInitGame
-    End Sub
+    Public Property Game As Game
 
     Public Function CreateBackupInfo(ByVal sDefaultUpdatedBy As String, ByVal dDefaultDate As DateTime) As clsBackup
         Dim oBackup As New clsBackup
@@ -65,4 +26,16 @@ Public Class BackupMetadata
 
         Return oBackup
     End Function
+
+    Public Sub New()
+        AppVer = 0
+        Backup = New Backup
+        Game = New Game
+    End Sub
+
+    Public Sub New(iAppVer As Integer, oBackup As Backup, oGame As Game)
+        AppVer = iAppVer
+        Backup = oBackup
+        Game = oGame
+    End Sub
 End Class

@@ -155,7 +155,11 @@
     <Compile Include="Classes\clsBackup.vb" />
     <Compile Include="Classes\clsGame.vb" />
     <Compile Include="Classes\clsTag.vb" />
-    <Compile Include="Classes\YAML Serialize Classes\Ludusavi.vb" />
+    <Compile Include="Classes\YAML Serialize Classes\LudusaviGame.vb" />
+    <Compile Include="Classes\YAML Serialize Classes\LudusaviLaunch.vb" />
+    <Compile Include="Classes\YAML Serialize Classes\LudusaviPath.vb" />
+    <Compile Include="Classes\YAML Serialize Classes\LudusaviSteam.vb" />
+    <Compile Include="Classes\YAML Serialize Classes\LudusaviWhen.vb" />
     <Compile Include="Forms\frmConfigLinks.Designer.vb">
       <DependentUpon>frmConfigLinks.vb</DependentUpon>
     </Compile>

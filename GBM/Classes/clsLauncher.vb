@@ -1,60 +1,20 @@
 ﻿Public Class clsLauncher
-    Private sLauncherID As String = Guid.NewGuid.ToString
-    Private bIsUri As Boolean = True
-    Private sName As String = String.Empty
-    Private sLaunchString As String = String.Empty
-    Private sArgs As String = String.Empty
-
-    Property LauncherID As String
-        Set(value As String)
-            sLauncherID = value
-        End Set
-        Get
-            Return sLauncherID
-        End Get
-    End Property
-
-    Property IsUri As Boolean
-        Set(value As Boolean)
-            bIsUri = value
-        End Set
-        Get
-            Return bIsUri
-        End Get
-    End Property
-
-    Property Name As String
-        Set(value As String)
-            sName = value
-        End Set
-        Get
-            Return sName
-        End Get
-    End Property
-
-    Property LaunchString As String
-        Set(value As String)
-            sLaunchString = value
-        End Set
-        Get
-            Return sLaunchString
-        End Get
-    End Property
-
-    Property LaunchParameters As String
-        Set(value As String)
-            sArgs = value
-        End Set
-        Get
-            Return sArgs
-        End Get
-    End Property
+    Public Property LauncherID As String
+    Public Property IsUri As Boolean
+    Public Property Name As String
+    Public Property LaunchString As String
+    Public Property LaunchParameters As String
 
     Sub New()
-        'Empty
+        LauncherID = Guid.NewGuid.ToString
+        IsUri = True
+        Name = String.Empty
+        LaunchString = String.Empty
+        LaunchParameters = String.Empty
     End Sub
 
-    Sub New(ByVal bIsUri As Boolean, ByVal sName As String, ByVal sLaunchString As String, ByVal sArgs As String)
+    Sub New(bIsUri As Boolean, sName As String, sLaunchString As String, sArgs As String)
+        LauncherID = Guid.NewGuid.ToString
         IsUri = bIsUri
         Name = sName
         LaunchString = sLaunchString

@@ -1,62 +1,26 @@
 ﻿Public Class clsLaunchData
-    Private sMonitorID As String = String.Empty
-    Private sPath As String = String.Empty
-    Private sArgs As String = String.Empty
-    Private sLauncherID As String = String.Empty
-    Private sLauncherGameID As String = String.Empty
-    Private bNoArgs As Boolean = False
+    Public Property MonitorID As String
+    Public Property Path As String
+    Public Property Args As String
+    Public Property LauncherID As String
+    Public Property LauncherGameID As String
+    Public Property NoArgs As Boolean
 
-    Property MonitorID As String
-        Set(value As String)
-            sMonitorID = value
-        End Set
-        Get
-            Return sMonitorID
-        End Get
-    End Property
+    Sub New()
+        MonitorID = String.Empty
+        Path = String.Empty
+        Args = String.Empty
+        LauncherID = String.Empty
+        LauncherGameID = String.Empty
+        NoArgs = False
+    End Sub
 
-    Property Path As String
-        Set(value As String)
-            sPath = value
-        End Set
-        Get
-            Return sPath
-        End Get
-    End Property
-
-    Property Args As String
-        Set(value As String)
-            sArgs = value
-        End Set
-        Get
-            Return sArgs
-        End Get
-    End Property
-
-    Property LauncherID As String
-        Set(value As String)
-            sLauncherID = value
-        End Set
-        Get
-            Return sLauncherID
-        End Get
-    End Property
-
-    Property LauncherGameID As String
-        Set(value As String)
-            sLauncherGameID = value
-        End Set
-        Get
-            Return sLauncherGameID
-        End Get
-    End Property
-
-    Property NoArgs As Boolean
-        Set(value As Boolean)
-            bNoArgs = value
-        End Set
-        Get
-            Return bNoArgs
-        End Get
-    End Property
+    Sub New(sMonitorID As String, sPath As String, sArgs As String, sLauncherID As String, sLauncherGameID As String, bNoArgs As Boolean)
+        MonitorID = sMonitorID
+        Path = sPath
+        Args = sArgs
+        LauncherID = sLauncherID
+        LauncherGameID = sLauncherGameID
+        NoArgs = bNoArgs
+    End Sub
 End Class

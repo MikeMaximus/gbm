@@ -4,37 +4,6 @@ Imports System.Text.RegularExpressions
 
 <Serializable()>
 Public Class clsGame
-
-    Private sGameID As String = Guid.NewGuid.ToString
-    Private sGameName As String = String.Empty
-    Private sProcessName As String = String.Empty
-    Private sParameter As String = String.Empty
-    Private sPath As String = String.Empty
-    Private bFolderSave As Boolean = False
-    Private sFileType As String = String.Empty
-    Private bAppendTimeStamp As Boolean = False
-    Private iBackupLimit As Integer = 0
-    Private bCleanFolder As Boolean = False
-    Private sExcludeList As String = String.Empty
-    Private sProcessPath As String = String.Empty
-    Private sIcon As String = String.Empty
-    Private dHours As Double = 0
-    Private sVersion As String = String.Empty
-    Private sCompany As String = String.Empty
-    Private bEnabled As Boolean = True
-    Private bMonitorOnly As Boolean = False
-    Private sComments As String = String.Empty
-    Private bIsRegEx As Boolean = False
-    Private bRecurseSubFolders As Boolean = True
-    Private iOS As eOS = mgrCommon.GetCurrentOS()
-    Private bUseWindowTitle As Boolean = False
-    Private bDifferential As Boolean = False
-    Private iDiffInterval As Integer = 0
-    Private oImportTags As New List(Of Tag)
-    Private oImportConfigLinks As New List(Of ConfigLink)
-    Private bImportUpdate As Boolean = False
-    Private oCompiledRegEx As Regex
-
     <Flags()> Public Enum eOptionalSyncFields
         None = 0
         GamePath = 1
@@ -52,65 +21,47 @@ Public Class clsGame
         Linux = 2
     End Enum
 
-    Property ID As String
+    Private sID As String
+    Private sName As String
+    Private sPath As String
+    Private sProcessPath As String
+    Private sIcon As String
+
+    Public Property ID As String
         Set(value As String)
             If Not value Is Nothing Then
-                sGameID = mgrPath.ValidateFileName(value)
+                sID = mgrPath.ValidateFileName(value)
             End If
         End Set
         Get
-            Return sGameID
+            Return sID
         End Get
     End Property
 
-    ReadOnly Property CroppedName As String
+    Public ReadOnly Property CroppedName As String
         Get
             If Name.Length > 40 Then
-                Return sGameName.Substring(0, 41).Trim & "..."
+                Return sName.Substring(0, 41).Trim & "..."
             Else
-                Return sGameName
+                Return sName
             End If
         End Get
     End Property
 
-    ReadOnly Property FileSafeName As String
+    Public ReadOnly Property FileSafeName As String
         Get
-            If mgrMonitorList.IsDuplicateName(sGameName) Then
-                Return mgrPath.ValidateFileName(sGameID)
+            If mgrMonitorList.IsDuplicateName(sName) Then
+                Return mgrPath.ValidateFileName(sID)
             Else
-                Return mgrPath.ValidateFileName(sGameName)
+                Return mgrPath.ValidateFileName(sName)
             End If
         End Get
     End Property
 
-    Property Name As String
-        Set(value As String)
-            sGameName = value
-        End Set
-        Get
-            Return sGameName
-        End Get
-    End Property
-
-    Property ProcessName As String
-        Set(value As String)
-            sProcessName = value
-        End Set
-        Get
-            Return sProcessName
-        End Get
-    End Property
-
-    Property Parameter As String
-        Set(value As String)
-            sParameter = value
-        End Set
-        Get
-            Return sParameter
-        End Get
-    End Property
-
-    Property Path As String
+    Public Property Name As String
+    Public Property ProcessName As String
+    Public Property Parameter As String
+    Public Property Path As String
         Set(value As String)
             sPath = mgrPath.ReverseSpecialPaths(value)
         End Set
@@ -118,8 +69,7 @@ Public Class clsGame
             Return mgrPath.ReplaceSpecialPaths(sPath)
         End Get
     End Property
-
-    ReadOnly Property AbsolutePath As Boolean
+    Public ReadOnly Property AbsolutePath As Boolean
         Get
             'We need to handle a special case here when working with Windows configurations in Linux
             If mgrCommon.IsUnix And mgrVariables.CheckForReservedVariables(TruePath) And OS = clsGame.eOS.Windows Then
@@ -139,62 +89,13 @@ Public Class clsGame
             Return False
         End Get
     End Property
-
-    Property FolderSave As Boolean
-        Set(value As Boolean)
-            bFolderSave = value
-        End Set
-        Get
-            Return bFolderSave
-        End Get
-    End Property
-
-    Property FileType As String
-        Set(value As String)
-            sFileType = value
-        End Set
-        Get
-            Return sFileType
-        End Get
-    End Property
-
-    Property AppendTimeStamp As Boolean
-        Get
-            Return bAppendTimeStamp
-        End Get
-        Set(value As Boolean)
-            bAppendTimeStamp = value
-        End Set
-    End Property
-
-    Property BackupLimit As Integer
-        Get
-            Return iBackupLimit
-        End Get
-        Set(value As Integer)
-            iBackupLimit = value
-        End Set
-    End Property
-
-    Property CleanFolder As Boolean
-        Get
-            Return bCleanFolder
-        End Get
-        Set(value As Boolean)
-            bCleanFolder = value
-        End Set
-    End Property
-
-    Property ExcludeList As String
-        Set(value As String)
-            sExcludeList = value
-        End Set
-        Get
-            Return sExcludeList
-        End Get
-    End Property
-
-    Property ProcessPath As String
+    Public Property FolderSave As Boolean
+    Public Property FileType As String
+    Public Property AppendTimeStamp As Boolean
+    Public Property BackupLimit As Integer
+    Public Property CleanFolder As Boolean
+    Public Property ExcludeList As String
+    Public Property ProcessPath As String
         Set(value As String)
             sProcessPath = mgrPath.ReverseSpecialPaths(value)
         End Set
@@ -202,8 +103,7 @@ Public Class clsGame
             Return mgrPath.ReplaceSpecialPaths(sProcessPath)
         End Get
     End Property
-
-    Property Icon As String
+    Public Property Icon As String
         Set(value As String)
             sIcon = mgrPath.ReverseSpecialPaths(value)
         End Set
@@ -211,135 +111,34 @@ Public Class clsGame
             Return mgrPath.ReplaceSpecialPaths(sIcon)
         End Get
     End Property
-
-    Property Hours As Double
-        Get
-            Return dHours
-        End Get
-        Set(value As Double)
-            dHours = value
-        End Set
-    End Property
-
-    Property Version As String
-        Get
-            Return sVersion
-        End Get
-        Set(value As String)
-            sVersion = value
-        End Set
-    End Property
-
-    Property Company As String
-        Get
-            Return sCompany
-        End Get
-        Set(value As String)
-            sCompany = value
-        End Set
-    End Property
-
-    Property Enabled As Boolean
-        Get
-            Return bEnabled
-        End Get
-        Set(value As Boolean)
-            bEnabled = value
-        End Set
-    End Property
-
-    Property MonitorOnly As Boolean
-        Get
-            Return bMonitorOnly
-        End Get
-        Set(value As Boolean)
-            bMonitorOnly = value
-        End Set
-    End Property
-
-    Property Comments As String
-        Get
-            Return sComments
-        End Get
-        Set(value As String)
-            sComments = value
-        End Set
-    End Property
-
-    Property IsRegEx As Boolean
-        Get
-            Return bIsRegEx
-        End Get
-        Set(value As Boolean)
-            bIsRegEx = value
-        End Set
-    End Property
-
-    Property RecurseSubFolders As Boolean
-        Get
-            Return bRecurseSubFolders
-        End Get
-        Set(value As Boolean)
-            bRecurseSubFolders = value
-        End Set
-    End Property
-
-    Property OS As eOS
-        Get
-            Return iOS
-        End Get
-        Set(value As eOS)
-            iOS = value
-        End Set
-    End Property
-
-    Property UseWindowTitle As Boolean
-        Get
-            Return bUseWindowTitle
-        End Get
-        Set(value As Boolean)
-            bUseWindowTitle = value
-        End Set
-    End Property
-
-    Property Differential As Boolean
-        Get
-            Return bDifferential
-        End Get
-        Set(value As Boolean)
-            bDifferential = value
-        End Set
-    End Property
-
-    Property DiffInterval As Integer
-        Get
-            Return iDiffInterval
-        End Get
-        Set(value As Integer)
-            iDiffInterval = value
-        End Set
-    End Property
-
-    ReadOnly Property TruePath As String
-
+    Public Property Hours As Double
+    Public Property Version As String
+    Public Property Company As String
+    Public Property Enabled As Boolean
+    Public Property MonitorOnly As Boolean
+    Public Property Comments As String
+    Public Property IsRegEx As Boolean
+    Public Property RecurseSubFolders As Boolean
+    Public Property OS As eOS
+    Public Property UseWindowTitle As Boolean
+    Public Property Differential As Boolean
+    Public Property DiffInterval As Integer
+    Public ReadOnly Property TruePath As String
         Get
             Return sPath
         End Get
     End Property
-
-    ReadOnly Property TrueProcessPath As String
+    Public ReadOnly Property TrueProcessPath As String
         Get
             Return sProcessPath
         End Get
     End Property
-
-    ReadOnly Property TrueIcon As String
+    Public ReadOnly Property TrueIcon As String
         Get
             Return sIcon
         End Get
     End Property
-
-    ReadOnly Property IncludeArray As String()
+    Public ReadOnly Property IncludeArray As String()
         Get
             If FileType = String.Empty Then
                 Return New String() {}
@@ -348,8 +147,7 @@ Public Class clsGame
             End If
         End Get
     End Property
-
-    ReadOnly Property ExcludeArray As String()
+    Public ReadOnly Property ExcludeArray As String()
         Get
             If ExcludeList = String.Empty Then
                 Return New String() {}
@@ -358,42 +156,10 @@ Public Class clsGame
             End If
         End Get
     End Property
-
-    Property ImportTags As List(Of Tag)
-        Get
-            Return oImportTags
-        End Get
-        Set(value As List(Of Tag))
-            oImportTags = value
-        End Set
-    End Property
-
-    Property ImportConfigLinks As List(Of ConfigLink)
-        Get
-            Return oImportConfigLinks
-        End Get
-        Set(value As List(Of ConfigLink))
-            oImportConfigLinks = value
-        End Set
-    End Property
-
-    Property ImportUpdate As Boolean
-        Get
-            Return bImportUpdate
-        End Get
-        Set(value As Boolean)
-            bImportUpdate = value
-        End Set
-    End Property
-
-    Property CompiledRegEx As Regex
-        Get
-            Return oCompiledRegEx
-        End Get
-        Set(value As Regex)
-            oCompiledRegEx = value
-        End Set
-    End Property
+    Public Property ImportTags As List(Of Tag)
+    Public Property ImportConfigLinks As List(Of ConfigLink)
+    Public Property ImportUpdate As Boolean
+    Public Property CompiledRegEx As Regex
 
     Public Function ConvertToGame() As Game
         Dim oGame As New Game
@@ -604,4 +370,68 @@ Public Class clsGame
         Return eSyncFields And (Not eSyncField)
     End Function
 
+    Sub New()
+        ID = Guid.NewGuid.ToString
+        Name = String.Empty
+        ProcessName = String.Empty
+        Parameter = String.Empty
+        Path = String.Empty
+        FolderSave = False
+        FileType = String.Empty
+        AppendTimeStamp = False
+        BackupLimit = 0
+        CleanFolder = False
+        ExcludeList = String.Empty
+        ProcessPath = String.Empty
+        Icon = String.Empty
+        Hours = 0
+        Version = String.Empty
+        Company = String.Empty
+        Enabled = True
+        MonitorOnly = False
+        Comments = String.Empty
+        IsRegEx = False
+        RecurseSubFolders = True
+        OS = mgrCommon.GetCurrentOS()
+        UseWindowTitle = False
+        Differential = False
+        DiffInterval = 0
+        ImportTags = New List(Of Tag)
+        ImportConfigLinks = New List(Of ConfigLink)
+        ImportUpdate = False
+    End Sub
+
+    Sub New(sID As String, sName As String, sProcessName As String, sParameter As String, sPath As String, bFolderSave As Boolean, sFileType As String, bAppendTimeStamp As Boolean, iBackupLimit As Integer,
+            bCleanFolder As Boolean, sExcludeList As String, sProcessPath As String, sIcon As String, dHours As Double, sVersion As String, sCompany As String, bEnabled As Boolean, bMonitorOnly As Boolean,
+            sComments As String, bIsRegEx As Boolean, bRecurseSubFolders As Boolean, eOS As eOS, bUseWindowTitle As Boolean, bDifferential As Boolean, iDiffInterval As Integer, oImportTags As List(Of Tag),
+            oImportConfigLinks As List(Of ConfigLink), bImportUpdate As Boolean)
+        ID = sID
+        Name = sName
+        ProcessName = sProcessName
+        Parameter = sParameter
+        Path = sPath
+        FolderSave = bFolderSave
+        FileType = sFileType
+        AppendTimeStamp = bAppendTimeStamp
+        BackupLimit = iBackupLimit
+        CleanFolder = bCleanFolder
+        ExcludeList = sExcludeList
+        ProcessPath = sProcessPath
+        Icon = sIcon
+        Hours = dHours
+        Version = sVersion
+        Company = sCompany
+        Enabled = bEnabled
+        MonitorOnly = bMonitorOnly
+        Comments = sComments
+        IsRegEx = bIsRegEx
+        RecurseSubFolders = bRecurseSubFolders
+        OS = eOS
+        UseWindowTitle = bUseWindowTitle
+        Differential = bDifferential
+        DiffInterval = iDiffInterval
+        ImportTags = oImportTags
+        ImportConfigLinks = oImportConfigLinks
+        ImportUpdate = bImportUpdate
+    End Sub
 End Class

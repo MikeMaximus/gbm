@@ -1,22 +1,14 @@
 ﻿Public Class clsSavedPath
-    Private sPathName As String = String.Empty
-    Private sPath As String = String.Empty
+    Public Property PathName As String
+    Public Property Path As String
 
-    Property PathName As String
-        Get
-            Return sPathName
-        End Get
-        Set(value As String)
-            sPathName = value
-        End Set
-    End Property
+    Sub New()
+        PathName = String.Empty
+        Path = String.Empty
+    End Sub
 
-    Property Path As String
-        Get
-            Return sPath
-        End Get
-        Set(value As String)
-            sPath = value
-        End Set
-    End Property
+    Sub New(sPathName As String, sPath As String)
+        PathName = sPathName
+        Path = sPath
+    End Sub
 End Class

@@ -1,5 +1,4 @@
 ﻿Public Class clsGameFilterField
-
     Public Enum eDataType As Integer
         fString = 1
         fNumeric = 2
@@ -8,57 +7,22 @@
     End Enum
 
     Public Enum eEnumFilterField As Integer
-        OS = 1
+        None = 1
+        OS = 2
     End Enum
 
     <Flags()> Public Enum eFieldStatus
-        None = 0
-        ValidFilter = 1
-        ValidSort = 2
+        None = 1
+        ValidFilter = 2
+        ValidSort = 3
     End Enum
 
-    Private sFieldName As String
-    Private sFriendlyFieldName As String
-    Private eType As eDataType
-    Private eEnumField As eEnumFilterField
     Private eStatus As eFieldStatus
 
     Public Property FieldName As String
-        Get
-            Return sFieldName
-        End Get
-        Set(value As String)
-            sFieldName = value
-        End Set
-    End Property
-
     Public Property FriendlyFieldName As String
-        Get
-            Return sFriendlyFieldName
-        End Get
-        Set(value As String)
-            sFriendlyFieldName = value
-        End Set
-    End Property
-
     Public Property Type As eDataType
-        Get
-            Return eType
-        End Get
-        Set(value As eDataType)
-            eType = value
-        End Set
-    End Property
-
     Public Property EnumField As eEnumFilterField
-        Get
-            Return eEnumField
-        End Get
-        Set(value As eEnumFilterField)
-            eEnumField = value
-        End Set
-    End Property
-
     'This is a flag property - Setting a value will toggle that flag on and off.
     Public Property Status As eFieldStatus
         Get
@@ -88,5 +52,21 @@
             Return False
         End If
     End Function
+
+    Sub New()
+        FieldName = String.Empty
+        FriendlyFieldName = String.Empty
+        Type = eDataType.fString
+        EnumField = eEnumFilterField.None
+        Status = eFieldStatus.None
+    End Sub
+
+    Sub New(sFieldName As String, sFriendlyFieldName As String, eType As eDataType, eEnumField As eEnumFilterField, eStatus As eFieldStatus)
+        FieldName = sFieldName
+        FriendlyFieldName = sFriendlyFieldName
+        Type = eType
+        EnumField = eEnumField
+        Status = eStatus
+    End Sub
 
 End Class
