@@ -2,112 +2,29 @@
 Imports System.Management
 
 Public Class mgrProcessDetection
+    Private Property Verify As Boolean
+    Private Property VerifyPid As Integer
+    Private Property VerifyName As String
 
-    Private prsFoundProcess As Process
-    Private sProcessPath As String
-    Private dStartTime As DateTime = Now, dEndTime As DateTime = Now
-    Private lTimeSpent As Long = 0
-    Private oGame As clsGame
-    Private bWineProcess As Boolean = False
-    Private oWineData As clsWineData
-    Private oDuplicateGames As New ArrayList
-    Private bDuplicates As Boolean
-    Private bVerify As Boolean = False
-    Private iVerifyPid As Integer = -1
-    Private sVerifyName As String = String.Empty
-
-    Property FoundProcess As Process
+    Public Property FoundProcess As Process
+    Public Property ProcessPath As String
+    Public Property StartTime As DateTime
+    Public Property EndTime As DateTime
+    Public ReadOnly Property TimeSpent As TimeSpan
         Get
-            Return prsFoundProcess
-        End Get
-        Set(value As Process)
-            prsFoundProcess = value
-        End Set
-    End Property
-
-    Property ProcessPath As String
-        Get
-            Return sProcessPath
-        End Get
-        Set(value As String)
-            sProcessPath = value
-        End Set
-    End Property
-
-    Property StartTime As DateTime
-        Get
-            Return dStartTime
-        End Get
-        Set(value As DateTime)
-            dStartTime = value
-        End Set
-    End Property
-
-    Property EndTime As DateTime
-        Get
-            Return dEndTime
-        End Get
-        Set(value As DateTime)
-            dEndTime = value
-        End Set
-    End Property
-
-    ReadOnly Property TimeSpent As TimeSpan
-        Get
-            Return dEndTime.Subtract(dStartTime)
+            Return EndTime.Subtract(StartTime)
         End Get
     End Property
-
-    ReadOnly Property CurrentSessionTime As TimeSpan
+    Public ReadOnly Property CurrentSessionTime As TimeSpan
         Get
-            Return Now().Subtract(dStartTime)
+            Return Now().Subtract(StartTime)
         End Get
     End Property
-
-    Property GameInfo As clsGame
-        Get
-            Return oGame
-        End Get
-        Set(value As clsGame)
-            oGame = value
-        End Set
-    End Property
-
-    Property WineProcess As Boolean
-        Get
-            Return bWineProcess
-        End Get
-        Set(value As Boolean)
-            bWineProcess = value
-        End Set
-    End Property
-
-    Property WineData As clsWineData
-        Get
-            Return oWineData
-        End Get
-        Set(value As clsWineData)
-            oWineData = value
-        End Set
-    End Property
-
-    Property Duplicate As Boolean
-        Get
-            Return bDuplicates
-        End Get
-        Set(value As Boolean)
-            bDuplicates = value
-        End Set
-    End Property
-
-    Property DuplicateList As ArrayList
-        Get
-            Return oDuplicateGames
-        End Get
-        Set(value As ArrayList)
-            oDuplicateGames = value
-        End Set
-    End Property
+    Public Property GameInfo As clsGame
+    Public Property WineProcess As Boolean
+    Public Property WineData As clsWineData
+    Public Property Duplicate As Boolean
+    Public Property DuplicateList As ArrayList
 
     Private Sub DebugDumpProcessList(ByVal prsList As Process())
         Dim sProcessList As String = String.Empty
@@ -199,17 +116,17 @@ Public Class mgrProcessDetection
         End Try
     End Function
 
-    Public Shared Function IsMatch(ByRef oGame As clsGame, ByRef sProcessCheck As String) As Boolean
-        If oGame.IsRegEx Then
+    Public Shared Function IsMatch(ByRef GameInfo As clsGame, ByRef sProcessCheck As String) As Boolean
+        If GameInfo.IsRegEx Then
             Try
-                If oGame.CompiledRegEx.IsMatch(sProcessCheck) Then
+                If GameInfo.CompiledRegEx.IsMatch(sProcessCheck) Then
                     Return True
                 End If
             Catch
                 'Ignore malformed regular expressions that may have passed validation
             End Try
         Else
-            If oGame.ProcessName = sProcessCheck Then
+            If GameInfo.ProcessName = sProcessCheck Then
                 Return True
             End If
         End If
@@ -219,7 +136,7 @@ Public Class mgrProcessDetection
 
     Private Function GetProcessPath() As String
         Try
-            If Not bWineProcess Then
+            If Not WineProcess Then
                 Return Path.GetDirectoryName(FoundProcess.MainModule.FileName)
             Else
                 Return GetUnixSymLinkDirectory(FoundProcess)
@@ -302,7 +219,7 @@ Public Class mgrProcessDetection
                 Else
                     'We've done all we can, the user must selected which game they were playing when the process ends
                     Duplicate = True
-                    oDuplicateGames = oDetectedGames
+                    DuplicateList = oDetectedGames
                 End If
             End If
         End If
@@ -348,9 +265,9 @@ Public Class mgrProcessDetection
                     sParameter = sArgs(0).Replace("\", Path.DirectorySeparatorChar)
                     sWinePath = sParameter.Split(Path.DirectorySeparatorChar)
                     sProcessCheck = Path.GetFileNameWithoutExtension(sWinePath(sWinePath.Length - 1))
-                    bWineProcess = True
+                    WineProcess = True
                 Else
-                    bWineProcess = False
+                    WineProcess = False
                 End If
             Catch ex As Exception
                 'Do Nothing
@@ -363,9 +280,9 @@ Public Class mgrProcessDetection
                     bMatch = IsMatch(oCurrentGame, sProcessCheck)
                 End If
                 If bMatch Then
-                    prsFoundProcess = prsCurrent
-                    oGame = oCurrentGame.ShallowCopy
-                    oDetectedGames.Add(oGame.ShallowCopy)
+                    FoundProcess = prsCurrent
+                    GameInfo = oCurrentGame.ShallowCopy
+                    oDetectedGames.Add(GameInfo.ShallowCopy)
                 End If
             Next
 
@@ -377,10 +294,10 @@ Public Class mgrProcessDetection
                 If bDebugMode Then DebugDumpDetectedProcess(prsCurrent)
 
                 Try
-                    If Not bWineProcess Then
-                        oGame.ProcessPath = Path.GetDirectoryName(prsCurrent.MainModule.FileName)
+                    If Not WineProcess Then
+                        GameInfo.ProcessPath = Path.GetDirectoryName(prsCurrent.MainModule.FileName)
                     Else
-                        oGame.ProcessPath = GetUnixSymLinkDirectory(prsCurrent)
+                        GameInfo.ProcessPath = GetUnixSymLinkDirectory(prsCurrent)
                     End If
                 Catch exWin32 As System.ComponentModel.Win32Exception
                     If exWin32.NativeErrorCode = 5 Then
@@ -401,26 +318,26 @@ Public Class mgrProcessDetection
                 'When two pass detection is enabled, the same process needs to be detected on two seperate passes to trigger GBM.
                 'Two pass detection is slower, but prevents issues with the Windows UAC prompt and makes detection more reliable in general.
                 If mgrSettings.TwoPassDetection Then
-                    If bVerify Then
+                    If Verify Then
                         'Check if it's still the same process on the second pass
-                        If iVerifyPid = prsCurrent.Id And sVerifyName = prsCurrent.ProcessName Then
-                            bVerify = False
+                        If VerifyPid = prsCurrent.Id And VerifyName = prsCurrent.ProcessName Then
+                            Verify = False
                         End If
 
                         'Reset on success or failure
-                        iVerifyPid = -1
-                        sVerifyName = String.Empty
+                        VerifyPid = -1
+                        VerifyName = String.Empty
 
-                        If Not bVerify Then
+                        If Not Verify Then
                             Return True
                         Else
-                            bVerify = False
+                            Verify = False
                             Return False
                         End If
                     Else
-                        iVerifyPid = prsCurrent.Id
-                        sVerifyName = prsCurrent.ProcessName
-                        bVerify = True
+                        VerifyPid = prsCurrent.Id
+                        VerifyName = prsCurrent.ProcessName
+                        Verify = True
                         Return False
                     End If
                 Else
@@ -452,4 +369,13 @@ Public Class mgrProcessDetection
         Return -1
     End Function
 
+    Sub New()
+        StartTime = Now
+        EndTime = Now
+        WineProcess = False
+        DuplicateList = New ArrayList
+        Verify = False
+        VerifyPid = -1
+        VerifyName = String.Empty
+    End Sub
 End Class

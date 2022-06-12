@@ -1,6 +1,5 @@
 ﻿Public Class mgrSavedPath
 
-
     Private Shared Function MapToObject(ByVal dr As DataRow) As clsSavedPath
         Dim oSavedPath As New clsSavedPath
 

@@ -4,8 +4,6 @@ Imports System.IO
 
 Public Class mgrMetadata
 
-    Private bCancelOperation As Boolean
-
     Public Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
 
     Public Function ImportandDeserialize(ByRef oBackupMetadata As BackupMetadata) As Boolean

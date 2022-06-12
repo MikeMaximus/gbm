@@ -4,20 +4,16 @@ Imports System.Text.RegularExpressions
 Imports System.Reflection
 
 Public Class mgrPath
-    'Important Note: Any changes to sSettingsRoot & sDBLocation need to be mirrored in frmMain.vb -> VerifyGameDataPath
-    Private Shared sSettingsRoot As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
-    Private Shared sDBLocation As String = sSettingsRoot & Path.DirectorySeparatorChar & "gbm.s3db"
-    Private Shared sLogFile As String = sSettingsRoot & Path.DirectorySeparatorChar & "gbm_log_" & Date.Now.ToString("dd-MM-yyyy-HH-mm-ss") & ".txt"
+    'Important Note: Any changes to SettingsRoot & DatabaseLocation need to be mirrored in frmMain.vb -> VerifyGameDataPath
     Private Shared sRemoteDatabaseLocation As String
-    Private Shared hshCustomVariables As Hashtable
-    Private Shared oReleaseType As ProcessorArchitecture = AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
+    Private Shared ReadOnly oReleaseType As ProcessorArchitecture = AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
 
-    Shared Sub New()
-        SetEnv()
-        LoadCustomVariables()
-    End Sub
+    Private Shared Property CustomVariables As Hashtable
 
-    Shared ReadOnly Property ReleaseType As Integer
+    Public Shared ReadOnly Property SettingsRoot As String
+    Public Shared ReadOnly Property DatabaseLocation As String
+    Public Shared ReadOnly Property LogFileLocation As String
+    Public Shared ReadOnly Property ReleaseType As Integer
         Get
             Select Case oReleaseType
                 Case ProcessorArchitecture.Amd64
@@ -35,8 +31,7 @@ Public Class mgrPath
             Return 32
         End Get
     End Property
-
-    Shared ReadOnly Property Default7zLocation As String
+    Public Shared ReadOnly Property Default7zLocation As String
         Get
             If mgrCommon.IsUnix Then
                 Return "/usr/bin/7za"
@@ -59,25 +54,7 @@ Public Class mgrPath
         End Get
     End Property
 
-    Shared ReadOnly Property DatabaseLocation As String
-        Get
-            Return sDBLocation
-        End Get
-    End Property
-
-    Shared ReadOnly Property LogFileLocation As String
-        Get
-            Return sLogFile
-        End Get
-    End Property
-
-    Shared ReadOnly Property SettingsRoot As String
-        Get
-            Return sSettingsRoot
-        End Get
-    End Property
-
-    Shared Property RemoteDatabaseLocation As String
+    Public Shared Property RemoteDatabaseLocation As String
         Get
             Return sRemoteDatabaseLocation
         End Get
@@ -85,6 +62,15 @@ Public Class mgrPath
             sRemoteDatabaseLocation = value & Path.DirectorySeparatorChar & "gbm.s3db"
         End Set
     End Property
+
+    Shared Sub New()
+        SettingsRoot = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
+        DatabaseLocation = SettingsRoot & Path.DirectorySeparatorChar & "gbm.s3db"
+        LogFileLocation = SettingsRoot & Path.DirectorySeparatorChar & "gbm_log_" & Date.Now.ToString("dd-MM-yyyy-HH-mm-ss") & ".txt"
+        SetEnv()
+        LoadCustomVariables()
+    End Sub
+
 
     Public Shared Function ValidatePath(ByVal sCheckString As String) As String
         Dim cInvalidCharacters As Char() = {Chr(0), Chr(1), Chr(2), Chr(3), Chr(4), Chr(5), Chr(6), Chr(7), Chr(8), Chr(9), Chr(10), Chr(11), Chr(12), Chr(13), Chr(14), Chr(15),
@@ -347,7 +333,7 @@ Public Class mgrPath
         Dim sEnvCurrentUser As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
         Dim oCustomVariable As clsPathVariable
 
-        For Each oCustomVariable In hshCustomVariables.Values
+        For Each oCustomVariable In CustomVariables.Values
             If sValue.Contains(oCustomVariable.FormattedName) Then
                 sValue = sValue.Replace(oCustomVariable.FormattedName, oCustomVariable.Path)
             End If
@@ -420,7 +406,7 @@ Public Class mgrPath
         Dim sEnvProgramData As String = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)
         Dim oCustomVariable As clsPathVariable
 
-        For Each oCustomVariable In hshCustomVariables.Values
+        For Each oCustomVariable In CustomVariables.Values
             If sValue.Contains(oCustomVariable.Path) Then
                 sValue = sValue.Replace(oCustomVariable.Path, oCustomVariable.FormattedName)
             End If
@@ -531,7 +517,7 @@ Public Class mgrPath
     'This should only be used in situations where the function DetermineRelativePath is required.
     Public Shared Function IsAbsolute(sValue As String) As Boolean
         Dim hshFolders As New Hashtable
-        Dim hshCustomVariables As Hashtable = mgrVariables.ReadVariables
+        Dim CustomVariables As Hashtable = mgrVariables.ReadVariables
         Dim oCustomVariable As clsPathVariable
 
 
@@ -547,7 +533,7 @@ Public Class mgrPath
         End If
 
         'Load Custom Variables
-        For Each oCustomVariable In hshCustomVariables.Values
+        For Each oCustomVariable In CustomVariables.Values
             hshFolders.Add(Guid.NewGuid.ToString, oCustomVariable.Path)
         Next
 
@@ -561,7 +547,7 @@ Public Class mgrPath
     End Function
 
     Public Shared Function VerifyCustomVariables(ByVal hshScanlist As Hashtable, ByRef sGames As String) As Boolean
-        Dim hshCustomVariables As Hashtable = mgrVariables.ReadVariables
+        Dim CustomVariables As Hashtable = mgrVariables.ReadVariables
         'Reserved variables will be resolved on Windows, but not on a Linux.  Therefore we an ignore list here, otherwise GBM will bitch about them when using Windows configurations for Wine.
         Dim oReservedVariables As List(Of String) = mgrVariables.GetReservedVariables
         Dim sVariableCheck As String
@@ -574,7 +560,7 @@ Public Class mgrPath
             oMatch = Regex.Match(oGame.Path, sPattern)
             If oMatch.Success Then
                 sVariableCheck = oMatch.Value.Replace("%", String.Empty)
-                If Not hshCustomVariables.ContainsKey(sVariableCheck) And Not oReservedVariables.Contains(sVariableCheck) Then
+                If Not CustomVariables.ContainsKey(sVariableCheck) And Not oReservedVariables.Contains(sVariableCheck) Then
                     sGames &= vbCrLf & oGame.Name & " (" & sVariableCheck & ")"
                     bClean = False
                 End If
@@ -582,7 +568,7 @@ Public Class mgrPath
             oMatch = Regex.Match(oGame.ProcessPath, sPattern)
             If oMatch.Success Then
                 sVariableCheck = oMatch.Value.Replace("%", String.Empty)
-                If Not hshCustomVariables.ContainsKey(sVariableCheck) And Not oReservedVariables.Contains(sVariableCheck) Then
+                If Not CustomVariables.ContainsKey(sVariableCheck) And Not oReservedVariables.Contains(sVariableCheck) Then
                     sGames &= vbCrLf & oGame.Name & " (" & sVariableCheck & ")"
                     bClean = False
                 End If
@@ -593,9 +579,9 @@ Public Class mgrPath
     End Function
 
     Public Shared Sub LoadCustomVariables()
-        hshCustomVariables = mgrVariables.ReadVariables
+        CustomVariables = mgrVariables.ReadVariables
 
-        For Each oVariable As clsPathVariable In hshCustomVariables.Values
+        For Each oVariable As clsPathVariable In CustomVariables.Values
             Environment.SetEnvironmentVariable(oVariable.Name, oVariable.Path)
         Next
     End Sub

@@ -2,44 +2,6 @@
 Imports GBM.My.Resources
 
 Public Class mgrSettings
-    Shared bStartWithWindows As Boolean
-    Shared bMonitoronStartup As Boolean
-    Shared bStartToTray As Boolean
-    Shared bShowDetectionToolTips As Boolean
-    Shared bDisableConfirmation As Boolean
-    Shared bCreateSubFolder As Boolean
-    Shared bShowOverwriteWarning As Boolean
-    Shared bRestoreOnLaunch As Boolean
-    Shared bAutoRestore As Boolean
-    Shared bAutoMark As Boolean
-    Shared bTimeTracking As Boolean
-    Shared bSessionTracking As Boolean
-    Shared bSuppressBackup As Boolean
-    Shared iSuppressBackupThreshold As Integer
-    Shared iCompressionLevel As Integer
-    Shared s7zArguments As String
-    Shared s7zLocation As String
-    Shared sBackupFolder As String
-    Shared sTemporaryFolder As String
-    Shared eSyncFields As clsGame.eOptionalSyncFields
-    Shared eMessages As eSuppressMessages
-    Shared bAutoSaveLog As Boolean
-    Shared bBackupOnLaunch As Boolean
-    Shared bUseGameID As Boolean
-    Shared bStorePathAutoConfig As Boolean
-    Shared bDisableSyncMessages As Boolean
-    Shared bShowResolvedPaths As Boolean
-    Shared bDisableDiskSpaceCheck As Boolean
-    Shared bExitOnClose As Boolean
-    Shared bExitNoWarning As Boolean
-    Shared bEnableLauncher As Boolean
-    Shared bMainHideGameList As Boolean
-    Shared bMainHideButtons As Boolean
-    Shared bMainHideLog As Boolean
-    Shared bBackupNotification As Boolean
-    Shared iDetectionSpeed As Integer
-    Shared bTwoPassDetection As Boolean
-
     <Flags()> Public Enum eSuppressMessages
         None = 0
         EmptyProcessWarning = 1
@@ -50,160 +12,29 @@ Public Class mgrSettings
         LudusaviImportWarning = 64
     End Enum
 
-    Shared Property StartWithWindows As Boolean
-        Get
-            Return bStartWithWindows
-        End Get
-        Set(value As Boolean)
-            bStartWithWindows = value
-        End Set
-    End Property
+    Private Shared s7zArguments As String
+    Private Shared s7zLocation As String
+    Private Shared sBackupFolder As String
+    Private Shared sTemporaryFolder As String
 
-    Shared Property MonitorOnStartup As Boolean
-        Get
-            Return bMonitoronStartup
-        End Get
-        Set(value As Boolean)
-            bMonitoronStartup = value
-        End Set
-    End Property
-
-    Shared Property StartToTray As Boolean
-        Get
-            Return bStartToTray
-        End Get
-        Set(value As Boolean)
-            bStartToTray = value
-        End Set
-    End Property
-
-    Shared Property ShowDetectionToolTips As Boolean
-        Get
-            Return bShowDetectionToolTips
-        End Get
-        Set(value As Boolean)
-            bShowDetectionToolTips = value
-        End Set
-    End Property
-
-    Shared Property DisableConfirmation As Boolean
-        Get
-            Return bDisableConfirmation
-        End Get
-        Set(value As Boolean)
-            bDisableConfirmation = value
-        End Set
-    End Property
-
-    Shared Property CreateSubFolder As Boolean
-        Get
-            Return bCreateSubFolder
-        End Get
-        Set(value As Boolean)
-            bCreateSubFolder = value
-        End Set
-    End Property
-
-    Shared Property ShowOverwriteWarning As Boolean
-        Get
-            Return bShowOverwriteWarning
-        End Get
-        Set(value As Boolean)
-            bShowOverwriteWarning = value
-        End Set
-    End Property
-
-    Shared Property RestoreOnLaunch As Boolean
-        Get
-            Return bRestoreOnLaunch
-        End Get
-        Set(value As Boolean)
-            bRestoreOnLaunch = value
-        End Set
-    End Property
-
-    Shared Property AutoRestore As Boolean
-        Get
-            Return bAutoRestore
-        End Get
-        Set(value As Boolean)
-            bAutoRestore = value
-        End Set
-    End Property
-
-    Shared Property AutoMark As Boolean
-        Get
-            Return bAutoMark
-        End Get
-        Set(value As Boolean)
-            bAutoMark = value
-        End Set
-    End Property
-
-    Shared Property TimeTracking As Boolean
-        Get
-            Return bTimeTracking
-        End Get
-        Set(value As Boolean)
-            bTimeTracking = value
-        End Set
-    End Property
-
-    Shared Property SessionTracking As Boolean
-        Get
-            Return bSessionTracking
-        End Get
-        Set(value As Boolean)
-            bSessionTracking = value
-        End Set
-    End Property
-
-    Shared Property SuppressBackup As Boolean
-        Get
-            Return bSuppressBackup
-        End Get
-        Set(value As Boolean)
-            bSuppressBackup = value
-        End Set
-    End Property
-
-    Shared Property SuppressBackupThreshold As Integer
-        Get
-            Return iSuppressBackupThreshold
-        End Get
-        Set(value As Integer)
-            iSuppressBackupThreshold = value
-        End Set
-    End Property
-
-    Shared Property CompressionLevel As Integer
-        Get
-            Return iCompressionLevel
-        End Get
-        Set(value As Integer)
-            iCompressionLevel = value
-        End Set
-    End Property
-
-    Shared Property Custom7zArguments As String
-        Get
-            Return s7zArguments
-        End Get
-        Set(value As String)
-            s7zArguments = value
-        End Set
-    End Property
-
-    Shared Property ShowResolvedPaths As Boolean
-        Get
-            Return bShowResolvedPaths
-        End Get
-        Set(value As Boolean)
-            bShowResolvedPaths = value
-        End Set
-    End Property
-
-    Shared ReadOnly Property Prepared7zArguments As String
+    Public Shared Property StartWithWindows As Boolean
+    Public Shared Property MonitorOnStartup As Boolean
+    Public Shared Property StartToTray As Boolean
+    Public Shared Property ShowDetectionToolTips As Boolean
+    Public Shared Property DisableConfirmation As Boolean
+    Public Shared Property CreateSubFolder As Boolean
+    Public Shared Property ShowOverwriteWarning As Boolean
+    Public Shared Property RestoreOnLaunch As Boolean
+    Public Shared Property AutoRestore As Boolean
+    Public Shared Property AutoMark As Boolean
+    Public Shared Property TimeTracking As Boolean
+    Public Shared Property SessionTracking As Boolean
+    Public Shared Property SuppressBackup As Boolean
+    Public Shared Property SuppressBackupThreshold As Integer
+    Public Shared Property CompressionLevel As Integer
+    Public Shared Property Custom7zArguments As String
+    Public Shared Property ShowResolvedPaths As Boolean
+    Public Shared ReadOnly Property Prepared7zArguments As String
         Get
             'Prepare custom 7z arguments
             Dim sPreparedArguments As String
@@ -217,17 +48,8 @@ Public Class mgrSettings
             Return sPreparedArguments
         End Get
     End Property
-
-    Shared Property Custom7zLocation As String
-        Get
-            Return s7zLocation
-        End Get
-        Set(value As String)
-            s7zLocation = value
-        End Set
-    End Property
-
-    Shared ReadOnly Property Is7zUtilityValid As Boolean
+    Public Shared Property Custom7zLocation As String
+    Public Shared ReadOnly Property Is7zUtilityValid As Boolean
         Get
             'We don't use a packaged 7za on Unix, assume valid.
             If mgrCommon.IsUnix Then
@@ -243,8 +65,7 @@ Public Class mgrSettings
             End If
         End Get
     End Property
-
-    Shared ReadOnly Property Utility7zLocation As String
+    Public Shared ReadOnly Property Utility7zLocation As String
         Get
             'Return default utility when custom setting is not used
             If s7zLocation = String.Empty Then
@@ -259,8 +80,7 @@ Public Class mgrSettings
             End If
         End Get
     End Property
-
-    Shared Property BackupFolder As String
+    Public Shared Property BackupFolder As String
         Get
             Return sBackupFolder
         End Get
@@ -268,8 +88,7 @@ Public Class mgrSettings
             sBackupFolder = value.TrimEnd(New Char() {"\", "/"})
         End Set
     End Property
-
-    Shared Property TemporaryFolder As String
+    Public Shared Property TemporaryFolder As String
         Get
             Return sTemporaryFolder
         End Get
@@ -277,177 +96,38 @@ Public Class mgrSettings
             sTemporaryFolder = value.TrimEnd(New Char() {"\", "/"})
         End Set
     End Property
-
-    Shared ReadOnly Property MetadataLocation As String
+    Public Shared ReadOnly Property MetadataLocation As String
         Get
             Return sTemporaryFolder & Path.DirectorySeparatorChar & App_MetadataFilename
         End Get
     End Property
-
-    Shared ReadOnly Property IncludeFileLocation As String
+    Public Shared ReadOnly Property IncludeFileLocation As String
         Get
             Return sTemporaryFolder & Path.DirectorySeparatorChar & App_BackupIncludeFileName
         End Get
     End Property
-
-    Shared ReadOnly Property ExcludeFileLocation As String
+    Public Shared ReadOnly Property ExcludeFileLocation As String
         Get
             Return sTemporaryFolder & Path.DirectorySeparatorChar & App_BackupExcludeFileName
         End Get
     End Property
-
-    Shared Property SyncFields As clsGame.eOptionalSyncFields
-        Get
-            Return eSyncFields
-        End Get
-        Set(value As clsGame.eOptionalSyncFields)
-            eSyncFields = value
-        End Set
-    End Property
-
-    Shared Property AutoSaveLog As Boolean
-        Get
-            Return bAutoSaveLog
-        End Get
-        Set(value As Boolean)
-            bAutoSaveLog = value
-        End Set
-    End Property
-
-    Shared Property SuppressMessages As eSuppressMessages
-        Get
-            Return eMessages
-        End Get
-        Set(value As eSuppressMessages)
-            eMessages = value
-        End Set
-    End Property
-
-    Shared Property BackupOnLaunch As Boolean
-        Get
-            Return bBackupOnLaunch
-        End Get
-        Set(value As Boolean)
-            bBackupOnLaunch = value
-        End Set
-    End Property
-
-    Shared Property UseGameID As Boolean
-        Get
-            Return bUseGameID
-        End Get
-        Set(value As Boolean)
-            bUseGameID = value
-        End Set
-    End Property
-
-    Shared Property StorePathAutoConfig As Boolean
-        Get
-            Return bStorePathAutoConfig
-        End Get
-        Set(value As Boolean)
-            bStorePathAutoConfig = value
-        End Set
-    End Property
-
-    Shared Property DisableSyncMessages As Boolean
-        Get
-            Return bDisableSyncMessages
-        End Get
-        Set(value As Boolean)
-            bDisableSyncMessages = value
-        End Set
-    End Property
-
-    Shared Property DisableDiskSpaceCheck As Boolean
-        Get
-            Return bDisableDiskSpaceCheck
-        End Get
-        Set(value As Boolean)
-            bDisableDiskSpaceCheck = value
-        End Set
-    End Property
-
-    Shared Property ExitOnClose As Boolean
-        Get
-            Return bExitOnClose
-        End Get
-        Set(value As Boolean)
-            bExitOnClose = value
-        End Set
-    End Property
-
-    Shared Property ExitNoWarning As Boolean
-        Get
-            Return bExitNoWarning
-        End Get
-        Set(value As Boolean)
-            bExitNoWarning = value
-        End Set
-    End Property
-
-    Shared Property EnableLauncher As Boolean
-        Get
-            Return bEnableLauncher
-        End Get
-        Set(value As Boolean)
-            bEnableLauncher = value
-        End Set
-    End Property
-
-    Shared Property MainHideGameList As Boolean
-        Get
-            Return bMainHideGameList
-        End Get
-        Set(value As Boolean)
-            bMainHideGameList = value
-        End Set
-    End Property
-
-    Shared Property MainHideLog As Boolean
-        Get
-            Return bMainHideLog
-        End Get
-        Set(value As Boolean)
-            bMainHideLog = value
-        End Set
-    End Property
-
-    Shared Property MainHideButtons As Boolean
-        Get
-            Return bMainHideButtons
-        End Get
-        Set(value As Boolean)
-            bMainHideButtons = value
-        End Set
-    End Property
-
-    Shared Property BackupNotification As Boolean
-        Get
-            Return bBackupNotification
-        End Get
-        Set(value As Boolean)
-            bBackupNotification = value
-        End Set
-    End Property
-
-    Shared Property DetectionSpeed As Integer
-        Get
-            Return iDetectionSpeed
-        End Get
-        Set(value As Integer)
-            iDetectionSpeed = value
-        End Set
-    End Property
-
-    Shared Property TwoPassDetection As Boolean
-        Get
-            Return bTwoPassDetection
-        End Get
-        Set(value As Boolean)
-            bTwoPassDetection = value
-        End Set
-    End Property
+    Public Shared Property SyncFields As clsGame.eOptionalSyncFields
+    Public Shared Property AutoSaveLog As Boolean
+    Public Shared Property SuppressMessages As eSuppressMessages
+    Public Shared Property BackupOnLaunch As Boolean
+    Public Shared Property UseGameID As Boolean
+    Public Shared Property StorePathAutoConfig As Boolean
+    Public Shared Property DisableSyncMessages As Boolean
+    Public Shared Property DisableDiskSpaceCheck As Boolean
+    Public Shared Property ExitOnClose As Boolean
+    Public Shared Property ExitNoWarning As Boolean
+    Public Shared Property EnableLauncher As Boolean
+    Public Shared Property MainHideGameList As Boolean
+    Public Shared Property MainHideLog As Boolean
+    Public Shared Property MainHideButtons As Boolean
+    Public Shared Property BackupNotification As Boolean
+    Public Shared Property DetectionSpeed As Integer
+    Public Shared Property TwoPassDetection As Boolean
 
     Shared Sub New()
         SetDefaults()
@@ -455,48 +135,48 @@ Public Class mgrSettings
 
     Public Shared Sub SetDefaults()
         'Defaults
-        bStartWithWindows = False
-        bMonitoronStartup = True
-        bStartToTray = False
-        bShowDetectionToolTips = True
-        bDisableConfirmation = False
-        bCreateSubFolder = False
-        bShowOverwriteWarning = True
-        bRestoreOnLaunch = False
-        bAutoRestore = False
-        bAutoMark = False
-        bTimeTracking = True
-        bSessionTracking = False
-        bSuppressBackup = False
-        iSuppressBackupThreshold = 10
-        iCompressionLevel = 5
+        StartWithWindows = False
+        MonitorOnStartup = True
+        StartToTray = False
+        ShowDetectionToolTips = True
+        DisableConfirmation = False
+        CreateSubFolder = False
+        ShowOverwriteWarning = True
+        RestoreOnLaunch = False
+        AutoRestore = False
+        AutoMark = False
+        TimeTracking = True
+        SessionTracking = False
+        SuppressBackup = False
+        SuppressBackupThreshold = 10
+        CompressionLevel = 5
         s7zArguments = String.Empty
         s7zLocation = String.Empty
         sBackupFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & Path.DirectorySeparatorChar & App_NameLong
         sTemporaryFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
-        eSyncFields = clsGame.eOptionalSyncFields.None
-        eMessages = eSuppressMessages.None
-        bAutoSaveLog = False
-        bBackupOnLaunch = True
-        bUseGameID = False
-        bStorePathAutoConfig = False
-        bDisableSyncMessages = True
-        bShowResolvedPaths = True
-        bDisableDiskSpaceCheck = False
-        bExitNoWarning = False
-        bEnableLauncher = False
-        bMainHideGameList = False
-        bMainHideButtons = False
-        bMainHideLog = False
-        bBackupNotification = False
-        iDetectionSpeed = 5000
-        bTwoPassDetection = True
+        SyncFields = clsGame.eOptionalSyncFields.None
+        SuppressMessages = eSuppressMessages.None
+        AutoSaveLog = False
+        BackupOnLaunch = True
+        UseGameID = False
+        StorePathAutoConfig = False
+        DisableSyncMessages = True
+        ShowResolvedPaths = True
+        DisableDiskSpaceCheck = False
+        ExitNoWarning = False
+        EnableLauncher = False
+        MainHideGameList = False
+        MainHideButtons = False
+        MainHideLog = False
+        BackupNotification = False
+        DetectionSpeed = 5000
+        TwoPassDetection = True
 
         'OS Based Defaults
         If mgrCommon.IsUnix Then
-            bExitOnClose = True
+            ExitOnClose = True
         Else
-            bExitOnClose = False
+            ExitOnClose = False
         End If
     End Sub
 

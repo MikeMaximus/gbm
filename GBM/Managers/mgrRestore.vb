@@ -2,17 +2,7 @@
 Imports System.IO
 
 Public Class mgrRestore
-
-    Private bCancelOperation As Boolean
-
-    Property CancelOperation As Boolean
-        Get
-            Return bCancelOperation
-        End Get
-        Set(value As Boolean)
-            bCancelOperation = value
-        End Set
-    End Property
+    Public Property CancelOperation As Boolean
 
     Public Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
     Public Event UpdateRestoreInfo(oRestoreInfo As clsBackup)

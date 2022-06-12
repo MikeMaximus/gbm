@@ -3,7 +3,6 @@ Imports YamlDotNet.Serialization
 Imports System.IO
 
 Public Class mgrLudusavi
-
     Public Property FileLocation As String
     Public Property Options As clsLudusaviOptions
     Public Property ConvertedList As Hashtable
