@@ -1,9 +1,7 @@
 ﻿Imports GBM.My.Resources
 Imports System.Globalization
-Imports System.ComponentModel
 
 Public Class frmSessions
-
     Private bInitFinished As Boolean = False
     Private WithEvents tmFilterTimer As Timer
     Private bStartSortAsc As Boolean = True

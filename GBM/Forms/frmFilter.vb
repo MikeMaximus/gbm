@@ -1,7 +1,6 @@
 ﻿Imports GBM.My.Resources
 
 Public Class frmFilter
-
     Public Enum eFilterType As Integer
         BaseFilter = 1
         AnyTag = 2
@@ -9,78 +8,16 @@ Public Class frmFilter
         NoTags = 4
     End Enum
 
-    Dim oIncludeTagFilters As New List(Of clsTag)
-    Dim oExcludeTagFilters As New List(Of clsTag)
-    Dim oGameFilters As New List(Of clsGameFilter)
     Dim oValidFields As New List(Of clsGameFilterField)
-    Dim eCurrentFilterType As eFilterType = eFilterType.BaseFilter
-    Dim bAndOperator As Boolean = False
-    Dim bSortAsc As Boolean = True
-    Dim sSortField As String = "Name"
     Dim hshTags As New Hashtable
 
-    Public Property GameFilters As List(Of clsGameFilter)
-        Get
-            Return oGameFilters
-        End Get
-        Set(value As List(Of clsGameFilter))
-            oGameFilters = value
-        End Set
-    End Property
-
-    Public Property IncludeTagFilters As List(Of clsTag)
-        Get
-            Return oIncludeTagFilters
-        End Get
-        Set(value As List(Of clsTag))
-            oIncludeTagFilters = value
-        End Set
-    End Property
-
-    Public Property ExcludeTagFilters As List(Of clsTag)
-        Get
-            Return oExcludeTagFilters
-        End Get
-        Set(value As List(Of clsTag))
-            oExcludeTagFilters = value
-        End Set
-    End Property
-
-    Public Property FilterType As eFilterType
-        Get
-            Return eCurrentFilterType
-        End Get
-        Set(value As eFilterType)
-            eCurrentFilterType = value
-        End Set
-    End Property
-
-    Public Property AndOperator As Boolean
-        Get
-            Return bAndOperator
-        End Get
-        Set(value As Boolean)
-            bAndOperator = value
-        End Set
-    End Property
-
-    Public Property SortAsc As Boolean
-        Get
-            Return bSortAsc
-        End Get
-        Set(value As Boolean)
-            bSortAsc = value
-        End Set
-    End Property
-
-    Public Property SortField As String
-        Get
-            Return sSortField
-        End Get
-        Set(value As String)
-            sSortField = value
-        End Set
-    End Property
+    Public Property GameFilters As List(Of clsGameFilter) = New List(Of clsGameFilter)
+    Public Property IncludeTagFilters As List(Of clsTag) = New List(Of clsTag)
+    Public Property ExcludeTagFilters As List(Of clsTag) = New List(Of clsTag)
+    Public Property FilterType As eFilterType = eFilterType.BaseFilter
+    Public Property AndOperator As Boolean = False
+    Public Property SortAsc As Boolean = True
+    Public Property SortField As String = "Name"
 
     Private Sub AddTag(ByRef lst As ListBox)
         Dim oData As KeyValuePair(Of String, String)
@@ -369,15 +306,15 @@ Public Class frmFilter
         Dim oListTag As KeyValuePair(Of String, String)
 
         'Game Filters
-        If bAndOperator Then
+        If AndOperator Then
             optAnd.Checked = True
         Else
             optOr.Checked = True
         End If
 
-        If oGameFilters.Count > 0 Then
+        If GameFilters.Count > 0 Then
             chkGameInfo.Checked = True
-            For Each oFilter As clsGameFilter In oGameFilters
+            For Each oFilter As clsGameFilter In GameFilters
                 Select Case oFilter.Field.Type
                     Case clsGameFilterField.eDataType.fString
                         sFilter = oFilter.Field.FriendlyFieldName & " " & frmFilter_lstFilterContains & " """ & oFilter.Data & """"
@@ -396,30 +333,30 @@ Public Class frmFilter
         End If
 
         'Tag Filters
-        If oIncludeTagFilters.Count > 0 Then
+        If IncludeTagFilters.Count > 0 Then
             chkTag.Checked = True
-            For Each oTag As clsTag In oIncludeTagFilters
+            For Each oTag As clsTag In IncludeTagFilters
                 oListTag = New KeyValuePair(Of String, String)(oTag.ID, oTag.Name)
                 lstIncludeTags.Items.Add(oListTag)
                 lstTags.Items.Remove(oListTag)
             Next
 
-            If eCurrentFilterType = eFilterType.AllTags Then
+            If FilterType = eFilterType.AllTags Then
                 optAll.Checked = True
             Else
                 optAny.Checked = True
             End If
         End If
 
-        If oExcludeTagFilters.Count > 0 Then
+        If ExcludeTagFilters.Count > 0 Then
             chkTag.Checked = True
-            For Each oTag As clsTag In oExcludeTagFilters
+            For Each oTag As clsTag In ExcludeTagFilters
                 oListTag = New KeyValuePair(Of String, String)(oTag.ID, oTag.Name)
                 lstExcludeTags.Items.Add(oListTag)
                 lstTags.Items.Remove(oListTag)
             Next
 
-            If eCurrentFilterType = eFilterType.AllTags Then
+            If FilterType = eFilterType.AllTags Then
                 optAll.Checked = True
             Else
                 optAny.Checked = True
@@ -427,8 +364,8 @@ Public Class frmFilter
         End If
 
         'Sorting
-        cboSortField.SelectedValue = sSortField
-        If bSortAsc Then
+        cboSortField.SelectedValue = SortField
+        If SortAsc Then
             optSortAsc.Checked = True
         Else
             optSortDesc.Checked = True
@@ -499,7 +436,7 @@ Public Class frmFilter
             oFilter.NotCondition = False
         End If
 
-        oGameFilters.Add(oFilter)
+        GameFilters.Add(oFilter)
         lstFilter.Items.Add(New KeyValuePair(Of clsGameFilter, String)(oFilter, sFilter))
 
     End Sub
@@ -509,7 +446,7 @@ Public Class frmFilter
 
         If lstFilter.SelectedIndex <> -1 Then
             oFilter = lstFilter.SelectedItem
-            oGameFilters.Remove(DirectCast(oFilter, KeyValuePair(Of clsGameFilter, String)).Key)
+            GameFilters.Remove(DirectCast(oFilter, KeyValuePair(Of clsGameFilter, String)).Key)
             lstFilter.Items.Remove(oFilter)
         End If
 
@@ -522,8 +459,8 @@ Public Class frmFilter
 
         If chkGameInfo.Checked Then
             'Set Filter Type(s)
-            eCurrentFilterType = eFilterType.BaseFilter
-            bAndOperator = optAnd.Checked
+            FilterType = eFilterType.BaseFilter
+            AndOperator = optAnd.Checked
         End If
 
         If chkTag.Checked Then
@@ -541,22 +478,22 @@ Public Class frmFilter
 
             'Set Filter Type
             If IncludeTagFilters.Count = 0 And ExcludeTagFilters.Count = 0 Then
-                eCurrentFilterType = eFilterType.NoTags
+                FilterType = eFilterType.NoTags
             ElseIf optAll.Checked Then
-                eCurrentFilterType = eFilterType.AllTags
+                FilterType = eFilterType.AllTags
             Else
-                eCurrentFilterType = eFilterType.AnyTag
+                FilterType = eFilterType.AnyTag
             End If
         End If
 
         'Sorting
         If optSortAsc.Checked Then
-            bSortAsc = True
+            SortAsc = True
         Else
-            bSortAsc = False
+            SortAsc = False
         End If
 
-        sSortField = cboSortField.SelectedValue
+        SortField = cboSortField.SelectedValue
 
     End Sub
 
@@ -722,7 +659,7 @@ Public Class frmFilter
         Else
             optOr.Checked = True
             grpGameFilter.Enabled = False
-            oGameFilters.Clear()
+            GameFilters.Clear()
             lstFilter.Items.Clear()
         End If
     End Sub
@@ -732,7 +669,7 @@ Public Class frmFilter
             grpTagFilter.Enabled = True
         Else
             grpTagFilter.Enabled = False
-            oIncludeTagFilters.Clear()
+            IncludeTagFilters.Clear()
             LoadTagData()
         End If
     End Sub

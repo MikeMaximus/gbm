@@ -2,29 +2,7 @@
 Imports System.IO
 
 Public Class frmIncludeExclude
-
-    Dim sFormName As String = String.Empty
-    Dim sRootFolder As String = String.Empty
-    Dim sBuilderString As String
-    Dim bRecurseSubFolders As Boolean
-
-    Public Property BuilderString As String
-        Get
-            Return sBuilderString
-        End Get
-        Set(value As String)
-            sBuilderString = value
-        End Set
-    End Property
-
-    Public Property FormName As String
-        Get
-            Return sFormName
-        End Get
-        Set(value As String)
-            sFormName = value
-        End Set
-    End Property
+    Dim sRootFolder As String
 
     Public Property RootFolder As String
         Get
@@ -35,14 +13,9 @@ Public Class frmIncludeExclude
         End Set
     End Property
 
+    Public Property BuilderString As String
+    Public Property FormName As String = String.Empty
     Public Property RecurseSubFolders As Boolean
-        Get
-            Return bRecurseSubFolders
-        End Get
-        Set(value As Boolean)
-            bRecurseSubFolders = value
-        End Set
-    End Property
 
     Private Sub BuildBranch(ByVal sDirectory As String, ByVal oNode As TreeNode)
         Dim sFolders As String()
@@ -269,7 +242,7 @@ Public Class frmIncludeExclude
         'Set Defaults
         txtRootFolder.Text = RootFolder
         optFileTypes.Checked = True
-        chkRecurseSubFolders.Checked = bRecurseSubFolders
+        chkRecurseSubFolders.Checked = RecurseSubFolders
         If BuilderString <> String.Empty Then ParseBuilderString(BuilderString)
         If txtRootFolder.Text <> String.Empty Then BuildTrunk()
     End Sub

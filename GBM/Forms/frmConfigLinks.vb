@@ -1,49 +1,13 @@
 ﻿Imports GBM.My.Resources
 
 Public Class frmConfigLinks
-
-    Private sMonitorIDs As List(Of String)
-    Private sGameName As String = String.Empty
-    Private bNewMode As Boolean = False
     Private oConfigLinkList As List(Of KeyValuePair(Of String, String))
     Private WithEvents tmFilterTimer As Timer
 
-
     Public Property IDList As List(Of String)
-        Get
-            Return sMonitorIDs
-        End Get
-        Set(value As List(Of String))
-            sMonitorIDs = value
-        End Set
-    End Property
-
-    Public Property GameName As String
-        Get
-            Return sGameName
-        End Get
-        Set(value As String)
-            sGameName = value
-        End Set
-    End Property
-
-    Public Property NewMode As Boolean
-        Get
-            Return bNewMode
-        End Get
-        Set(value As Boolean)
-            bNewMode = value
-        End Set
-    End Property
-
+    Public Property GameName As String = String.Empty
+    Public Property NewMode As Boolean = False
     Public Property ConfigLinkList As List(Of KeyValuePair(Of String, String))
-        Get
-            Return oConfigLinkList
-        End Get
-        Set(value As List(Of KeyValuePair(Of String, String)))
-            oConfigLinkList = value
-        End Set
-    End Property
 
     Private Sub AddLink()
         Dim oData As KeyValuePair(Of String, String)
@@ -62,7 +26,7 @@ Public Class frmConfigLinks
                 oConfigLinks.Add(oConfigLink)
             Next
 
-            If Not bNewMode Then mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
+            If Not NewMode Then mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
 
             lstLinks.Items.Add(oData)
             lstConfigs.Items.Remove(oData)
@@ -82,7 +46,7 @@ Public Class frmConfigLinks
                     oConfigLinks.Add(oConfigLink)
                 Next
 
-                If Not bNewMode Then mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
+                If Not NewMode Then mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
 
                 lstLinks.Items.Add(kp)
                 lstConfigs.Items.Remove(kp)
@@ -108,7 +72,7 @@ Public Class frmConfigLinks
                 oConfigLinks.Add(oConfigLink)
             Next
 
-            If Not bNewMode Then mgrConfigLinks.DoConfigLinkDelete(oConfigLinks)
+            If Not NewMode Then mgrConfigLinks.DoConfigLinkDelete(oConfigLinks)
 
             lstLinks.Items.Remove(oData)
             lstConfigs.Items.Add(oData)
@@ -128,7 +92,7 @@ Public Class frmConfigLinks
                     oConfigLinks.Add(oConfigLink)
                 Next
 
-                If Not bNewMode Then mgrConfigLinks.DoConfigLinkDelete(oConfigLinks)
+                If Not NewMode Then mgrConfigLinks.DoConfigLinkDelete(oConfigLinks)
 
                 lstLinks.Items.Remove(kp)
                 lstConfigs.Items.Add(kp)
@@ -158,7 +122,7 @@ Public Class frmConfigLinks
         lstLinks.ValueMember = "Key"
         lstLinks.DisplayMember = "Value"
 
-        If bNewMode Then
+        If NewMode Then
             For Each kp As KeyValuePair(Of String, String) In oConfigLinkList
                 If hshConfigs.ContainsKey(kp.Key) Then
                     hshConfigs.Remove(kp.Key)
@@ -243,7 +207,7 @@ Public Class frmConfigLinks
     End Sub
 
     Private Sub frmConfigLinks_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If bNewMode Then BuildConfigLinkList()
+        If NewMode Then BuildConfigLinkList()
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click

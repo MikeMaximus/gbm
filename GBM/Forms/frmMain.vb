@@ -7,7 +7,6 @@ Imports System.Threading.Thread
 'Description: Game Backup Monitor Main Screen
 'Author: Michael J. Seiferling
 Public Class frmMain
-
     'Used to denote the current status of the app
     Private Enum eStatus As Integer
         Running = 1
@@ -1393,7 +1392,6 @@ Public Class frmMain
     Private Sub OpenGameWizard()
         Dim frm As New frmAddWizard
         PauseScan()
-        frm.GameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
         frm.ShowDialog()
         mgrMonitorList.SyncMonitorLists()
         LoadGameSettings()

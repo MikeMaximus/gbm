@@ -8,7 +8,6 @@ Public Class frmAdvancedImport
     Private hshFinalData As New Hashtable
     Private hshIgnorePaths As Hashtable
     Private bOfficialMode As Boolean = True
-    Private bIsLoading As Boolean = False
     Private iCurrentSort As Integer = 0
     Private oImageList As ImageList
     Private WithEvents tmFilterTimer As Timer
@@ -19,14 +18,13 @@ Public Class frmAdvancedImport
     Private oOfficialXML As mgrXML
     Private oListCache As New List(Of ListViewItem)
 
+    Private Property IsLoading As Boolean = False
     Public Property ImportPath As String
-
     Public Property ImportType As mgrMonitorList.eImportTypes
-
     Public Property LudusaviOptions As clsLudusaviOptions
 
     Private Sub SelectToggle()
-        bIsLoading = True
+        IsLoading = True
 
         For i As Integer = 0 To lstGames.Items.Count - 1
             oListCache(i).Checked = chkSelectAll.Checked
@@ -34,13 +32,13 @@ Public Class frmAdvancedImport
         Next
         lstGames.Refresh()
 
-        bIsLoading = False
+        IsLoading = False
     End Sub
 
     Private Sub UpdateSelectToggle()
         Dim bSelectAll As Boolean = True
 
-        bIsLoading = True
+        IsLoading = True
 
         For Each oListViewItem As ListViewItem In oListCache
             If Not oListViewItem.Checked Then
@@ -50,7 +48,7 @@ Public Class frmAdvancedImport
         Next
         chkSelectAll.Checked = bSelectAll
 
-        bIsLoading = False
+        IsLoading = False
     End Sub
 
     Private Sub SaveChecked(ByVal oItem As ListViewItem)
@@ -154,7 +152,7 @@ Public Class frmAdvancedImport
         Dim oFromItem As clsGame
         Dim oToItem As clsGame
 
-        bIsLoading = True
+        IsLoading = True
         oImportInfo = New ExportData
 
         Select Case ImportType
@@ -197,7 +195,7 @@ Public Class frmAdvancedImport
             End If
         Next
 
-        bIsLoading = False
+        IsLoading = False
 
         If hshImportData.Count > 0 Then
             Return True
@@ -213,7 +211,7 @@ Public Class frmAdvancedImport
         Dim sTags As String
         Dim bAddItem As Boolean
 
-        bIsLoading = True
+        IsLoading = True
 
         oListCache.Clear()
 
@@ -288,7 +286,7 @@ Public Class frmAdvancedImport
         lstGames.VirtualListSize = oListCache.Count
         If oListCache.Count > 0 Then lstGames.EnsureVisible(0)
 
-        bIsLoading = False
+        IsLoading = False
 
         UpdateSelectToggle()
         UpdateTotals()
@@ -427,15 +425,15 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub frmAdvancedImport_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If bIsLoading Then e.Cancel = True
+        If IsLoading Then e.Cancel = True
     End Sub
 
     Private Sub chkSelectAll_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectAll.CheckedChanged
-        If Not bIsLoading Then SelectToggle()
+        If Not IsLoading Then SelectToggle()
     End Sub
 
     Private Sub chkSelectedOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectedOnly.CheckedChanged
-        If Not bIsLoading Then
+        If Not IsLoading Then
             SaveAllChecked()
             FillGrid()
         End If
@@ -446,7 +444,7 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub btnDetect_Click(sender As Object, e As EventArgs) Handles btnDetectSavedGames.Click
-        If Not bIsLoading Then
+        If Not IsLoading Then
             lblStatus.Text = frmAdvancedImport_DetectingSavedGames
             ToggleForm(False)
             SaveAllChecked()

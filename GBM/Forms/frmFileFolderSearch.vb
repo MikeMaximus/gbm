@@ -2,15 +2,6 @@
 Imports System.IO
 
 Public Class frmFileFolderSearch
-    Private sSearchItem As String
-    Private sGameName As String = String.Empty
-    Private bIsLoading As Boolean
-    Private bIsFolder As Boolean
-    Private sFoundItem As String
-    Private oDrives As List(Of DriveInfo)
-    Private oSearchDrive As DirectoryInfo
-    Dim bShutdown As Boolean = False
-
     Private Enum eStopStatus As Integer
         Cancel = 1
         ChangeDrive = 2
@@ -18,46 +9,20 @@ Public Class frmFileFolderSearch
         FinishedDrive = 4
     End Enum
 
+    Private oDrives As List(Of DriveInfo)
+    Private oSearchDrive As DirectoryInfo
+    Dim bShutdown As Boolean = False
     Private iStopStatus As eStopStatus
+
+    Private Property IsLoading As Boolean = False
+
+    Public Property GameName As String = String.Empty
+    Public Property SearchItem As String
+    Public Property FolderSearch As Boolean
+    Public Property FoundItem As String
 
     Delegate Sub UpdateInfoCallBack(ByVal sCurrentFolder As String)
     Delegate Sub UpdateResultsCallBack(ByVal sItem As String)
-
-    Public Property GameName As String
-        Get
-            Return sGameName
-        End Get
-        Set(value As String)
-            sGameName = value
-        End Set
-    End Property
-
-    Public Property SearchItem As String
-        Get
-            Return sSearchItem
-        End Get
-        Set(value As String)
-            sSearchItem = value
-        End Set
-    End Property
-
-    Public Property FolderSearch As Boolean
-        Get
-            Return bIsFolder
-        End Get
-        Set(value As Boolean)
-            bIsFolder = value
-        End Set
-    End Property
-
-    Public Property FoundItem As String
-        Get
-            Return sFoundItem
-        End Get
-        Set(value As String)
-            sFoundItem = value
-        End Set
-    End Property
 
     Private Sub UpdateInfo(ByVal sCurrentFolder As String)
         If txtCurrentLocation.InvokeRequired = True Then
@@ -99,7 +64,7 @@ Public Class frmFileFolderSearch
             'Search Current Directory
             If dir.GetDirectories(sDirectoryName).Length > 0 Then
                 sFoundItem = dir.FullName & Path.DirectorySeparatorChar & sDirectoryName
-                UpdateResults(sFoundItem)                
+                UpdateResults(sFoundItem)
             End If
 
             'Search Sub Directory
@@ -231,18 +196,18 @@ Public Class frmFileFolderSearch
     End Sub
 
     Private Sub frmFileFolderSearch_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        bIsLoading = True
+        IsLoading = True
         SetForm()
         GetDrives()
-        bIsLoading = False
+        IsLoading = False
         Search(oDrives(0))
     End Sub
 
     Private Sub bwSearch_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bwSearch.DoWork
-        If bIsFolder Then
-            FoundItem = SearchDirectory(oSearchDrive, sSearchItem)
+        If FolderSearch Then
+            FoundItem = SearchDirectory(oSearchDrive, SearchItem)
         Else
-            FoundItem = SearchFile(oSearchDrive, sSearchItem)
+            FoundItem = SearchFile(oSearchDrive, SearchItem)
         End If
     End Sub
 
@@ -283,7 +248,7 @@ Public Class frmFileFolderSearch
     End Sub
 
     Private Sub cboDrive_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboDrive.SelectedIndexChanged
-        If Not bIsLoading Then
+        If Not IsLoading Then
             Dim oResult As MsgBoxResult
 
             oResult = mgrCommon.ShowMessage(frmFileFolderSearch_SwitchDrives, New String() {oDrives(cboDrive.SelectedValue).RootDirectory.ToString}, MsgBoxStyle.YesNo)

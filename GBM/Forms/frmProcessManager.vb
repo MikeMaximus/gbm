@@ -2,29 +2,6 @@
 Imports System.IO
 
 Public Class frmProcessManager
-    Dim hshProcessData As Hashtable
-    Private bIsDirty As Boolean = False
-    Private bIsLoading As Boolean = False
-    Private oCurrentProcess As clsProcess
-
-    Private Property IsDirty As Boolean
-        Get
-            Return bIsDirty
-        End Get
-        Set(value As Boolean)
-            bIsDirty = value
-        End Set
-    End Property
-
-    Private Property IsLoading As Boolean
-        Get
-            Return bIsLoading
-        End Get
-        Set(value As Boolean)
-            bIsLoading = value
-        End Set
-    End Property
-
     Private Enum eModes As Integer
         View = 1
         Edit = 2
@@ -33,15 +10,11 @@ Public Class frmProcessManager
     End Enum
 
     Private eCurrentMode As eModes = eModes.Disabled
+    Private oCurrentProcess As clsProcess
 
+    Private Property IsDirty As Boolean = False
+    Private Property IsLoading As Boolean = False
     Private Property ProcessData As Hashtable
-        Get
-            Return hshProcessData
-        End Get
-        Set(value As Hashtable)
-            hshProcessData = value
-        End Set
-    End Property
 
     Private Sub ProcessBrowse()
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
@@ -187,7 +160,7 @@ Public Class frmProcessManager
     End Sub
 
     Private Sub CancelEdit()
-        If bIsDirty Then
+        If IsDirty Then
             Select Case HandleDirty()
                 Case MsgBoxResult.Yes
                     SaveProcess()
@@ -360,11 +333,11 @@ Public Class frmProcessManager
     End Sub
 
     Private Sub frmProcessManager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If bIsDirty Then
+        If IsDirty Then
             Select Case HandleDirty()
                 Case MsgBoxResult.Yes
                     SaveProcess()
-                    If bIsDirty Then e.Cancel = True
+                    If IsDirty Then e.Cancel = True
                 Case MsgBoxResult.Cancel
                     e.Cancel = True
             End Select

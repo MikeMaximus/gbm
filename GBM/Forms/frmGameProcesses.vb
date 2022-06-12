@@ -1,46 +1,10 @@
 ﻿Imports GBM.My.Resources
 
 Public Class frmGameProcesses
-    Private sMonitorIDs As List(Of String)
-    Private sGameName As String = String.Empty
-    Private bNewMode As Boolean = False
-    Private oProcessList As List(Of KeyValuePair(Of String, String))
-
     Public Property IDList As List(Of String)
-        Get
-            Return sMonitorIDs
-        End Get
-        Set(value As List(Of String))
-            sMonitorIDs = value
-        End Set
-    End Property
-
-    Public Property GameName As String
-        Get
-            Return sGameName
-        End Get
-        Set(value As String)
-            sGameName = value
-        End Set
-    End Property
-
-    Public Property NewMode As Boolean
-        Get
-            Return bNewMode
-        End Get
-        Set(value As Boolean)
-            bNewMode = value
-        End Set
-    End Property
-
+    Public Property GameName As String = String.Empty
+    Public Property NewMode As Boolean = False
     Public Property ProcessList As List(Of KeyValuePair(Of String, String))
-        Get
-            Return oProcessList
-        End Get
-        Set(value As List(Of KeyValuePair(Of String, String)))
-            oProcessList = value
-        End Set
-    End Property
 
     Private Sub AddProcess()
         Dim oData As KeyValuePair(Of String, String)
@@ -59,7 +23,7 @@ Public Class frmGameProcesses
                 oGameProcesses.Add(oGameProcess)
             Next
 
-            If Not bNewMode Then mgrGameProcesses.DoGameProcessAddBatch(oGameProcesses)
+            If Not NewMode Then mgrGameProcesses.DoGameProcessAddBatch(oGameProcesses)
 
             lstGameProcesses.Items.Add(oData)
             lstProcesses.Items.Remove(oData)
@@ -79,7 +43,7 @@ Public Class frmGameProcesses
                     oGameProcesses.Add(oGameProcess)
                 Next
 
-                If Not bNewMode Then mgrGameProcesses.DoGameProcessAddBatch(oGameProcesses)
+                If Not NewMode Then mgrGameProcesses.DoGameProcessAddBatch(oGameProcesses)
 
                 lstGameProcesses.Items.Add(kp)
                 lstProcesses.Items.Remove(kp)
@@ -105,7 +69,7 @@ Public Class frmGameProcesses
                 oGameProcesses.Add(oGameProcess)
             Next
 
-            If Not bNewMode Then mgrGameProcesses.DoGameProcessDelete(oGameProcesses)
+            If Not NewMode Then mgrGameProcesses.DoGameProcessDelete(oGameProcesses)
 
             lstGameProcesses.Items.Remove(oData)
             lstProcesses.Items.Add(oData)
@@ -125,7 +89,7 @@ Public Class frmGameProcesses
                     oGameProcesses.Add(oGameProcess)
                 Next
 
-                If Not bNewMode Then mgrGameProcesses.DoGameProcessDelete(oGameProcesses)
+                If Not NewMode Then mgrGameProcesses.DoGameProcessDelete(oGameProcesses)
 
                 lstGameProcesses.Items.Remove(kp)
                 lstProcesses.Items.Add(kp)
@@ -152,15 +116,15 @@ Public Class frmGameProcesses
         lstGameProcesses.ValueMember = "Key"
         lstGameProcesses.DisplayMember = "Value"
 
-        If bNewMode Then
-            For Each kp As KeyValuePair(Of String, String) In oProcessList
+        If NewMode Then
+            For Each kp As KeyValuePair(Of String, String) In ProcessList
                 'We need to be sure the tags still exist if the "Process Manager" form was used
                 If hshProcesses.ContainsKey(kp.Value) Then
                     lstGameProcesses.Items.Add(kp)
                 End If
             Next
 
-            For Each kp As KeyValuePair(Of String, String) In oProcessList
+            For Each kp As KeyValuePair(Of String, String) In ProcessList
                 If hshProcesses.ContainsKey(kp.Value) Then
                     hshProcesses.Remove(kp.Value)
                 End If
@@ -192,9 +156,9 @@ Public Class frmGameProcesses
 
     Private Sub BuildProcessList()
         Dim oData As KeyValuePair(Of String, String)
-        oProcessList.Clear()
+        ProcessList.Clear()
         For Each oData In lstGameProcesses.Items
-            oProcessList.Add(oData)
+            ProcessList.Add(oData)
         Next
     End Sub
 
@@ -229,7 +193,7 @@ Public Class frmGameProcesses
     End Sub
 
     Private Sub frmGameProcesses_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If bNewMode Then BuildProcessList()
+        If NewMode Then BuildProcessList()
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
@@ -241,7 +205,7 @@ Public Class frmGameProcesses
     End Sub
 
     Private Sub btnOpenProcesses_Click(sender As Object, e As EventArgs) Handles btnOpenProcesses.Click
-        If bNewMode Then BuildProcessList()
+        If NewMode Then BuildProcessList()
         OpenProcessManager()
     End Sub
 

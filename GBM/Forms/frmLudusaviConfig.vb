@@ -1,16 +1,7 @@
 ﻿Imports GBM.My.Resources
 
 Public Class frmLudusaviConfig
-    Private oImportOptions As clsLudusaviOptions
-
-    Property ImportOptions As clsLudusaviOptions
-        Get
-            Return oImportOptions
-        End Get
-        Set(value As clsLudusaviOptions)
-            oImportOptions = value
-        End Set
-    End Property
+    Public Property ImportOptions As clsLudusaviOptions
 
     Private Sub SetForm()
         'Set Form Name
@@ -54,12 +45,12 @@ Public Class frmLudusaviConfig
     End Function
 
     Private Sub BuildOptions()
-        oImportOptions = New clsLudusaviOptions()
-        oImportOptions.Query = txtQuery.Text
-        oImportOptions.IncludeSaves = chkSavedGames.Checked
-        oImportOptions.IncludeConfigs = chkConfigurationFiles.Checked
-        If chkWindows.Checked Then oImportOptions.IncludeOS = oImportOptions.IncludeOS Or clsLudusaviOptions.eSupportedOS.Windows
-        If chkLinux.Checked Then oImportOptions.IncludeOS = oImportOptions.IncludeOS Or clsLudusaviOptions.eSupportedOS.Linux
+        ImportOptions = New clsLudusaviOptions()
+        ImportOptions.Query = txtQuery.Text
+        ImportOptions.IncludeSaves = chkSavedGames.Checked
+        ImportOptions.IncludeConfigs = chkConfigurationFiles.Checked
+        If chkWindows.Checked Then ImportOptions.IncludeOS = ImportOptions.IncludeOS Or clsLudusaviOptions.eSupportedOS.Windows
+        If chkLinux.Checked Then ImportOptions.IncludeOS = ImportOptions.IncludeOS Or clsLudusaviOptions.eSupportedOS.Linux
     End Sub
 
     Private Sub frmConfigLudusavi_Load(sender As Object, e As EventArgs) Handles MyBase.Load

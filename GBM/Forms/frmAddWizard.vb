@@ -2,20 +2,6 @@
 Imports System.IO
 
 Public Class frmAddWizard
-
-    Private oGameData As Hashtable
-    Private oGameToSave As clsGame
-    Private bDisableAdminWarning As Boolean = False
-
-    Property GameData As Hashtable
-        Get
-            Return oGameData
-        End Get
-        Set(value As Hashtable)
-            oGameData = value
-        End Set
-    End Property
-
     Private Enum eSteps As Integer
         Step1 = 1
         Step2 = 2
@@ -26,6 +12,8 @@ Public Class frmAddWizard
     End Enum
 
     Private eCurrentStep As eSteps = eSteps.Step1
+    Private oGameToSave As clsGame
+    Private bDisableAdminWarning As Boolean = False
 
     Private Sub SetForm()
         'Set Form Name

@@ -1,48 +1,10 @@
 ﻿Imports GBM.My.Resources
 
 Public Class frmGameTags
-
-    Private sMonitorIDs As List(Of String)
-    Private sGameName As String = String.Empty
-    Private bNewMode As Boolean = False
-    Private oTagList As List(Of KeyValuePair(Of String, String))
-
     Public Property IDList As List(Of String)
-        Get
-            Return sMonitorIDs
-        End Get
-        Set(value As List(Of String))
-            sMonitorIDs = value
-        End Set
-    End Property
-
-    Public Property GameName As String
-        Get
-            Return sGameName
-        End Get
-        Set(value As String)
-            sGameName = value
-        End Set
-    End Property
-
-    Public Property NewMode As Boolean
-        Get
-            Return bNewMode
-        End Get
-        Set(value As Boolean)
-            bNewMode = value
-        End Set
-    End Property
-
+    Public Property GameName As String = String.Empty
+    Public Property NewMode As Boolean = False
     Public Property TagList As List(Of KeyValuePair(Of String, String))
-        Get
-            Return oTagList
-        End Get
-        Set(value As List(Of KeyValuePair(Of String, String)))
-            oTagList = value
-        End Set
-    End Property
-
 
     Private Sub AddTag()
         Dim oData As KeyValuePair(Of String, String)
@@ -61,7 +23,7 @@ Public Class frmGameTags
                 oGameTags.Add(oGameTag)
             Next
 
-            If Not bNewMode Then mgrGameTags.DoGameTagAddBatch(oGameTags)
+            If Not NewMode Then mgrGameTags.DoGameTagAddBatch(oGameTags)
 
             lstGameTags.Items.Add(oData)
             lstTags.Items.Remove(oData)
@@ -81,7 +43,7 @@ Public Class frmGameTags
                     oGameTags.Add(oGameTag)
                 Next
 
-                If Not bNewMode Then mgrGameTags.DoGameTagAddBatch(oGameTags)
+                If Not NewMode Then mgrGameTags.DoGameTagAddBatch(oGameTags)
 
                 lstGameTags.Items.Add(kp)
                 lstTags.Items.Remove(kp)
@@ -107,12 +69,12 @@ Public Class frmGameTags
                 oGameTags.Add(oGameTag)
             Next
 
-            If Not bNewMode Then mgrGameTags.DoGameTagDelete(oGameTags)
+            If Not NewMode Then mgrGameTags.DoGameTagDelete(oGameTags)
 
             lstGameTags.Items.Remove(oData)
-                lstTags.Items.Add(oData)
-            ElseIf lstGameTags.SelectedItems.Count > 1 Then
-                oTags = New List(Of KeyValuePair(Of String, String))
+            lstTags.Items.Add(oData)
+        ElseIf lstGameTags.SelectedItems.Count > 1 Then
+            oTags = New List(Of KeyValuePair(Of String, String))
 
             For Each oData In lstGameTags.SelectedItems
                 oTags.Add(oData)
@@ -127,7 +89,7 @@ Public Class frmGameTags
                     oGameTags.Add(oGameTag)
                 Next
 
-                If Not bNewMode Then mgrGameTags.DoGameTagDelete(oGameTags)
+                If Not NewMode Then mgrGameTags.DoGameTagDelete(oGameTags)
 
                 lstGameTags.Items.Remove(kp)
                 lstTags.Items.Add(kp)
@@ -154,15 +116,15 @@ Public Class frmGameTags
         lstGameTags.ValueMember = "Key"
         lstGameTags.DisplayMember = "Value"
 
-        If bNewMode Then
-            For Each kp As KeyValuePair(Of String, String) In oTagList
+        If NewMode Then
+            For Each kp As KeyValuePair(Of String, String) In TagList
                 'We need to be sure the tags still exist if the "Setup Tags" form was used
                 If hshTags.ContainsKey(kp.Value) Then
                     lstGameTags.Items.Add(kp)
                 End If
             Next
 
-            For Each kp As KeyValuePair(Of String, String) In oTagList
+            For Each kp As KeyValuePair(Of String, String) In TagList
                 If hshTags.ContainsKey(kp.Value) Then
                     hshTags.Remove(kp.Value)
                 End If
@@ -194,9 +156,9 @@ Public Class frmGameTags
 
     Private Sub BuildTagList()
         Dim oData As KeyValuePair(Of String, String)
-        oTagList.Clear()
+        TagList.Clear()
         For Each oData In lstGameTags.Items
-            oTagList.Add(oData)
+            TagList.Add(oData)
         Next
     End Sub
 
@@ -231,7 +193,7 @@ Public Class frmGameTags
     End Sub
 
     Private Sub frmGameTags_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If bNewMode Then BuildTagList()
+        If NewMode Then BuildTagList()
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
@@ -243,7 +205,7 @@ Public Class frmGameTags
     End Sub
 
     Private Sub btnOpenTags_Click(sender As Object, e As EventArgs) Handles btnOpenTags.Click
-        If bNewMode Then BuildTagList()
+        If NewMode Then BuildTagList()
         OpenTags()
     End Sub
 End Class

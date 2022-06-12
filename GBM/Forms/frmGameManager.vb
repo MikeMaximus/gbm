@@ -3,40 +3,6 @@ Imports System.Collections.Specialized
 Imports System.IO
 
 Public Class frmGameManager
-
-    Private sBackupFolder As String
-    Private bPendingRestores As Boolean = False
-    Private oCurrentBackupItem As clsBackup
-    Private oOpenToGame As clsGame
-    Private oCurrentGame As clsGame
-    Private oTagsToSave As New List(Of KeyValuePair(Of String, String))
-    Private oProcessesToSave As New List(Of KeyValuePair(Of String, String))
-    Private oConfigLinksToSave As New List(Of KeyValuePair(Of String, String))
-    Private bDisableExternalFunctions As Boolean = False
-    Private bTriggerBackup As Boolean = False
-    Private bTriggerRestore As Boolean = False
-    Private bTriggerImportBackup As Boolean = False
-    Private bTriggerLaunch As Boolean = False
-    Private bNoRestoreQueue As Boolean = False
-    Private oBackupList As New List(Of clsGame)
-    Private oRestoreList As New Hashtable
-    Private oImportBackupGame As clsGame
-    Private sImportBackupList As String()
-    Private oGameData As OrderedDictionary
-    Private oLocalBackupData As SortedList
-    Private oRemoteBackupData As SortedList
-    Private bIsDirty As Boolean = False
-    Private bIsLoading As Boolean = False
-    Private bInitialLoad As Boolean = True
-    Private oCurrentIncludeTagFilters As New List(Of clsTag)
-    Private oCurrentExcludeTagFilters As New List(Of clsTag)
-    Private oCurrentFilters As New List(Of clsGameFilter)
-    Private eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.BaseFilter
-    Private bCurrentAndOperator As Boolean = False
-    Private bCurrentSortAsc As Boolean = True
-    Private sCurrentSortField As String = "Name"
-    Private WithEvents tmFilterTimer As Timer
-
     Private Enum eModes As Integer
         View = 1
         Edit = 2
@@ -45,45 +11,27 @@ Public Class frmGameManager
         MultiSelect = 5
     End Enum
 
+    Private sBackupFolder As String
+    Private oTagsToSave As New List(Of KeyValuePair(Of String, String))
+    Private oProcessesToSave As New List(Of KeyValuePair(Of String, String))
+    Private oConfigLinksToSave As New List(Of KeyValuePair(Of String, String))
+    Private oLocalBackupData As SortedList
+    Private oRemoteBackupData As SortedList
+    Private oCurrentIncludeTagFilters As New List(Of clsTag)
+    Private oCurrentExcludeTagFilters As New List(Of clsTag)
+    Private oCurrentFilters As New List(Of clsGameFilter)
+    Private eCurrentFilter As frmFilter.eFilterType = frmFilter.eFilterType.BaseFilter
+    Private bCurrentAndOperator As Boolean = False
+    Private bCurrentSortAsc As Boolean = True
+    Private sCurrentSortField As String = "Name"
+    Private WithEvents tmFilterTimer As Timer
     Private eCurrentMode As eModes = eModes.Disabled
     Private eLastMode As eModes = eModes.Disabled
 
-    Property PendingRestores As Boolean
-        Get
-            Return bPendingRestores
-        End Get
-        Set(value As Boolean)
-            bPendingRestores = value
-        End Set
-    End Property
-
-    Property CurrentBackupItem As clsBackup
-        Get
-            Return oCurrentBackupItem
-        End Get
-        Set(value As clsBackup)
-            oCurrentBackupItem = value
-        End Set
-    End Property
-
-    Property OpenToGame As clsGame
-        Get
-            Return oOpenToGame
-        End Get
-        Set(value As clsGame)
-            oOpenToGame = value
-        End Set
-    End Property
-
-    Property CurrentGame As clsGame
-        Get
-            Return oCurrentGame
-        End Get
-        Set(value As clsGame)
-            oCurrentGame = value
-        End Set
-    End Property
-
+    Private Property GameData As OrderedDictionary
+    Private Property IsDirty As Boolean = False
+    Private Property IsLoading As Boolean = False
+    Private Property InitialLoad As Boolean = True
     Private Property BackupFolder As String
         Get
             Return mgrSettings.BackupFolder & Path.DirectorySeparatorChar
@@ -93,122 +41,19 @@ Public Class frmGameManager
         End Set
     End Property
 
-    Private Property GameData As OrderedDictionary
-        Get
-            Return oGameData
-        End Get
-        Set(value As OrderedDictionary)
-            oGameData = value
-        End Set
-    End Property
-
-    Property DisableExternalFunctions As Boolean
-        Get
-            Return bDisableExternalFunctions
-        End Get
-        Set(value As Boolean)
-            bDisableExternalFunctions = value
-        End Set
-    End Property
-
-    Property TriggerBackup As Boolean
-        Get
-            Return bTriggerBackup
-        End Get
-        Set(value As Boolean)
-            bTriggerBackup = value
-        End Set
-    End Property
-
-    Property TriggerRestore As Boolean
-        Get
-            Return bTriggerRestore
-        End Get
-        Set(value As Boolean)
-            bTriggerRestore = value
-        End Set
-    End Property
-
-    Property TriggerImportBackup As Boolean
-        Get
-            Return bTriggerImportBackup
-        End Get
-        Set(value As Boolean)
-            bTriggerImportBackup = value
-        End Set
-    End Property
-
-    Property NoRestoreQueue As Boolean
-        Get
-            Return bNoRestoreQueue
-        End Get
-        Set(value As Boolean)
-            bNoRestoreQueue = value
-        End Set
-    End Property
-
-    Property BackupList As List(Of clsGame)
-        Get
-            Return oBackupList
-        End Get
-        Set(value As List(Of clsGame))
-            oBackupList = value
-        End Set
-    End Property
-
-    Property RestoreList As Hashtable
-        Get
-            Return oRestoreList
-        End Get
-        Set(value As Hashtable)
-            oRestoreList = value
-        End Set
-    End Property
-
-    Property ImportBackupGame As clsGame
-        Get
-            Return oImportBackupGame
-        End Get
-        Set(value As clsGame)
-            oImportBackupGame = value
-        End Set
-    End Property
-
-    Property ImportBackupList As String()
-        Get
-            Return sImportBackupList
-        End Get
-        Set(value As String())
-            sImportBackupList = value
-        End Set
-    End Property
-
-    Private Property IsDirty As Boolean
-        Get
-            Return bIsDirty
-        End Get
-        Set(value As Boolean)
-            bIsDirty = value
-        End Set
-    End Property
-
-    Private Property IsLoading As Boolean
-        Get
-            Return bIsLoading
-        End Get
-        Set(value As Boolean)
-            bIsLoading = value
-        End Set
-    End Property
-
-    Private Property InitialLoad As Boolean
-        Get
-            Return bInitialLoad
-        End Get
-        Set(value As Boolean)
-            bInitialLoad = value
-        End Set
-    End Property
+    Public Property PendingRestores As Boolean = False
+    Public Property CurrentBackupItem As clsBackup
+    Public Property OpenToGame As clsGame
+    Public Property CurrentGame As clsGame
+    Public Property DisableExternalFunctions As Boolean = False
+    Public Property TriggerBackup As Boolean = False
+    Public Property TriggerRestore As Boolean = False
+    Public Property TriggerImportBackup As Boolean = False
+    Public Property NoRestoreQueue As Boolean = False
+    Public Property BackupList As List(Of clsGame) = New List(Of clsGame)
+    Public Property RestoreList As Hashtable = New Hashtable
+    Public Property ImportBackupGame As clsGame
+    Public Property ImportBackupList As String()
 
     Private Sub LoadBackupData()
         oRemoteBackupData = mgrManifest.ReadLatestManifest(mgrSQLite.Database.Remote)
@@ -631,7 +476,7 @@ Public Class frmGameManager
 
         'Use the wine save path when we are in Linux working with a Windows configuration
         If mgrCommon.IsUnix And cboOS.SelectedValue = clsGame.eOS.Windows Then
-            Dim oWineData As clsWineData = mgrWineData.DoWineDataGetbyID(oCurrentGame.ID)
+            Dim oWineData As clsWineData = mgrWineData.DoWineDataGetbyID(CurrentGame.ID)
             sPath = mgrPath.ValidatePath(oWineData.SavePath)
         End If
 
@@ -797,7 +642,7 @@ Public Class frmGameManager
             End If
 
             'If a tag filter is enabled, reload list to reflect changes
-            If cboFilters.SelectedValue = 3 And Not bIsDirty Then
+            If cboFilters.SelectedValue = 3 And Not IsDirty Then
                 If lstGames.SelectedItems.Count = 1 Then bSingleSelected = True
                 LoadData()
                 If bSingleSelected Then lstGames.SelectedItem = New KeyValuePair(Of String, String)(CurrentGame.ID, CurrentGame.Name)
@@ -842,14 +687,14 @@ Public Class frmGameManager
 
     Public Sub OpenWineConfiguration()
         Dim frm As New frmWineConfiguration
-        frm.MonitorID = oCurrentGame.ID
-        frm.GameName = oCurrentGame.CroppedName
+        frm.MonitorID = CurrentGame.ID
+        frm.GameName = CurrentGame.CroppedName
         frm.ShowDialog()
     End Sub
 
     Private Sub OpenLauncherConfig()
         Dim frm As New frmLaunchConfiguration
-        frm.Game = oCurrentGame
+        frm.Game = CurrentGame
         frm.ShowDialog()
     End Sub
 
@@ -1455,7 +1300,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub CancelEdit()
-        If bIsDirty Then
+        If IsDirty Then
             Select Case HandleDirty()
                 Case MsgBoxResult.Yes
                     SaveApp()
@@ -1594,7 +1439,7 @@ Public Class frmGameManager
                 End If
             Case eModes.Edit
                 If CoreValidatation(oApp, False) Then
-                    If CheckManifestandUpdate(oCurrentGame, oApp, mgrSettings.UseGameID) Then
+                    If CheckManifestandUpdate(CurrentGame, oApp, mgrSettings.UseGameID) Then
                         bSuccess = True
                         mgrMonitorList.DoListUpdate(oApp, CurrentGame.ID)
                     End If
@@ -1772,7 +1617,7 @@ Public Class frmGameManager
 
         If sFiles.Length > 0 Then
             ImportBackupList = sFiles
-            ImportBackupGame = oCurrentGame
+            ImportBackupGame = CurrentGame
 
             If sFiles.Length > 1 And Not CurrentGame.AppendTimeStamp Then
                 mgrCommon.ShowMessage(frmGameManager_WarningImportBackupSaveMulti, MsgBoxStyle.Exclamation)
@@ -1783,7 +1628,7 @@ Public Class frmGameManager
                 sConfirm = frmGameManager_ConfirmBackupImportOverwriteSingle
             End If
 
-            If mgrCommon.ShowMessage(sConfirm, oCurrentGame.CroppedName, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If mgrCommon.ShowMessage(sConfirm, CurrentGame.CroppedName, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 Me.TriggerImportBackup = True
                 Me.Close()
             End If
@@ -1864,14 +1709,14 @@ Public Class frmGameManager
 
                 If lstGames.SelectedItems.Count = 1 Then
                     'Replace backup entry with currently selected backup item in case the user wants to restore an older backup.                
-                    If oBackup.DateUpdatedUnix > oCurrentBackupItem.DateUpdatedUnix Then
+                    If oBackup.DateUpdatedUnix > CurrentBackupItem.DateUpdatedUnix Then
                         NoRestoreQueue = True
                         RestoreList.Clear()
-                        RestoreList.Add(oGame, oCurrentBackupItem)
-                        sMsg = mgrCommon.FormatString(frmGameManager_ConfirmRestoreSelected, New String() {oGame.CroppedName, oCurrentBackupItem.DateUpdated, oCurrentBackupItem.UpdatedBy})
+                        RestoreList.Add(oGame, CurrentBackupItem)
+                        sMsg = mgrCommon.FormatString(frmGameManager_ConfirmRestoreSelected, New String() {oGame.CroppedName, CurrentBackupItem.DateUpdated, CurrentBackupItem.UpdatedBy})
                     End If
 
-                    If mgrConfigLinks.CheckForLinks(oGame.ID) And (oBackup.DateUpdatedUnix > oCurrentBackupItem.DateUpdatedUnix) Then
+                    If mgrConfigLinks.CheckForLinks(oGame.ID) And (oBackup.DateUpdatedUnix > CurrentBackupItem.DateUpdatedUnix) Then
                         If mgrCommon.ShowMessage(mgrCommon.FormatString(frmGameManager_RestoreLinkWarning, oGame.CroppedName), MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                             NoRestoreQueue = True
                         Else
@@ -2120,11 +1965,11 @@ Public Class frmGameManager
     End Sub
 
     Private Sub frmGameManager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If bIsDirty Then
+        If IsDirty Then
             Select Case HandleDirty()
                 Case MsgBoxResult.Yes
                     SaveApp()
-                    If bIsDirty Then e.Cancel = True
+                    If IsDirty Then e.Cancel = True
                 Case MsgBoxResult.Cancel
                     e.Cancel = True
             End Select
@@ -2248,7 +2093,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub cboRemoteBackup_Enter(sender As Object, e As EventArgs) Handles cboRemoteBackup.Enter, cboRemoteBackup.Click
-        If Not oCurrentGame Is Nothing Then VerifyBackups(oCurrentGame)
+        If Not CurrentGame Is Nothing Then VerifyBackups(CurrentGame)
     End Sub
 
     Private Sub cboRemoteBackup_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboRemoteBackup.SelectedIndexChanged

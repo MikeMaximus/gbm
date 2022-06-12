@@ -1,26 +1,8 @@
 ﻿Imports GBM.My.Resources
 
 Public Class frmWineConfiguration
-    Private sMonitorID As String
-    Private sGameName As String
-
-    Property MonitorID As String
-        Get
-            Return sMonitorID
-        End Get
-        Set(value As String)
-            sMonitorID = value
-        End Set
-    End Property
-
-    Property GameName As String
-        Get
-            Return sGameName
-        End Get
-        Set(value As String)
-            sGameName = value
-        End Set
-    End Property
+    Public Property MonitorID As String
+    Public Property GameName As String
 
     Private Sub SetForm()
         'Set Form Name
@@ -40,7 +22,7 @@ Public Class frmWineConfiguration
 
     Private Sub LoadData()
         Dim oWineData As New clsWineData
-        oWineData = mgrWineData.DoWineDataGetbyID(sMonitorID)
+        oWineData = mgrWineData.DoWineDataGetbyID(MonitorID)
         txtWineBinaryPath.Text = oWineData.BinaryPath
         txtWinePrefix.Text = oWineData.Prefix
         txtWineSavePath.Text = oWineData.SavePath
@@ -71,12 +53,12 @@ Public Class frmWineConfiguration
     Private Sub SaveData()
         Dim oWineData As clsWineData
         If txtWineBinaryPath.Text = String.Empty And txtWinePrefix.Text = String.Empty And txtWineSavePath.Text = String.Empty Then
-            mgrWineData.DoWineDataDelete(sMonitorID)
+            mgrWineData.DoWineDataDelete(MonitorID)
             Me.DialogResult = DialogResult.OK
         Else
             If ValidateData() Then
                 oWineData = New clsWineData
-                oWineData.MonitorID = sMonitorID
+                oWineData.MonitorID = MonitorID
                 oWineData.BinaryPath = txtWineBinaryPath.Text
                 oWineData.Prefix = txtWinePrefix.Text
                 oWineData.SavePath = txtWineSavePath.Text

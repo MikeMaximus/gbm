@@ -1,46 +1,27 @@
 ﻿Imports GBM.My.Resources
 
 Public Class frmSessionExport
-
-    Private bXML As Boolean = True
-    Private bUnix As Boolean = False
-    Private bCSVHeaders As Boolean = True
-
-    Public ReadOnly Property XML As Boolean
-        Get
-            Return bXML
-        End Get
-    End Property
-
-    Public ReadOnly Property Unix As Boolean
-        Get
-            Return bUnix
-        End Get
-    End Property
-
-    Public ReadOnly Property Headers As Boolean
-        Get
-            Return bCSVHeaders
-        End Get
-    End Property
+    Public Property XML As Boolean = True
+    Public Property Unix As Boolean = False
+    Public Property Headers As Boolean = True
 
     Private Sub SetOptions()
         If optXML.Checked Then
-            bXML = True
+            XML = True
         Else
-            bXML = False
+            XML = False
         End If
 
         If optUnix.Checked Then
-            bUnix = True
+            Unix = True
         Else
-            bUnix = False
+            Unix = False
         End If
 
         If chkCSVHeaders.Checked Then
-            bCSVHeaders = True
+            Headers = True
         Else
-            bCSVHeaders = False
+            Headers = False
         End If
     End Sub
 

@@ -3,7 +3,6 @@ Imports System.IO
 
 Public Class frmStartUpWizard
 
-    Private oGameData As Hashtable
     Private bShutdown As Boolean = False
 
     Private Enum eSteps As Integer
@@ -128,23 +127,14 @@ Public Class frmStartUpWizard
         End If
 
         If mgrCommon.ShowMessage(frmStartUpWizard_ConfirmOfficialImport, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            If mgrMonitorList.DoImport(sImportURL) Then
-                oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
-            End If
+            mgrMonitorList.DoImport(sImportURL)
         End If
-    End Sub
-
-    Private Sub LoadGameSettings()
-        'Load Game XML
-        oGameData = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList)
     End Sub
 
     Private Sub OpenGameWizard()
         Dim frm As New frmAddWizard
-        frm.GameData = oGameData
         frm.ShowDialog()
         mgrMonitorList.SyncMonitorLists()
-        LoadGameSettings()
     End Sub
 
     Private Sub OpenMonitorList()
@@ -152,7 +142,6 @@ Public Class frmStartUpWizard
         frm.DisableExternalFunctions = True
         frm.ShowDialog()
         mgrMonitorList.SyncMonitorLists()
-        LoadGameSettings()
     End Sub
 
     Private Function ValidateBackupPath(ByVal strPath As String, ByRef sErrorMessage As String) As Boolean

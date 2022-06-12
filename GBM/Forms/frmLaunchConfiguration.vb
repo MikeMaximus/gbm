@@ -2,23 +2,15 @@
 Imports System.IO
 
 Public Class frmLaunchConfiguration
-    Private oGame As clsGame
-    Private bIsDirty As Boolean = False
-    Private bIsLoading As Boolean = False
     Private WithEvents tmUpdateTimer As Timer
 
-    Property Game As clsGame
-        Get
-            Return oGame
-        End Get
-        Set(value As clsGame)
-            oGame = value
-        End Set
-    End Property
+    Public Property Game As clsGame
+    Private Property IsDirty As Boolean = False
+    Private Property IsLoading As Boolean = False
 
     Private Sub SetForm()
         'Set Form Name
-        Me.Text = mgrCommon.FormatString(frmLaunchConfiguration_FormName, oGame.CroppedName)
+        Me.Text = mgrCommon.FormatString(frmLaunchConfiguration_FormName, Game.CroppedName)
         Me.Icon = GBM_Icon
 
         'Set Form Text
@@ -69,15 +61,15 @@ Public Class frmLaunchConfiguration
 
         Select Case oResult
             Case MsgBoxResult.No
-                bIsDirty = False
+                IsDirty = False
         End Select
 
         Return oResult
     End Function
 
     Private Sub DirtyCheck_ValueChanged(sender As Object, e As EventArgs)
-        If Not bIsLoading Then
-            bIsDirty = True
+        If Not IsLoading Then
+            IsDirty = True
         End If
     End Sub
 
@@ -95,8 +87,8 @@ Public Class frmLaunchConfiguration
 
     Private Sub LoadData()
         Dim oLaunchData As New clsLaunchData
-        bIsLoading = True
-        oLaunchData = mgrLaunchData.DoLaunchDataGetbyID(oGame.ID)
+        IsLoading = True
+        oLaunchData = mgrLaunchData.DoLaunchDataGetbyID(Game.ID)
         LoadCombos()
         If oLaunchData.LauncherID = String.Empty Then
             cboLauncher.SelectedValue = "nolauncher"
@@ -107,7 +99,7 @@ Public Class frmLaunchConfiguration
         txtExePath.Text = oLaunchData.Path
         txtArguments.Text = oLaunchData.Args
         chkNoArgs.Checked = oLaunchData.NoArgs
-        bIsLoading = False
+        IsLoading = False
     End Sub
 
     Private Sub UpdateLaunchCommand()
@@ -116,7 +108,7 @@ Public Class frmLaunchConfiguration
         Dim sErrorMessage As String = String.Empty
 
         'Build a object based on current values
-        oLaunchData.MonitorID = oGame.ID
+        oLaunchData.MonitorID = Game.ID
         If cboLauncher.SelectedValue = "nolauncher" Then
             oLaunchData.LauncherID = String.Empty
         Else
@@ -127,8 +119,8 @@ Public Class frmLaunchConfiguration
         oLaunchData.Args = txtArguments.Text
         oLaunchData.NoArgs = chkNoArgs.Checked
 
-        If mgrLaunchGame.CanLaunchGame(oGame, oLaunchData, eLaunchType, sErrorMessage) Then
-            txtCommand.Text = mgrLaunchGame.GetLaunchCommand(oGame, oLaunchData, eLaunchType)
+        If mgrLaunchGame.CanLaunchGame(Game, oLaunchData, eLaunchType, sErrorMessage) Then
+            txtCommand.Text = mgrLaunchGame.GetLaunchCommand(Game, oLaunchData, eLaunchType)
         Else
             txtCommand.Text = sErrorMessage
         End If
@@ -165,13 +157,13 @@ Public Class frmLaunchConfiguration
     Private Sub SaveData()
         Dim oLaunchData As clsLaunchData
         If cboLauncher.SelectedValue = "nolauncher" And txtGameID.Text = String.Empty And txtExePath.Text = String.Empty And txtArguments.Text = String.Empty And chkNoArgs.Checked = False Then
-            mgrLaunchData.DoLaunchDataDelete(oGame.ID)
-            bIsDirty = False
+            mgrLaunchData.DoLaunchDataDelete(Game.ID)
+            IsDirty = False
             Me.DialogResult = DialogResult.OK
         Else
             If ValidateData() Then
                 oLaunchData = New clsLaunchData
-                oLaunchData.MonitorID = oGame.ID
+                oLaunchData.MonitorID = Game.ID
                 If cboLauncher.SelectedValue = "nolauncher" Then
                     oLaunchData.LauncherID = String.Empty
                 Else
@@ -182,7 +174,7 @@ Public Class frmLaunchConfiguration
                 oLaunchData.Args = txtArguments.Text
                 oLaunchData.NoArgs = chkNoArgs.Checked
                 mgrLaunchData.DoLaunchDataAddUpdate(oLaunchData)
-                bIsDirty = False
+                IsDirty = False
                 Me.DialogResult = DialogResult.OK
             End If
         End If
@@ -262,11 +254,11 @@ Public Class frmLaunchConfiguration
     End Sub
 
     Private Sub frmLaunchConfiguration_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If bIsDirty Then
+        If IsDirty Then
             Select Case HandleDirty()
                 Case MsgBoxResult.Yes
                     SaveData()
-                    If bIsDirty Then e.Cancel = True
+                    If IsDirty Then e.Cancel = True
                 Case MsgBoxResult.Cancel
                     e.Cancel = True
             End Select

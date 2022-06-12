@@ -1,29 +1,12 @@
 ﻿Imports GBM.My.Resources
 
 Public Class frmChooseGame
-
-    Private oProcess As mgrProcessDetection
-    Private oGame As clsGame
     Private oGamesHash As New Hashtable
     Private bGameSelected As Boolean = False
 
-    Property Process As mgrProcessDetection
-        Get
-            Return oProcess
-        End Get
-        Set(value As mgrProcessDetection)
-            oProcess = value
-        End Set
-    End Property
+    Public Property Process As mgrProcessDetection
+    Public Property Game As clsGame
 
-    Property Game As clsGame
-        Get
-            Return oGame
-        End Get
-        Set(value As clsGame)
-            oGame = value
-        End Set
-    End Property
 
     Private Sub FillList()
         Dim sTags As String
@@ -47,13 +30,13 @@ Public Class frmChooseGame
     End Sub
 
     Private Sub SaveSelection()
-        oGame.ProcessPath = oProcess.ProcessPath
-        mgrMonitorList.DoListUpdate(oGame)
+        Game.ProcessPath = Process.ProcessPath
+        mgrMonitorList.DoListUpdate(Game)
     End Sub
 
     Private Sub GetSelection()
         Dim oSelected As String = lstGameBox.SelectedItems(0).Tag
-        oGame = DirectCast(oGamesHash.Item(oSelected), clsGame)
+        Game = DirectCast(oGamesHash.Item(oSelected), clsGame)
         SaveSelection()
         bGameSelected = True
         Me.DialogResult = DialogResult.OK

@@ -1,32 +1,23 @@
 ﻿Imports GBM.My.Resources
 
 Public Class frmSyncFields
-    Private eSyncFields As clsGame.eOptionalSyncFields
-
     Public Property SyncFields As clsGame.eOptionalSyncFields
-        Get
-            Return eSyncFields
-        End Get
-        Set(value As clsGame.eOptionalSyncFields)
-            eSyncFields = value
-        End Set
-    End Property
 
     Private Sub LoadForm()
         'Load fields
-        If (eSyncFields And clsGame.eOptionalSyncFields.Company) = clsGame.eOptionalSyncFields.Company Then
+        If (SyncFields And clsGame.eOptionalSyncFields.Company) = clsGame.eOptionalSyncFields.Company Then
             chkCompany.Checked = True
         End If
-        If (eSyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then
+        If (SyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then
             chkGamePath.Checked = True
         End If
-        If (eSyncFields And clsGame.eOptionalSyncFields.Icon) = clsGame.eOptionalSyncFields.Icon Then
+        If (SyncFields And clsGame.eOptionalSyncFields.Icon) = clsGame.eOptionalSyncFields.Icon Then
             chkIcon.Checked = True
         End If
-        If (eSyncFields And clsGame.eOptionalSyncFields.MonitorGame) = clsGame.eOptionalSyncFields.MonitorGame Then
+        If (SyncFields And clsGame.eOptionalSyncFields.MonitorGame) = clsGame.eOptionalSyncFields.MonitorGame Then
             chkMonitorGame.Checked = True
         End If
-        If (eSyncFields And clsGame.eOptionalSyncFields.Version) = clsGame.eOptionalSyncFields.Version Then
+        If (SyncFields And clsGame.eOptionalSyncFields.Version) = clsGame.eOptionalSyncFields.Version Then
             chkVersion.Checked = True
         End If
     End Sub

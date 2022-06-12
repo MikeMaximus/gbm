@@ -2,29 +2,6 @@
 Imports System.IO
 
 Public Class frmLauncherManager
-    Dim hshLauncherData As Hashtable
-    Private bIsDirty As Boolean = False
-    Private bIsLoading As Boolean = False
-    Private oCurrentLauncher As clsLauncher
-
-    Private Property IsDirty As Boolean
-        Get
-            Return bIsDirty
-        End Get
-        Set(value As Boolean)
-            bIsDirty = value
-        End Set
-    End Property
-
-    Private Property IsLoading As Boolean
-        Get
-            Return bIsLoading
-        End Get
-        Set(value As Boolean)
-            bIsLoading = value
-        End Set
-    End Property
-
     Private Enum eModes As Integer
         View = 1
         Edit = 2
@@ -32,16 +9,12 @@ Public Class frmLauncherManager
         Disabled = 4
     End Enum
 
+    Private oCurrentLauncher As clsLauncher
     Private eCurrentMode As eModes = eModes.Disabled
 
+    Private Property IsDirty As Boolean = False
+    Private Property IsLoading As Boolean = False
     Private Property LauncherData As Hashtable
-        Get
-            Return hshLauncherData
-        End Get
-        Set(value As Hashtable)
-            hshLauncherData = value
-        End Set
-    End Property
 
     Private Sub LoadData()
         LauncherData = mgrLaunchers.ReadLaunchers
@@ -210,7 +183,7 @@ Public Class frmLauncherManager
     End Sub
 
     Private Sub CancelEdit()
-        If bIsDirty Then
+        If IsDirty Then
             Select Case HandleDirty()
                 Case MsgBoxResult.Yes
                     SaveLauncher()
@@ -403,11 +376,11 @@ Public Class frmLauncherManager
     End Sub
 
     Private Sub frmLauncherManager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If bIsDirty Then
+        If IsDirty Then
             Select Case HandleDirty()
                 Case MsgBoxResult.Yes
                     SaveLauncher()
-                    If bIsDirty Then e.Cancel = True
+                    If IsDirty Then e.Cancel = True
                 Case MsgBoxResult.Cancel
                     e.Cancel = True
             End Select
