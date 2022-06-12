@@ -1215,6 +1215,8 @@ Public Class frmGameManager
             lblLimit.Enabled = False
             nudLimit.Enabled = False
             chkDifferentialBackup.Enabled = False
+            lblInterval.Enabled = False
+            nudInterval.Enabled = False
             lblSavePath.Enabled = False
             txtSavePath.Enabled = False
             btnSavePathBrowse.Enabled = False

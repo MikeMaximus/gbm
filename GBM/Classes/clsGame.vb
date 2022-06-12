@@ -22,7 +22,6 @@ Public Class clsGame
     End Enum
 
     Private sID As String
-    Private sName As String
     Private sPath As String
     Private sProcessPath As String
     Private sIcon As String
@@ -41,19 +40,19 @@ Public Class clsGame
     Public ReadOnly Property CroppedName As String
         Get
             If Name.Length > 40 Then
-                Return sName.Substring(0, 41).Trim & "..."
+                Return Name.Substring(0, 41).Trim & "..."
             Else
-                Return sName
+                Return Name
             End If
         End Get
     End Property
 
     Public ReadOnly Property FileSafeName As String
         Get
-            If mgrMonitorList.IsDuplicateName(sName) Then
-                Return mgrPath.ValidateFileName(sID)
+            If mgrMonitorList.IsDuplicateName(Name) Then
+                Return mgrPath.ValidateFileName(ID)
             Else
-                Return mgrPath.ValidateFileName(sName)
+                Return mgrPath.ValidateFileName(Name)
             End If
         End Get
     End Property
