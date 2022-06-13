@@ -10,13 +10,14 @@ Public Class frmAdvancedImport
     Private bOfficialMode As Boolean = True
     Private iCurrentSort As Integer = 0
     Private oImageList As ImageList
-    Private WithEvents tmFilterTimer As Timer
     Private oLastWindowState As FormWindowState
     Private iGamesDetected As Integer
     Private bDataLoaded As Boolean
     Private oLudusavi As mgrLudusavi
     Private oOfficialXML As mgrXML
     Private oListCache As New List(Of ListViewItem)
+
+    Private WithEvents tmFilterTimer As Timer
 
     Private Property IsLoading As Boolean = False
     Public Property ImportPath As String
@@ -457,11 +458,15 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
-        If hshFinalData.Count > 0 Then
-            ToggleForm(False)
-            bwImport.RunWorkerAsync()
-        Else
-            Me.Close()
+        If Not IsLoading Then
+            SaveAllChecked()
+            If hshFinalData.Count > 0 Then
+                lblStatus.Text = frmAdvancedImport_Importing
+                ToggleForm(False)
+                bwImport.RunWorkerAsync()
+            Else
+                Me.Close()
+            End If
         End If
     End Sub
 
@@ -541,7 +546,6 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub bwImport_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwImport.RunWorkerCompleted
-        ToggleForm(True)
         mgrCommon.ShowMessage(frmAdvancedImport_ImportComplete, MsgBoxStyle.Information)
         Me.DialogResult = DialogResult.OK
         Me.Close()

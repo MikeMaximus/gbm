@@ -3127,4 +3127,7 @@
   <data name="frmAdvancedImport_WarningNoSavesDetected" xml:space="preserve">
     <value>No new saved games were detected.</value>
   </data>
+  <data name="frmAdvancedImport_Importing" xml:space="preserve">
+    <value>Importing Configurations... Please Wait</value>
+  </data>
 </root>

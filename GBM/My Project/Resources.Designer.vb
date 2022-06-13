@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-06-11T13:53:00
+        '''  Looks up a localized string similar to 2022-06-12T21:35:51
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1048,6 +1048,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmAdvancedImport_ImportComplete() As String
             Get
                 Return ResourceManager.GetString("frmAdvancedImport_ImportComplete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Importing Configurations... Please Wait.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_Importing() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_Importing", resourceCulture)
             End Get
         End Property
         
