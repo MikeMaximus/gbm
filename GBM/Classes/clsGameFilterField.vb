@@ -12,9 +12,9 @@
     End Enum
 
     <Flags()> Public Enum eFieldStatus
-        None = 1
-        ValidFilter = 2
-        ValidSort = 3
+        None = 0
+        ValidFilter = 1
+        ValidSort = 2
     End Enum
 
     Private eStatus As eFieldStatus

@@ -2,9 +2,9 @@
 
 Public Class clsLudusaviOptions
     <Flags()> Public Enum eSupportedOS
-        None = 1
-        Windows = 2
-        Linux = 3
+        None = 0
+        Windows = 1
+        Linux = 2
     End Enum
 
     Private sQuery As String
