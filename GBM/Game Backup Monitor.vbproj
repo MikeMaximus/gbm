@@ -308,6 +308,7 @@
     <Compile Include="Managers\mgrLudusavi.vb" />
     <Compile Include="Managers\mgrMetadata.vb" />
     <Compile Include="Managers\mgrStoreVariables.vb" />
+    <Compile Include="Managers\mgrSync.vb" />
     <Compile Include="Managers\mgrWineData.vb" />
     <Compile Include="Managers\mgrProcess.vb" />
     <Compile Include="Managers\mgrCommon.vb" />

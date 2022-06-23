@@ -147,7 +147,7 @@ Public Class frmSettings
     Private Function SaveSettings() As Boolean
         If ValidateSettings() Then
             mgrSettings.SaveSettings()
-            If bSyncSettingsChanged Then mgrMonitorList.HandleBackupLocationChange()
+            If bSyncSettingsChanged Then mgrSync.HandleBackupLocationChange()
             Return True
         Else
             Return False

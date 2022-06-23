@@ -61,7 +61,7 @@ Public Class frmStartUpWizard
         If oDatabase.CheckDB() Then
             'Make sure database is the latest version
             oDatabase.DatabaseUpgrade()
-            mgrMonitorList.SyncMonitorLists(False)
+            mgrSync.SyncMonitorLists(False)
             bExistingData = True
             mgrCommon.ShowMessage(frmStartUpWizard_ExistingData, MsgBoxStyle.Information)
         End If
@@ -134,14 +134,14 @@ Public Class frmStartUpWizard
     Private Sub OpenGameWizard()
         Dim frm As New frmAddWizard
         frm.ShowDialog()
-        mgrMonitorList.SyncMonitorLists()
+        mgrSync.SyncMonitorLists()
     End Sub
 
     Private Sub OpenMonitorList()
         Dim frm As New frmGameManager
         frm.DisableExternalFunctions = True
         frm.ShowDialog()
-        mgrMonitorList.SyncMonitorLists()
+        mgrSync.SyncMonitorLists()
     End Sub
 
     Private Function ValidateBackupPath(ByVal strPath As String, ByRef sErrorMessage As String) As Boolean

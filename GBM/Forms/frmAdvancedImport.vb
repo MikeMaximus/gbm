@@ -294,10 +294,10 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub ImportConfigurations()
-        mgrMonitorList.DoListAddUpdateSync(hshFinalData)
+        mgrSync.DoListAddUpdateSync(hshFinalData)
         mgrTags.DoTagAddImport(hshFinalData)
         mgrConfigLinks.DoConfigLinkImport(hshFinalData)
-        mgrMonitorList.SyncMonitorLists()
+        mgrSync.SyncMonitorLists()
     End Sub
 
     Private Sub AutoSizeColumns()

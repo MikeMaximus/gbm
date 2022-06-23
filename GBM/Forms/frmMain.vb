@@ -1102,7 +1102,7 @@ Public Class frmMain
             If Not oProcess.GameInfo.ProcessPath = DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).ProcessPath Then
                 DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).ProcessPath = oProcess.GameInfo.ProcessPath
                 mgrMonitorList.DoListFieldUpdate("ProcessPath", oProcess.GameInfo.ProcessPath, oProcess.GameInfo.ID)
-                If (mgrSettings.SyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then mgrMonitorList.SyncMonitorLists()
+                If (mgrSettings.SyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then mgrSync.SyncMonitorLists()
             End If
         End If
     End Sub
@@ -1154,7 +1154,7 @@ Public Class frmMain
         End If
 
         mgrMonitorList.DoListFieldUpdate("Hours", oProcess.GameInfo.Hours, oProcess.GameInfo.ID)
-        mgrMonitorList.SyncMonitorLists()
+        mgrSync.SyncMonitorLists()
 
         sPriorTime = lblTimeSpent.Text
         UpdateTimeSpent(dCurrentHours, oProcess.TimeSpent.TotalHours)
@@ -1308,7 +1308,7 @@ Public Class frmMain
         Dim frm As New frmTags
         PauseScan()
         frm.ShowDialog()
-        mgrMonitorList.SyncMonitorLists()
+        mgrSync.SyncMonitorLists()
         ResumeScan()
     End Sub
 
@@ -1332,7 +1332,7 @@ Public Class frmMain
         frm.PendingRestores = bPendingRestores
         frm.OpenToGame = oGame
         frm.ShowDialog()
-        mgrMonitorList.SyncMonitorLists()
+        mgrSync.SyncMonitorLists()
         LoadGameSettings()
         ResetGameInfo(True)
         ResumeScan()
@@ -1393,7 +1393,7 @@ Public Class frmMain
         Dim frm As New frmAddWizard
         PauseScan()
         frm.ShowDialog()
-        mgrMonitorList.SyncMonitorLists()
+        mgrSync.SyncMonitorLists()
         LoadGameSettings()
         ResumeScan()
     End Sub
@@ -1402,7 +1402,7 @@ Public Class frmMain
         Dim frm As New frmVariableManager
         PauseScan()
         frm.ShowDialog()
-        mgrMonitorList.SyncMonitorLists()
+        mgrSync.SyncMonitorLists()
         mgrPath.LoadCustomVariables()
         ResumeScan()
     End Sub
@@ -1495,7 +1495,7 @@ Public Class frmMain
 
     Private Sub SyncGameSettings()
         'Sync Monitor List
-        mgrMonitorList.SyncMonitorLists(False)
+        mgrSync.SyncMonitorLists(False)
     End Sub
 
     Private Sub LocalDatabaseCheck()
@@ -2281,7 +2281,9 @@ Public Class frmMain
         tmPlayTimer.Interval = 5000
         tmPlayTimer.AutoReset = False
 
-        AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
+        AddHandler mgrSync.UpdateLog, AddressOf UpdateLog
+        AddHandler mgrSync.PushStarted, AddressOf StopSyncWatcher
+        AddHandler mgrSync.PushEnded, AddressOf StartSyncWatcher
         ResetGameInfo()
     End Sub
 
@@ -2509,7 +2511,7 @@ Public Class frmMain
             If mgrSettings.BackupFolder <> sBackupPath Then
                 mgrSettings.BackupFolder = sBackupPath
                 mgrSettings.SaveSettings()
-                mgrMonitorList.HandleBackupLocationChange()
+                mgrSync.HandleBackupLocationChange()
             End If
             Return True
         Else

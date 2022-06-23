@@ -855,7 +855,7 @@ Public Class mgrSQLite
                 'We need to push the local game list against the remote database in case they had syncing disabled
                 Dim hshMonitorList As Hashtable = mgrMonitorList.ReadList(mgrMonitorList.eListTypes.FullList, mgrSQLite.Database.Local)
                 mgrSettings.LoadSettings()
-                mgrMonitorList.DoListAddUpdateSync(hshMonitorList, Database.Remote, mgrSettings.SyncFields)
+                mgrSync.DoListAddUpdateSync(hshMonitorList, Database.Remote, mgrSettings.SyncFields)
                 mgrTags.SyncTags(True)
                 mgrGameTags.SyncGameTags(True)
 

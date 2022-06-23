@@ -474,11 +474,7 @@ Public Class mgrBackup
             End If
         Next
 
-        If iGamesAdded > 0 Then
-            mgrMonitorList.SyncMonitorLists()
-            mgrTags.SyncTags()
-            mgrGameTags.SyncGameTags()
-        End If
+        If iGamesAdded > 0 Then mgrSync.SyncMonitorLists()
 
         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupsImported, iFilesImported.ToString), False, ToolTipIcon.Info, True)
         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_GamesAddedDuringImport, iGamesAdded.ToString), False, ToolTipIcon.Info, True)
