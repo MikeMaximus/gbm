@@ -13,11 +13,11 @@ Public Class mgrSync
         End Sub
     End Class
 
+    Public Shared Property RecentPush As Boolean
+
     Private Shared Property SyncThread As Thread
 
     Public Shared Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
-    Public Shared Event PushStarted()
-    Public Shared Event PushEnded()
 
     'Sync Functions
     Public Shared Sub DoListAddUpdateSync(ByVal hshGames As Hashtable, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local,
@@ -161,6 +161,7 @@ Public Class mgrSync
                     SyncThread.Join()
                 End If
             End If
+            RecentPush = True
             SyncThread = New Thread(AddressOf DoSync)
             SyncThread.Start(oSyncOptions)
         Else
@@ -176,8 +177,6 @@ Public Class mgrSync
         Dim oFromItem As clsGame
         Dim oToItem As clsGame
         Dim iChanges As Integer
-
-        If oSyncOptions.ToRemote Then RaiseEvent PushStarted()
 
         If Not mgrSettings.DisableSyncMessages Then
             If oSyncOptions.ToRemote Then
@@ -199,13 +198,11 @@ Public Class mgrSync
         'Sync Wipe Protection
         If oSyncOptions.SyncProtection Then
             If hshCompareFrom.Count = 0 And hshCompareTo.Count > 0 Then
-                Cursor.Current = Cursors.Default
                 If mgrCommon.ShowMessage(mgrMonitorList_WarningSyncProtection, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                     'We will always show this one in the log regardless of setting
                     RaiseEvent UpdateLog(mgrMonitorList_ErrorSyncCancel, False, ToolTipIcon.Warning, True)
                     Exit Sub
                 End If
-                Cursor.Current = Cursors.WaitCursor
             End If
         End If
 
@@ -260,8 +257,6 @@ Public Class mgrSync
         If Not mgrSettings.DisableSyncMessages Then
             RaiseEvent UpdateLog(mgrCommon.FormatString(mgrMonitorList_SyncChanges, (hshDeleteItems.Count + hshSyncItems.Count + iChanges).ToString), False, ToolTipIcon.Info, True)
         End If
-
-        If oSyncOptions.ToRemote Then RaiseEvent PushEnded()
     End Sub
 
     'Other Functions

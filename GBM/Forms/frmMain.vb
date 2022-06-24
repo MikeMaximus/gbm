@@ -1473,7 +1473,6 @@ Public Class frmMain
         oFileWatcher.Path = mgrSettings.BackupFolder
         oFileWatcher.Filter = "gbm.s3db"
         oFileWatcher.NotifyFilter = NotifyFilters.LastWrite
-
     End Sub
 
     Private Sub QueueSyncWatcher() Handles oFileWatcher.Changed
@@ -1482,6 +1481,11 @@ Public Class frmMain
     End Sub
 
     Private Sub HandleSyncWatcher() Handles tmFileWatcherQueue.Elapsed
+        If mgrSync.RecentPush Then
+            mgrSync.RecentPush = False
+            Exit Sub
+        End If
+
         tmFileWatcherQueue.Stop()
         StopSyncWatcher()
 
@@ -2282,8 +2286,6 @@ Public Class frmMain
         tmPlayTimer.AutoReset = False
 
         AddHandler mgrSync.UpdateLog, AddressOf UpdateLog
-        AddHandler mgrSync.PushStarted, AddressOf StopSyncWatcher
-        AddHandler mgrSync.PushEnded, AddressOf StartSyncWatcher
         ResetGameInfo()
     End Sub
 
