@@ -1476,30 +1476,17 @@ Public Class frmMain
     End Sub
 
     Private Sub QueueSyncWatcher() Handles oFileWatcher.Changed
-        tmFileWatcherQueue.Stop()
-        tmFileWatcherQueue.Start()
+        If Not eCurrentStatus = eStatus.Paused Then
+            tmFileWatcherQueue.Stop()
+            tmFileWatcherQueue.Start()
+        End If
     End Sub
 
     Private Sub HandleSyncWatcher() Handles tmFileWatcherQueue.Elapsed
-        If mgrSync.RecentPush Then
-            mgrSync.RecentPush = False
-            Exit Sub
-        End If
-
-        tmFileWatcherQueue.Stop()
-        StopSyncWatcher()
-
         UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
-        SyncGameSettings()
-        LoadGameSettings()
-
-        CheckForNewBackups()
-        StartSyncWatcher()
-    End Sub
-
-    Private Sub SyncGameSettings()
-        'Sync Monitor List
         mgrSync.SyncMonitorLists(False)
+        LoadGameSettings()
+        CheckForNewBackups()
     End Sub
 
     Private Sub LocalDatabaseCheck()
@@ -1562,8 +1549,8 @@ Public Class frmMain
                 BackupDatabases()
             End If
 
-            'Sync Game Settings
-            SyncGameSettings()
+            'Sync
+            mgrSync.SyncMonitorLists(False)
         End If
 
         'Setup Sync Watcher
@@ -1703,6 +1690,7 @@ Public Class frmMain
             HandleScan()
             CheckForFailedBackups()
             CheckForNewBackups()
+            StartSyncWatcher()
         End If
     End Sub
 
@@ -2286,6 +2274,9 @@ Public Class frmMain
         tmPlayTimer.AutoReset = False
 
         AddHandler mgrSync.UpdateLog, AddressOf UpdateLog
+        AddHandler mgrSync.PushStarted, AddressOf StopSyncWatcher
+        AddHandler mgrSync.PushEnded, AddressOf StartSyncWatcher
+
         ResetGameInfo()
     End Sub
 
@@ -2401,7 +2392,6 @@ Public Class frmMain
 
     Private Sub HandleScan()
         If eCurrentStatus = eStatus.Running Then
-            StopSyncWatcher()
             tmScanTimer.Stop()
             eCurrentStatus = eStatus.Stopped
             UpdateStatus(frmMain_NotScanning)
@@ -2409,7 +2399,6 @@ Public Class frmMain
             gMonTray.Icon = GBM_Icon_Stopped
         Else
             StartScan()
-            StartSyncWatcher()
             eCurrentStatus = eStatus.Running
             UpdateStatus(frmMain_NoGameDetected)
             gMonStripStatusButton.Image = frmMain_Ready
@@ -2420,7 +2409,6 @@ Public Class frmMain
 
     Private Sub PauseScan(Optional ByVal bGameDetected As Boolean = False)
         If eCurrentStatus = eStatus.Running Then
-            StopSyncWatcher()
             tmScanTimer.Stop()
             eCurrentStatus = eStatus.Paused
             UpdateStatus(frmMain_NotScanning)
@@ -2434,7 +2422,6 @@ Public Class frmMain
     Private Sub ResumeScan()
         If eCurrentStatus = eStatus.Running Or eCurrentStatus = eStatus.Paused Then
             StartScan()
-            StartSyncWatcher()
             eCurrentStatus = eStatus.Running
             gMonStripStatusButton.Image = frmMain_Ready
             gMonTray.Icon = GBM_Icon_Ready
@@ -2445,7 +2432,6 @@ Public Class frmMain
     End Sub
 
     Private Sub StopScan()
-        StopSyncWatcher()
         tmScanTimer.Stop()
         eCurrentStatus = eStatus.Stopped
         UpdateStatus(frmMain_NotScanning)
