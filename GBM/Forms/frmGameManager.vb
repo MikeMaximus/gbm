@@ -1470,15 +1470,7 @@ Public Class frmGameManager
         Dim oData As KeyValuePair(Of String, String)
         Dim oApp As clsGame
 
-        If lstGames.SelectedItems.Count = 1 Then
-            oData = lstGames.SelectedItems(0)
-            oApp = DirectCast(GameData(oData.Key), clsGame)
-
-            If mgrCommon.ShowMessage(frmGameManager_ConfirmGameDelete, oApp.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                mgrMonitorList.DoListDelete(oApp.ID)
-                LoadData()
-            End If
-        ElseIf lstGames.SelectedItems.Count > 1 Then
+        If lstGames.SelectedItems.Count >= 1 Then
             Dim sMonitorIDs As New List(Of String)
 
             For Each oData In lstGames.SelectedItems
@@ -1487,7 +1479,7 @@ Public Class frmGameManager
             Next
 
             If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiGameDelete, sMonitorIDs.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                mgrMonitorList.DoListDeleteMulti(sMonitorIDs)
+                mgrMonitorList.DoListDelete(sMonitorIDs)
                 LoadData()
             End If
         End If

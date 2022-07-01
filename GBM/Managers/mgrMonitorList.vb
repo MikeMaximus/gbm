@@ -232,155 +232,33 @@ Public Class mgrMonitorList
 
     End Sub
 
-    Public Shared Sub DoListDelete(ByVal sMonitorID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+    Public Shared Sub DoListDelete(ByVal sMonitorIDs As List(Of String), Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
-        Dim hshParams As New Hashtable
-
-        sSQL = "DELETE FROM manifest "
-        sSQL &= "WHERE MonitorID = @MonitorID;"
-        sSQL &= "DELETE FROM gametags "
-        sSQL &= "WHERE MonitorID = @MonitorID;"
-        sSQL &= "DELETE FROM configlinks "
-        sSQL &= "WHERE MonitorID = @MonitorID;"
-        sSQL &= "DELETE FROM configlinks "
-        sSQL &= "WHERE LinkID = @MonitorID;"
-        If iSelectDB = mgrSQLite.Database.Local Then
-            sSQL &= "DELETE FROM gameprocesses "
-            sSQL &= "WHERE MonitorID = @MonitorID;"
-            sSQL &= "DELETE FROM sessions "
-            sSQL &= "WHERE MonitorID = @MonitorID;"
-            sSQL &= "DELETE FROM winedata "
-            sSQL &= "WHERE MonitorID = @MonitorID;"
-            sSQL &= "DELETE FROM launchdata "
-            sSQL &= "WHERE MonitorID = @MonitorID;"
-        End If
-        sSQL &= "DELETE FROM monitorlist "
-        sSQL &= "WHERE MonitorID = @MonitorID;"
-
-        hshParams.Add("MonitorID", sMonitorID)
-
-        oDatabase.RunParamQuery(sSQL, hshParams)
-
-    End Sub
-
-    Public Shared Sub DoListDeleteMulti(ByVal sMonitorIDs As List(Of String), Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
-        Dim hshParams As New Hashtable
-        Dim iCounter As Integer
-
-        sSQL = "DELETE FROM manifest "
-        sSQL &= "WHERE MonitorID IN ("
+        Dim hshParams As Hashtable
+        Dim oParams As New List(Of Hashtable)
 
         For Each s As String In sMonitorIDs
-            sSQL &= "@MonitorID" & iCounter & ","
-            hshParams.Add("MonitorID" & iCounter, s)
-            iCounter += 1
+            hshParams = New Hashtable
+            hshParams.Add("MonitorID", s)
+            oParams.Add(hshParams)
         Next
 
-        sSQL = sSQL.TrimEnd(",")
-        sSQL &= ");"
-
-        sSQL &= "DELETE FROM gametags "
-        sSQL &= "WHERE MonitorID IN ("
-
-        For Each s As String In sMonitorIDs
-            sSQL &= "@MonitorID" & iCounter & ","
-            hshParams.Add("MonitorID" & iCounter, s)
-            iCounter += 1
-        Next
-
-        sSQL = sSQL.TrimEnd(",")
-        sSQL &= ");"
-
-        sSQL &= "DELETE FROM configlinks "
-        sSQL &= "WHERE MonitorID IN ("
-
-        For Each s As String In sMonitorIDs
-            sSQL &= "@MonitorID" & iCounter & ","
-            hshParams.Add("MonitorID" & iCounter, s)
-            iCounter += 1
-        Next
-
-        sSQL = sSQL.TrimEnd(",")
-        sSQL &= ");"
-
-        sSQL &= "DELETE FROM configlinks "
-        sSQL &= "WHERE LinkID IN ("
-
-        For Each s As String In sMonitorIDs
-            sSQL &= "@MonitorID" & iCounter & ","
-            hshParams.Add("MonitorID" & iCounter, s)
-            iCounter += 1
-        Next
-
-        sSQL = sSQL.TrimEnd(",")
-        sSQL &= ");"
+        sSQL = "DELETE FROM manifest WHERE MonitorID = @MonitorID;
+                DELETE FROM gametags WHERE MonitorID = @MonitorID;
+                DELETE FROM configlinks WHERE MonitorID = @MonitorID;
+                DELETE FROM configlinks WHERE LinkID = @MonitorID;"
 
         If iSelectDB = mgrSQLite.Database.Local Then
-            sSQL &= "DELETE FROM gameprocesses "
-            sSQL &= "WHERE MonitorID IN ("
-
-            For Each s As String In sMonitorIDs
-                sSQL &= "@MonitorID" & iCounter & ","
-                hshParams.Add("MonitorID" & iCounter, s)
-                iCounter += 1
-            Next
-
-            sSQL = sSQL.TrimEnd(",")
-            sSQL &= ");"
-
-            sSQL &= "DELETE FROM sessions "
-            sSQL &= "WHERE MonitorID IN ("
-
-            For Each s As String In sMonitorIDs
-                sSQL &= "@MonitorID" & iCounter & ","
-                hshParams.Add("MonitorID" & iCounter, s)
-                iCounter += 1
-            Next
-
-            sSQL = sSQL.TrimEnd(",")
-            sSQL &= ");"
-
-            sSQL &= "DELETE FROM winedata "
-            sSQL &= "WHERE MonitorID IN ("
-
-            For Each s As String In sMonitorIDs
-                sSQL &= "@MonitorID" & iCounter & ","
-                hshParams.Add("MonitorID" & iCounter, s)
-                iCounter += 1
-            Next
-
-            sSQL = sSQL.TrimEnd(",")
-            sSQL &= ");"
-
-            sSQL &= "DELETE FROM launchdata "
-            sSQL &= "WHERE MonitorID IN ("
-
-            For Each s As String In sMonitorIDs
-                sSQL &= "@MonitorID" & iCounter & ","
-                hshParams.Add("MonitorID" & iCounter, s)
-                iCounter += 1
-            Next
-
-            sSQL = sSQL.TrimEnd(",")
-            sSQL &= ");"
+            sSQL &= "DELETE FROM gameprocesses WHERE MonitorID = @MonitorID;
+                     DELETE FROM sessions WHERE MonitorID = @MonitorID;
+                     DELETE FROM winedata WHERE MonitorID = @MonitorID;
+                     DELETE FROM launchdata WHERE MonitorID = @MonitorID;"
         End If
 
-        sSQL &= "DELETE FROM monitorlist "
-        sSQL &= "WHERE MonitorID IN ("
+        sSQL &= "DELETE FROM monitorlist WHERE MonitorID = @MonitorID;"
 
-        For Each s As String In sMonitorIDs
-            sSQL &= "@MonitorID" & iCounter & ","
-            hshParams.Add("MonitorID" & iCounter, s)
-            iCounter += 1
-        Next
-
-        sSQL = sSQL.TrimEnd(",")
-        sSQL &= ");"
-
-        oDatabase.RunParamQuery(sSQL, hshParams)
+        oDatabase.RunMassParamQuery(sSQL, oParams)
     End Sub
 
     Public Shared Function DoListGetbyMonitorID(ByVal sMonitorID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
