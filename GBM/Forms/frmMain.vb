@@ -2666,7 +2666,7 @@ Public Class frmMain
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         Dim oExtensions As New SortedList
 
-        oExtensions.Add(frmGameManager_7zBackup, "7z")
+        oExtensions.Add(frmGameManager_7zBackup, "*.7z")
         sFilestoImport = mgrCommon.OpenMultiFileBrowser("Main_BackupFileImport", frmMain_ChooseImportFiles, oExtensions, 1, sDefaultFolder, True)
 
         If sFilestoImport.Length > 0 Then

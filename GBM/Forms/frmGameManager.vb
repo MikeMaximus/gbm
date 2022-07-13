@@ -1606,7 +1606,7 @@ Public Class frmGameManager
         Dim sFiles As String()
         Dim oExtensions As New SortedList
 
-        oExtensions.Add(frmGameManager_7zBackup, "7z")
+        oExtensions.Add(frmGameManager_7zBackup, "*.7z")
         sFiles = mgrCommon.OpenMultiFileBrowser("GM_ImportBackup", frmGameManager_Choose7zImport, oExtensions, 1, sDefaultFolder, True)
 
         If sFiles.Length > 0 Then
