@@ -205,6 +205,7 @@ Public Class frmVariableManager
         End Select
 
         If bSuccess Then
+            mgrSync.SyncData()
             IsDirty = False
             LoadData()
             ModeChange()

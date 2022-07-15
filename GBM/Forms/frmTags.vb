@@ -186,6 +186,7 @@ Public Class frmTags
         End Select
 
         If bSuccess Then
+            mgrTags.SyncTags()
             IsDirty = False
             LoadData()
             ModeChange()

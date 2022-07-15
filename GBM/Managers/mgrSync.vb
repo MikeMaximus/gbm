@@ -152,7 +152,7 @@ Public Class mgrSync
         oDatabase.RunMassParamQuery(sSQL, oParamList)
     End Sub
 
-    Public Shared Sub SyncMonitorLists(Optional ByVal bToRemote As Boolean = True, Optional ByVal bSyncProtection As Boolean = True)
+    Public Shared Sub SyncData(Optional ByVal bToRemote As Boolean = True, Optional ByVal bSyncProtection As Boolean = True)
         Dim oSyncOptions As New SyncOptions(bToRemote, bSyncProtection)
 
         If bToRemote Then
@@ -278,15 +278,15 @@ Public Class mgrSync
             'If the remote database actually contains a list, then ask what to do
             If iGameCount > 0 Then
                 If mgrCommon.ShowPriorityMessage(mgrMonitorList_ConfirmExistingData, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    SyncMonitorLists()
+                    SyncData()
                 Else
-                    SyncMonitorLists(False)
+                    SyncData(False)
                 End If
             Else
-                SyncMonitorLists()
+                SyncData()
             End If
         Else
-            SyncMonitorLists()
+            SyncData()
         End If
     End Sub
 End Class

@@ -297,7 +297,7 @@ Public Class frmAdvancedImport
         mgrSync.DoListAddUpdateSync(hshFinalData)
         mgrTags.DoTagAddImport(hshFinalData)
         mgrConfigLinks.DoConfigLinkImport(hshFinalData)
-        mgrSync.SyncMonitorLists()
+        mgrSync.SyncData()
     End Sub
 
     Private Sub AutoSizeColumns()

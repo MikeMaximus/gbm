@@ -1102,7 +1102,7 @@ Public Class frmMain
             If Not oProcess.GameInfo.ProcessPath = DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).ProcessPath Then
                 DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).ProcessPath = oProcess.GameInfo.ProcessPath
                 mgrMonitorList.DoListFieldUpdate("ProcessPath", oProcess.GameInfo.ProcessPath, oProcess.GameInfo.ID)
-                If (mgrSettings.SyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then mgrSync.SyncMonitorLists()
+                If (mgrSettings.SyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then mgrSync.SyncData()
             End If
         End If
     End Sub
@@ -1154,7 +1154,7 @@ Public Class frmMain
         End If
 
         mgrMonitorList.DoListFieldUpdate("Hours", oProcess.GameInfo.Hours, oProcess.GameInfo.ID)
-        mgrSync.SyncMonitorLists()
+        mgrSync.SyncData()
 
         sPriorTime = lblTimeSpent.Text
         UpdateTimeSpent(dCurrentHours, oProcess.TimeSpent.TotalHours)
@@ -1308,7 +1308,6 @@ Public Class frmMain
         Dim frm As New frmTags
         PauseScan()
         frm.ShowDialog()
-        mgrSync.SyncMonitorLists()
         ResumeScan()
     End Sub
 
@@ -1332,7 +1331,6 @@ Public Class frmMain
         frm.PendingRestores = bPendingRestores
         frm.OpenToGame = oGame
         frm.ShowDialog()
-        mgrSync.SyncMonitorLists()
         LoadGameSettings()
         ResetGameInfo(True)
         ResumeScan()
@@ -1393,7 +1391,7 @@ Public Class frmMain
         Dim frm As New frmAddWizard
         PauseScan()
         frm.ShowDialog()
-        mgrSync.SyncMonitorLists()
+        mgrSync.SyncData()
         LoadGameSettings()
         ResumeScan()
     End Sub
@@ -1402,7 +1400,6 @@ Public Class frmMain
         Dim frm As New frmVariableManager
         PauseScan()
         frm.ShowDialog()
-        mgrSync.SyncMonitorLists()
         mgrPath.LoadCustomVariables()
         ResumeScan()
     End Sub
@@ -1484,7 +1481,7 @@ Public Class frmMain
 
     Private Sub HandleSyncWatcher() Handles tmFileWatcherQueue.Elapsed
         UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
-        mgrSync.SyncMonitorLists(False)
+        mgrSync.SyncData(False)
         LoadGameSettings()
         CheckForNewBackups()
     End Sub
@@ -1550,7 +1547,7 @@ Public Class frmMain
             End If
 
             'Sync
-            mgrSync.SyncMonitorLists(False)
+            mgrSync.SyncData(False)
         End If
 
         'Setup Sync Watcher

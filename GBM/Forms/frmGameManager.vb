@@ -635,6 +635,7 @@ Public Class frmGameManager
             sTags = mgrGameTags.PrintTagsbyList(frm.TagList)
             HandleTags(sTags)
         Else
+            mgrGameTags.SyncGameTags()
             'Only update visible tags if one item is selected
             If lstGames.SelectedItems.Count = 1 Then
                 sTags = mgrGameTags.PrintTagsbyID(CurrentGame.ID)
@@ -682,6 +683,8 @@ Public Class frmGameManager
 
         If eCurrentMode = eModes.Add Then
             oConfigLinksToSave = frm.ConfigLinkList
+        Else
+            mgrConfigLinks.SyncConfigLinks()
         End If
     End Sub
 
@@ -1459,6 +1462,7 @@ Public Class frmGameManager
         End Select
 
         If bSuccess Then
+            mgrSync.SyncData()
             CurrentGame = oApp
             LoadBackupData()
             IsDirty = False
