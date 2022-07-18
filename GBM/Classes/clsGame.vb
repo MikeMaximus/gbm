@@ -50,7 +50,7 @@ Public Class clsGame
     Public ReadOnly Property FileSafeName As String
         Get
             If mgrMonitorList.IsDuplicateName(Name) Then
-                Return mgrPath.ValidateFileName(ID)
+                Return mgrPath.ValidateFileName(Name) & " [" & mgrPath.ValidateFileName(ID) & "]"
             Else
                 Return mgrPath.ValidateFileName(Name)
             End If
