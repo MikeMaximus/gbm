@@ -3,6 +3,94 @@ Imports System.IO
 Imports Mono.Data.Sqlite
 
 Public Class mgrSQLite
+    Private Class CreateSQL
+        Public Shared ReadOnly Property Settings As String
+            Get
+                Return "CREATE TABLE settings (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, 
+                        DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, BackupFolder TEXT NOT NULL, 
+                        StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, SuppressBackup BOOLEAN NOT NULL, SuppressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, 
+                        Custom7zArguments TEXT, Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL, 
+                        SessionTracking BOOLEAN NOT NULL, SuppressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL, DisableSyncMessages BOOLEAN NOT NULL, ShowResolvedPaths BOOLEAN NOT NULL, 
+                        DisableDiskSpaceCheck BOOLEAN NOT NULL, TemporaryFolder TEXT, ExitOnClose BOOLEAN NOT NULL, ExitNoWarning BOOLEAN NOT NULL, EnableLauncher BOOLEAN NOT NULL, MainHideGameList BOOLEAN NOT NULL, 
+                        MainHideButtons BOOLEAN NOT NULL, MainHideLog BOOLEAN NOT NULL, BackupNotification BOOLEAN NOT NULL, DetectionSpeed INTEGER NOT NULL, TwoPassDetection BOOLEAN NOT NULL, 
+                        StorePathAutoConfig BOOLEAN NOT NULL);"
+            End Get
+        End Property
+        Public Shared ReadOnly Property SavedPath As String
+            Get
+                Return "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
+            End Get
+        End Property
+        Public Shared ReadOnly Property MonitorList As String
+            Get
+                Return "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, 
+                        ExcludeList TEXT NOT NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, BackupLimit INTEGER NOT NULL, 
+                        CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL, UseWindowTitle BOOLEAN NOT NULL, 
+                        Differential BOOLEAN NOT NULL, DiffInterval INTEGER NOT NULL);"
+            End Get
+        End Property
+        Public Shared ReadOnly Property Tags As String
+            Get
+                Return "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY);"
+            End Get
+        End Property
+        Public Shared ReadOnly Property GameTags As String
+            Get
+                Return "CREATE TABLE gametags (TagID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(TagID, MonitorID));"
+            End Get
+        End Property
+        Public Shared ReadOnly Property Variables As String
+            Get
+                Return "CREATE TABLE variables (VariableID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
+            End Get
+        End Property
+        Public Shared ReadOnly Property Manifest As String
+            Get
+                Return "CREATE TABLE manifest (ManifestID TEXT NOT NULL PRIMARY KEY, MonitorID TEXT NOT NULL, FileName TEXT NOT NULL, DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT, 
+                        IsDifferentialParent BOOLEAN NOT NULL, DifferentialParent TEXT NOT NULL);"
+            End Get
+        End Property
+        Public Shared ReadOnly Property Sessions As String
+            Get
+                Return "CREATE TABLE sessions (MonitorID TEXT NOT NULL, Start INTEGER NOT NULL, End INTEGER NOT NULL, PRIMARY KEY(MonitorID, Start));"
+            End Get
+        End Property
+        Public Shared ReadOnly Property Processes As String
+            Get
+                Return "CREATE TABLE processes (ProcessID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Path TEXT NOT NULL, Args TEXT, Kill BOOLEAN NOT NULL);"
+            End Get
+        End Property
+        Public Shared ReadOnly Property GameProcesses As String
+            Get
+                Return "CREATE TABLE gameprocesses (ProcessID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(ProcessID, MonitorID));"
+            End Get
+        End Property
+        Public Shared ReadOnly Property WineData As String
+            Get
+                Return "CREATE TABLE winedata (MonitorID TEXT NOT NULL PRIMARY KEY, Prefix TEXT NOT NULL, SavePath TEXT NOT NULL, BinaryPath TEXT NOT NULL);"
+            End Get
+        End Property
+        Public Shared ReadOnly Property ConfigLinks As String
+            Get
+                Return "CREATE TABLE configlinks (MonitorID TEXT NOT NULL, LinkID TEXT NOT NULL, PRIMARY KEY(MonitorID, LinkID));"
+            End Get
+        End Property
+        Public Shared ReadOnly Property Launchers As String
+            Get
+                Return "CREATE TABLE launchers (LauncherID	TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, LaunchString	TEXT NOT NULL, Uri BOOLEAN NOT NULL, Args TEXT NOT NULL);"
+            End Get
+        End Property
+        Public Shared ReadOnly Property LaunchData As String
+            Get
+                Return "CREATE TABLE launchdata (MonitorID TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL, Args TEXT NOT NULL, NoArgs BOOLEAN NOT NULL, LauncherID TEXT NOT NULL, LauncherGameID TEXT NOT NULL);"
+            End Get
+        End Property
+        Public Shared ReadOnly Property BackupQueue As String
+            Get
+                Return "CREATE TABLE backupqueue (MonitorID TEXT NOT NULL PRIMARY KEY);"
+            End Get
+        End Property
+    End Class
 
     Public Enum Database As Integer
         Local = 1
@@ -12,7 +100,7 @@ Public Class mgrSQLite
     Private sDatabaseLocation As String
     Private sConnectString As String
     Private eDatabase As Database
-    Private db As SQLiteConnection
+    Private db As SqliteConnection
 
     Public Sub New(ByVal eSelectDB As Database)
         Select Case eSelectDB
@@ -63,73 +151,46 @@ Public Class mgrSQLite
     End Function
 
     Private Function CreateLocalDatabase() As Boolean
-        Dim sSql As String
+        Dim sSQL As String
 
         Try
             'Create the DB
-            SQLiteConnection.CreateFile(sDatabaseLocation)
+            SqliteConnection.CreateFile(sDatabaseLocation)
 
             'Add Tables (Settings)
-            sSql = "CREATE TABLE settings (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, " &
-                   "DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, " &
-                   "BackupFolder TEXT NOT NULL, StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, " &
-                   "SuppressBackup BOOLEAN NOT NULL, SuppressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, Custom7zArguments TEXT, " &
-                   "Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL, SessionTracking BOOLEAN NOT NULL, " &
-                   "SuppressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL, UseGameID BOOLEAN NOT NULL, DisableSyncMessages BOOLEAN NOT NULL, ShowResolvedPaths BOOLEAN NOT NULL, " &
-                   "DisableDiskSpaceCheck BOOLEAN NOT NULL, TemporaryFolder TEXT, ExitOnClose BOOLEAN NOT NULL, ExitNoWarning BOOLEAN NOT NULL, EnableLauncher BOOLEAN NOT NULL, " &
-                   "MainHideGameList BOOLEAN NOT NULL, MainHideButtons BOOLEAN NOT NULL, MainHideLog BOOLEAN NOT NULL, BackupNotification BOOLEAN NOT NULL, DetectionSpeed INTEGER NOT NULL, " &
-                   "TwoPassDetection BOOLEAN NOT NULL, StorePathAutoConfig BOOLEAN NOT NULL);"
-
+            sSQL = CreateSQL.Settings
             'Add Tables (SavedPath)
-            sSql &= "CREATE TABLE savedpath (PathName TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
-
+            sSQL &= CreateSQL.SavedPath
             'Add Tables (Monitor List)
-            sSql &= "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, FolderSave BOOLEAN NOT NULL, FileType TEXT, 
-                    TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, 
-                    MonitorOnly BOOLEAN NOT NULL, BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, 
-                    RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL, UseWindowTitle BOOLEAN NOT NULL, Differential BOOLEAN NOT NULL, DiffInterval INTEGER NOT NULL);"
-
+            sSQL &= CreateSQL.MonitorList
             'Add Tables (Tags)
-            sSql &= "CREATE TABLE tags (TagID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY); "
-
+            sSQL &= CreateSQL.Tags
             'Add Tables (Game Tags)
-            sSql &= "CREATE TABLE gametags (TagID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(TagID, MonitorID)); "
-
+            sSQL &= CreateSQL.GameTags
             'Add Tables (Variables)
-            sSql &= "CREATE TABLE variables (VariableID TEXT NOT NULL UNIQUE, Name TEXT NOT NULL PRIMARY KEY, Path TEXT NOT NULL);"
-
-            'Add Tables (Local Manifest)
-            sSql &= "CREATE TABLE manifest (ManifestID TEXT NOT NULL PRIMARY KEY, MonitorID TEXT NOT NULL, FileName TEXT NOT NULL, " &
-                   "DateUpdated TEXT NOT NULL, UpdatedBy TEXT NOT NULL, CheckSum TEXT, IsDifferentialParent BOOLEAN NOT NULL, DifferentialParent TEXT NOT NULL);"
-
+            sSQL &= CreateSQL.Variables
+            'Add Tables (Manifest)
+            sSQL &= CreateSQL.Manifest
             'Add Tables (Sessions)
-            sSql &= "CREATE TABLE sessions (MonitorID TEXT NOT NULL, Start INTEGER NOT NULL, End INTEGER NOT NULL, PRIMARY KEY(MonitorID, Start));"
-
+            sSQL &= CreateSQL.Sessions
             'Add Tables (Processes)
-            sSql &= "CREATE TABLE processes (ProcessID TEXT NOT NULL PRIMARY KEY, Name Text NOT NULL, Path TEXT NOT NULL, Args TEXT, Kill BOOLEAN NOT NULL);"
-
+            sSQL &= CreateSQL.Processes
             'Add Tables (Game Processes)
-            sSql &= "CREATE TABLE gameprocesses (ProcessID TEXT NOT NULL, MonitorID TEXT NOT NULL, PRIMARY KEY(ProcessID, MonitorID));"
-
+            sSQL &= CreateSQL.GameProcesses
             'Add Tables (Wine Data)
-            sSql &= "CREATE TABLE winedata (MonitorID TEXT NOT NULL PRIMARY KEY, Prefix TEXT NOT NULL, SavePath TEXT NOT NULL, BinaryPath TEXT NOT NULL);"
-
+            sSQL &= CreateSQL.WineData
             'Add Tables (Config Links)
-            sSql &= "CREATE TABLE configlinks (MonitorID TEXT NOT NULL, LinkID TEXT NOT NULL, PRIMARY KEY(MonitorID, LinkID)); "
-
+            sSQL &= CreateSQL.ConfigLinks
             'Add Tables (Launchers)
-            sSql &= "CREATE TABLE launchers (LauncherID	TEXT NOT NULL PRIMARY KEY, Name	TEXT NOT NULL, LaunchString	TEXT NOT NULL, Uri BOOLEAN NOT NULL, Args TEXT NOT NULL);"
-
+            sSQL &= CreateSQL.Launchers
             'Add Tables (Launch Data)
-            sSql &= "CREATE TABLE launchdata (MonitorID	TEXT NOT NULL PRIMARY KEY, Path	TEXT NOT NULL, Args TEXT NOT NULL, NoArgs BOOLEAN NOT NULL, LauncherID TEXT NOT NULL, LauncherGameID TEXT NOT NULL);"
-
+            sSQL &= CreateSQL.LaunchData
             'Add Tables (Backup Queue)
-            sSql &= "CREATE TABLE backupqueue (MonitorID TEXT NOT NULL PRIMARY KEY);"
-
+            sSQL &= CreateSQL.BackupQueue
             'Set Version
-            sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
+            sSQL &= "PRAGMA user_version=" & mgrCommon.AppVersion
 
-            RunParamQuery(sSql, New Hashtable)
+            RunParamQuery(sSQL, New Hashtable)
 
             'Add any default data
             mgrLaunchers.AddDefaultLaunchers()
@@ -142,33 +203,24 @@ Public Class mgrSQLite
     End Function
 
     Private Function CreateRemoteDatabase() As Boolean
-        Dim sSql As String
+        Dim sSQL As String
 
         Try
             'Create the DB
             SqliteConnection.CreateFile(sDatabaseLocation)
 
-            'Add Tables (Remote Monitor List)
-            sSql = "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, FolderSave BOOLEAN NOT NULL, FileType TEXT, 
-                    TimeStamp BOOLEAN NOT NULL, ExcludeList TEXT NOT NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, 
-                    MonitorOnly BOOLEAN NOT NULL, BackupLimit INTEGER NOT NULL, CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, 
-                    RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL, UseWindowTitle BOOLEAN NOT NULL, Differential BOOLEAN NOT NULL, DiffInterval INTEGER NOT NULL);"
-
-            'Add Tables (Remote Manifest)
-            sSql &= "CREATE TABLE manifest (ManifestID TEXT Not NULL PRIMARY KEY, MonitorID TEXT Not NULL, FileName TEXT Not NULL, " &
-                   "DateUpdated TEXT Not NULL, UpdatedBy TEXT Not NULL, CheckSum TEXT, IsDifferentialParent BOOLEAN NOT NULL, DifferentialParent TEXT NOT NULL);"
-
-            'Add Tables (Remote Tags)
-            sSql &= "CREATE TABLE tags (TagID TEXT Not NULL UNIQUE, Name TEXT Not NULL PRIMARY KEY); "
-
-            'Add Tables (Remote Game Tags)
-            sSql &= "CREATE TABLE gametags (TagID TEXT Not NULL, MonitorID TEXT Not NULL, PRIMARY KEY(TagID, MonitorID)); "
-
+            'Add Tables (Monitor List)
+            sSQL = CreateSQL.MonitorList
+            'Add Tables (Manifest)
+            sSQL &= CreateSQL.Manifest
+            'Add Tables (Tags)
+            sSQL &= CreateSQL.Tags
+            'Add Tables (Game Tags)
+            sSQL &= CreateSQL.GameTags
             'Add Tables (Config Links)
-            sSql &= "CREATE TABLE configlinks (MonitorID TEXT NOT NULL, LinkID TEXT NOT NULL, PRIMARY KEY(MonitorID, LinkID)); "
-
+            sSQL &= CreateSQL.ConfigLinks
             'Set Version
-            sSql &= "PRAGMA user_version=" & mgrCommon.AppVersion
+            sSQL &= "PRAGMA user_version=" & mgrCommon.AppVersion
 
             RunParamQuery(sSql, New Hashtable)
             Return True
@@ -1217,6 +1269,45 @@ Public Class mgrSQLite
                 RunParamQuery(sSQL, New Hashtable)
             End If
         End If
+
+        '1.32 Upgrade
+        If GetDatabaseVersion() < 132 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v131")
+
+                'Update Settings
+                sSQL = "CREATE TABLE settings_new (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, 
+                        DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, BackupFolder TEXT NOT NULL, 
+                        StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, SuppressBackup BOOLEAN NOT NULL, SuppressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, 
+                        Custom7zArguments TEXT, Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL, 
+                        SessionTracking BOOLEAN NOT NULL, SuppressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL, DisableSyncMessages BOOLEAN NOT NULL, ShowResolvedPaths BOOLEAN NOT NULL, 
+                        DisableDiskSpaceCheck BOOLEAN NOT NULL, TemporaryFolder TEXT, ExitOnClose BOOLEAN NOT NULL, ExitNoWarning BOOLEAN NOT NULL, EnableLauncher BOOLEAN NOT NULL, MainHideGameList BOOLEAN NOT NULL, 
+                        MainHideButtons BOOLEAN NOT NULL, MainHideLog BOOLEAN NOT NULL, BackupNotification BOOLEAN NOT NULL, DetectionSpeed INTEGER NOT NULL, TwoPassDetection BOOLEAN NOT NULL, 
+                        StorePathAutoConfig BOOLEAN NOT NULL); 
+                        INSERT INTO settings_new (SettingsID, MonitorOnStartup, StartToTray, ShowDetectionToolTips, DisableConfirmation, CreateSubFolder, ShowOverwriteWarning, RestoreOnLaunch, BackupFolder, 
+                        StartWithWindows, TimeTracking, SuppressBackup, SuppressBackupThreshold, CompressionLevel, Custom7zArguments, Custom7zLocation, SyncFields, AutoSaveLog, AutoRestore, AutoMark, SessionTracking, 
+                        SuppressMessages, BackupOnLaunch, DisableSyncMessages, ShowResolvedPaths, DisableDiskSpaceCheck, TemporaryFolder, ExitOnClose, ExitNoWarning, EnableLauncher, MainHideGameList, MainHideButtons, 
+                        MainHideLog, BackupNotification, DetectionSpeed, TwoPassDetection, StorePathAutoConfig) SELECT SettingsID, MonitorOnStartup, StartToTray, ShowDetectionToolTips, DisableConfirmation, 
+                        CreateSubFolder, ShowOverwriteWarning, RestoreOnLaunch, BackupFolder, StartWithWindows, TimeTracking, SuppressBackup, SuppressBackupThreshold, CompressionLevel, Custom7zArguments, 
+                        Custom7zLocation, SyncFields, AutoSaveLog, AutoRestore, AutoMark, SessionTracking, SuppressMessages, BackupOnLaunch, DisableSyncMessages, ShowResolvedPaths, DisableDiskSpaceCheck, 
+                        TemporaryFolder, ExitOnClose, ExitNoWarning, EnableLauncher, MainHideGameList, MainHideButtons, MainHideLog, BackupNotification, DetectionSpeed, TwoPassDetection, 
+                        StorePathAutoConfig FROM settings;
+                        DROP TABLE settings; ALTER TABLE settings_new RENAME TO settings;"
+
+                sSQL &= "PRAGMA user_version=132"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v131")
+
+                sSQL = "PRAGMA user_version=132"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
     End Sub
 
     Public Function GetDBSize() As Long
@@ -1230,12 +1321,12 @@ Public Class mgrSQLite
 
     Public Sub CompactDatabase()
         Dim sSQL As String
-        Dim command As SQLiteCommand
+        Dim command As SqliteCommand
 
         sSQL = "VACUUM"
 
         Connect()
-        command = New SQLiteCommand(sSQL, db)
+        command = New SqliteCommand(sSQL, db)
 
         Try
             command.ExecuteNonQuery()
