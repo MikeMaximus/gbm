@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-06-12T21:35:51
+        '''  Looks up a localized string similar to 2022-07-18T23:35:33
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -6554,15 +6554,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_chkTwoPassDetection() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkTwoPassDetection", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Use Game ID for folder and file names.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_chkUseGameID() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_chkUseGameID", resourceCulture)
             End Get
         End Property
         

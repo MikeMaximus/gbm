@@ -85,7 +85,7 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Function CheckManifestandUpdate(ByVal oOriginalApp As clsGame, ByVal oNewApp As clsGame, ByVal bUseGameID As Boolean) As Boolean
+    Private Function CheckManifestandUpdate(ByVal oOriginalApp As clsGame, ByVal oNewApp As clsGame) As Boolean
         Dim oBackupItems As List(Of clsBackup)
         Dim sDirectory As String
         Dim sNewDirectory As String
@@ -95,15 +95,9 @@ Public Class frmGameManager
         Dim sOriginalAppItem As String
 
         'Handle File Changes
-        If (bUseGameID And (oNewApp.ID <> oOriginalApp.ID)) Or (Not bUseGameID And (oNewApp.FileSafeName <> oOriginalApp.FileSafeName)) Then
-            'Choose how to perform file & folder renames
-            If bUseGameID Then
-                sNewAppItem = oNewApp.ID
-                sOriginalAppItem = oOriginalApp.ID
-            Else
-                sNewAppItem = oNewApp.FileSafeName
-                sOriginalAppItem = oOriginalApp.FileSafeName
-            End If
+        If oNewApp.FileSafeName <> oOriginalApp.FileSafeName Then
+            sNewAppItem = oNewApp.FileSafeName
+            sOriginalAppItem = oOriginalApp.FileSafeName
 
             'Remote
             If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Remote) Then
@@ -876,7 +870,7 @@ Public Class frmGameManager
                 'Delete referenced backup file from the backup folder
                 mgrCommon.DeleteFile(BackupFolder & oBackup.FileName)
                 'Check for sub-directory and delete if empty (we need to do this every pass just in case the user had a mix of settings at one point)
-                mgrCommon.DeleteDirectoryByBackup(BackupFolder, oBackup)
+                mgrCommon.DeleteEmptyDirectory(BackupFolder & oBackup.FileSafeName)
             Next
 
             'Delete local manifest entry
@@ -917,7 +911,7 @@ Public Class frmGameManager
             Next
 
             'Check for sub-directory and delete if empty
-            mgrCommon.DeleteDirectoryByBackup(BackupFolder, CurrentBackupItem)
+            mgrCommon.DeleteEmptyDirectory(BackupFolder & CurrentBackupItem.FileSafeName)
 
             LoadBackupData()
             GetBackupInfo(CurrentGame)
@@ -1444,7 +1438,7 @@ Public Class frmGameManager
                 End If
             Case eModes.Edit
                 If CoreValidatation(oApp, False) Then
-                    If CheckManifestandUpdate(CurrentGame, oApp, mgrSettings.UseGameID) Then
+                    If CheckManifestandUpdate(CurrentGame, oApp) Then
                         bSuccess = True
                         mgrMonitorList.DoListUpdate(oApp, CurrentGame.ID)
                     End If

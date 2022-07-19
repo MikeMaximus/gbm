@@ -85,15 +85,7 @@ Public Class mgrBackup
     End Function
 
     Private Function GetFileName(ByVal oGame As clsGame) As String
-        Dim sName As String
-
-        If mgrSettings.UseGameID Then
-            sName = oGame.ID
-        Else
-            sName = oGame.FileSafeName
-        End If
-
-        Return sName
+        Return oGame.FileSafeName
     End Function
 
     Private Sub ShowBackupSizeInfo(ByVal lAvailableTempSpace As Long, ByVal lAvailableSpace As Long, ByVal lBackupSize As Long)
@@ -219,7 +211,7 @@ Public Class mgrBackup
 
                 mgrManifest.DoManifestDeleteByManifestID(oGameBackup, mgrSQLite.Database.Remote)
                 mgrCommon.DeleteFile(sOldBackup)
-                mgrCommon.DeleteDirectoryByBackup(mgrSettings.BackupFolder & Path.DirectorySeparatorChar, oGameBackup)
+                mgrCommon.DeleteEmptyDirectory(mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oGameBackup.FileSafeName)
 
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupLimitExceeded, Path.GetFileName(sOldBackup)), False, ToolTipIcon.Info, True)
             Next
@@ -258,7 +250,7 @@ Public Class mgrBackup
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupLimitExceeded, Path.GetFileName(sCurrentFileName)), False, ToolTipIcon.Info, True)
 
                 'Delete directory if empty
-                mgrCommon.DeleteDirectoryByBackup(mgrSettings.BackupFolder & Path.DirectorySeparatorChar, oCurrentParent)
+                mgrCommon.DeleteEmptyDirectory(mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oCurrentParent.FileSafeName)
             Next
         End If
     End Sub

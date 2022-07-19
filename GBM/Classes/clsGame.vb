@@ -21,22 +21,12 @@ Public Class clsGame
         Linux = 2
     End Enum
 
-    Private sID As String
     Private sPath As String
     Private sProcessPath As String
     Private sIcon As String
 
     Public Property ID As String
-        Set(value As String)
-            If Not value Is Nothing Then
-                sID = mgrPath.ValidateFileName(value)
-            End If
-        End Set
-        Get
-            Return sID
-        End Get
-    End Property
-
+    Public Property Name As String
     Public ReadOnly Property CroppedName As String
         Get
             If Name.Length > 40 Then
@@ -46,7 +36,6 @@ Public Class clsGame
             End If
         End Get
     End Property
-
     Public ReadOnly Property FileSafeName As String
         Get
             If mgrMonitorList.IsDuplicateName(Name) Then
@@ -56,8 +45,6 @@ Public Class clsGame
             End If
         End Get
     End Property
-
-    Public Property Name As String
     Public Property ProcessName As String
     Public Property Parameter As String
     Public Property Path As String

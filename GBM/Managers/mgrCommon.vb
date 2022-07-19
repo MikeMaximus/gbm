@@ -782,22 +782,6 @@ Public Class mgrCommon
         Return True
     End Function
 
-    'Delete a sub-folder based on the provided backup information
-    Public Shared Sub DeleteDirectoryByBackup(ByVal sBackupFolder As String, ByVal oBackup As clsBackup)
-        Dim sDir As String = sBackupFolder & oBackup.MonitorID
-
-        'Check if the sub-folder is an ID or Name
-        If oBackup.FileName.StartsWith(oBackup.MonitorID & Path.DirectorySeparatorChar) Then
-            sDir = sBackupFolder & oBackup.MonitorID
-        ElseIf oBackup.FileName.StartsWith(oBackup.FileSafeName & Path.DirectorySeparatorChar) Then
-            sDir = sBackupFolder & oBackup.FileSafeName
-        Else
-            Exit Sub
-        End If
-
-        DeleteEmptyDirectory(sDir)
-    End Sub
-
     'Read text from a location, use local cache when appropriate for web locations.
     Public Shared Function ReadTextFromCache(ByVal sLocation As String, Optional ByRef lLastModified As Long = 0) As StreamReader
         Dim oReader As StreamReader

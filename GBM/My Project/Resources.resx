@@ -1992,9 +1992,6 @@
   <data name="frmMain_ProcessStarted" xml:space="preserve">
     <value>[PARAM] has been started.</value>
   </data>
-  <data name="frmSettings_chkUseGameID" xml:space="preserve">
-    <value>Use Game ID for folder and file names</value>
-  </data>
   <data name="mgrMonitorList_ErrorSyncCancel" xml:space="preserve">
     <value>The sync was aborted by the user.</value>
   </data>

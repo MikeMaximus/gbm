@@ -88,7 +88,6 @@ Partial Class frmSettings
         Me.btnTempFolder = New System.Windows.Forms.Button()
         Me.lblTempFolder = New System.Windows.Forms.Label()
         Me.txtTempFolder = New System.Windows.Forms.TextBox()
-        Me.chkUseGameID = New System.Windows.Forms.CheckBox()
         Me.btnBackupFolder = New System.Windows.Forms.Button()
         Me.lblBackupFolder = New System.Windows.Forms.Label()
         Me.txtBackupFolder = New System.Windows.Forms.TextBox()
@@ -752,14 +751,13 @@ Partial Class frmSettings
         Me.grpFolderOptions.Controls.Add(Me.btnTempFolder)
         Me.grpFolderOptions.Controls.Add(Me.lblTempFolder)
         Me.grpFolderOptions.Controls.Add(Me.txtTempFolder)
-        Me.grpFolderOptions.Controls.Add(Me.chkUseGameID)
         Me.grpFolderOptions.Controls.Add(Me.btnBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.lblBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.txtBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.chkCreateFolder)
         Me.grpFolderOptions.Location = New System.Drawing.Point(6, 12)
         Me.grpFolderOptions.Name = "grpFolderOptions"
-        Me.grpFolderOptions.Size = New System.Drawing.Size(354, 117)
+        Me.grpFolderOptions.Size = New System.Drawing.Size(354, 91)
         Me.grpFolderOptions.TabIndex = 0
         Me.grpFolderOptions.TabStop = False
         Me.grpFolderOptions.Text = "Files and Folders"
@@ -788,16 +786,6 @@ Partial Class frmSettings
         Me.txtTempFolder.Name = "txtTempFolder"
         Me.txtTempFolder.Size = New System.Drawing.Size(216, 20)
         Me.txtTempFolder.TabIndex = 2
-        '
-        'chkUseGameID
-        '
-        Me.chkUseGameID.AutoSize = True
-        Me.chkUseGameID.Location = New System.Drawing.Point(6, 89)
-        Me.chkUseGameID.Name = "chkUseGameID"
-        Me.chkUseGameID.Size = New System.Drawing.Size(205, 17)
-        Me.chkUseGameID.TabIndex = 5
-        Me.chkUseGameID.Text = "Use Game ID for folder and file names"
-        Me.chkUseGameID.UseVisualStyleBackColor = True
         '
         'btnBackupFolder
         '
@@ -839,11 +827,11 @@ Partial Class frmSettings
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(554, 386)
-        Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlFilesAndFolders)
+        Me.Controls.Add(Me.pnlBackup)
+        Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlInterface)
         Me.Controls.Add(Me.pnlStartup)
-        Me.Controls.Add(Me.pnlBackup)
         Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.btnResetMessages)
         Me.Controls.Add(Me.lstSettings)
@@ -947,7 +935,6 @@ Partial Class frmSettings
     Friend WithEvents btnTempFolder As Button
     Friend WithEvents lblTempFolder As Label
     Friend WithEvents txtTempFolder As TextBox
-    Friend WithEvents chkUseGameID As CheckBox
     Friend WithEvents btnBackupFolder As Button
     Friend WithEvents lblBackupFolder As Label
     Friend WithEvents txtBackupFolder As TextBox
