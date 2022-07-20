@@ -1186,6 +1186,7 @@ Public Class frmGameManager
                 UpdateGenericButtonLabel(frmGameManager_ExcludeShortcut, btnExclude, False)
             Case eModes.Locked
                 eLastMode = eModes.Locked
+                GetBackupInfo(CurrentGame)
                 lblFilters.Enabled = True
                 cboFilters.Enabled = True
                 lstGames.Enabled = True
