@@ -473,6 +473,8 @@
     <Content Include="Resources\frmGameManager_Advanced.png" />
     <Content Include="Resources\frmGameManager_Exclude_Items.png" />
     <Content Include="Resources\frmGameManager_Include_Items.png" />
+    <Content Include="Resources\frmGameManager_Lock.png" />
+    <Content Include="Resources\frmGameManager_Unlock.png" />
     <Content Include="Resources\Multi_Back.png" />
     <Content Include="Resources\Multi_Export.png" />
     <Content Include="Resources\frmGameManager_GameID.png" />

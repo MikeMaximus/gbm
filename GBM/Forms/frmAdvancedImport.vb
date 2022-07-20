@@ -182,7 +182,9 @@ Public Class frmAdvancedImport
         For Each oFromItem In hshCompareFrom.Values
             If hshCompareTo.Contains(oFromItem.ID) Then
                 oToItem = DirectCast(hshCompareTo(oFromItem.ID), clsGame)
-                If oFromItem.MinimalEquals(oToItem) Then
+                If oToItem.Locked Then
+                    hshImportData.Remove(oFromItem.ID)
+                ElseIf oFromItem.MinimalEquals(oToItem) Then
                     If oFromItem.CoreEquals(oToItem) Then
                         hshImportData.Remove(oFromItem.ID)
                     Else
@@ -191,7 +193,6 @@ Public Class frmAdvancedImport
                         DirectCast(hshImportData(oFromItem.ID), clsGame).Hours = oToItem.Hours
                         DirectCast(hshImportData(oFromItem.ID), clsGame).CleanFolder = oToItem.CleanFolder
                     End If
-
                 End If
             End If
         Next

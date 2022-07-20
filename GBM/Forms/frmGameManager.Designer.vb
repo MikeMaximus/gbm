@@ -66,6 +66,7 @@ Partial Class frmGameManager
         Me.cmsOfficial = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsOfficialWindows = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsOfficialLinux = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsLudusavi = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsURL = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtSearch = New System.Windows.Forms.TextBox()
@@ -83,6 +84,7 @@ Partial Class frmGameManager
         Me.tabGameManager = New System.Windows.Forms.TabControl()
         Me.tbConfig = New System.Windows.Forms.TabPage()
         Me.grpCoreConfig = New System.Windows.Forms.GroupBox()
+        Me.chkLocked = New System.Windows.Forms.CheckBox()
         Me.lblInterval = New System.Windows.Forms.Label()
         Me.nudInterval = New System.Windows.Forms.NumericUpDown()
         Me.chkDifferentialBackup = New System.Windows.Forms.CheckBox()
@@ -125,7 +127,7 @@ Partial Class frmGameManager
         Me.cmsMonitorOptions = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsEnabled = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsMonitorOnly = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmsLudusavi = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnLocked = New System.Windows.Forms.Button()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudHours, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -256,7 +258,7 @@ Partial Class frmGameManager
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(450, 253)
+        Me.txtID.Location = New System.Drawing.Point(429, 253)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(30, 20)
         Me.txtID.TabIndex = 0
@@ -310,7 +312,7 @@ Partial Class frmGameManager
         '
         'txtExclude
         '
-        Me.txtExclude.Location = New System.Drawing.Point(414, 253)
+        Me.txtExclude.Location = New System.Drawing.Point(393, 253)
         Me.txtExclude.Name = "txtExclude"
         Me.txtExclude.Size = New System.Drawing.Size(30, 20)
         Me.txtExclude.TabIndex = 0
@@ -319,7 +321,7 @@ Partial Class frmGameManager
         '
         'txtFileType
         '
-        Me.txtFileType.Location = New System.Drawing.Point(378, 253)
+        Me.txtFileType.Location = New System.Drawing.Point(357, 253)
         Me.txtFileType.Name = "txtFileType"
         Me.txtFileType.Size = New System.Drawing.Size(30, 20)
         Me.txtFileType.TabIndex = 0
@@ -459,7 +461,7 @@ Partial Class frmGameManager
         Me.btnSave.Location = New System.Drawing.Point(638, 329)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(60, 45)
-        Me.btnSave.TabIndex = 11
+        Me.btnSave.TabIndex = 12
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnSave.UseVisualStyleBackColor = True
@@ -480,7 +482,7 @@ Partial Class frmGameManager
         Me.btnCancel.Location = New System.Drawing.Point(704, 329)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(60, 45)
-        Me.btnCancel.TabIndex = 12
+        Me.btnCancel.TabIndex = 13
         Me.btnCancel.Text = "Ca&ncel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
@@ -512,37 +514,43 @@ Partial Class frmGameManager
         Me.cmsImport.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsOfficial, Me.cmsLudusavi, Me.cmsFile, Me.cmsURL})
         Me.cmsImport.Name = "cmsImport"
         Me.cmsImport.ShowImageMargin = False
-        Me.cmsImport.Size = New System.Drawing.Size(156, 114)
+        Me.cmsImport.Size = New System.Drawing.Size(155, 92)
         '
         'cmsOfficial
         '
         Me.cmsOfficial.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsOfficialWindows, Me.cmsOfficialLinux})
         Me.cmsOfficial.Name = "cmsOfficial"
-        Me.cmsOfficial.Size = New System.Drawing.Size(155, 22)
+        Me.cmsOfficial.Size = New System.Drawing.Size(154, 22)
         Me.cmsOfficial.Text = "&Official List..."
         '
         'cmsOfficialWindows
         '
         Me.cmsOfficialWindows.Name = "cmsOfficialWindows"
-        Me.cmsOfficialWindows.Size = New System.Drawing.Size(180, 22)
+        Me.cmsOfficialWindows.Size = New System.Drawing.Size(132, 22)
         Me.cmsOfficialWindows.Text = "&Windows..."
         '
         'cmsOfficialLinux
         '
         Me.cmsOfficialLinux.Name = "cmsOfficialLinux"
-        Me.cmsOfficialLinux.Size = New System.Drawing.Size(180, 22)
+        Me.cmsOfficialLinux.Size = New System.Drawing.Size(132, 22)
         Me.cmsOfficialLinux.Text = "&Linux..."
+        '
+        'cmsLudusavi
+        '
+        Me.cmsLudusavi.Name = "cmsLudusavi"
+        Me.cmsLudusavi.Size = New System.Drawing.Size(154, 22)
+        Me.cmsLudusavi.Text = "&Ludusavi Manifest..."
         '
         'cmsFile
         '
         Me.cmsFile.Name = "cmsFile"
-        Me.cmsFile.Size = New System.Drawing.Size(155, 22)
+        Me.cmsFile.Size = New System.Drawing.Size(154, 22)
         Me.cmsFile.Text = "&File..."
         '
         'cmsURL
         '
         Me.cmsURL.Name = "cmsURL"
-        Me.cmsURL.Size = New System.Drawing.Size(155, 22)
+        Me.cmsURL.Size = New System.Drawing.Size(154, 22)
         Me.cmsURL.Text = "&URL..."
         '
         'txtSearch
@@ -592,7 +600,7 @@ Partial Class frmGameManager
         Me.btnAdvanced.Location = New System.Drawing.Point(567, 329)
         Me.btnAdvanced.Name = "btnAdvanced"
         Me.btnAdvanced.Size = New System.Drawing.Size(65, 45)
-        Me.btnAdvanced.TabIndex = 10
+        Me.btnAdvanced.TabIndex = 11
         Me.btnAdvanced.Text = "&Advanced"
         Me.btnAdvanced.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnAdvanced.UseVisualStyleBackColor = True
@@ -653,6 +661,7 @@ Partial Class frmGameManager
         '
         'grpCoreConfig
         '
+        Me.grpCoreConfig.Controls.Add(Me.chkLocked)
         Me.grpCoreConfig.Controls.Add(Me.lblInterval)
         Me.grpCoreConfig.Controls.Add(Me.nudInterval)
         Me.grpCoreConfig.Controls.Add(Me.chkDifferentialBackup)
@@ -692,6 +701,17 @@ Partial Class frmGameManager
         Me.grpCoreConfig.Size = New System.Drawing.Size(511, 280)
         Me.grpCoreConfig.TabIndex = 0
         Me.grpCoreConfig.TabStop = False
+        '
+        'chkLocked
+        '
+        Me.chkLocked.AutoSize = True
+        Me.chkLocked.Location = New System.Drawing.Point(465, 256)
+        Me.chkLocked.Name = "chkLocked"
+        Me.chkLocked.Size = New System.Drawing.Size(15, 14)
+        Me.chkLocked.TabIndex = 0
+        Me.chkLocked.TabStop = False
+        Me.chkLocked.UseVisualStyleBackColor = True
+        Me.chkLocked.Visible = False
         '
         'lblInterval
         '
@@ -1098,17 +1118,23 @@ Partial Class frmGameManager
         Me.cmsMonitorOnly.Size = New System.Drawing.Size(172, 22)
         Me.cmsMonitorOnly.Text = "Monitor &Only"
         '
-        'cmsLudusavi
+        'btnLocked
         '
-        Me.cmsLudusavi.Name = "cmsLudusavi"
-        Me.cmsLudusavi.Size = New System.Drawing.Size(155, 22)
-        Me.cmsLudusavi.Text = "&Ludusavi Manifest..."
+        Me.btnLocked.Image = Global.GBM.My.Resources.Resources.frmGameManager_Lock
+        Me.btnLocked.Location = New System.Drawing.Point(496, 329)
+        Me.btnLocked.Name = "btnLocked"
+        Me.btnLocked.Size = New System.Drawing.Size(65, 45)
+        Me.btnLocked.TabIndex = 10
+        Me.btnLocked.Text = "&Lock"
+        Me.btnLocked.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btnLocked.UseVisualStyleBackColor = True
         '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 386)
+        Me.Controls.Add(Me.btnLocked)
         Me.Controls.Add(Me.lblFilters)
         Me.Controls.Add(Me.cboFilters)
         Me.Controls.Add(Me.tabGameManager)
@@ -1255,4 +1281,6 @@ Partial Class frmGameManager
     Friend WithEvents nudInterval As NumericUpDown
     Friend WithEvents cmsURL As ToolStripMenuItem
     Friend WithEvents cmsLudusavi As ToolStripMenuItem
+    Friend WithEvents btnLocked As Button
+    Friend WithEvents chkLocked As CheckBox
 End Class
