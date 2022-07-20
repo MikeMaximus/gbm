@@ -58,6 +58,7 @@ Public Class mgrMonitorList
         oGame.UseWindowTitle = CBool(dr("UseWindowTitle"))
         oGame.Differential = CBool(dr("Differential"))
         oGame.DiffInterval = CInt(dr("DiffInterval"))
+        oGame.Locked = CBool(dr("Locked"))
 
         'Compile RegEx
         If oGame.IsRegEx And bFullClass Then
@@ -95,6 +96,7 @@ Public Class mgrMonitorList
         hshParams.Add("UseWindowTitle", oGame.UseWindowTitle)
         hshParams.Add("Differential", oGame.Differential)
         hshParams.Add("DiffInterval", oGame.DiffInterval)
+        hshParams.Add("Locked", oGame.Locked)
 
         Return hshParams
     End Function
@@ -151,7 +153,7 @@ Public Class mgrMonitorList
 
         sSQL = "INSERT INTO monitorlist VALUES (@ID, @Name, @Process, @Path, @FolderSave, @FileType, @TimeStamp, "
         sSQL &= "@ExcludeList, @ProcessPath, @Icon, @Hours, @Version, @Company, @Enabled, @MonitorOnly, @BackupLimit, @CleanFolder, "
-        sSQL &= "@Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS, @UseWindowTitle, @Differential, @DiffInterval)"
+        sSQL &= "@Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS, @UseWindowTitle, @Differential, @DiffInterval, @Locked)"
 
         'Parameters
         hshParams = SetCoreParameters(oGame)
@@ -169,7 +171,7 @@ Public Class mgrMonitorList
         sSQL &= "FileType=@FileType, TimeStamp=@TimeStamp, ExcludeList=@ExcludeList, ProcessPath=@ProcessPath, Icon=@Icon, "
         sSQL &= "Hours=@Hours, Version=@Version, Company=@Company, Enabled=@Enabled, MonitorOnly=@MonitorOnly, BackupLimit=@BackupLimit, "
         sSQL &= "CleanFolder=@CleanFolder, Parameter=@Parameter, Comments=@Comments, IsRegEx=@IsRegEx, RecurseSubFolders=@RecurseSubFolders, "
-        sSQL &= "OS=@OS, UseWindowTitle=@UseWindowTitle, Differential=@Differential, DiffInterval=@DiffInterval "
+        sSQL &= "OS=@OS, UseWindowTitle=@UseWindowTitle, Differential=@Differential, DiffInterval=@DiffInterval, Locked=@Locked "
         sSQL &= "WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE gametags SET MonitorID=@ID WHERE MonitorID=@QueryID;"
         sSQL &= "UPDATE configlinks SET MonitorID=@ID WHERE MonitorID=@QueryID;"
@@ -335,7 +337,8 @@ Public Class mgrMonitorList
                                              ByVal sQuickFilter As String, ByRef hshParams As Hashtable) As String
         Dim sSQL As String = String.Empty
         Dim iCounter As Integer = 0
-        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle, Differential, DiffInterval FROM monitorlist"
+        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, 
+                                    Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle, Differential, DiffInterval, Locked FROM monitorlist"
         Dim sSort As String = " ORDER BY " & sSortField
 
         If bSortAsc Then

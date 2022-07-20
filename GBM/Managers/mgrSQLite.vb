@@ -26,7 +26,7 @@ Public Class mgrSQLite
                 Return "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, 
                         ExcludeList TEXT NOT NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, BackupLimit INTEGER NOT NULL, 
                         CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL, UseWindowTitle BOOLEAN NOT NULL, 
-                        Differential BOOLEAN NOT NULL, DiffInterval INTEGER NOT NULL);"
+                        Differential BOOLEAN NOT NULL, DiffInterval INTEGER NOT NULL, Locked BOOLEAN NOT NULL);"
             End Get
         End Property
         Public Shared ReadOnly Property Tags As String
@@ -1276,8 +1276,11 @@ Public Class mgrSQLite
                 'Backup DB before starting
                 BackupDB("v131")
 
+                'Add Lock
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN Locked BOOLEAN NOT NULL DEFAULT 0;"
+
                 'Update Settings
-                sSQL = "CREATE TABLE settings_new (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, 
+                sSQL &= "CREATE TABLE settings_new (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, 
                         DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, BackupFolder TEXT NOT NULL, 
                         StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, SuppressBackup BOOLEAN NOT NULL, SuppressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, 
                         Custom7zArguments TEXT, Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL, 
@@ -1303,7 +1306,10 @@ Public Class mgrSQLite
                 'Backup DB before starting
                 BackupDB("v131")
 
-                sSQL = "PRAGMA user_version=132"
+                'Add Lock
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN Locked BOOLEAN NOT NULL DEFAULT 0;"
+
+                sSQL &= "PRAGMA user_version=132"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If

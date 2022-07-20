@@ -3127,4 +3127,7 @@
   <data name="frmAdvancedImport_Importing" xml:space="preserve">
     <value>Importing Configurations... Please Wait</value>
   </data>
+  <data name="frmFilter_FieldLocked" xml:space="preserve">
+    <value>Locked</value>
+  </data>
 </root>

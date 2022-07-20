@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-07-18T23:35:33
+        '''  Looks up a localized string similar to 2022-07-19T02:55:46
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1518,6 +1518,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmFilter_FieldIsRegEx() As String
             Get
                 Return ResourceManager.GetString("frmFilter_FieldIsRegEx", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Locked.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_FieldLocked() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_FieldLocked", resourceCulture)
             End Get
         End Property
         
