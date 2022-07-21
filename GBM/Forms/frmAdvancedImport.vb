@@ -160,6 +160,7 @@ Public Class frmAdvancedImport
             Case mgrMonitorList.eImportTypes.Official
                 oOfficialXML = New mgrXML(ImportPath)
                 If Not oOfficialXML.DeserializeAndImport() Then
+                    IsLoading = False
                     Return False
                 End If
                 hshCompareFrom = oOfficialXML.ConvertedList
@@ -168,6 +169,7 @@ Public Class frmAdvancedImport
             Case mgrMonitorList.eImportTypes.Ludusavi
                 oLudusavi = New mgrLudusavi(ImportPath, LudusaviOptions)
                 If Not oLudusavi.ReadLudusaviManifest() Then
+                    IsLoading = False
                     Return False
                 End If
                 hshCompareFrom = oLudusavi.ConvertedList

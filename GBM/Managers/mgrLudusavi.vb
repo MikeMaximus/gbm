@@ -494,17 +494,13 @@ Public Class mgrLudusavi
             oBuilder.IgnoreUnmatchedProperties()
             oDeserializer = oBuilder.Build()
 
-            If mgrCommon.IsAddress(FileLocation) Then
-                oReader = mgrCommon.ReadTextFromCache(FileLocation, ImportInfo.Exported)
-                sYAML = oReader.ReadToEnd
-                oReader.Close()
-            Else
-                sYAML = mgrCommon.ReadText(FileLocation)
-            End If
+            oReader = mgrCommon.ReadTextFromCache(FileLocation, ImportInfo.Exported)
+            sYAML = oReader.ReadToEnd
+            oReader.Close()
 
             FormatYAML(sYAML)
             oList = oDeserializer.Deserialize(Of Dictionary(Of String, LudusaviGame))(sYAML)
-            ConvertYAML(oList)
+            If ConvertYAML(oList) Then Return True
 
             Return True
         Catch ex As Exception
@@ -512,6 +508,7 @@ Public Class mgrLudusavi
             Return False
         End Try
 
+        Return False
     End Function
 
     Sub New(sFileLocation As String, oOptions As clsLudusaviOptions)

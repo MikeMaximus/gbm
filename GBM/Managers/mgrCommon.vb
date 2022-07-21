@@ -786,6 +786,7 @@ Public Class mgrCommon
     Public Shared Function ReadTextFromCache(ByVal sLocation As String, Optional ByRef lLastModified As Long = 0) As StreamReader
         Dim oReader As StreamReader
         Dim oURL As Uri
+        Dim sContent As String = String.Empty
         Dim sCachedFile As String
         Dim sETagFile As String
         Dim sETag As String = String.Empty
@@ -798,15 +799,18 @@ Public Class mgrCommon
 
             'Check for a saved ETag
             If File.Exists(sETagFile) Then
-                sETag = mgrCommon.ReadText(sETagFile)
+                ReadText(sETag, sETagFile)
             End If
 
             'Query address using ETag if available
             If CheckAddressForUpdates(sLocation, sETag) Then
                 'Download updated file
-                SaveText(mgrCommon.ReadText(sLocation), sCachedFile)
-                'Save ETag
-                SaveText(sETag, sETagFile)
+                If mgrCommon.ReadText(sContent, sLocation) Then
+                    'Save File
+                    SaveText(sContent, sCachedFile)
+                    'Save ETag
+                    SaveText(sETag, sETagFile)
+                End If
             End If
 
             'Always use the cached file
@@ -821,10 +825,9 @@ Public Class mgrCommon
     End Function
 
     'Read text from location
-    Public Shared Function ReadText(ByVal sLocation As String) As String
+    Public Shared Function ReadText(ByRef sContent As String, ByVal sLocation As String) As Boolean
         Dim oReader As StreamReader
         Dim oWebClient As New WebClient
-        Dim sContent As String = String.Empty
 
         Try
             oReader = New StreamReader(oWebClient.OpenRead(sLocation))
@@ -832,9 +835,10 @@ Public Class mgrCommon
             oReader.Close()
         Catch ex As Exception
             ShowMessage(mgrCommon_ErrorReadingTextFile, ex.Message, MsgBoxStyle.Critical)
+            Return False
         End Try
 
-        Return sContent
+        Return True
     End Function
 
     'Save string as a local text file
