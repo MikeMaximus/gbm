@@ -1513,6 +1513,12 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub LockApp()
+        eCurrentMode = eModes.Edit
+        chkLocked.Checked = Not chkLocked.Checked
+        SaveApp()
+    End Sub
+
     Private Sub CopyApp()
         Dim oApp As clsGame = CurrentGame.ShallowCopy
 
@@ -2025,6 +2031,7 @@ Public Class frmGameManager
         AddHandler cmsUseWindowTitle.CheckedChanged, AddressOf DirtyCheck_ValueChanged
         AddHandler cmsEnabled.CheckedChanged, AddressOf DirtyCheck_ValueChanged
         AddHandler cmsMonitorOnly.CheckedChanged, AddressOf DirtyCheck_ValueChanged
+        RemoveHandler chkLocked.CheckedChanged, AddressOf DirtyCheck_ValueChanged
 
         LoadData(False)
 
@@ -2113,9 +2120,7 @@ Public Class frmGameManager
     End Sub
 
     Private Sub btnLocked_Click(sender As Object, e As EventArgs) Handles btnLocked.Click
-        chkLocked.Checked = Not chkLocked.Checked
-        ToggleLock()
-        SaveApp()
+        LockApp()
     End Sub
 
     Private Sub btnAdvanced_Click(sender As Object, e As EventArgs) Handles btnAdvanced.Click
