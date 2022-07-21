@@ -3131,15 +3131,21 @@
     <value>Locked</value>
   </data>
   <data name="frmGameManager_btnLocked_Lock" xml:space="preserve">
-    <value>Lock</value>
+    <value>&amp;Lock</value>
   </data>
   <data name="frmGameManager_btnLocked_Unlock" xml:space="preserve">
-    <value>Unlock</value>
+    <value>Un&amp;lock</value>
   </data>
   <data name="frmGameManager_Lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frmGameManager_Lock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="frmGameManager_Unlock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frmGameManager_Unlock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_btnCopy" xml:space="preserve">
+    <value>&amp;Copy</value>
+  </data>
+  <data name="frmGameManager_Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -349,7 +349,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-07-20T13:17:37
+        '''  Looks up a localized string similar to 2022-07-21T02:48:01
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1930,6 +1930,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Copy.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_btnCopy() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_btnCopy", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Delete.
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnDelete() As String
@@ -1984,7 +1993,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Lock.
+        '''  Looks up a localized string similar to &amp;Lock.
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnLocked_Lock() As String
             Get
@@ -1993,7 +2002,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Unlock.
+        '''  Looks up a localized string similar to Un&amp;lock.
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnLocked_Unlock() As String
             Get
@@ -2475,6 +2484,16 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ConfirmRestoreSelected() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ConfirmRestoreSelected", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_Copy() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmGameManager_Copy", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         

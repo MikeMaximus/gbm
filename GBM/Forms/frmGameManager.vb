@@ -1096,6 +1096,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
                 btnAdvanced.Enabled = False
+                btnCopy.Enabled = False
                 btnLocked.Enabled = False
                 tbBackupInfo.Enabled = False
                 cmsEnabled.Checked = True
@@ -1126,6 +1127,7 @@ Public Class frmGameManager
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
                 btnAdvanced.Enabled = False
+                btnCopy.Enabled = False
                 btnLocked.Enabled = False
                 btnImport.Enabled = False
                 btnExport.Enabled = False
@@ -1149,6 +1151,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 btnBackup.Enabled = True
                 btnAdvanced.Enabled = True
+                btnCopy.Enabled = True
                 btnLocked.Enabled = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
@@ -1174,6 +1177,7 @@ Public Class frmGameManager
                 btnAdd.Enabled = True
                 btnDelete.Enabled = True
                 btnAdvanced.Enabled = False
+                btnCopy.Enabled = False
                 btnLocked.Enabled = False
                 lblGameTags.Text = frmGameManager_lblGameTags
                 lblGameTags.LinkBehavior = LinkBehavior.HoverUnderline
@@ -1202,6 +1206,7 @@ Public Class frmGameManager
                 btnAdd.Enabled = True
                 btnDelete.Enabled = True
                 btnAdvanced.Enabled = False
+                btnCopy.Enabled = True
                 btnLocked.Enabled = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
@@ -1236,6 +1241,7 @@ Public Class frmGameManager
                 cmsDeleteOne.Enabled = False
                 cmsImportData.Enabled = False
                 btnAdvanced.Enabled = False
+                btnCopy.Enabled = False
                 btnLocked.Enabled = False
                 btnGameID.Enabled = False
                 btnImport.Enabled = True
@@ -1507,6 +1513,60 @@ Public Class frmGameManager
         End If
     End Sub
 
+    Private Sub CopyApp()
+        Dim oApp As clsGame = CurrentGame.ShallowCopy
+
+        Dim oTag As clsTag
+        Dim oTags As SortedList
+        Dim oGameTag As clsGameTag
+        Dim oGameTagsToCopy As List(Of clsGameTag)
+
+        Dim oProcess As clsProcess
+        Dim oProcesses As Hashtable
+        Dim oGameProcess As clsGameProcess
+        Dim oGameProcessesToCopy As List(Of clsGameProcess)
+
+        Dim oConfigLink As clsConfigLink
+        Dim oConfigLinks As List(Of clsConfigLink)
+
+        'Base
+        oApp.ID = Guid.NewGuid.ToString
+        oApp.Name &= " (Copy)"
+        mgrMonitorList.DoListAdd(oApp)
+
+        'Tags
+        oTags = mgrGameTags.GetTagsByGame(CurrentGame.ID)
+        oGameTagsToCopy = New List(Of clsGameTag)
+        For Each de As DictionaryEntry In oTags
+            oTag = DirectCast(de.Value, clsTag)
+            oGameTag = New clsGameTag(oTag.ID, oApp.ID)
+            oGameTagsToCopy.Add(oGameTag)
+        Next
+        mgrGameTags.DoGameTagAddBatch(oGameTagsToCopy)
+
+        'Processes
+        oProcesses = mgrGameProcesses.GetProcessesByGame(CurrentGame.ID)
+        oGameProcessesToCopy = New List(Of clsGameProcess)
+        For Each de As DictionaryEntry In oProcesses
+            oProcess = DirectCast(de.Value, clsProcess)
+            oGameProcess = New clsGameProcess(oProcess.ID, oApp.ID)
+            oGameProcessesToCopy.Add(oGameProcess)
+        Next
+        mgrGameProcesses.DoGameProcessAddBatch(oGameProcessesToCopy)
+
+        'Config Links
+        oConfigLinks = mgrConfigLinks.GetConfigsLinksByID(CurrentGame.ID)
+        For Each oConfigLink In oConfigLinks
+            oConfigLink.MonitorID = oApp.ID
+        Next
+        mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
+
+        mgrSync.SyncData()
+        CurrentGame = oApp
+        LoadBackupData()
+        LoadData()
+    End Sub
+
     Private Sub DeleteApp()
         Dim oData As KeyValuePair(Of String, String)
         Dim oApp As clsGame
@@ -1521,6 +1581,7 @@ Public Class frmGameManager
 
             If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiGameDelete, sMonitorIDs.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDelete(sMonitorIDs)
+                mgrSync.SyncData()
                 LoadData()
             End If
         End If
@@ -1878,6 +1939,8 @@ Public Class frmGameManager
         btnProcessOptions.Image = frmGameManager_Process
         btnAdvanced.Text = frmGameManager_btnAdvanced
         btnAdvanced.Image = frmGameManager_Advanced
+        btnCopy.Text = frmGameManager_btnCopy
+        btnCopy.Image = frmGameManager_Copy
         btnLocked.Text = frmGameManager_btnLocked_Lock
         btnLocked.Image = frmGameManager_Lock
         cmsWineConfig.Text = frmGameManager_cmsWineConfig
@@ -2043,6 +2106,10 @@ Public Class frmGameManager
 
     Private Sub btnProcessOptions_Click(sender As Object, e As EventArgs) Handles btnProcessOptions.Click
         mgrCommon.OpenButtonSubMenu(cmsProcessOptions, btnProcessOptions)
+    End Sub
+
+    Private Sub btnCopy_Click(sender As Object, e As EventArgs) Handles btnCopy.Click
+        CopyApp()
     End Sub
 
     Private Sub btnLocked_Click(sender As Object, e As EventArgs) Handles btnLocked.Click

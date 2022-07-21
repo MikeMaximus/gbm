@@ -128,6 +128,7 @@ Partial Class frmGameManager
         Me.cmsEnabled = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsMonitorOnly = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnLocked = New System.Windows.Forms.Button()
+        Me.btnCopy = New System.Windows.Forms.Button()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudHours, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -461,7 +462,7 @@ Partial Class frmGameManager
         Me.btnSave.Location = New System.Drawing.Point(638, 329)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(60, 45)
-        Me.btnSave.TabIndex = 12
+        Me.btnSave.TabIndex = 13
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnSave.UseVisualStyleBackColor = True
@@ -482,7 +483,7 @@ Partial Class frmGameManager
         Me.btnCancel.Location = New System.Drawing.Point(704, 329)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(60, 45)
-        Me.btnCancel.TabIndex = 13
+        Me.btnCancel.TabIndex = 14
         Me.btnCancel.Text = "Ca&ncel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
@@ -600,7 +601,7 @@ Partial Class frmGameManager
         Me.btnAdvanced.Location = New System.Drawing.Point(567, 329)
         Me.btnAdvanced.Name = "btnAdvanced"
         Me.btnAdvanced.Size = New System.Drawing.Size(65, 45)
-        Me.btnAdvanced.TabIndex = 11
+        Me.btnAdvanced.TabIndex = 12
         Me.btnAdvanced.Text = "&Advanced"
         Me.btnAdvanced.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnAdvanced.UseVisualStyleBackColor = True
@@ -1124,16 +1125,28 @@ Partial Class frmGameManager
         Me.btnLocked.Location = New System.Drawing.Point(496, 329)
         Me.btnLocked.Name = "btnLocked"
         Me.btnLocked.Size = New System.Drawing.Size(65, 45)
-        Me.btnLocked.TabIndex = 10
+        Me.btnLocked.TabIndex = 11
         Me.btnLocked.Text = "&Lock"
         Me.btnLocked.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnLocked.UseVisualStyleBackColor = True
+        '
+        'btnCopy
+        '
+        Me.btnCopy.Image = Global.GBM.My.Resources.Resources.frmGameManager_Copy
+        Me.btnCopy.Location = New System.Drawing.Point(425, 329)
+        Me.btnCopy.Name = "btnCopy"
+        Me.btnCopy.Size = New System.Drawing.Size(65, 45)
+        Me.btnCopy.TabIndex = 10
+        Me.btnCopy.Text = "&Copy"
+        Me.btnCopy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btnCopy.UseVisualStyleBackColor = True
         '
         'frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 386)
+        Me.Controls.Add(Me.btnCopy)
         Me.Controls.Add(Me.btnLocked)
         Me.Controls.Add(Me.lblFilters)
         Me.Controls.Add(Me.cboFilters)
@@ -1283,4 +1296,5 @@ Partial Class frmGameManager
     Friend WithEvents cmsLudusavi As ToolStripMenuItem
     Friend WithEvents btnLocked As Button
     Friend WithEvents chkLocked As CheckBox
+    Friend WithEvents btnCopy As Button
 End Class
