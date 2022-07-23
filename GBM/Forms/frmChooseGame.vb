@@ -82,4 +82,11 @@ Public Class frmChooseGame
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
+
+    Private Sub frmChooseGame_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                btnCancel.PerformClick()
+        End Select
+    End Sub
 End Class

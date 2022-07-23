@@ -111,6 +111,7 @@ Partial Class frmGameTags
         Me.Controls.Add(Me.lstGameTags)
         Me.Controls.Add(Me.lstTags)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmGameTags"

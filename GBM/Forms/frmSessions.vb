@@ -320,4 +320,10 @@ Public Class frmSessions
         End Function
     End Class
 
+    Private Sub frmSessions_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                Me.Close()
+        End Select
+    End Sub
 End Class

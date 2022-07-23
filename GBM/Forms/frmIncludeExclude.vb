@@ -2,6 +2,9 @@
 Imports System.IO
 
 Public Class frmIncludeExclude
+    Private Property IsLoading As Boolean = False
+    Private Property IsDirty As Boolean = False
+
     Dim sRootFolder As String
 
     Public Property RootFolder As String
@@ -139,12 +142,14 @@ Public Class frmIncludeExclude
             End If
         Next
         lstBuilder.EndUpdate()
+        DirtyCheck()
     End Sub
 
     Private Sub RemoveItem()
         For Each oListViewItem As ListViewItem In lstBuilder.SelectedItems
             oListViewItem.Remove()
         Next
+        DirtyCheck()
     End Sub
 
     Private Sub ParseBuilderString(ByVal sString As String)
@@ -214,6 +219,10 @@ Public Class frmIncludeExclude
         End If
     End Sub
 
+    Private Sub DirtyCheck()
+        If BuilderString <> CreateNewBuilderString() Then IsDirty = True
+    End Sub
+
     Private Sub SetForm()
         'Set Form Name
         Me.Text = mgrCommon.FormatString(frmIncludeExclude_FormName, FormName)
@@ -248,7 +257,9 @@ Public Class frmIncludeExclude
     End Sub
 
     Private Sub frmIncludeExclude_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        IsLoading = True
         SetForm()
+        IsLoading = False
     End Sub
 
     Private Sub frmIncludeExclude_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
@@ -273,6 +284,7 @@ Public Class frmIncludeExclude
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        IsDirty = False
         BuilderString = CreateNewBuilderString()
         RecurseSubFolders = chkRecurseSubFolders.Checked
         Me.Close()
@@ -312,6 +324,7 @@ Public Class frmIncludeExclude
         If lstBuilder.SelectedItems.Count > 0 Then
             lstBuilder.SelectedItems(0).BeginEdit()
         End If
+        DirtyCheck()
     End Sub
 
     Private Sub cmsRemove_Click(sender As Object, e As EventArgs) Handles cmsRemove.Click
@@ -323,6 +336,7 @@ Public Class frmIncludeExclude
         oNewItem.Selected = True
         lstBuilder.Items.Add(oNewItem)
         lstBuilder.SelectedItems(0).BeginEdit()
+        DirtyCheck()
     End Sub
 
     Private Sub lstBuilder_AfterLabelEdit(sender As Object, e As LabelEditEventArgs) Handles lstBuilder.AfterLabelEdit
@@ -342,5 +356,31 @@ Public Class frmIncludeExclude
 
     Private Sub btnRawEdit_Click(sender As Object, e As EventArgs) Handles btnRawEdit.Click
         OpenRawEdit()
+        DirtyCheck()
+    End Sub
+
+    Private Sub chkRecurseSubFolders_CheckedChanged(sender As Object, e As EventArgs) Handles chkRecurseSubFolders.CheckedChanged
+        If Not IsLoading Then IsDirty = True
+    End Sub
+
+    Private Sub frmIncludeExclude_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If IsDirty Then
+            Select Case mgrCommon.ConfirmDirty()
+                Case MsgBoxResult.No
+                    IsDirty = False
+                    btnCancel.PerformClick()
+                Case MsgBoxResult.Yes
+                    btnSave.PerformClick()
+                Case MsgBoxResult.Cancel
+                    e.Cancel = True
+            End Select
+        End If
+    End Sub
+
+    Private Sub frmIncludeExclude_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                btnCancel.PerformClick()
+        End Select
     End Sub
 End Class

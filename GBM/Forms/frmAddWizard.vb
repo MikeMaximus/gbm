@@ -11,6 +11,8 @@ Public Class frmAddWizard
         Step5 = 6
     End Enum
 
+    Private Property IsDirty As Boolean = False
+
     Private eCurrentStep As eSteps = eSteps.Step1
     Private oGameToSave As clsGame
     Private bDisableAdminWarning As Boolean = False
@@ -483,6 +485,10 @@ Public Class frmAddWizard
         SetForm()
     End Sub
 
+    Private Sub txtName_TextChanged(sender As Object, e As EventArgs) Handles txtName.TextChanged
+        IsDirty = True
+    End Sub
+
     Private Sub DropTarget_DragEnter(sender As Object, e As DragEventArgs) Handles txtName.DragEnter, txtProcessPath.DragEnter, lblStep1Instructions.DragEnter, lblStep2Instructions.DragEnter
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.Copy
@@ -530,5 +536,19 @@ Public Class frmAddWizard
         UpdateBuilderLabel(txtExcludeList.Text, lblExclude)
     End Sub
 
+    Private Sub frmAddWizard_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If IsDirty Then
+            Select Case mgrCommon.ConfirmDirtyWizard()
+                Case MsgBoxResult.No
+                    e.Cancel = True
+            End Select
+        End If
+    End Sub
 
+    Private Sub frmAddWizard_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                btnCancel.PerformClick()
+        End Select
+    End Sub
 End Class

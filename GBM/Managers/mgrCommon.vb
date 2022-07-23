@@ -274,6 +274,14 @@ Public Class mgrCommon
         Return False
     End Function
 
+    Public Shared Function ConfirmDirty() As MsgBoxResult
+        Return ShowMessage(App_ConfirmDirty, MsgBoxStyle.YesNoCancel)
+    End Function
+
+    Public Shared Function ConfirmDirtyWizard() As MsgBoxResult
+        Return ShowMessage(App_ConfirmDirtyWizard, MsgBoxStyle.YesNo)
+    End Function
+
     Public Shared Function OpenFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal oFileTypes As SortedList, ByVal iFilterIndex As Integer, ByVal sDefaultFolder As String,
                                            Optional ByVal bSavedPath As Boolean = True) As String
         Dim fbBrowser As New OpenFileDialog

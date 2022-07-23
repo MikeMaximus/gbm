@@ -150,6 +150,7 @@ Partial Class frmLudusaviConfig
         Me.Controls.Add(Me.grpOperatingSystems)
         Me.Controls.Add(Me.grpProfileTypes)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmLudusaviConfig"

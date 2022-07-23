@@ -503,6 +503,7 @@ Partial Class frmFilter
         Me.Controls.Add(Me.grpTagFilter)
         Me.Controls.Add(Me.btnOK)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmFilter"

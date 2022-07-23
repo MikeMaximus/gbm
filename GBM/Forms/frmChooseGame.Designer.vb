@@ -81,6 +81,7 @@ Partial Class frmChooseGame
         Me.Controls.Add(Me.btnChoose)
         Me.Controls.Add(Me.lblChoose)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmChooseGame"

@@ -155,6 +155,7 @@ Partial Class frmSessionExport
         Me.Controls.Add(Me.grpExportType)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnExport)
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmSessionExport"

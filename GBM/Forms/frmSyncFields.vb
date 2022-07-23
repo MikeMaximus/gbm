@@ -2,6 +2,7 @@
 
 Public Class frmSyncFields
     Public Property SyncFields As clsGame.eOptionalSyncFields
+    Private Property IsDirty As Boolean = False
 
     Private Sub LoadForm()
         'Load fields
@@ -20,6 +21,16 @@ Public Class frmSyncFields
         If (SyncFields And clsGame.eOptionalSyncFields.Version) = clsGame.eOptionalSyncFields.Version Then
             chkVersion.Checked = True
         End If
+    End Sub
+
+    Private Sub DirtyCheck_ValueChanged(sender As Object, e As EventArgs)
+        IsDirty = True
+    End Sub
+
+    Private Sub AssignDirtyHandlers(ByVal oCtls As GroupBox.ControlCollection)
+        For Each ctl As Control In oCtls
+            If TypeOf ctl Is CheckBox Then AddHandler DirectCast(ctl, CheckBox).CheckedChanged, AddressOf DirtyCheck_ValueChanged
+        Next
     End Sub
 
     Private Sub SetForm()
@@ -43,16 +54,16 @@ Public Class frmSyncFields
     Private Sub frmSyncFields_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetForm()
         LoadForm()
+        AssignDirtyHandlers(grpFields.Controls)
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        IsDirty = False
         Me.DialogResult = DialogResult.OK
-        Me.Close()
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.DialogResult = DialogResult.Cancel
-        Me.Close()
     End Sub
 
     Private Sub chkGamePath_CheckedChanged(sender As Object, e As EventArgs) Handles chkGamePath.CheckedChanged
@@ -93,5 +104,25 @@ Public Class frmSyncFields
         Else
             SyncFields = clsGame.RemoveSyncField(SyncFields, clsGame.eOptionalSyncFields.MonitorGame)
         End If
+    End Sub
+
+    Private Sub frmSyncFields_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If IsDirty Then
+            Select Case mgrCommon.ConfirmDirty()
+                Case MsgBoxResult.No
+                    btnCancel.PerformClick()
+                Case MsgBoxResult.Yes
+                    btnSave.PerformClick()
+                Case MsgBoxResult.Cancel
+                    e.Cancel = True
+            End Select
+        End If
+    End Sub
+
+    Private Sub frmSyncFields_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                btnCancel.PerformClick()
+        End Select
     End Sub
 End Class

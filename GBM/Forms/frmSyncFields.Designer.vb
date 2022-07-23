@@ -130,6 +130,7 @@ Partial Class frmSyncFields
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.grpFields)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmSyncFields"

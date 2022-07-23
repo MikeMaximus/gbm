@@ -170,6 +170,7 @@ Partial Class frmAdvancedImport
         Me.Controls.Add(Me.chkSelectAll)
         Me.Controls.Add(Me.btnImport)
         Me.Controls.Add(Me.lblStatus)
+        Me.KeyPreview = True
         Me.Name = "frmAdvancedImport"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

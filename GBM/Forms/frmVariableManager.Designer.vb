@@ -174,6 +174,7 @@ Partial Class frmVariableManager
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.lstVariables)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmVariableManager"

@@ -97,6 +97,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The wizard isn&apos;t finished.[BR][BR]Are you sure you want to close and lose all progress?.
+        '''</summary>
+        Friend ReadOnly Property App_ConfirmDirtyWizard() As String
+            Get
+                Return ResourceManager.GetString("App_ConfirmDirtyWizard", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to  2014 - [PARAM] Michael J. Seiferling and Game Backup Monitor contributors.
         '''</summary>
         Friend ReadOnly Property App_Copyright() As String
@@ -349,7 +358,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-07-21T02:48:01
+        '''  Looks up a localized string similar to 2022-07-23T15:34:17
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String

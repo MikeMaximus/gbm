@@ -594,6 +594,13 @@ Public Class frmAdvancedImport
     Private Sub lstGames_DrawColumnHeader(sender As Object, e As DrawListViewColumnHeaderEventArgs) Handles lstGames.DrawColumnHeader
         e.DrawDefault = True
     End Sub
+
+    Private Sub frmAdvancedImport_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                btnCancel.PerformClick()
+        End Select
+    End Sub
 End Class
 
 ' Column Sorter

@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.2 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-July 21, 2022
+July 23, 2022
 
 New in 1.3.2
 
@@ -27,5 +27,9 @@ All Platforms:
 - Performance Improvements:
 	- Some functions that blocked the UI now run on a seperate thread.
 	- Optimized various database queries.
+- Interface Improvements:
+	- All windows can now be closed and/or canceled out of edit mode by using the "Escape" key.
+	- More windows will now ask for confirmation before closing if changes aren't yet saved.
+	- You can now use the "Enter" key to confirm the "Ludusavi Options" window.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

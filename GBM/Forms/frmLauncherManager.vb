@@ -386,4 +386,16 @@ Public Class frmLauncherManager
             End Select
         End If
     End Sub
+
+    Private Sub frmLauncherManager_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                Select Case eCurrentMode
+                    Case eModes.Add, eModes.Edit
+                        btnCancel.PerformClick()
+                    Case eModes.Disabled, eModes.View
+                        Me.Close()
+                End Select
+        End Select
+    End Sub
 End Class

@@ -341,20 +341,6 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Function HandleDirty() As MsgBoxResult
-        Dim oResult As MsgBoxResult
-
-        oResult = mgrCommon.ShowMessage(App_ConfirmDirty, MsgBoxStyle.YesNoCancel)
-
-        Select Case oResult
-            Case MsgBoxResult.No
-                IsDirty = False
-        End Select
-
-        Return oResult
-
-    End Function
-
     Private Sub FormatAndFillList()
         IsLoading = True
 
@@ -1348,10 +1334,11 @@ Public Class frmGameManager
 
     Private Sub CancelEdit()
         If IsDirty Then
-            Select Case HandleDirty()
+            Select Case mgrCommon.ConfirmDirty()
                 Case MsgBoxResult.Yes
                     SaveApp()
                 Case MsgBoxResult.No
+                    IsDirty = False
                     If lstGames.SelectedItems.Count > 0 Then
                         eCurrentMode = eModes.View
                         FillData()
@@ -2073,7 +2060,9 @@ Public Class frmGameManager
 
     Private Sub frmGameManager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If IsDirty Then
-            Select Case HandleDirty()
+            Select Case mgrCommon.ConfirmDirty()
+                Case MsgBoxResult.No
+                    IsDirty = False
                 Case MsgBoxResult.Yes
                     SaveApp()
                     If IsDirty Then e.Cancel = True
@@ -2334,5 +2323,17 @@ Public Class frmGameManager
             lblProcess.Text = frmGameManager_lblProcess
             btnProcessBrowse.Enabled = True
         End If
+    End Sub
+
+    Private Sub frmGameManager_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                Select Case eCurrentMode
+                    Case eModes.Add, eModes.Edit
+                        btnCancel.PerformClick()
+                    Case eModes.Disabled, eModes.Locked, eModes.MultiSelect, eModes.View
+                        Me.Close()
+                End Select
+        End Select
     End Sub
 End Class

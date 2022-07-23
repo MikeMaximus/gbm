@@ -69,4 +69,13 @@ Public Class frmLudusaviConfig
         Me.DialogResult = DialogResult.Cancel
         Me.Close()
     End Sub
+
+    Private Sub frmLudusaviConfig_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Enter
+                btnOK.PerformClick()
+            Case Keys.Escape
+                btnCancel.PerformClick()
+        End Select
+    End Sub
 End Class

@@ -118,6 +118,7 @@ Partial Class frmConfigLinks
         Me.Controls.Add(Me.lstLinks)
         Me.Controls.Add(Me.lstConfigs)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmConfigLinks"

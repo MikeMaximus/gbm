@@ -2,10 +2,11 @@
 Imports System.IO
 
 Public Class frmSettings
-    Dim bIsLoading As Boolean = False
-    Dim bShutdown As Boolean = False
     Dim bSyncSettingsChanged As Boolean = False
     Dim eCurrentSyncFields As clsGame.eOptionalSyncFields
+
+    Private Property IsDirty As Boolean = False
+    Private Property IsLoading As Boolean = False
 
     Private Sub HandleLinuxAutoStart(ByVal bToggle As Boolean)
         Dim oProcess As Process
@@ -147,6 +148,7 @@ Public Class frmSettings
         If ValidateSettings() Then
             mgrSettings.SaveSettings()
             If bSyncSettingsChanged Then mgrSync.HandleBackupLocationChange()
+            IsDirty = False
             Return True
         Else
             Return False
@@ -210,6 +212,7 @@ Public Class frmSettings
 
     Private Sub ResetMessages()
         If mgrCommon.ShowMessage(frmSettings_ConfirmMessageReset, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            IsDirty = True
             mgrSettings.SuppressMessages = mgrSettings.eSuppressMessages.None
         End If
     End Sub
@@ -307,6 +310,7 @@ Public Class frmSettings
         frm.SyncFields = mgrSettings.SyncFields
         frm.ShowDialog()
         If frm.DialogResult = DialogResult.OK Then
+            IsDirty = True
             mgrSettings.SyncFields = frm.SyncFields
         End If
     End Sub
@@ -360,6 +364,28 @@ Public Class frmSettings
                     pnl7z.Visible = True
             End Select
         End If
+    End Sub
+
+    Private Sub DirtyCheck_ValueChanged(sender As Object, e As EventArgs)
+        If Not IsLoading Then
+            IsDirty = True
+        End If
+    End Sub
+
+    Private Sub AssignDirtyHandlers(ByVal oCtls As GroupBox.ControlCollection)
+        For Each ctl As Control In oCtls
+            If TypeOf ctl Is GroupBox Then
+                AssignDirtyHandlers(ctl.Controls)
+            ElseIf TypeOf ctl Is TextBox Then
+                AddHandler DirectCast(ctl, TextBox).TextChanged, AddressOf DirtyCheck_ValueChanged
+            ElseIf TypeOf ctl Is CheckBox Then
+                AddHandler DirectCast(ctl, CheckBox).CheckedChanged, AddressOf DirtyCheck_ValueChanged
+            ElseIf TypeOf ctl Is NumericUpDown Then
+                AddHandler DirectCast(ctl, NumericUpDown).ValueChanged, AddressOf DirtyCheck_ValueChanged
+            ElseIf TypeOf ctl Is ComboBox Then
+                AddHandler DirectCast(ctl, ComboBox).SelectedValueChanged, AddressOf DirtyCheck_ValueChanged
+            End If
+        Next
     End Sub
 
     Private Sub SetForm()
@@ -440,22 +466,40 @@ Public Class frmSettings
 
     Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click
         If SaveSettings() Then
-            bShutdown = True
             Me.Close()
         End If
     End Sub
 
     Private Sub btnCancel_Click(sender As System.Object, e As System.EventArgs) Handles btnCancel.Click
-        bShutdown = True
         Me.Close()
     End Sub
 
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        bIsLoading = True
+        IsLoading = True
         SetForm()
         LoadCombos()
         LoadSettings()
-        bIsLoading = False
+        IsLoading = False
+
+        AssignDirtyHandlers(pnl7z.Controls)
+        AssignDirtyHandlers(pnlBackup.Controls)
+        AssignDirtyHandlers(pnlFilesAndFolders.Controls)
+        AssignDirtyHandlers(pnlGeneral.Controls)
+        AssignDirtyHandlers(pnlInterface.Controls)
+        AssignDirtyHandlers(pnlStartup.Controls)
+    End Sub
+
+    Private Sub frmSettings_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If IsDirty Then
+            Select Case mgrCommon.ConfirmDirty()
+                Case MsgBoxResult.No
+                    IsDirty = False
+                Case MsgBoxResult.Yes
+                    If Not SaveSettings() Then e.Cancel = True
+                Case MsgBoxResult.Cancel
+                    e.Cancel = True
+            End Select
+        End If
     End Sub
 
     Private Sub btnBackupFolder_Click(sender As System.Object, e As System.EventArgs) Handles btnBackupFolder.Click
@@ -506,12 +550,19 @@ Public Class frmSettings
     End Sub
 
     Private Sub chkEnableLauncher_CheckedChanged(sender As Object, e As EventArgs) Handles chkEnableLauncher.CheckedChanged
-        If Not bIsLoading Then
+        If Not IsLoading Then
             If chkSessionTracking.Checked = False And chkEnableLauncher.Checked = True Then
                 If mgrCommon.ShowMessage(frmSettings_ConfirmEnableLauncherSessions, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     chkSessionTracking.Checked = True
                 End If
             End If
         End If
+    End Sub
+
+    Private Sub frmSettings_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                btnCancel.PerformClick()
+        End Select
     End Sub
 End Class

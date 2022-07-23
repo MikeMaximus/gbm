@@ -3,6 +3,17 @@
 Public Class frmWineConfiguration
     Public Property MonitorID As String
     Public Property GameName As String
+    Private Property IsDirty As Boolean = False
+
+    Private Sub DirtyCheck_ValueChanged(sender As Object, e As EventArgs)
+        IsDirty = True
+    End Sub
+
+    Private Sub AssignDirtyHandlers(ByVal oCtls As GroupBox.ControlCollection)
+        For Each ctl As Control In oCtls
+            If TypeOf ctl Is TextBox Then AddHandler DirectCast(ctl, TextBox).TextChanged, AddressOf DirtyCheck_ValueChanged
+        Next
+    End Sub
 
     Private Sub SetForm()
         'Set Form Name
@@ -26,6 +37,7 @@ Public Class frmWineConfiguration
         txtWineBinaryPath.Text = oWineData.BinaryPath
         txtWinePrefix.Text = oWineData.Prefix
         txtWineSavePath.Text = oWineData.SavePath
+        AssignDirtyHandlers(grpWineConfig.Controls)
     End Sub
 
     Private Sub HandleWarning()
@@ -76,10 +88,31 @@ Public Class frmWineConfiguration
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        IsDirty = False
         SaveData()
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.DialogResult = DialogResult.Cancel
+    End Sub
+
+    Private Sub frmWineConfiguration_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If IsDirty Then
+            Select Case mgrCommon.ConfirmDirty()
+                Case MsgBoxResult.No
+                    btnCancel.PerformClick()
+                Case MsgBoxResult.Yes
+                    btnSave.PerformClick()
+                Case MsgBoxResult.Cancel
+                    e.Cancel = True
+            End Select
+        End If
+    End Sub
+
+    Private Sub frmWineConfiguration_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                btnCancel.PerformClick()
+        End Select
     End Sub
 End Class

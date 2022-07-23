@@ -208,4 +208,11 @@ Public Class frmGameTags
         If NewMode Then BuildTagList()
         OpenTags()
     End Sub
+
+    Private Sub frmGameTags_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                Me.Close()
+        End Select
+    End Sub
 End Class

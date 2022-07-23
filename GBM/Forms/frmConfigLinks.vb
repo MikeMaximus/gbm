@@ -234,4 +234,11 @@ Public Class frmConfigLinks
             tmFilterTimer.Start()
         End If
     End Sub
+
+    Private Sub frmConfigLinks_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                Me.Close()
+        End Select
+    End Sub
 End Class
