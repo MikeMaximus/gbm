@@ -366,7 +366,7 @@ Public Class frmAdvancedImport
             btnImport.Enabled = True
             btnCancel.Enabled = True
             lstGames.Enabled = True
-            lstGames.Focus()
+            txtFilter.Focus()
         Else
             Me.UseWaitCursor = True
             chkSelectAll.Enabled = False

@@ -44,7 +44,7 @@ Partial Class frmAdvancedImport
         Me.btnImport.Location = New System.Drawing.Point(646, 559)
         Me.btnImport.Name = "btnImport"
         Me.btnImport.Size = New System.Drawing.Size(60, 45)
-        Me.btnImport.TabIndex = 7
+        Me.btnImport.TabIndex = 6
         Me.btnImport.Text = "&Import"
         Me.btnImport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnImport.UseVisualStyleBackColor = True
@@ -76,7 +76,7 @@ Partial Class frmAdvancedImport
         Me.btnCancel.Location = New System.Drawing.Point(712, 559)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(60, 45)
-        Me.btnCancel.TabIndex = 8
+        Me.btnCancel.TabIndex = 7
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
@@ -92,7 +92,7 @@ Partial Class frmAdvancedImport
         Me.lstGames.Location = New System.Drawing.Point(12, 35)
         Me.lstGames.Name = "lstGames"
         Me.lstGames.Size = New System.Drawing.Size(760, 518)
-        Me.lstGames.TabIndex = 5
+        Me.lstGames.TabIndex = 4
         Me.lstGames.UseCompatibleStateImageBehavior = False
         Me.lstGames.View = System.Windows.Forms.View.Details
         '
@@ -102,7 +102,7 @@ Partial Class frmAdvancedImport
         Me.txtFilter.Location = New System.Drawing.Point(586, 8)
         Me.txtFilter.Name = "txtFilter"
         Me.txtFilter.Size = New System.Drawing.Size(156, 20)
-        Me.txtFilter.TabIndex = 3
+        Me.txtFilter.TabIndex = 2
         '
         'lblFilter
         '
@@ -131,7 +131,7 @@ Partial Class frmAdvancedImport
         Me.btnDetectSavedGames.Location = New System.Drawing.Point(12, 559)
         Me.btnDetectSavedGames.Name = "btnDetectSavedGames"
         Me.btnDetectSavedGames.Size = New System.Drawing.Size(140, 45)
-        Me.btnDetectSavedGames.TabIndex = 6
+        Me.btnDetectSavedGames.TabIndex = 5
         Me.btnDetectSavedGames.Text = "&Detect Saved Games"
         Me.btnDetectSavedGames.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnDetectSavedGames.UseVisualStyleBackColor = True
@@ -146,7 +146,7 @@ Partial Class frmAdvancedImport
         Me.btnClearSelected.Location = New System.Drawing.Point(748, 5)
         Me.btnClearSelected.Name = "btnClearSelected"
         Me.btnClearSelected.Size = New System.Drawing.Size(24, 24)
-        Me.btnClearSelected.TabIndex = 4
+        Me.btnClearSelected.TabIndex = 3
         Me.btnClearSelected.UseVisualStyleBackColor = True
         '
         'bwDetect
