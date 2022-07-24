@@ -815,9 +815,10 @@ Public Class mgrCommon
                 'Download updated file
                 If mgrCommon.ReadText(sContent, sLocation) Then
                     'Save File
-                    SaveText(sContent, sCachedFile)
-                    'Save ETag
-                    SaveText(sETag, sETagFile)
+                    If SaveText(sContent, sCachedFile) Then
+                        'Save ETag
+                        SaveText(sETag, sETagFile)
+                    End If
                 End If
             End If
 
@@ -850,7 +851,7 @@ Public Class mgrCommon
     End Function
 
     'Save string as a local text file
-    Public Shared Sub SaveText(ByVal sText As String, ByVal sPath As String)
+    Public Shared Function SaveText(ByVal sText As String, ByVal sPath As String) As Boolean
         Dim oStream As StreamWriter
         Try
             oStream = New StreamWriter(sPath, False)
@@ -859,8 +860,11 @@ Public Class mgrCommon
             oStream.Close()
         Catch ex As Exception
             ShowMessage(mgrCommon_ErrorWritingTextFile, ex.Message, MsgBoxStyle.Critical)
+            Return False
         End Try
-    End Sub
+
+        Return True
+    End Function
 
     'Open a nice button sub-menu
     Public Shared Sub OpenButtonSubMenu(ByRef cms As ContextMenuStrip, ByRef btn As Button)
