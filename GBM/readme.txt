@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.2 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-July 23, 2022
+July 24, 2022
 
 New in 1.3.2
 
@@ -31,5 +31,8 @@ All Platforms:
 	- All windows can now be closed and/or canceled out of edit mode by using the "Escape" key.
 	- More windows will now ask for confirmation before closing if changes aren't yet saved.
 	- You can now use the "Enter" key to confirm the "Ludusavi Options" window.
-
+	- You can now filter by "Tag" specifically in some search fields by using a hashtag in the search term. Ex. #Steam
+		- In prior versions you didn't need to use a hashtag in the search term to filter by tag, but the results included both name and tag matches.
+		- This feature is supported on the main window, the Game Manager, and the Import window.
+		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

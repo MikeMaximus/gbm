@@ -264,7 +264,11 @@ Public Class frmAdvancedImport
             If txtFilter.Text = String.Empty Then
                 bAddItem = True
             Else
-                If oApp.Name.ToLower.Contains(txtFilter.Text.ToLower) Or oApp.ProcessName.ToLower.Contains(txtFilter.Text.ToLower) Or sTags.ToLower.Contains(txtFilter.Text.ToLower) Then
+                If txtFilter.Text.StartsWith("#") Then
+                    If sTags.ToLower.Contains(txtFilter.Text.Remove(0, 1).ToLower) Then
+                        bAddItem = True
+                    End If
+                ElseIf oApp.Name.ToLower.Contains(txtFilter.Text.ToLower) Or oApp.ProcessName.ToLower.Contains(txtFilter.Text.ToLower) Then
                     bAddItem = True
                 End If
             End If

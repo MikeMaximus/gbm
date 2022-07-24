@@ -481,9 +481,13 @@ Public Class mgrMonitorList
             Else
                 sSQL &= " AND "
             End If
-            sSQL &= "MonitorID IN (SELECT MonitorID FROM monitorlist WHERE Name LIKE @QuickName OR MonitorID IN (SELECT MonitorID FROM gametags NATURAL JOIN tags WHERE tags.Name=@QuickTag COLLATE NOCASE))"
-            hshParams.Add("QuickName", "%" & sQuickFilter & "%")
-            hshParams.Add("QuickTag", sQuickFilter)
+            If sQuickFilter.StartsWith("#") Then
+                sSQL &= "MonitorID IN (SELECT MonitorID FROM gametags NATURAL JOIN tags WHERE tags.Name=@QuickTag COLLATE NOCASE)"
+                hshParams.Add("QuickTag", sQuickFilter.Remove(0, 1))
+            Else
+                sSQL &= "MonitorID IN (SELECT MonitorID FROM monitorlist WHERE Name LIKE @QuickName)"
+                hshParams.Add("QuickName", "%" & sQuickFilter & "%")
+            End If
         End If
 
         'Handle Sorting
