@@ -3197,6 +3197,10 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub lstGames_DoubleClick(sender As Object, e As EventArgs) Handles lstGames.DoubleClick
+        OpenGameManager(oSelectedGame)
+    End Sub
+
     Private Sub lstGames_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstGames.SelectedIndexChanged
         If Not bListLoading Then
             If lstGames.SelectedIndex = -1 Then
@@ -3218,4 +3222,5 @@ Public Class frmMain
         'Move focus to first label
         lblGameTitle.Focus()
     End Sub
+
 End Class
