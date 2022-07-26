@@ -805,12 +805,12 @@ Public Class mgrCommon
             sCachedFile = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & oURL.Segments(oURL.Segments.Length - 1)
             sETagFile = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & Path.GetFileNameWithoutExtension(sCachedFile) & ".etag"
 
-            'Check for a saved ETag
-            If File.Exists(sETagFile) Then
+            'Check for a cached file with ETag
+            If File.Exists(sCachedFile) And File.Exists(sETagFile) Then
                 ReadText(sETag, sETagFile)
             End If
 
-            'Query address using ETag if available
+            'Check location
             If CheckAddressForUpdates(sLocation, sETag) Then
                 'Download updated file
                 If mgrCommon.ReadText(sContent, sLocation) Then
