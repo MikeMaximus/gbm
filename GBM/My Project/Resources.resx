@@ -1708,7 +1708,7 @@
     <value>Delete Folder on Restore</value>
   </data>
   <data name="frmFilter_FieldEnabled" xml:space="preserve">
-    <value>Monitor Game</value>
+    <value>Allow monitoring</value>
   </data>
   <data name="frmFilter_FieldExcludeList" xml:space="preserve">
     <value>Exclude Items</value>
@@ -1723,7 +1723,7 @@
     <value>Icon</value>
   </data>
   <data name="frmFilter_FieldMonitorOnly" xml:space="preserve">
-    <value>Monitor Only</value>
+    <value>No backup when game ends</value>
   </data>
   <data name="frmFilter_FieldPath" xml:space="preserve">
     <value>Save Path *</value>

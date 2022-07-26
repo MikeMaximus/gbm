@@ -358,7 +358,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-07-26T14:04:32
+        '''  Looks up a localized string similar to 2022-07-26T14:40:41
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1459,7 +1459,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Monitor Game.
+        '''  Looks up a localized string similar to Allow monitoring.
         '''</summary>
         Friend ReadOnly Property frmFilter_FieldEnabled() As String
             Get
@@ -1540,7 +1540,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Monitor Only.
+        '''  Looks up a localized string similar to No backup when game ends.
         '''</summary>
         Friend ReadOnly Property frmFilter_FieldMonitorOnly() As String
             Get
