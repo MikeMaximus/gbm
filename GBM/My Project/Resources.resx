@@ -415,13 +415,13 @@
     <value>...</value>
   </data>
   <data name="frmGameManager_cmsEnabled" xml:space="preserve">
-    <value>&amp;Monitor this game</value>
+    <value>&amp;Allow monitoring</value>
   </data>
   <data name="frmGameManager_chkFolderSave" xml:space="preserve">
     <value>Save entire folder</value>
   </data>
   <data name="frmGameManager_cmsMonitorOnly" xml:space="preserve">
-    <value>Monitor &amp;only</value>
+    <value>&amp;No backup when game ends</value>
   </data>
   <data name="frmGameManager_chkTimeStamp" xml:space="preserve">
     <value>Save multiple backups</value>
@@ -2201,7 +2201,7 @@
     <value>..\Resources\BuildDate.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
   <data name="frmGameManager_ConfirmMultiSave" xml:space="preserve">
-    <value>Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Monitor this game: [PARAM][BR]Monitor only: [PARAM]</value>
+    <value>Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Allow monitoring: [PARAM][BR]No backup when game ends: [PARAM]</value>
   </data>
   <data name="frmGameManager_WarningEmptyProcess" xml:space="preserve">
     <value>A valid process name or regular expression is required to monitor and backup your saved games automatically.[BR][BR]You may leave the Process field blank to a create manual backup configuration for this game, these configurations will be automatically excluded from monitoring.[BR][BR]This warning will only be displayed once.</value>

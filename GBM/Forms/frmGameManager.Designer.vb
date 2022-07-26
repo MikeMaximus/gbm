@@ -1103,21 +1103,21 @@ Partial Class frmGameManager
         Me.cmsMonitorOptions.Name = "cmsMonitorOptions"
         Me.cmsMonitorOptions.ShowCheckMargin = True
         Me.cmsMonitorOptions.ShowImageMargin = False
-        Me.cmsMonitorOptions.Size = New System.Drawing.Size(173, 48)
+        Me.cmsMonitorOptions.Size = New System.Drawing.Size(226, 70)
         '
         'cmsEnabled
         '
         Me.cmsEnabled.CheckOnClick = True
         Me.cmsEnabled.Name = "cmsEnabled"
-        Me.cmsEnabled.Size = New System.Drawing.Size(172, 22)
-        Me.cmsEnabled.Text = "&Monitor this game"
+        Me.cmsEnabled.Size = New System.Drawing.Size(225, 22)
+        Me.cmsEnabled.Text = "&Allow monitoring"
         '
         'cmsMonitorOnly
         '
         Me.cmsMonitorOnly.CheckOnClick = True
         Me.cmsMonitorOnly.Name = "cmsMonitorOnly"
-        Me.cmsMonitorOnly.Size = New System.Drawing.Size(172, 22)
-        Me.cmsMonitorOnly.Text = "Monitor &Only"
+        Me.cmsMonitorOnly.Size = New System.Drawing.Size(225, 22)
+        Me.cmsMonitorOnly.Text = "&No backup when game ends"
         '
         'btnLocked
         '

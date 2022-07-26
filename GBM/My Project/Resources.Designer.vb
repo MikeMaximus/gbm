@@ -358,7 +358,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-07-23T15:34:17
+        '''  Looks up a localized string similar to 2022-07-26T14:04:32
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2200,7 +2200,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Monitor this game.
+        '''  Looks up a localized string similar to &amp;Allow monitoring.
         '''</summary>
         Friend ReadOnly Property frmGameManager_cmsEnabled() As String
             Get
@@ -2263,7 +2263,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Monitor &amp;only.
+        '''  Looks up a localized string similar to &amp;No backup when game ends.
         '''</summary>
         Friend ReadOnly Property frmGameManager_cmsMonitorOnly() As String
             Get
@@ -2461,7 +2461,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Monitor this game: [PARAM][BR]Monitor only: [PARAM].
+        '''  Looks up a localized string similar to Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Allow monitoring: [PARAM][BR]No backup when game ends: [PARAM].
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmMultiSave() As String
             Get
