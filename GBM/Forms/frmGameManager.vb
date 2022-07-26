@@ -412,16 +412,12 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Sub OpenBackupFile()
-        Dim sFileName As String = BackupFolder & CurrentBackupItem.FileName
-
-        mgrCommon.OpenInOS(sFileName, frmGameManager_ErrorNoBackupFileExists)
+    Private Sub OpenFile(ByVal sFileName As String)
+        mgrCommon.OpenInOS(sFileName, frmGameManager_ErrorNoFileExists)
     End Sub
 
-    Private Sub OpenBackupFolder()
-        Dim sFileName As String = BackupFolder & Path.GetDirectoryName(CurrentBackupItem.FileName)
-
-        mgrCommon.OpenInOS(sFileName, frmGameManager_ErrorNoBackupFolderExists)
+    Private Sub OpenFolder(ByVal sFolderName As String)
+        mgrCommon.OpenInOS(sFolderName, frmGameManager_ErrorNoFolderExists)
     End Sub
 
     Private Sub UpdateBuilderButtonLabel(ByVal sBuilderString As String, ByVal sLabel As String, ByVal btn As Button, ByVal bDirty As Boolean)
@@ -450,7 +446,7 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Function GetBuilderRoot() As String
+    Private Function GetSavePath() As String
         Dim sRoot As String = String.Empty
         Dim sPath As String = String.Empty
         Dim sAppPath As String = mgrPath.ValidatePath(txtAppPath.Text)
@@ -489,7 +485,7 @@ Public Class frmGameManager
         Dim frm As New frmIncludeExclude
         frm.FormName = sFormText
         frm.BuilderString = txtBox.Text
-        frm.RootFolder = GetBuilderRoot()
+        frm.RootFolder = GetSavePath()
         frm.RecurseSubFolders = chkRecurseSubFolders.Checked
         frm.ShowDialog()
 
@@ -765,7 +761,7 @@ Public Class frmGameManager
             If File.Exists(sFileName) Then
                 lblBackupFileData.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sFileName)) & ")"
             Else
-                lblBackupFileData.Text = frmGameManager_ErrorNoBackupFileExists
+                lblBackupFileData.Text = frmGameManager_ErrorNoFileExists
             End If
 
             SetBackupRestorePath(oApp)
@@ -837,7 +833,7 @@ Public Class frmGameManager
             If File.Exists(sFileName) Then
                 lblBackupFileData.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sFileName)) & ")"
             Else
-                lblBackupFileData.Text = frmGameManager_ErrorNoBackupFileExists
+                lblBackupFileData.Text = frmGameManager_ErrorNoFileExists
             End If
 
             SetBackupRestorePath(CurrentGame)
@@ -1892,6 +1888,7 @@ Public Class frmGameManager
         lblCompany.Text = frmGameManager_lblCompany
         lblIcon.Text = frmGameManager_lblIcon
         btnAppPathBrowse.Text = frmGameManager_btnAppPathBrowse
+        btnOpenGameFolder.Image = frmGameManager_Folder_Open
         lblGamePath.Text = frmGameManager_lblGamePath
         lblHours.Text = frmGameManager_lblHours
         btnExclude.Text = frmGameManager_btnExclude
@@ -1899,6 +1896,7 @@ Public Class frmGameManager
         btnInclude.Text = frmGameManager_btnInclude
         btnInclude.Image = frmGameManager_Include_Items
         btnSavePathBrowse.Text = frmGameManager_btnSavePathBrowse
+        btnOpenSaveFolder.Image = frmGameManager_Folder_Open
         btnProcessBrowse.Text = frmGameManager_btnProcessBrowse
         lblSavePath.Text = frmGameManager_lblSavePath
         lblProcess.Text = frmGameManager_lblProcess
@@ -1953,6 +1951,8 @@ Public Class frmGameManager
         ttHelp.SetToolTip(lblBackupFileData, frmGameManager_ttHelp_lblBackupFileData)
         ttHelp.SetToolTip(lblGameTags, frmGameManager_ttHelp_lblTags)
         ttHelp.SetToolTip(btnProcessOptions, frmGameManager_ttHelp_btnProcessOptions)
+        ttHelp.SetToolTip(btnOpenGameFolder, frmGameManager_ttHelp_btnOpenGameFolder)
+        ttHelp.SetToolTip(btnOpenSaveFolder, frmGameManager_ttHelp_btnOpenSaveFolder)
         ttHelp.SetToolTip(btnLinks, frmGameManager_ttHelp_btnLinks)
         ttHelp.SetToolTip(btnMonitorOptions, frmGameManager_ttHelp_btnMonitorOptions)
         ttHelp.SetToolTip(btnGameID, frmGameManager_ttHelp_btnGameID)
@@ -2080,8 +2080,16 @@ Public Class frmGameManager
         SavePathBrowse()
     End Sub
 
+    Private Sub btnOpenSaveFolder_Click(sender As Object, e As EventArgs) Handles btnOpenSaveFolder.Click
+        OpenFolder(GetSavePath())
+    End Sub
+
     Private Sub btnAppPathBrowse_Click(sender As Object, e As EventArgs) Handles btnAppPathBrowse.Click
         ProcessPathBrowse()
+    End Sub
+
+    Private Sub btnOpenGameFolder_Click(sender As Object, e As EventArgs) Handles btnOpenGameFolder.Click
+        OpenFolder(mgrPath.ReplaceSpecialPaths(txtAppPath.Text))
     End Sub
 
     Private Sub btnIconBrowse_Click(sender As Object, e As EventArgs) Handles btnIconBrowse.Click
@@ -2089,11 +2097,11 @@ Public Class frmGameManager
     End Sub
 
     Private Sub lblBackupFileData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblBackupFileData.LinkClicked
-        OpenBackupFile()
+        OpenFile(BackupFolder & CurrentBackupItem.FileName)
     End Sub
 
     Private Sub btnOpenBackupFolder_Click(sender As Object, e As EventArgs) Handles btnOpenBackupFolder.Click
-        OpenBackupFolder()
+        OpenFolder(BackupFolder & Path.GetDirectoryName(CurrentBackupItem.FileName))
     End Sub
 
     Private Sub lblRestorePathData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblRestorePathData.LinkClicked

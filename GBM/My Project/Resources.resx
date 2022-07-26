@@ -480,8 +480,8 @@
   <data name="frmGameManager_ErrorNoBackupData" xml:space="preserve">
     <value>The selected game(s) have no backup data or can't be restored with their current configuration.</value>
   </data>
-  <data name="frmGameManager_ErrorNoBackupFileExists" xml:space="preserve">
-    <value>The backup file does not exist.</value>
+  <data name="frmGameManager_ErrorNoFileExists" xml:space="preserve">
+    <value>The file does not exist.</value>
   </data>
   <data name="frmGameManager_ErrorNoItems" xml:space="preserve">
     <value>You must choose items to include in the backup, or choose to save the entire folder.</value>
@@ -2187,8 +2187,8 @@
   <data name="frmChooseGame_ColumnTags" xml:space="preserve">
     <value>Tags</value>
   </data>
-  <data name="frmGameManager_ErrorNoBackupFolderExists" xml:space="preserve">
-    <value>The backup folder does not exist.</value>
+  <data name="frmGameManager_ErrorNoFolderExists" xml:space="preserve">
+    <value>The folder does not exist.</value>
   </data>
   <data name="frmAddWizard_Summary_NoLimit" xml:space="preserve">
     <value>Unlimited</value>
@@ -3150,5 +3150,11 @@
   </data>
   <data name="App_ConfirmDirtyWizard" xml:space="preserve">
     <value>The wizard isn't finished.[BR][BR]Are you sure you want to close and lose all progress?</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnOpenGameFolder" xml:space="preserve">
+    <value>Open game folder</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnOpenSaveFolder" xml:space="preserve">
+    <value>Open save folder</value>
   </data>
 </root>

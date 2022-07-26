@@ -358,7 +358,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-07-26T14:40:41
+        '''  Looks up a localized string similar to 2022-07-26T18:23:50
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2543,20 +2543,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The backup file does not exist..
+        '''  Looks up a localized string similar to The file does not exist..
         '''</summary>
-        Friend ReadOnly Property frmGameManager_ErrorNoBackupFileExists() As String
+        Friend ReadOnly Property frmGameManager_ErrorNoFileExists() As String
             Get
-                Return ResourceManager.GetString("frmGameManager_ErrorNoBackupFileExists", resourceCulture)
+                Return ResourceManager.GetString("frmGameManager_ErrorNoFileExists", resourceCulture)
             End Get
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The backup folder does not exist..
+        '''  Looks up a localized string similar to The folder does not exist..
         '''</summary>
-        Friend ReadOnly Property frmGameManager_ErrorNoBackupFolderExists() As String
+        Friend ReadOnly Property frmGameManager_ErrorNoFolderExists() As String
             Get
-                Return ResourceManager.GetString("frmGameManager_ErrorNoBackupFolderExists", resourceCulture)
+                Return ResourceManager.GetString("frmGameManager_ErrorNoFolderExists", resourceCulture)
             End Get
         End Property
         
@@ -3132,6 +3132,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ttHelp_btnOpenBackupFolder() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ttHelp_btnOpenBackupFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Open game folder.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ttHelp_btnOpenGameFolder() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ttHelp_btnOpenGameFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Open save folder.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ttHelp_btnOpenSaveFolder() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ttHelp_btnOpenSaveFolder", resourceCulture)
             End Get
         End Property
         
