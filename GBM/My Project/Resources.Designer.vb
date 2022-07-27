@@ -358,7 +358,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-07-26T18:23:50
+        '''  Looks up a localized string similar to 2022-07-27T13:52:04
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2011,6 +2011,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Toggle.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_btnLocked_Toggle() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_btnLocked_Toggle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Un&amp;lock.
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnLocked_Unlock() As String
@@ -3082,6 +3091,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_Toggle_Lock() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmGameManager_Toggle_Lock", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Manage backup data.
         '''</summary>
         Friend ReadOnly Property frmGameManager_ttHelp_btnBackupData() As String
@@ -3105,6 +3124,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ttHelp_btnLinks() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ttHelp_btnLinks", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Toggle the lock state of the selected configurations.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ttHelp_btnLocked() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ttHelp_btnLocked", resourceCulture)
             End Get
         End Property
         

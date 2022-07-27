@@ -1006,13 +1006,22 @@ Public Class frmGameManager
     End Sub
 
     Private Sub ToggleLock()
-        If chkLocked.Checked Then
-            btnLocked.Text = frmGameManager_btnLocked_Unlock
-            btnLocked.Image = frmGameManager_Unlock
-        Else
-            btnLocked.Text = frmGameManager_btnLocked_Lock
-            btnLocked.Image = frmGameManager_Lock
-        End If
+        Select Case eCurrentMode
+            Case eModes.MultiSelect
+                btnLocked.Text = frmGameManager_btnLocked_Toggle
+                btnLocked.Image = frmGameManager_Toggle_Lock
+                ttHelp.SetToolTip(btnLocked, frmGameManager_ttHelp_btnLocked)
+            Case Else
+                If chkLocked.Checked Then
+                    btnLocked.Text = frmGameManager_btnLocked_Unlock
+                    btnLocked.Image = frmGameManager_Unlock
+                    ttHelp.SetToolTip(btnLocked, String.Empty)
+                Else
+                    btnLocked.Text = frmGameManager_btnLocked_Lock
+                    btnLocked.Image = frmGameManager_Lock
+                    ttHelp.SetToolTip(btnLocked, String.Empty)
+                End If
+        End Select
     End Sub
 
     Private Sub ToggleControls(ByVal oCtls As GroupBox.ControlCollection, ByVal bEnabled As Boolean)
@@ -1157,7 +1166,7 @@ Public Class frmGameManager
                 tbGameInfo.Enabled = False
                 tbBackupInfo.Enabled = False
                 btnAdd.Enabled = True
-                btnDelete.Enabled = True
+                btnDelete.Enabled = False
                 btnAdvanced.Enabled = False
                 btnCopy.Enabled = False
                 btnLocked.Enabled = False
@@ -1223,8 +1232,9 @@ Public Class frmGameManager
                 cmsDeleteOne.Enabled = False
                 cmsImportData.Enabled = False
                 btnAdvanced.Enabled = False
-                btnCopy.Enabled = False
-                btnLocked.Enabled = False
+                btnCopy.Enabled = True
+                btnLocked.Enabled = True
+                ToggleLock()
                 btnGameID.Enabled = False
                 btnImport.Enabled = True
                 btnExport.Enabled = True
@@ -1497,13 +1507,25 @@ Public Class frmGameManager
     End Sub
 
     Private Sub LockApp()
-        eCurrentMode = eModes.Edit
-        chkLocked.Checked = Not chkLocked.Checked
-        SaveApp()
+        Dim oData As KeyValuePair(Of String, String)
+        Dim oApp As clsGame
+
+        If lstGames.SelectedItems.Count >= 1 Then
+            For Each oData In lstGames.SelectedItems
+                oApp = DirectCast(GameData(oData.Key), clsGame)
+                mgrMonitorList.DoListFieldUpdate("Locked", Not oApp.Locked, oApp.ID)
+            Next
+        End If
+
+        mgrSync.SyncData()
+        LoadBackupData()
+        LoadData()
     End Sub
 
     Private Sub CopyApp()
-        Dim oApp As clsGame = CurrentGame.ShallowCopy
+        Dim oData As KeyValuePair(Of String, String)
+        Dim oCurrentApp As clsGame
+        Dim oApp As clsGame
 
         Dim oTag As clsTag
         Dim oTags As SortedList
@@ -1518,40 +1540,46 @@ Public Class frmGameManager
         Dim oConfigLink As clsConfigLink
         Dim oConfigLinks As List(Of clsConfigLink)
 
-        'Base
-        oApp.ID = Guid.NewGuid.ToString
-        oApp.Name &= " (Copy)"
-        mgrMonitorList.DoListAdd(oApp)
+        If lstGames.SelectedItems.Count >= 1 Then
+            For Each oData In lstGames.SelectedItems
+                oCurrentApp = DirectCast(GameData(oData.Key), clsGame)
+                oApp = oCurrentApp.ShallowCopy
 
-        'Tags
-        oTags = mgrGameTags.GetTagsByGame(CurrentGame.ID)
-        oGameTagsToCopy = New List(Of clsGameTag)
-        For Each de As DictionaryEntry In oTags
-            oTag = DirectCast(de.Value, clsTag)
-            oGameTag = New clsGameTag(oTag.ID, oApp.ID)
-            oGameTagsToCopy.Add(oGameTag)
-        Next
-        mgrGameTags.DoGameTagAddBatch(oGameTagsToCopy)
+                'Base
+                oApp.ID = Guid.NewGuid.ToString
+                oApp.Name &= " (Copy)"
+                mgrMonitorList.DoListAdd(oApp)
 
-        'Processes
-        oProcesses = mgrGameProcesses.GetProcessesByGame(CurrentGame.ID)
-        oGameProcessesToCopy = New List(Of clsGameProcess)
-        For Each de As DictionaryEntry In oProcesses
-            oProcess = DirectCast(de.Value, clsProcess)
-            oGameProcess = New clsGameProcess(oProcess.ID, oApp.ID)
-            oGameProcessesToCopy.Add(oGameProcess)
-        Next
-        mgrGameProcesses.DoGameProcessAddBatch(oGameProcessesToCopy)
+                'Tags
+                oTags = mgrGameTags.GetTagsByGame(CurrentGame.ID)
+                oGameTagsToCopy = New List(Of clsGameTag)
+                For Each de As DictionaryEntry In oTags
+                    oTag = DirectCast(de.Value, clsTag)
+                    oGameTag = New clsGameTag(oTag.ID, oApp.ID)
+                    oGameTagsToCopy.Add(oGameTag)
+                Next
+                mgrGameTags.DoGameTagAddBatch(oGameTagsToCopy)
 
-        'Config Links
-        oConfigLinks = mgrConfigLinks.GetConfigsLinksByID(CurrentGame.ID)
-        For Each oConfigLink In oConfigLinks
-            oConfigLink.MonitorID = oApp.ID
-        Next
-        mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
+                'Processes
+                oProcesses = mgrGameProcesses.GetProcessesByGame(CurrentGame.ID)
+                oGameProcessesToCopy = New List(Of clsGameProcess)
+                For Each de As DictionaryEntry In oProcesses
+                    oProcess = DirectCast(de.Value, clsProcess)
+                    oGameProcess = New clsGameProcess(oProcess.ID, oApp.ID)
+                    oGameProcessesToCopy.Add(oGameProcess)
+                Next
+                mgrGameProcesses.DoGameProcessAddBatch(oGameProcessesToCopy)
+
+                'Config Links
+                oConfigLinks = mgrConfigLinks.GetConfigsLinksByID(CurrentGame.ID)
+                For Each oConfigLink In oConfigLinks
+                    oConfigLink.MonitorID = oApp.ID
+                Next
+                mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
+            Next
+        End If
 
         mgrSync.SyncData()
-        CurrentGame = oApp
         LoadBackupData()
         LoadData()
     End Sub

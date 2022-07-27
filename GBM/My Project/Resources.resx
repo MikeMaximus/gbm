@@ -3157,4 +3157,13 @@
   <data name="frmGameManager_ttHelp_btnOpenSaveFolder" xml:space="preserve">
     <value>Open save folder</value>
   </data>
+  <data name="frmGameManager_btnLocked_Toggle" xml:space="preserve">
+    <value>&amp;Toggle</value>
+  </data>
+  <data name="frmGameManager_Toggle_Lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\frmgamemanager_toggle_lock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnLocked" xml:space="preserve">
+    <value>Toggle the lock state of the selected configurations</value>
+  </data>
 </root>
