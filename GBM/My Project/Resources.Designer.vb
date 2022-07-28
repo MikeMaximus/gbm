@@ -61,6 +61,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to  (Copy).
+        '''</summary>
+        Friend ReadOnly Property App_AppendCopy() As String
+            Get
+                Return ResourceManager.GetString("App_AppendCopy", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to gbm_exclude.txt.
         '''</summary>
         Friend ReadOnly Property App_BackupExcludeFileName() As String
@@ -358,7 +367,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-07-27T13:52:04
+        '''  Looks up a localized string similar to 2022-07-28T14:23:04
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2416,11 +2425,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to make copies of the [PARAM] selected games?.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ConfirmCopyMulti() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ConfirmCopyMulti", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to delete [PARAM]?  This cannot be undone.[BR][BR]This will not delete any backup files that already exist for this game..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmGameDelete() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ConfirmGameDelete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to toggle the Locked status of the [PARAM] selected games?.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ConfirmLockMulti() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ConfirmLockMulti", resourceCulture)
             End Get
         End Property
         

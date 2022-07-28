@@ -1509,23 +1509,35 @@ Public Class frmGameManager
     Private Sub LockApp()
         Dim oData As KeyValuePair(Of String, String)
         Dim oApp As clsGame
+        Dim iCount As Integer = lstGames.SelectedItems.Count
+        Dim oResult As MsgBoxResult
 
-        If lstGames.SelectedItems.Count >= 1 Then
-            For Each oData In lstGames.SelectedItems
-                oApp = DirectCast(GameData(oData.Key), clsGame)
-                mgrMonitorList.DoListFieldUpdate("Locked", Not oApp.Locked, oApp.ID)
-            Next
+        If iCount >= 1 Then
+            If iCount > 1 Then
+                oResult = mgrCommon.ShowMessage(frmGameManager_ConfirmLockMulti, iCount, MsgBoxStyle.YesNo)
+            Else
+                oResult = MsgBoxResult.Yes
+            End If
+
+            If oResult = MsgBoxResult.Yes Then
+                For Each oData In lstGames.SelectedItems
+                    oApp = DirectCast(GameData(oData.Key), clsGame)
+                    mgrMonitorList.DoListFieldUpdate("Locked", Not oApp.Locked, oApp.ID)
+                Next
+
+                mgrSync.SyncData()
+                LoadBackupData()
+                LoadData()
+            End If
         End If
-
-        mgrSync.SyncData()
-        LoadBackupData()
-        LoadData()
     End Sub
 
     Private Sub CopyApp()
         Dim oData As KeyValuePair(Of String, String)
         Dim oCurrentApp As clsGame
         Dim oApp As clsGame
+        Dim iCount As Integer = lstGames.SelectedItems.Count
+        Dim oResult As MsgBoxResult
 
         Dim oTag As clsTag
         Dim oTags As SortedList
@@ -1540,63 +1552,81 @@ Public Class frmGameManager
         Dim oConfigLink As clsConfigLink
         Dim oConfigLinks As List(Of clsConfigLink)
 
-        If lstGames.SelectedItems.Count >= 1 Then
-            For Each oData In lstGames.SelectedItems
-                oCurrentApp = DirectCast(GameData(oData.Key), clsGame)
-                oApp = oCurrentApp.ShallowCopy
+        If iCount >= 1 Then
+            If iCount > 1 Then
+                oResult = mgrCommon.ShowMessage(frmGameManager_ConfirmCopyMulti, iCount, MsgBoxStyle.YesNo)
+            Else
+                oResult = MsgBoxResult.Yes
+            End If
 
-                'Base
-                oApp.ID = Guid.NewGuid.ToString
-                oApp.Name &= " (Copy)"
-                mgrMonitorList.DoListAdd(oApp)
+            If oResult = MsgBoxResult.Yes Then
+                For Each oData In lstGames.SelectedItems
+                    oCurrentApp = DirectCast(GameData(oData.Key), clsGame)
+                    oApp = oCurrentApp.ShallowCopy
 
-                'Tags
-                oTags = mgrGameTags.GetTagsByGame(CurrentGame.ID)
-                oGameTagsToCopy = New List(Of clsGameTag)
-                For Each de As DictionaryEntry In oTags
-                    oTag = DirectCast(de.Value, clsTag)
-                    oGameTag = New clsGameTag(oTag.ID, oApp.ID)
-                    oGameTagsToCopy.Add(oGameTag)
+                    'Base
+                    oApp.ID = Guid.NewGuid.ToString
+                    oApp.Name &= App_AppendCopy
+                    mgrMonitorList.DoListAdd(oApp)
+
+                    'Tags
+                    oTags = mgrGameTags.GetTagsByGame(CurrentGame.ID)
+                    oGameTagsToCopy = New List(Of clsGameTag)
+                    For Each de As DictionaryEntry In oTags
+                        oTag = DirectCast(de.Value, clsTag)
+                        oGameTag = New clsGameTag(oTag.ID, oApp.ID)
+                        oGameTagsToCopy.Add(oGameTag)
+                    Next
+                    mgrGameTags.DoGameTagAddBatch(oGameTagsToCopy)
+
+                    'Processes
+                    oProcesses = mgrGameProcesses.GetProcessesByGame(CurrentGame.ID)
+                    oGameProcessesToCopy = New List(Of clsGameProcess)
+                    For Each de As DictionaryEntry In oProcesses
+                        oProcess = DirectCast(de.Value, clsProcess)
+                        oGameProcess = New clsGameProcess(oProcess.ID, oApp.ID)
+                        oGameProcessesToCopy.Add(oGameProcess)
+                    Next
+                    mgrGameProcesses.DoGameProcessAddBatch(oGameProcessesToCopy)
+
+                    'Config Links
+                    oConfigLinks = mgrConfigLinks.GetConfigsLinksByID(CurrentGame.ID)
+                    For Each oConfigLink In oConfigLinks
+                        oConfigLink.MonitorID = oApp.ID
+                    Next
+                    mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
                 Next
-                mgrGameTags.DoGameTagAddBatch(oGameTagsToCopy)
 
-                'Processes
-                oProcesses = mgrGameProcesses.GetProcessesByGame(CurrentGame.ID)
-                oGameProcessesToCopy = New List(Of clsGameProcess)
-                For Each de As DictionaryEntry In oProcesses
-                    oProcess = DirectCast(de.Value, clsProcess)
-                    oGameProcess = New clsGameProcess(oProcess.ID, oApp.ID)
-                    oGameProcessesToCopy.Add(oGameProcess)
-                Next
-                mgrGameProcesses.DoGameProcessAddBatch(oGameProcessesToCopy)
-
-                'Config Links
-                oConfigLinks = mgrConfigLinks.GetConfigsLinksByID(CurrentGame.ID)
-                For Each oConfigLink In oConfigLinks
-                    oConfigLink.MonitorID = oApp.ID
-                Next
-                mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
-            Next
+                mgrSync.SyncData()
+                LoadBackupData()
+                LoadData()
+            End If
         End If
-
-        mgrSync.SyncData()
-        LoadBackupData()
-        LoadData()
     End Sub
 
     Private Sub DeleteApp()
         Dim oData As KeyValuePair(Of String, String)
         Dim oApp As clsGame
+        Dim sCurrentName As String = String.Empty
+        Dim iCount As Integer = lstGames.SelectedItems.Count
+        Dim oResult As MsgBoxResult
 
-        If lstGames.SelectedItems.Count >= 1 Then
+        If iCount >= 1 Then
             Dim sMonitorIDs As New List(Of String)
 
             For Each oData In lstGames.SelectedItems
                 oApp = DirectCast(GameData(oData.Key), clsGame)
+                sCurrentName = oApp.CroppedName
                 sMonitorIDs.Add(oApp.ID)
             Next
 
-            If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiGameDelete, sMonitorIDs.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If iCount > 1 Then
+                oResult = mgrCommon.ShowMessage(frmGameManager_ConfirmMultiGameDelete, sMonitorIDs.Count, MsgBoxStyle.YesNo)
+            Else
+                oResult = mgrCommon.ShowMessage(frmGameManager_ConfirmGameDelete, sCurrentName, MsgBoxStyle.YesNo)
+            End If
+
+            If oResult = MsgBoxResult.Yes Then
                 mgrMonitorList.DoListDelete(sMonitorIDs)
                 mgrSync.SyncData()
                 LoadData()

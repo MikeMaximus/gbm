@@ -3166,4 +3166,13 @@
   <data name="frmGameManager_ttHelp_btnLocked" xml:space="preserve">
     <value>Toggle the lock state of the selected configurations</value>
   </data>
+  <data name="App_AppendCopy" xml:space="preserve">
+    <value> (Copy)</value>
+  </data>
+  <data name="frmGameManager_ConfirmCopyMulti" xml:space="preserve">
+    <value>Are you sure you want to make copies of the [PARAM] selected games?</value>
+  </data>
+  <data name="frmGameManager_ConfirmLockMulti" xml:space="preserve">
+    <value>Are you sure you want to toggle the Locked status of the [PARAM] selected games?</value>
+  </data>
 </root>
