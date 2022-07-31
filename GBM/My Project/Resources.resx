@@ -319,7 +319,7 @@
     <value>&amp;File</value>
   </data>
   <data name="frmMain_gMonFileExit" xml:space="preserve">
-    <value>&amp;Exit</value>
+    <value>E&amp;xit</value>
   </data>
   <data name="frmMain_gMonFileSettings" xml:space="preserve">
     <value>&amp;Settings...</value>
@@ -3127,21 +3127,6 @@
   <data name="frmAdvancedImport_Importing" xml:space="preserve">
     <value>Importing Configurations... Please Wait</value>
   </data>
-  <data name="frmFilter_FieldLocked" xml:space="preserve">
-    <value>Locked</value>
-  </data>
-  <data name="frmGameManager_btnLocked_Lock" xml:space="preserve">
-    <value>&amp;Lock</value>
-  </data>
-  <data name="frmGameManager_btnLocked_Unlock" xml:space="preserve">
-    <value>Un&amp;lock</value>
-  </data>
-  <data name="frmGameManager_Lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_Lock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmGameManager_Unlock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_Unlock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="frmGameManager_btnCopy" xml:space="preserve">
     <value>&amp;Copy</value>
   </data>
@@ -3157,22 +3142,10 @@
   <data name="frmGameManager_ttHelp_btnOpenSaveFolder" xml:space="preserve">
     <value>Open save folder</value>
   </data>
-  <data name="frmGameManager_btnLocked_Toggle" xml:space="preserve">
-    <value>&amp;Toggle</value>
-  </data>
-  <data name="frmGameManager_Toggle_Lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\frmgamemanager_toggle_lock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmGameManager_ttHelp_btnLocked" xml:space="preserve">
-    <value>Toggle the lock state of the selected configurations</value>
-  </data>
   <data name="App_AppendCopy" xml:space="preserve">
     <value> (Copy)</value>
   </data>
   <data name="frmGameManager_ConfirmCopyMulti" xml:space="preserve">
     <value>Are you sure you want to make copies of the [PARAM] selected games?</value>
-  </data>
-  <data name="frmGameManager_ConfirmLockMulti" xml:space="preserve">
-    <value>Are you sure you want to toggle the Locked status of the [PARAM] selected games?</value>
   </data>
 </root>

@@ -367,7 +367,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-07-28T14:23:04
+        '''  Looks up a localized string similar to 2022-07-31T16:36:44
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1540,15 +1540,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Locked.
-        '''</summary>
-        Friend ReadOnly Property frmFilter_FieldLocked() As String
-            Get
-                Return ResourceManager.GetString("frmFilter_FieldLocked", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to No backup when game ends.
         '''</summary>
         Friend ReadOnly Property frmFilter_FieldMonitorOnly() As String
@@ -2011,33 +2002,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Lock.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_btnLocked_Lock() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_btnLocked_Lock", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to &amp;Toggle.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_btnLocked_Toggle() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_btnLocked_Toggle", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Un&amp;lock.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_btnLocked_Unlock() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_btnLocked_Unlock", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to ....
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnProcessBrowse() As String
@@ -2439,15 +2403,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ConfirmGameDelete() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ConfirmGameDelete", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Are you sure you want to toggle the Locked status of the [PARAM] selected games?.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_ConfirmLockMulti() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_ConfirmLockMulti", resourceCulture)
             End Get
         End Property
         
@@ -3018,16 +2973,6 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property frmGameManager_Lock() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("frmGameManager_Lock", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property frmGameManager_Mark() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("frmGameManager_Mark", resourceCulture)
@@ -3118,16 +3063,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_Toggle_Lock() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("frmGameManager_Toggle_Lock", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Manage backup data.
         '''</summary>
         Friend ReadOnly Property frmGameManager_ttHelp_btnBackupData() As String
@@ -3151,15 +3086,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ttHelp_btnLinks() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ttHelp_btnLinks", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Toggle the lock state of the selected configurations.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_ttHelp_btnLocked() As String
-            Get
-                Return ResourceManager.GetString("frmGameManager_ttHelp_btnLocked", resourceCulture)
             End Get
         End Property
         
@@ -3268,16 +3194,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_Unknown() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_Unknown", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property frmGameManager_Unlock() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("frmGameManager_Unlock", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -4854,7 +4770,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Exit.
+        '''  Looks up a localized string similar to E&amp;xit.
         '''</summary>
         Friend ReadOnly Property frmMain_gMonFileExit() As String
             Get

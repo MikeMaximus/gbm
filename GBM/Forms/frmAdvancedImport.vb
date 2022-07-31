@@ -184,9 +184,7 @@ Public Class frmAdvancedImport
         For Each oFromItem In hshCompareFrom.Values
             If hshCompareTo.Contains(oFromItem.ID) Then
                 oToItem = DirectCast(hshCompareTo(oFromItem.ID), clsGame)
-                If oToItem.Locked Then
-                    hshImportData.Remove(oFromItem.ID)
-                ElseIf oFromItem.MinimalEquals(oToItem) Then
+                If oFromItem.MinimalEquals(oToItem) Then
                     If oFromItem.CoreEquals(oToItem) Then
                         hshImportData.Remove(oFromItem.ID)
                     Else

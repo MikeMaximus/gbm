@@ -9,7 +9,6 @@ Public Class frmGameManager
         Add = 3
         Disabled = 4
         MultiSelect = 5
-        Locked = 6
     End Enum
 
     Private sBackupFolder As String
@@ -973,11 +972,6 @@ Public Class frmGameManager
         'Stats
         nudHours.Value = oApp.Hours
 
-        'Handle Lock
-        chkLocked.Checked = oApp.Locked
-        ToggleLock()
-        If oApp.Locked Then eCurrentMode = eModes.Locked
-
         'Set Current
         CurrentGame = oApp
 
@@ -1003,25 +997,6 @@ Public Class frmGameManager
                 AddHandler DirectCast(ctl, ComboBox).SelectedValueChanged, AddressOf DirtyCheck_ValueChanged
             End If
         Next
-    End Sub
-
-    Private Sub ToggleLock()
-        Select Case eCurrentMode
-            Case eModes.MultiSelect
-                btnLocked.Text = frmGameManager_btnLocked_Toggle
-                btnLocked.Image = frmGameManager_Toggle_Lock
-                ttHelp.SetToolTip(btnLocked, frmGameManager_ttHelp_btnLocked)
-            Case Else
-                If chkLocked.Checked Then
-                    btnLocked.Text = frmGameManager_btnLocked_Unlock
-                    btnLocked.Image = frmGameManager_Unlock
-                    ttHelp.SetToolTip(btnLocked, String.Empty)
-                Else
-                    btnLocked.Text = frmGameManager_btnLocked_Lock
-                    btnLocked.Image = frmGameManager_Lock
-                    ttHelp.SetToolTip(btnLocked, String.Empty)
-                End If
-        End Select
     End Sub
 
     Private Sub ToggleControls(ByVal oCtls As GroupBox.ControlCollection, ByVal bEnabled As Boolean)
@@ -1088,7 +1063,6 @@ Public Class frmGameManager
                 btnBackup.Enabled = False
                 btnAdvanced.Enabled = False
                 btnCopy.Enabled = False
-                btnLocked.Enabled = False
                 tbBackupInfo.Enabled = False
                 cmsEnabled.Checked = True
                 cmsMonitorOnly.Checked = False
@@ -1119,7 +1093,6 @@ Public Class frmGameManager
                 btnDelete.Enabled = False
                 btnAdvanced.Enabled = False
                 btnCopy.Enabled = False
-                btnLocked.Enabled = False
                 btnImport.Enabled = False
                 btnExport.Enabled = False
             Case eModes.View
@@ -1143,7 +1116,6 @@ Public Class frmGameManager
                 btnBackup.Enabled = True
                 btnAdvanced.Enabled = True
                 btnCopy.Enabled = True
-                btnLocked.Enabled = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
                 ModeChangeHandler()
@@ -1169,7 +1141,6 @@ Public Class frmGameManager
                 btnDelete.Enabled = False
                 btnAdvanced.Enabled = False
                 btnCopy.Enabled = False
-                btnLocked.Enabled = False
                 lblGameTags.Text = frmGameManager_lblGameTags
                 lblGameTags.LinkBehavior = LinkBehavior.HoverUnderline
                 btnInclude.Text = frmGameManager_btnInclude
@@ -1179,28 +1150,6 @@ Public Class frmGameManager
                 cboOS.SelectedValue = CInt(mgrCommon.GetCurrentOS)
                 UpdateGenericButtonLabel(frmGameManager_IncludeShortcut, btnInclude, False)
                 UpdateGenericButtonLabel(frmGameManager_ExcludeShortcut, btnExclude, False)
-            Case eModes.Locked
-                eLastMode = eModes.Locked
-                GetBackupInfo(CurrentGame)
-                lblFilters.Enabled = True
-                cboFilters.Enabled = True
-                lstGames.Enabled = True
-                lblSearch.Enabled = True
-                txtSearch.Enabled = True
-                btnSave.Enabled = False
-                btnCancel.Enabled = False
-                tbConfig.Enabled = False
-                cmsEnabled.Enabled = False
-                cmsMonitorOnly.Enabled = False
-                tbGameInfo.Enabled = False
-                tbBackupInfo.Enabled = True
-                btnAdd.Enabled = True
-                btnDelete.Enabled = True
-                btnAdvanced.Enabled = False
-                btnCopy.Enabled = True
-                btnLocked.Enabled = True
-                btnImport.Enabled = True
-                btnExport.Enabled = True
             Case eModes.MultiSelect
                 eLastMode = eModes.MultiSelect
                 lstGames.Enabled = True
@@ -1233,8 +1182,6 @@ Public Class frmGameManager
                 cmsImportData.Enabled = False
                 btnAdvanced.Enabled = False
                 btnCopy.Enabled = True
-                btnLocked.Enabled = True
-                ToggleLock()
                 btnGameID.Enabled = False
                 btnImport.Enabled = True
                 btnExport.Enabled = True
@@ -1467,7 +1414,6 @@ Public Class frmGameManager
         oApp.Version = txtVersion.Text
         oApp.Icon = txtIcon.Text
         oApp.Hours = CDbl(nudHours.Value)
-        oApp.Locked = chkLocked.Checked
 
         Select Case eCurrentMode
             Case eModes.Add
@@ -1503,32 +1449,6 @@ Public Class frmGameManager
             LoadBackupData()
             IsDirty = False
             LoadData()
-        End If
-    End Sub
-
-    Private Sub LockApp()
-        Dim oData As KeyValuePair(Of String, String)
-        Dim oApp As clsGame
-        Dim iCount As Integer = lstGames.SelectedItems.Count
-        Dim oResult As MsgBoxResult
-
-        If iCount >= 1 Then
-            If iCount > 1 Then
-                oResult = mgrCommon.ShowMessage(frmGameManager_ConfirmLockMulti, iCount, MsgBoxStyle.YesNo)
-            Else
-                oResult = MsgBoxResult.Yes
-            End If
-
-            If oResult = MsgBoxResult.Yes Then
-                For Each oData In lstGames.SelectedItems
-                    oApp = DirectCast(GameData(oData.Key), clsGame)
-                    mgrMonitorList.DoListFieldUpdate("Locked", Not oApp.Locked, oApp.ID)
-                Next
-
-                mgrSync.SyncData()
-                LoadBackupData()
-                LoadData()
-            End If
         End If
     End Sub
 
@@ -1990,8 +1910,6 @@ Public Class frmGameManager
         btnAdvanced.Image = frmGameManager_Advanced
         btnCopy.Text = frmGameManager_btnCopy
         btnCopy.Image = frmGameManager_Copy
-        btnLocked.Text = frmGameManager_btnLocked_Lock
-        btnLocked.Image = frmGameManager_Lock
         cmsWineConfig.Text = frmGameManager_cmsWineConfig
         cmsLinkProcess.Text = frmGameManager_cmsLinkProcess
         cmsLinkConfiguration.Text = frmGameManager_cmsLinkConfiguration
@@ -2076,7 +1994,6 @@ Public Class frmGameManager
         AddHandler cmsUseWindowTitle.CheckedChanged, AddressOf DirtyCheck_ValueChanged
         AddHandler cmsEnabled.CheckedChanged, AddressOf DirtyCheck_ValueChanged
         AddHandler cmsMonitorOnly.CheckedChanged, AddressOf DirtyCheck_ValueChanged
-        RemoveHandler chkLocked.CheckedChanged, AddressOf DirtyCheck_ValueChanged
 
         LoadData(False)
 
@@ -2172,10 +2089,6 @@ Public Class frmGameManager
 
     Private Sub btnCopy_Click(sender As Object, e As EventArgs) Handles btnCopy.Click
         CopyApp()
-    End Sub
-
-    Private Sub btnLocked_Click(sender As Object, e As EventArgs) Handles btnLocked.Click
-        LockApp()
     End Sub
 
     Private Sub btnAdvanced_Click(sender As Object, e As EventArgs) Handles btnAdvanced.Click
@@ -2397,7 +2310,7 @@ Public Class frmGameManager
                 Select Case eCurrentMode
                     Case eModes.Add, eModes.Edit
                         btnCancel.PerformClick()
-                    Case eModes.Disabled, eModes.Locked, eModes.MultiSelect, eModes.View
+                    Case eModes.Disabled, eModes.MultiSelect, eModes.View
                         Me.Close()
                 End Select
         End Select

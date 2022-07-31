@@ -186,15 +186,6 @@ Public Class frmFilter
         oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
         oValidFields.Add(oField)
 
-        'Locked
-        oField = New clsGameFilterField
-        oField.FieldName = "Locked"
-        oField.FriendlyFieldName = frmFilter_FieldLocked
-        oField.Type = clsGameFilterField.eDataType.fBool
-        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
-        oValidFields.Add(oField)
-
-
         'Comments
         oField = New clsGameFilterField
         oField.FieldName = "Comments"

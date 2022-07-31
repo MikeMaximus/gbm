@@ -109,7 +109,6 @@ Public Class clsGame
     Public Property UseWindowTitle As Boolean
     Public Property Differential As Boolean
     Public Property DiffInterval As Integer
-    Public Property Locked As Boolean
     Public ReadOnly Property TruePath As String
         Get
             Return sPath
@@ -383,7 +382,6 @@ Public Class clsGame
         UseWindowTitle = False
         Differential = False
         DiffInterval = 0
-        Locked = False
         ImportTags = New List(Of Tag)
         ImportConfigLinks = New List(Of ConfigLink)
         ImportUpdate = False
@@ -391,8 +389,8 @@ Public Class clsGame
 
     Sub New(sID As String, sName As String, sProcessName As String, sParameter As String, sPath As String, bFolderSave As Boolean, sFileType As String, bAppendTimeStamp As Boolean, iBackupLimit As Integer,
             bCleanFolder As Boolean, sExcludeList As String, sProcessPath As String, sIcon As String, dHours As Double, sVersion As String, sCompany As String, bEnabled As Boolean, bMonitorOnly As Boolean,
-            sComments As String, bIsRegEx As Boolean, bRecurseSubFolders As Boolean, eOS As eOS, bUseWindowTitle As Boolean, bDifferential As Boolean, iDiffInterval As Integer, bLocked As Boolean,
-            oImportTags As List(Of Tag), oImportConfigLinks As List(Of ConfigLink), bImportUpdate As Boolean)
+            sComments As String, bIsRegEx As Boolean, bRecurseSubFolders As Boolean, eOS As eOS, bUseWindowTitle As Boolean, bDifferential As Boolean, iDiffInterval As Integer, oImportTags As List(Of Tag),
+            oImportConfigLinks As List(Of ConfigLink), bImportUpdate As Boolean)
         ID = sID
         Name = sName
         ProcessName = sProcessName
@@ -418,7 +416,6 @@ Public Class clsGame
         UseWindowTitle = bUseWindowTitle
         Differential = bDifferential
         DiffInterval = iDiffInterval
-        Locked = bLocked
         ImportTags = oImportTags
         ImportConfigLinks = oImportConfigLinks
         ImportUpdate = bImportUpdate

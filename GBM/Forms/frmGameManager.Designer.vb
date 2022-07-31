@@ -86,7 +86,6 @@ Partial Class frmGameManager
         Me.grpCoreConfig = New System.Windows.Forms.GroupBox()
         Me.btnOpenSaveFolder = New System.Windows.Forms.Button()
         Me.btnOpenGameFolder = New System.Windows.Forms.Button()
-        Me.chkLocked = New System.Windows.Forms.CheckBox()
         Me.lblInterval = New System.Windows.Forms.Label()
         Me.nudInterval = New System.Windows.Forms.NumericUpDown()
         Me.chkDifferentialBackup = New System.Windows.Forms.CheckBox()
@@ -129,7 +128,6 @@ Partial Class frmGameManager
         Me.cmsMonitorOptions = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmsEnabled = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmsMonitorOnly = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btnLocked = New System.Windows.Forms.Button()
         Me.btnCopy = New System.Windows.Forms.Button()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -166,10 +164,10 @@ Partial Class frmGameManager
         '
         Me.btnDelete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnDelete.Image = Global.GBM.My.Resources.Resources.Multi_Delete
-        Me.btnDelete.Location = New System.Drawing.Point(195, 329)
+        Me.btnDelete.Location = New System.Drawing.Point(134, 329)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(55, 45)
-        Me.btnDelete.TabIndex = 6
+        Me.btnDelete.TabIndex = 7
         Me.btnDelete.Text = "Delete"
         Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnDelete.UseVisualStyleBackColor = True
@@ -261,7 +259,7 @@ Partial Class frmGameManager
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(429, 253)
+        Me.txtID.Location = New System.Drawing.Point(450, 253)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(30, 20)
         Me.txtID.TabIndex = 0
@@ -315,7 +313,7 @@ Partial Class frmGameManager
         '
         'txtExclude
         '
-        Me.txtExclude.Location = New System.Drawing.Point(393, 253)
+        Me.txtExclude.Location = New System.Drawing.Point(414, 253)
         Me.txtExclude.Name = "txtExclude"
         Me.txtExclude.Size = New System.Drawing.Size(30, 20)
         Me.txtExclude.TabIndex = 0
@@ -324,7 +322,7 @@ Partial Class frmGameManager
         '
         'txtFileType
         '
-        Me.txtFileType.Location = New System.Drawing.Point(357, 253)
+        Me.txtFileType.Location = New System.Drawing.Point(378, 253)
         Me.txtFileType.Name = "txtFileType"
         Me.txtFileType.Size = New System.Drawing.Size(30, 20)
         Me.txtFileType.TabIndex = 0
@@ -464,7 +462,7 @@ Partial Class frmGameManager
         Me.btnSave.Location = New System.Drawing.Point(648, 329)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(55, 45)
-        Me.btnSave.TabIndex = 13
+        Me.btnSave.TabIndex = 12
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnSave.UseVisualStyleBackColor = True
@@ -485,7 +483,7 @@ Partial Class frmGameManager
         Me.btnCancel.Location = New System.Drawing.Point(709, 329)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(55, 45)
-        Me.btnCancel.TabIndex = 14
+        Me.btnCancel.TabIndex = 13
         Me.btnCancel.Text = "Ca&ncel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCancel.UseVisualStyleBackColor = True
@@ -493,10 +491,10 @@ Partial Class frmGameManager
         'btnImport
         '
         Me.btnImport.Image = Global.GBM.My.Resources.Resources.Multi_Import
-        Me.btnImport.Location = New System.Drawing.Point(256, 329)
+        Me.btnImport.Location = New System.Drawing.Point(195, 329)
         Me.btnImport.Name = "btnImport"
         Me.btnImport.Size = New System.Drawing.Size(55, 45)
-        Me.btnImport.TabIndex = 7
+        Me.btnImport.TabIndex = 8
         Me.btnImport.Text = "&Import"
         Me.btnImport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnImport.UseVisualStyleBackColor = True
@@ -504,10 +502,10 @@ Partial Class frmGameManager
         'btnExport
         '
         Me.btnExport.Image = Global.GBM.My.Resources.Resources.Multi_Export
-        Me.btnExport.Location = New System.Drawing.Point(317, 329)
+        Me.btnExport.Location = New System.Drawing.Point(256, 329)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.Size = New System.Drawing.Size(55, 45)
-        Me.btnExport.TabIndex = 8
+        Me.btnExport.TabIndex = 9
         Me.btnExport.Text = "&Export"
         Me.btnExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnExport.UseVisualStyleBackColor = True
@@ -603,7 +601,7 @@ Partial Class frmGameManager
         Me.btnAdvanced.Location = New System.Drawing.Point(577, 329)
         Me.btnAdvanced.Name = "btnAdvanced"
         Me.btnAdvanced.Size = New System.Drawing.Size(65, 45)
-        Me.btnAdvanced.TabIndex = 12
+        Me.btnAdvanced.TabIndex = 11
         Me.btnAdvanced.Text = "&Advanced"
         Me.btnAdvanced.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnAdvanced.UseVisualStyleBackColor = True
@@ -650,7 +648,7 @@ Partial Class frmGameManager
         Me.tabGameManager.Name = "tabGameManager"
         Me.tabGameManager.SelectedIndex = 0
         Me.tabGameManager.Size = New System.Drawing.Size(526, 315)
-        Me.tabGameManager.TabIndex = 9
+        Me.tabGameManager.TabIndex = 10
         '
         'tbConfig
         '
@@ -666,7 +664,6 @@ Partial Class frmGameManager
         '
         Me.grpCoreConfig.Controls.Add(Me.btnOpenSaveFolder)
         Me.grpCoreConfig.Controls.Add(Me.btnOpenGameFolder)
-        Me.grpCoreConfig.Controls.Add(Me.chkLocked)
         Me.grpCoreConfig.Controls.Add(Me.lblInterval)
         Me.grpCoreConfig.Controls.Add(Me.nudInterval)
         Me.grpCoreConfig.Controls.Add(Me.chkDifferentialBackup)
@@ -724,17 +721,6 @@ Partial Class frmGameManager
         Me.btnOpenGameFolder.Size = New System.Drawing.Size(22, 22)
         Me.btnOpenGameFolder.TabIndex = 12
         Me.btnOpenGameFolder.UseVisualStyleBackColor = True
-        '
-        'chkLocked
-        '
-        Me.chkLocked.AutoSize = True
-        Me.chkLocked.Location = New System.Drawing.Point(465, 256)
-        Me.chkLocked.Name = "chkLocked"
-        Me.chkLocked.Size = New System.Drawing.Size(15, 14)
-        Me.chkLocked.TabIndex = 0
-        Me.chkLocked.TabStop = False
-        Me.chkLocked.UseVisualStyleBackColor = True
-        Me.chkLocked.Visible = False
         '
         'lblInterval
         '
@@ -1141,24 +1127,13 @@ Partial Class frmGameManager
         Me.cmsMonitorOnly.Size = New System.Drawing.Size(225, 22)
         Me.cmsMonitorOnly.Text = "&No backup when game ends"
         '
-        'btnLocked
-        '
-        Me.btnLocked.Image = Global.GBM.My.Resources.Resources.frmGameManager_Lock
-        Me.btnLocked.Location = New System.Drawing.Point(134, 329)
-        Me.btnLocked.Name = "btnLocked"
-        Me.btnLocked.Size = New System.Drawing.Size(55, 45)
-        Me.btnLocked.TabIndex = 11
-        Me.btnLocked.Text = "&Lock"
-        Me.btnLocked.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btnLocked.UseVisualStyleBackColor = True
-        '
         'btnCopy
         '
         Me.btnCopy.Image = Global.GBM.My.Resources.Resources.frmGameManager_Copy
         Me.btnCopy.Location = New System.Drawing.Point(73, 329)
         Me.btnCopy.Name = "btnCopy"
         Me.btnCopy.Size = New System.Drawing.Size(55, 45)
-        Me.btnCopy.TabIndex = 10
+        Me.btnCopy.TabIndex = 6
         Me.btnCopy.Text = "&Copy"
         Me.btnCopy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnCopy.UseVisualStyleBackColor = True
@@ -1169,7 +1144,6 @@ Partial Class frmGameManager
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 386)
         Me.Controls.Add(Me.btnCopy)
-        Me.Controls.Add(Me.btnLocked)
         Me.Controls.Add(Me.lblFilters)
         Me.Controls.Add(Me.cboFilters)
         Me.Controls.Add(Me.tabGameManager)
@@ -1317,8 +1291,6 @@ Partial Class frmGameManager
     Friend WithEvents nudInterval As NumericUpDown
     Friend WithEvents cmsURL As ToolStripMenuItem
     Friend WithEvents cmsLudusavi As ToolStripMenuItem
-    Friend WithEvents btnLocked As Button
-    Friend WithEvents chkLocked As CheckBox
     Friend WithEvents btnCopy As Button
     Friend WithEvents btnOpenSaveFolder As Button
     Friend WithEvents btnOpenGameFolder As Button
