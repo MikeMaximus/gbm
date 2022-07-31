@@ -36,6 +36,12 @@ All Platforms:
 		- The "Monitor this game" option has been renamed to "Allow monitoring".
 		- The "Monitor only" option has been renamed to "No backup when game ends".
 	- Added buttons to open the current "Game Path" or "Save Path" in the Game Manager.
+- Improvements to importing game configurations:
+	- You can now "Ignore" (and "Unignore") any configurations on the import screen using the right-click menu.
+		- This allows you to hide any configuration(s) that you never want to add or update during an import.
+		- The ignored configurations are saved and persist between sessions.
+		- You can show any hidden configurations by unticking the "Hide Ignored" checkbox.
+	- Added new icons to indicate auto-detected and ignored configurations.
 	
 		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

@@ -302,6 +302,7 @@
     <Compile Include="Managers\mgrBackupQueue.vb" />
     <Compile Include="Managers\mgrConfigLinks.vb" />
     <Compile Include="Managers\mgrGameProcesses.vb" />
+    <Compile Include="Managers\mgrImportIgnore.vb" />
     <Compile Include="Managers\mgrLaunchData.vb" />
     <Compile Include="Managers\mgrLaunchers.vb" />
     <Compile Include="Managers\mgrLaunchGame.vb" />
@@ -470,6 +471,8 @@
     </Content>
     <Content Include="References\Mono.Data.Sqlite.dll" />
     <None Include="Resources\frmGameManager_Arrow_Submenu_Right.png" />
+    <Content Include="Resources\frmAdvancedImport_Detected.png" />
+    <Content Include="Resources\frmAdvancedImport_Ignored.png" />
     <Content Include="Resources\frmGameManager_Advanced.png" />
     <Content Include="Resources\frmGameManager_Copy.png" />
     <Content Include="Resources\frmGameManager_Exclude_Items.png" />

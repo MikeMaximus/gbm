@@ -90,6 +90,11 @@ Public Class mgrSQLite
                 Return "CREATE TABLE backupqueue (MonitorID TEXT NOT NULL PRIMARY KEY);"
             End Get
         End Property
+        Public Shared ReadOnly Property ImportIgnore As String
+            Get
+                Return "CREATE TABLE importignore (MonitorID TEXT NOT NULL PRIMARY KEY);"
+            End Get
+        End Property
     End Class
 
     Public Enum Database As Integer
@@ -159,7 +164,7 @@ Public Class mgrSQLite
 
             'Add Tables (Settings)
             sSQL = CreateSQL.Settings
-            'Add Tables (SavedPath)
+            'Add Tables (Saved Path)
             sSQL &= CreateSQL.SavedPath
             'Add Tables (Monitor List)
             sSQL &= CreateSQL.MonitorList
@@ -187,6 +192,8 @@ Public Class mgrSQLite
             sSQL &= CreateSQL.LaunchData
             'Add Tables (Backup Queue)
             sSQL &= CreateSQL.BackupQueue
+            'Add Tables (Import Ignore)
+            sSQL &= CreateSQL.ImportIgnore
             'Set Version
             sSQL &= "PRAGMA user_version=" & mgrCommon.AppVersion
 
@@ -1276,8 +1283,11 @@ Public Class mgrSQLite
                 'Backup DB before starting
                 BackupDB("v131")
 
+                'Add Import Ignore table
+                sSQL = "CREATE TABLE importignore (MonitorID TEXT NOT NULL PRIMARY KEY);"
+
                 'Update Settings
-                sSQL = "CREATE TABLE settings_new (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, 
+                sSQL &= "CREATE TABLE settings_new (SettingsID INTEGER NOT NULL PRIMARY KEY, MonitorOnStartup BOOLEAN NOT NULL, StartToTray BOOLEAN NOT NULL, ShowDetectionToolTips BOOLEAN NOT NULL, 
                         DisableConfirmation BOOLEAN NOT NULL, CreateSubFolder BOOLEAN NOT NULL, ShowOverwriteWarning BOOLEAN NOT NULL, RestoreOnLaunch BOOLEAN NOT NULL, BackupFolder TEXT NOT NULL, 
                         StartWithWindows BOOLEAN NOT NULL, TimeTracking BOOLEAN NOT NULL, SuppressBackup BOOLEAN NOT NULL, SuppressBackupThreshold INTEGER NOT NULL, CompressionLevel INTEGER NOT NULL, 
                         Custom7zArguments TEXT, Custom7zLocation TEXT, SyncFields INTEGER NOT NULL, AutoSaveLog BOOLEAN NOT NULL, AutoRestore BOOLEAN NOT NULL, AutoMark BOOLEAN NOT NULL, 

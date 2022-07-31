@@ -3148,4 +3148,22 @@
   <data name="frmGameManager_ConfirmCopyMulti" xml:space="preserve">
     <value>Are you sure you want to make copies of the [PARAM] selected games?</value>
   </data>
+  <data name="frmAdvancedImport_chkHideIgnored" xml:space="preserve">
+    <value>Hide Ignored</value>
+  </data>
+  <data name="frmAdvancedImport_cmiIgnore" xml:space="preserve">
+    <value>Ignore</value>
+  </data>
+  <data name="frmAdvancedImport_cmiIgnore_Reverse" xml:space="preserve">
+    <value>Unignore</value>
+  </data>
+  <data name="frmAdvancedImport_cmiIgnore_Toggle" xml:space="preserve">
+    <value>Toggle Ignore</value>
+  </data>
+  <data name="frmAdvancedImport_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\frmadvancedimport_detected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmAdvancedImport_Ignored" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\frmadvancedimport_ignored.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

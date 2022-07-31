@@ -367,7 +367,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-07-31T16:36:44
+        '''  Looks up a localized string similar to 2022-07-31T19:51:37
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -953,6 +953,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Hide Ignored.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_chkHideIgnored() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_chkHideIgnored", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Select All.
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_chkSelectAll() As String
@@ -967,6 +976,33 @@ Namespace My.Resources
         Friend ReadOnly Property frmAdvancedImport_chkSelectedOnly() As String
             Get
                 Return ResourceManager.GetString("frmAdvancedImport_chkSelectedOnly", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Ignore.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_cmiIgnore() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_cmiIgnore", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Unignore.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_cmiIgnore_Reverse() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_cmiIgnore_Reverse", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Toggle Ignore.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_cmiIgnore_Toggle() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_cmiIgnore_Toggle", resourceCulture)
             End Get
         End Property
         
@@ -1034,6 +1070,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_Detected() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmAdvancedImport_Detected", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Detecting Saved Games... Please Wait.
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_DetectingSavedGames() As String
@@ -1057,6 +1103,16 @@ Namespace My.Resources
         Friend ReadOnly Property frmAdvancedImport_FormName() As String
             Get
                 Return ResourceManager.GetString("frmAdvancedImport_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_Ignored() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmAdvancedImport_Ignored", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
