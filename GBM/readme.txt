@@ -42,6 +42,5 @@ All Platforms:
 		- The ignored configurations are saved and persist between sessions.
 		- You can show any hidden configurations by unticking the "Hide Ignored" checkbox.
 	- Added new icons to indicate auto-detected and ignored configurations.
-	
-		
+			
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

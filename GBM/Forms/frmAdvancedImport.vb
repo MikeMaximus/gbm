@@ -18,6 +18,7 @@ Public Class frmAdvancedImport
     Private oAutoDetected As New List(Of String)
     Private oUpdated As New List(Of String)
     Private oIgnored As List(Of String)
+    Private iCurrentIgnored As Integer
 
     Private WithEvents tmFilterTimer As Timer
 
@@ -119,22 +120,6 @@ Public Class frmAdvancedImport
         Else
             Return False
         End If
-    End Function
-
-    Private Function CheckIgnoreTags(ByVal oTags As List(Of Tag)) As Boolean
-        Dim oTag As Tag
-        Dim sTag As String
-        Dim sIgnoreTags() As String = {"DOSBox", "ScummVM"}
-
-        For Each oTag In oTags
-            For Each sTag In sIgnoreTags
-                If oTag.Name = sTag Then
-                    Return False
-                End If
-            Next
-        Next
-
-        Return True
     End Function
 
     Private Sub LoadIgnores()
@@ -292,6 +277,7 @@ Public Class frmAdvancedImport
             SaveAllChecked()
         End If
 
+        iCurrentIgnored = 0
         oListCache.Clear()
 
         If bSelectedOnly Then
@@ -346,6 +332,7 @@ Public Class frmAdvancedImport
             End If
 
             If CheckIgnoreID(oApp.ID) Then
+                iCurrentIgnored += 1
                 oListViewItem.Checked = False
                 If chkHideIgnored.Checked Then
                     bAddItem = False
@@ -356,10 +343,6 @@ Public Class frmAdvancedImport
                 If Not oListViewItem.Checked Then
                     bAddItem = False
                 End If
-            End If
-
-            If bAddItem And (mgrCommon.IsUnix And oApp.OS = clsGame.eOS.Windows) Then
-                bAddItem = CheckIgnoreTags(oApp.ImportTags)
             End If
 
             If bAddItem Then
@@ -506,6 +489,10 @@ Public Class frmAdvancedImport
             lblStatus.Text = mgrCommon.FormatString(frmAdvancedImport_Configs, New String() {lstGames.Items.Count, hshImportData.Count})
         Else
             lblStatus.Text = mgrCommon.FormatString(frmAdvancedImport_Configs, New String() {lstGames.Items.Count, hshImportData.Count}) & " " & frmAdvancedImport_Filtered
+        End If
+
+        If chkHideIgnored.Checked Then
+            lblStatus.Text &= " " & mgrCommon.FormatString(frmAdvancedImport_IgnoredCount, iCurrentIgnored.ToString)
         End If
     End Sub
 

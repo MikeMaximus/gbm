@@ -367,7 +367,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-07-31T19:51:37
+        '''  Looks up a localized string similar to 2022-08-02T14:35:15
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1113,6 +1113,15 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("frmAdvancedImport_Ignored", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [[PARAM] Ignored].
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_IgnoredCount() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_IgnoredCount", resourceCulture)
             End Get
         End Property
         

@@ -1515,6 +1515,8 @@ Public Class frmGameManager
                         oConfigLink.MonitorID = oApp.ID
                     Next
                     mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
+
+                    CurrentGame = oApp
                 Next
 
                 mgrSync.SyncData()
