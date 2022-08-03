@@ -1,6 +1,6 @@
 ﻿#Script Name: Game Backup Monitor - Release Package Builder
 #Author: Michael J. Seiferling
-#Revised: June 23, 2022
+#Revised: August 3, 2022
 #Warning: This script only prepares Windows packages for release, it does not build GBM.
 
 $7z_bin = "C:\Program Files\7-Zip\7z.exe"
@@ -16,6 +16,7 @@ $x86_7z_filename = "GBM.v$release_version.32-bit.7z"
 $x64_7z_filename = "GBM.v$release_version.64-bit.7z"
 $x86_installer_filename = "GBM.v$release_version.32-bit.Installer.exe"
 $x64_installer_filename = "GBM.v$release_version.64-bit.Installer.exe"
+$checksum_filename = "checksums"
 
 $x86_7z_release_folder =  $base_release_folder + "\x86_7z"
 $x64_7z_release_folder = $base_release_folder + "\x64_7z"
@@ -82,3 +83,13 @@ Copy-Item $base_project\build-release\*.nsi .
 #Build Installers
 & $nsis_bin x86.nsi
 & $nsis_bin x64.nsi
+
+#Checksums
+$FileHash = Get-FileHash $base_release_folder\$x86_7z_filename
+$FileHash.Hash + " *" + $x86_7z_filename + "`r`n" | Set-Content -NoNewline $base_release_folder\$checksum_filename
+$FileHash = Get-FileHash $base_release_folder\$x64_7z_filename
+$FileHash.Hash + " *" + $x64_7z_filename + "`r`n" | Add-Content -NoNewline $base_release_folder\$checksum_filename
+$FileHash = Get-FileHash $base_release_folder\$x86_installer_filename
+$FileHash.Hash + " *" + $x86_installer_filename + "`r`n" | Add-Content -NoNewline $base_release_folder\$checksum_filename
+$FileHash = Get-FileHash $base_release_folder\$x64_installer_filename
+$FileHash.Hash + " *" + $x64_installer_filename + "`r`n" | Add-Content -NoNewline $base_release_folder\$checksum_filename
