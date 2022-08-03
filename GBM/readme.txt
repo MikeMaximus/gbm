@@ -37,6 +37,7 @@ All Platforms:
 		- The "Monitor only" option has been renamed to "No backup when game ends".
 	- Added buttons to open the current "Game Path" or "Save Path" in the Game Manager.
 	- Added "Open Backup Folder" option to the File menu and system tray menu.
+	- The "Backup limit" and "Full backup interval" fields will no longer reset to 0 in the Game Manager if toggled off during an edit.		
 - Improvements to importing game configurations:
 	- You can now "Ignore" (and "Unignore") any configurations on the import screen using the right-click menu.
 		- This allows you to hide any configuration(s) that you never want to add or update during an import.

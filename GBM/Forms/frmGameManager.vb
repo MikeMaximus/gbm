@@ -1073,6 +1073,7 @@ Public Class frmGameManager
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = False
                 btnExport.Enabled = False
+                nudInterval.Value = 6
                 cboOS.SelectedValue = CInt(mgrCommon.GetCurrentOS)
                 ModeChangeHandler()
             Case eModes.Edit
@@ -1191,7 +1192,7 @@ Public Class frmGameManager
     End Sub
 
     'This function handles any "sub modes" based on the current state of the form
-    Private Sub ModeChangeHandler(Optional ByVal bResetValues As Boolean = False)
+    Private Sub ModeChangeHandler()
         'In Monitor Only mode, no other mode changes currently matter
         If cmsMonitorOnly.Checked Then
             chkFolderSave.Enabled = False
@@ -1225,19 +1226,16 @@ Public Class frmGameManager
                 nudLimit.Enabled = False
                 lblLimit.Enabled = False
             End If
-            If bResetValues Then nudLimit.Value = nudLimit.Minimum
 
             'Handle "Differential Backups" mode change
             If chkDifferentialBackup.Checked Then
                 nudInterval.Enabled = True
                 lblInterval.Enabled = True
                 lblLimit.Text = frmGameManager_lblLimit_Alt
-                If bResetValues Then nudInterval.Value = 6
             Else
                 nudInterval.Enabled = False
                 lblInterval.Enabled = False
                 lblLimit.Text = frmGameManager_lblLimit
-                If bResetValues Then nudInterval.Value = nudInterval.Minimum
             End If
 
             'Handle "Registry" mode change
@@ -1403,9 +1401,17 @@ Public Class frmGameManager
         oApp.RecurseSubFolders = chkRecurseSubFolders.Checked
         oApp.CleanFolder = chkCleanFolder.Checked
         oApp.AppendTimeStamp = chkTimeStamp.Checked
-        oApp.BackupLimit = nudLimit.Value
+        If oApp.AppendTimeStamp Then
+            oApp.BackupLimit = nudLimit.Value
+        Else
+            oApp.BackupLimit = 0
+        End If
         oApp.Differential = chkDifferentialBackup.Checked
-        oApp.DiffInterval = nudInterval.Value
+        If oApp.Differential Then
+            oApp.DiffInterval = nudInterval.Value
+        Else
+            oApp.DiffInterval = 0
+        End If
         oApp.Comments = txtComments.Text
         oApp.Enabled = cmsEnabled.Checked
         oApp.MonitorOnly = cmsMonitorOnly.Checked
@@ -2166,11 +2172,11 @@ Public Class frmGameManager
     End Sub
 
     Private Sub chkTimeStamp_CheckedChanged(sender As Object, e As EventArgs) Handles chkTimeStamp.CheckedChanged
-        If Not IsLoading Then ModeChangeHandler(True)
+        If Not IsLoading Then ModeChangeHandler()
     End Sub
 
     Private Sub chkDifferentialBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkDifferentialBackup.CheckedChanged
-        If Not IsLoading Then ModeChangeHandler(True)
+        If Not IsLoading Then ModeChangeHandler()
     End Sub
 
     Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles cmsMonitorOnly.CheckedChanged
