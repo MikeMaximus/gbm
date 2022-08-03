@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.2 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-July 31, 2022
+August 3, 2022
 
 New in 1.3.2
 
@@ -36,6 +36,7 @@ All Platforms:
 		- The "Monitor this game" option has been renamed to "Allow monitoring".
 		- The "Monitor only" option has been renamed to "No backup when game ends".
 	- Added buttons to open the current "Game Path" or "Save Path" in the Game Manager.
+	- Added "Open Backup Folder" option to the File menu and system tray menu.
 - Improvements to importing game configurations:
 	- You can now "Ignore" (and "Unignore") any configurations on the import screen using the right-click menu.
 		- This allows you to hide any configuration(s) that you never want to add or update during an import.

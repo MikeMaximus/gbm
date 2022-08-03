@@ -3169,4 +3169,7 @@
   <data name="frmAdvancedImport_IgnoredCount" xml:space="preserve">
     <value>[[PARAM] Ignored]</value>
   </data>
+  <data name="frmMain_gMonOpenBackupFolder" xml:space="preserve">
+    <value>&amp;Open Backup Folder</value>
+  </data>
 </root>

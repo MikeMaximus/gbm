@@ -2157,6 +2157,7 @@ Public Class frmMain
         gMonFileImportFile.Text = frmMain_gMonFileImportFile
         gMonFileImportURL.Text = frmMain_gMonFileImportURL
         gMonFileExport.Text = frmMain_gMonFileExport
+        gMonOpenBackupFolder.Text = frmMain_gMonOpenBackupFolder
         gMonFileSettings.Text = frmMain_gMonFileSettings
         gMonFileExit.Text = frmMain_gMonFileExit
         gMonSetup.Text = frmMain_gMonSetup
@@ -2195,6 +2196,7 @@ Public Class frmMain
         gMonTrayFileImportFile.Text = frmMain_gMonFileImportFile
         gMonTrayFileImportURL.Text = frmMain_gMonFileImportURL
         gMonTrayFileExport.Text = frmMain_gMonFileExport
+        gMonTrayOpenBackupFolder.Text = frmMain_gMonOpenBackupFolder
         gMonTraySettings.Text = frmMain_gMonFileSettings
         gMonTraySetup.Text = frmMain_gMonTraySetup
         gMonTraySetupGameManager.Text = frmMain_gMonSetupGameManager
@@ -2759,6 +2761,10 @@ Public Class frmMain
         mgrMonitorList.ExportGameList()
     End Sub
 
+    Private Sub gMonOpenBackupFolder_Click(sender As Object, e As EventArgs) Handles gMonOpenBackupFolder.Click, gMonTrayOpenBackupFolder.Click
+        mgrCommon.OpenInOS(mgrSettings.BackupFolder)
+    End Sub
+
     Private Sub FileSettings_Click(sender As Object, e As EventArgs) Handles gMonFileSettings.Click, gMonTraySettings.Click
         OpenSettings()
     End Sub
@@ -3222,5 +3228,4 @@ Public Class frmMain
         'Move focus to first label
         lblGameTitle.Focus()
     End Sub
-
 End Class

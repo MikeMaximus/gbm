@@ -367,7 +367,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-08-02T14:35:15
+        '''  Looks up a localized string similar to 2022-08-03T20:41:20
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5029,6 +5029,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_gMonLogSave() As String
             Get
                 Return ResourceManager.GetString("frmMain_gMonLogSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Open Backup Folder.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonOpenBackupFolder() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonOpenBackupFolder", resourceCulture)
             End Get
         End Property
         
