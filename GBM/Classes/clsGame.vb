@@ -38,7 +38,7 @@ Public Class clsGame
     End Property
     Public ReadOnly Property FileSafeName As String
         Get
-            If mgrMonitorList.IsDuplicateName(Name) Then
+            If mgrMonitorList.IsDuplicateName(Me) Then
                 Return mgrPath.ValidateFileName(Name, 64) & " [" & mgrPath.ValidateFileName(ID, 36) & "]"
             Else
                 Return mgrPath.ValidateFileName(Name, 64)

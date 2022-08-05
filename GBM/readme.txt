@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.2 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-August 3, 2022
+August 5, 2022
 
 New in 1.3.2
 
@@ -18,6 +18,7 @@ All Platforms:
 - Fixed an issue with 7z files not being displayed when importing backup files.
 - Fixed a crash that occured when the "Configuration Links" window is opened on the Game Manager while adding a new configuration.
 - Configurations that use duplicate names will now have more descriptive folder and file names.  Ex. Metro Exodus [8ac11c11-8d18-471b-8f0d-aa154dc77f0e]
+- Changing the name of a configuration will no longer automatically rename existing backup folders and files.	
 - Added a "Copy" feature to the Game Manager.
 	- This will make a copy of the currently selected game configuration.
 	- The Core Configuration, Game Information, Tags, Proccesses and Configuration Links are included in the copy.
@@ -37,7 +38,7 @@ All Platforms:
 		- The "Monitor only" option has been renamed to "No backup when game ends".
 	- Added buttons to open the current "Game Path" or "Save Path" in the Game Manager.
 	- Added "Open Backup Folder" option to the File menu and system tray menu.
-	- The "Backup limit" and "Full backup interval" fields will no longer reset to 0 in the Game Manager if toggled off during an edit.		
+	- The "Backup limit" and "Full backup interval" fields will no longer reset to 0 in the Game Manager if toggled off during an edit.
 - Improvements to importing game configurations:
 	- You can now "Ignore" (and "Unignore") any configurations on the import screen using the right-click menu.
 		- This allows you to hide any configuration(s) that you never want to add or update during an import.

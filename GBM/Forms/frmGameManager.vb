@@ -85,78 +85,8 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Function CheckManifestandUpdate(ByVal oOriginalApp As clsGame, ByVal oNewApp As clsGame) As Boolean
+    Private Sub CheckManifestandUpdate(ByVal oOriginalApp As clsGame, ByVal oNewApp As clsGame)
         Dim oBackupItems As List(Of clsBackup)
-        Dim sDirectory As String
-        Dim sNewDirectory As String
-        Dim sFileName As String
-        Dim sNewFileName As String
-        Dim sNewAppItem As String
-        Dim sOriginalAppItem As String
-
-        'Handle File Changes
-        If oNewApp.FileSafeName <> oOriginalApp.FileSafeName Then
-            sNewAppItem = oNewApp.FileSafeName
-            sOriginalAppItem = oOriginalApp.FileSafeName
-
-            'Remote
-            If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Remote) Then
-                'Check for existing folder
-                sDirectory = BackupFolder & sOriginalAppItem
-                sNewDirectory = sDirectory.Replace(sOriginalAppItem, sNewAppItem)
-                If Directory.Exists(sNewDirectory) Then
-                    If mgrCommon.ShowMessage(frmGameManager_ErrorRenameFolderExists, New String() {sDirectory, sNewDirectory}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                        mgrCommon.DeleteDirectory(sNewDirectory, True)
-                    Else
-                        Return False
-                    End If
-                End If
-                Directory.CreateDirectory(sNewDirectory)
-
-                oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Remote)
-
-                'Check for existing files
-                For Each oBackupItem As clsBackup In oBackupItems
-                    sFileName = BackupFolder & oBackupItem.FileName
-                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(sOriginalAppItem, sNewAppItem)
-                    If File.Exists(sNewFileName) Then
-                        If mgrCommon.ShowMessage(frmGameManager_ErrorRenameFilesExist, sNewAppItem, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                            Return False
-                        End If
-                        Exit For
-                    End If
-                Next
-
-                'We need to copy the files, then delete the original to work around file locking issues with cloud clients.               
-                For Each oBackupItem As clsBackup In oBackupItems
-                    sFileName = BackupFolder & oBackupItem.FileName
-                    sNewFileName = sNewDirectory & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(sOriginalAppItem, sNewAppItem)
-                    If File.Exists(sFileName) And Not sFileName = sNewFileName Then
-                        'Copy the file using the new name, then delete the old file when successful.
-                        If mgrCommon.CopyFile(sFileName, sNewFileName, True) Then
-                            mgrCommon.DeleteFile(sFileName)
-                            oBackupItem.FileName = oBackupItem.FileName.Replace(sOriginalAppItem, sNewAppItem)
-                            mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Remote)
-                        End If
-                    End If
-                Next
-
-                'Delete the old folder if it's empty
-                If Directory.Exists(sDirectory) And Not sDirectory = sNewDirectory Then
-                    mgrCommon.DeleteEmptyDirectory(sDirectory)
-                End If
-            End If
-
-            'Local
-            If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Local) Then
-                oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Local)
-                'The local manifest will only have one entry per game, therefore this runs only once
-                For Each oBackupItem As clsBackup In oBackupItems
-                    oBackupItem.FileName = oBackupItem.FileName.Replace(sOriginalAppItem, sNewAppItem)
-                    mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Local)
-                Next
-            End If
-        End If
 
         'Handle ID Change
         If oNewApp.ID <> oOriginalApp.ID Then
@@ -179,9 +109,7 @@ Public Class frmGameManager
                 Next
             End If
         End If
-
-        Return True
-    End Function
+    End Sub
 
     Private Sub LoadData(Optional ByVal bRetainFilter As Boolean = True)
         Dim oRestoreData As New SortedList
@@ -1432,10 +1360,9 @@ Public Class frmGameManager
                 End If
             Case eModes.Edit
                 If CoreValidatation(oApp, False) Then
-                    If CheckManifestandUpdate(CurrentGame, oApp) Then
-                        bSuccess = True
-                        mgrMonitorList.DoListUpdate(oApp, CurrentGame.ID)
-                    End If
+                    bSuccess = True
+                    CheckManifestandUpdate(CurrentGame, oApp)
+                    mgrMonitorList.DoListUpdate(oApp, CurrentGame.ID)
                 End If
             Case eModes.MultiSelect
                 Dim sMonitorIDs As New List(Of String)
@@ -1452,7 +1379,6 @@ Public Class frmGameManager
         If bSuccess Then
             mgrSync.SyncData()
             CurrentGame = oApp
-            LoadBackupData()
             IsDirty = False
             LoadData()
         End If
@@ -1526,7 +1452,6 @@ Public Class frmGameManager
                 Next
 
                 mgrSync.SyncData()
-                LoadBackupData()
                 LoadData()
             End If
         End If
@@ -1971,6 +1896,8 @@ Public Class frmGameManager
         tmFilterTimer.Interval = 1000
         tmFilterTimer.Enabled = False
 
+        'Handlers
+        AddHandler mgrSync.PushEnded, AddressOf LoadBackupData
     End Sub
 
     Private Sub frmGameManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
