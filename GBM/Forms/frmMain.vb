@@ -3204,7 +3204,9 @@ Public Class frmMain
     End Sub
 
     Private Sub lstGames_DoubleClick(sender As Object, e As EventArgs) Handles lstGames.DoubleClick
-        OpenGameManager(oSelectedGame)
+        If lstGames.SelectedIndex <> -1 Then
+            OpenGameManager(oSelectedGame)
+        End If
     End Sub
 
     Private Sub lstGames_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstGames.SelectedIndexChanged
