@@ -270,6 +270,7 @@ Public Class frmAdvancedImport
         Dim sProcess As String
         Dim sTags As String
         Dim bAddItem As Boolean
+        Dim iCurrentSelection As Integer
 
         IsLoading = True
 
@@ -278,6 +279,9 @@ Public Class frmAdvancedImport
         End If
 
         iCurrentIgnored = 0
+        If lstGames.SelectedIndices.Count > 0 Then
+            iCurrentSelection = lstGames.SelectedIndices(0)
+        End If
         oListCache.Clear()
 
         If bSelectedOnly Then
@@ -354,7 +358,9 @@ Public Class frmAdvancedImport
 
         oListCache.Sort(New ListViewItemComparer(iCurrentSort))
         lstGames.VirtualListSize = oListCache.Count
-        If oListCache.Count > 0 Then lstGames.EnsureVisible(0)
+        If oListCache.Count > iCurrentSelection Then
+            lstGames.EnsureVisible(iCurrentSelection)
+        End If
 
         IsLoading = False
 
