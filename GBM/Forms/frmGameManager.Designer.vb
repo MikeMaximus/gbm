@@ -1022,6 +1022,7 @@ Partial Class frmGameManager
         Me.lblBackupFileData.TabIndex = 7
         Me.lblBackupFileData.Tag = "wipe"
         Me.lblBackupFileData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblBackupFileData.UseMnemonic = False
         '
         'lblLocalData
         '
@@ -1045,6 +1046,7 @@ Partial Class frmGameManager
         Me.lblRestorePathData.TabIndex = 10
         Me.lblRestorePathData.Tag = "wipe"
         Me.lblRestorePathData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblRestorePathData.UseMnemonic = False
         '
         'cboFilters
         '
