@@ -20,8 +20,6 @@ Public Class mgrMonitorList
         Ludusavi = 2
     End Enum
 
-    Public Shared Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
-
     'This function supports filling class types that inherit clsGameBase
     Public Shared Function MapToObject(ByVal dr As DataRow, Optional ByVal eClass As eSupportedClasses = eSupportedClasses.clsGame) As Object
         Dim bFullClass As Boolean = False
@@ -234,155 +232,33 @@ Public Class mgrMonitorList
 
     End Sub
 
-    Public Shared Sub DoListDelete(ByVal sMonitorID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
+    Public Shared Sub DoListDelete(ByVal sMonitorIDs As List(Of String), Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
-        Dim hshParams As New Hashtable
-
-        sSQL = "DELETE FROM manifest "
-        sSQL &= "WHERE MonitorID = @MonitorID;"
-        sSQL &= "DELETE FROM gametags "
-        sSQL &= "WHERE MonitorID = @MonitorID;"
-        sSQL &= "DELETE FROM configlinks "
-        sSQL &= "WHERE MonitorID = @MonitorID;"
-        sSQL &= "DELETE FROM configlinks "
-        sSQL &= "WHERE LinkID = @MonitorID;"
-        If iSelectDB = mgrSQLite.Database.Local Then
-            sSQL &= "DELETE FROM gameprocesses "
-            sSQL &= "WHERE MonitorID = @MonitorID;"
-            sSQL &= "DELETE FROM sessions "
-            sSQL &= "WHERE MonitorID = @MonitorID;"
-            sSQL &= "DELETE FROM winedata "
-            sSQL &= "WHERE MonitorID = @MonitorID;"
-            sSQL &= "DELETE FROM launchdata "
-            sSQL &= "WHERE MonitorID = @MonitorID;"
-        End If
-        sSQL &= "DELETE FROM monitorlist "
-        sSQL &= "WHERE MonitorID = @MonitorID;"
-
-        hshParams.Add("MonitorID", sMonitorID)
-
-        oDatabase.RunParamQuery(sSQL, hshParams)
-
-    End Sub
-
-    Public Shared Sub DoListDeleteMulti(ByVal sMonitorIDs As List(Of String), Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
-        Dim hshParams As New Hashtable
-        Dim iCounter As Integer
-
-        sSQL = "DELETE FROM manifest "
-        sSQL &= "WHERE MonitorID IN ("
+        Dim hshParams As Hashtable
+        Dim oParams As New List(Of Hashtable)
 
         For Each s As String In sMonitorIDs
-            sSQL &= "@MonitorID" & iCounter & ","
-            hshParams.Add("MonitorID" & iCounter, s)
-            iCounter += 1
+            hshParams = New Hashtable
+            hshParams.Add("MonitorID", s)
+            oParams.Add(hshParams)
         Next
 
-        sSQL = sSQL.TrimEnd(",")
-        sSQL &= ");"
-
-        sSQL &= "DELETE FROM gametags "
-        sSQL &= "WHERE MonitorID IN ("
-
-        For Each s As String In sMonitorIDs
-            sSQL &= "@MonitorID" & iCounter & ","
-            hshParams.Add("MonitorID" & iCounter, s)
-            iCounter += 1
-        Next
-
-        sSQL = sSQL.TrimEnd(",")
-        sSQL &= ");"
-
-        sSQL &= "DELETE FROM configlinks "
-        sSQL &= "WHERE MonitorID IN ("
-
-        For Each s As String In sMonitorIDs
-            sSQL &= "@MonitorID" & iCounter & ","
-            hshParams.Add("MonitorID" & iCounter, s)
-            iCounter += 1
-        Next
-
-        sSQL = sSQL.TrimEnd(",")
-        sSQL &= ");"
-
-        sSQL &= "DELETE FROM configlinks "
-        sSQL &= "WHERE LinkID IN ("
-
-        For Each s As String In sMonitorIDs
-            sSQL &= "@MonitorID" & iCounter & ","
-            hshParams.Add("MonitorID" & iCounter, s)
-            iCounter += 1
-        Next
-
-        sSQL = sSQL.TrimEnd(",")
-        sSQL &= ");"
+        sSQL = "DELETE FROM manifest WHERE MonitorID = @MonitorID;
+                DELETE FROM gametags WHERE MonitorID = @MonitorID;
+                DELETE FROM configlinks WHERE MonitorID = @MonitorID;
+                DELETE FROM configlinks WHERE LinkID = @MonitorID;"
 
         If iSelectDB = mgrSQLite.Database.Local Then
-            sSQL &= "DELETE FROM gameprocesses "
-            sSQL &= "WHERE MonitorID IN ("
-
-            For Each s As String In sMonitorIDs
-                sSQL &= "@MonitorID" & iCounter & ","
-                hshParams.Add("MonitorID" & iCounter, s)
-                iCounter += 1
-            Next
-
-            sSQL = sSQL.TrimEnd(",")
-            sSQL &= ");"
-
-            sSQL &= "DELETE FROM sessions "
-            sSQL &= "WHERE MonitorID IN ("
-
-            For Each s As String In sMonitorIDs
-                sSQL &= "@MonitorID" & iCounter & ","
-                hshParams.Add("MonitorID" & iCounter, s)
-                iCounter += 1
-            Next
-
-            sSQL = sSQL.TrimEnd(",")
-            sSQL &= ");"
-
-            sSQL &= "DELETE FROM winedata "
-            sSQL &= "WHERE MonitorID IN ("
-
-            For Each s As String In sMonitorIDs
-                sSQL &= "@MonitorID" & iCounter & ","
-                hshParams.Add("MonitorID" & iCounter, s)
-                iCounter += 1
-            Next
-
-            sSQL = sSQL.TrimEnd(",")
-            sSQL &= ");"
-
-            sSQL &= "DELETE FROM launchdata "
-            sSQL &= "WHERE MonitorID IN ("
-
-            For Each s As String In sMonitorIDs
-                sSQL &= "@MonitorID" & iCounter & ","
-                hshParams.Add("MonitorID" & iCounter, s)
-                iCounter += 1
-            Next
-
-            sSQL = sSQL.TrimEnd(",")
-            sSQL &= ");"
+            sSQL &= "DELETE FROM gameprocesses WHERE MonitorID = @MonitorID;
+                     DELETE FROM sessions WHERE MonitorID = @MonitorID;
+                     DELETE FROM winedata WHERE MonitorID = @MonitorID;
+                     DELETE FROM launchdata WHERE MonitorID = @MonitorID;"
         End If
 
-        sSQL &= "DELETE FROM monitorlist "
-        sSQL &= "WHERE MonitorID IN ("
+        sSQL &= "DELETE FROM monitorlist WHERE MonitorID = @MonitorID;"
 
-        For Each s As String In sMonitorIDs
-            sSQL &= "@MonitorID" & iCounter & ","
-            hshParams.Add("MonitorID" & iCounter, s)
-            iCounter += 1
-        Next
-
-        sSQL = sSQL.TrimEnd(",")
-        sSQL &= ");"
-
-        oDatabase.RunParamQuery(sSQL, hshParams)
+        oDatabase.RunMassParamQuery(sSQL, oParams)
     End Sub
 
     Public Shared Function DoListGetbyMonitorID(ByVal sMonitorID As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Hashtable
@@ -410,15 +286,16 @@ Public Class mgrMonitorList
         Return hshGames
     End Function
 
-    Public Shared Function IsDuplicateName(ByVal sName As String, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Boolean
+    Public Shared Function IsDuplicateName(ByVal oGame As clsGame, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local) As Boolean
         Dim oDatabase As New mgrSQLite(iSelectDB)
         Dim sSQL As String
         Dim oData As Object
         Dim hshParams As New Hashtable
 
-        sSQL = "SELECT Name from monitorlist WHERE NAME = @Name COLLATE NOCASE GROUP BY Name HAVING Count(Name) > 1"
+        sSQL = "SELECT Name from monitorlist WHERE NAME = @Name AND MonitorID <> @MonitorID COLLATE NOCASE GROUP BY Name HAVING Count(Name) >= 1"
 
-        hshParams.Add("Name", sName)
+        hshParams.Add("Name", oGame.Name)
+        hshParams.Add("MonitorID", oGame.ID)
 
         oData = oDatabase.ReadSingleValue(sSQL, hshParams)
 
@@ -453,243 +330,14 @@ Public Class mgrMonitorList
         End If
     End Function
 
-    'Sync Functions
-    Public Shared Sub DoListAddUpdateSync(ByVal hshGames As Hashtable, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local,
-                                          Optional ByVal eSyncFields As clsGame.eOptionalSyncFields = clsGame.eOptionalSyncFields.None)
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
-        Dim hshParams As Hashtable
-        Dim oParamList As New List(Of Hashtable)
-
-        'Handle Optional Sync Fields
-        Dim sGamePath As String
-        Dim sIcon As String
-        Dim sVersion As String
-        Dim sCompany As String
-        Dim sMonitorGame As String
-
-        'Setup SQL for optional fields
-        If (eSyncFields And clsGame.eOptionalSyncFields.Company) = clsGame.eOptionalSyncFields.Company Then
-            sCompany = "@Company"
-        Else
-            sCompany = "(SELECT Company FROM monitorlist WHERE MonitorID=@ID)"
-        End If
-        If (eSyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then
-            sGamePath = "@ProcessPath"
-        Else
-            sGamePath = "(SELECT ProcessPath FROM monitorlist WHERE MonitorID=@ID)"
-        End If
-        If (eSyncFields And clsGame.eOptionalSyncFields.Icon) = clsGame.eOptionalSyncFields.Icon Then
-            sIcon = "@Icon"
-        Else
-            sIcon = "(SELECT Icon FROM monitorlist WHERE MonitorID=@ID)"
-        End If
-        If (eSyncFields And clsGame.eOptionalSyncFields.MonitorGame) = clsGame.eOptionalSyncFields.MonitorGame Then
-            sMonitorGame = "@Enabled"
-        Else
-            sMonitorGame = "COALESCE((SELECT Enabled FROM monitorlist WHERE MonitorID=@ID),1)"
-        End If
-        If (eSyncFields And clsGame.eOptionalSyncFields.Version) = clsGame.eOptionalSyncFields.Version Then
-            sVersion = "@Version"
-        Else
-            sVersion = "(SELECT Version FROM monitorlist WHERE MonitorID=@ID)"
-        End If
-
-        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle, Differential, DiffInterval) "
-        sSQL &= "VALUES (@ID, @Name, @Process, @Path, @FolderSave, @FileType, "
-        sSQL &= "@TimeStamp, @ExcludeList, " & sGamePath & ", "
-        sSQL &= sIcon & ", @Hours, " & sVersion & ", "
-        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS, @UseWindowTitle, @Differential, @DiffInterval);"
-
-        For Each oGame As clsGame In hshGames.Values
-            hshParams = New Hashtable
-
-            'Core Parameters
-            hshParams.Add("ID", oGame.ID)
-            hshParams.Add("Name", oGame.Name)
-            hshParams.Add("Process", oGame.ProcessName)
-            hshParams.Add("Path", oGame.TruePath)
-            hshParams.Add("FolderSave", oGame.FolderSave)
-            hshParams.Add("TimeStamp", oGame.AppendTimeStamp)
-            hshParams.Add("BackupLimit", oGame.BackupLimit)
-            hshParams.Add("FileType", oGame.FileType)
-            hshParams.Add("ExcludeList", oGame.ExcludeList)
-            hshParams.Add("Hours", oGame.Hours)
-            hshParams.Add("MonitorOnly", oGame.MonitorOnly)
-            hshParams.Add("CleanFolder", oGame.CleanFolder)
-            hshParams.Add("Parameter", oGame.Parameter)
-            hshParams.Add("Comments", oGame.Comments)
-            hshParams.Add("IsRegEx", oGame.IsRegEx)
-            hshParams.Add("RecurseSubFolders", oGame.RecurseSubFolders)
-            hshParams.Add("OS", oGame.OS)
-            hshParams.Add("UseWindowTitle", oGame.UseWindowTitle)
-            hshParams.Add("Differential", oGame.Differential)
-            hshParams.Add("DiffInterval", oGame.DiffInterval)
-
-            'Optional Parameters
-            If (eSyncFields And clsGame.eOptionalSyncFields.Company) = clsGame.eOptionalSyncFields.Company Then
-                hshParams.Add("Company", oGame.Company)
-            End If
-            If (eSyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then
-                hshParams.Add("ProcessPath", oGame.ProcessPath)
-            End If
-            If (eSyncFields And clsGame.eOptionalSyncFields.Icon) = clsGame.eOptionalSyncFields.Icon Then
-                hshParams.Add("Icon", oGame.Icon)
-            End If
-            If (eSyncFields And clsGame.eOptionalSyncFields.MonitorGame) = clsGame.eOptionalSyncFields.MonitorGame Then
-                hshParams.Add("Enabled", oGame.Enabled)
-            End If
-            If (eSyncFields And clsGame.eOptionalSyncFields.Version) = clsGame.eOptionalSyncFields.Version Then
-                hshParams.Add("Version", oGame.Version)
-            End If
-
-            oParamList.Add(hshParams)
-        Next
-
-        oDatabase.RunMassParamQuery(sSQL, oParamList)
-
-    End Sub
-
-    Public Shared Sub DoListDeleteSync(ByVal hshGames As Hashtable, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local)
-        Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
-        Dim hshParams As Hashtable
-        Dim oParamList As New List(Of Hashtable)
-
-        sSQL = "DELETE FROM manifest "
-        sSQL &= "WHERE MonitorID = @MonitorID;"
-        sSQL &= "DELETE FROM gametags "
-        sSQL &= "WHERE MonitorID = @MonitorID;"
-        sSQL &= "DELETE FROM configlinks "
-        sSQL &= "WHERE MonitorID = @MonitorID;"
-        sSQL &= "DELETE FROM configlinks "
-        sSQL &= "WHERE LinkID = @MonitorID;"
-        If iSelectDB = mgrSQLite.Database.Local Then
-            sSQL &= "DELETE FROM gameprocesses "
-            sSQL &= "WHERE MonitorID = @MonitorID;"
-            sSQL &= "DELETE FROM sessions "
-            sSQL &= "WHERE MonitorID = @MonitorID;"
-            sSQL &= "DELETE FROM winedata "
-            sSQL &= "WHERE MonitorID = @MonitorID;"
-            sSQL &= "DELETE FROM launchdata "
-            sSQL &= "WHERE MonitorID = @MonitorID;"
-        End If
-        sSQL &= "DELETE FROM monitorlist "
-        sSQL &= "WHERE MonitorID = @MonitorID;"
-
-        For Each oGame As clsGame In hshGames.Values
-            hshParams = New Hashtable
-            hshParams.Add("MonitorID", oGame.ID)
-            oParamList.Add(hshParams)
-        Next
-
-        oDatabase.RunMassParamQuery(sSQL, oParamList)
-    End Sub
-
-    Public Shared Sub SyncMonitorLists(Optional ByVal bToRemote As Boolean = True, Optional ByVal bSyncProtection As Boolean = True)
-        Dim hshCompareFrom As Hashtable
-        Dim hshCompareTo As Hashtable
-        Dim hshSyncItems As Hashtable
-        Dim hshDeleteItems As Hashtable
-        Dim oFromItem As clsGame
-        Dim oToItem As clsGame
-        Dim iChanges As Integer
-
-        Cursor.Current = Cursors.WaitCursor
-
-        If Not mgrSettings.DisableSyncMessages Then
-            If bToRemote Then
-                RaiseEvent UpdateLog(mgrMonitorList_SyncToMaster, False, ToolTipIcon.Info, True)
-            Else
-                RaiseEvent UpdateLog(mgrMonitorList_SyncFromMaster, False, ToolTipIcon.Info, True)
-            End If
-        End If
-
-        'Add / Update Sync
-        If bToRemote Then
-            hshCompareFrom = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
-            hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Remote)
-        Else
-            hshCompareFrom = ReadList(eListTypes.FullList, mgrSQLite.Database.Remote)
-            hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
-        End If
-
-        'Sync Wipe Protection
-        If bSyncProtection Then
-            If hshCompareFrom.Count = 0 And hshCompareTo.Count > 0 Then
-                Cursor.Current = Cursors.Default
-                If mgrCommon.ShowMessage(mgrMonitorList_WarningSyncProtection, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                    'We will always show this one in the log regardless of setting
-                    RaiseEvent UpdateLog(mgrMonitorList_ErrorSyncCancel, False, ToolTipIcon.Warning, True)
-                    Exit Sub
-                End If
-                Cursor.Current = Cursors.WaitCursor
-            End If
-        End If
-
-        hshSyncItems = hshCompareFrom.Clone
-
-        For Each oFromItem In hshCompareFrom.Values
-            If hshCompareTo.Contains(oFromItem.ID) Then
-                oToItem = DirectCast(hshCompareTo(oFromItem.ID), clsGame)
-                If oFromItem.SyncEquals(oToItem, mgrSettings.SyncFields) Then
-                    hshSyncItems.Remove(oFromItem.ID)
-                End If
-            End If
-        Next
-
-        If bToRemote Then
-            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Remote, mgrSettings.SyncFields)
-        Else
-            DoListAddUpdateSync(hshSyncItems, mgrSQLite.Database.Local, mgrSettings.SyncFields)
-        End If
-
-        'Sync Tags
-        iChanges = mgrTags.SyncTags(bToRemote)
-        iChanges += mgrGameTags.SyncGameTags(bToRemote)
-        iChanges += mgrConfigLinks.SyncConfigLinks(bToRemote)
-
-        'Delete Sync
-        If bToRemote Then
-            hshCompareFrom = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
-            hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Remote)
-        Else
-            hshCompareFrom = ReadList(eListTypes.FullList, mgrSQLite.Database.Remote)
-            hshCompareTo = ReadList(eListTypes.FullList, mgrSQLite.Database.Local)
-        End If
-
-        hshDeleteItems = hshCompareTo.Clone
-
-        For Each oToItem In hshCompareTo.Values
-            If hshCompareFrom.Contains(oToItem.ID) Then
-                oFromItem = DirectCast(hshCompareFrom(oToItem.ID), clsGame)
-                If oToItem.MinimalEquals(oFromItem) Then
-                    hshDeleteItems.Remove(oToItem.ID)
-                End If
-            End If
-        Next
-
-        If bToRemote Then
-            DoListDeleteSync(hshDeleteItems, mgrSQLite.Database.Remote)
-        Else
-            DoListDeleteSync(hshDeleteItems, mgrSQLite.Database.Local)
-        End If
-
-        If Not mgrSettings.DisableSyncMessages Then
-            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrMonitorList_SyncChanges, (hshDeleteItems.Count + hshSyncItems.Count + iChanges).ToString), False, ToolTipIcon.Info, True)
-        End If
-
-        Cursor.Current = Cursors.Default
-        Application.DoEvents()
-    End Sub
-
     'Filter Functions
     Private Shared Function BuildFilterQuery(ByVal oIncludeTagFilters As List(Of clsTag), ByVal oExcludeTagFilters As List(Of clsTag), ByVal oFilters As List(Of clsGameFilter),
                                              ByVal eFilterType As frmFilter.eFilterType, ByVal bAndOperator As Boolean, ByVal bSortAsc As Boolean, ByVal sSortField As String,
                                              ByVal sQuickFilter As String, ByRef hshParams As Hashtable) As String
         Dim sSQL As String = String.Empty
         Dim iCounter As Integer = 0
-        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle, Differential, DiffInterval FROM monitorlist"
+        Dim sBaseSelect As String = "MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, 
+                                    Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle, Differential, DiffInterval FROM monitorlist"
         Dim sSort As String = " ORDER BY " & sSortField
 
         If bSortAsc Then
@@ -832,9 +480,13 @@ Public Class mgrMonitorList
             Else
                 sSQL &= " AND "
             End If
-            sSQL &= "MonitorID IN (SELECT MonitorID FROM monitorlist WHERE Name LIKE @QuickName OR MonitorID IN (SELECT MonitorID FROM gametags NATURAL JOIN tags WHERE tags.Name=@QuickTag COLLATE NOCASE))"
-            hshParams.Add("QuickName", "%" & sQuickFilter & "%")
-            hshParams.Add("QuickTag", sQuickFilter)
+            If sQuickFilter.StartsWith("#") Then
+                sSQL &= "MonitorID IN (SELECT MonitorID FROM gametags NATURAL JOIN tags WHERE tags.Name=@QuickTag COLLATE NOCASE)"
+                hshParams.Add("QuickTag", sQuickFilter.Remove(0, 1))
+            Else
+                sSQL &= "MonitorID IN (SELECT MonitorID FROM monitorlist WHERE Name LIKE @QuickName)"
+                hshParams.Add("QuickName", "%" & sQuickFilter & "%")
+            End If
         End If
 
         'Handle Sorting
@@ -1035,32 +687,4 @@ Public Class mgrMonitorList
 
         Return False
     End Function
-
-    'Other Functions
-    Public Shared Sub HandleBackupLocationChange()
-        Dim oDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
-        Dim iGameCount As Integer
-
-        'Check if a remote database already exists in the new backup location
-        If oDatabase.CheckDB() Then
-            'Make sure database is the latest version
-            oDatabase.DatabaseUpgrade()
-
-            'See if the remote database is empty
-            iGameCount = mgrMonitorList.ReadList(eListTypes.FullList, mgrSQLite.Database.Remote).Count
-
-            'If the remote database actually contains a list, then ask what to do
-            If iGameCount > 0 Then
-                If mgrCommon.ShowPriorityMessage(mgrMonitorList_ConfirmExistingData, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    mgrMonitorList.SyncMonitorLists()
-                Else
-                    mgrMonitorList.SyncMonitorLists(False)
-                End If
-            Else
-                mgrMonitorList.SyncMonitorLists()
-            End If
-        Else
-            mgrMonitorList.SyncMonitorLists()
-        End If
-    End Sub
 End Class

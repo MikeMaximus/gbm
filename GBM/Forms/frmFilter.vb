@@ -686,4 +686,10 @@ Public Class frmFilter
         ChangeFilterMode()
     End Sub
 
+    Private Sub frmFilter_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                btnOK.PerformClick()
+        End Select
+    End Sub
 End Class

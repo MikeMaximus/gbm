@@ -22,11 +22,14 @@ Partial Class frmAdvancedImport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.btnImport = New System.Windows.Forms.Button()
         Me.chkSelectAll = New System.Windows.Forms.CheckBox()
         Me.lblStatus = New System.Windows.Forms.Label()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.lstGames = New System.Windows.Forms.ListView()
+        Me.cmsOptions = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmiIgnore = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtFilter = New System.Windows.Forms.TextBox()
         Me.lblFilter = New System.Windows.Forms.Label()
         Me.chkSelectedOnly = New System.Windows.Forms.CheckBox()
@@ -35,6 +38,8 @@ Partial Class frmAdvancedImport
         Me.btnClearSelected = New System.Windows.Forms.Button()
         Me.bwDetect = New System.ComponentModel.BackgroundWorker()
         Me.bwImport = New System.ComponentModel.BackgroundWorker()
+        Me.chkHideIgnored = New System.Windows.Forms.CheckBox()
+        Me.cmsOptions.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnImport
@@ -87,6 +92,7 @@ Partial Class frmAdvancedImport
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lstGames.CheckBoxes = True
+        Me.lstGames.ContextMenuStrip = Me.cmsOptions
         Me.lstGames.FullRowSelect = True
         Me.lstGames.HideSelection = False
         Me.lstGames.Location = New System.Drawing.Point(12, 35)
@@ -95,6 +101,18 @@ Partial Class frmAdvancedImport
         Me.lstGames.TabIndex = 5
         Me.lstGames.UseCompatibleStateImageBehavior = False
         Me.lstGames.View = System.Windows.Forms.View.Details
+        '
+        'cmsOptions
+        '
+        Me.cmsOptions.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiIgnore})
+        Me.cmsOptions.Name = "cmsOptions"
+        Me.cmsOptions.Size = New System.Drawing.Size(181, 48)
+        '
+        'cmiIgnore
+        '
+        Me.cmiIgnore.Name = "cmiIgnore"
+        Me.cmiIgnore.Size = New System.Drawing.Size(180, 22)
+        Me.cmiIgnore.Text = "&Ignore"
         '
         'txtFilter
         '
@@ -155,11 +173,22 @@ Partial Class frmAdvancedImport
         'bwImport
         '
         '
+        'chkHideIgnored
+        '
+        Me.chkHideIgnored.AutoSize = True
+        Me.chkHideIgnored.Location = New System.Drawing.Point(216, 11)
+        Me.chkHideIgnored.Name = "chkHideIgnored"
+        Me.chkHideIgnored.Size = New System.Drawing.Size(87, 17)
+        Me.chkHideIgnored.TabIndex = 2
+        Me.chkHideIgnored.Text = "Hide Ignored"
+        Me.chkHideIgnored.UseVisualStyleBackColor = True
+        '
         'frmAdvancedImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 611)
+        Me.Controls.Add(Me.chkHideIgnored)
         Me.Controls.Add(Me.btnClearSelected)
         Me.Controls.Add(Me.btnDetectSavedGames)
         Me.Controls.Add(Me.chkSelectedOnly)
@@ -170,10 +199,12 @@ Partial Class frmAdvancedImport
         Me.Controls.Add(Me.chkSelectAll)
         Me.Controls.Add(Me.btnImport)
         Me.Controls.Add(Me.lblStatus)
+        Me.KeyPreview = True
         Me.Name = "frmAdvancedImport"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Import Game Configurations"
+        Me.cmsOptions.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -191,4 +222,7 @@ Partial Class frmAdvancedImport
     Friend WithEvents btnClearSelected As Button
     Friend WithEvents bwDetect As System.ComponentModel.BackgroundWorker
     Friend WithEvents bwImport As System.ComponentModel.BackgroundWorker
+    Friend WithEvents cmsOptions As ContextMenuStrip
+    Friend WithEvents cmiIgnore As ToolStripMenuItem
+    Friend WithEvents chkHideIgnored As CheckBox
 End Class

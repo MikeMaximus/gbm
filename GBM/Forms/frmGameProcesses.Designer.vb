@@ -111,6 +111,7 @@ Partial Class frmGameProcesses
         Me.Controls.Add(Me.lstGameProcesses)
         Me.Controls.Add(Me.lstProcesses)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmGameProcesses"

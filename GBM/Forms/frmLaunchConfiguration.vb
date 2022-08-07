@@ -264,4 +264,11 @@ Public Class frmLaunchConfiguration
             End Select
         End If
     End Sub
+
+    Private Sub frmLaunchConfiguration_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                btnCancel.PerformClick()
+        End Select
+    End Sub
 End Class

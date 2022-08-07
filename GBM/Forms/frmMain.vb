@@ -1102,7 +1102,7 @@ Public Class frmMain
             If Not oProcess.GameInfo.ProcessPath = DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).ProcessPath Then
                 DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).ProcessPath = oProcess.GameInfo.ProcessPath
                 mgrMonitorList.DoListFieldUpdate("ProcessPath", oProcess.GameInfo.ProcessPath, oProcess.GameInfo.ID)
-                If (mgrSettings.SyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then mgrMonitorList.SyncMonitorLists()
+                If (mgrSettings.SyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then mgrSync.SyncData()
             End If
         End If
     End Sub
@@ -1154,7 +1154,7 @@ Public Class frmMain
         End If
 
         mgrMonitorList.DoListFieldUpdate("Hours", oProcess.GameInfo.Hours, oProcess.GameInfo.ID)
-        mgrMonitorList.SyncMonitorLists()
+        mgrSync.SyncData()
 
         sPriorTime = lblTimeSpent.Text
         UpdateTimeSpent(dCurrentHours, oProcess.TimeSpent.TotalHours)
@@ -1308,7 +1308,6 @@ Public Class frmMain
         Dim frm As New frmTags
         PauseScan()
         frm.ShowDialog()
-        mgrMonitorList.SyncMonitorLists()
         ResumeScan()
     End Sub
 
@@ -1332,7 +1331,6 @@ Public Class frmMain
         frm.PendingRestores = bPendingRestores
         frm.OpenToGame = oGame
         frm.ShowDialog()
-        mgrMonitorList.SyncMonitorLists()
         LoadGameSettings()
         ResetGameInfo(True)
         ResumeScan()
@@ -1393,7 +1391,7 @@ Public Class frmMain
         Dim frm As New frmAddWizard
         PauseScan()
         frm.ShowDialog()
-        mgrMonitorList.SyncMonitorLists()
+        mgrSync.SyncData()
         LoadGameSettings()
         ResumeScan()
     End Sub
@@ -1402,7 +1400,6 @@ Public Class frmMain
         Dim frm As New frmVariableManager
         PauseScan()
         frm.ShowDialog()
-        mgrMonitorList.SyncMonitorLists()
         mgrPath.LoadCustomVariables()
         ResumeScan()
     End Sub
@@ -1473,29 +1470,20 @@ Public Class frmMain
         oFileWatcher.Path = mgrSettings.BackupFolder
         oFileWatcher.Filter = "gbm.s3db"
         oFileWatcher.NotifyFilter = NotifyFilters.LastWrite
-
     End Sub
 
     Private Sub QueueSyncWatcher() Handles oFileWatcher.Changed
-        tmFileWatcherQueue.Stop()
-        tmFileWatcherQueue.Start()
+        If Not eCurrentStatus = eStatus.Paused Then
+            tmFileWatcherQueue.Stop()
+            tmFileWatcherQueue.Start()
+        End If
     End Sub
 
     Private Sub HandleSyncWatcher() Handles tmFileWatcherQueue.Elapsed
-        tmFileWatcherQueue.Stop()
-        StopSyncWatcher()
-
         UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
-        SyncGameSettings()
+        mgrSync.SyncData(False)
         LoadGameSettings()
-
         CheckForNewBackups()
-        StartSyncWatcher()
-    End Sub
-
-    Private Sub SyncGameSettings()
-        'Sync Monitor List
-        mgrMonitorList.SyncMonitorLists(False)
     End Sub
 
     Private Sub LocalDatabaseCheck()
@@ -1558,8 +1546,8 @@ Public Class frmMain
                 BackupDatabases()
             End If
 
-            'Sync Game Settings
-            SyncGameSettings()
+            'Sync
+            mgrSync.SyncData(False)
         End If
 
         'Setup Sync Watcher
@@ -1699,6 +1687,7 @@ Public Class frmMain
             HandleScan()
             CheckForFailedBackups()
             CheckForNewBackups()
+            StartSyncWatcher()
         End If
     End Sub
 
@@ -2168,6 +2157,7 @@ Public Class frmMain
         gMonFileImportFile.Text = frmMain_gMonFileImportFile
         gMonFileImportURL.Text = frmMain_gMonFileImportURL
         gMonFileExport.Text = frmMain_gMonFileExport
+        gMonOpenBackupFolder.Text = frmMain_gMonOpenBackupFolder
         gMonFileSettings.Text = frmMain_gMonFileSettings
         gMonFileExit.Text = frmMain_gMonFileExit
         gMonSetup.Text = frmMain_gMonSetup
@@ -2206,6 +2196,7 @@ Public Class frmMain
         gMonTrayFileImportFile.Text = frmMain_gMonFileImportFile
         gMonTrayFileImportURL.Text = frmMain_gMonFileImportURL
         gMonTrayFileExport.Text = frmMain_gMonFileExport
+        gMonTrayOpenBackupFolder.Text = frmMain_gMonOpenBackupFolder
         gMonTraySettings.Text = frmMain_gMonFileSettings
         gMonTraySetup.Text = frmMain_gMonTraySetup
         gMonTraySetupGameManager.Text = frmMain_gMonSetupGameManager
@@ -2281,7 +2272,10 @@ Public Class frmMain
         tmPlayTimer.Interval = 5000
         tmPlayTimer.AutoReset = False
 
-        AddHandler mgrMonitorList.UpdateLog, AddressOf UpdateLog
+        AddHandler mgrSync.UpdateLog, AddressOf UpdateLog
+        AddHandler mgrSync.PushStarted, AddressOf StopSyncWatcher
+        AddHandler mgrSync.PushEnded, AddressOf StartSyncWatcher
+
         ResetGameInfo()
     End Sub
 
@@ -2397,7 +2391,6 @@ Public Class frmMain
 
     Private Sub HandleScan()
         If eCurrentStatus = eStatus.Running Then
-            StopSyncWatcher()
             tmScanTimer.Stop()
             eCurrentStatus = eStatus.Stopped
             UpdateStatus(frmMain_NotScanning)
@@ -2405,7 +2398,6 @@ Public Class frmMain
             gMonTray.Icon = GBM_Icon_Stopped
         Else
             StartScan()
-            StartSyncWatcher()
             eCurrentStatus = eStatus.Running
             UpdateStatus(frmMain_NoGameDetected)
             gMonStripStatusButton.Image = frmMain_Ready
@@ -2416,7 +2408,6 @@ Public Class frmMain
 
     Private Sub PauseScan(Optional ByVal bGameDetected As Boolean = False)
         If eCurrentStatus = eStatus.Running Then
-            StopSyncWatcher()
             tmScanTimer.Stop()
             eCurrentStatus = eStatus.Paused
             UpdateStatus(frmMain_NotScanning)
@@ -2430,7 +2421,6 @@ Public Class frmMain
     Private Sub ResumeScan()
         If eCurrentStatus = eStatus.Running Or eCurrentStatus = eStatus.Paused Then
             StartScan()
-            StartSyncWatcher()
             eCurrentStatus = eStatus.Running
             gMonStripStatusButton.Image = frmMain_Ready
             gMonTray.Icon = GBM_Icon_Ready
@@ -2441,7 +2431,6 @@ Public Class frmMain
     End Sub
 
     Private Sub StopScan()
-        StopSyncWatcher()
         tmScanTimer.Stop()
         eCurrentStatus = eStatus.Stopped
         UpdateStatus(frmMain_NotScanning)
@@ -2509,7 +2498,7 @@ Public Class frmMain
             If mgrSettings.BackupFolder <> sBackupPath Then
                 mgrSettings.BackupFolder = sBackupPath
                 mgrSettings.SaveSettings()
-                mgrMonitorList.HandleBackupLocationChange()
+                mgrSync.HandleBackupLocationChange()
             End If
             Return True
         Else
@@ -2676,7 +2665,7 @@ Public Class frmMain
         Dim sDefaultFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         Dim oExtensions As New SortedList
 
-        oExtensions.Add(frmGameManager_7zBackup, "7z")
+        oExtensions.Add(frmGameManager_7zBackup, "*.7z")
         sFilestoImport = mgrCommon.OpenMultiFileBrowser("Main_BackupFileImport", frmMain_ChooseImportFiles, oExtensions, 1, sDefaultFolder, True)
 
         If sFilestoImport.Length > 0 Then
@@ -2770,6 +2759,10 @@ Public Class frmMain
 
     Private Sub gMonFileExport_Click(sender As Object, e As EventArgs) Handles gMonFileExport.Click, gMonTrayFileExport.Click
         mgrMonitorList.ExportGameList()
+    End Sub
+
+    Private Sub gMonOpenBackupFolder_Click(sender As Object, e As EventArgs) Handles gMonOpenBackupFolder.Click, gMonTrayOpenBackupFolder.Click
+        mgrCommon.OpenInOS(mgrSettings.BackupFolder)
     End Sub
 
     Private Sub FileSettings_Click(sender As Object, e As EventArgs) Handles gMonFileSettings.Click, gMonTraySettings.Click
@@ -3207,6 +3200,12 @@ Public Class frmMain
         'This suppresses the stupid Windows ding any time you use the enter key because AcceptButton is not set.
         If e.KeyChar = Chr(13) Then
             e.Handled = True
+        End If
+    End Sub
+
+    Private Sub lstGames_DoubleClick(sender As Object, e As EventArgs) Handles lstGames.DoubleClick
+        If lstGames.SelectedIndex <> -1 Then
+            OpenGameManager(oSelectedGame)
         End If
     End Sub
 

@@ -1997,9 +1997,6 @@
   <data name="frmMain_ProcessStarted" xml:space="preserve">
     <value>[PARAM]已启动。</value>
   </data>
-  <data name="frmSettings_chkUseGameID" xml:space="preserve">
-    <value>使用游戏ID作为文件夹和文件名</value>
-  </data>
   <data name="mgrMonitorList_ErrorSyncCancel" xml:space="preserve">
     <value>用户已中止同步。</value>
   </data>

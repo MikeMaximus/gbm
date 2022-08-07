@@ -85,84 +85,8 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Function CheckManifestandUpdate(ByVal oOriginalApp As clsGame, ByVal oNewApp As clsGame, ByVal bUseGameID As Boolean) As Boolean
+    Private Sub CheckManifestandUpdate(ByVal oOriginalApp As clsGame, ByVal oNewApp As clsGame)
         Dim oBackupItems As List(Of clsBackup)
-        Dim sDirectory As String
-        Dim sNewDirectory As String
-        Dim sFileName As String
-        Dim sNewFileName As String
-        Dim sNewAppItem As String
-        Dim sOriginalAppItem As String
-
-        'Handle File Changes
-        If (bUseGameID And (oNewApp.ID <> oOriginalApp.ID)) Or (Not bUseGameID And (oNewApp.FileSafeName <> oOriginalApp.FileSafeName)) Then
-            'Choose how to perform file & folder renames
-            If bUseGameID Then
-                sNewAppItem = oNewApp.ID
-                sOriginalAppItem = oOriginalApp.ID
-            Else
-                sNewAppItem = oNewApp.FileSafeName
-                sOriginalAppItem = oOriginalApp.FileSafeName
-            End If
-
-            'Remote
-            If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Remote) Then
-                'Check for existing folder
-                sDirectory = BackupFolder & sOriginalAppItem
-                sNewDirectory = sDirectory.Replace(sOriginalAppItem, sNewAppItem)
-                If Directory.Exists(sNewDirectory) Then
-                    If mgrCommon.ShowMessage(frmGameManager_ErrorRenameFolderExists, New String() {sDirectory, sNewDirectory}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                        mgrCommon.DeleteDirectory(sNewDirectory, True)
-                    Else
-                        Return False
-                    End If
-                End If
-                Directory.CreateDirectory(sNewDirectory)
-
-                oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Remote)
-
-                'Check for existing files
-                For Each oBackupItem As clsBackup In oBackupItems
-                    sFileName = BackupFolder & oBackupItem.FileName
-                    sNewFileName = Path.GetDirectoryName(sFileName) & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(sOriginalAppItem, sNewAppItem)
-                    If File.Exists(sNewFileName) Then
-                        If mgrCommon.ShowMessage(frmGameManager_ErrorRenameFilesExist, sNewAppItem, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
-                            Return False
-                        End If
-                        Exit For
-                    End If
-                Next
-
-                'We need to copy the files, then delete the original to work around file locking issues with cloud clients.               
-                For Each oBackupItem As clsBackup In oBackupItems
-                    sFileName = BackupFolder & oBackupItem.FileName
-                    sNewFileName = sNewDirectory & Path.DirectorySeparatorChar & Path.GetFileName(sFileName).Replace(sOriginalAppItem, sNewAppItem)
-                    If File.Exists(sFileName) And Not sFileName = sNewFileName Then
-                        'Copy the file using the new name, then delete the old file when successful.
-                        If mgrCommon.CopyFile(sFileName, sNewFileName, True) Then
-                            mgrCommon.DeleteFile(sFileName)
-                            oBackupItem.FileName = oBackupItem.FileName.Replace(sOriginalAppItem, sNewAppItem)
-                            mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Remote)
-                        End If
-                    End If
-                Next
-
-                'Delete the old folder if it's empty
-                If Directory.Exists(sDirectory) And Not sDirectory = sNewDirectory Then
-                    mgrCommon.DeleteEmptyDirectory(sDirectory)
-                End If
-            End If
-
-            'Local
-            If mgrManifest.DoManifestCheck(oOriginalApp.ID, mgrSQLite.Database.Local) Then
-                oBackupItems = mgrManifest.DoManifestGetByMonitorID(oOriginalApp.ID, mgrSQLite.Database.Local)
-                'The local manifest will only have one entry per game, therefore this runs only once
-                For Each oBackupItem As clsBackup In oBackupItems
-                    oBackupItem.FileName = oBackupItem.FileName.Replace(sOriginalAppItem, sNewAppItem)
-                    mgrManifest.DoManifestUpdateByManifestID(oBackupItem, mgrSQLite.Database.Local)
-                Next
-            End If
-        End If
 
         'Handle ID Change
         If oNewApp.ID <> oOriginalApp.ID Then
@@ -185,9 +109,7 @@ Public Class frmGameManager
                 Next
             End If
         End If
-
-        Return True
-    End Function
+    End Sub
 
     Private Sub LoadData(Optional ByVal bRetainFilter As Boolean = True)
         Dim oRestoreData As New SortedList
@@ -346,20 +268,6 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Function HandleDirty() As MsgBoxResult
-        Dim oResult As MsgBoxResult
-
-        oResult = mgrCommon.ShowMessage(App_ConfirmDirty, MsgBoxStyle.YesNoCancel)
-
-        Select Case oResult
-            Case MsgBoxResult.No
-                IsDirty = False
-        End Select
-
-        Return oResult
-
-    End Function
-
     Private Sub FormatAndFillList()
         IsLoading = True
 
@@ -431,16 +339,12 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Sub OpenBackupFile()
-        Dim sFileName As String = BackupFolder & CurrentBackupItem.FileName
-
-        mgrCommon.OpenInOS(sFileName, frmGameManager_ErrorNoBackupFileExists)
+    Private Sub OpenFile(ByVal sFileName As String)
+        mgrCommon.OpenInOS(sFileName, frmGameManager_ErrorNoFileExists)
     End Sub
 
-    Private Sub OpenBackupFolder()
-        Dim sFileName As String = BackupFolder & Path.GetDirectoryName(CurrentBackupItem.FileName)
-
-        mgrCommon.OpenInOS(sFileName, frmGameManager_ErrorNoBackupFolderExists)
+    Private Sub OpenFolder(ByVal sFolderName As String)
+        mgrCommon.OpenInOS(sFolderName, frmGameManager_ErrorNoFolderExists)
     End Sub
 
     Private Sub UpdateBuilderButtonLabel(ByVal sBuilderString As String, ByVal sLabel As String, ByVal btn As Button, ByVal bDirty As Boolean)
@@ -469,7 +373,7 @@ Public Class frmGameManager
         End If
     End Sub
 
-    Private Function GetBuilderRoot() As String
+    Private Function GetSavePath() As String
         Dim sRoot As String = String.Empty
         Dim sPath As String = String.Empty
         Dim sAppPath As String = mgrPath.ValidatePath(txtAppPath.Text)
@@ -508,7 +412,7 @@ Public Class frmGameManager
         Dim frm As New frmIncludeExclude
         frm.FormName = sFormText
         frm.BuilderString = txtBox.Text
-        frm.RootFolder = GetBuilderRoot()
+        frm.RootFolder = GetSavePath()
         frm.RecurseSubFolders = chkRecurseSubFolders.Checked
         frm.ShowDialog()
 
@@ -635,6 +539,7 @@ Public Class frmGameManager
             sTags = mgrGameTags.PrintTagsbyList(frm.TagList)
             HandleTags(sTags)
         Else
+            mgrGameTags.SyncGameTags()
             'Only update visible tags if one item is selected
             If lstGames.SelectedItems.Count = 1 Then
                 sTags = mgrGameTags.PrintTagsbyID(CurrentGame.ID)
@@ -682,6 +587,8 @@ Public Class frmGameManager
 
         If eCurrentMode = eModes.Add Then
             oConfigLinksToSave = frm.ConfigLinkList
+        Else
+            mgrConfigLinks.SyncConfigLinks()
         End If
     End Sub
 
@@ -781,7 +688,7 @@ Public Class frmGameManager
             If File.Exists(sFileName) Then
                 lblBackupFileData.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sFileName)) & ")"
             Else
-                lblBackupFileData.Text = frmGameManager_ErrorNoBackupFileExists
+                lblBackupFileData.Text = frmGameManager_ErrorNoFileExists
             End If
 
             SetBackupRestorePath(oApp)
@@ -853,7 +760,7 @@ Public Class frmGameManager
             If File.Exists(sFileName) Then
                 lblBackupFileData.Text = Path.GetFileName(CurrentBackupItem.FileName) & " (" & mgrCommon.FormatDiskSpace(mgrCommon.GetFileSize(sFileName)) & ")"
             Else
-                lblBackupFileData.Text = frmGameManager_ErrorNoBackupFileExists
+                lblBackupFileData.Text = frmGameManager_ErrorNoFileExists
             End If
 
             SetBackupRestorePath(CurrentGame)
@@ -873,7 +780,7 @@ Public Class frmGameManager
                 'Delete referenced backup file from the backup folder
                 mgrCommon.DeleteFile(BackupFolder & oBackup.FileName)
                 'Check for sub-directory and delete if empty (we need to do this every pass just in case the user had a mix of settings at one point)
-                mgrCommon.DeleteDirectoryByBackup(BackupFolder, oBackup)
+                mgrCommon.DeleteEmptyDirectory(BackupFolder & oBackup.FileSafeName)
             Next
 
             'Delete local manifest entry
@@ -914,7 +821,7 @@ Public Class frmGameManager
             Next
 
             'Check for sub-directory and delete if empty
-            mgrCommon.DeleteDirectoryByBackup(BackupFolder, CurrentBackupItem)
+            mgrCommon.DeleteEmptyDirectory(BackupFolder & CurrentBackupItem.FileSafeName)
 
             LoadBackupData()
             GetBackupInfo(CurrentGame)
@@ -1083,6 +990,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = False
                 btnBackup.Enabled = False
                 btnAdvanced.Enabled = False
+                btnCopy.Enabled = False
                 tbBackupInfo.Enabled = False
                 cmsEnabled.Checked = True
                 cmsMonitorOnly.Checked = False
@@ -1093,6 +1001,7 @@ Public Class frmGameManager
                 btnExclude.Text = frmGameManager_btnExclude
                 btnImport.Enabled = False
                 btnExport.Enabled = False
+                nudInterval.Value = 6
                 cboOS.SelectedValue = CInt(mgrCommon.GetCurrentOS)
                 ModeChangeHandler()
             Case eModes.Edit
@@ -1112,6 +1021,7 @@ Public Class frmGameManager
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
                 btnAdvanced.Enabled = False
+                btnCopy.Enabled = False
                 btnImport.Enabled = False
                 btnExport.Enabled = False
             Case eModes.View
@@ -1134,6 +1044,7 @@ Public Class frmGameManager
                 btnDelete.Enabled = True
                 btnBackup.Enabled = True
                 btnAdvanced.Enabled = True
+                btnCopy.Enabled = True
                 btnImport.Enabled = True
                 btnExport.Enabled = True
                 ModeChangeHandler()
@@ -1156,8 +1067,9 @@ Public Class frmGameManager
                 tbGameInfo.Enabled = False
                 tbBackupInfo.Enabled = False
                 btnAdd.Enabled = True
-                btnDelete.Enabled = True
+                btnDelete.Enabled = False
                 btnAdvanced.Enabled = False
+                btnCopy.Enabled = False
                 lblGameTags.Text = frmGameManager_lblGameTags
                 lblGameTags.LinkBehavior = LinkBehavior.HoverUnderline
                 btnInclude.Text = frmGameManager_btnInclude
@@ -1198,6 +1110,7 @@ Public Class frmGameManager
                 cmsDeleteOne.Enabled = False
                 cmsImportData.Enabled = False
                 btnAdvanced.Enabled = False
+                btnCopy.Enabled = True
                 btnGameID.Enabled = False
                 btnImport.Enabled = True
                 btnExport.Enabled = True
@@ -1207,7 +1120,7 @@ Public Class frmGameManager
     End Sub
 
     'This function handles any "sub modes" based on the current state of the form
-    Private Sub ModeChangeHandler(Optional ByVal bResetValues As Boolean = False)
+    Private Sub ModeChangeHandler()
         'In Monitor Only mode, no other mode changes currently matter
         If cmsMonitorOnly.Checked Then
             chkFolderSave.Enabled = False
@@ -1241,19 +1154,16 @@ Public Class frmGameManager
                 nudLimit.Enabled = False
                 lblLimit.Enabled = False
             End If
-            If bResetValues Then nudLimit.Value = nudLimit.Minimum
 
             'Handle "Differential Backups" mode change
             If chkDifferentialBackup.Checked Then
                 nudInterval.Enabled = True
                 lblInterval.Enabled = True
                 lblLimit.Text = frmGameManager_lblLimit_Alt
-                If bResetValues Then nudInterval.Value = 6
             Else
                 nudInterval.Enabled = False
                 lblInterval.Enabled = False
                 lblLimit.Text = frmGameManager_lblLimit
-                If bResetValues Then nudInterval.Value = nudInterval.Minimum
             End If
 
             'Handle "Registry" mode change
@@ -1303,10 +1213,11 @@ Public Class frmGameManager
 
     Private Sub CancelEdit()
         If IsDirty Then
-            Select Case HandleDirty()
+            Select Case mgrCommon.ConfirmDirty()
                 Case MsgBoxResult.Yes
                     SaveApp()
                 Case MsgBoxResult.No
+                    IsDirty = False
                     If lstGames.SelectedItems.Count > 0 Then
                         eCurrentMode = eModes.View
                         FillData()
@@ -1418,9 +1329,17 @@ Public Class frmGameManager
         oApp.RecurseSubFolders = chkRecurseSubFolders.Checked
         oApp.CleanFolder = chkCleanFolder.Checked
         oApp.AppendTimeStamp = chkTimeStamp.Checked
-        oApp.BackupLimit = nudLimit.Value
+        If oApp.AppendTimeStamp Then
+            oApp.BackupLimit = nudLimit.Value
+        Else
+            oApp.BackupLimit = 0
+        End If
         oApp.Differential = chkDifferentialBackup.Checked
-        oApp.DiffInterval = nudInterval.Value
+        If oApp.Differential Then
+            oApp.DiffInterval = nudInterval.Value
+        Else
+            oApp.DiffInterval = 0
+        End If
         oApp.Comments = txtComments.Text
         oApp.Enabled = cmsEnabled.Checked
         oApp.MonitorOnly = cmsMonitorOnly.Checked
@@ -1441,10 +1360,9 @@ Public Class frmGameManager
                 End If
             Case eModes.Edit
                 If CoreValidatation(oApp, False) Then
-                    If CheckManifestandUpdate(CurrentGame, oApp, mgrSettings.UseGameID) Then
-                        bSuccess = True
-                        mgrMonitorList.DoListUpdate(oApp, CurrentGame.ID)
-                    End If
+                    bSuccess = True
+                    CheckManifestandUpdate(CurrentGame, oApp)
+                    mgrMonitorList.DoListUpdate(oApp, CurrentGame.ID)
                 End If
             Case eModes.MultiSelect
                 Dim sMonitorIDs As New List(Of String)
@@ -1459,35 +1377,111 @@ Public Class frmGameManager
         End Select
 
         If bSuccess Then
+            mgrSync.SyncData()
             CurrentGame = oApp
-            LoadBackupData()
             IsDirty = False
             LoadData()
+        End If
+    End Sub
+
+    Private Sub CopyApp()
+        Dim oData As KeyValuePair(Of String, String)
+        Dim oCurrentApp As clsGame
+        Dim oApp As clsGame
+        Dim iCount As Integer = lstGames.SelectedItems.Count
+        Dim oResult As MsgBoxResult
+
+        Dim oTag As clsTag
+        Dim oTags As SortedList
+        Dim oGameTag As clsGameTag
+        Dim oGameTagsToCopy As List(Of clsGameTag)
+
+        Dim oProcess As clsProcess
+        Dim oProcesses As Hashtable
+        Dim oGameProcess As clsGameProcess
+        Dim oGameProcessesToCopy As List(Of clsGameProcess)
+
+        Dim oConfigLink As clsConfigLink
+        Dim oConfigLinks As List(Of clsConfigLink)
+
+        If iCount >= 1 Then
+            If iCount > 1 Then
+                oResult = mgrCommon.ShowMessage(frmGameManager_ConfirmCopyMulti, iCount, MsgBoxStyle.YesNo)
+            Else
+                oResult = MsgBoxResult.Yes
+            End If
+
+            If oResult = MsgBoxResult.Yes Then
+                For Each oData In lstGames.SelectedItems
+                    oCurrentApp = DirectCast(GameData(oData.Key), clsGame)
+                    oApp = oCurrentApp.ShallowCopy
+
+                    'Base
+                    oApp.ID = Guid.NewGuid.ToString
+                    oApp.Name &= App_AppendCopy
+                    mgrMonitorList.DoListAdd(oApp)
+
+                    'Tags
+                    oTags = mgrGameTags.GetTagsByGame(CurrentGame.ID)
+                    oGameTagsToCopy = New List(Of clsGameTag)
+                    For Each de As DictionaryEntry In oTags
+                        oTag = DirectCast(de.Value, clsTag)
+                        oGameTag = New clsGameTag(oTag.ID, oApp.ID)
+                        oGameTagsToCopy.Add(oGameTag)
+                    Next
+                    mgrGameTags.DoGameTagAddBatch(oGameTagsToCopy)
+
+                    'Processes
+                    oProcesses = mgrGameProcesses.GetProcessesByGame(CurrentGame.ID)
+                    oGameProcessesToCopy = New List(Of clsGameProcess)
+                    For Each de As DictionaryEntry In oProcesses
+                        oProcess = DirectCast(de.Value, clsProcess)
+                        oGameProcess = New clsGameProcess(oProcess.ID, oApp.ID)
+                        oGameProcessesToCopy.Add(oGameProcess)
+                    Next
+                    mgrGameProcesses.DoGameProcessAddBatch(oGameProcessesToCopy)
+
+                    'Config Links
+                    oConfigLinks = mgrConfigLinks.GetConfigsLinksByID(CurrentGame.ID)
+                    For Each oConfigLink In oConfigLinks
+                        oConfigLink.MonitorID = oApp.ID
+                    Next
+                    mgrConfigLinks.DoConfigLinkAddBatch(oConfigLinks)
+
+                    CurrentGame = oApp
+                Next
+
+                mgrSync.SyncData()
+                LoadData()
+            End If
         End If
     End Sub
 
     Private Sub DeleteApp()
         Dim oData As KeyValuePair(Of String, String)
         Dim oApp As clsGame
+        Dim sCurrentName As String = String.Empty
+        Dim iCount As Integer = lstGames.SelectedItems.Count
+        Dim oResult As MsgBoxResult
 
-        If lstGames.SelectedItems.Count = 1 Then
-            oData = lstGames.SelectedItems(0)
-            oApp = DirectCast(GameData(oData.Key), clsGame)
-
-            If mgrCommon.ShowMessage(frmGameManager_ConfirmGameDelete, oApp.Name, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                mgrMonitorList.DoListDelete(oApp.ID)
-                LoadData()
-            End If
-        ElseIf lstGames.SelectedItems.Count > 1 Then
+        If iCount >= 1 Then
             Dim sMonitorIDs As New List(Of String)
 
             For Each oData In lstGames.SelectedItems
                 oApp = DirectCast(GameData(oData.Key), clsGame)
+                sCurrentName = oApp.CroppedName
                 sMonitorIDs.Add(oApp.ID)
             Next
 
-            If mgrCommon.ShowMessage(frmGameManager_ConfirmMultiGameDelete, sMonitorIDs.Count, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                mgrMonitorList.DoListDeleteMulti(sMonitorIDs)
+            If iCount > 1 Then
+                oResult = mgrCommon.ShowMessage(frmGameManager_ConfirmMultiGameDelete, sMonitorIDs.Count, MsgBoxStyle.YesNo)
+            Else
+                oResult = mgrCommon.ShowMessage(frmGameManager_ConfirmGameDelete, sCurrentName, MsgBoxStyle.YesNo)
+            End If
+
+            If oResult = MsgBoxResult.Yes Then
+                mgrMonitorList.DoListDelete(sMonitorIDs)
+                mgrSync.SyncData()
                 LoadData()
             End If
         End If
@@ -1614,7 +1608,7 @@ Public Class frmGameManager
         Dim sFiles As String()
         Dim oExtensions As New SortedList
 
-        oExtensions.Add(frmGameManager_7zBackup, "7z")
+        oExtensions.Add(frmGameManager_7zBackup, "*.7z")
         sFiles = mgrCommon.OpenMultiFileBrowser("GM_ImportBackup", frmGameManager_Choose7zImport, oExtensions, 1, sDefaultFolder, True)
 
         If sFiles.Length > 0 Then
@@ -1805,6 +1799,7 @@ Public Class frmGameManager
         lblCompany.Text = frmGameManager_lblCompany
         lblIcon.Text = frmGameManager_lblIcon
         btnAppPathBrowse.Text = frmGameManager_btnAppPathBrowse
+        btnOpenGameFolder.Image = frmGameManager_Folder_Open
         lblGamePath.Text = frmGameManager_lblGamePath
         lblHours.Text = frmGameManager_lblHours
         btnExclude.Text = frmGameManager_btnExclude
@@ -1812,6 +1807,7 @@ Public Class frmGameManager
         btnInclude.Text = frmGameManager_btnInclude
         btnInclude.Image = frmGameManager_Include_Items
         btnSavePathBrowse.Text = frmGameManager_btnSavePathBrowse
+        btnOpenSaveFolder.Image = frmGameManager_Folder_Open
         btnProcessBrowse.Text = frmGameManager_btnProcessBrowse
         lblSavePath.Text = frmGameManager_lblSavePath
         lblProcess.Text = frmGameManager_lblProcess
@@ -1845,6 +1841,8 @@ Public Class frmGameManager
         btnProcessOptions.Image = frmGameManager_Process
         btnAdvanced.Text = frmGameManager_btnAdvanced
         btnAdvanced.Image = frmGameManager_Advanced
+        btnCopy.Text = frmGameManager_btnCopy
+        btnCopy.Image = frmGameManager_Copy
         cmsWineConfig.Text = frmGameManager_cmsWineConfig
         cmsLinkProcess.Text = frmGameManager_cmsLinkProcess
         cmsLinkConfiguration.Text = frmGameManager_cmsLinkConfiguration
@@ -1862,6 +1860,8 @@ Public Class frmGameManager
         ttHelp.SetToolTip(lblBackupFileData, frmGameManager_ttHelp_lblBackupFileData)
         ttHelp.SetToolTip(lblGameTags, frmGameManager_ttHelp_lblTags)
         ttHelp.SetToolTip(btnProcessOptions, frmGameManager_ttHelp_btnProcessOptions)
+        ttHelp.SetToolTip(btnOpenGameFolder, frmGameManager_ttHelp_btnOpenGameFolder)
+        ttHelp.SetToolTip(btnOpenSaveFolder, frmGameManager_ttHelp_btnOpenSaveFolder)
         ttHelp.SetToolTip(btnLinks, frmGameManager_ttHelp_btnLinks)
         ttHelp.SetToolTip(btnMonitorOptions, frmGameManager_ttHelp_btnMonitorOptions)
         ttHelp.SetToolTip(btnGameID, frmGameManager_ttHelp_btnGameID)
@@ -1896,6 +1896,8 @@ Public Class frmGameManager
         tmFilterTimer.Interval = 1000
         tmFilterTimer.Enabled = False
 
+        'Handlers
+        AddHandler mgrSync.PushEnded, AddressOf LoadBackupData
     End Sub
 
     Private Sub frmGameManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -1968,7 +1970,9 @@ Public Class frmGameManager
 
     Private Sub frmGameManager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If IsDirty Then
-            Select Case HandleDirty()
+            Select Case mgrCommon.ConfirmDirty()
+                Case MsgBoxResult.No
+                    IsDirty = False
                 Case MsgBoxResult.Yes
                     SaveApp()
                     If IsDirty Then e.Cancel = True
@@ -1986,8 +1990,16 @@ Public Class frmGameManager
         SavePathBrowse()
     End Sub
 
+    Private Sub btnOpenSaveFolder_Click(sender As Object, e As EventArgs) Handles btnOpenSaveFolder.Click
+        OpenFolder(GetSavePath())
+    End Sub
+
     Private Sub btnAppPathBrowse_Click(sender As Object, e As EventArgs) Handles btnAppPathBrowse.Click
         ProcessPathBrowse()
+    End Sub
+
+    Private Sub btnOpenGameFolder_Click(sender As Object, e As EventArgs) Handles btnOpenGameFolder.Click
+        OpenFolder(mgrPath.ReplaceSpecialPaths(txtAppPath.Text))
     End Sub
 
     Private Sub btnIconBrowse_Click(sender As Object, e As EventArgs) Handles btnIconBrowse.Click
@@ -1995,11 +2007,11 @@ Public Class frmGameManager
     End Sub
 
     Private Sub lblBackupFileData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblBackupFileData.LinkClicked
-        OpenBackupFile()
+        OpenFile(BackupFolder & CurrentBackupItem.FileName)
     End Sub
 
     Private Sub btnOpenBackupFolder_Click(sender As Object, e As EventArgs) Handles btnOpenBackupFolder.Click
-        OpenBackupFolder()
+        OpenFolder(BackupFolder & Path.GetDirectoryName(CurrentBackupItem.FileName))
     End Sub
 
     Private Sub lblRestorePathData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblRestorePathData.LinkClicked
@@ -2010,7 +2022,11 @@ Public Class frmGameManager
         mgrCommon.OpenButtonSubMenu(cmsProcessOptions, btnProcessOptions)
     End Sub
 
-    Private Sub btnLink_Click(sender As Object, e As EventArgs) Handles btnAdvanced.Click
+    Private Sub btnCopy_Click(sender As Object, e As EventArgs) Handles btnCopy.Click
+        CopyApp()
+    End Sub
+
+    Private Sub btnAdvanced_Click(sender As Object, e As EventArgs) Handles btnAdvanced.Click
         mgrCommon.OpenButtonSubMenu(cmsAdvanced, btnAdvanced)
     End Sub
 
@@ -2083,11 +2099,11 @@ Public Class frmGameManager
     End Sub
 
     Private Sub chkTimeStamp_CheckedChanged(sender As Object, e As EventArgs) Handles chkTimeStamp.CheckedChanged
-        If Not IsLoading Then ModeChangeHandler(True)
+        If Not IsLoading Then ModeChangeHandler()
     End Sub
 
     Private Sub chkDifferentialBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkDifferentialBackup.CheckedChanged
-        If Not IsLoading Then ModeChangeHandler(True)
+        If Not IsLoading Then ModeChangeHandler()
     End Sub
 
     Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles cmsMonitorOnly.CheckedChanged
@@ -2221,5 +2237,17 @@ Public Class frmGameManager
             lblProcess.Text = frmGameManager_lblProcess
             btnProcessBrowse.Enabled = True
         End If
+    End Sub
+
+    Private Sub frmGameManager_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                Select Case eCurrentMode
+                    Case eModes.Add, eModes.Edit
+                        btnCancel.PerformClick()
+                    Case eModes.Disabled, eModes.MultiSelect, eModes.View
+                        Me.Close()
+                End Select
+        End Select
     End Sub
 End Class

@@ -1,7 +1,6 @@
 ﻿Imports GBM.My.Resources
 
 Public Class frmConfigLinks
-    Private oConfigLinkList As List(Of KeyValuePair(Of String, String))
     Private WithEvents tmFilterTimer As Timer
 
     Public Property IDList As List(Of String)
@@ -123,13 +122,13 @@ Public Class frmConfigLinks
         lstLinks.DisplayMember = "Value"
 
         If NewMode Then
-            For Each kp As KeyValuePair(Of String, String) In oConfigLinkList
+            For Each kp As KeyValuePair(Of String, String) In ConfigLinkList
                 If hshConfigs.ContainsKey(kp.Key) Then
                     hshConfigs.Remove(kp.Key)
                 End If
             Next
 
-            For Each kp As KeyValuePair(Of String, String) In oConfigLinkList
+            For Each kp As KeyValuePair(Of String, String) In ConfigLinkList
                 lstLinks.Items.Add(kp)
             Next
         Else
@@ -173,9 +172,9 @@ Public Class frmConfigLinks
 
     Private Sub BuildConfigLinkList()
         Dim oData As KeyValuePair(Of String, String)
-        oConfigLinkList.Clear()
+        ConfigLinkList.Clear()
         For Each oData In lstLinks.Items
-            oConfigLinkList.Add(oData)
+            ConfigLinkList.Add(oData)
         Next
     End Sub
 
@@ -234,5 +233,12 @@ Public Class frmConfigLinks
             tmFilterTimer.Enabled = True
             tmFilterTimer.Start()
         End If
+    End Sub
+
+    Private Sub frmConfigLinks_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                Me.Close()
+        End Select
     End Sub
 End Class

@@ -104,6 +104,7 @@ Partial Class frmFileFolderSearch
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.txtCurrentLocation)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmFileFolderSearch"

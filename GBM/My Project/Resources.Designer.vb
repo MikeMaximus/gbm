@@ -61,6 +61,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to  (Copy).
+        '''</summary>
+        Friend ReadOnly Property App_AppendCopy() As String
+            Get
+                Return ResourceManager.GetString("App_AppendCopy", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to gbm_exclude.txt.
         '''</summary>
         Friend ReadOnly Property App_BackupExcludeFileName() As String
@@ -93,6 +102,15 @@ Namespace My.Resources
         Friend ReadOnly Property App_ConfirmDirty() As String
             Get
                 Return ResourceManager.GetString("App_ConfirmDirty", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The wizard isn&apos;t finished.[BR][BR]Are you sure you want to close and lose all progress?.
+        '''</summary>
+        Friend ReadOnly Property App_ConfirmDirtyWizard() As String
+            Get
+                Return ResourceManager.GetString("App_ConfirmDirtyWizard", resourceCulture)
             End Get
         End Property
         
@@ -349,7 +367,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-06-12T21:35:51
+        '''  Looks up a localized string similar to 2022-08-03T20:41:20
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -935,6 +953,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Hide Ignored.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_chkHideIgnored() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_chkHideIgnored", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Select All.
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_chkSelectAll() As String
@@ -949,6 +976,33 @@ Namespace My.Resources
         Friend ReadOnly Property frmAdvancedImport_chkSelectedOnly() As String
             Get
                 Return ResourceManager.GetString("frmAdvancedImport_chkSelectedOnly", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Ignore.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_cmiIgnore() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_cmiIgnore", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Unignore.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_cmiIgnore_Reverse() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_cmiIgnore_Reverse", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Toggle Ignore.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_cmiIgnore_Toggle() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_cmiIgnore_Toggle", resourceCulture)
             End Get
         End Property
         
@@ -1016,6 +1070,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_Detected() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmAdvancedImport_Detected", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Detecting Saved Games... Please Wait.
         '''</summary>
         Friend ReadOnly Property frmAdvancedImport_DetectingSavedGames() As String
@@ -1039,6 +1103,25 @@ Namespace My.Resources
         Friend ReadOnly Property frmAdvancedImport_FormName() As String
             Get
                 Return ResourceManager.GetString("frmAdvancedImport_FormName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_Ignored() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmAdvancedImport_Ignored", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [[PARAM] Ignored].
+        '''</summary>
+        Friend ReadOnly Property frmAdvancedImport_IgnoredCount() As String
+            Get
+                Return ResourceManager.GetString("frmAdvancedImport_IgnoredCount", resourceCulture)
             End Get
         End Property
         
@@ -1450,7 +1533,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Monitor Game.
+        '''  Looks up a localized string similar to Allow monitoring.
         '''</summary>
         Friend ReadOnly Property frmFilter_FieldEnabled() As String
             Get
@@ -1522,7 +1605,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Monitor Only.
+        '''  Looks up a localized string similar to No backup when game ends.
         '''</summary>
         Friend ReadOnly Property frmFilter_FieldMonitorOnly() As String
             Get
@@ -1921,6 +2004,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &amp;Copy.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_btnCopy() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_btnCopy", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &amp;Delete.
         '''</summary>
         Friend ReadOnly Property frmGameManager_btnDelete() As String
@@ -2155,7 +2247,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Monitor this game.
+        '''  Looks up a localized string similar to &amp;Allow monitoring.
         '''</summary>
         Friend ReadOnly Property frmGameManager_cmsEnabled() As String
             Get
@@ -2218,7 +2310,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Monitor &amp;only.
+        '''  Looks up a localized string similar to &amp;No backup when game ends.
         '''</summary>
         Friend ReadOnly Property frmGameManager_cmsMonitorOnly() As String
             Get
@@ -2362,6 +2454,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to make copies of the [PARAM] selected games?.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ConfirmCopyMulti() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ConfirmCopyMulti", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Are you sure you want to delete [PARAM]?  This cannot be undone.[BR][BR]This will not delete any backup files that already exist for this game..
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmGameDelete() As String
@@ -2416,7 +2517,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Monitor this game: [PARAM][BR]Monitor only: [PARAM].
+        '''  Looks up a localized string similar to Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Allow monitoring: [PARAM][BR]No backup when game ends: [PARAM].
         '''</summary>
         Friend ReadOnly Property frmGameManager_ConfirmMultiSave() As String
             Get
@@ -2448,6 +2549,16 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ConfirmRestoreSelected() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ConfirmRestoreSelected", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_Copy() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmGameManager_Copy", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -2488,20 +2599,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The backup file does not exist..
+        '''  Looks up a localized string similar to The file does not exist..
         '''</summary>
-        Friend ReadOnly Property frmGameManager_ErrorNoBackupFileExists() As String
+        Friend ReadOnly Property frmGameManager_ErrorNoFileExists() As String
             Get
-                Return ResourceManager.GetString("frmGameManager_ErrorNoBackupFileExists", resourceCulture)
+                Return ResourceManager.GetString("frmGameManager_ErrorNoFileExists", resourceCulture)
             End Get
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The backup folder does not exist..
+        '''  Looks up a localized string similar to The folder does not exist..
         '''</summary>
-        Friend ReadOnly Property frmGameManager_ErrorNoBackupFolderExists() As String
+        Friend ReadOnly Property frmGameManager_ErrorNoFolderExists() As String
             Get
-                Return ResourceManager.GetString("frmGameManager_ErrorNoBackupFolderExists", resourceCulture)
+                Return ResourceManager.GetString("frmGameManager_ErrorNoFolderExists", resourceCulture)
             End Get
         End Property
         
@@ -3067,6 +3178,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_ttHelp_btnOpenBackupFolder() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_ttHelp_btnOpenBackupFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Open game folder.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ttHelp_btnOpenGameFolder() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ttHelp_btnOpenGameFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Open save folder.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_ttHelp_btnOpenSaveFolder() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_ttHelp_btnOpenSaveFolder", resourceCulture)
             End Get
         End Property
         
@@ -4706,7 +4835,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &amp;Exit.
+        '''  Looks up a localized string similar to E&amp;xit.
         '''</summary>
         Friend ReadOnly Property frmMain_gMonFileExit() As String
             Get
@@ -4900,6 +5029,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_gMonLogSave() As String
             Get
                 Return ResourceManager.GetString("frmMain_gMonLogSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &amp;Open Backup Folder.
+        '''</summary>
+        Friend ReadOnly Property frmMain_gMonOpenBackupFolder() As String
+            Get
+                Return ResourceManager.GetString("frmMain_gMonOpenBackupFolder", resourceCulture)
             End Get
         End Property
         
@@ -6554,15 +6692,6 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_chkTwoPassDetection() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkTwoPassDetection", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Use Game ID for folder and file names.
-        '''</summary>
-        Friend ReadOnly Property frmSettings_chkUseGameID() As String
-            Get
-                Return ResourceManager.GetString("frmSettings_chkUseGameID", resourceCulture)
             End Get
         End Property
         

@@ -21,22 +21,12 @@ Public Class clsGame
         Linux = 2
     End Enum
 
-    Private sID As String
     Private sPath As String
     Private sProcessPath As String
     Private sIcon As String
 
     Public Property ID As String
-        Set(value As String)
-            If Not value Is Nothing Then
-                sID = mgrPath.ValidateFileName(value)
-            End If
-        End Set
-        Get
-            Return sID
-        End Get
-    End Property
-
+    Public Property Name As String
     Public ReadOnly Property CroppedName As String
         Get
             If Name.Length > 40 Then
@@ -46,18 +36,15 @@ Public Class clsGame
             End If
         End Get
     End Property
-
     Public ReadOnly Property FileSafeName As String
         Get
-            If mgrMonitorList.IsDuplicateName(Name) Then
-                Return mgrPath.ValidateFileName(ID)
+            If mgrMonitorList.IsDuplicateName(Me) Then
+                Return mgrPath.ValidateFileName(Name, 64) & " [" & mgrPath.ValidateFileName(ID, 36) & "]"
             Else
-                Return mgrPath.ValidateFileName(Name)
+                Return mgrPath.ValidateFileName(Name, 64)
             End If
         End Get
     End Property
-
-    Public Property Name As String
     Public Property ProcessName As String
     Public Property Parameter As String
     Public Property Path As String
@@ -157,7 +144,6 @@ Public Class clsGame
     End Property
     Public Property ImportTags As List(Of Tag)
     Public Property ImportConfigLinks As List(Of ConfigLink)
-    Public Property ImportUpdate As Boolean
     Public Property CompiledRegEx As Regex
 
     Public Function ConvertToGame() As Game
@@ -397,13 +383,12 @@ Public Class clsGame
         DiffInterval = 0
         ImportTags = New List(Of Tag)
         ImportConfigLinks = New List(Of ConfigLink)
-        ImportUpdate = False
     End Sub
 
     Sub New(sID As String, sName As String, sProcessName As String, sParameter As String, sPath As String, bFolderSave As Boolean, sFileType As String, bAppendTimeStamp As Boolean, iBackupLimit As Integer,
             bCleanFolder As Boolean, sExcludeList As String, sProcessPath As String, sIcon As String, dHours As Double, sVersion As String, sCompany As String, bEnabled As Boolean, bMonitorOnly As Boolean,
             sComments As String, bIsRegEx As Boolean, bRecurseSubFolders As Boolean, eOS As eOS, bUseWindowTitle As Boolean, bDifferential As Boolean, iDiffInterval As Integer, oImportTags As List(Of Tag),
-            oImportConfigLinks As List(Of ConfigLink), bImportUpdate As Boolean)
+            oImportConfigLinks As List(Of ConfigLink))
         ID = sID
         Name = sName
         ProcessName = sProcessName
@@ -431,6 +416,5 @@ Public Class clsGame
         DiffInterval = iDiffInterval
         ImportTags = oImportTags
         ImportConfigLinks = oImportConfigLinks
-        ImportUpdate = bImportUpdate
     End Sub
 End Class

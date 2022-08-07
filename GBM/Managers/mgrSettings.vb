@@ -115,7 +115,6 @@ Public Class mgrSettings
     Public Shared Property AutoSaveLog As Boolean
     Public Shared Property SuppressMessages As eSuppressMessages
     Public Shared Property BackupOnLaunch As Boolean
-    Public Shared Property UseGameID As Boolean
     Public Shared Property StorePathAutoConfig As Boolean
     Public Shared Property DisableSyncMessages As Boolean
     Public Shared Property DisableDiskSpaceCheck As Boolean
@@ -158,7 +157,6 @@ Public Class mgrSettings
         SuppressMessages = eSuppressMessages.None
         AutoSaveLog = False
         BackupOnLaunch = True
-        UseGameID = False
         StorePathAutoConfig = False
         DisableSyncMessages = True
         ShowResolvedPaths = True
@@ -188,7 +186,7 @@ Public Class mgrSettings
         sSQL = "INSERT OR REPLACE INTO settings VALUES (1, @MonitorOnStartup, @StartToTray, @ShowDetectionToolTips, @DisableConfirmation, "
         sSQL &= "@CreateSubFolder, @ShowOverwriteWarning, @RestoreOnLaunch, @BackupFolder, @StartWithWindows, "
         sSQL &= "@TimeTracking, @SuppressBackup, @SuppressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
-        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, @UseGameID, "
+        sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, "
         sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck, @TemporaryFolder, @ExitOnClose, @ExitNoWarning, @EnableLauncher, "
         sSQL &= "@MainHideGameList, @MainHideButtons, @MainHideLog, @BackupNotification, @DetectionSpeed, @TwoPassDetection, @StorePathAutoConfig)"
 
@@ -214,7 +212,6 @@ Public Class mgrSettings
         hshParams.Add("SessionTracking", SessionTracking)
         hshParams.Add("SuppressMessages", SuppressMessages)
         hshParams.Add("BackupOnLaunch", BackupOnLaunch)
-        hshParams.Add("UseGameID", UseGameID)
         hshParams.Add("DisableSyncMessages", DisableSyncMessages)
         hshParams.Add("ShowResolvedPaths", ShowResolvedPaths)
         hshParams.Add("DisableDiskSpaceCheck", DisableDiskSpaceCheck)
@@ -266,7 +263,6 @@ Public Class mgrSettings
             SessionTracking = CBool(dr("SessionTracking"))
             SuppressMessages = CInt(dr("SuppressMessages"))
             BackupOnLaunch = CBool(dr("BackupOnLaunch"))
-            UseGameID = CBool(dr("UseGameID"))
             DisableSyncMessages = CBool(dr("DisableSyncMessages"))
             ShowResolvedPaths = CBool(dr("ShowResolvedPaths"))
             DisableDiskSpaceCheck = CBool(dr("DisableDiskSpaceCheck"))

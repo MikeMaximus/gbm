@@ -85,15 +85,7 @@ Public Class mgrBackup
     End Function
 
     Private Function GetFileName(ByVal oGame As clsGame) As String
-        Dim sName As String
-
-        If mgrSettings.UseGameID Then
-            sName = oGame.ID
-        Else
-            sName = oGame.FileSafeName
-        End If
-
-        Return sName
+        Return oGame.FileSafeName
     End Function
 
     Private Sub ShowBackupSizeInfo(ByVal lAvailableTempSpace As Long, ByVal lAvailableSpace As Long, ByVal lBackupSize As Long)
@@ -219,7 +211,7 @@ Public Class mgrBackup
 
                 mgrManifest.DoManifestDeleteByManifestID(oGameBackup, mgrSQLite.Database.Remote)
                 mgrCommon.DeleteFile(sOldBackup)
-                mgrCommon.DeleteDirectoryByBackup(mgrSettings.BackupFolder & Path.DirectorySeparatorChar, oGameBackup)
+                mgrCommon.DeleteEmptyDirectory(mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oGameBackup.FileSafeName)
 
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupLimitExceeded, Path.GetFileName(sOldBackup)), False, ToolTipIcon.Info, True)
             Next
@@ -258,7 +250,7 @@ Public Class mgrBackup
                 RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupLimitExceeded, Path.GetFileName(sCurrentFileName)), False, ToolTipIcon.Info, True)
 
                 'Delete directory if empty
-                mgrCommon.DeleteDirectoryByBackup(mgrSettings.BackupFolder & Path.DirectorySeparatorChar, oCurrentParent)
+                mgrCommon.DeleteEmptyDirectory(mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oCurrentParent.FileSafeName)
             Next
         End If
     End Sub
@@ -474,11 +466,7 @@ Public Class mgrBackup
             End If
         Next
 
-        If iGamesAdded > 0 Then
-            mgrMonitorList.SyncMonitorLists()
-            mgrTags.SyncTags()
-            mgrGameTags.SyncGameTags()
-        End If
+        If iGamesAdded > 0 Then mgrSync.SyncData()
 
         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupsImported, iFilesImported.ToString), False, ToolTipIcon.Info, True)
         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_GamesAddedDuringImport, iGamesAdded.ToString), False, ToolTipIcon.Info, True)
@@ -672,7 +660,6 @@ Public Class mgrBackup
     Public Sub DoBackup(ByVal oBackupList As List(Of clsGame))
         Dim oGame As clsGame
         Dim oBackup As clsBackup
-        Dim bDoBackup As Boolean
         Dim sBackupFile As String
         Dim sBackupExt As String
         Dim dTimeStamp As DateTime
@@ -702,7 +689,6 @@ Public Class mgrBackup
             sHash = String.Empty
             sDiffParentID = String.Empty
             sDiffLabel = String.Empty
-            bDoBackup = True
             bBackupCompleted = False
             bMetadataGenerated = False
             CancelOperation = False
@@ -750,70 +736,68 @@ Public Class mgrBackup
             oBackup.IsDifferentialParent = oGame.Differential And Not bRunDifferential
             oBackup.DifferentialParent = sDiffParentID
 
-            If bDoBackup Then
-                'Choose Backup Type
-                If mgrPath.IsSupportedRegistryPath(oGame.TruePath) Then
-                    bBackupCompleted = RunRegistryBackup(oGame, sBackupFile)
-                    If bBackupCompleted Then
-                        If Not MoveBackupToFinalLocation(sBackupFile, oGame) Then
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMovingBackupFile, oGame.Name), True, ToolTipIcon.Error, True)
-                            bBackupCompleted = False
-                        End If
+            'Choose Backup Type
+            If mgrPath.IsSupportedRegistryPath(oGame.TruePath) Then
+                bBackupCompleted = RunRegistryBackup(oGame, sBackupFile)
+                If bBackupCompleted Then
+                    If Not MoveBackupToFinalLocation(sBackupFile, oGame) Then
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMovingBackupFile, oGame.Name), True, ToolTipIcon.Error, True)
+                        bBackupCompleted = False
                     End If
-                Else
-                    bBackupCompleted = Run7zBackup(oGame, sBackupFile, bRunDifferential, sDiffParentFile)
-                    If bBackupCompleted Then
-                        bMetadataGenerated = oMetadata.SerializeAndExport(mgrSettings.MetadataLocation, oGame.ID, oBackup)
-                        If bMetadataGenerated Then
-                            If oMetadata.AddMetadataToArchive(sBackupFile, App_MetadataFilename) Then
-                                If Not MoveBackupToFinalLocation(sBackupFile, oGame) Then
-                                    bBackupCompleted = False
-                                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMovingBackupFile, oGame.Name), True, ToolTipIcon.Error, True)
-                                End If
-                            Else
+                End If
+            Else
+                bBackupCompleted = Run7zBackup(oGame, sBackupFile, bRunDifferential, sDiffParentFile)
+                If bBackupCompleted Then
+                    bMetadataGenerated = oMetadata.SerializeAndExport(mgrSettings.MetadataLocation, oGame.ID, oBackup)
+                    If bMetadataGenerated Then
+                        If oMetadata.AddMetadataToArchive(sBackupFile, App_MetadataFilename) Then
+                            If Not MoveBackupToFinalLocation(sBackupFile, oGame) Then
                                 bBackupCompleted = False
+                                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMovingBackupFile, oGame.Name), True, ToolTipIcon.Error, True)
                             End If
                         Else
                             bBackupCompleted = False
-                            RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMetadataFailure, oGame.Name), True, ToolTipIcon.Error, True)
                         End If
+                    Else
+                        bBackupCompleted = False
+                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorMetadataFailure, oGame.Name), True, ToolTipIcon.Error, True)
                     End If
-                End If
-
-                If bBackupCompleted Then
-                    'Generate checksum for new backup
-                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_GenerateHash, oGame.Name), False, ToolTipIcon.Info, True)
-                    sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
-
-                    'Write Main Manifest
-                    If Not DoManifestUpdate(oBackup, oGame.AppendTimeStamp Or oGame.Differential, sBackupFile, sHash) Then
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorManifestFailure, oGame.Name), True, ToolTipIcon.Error, True)
-                    End If
-
-                    'Handle Single Notification
-                    If oBackupList.Count = 1 And mgrSettings.BackupNotification Then
-                        RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_NotificationSingle, oGame.CroppedName), True, ToolTipIcon.Info, True)
-                    End If
-
-                    RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionComplete, oGame.CroppedName))
-
-                    'Remove game from the failsafe queue
-                    mgrBackupQueue.DoBackupQueueDeleteByID(oGame.ID)
-
-                    'Handle old backups if required
-                    If oGame.AppendTimeStamp And Not oGame.Differential And oGame.BackupLimit > 0 Then
-                        DeleteOldBackups(oGame.ID, oGame.BackupLimit)
-                    ElseIf oGame.AppendTimeStamp And oGame.Differential And oGame.BackupLimit > 0 Then
-                        DeleteOldDiffBackups(oGame.ID, oGame.BackupLimit)
-                    ElseIf oGame.Differential And Not oGame.AppendTimeStamp Then
-                        DeleteOldDiffBackups(oGame.ID, 1)
-                    End If
-                Else
-                    'Delete the temporary backup file on failures
-                    mgrCommon.DeleteFile(sBackupFile, False)
-                    RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionFailed, oGame.CroppedName))
                 End If
             End If
+
+            If bBackupCompleted Then
+                'Generate checksum for new backup
+                RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_GenerateHash, oGame.Name), False, ToolTipIcon.Info, True)
+                sHash = mgrHash.Generate_SHA256_Hash(sBackupFile)
+
+                'Write Main Manifest
+                If Not DoManifestUpdate(oBackup, oGame.AppendTimeStamp Or oGame.Differential, sBackupFile, sHash) Then
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_ErrorManifestFailure, oGame.Name), True, ToolTipIcon.Error, True)
+                End If
+
+                'Handle Single Notification
+                If oBackupList.Count = 1 And mgrSettings.BackupNotification Then
+                    RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_NotificationSingle, oGame.CroppedName), True, ToolTipIcon.Info, True)
+                End If
+
+                RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionComplete, oGame.CroppedName))
+
+                'Handle old backups if required
+                If oGame.AppendTimeStamp And Not oGame.Differential And oGame.BackupLimit > 0 Then
+                    DeleteOldBackups(oGame.ID, oGame.BackupLimit)
+                ElseIf oGame.AppendTimeStamp And oGame.Differential And oGame.BackupLimit > 0 Then
+                    DeleteOldDiffBackups(oGame.ID, oGame.BackupLimit)
+                ElseIf oGame.Differential And Not oGame.AppendTimeStamp Then
+                    DeleteOldDiffBackups(oGame.ID, 1)
+                End If
+            Else
+                'Delete the temporary backup file on failures
+                mgrCommon.DeleteFile(sBackupFile, False)
+                RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionFailed, oGame.CroppedName))
+            End If
+
+            'Remove from the failsafe queue
+            mgrBackupQueue.DoBackupQueueDeleteByID(oGame.ID)
         Next
 
         'Handle Multi Notification

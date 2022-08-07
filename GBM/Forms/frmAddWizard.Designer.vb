@@ -579,6 +579,7 @@ Partial Class frmAddWizard
         Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.tabWizard)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmAddWizard"

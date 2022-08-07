@@ -319,7 +319,7 @@
     <value>&amp;File</value>
   </data>
   <data name="frmMain_gMonFileExit" xml:space="preserve">
-    <value>&amp;Exit</value>
+    <value>E&amp;xit</value>
   </data>
   <data name="frmMain_gMonFileSettings" xml:space="preserve">
     <value>&amp;Settings...</value>
@@ -415,13 +415,13 @@
     <value>...</value>
   </data>
   <data name="frmGameManager_cmsEnabled" xml:space="preserve">
-    <value>&amp;Monitor this game</value>
+    <value>&amp;Allow monitoring</value>
   </data>
   <data name="frmGameManager_chkFolderSave" xml:space="preserve">
     <value>Save entire folder</value>
   </data>
   <data name="frmGameManager_cmsMonitorOnly" xml:space="preserve">
-    <value>Monitor &amp;only</value>
+    <value>&amp;No backup when game ends</value>
   </data>
   <data name="frmGameManager_chkTimeStamp" xml:space="preserve">
     <value>Save multiple backups</value>
@@ -480,8 +480,8 @@
   <data name="frmGameManager_ErrorNoBackupData" xml:space="preserve">
     <value>The selected game(s) have no backup data or can't be restored with their current configuration.</value>
   </data>
-  <data name="frmGameManager_ErrorNoBackupFileExists" xml:space="preserve">
-    <value>The backup file does not exist.</value>
+  <data name="frmGameManager_ErrorNoFileExists" xml:space="preserve">
+    <value>The file does not exist.</value>
   </data>
   <data name="frmGameManager_ErrorNoItems" xml:space="preserve">
     <value>You must choose items to include in the backup, or choose to save the entire folder.</value>
@@ -1708,7 +1708,7 @@
     <value>Delete Folder on Restore</value>
   </data>
   <data name="frmFilter_FieldEnabled" xml:space="preserve">
-    <value>Monitor Game</value>
+    <value>Allow monitoring</value>
   </data>
   <data name="frmFilter_FieldExcludeList" xml:space="preserve">
     <value>Exclude Items</value>
@@ -1723,7 +1723,7 @@
     <value>Icon</value>
   </data>
   <data name="frmFilter_FieldMonitorOnly" xml:space="preserve">
-    <value>Monitor Only</value>
+    <value>No backup when game ends</value>
   </data>
   <data name="frmFilter_FieldPath" xml:space="preserve">
     <value>Save Path *</value>
@@ -1992,9 +1992,6 @@
   <data name="frmMain_ProcessStarted" xml:space="preserve">
     <value>[PARAM] has been started.</value>
   </data>
-  <data name="frmSettings_chkUseGameID" xml:space="preserve">
-    <value>Use Game ID for folder and file names</value>
-  </data>
   <data name="mgrMonitorList_ErrorSyncCancel" xml:space="preserve">
     <value>The sync was aborted by the user.</value>
   </data>
@@ -2190,8 +2187,8 @@
   <data name="frmChooseGame_ColumnTags" xml:space="preserve">
     <value>Tags</value>
   </data>
-  <data name="frmGameManager_ErrorNoBackupFolderExists" xml:space="preserve">
-    <value>The backup folder does not exist.</value>
+  <data name="frmGameManager_ErrorNoFolderExists" xml:space="preserve">
+    <value>The folder does not exist.</value>
   </data>
   <data name="frmAddWizard_Summary_NoLimit" xml:space="preserve">
     <value>Unlimited</value>
@@ -2204,7 +2201,7 @@
     <value>..\Resources\BuildDate.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
   <data name="frmGameManager_ConfirmMultiSave" xml:space="preserve">
-    <value>Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Monitor this game: [PARAM][BR]Monitor only: [PARAM]</value>
+    <value>Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Allow monitoring: [PARAM][BR]No backup when game ends: [PARAM]</value>
   </data>
   <data name="frmGameManager_WarningEmptyProcess" xml:space="preserve">
     <value>A valid process name or regular expression is required to monitor and backup your saved games automatically.[BR][BR]You may leave the Process field blank to a create manual backup configuration for this game, these configurations will be automatically excluded from monitoring.[BR][BR]This warning will only be displayed once.</value>
@@ -3129,5 +3126,50 @@
   </data>
   <data name="frmAdvancedImport_Importing" xml:space="preserve">
     <value>Importing Configurations... Please Wait</value>
+  </data>
+  <data name="frmGameManager_btnCopy" xml:space="preserve">
+    <value>&amp;Copy</value>
+  </data>
+  <data name="frmGameManager_Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmGameManager_Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="App_ConfirmDirtyWizard" xml:space="preserve">
+    <value>The wizard isn't finished.[BR][BR]Are you sure you want to close and lose all progress?</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnOpenGameFolder" xml:space="preserve">
+    <value>Open game folder</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnOpenSaveFolder" xml:space="preserve">
+    <value>Open save folder</value>
+  </data>
+  <data name="App_AppendCopy" xml:space="preserve">
+    <value> (Copy)</value>
+  </data>
+  <data name="frmGameManager_ConfirmCopyMulti" xml:space="preserve">
+    <value>Are you sure you want to make copies of the [PARAM] selected games?</value>
+  </data>
+  <data name="frmAdvancedImport_chkHideIgnored" xml:space="preserve">
+    <value>Hide Ignored</value>
+  </data>
+  <data name="frmAdvancedImport_cmiIgnore" xml:space="preserve">
+    <value>Ignore</value>
+  </data>
+  <data name="frmAdvancedImport_cmiIgnore_Reverse" xml:space="preserve">
+    <value>Unignore</value>
+  </data>
+  <data name="frmAdvancedImport_cmiIgnore_Toggle" xml:space="preserve">
+    <value>Toggle Ignore</value>
+  </data>
+  <data name="frmAdvancedImport_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\frmadvancedimport_detected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmAdvancedImport_Ignored" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\frmadvancedimport_ignored.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmAdvancedImport_IgnoredCount" xml:space="preserve">
+    <value>[[PARAM] Ignored]</value>
+  </data>
+  <data name="frmMain_gMonOpenBackupFolder" xml:space="preserve">
+    <value>&amp;Open Backup Folder</value>
   </data>
 </root>

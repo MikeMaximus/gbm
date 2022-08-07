@@ -205,6 +205,7 @@ Public Class frmVariableManager
         End Select
 
         If bSuccess Then
+            mgrSync.SyncData()
             IsDirty = False
             LoadData()
             ModeChange()
@@ -328,5 +329,17 @@ Public Class frmVariableManager
                     e.Cancel = True
             End Select
         End If
+    End Sub
+
+    Private Sub frmVariableManager_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                Select Case eCurrentMode
+                    Case eModes.Add, eModes.Edit
+                        btnCancel.PerformClick()
+                    Case eModes.Disabled, eModes.View
+                        Me.Close()
+                End Select
+        End Select
     End Sub
 End Class

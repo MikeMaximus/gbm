@@ -274,6 +274,14 @@ Public Class mgrCommon
         Return False
     End Function
 
+    Public Shared Function ConfirmDirty() As MsgBoxResult
+        Return ShowMessage(App_ConfirmDirty, MsgBoxStyle.YesNoCancel)
+    End Function
+
+    Public Shared Function ConfirmDirtyWizard() As MsgBoxResult
+        Return ShowMessage(App_ConfirmDirtyWizard, MsgBoxStyle.YesNo)
+    End Function
+
     Public Shared Function OpenFileBrowser(ByVal sName As String, ByVal sTitle As String, ByVal oFileTypes As SortedList, ByVal iFilterIndex As Integer, ByVal sDefaultFolder As String,
                                            Optional ByVal bSavedPath As Boolean = True) As String
         Dim fbBrowser As New OpenFileDialog
@@ -782,26 +790,11 @@ Public Class mgrCommon
         Return True
     End Function
 
-    'Delete a sub-folder based on the provided backup information
-    Public Shared Sub DeleteDirectoryByBackup(ByVal sBackupFolder As String, ByVal oBackup As clsBackup)
-        Dim sDir As String = sBackupFolder & oBackup.MonitorID
-
-        'Check if the sub-folder is an ID or Name
-        If oBackup.FileName.StartsWith(oBackup.MonitorID & Path.DirectorySeparatorChar) Then
-            sDir = sBackupFolder & oBackup.MonitorID
-        ElseIf oBackup.FileName.StartsWith(oBackup.FileSafeName & Path.DirectorySeparatorChar) Then
-            sDir = sBackupFolder & oBackup.FileSafeName
-        Else
-            Exit Sub
-        End If
-
-        DeleteEmptyDirectory(sDir)
-    End Sub
-
     'Read text from a location, use local cache when appropriate for web locations.
     Public Shared Function ReadTextFromCache(ByVal sLocation As String, Optional ByRef lLastModified As Long = 0) As StreamReader
         Dim oReader As StreamReader
         Dim oURL As Uri
+        Dim sContent As String = String.Empty
         Dim sCachedFile As String
         Dim sETagFile As String
         Dim sETag As String = String.Empty
@@ -812,17 +805,21 @@ Public Class mgrCommon
             sCachedFile = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & oURL.Segments(oURL.Segments.Length - 1)
             sETagFile = mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & Path.GetFileNameWithoutExtension(sCachedFile) & ".etag"
 
-            'Check for a saved ETag
-            If File.Exists(sETagFile) Then
-                sETag = mgrCommon.ReadText(sETagFile)
+            'Check for a cached file with ETag
+            If File.Exists(sCachedFile) And File.Exists(sETagFile) Then
+                ReadText(sETag, sETagFile)
             End If
 
-            'Query address using ETag if available
+            'Check location
             If CheckAddressForUpdates(sLocation, sETag) Then
                 'Download updated file
-                SaveText(mgrCommon.ReadText(sLocation), sCachedFile)
-                'Save ETag
-                SaveText(sETag, sETagFile)
+                If mgrCommon.ReadText(sContent, sLocation) Then
+                    'Save File
+                    If SaveText(sContent, sCachedFile) Then
+                        'Save ETag
+                        SaveText(sETag, sETagFile)
+                    End If
+                End If
             End If
 
             'Always use the cached file
@@ -837,10 +834,9 @@ Public Class mgrCommon
     End Function
 
     'Read text from location
-    Public Shared Function ReadText(ByVal sLocation As String) As String
+    Public Shared Function ReadText(ByRef sContent As String, ByVal sLocation As String) As Boolean
         Dim oReader As StreamReader
         Dim oWebClient As New WebClient
-        Dim sContent As String = String.Empty
 
         Try
             oReader = New StreamReader(oWebClient.OpenRead(sLocation))
@@ -848,13 +844,14 @@ Public Class mgrCommon
             oReader.Close()
         Catch ex As Exception
             ShowMessage(mgrCommon_ErrorReadingTextFile, ex.Message, MsgBoxStyle.Critical)
+            Return False
         End Try
 
-        Return sContent
+        Return True
     End Function
 
     'Save string as a local text file
-    Public Shared Sub SaveText(ByVal sText As String, ByVal sPath As String)
+    Public Shared Function SaveText(ByVal sText As String, ByVal sPath As String) As Boolean
         Dim oStream As StreamWriter
         Try
             oStream = New StreamWriter(sPath, False)
@@ -863,8 +860,11 @@ Public Class mgrCommon
             oStream.Close()
         Catch ex As Exception
             ShowMessage(mgrCommon_ErrorWritingTextFile, ex.Message, MsgBoxStyle.Critical)
+            Return False
         End Try
-    End Sub
+
+        Return True
+    End Function
 
     'Open a nice button sub-menu
     Public Shared Sub OpenButtonSubMenu(ByRef cms As ContextMenuStrip, ByRef btn As Button)

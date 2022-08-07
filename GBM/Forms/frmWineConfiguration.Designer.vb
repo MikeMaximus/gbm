@@ -128,6 +128,7 @@ Partial Class frmWineConfiguration
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.grpWineConfig)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmWineConfiguration"

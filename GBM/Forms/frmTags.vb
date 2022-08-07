@@ -186,6 +186,7 @@ Public Class frmTags
         End Select
 
         If bSuccess Then
+            mgrTags.SyncTags()
             IsDirty = False
             LoadData()
             ModeChange()
@@ -291,5 +292,17 @@ Public Class frmTags
                     e.Cancel = True
             End Select
         End If
+    End Sub
+
+    Private Sub frmTags_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                Select Case eCurrentMode
+                    Case eModes.Add, eModes.Edit
+                        btnCancel.PerformClick()
+                    Case eModes.Disabled, eModes.View
+                        Me.Close()
+                End Select
+        End Select
     End Sub
 End Class

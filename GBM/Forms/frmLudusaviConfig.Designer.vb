@@ -150,12 +150,13 @@ Partial Class frmLudusaviConfig
         Me.Controls.Add(Me.grpOperatingSystems)
         Me.Controls.Add(Me.grpProfileTypes)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmLudusaviConfig"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Ludusavi Options"
         Me.grpProfileTypes.ResumeLayout(False)
         Me.grpProfileTypes.PerformLayout()
