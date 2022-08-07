@@ -19,6 +19,7 @@ Public Class frmAdvancedImport
     Private oUpdated As New List(Of String)
     Private oIgnored As List(Of String)
     Private iCurrentIgnored As Integer
+    Private iLastSelection As Integer
 
     Private WithEvents tmFilterTimer As Timer
 
@@ -270,7 +271,6 @@ Public Class frmAdvancedImport
         Dim sProcess As String
         Dim sTags As String
         Dim bAddItem As Boolean
-        Dim iCurrentSelection As Integer
 
         IsLoading = True
 
@@ -279,9 +279,6 @@ Public Class frmAdvancedImport
         End If
 
         iCurrentIgnored = 0
-        If lstGames.SelectedIndices.Count > 0 Then
-            iCurrentSelection = lstGames.SelectedIndices(0)
-        End If
         oListCache.Clear()
 
         If bSelectedOnly Then
@@ -358,8 +355,8 @@ Public Class frmAdvancedImport
 
         oListCache.Sort(New ListViewItemComparer(iCurrentSort))
         lstGames.VirtualListSize = oListCache.Count
-        If oListCache.Count > iCurrentSelection Then
-            lstGames.EnsureVisible(iCurrentSelection)
+        If oListCache.Count > iLastSelection Then
+            lstGames.EnsureVisible(iLastSelection)
         End If
 
         IsLoading = False
@@ -655,6 +652,7 @@ Public Class frmAdvancedImport
         Dim oListView As ListView = DirectCast(sender, ListView)
         Dim oListViewItem As ListViewItem = oListView.GetItemAt(e.X, e.Y)
         If Not oListViewItem Is Nothing Then
+            iLastSelection = oListViewItem.Index
             If e.X < (oListViewItem.Bounds.Left + 16) Then
                 oListViewItem.Checked = Not oListViewItem.Checked
                 oListView.Invalidate(oListViewItem.Bounds)
@@ -666,6 +664,7 @@ Public Class frmAdvancedImport
         Dim oListView As ListView = DirectCast(sender, ListView)
         Dim oListViewItem As ListViewItem = oListView.GetItemAt(e.X, e.Y)
         If Not oListViewItem Is Nothing Then
+            iLastSelection = oListViewItem.Index
             oListView.Invalidate(oListViewItem.Bounds)
         End If
     End Sub

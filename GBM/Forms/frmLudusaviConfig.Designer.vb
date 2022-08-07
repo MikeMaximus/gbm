@@ -156,7 +156,7 @@ Partial Class frmLudusaviConfig
         Me.Name = "frmLudusaviConfig"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Ludusavi Options"
         Me.grpProfileTypes.ResumeLayout(False)
         Me.grpProfileTypes.PerformLayout()
