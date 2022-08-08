@@ -92,7 +92,6 @@ Partial Class frmAdvancedImport
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lstGames.CheckBoxes = True
-        Me.lstGames.ContextMenuStrip = Me.cmsOptions
         Me.lstGames.FullRowSelect = True
         Me.lstGames.HideSelection = False
         Me.lstGames.Location = New System.Drawing.Point(12, 35)
@@ -106,12 +105,12 @@ Partial Class frmAdvancedImport
         '
         Me.cmsOptions.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiIgnore})
         Me.cmsOptions.Name = "cmsOptions"
-        Me.cmsOptions.Size = New System.Drawing.Size(181, 48)
+        Me.cmsOptions.Size = New System.Drawing.Size(109, 26)
         '
         'cmiIgnore
         '
         Me.cmiIgnore.Name = "cmiIgnore"
-        Me.cmiIgnore.Size = New System.Drawing.Size(180, 22)
+        Me.cmiIgnore.Size = New System.Drawing.Size(108, 22)
         Me.cmiIgnore.Text = "&Ignore"
         '
         'txtFilter

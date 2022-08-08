@@ -357,6 +357,8 @@ Public Class frmAdvancedImport
         lstGames.VirtualListSize = oListCache.Count
         If oListCache.Count > iLastSelection Then
             lstGames.EnsureVisible(iLastSelection)
+        ElseIf oListCache.Count > 0 Then
+            lstGames.EnsureVisible(0)
         End If
 
         IsLoading = False
@@ -648,6 +650,11 @@ Public Class frmAdvancedImport
         e.Item = oListCache(e.ItemIndex)
     End Sub
 
+    Private Sub lstGames_ItemChecked(sender As Object, e As ItemCheckedEventArgs) Handles lstGames.ItemChecked
+        'In Mono, the checkbox part of a ListViewItem object does not trigger mouse click events, so we need this to help determine last scroll position.
+        If mgrCommon.IsUnix Then iLastSelection = e.Item.Index
+    End Sub
+
     Private Sub lstGames_MouseClick(sender As Object, e As MouseEventArgs) Handles lstGames.MouseClick
         Dim oListView As ListView = DirectCast(sender, ListView)
         Dim oListViewItem As ListViewItem = oListView.GetItemAt(e.X, e.Y)
@@ -656,6 +663,10 @@ Public Class frmAdvancedImport
             If e.X < (oListViewItem.Bounds.Left + 16) Then
                 oListViewItem.Checked = Not oListViewItem.Checked
                 oListView.Invalidate(oListViewItem.Bounds)
+            Else
+                If e.Button = MouseButtons.Right Then
+                    cmsOptions.Show(Cursor.Position)
+                End If
             End If
         End If
     End Sub
