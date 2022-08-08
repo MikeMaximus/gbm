@@ -3203,8 +3203,10 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub lstGames_DoubleClick(sender As Object, e As EventArgs) Handles lstGames.DoubleClick
-        If lstGames.SelectedIndex <> -1 Then
+    Private Sub lstGames_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lstGames.MouseDoubleClick
+        Dim iIndex As Integer = lstGames.IndexFromPoint(e.Location)
+
+        If iIndex <> ListBox.NoMatches Then
             OpenGameManager(oSelectedGame)
         End If
     End Sub
