@@ -1688,6 +1688,10 @@ Public Class frmMain
             CheckForFailedBackups()
             CheckForNewBackups()
             StartSyncWatcher()
+
+            AddHandler mgrSync.UpdateLog, AddressOf UpdateLog
+            AddHandler mgrSync.PushStarted, AddressOf StopSyncWatcher
+            AddHandler mgrSync.PushEnded, AddressOf StartSyncWatcher
         End If
     End Sub
 
@@ -2272,10 +2276,6 @@ Public Class frmMain
         tmPlayTimer.Interval = 5000
         tmPlayTimer.AutoReset = False
 
-        AddHandler mgrSync.UpdateLog, AddressOf UpdateLog
-        AddHandler mgrSync.PushStarted, AddressOf StopSyncWatcher
-        AddHandler mgrSync.PushEnded, AddressOf StartSyncWatcher
-
         ResetGameInfo()
     End Sub
 
@@ -2670,6 +2670,7 @@ Public Class frmMain
 
         If sFilestoImport.Length > 0 Then
             RunImportBackupByFile(sFilestoImport)
+            LoadGameSettings()
         End If
     End Sub
 
@@ -2685,6 +2686,7 @@ Public Class frmMain
             Dim sFilesToImport(sFilesFound.Count - 1) As String
             sFilesFound.CopyTo(sFilesToImport)
             RunImportBackupByFile(sFilesToImport)
+            LoadGameSettings()
         End If
     End Sub
 

@@ -16,7 +16,7 @@ Public Class BackupMetadata
         oBackup.DateUpdated = dDefaultDate
         oBackup.UpdatedBy = sDefaultUpdatedBy
 
-        If AppVer >= 128 Then
+        If AppVer > 128 Then
             oBackup.ManifestID = Backup.ManifestID
             oBackup.DateUpdated = mgrCommon.UnixToDate(Backup.DateUpdated)
             oBackup.UpdatedBy = Backup.UpdatedBy

@@ -311,7 +311,7 @@ Public Class mgrBackup
                         oBackupMetadata = New BackupMetadata
                         If oMetadata.ImportandDeserialize(oBackupMetadata) Then
                             'Version warning
-                            If oBackupMetadata.AppVer < 128 Then
+                            If oBackupMetadata.AppVer <= 128 Then
                                 RaiseEvent UpdateLog(mgrBackup_WarningOldMetadata, False, ToolTipIcon.Warning, True)
                             End If
 
@@ -337,7 +337,7 @@ Public Class mgrBackup
                                                 oGame.Hours = oExistingGame.Hours
                                                 oGame.CleanFolder = oExistingGame.CleanFolder
                                                 mgrMonitorList.DoListUpdate(oGame)
-                                                mgrSync.SyncData(False)
+                                                mgrMonitorList.DoListUpdate(oGame,, mgrSQLite.Database.Remote)
                                                 iGamesAdded += 1
                                             End If
                                         End If
@@ -345,8 +345,9 @@ Public Class mgrBackup
                                         Dim oTagsToAdd As New Hashtable
                                         oTagsToAdd.Add(0, oGame)
                                         mgrMonitorList.DoListAdd(oGame)
+                                        mgrMonitorList.DoListAdd(oGame, mgrSQLite.Database.Remote)
                                         mgrTags.DoTagAddImport(oTagsToAdd)
-                                        mgrSync.SyncData(False)
+                                        mgrTags.DoTagAddImport(oTagsToAdd, mgrSQLite.Database.Remote)
                                         iGamesAdded += 1
                                     End If
                                 Else

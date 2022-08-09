@@ -260,9 +260,10 @@
         Dim hshParams As New Hashtable
 
         sSQL = "SELECT ManifestID FROM manifest "
-        sSQL &= "WHERE MonitorID = @MonitorID AND FileName = @FileName AND DateUpdated = @DateUpdated AND UpdatedBy = @UpdatedBy AND CheckSum=@CheckSum AND "
-        sSQL &= "IsDifferentialParent = @IsDifferentialParent AND DifferentialParent=@DifferentialParent LIMIT 1;"
+        sSQL &= "WHERE (ManifestID = @ManifestID) OR (MonitorID = @MonitorID AND FileName = @FileName AND DateUpdated = @DateUpdated AND UpdatedBy = @UpdatedBy AND CheckSum=@CheckSum AND "
+        sSQL &= "IsDifferentialParent = @IsDifferentialParent AND DifferentialParent=@DifferentialParent) LIMIT 1;"
 
+        hshParams.Add("ManifestID", oItem.ManifestID)
         hshParams.Add("MonitorID", oItem.MonitorID)
         hshParams.Add("FileName", oItem.FileName)
         hshParams.Add("DateUpdated", oItem.DateUpdatedUnix)
