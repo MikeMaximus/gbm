@@ -337,6 +337,7 @@ Public Class mgrBackup
                                                 oGame.Hours = oExistingGame.Hours
                                                 oGame.CleanFolder = oExistingGame.CleanFolder
                                                 mgrMonitorList.DoListUpdate(oGame)
+                                                mgrSync.SyncData(False)
                                                 iGamesAdded += 1
                                             End If
                                         End If
@@ -345,6 +346,7 @@ Public Class mgrBackup
                                         oTagsToAdd.Add(0, oGame)
                                         mgrMonitorList.DoListAdd(oGame)
                                         mgrTags.DoTagAddImport(oTagsToAdd)
+                                        mgrSync.SyncData(False)
                                         iGamesAdded += 1
                                     End If
                                 Else
@@ -465,8 +467,6 @@ Public Class mgrBackup
                 Exit For
             End If
         Next
-
-        If iGamesAdded > 0 Then mgrSync.SyncData()
 
         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_BackupsImported, iFilesImported.ToString), False, ToolTipIcon.Info, True)
         RaiseEvent UpdateLog(mgrCommon.FormatString(mgrBackup_GamesAddedDuringImport, iGamesAdded.ToString), False, ToolTipIcon.Info, True)

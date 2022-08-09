@@ -61,7 +61,7 @@ Public Class frmStartUpWizard
         If oDatabase.CheckDB() Then
             'Make sure database is the latest version
             oDatabase.DatabaseUpgrade()
-            mgrSync.SyncData(False)
+            mgrSync.SyncData(, False)
             bExistingData = True
             mgrCommon.ShowMessage(frmStartUpWizard_ExistingData, MsgBoxStyle.Information)
         End If

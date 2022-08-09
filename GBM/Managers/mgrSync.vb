@@ -152,10 +152,10 @@ Public Class mgrSync
         oDatabase.RunMassParamQuery(sSQL, oParamList)
     End Sub
 
-    Public Shared Sub SyncData(Optional ByVal bToRemote As Boolean = True, Optional ByVal bSyncProtection As Boolean = True)
+    Public Shared Sub SyncData(Optional ByVal bUseThreading As Boolean = True, Optional ByVal bToRemote As Boolean = True, Optional ByVal bSyncProtection As Boolean = True)
         Dim oSyncOptions As New SyncOptions(bToRemote, bSyncProtection)
 
-        If bToRemote Then
+        If bUseThreading Then
             If Not SyncThread Is Nothing Then
                 If SyncThread.ThreadState = ThreadState.Running Then
                     SyncThread.Join()

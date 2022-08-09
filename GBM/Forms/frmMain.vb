@@ -1481,7 +1481,7 @@ Public Class frmMain
 
     Private Sub HandleSyncWatcher() Handles tmFileWatcherQueue.Elapsed
         UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
-        mgrSync.SyncData(False)
+        mgrSync.SyncData(, False)
         LoadGameSettings()
         CheckForNewBackups()
     End Sub
@@ -1547,7 +1547,7 @@ Public Class frmMain
             End If
 
             'Sync
-            mgrSync.SyncData(False)
+            mgrSync.SyncData(, False)
         End If
 
         'Setup Sync Watcher
