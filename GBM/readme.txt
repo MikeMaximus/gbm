@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.2 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-August 7, 2022
+August 9, 2022
 
 New in 1.3.2
 
@@ -10,8 +10,12 @@ All Platforms:
 
 - Fixed an issue that could cause imports from the web to stop functioning after a failed download.
 - Fixed an issue that caused recent changes to be lost if GBM was unexpectedly closed while working in certain windows, like the Game Manager.
-- Fixed an issue with 7z files not being displayed when importing backup files.
 - Fixed a crash that occured when the "Configuration Links" window is opened on the Game Manager while adding a new configuration.
+- Fixed various issues when importing backup files:
+	- Backup files created by v1.2.8 can now be imported without errors.
+	- Fixed the broken 7z file filter when importing backup files.	
+	- Fixed an issue that could cause ManifestID constraint errors.
+	- Fixed an issue could cause differential backup imports to always fail.
 - Changes to folder and file naming:
 	- Removed the "Use Game ID for folder and file names" option from Settings.
 	- Configurations using duplicate names will now use a more descriptive name format:
