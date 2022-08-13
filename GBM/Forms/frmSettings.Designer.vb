@@ -135,7 +135,6 @@ Partial Class frmSettings
         '
         'btnSave
         '
-        Me.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
         Me.btnSave.Location = New System.Drawing.Point(421, 329)
         Me.btnSave.Name = "btnSave"
@@ -147,7 +146,6 @@ Partial Class frmSettings
         '
         'btnCancel
         '
-        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
         Me.btnCancel.Location = New System.Drawing.Point(487, 329)
         Me.btnCancel.Name = "btnCancel"

@@ -466,12 +466,12 @@ Public Class frmSettings
 
     Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click
         If SaveSettings() Then
-            Me.Close()
+            Me.DialogResult = DialogResult.OK
         End If
     End Sub
 
     Private Sub btnCancel_Click(sender As System.Object, e As System.EventArgs) Handles btnCancel.Click
-        Me.Close()
+        Me.DialogResult = DialogResult.Cancel
     End Sub
 
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
