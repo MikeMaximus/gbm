@@ -415,13 +415,13 @@
     <value>...</value>
   </data>
   <data name="frmGameManager_cmsEnabled" xml:space="preserve">
-    <value>监控这个游戏</value>
+    <value>允许监控</value>
   </data>
   <data name="frmGameManager_chkFolderSave" xml:space="preserve">
     <value>保存整个文件夹</value>
   </data>
   <data name="frmGameManager_cmsMonitorOnly" xml:space="preserve">
-    <value>仅监控</value>
+    <value>游戏运行结束时不备份</value>
   </data>
   <data name="frmGameManager_chkTimeStamp" xml:space="preserve">
     <value>保存多项备份</value>
@@ -565,7 +565,7 @@
     <value>最新！</value>
   </data>
   <data name="mgrMonitorList_XML" xml:space="preserve">
-    <value>XML</value>
+    <value>GBM导出</value>
   </data>
   <data name="frmGameManager_cmsFile" xml:space="preserve">
     <value>文件</value>
@@ -1713,7 +1713,7 @@
     <value>还原时删除文件夹</value>
   </data>
   <data name="frmFilter_FieldEnabled" xml:space="preserve">
-    <value>监控游戏</value>
+    <value>允许监控</value>
   </data>
   <data name="frmFilter_FieldExcludeList" xml:space="preserve">
     <value>排除项目</value>
@@ -1728,7 +1728,7 @@
     <value>图标</value>
   </data>
   <data name="frmFilter_FieldMonitorOnly" xml:space="preserve">
-    <value>仅监控</value>
+    <value>游戏运行结束时不备份</value>
   </data>
   <data name="frmFilter_FieldPath" xml:space="preserve">
     <value>游戏存档路径*</value>
@@ -2202,7 +2202,7 @@
     <value>单击“下一步”后无法返回此步骤。安装完成后，可以随时更改备份位置。</value>
   </data>
   <data name="frmGameManager_ConfirmMultiSave" xml:space="preserve">
-    <value>确定要保存对[PARAM]选定游戏的以下更改吗？[BR][BR]监控此游戏：[PARAM][BR]仅监视：[PARAM]</value>
+    <value>你确定要对选定的游戏[PARAM]保存以下更改吗？ 允许监控[BR][BR]：[PARAM][BR]运行结束时不备份：[PARAM]。</value>
   </data>
   <data name="frmGameManager_WarningEmptyProcess" xml:space="preserve">
     <value>需要一个有效的进程名称或正则表达式来自动监控和备份你保存的游戏。[BR][BR]你可以将进程字段留空，以便为这个游戏创建手动备份配置，这些配置将被自动排除在监控之外。[BR][BR]这个警告只会显示一次。</value>
@@ -2920,5 +2920,113 @@
   </data>
   <data name="frmGameManager_cmsURL" xml:space="preserve">
     <value>URL</value>
+  </data>
+  <data name="App_AppendCopy" xml:space="preserve">
+    <value>(复制)</value>
+  </data>
+  <data name="App_ConfirmDirtyWizard" xml:space="preserve">
+    <value>向导还没有完成，你确定要关闭[BR][BR]？这将失去所有进度。</value>
+  </data>
+  <data name="frmAdvancedImport_chkHideIgnored" xml:space="preserve">
+    <value>隐藏忽略项</value>
+  </data>
+  <data name="frmAdvancedImport_cmiIgnore" xml:space="preserve">
+    <value>忽略</value>
+  </data>
+  <data name="frmAdvancedImport_cmiIgnore_Reverse" xml:space="preserve">
+    <value>取消忽略</value>
+  </data>
+  <data name="frmAdvancedImport_cmiIgnore_Toggle" xml:space="preserve">
+    <value>切换忽略项</value>
+  </data>
+  <data name="frmAdvancedImport_DetectingSavedGames" xml:space="preserve">
+    <value>检测已有的游戏存档... 请等待</value>
+  </data>
+  <data name="frmAdvancedImport_IgnoredCount" xml:space="preserve">
+    <value>[[PARAM] 忽略]</value>
+  </data>
+  <data name="frmAdvancedImport_Importing" xml:space="preserve">
+    <value>配置中... 请稍等</value>
+  </data>
+  <data name="frmAdvancedImport_Processing" xml:space="preserve">
+    <value>处理中... 请等待</value>
+  </data>
+  <data name="frmAdvancedImport_WarningNoSavesDetected" xml:space="preserve">
+    <value>没有检测到新的游戏存档</value>
+  </data>
+  <data name="frmGameManager_btnCopy" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="frmGameManager_cmsLudusavi" xml:space="preserve">
+    <value>Ludusavi Manifest...</value>
+  </data>
+  <data name="frmGameManager_ConfirmCopyMulti" xml:space="preserve">
+    <value>你确定要复制选择的游戏[PARAM]？</value>
+  </data>
+  <data name="frmGameManager_ErrorNoFileExists" xml:space="preserve">
+    <value>文件不存在</value>
+  </data>
+  <data name="frmGameManager_ErrorNoFolderExists" xml:space="preserve">
+    <value>该文件夹不存在</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnOpenGameFolder" xml:space="preserve">
+    <value>打开游戏文件夹</value>
+  </data>
+  <data name="frmGameManager_ttHelp_btnOpenSaveFolder" xml:space="preserve">
+    <value>打开游戏存档文件夹</value>
+  </data>
+  <data name="frmLudusaviConfig_ErrorOperatingSystem" xml:space="preserve">
+    <value>至少要选择一个操作系统。</value>
+  </data>
+  <data name="frmLudusaviConfig_ErrorProfileType" xml:space="preserve">
+    <value>必须选择至少一个配置文件类型。</value>
+  </data>
+  <data name="frmLudusaviConfig_FormName" xml:space="preserve">
+    <value>Ludusavi选项</value>
+  </data>
+  <data name="frmLudusaviConfig_grpProfileTypes" xml:space="preserve">
+    <value>配置文件类型</value>
+  </data>
+  <data name="frmLudusaviConfig_grpSearch" xml:space="preserve">
+    <value>快速搜索</value>
+  </data>
+  <data name="frmMain_gMonFileImportLudusavi" xml:space="preserve">
+    <value>Ludusavi Manifest...</value>
+  </data>
+  <data name="frmMain_gMonOpenBackupFolder" xml:space="preserve">
+    <value>打开备份文件夹</value>
+  </data>
+  <data name="frmSettings_chkStorePathAutoConfig" xml:space="preserve">
+    <value>启用自动配置商店路径</value>
+  </data>
+  <data name="mgrCommon_ErrorAccessingWebLocation" xml:space="preserve">
+    <value>访问时发生错误：[BR][BR][PARAM][BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrCommon_ErrorReadingTextFile" xml:space="preserve">
+    <value>读取文本文件时发生错误：[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrCommon_ErrorUnexpectedWebResponse" xml:space="preserve">
+    <value>发生错误（[PARAM]）：[BR][BR][PARAM] 。</value>
+  </data>
+  <data name="mgrLudusavi_ErrorConverting" xml:space="preserve">
+    <value>在Ludusavi数据转换过程中，发生错误：[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrLudusavi_ErrorReading" xml:space="preserve">
+    <value>在处理Ludusavi数据时发生错误：[BR][BR][PARAM]</value>
+  </data>
+  <data name="mgrMonitorList_CustomListURLError" xml:space="preserve">
+    <value>该值必须是一个有效的HTTP或HTTPS地址。</value>
+  </data>
+  <data name="mgrMonitorList_CustomListURLInfo" xml:space="preserve">
+    <value>输入支持文件的完整URL，支持GBM XML和Ludusavi YAML文件。</value>
+  </data>
+  <data name="mgrMonitorList_CustomListURLTitle" xml:space="preserve">
+    <value>从URL导入文件</value>
+  </data>
+  <data name="mgrMonitorList_ErrorImportFileType" xml:space="preserve">
+    <value>文件或URL不包含支持的文件扩展名。</value>
+  </data>
+  <data name="mgrMonitorList_WarningLudusaviImport" xml:space="preserve">
+    <value>Ludusavi Manifest列表包含数以千计的来自PCGamingWiki的保存游戏配置文件。[BR][BR]这些配置未经测试，可能与GBM不完全兼容。</value>
   </data>
 </root>
