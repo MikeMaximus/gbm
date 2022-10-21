@@ -270,6 +270,7 @@ Public Class frmAddWizard
         If mgrCommon.ShowMessage(frmAddWizard_ConfirmSaveTags, New String() {oGameToSave.Name, oGameToSave.Name}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             OpenTags(oGameToSave)
         End If
+        IsDirty = False
         Me.Close()
     End Sub
 
