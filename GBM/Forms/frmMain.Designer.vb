@@ -32,6 +32,7 @@ Partial Class frmMain
         Me.gMonTraySettings = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayQuickSep = New System.Windows.Forms.ToolStripSeparator()
         Me.gMonTrayFile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gMonTrayOpenBackupFolder = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayFileFullBackup = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayFileFullRestore = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonTrayFileImport = New System.Windows.Forms.ToolStripMenuItem()
@@ -61,7 +62,6 @@ Partial Class frmMain
         Me.gMonTrayExitSep = New System.Windows.Forms.ToolStripSeparator()
         Me.gMonTrayExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.bwMonitor = New System.ComponentModel.BackgroundWorker()
-        Me.txtLog = New System.Windows.Forms.TextBox()
         Me.gMonStatusStrip = New System.Windows.Forms.StatusStrip()
         Me.gMonStripCollapse = New System.Windows.Forms.ToolStripStatusLabel()
         Me.gMonStripAdminButton = New System.Windows.Forms.ToolStripStatusLabel()
@@ -71,6 +71,7 @@ Partial Class frmMain
         Me.gMonFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileMonitor = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFullSep = New System.Windows.Forms.ToolStripSeparator()
+        Me.gMonOpenBackupFolder = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileFullBackup = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileFullRestore = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonExitSep = New System.Windows.Forms.ToolStripSeparator()
@@ -83,7 +84,6 @@ Partial Class frmMain
         Me.gMonFileImportURL = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileExport = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonSettingsSep = New System.Windows.Forms.ToolStripSeparator()
-        Me.gMonOpenBackupFolder = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonFileSettings = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonImportExportSep = New System.Windows.Forms.ToolStripSeparator()
         Me.gMonFileExit = New System.Windows.Forms.ToolStripMenuItem()
@@ -109,35 +109,39 @@ Partial Class frmMain
         Me.gMonHelpCheckforUpdates = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonHelpAbout = New System.Windows.Forms.ToolStripMenuItem()
         Me.gMonNotification = New System.Windows.Forms.ToolStripMenuItem()
-        Me.pbIcon = New System.Windows.Forms.PictureBox()
-        Me.lblGameTitle = New System.Windows.Forms.Label()
-        Me.lblLastAction = New System.Windows.Forms.Label()
-        Me.lblLastActionTitle = New System.Windows.Forms.Label()
-        Me.lblTimeSpent = New System.Windows.Forms.Label()
-        Me.btnCancelOperation = New System.Windows.Forms.Button()
-        Me.lblStatus1 = New System.Windows.Forms.Label()
-        Me.lblStatus2 = New System.Windows.Forms.Label()
-        Me.lblStatus3 = New System.Windows.Forms.Label()
-        Me.pbTime = New System.Windows.Forms.PictureBox()
         Me.slcMain = New System.Windows.Forms.SplitContainer()
+        Me.pnlLeft = New System.Windows.Forms.Panel()
         Me.btnClearSelected = New System.Windows.Forms.Button()
         Me.lblSearch = New System.Windows.Forms.Label()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.lstGames = New System.Windows.Forms.ListBox()
+        Me.pnlRight = New System.Windows.Forms.Panel()
         Me.btnBackup = New System.Windows.Forms.Button()
         Me.btnRestore = New System.Windows.Forms.Button()
         Me.btnEdit = New System.Windows.Forms.Button()
         Me.btnPlay = New System.Windows.Forms.Button()
-        Me.gMonTrayOpenBackupFolder = New System.Windows.Forms.ToolStripMenuItem()
+        Me.txtLog = New System.Windows.Forms.TextBox()
+        Me.btnCancelOperation = New System.Windows.Forms.Button()
+        Me.pbTime = New System.Windows.Forms.PictureBox()
+        Me.lblLastActionTitle = New System.Windows.Forms.Label()
+        Me.lblStatus3 = New System.Windows.Forms.Label()
+        Me.lblLastAction = New System.Windows.Forms.Label()
+        Me.lblStatus2 = New System.Windows.Forms.Label()
+        Me.pbIcon = New System.Windows.Forms.PictureBox()
+        Me.lblStatus1 = New System.Windows.Forms.Label()
+        Me.lblGameTitle = New System.Windows.Forms.Label()
+        Me.lblTimeSpent = New System.Windows.Forms.Label()
         Me.gMonTrayMenu.SuspendLayout()
         Me.gMonStatusStrip.SuspendLayout()
         Me.gMonMainMenu.SuspendLayout()
-        CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.pbTime, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.slcMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.slcMain.Panel1.SuspendLayout()
         Me.slcMain.Panel2.SuspendLayout()
         Me.slcMain.SuspendLayout()
+        Me.pnlLeft.SuspendLayout()
+        Me.pnlRight.SuspendLayout()
+        CType(Me.pbTime, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'gMonTray
@@ -153,44 +157,50 @@ Partial Class frmMain
         '
         Me.gMonTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayNotification, Me.gMonTrayShow, Me.gMonTrayMon, Me.gMonTraySettings, Me.gMonTrayQuickSep, Me.gMonTrayFile, Me.gMonTraySetup, Me.gMonTrayTools, Me.gMonTrayExitSep, Me.gMonTrayExit})
         Me.gMonTrayMenu.Name = "gMonTrayMenu"
-        Me.gMonTrayMenu.Size = New System.Drawing.Size(181, 214)
+        Me.gMonTrayMenu.Size = New System.Drawing.Size(162, 192)
         '
         'gMonTrayNotification
         '
         Me.gMonTrayNotification.Name = "gMonTrayNotification"
-        Me.gMonTrayNotification.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayNotification.Size = New System.Drawing.Size(161, 22)
         Me.gMonTrayNotification.Text = "Notification"
         Me.gMonTrayNotification.Visible = False
         '
         'gMonTrayShow
         '
         Me.gMonTrayShow.Name = "gMonTrayShow"
-        Me.gMonTrayShow.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayShow.Size = New System.Drawing.Size(161, 22)
         Me.gMonTrayShow.Text = "Restore &Window"
         '
         'gMonTrayMon
         '
         Me.gMonTrayMon.Name = "gMonTrayMon"
-        Me.gMonTrayMon.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayMon.Size = New System.Drawing.Size(161, 22)
         Me.gMonTrayMon.Text = "S&tart Monitoring"
         '
         'gMonTraySettings
         '
         Me.gMonTraySettings.Name = "gMonTraySettings"
-        Me.gMonTraySettings.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTraySettings.Size = New System.Drawing.Size(161, 22)
         Me.gMonTraySettings.Text = "S&ettings"
         '
         'gMonTrayQuickSep
         '
         Me.gMonTrayQuickSep.Name = "gMonTrayQuickSep"
-        Me.gMonTrayQuickSep.Size = New System.Drawing.Size(177, 6)
+        Me.gMonTrayQuickSep.Size = New System.Drawing.Size(158, 6)
         '
         'gMonTrayFile
         '
         Me.gMonTrayFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayOpenBackupFolder, Me.gMonTrayFileFullBackup, Me.gMonTrayFileFullRestore, Me.gMonTrayFileImport, Me.gMonTrayFileExport})
         Me.gMonTrayFile.Name = "gMonTrayFile"
-        Me.gMonTrayFile.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayFile.Size = New System.Drawing.Size(161, 22)
         Me.gMonTrayFile.Text = "&File"
+        '
+        'gMonTrayOpenBackupFolder
+        '
+        Me.gMonTrayOpenBackupFolder.Name = "gMonTrayOpenBackupFolder"
+        Me.gMonTrayOpenBackupFolder.Size = New System.Drawing.Size(181, 22)
+        Me.gMonTrayOpenBackupFolder.Text = "&Open Backup Folder"
         '
         'gMonTrayFileFullBackup
         '
@@ -258,7 +268,7 @@ Partial Class frmMain
         '
         Me.gMonTraySetup.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTraySetupAddWizard, Me.gMonTraySetupGameManager, Me.gMonTraySetupTags, Me.gMonTraySetupLauncherManager, Me.gMonTraySetupProcessManager, Me.gMonTraySetupCustomVariables})
         Me.gMonTraySetup.Name = "gMonTraySetup"
-        Me.gMonTraySetup.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTraySetup.Size = New System.Drawing.Size(161, 22)
         Me.gMonTraySetup.Text = "&Setup"
         '
         'gMonTraySetupAddWizard
@@ -301,7 +311,7 @@ Partial Class frmMain
         '
         Me.gMonTrayTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonTrayToolsCompact, Me.gMonTrayToolsImportBackup, Me.gMonTrayToolsLog, Me.gMonTrayToolsSessions})
         Me.gMonTrayTools.Name = "gMonTrayTools"
-        Me.gMonTrayTools.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayTools.Size = New System.Drawing.Size(161, 22)
         Me.gMonTrayTools.Text = "&Tools"
         '
         'gMonTrayToolsCompact
@@ -357,33 +367,17 @@ Partial Class frmMain
         'gMonTrayExitSep
         '
         Me.gMonTrayExitSep.Name = "gMonTrayExitSep"
-        Me.gMonTrayExitSep.Size = New System.Drawing.Size(177, 6)
+        Me.gMonTrayExitSep.Size = New System.Drawing.Size(158, 6)
         '
         'gMonTrayExit
         '
         Me.gMonTrayExit.Name = "gMonTrayExit"
-        Me.gMonTrayExit.Size = New System.Drawing.Size(180, 22)
+        Me.gMonTrayExit.Size = New System.Drawing.Size(161, 22)
         Me.gMonTrayExit.Text = "E&xit"
         '
         'bwMonitor
         '
         Me.bwMonitor.WorkerSupportsCancellation = True
-        '
-        'txtLog
-        '
-        Me.txtLog.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtLog.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLog.Location = New System.Drawing.Point(15, 187)
-        Me.txtLog.MaxLength = 524288
-        Me.txtLog.Multiline = True
-        Me.txtLog.Name = "txtLog"
-        Me.txtLog.ReadOnly = True
-        Me.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtLog.Size = New System.Drawing.Size(455, 167)
-        Me.txtLog.TabIndex = 12
-        Me.txtLog.TabStop = False
         '
         'gMonStatusStrip
         '
@@ -456,6 +450,12 @@ Partial Class frmMain
         Me.gMonFullSep.Name = "gMonFullSep"
         Me.gMonFullSep.Size = New System.Drawing.Size(178, 6)
         '
+        'gMonOpenBackupFolder
+        '
+        Me.gMonOpenBackupFolder.Name = "gMonOpenBackupFolder"
+        Me.gMonOpenBackupFolder.Size = New System.Drawing.Size(181, 22)
+        Me.gMonOpenBackupFolder.Text = "&Open Backup Folder"
+        '
         'gMonFileFullBackup
         '
         Me.gMonFileFullBackup.Name = "gMonFileFullBackup"
@@ -527,12 +527,6 @@ Partial Class frmMain
         '
         Me.gMonSettingsSep.Name = "gMonSettingsSep"
         Me.gMonSettingsSep.Size = New System.Drawing.Size(178, 6)
-        '
-        'gMonOpenBackupFolder
-        '
-        Me.gMonOpenBackupFolder.Name = "gMonOpenBackupFolder"
-        Me.gMonOpenBackupFolder.Size = New System.Drawing.Size(181, 22)
-        Me.gMonOpenBackupFolder.Text = "&Open Backup Folder"
         '
         'gMonFileSettings
         '
@@ -690,119 +684,6 @@ Partial Class frmMain
         Me.gMonNotification.Text = "Notification"
         Me.gMonNotification.Visible = False
         '
-        'pbIcon
-        '
-        Me.pbIcon.Location = New System.Drawing.Point(15, 12)
-        Me.pbIcon.Name = "pbIcon"
-        Me.pbIcon.Size = New System.Drawing.Size(48, 48)
-        Me.pbIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pbIcon.TabIndex = 9
-        Me.pbIcon.TabStop = False
-        '
-        'lblGameTitle
-        '
-        Me.lblGameTitle.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblGameTitle.AutoEllipsis = True
-        Me.lblGameTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGameTitle.Location = New System.Drawing.Point(69, 9)
-        Me.lblGameTitle.Name = "lblGameTitle"
-        Me.lblGameTitle.Size = New System.Drawing.Size(401, 16)
-        Me.lblGameTitle.TabIndex = 0
-        Me.lblGameTitle.Text = "Game Title"
-        Me.lblGameTitle.UseMnemonic = False
-        '
-        'lblLastAction
-        '
-        Me.lblLastAction.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblLastAction.AutoEllipsis = True
-        Me.lblLastAction.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLastAction.Location = New System.Drawing.Point(94, 171)
-        Me.lblLastAction.Name = "lblLastAction"
-        Me.lblLastAction.Size = New System.Drawing.Size(376, 13)
-        Me.lblLastAction.TabIndex = 10
-        Me.lblLastAction.Text = "Last Action"
-        Me.lblLastAction.UseMnemonic = False
-        '
-        'lblLastActionTitle
-        '
-        Me.lblLastActionTitle.AutoSize = True
-        Me.lblLastActionTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLastActionTitle.Location = New System.Drawing.Point(13, 171)
-        Me.lblLastActionTitle.Name = "lblLastActionTitle"
-        Me.lblLastActionTitle.Size = New System.Drawing.Size(75, 13)
-        Me.lblLastActionTitle.TabIndex = 9
-        Me.lblLastActionTitle.Text = "Last Action:"
-        '
-        'lblTimeSpent
-        '
-        Me.lblTimeSpent.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblTimeSpent.AutoEllipsis = True
-        Me.lblTimeSpent.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTimeSpent.Location = New System.Drawing.Point(69, 92)
-        Me.lblTimeSpent.Name = "lblTimeSpent"
-        Me.lblTimeSpent.Size = New System.Drawing.Size(401, 16)
-        Me.lblTimeSpent.TabIndex = 4
-        Me.lblTimeSpent.Text = "0 Hours"
-        '
-        'btnCancelOperation
-        '
-        Me.btnCancelOperation.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancelOperation.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancelOperation.Location = New System.Drawing.Point(410, 118)
-        Me.btnCancelOperation.Name = "btnCancelOperation"
-        Me.btnCancelOperation.Size = New System.Drawing.Size(60, 45)
-        Me.btnCancelOperation.TabIndex = 11
-        Me.btnCancelOperation.Text = "&Cancel"
-        Me.btnCancelOperation.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btnCancelOperation.UseVisualStyleBackColor = True
-        '
-        'lblStatus1
-        '
-        Me.lblStatus1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblStatus1.AutoEllipsis = True
-        Me.lblStatus1.Location = New System.Drawing.Point(69, 33)
-        Me.lblStatus1.Name = "lblStatus1"
-        Me.lblStatus1.Size = New System.Drawing.Size(401, 13)
-        Me.lblStatus1.TabIndex = 1
-        Me.lblStatus1.Text = "Status Text "
-        Me.lblStatus1.UseMnemonic = False
-        '
-        'lblStatus2
-        '
-        Me.lblStatus2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblStatus2.AutoEllipsis = True
-        Me.lblStatus2.Location = New System.Drawing.Point(69, 51)
-        Me.lblStatus2.Name = "lblStatus2"
-        Me.lblStatus2.Size = New System.Drawing.Size(401, 13)
-        Me.lblStatus2.TabIndex = 2
-        Me.lblStatus2.Text = "Status Text"
-        Me.lblStatus2.UseMnemonic = False
-        '
-        'lblStatus3
-        '
-        Me.lblStatus3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblStatus3.AutoEllipsis = True
-        Me.lblStatus3.Location = New System.Drawing.Point(69, 69)
-        Me.lblStatus3.Name = "lblStatus3"
-        Me.lblStatus3.Size = New System.Drawing.Size(401, 13)
-        Me.lblStatus3.TabIndex = 3
-        Me.lblStatus3.Text = "Status Text"
-        Me.lblStatus3.UseMnemonic = False
-        '
-        'pbTime
-        '
-        Me.pbTime.Location = New System.Drawing.Point(39, 88)
-        Me.pbTime.Name = "pbTime"
-        Me.pbTime.Size = New System.Drawing.Size(24, 24)
-        Me.pbTime.TabIndex = 18
-        Me.pbTime.TabStop = False
-        '
         'slcMain
         '
         Me.slcMain.Dock = System.Windows.Forms.DockStyle.Fill
@@ -811,61 +692,56 @@ Partial Class frmMain
         '
         'slcMain.Panel1
         '
-        Me.slcMain.Panel1.Controls.Add(Me.btnClearSelected)
-        Me.slcMain.Panel1.Controls.Add(Me.lblSearch)
-        Me.slcMain.Panel1.Controls.Add(Me.txtSearch)
-        Me.slcMain.Panel1.Controls.Add(Me.lstGames)
+        Me.slcMain.Panel1.Controls.Add(Me.pnlLeft)
         '
         'slcMain.Panel2
         '
-        Me.slcMain.Panel2.Controls.Add(Me.btnBackup)
-        Me.slcMain.Panel2.Controls.Add(Me.btnRestore)
-        Me.slcMain.Panel2.Controls.Add(Me.btnEdit)
-        Me.slcMain.Panel2.Controls.Add(Me.btnPlay)
-        Me.slcMain.Panel2.Controls.Add(Me.txtLog)
-        Me.slcMain.Panel2.Controls.Add(Me.btnCancelOperation)
-        Me.slcMain.Panel2.Controls.Add(Me.pbTime)
-        Me.slcMain.Panel2.Controls.Add(Me.lblLastActionTitle)
-        Me.slcMain.Panel2.Controls.Add(Me.lblStatus3)
-        Me.slcMain.Panel2.Controls.Add(Me.lblLastAction)
-        Me.slcMain.Panel2.Controls.Add(Me.lblStatus2)
-        Me.slcMain.Panel2.Controls.Add(Me.pbIcon)
-        Me.slcMain.Panel2.Controls.Add(Me.lblStatus1)
-        Me.slcMain.Panel2.Controls.Add(Me.lblGameTitle)
-        Me.slcMain.Panel2.Controls.Add(Me.lblTimeSpent)
+        Me.slcMain.Panel2.Controls.Add(Me.pnlRight)
         Me.slcMain.Size = New System.Drawing.Size(734, 365)
         Me.slcMain.SplitterDistance = 243
         Me.slcMain.SplitterWidth = 5
         Me.slcMain.TabIndex = 1
         Me.slcMain.TabStop = False
         '
+        'pnlLeft
+        '
+        Me.pnlLeft.Controls.Add(Me.btnClearSelected)
+        Me.pnlLeft.Controls.Add(Me.lblSearch)
+        Me.pnlLeft.Controls.Add(Me.txtSearch)
+        Me.pnlLeft.Controls.Add(Me.lstGames)
+        Me.pnlLeft.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlLeft.Location = New System.Drawing.Point(0, 0)
+        Me.pnlLeft.Name = "pnlLeft"
+        Me.pnlLeft.Size = New System.Drawing.Size(243, 365)
+        Me.pnlLeft.TabIndex = 0
+        '
         'btnClearSelected
         '
         Me.btnClearSelected.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnClearSelected.Image = Global.GBM.My.Resources.Resources.frmMain_Cancel_Small
-        Me.btnClearSelected.Location = New System.Drawing.Point(216, 9)
+        Me.btnClearSelected.Location = New System.Drawing.Point(213, 10)
         Me.btnClearSelected.Name = "btnClearSelected"
         Me.btnClearSelected.Size = New System.Drawing.Size(24, 24)
-        Me.btnClearSelected.TabIndex = 2
+        Me.btnClearSelected.TabIndex = 6
         Me.btnClearSelected.UseVisualStyleBackColor = True
         '
         'lblSearch
         '
         Me.lblSearch.AutoSize = True
-        Me.lblSearch.Location = New System.Drawing.Point(9, 15)
+        Me.lblSearch.Location = New System.Drawing.Point(6, 16)
         Me.lblSearch.Name = "lblSearch"
         Me.lblSearch.Size = New System.Drawing.Size(44, 13)
-        Me.lblSearch.TabIndex = 0
+        Me.lblSearch.TabIndex = 4
         Me.lblSearch.Text = "Search:"
         '
         'txtSearch
         '
         Me.txtSearch.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtSearch.Location = New System.Drawing.Point(59, 12)
+        Me.txtSearch.Location = New System.Drawing.Point(56, 13)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(151, 20)
-        Me.txtSearch.TabIndex = 1
+        Me.txtSearch.TabIndex = 5
         '
         'lstGames
         '
@@ -874,18 +750,41 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lstGames.FormattingEnabled = True
         Me.lstGames.IntegralHeight = False
-        Me.lstGames.Location = New System.Drawing.Point(12, 38)
+        Me.lstGames.Location = New System.Drawing.Point(9, 39)
         Me.lstGames.Name = "lstGames"
         Me.lstGames.Size = New System.Drawing.Size(228, 316)
-        Me.lstGames.TabIndex = 3
+        Me.lstGames.TabIndex = 7
+        '
+        'pnlRight
+        '
+        Me.pnlRight.Controls.Add(Me.btnBackup)
+        Me.pnlRight.Controls.Add(Me.btnRestore)
+        Me.pnlRight.Controls.Add(Me.btnEdit)
+        Me.pnlRight.Controls.Add(Me.btnPlay)
+        Me.pnlRight.Controls.Add(Me.txtLog)
+        Me.pnlRight.Controls.Add(Me.btnCancelOperation)
+        Me.pnlRight.Controls.Add(Me.pbTime)
+        Me.pnlRight.Controls.Add(Me.lblLastActionTitle)
+        Me.pnlRight.Controls.Add(Me.lblStatus3)
+        Me.pnlRight.Controls.Add(Me.lblLastAction)
+        Me.pnlRight.Controls.Add(Me.lblStatus2)
+        Me.pnlRight.Controls.Add(Me.pbIcon)
+        Me.pnlRight.Controls.Add(Me.lblStatus1)
+        Me.pnlRight.Controls.Add(Me.lblGameTitle)
+        Me.pnlRight.Controls.Add(Me.lblTimeSpent)
+        Me.pnlRight.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlRight.Location = New System.Drawing.Point(0, 0)
+        Me.pnlRight.Name = "pnlRight"
+        Me.pnlRight.Size = New System.Drawing.Size(486, 365)
+        Me.pnlRight.TabIndex = 0
         '
         'btnBackup
         '
         Me.btnBackup.Image = Global.GBM.My.Resources.Resources.Multi_Backup
-        Me.btnBackup.Location = New System.Drawing.Point(81, 118)
+        Me.btnBackup.Location = New System.Drawing.Point(81, 119)
         Me.btnBackup.Name = "btnBackup"
         Me.btnBackup.Size = New System.Drawing.Size(60, 45)
-        Me.btnBackup.TabIndex = 6
+        Me.btnBackup.TabIndex = 25
         Me.btnBackup.Text = "&Backup"
         Me.btnBackup.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnBackup.UseVisualStyleBackColor = True
@@ -893,10 +792,10 @@ Partial Class frmMain
         'btnRestore
         '
         Me.btnRestore.Image = Global.GBM.My.Resources.Resources.Multi_Restore
-        Me.btnRestore.Location = New System.Drawing.Point(147, 118)
+        Me.btnRestore.Location = New System.Drawing.Point(147, 119)
         Me.btnRestore.Name = "btnRestore"
         Me.btnRestore.Size = New System.Drawing.Size(60, 45)
-        Me.btnRestore.TabIndex = 7
+        Me.btnRestore.TabIndex = 26
         Me.btnRestore.Text = "&Restore"
         Me.btnRestore.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnRestore.UseVisualStyleBackColor = True
@@ -904,10 +803,10 @@ Partial Class frmMain
         'btnEdit
         '
         Me.btnEdit.Image = Global.GBM.My.Resources.Resources.Multi_Edit
-        Me.btnEdit.Location = New System.Drawing.Point(15, 118)
+        Me.btnEdit.Location = New System.Drawing.Point(15, 119)
         Me.btnEdit.Name = "btnEdit"
         Me.btnEdit.Size = New System.Drawing.Size(60, 45)
-        Me.btnEdit.TabIndex = 5
+        Me.btnEdit.TabIndex = 24
         Me.btnEdit.Text = "&Edit"
         Me.btnEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnEdit.UseVisualStyleBackColor = True
@@ -915,19 +814,142 @@ Partial Class frmMain
         'btnPlay
         '
         Me.btnPlay.Image = Global.GBM.My.Resources.Resources.frmMain_Play
-        Me.btnPlay.Location = New System.Drawing.Point(213, 118)
+        Me.btnPlay.Location = New System.Drawing.Point(213, 119)
         Me.btnPlay.Name = "btnPlay"
         Me.btnPlay.Size = New System.Drawing.Size(60, 45)
-        Me.btnPlay.TabIndex = 8
+        Me.btnPlay.TabIndex = 27
         Me.btnPlay.Text = "&Play"
         Me.btnPlay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnPlay.UseVisualStyleBackColor = True
         '
-        'gMonTrayOpenBackupFolder
+        'txtLog
         '
-        Me.gMonTrayOpenBackupFolder.Name = "gMonTrayOpenBackupFolder"
-        Me.gMonTrayOpenBackupFolder.Size = New System.Drawing.Size(181, 22)
-        Me.gMonTrayOpenBackupFolder.Text = "&Open Backup Folder"
+        Me.txtLog.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtLog.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtLog.Location = New System.Drawing.Point(15, 188)
+        Me.txtLog.MaxLength = 524288
+        Me.txtLog.Multiline = True
+        Me.txtLog.Name = "txtLog"
+        Me.txtLog.ReadOnly = True
+        Me.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtLog.Size = New System.Drawing.Size(453, 167)
+        Me.txtLog.TabIndex = 32
+        Me.txtLog.TabStop = False
+        '
+        'btnCancelOperation
+        '
+        Me.btnCancelOperation.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCancelOperation.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
+        Me.btnCancelOperation.Location = New System.Drawing.Point(408, 119)
+        Me.btnCancelOperation.Name = "btnCancelOperation"
+        Me.btnCancelOperation.Size = New System.Drawing.Size(60, 45)
+        Me.btnCancelOperation.TabIndex = 31
+        Me.btnCancelOperation.Text = "&Cancel"
+        Me.btnCancelOperation.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btnCancelOperation.UseVisualStyleBackColor = True
+        '
+        'pbTime
+        '
+        Me.pbTime.Location = New System.Drawing.Point(39, 89)
+        Me.pbTime.Name = "pbTime"
+        Me.pbTime.Size = New System.Drawing.Size(24, 24)
+        Me.pbTime.TabIndex = 33
+        Me.pbTime.TabStop = False
+        '
+        'lblLastActionTitle
+        '
+        Me.lblLastActionTitle.AutoSize = True
+        Me.lblLastActionTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblLastActionTitle.Location = New System.Drawing.Point(13, 172)
+        Me.lblLastActionTitle.Name = "lblLastActionTitle"
+        Me.lblLastActionTitle.Size = New System.Drawing.Size(75, 13)
+        Me.lblLastActionTitle.TabIndex = 28
+        Me.lblLastActionTitle.Text = "Last Action:"
+        '
+        'lblStatus3
+        '
+        Me.lblStatus3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblStatus3.AutoEllipsis = True
+        Me.lblStatus3.Location = New System.Drawing.Point(69, 70)
+        Me.lblStatus3.Name = "lblStatus3"
+        Me.lblStatus3.Size = New System.Drawing.Size(399, 13)
+        Me.lblStatus3.TabIndex = 22
+        Me.lblStatus3.Text = "Status Text"
+        Me.lblStatus3.UseMnemonic = False
+        '
+        'lblLastAction
+        '
+        Me.lblLastAction.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblLastAction.AutoEllipsis = True
+        Me.lblLastAction.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblLastAction.Location = New System.Drawing.Point(94, 172)
+        Me.lblLastAction.Name = "lblLastAction"
+        Me.lblLastAction.Size = New System.Drawing.Size(374, 13)
+        Me.lblLastAction.TabIndex = 30
+        Me.lblLastAction.Text = "Last Action"
+        Me.lblLastAction.UseMnemonic = False
+        '
+        'lblStatus2
+        '
+        Me.lblStatus2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblStatus2.AutoEllipsis = True
+        Me.lblStatus2.Location = New System.Drawing.Point(69, 52)
+        Me.lblStatus2.Name = "lblStatus2"
+        Me.lblStatus2.Size = New System.Drawing.Size(399, 13)
+        Me.lblStatus2.TabIndex = 21
+        Me.lblStatus2.Text = "Status Text"
+        Me.lblStatus2.UseMnemonic = False
+        '
+        'pbIcon
+        '
+        Me.pbIcon.Location = New System.Drawing.Point(15, 13)
+        Me.pbIcon.Name = "pbIcon"
+        Me.pbIcon.Size = New System.Drawing.Size(48, 48)
+        Me.pbIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pbIcon.TabIndex = 29
+        Me.pbIcon.TabStop = False
+        '
+        'lblStatus1
+        '
+        Me.lblStatus1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblStatus1.AutoEllipsis = True
+        Me.lblStatus1.Location = New System.Drawing.Point(69, 34)
+        Me.lblStatus1.Name = "lblStatus1"
+        Me.lblStatus1.Size = New System.Drawing.Size(399, 13)
+        Me.lblStatus1.TabIndex = 20
+        Me.lblStatus1.Text = "Status Text "
+        Me.lblStatus1.UseMnemonic = False
+        '
+        'lblGameTitle
+        '
+        Me.lblGameTitle.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblGameTitle.AutoEllipsis = True
+        Me.lblGameTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGameTitle.Location = New System.Drawing.Point(69, 10)
+        Me.lblGameTitle.Name = "lblGameTitle"
+        Me.lblGameTitle.Size = New System.Drawing.Size(399, 16)
+        Me.lblGameTitle.TabIndex = 19
+        Me.lblGameTitle.Text = "Game Title"
+        Me.lblGameTitle.UseMnemonic = False
+        '
+        'lblTimeSpent
+        '
+        Me.lblTimeSpent.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblTimeSpent.AutoEllipsis = True
+        Me.lblTimeSpent.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTimeSpent.Location = New System.Drawing.Point(69, 93)
+        Me.lblTimeSpent.Name = "lblTimeSpent"
+        Me.lblTimeSpent.Size = New System.Drawing.Size(399, 16)
+        Me.lblTimeSpent.TabIndex = 23
+        Me.lblTimeSpent.Text = "0 Hours"
         '
         'frmMain
         '
@@ -948,14 +970,16 @@ Partial Class frmMain
         Me.gMonStatusStrip.PerformLayout()
         Me.gMonMainMenu.ResumeLayout(False)
         Me.gMonMainMenu.PerformLayout()
-        CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.pbTime, System.ComponentModel.ISupportInitialize).EndInit()
         Me.slcMain.Panel1.ResumeLayout(False)
-        Me.slcMain.Panel1.PerformLayout()
         Me.slcMain.Panel2.ResumeLayout(False)
-        Me.slcMain.Panel2.PerformLayout()
         CType(Me.slcMain, System.ComponentModel.ISupportInitialize).EndInit()
         Me.slcMain.ResumeLayout(False)
+        Me.pnlLeft.ResumeLayout(False)
+        Me.pnlLeft.PerformLayout()
+        Me.pnlRight.ResumeLayout(False)
+        Me.pnlRight.PerformLayout()
+        CType(Me.pbTime, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pbIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -966,7 +990,6 @@ Partial Class frmMain
     Friend WithEvents gMonTrayShow As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTrayExitSep As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents bwMonitor As System.ComponentModel.BackgroundWorker
-    Friend WithEvents txtLog As System.Windows.Forms.TextBox
     Friend WithEvents gMonTrayMon As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonStatusStrip As System.Windows.Forms.StatusStrip
     Friend WithEvents gMonStripTxtStatus As System.Windows.Forms.ToolStripStatusLabel
@@ -985,31 +1008,21 @@ Partial Class frmMain
     Friend WithEvents gMonHelpAbout As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTraySetupGameManager As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTraySetupCustomVariables As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents pbIcon As System.Windows.Forms.PictureBox
-    Friend WithEvents lblGameTitle As System.Windows.Forms.Label
-    Friend WithEvents lblLastAction As System.Windows.Forms.Label
-    Friend WithEvents lblLastActionTitle As System.Windows.Forms.Label
     Friend WithEvents gMonTools As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTrayTools As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonSetupAddWizard As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTraySetupAddWizard As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents lblTimeSpent As System.Windows.Forms.Label
     Friend WithEvents gMonSetupGameManager As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonSetupCustomVariables As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonToolsCompact As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTrayToolsCompact As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonHelpManual As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonHelpCheckforUpdates As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents btnCancelOperation As System.Windows.Forms.Button
     Friend WithEvents gMonTraySetupTags As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonSetupTags As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents lblStatus1 As Label
-    Friend WithEvents lblStatus2 As Label
-    Friend WithEvents lblStatus3 As Label
     Friend WithEvents gMonNotification As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonTrayNotification As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gMonHelpWebSite As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents pbTime As System.Windows.Forms.PictureBox
     Friend WithEvents gMonToolsLog As ToolStripMenuItem
     Friend WithEvents gMonLogClear As ToolStripMenuItem
     Friend WithEvents gMonLogSave As ToolStripMenuItem
@@ -1034,15 +1047,7 @@ Partial Class frmMain
     Friend WithEvents gMonSetupLauncherManager As ToolStripMenuItem
     Friend WithEvents gMonTraySetupLauncherManager As ToolStripMenuItem
     Friend WithEvents slcMain As SplitContainer
-    Friend WithEvents lblSearch As Label
-    Friend WithEvents txtSearch As TextBox
-    Friend WithEvents lstGames As ListBox
     Friend WithEvents gMonStripCollapse As ToolStripStatusLabel
-    Friend WithEvents btnBackup As Button
-    Friend WithEvents btnRestore As Button
-    Friend WithEvents btnEdit As Button
-    Friend WithEvents btnPlay As Button
-    Friend WithEvents btnClearSelected As Button
     Friend WithEvents gMonFileImport As ToolStripMenuItem
     Friend WithEvents gMonFileImportOfficial As ToolStripMenuItem
     Friend WithEvents gMonFileImportOfficialLinux As ToolStripMenuItem
@@ -1065,4 +1070,25 @@ Partial Class frmMain
     Friend WithEvents gMonTrayFileImportLudusavi As ToolStripMenuItem
     Friend WithEvents gMonOpenBackupFolder As ToolStripMenuItem
     Friend WithEvents gMonTrayOpenBackupFolder As ToolStripMenuItem
+    Friend WithEvents pnlLeft As Panel
+    Friend WithEvents btnClearSelected As Button
+    Friend WithEvents lblSearch As Label
+    Friend WithEvents txtSearch As TextBox
+    Friend WithEvents lstGames As ListBox
+    Friend WithEvents pnlRight As Panel
+    Friend WithEvents btnBackup As Button
+    Friend WithEvents btnRestore As Button
+    Friend WithEvents btnEdit As Button
+    Friend WithEvents btnPlay As Button
+    Friend WithEvents txtLog As TextBox
+    Friend WithEvents btnCancelOperation As Button
+    Friend WithEvents pbTime As PictureBox
+    Friend WithEvents lblLastActionTitle As Label
+    Friend WithEvents lblStatus3 As Label
+    Friend WithEvents lblLastAction As Label
+    Friend WithEvents lblStatus2 As Label
+    Friend WithEvents pbIcon As PictureBox
+    Friend WithEvents lblStatus1 As Label
+    Friend WithEvents lblGameTitle As Label
+    Friend WithEvents lblTimeSpent As Label
 End Class
