@@ -12,8 +12,6 @@ Public Class mgrSettings
         LudusaviImportWarning = 64
     End Enum
 
-    Private Shared s7zArguments As String
-    Private Shared s7zLocation As String
     Private Shared sBackupFolder As String
     Private Shared sTemporaryFolder As String
 
@@ -38,9 +36,9 @@ Public Class mgrSettings
         Get
             'Prepare custom 7z arguments
             Dim sPreparedArguments As String
-            If s7zArguments <> String.Empty Then
+            If Custom7zArguments <> String.Empty Then
                 'Surround the arguments with spaces to be inserted into command
-                sPreparedArguments = " " & s7zArguments & " "
+                sPreparedArguments = " " & Custom7zArguments & " "
             Else
                 'The command always needs at least one space inserted
                 sPreparedArguments = " "
@@ -56,7 +54,7 @@ Public Class mgrSettings
                 Return True
             End If
 
-            If s7zLocation = String.Empty Then
+            If Custom7zLocation = String.Empty Then
                 'Verify stored hash of the default utility if we're using it
                 Return mgrCommon.UtilityHash = mgrHash.Generate_SHA256_Hash(mgrPath.Default7zLocation)
             Else
@@ -68,12 +66,12 @@ Public Class mgrSettings
     Public Shared ReadOnly Property Utility7zLocation As String
         Get
             'Return default utility when custom setting is not used
-            If s7zLocation = String.Empty Then
+            If Custom7zLocation = String.Empty Then
                 Return mgrPath.Default7zLocation
             Else
                 'Check if custom utility is available, if not use the default utility
-                If File.Exists(s7zLocation) Then
-                    Return s7zLocation
+                If File.Exists(Custom7zLocation) Then
+                    Return Custom7zLocation
                 Else
                     Return mgrPath.Default7zLocation
                 End If
@@ -149,8 +147,8 @@ Public Class mgrSettings
         SuppressBackup = False
         SuppressBackupThreshold = 10
         CompressionLevel = 5
-        s7zArguments = String.Empty
-        s7zLocation = String.Empty
+        Custom7zArguments = String.Empty
+        Custom7zLocation = String.Empty
         sBackupFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & Path.DirectorySeparatorChar & App_NameLong
         sTemporaryFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
         SyncFields = clsGame.eOptionalSyncFields.None
