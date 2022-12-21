@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.4 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-December 20, 2022
+December 21, 2022
 
 Important Notice:
 
@@ -16,5 +16,10 @@ All Platforms:
 
 - Fixed an issue with ignored 7-Zip settings.  The "Custom Arguments" and "Custom Location" settings will now function properly.
 - Fixed an issue with the main window not properly scaling controls when using certain high DPI settings.
+
+Windows:
+
+- 7-Zip updated to 22.01
+- SQLite updated to 3.40.0
 			
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
