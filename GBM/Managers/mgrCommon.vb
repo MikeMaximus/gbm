@@ -743,7 +743,11 @@ Public Class mgrCommon
             If IsUnix() Then
                 Directory.Delete(sPath, bRecursive)
             Else
-                My.Computer.FileSystem.DeleteDirectory(sPath, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.SendToRecycleBin)
+                If mgrSettings.DeleteToRecycleBin Then
+                    My.Computer.FileSystem.DeleteDirectory(sPath, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.SendToRecycleBin)
+                Else
+                    Directory.Delete(sPath, bRecursive)
+                End If
             End If
         End If
     End Sub
