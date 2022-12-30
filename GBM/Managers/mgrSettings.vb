@@ -125,6 +125,7 @@ Public Class mgrSettings
     Public Shared Property BackupNotification As Boolean
     Public Shared Property DetectionSpeed As Integer
     Public Shared Property TwoPassDetection As Boolean
+    Public Shared Property DeleteToRecycleBin As Boolean
 
     Shared Sub New()
         SetDefaults()
@@ -167,6 +168,7 @@ Public Class mgrSettings
         BackupNotification = False
         DetectionSpeed = 5000
         TwoPassDetection = True
+        DeleteToRecycleBin = True
 
         'OS Based Defaults
         If mgrCommon.IsUnix Then
@@ -186,7 +188,8 @@ Public Class mgrSettings
         sSQL &= "@TimeTracking, @SuppressBackup, @SuppressBackupThreshold, @CompressionLevel, @Custom7zArguments, @Custom7zLocation, "
         sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, "
         sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck, @TemporaryFolder, @ExitOnClose, @ExitNoWarning, @EnableLauncher, "
-        sSQL &= "@MainHideGameList, @MainHideButtons, @MainHideLog, @BackupNotification, @DetectionSpeed, @TwoPassDetection, @StorePathAutoConfig)"
+        sSQL &= "@MainHideGameList, @MainHideButtons, @MainHideLog, @BackupNotification, @DetectionSpeed, @TwoPassDetection, @StorePathAutoConfig, "
+        sSQL &= "@DeleteToRecycleBin)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -224,6 +227,7 @@ Public Class mgrSettings
         hshParams.Add("DetectionSpeed", DetectionSpeed)
         hshParams.Add("TwoPassDetection", TwoPassDetection)
         hshParams.Add("StorePathAutoConfig", StorePathAutoConfig)
+        hshParams.Add("DeleteToRecycleBin", DeleteToRecycleBin)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -275,6 +279,7 @@ Public Class mgrSettings
             DetectionSpeed = CInt(dr("DetectionSpeed"))
             TwoPassDetection = CBool(dr("TwoPassDetection"))
             StorePathAutoConfig = CBool(dr("StorePathAutoConfig"))
+            DeleteToRecycleBin = CBool(dr("DeleteToRecycleBin"))
         Next
 
         oDatabase.Disconnect()

@@ -367,7 +367,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-08-03T20:41:20
+        '''  Looks up a localized string similar to 2022-12-24T14:45:46
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -6719,6 +6719,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_ConfirmMessageReset() As String
             Get
                 Return ResourceManager.GetString("frmSettings_ConfirmMessageReset", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Delete files to the Recycle Bin.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_DeleteToRecycleBin() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_DeleteToRecycleBin", resourceCulture)
             End Get
         End Property
         

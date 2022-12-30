@@ -13,7 +13,7 @@ Public Class mgrSQLite
                         SessionTracking BOOLEAN NOT NULL, SuppressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL, DisableSyncMessages BOOLEAN NOT NULL, ShowResolvedPaths BOOLEAN NOT NULL, 
                         DisableDiskSpaceCheck BOOLEAN NOT NULL, TemporaryFolder TEXT, ExitOnClose BOOLEAN NOT NULL, ExitNoWarning BOOLEAN NOT NULL, EnableLauncher BOOLEAN NOT NULL, MainHideGameList BOOLEAN NOT NULL, 
                         MainHideButtons BOOLEAN NOT NULL, MainHideLog BOOLEAN NOT NULL, BackupNotification BOOLEAN NOT NULL, DetectionSpeed INTEGER NOT NULL, TwoPassDetection BOOLEAN NOT NULL, 
-                        StorePathAutoConfig BOOLEAN NOT NULL);"
+                        StorePathAutoConfig BOOLEAN NOT NULL, DeleteToRecycleBin BOOLEAN NOT NULL);"
             End Get
         End Property
         Public Shared ReadOnly Property SavedPath As String
@@ -1314,6 +1314,29 @@ Public Class mgrSQLite
                 BackupDB("v131")
 
                 sSQL = "PRAGMA user_version=132"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '1.35 Upgrade
+        If GetDatabaseVersion() < 135 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v132")
+
+                'Add new setting
+                sSQL = "ALTER TABLE settings ADD COLUMN DeleteToRecycleBin BOOLEAN NOT NULL DEFAULT 1;"
+
+                sSQL &= "PRAGMA user_version=135"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v132")
+
+                sSQL = "PRAGMA user_version=135"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If

@@ -87,6 +87,7 @@ Public Class frmSettings
         mgrSettings.DisableConfirmation = chkBackupConfirm.Checked
         mgrSettings.DisableDiskSpaceCheck = chkDisableDiskSpaceCheck.Checked
         mgrSettings.CreateSubFolder = chkCreateFolder.Checked
+        mgrSettings.DeleteToRecycleBin = chkDeleteToRecycleBin.Checked
         mgrSettings.StorePathAutoConfig = chkStorePathAutoConfig.Checked
         mgrSettings.ShowOverwriteWarning = chkOverwriteWarning.Checked
         mgrSettings.BackupNotification = chkBackupNotification.Checked
@@ -235,6 +236,7 @@ Public Class frmSettings
         chkBackupConfirm.Checked = mgrSettings.DisableConfirmation
         chkDisableDiskSpaceCheck.Checked = mgrSettings.DisableDiskSpaceCheck
         chkCreateFolder.Checked = mgrSettings.CreateSubFolder
+        chkDeleteToRecycleBin.Checked = mgrSettings.DeleteToRecycleBin
         chkStorePathAutoConfig.Checked = mgrSettings.StorePathAutoConfig
         chkOverwriteWarning.Checked = mgrSettings.ShowOverwriteWarning
         chkBackupNotification.Checked = mgrSettings.BackupNotification
@@ -403,6 +405,7 @@ Public Class frmSettings
         chkOverwriteWarning.Text = frmSettings_chkOverwriteWarning
         chkBackupNotification.Text = frmSettings_chkBackupNotification
         chkCreateFolder.Text = frmSettings_chkCreateFolder
+        chkDeleteToRecycleBin.Text = frmSettings_DeleteToRecycleBin
         chkStorePathAutoConfig.Text = frmSettings_chkStorePathAutoConfig
         chkBackupConfirm.Text = frmSettings_chkBackupConfirm
         btnCancel.Text = frmSettings_btnCancel
@@ -456,6 +459,7 @@ Public Class frmSettings
             If Not mgrPath.VerifyLinuxDesktopFileLocation() Then
                 chkAutoStart.Enabled = False
             End If
+            chkDeleteToRecycleBin.Enabled = False
         End If
 
         'Handle Panels

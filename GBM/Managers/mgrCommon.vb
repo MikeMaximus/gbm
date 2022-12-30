@@ -728,7 +728,7 @@ Public Class mgrCommon
             If IsUnix() Then
                 File.Delete(sPath)
             Else
-                If bRecycle Then
+                If mgrSettings.DeleteToRecycleBin And bRecycle Then
                     My.Computer.FileSystem.DeleteFile(sPath, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.SendToRecycleBin)
                 Else
                     File.Delete(sPath)

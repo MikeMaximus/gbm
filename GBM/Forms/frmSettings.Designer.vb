@@ -92,6 +92,7 @@ Partial Class frmSettings
         Me.lblBackupFolder = New System.Windows.Forms.Label()
         Me.txtBackupFolder = New System.Windows.Forms.TextBox()
         Me.chkCreateFolder = New System.Windows.Forms.CheckBox()
+        Me.chkDeleteToRecycleBin = New System.Windows.Forms.CheckBox()
         Me.grp7zGeneral.SuspendLayout()
         Me.pnlBackup.SuspendLayout()
         Me.grpBackupConfirmations.SuspendLayout()
@@ -746,6 +747,7 @@ Partial Class frmSettings
         '
         'grpFolderOptions
         '
+        Me.grpFolderOptions.Controls.Add(Me.chkDeleteToRecycleBin)
         Me.grpFolderOptions.Controls.Add(Me.btnTempFolder)
         Me.grpFolderOptions.Controls.Add(Me.lblTempFolder)
         Me.grpFolderOptions.Controls.Add(Me.txtTempFolder)
@@ -755,7 +757,7 @@ Partial Class frmSettings
         Me.grpFolderOptions.Controls.Add(Me.chkCreateFolder)
         Me.grpFolderOptions.Location = New System.Drawing.Point(6, 12)
         Me.grpFolderOptions.Name = "grpFolderOptions"
-        Me.grpFolderOptions.Size = New System.Drawing.Size(354, 91)
+        Me.grpFolderOptions.Size = New System.Drawing.Size(354, 113)
         Me.grpFolderOptions.TabIndex = 0
         Me.grpFolderOptions.TabStop = False
         Me.grpFolderOptions.Text = "Files and Folders"
@@ -819,6 +821,16 @@ Partial Class frmSettings
         Me.chkCreateFolder.TabIndex = 4
         Me.chkCreateFolder.Text = "Create a sub-folder for each game"
         Me.chkCreateFolder.UseVisualStyleBackColor = True
+        '
+        'chkDeleteToRecycleBin
+        '
+        Me.chkDeleteToRecycleBin.AutoSize = True
+        Me.chkDeleteToRecycleBin.Location = New System.Drawing.Point(6, 88)
+        Me.chkDeleteToRecycleBin.Name = "chkDeleteToRecycleBin"
+        Me.chkDeleteToRecycleBin.Size = New System.Drawing.Size(168, 17)
+        Me.chkDeleteToRecycleBin.TabIndex = 5
+        Me.chkDeleteToRecycleBin.Text = "Delete files to the Recycle Bin"
+        Me.chkDeleteToRecycleBin.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
@@ -946,4 +958,5 @@ Partial Class frmSettings
     Friend WithEvents chkDisableSyncMessages As CheckBox
     Friend WithEvents chkAutoSaveLog As CheckBox
     Friend WithEvents chkStorePathAutoConfig As CheckBox
+    Friend WithEvents chkDeleteToRecycleBin As CheckBox
 End Class

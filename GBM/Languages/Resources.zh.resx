@@ -3029,4 +3029,7 @@
   <data name="mgrMonitorList_WarningLudusaviImport" xml:space="preserve">
     <value>Ludusavi Manifest列表包含数以千计的来自PCGamingWiki的保存游戏配置文件。[BR][BR]这些配置未经测试，可能与GBM不完全兼容。</value>
   </data>
+  <data name="frmSettings_DeleteToRecycleBin" xml:space="preserve">
+    <value>将文件删除到回收站</value>
+  </data>
 </root>

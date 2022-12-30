@@ -3172,4 +3172,7 @@
   <data name="frmMain_gMonOpenBackupFolder" xml:space="preserve">
     <value>&amp;Open Backup Folder</value>
   </data>
+  <data name="frmSettings_DeleteToRecycleBin" xml:space="preserve">
+    <value>Delete files to the Recycle Bin</value>
+  </data>
 </root>

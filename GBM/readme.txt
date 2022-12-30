@@ -1,25 +1,20 @@
-Game Backup Monitor v1.3.4 Readme
+Game Backup Monitor v1.3.5 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-December 21, 2022
+December 30, 2022
 
 Important Notice:
 
-Game Backup Monitor will no longer be receiving any new features or major changes.  However I will continue to maintain it and apply fixes as required.  
+Game Backup Monitor will no longer be receiving any major new features or changes.  However I will continue to maintain it and apply minor changes or fixes as required.  
 
 I'd like to thank everyone that made contributions to this project over the years!
 
-New in 1.3.4
-
-All Platforms:
-
-- Fixed an issue with ignored 7-Zip settings.  The "Custom Arguments" and "Custom Location" settings will now function properly.
-- Fixed an issue with the main window not properly scaling controls when using certain high DPI settings.
+New in 1.3.5
 
 Windows:
 
-- 7-Zip updated to 22.01
-- SQLite updated to 3.40.0
+- Added a toggle to control deleting files to the Recycling Bin.
+	- This is enabled by default to match functionality of prior versions.
 			
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
