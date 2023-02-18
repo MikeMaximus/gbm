@@ -1500,7 +1500,7 @@ Public Class frmMain
         Dim oLocalDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         Dim oRemoteDatabase As New mgrSQLite(mgrSQLite.Database.Remote)
         oLocalDatabase.BackupDB(App_BackupOnLaunchFileDescription, True)
-        oRemoteDatabase.BackupDB(App_BackupOnLaunchFileDescription, True)
+        oRemoteDatabase.BackupDB(mgrPath.ValidateFileName(My.Computer.Name, 62) & "." & App_BackupOnLaunchFileDescription, True)
     End Sub
 
     Private Sub LoadAndVerify()

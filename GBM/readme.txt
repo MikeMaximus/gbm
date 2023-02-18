@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.5 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-January 13, 2023
+February 18, 2023
 
 Important Notice:
 
@@ -15,7 +15,11 @@ New in 1.3.5
 All Platforms:
 
 - Fixed an issue that prevented GBM from properly reloading the main window after the database file is updated by another application, such as Dropbox.
-
+- The remote database backup created when GBM is launched will now include the name of the PC in the file name.
+	- The remote database is "gbm.s3db" in your backup folder.
+	- This change makes the launch backup(s) more useful when using GBM on multiple PCs.
+	- This change also prevents conflict issues with cloud services, as multiple PCs could be overwriting the same backup file with varying versions.
+	
 Windows:
 
 - Added a toggle to control deleting files to the Recycling Bin.
