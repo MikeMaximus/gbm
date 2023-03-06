@@ -162,6 +162,7 @@ Public Class frmMain
         Else
             btnCancelOperation.Visible = True
             LockDownMenuEnable()
+            StopSyncWatcher()
             If bPause Then PauseScan()
         End If
     End Sub
@@ -183,7 +184,10 @@ Public Class frmMain
             End Select
             eCurrentOperation = eOperation.None
             LockDownMenuEnable()
-            If bResume Then ResumeScan()
+            StartSyncWatcher()
+            If bResume Then
+                ResumeScan()
+            End If
         End If
     End Sub
 
