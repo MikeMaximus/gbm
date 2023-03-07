@@ -162,7 +162,6 @@ Public Class frmMain
         Else
             btnCancelOperation.Visible = True
             LockDownMenuEnable()
-            StopSyncWatcher()
             If bPause Then PauseScan()
         End If
     End Sub
@@ -184,10 +183,7 @@ Public Class frmMain
             End Select
             eCurrentOperation = eOperation.None
             LockDownMenuEnable()
-            StartSyncWatcher()
-            If bResume Then
-                ResumeScan()
-            End If
+            If bResume Then ResumeScan()
         End If
     End Sub
 
@@ -1106,7 +1102,7 @@ Public Class frmMain
             If Not oProcess.GameInfo.ProcessPath = DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).ProcessPath Then
                 DirectCast(hshScanList.Item(oProcess.GameInfo.ID), clsGame).ProcessPath = oProcess.GameInfo.ProcessPath
                 mgrMonitorList.DoListFieldUpdate("ProcessPath", oProcess.GameInfo.ProcessPath, oProcess.GameInfo.ID)
-                If (mgrSettings.SyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then mgrSync.SyncData()
+                If (mgrSettings.SyncFields And clsGame.eOptionalSyncFields.GamePath) = clsGame.eOptionalSyncFields.GamePath Then mgrSync.SyncData(False)
             End If
         End If
     End Sub
@@ -1158,7 +1154,7 @@ Public Class frmMain
         End If
 
         mgrMonitorList.DoListFieldUpdate("Hours", oProcess.GameInfo.Hours, oProcess.GameInfo.ID)
-        mgrSync.SyncData()
+        mgrSync.SyncData(False)
 
         sPriorTime = lblTimeSpent.Text
         UpdateTimeSpent(dCurrentHours, oProcess.TimeSpent.TotalHours)
