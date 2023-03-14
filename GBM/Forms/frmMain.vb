@@ -644,9 +644,9 @@ Public Class frmMain
     End Sub
 
     Private Sub StartRestoreCheck()
-        iRestoreTimeOut = -1
-        tmRestoreCheck.Start()
-        If eCurrentOperation = eOperation.None Then
+        If eCurrentOperation = eOperation.None And eCurrentStatus <> eStatus.Paused Then
+            iRestoreTimeOut = -1
+            tmRestoreCheck.Start()
             AutoRestoreCheck()
         End If
     End Sub
@@ -1473,17 +1473,19 @@ Public Class frmMain
     End Sub
 
     Private Sub QueueSyncWatcher() Handles oFileWatcher.Changed
-        If Not eCurrentStatus = eStatus.Paused Then
+        If eCurrentOperation = eOperation.None And eCurrentStatus <> eStatus.Paused Then
             tmFileWatcherQueue.Stop()
             tmFileWatcherQueue.Start()
         End If
     End Sub
 
     Private Sub HandleSyncWatcher() Handles tmFileWatcherQueue.Elapsed
-        UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
-        mgrSync.SyncData(False, False)
-        LoadGameSettings()
-        CheckForNewBackups()
+        If eCurrentOperation = eOperation.None And eCurrentStatus <> eStatus.Paused Then
+            UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
+            mgrSync.SyncData(False, False)
+            LoadGameSettings()
+            CheckForNewBackups()
+        End If
     End Sub
 
     Private Sub LocalDatabaseCheck()
