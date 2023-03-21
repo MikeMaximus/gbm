@@ -27,5 +27,10 @@ Windows:
 
 - Added a Setting (Settings -> Files & Folders) to toggle the deleting of files to the Recycling Bin.
 	- This setting is enabled by default to match functionality of prior versions.
+
+Linux:
+
+- Fixed a crash that occured when attempting to automatically restore new backups on app start.
+	- GBM will now wait 60 seconds before attempting to automatically handle new backups after the app starts.
 			
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

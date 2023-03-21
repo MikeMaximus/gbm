@@ -1688,7 +1688,17 @@ Public Class frmMain
 
             HandleScan()
             CheckForFailedBackups()
-            CheckForNewBackups()
+
+            'Mono crashes out if you try to automatically restore new backups at this point, so we'll just trigger the timer to do it in 60 seconds.
+            If Not mgrCommon.IsUnix Then
+                CheckForNewBackups()
+            Else
+                If mgrSettings.RestoreOnLaunch Or mgrSettings.AutoRestore Or mgrSettings.AutoMark Then
+                    iRestoreTimeOut = -1
+                    tmRestoreCheck.Start()
+                End If
+            End If
+
             StartSyncWatcher()
 
             AddHandler mgrSync.UpdateLog, AddressOf UpdateLog
