@@ -477,8 +477,8 @@ Public Class mgrLudusavi
     End Function
 
     Private Sub FormatYAML(ByRef sYAML As String)
-        'DotNetYAML can't properly parse lines that end in <space>*: so we will remove the space.
-        sYAML = sYAML.Replace(" *:", "*:")
+        'Escape special characters that break the parser, currently only the asterisk seems to be an issue
+        sYAML = sYAML.Replace("*", """*""")
     End Sub
 
     Public Function ReadLudusaviManifest() As Boolean
