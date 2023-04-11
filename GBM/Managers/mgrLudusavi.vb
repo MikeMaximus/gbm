@@ -152,6 +152,9 @@ Public Class mgrLudusavi
     'We need to convert ludusavi manifest path variables to ones that GBM can understand
     Private Function ConvertPath(ByVal sPath As String, ByVal oOS As clsGame.eOS, ByVal sStore As String) As String
 
+        'Unescape special characters
+        sPath = UnEscapeYAML(sPath)
+
         'Replacing <base> with an empty string should make relative locations compatible with GBM
         sPath = sPath.Replace("<base>/", String.Empty)
 
@@ -329,7 +332,7 @@ Public Class mgrLudusavi
 
             For Each oLudusaviGamePair In oList
                 If Not Options.QueryAsRegEx Is Nothing Then
-                    If Not Options.QueryAsRegEx.IsMatch(oLudusaviGamePair.Key) Then
+                    If Not Options.QueryAsRegEx.IsMatch(UnEscapeYAML(oLudusaviGamePair.Key)) Then
                         Continue For
                     End If
                 End If
@@ -400,7 +403,7 @@ Public Class mgrLudusavi
                                                 If (t = TagTypes.save.ToString And Options.IncludeSaves) Or (t = TagTypes.config.ToString And Options.IncludeConfigs) Then
                                                     oGame = New clsGame
                                                     oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
-                                                    oGame.Name = oLudusaviGamePair.Key
+                                                    oGame.Name = UnEscapeYAML(oLudusaviGamePair.Key)
 
                                                     If bForcedWinConvert Then
                                                         oGame.Path = ConvertPath(oLudusaviPathPair.Key, clsGame.eOS.Windows, w.store)
@@ -443,8 +446,8 @@ Public Class mgrLudusavi
                                         If (t = TagTypes.save.ToString And Options.IncludeSaves) Or (t = TagTypes.config.ToString And Options.IncludeConfigs) Then
                                             oGame = New clsGame
                                             oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
-                                            oGame.Name = oLudusaviGamePair.Key
-                                            oGame.Path = oLudusaviPathPair.Key.Replace("/", "\")
+                                            oGame.Name = UnEscapeYAML(oLudusaviGamePair.Key)
+                                            oGame.Path = UnEscapeYAML(oLudusaviPathPair.Key.Replace("/", "\"))
                                             oGame.OS = clsGame.eOS.Windows
 
                                             HandleTags(oLudusaviPath.tags, Nothing, oGame)
@@ -476,10 +479,19 @@ Public Class mgrLudusavi
         End Try
     End Function
 
-    Private Sub FormatYAML(ByRef sYAML As String)
-        'Escape special characters that break the parser, currently only the asterisk seems to be an issue
-        sYAML = sYAML.Replace("*", """*""")
+    Private Sub EscapeYAML(ByRef sYAML As String)
+        'Convert special characters that may break the parser into Unicode
+        sYAML = sYAML.Replace("*", "\u002A")
+        sYAML = sYAML.Replace("&", "\u0026")
     End Sub
+
+    Private Function UnEscapeYAML(ByVal sValue As String) As String
+        'Convert unicode back to characters
+        sValue = sValue.Replace("\u002A", "*")
+        sValue = sValue.Replace("\u0026", "&")
+
+        Return sValue
+    End Function
 
     Public Function ReadLudusaviManifest() As Boolean
         Dim oBuilder As DeserializerBuilder
@@ -498,7 +510,7 @@ Public Class mgrLudusavi
             sYAML = oReader.ReadToEnd
             oReader.Close()
 
-            FormatYAML(sYAML)
+            EscapeYAML(sYAML)
             oList = oDeserializer.Deserialize(Of Dictionary(Of String, LudusaviGame))(sYAML)
             If ConvertYAML(oList) Then Return True
 
