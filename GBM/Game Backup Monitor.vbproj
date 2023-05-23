@@ -137,6 +137,7 @@
     <Compile Include="Classes\clsLaunchData.vb" />
     <Compile Include="Classes\clsLauncher.vb" />
     <Compile Include="Classes\clsLudusaviOptions.vb" />
+    <Compile Include="Classes\clsMainUIState.vb" />
     <Compile Include="Classes\clsWineData.vb" />
     <Compile Include="Classes\clsProcess.vb" />
     <Compile Include="Classes\clsGameFilter.vb" />

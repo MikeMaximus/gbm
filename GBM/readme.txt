@@ -1,19 +1,15 @@
-Game Backup Monitor v1.3.5 - Hotfix 1 Readme
+Game Backup Monitor v1.3.6 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-March 23, 2023
+May 23, 2023
 
-Important Notice:
-
-Game Backup Monitor will no longer be receiving any major new features or changes.  However I will continue to maintain it and apply minor changes or fixes as required.  
-
-I'd like to thank everyone that made contributions to this project over the years!
-
-New in 1.3.5 - Hotfix 1
+New in 1.3.6
 
 All Platforms:
 
-- Fixed Ludusavi Manifest import failure
-			
+- Fixed issues that could cause Ludusavi Manifest imports to fail.
+- Added the ability to backup and restore saves for the currently monitored game by using the "Backup" and "Restore" buttons on the main window.
+	- This allows for quick save scumming while a game is running, without interrupting the current session.
+		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
