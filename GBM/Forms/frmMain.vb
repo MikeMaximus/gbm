@@ -2163,15 +2163,16 @@ Public Class frmMain
                     btnEdit.Visible = False
                     btnPlay.Visible = False
                 Else
-                    If oProcess.Duplicate Then
-                        btnRestore.Visible = False
-                        btnBackup.Visible = False
-                    Else
-                        btnRestore.Visible = True
-                        btnBackup.Visible = True
-                    End If
+                    btnRestore.Visible = False
+                    btnBackup.Visible = False
                     btnEdit.Visible = False
                     btnPlay.Visible = False
+                    If Not oProcess.Duplicate Then
+                        If Not oProcess.GameInfo.MonitorOnly Then
+                            btnRestore.Visible = True
+                            btnBackup.Visible = True
+                        End If
+                    End If
                 End If
                 lstGames.Enabled = False
                 txtSearch.Enabled = False
