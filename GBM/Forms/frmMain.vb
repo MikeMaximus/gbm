@@ -3151,7 +3151,8 @@ Public Class frmMain
                         Exit Do
                     End Try
                 End If
-                System.Threading.Thread.Sleep(10000)
+                'This needs to be the same as the detection speed or faster to prevent the possibility of multiple background workers trying to run concurrently
+                System.Threading.Thread.Sleep(mgrSettings.DetectionSpeed)
             Loop
             If bwMonitor.CancellationPending Then
                 bDetectionCancelled = True
