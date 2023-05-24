@@ -2169,7 +2169,9 @@ Public Class frmMain
                     btnPlay.Visible = False
                     If Not oProcess.Duplicate Then
                         If Not oProcess.GameInfo.MonitorOnly Then
+                            btnRestore.Enabled = True
                             btnRestore.Visible = True
+                            btnBackup.Enabled = True
                             btnBackup.Visible = True
                         End If
                     End If
