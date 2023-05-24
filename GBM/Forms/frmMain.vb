@@ -38,6 +38,7 @@ Public Class frmMain
     Private bDetectionFailure As Boolean = False
     Private bShutdown As Boolean = False
     Private bInitFail As Boolean = False
+    Private bInitComplete As Boolean = False
     Private bPathDetectionFailure As Boolean = False
     Private sPathDetectionError As String = String.Empty
     Private bMenuEnabled As Boolean = True
@@ -1634,18 +1635,9 @@ Public Class frmMain
     End Sub
 
     'Functions that handle buttons, menus and other GUI features on this form
-    Private Sub ToggleVisibility(ByVal bVisible As Boolean)
-        'Do not toggle the visibility of the window or hide it from the taskbar in Mono.
-        If Not mgrCommon.IsUnix Then
-            Me.ShowInTaskbar = bVisible
-            Me.Visible = bVisible
-        End If
-    End Sub
-
     Private Sub ToggleState(ByVal bVisible As Boolean)
         If bVisible Then
-            'When toggling back to normal, we want to make the window visible first so the user sees the restore animation.
-            ToggleVisibility(bVisible)
+            Me.ShowInTaskbar = bVisible
             Me.WindowState = FormWindowState.Normal
             If txtSearch.CanFocus Then
                 txtSearch.Focus()
@@ -1653,9 +1645,8 @@ Public Class frmMain
                 lblGameTitle.Focus()
             End If
         Else
-            'When toggling to hide the window, we want to make the window invisible after a minimize to prevent the odd flickering animation.
             Me.WindowState = FormWindowState.Minimized
-            ToggleVisibility(bVisible)
+            Me.ShowInTaskbar = bVisible
         End If
     End Sub
 
@@ -1745,6 +1736,8 @@ Public Class frmMain
             AddHandler mgrSync.UpdateLog, AddressOf UpdateLog
             AddHandler mgrSync.PushStarted, AddressOf StopSyncWatcher
             AddHandler mgrSync.PushEnded, AddressOf StartSyncWatcher
+
+            bInitComplete = True
         End If
     End Sub
 
@@ -3247,7 +3240,8 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        InitApp()
+        'We need this flag because Mono fires the Load event each time the window is shown after being hidden.
+        If Not bInitComplete Then InitApp()
     End Sub
 
     Private Sub frmMain_Activated(sender As System.Object, e As System.EventArgs) Handles MyBase.Activated

@@ -169,13 +169,7 @@ Public Class mgrSettings
         DetectionSpeed = 5000
         TwoPassDetection = True
         DeleteToRecycleBin = True
-
-        'OS Based Defaults
-        If mgrCommon.IsUnix Then
-            ExitOnClose = True
-        Else
-            ExitOnClose = False
-        End If
+        ExitOnClose = False
     End Sub
 
     Private Shared Sub SaveFromClass()
