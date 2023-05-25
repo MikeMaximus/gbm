@@ -3175,4 +3175,7 @@
   <data name="frmSettings_DeleteToRecycleBin" xml:space="preserve">
     <value>Delete files to the Recycle Bin</value>
   </data>
+  <data name="frmMain_ErrorOperationInProgress" xml:space="preserve">
+    <value>An operation ([PARAM]) is in progress, another operation ([PARAM]) cannot be run at this time and has been cancelled.</value>
+  </data>
 </root>

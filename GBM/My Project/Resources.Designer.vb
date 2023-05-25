@@ -367,7 +367,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-12-24T14:45:46
+        '''  Looks up a localized string similar to 2023-05-25T20:00:33
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4722,6 +4722,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_ErrorNoWineSavePath() As String
             Get
                 Return ResourceManager.GetString("frmMain_ErrorNoWineSavePath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An operation ([PARAM]) is in progress, another operation ([PARAM]) cannot be run at this time and has been cancelled..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorOperationInProgress() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorOperationInProgress", resourceCulture)
             End Get
         End Property
         
