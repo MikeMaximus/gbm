@@ -1635,9 +1635,18 @@ Public Class frmMain
     End Sub
 
     'Functions that handle buttons, menus and other GUI features on this form
+    Private Sub ToggleVisibility(ByVal bVisible As Boolean)
+        Me.ShowInTaskbar = bVisible
+        'We also need to hide the form in Windows to prevent weird alt-tab issues, but this causes a crash in Mono.
+        If Not mgrCommon.IsUnix Then
+            Me.Visible = bVisible
+        End If
+    End Sub
+
     Private Sub ToggleState(ByVal bVisible As Boolean)
         If bVisible Then
-            Me.ShowInTaskbar = bVisible
+            'When toggling back to normal, we want to make the window visible first so the user sees the restore animation.
+            ToggleVisibility(bVisible)
             Me.WindowState = FormWindowState.Normal
             If txtSearch.CanFocus Then
                 txtSearch.Focus()
@@ -1645,8 +1654,9 @@ Public Class frmMain
                 lblGameTitle.Focus()
             End If
         Else
+            'When toggling to hide the window, we want to make the window invisible after a minimize to prevent the odd flickering animation.
             Me.WindowState = FormWindowState.Minimized
-            Me.ShowInTaskbar = bVisible
+            ToggleVisibility(bVisible)
         End If
     End Sub
 
