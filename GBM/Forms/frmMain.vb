@@ -2170,8 +2170,9 @@ Public Class frmMain
                     btnBackup.Visible = False
                     btnEdit.Visible = False
                     btnPlay.Visible = False
-                    If Not oProcess.Duplicate Then
-                        If Not oProcess.GameInfo.MonitorOnly Then
+                    'Change these buttons only while currently monitoring a game
+                    If eCurrentStatus = eStatus.Monitoring Then
+                        If Not oProcess.Duplicate And Not oProcess.GameInfo.MonitorOnly Then
                             btnRestore.Enabled = True
                             btnRestore.Visible = True
                             btnBackup.Enabled = True
