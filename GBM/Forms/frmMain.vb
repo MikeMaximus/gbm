@@ -1656,10 +1656,7 @@ Public Class frmMain
     'Functions that handle buttons, menus and other GUI features on this form
     Private Sub ToggleVisibility(ByVal bVisible As Boolean)
         Me.ShowInTaskbar = bVisible
-        'We also need to hide the form in Windows to prevent weird alt-tab issues, but this causes a crash in Mono.
-        If Not mgrCommon.IsUnix Then
-            Me.Visible = bVisible
-        End If
+        Me.Visible = bVisible
     End Sub
 
     Private Sub ToggleState(ByVal bVisible As Boolean)

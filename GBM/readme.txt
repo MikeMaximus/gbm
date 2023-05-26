@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.6 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-May 24, 2023
+May 26, 2023
 
 New in 1.3.6
 
@@ -18,5 +18,11 @@ Linux:
 
 - The main window can now be hidden to the system tray by closing the window.
 	- Uncheck "Exit when closing window" in Main Window Options of Settings -> User Interface to enable this feature.
+	- It can also be hidden automatically on startup by checking the "Start minimized" option in Settings -> Startup.
+
+Linux Known Issues:
+
+- After hiding and restoring the main window, the window may not refresh correctly when being resized.
+	- Hide and restore the window again after resizing as a work-around.
 		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
