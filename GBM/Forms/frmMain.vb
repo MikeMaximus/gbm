@@ -1733,7 +1733,7 @@ Public Class frmMain
         Else
             VerifyCustomPathVariables()
 
-            'We only do this in .NET.
+            'We only do this in .NET, for Mono it is fired from frmMain_Activated.
             If mgrSettings.StartToTray And Not mgrCommon.IsUnix Then
                 ToggleState(False)
             End If
@@ -1747,14 +1747,9 @@ Public Class frmMain
             HandleScan()
             CheckForFailedBackups()
 
-            'Mono crashes out if you try to automatically restore new backups at this point, so we'll just trigger the timer to do it in 60 seconds.
+            'Mono crashes out if you try to automatically restore new backups at this point, it is fired from frmMain_Activated.
             If Not mgrCommon.IsUnix Then
                 CheckForNewBackups()
-            Else
-                If mgrSettings.RestoreOnLaunch Or mgrSettings.AutoRestore Or mgrSettings.AutoMark Then
-                    iRestoreTimeOut = -1
-                    tmRestoreCheck.Start()
-                End If
             End If
 
             StartSyncWatcher()
@@ -3272,11 +3267,12 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_Activated(sender As System.Object, e As System.EventArgs) Handles MyBase.Activated
-        'This is a workaround to minimize on startup in Mono.
+        'This event contains functions that crash or malfunction in Mono during the Load event.
         If bInitialLoad And mgrCommon.IsUnix Then
             If mgrSettings.StartToTray Then
                 ToggleState(False)
             End If
+            CheckForNewBackups()
             bInitialLoad = False
         Else
             txtLog.Select(txtLog.TextLength, 0)
