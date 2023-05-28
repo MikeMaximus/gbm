@@ -86,6 +86,7 @@ Public Class frmMain
     Delegate Sub UpdateTimeSpentCallback(ByVal dTotalTime As Double, ByVal dSessionTime As Double)
     Delegate Sub UpdateStatusCallBack(ByVal sStatus As String)
     Delegate Sub SetLastActionCallBack(ByVal sString As String)
+    Delegate Sub OperationStartedCallBack()
     Delegate Sub OperationEndedCallBack()
     Delegate Sub FormatAndFillListCallback()
     Delegate Sub RestoreCompletedCallBack()
@@ -152,9 +153,12 @@ Public Class frmMain
         UpdateStatus(frmMain_ImportInProgress)
     End Sub
 
-    Private Function OperationStarted(ByVal eOperationType As eOperation) As Boolean
-        If eCurrentOperation = eOperation.None Then
-            eCurrentOperation = eOperationType
+    Private Sub OperationStarted()
+        'Thread Safe
+        If Me.InvokeRequired = True Then
+            Dim d As New OperationStartedCallBack(AddressOf OperationStarted)
+            Me.Invoke(d, New Object() {})
+        Else
             btnCancelOperation.Visible = True
 
             LockDownMenuEnable()
@@ -162,12 +166,8 @@ Public Class frmMain
             If eCurrentStatus = eStatus.Running Then
                 PauseScan()
             End If
-
-            Return True
-        Else
-            Return False
         End If
-    End Function
+    End Sub
 
     Private Sub OperationEnded()
         'Thread Safe
@@ -304,10 +304,13 @@ Public Class frmMain
         Dim oQueue As New Hashtable
 
         'Prevent concurrent operations
-        If Not OperationStarted(eOperation.Restore) Then
+        If eCurrentOperation <> eOperation.None Then
             UpdateLog(mgrCommon.FormatString(frmMain_ErrorOperationInProgress, New String() {eCurrentOperation.ToString, eOperation.Restore.ToString}), True, ToolTipIcon.Warning)
             Exit Sub
         End If
+
+        eCurrentOperation = eOperation.Restore
+        OperationStarted()
 
         If bNoRestoreQueue Then
             oQueue = oRestoreList
@@ -436,10 +439,13 @@ Public Class frmMain
         Dim oQueue As New List(Of clsGame)
 
         'Prevent concurrent operations
-        If Not OperationStarted(eOperation.Backup) Then
+        If eCurrentOperation <> eOperation.None Then
             UpdateLog(mgrCommon.FormatString(frmMain_ErrorOperationInProgress, New String() {eCurrentOperation.ToString, eOperation.Backup.ToString}), True, ToolTipIcon.Warning)
             Exit Sub
         End If
+
+        eCurrentOperation = eOperation.Backup
+        OperationStarted()
 
         GetBackupQueue(oBackupList, oQueue, False, bFastMode)
 
@@ -500,22 +506,26 @@ Public Class frmMain
 
     Private Sub RunImportBackupByGame(ByVal sFilesToImport As String(), ByVal oGame As clsGame)
         'Prevent concurrent operations
-        If Not OperationStarted(eOperation.Import) Then
+        If eCurrentOperation <> eOperation.None Then
             UpdateLog(mgrCommon.FormatString(frmMain_ErrorOperationInProgress, New String() {eCurrentOperation.ToString, eOperation.Import.ToString}), True, ToolTipIcon.Warning)
             Exit Sub
         End If
 
+        eCurrentOperation = eOperation.Import
+        OperationStarted()
         oBackup.ImportBackupFiles(sFilesToImport, oGame)
         OperationEnded()
     End Sub
 
     Private Sub RunImportBackupByFile(ByVal sFilesToImport As String())
         'Prevent concurrent operations
-        If Not OperationStarted(eOperation.Import) Then
+        If eCurrentOperation <> eOperation.None Then
             UpdateLog(mgrCommon.FormatString(frmMain_ErrorOperationInProgress, New String() {eCurrentOperation.ToString, eOperation.Import.ToString}), True, ToolTipIcon.Warning)
             Exit Sub
         End If
 
+        eCurrentOperation = eOperation.Import
+        OperationStarted()
         oBackup.ImportBackupFiles(sFilesToImport)
         OperationEnded()
     End Sub
@@ -608,10 +618,13 @@ Public Class frmMain
         Dim oReadyList As New List(Of clsGame)
 
         'Prevent concurrent operations
-        If Not OperationStarted(eOperation.Backup) Then
+        If eCurrentOperation <> eOperation.None Then
             UpdateLog(mgrCommon.FormatString(frmMain_ErrorOperationInProgress, New String() {eCurrentOperation.ToString, oProcess.GameInfo.CroppedName & " - " & eOperation.Backup.ToString}), True, ToolTipIcon.Warning)
             Exit Sub
         End If
+
+        eCurrentOperation = eOperation.Backup
+        OperationStarted()
 
         If oProcess.GameInfo.MonitorOnly = False Then
             If SuppressSession() Then
