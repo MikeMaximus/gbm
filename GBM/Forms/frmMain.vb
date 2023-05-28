@@ -676,11 +676,9 @@ Public Class frmMain
     End Sub
 
     Private Sub StartRestoreCheck()
-        If eCurrentOperation = eOperation.None And eCurrentStatus <> eStatus.Paused Then
-            iRestoreTimeOut = -1
-            tmRestoreCheck.Start()
-            AutoRestoreCheck()
-        End If
+        iRestoreTimeOut = -1
+        tmRestoreCheck.Start()
+        AutoRestoreCheck()
     End Sub
 
     Private Sub AutoRestoreCheck()
@@ -885,7 +883,10 @@ Public Class frmMain
             End If
 
             lstGames.EndUpdate()
-            lstGames.Enabled = True
+            'Prevent re-enabling the game list if it happens to be refreshed during a time when it shouldn't be available.
+            If eCurrentStatus <> eStatus.Monitoring And eCurrentStatus <> eStatus.Paused Then
+                lstGames.Enabled = True
+            End If
             lstGames.ClearSelected()
             bListLoading = False
 
@@ -1536,19 +1537,15 @@ Public Class frmMain
     End Sub
 
     Private Sub QueueSyncWatcher() Handles oFileWatcher.Changed
-        If eCurrentOperation = eOperation.None And eCurrentStatus <> eStatus.Paused Then
-            tmFileWatcherQueue.Stop()
-            tmFileWatcherQueue.Start()
-        End If
+        tmFileWatcherQueue.Stop()
+        tmFileWatcherQueue.Start()
     End Sub
 
     Private Sub HandleSyncWatcher() Handles tmFileWatcherQueue.Elapsed
-        If eCurrentOperation = eOperation.None And eCurrentStatus <> eStatus.Paused Then
-            UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
-            mgrSync.SyncData(False, False)
-            LoadGameSettings()
-            CheckForNewBackups()
-        End If
+        UpdateLog(frmMain_MasterListChanged, False, ToolTipIcon.Info, True)
+        mgrSync.SyncData(False, False)
+        LoadGameSettings()
+        CheckForNewBackups()
     End Sub
 
     Private Sub LocalDatabaseCheck()
@@ -3055,9 +3052,7 @@ Public Class frmMain
     End Sub
 
     Private Sub AutoRestoreEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmRestoreCheck.Elapsed
-        If eCurrentOperation = eOperation.None And eCurrentStatus <> eStatus.Paused Then
-            AutoRestoreCheck()
-        End If
+        AutoRestoreCheck()
     End Sub
 
     Private Sub SessionTimeUpdaterEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmSessionTimeUpdater.Elapsed

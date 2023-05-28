@@ -8,10 +8,14 @@ New in 1.3.6
 
 All Platforms:
 
-- Fixed issues that could cause the Ludusavi Manifest import to fail.
-- Fixed a crash that could occur when cancelling detection and re-enabling while using the "Fast" detection speed.
 - Added the ability to backup and restore saves for the currently monitored game by using the "Backup" and "Restore" buttons on the main window.
 	- This allows for quick save scumming while a game is running, without interrupting the current session.
+- Fixed issues that could cause the Ludusavi Manifest import to fail.
+- Fixed a crash that could occur when cancelling detection and re-enabling while using the "Fast" detection speed.
+- Changed how concurrent operations are handled.
+	- A backup, restore or import operation cannot be queued while another is currently in progress, a warning notification is now displayed if this occurs.
+	- Syncs triggered by another application and automatic backup restores can now execute while GBM is currently monitoring a session or paused while working in another window such as the Game Manager.
+		- Automatic backup restores can still fail if they happen to queue during another operation in progress.
 - Updated YamlDotNet to 13.1.0.
 
 Linux:
@@ -19,7 +23,7 @@ Linux:
 - The main window can now be hidden to the system tray by closing the window.
 	- Uncheck "Exit when closing window" in Main Window Options of Settings -> User Interface to enable this feature.
 	- It can also be hidden automatically on startup by checking the "Start minimized" option in Settings -> Startup.
-- GBM no longer needs to wait 60 seconds before automatically handling new backups (if enabled) after the app starts.
+- GBM no longer needs to wait 60 seconds before automatically restoring new backups (if enabled) when the app starts.
 
 Linux Known Issues:
 
