@@ -161,6 +161,7 @@ Public Class frmMain
         Else
             btnCancelOperation.Visible = True
 
+            StopSyncWatcher()
             LockDownMenuEnable()
 
             If eCurrentStatus = eStatus.Running Then
@@ -196,6 +197,7 @@ Public Class frmMain
                 eDisplayMode = eDisplayModes.Normal
             End If
 
+            StartSyncWatcher()
             LockDownMenuEnable()
             ResetCurrentInfo()
         End If
