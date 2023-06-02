@@ -161,7 +161,6 @@ Public Class frmMain
         Else
             btnCancelOperation.Visible = True
 
-            StopSyncWatcher()
             LockDownMenuEnable()
 
             If eCurrentStatus = eStatus.Running Then
@@ -197,7 +196,6 @@ Public Class frmMain
                 eDisplayMode = eDisplayModes.Normal
             End If
 
-            StartSyncWatcher()
             LockDownMenuEnable()
             ResetCurrentInfo()
         End If
@@ -1552,8 +1550,11 @@ Public Class frmMain
     End Sub
 
     Private Sub QueueSyncWatcher() Handles oFileWatcher.Changed
-        tmFileWatcherQueue.Stop()
-        tmFileWatcherQueue.Start()
+        'This is the easiest (but probably sloppiest) way to block unnecessary sync calls after the remote db is updated by GBM itself.
+        If eCurrentStatus <> eStatus.Paused And eCurrentStatus <> eStatus.Monitoring Then
+            tmFileWatcherQueue.Stop()
+            tmFileWatcherQueue.Start()
+        End If
     End Sub
 
     Private Sub HandleSyncWatcher() Handles tmFileWatcherQueue.Elapsed
