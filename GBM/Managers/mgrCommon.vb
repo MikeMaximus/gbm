@@ -12,6 +12,11 @@ Public Class mgrCommon
     Private Shared sUtility32Hash As String = "BA7F3627715614D113C1E1CD7DD9D47E3402A1E8A7404043E08BC14939364549" 'v22.01 7za.exe x86
     Private Shared sBlackList As String() = {"dosbox", "scummvm", "java", "python", "python.real", "python2.7", "mono", "wine"}
 
+    Public Enum eSounds As Integer
+        Success = 1
+        Failure = 2
+    End Enum
+
     Public Shared ReadOnly Property UtilityHash As String
         Get
             Select Case mgrPath.ReleaseType
@@ -84,6 +89,20 @@ Public Class mgrCommon
         Return mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & sID & ".png"
     End Function
 
+    Public Shared Sub PlaySound(ByVal eSound As eSounds)
+        Dim sBasePath As String = Application.StartupPath & Path.DirectorySeparatorChar & "Sounds" & Path.DirectorySeparatorChar
+
+        Try
+            Select Case eSound
+                Case eSounds.Success
+                    My.Computer.Audio.Play(sBasePath & "Success.wav", AudioPlayMode.Background)
+                Case eSounds.Failure
+                    My.Computer.Audio.Play(sBasePath & "Failure.wav", AudioPlayMode.Background)
+            End Select
+        Catch
+            'Do Nothing
+        End Try
+    End Sub
 
     Public Shared Function IsURI(ByVal sURI As String) As Boolean
         If (sURI.IndexOf("://", 1, StringComparison.CurrentCultureIgnoreCase) > -1) Or (sURI.IndexOf("://", 1, StringComparison.CurrentCultureIgnoreCase) > -1) Then

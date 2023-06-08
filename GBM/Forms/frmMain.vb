@@ -2,6 +2,7 @@
 Imports System.Collections.Specialized
 Imports System.IO
 Imports System.Threading.Thread
+Imports NHotkey.WindowsForms
 
 'Name: frmMain
 'Description: Game Backup Monitor Main Screen
@@ -58,6 +59,7 @@ Public Class frmMain
     Private bListLoading As Boolean = False
     Private bListRefresh As Boolean = False
     Private oExecutableIcon As Bitmap
+    Private bHotKeyPressed As Boolean = False
 
     'Developer Debug Flags
     Private bProcessDebugMode As Boolean = False
@@ -175,6 +177,7 @@ Public Class frmMain
             Dim d As New OperationEndedCallBack(AddressOf OperationEnded)
             Me.Invoke(d, New Object() {})
         Else
+            bHotKeyPressed = False
             btnCancelOperation.Visible = False
             btnCancelOperation.Enabled = True
 
@@ -216,12 +219,12 @@ Public Class frmMain
     End Sub
 
     Private Sub ExecuteBackup(ByVal oBackupList As List(Of clsGame))
-        oBackup.DoBackup(oBackupList)
+        oBackup.DoBackup(oBackupList, bHotKeyPressed)
         OperationEnded()
     End Sub
 
     Private Sub ExecuteRestore(ByVal oRestoreList As List(Of clsBackup))
-        oRestore.DoRestore(oRestoreList)
+        oRestore.DoRestore(oRestoreList, bHotKeyPressed)
         OperationEnded()
     End Sub
 
@@ -1564,6 +1567,19 @@ Public Class frmMain
         CheckForNewBackups()
     End Sub
 
+    Private Sub SetupHotKeys()
+        If Not mgrCommon.IsUnix Then
+            HotkeyManager.Current.AddOrReplace("QuickSave", Keys.Control Or Keys.Alt Or Keys.F5, AddressOf HandleHotKeys)
+            HotkeyManager.Current.AddOrReplace("QuickLoad", Keys.Control Or Keys.Alt Or Keys.F9, AddressOf HandleHotKeys)
+        End If
+    End Sub
+
+    Private Sub ToggleHotKeys(ByVal bEnabled As Boolean)
+        If Not mgrCommon.IsUnix Then
+            HotkeyManager.Current.IsEnabled = bEnabled
+        End If
+    End Sub
+
     Private Sub LocalDatabaseCheck()
         Dim oLocalDatabase As New mgrSQLite(mgrSQLite.Database.Local)
         oLocalDatabase.DatabaseUpgrade()
@@ -1633,6 +1649,9 @@ Public Class frmMain
 
         'Automatically configure variables for supported applications
         mgrStoreVariables.AutoConfigureStoreVariables()
+
+        'Setup Global Hotkeys
+        SetupHotKeys()
 
         'Load Game Settings
         LoadGameSettings()
@@ -1750,7 +1769,6 @@ Public Class frmMain
             If mgrSettings.StartToTray And Not mgrCommon.IsUnix Then
                 ToggleState(False)
             End If
-
             If mgrSettings.MonitorOnStartup Then
                 eCurrentStatus = eStatus.Stopped
             Else
@@ -1764,7 +1782,6 @@ Public Class frmMain
             If Not mgrCommon.IsUnix Then
                 CheckForNewBackups()
             End If
-
             StartSyncWatcher()
 
             AddHandler mgrSync.UpdateLog, AddressOf UpdateLog
@@ -1912,6 +1929,16 @@ Public Class frmMain
 
     End Sub
 
+    Private Sub HandleHotKeys(sender As Object, e As NHotkey.HotkeyEventArgs)
+        bHotKeyPressed = True
+
+        Select Case e.Name
+            Case "QuickSave"
+                btnBackup.PerformClick()
+            Case "QuickLoad"
+                btnRestore.PerformClick()
+        End Select
+    End Sub
 
     Private Sub ToggleMenuItems(ByVal bEnable As Boolean, ByVal oDropDownItems As ToolStripMenuItem, Optional ByVal sExempt() As String = Nothing)
         If sExempt Is Nothing Then sExempt = {}
@@ -2505,6 +2532,7 @@ Public Class frmMain
                 eCurrentStatus = eStatus.Monitoring
             Else
                 eCurrentStatus = eStatus.Paused
+                ToggleHotKeys(False)
             End If
             UpdateStatus(frmMain_NotScanning)
             gMonStripStatusButton.Image = frmMain_Detected
@@ -2517,6 +2545,7 @@ Public Class frmMain
     Private Sub ResumeScan()
         If eCurrentStatus = eStatus.Running Or eCurrentStatus = eStatus.Paused Then
             tmScanTimer.Start()
+            ToggleHotKeys(True)
             eCurrentStatus = eStatus.Running
             gMonStripStatusButton.Image = frmMain_Ready
             gMonTray.Icon = GBM_Icon_Ready
@@ -2981,6 +3010,8 @@ Public Class frmMain
         Dim oGame As New clsGame
 
         Select Case eDisplayMode
+            Case eDisplayModes.Initial
+                oGame = Nothing
             Case eDisplayModes.Normal
                 oGame = oLastGame
             Case eDisplayModes.GameSelected
@@ -2989,9 +3020,16 @@ Public Class frmMain
                 oGame = oProcess.GameInfo
         End Select
 
-        If mgrCommon.ShowMessage(frmMain_ConfirmManualBackup, oGame.CroppedName, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            RunManualBackup(New List(Of clsGame)({oGame}))
+        If Not oGame Is Nothing Then
+            If bHotKeyPressed Then
+                RunManualBackup(New List(Of clsGame)({oGame}), True)
+            Else
+                If mgrCommon.ShowMessage(frmMain_ConfirmManualBackup, oGame.CroppedName, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    RunManualBackup(New List(Of clsGame)({oGame}))
+                End If
+            End If
         End If
+
     End Sub
 
     Private Sub btnRestore_Click(sender As Object, e As EventArgs) Handles btnRestore.Click
@@ -3000,21 +3038,33 @@ Public Class frmMain
         Dim hshRestoreList As New Hashtable
 
         Select Case eDisplayMode
+            Case eDisplayModes.Initial
+                oGame = Nothing
             Case eDisplayModes.Normal
-                oBackup = mgrManifest.DoManifestGetByMonitorID(oLastGame.ID, mgrSQLite.Database.Remote)
                 oGame = oLastGame
             Case eDisplayModes.GameSelected
-                oBackup = mgrManifest.DoManifestGetByMonitorID(oSelectedGame.ID, mgrSQLite.Database.Remote)
                 oGame = oSelectedGame
             Case eDisplayModes.Busy
-                oBackup = mgrManifest.DoManifestGetByMonitorID(oProcess.GameInfo.ID, mgrSQLite.Database.Remote)
                 oGame = oProcess.GameInfo
         End Select
 
-        If oBackup.Count >= 1 Then
-            If mgrCommon.ShowMessage(frmMain_ConfirmRestore, New String() {oBackup(0).CroppedName, oBackup(0).DateUpdated, oBackup(0).UpdatedBy}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+        If oGame Is Nothing Then
+            oBackup = Nothing
+        Else
+            oBackup = mgrManifest.DoManifestGetByMonitorID(oGame.ID, mgrSQLite.Database.Remote)
+        End If
+
+        If Not oBackup Is Nothing Then
+            If oBackup.Count >= 1 Then
                 hshRestoreList.Add(oGame, oBackup)
-                RunRestore(hshRestoreList)
+
+                If bHotKeyPressed Then
+                    RunRestore(hshRestoreList, , True)
+                Else
+                    If mgrCommon.ShowMessage(frmMain_ConfirmRestore, New String() {oBackup(0).CroppedName, oBackup(0).DateUpdated, oBackup(0).UpdatedBy}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                        RunRestore(hshRestoreList)
+                    End If
+                End If
             End If
         End If
     End Sub
