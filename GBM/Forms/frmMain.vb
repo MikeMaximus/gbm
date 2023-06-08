@@ -1929,14 +1929,76 @@ Public Class frmMain
 
     End Sub
 
+    Private Sub HandleQuickBackup()
+        Dim oGame As New clsGame
+
+        Select Case eDisplayMode
+            Case eDisplayModes.Initial
+                oGame = Nothing
+            Case eDisplayModes.Normal
+                oGame = oLastGame
+            Case eDisplayModes.GameSelected
+                oGame = oSelectedGame
+            Case eDisplayModes.Busy
+                oGame = oProcess.GameInfo
+        End Select
+
+        If Not oGame Is Nothing Then
+            If bHotKeyPressed Then
+                RunManualBackup(New List(Of clsGame)({oGame}), True)
+            Else
+                If mgrCommon.ShowMessage(frmMain_ConfirmManualBackup, oGame.CroppedName, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    RunManualBackup(New List(Of clsGame)({oGame}))
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub HandleQuickRestore()
+        Dim oBackup As New List(Of clsBackup)
+        Dim oGame As New clsGame
+        Dim hshRestoreList As New Hashtable
+
+        Select Case eDisplayMode
+            Case eDisplayModes.Initial
+                oGame = Nothing
+            Case eDisplayModes.Normal
+                oGame = oLastGame
+            Case eDisplayModes.GameSelected
+                oGame = oSelectedGame
+            Case eDisplayModes.Busy
+                oGame = oProcess.GameInfo
+        End Select
+
+        If oGame Is Nothing Then
+            oBackup = Nothing
+        Else
+            oBackup = mgrManifest.DoManifestGetByMonitorID(oGame.ID, mgrSQLite.Database.Remote)
+        End If
+
+        If Not oBackup Is Nothing Then
+            If oBackup.Count >= 1 Then
+                hshRestoreList.Add(oGame, oBackup)
+
+                If bHotKeyPressed Then
+                    RunRestore(hshRestoreList, , True)
+                Else
+                    If mgrCommon.ShowMessage(frmMain_ConfirmRestore, New String() {oBackup(0).CroppedName, oBackup(0).DateUpdated, oBackup(0).UpdatedBy}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                        RunRestore(hshRestoreList)
+                    End If
+                End If
+            End If
+        End If
+    End Sub
+
     Private Sub HandleHotKeys(sender As Object, e As NHotkey.HotkeyEventArgs)
         bHotKeyPressed = True
 
         Select Case e.Name
             Case "QuickSave"
-                btnBackup.PerformClick()
+                HandleQuickBackup()
             Case "QuickLoad"
-                btnRestore.PerformClick()
+                HandleQuickRestore()
         End Select
     End Sub
 
@@ -3007,66 +3069,11 @@ Public Class frmMain
     End Sub
 
     Private Sub btnBackup_Click(sender As Object, e As EventArgs) Handles btnBackup.Click
-        Dim oGame As New clsGame
-
-        Select Case eDisplayMode
-            Case eDisplayModes.Initial
-                oGame = Nothing
-            Case eDisplayModes.Normal
-                oGame = oLastGame
-            Case eDisplayModes.GameSelected
-                oGame = oSelectedGame
-            Case eDisplayModes.Busy
-                oGame = oProcess.GameInfo
-        End Select
-
-        If Not oGame Is Nothing Then
-            If bHotKeyPressed Then
-                RunManualBackup(New List(Of clsGame)({oGame}), True)
-            Else
-                If mgrCommon.ShowMessage(frmMain_ConfirmManualBackup, oGame.CroppedName, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    RunManualBackup(New List(Of clsGame)({oGame}))
-                End If
-            End If
-        End If
-
+        HandleQuickBackup()
     End Sub
 
     Private Sub btnRestore_Click(sender As Object, e As EventArgs) Handles btnRestore.Click
-        Dim oBackup As New List(Of clsBackup)
-        Dim oGame As New clsGame
-        Dim hshRestoreList As New Hashtable
-
-        Select Case eDisplayMode
-            Case eDisplayModes.Initial
-                oGame = Nothing
-            Case eDisplayModes.Normal
-                oGame = oLastGame
-            Case eDisplayModes.GameSelected
-                oGame = oSelectedGame
-            Case eDisplayModes.Busy
-                oGame = oProcess.GameInfo
-        End Select
-
-        If oGame Is Nothing Then
-            oBackup = Nothing
-        Else
-            oBackup = mgrManifest.DoManifestGetByMonitorID(oGame.ID, mgrSQLite.Database.Remote)
-        End If
-
-        If Not oBackup Is Nothing Then
-            If oBackup.Count >= 1 Then
-                hshRestoreList.Add(oGame, oBackup)
-
-                If bHotKeyPressed Then
-                    RunRestore(hshRestoreList, , True)
-                Else
-                    If mgrCommon.ShowMessage(frmMain_ConfirmRestore, New String() {oBackup(0).CroppedName, oBackup(0).DateUpdated, oBackup(0).UpdatedBy}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                        RunRestore(hshRestoreList)
-                    End If
-                End If
-            End If
-        End If
+        HandleQuickRestore()
     End Sub
 
     Private Sub btnPlay_Click(sender As Object, e As EventArgs) Handles btnPlay.Click
