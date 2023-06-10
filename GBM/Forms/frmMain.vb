@@ -1437,6 +1437,7 @@ Public Class frmMain
     Private Sub OpenSettings()
         Dim frm As New frmSettings
         PauseScan()
+        UnbindHotKeys()
         If frm.ShowDialog() = Windows.Forms.DialogResult.OK Then
             'Set Remote Database Location
             mgrPath.RemoteDatabaseLocation = mgrSettings.BackupFolder
@@ -1450,6 +1451,7 @@ Public Class frmMain
             mgrSettings.LoadSettings()
         End If
         ResumeScan()
+        BindHotKeys()
     End Sub
 
     Private Sub OpenSessions()
@@ -1567,15 +1569,30 @@ Public Class frmMain
         CheckForNewBackups()
     End Sub
 
-    Private Sub SetupHotKeys()
-        If Not mgrCommon.IsUnix Then
-            HotkeyManager.Current.AddOrReplace("QuickSave", Keys.Control Or Keys.Alt Or Keys.F5, AddressOf HandleHotKeys)
-            HotkeyManager.Current.AddOrReplace("QuickLoad", Keys.Control Or Keys.Alt Or Keys.F9, AddressOf HandleHotKeys)
+    Private Sub BindHotKeys()
+        If Not mgrCommon.IsUnix And mgrSettings.EnableHotKeys Then
+            Try
+                HotkeyManager.Current.AddOrReplace("QuickSave", mgrSettings.BackupHotKey, AddressOf HandleHotKeys)
+                HotkeyManager.Current.AddOrReplace("QuickLoad", mgrSettings.RestoreHotKey, AddressOf HandleHotKeys)
+            Catch ex As Exception
+                UpdateLog(mgrCommon.FormatString(frmMain_ErrorBindHotKeys, ex.Message), True, ToolTipIcon.Error)
+            End Try
+        End If
+    End Sub
+
+    Private Sub UnbindHotKeys()
+        If Not mgrCommon.IsUnix And mgrSettings.EnableHotKeys Then
+            Try
+                HotkeyManager.Current.Remove("QuickSave")
+                HotkeyManager.Current.Remove("QuickLoad")
+            Catch ex As Exception
+                UpdateLog(mgrCommon.FormatString(frmMain_ErrorUnBindHotKeys, ex.Message), True, ToolTipIcon.Error)
+            End Try
         End If
     End Sub
 
     Private Sub ToggleHotKeys(ByVal bEnabled As Boolean)
-        If Not mgrCommon.IsUnix Then
+        If Not mgrCommon.IsUnix And mgrSettings.EnableHotKeys Then
             HotkeyManager.Current.IsEnabled = bEnabled
         End If
     End Sub
@@ -1651,7 +1668,7 @@ Public Class frmMain
         mgrStoreVariables.AutoConfigureStoreVariables()
 
         'Setup Global Hotkeys
-        SetupHotKeys()
+        BindHotKeys()
 
         'Load Game Settings
         LoadGameSettings()

@@ -2,7 +2,11 @@ Game Backup Monitor v1.3.6 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-June 8, 2023
+June 10, 2023
+
+Disclaimer:
+
+Database changes made in development builds may not be compatible with the final release.  Use at your own risk!
 
 New in 1.3.6
 
@@ -21,11 +25,10 @@ All Platforms:
 Windows:
 
 - Added the ability to backup or restore saves for the last played, selected or currently monitored game by using global hotkeys.
-	- This allows you to quickly backup or restore your save(s) while in-game, without the need to switch to GBM. 
-	- Ctrl + Alt + F5 will trigger a backup.
-	- Ctrl + Alt + F9 will trigger a restore.
-	- The hotkeys currently cannot be rebound and only work in Windows.
-- Added unique "Success" or "Failure" audio that will play when a backup or restore is triggered from a hot key.
+	- This allows you to quickly backup or restore your save(s) without the need to switch to GBM. 
+	- This feature is disabled by default, it can be configured in Settings -> Global Hotkeys.  
+	- This feature is not available in Linux.
+- Added unique "Success" or "Failure" audio that will play when a backup or restore is triggered from a hotkey.
 
 Linux:
 
