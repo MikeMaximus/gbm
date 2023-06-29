@@ -383,7 +383,7 @@ Public Class frmSettings
                     pnlStartup.Visible = False
                     pnlInterface.Visible = False
                     pnlGlobalHotKeys.Visible = True
-                    pnl7z.Visible = True
+                    pnl7z.Visible = False
                 Case 6
                     pnlGeneral.Visible = False
                     pnlFilesAndFolders.Visible = False
