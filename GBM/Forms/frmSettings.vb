@@ -94,6 +94,7 @@ Public Class frmSettings
         mgrSettings.RestoreOnLaunch = chkRestoreNotify.Checked
         mgrSettings.AutoRestore = chkAutoRestore.Checked
         mgrSettings.AutoMark = chkAutoMark.Checked
+        mgrSettings.EnableLiveBackup = chkEnableLiveBackup.Checked
         mgrSettings.TimeTracking = chkTimeTracking.Checked
         mgrSettings.SessionTracking = chkSessionTracking.Checked
         mgrSettings.EnableLauncher = chkEnableLauncher.Checked
@@ -251,6 +252,7 @@ Public Class frmSettings
         chkRestoreNotify.Checked = mgrSettings.RestoreOnLaunch
         chkAutoRestore.Checked = mgrSettings.AutoRestore
         chkAutoMark.Checked = mgrSettings.AutoMark
+        chkEnableLiveBackup.Checked = mgrSettings.EnableLiveBackup
         txtBackupFolder.Text = mgrSettings.BackupFolder
         txtTempFolder.Text = mgrSettings.TemporaryFolder
         chkTimeTracking.Checked = mgrSettings.TimeTracking
@@ -486,6 +488,8 @@ Public Class frmSettings
         grpHotKeyBindings.Text = frmSettings_grpHotKeyBindings
         lblBackupBind.Text = frmSettings_lblBackupBind
         lblRestoreBind.Text = frmSettings_lblRestoreBind
+        grpBackupExperimental.Text = frmSettings_grpBackupExperimental
+        chkEnableLiveBackup.Text = frmSettings_chkEnableLiveBackup
 
         If mgrCommon.IsUnix Then
             'Only enable this option on Linux if GBM was installed with an official method

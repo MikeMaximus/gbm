@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.6 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-June 10, 2023
+July 5, 2023
 
 Disclaimer:
 
@@ -14,6 +14,7 @@ All Platforms:
 
 - Added the ability to backup and restore saves for the currently monitored game by using the "Backup" and "Restore" buttons on the main window.
 	- This allows you to save scum while a game is running, without interrupting the current session.
+	- This feature is disabled by default.  Enable it in "Settings -> Backup and Restore".
 - Fixed issues that could cause the Ludusavi Manifest import to fail.
 - Fixed a crash that could occur when cancelling detection and re-enabling while using the "Fast" detection speed.
 - Changed how concurrent operations are handled.
@@ -26,7 +27,7 @@ Windows:
 
 - Added the ability to backup or restore saves for the last played, selected or currently monitored game by using global hotkeys.
 	- This allows you to quickly backup or restore your save(s) without the need to switch to GBM. 
-	- This feature is disabled by default, it can be configured in Settings -> Global Hotkeys.  
+	- This feature is disabled by default, it can be configured in "Settings -> Global Hotkeys" and "Settings -> Backup and Restore".  
 	- This feature is not available in Linux.
 - Added unique "Success" or "Failure" audio that will play when a backup or restore is triggered from a hotkey.
 

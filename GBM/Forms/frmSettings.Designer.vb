@@ -38,6 +38,8 @@ Partial Class frmSettings
         Me.lbl7zProduct = New System.Windows.Forms.Label()
         Me.btnDefaults = New System.Windows.Forms.Button()
         Me.pnlBackup = New System.Windows.Forms.Panel()
+        Me.grpBackupExperimental = New System.Windows.Forms.GroupBox()
+        Me.chkEnableLiveBackup = New System.Windows.Forms.CheckBox()
         Me.grpBackupConfirmations = New System.Windows.Forms.GroupBox()
         Me.chkBackupNotification = New System.Windows.Forms.CheckBox()
         Me.chkDisableDiskSpaceCheck = New System.Windows.Forms.CheckBox()
@@ -105,6 +107,7 @@ Partial Class frmSettings
         Me.lblBackupBind = New System.Windows.Forms.Label()
         Me.grp7zGeneral.SuspendLayout()
         Me.pnlBackup.SuspendLayout()
+        Me.grpBackupExperimental.SuspendLayout()
         Me.grpBackupConfirmations.SuspendLayout()
         Me.grpBackupHandling.SuspendLayout()
         Me.pnl7z.SuspendLayout()
@@ -270,12 +273,33 @@ Partial Class frmSettings
         '
         'pnlBackup
         '
+        Me.pnlBackup.Controls.Add(Me.grpBackupExperimental)
         Me.pnlBackup.Controls.Add(Me.grpBackupConfirmations)
         Me.pnlBackup.Controls.Add(Me.grpBackupHandling)
         Me.pnlBackup.Location = New System.Drawing.Point(180, 0)
         Me.pnlBackup.Name = "pnlBackup"
         Me.pnlBackup.Size = New System.Drawing.Size(367, 323)
         Me.pnlBackup.TabIndex = 1
+        '
+        'grpBackupExperimental
+        '
+        Me.grpBackupExperimental.Controls.Add(Me.chkEnableLiveBackup)
+        Me.grpBackupExperimental.Location = New System.Drawing.Point(6, 223)
+        Me.grpBackupExperimental.Name = "grpBackupExperimental"
+        Me.grpBackupExperimental.Size = New System.Drawing.Size(354, 44)
+        Me.grpBackupExperimental.TabIndex = 2
+        Me.grpBackupExperimental.TabStop = False
+        Me.grpBackupExperimental.Text = "Experimental"
+        '
+        'chkEnableLiveBackup
+        '
+        Me.chkEnableLiveBackup.AutoSize = True
+        Me.chkEnableLiveBackup.Location = New System.Drawing.Point(6, 19)
+        Me.chkEnableLiveBackup.Name = "chkEnableLiveBackup"
+        Me.chkEnableLiveBackup.Size = New System.Drawing.Size(292, 17)
+        Me.chkEnableLiveBackup.TabIndex = 0
+        Me.chkEnableLiveBackup.Text = "Allow backups and restores for currently monitored game"
+        Me.chkEnableLiveBackup.UseVisualStyleBackColor = True
         '
         'grpBackupConfirmations
         '
@@ -944,12 +968,12 @@ Partial Class frmSettings
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(554, 386)
+        Me.Controls.Add(Me.pnlBackup)
         Me.Controls.Add(Me.pnlGlobalHotKeys)
         Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.pnlInterface)
         Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlFilesAndFolders)
-        Me.Controls.Add(Me.pnlBackup)
         Me.Controls.Add(Me.pnlStartup)
         Me.Controls.Add(Me.btnResetMessages)
         Me.Controls.Add(Me.lstSettings)
@@ -966,6 +990,8 @@ Partial Class frmSettings
         Me.grp7zGeneral.ResumeLayout(False)
         Me.grp7zGeneral.PerformLayout()
         Me.pnlBackup.ResumeLayout(False)
+        Me.grpBackupExperimental.ResumeLayout(False)
+        Me.grpBackupExperimental.PerformLayout()
         Me.grpBackupConfirmations.ResumeLayout(False)
         Me.grpBackupConfirmations.PerformLayout()
         Me.grpBackupHandling.ResumeLayout(False)
@@ -1082,4 +1108,6 @@ Partial Class frmSettings
     Friend WithEvents btnResetRestoreBind As Button
     Friend WithEvents txtRestoreBind As TextBox
     Friend WithEvents lblRestoreBind As Label
+    Friend WithEvents grpBackupExperimental As GroupBox
+    Friend WithEvents chkEnableLiveBackup As CheckBox
 End Class

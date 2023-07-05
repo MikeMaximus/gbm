@@ -3205,4 +3205,10 @@
   <data name="frmSettings_lblRestoreBind" xml:space="preserve">
     <value>Restore:</value>
   </data>
+  <data name="frmSettings_chkEnableLiveBackup" xml:space="preserve">
+    <value>Allow backups and restores for currently monitored game</value>
+  </data>
+  <data name="frmSettings_grpBackupExperimental" xml:space="preserve">
+    <value>Experimental</value>
+  </data>
 </root>

@@ -3059,4 +3059,10 @@
   <data name="frmSettings_lstSettings_GlobalHotKeys" xml:space="preserve">
     <value>全局热键</value>
   </data>
+  <data name="frmSettings_chkEnableLiveBackup" xml:space="preserve">
+    <value>允许对当前监控的游戏进行备份和还原</value>
+  </data>
+  <data name="frmSettings_grpBackupExperimental" xml:space="preserve">
+    <value>实验的</value>
+  </data>
 </root>

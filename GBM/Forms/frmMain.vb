@@ -1947,6 +1947,10 @@ Public Class frmMain
     End Sub
 
     Private Sub HandleQuickBackup()
+        If eCurrentStatus = eStatus.Monitoring And Not mgrSettings.EnableLiveBackup Then
+            Exit Sub
+        End If
+
         Dim oGame As New clsGame
 
         Select Case eDisplayMode
@@ -1972,6 +1976,10 @@ Public Class frmMain
     End Sub
 
     Private Sub HandleQuickRestore()
+        If eCurrentStatus = eStatus.Monitoring And Not mgrSettings.EnableLiveBackup Then
+            Exit Sub
+        End If
+
         Dim oBackup As New List(Of clsBackup)
         Dim oGame As New clsGame
         Dim hshRestoreList As New Hashtable
@@ -2302,7 +2310,7 @@ Public Class frmMain
                     btnPlay.Visible = False
                     'Change these buttons only while currently monitoring a game
                     If eCurrentStatus = eStatus.Monitoring Then
-                        If Not oProcess.Duplicate And Not oProcess.GameInfo.MonitorOnly Then
+                        If Not oProcess.Duplicate And Not oProcess.GameInfo.MonitorOnly And mgrSettings.EnableLiveBackup Then
                             btnRestore.Enabled = True
                             btnRestore.Visible = True
                             btnBackup.Enabled = True

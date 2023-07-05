@@ -13,7 +13,8 @@ Public Class mgrSQLite
                         SessionTracking BOOLEAN NOT NULL, SuppressMessages INTEGER NOT NULL, BackupOnLaunch BOOLEAN NOT NULL, DisableSyncMessages BOOLEAN NOT NULL, ShowResolvedPaths BOOLEAN NOT NULL, 
                         DisableDiskSpaceCheck BOOLEAN NOT NULL, TemporaryFolder TEXT, ExitOnClose BOOLEAN NOT NULL, ExitNoWarning BOOLEAN NOT NULL, EnableLauncher BOOLEAN NOT NULL, MainHideGameList BOOLEAN NOT NULL, 
                         MainHideButtons BOOLEAN NOT NULL, MainHideLog BOOLEAN NOT NULL, BackupNotification BOOLEAN NOT NULL, DetectionSpeed INTEGER NOT NULL, TwoPassDetection BOOLEAN NOT NULL, 
-                        StorePathAutoConfig BOOLEAN NOT NULL, DeleteToRecycleBin BOOLEAN NOT NULL, EnableHotKeys BOOLEAN NOT NULL, BackupHotKey INTEGER NOT NULL, RestoreHotKey INTEGER NOT NULL);"
+                        StorePathAutoConfig BOOLEAN NOT NULL, DeleteToRecycleBin BOOLEAN NOT NULL, EnableHotKeys BOOLEAN NOT NULL, BackupHotKey INTEGER NOT NULL, RestoreHotKey INTEGER NOT NULL, 
+                        EnableLiveBackup BOOLEAN NOT NULL);"
             End Get
         End Property
         Public Shared ReadOnly Property SavedPath As String
@@ -1352,6 +1353,7 @@ Public Class mgrSQLite
                 sSQL = "ALTER TABLE settings ADD COLUMN EnableHotKeys BOOLEAN NOT NULL DEFAULT 0;"
                 sSQL &= "ALTER TABLE settings ADD COLUMN BackupHotKey INTEGER NOT NULL DEFAULT 196724;"
                 sSQL &= "ALTER TABLE settings ADD COLUMN RestoreHotKey INTEGER NOT NULL DEFAULT 196728;"
+                sSQL &= "ALTER TABLE settings ADD COLUMN EnableLiveBackup BOOLEAN NOT NULL DEFAULT 0;"
 
                 sSQL &= "PRAGMA user_version=136"
 

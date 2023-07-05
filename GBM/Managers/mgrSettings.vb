@@ -129,6 +129,7 @@ Public Class mgrSettings
     Public Shared Property EnableHotKeys As Boolean
     Public Shared Property BackupHotKey As Keys
     Public Shared Property RestoreHotKey As Keys
+    Public Shared Property EnableLiveBackup As Boolean
 
     Shared Sub New()
         SetDefaults()
@@ -176,6 +177,7 @@ Public Class mgrSettings
         EnableHotKeys = False
         BackupHotKey = 196724
         RestoreHotKey = 196728
+        EnableLiveBackup = False
     End Sub
 
     Private Shared Sub SaveFromClass()
@@ -189,7 +191,7 @@ Public Class mgrSettings
         sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, "
         sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck, @TemporaryFolder, @ExitOnClose, @ExitNoWarning, @EnableLauncher, "
         sSQL &= "@MainHideGameList, @MainHideButtons, @MainHideLog, @BackupNotification, @DetectionSpeed, @TwoPassDetection, @StorePathAutoConfig, "
-        sSQL &= "@DeleteToRecycleBin, @EnableHotKeys, @BackupHotKey, @RestoreHotKey)"
+        sSQL &= "@DeleteToRecycleBin, @EnableHotKeys, @BackupHotKey, @RestoreHotKey, @EnableLiveBackup)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -231,6 +233,7 @@ Public Class mgrSettings
         hshParams.Add("EnableHotKeys", EnableHotKeys)
         hshParams.Add("BackupHotKey", CInt(BackupHotKey))
         hshParams.Add("RestoreHotKey", CInt(RestoreHotKey))
+        hshParams.Add("EnableLiveBackup", EnableLiveBackup)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -286,6 +289,7 @@ Public Class mgrSettings
             EnableHotKeys = CBool(dr("EnableHotKeys"))
             BackupHotKey = CInt(dr("BackupHotKey"))
             RestoreHotKey = CInt(dr("RestoreHotKey"))
+            EnableLiveBackup = CBool(dr("EnableLiveBackup"))
         Next
 
         oDatabase.Disconnect()
