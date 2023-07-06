@@ -3374,15 +3374,21 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
-        If e.KeyCode = Keys.Oemtilde AndAlso e.Modifiers = Keys.Control Then
-            OpenDevConsole()
-        ElseIf e.KeyCode = Keys.Enter Then
-            If eDisplayMode = eDisplayModes.GameSelected And lstGames.Items.Count = 1 Then btnPlay.PerformClick()
-        End If
+        Select Case e.KeyCode
+            Case Keys.Escape
+                Me.Close()
+            Case Keys.Enter
+                If eDisplayMode = eDisplayModes.GameSelected And lstGames.Items.Count = 1 Then
+                    btnPlay.PerformClick()
+                End If
+            Case Keys.Oemtilde
+                If e.Modifiers = Keys.Control Then OpenDevConsole()
+        End Select
     End Sub
 
     Private Sub frmMain_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
-        'This suppresses the stupid Windows ding any time you use the enter key because AcceptButton is not set.
+        'This suppresses the Windows "ding" sound any time you use the enter key because AcceptButton is not set.
+        'This must happen in KeyPress, KeyDown fires too late to prevent it.
         If e.KeyChar = Chr(13) Then
             e.Handled = True
         End If

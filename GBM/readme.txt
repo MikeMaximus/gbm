@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.6 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-July 5, 2023
+July 6, 2023
 
 Disclaimer:
 
@@ -21,6 +21,7 @@ All Platforms:
 	- A backup, restore or import operation cannot be queued while another is currently in progress, a warning notification is now displayed if this occurs.
 	- Syncs triggered by another application and automatic backup restores can now execute while GBM is currently monitoring a session or paused while working in another window such as the Game Manager.
 		- Automatic backup restores can still fail if they happen to queue during another operation in progress.
+- The "Escape" key can now be used to shutdown the app or hide it to the system tray, depending on the "User Interface" settings.
 - Updated YamlDotNet to 13.1.0.
 
 Windows:
