@@ -170,120 +170,80 @@
     <Compile Include="Forms\frmConfigLinks.Designer.vb">
       <DependentUpon>frmConfigLinks.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmConfigLinks.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmConfigLinks.vb" />
     <Compile Include="Forms\frmLudusaviConfig.Designer.vb">
       <DependentUpon>frmLudusaviConfig.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmLudusaviConfig.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmLudusaviConfig.vb" />
     <Compile Include="Forms\frmLaunchConfiguration.Designer.vb">
       <DependentUpon>frmLaunchConfiguration.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmLaunchConfiguration.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmLaunchConfiguration.vb" />
     <Compile Include="Forms\frmLauncherManager.Designer.vb">
       <DependentUpon>frmLauncherManager.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmLauncherManager.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmLauncherManager.vb" />
     <Compile Include="Forms\frmWineConfiguration.Designer.vb">
       <DependentUpon>frmWineConfiguration.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmWineConfiguration.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmWineConfiguration.vb" />
     <Compile Include="Forms\frmAdvancedImport.Designer.vb">
       <DependentUpon>frmAdvancedImport.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmAdvancedImport.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmAdvancedImport.vb" />
     <Compile Include="Forms\frmFilter.Designer.vb">
       <DependentUpon>frmFilter.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmFilter.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmFilter.vb" />
     <Compile Include="Forms\frmGameManager.Designer.vb">
       <DependentUpon>frmGameManager.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmGameManager.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmGameManager.vb" />
     <Compile Include="Forms\frmFileFolderSearch.Designer.vb">
       <DependentUpon>frmFileFolderSearch.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmFileFolderSearch.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmFileFolderSearch.vb" />
     <Compile Include="Forms\frmGameProcesses.Designer.vb">
       <DependentUpon>frmGameProcesses.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmGameProcesses.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmGameProcesses.vb" />
     <Compile Include="Forms\frmGameTags.Designer.vb">
       <DependentUpon>frmGameTags.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmGameTags.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmGameTags.vb" />
     <Compile Include="Forms\frmIncludeExclude.Designer.vb">
       <DependentUpon>frmIncludeExclude.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmIncludeExclude.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmIncludeExclude.vb" />
     <Compile Include="Forms\frmProcessManager.Designer.vb">
       <DependentUpon>frmProcessManager.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmProcessManager.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmProcessManager.vb" />
     <Compile Include="Forms\frmSessionExport.Designer.vb">
       <DependentUpon>frmSessionExport.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmSessionExport.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmSessionExport.vb" />
     <Compile Include="Forms\frmSessions.Designer.vb">
       <DependentUpon>frmSessions.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmSessions.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmSessions.vb" />
     <Compile Include="Forms\frmStartUpWizard.Designer.vb">
       <DependentUpon>frmStartUpWizard.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmStartUpWizard.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmStartUpWizard.vb" />
     <Compile Include="Forms\frmAddWizard.Designer.vb">
       <DependentUpon>frmAddWizard.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmAddWizard.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmAddWizard.vb" />
     <Compile Include="Forms\frmChooseGame.Designer.vb">
       <DependentUpon>frmChooseGame.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmChooseGame.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmChooseGame.vb" />
     <Compile Include="Forms\frmSettings.Designer.vb">
       <DependentUpon>frmSettings.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmSettings.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmMain.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmSettings.vb" />
+    <Compile Include="Forms\frmMain.vb" />
     <Compile Include="Forms\frmMain.Designer.vb">
       <DependentUpon>frmMain.vb</DependentUpon>
       <SubType>Form</SubType>
@@ -291,21 +251,15 @@
     <Compile Include="Forms\frmSyncFields.Designer.vb">
       <DependentUpon>frmSyncFields.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmSyncFields.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmSyncFields.vb" />
     <Compile Include="Forms\frmTags.Designer.vb">
       <DependentUpon>frmTags.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmTags.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmTags.vb" />
     <Compile Include="Forms\frmVariableManager.Designer.vb">
       <DependentUpon>frmVariableManager.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmVariableManager.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\frmVariableManager.vb" />
     <Compile Include="Managers\mgrBackupQueue.vb" />
     <Compile Include="Managers\mgrConfigLinks.vb" />
     <Compile Include="Managers\mgrGameProcesses.vb" />

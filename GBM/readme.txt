@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.6 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-July 6, 2023
+July 8, 2023
 
 Disclaimer:
 
@@ -31,6 +31,7 @@ Windows:
 	- This feature is disabled by default, it can be configured in "Settings -> Global Hotkeys" and "Settings -> Backup and Restore".  
 	- This feature is not available in Linux.
 - Added unique "Success" or "Failure" audio that will play when a backup or restore is triggered from a hotkey.
+- Updated SQLite3 to 3.42.0.
 
 Linux:
 
