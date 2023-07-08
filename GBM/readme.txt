@@ -4,10 +4,6 @@ gamebackupmonitor@gmail.com
 
 July 8, 2023
 
-Disclaimer:
-
-Database changes made in development builds may not be compatible with the final release.  Use at your own risk!
-
 New in 1.3.6
 
 All Platforms:
@@ -32,6 +28,7 @@ Windows:
 	- This feature is not available in Linux.
 - Added unique "Success" or "Failure" audio that will play when a backup or restore is triggered from a hotkey.
 - Updated SQLite3 to 3.42.0.
+- Updated 7-Zip to 23.01.
 
 Linux:
 
