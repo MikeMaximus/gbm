@@ -33,9 +33,9 @@ Windows:
 
 Linux:
 
-- The main window can now be hidden to the system tray by closing the window.
-	- Uncheck "Exit when closing window" in Main Window Options of Settings -> User Interface to enable this feature.
-	- It can also be hidden automatically on startup by checking the "Start minimized" option in Settings -> Startup.
+- The main window can now be hidden to the system tray when closed.
+	- Uncheck "Exit when closing window" in "Main Window Options" of "Settings -> User Interface" to enable this feature.
+	- It can also be hidden automatically on startup by checking the "Start minimized" option in "Settings -> Startup".
 - GBM no longer needs to wait 60 seconds before automatically restoring new backups (if enabled) when the app starts.
 
 Known Issues (Linux):
