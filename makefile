@@ -16,6 +16,9 @@ install: GBM.exe $(foreach size,$(ICONSIZES),gbm_$(size)x$(size).png)
 	install NHotkey.dll $(DESTDIR)/$(PREFIX)/share/gbm/;
 	install NHotkey.WindowsForms.dll $(DESTDIR)/$(PREFIX)/share/gbm/;
 	install YamlDotNet.dll $(DESTDIR)/$(PREFIX)/share/gbm/;
+	install -d $(DESTDIR)/$(PREFIX)/share/gbm/Sounds/;
+	install Sounds/Failure.wav $(DESTDIR)/$(PREFIX)/share/gbm/Sounds/;
+	install Sounds/Success.wav $(DESTDIR)/$(PREFIX)/share/gbm/Sounds/;
 	install -d $(DESTDIR)/$(PREFIX)/share/gbm/zh/;
 	install zh/GBM.resources.dll $(DESTDIR)/$(PREFIX)/share/gbm/zh/;
 #install icon in different sizes
