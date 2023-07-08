@@ -8,9 +8,14 @@ Imports System.Text.RegularExpressions
 Public Class mgrCommon
 
     'These need to be updated when upgrading the packaged 7z utility
-    Private Shared sUtility64Hash As String = "22709AD7F3EC4C27517FC360194E174394BFA3F09CCFF5E013521EC306DC2DF9" 'v22.01 7za.exe x64
-    Private Shared sUtility32Hash As String = "BA7F3627715614D113C1E1CD7DD9D47E3402A1E8A7404043E08BC14939364549" 'v22.01 7za.exe x86
+    Private Shared sUtility64Hash As String = "356BEA8B6E9EB84DFA0DD8674E7C03428C641A47789DF605C5BEA0730DE4AED2" 'v23.01 7za.exe x64
+    Private Shared sUtility32Hash As String = "F00836A63BE7EBF14E1B8C40100C59777FE3432506B330927EA1F1B7FD47EE44" 'v23.01 7za.exe x86
     Private Shared sBlackList As String() = {"dosbox", "scummvm", "java", "python", "python.real", "python2.7", "mono", "wine"}
+
+    Public Enum eSounds As Integer
+        Success = 1
+        Failure = 2
+    End Enum
 
     Public Shared ReadOnly Property UtilityHash As String
         Get
@@ -84,6 +89,20 @@ Public Class mgrCommon
         Return mgrSettings.TemporaryFolder & Path.DirectorySeparatorChar & sID & ".png"
     End Function
 
+    Public Shared Sub PlaySound(ByVal eSound As eSounds)
+        Dim sBasePath As String = Application.StartupPath & Path.DirectorySeparatorChar & "Sounds" & Path.DirectorySeparatorChar
+
+        Try
+            Select Case eSound
+                Case eSounds.Success
+                    My.Computer.Audio.Play(sBasePath & "Success.wav", AudioPlayMode.Background)
+                Case eSounds.Failure
+                    My.Computer.Audio.Play(sBasePath & "Failure.wav", AudioPlayMode.Background)
+            End Select
+        Catch
+            'Do Nothing
+        End Try
+    End Sub
 
     Public Shared Function IsURI(ByVal sURI As String) As Boolean
         If (sURI.IndexOf("://", 1, StringComparison.CurrentCultureIgnoreCase) > -1) Or (sURI.IndexOf("://", 1, StringComparison.CurrentCultureIgnoreCase) > -1) Then

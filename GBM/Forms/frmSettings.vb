@@ -94,6 +94,7 @@ Public Class frmSettings
         mgrSettings.RestoreOnLaunch = chkRestoreNotify.Checked
         mgrSettings.AutoRestore = chkAutoRestore.Checked
         mgrSettings.AutoMark = chkAutoMark.Checked
+        mgrSettings.EnableLiveBackup = chkEnableLiveBackup.Checked
         mgrSettings.TimeTracking = chkTimeTracking.Checked
         mgrSettings.SessionTracking = chkSessionTracking.Checked
         mgrSettings.EnableLauncher = chkEnableLauncher.Checked
@@ -101,6 +102,9 @@ Public Class frmSettings
         mgrSettings.SuppressBackup = chkSuppressBackup.Checked
         mgrSettings.SuppressBackupThreshold = nudSuppressBackupThreshold.Value
         mgrSettings.CompressionLevel = cboCompression.SelectedValue
+        mgrSettings.EnableHotKeys = chkEnableHotKeys.Checked
+        mgrSettings.BackupHotKey = txtBackupBind.Tag
+        mgrSettings.RestoreHotKey = txtRestoreBind.Tag
 
         If mgrSettings.Custom7zArguments <> txt7zArguments.Text.Trim And txt7zArguments.Text.Trim <> String.Empty Then
             mgrCommon.ShowMessage(frmSettings_WarningArguments, MsgBoxStyle.Exclamation)
@@ -135,6 +139,11 @@ Public Class frmSettings
                 mgrCommon.ShowMessage(frmSettings_ErrorLocation, mgrSettings.Custom7zLocation, MsgBoxStyle.Critical)
                 Return False
             End If
+        End If
+
+        If mgrSettings.BackupHotKey = mgrSettings.RestoreHotKey Then
+            mgrCommon.ShowMessage(frmSettings_ErrorDupeHotKeys, MsgBoxStyle.Critical)
+            Return False
         End If
 
         'We must trigger a sync if optional fields have changed
@@ -243,6 +252,7 @@ Public Class frmSettings
         chkRestoreNotify.Checked = mgrSettings.RestoreOnLaunch
         chkAutoRestore.Checked = mgrSettings.AutoRestore
         chkAutoMark.Checked = mgrSettings.AutoMark
+        chkEnableLiveBackup.Checked = mgrSettings.EnableLiveBackup
         txtBackupFolder.Text = mgrSettings.BackupFolder
         txtTempFolder.Text = mgrSettings.TemporaryFolder
         chkTimeTracking.Checked = mgrSettings.TimeTracking
@@ -256,6 +266,11 @@ Public Class frmSettings
         txt7zArguments.Text = mgrSettings.Custom7zArguments
         txt7zLocation.Text = mgrSettings.Custom7zLocation
         eCurrentSyncFields = mgrSettings.SyncFields
+        chkEnableHotKeys.Checked = mgrSettings.EnableHotKeys
+        txtBackupBind.Text = FormatHotKey(mgrSettings.BackupHotKey)
+        txtBackupBind.Tag = mgrSettings.BackupHotKey
+        txtRestoreBind.Text = FormatHotKey(mgrSettings.RestoreHotKey)
+        txtRestoreBind.Tag = mgrSettings.RestoreHotKey
 
         'Retrieve 7z Info
         GetUtilityInfo(mgrSettings.Custom7zLocation)
@@ -299,7 +314,8 @@ Public Class frmSettings
         oSettingsItems.Add(New KeyValuePair(Of Integer, String)(2, frmSettings_lstSettings_BackupRestore))
         oSettingsItems.Add(New KeyValuePair(Of Integer, String)(3, frmSettings_lstSettings_Startup))
         oSettingsItems.Add(New KeyValuePair(Of Integer, String)(4, frmSettings_lstSettings_UserInterface))
-        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(5, frmSettings_lstSettings_7z))
+        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(5, frmSettings_lstSettings_GlobalHotKeys))
+        oSettingsItems.Add(New KeyValuePair(Of Integer, String)(6, frmSettings_lstSettings_7z))
 
         lstSettings.DataSource = oSettingsItems
 
@@ -328,6 +344,7 @@ Public Class frmSettings
                     pnlBackup.Visible = False
                     pnlStartup.Visible = False
                     pnlInterface.Visible = False
+                    pnlGlobalHotKeys.Visible = False
                     pnl7z.Visible = False
                 Case 1
                     pnlGeneral.Visible = False
@@ -335,6 +352,7 @@ Public Class frmSettings
                     pnlBackup.Visible = False
                     pnlStartup.Visible = False
                     pnlInterface.Visible = False
+                    pnlGlobalHotKeys.Visible = False
                     pnl7z.Visible = False
                 Case 2
                     pnlGeneral.Visible = False
@@ -342,6 +360,7 @@ Public Class frmSettings
                     pnlBackup.Visible = True
                     pnlStartup.Visible = False
                     pnlInterface.Visible = False
+                    pnlGlobalHotKeys.Visible = False
                     pnl7z.Visible = False
                 Case 3
                     pnlGeneral.Visible = False
@@ -349,6 +368,7 @@ Public Class frmSettings
                     pnlBackup.Visible = False
                     pnlStartup.Visible = True
                     pnlInterface.Visible = False
+                    pnlGlobalHotKeys.Visible = False
                     pnl7z.Visible = False
                 Case 4
                     pnlGeneral.Visible = False
@@ -356,6 +376,7 @@ Public Class frmSettings
                     pnlBackup.Visible = False
                     pnlStartup.Visible = False
                     pnlInterface.Visible = True
+                    pnlGlobalHotKeys.Visible = False
                     pnl7z.Visible = False
                 Case 5
                     pnlGeneral.Visible = False
@@ -363,6 +384,15 @@ Public Class frmSettings
                     pnlBackup.Visible = False
                     pnlStartup.Visible = False
                     pnlInterface.Visible = False
+                    pnlGlobalHotKeys.Visible = True
+                    pnl7z.Visible = False
+                Case 6
+                    pnlGeneral.Visible = False
+                    pnlFilesAndFolders.Visible = False
+                    pnlBackup.Visible = False
+                    pnlStartup.Visible = False
+                    pnlInterface.Visible = False
+                    pnlGlobalHotKeys.Visible = False
                     pnl7z.Visible = True
             End Select
         End If
@@ -453,6 +483,13 @@ Public Class frmSettings
         grpGameManagerOptions.Text = frmSettings_grpGameManagerOptions
         lblDetectSpeed.Text = frmSettings_lblDetectSpeed
         chkTwoPassDetection.Text = frmSettings_chkTwoPassDetection
+        grpHotKeyGeneral.Text = frmSettings_grpHotKeyGeneral
+        chkEnableHotKeys.Text = frmSettings_chkEnableHotKeys
+        grpHotKeyBindings.Text = frmSettings_grpHotKeyBindings
+        lblBackupBind.Text = frmSettings_lblBackupBind
+        lblRestoreBind.Text = frmSettings_lblRestoreBind
+        grpBackupExperimental.Text = frmSettings_grpBackupExperimental
+        chkEnableLiveBackup.Text = frmSettings_chkEnableLiveBackup
 
         If mgrCommon.IsUnix Then
             'Only enable this option on Linux if GBM was installed with an official method
@@ -460,6 +497,7 @@ Public Class frmSettings
                 chkAutoStart.Enabled = False
             End If
             chkDeleteToRecycleBin.Enabled = False
+            pnlGlobalHotKeys.Enabled = False
         End If
 
         'Handle Panels
@@ -467,6 +505,10 @@ Public Class frmSettings
         pnlBackup.Visible = False
         pnl7z.Visible = False
     End Sub
+
+    Private Function FormatHotKey(ByVal oKeys As Keys) As String
+        Return (oKeys And Keys.Modifiers).ToString.Replace(",", " +") & " + " & (oKeys And Keys.KeyCode).ToString
+    End Function
 
     Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click
         If SaveSettings() Then
@@ -491,6 +533,7 @@ Public Class frmSettings
         AssignDirtyHandlers(pnlGeneral.Controls)
         AssignDirtyHandlers(pnlInterface.Controls)
         AssignDirtyHandlers(pnlStartup.Controls)
+        AssignDirtyHandlers(pnlGlobalHotKeys.Controls)
     End Sub
 
     Private Sub frmSettings_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -568,5 +611,39 @@ Public Class frmSettings
             Case Keys.Escape
                 btnCancel.PerformClick()
         End Select
+    End Sub
+
+    Private Sub KeyBindings_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBackupBind.KeyDown, txtRestoreBind.KeyDown
+        e.SuppressKeyPress = True
+
+        'Ignore modifier only key presses
+        Select Case e.KeyData
+            Case ModifierKeys Or Keys.ShiftKey
+                'Do Nothing
+            Case ModifierKeys Or Keys.ControlKey
+                'Do Nothing
+            Case ModifierKeys Or Keys.Menu
+                'Do Nothing
+            Case Else
+                'Ignore any normal key press without a modifier
+                If e.Modifiers <> Keys.None Then
+                    sender.Tag = e.KeyData
+                    sender.Text = FormatHotKey(e.KeyData)
+                End If
+        End Select
+    End Sub
+
+    Private Sub btnResetBackupBind_Click(sender As Object, e As EventArgs) Handles btnResetBackupBind.Click
+        'Default: SHIFT + CTRL + F5
+        Dim oKeys As Keys = 196724
+        txtBackupBind.Text = FormatHotKey(oKeys)
+        txtBackupBind.Tag = oKeys
+    End Sub
+
+    Private Sub btnResetRestoreBind_Click(sender As Object, e As EventArgs) Handles btnResetRestoreBind.Click
+        'Default: SHIFT + CTRL + F9
+        Dim oKeys As Keys = 196728
+        txtRestoreBind.Text = FormatHotKey(oKeys)
+        txtRestoreBind.Tag = oKeys
     End Sub
 End Class

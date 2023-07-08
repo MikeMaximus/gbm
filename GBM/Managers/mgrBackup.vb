@@ -658,7 +658,7 @@ Public Class mgrBackup
         Return False
     End Function
 
-    Public Sub DoBackup(ByVal oBackupList As List(Of clsGame))
+    Public Sub DoBackup(ByVal oBackupList As List(Of clsGame), ByVal bPlaySound As Boolean)
         Dim oGame As clsGame
         Dim oBackup As clsBackup
         Dim sBackupFile As String
@@ -791,10 +791,16 @@ Public Class mgrBackup
                 ElseIf oGame.Differential And Not oGame.AppendTimeStamp Then
                     DeleteOldDiffBackups(oGame.ID, 1)
                 End If
+
+                'Play success audio if this operation was triggered by a hot key
+                If bPlaySound Then mgrCommon.PlaySound(mgrCommon.eSounds.Success)
             Else
                 'Delete the temporary backup file on failures
                 mgrCommon.DeleteFile(sBackupFile, False)
                 RaiseEvent SetLastAction(mgrCommon.FormatString(mgrBackup_ActionFailed, oGame.CroppedName))
+
+                'Play failure audio if this operation was triggered by a hot key
+                If bPlaySound Then mgrCommon.PlaySound(mgrCommon.eSounds.Failure)
             End If
 
             'Remove from the failsafe queue

@@ -3032,4 +3032,37 @@
   <data name="frmSettings_DeleteToRecycleBin" xml:space="preserve">
     <value>将文件删除到回收站</value>
   </data>
+  <data name="frmMain_ErrorBindHotKeys" xml:space="preserve">
+    <value>绑定全局热键时出错。[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmMain_ErrorUnBindHotKeys" xml:space="preserve">
+    <value>取消绑定全局热键时出错。[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmSettings_chkEnableHotKeys" xml:space="preserve">
+    <value>启用全局热键</value>
+  </data>
+  <data name="frmSettings_ErrorDupeHotKeys" xml:space="preserve">
+    <value>同一键绑定不能用于多个函数。</value>
+  </data>
+  <data name="frmSettings_grpHotKeyBindings" xml:space="preserve">
+    <value>键绑定</value>
+  </data>
+  <data name="frmSettings_grpHotKeyGeneral" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="frmSettings_lblBackupBind" xml:space="preserve">
+    <value>备份：</value>
+  </data>
+  <data name="frmSettings_lblRestoreBind" xml:space="preserve">
+    <value>还原：</value>
+  </data>
+  <data name="frmSettings_lstSettings_GlobalHotKeys" xml:space="preserve">
+    <value>全局热键</value>
+  </data>
+  <data name="frmSettings_chkEnableLiveBackup" xml:space="preserve">
+    <value>允许对当前监控的游戏进行备份和还原</value>
+  </data>
+  <data name="frmSettings_grpBackupExperimental" xml:space="preserve">
+    <value>实验的</value>
+  </data>
 </root>

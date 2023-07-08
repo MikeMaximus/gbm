@@ -297,7 +297,7 @@ Public Class mgrRestore
         Return bRestoreCompleted
     End Function
 
-    Public Sub DoRestore(ByVal oRestoreList As List(Of clsBackup))
+    Public Sub DoRestore(ByVal oRestoreList As List(Of clsBackup), ByVal bPlaySound As Boolean)
         Dim sBackupFile As String
         Dim sExtractPath As String
         Dim bRestoreCompleted As Boolean
@@ -330,8 +330,18 @@ Public Class mgrRestore
                     mgrManifest.DoManifestAdd(oBackupInfo, mgrSQLite.Database.Local)
                 End If
                 RaiseEvent SetLastAction(mgrCommon.FormatString(mgrRestore_ActionComplete, oBackupInfo.CroppedName))
+
+                'Play success audio if this operation was triggered by a hot key
+                If bPlaySound Then
+                    mgrCommon.PlaySound(mgrCommon.eSounds.Success)
+                End If
             Else
                 RaiseEvent SetLastAction(mgrCommon.FormatString(mgrRestore_ActionFailed, oBackupInfo.CroppedName))
+
+                'Play failure audio if this operation was triggered by a hot key
+                If bPlaySound Then
+                    mgrCommon.PlaySound(mgrCommon.eSounds.Failure)
+                End If
             End If
         Next
     End Sub

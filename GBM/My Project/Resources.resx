@@ -3175,4 +3175,40 @@
   <data name="frmSettings_DeleteToRecycleBin" xml:space="preserve">
     <value>Delete files to the Recycle Bin</value>
   </data>
+  <data name="frmMain_ErrorOperationInProgress" xml:space="preserve">
+    <value>An operation ([PARAM]) is in progress, another operation ([PARAM]) was triggered but cannot be run at this time.</value>
+  </data>
+  <data name="frmSettings_lstSettings_GlobalHotKeys" xml:space="preserve">
+    <value>Global Hotkeys</value>
+  </data>
+  <data name="frmMain_ErrorBindHotKeys" xml:space="preserve">
+    <value>An error occurred while binding global hotkeys.[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmMain_ErrorUnBindHotKeys" xml:space="preserve">
+    <value>An error occurred while unbinding global hotkeys.[BR][BR][PARAM]</value>
+  </data>
+  <data name="frmSettings_ErrorDupeHotKeys" xml:space="preserve">
+    <value>The same key binding cannot be used for multiple functions.</value>
+  </data>
+  <data name="frmSettings_chkEnableHotKeys" xml:space="preserve">
+    <value>Enable Global Hotkeys</value>
+  </data>
+  <data name="frmSettings_grpHotKeyBindings" xml:space="preserve">
+    <value>Key Bindings</value>
+  </data>
+  <data name="frmSettings_grpHotKeyGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="frmSettings_lblBackupBind" xml:space="preserve">
+    <value>Backup:</value>
+  </data>
+  <data name="frmSettings_lblRestoreBind" xml:space="preserve">
+    <value>Restore:</value>
+  </data>
+  <data name="frmSettings_chkEnableLiveBackup" xml:space="preserve">
+    <value>Allow backups and restores for currently monitored game</value>
+  </data>
+  <data name="frmSettings_grpBackupExperimental" xml:space="preserve">
+    <value>Experimental</value>
+  </data>
 </root>

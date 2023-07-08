@@ -13,6 +13,8 @@ install: GBM.exe $(foreach size,$(ICONSIZES),gbm_$(size)x$(size).png)
 	install gbm.sh $(DESTDIR)/$(PREFIX)/bin/gbm;
 	install -d $(DESTDIR)/$(PREFIX)/share/gbm/;
 	install GBM.exe $(DESTDIR)/$(PREFIX)/share/gbm/;
+	install NHotkey.dll $(DESTDIR)/$(PREFIX)/share/gbm/;
+	install NHotkey.WindowsForms.dll $(DESTDIR)/$(PREFIX)/share/gbm/;
 	install YamlDotNet.dll $(DESTDIR)/$(PREFIX)/share/gbm/;
 	install -d $(DESTDIR)/$(PREFIX)/share/gbm/zh/;
 	install zh/GBM.resources.dll $(DESTDIR)/$(PREFIX)/share/gbm/zh/;

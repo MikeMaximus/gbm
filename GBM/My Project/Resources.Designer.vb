@@ -367,7 +367,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2022-12-24T14:45:46
+        '''  Looks up a localized string similar to 2023-07-05T21:00:27
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4546,6 +4546,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An error occurred while binding global hotkeys.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorBindHotKeys() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorBindHotKeys", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Bad parameter ([PARAM]) for command [PARAM]..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorCommandBadParam() As String
@@ -4726,6 +4735,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to An operation ([PARAM]) is in progress, another operation ([PARAM]) was triggered but cannot be run at this time..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorOperationInProgress() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorOperationInProgress", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] uses a relative path and has never been detected on this computer..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorRelativePath() As String
@@ -4758,6 +4776,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_ErrorStartChildProcess() As String
             Get
                 Return ResourceManager.GetString("frmMain_ErrorStartChildProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to An error occurred while unbinding global hotkeys.[BR][BR][PARAM].
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorUnBindHotKeys() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorUnBindHotKeys", resourceCulture)
             End Get
         End Property
         
@@ -6543,11 +6570,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Enable Global Hotkeys.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkEnableHotKeys() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkEnableHotKeys", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Enable game launching.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkEnableLauncher() As String
             Get
                 Return ResourceManager.GetString("frmSettings_chkEnableLauncher", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Allow backups and restores for currently monitored game.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_chkEnableLiveBackup() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_chkEnableLiveBackup", resourceCulture)
             End Get
         End Property
         
@@ -6741,6 +6786,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The same key binding cannot be used for multiple functions..
+        '''</summary>
+        Friend ReadOnly Property frmSettings_ErrorDupeHotKeys() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_ErrorDupeHotKeys", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to An error occurred while configuring autostart:[BR][BR][PARAM].
         '''</summary>
         Friend ReadOnly Property frmSettings_ErrorLinuxAutoStart() As String
@@ -6813,6 +6867,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Experimental.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grpBackupExperimental() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grpBackupExperimental", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup Handling.
         '''</summary>
         Friend ReadOnly Property frmSettings_grpBackupHandling() As String
@@ -6845,6 +6908,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_grpGameMonitoringOptions() As String
             Get
                 Return ResourceManager.GetString("frmSettings_grpGameMonitoringOptions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Key Bindings.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grpHotKeyBindings() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grpHotKeyBindings", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to General.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_grpHotKeyGeneral() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_grpHotKeyGeneral", resourceCulture)
             End Get
         End Property
         
@@ -6894,6 +6975,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backup:.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_lblBackupBind() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_lblBackupBind", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup Folder:.
         '''</summary>
         Friend ReadOnly Property frmSettings_lblBackupFolder() As String
@@ -6939,6 +7029,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Restore:.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_lblRestoreBind() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_lblRestoreBind", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Temp Folder:.
         '''</summary>
         Friend ReadOnly Property frmSettings_lblTempFolder() As String
@@ -6980,6 +7079,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmSettings_lstSettings_General() As String
             Get
                 Return ResourceManager.GetString("frmSettings_lstSettings_General", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Global Hotkeys.
+        '''</summary>
+        Friend ReadOnly Property frmSettings_lstSettings_GlobalHotKeys() As String
+            Get
+                Return ResourceManager.GetString("frmSettings_lstSettings_GlobalHotKeys", resourceCulture)
             End Get
         End Property
         

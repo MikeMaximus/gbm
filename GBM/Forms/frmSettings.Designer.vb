@@ -38,6 +38,8 @@ Partial Class frmSettings
         Me.lbl7zProduct = New System.Windows.Forms.Label()
         Me.btnDefaults = New System.Windows.Forms.Button()
         Me.pnlBackup = New System.Windows.Forms.Panel()
+        Me.grpBackupExperimental = New System.Windows.Forms.GroupBox()
+        Me.chkEnableLiveBackup = New System.Windows.Forms.CheckBox()
         Me.grpBackupConfirmations = New System.Windows.Forms.GroupBox()
         Me.chkBackupNotification = New System.Windows.Forms.CheckBox()
         Me.chkDisableDiskSpaceCheck = New System.Windows.Forms.CheckBox()
@@ -85,6 +87,7 @@ Partial Class frmSettings
         Me.chkMonitorOnStartup = New System.Windows.Forms.CheckBox()
         Me.pnlFilesAndFolders = New System.Windows.Forms.Panel()
         Me.grpFolderOptions = New System.Windows.Forms.GroupBox()
+        Me.chkDeleteToRecycleBin = New System.Windows.Forms.CheckBox()
         Me.btnTempFolder = New System.Windows.Forms.Button()
         Me.lblTempFolder = New System.Windows.Forms.Label()
         Me.txtTempFolder = New System.Windows.Forms.TextBox()
@@ -92,9 +95,19 @@ Partial Class frmSettings
         Me.lblBackupFolder = New System.Windows.Forms.Label()
         Me.txtBackupFolder = New System.Windows.Forms.TextBox()
         Me.chkCreateFolder = New System.Windows.Forms.CheckBox()
-        Me.chkDeleteToRecycleBin = New System.Windows.Forms.CheckBox()
+        Me.pnlGlobalHotKeys = New System.Windows.Forms.Panel()
+        Me.grpHotKeyGeneral = New System.Windows.Forms.GroupBox()
+        Me.chkEnableHotKeys = New System.Windows.Forms.CheckBox()
+        Me.grpHotKeyBindings = New System.Windows.Forms.GroupBox()
+        Me.btnResetRestoreBind = New System.Windows.Forms.Button()
+        Me.txtRestoreBind = New System.Windows.Forms.TextBox()
+        Me.lblRestoreBind = New System.Windows.Forms.Label()
+        Me.btnResetBackupBind = New System.Windows.Forms.Button()
+        Me.txtBackupBind = New System.Windows.Forms.TextBox()
+        Me.lblBackupBind = New System.Windows.Forms.Label()
         Me.grp7zGeneral.SuspendLayout()
         Me.pnlBackup.SuspendLayout()
+        Me.grpBackupExperimental.SuspendLayout()
         Me.grpBackupConfirmations.SuspendLayout()
         Me.grpBackupHandling.SuspendLayout()
         Me.pnl7z.SuspendLayout()
@@ -112,6 +125,9 @@ Partial Class frmSettings
         Me.grpStartup.SuspendLayout()
         Me.pnlFilesAndFolders.SuspendLayout()
         Me.grpFolderOptions.SuspendLayout()
+        Me.pnlGlobalHotKeys.SuspendLayout()
+        Me.grpHotKeyGeneral.SuspendLayout()
+        Me.grpHotKeyBindings.SuspendLayout()
         Me.SuspendLayout()
         '
         'chkTimeTracking
@@ -257,12 +273,33 @@ Partial Class frmSettings
         '
         'pnlBackup
         '
+        Me.pnlBackup.Controls.Add(Me.grpBackupExperimental)
         Me.pnlBackup.Controls.Add(Me.grpBackupConfirmations)
         Me.pnlBackup.Controls.Add(Me.grpBackupHandling)
         Me.pnlBackup.Location = New System.Drawing.Point(180, 0)
         Me.pnlBackup.Name = "pnlBackup"
         Me.pnlBackup.Size = New System.Drawing.Size(367, 323)
         Me.pnlBackup.TabIndex = 1
+        '
+        'grpBackupExperimental
+        '
+        Me.grpBackupExperimental.Controls.Add(Me.chkEnableLiveBackup)
+        Me.grpBackupExperimental.Location = New System.Drawing.Point(6, 223)
+        Me.grpBackupExperimental.Name = "grpBackupExperimental"
+        Me.grpBackupExperimental.Size = New System.Drawing.Size(354, 44)
+        Me.grpBackupExperimental.TabIndex = 2
+        Me.grpBackupExperimental.TabStop = False
+        Me.grpBackupExperimental.Text = "Experimental"
+        '
+        'chkEnableLiveBackup
+        '
+        Me.chkEnableLiveBackup.AutoSize = True
+        Me.chkEnableLiveBackup.Location = New System.Drawing.Point(6, 19)
+        Me.chkEnableLiveBackup.Name = "chkEnableLiveBackup"
+        Me.chkEnableLiveBackup.Size = New System.Drawing.Size(292, 17)
+        Me.chkEnableLiveBackup.TabIndex = 0
+        Me.chkEnableLiveBackup.Text = "Allow backups and restores for currently monitored game"
+        Me.chkEnableLiveBackup.UseVisualStyleBackColor = True
         '
         'grpBackupConfirmations
         '
@@ -762,6 +799,16 @@ Partial Class frmSettings
         Me.grpFolderOptions.TabStop = False
         Me.grpFolderOptions.Text = "Files and Folders"
         '
+        'chkDeleteToRecycleBin
+        '
+        Me.chkDeleteToRecycleBin.AutoSize = True
+        Me.chkDeleteToRecycleBin.Location = New System.Drawing.Point(6, 88)
+        Me.chkDeleteToRecycleBin.Name = "chkDeleteToRecycleBin"
+        Me.chkDeleteToRecycleBin.Size = New System.Drawing.Size(168, 17)
+        Me.chkDeleteToRecycleBin.TabIndex = 5
+        Me.chkDeleteToRecycleBin.Text = "Delete files to the Recycle Bin"
+        Me.chkDeleteToRecycleBin.UseVisualStyleBackColor = True
+        '
         'btnTempFolder
         '
         Me.btnTempFolder.Location = New System.Drawing.Point(313, 40)
@@ -822,27 +869,112 @@ Partial Class frmSettings
         Me.chkCreateFolder.Text = "Create a sub-folder for each game"
         Me.chkCreateFolder.UseVisualStyleBackColor = True
         '
-        'chkDeleteToRecycleBin
+        'pnlGlobalHotKeys
         '
-        Me.chkDeleteToRecycleBin.AutoSize = True
-        Me.chkDeleteToRecycleBin.Location = New System.Drawing.Point(6, 88)
-        Me.chkDeleteToRecycleBin.Name = "chkDeleteToRecycleBin"
-        Me.chkDeleteToRecycleBin.Size = New System.Drawing.Size(168, 17)
-        Me.chkDeleteToRecycleBin.TabIndex = 5
-        Me.chkDeleteToRecycleBin.Text = "Delete files to the Recycle Bin"
-        Me.chkDeleteToRecycleBin.UseVisualStyleBackColor = True
+        Me.pnlGlobalHotKeys.Controls.Add(Me.grpHotKeyGeneral)
+        Me.pnlGlobalHotKeys.Controls.Add(Me.grpHotKeyBindings)
+        Me.pnlGlobalHotKeys.Location = New System.Drawing.Point(180, 0)
+        Me.pnlGlobalHotKeys.Name = "pnlGlobalHotKeys"
+        Me.pnlGlobalHotKeys.Size = New System.Drawing.Size(367, 323)
+        Me.pnlGlobalHotKeys.TabIndex = 1
+        '
+        'grpHotKeyGeneral
+        '
+        Me.grpHotKeyGeneral.Controls.Add(Me.chkEnableHotKeys)
+        Me.grpHotKeyGeneral.Location = New System.Drawing.Point(6, 12)
+        Me.grpHotKeyGeneral.Name = "grpHotKeyGeneral"
+        Me.grpHotKeyGeneral.Size = New System.Drawing.Size(348, 50)
+        Me.grpHotKeyGeneral.TabIndex = 0
+        Me.grpHotKeyGeneral.TabStop = False
+        Me.grpHotKeyGeneral.Text = "General"
+        '
+        'chkEnableHotKeys
+        '
+        Me.chkEnableHotKeys.AutoSize = True
+        Me.chkEnableHotKeys.Location = New System.Drawing.Point(6, 20)
+        Me.chkEnableHotKeys.Name = "chkEnableHotKeys"
+        Me.chkEnableHotKeys.Size = New System.Drawing.Size(134, 17)
+        Me.chkEnableHotKeys.TabIndex = 0
+        Me.chkEnableHotKeys.Text = "Enable Global Hotkeys"
+        Me.chkEnableHotKeys.UseVisualStyleBackColor = True
+        '
+        'grpHotKeyBindings
+        '
+        Me.grpHotKeyBindings.Controls.Add(Me.btnResetRestoreBind)
+        Me.grpHotKeyBindings.Controls.Add(Me.txtRestoreBind)
+        Me.grpHotKeyBindings.Controls.Add(Me.lblRestoreBind)
+        Me.grpHotKeyBindings.Controls.Add(Me.btnResetBackupBind)
+        Me.grpHotKeyBindings.Controls.Add(Me.txtBackupBind)
+        Me.grpHotKeyBindings.Controls.Add(Me.lblBackupBind)
+        Me.grpHotKeyBindings.Location = New System.Drawing.Point(6, 65)
+        Me.grpHotKeyBindings.Name = "grpHotKeyBindings"
+        Me.grpHotKeyBindings.Size = New System.Drawing.Size(348, 75)
+        Me.grpHotKeyBindings.TabIndex = 1
+        Me.grpHotKeyBindings.TabStop = False
+        Me.grpHotKeyBindings.Text = "Key Bindings"
+        '
+        'btnResetRestoreBind
+        '
+        Me.btnResetRestoreBind.Image = Global.GBM.My.Resources.Resources.Multi_Reset
+        Me.btnResetRestoreBind.Location = New System.Drawing.Point(320, 42)
+        Me.btnResetRestoreBind.Name = "btnResetRestoreBind"
+        Me.btnResetRestoreBind.Size = New System.Drawing.Size(22, 22)
+        Me.btnResetRestoreBind.TabIndex = 5
+        Me.btnResetRestoreBind.UseVisualStyleBackColor = True
+        '
+        'txtRestoreBind
+        '
+        Me.txtRestoreBind.Location = New System.Drawing.Point(56, 44)
+        Me.txtRestoreBind.Name = "txtRestoreBind"
+        Me.txtRestoreBind.Size = New System.Drawing.Size(258, 20)
+        Me.txtRestoreBind.TabIndex = 4
+        '
+        'lblRestoreBind
+        '
+        Me.lblRestoreBind.AutoSize = True
+        Me.lblRestoreBind.Location = New System.Drawing.Point(3, 47)
+        Me.lblRestoreBind.Name = "lblRestoreBind"
+        Me.lblRestoreBind.Size = New System.Drawing.Size(47, 13)
+        Me.lblRestoreBind.TabIndex = 3
+        Me.lblRestoreBind.Text = "Restore:"
+        '
+        'btnResetBackupBind
+        '
+        Me.btnResetBackupBind.Image = Global.GBM.My.Resources.Resources.Multi_Reset
+        Me.btnResetBackupBind.Location = New System.Drawing.Point(320, 16)
+        Me.btnResetBackupBind.Name = "btnResetBackupBind"
+        Me.btnResetBackupBind.Size = New System.Drawing.Size(22, 22)
+        Me.btnResetBackupBind.TabIndex = 2
+        Me.btnResetBackupBind.UseVisualStyleBackColor = True
+        '
+        'txtBackupBind
+        '
+        Me.txtBackupBind.Location = New System.Drawing.Point(56, 18)
+        Me.txtBackupBind.Name = "txtBackupBind"
+        Me.txtBackupBind.Size = New System.Drawing.Size(258, 20)
+        Me.txtBackupBind.TabIndex = 1
+        '
+        'lblBackupBind
+        '
+        Me.lblBackupBind.AutoSize = True
+        Me.lblBackupBind.Location = New System.Drawing.Point(3, 21)
+        Me.lblBackupBind.Name = "lblBackupBind"
+        Me.lblBackupBind.Size = New System.Drawing.Size(47, 13)
+        Me.lblBackupBind.TabIndex = 0
+        Me.lblBackupBind.Text = "Backup:"
         '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(554, 386)
-        Me.Controls.Add(Me.pnlFilesAndFolders)
         Me.Controls.Add(Me.pnlBackup)
-        Me.Controls.Add(Me.pnlGeneral)
-        Me.Controls.Add(Me.pnlInterface)
-        Me.Controls.Add(Me.pnlStartup)
+        Me.Controls.Add(Me.pnlGlobalHotKeys)
         Me.Controls.Add(Me.pnl7z)
+        Me.Controls.Add(Me.pnlInterface)
+        Me.Controls.Add(Me.pnlGeneral)
+        Me.Controls.Add(Me.pnlFilesAndFolders)
+        Me.Controls.Add(Me.pnlStartup)
         Me.Controls.Add(Me.btnResetMessages)
         Me.Controls.Add(Me.lstSettings)
         Me.Controls.Add(Me.btnDefaults)
@@ -858,6 +990,8 @@ Partial Class frmSettings
         Me.grp7zGeneral.ResumeLayout(False)
         Me.grp7zGeneral.PerformLayout()
         Me.pnlBackup.ResumeLayout(False)
+        Me.grpBackupExperimental.ResumeLayout(False)
+        Me.grpBackupExperimental.PerformLayout()
         Me.grpBackupConfirmations.ResumeLayout(False)
         Me.grpBackupConfirmations.PerformLayout()
         Me.grpBackupHandling.ResumeLayout(False)
@@ -885,6 +1019,11 @@ Partial Class frmSettings
         Me.pnlFilesAndFolders.ResumeLayout(False)
         Me.grpFolderOptions.ResumeLayout(False)
         Me.grpFolderOptions.PerformLayout()
+        Me.pnlGlobalHotKeys.ResumeLayout(False)
+        Me.grpHotKeyGeneral.ResumeLayout(False)
+        Me.grpHotKeyGeneral.PerformLayout()
+        Me.grpHotKeyBindings.ResumeLayout(False)
+        Me.grpHotKeyBindings.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -959,4 +1098,16 @@ Partial Class frmSettings
     Friend WithEvents chkAutoSaveLog As CheckBox
     Friend WithEvents chkStorePathAutoConfig As CheckBox
     Friend WithEvents chkDeleteToRecycleBin As CheckBox
+    Friend WithEvents pnlGlobalHotKeys As Panel
+    Friend WithEvents grpHotKeyBindings As GroupBox
+    Friend WithEvents grpHotKeyGeneral As GroupBox
+    Friend WithEvents chkEnableHotKeys As CheckBox
+    Friend WithEvents btnResetBackupBind As Button
+    Friend WithEvents txtBackupBind As TextBox
+    Friend WithEvents lblBackupBind As Label
+    Friend WithEvents btnResetRestoreBind As Button
+    Friend WithEvents txtRestoreBind As TextBox
+    Friend WithEvents lblRestoreBind As Label
+    Friend WithEvents grpBackupExperimental As GroupBox
+    Friend WithEvents chkEnableLiveBackup As CheckBox
 End Class

@@ -126,6 +126,10 @@ Public Class mgrSettings
     Public Shared Property DetectionSpeed As Integer
     Public Shared Property TwoPassDetection As Boolean
     Public Shared Property DeleteToRecycleBin As Boolean
+    Public Shared Property EnableHotKeys As Boolean
+    Public Shared Property BackupHotKey As Keys
+    Public Shared Property RestoreHotKey As Keys
+    Public Shared Property EnableLiveBackup As Boolean
 
     Shared Sub New()
         SetDefaults()
@@ -169,13 +173,11 @@ Public Class mgrSettings
         DetectionSpeed = 5000
         TwoPassDetection = True
         DeleteToRecycleBin = True
-
-        'OS Based Defaults
-        If mgrCommon.IsUnix Then
-            ExitOnClose = True
-        Else
-            ExitOnClose = False
-        End If
+        ExitOnClose = False
+        EnableHotKeys = False
+        BackupHotKey = 196724
+        RestoreHotKey = 196728
+        EnableLiveBackup = False
     End Sub
 
     Private Shared Sub SaveFromClass()
@@ -189,7 +191,7 @@ Public Class mgrSettings
         sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, "
         sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck, @TemporaryFolder, @ExitOnClose, @ExitNoWarning, @EnableLauncher, "
         sSQL &= "@MainHideGameList, @MainHideButtons, @MainHideLog, @BackupNotification, @DetectionSpeed, @TwoPassDetection, @StorePathAutoConfig, "
-        sSQL &= "@DeleteToRecycleBin)"
+        sSQL &= "@DeleteToRecycleBin, @EnableHotKeys, @BackupHotKey, @RestoreHotKey, @EnableLiveBackup)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -228,6 +230,10 @@ Public Class mgrSettings
         hshParams.Add("TwoPassDetection", TwoPassDetection)
         hshParams.Add("StorePathAutoConfig", StorePathAutoConfig)
         hshParams.Add("DeleteToRecycleBin", DeleteToRecycleBin)
+        hshParams.Add("EnableHotKeys", EnableHotKeys)
+        hshParams.Add("BackupHotKey", CInt(BackupHotKey))
+        hshParams.Add("RestoreHotKey", CInt(RestoreHotKey))
+        hshParams.Add("EnableLiveBackup", EnableLiveBackup)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -280,6 +286,10 @@ Public Class mgrSettings
             TwoPassDetection = CBool(dr("TwoPassDetection"))
             StorePathAutoConfig = CBool(dr("StorePathAutoConfig"))
             DeleteToRecycleBin = CBool(dr("DeleteToRecycleBin"))
+            EnableHotKeys = CBool(dr("EnableHotKeys"))
+            BackupHotKey = CInt(dr("BackupHotKey"))
+            RestoreHotKey = CInt(dr("RestoreHotKey"))
+            EnableLiveBackup = CBool(dr("EnableLiveBackup"))
         Next
 
         oDatabase.Disconnect()
