@@ -186,6 +186,22 @@ Public Class frmFilter
         oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
         oValidFields.Add(oField)
 
+        'Timed interval backup
+        oField = New clsGameFilterField
+        oField.FieldName = "TimedBackup"
+        oField.FriendlyFieldName = frmFilter_FieldTimedBackup
+        oField.Type = clsGameFilterField.eDataType.fBool
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
+        'Timed interval backup (minutes)
+        oField = New clsGameFilterField
+        oField.FieldName = "TimedInterval"
+        oField.FriendlyFieldName = frmFilter_FieldTimedInterval
+        oField.Type = clsGameFilterField.eDataType.fNumeric
+        oField.Status = clsGameFilterField.eFieldStatus.ValidFilter
+        oValidFields.Add(oField)
+
         'Comments
         oField = New clsGameFilterField
         oField.FieldName = "Comments"

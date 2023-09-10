@@ -3065,4 +3065,16 @@
   <data name="frmSettings_grpBackupExperimental" xml:space="preserve">
     <value>实验的</value>
   </data>
+  <data name="frmGameManager_chkTimedBackup" xml:space="preserve">
+    <value>时间间隔备份</value>
+  </data>
+  <data name="frmGameManager_lblTimeIntervalMinutes" xml:space="preserve">
+    <value>纪要</value>
+  </data>
+  <data name="frmFilter_FieldTimedBackup" xml:space="preserve">
+    <value>时间间隔备份</value>
+  </data>
+  <data name="frmFilter_FieldTimedInterval" xml:space="preserve">
+    <value>时间间隔（分钟）*</value>
+  </data>
 </root>

@@ -862,6 +862,8 @@ Public Class frmGameManager
         nudLimit.Value = oApp.BackupLimit
         chkDifferentialBackup.Checked = oApp.Differential
         nudInterval.Value = oApp.DiffInterval
+        chkTimedBackup.Checked = oApp.TimedBackup
+        nudTimedInterval.Value = oApp.TimedInterval
         txtComments.Text = oApp.Comments
         cmsEnabled.Checked = oApp.Enabled
         cmsMonitorOnly.Checked = oApp.MonitorOnly
@@ -1130,6 +1132,9 @@ Public Class frmGameManager
             chkDifferentialBackup.Enabled = False
             lblInterval.Enabled = False
             nudInterval.Enabled = False
+            chkTimedBackup.Enabled = False
+            nudTimedInterval.Enabled = False
+            lblTimeIntervalMinutes.Enabled = False
             lblSavePath.Enabled = False
             txtSavePath.Enabled = False
             btnSavePathBrowse.Enabled = False
@@ -1141,6 +1146,7 @@ Public Class frmGameManager
             'Enable any controls that are not handled by other mode updates
             chkTimeStamp.Enabled = True
             chkDifferentialBackup.Enabled = True
+            chkTimedBackup.Enabled = True
             lblSavePath.Enabled = True
             txtSavePath.Enabled = True
             btnSavePathBrowse.Enabled = True
@@ -1196,6 +1202,24 @@ Public Class frmGameManager
             Else
                 chkCleanFolder.Checked = False
                 chkCleanFolder.Enabled = False
+            End If
+
+            'Handle "Time Interval Backups"  mode change
+            If mgrSettings.EnableLiveBackup Then
+                chkTimedBackup.Visible = True
+                nudTimedInterval.Visible = True
+                lblTimeIntervalMinutes.Visible = True
+                If chkTimedBackup.Checked Then
+                    nudTimedInterval.Enabled = True
+                    lblTimeIntervalMinutes.Enabled = True
+                Else
+                    nudTimedInterval.Enabled = False
+                    lblTimeIntervalMinutes.Enabled = False
+                End If
+            Else
+                chkTimedBackup.Visible = False
+                nudTimedInterval.Visible = False
+                lblTimeIntervalMinutes.Visible = False
             End If
         End If
     End Sub
@@ -1339,6 +1363,12 @@ Public Class frmGameManager
             oApp.DiffInterval = nudInterval.Value
         Else
             oApp.DiffInterval = 0
+        End If
+        oApp.TimedBackup = chkTimedBackup.Checked
+        If oApp.TimedBackup Then
+            oApp.TimedInterval = nudTimedInterval.Value
+        Else
+            oApp.TimedInterval = 1
         End If
         oApp.Comments = txtComments.Text
         oApp.Enabled = cmsEnabled.Checked
@@ -1830,6 +1860,8 @@ Public Class frmGameManager
         lblLimit.Text = frmGameManager_lblLimit
         lblInterval.Text = frmGameManager_lblInterval
         chkDifferentialBackup.Text = frmGameManager_chkDifferentialBackup
+        chkTimedBackup.Text = frmGameManager_chkTimedBackup
+        lblTimeIntervalMinutes.Text = frmGameManager_lblTimeIntervalMinutes
         cmsDeleteOne.Text = frmGameManager_cmsDeleteOne
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
         btnLinks.Image = frmGameManager_Link
@@ -2094,19 +2126,7 @@ Public Class frmGameManager
         UpdateBuilderButtonLabel(txtExclude.Text, frmGameManager_ExcludeShortcut, btnExclude, (sExclude <> txtExclude.Text))
     End Sub
 
-    Private Sub chkFolderSave_CheckedChanged(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged
-        If Not IsLoading Then ModeChangeHandler()
-    End Sub
-
-    Private Sub chkTimeStamp_CheckedChanged(sender As Object, e As EventArgs) Handles chkTimeStamp.CheckedChanged
-        If Not IsLoading Then ModeChangeHandler()
-    End Sub
-
-    Private Sub chkDifferentialBackup_CheckedChanged(sender As Object, e As EventArgs) Handles chkDifferentialBackup.CheckedChanged
-        If Not IsLoading Then ModeChangeHandler()
-    End Sub
-
-    Private Sub chkMonitorOnly_CheckedChanged(sender As Object, e As EventArgs) Handles cmsMonitorOnly.CheckedChanged
+    Private Sub ModeChangeEventHandler(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged, chkTimeStamp.CheckedChanged, chkDifferentialBackup.CheckedChanged, chkTimedBackup.CheckedChanged, cmsMonitorOnly.CheckedChanged
         If Not IsLoading Then ModeChangeHandler()
     End Sub
 

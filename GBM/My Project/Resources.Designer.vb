@@ -367,7 +367,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2023-07-05T21:00:27
+        '''  Looks up a localized string similar to 2023-09-10T14:56:49
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1677,6 +1677,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Time Interval Backup.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_FieldTimedBackup() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_FieldTimedBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Time Interval (Minutes) *.
+        '''</summary>
+        Friend ReadOnly Property frmFilter_FieldTimedInterval() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_FieldTimedInterval", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Save Multiple Backups.
         '''</summary>
         Friend ReadOnly Property frmFilter_FieldTimeStamp() As String
@@ -2162,6 +2180,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_chkFolderSave() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_chkFolderSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Time interval backup.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_chkTimedBackup() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_chkTimedBackup", resourceCulture)
             End Get
         End Property
         
@@ -3013,6 +3040,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmGameManager_lblTags() As String
             Get
                 Return ResourceManager.GetString("frmGameManager_lblTags", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Minutes.
+        '''</summary>
+        Friend ReadOnly Property frmGameManager_lblTimeIntervalMinutes() As String
+            Get
+                Return ResourceManager.GetString("frmGameManager_lblTimeIntervalMinutes", resourceCulture)
             End Get
         End Property
         
