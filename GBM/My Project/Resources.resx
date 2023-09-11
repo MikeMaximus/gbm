@@ -3206,7 +3206,7 @@
     <value>Restore:</value>
   </data>
   <data name="frmSettings_chkEnableLiveBackup" xml:space="preserve">
-    <value>Allow backups and restores for currently monitored game</value>
+    <value>Enable backup and restore features for currently monitored games</value>
   </data>
   <data name="frmSettings_grpBackupExperimental" xml:space="preserve">
     <value>Experimental</value>

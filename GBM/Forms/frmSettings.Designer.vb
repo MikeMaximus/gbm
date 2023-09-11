@@ -296,9 +296,9 @@ Partial Class frmSettings
         Me.chkEnableLiveBackup.AutoSize = True
         Me.chkEnableLiveBackup.Location = New System.Drawing.Point(6, 19)
         Me.chkEnableLiveBackup.Name = "chkEnableLiveBackup"
-        Me.chkEnableLiveBackup.Size = New System.Drawing.Size(292, 17)
+        Me.chkEnableLiveBackup.Size = New System.Drawing.Size(336, 17)
         Me.chkEnableLiveBackup.TabIndex = 0
-        Me.chkEnableLiveBackup.Text = "Allow backups and restores for currently monitored game"
+        Me.chkEnableLiveBackup.Text = "Enable backup and restore features for currently monitored games"
         Me.chkEnableLiveBackup.UseVisualStyleBackColor = True
         '
         'grpBackupConfirmations
