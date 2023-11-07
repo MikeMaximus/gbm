@@ -367,7 +367,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2023-09-10T15:10:22
+        '''  Looks up a localized string similar to 2023-11-06T18:47:46
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -6624,7 +6624,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enable backup and restore features for currently monitored games.
+        '''  Looks up a localized string similar to Enable backup and restore features for detected game.
         '''</summary>
         Friend ReadOnly Property frmSettings_chkEnableLiveBackup() As String
             Get

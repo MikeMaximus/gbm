@@ -3060,7 +3060,7 @@
     <value>全局热键</value>
   </data>
   <data name="frmSettings_chkEnableLiveBackup" xml:space="preserve">
-    <value>为当前监控的游戏启用备份和恢复功能</value>
+    <value>为检测到的游戏启用备份和恢复功能</value>
   </data>
   <data name="frmSettings_grpBackupExperimental" xml:space="preserve">
     <value>实验的</value>
