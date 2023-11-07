@@ -27,7 +27,7 @@ Public Class mgrSQLite
                 Return "CREATE TABLE monitorlist (MonitorID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Process TEXT NOT NULL, Path TEXT, FolderSave BOOLEAN NOT NULL, FileType TEXT, TimeStamp BOOLEAN NOT NULL, 
                         ExcludeList TEXT NOT NULL, ProcessPath TEXT, Icon TEXT, Hours REAL, Version TEXT, Company TEXT, Enabled BOOLEAN NOT NULL, MonitorOnly BOOLEAN NOT NULL, BackupLimit INTEGER NOT NULL, 
                         CleanFolder BOOLEAN NOT NULL, Parameter TEXT, Comments TEXT, IsRegEx BOOLEAN NOT NULL, RecurseSubFolders BOOLEAN NOT NULL, OS INTEGER NOT NULL, UseWindowTitle BOOLEAN NOT NULL, 
-                        Differential BOOLEAN NOT NULL, DiffInterval INTEGER NOT NULL);"
+                        Differential BOOLEAN NOT NULL, DiffInterval INTEGER NOT NULL, TimedBackup BOOLEAN NOT NULL, TimedInterval INTEGER NOT NULL);"
             End Get
         End Property
         Public Shared ReadOnly Property Tags As String
@@ -1364,6 +1364,32 @@ Public Class mgrSQLite
                 BackupDB("v135")
 
                 sSQL = "PRAGMA user_version=136"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+        End If
+
+        '1.37 Upgrade
+        If GetDatabaseVersion() < 137 Then
+            If eDatabase = Database.Local Then
+                'Backup DB before starting
+                BackupDB("v136")
+
+                'Add support for time interval backups
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN TimedBackup BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE monitorlist ADD COLUMN TimedInterval INTEGER NOT NULL DEFAULT 1;"
+                sSQL &= "PRAGMA user_version=137"
+
+                RunParamQuery(sSQL, New Hashtable)
+            End If
+            If eDatabase = Database.Remote Then
+                'Backup DB before starting
+                BackupDB("v136")
+
+                'Add support for time interval backups
+                sSQL = "ALTER TABLE monitorlist ADD COLUMN TimedBackup BOOLEAN NOT NULL DEFAULT 0;"
+                sSQL &= "ALTER TABLE monitorlist ADD COLUMN TimedInterval INTEGER NOT NULL DEFAULT 1;"
+                sSQL &= "PRAGMA user_version=137"
 
                 RunParamQuery(sSQL, New Hashtable)
             End If

@@ -75,6 +75,7 @@ Public Class frmMain
     WithEvents tmSessionTimeUpdater As New System.Timers.Timer
     WithEvents tmFilterTimer As New System.Timers.Timer
     WithEvents tmPlayTimer As New System.Timers.Timer
+    WithEvents tmTimedBackup As New System.Timers.Timer
 
     Public WithEvents oProcess As New mgrProcessDetection
     Public WithEvents oBackup As New mgrBackup
@@ -3149,6 +3150,10 @@ Public Class frmMain
         tmFilterTimer.Enabled = False
     End Sub
 
+    Private Sub TimedBackupEventProcessor(sender As Object, ByVal e As EventArgs) Handles tmTimedBackup.Elapsed
+        RunManualBackup(New List(Of clsGame)({oProcess.GameInfo}), True)
+    End Sub
+
     Private Sub AutoRestoreEventProcessor(myObject As Object, ByVal myEventArgs As EventArgs) Handles tmRestoreCheck.Elapsed
         AutoRestoreCheck()
     End Sub
@@ -3245,6 +3250,14 @@ Public Class frmMain
 
         If mgrSettings.TimeTracking And Not oProcess.Duplicate Then tmSessionTimeUpdater.Start()
 
+        If mgrSettings.EnableLiveBackup And Not oProcess.Duplicate Then
+            If oProcess.GameInfo.TimedBackup And oProcess.GameInfo.TimedInterval >= 1 Then
+                tmTimedBackup.Interval = oProcess.GameInfo.TimedInterval * 60000
+                tmTimedBackup.Enabled = True
+                tmTimedBackup.Start()
+            End If
+        End If
+
         Try
             Do While Not (oProcess.FoundProcess.HasExited Or bwMonitor.CancellationPending)
                 If Not oProcess.Duplicate And oProcess.GameInfo.UseWindowTitle Then
@@ -3286,6 +3299,8 @@ Public Class frmMain
         End Try
 
         tmSessionTimeUpdater.Stop()
+        tmTimedBackup.Stop()
+        tmTimedBackup.Enabled = False
     End Sub
 
     Private Sub bwMain_RunWorkerCompleted(sender As System.Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwMonitor.RunWorkerCompleted

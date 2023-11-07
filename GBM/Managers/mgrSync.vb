@@ -61,11 +61,11 @@ Public Class mgrSync
             sVersion = "(SELECT Version FROM monitorlist WHERE MonitorID=@ID)"
         End If
 
-        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle, Differential, DiffInterval) "
+        sSQL = "INSERT OR REPLACE INTO monitorlist (MonitorID, Name, Process, Path, FolderSave, FileType, TimeStamp, ExcludeList, ProcessPath, Icon, Hours, Version, Company, Enabled, MonitorOnly, BackupLimit, CleanFolder, Parameter, Comments, IsRegEx, RecurseSubFolders, OS, UseWindowTitle, Differential, DiffInterval, TimedBackup, TimedInterval) "
         sSQL &= "VALUES (@ID, @Name, @Process, @Path, @FolderSave, @FileType, "
         sSQL &= "@TimeStamp, @ExcludeList, " & sGamePath & ", "
         sSQL &= sIcon & ", @Hours, " & sVersion & ", "
-        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS, @UseWindowTitle, @Differential, @DiffInterval);"
+        sSQL &= sCompany & ", " & sMonitorGame & ", @MonitorOnly, @BackupLimit, @CleanFolder, @Parameter, @Comments, @IsRegEx, @RecurseSubFolders, @OS, @UseWindowTitle, @Differential, @DiffInterval, @TimedBackup, @TimedInterval);"
 
         For Each oGame As clsGame In hshGames.Values
             hshParams = New Hashtable
@@ -91,6 +91,8 @@ Public Class mgrSync
             hshParams.Add("UseWindowTitle", oGame.UseWindowTitle)
             hshParams.Add("Differential", oGame.Differential)
             hshParams.Add("DiffInterval", oGame.DiffInterval)
+            hshParams.Add("TimedBackup", oGame.TimedBackup)
+            hshParams.Add("TimedInterval", oGame.TimedInterval)
 
             'Optional Parameters
             If (eSyncFields And clsGame.eOptionalSyncFields.Company) = clsGame.eOptionalSyncFields.Company Then

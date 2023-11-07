@@ -84,6 +84,9 @@ Partial Class frmGameManager
         Me.tabGameManager = New System.Windows.Forms.TabControl()
         Me.tbConfig = New System.Windows.Forms.TabPage()
         Me.grpCoreConfig = New System.Windows.Forms.GroupBox()
+        Me.lblTimeIntervalMinutes = New System.Windows.Forms.Label()
+        Me.nudTimedInterval = New System.Windows.Forms.NumericUpDown()
+        Me.chkTimedBackup = New System.Windows.Forms.CheckBox()
         Me.btnOpenSaveFolder = New System.Windows.Forms.Button()
         Me.btnOpenGameFolder = New System.Windows.Forms.Button()
         Me.lblInterval = New System.Windows.Forms.Label()
@@ -138,6 +141,7 @@ Partial Class frmGameManager
         Me.tabGameManager.SuspendLayout()
         Me.tbConfig.SuspendLayout()
         Me.grpCoreConfig.SuspendLayout()
+        CType(Me.nudTimedInterval, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudInterval, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tbGameInfo.SuspendLayout()
         Me.grpGameInfo.SuspendLayout()
@@ -184,7 +188,7 @@ Partial Class frmGameManager
         'chkRecurseSubFolders
         '
         Me.chkRecurseSubFolders.AutoSize = True
-        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(486, 256)
+        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(114, 257)
         Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
         Me.chkRecurseSubFolders.Size = New System.Drawing.Size(15, 14)
         Me.chkRecurseSubFolders.TabIndex = 0
@@ -259,7 +263,7 @@ Partial Class frmGameManager
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(450, 253)
+        Me.txtID.Location = New System.Drawing.Point(78, 254)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(30, 20)
         Me.txtID.TabIndex = 0
@@ -313,7 +317,7 @@ Partial Class frmGameManager
         '
         'txtExclude
         '
-        Me.txtExclude.Location = New System.Drawing.Point(414, 253)
+        Me.txtExclude.Location = New System.Drawing.Point(42, 254)
         Me.txtExclude.Name = "txtExclude"
         Me.txtExclude.Size = New System.Drawing.Size(30, 20)
         Me.txtExclude.TabIndex = 0
@@ -322,7 +326,7 @@ Partial Class frmGameManager
         '
         'txtFileType
         '
-        Me.txtFileType.Location = New System.Drawing.Point(378, 253)
+        Me.txtFileType.Location = New System.Drawing.Point(6, 254)
         Me.txtFileType.Name = "txtFileType"
         Me.txtFileType.Size = New System.Drawing.Size(30, 20)
         Me.txtFileType.TabIndex = 0
@@ -662,6 +666,9 @@ Partial Class frmGameManager
         '
         'grpCoreConfig
         '
+        Me.grpCoreConfig.Controls.Add(Me.lblTimeIntervalMinutes)
+        Me.grpCoreConfig.Controls.Add(Me.nudTimedInterval)
+        Me.grpCoreConfig.Controls.Add(Me.chkTimedBackup)
         Me.grpCoreConfig.Controls.Add(Me.btnOpenSaveFolder)
         Me.grpCoreConfig.Controls.Add(Me.btnOpenGameFolder)
         Me.grpCoreConfig.Controls.Add(Me.lblInterval)
@@ -703,6 +710,34 @@ Partial Class frmGameManager
         Me.grpCoreConfig.Size = New System.Drawing.Size(511, 280)
         Me.grpCoreConfig.TabIndex = 0
         Me.grpCoreConfig.TabStop = False
+        '
+        'lblTimeIntervalMinutes
+        '
+        Me.lblTimeIntervalMinutes.AutoSize = True
+        Me.lblTimeIntervalMinutes.Location = New System.Drawing.Point(403, 251)
+        Me.lblTimeIntervalMinutes.Name = "lblTimeIntervalMinutes"
+        Me.lblTimeIntervalMinutes.Size = New System.Drawing.Size(44, 13)
+        Me.lblTimeIntervalMinutes.TabIndex = 34
+        Me.lblTimeIntervalMinutes.Text = "Minutes"
+        '
+        'nudTimedInterval
+        '
+        Me.nudTimedInterval.Location = New System.Drawing.Point(357, 249)
+        Me.nudTimedInterval.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.nudTimedInterval.Name = "nudTimedInterval"
+        Me.nudTimedInterval.Size = New System.Drawing.Size(40, 20)
+        Me.nudTimedInterval.TabIndex = 33
+        Me.nudTimedInterval.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'chkTimedBackup
+        '
+        Me.chkTimedBackup.AutoSize = True
+        Me.chkTimedBackup.Location = New System.Drawing.Point(218, 250)
+        Me.chkTimedBackup.Name = "chkTimedBackup"
+        Me.chkTimedBackup.Size = New System.Drawing.Size(125, 17)
+        Me.chkTimedBackup.TabIndex = 32
+        Me.chkTimedBackup.Text = "Time interval backup"
+        Me.chkTimedBackup.UseVisualStyleBackColor = True
         '
         'btnOpenSaveFolder
         '
@@ -1176,6 +1211,7 @@ Partial Class frmGameManager
         Me.tbConfig.ResumeLayout(False)
         Me.grpCoreConfig.ResumeLayout(False)
         Me.grpCoreConfig.PerformLayout()
+        CType(Me.nudTimedInterval, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.nudInterval, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tbGameInfo.ResumeLayout(False)
         Me.grpGameInfo.ResumeLayout(False)
@@ -1296,4 +1332,7 @@ Partial Class frmGameManager
     Friend WithEvents btnCopy As Button
     Friend WithEvents btnOpenSaveFolder As Button
     Friend WithEvents btnOpenGameFolder As Button
+    Friend WithEvents lblTimeIntervalMinutes As Label
+    Friend WithEvents nudTimedInterval As NumericUpDown
+    Friend WithEvents chkTimedBackup As CheckBox
 End Class

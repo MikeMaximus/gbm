@@ -3206,9 +3206,21 @@
     <value>Restore:</value>
   </data>
   <data name="frmSettings_chkEnableLiveBackup" xml:space="preserve">
-    <value>Allow backups and restores for currently monitored game</value>
+    <value>Enable backup and restore features for detected game</value>
   </data>
   <data name="frmSettings_grpBackupExperimental" xml:space="preserve">
     <value>Experimental</value>
+  </data>
+  <data name="frmGameManager_chkTimedBackup" xml:space="preserve">
+    <value>Time interval backup</value>
+  </data>
+  <data name="frmGameManager_lblTimeIntervalMinutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="frmFilter_FieldTimedBackup" xml:space="preserve">
+    <value>Time Interval Backup</value>
+  </data>
+  <data name="frmFilter_FieldTimedInterval" xml:space="preserve">
+    <value>Time Interval (Minutes) *</value>
   </data>
 </root>
