@@ -3375,16 +3375,18 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_Activated(sender As System.Object, e As System.EventArgs) Handles MyBase.Activated
-        'This event contains functions that crash or malfunction in Mono during the Load event.
+        txtLog.Select(txtLog.TextLength, 0)
+        txtLog.ScrollToCaret()
+    End Sub
+
+    Private Sub frmMain_Shown(sender As System.Object, e As System.EventArgs) Handles MyBase.Shown
+        'This event contains functions that crash or malfunction in Mono on initial start.
         If bInitialLoad And mgrCommon.IsUnix Then
             If mgrSettings.StartToTray Then
                 ToggleState(False)
             End If
             CheckForNewBackups()
             bInitialLoad = False
-        Else
-            txtLog.Select(txtLog.TextLength, 0)
-            txtLog.ScrollToCaret()
         End If
     End Sub
 
