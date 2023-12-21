@@ -1704,8 +1704,10 @@ Public Class frmMain
     End Sub
 
     'Functions that handle buttons, menus and other GUI features on this form
-    Private Sub ToggleVisibility(ByVal bVisible As Boolean)
+    Private Sub ToggleVisibility(ByVal bVisible As Boolean, Optional ByVal bDelay As Boolean = False)
         Me.ShowInTaskbar = bVisible
+        'This delay is a work-around for the "ghost window" issue that occurs in Linux when the form is hidden on start-up.  It just works...
+        If bDelay Then Threading.Thread.Sleep(100)
         Me.Visible = bVisible
     End Sub
 
@@ -3383,7 +3385,8 @@ Public Class frmMain
         'This event contains functions that crash or malfunction in Mono on initial start.
         If bInitialLoad And mgrCommon.IsUnix Then
             If mgrSettings.StartToTray Then
-                ToggleState(False)
+                Me.WindowState = FormWindowState.Minimized
+                ToggleVisibility(False, True)
             End If
             CheckForNewBackups()
             bInitialLoad = False
