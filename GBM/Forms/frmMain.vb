@@ -1556,11 +1556,8 @@ Public Class frmMain
     End Sub
 
     Private Sub QueueSyncWatcher() Handles oFileWatcher.Changed
-        'This is the easiest (but probably sloppiest) way to block unnecessary sync calls after the remote db is updated by GBM itself.
-        If eCurrentStatus <> eStatus.Paused And eCurrentStatus <> eStatus.Monitoring Then
-            tmFileWatcherQueue.Stop()
-            tmFileWatcherQueue.Start()
-        End If
+        tmFileWatcherQueue.Stop()
+        tmFileWatcherQueue.Start()
     End Sub
 
     Private Sub HandleSyncWatcher() Handles tmFileWatcherQueue.Elapsed
@@ -1805,8 +1802,8 @@ Public Class frmMain
             StartSyncWatcher()
 
             AddHandler mgrSync.UpdateLog, AddressOf UpdateLog
-            AddHandler mgrSync.PushStarted, AddressOf StopSyncWatcher
-            AddHandler mgrSync.PushEnded, AddressOf StartSyncWatcher
+            AddHandler mgrSQLite.DatabaseOpened, AddressOf StopSyncWatcher
+            AddHandler mgrSQLite.DatabaseClosed, AddressOf StartSyncWatcher
 
             bInitComplete = True
         End If

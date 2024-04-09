@@ -16,8 +16,6 @@ Public Class mgrSync
     Private Shared Property SyncThread As Thread
 
     Public Shared Event UpdateLog(sLogUpdate As String, bTrayUpdate As Boolean, objIcon As System.Windows.Forms.ToolTipIcon, bTimeStamp As Boolean)
-    Public Shared Event PushStarted()
-    Public Shared Event PushEnded()
 
     'Sync Functions
     Public Shared Sub DoListAddUpdateSync(ByVal hshGames As Hashtable, Optional ByVal iSelectDB As mgrSQLite.Database = mgrSQLite.Database.Local,
@@ -179,8 +177,6 @@ Public Class mgrSync
         Dim oToItem As clsGame
         Dim iChanges As Integer
 
-        If oSyncOptions.ToRemote Then RaiseEvent PushStarted()
-
         If Not mgrSettings.DisableSyncMessages Then
             If oSyncOptions.ToRemote Then
                 RaiseEvent UpdateLog(mgrMonitorList_SyncToMaster, False, ToolTipIcon.Info, True)
@@ -260,8 +256,6 @@ Public Class mgrSync
         If Not mgrSettings.DisableSyncMessages Then
             RaiseEvent UpdateLog(mgrCommon.FormatString(mgrMonitorList_SyncChanges, (hshDeleteItems.Count + hshSyncItems.Count + iChanges).ToString), False, ToolTipIcon.Info, True)
         End If
-
-        If oSyncOptions.ToRemote Then RaiseEvent PushEnded()
     End Sub
 
     'Other Functions

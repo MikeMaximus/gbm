@@ -1,21 +1,13 @@
-Game Backup Monitor v1.3.8 Readme
+Game Backup Monitor v1.3.9 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
 December 21, 2023
 
-New in 1.3.8
+New in 1.3.9
 
 All Platforms:
 
-- Updated YamlDotNet to 13.7.1.
-
-Windows:
-
-- Updated SQLite to 3.44.2.
-
-Linux:
-
-- Stopped a ghost window from appearing on startup when the "Start Minimized" option is used.
-		
+- Improved how GBM detects other software modifying it's backup folder database.
+	
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
