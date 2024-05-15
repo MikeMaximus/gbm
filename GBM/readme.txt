@@ -9,8 +9,8 @@ New in 1.3.9
 Windows:
 
 - Updated 7-Zip to 24.05.
-- Updated SQLite to 3.45.
-- Updated NHotkey to 3.0.
+- Updated SQLite to 3.45.3.
+- Updated NHotkey to 3.0.0.
 - Updated YamlDotNet to 15.1.4.
 
 All Platforms:
