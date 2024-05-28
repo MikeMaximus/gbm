@@ -108,6 +108,9 @@ Public Class mgrSQLite
     Private eDatabase As Database
     Private db As SqliteConnection
 
+    Public Shared Event DatabaseOpened()
+    Public Shared Event DatabaseClosed()
+
     Public Sub New(ByVal eSelectDB As Database)
         Select Case eSelectDB
             Case Database.Local
@@ -259,10 +262,12 @@ Public Class mgrSQLite
             CreateDB()
             db.Open()
         End If
+        RaiseEvent DatabaseOpened()
     End Sub
 
     Public Sub Disconnect()
         db.Close()
+        RaiseEvent DatabaseClosed()
     End Sub
 
     Private Sub RollBack(ByRef trans As SqliteTransaction)

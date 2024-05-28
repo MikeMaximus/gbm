@@ -479,6 +479,9 @@ Public Class mgrMonitorList
         End If
 
         'Handle Quick Filter
+        Dim sValidFields As String() = {"Name", "Process", "Parameter", "Path", "Version", "Company", "Comments"}
+        Dim bRefined As Boolean
+
         If Not sQuickFilter = String.Empty Then
             If eFilterType = frmFilter.eFilterType.BaseFilter And oFilters.Count = 0 Then
                 sSQL &= " WHERE "
@@ -489,10 +492,29 @@ Public Class mgrMonitorList
                 sSQL &= "MonitorID IN (SELECT MonitorID FROM gametags NATURAL JOIN tags WHERE tags.Name=@QuickTag COLLATE NOCASE)"
                 hshParams.Add("QuickTag", sQuickFilter.Remove(0, 1))
             Else
-                sSQL &= "MonitorID IN (SELECT MonitorID FROM monitorlist WHERE Name LIKE @QuickName)"
-                hshParams.Add("QuickName", "%" & sQuickFilter & "%")
+                bRefined = False
+
+                'Use a refined search
+                For Each sField As String In sValidFields
+                    If sQuickFilter.StartsWith(sField & ":") Then
+                        bRefined = True
+                        sSQL &= "MonitorID IN (SELECT MonitorID FROM monitorlist WHERE " & sField & " LIKE @QuickQuery)"
+                        hshParams.Add("QuickQuery", "%" & sQuickFilter.Remove(0, sField.Length + 1) & "%")
+                    End If
+                Next
+
+                'Use a wide search
+                If Not bRefined Then
+                    sSQL &= "MonitorID IN (SELECT MonitorID FROM monitorlist WHERE "
+                    For Each sField As String In sValidFields
+                        sSQL &= sField & " LIKE @QuickQuery OR "
+                    Next
+                    sSQL &= "MonitorID IN (SELECT MonitorID FROM gametags NATURAL JOIN tags WHERE tags.Name=@QuickTag COLLATE NOCASE))"
+                    hshParams.Add("QuickQuery", "%" & sQuickFilter & "%")
+                    hshParams.Add("QuickTag", sQuickFilter)
+                End If
             End If
-        End If
+            End If
 
         'Handle Sorting
         sSQL &= sSort

@@ -1,21 +1,28 @@
-Game Backup Monitor v1.3.8 Readme
+Game Backup Monitor v1.3.9 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-December 21, 2023
+May 28, 2024
 
-New in 1.3.8
+New in 1.3.9
 
 All Platforms:
 
-- Updated YamlDotNet to 13.7.1.
+- Game Backup Monitor is now built for .NET v4.8.
+- Improved how GBM detects when other software has modified it's manifest database.
+- Improved quick search (Main Window and Game Manager)
+	- The default quick search is now wide, using most text fields and tags.
+		- These fields currently include: Name, Process, Parameter, Path, Version, Company, Comments.
+	- You can now do a refined quick search by prepending it with the field name (case-sensitive) and a colon.  Ex.  Name:Doom or Company:Sega
+	- A refined tag search is still supported by prepending with a hashtag, Ex. #GOG
+	- You cannot combine refined searches in a single quick search, use the "Custom Filter" on the Game Manager for complex queries.
+- Updated NHotkey to 3.0.0.
+- Updated YamlDotNet to 15.1.4.
 
 Windows:
 
-- Updated SQLite to 3.44.2.
+- Updated 7-Zip to 24.06.
+- Updated SQLite to 3.45.3.
+- Installers are now built with NSIS 3.10.
 
-Linux:
-
-- Stopped a ghost window from appearing on startup when the "Start Minimized" option is used.
-		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

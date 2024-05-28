@@ -1927,9 +1927,6 @@ Public Class frmGameManager
         tmFilterTimer = New Timer()
         tmFilterTimer.Interval = 1000
         tmFilterTimer.Enabled = False
-
-        'Handlers
-        AddHandler mgrSync.PushEnded, AddressOf LoadBackupData
     End Sub
 
     Private Sub frmGameManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
