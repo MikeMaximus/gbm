@@ -2,7 +2,7 @@ Game Backup Monitor v1.3.9 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-May 21, 2024
+May 28, 2024
 
 New in 1.3.9
 
@@ -21,7 +21,8 @@ All Platforms:
 
 Windows:
 
-- Updated 7-Zip to 24.05.
+- Updated 7-Zip to 24.06.
 - Updated SQLite to 3.45.3.
+- Installers are now built with NSIS 3.10.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

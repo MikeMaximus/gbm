@@ -8,8 +8,8 @@ Imports System.Text.RegularExpressions
 Public Class mgrCommon
 
     'These need to be updated when upgrading the packaged 7z utility
-    Private Shared sUtility64Hash As String = "504CF428E615F5C4B18AEDD6784B3D86D2C6CE93A54125932C99CA43EAEB11B7" 'v24.05 7za.exe x64
-    Private Shared sUtility32Hash As String = "4B7FC7818F3168945DBEDADCFD7AAF470B88543EF6B685619AD1C942AC3B1DED" 'v24.05 7za.exe x86
+    Private Shared sUtility64Hash As String = "3FEBE53A8C52113C24D6319A5013C89D644E081E488635640BFC72210A6C60AB" 'v24.06 7za.exe x64
+    Private Shared sUtility32Hash As String = "BB6B9F15FF2FC1B938693BE31965D50C23BD79244C013F0223F2E39FE08944CE" 'v24.06 7za.exe x86
     Private Shared sBlackList As String() = {"dosbox", "scummvm", "java", "python", "python.real", "python2.7", "mono", "wine"}
 
     Public Enum eSounds As Integer
