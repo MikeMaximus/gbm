@@ -8,7 +8,7 @@ New in 1.4.0
 
 Windows:
 
-- Installers now detect and closes GBM automatically if it's running.
+- Installers now detect and close GBM automatically if it's running.
 - Installers now automatically set the High DPI Scaling compatability mode for GBM on Windows 10 or later.
 - Updated 7-Zip to 24.08.
 

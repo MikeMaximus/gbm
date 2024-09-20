@@ -160,7 +160,7 @@ Section "Game Installation" GameInstall
 	WriteRegDWORD HKLM "${WINDOWS_UNINSTALL_PATH}" "NoModify" "1"
 	WriteRegDWORD HKLM "${WINDOWS_UNINSTALL_PATH}" "NoRepair" "1"
 
-	${if} ${${AtLeastWin10}}
+	${If} ${AtLeastWin10}
 		${WriteRegStr} "${REG_ROOT}" "${APP_COMPATABILITY_PATH}" "$INSTDIR\GBM.exe" "~ HIGHDPIAWARE"
 	${EndIf}
 
