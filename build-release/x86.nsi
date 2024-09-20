@@ -7,6 +7,9 @@
 Unicode True
 !include MUI2.nsh
 !include UninstallLog.nsh
+!include LogicLib.nsh
+!include WinVer.nsh
+!include nsProcess.nsh
 
 Name "Game Backup Monitor (32-bit)"
 OutFile "<DESTNAME>"
@@ -20,6 +23,9 @@ SetCompressor /SOLID /FINAL lzma
 !define REG_APP_PATH "Software\Game Backup Monitor (32-bit)"
 !define UNINSTALL_PATH "Software\Game Backup Monitor (32-bit)"
 !define WINDOWS_UNINSTALL_PATH "Software\Microsoft\Windows\CurrentVersion\Uninstall\Game Backup Monitor (32-bit)"
+!define APP_COMPATABILITY_PATH "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"
+!define APP_NAME "Game Backup Monitor"
+!define EXE_NAME "GBM.exe"
 
 Var StartMenuFolder
 
@@ -91,6 +97,23 @@ Var StartMenuFolder
       FileSeek $UninstLog 0 END
   SectionEnd
 
+Section "Detect App"
+
+  ${nsProcess::FindProcess} "${EXE_NAME}" $R0
+
+  ${If} $R0 == 0
+    DetailPrint "${APP_NAME} is running, attempting to close the process"
+    ${nsProcess::CloseProcess} "${EXE_NAME}" $R0
+    DetailPrint "Waiting for ${APP_NAME} to close"
+    Sleep 5000  
+  ${Else}
+    DetailPrint "${EXE_NAME} is not running"        
+  ${EndIf}    
+
+  ${nsProcess::Unload}
+
+SectionEnd
+
 Section "Game Installation" GameInstall
 
 	${SetOutPath} "$INSTDIR"	
@@ -136,6 +159,10 @@ Section "Game Installation" GameInstall
 	WriteRegDWORD HKLM "${WINDOWS_UNINSTALL_PATH}" "EstimatedSize" "5120"
 	WriteRegDWORD HKLM "${WINDOWS_UNINSTALL_PATH}" "NoModify" "1"
 	WriteRegDWORD HKLM "${WINDOWS_UNINSTALL_PATH}" "NoRepair" "1"
+
+	${if} ${${AtLeastWin10}}
+		${WriteRegStr} "${REG_ROOT}" "${APP_COMPATABILITY_PATH}" "$INSTDIR\GBM.exe" "~ HIGHDPIAWARE"
+	${EndIf}
 
 	!insertmacro MUI_STARTMENU_WRITE_BEGIN Game
 	${CreateDirectory} "$SMPROGRAMS\$StartMenuFolder"
