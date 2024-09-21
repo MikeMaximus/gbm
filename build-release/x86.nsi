@@ -2,6 +2,7 @@
 ; WARNINGS: 
 ; 1.  This script is only a template.  <DESTNAME>, <SOURCEDIR> and <VERSION> need to be set.
 ; 2.  UninstallLog.nsh needs to be added to the Include folder of the NSIS installation.
+; 3.  This script requires the nsprocess plug-in.
 ;-------------------------------- 
 
 Unicode True
@@ -48,6 +49,39 @@ Var StartMenuFolder
 !insertmacro MUI_LANGUAGE "English"
 
 ;--------------------------------
+; Detect and close GBM if it's running
+;-------------------------------- 
+Function DetectApp
+  ${nsProcess::FindProcess} "${EXE_NAME}" $R0
+
+  ${If} $R0 == 0
+    DetailPrint "${APP_NAME} is running, attempting to close the process"
+    ${nsProcess::CloseProcess} "${EXE_NAME}" $R0
+    DetailPrint "Waiting for ${APP_NAME} to close"
+    Sleep 5000  
+  ${Else}
+    DetailPrint "${EXE_NAME} is not running"        
+  ${EndIf}    
+
+  ${nsProcess::Unload}
+FunctionEnd
+  
+Function un.DetectApp
+  ${nsProcess::FindProcess} "${EXE_NAME}" $R0
+
+  ${If} $R0 == 0
+    DetailPrint "${APP_NAME} is running, attempting to close the process"
+    ${nsProcess::CloseProcess} "${EXE_NAME}" $R0
+    DetailPrint "Waiting for ${APP_NAME} to close"
+    Sleep 5000  
+  ${Else}
+    DetailPrint "${EXE_NAME} is not running"        
+  ${EndIf}    
+
+  ${nsProcess::Unload}
+FunctionEnd
+
+;--------------------------------
 ; Configure UnInstall log to only remove what is installed
 ;-------------------------------- 
   ;Set the name of the uninstall log
@@ -87,35 +121,19 @@ Var StartMenuFolder
   ;WriteRegDWORD macro
     !define WriteRegDWORD "!insertmacro WriteRegDWORD" 
  
-  Section -openlogfile
-    CreateDirectory "$INSTDIR"
-    IfFileExists "$INSTDIR\${UninstLog}" +3
-      FileOpen $UninstLog "$INSTDIR\${UninstLog}" w
-    Goto +4
-      SetFileAttributes "$INSTDIR\${UninstLog}" NORMAL
-      FileOpen $UninstLog "$INSTDIR\${UninstLog}" a
-      FileSeek $UninstLog 0 END
-  SectionEnd
-
-Section "Detect App"
-
-  ${nsProcess::FindProcess} "${EXE_NAME}" $R0
-
-  ${If} $R0 == 0
-    DetailPrint "${APP_NAME} is running, attempting to close the process"
-    ${nsProcess::CloseProcess} "${EXE_NAME}" $R0
-    DetailPrint "Waiting for ${APP_NAME} to close"
-    Sleep 5000  
-  ${Else}
-    DetailPrint "${EXE_NAME} is not running"        
-  ${EndIf}    
-
-  ${nsProcess::Unload}
-
+Section -openlogfile
+  CreateDirectory "$INSTDIR"
+  IfFileExists "$INSTDIR\${UninstLog}" +3
+    FileOpen $UninstLog "$INSTDIR\${UninstLog}" w
+  Goto +4
+    SetFileAttributes "$INSTDIR\${UninstLog}" NORMAL
+    FileOpen $UninstLog "$INSTDIR\${UninstLog}" a
+    FileSeek $UninstLog 0 END
 SectionEnd
 
 Section "Game Installation" GameInstall
 
+  Call DetectApp
 	${SetOutPath} "$INSTDIR"	
 	${File} "<SOURCEDIR>" "GBM.exe"
 	${File} "<SOURCEDIR>" "gbm.ico"
@@ -161,7 +179,7 @@ Section "Game Installation" GameInstall
 	WriteRegDWORD HKLM "${WINDOWS_UNINSTALL_PATH}" "NoRepair" "1"
 
 	${If} ${AtLeastWin10}
-		${WriteRegStr} "${REG_ROOT}" "${APP_COMPATABILITY_PATH}" "$INSTDIR\GBM.exe" "~ HIGHDPIAWARE"
+		WriteRegStr "${REG_ROOT}" "${APP_COMPATABILITY_PATH}" "$INSTDIR\GBM.exe" "~ HIGHDPIAWARE"
 	${EndIf}
 
 	!insertmacro MUI_STARTMENU_WRITE_BEGIN Game
@@ -181,6 +199,7 @@ Section "Uninstall"
     MessageBox MB_OK|MB_ICONSTOP "$(UninstLogMissing)"
       Abort
  
+  Call un.DetectApp
   Push $R0
   Push $R1
   Push $R2
