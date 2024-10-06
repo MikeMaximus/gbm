@@ -6,6 +6,7 @@
 ;-------------------------------- 
 
 Unicode True
+ManifestDPIAware True
 !include MUI2.nsh
 !include UninstallLog.nsh
 !include LogicLib.nsh
