@@ -451,6 +451,9 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub SetForm()
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me)
+
         'Set Form Name
         Me.Text = frmAdvancedImport_FormName
         Me.Icon = GBM_Icon

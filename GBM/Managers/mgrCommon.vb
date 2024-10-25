@@ -4,6 +4,7 @@ Imports System.IO
 Imports System.Reflection
 Imports System.Security.Principal
 Imports System.Text.RegularExpressions
+Imports DarkModeForms
 
 Public Class mgrCommon
 
@@ -908,63 +909,53 @@ Public Class mgrCommon
         frm.TopMost = True
     End Sub
 
-    'Handles no extra parameters
-    Public Shared Function ShowMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
+    'Base function for showing input boxes
+    Public Shared Function ShowInputBox(ByVal sPrompt As String, ByVal sTitle As String, ByVal sDefaultValue As String) As String
+        Dim sInputValue As String
+
+        If mgrDarkMode.UseDarkMode Then
+            sInputValue = mgrDarkMode.ShowDarkModeInput(sPrompt, sTitle, sDefaultValue)
+        Else
+            sInputValue = InputBox(sPrompt, sTitle, sDefaultValue)
+        End If
+
+        Return sInputValue.Trim
+    End Function
+
+    'Base function for showing message boxes
+    Private Shared Function ShowMessageBase(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
         Dim oResult As MsgBoxResult
-        oResult = MsgBox(FormatString(sMsg), oType, My.Resources.App_NameLong)
+        If mgrDarkMode.UseDarkMode Then
+            oResult = mgrDarkMode.ShowDarkModeMessage(sMsg, oType)
+        Else
+            oResult = MsgBox(sMsg, oType, My.Resources.App_NameLong)
+        End If
         Return oResult
     End Function
 
     'Handles no extra parameters
-    Public Shared Function ShowPriorityMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
-        Dim frmFake As Form
-
-        'Create a fake mostly invisible form to get top focus
-        frmFake = New Form
-        ConfigureFakeForm(frmFake)
-
+    Public Shared Function ShowMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
         Dim oResult As MsgBoxResult
-        oResult = ShowMessage(sMsg, oType)
-
-        frmFake.TopMost = False
-        frmFake.Dispose()
-
+        oResult = ShowMessageBase(FormatString(sMsg), oType)
         Return oResult
     End Function
 
     'Handles single parameter stings
     Public Shared Function ShowMessage(ByVal sMsg As String, ByVal sParam As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
         Dim oResult As MsgBoxResult
-        oResult = MsgBox(FormatString(sMsg, sParam), oType, My.Resources.App_NameLong)
-        Return oResult
-    End Function
-
-    'Handles single parameter stings
-    Public Shared Function ShowPriorityMessage(ByVal sMsg As String, ByVal sParam As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
-        Dim frmFake As Form
-
-        'Create a fake mostly invisible form to get top focus
-        frmFake = New Form
-        ConfigureFakeForm(frmFake)
-
-        Dim oResult As MsgBoxResult
-        oResult = ShowMessage(sMsg, sParam, oType)
-
-        frmFake.TopMost = False
-        frmFake.Dispose()
-
+        oResult = ShowMessageBase(FormatString(sMsg, sParam), oType)
         Return oResult
     End Function
 
     'Handles multi-parameter strings
     Public Shared Function ShowMessage(ByVal sMsg As String, ByVal sParams As String(), ByVal oType As MsgBoxStyle) As MsgBoxResult
         Dim oResult As MsgBoxResult
-        oResult = MsgBox(FormatString(sMsg, sParams), oType, My.Resources.App_NameLong)
+        oResult = ShowMessageBase(FormatString(sMsg, sParams), oType)
         Return oResult
     End Function
 
-    'Handles multi-parameter strings
-    Public Shared Function ShowPriorityMessage(ByVal sMsg As String, ByVal sParams As String(), ByVal oType As MsgBoxStyle) As MsgBoxResult
+    'Base function for showing priority message boxes
+    Private Shared Function ShowPriorityMessageBase(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
         Dim frmFake As Form
 
         'Create a fake mostly invisible form to get top focus
@@ -972,11 +963,31 @@ Public Class mgrCommon
         ConfigureFakeForm(frmFake)
 
         Dim oResult As MsgBoxResult
-        oResult = ShowMessage(sMsg, sParams, oType)
+        oResult = ShowMessageBase(sMsg, oType)
 
         frmFake.TopMost = False
         frmFake.Dispose()
 
+        Return oResult
+    End Function
+    'Handles no extra parameters
+    Public Shared Function ShowPriorityMessage(ByVal sMsg As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
+        Dim oResult As MsgBoxResult
+        oResult = ShowPriorityMessageBase(FormatString(sMsg), oType)
+        Return oResult
+    End Function
+
+    'Handles single parameter stings
+    Public Shared Function ShowPriorityMessage(ByVal sMsg As String, ByVal sParam As String, ByVal oType As MsgBoxStyle) As MsgBoxResult
+        Dim oResult As MsgBoxResult
+        oResult = ShowPriorityMessageBase(FormatString(sMsg, sParam), oType)
+        Return oResult
+    End Function
+
+    'Handles multi-parameter strings
+    Public Shared Function ShowPriorityMessage(ByVal sMsg As String, ByVal sParams As String(), ByVal oType As MsgBoxStyle) As MsgBoxResult
+        Dim oResult As MsgBoxResult
+        oResult = ShowPriorityMessageBase(FormatString(sMsg, sParams), oType)
         Return oResult
     End Function
 

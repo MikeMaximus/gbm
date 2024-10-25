@@ -591,6 +591,9 @@ Public Class frmFilter
     End Sub
 
     Private Sub SetForm()
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me)
+
         'Set Form Name
         Me.Text = frmFilter_FormName
         Me.Icon = GBM_Icon

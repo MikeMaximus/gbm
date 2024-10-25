@@ -632,7 +632,7 @@ Public Class mgrMonitorList
         Dim oSavedPath As clsSavedPath = mgrSavedPath.GetPathByName("Import_Custom_URL")
         Dim sLocation As String
 
-        sLocation = InputBox(mgrMonitorList_CustomListURLInfo, mgrMonitorList_CustomListURLTitle, oSavedPath.Path).Trim
+        sLocation = mgrCommon.ShowInputBox(mgrMonitorList_CustomListURLInfo, mgrMonitorList_CustomListURLTitle, oSavedPath.Path).Trim
 
         If sLocation <> String.Empty Then
             If mgrCommon.IsAddress(sLocation) Then

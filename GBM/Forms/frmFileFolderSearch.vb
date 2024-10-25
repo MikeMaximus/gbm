@@ -183,6 +183,9 @@ Public Class frmFileFolderSearch
     End Sub
 
     Private Sub SetForm()
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me)
+
         'Set Form Name
         Me.Text = frmFileFolderSearch_FormName
         Me.Icon = GBM_Icon

@@ -277,6 +277,9 @@ Public Class frmProcessManager
     End Function
 
     Private Sub SetForm()
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me)
+
         'Set Form Name
         Me.Text = frmProcessManager_FormName
         Me.Icon = GBM_Icon

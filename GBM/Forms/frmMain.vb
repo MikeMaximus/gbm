@@ -1291,7 +1291,7 @@ Public Class frmMain
         Dim sDelimters As String = " :"
         Dim cDelimters As Char() = sDelimters.ToCharArray
 
-        sFullCommand = InputBox(frmMain_EnterCommand, frmMain_DeveloperConsole)
+        sFullCommand = mgrCommon.ShowInputBox(frmMain_EnterCommand, frmMain_DeveloperConsole, String.Empty)
 
         If sFullCommand <> String.Empty Then
             sMainCommand = sFullCommand.Split(cDelimters, 2)(0)
@@ -1706,6 +1706,10 @@ Public Class frmMain
         'This delay is a work-around for the "ghost window" issue that occurs in Linux when the form is hidden on start-up.  It just works...
         If bDelay Then Threading.Thread.Sleep(100)
         Me.Visible = bVisible
+        'We need to re-initialize Dark Mode here each time to work-around issues with applying a theme while the form is invisible.
+        If bVisible Then
+            mgrDarkMode.SetDarkMode(Me)
+        End If
     End Sub
 
     Private Sub ToggleState(ByVal bVisible As Boolean)
@@ -2351,6 +2355,16 @@ Public Class frmMain
     End Sub
 
     Private Sub SetForm()
+        Dim oCustomDarkModeControls As New List(Of Control)
+
+        'Controls that must be manually themed for dark mode
+        With oCustomDarkModeControls
+            .Add(gMonTrayMenu)
+        End With
+
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me, oCustomDarkModeControls)
+
         'Set Minimum Size
         Me.MinimumSize = New Size(Me.Size.Width - slcMain.SplitterDistance, Me.Size.Height - txtLog.Size.Height)
 

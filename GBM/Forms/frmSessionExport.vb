@@ -26,6 +26,9 @@ Public Class frmSessionExport
     End Sub
 
     Private Sub SetForm()
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me)
+
         Me.Text = frmSessionExport_FormName
         Me.Icon = GBM_Icon
 

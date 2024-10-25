@@ -308,6 +308,9 @@ Public Class frmLauncherManager
     End Function
 
     Private Sub SetForm()
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me)
+
         'Set Form Name
         Me.Text = frmLauncherManager_FormName
         Me.Icon = GBM_Icon

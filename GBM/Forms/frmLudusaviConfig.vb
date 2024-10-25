@@ -4,6 +4,9 @@ Public Class frmLudusaviConfig
     Public Property ImportOptions As clsLudusaviOptions
 
     Private Sub SetForm()
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me)
+
         'Set Form Name
         Me.Text = frmLudusaviConfig_FormName
         Me.Icon = GBM_Icon

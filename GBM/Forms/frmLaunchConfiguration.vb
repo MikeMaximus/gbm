@@ -9,6 +9,9 @@ Public Class frmLaunchConfiguration
     Private Property IsLoading As Boolean = False
 
     Private Sub SetForm()
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me)
+
         'Set Form Name
         Me.Text = mgrCommon.FormatString(frmLaunchConfiguration_FormName, Game.CroppedName)
         Me.Icon = GBM_Icon

@@ -169,6 +169,9 @@ Public Class frmGameTags
     End Sub
 
     Private Sub SetForm()
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me)
+
         'Set Form Name
         If IDList.Count > 1 Then
             Me.Text = frmGameTags_FormNameMulti
