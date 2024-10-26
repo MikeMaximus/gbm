@@ -21,7 +21,6 @@ Windows:
 
 Known Issues:
 
-- Dark mode is not fully applied on the "Import Game Configurations" form.
 - Dark mode is not applied to the date controls on the "Session Viewer" form.
     
 Notes:
