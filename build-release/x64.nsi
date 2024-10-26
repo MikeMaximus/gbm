@@ -138,7 +138,7 @@ Section "Game Installation" GameInstall
 	${SetOutPath} "$INSTDIR"	
 	${File} "<SOURCEDIR>" "GBM.exe"
 	${File} "<SOURCEDIR>" "gbm.ico"
-  ${File} "<SOURCEDIR>" "DarkModeForms.dll"
+	${File} "<SOURCEDIR>" "DarkModeForms.dll"
 	${File} "<SOURCEDIR>" "Mono.Data.Sqlite.dll"
 	${File} "<SOURCEDIR>" "NHotkey.dll"
 	${File} "<SOURCEDIR>" "NHotkey.WindowsForms.dll"
