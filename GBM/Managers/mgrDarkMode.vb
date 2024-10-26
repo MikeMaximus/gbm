@@ -37,8 +37,11 @@ Public Class mgrDarkMode
         Dim sInputValue As New List(Of KeyValue)
         Dim sValue As String
 
-        sInputValue.Add(New KeyValue(String.Empty, sDefaultValue))
+        'The dark mode input window can handle multiple fields, but for the purposes of GBM we only support a single field.
+        sInputValue.Add(New KeyValue("Input", sDefaultValue, KeyValue.ValueTypes.String))
+
         oResult = Messenger.InputBox(sTitle, sPrompt, sInputValue)
+
         If oResult = MsgBoxResult.Ok Then
             sValue = sInputValue(0).Value
         Else
@@ -81,27 +84,33 @@ Public Class mgrDarkMode
     End Sub
     Public Shared Sub SetDarkMode(ByRef oForm As Form, Optional ByRef oCustomThemed As List(Of Control) = Nothing, Optional ByVal bColorizeIcons As Boolean = False, Optional ByVal bRoundedPanels As Boolean = False)
         Dim oDarkMode As DarkModeCS
-        If Not mgrCommon.IsUnix Then
-            If DarkModeCS.GetWindowsColorMode <= 0 Then
-                oDarkMode = New DarkModeCS(oForm, bColorizeIcons, bRoundedPanels)
 
-                'Apply any custom formatting to make the app look better in dark mode
-                ApplyCustomFixes(oForm, oDarkMode)
+        If UseDarkMode() Then
+            oDarkMode = New DarkModeCS(oForm, bColorizeIcons, bRoundedPanels)
 
-                'Apply dark theme to controls that are not on the form at runtime
-                If oCustomThemed IsNot Nothing Then
-                    For Each ctl In oCustomThemed
-                        oDarkMode.ThemeControl(ctl)
-                    Next
-                End If
+            'Apply any custom formatting to make the app look better in dark mode
+            ApplyCustomFixes(oForm, oDarkMode)
+
+            'Apply dark theme to controls that are not on the form at runtime
+            If oCustomThemed IsNot Nothing Then
+                For Each ctl In oCustomThemed
+                    oDarkMode.ThemeControl(ctl)
+                Next
             End If
         End If
+
     End Sub
 
     Public Shared Function UseDarkMode() As Boolean
+        'Initializing DarkModeCS in Mono will crash the app due to Win32 calls.
         If Not mgrCommon.IsUnix Then
-            If DarkModeCS.GetWindowsColorMode <= 0 Then Return True
+            'Check if OS is Windows 10 or higher
+            If Environment.OSVersion.Version.Major >= 10 Then
+                'Check if dark mode is enabled in Windows
+                If DarkModeCS.GetWindowsColorMode <= 0 Then Return True
+            End If
         End If
+
         Return False
     End Function
 End Class

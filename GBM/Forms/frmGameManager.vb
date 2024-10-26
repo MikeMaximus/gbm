@@ -722,10 +722,18 @@ Public Class frmGameManager
 
         If Not bRemoteData And Not bLocalData Then
             btnMarkAsRestored.Enabled = False
-            lblLocalBackupData.ForeColor = Color.Black
+            If mgrDarkMode.UseDarkMode Then
+                lblLocalBackupData.ForeColor = Color.White
+            Else
+                lblLocalBackupData.ForeColor = Color.Black
+            End If
         ElseIf Not bRemoteData And bLocalData Then
             btnMarkAsRestored.Enabled = False
-            lblLocalBackupData.ForeColor = Color.Black
+            If mgrDarkMode.UseDarkMode Then
+                lblLocalBackupData.ForeColor = Color.White
+            Else
+                lblLocalBackupData.ForeColor = Color.Black
+            End If
         ElseIf oComboItems(0).Value <> lblLocalBackupData.Text Then
             lblLocalBackupData.ForeColor = Color.Red
             btnMarkAsRestored.Enabled = True
