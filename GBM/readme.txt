@@ -15,6 +15,8 @@ Windows:
 - Installers now automatically set the optimal High DPI compatability mode for GBM on Windows 10 or later.
     - This prevents GBM from looking blurry with High DPI scaling.
     - This can be modified in the compatability settings for GBM.exe if another scaling mode is preferred.
+- Updated YamlDotNet to 16.1.3
+- Updated SQLite to 3.47.0.
 - Updated 7-Zip to 24.08.
 
 Known Issues:
