@@ -2,7 +2,7 @@ Game Backup Monitor v1.4.0 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-October 26, 2024
+October 28, 2024
 
 New in 1.4.0
 
@@ -26,6 +26,7 @@ General:
 Known Issues:
 
 - Dark mode is not applied to the date controls on the "Session Viewer" form.
+- Some disabled controls may appear with slightly overlayed text when using dark mode with High DPI scaling.
     
 Notes:
 
