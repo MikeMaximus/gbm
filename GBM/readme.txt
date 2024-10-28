@@ -26,7 +26,6 @@ General:
 Known Issues:
 
 - Dark mode is not applied to the date controls on the "Session Viewer" form.
-- Some disabled controls may appear with slightly overlayed text when using dark mode with High DPI scaling.
     
 Notes:
 
