@@ -2,7 +2,7 @@ Game Backup Monitor v1.4.0 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-October 28, 2024
+October 29, 2024
 
 New in 1.4.0
 
@@ -10,6 +10,7 @@ Windows:
 
 - Game Backup Monitor now has support for "Dark Mode" in Windows 10 & 11.
     - Dark Mode is automatically applied based on your operating system theme, it cannot be toggled manually.
+    - GBM needs to be restarted to fully apply or remove dark mode after changing themes.
 - Installers now detect and close GBM automatically if it's running.
 - Installers will no longer look blurry with High DPI scaling.
 - Installers now automatically set the optimal High DPI compatability mode for GBM on Windows 10 or later.
@@ -26,6 +27,7 @@ General:
 Known Issues:
 
 - Dark mode is not applied to the date controls on the "Session Viewer" form.
+- Some Windows dialogs may not have dark mode applied.
     
 Notes:
 
