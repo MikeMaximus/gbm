@@ -18,6 +18,9 @@ Public Class frmAddWizard
     Private bDisableAdminWarning As Boolean = False
 
     Private Sub SetForm()
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me)
+
         'Set Form Name
         Me.Text = frmAddWizard_FormName
         Me.Icon = GBM_Icon

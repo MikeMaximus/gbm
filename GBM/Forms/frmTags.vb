@@ -234,6 +234,9 @@ Public Class frmTags
     End Function
 
     Private Sub SetForm()
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me)
+
         'Set Form Name
         Me.Text = frmTags_FormName
         Me.Icon = GBM_Icon

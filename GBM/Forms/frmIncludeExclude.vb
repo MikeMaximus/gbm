@@ -211,7 +211,7 @@ Public Class frmIncludeExclude
     Private Sub OpenRawEdit()
         Dim sCurrentString As String = CreateNewBuilderString()
         Dim sNewString As String
-        sNewString = InputBox(frmIncludeExclude_RawEditInfo, mgrCommon.FormatString(frmIncludeExclude_RawEditTitle, FormName), sCurrentString)
+        sNewString = mgrCommon.ShowInputBox(frmIncludeExclude_RawEditInfo, mgrCommon.FormatString(frmIncludeExclude_RawEditTitle, FormName), sCurrentString)
         If sNewString <> String.Empty Then
             ParseBuilderString(sNewString)
         Else
@@ -224,6 +224,9 @@ Public Class frmIncludeExclude
     End Sub
 
     Private Sub SetForm()
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me)
+
         'Set Form Name
         Me.Text = mgrCommon.FormatString(frmIncludeExclude_FormName, FormName)
         Me.Icon = GBM_Icon

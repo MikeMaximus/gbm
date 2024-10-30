@@ -602,9 +602,9 @@ Partial Class frmGameManager
         'btnAdvanced
         '
         Me.btnAdvanced.Image = Global.GBM.My.Resources.Resources.frmGameManager_Advanced
-        Me.btnAdvanced.Location = New System.Drawing.Point(577, 329)
+        Me.btnAdvanced.Location = New System.Drawing.Point(572, 329)
         Me.btnAdvanced.Name = "btnAdvanced"
-        Me.btnAdvanced.Size = New System.Drawing.Size(65, 45)
+        Me.btnAdvanced.Size = New System.Drawing.Size(70, 45)
         Me.btnAdvanced.TabIndex = 11
         Me.btnAdvanced.Text = "&Advanced"
         Me.btnAdvanced.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText

@@ -332,7 +332,7 @@ Public Class frmGameManager
 
         sCurrentID = txtID.Text
 
-        sNewID = InputBox(frmGameManager_GameIDEditInfo, frmGameManager_GameIDEditTitle, sCurrentID).Trim
+        sNewID = mgrCommon.ShowInputBox(frmGameManager_GameIDEditInfo, frmGameManager_GameIDEditTitle, sCurrentID)
 
         If sNewID <> String.Empty And sCurrentID <> sNewID Then
             txtID.Text = sNewID
@@ -722,10 +722,18 @@ Public Class frmGameManager
 
         If Not bRemoteData And Not bLocalData Then
             btnMarkAsRestored.Enabled = False
-            lblLocalBackupData.ForeColor = Color.Black
+            If mgrDarkMode.UseDarkMode Then
+                lblLocalBackupData.ForeColor = Color.White
+            Else
+                lblLocalBackupData.ForeColor = Color.Black
+            End If
         ElseIf Not bRemoteData And bLocalData Then
             btnMarkAsRestored.Enabled = False
-            lblLocalBackupData.ForeColor = Color.Black
+            If mgrDarkMode.UseDarkMode Then
+                lblLocalBackupData.ForeColor = Color.White
+            Else
+                lblLocalBackupData.ForeColor = Color.Black
+            End If
         ElseIf oComboItems(0).Value <> lblLocalBackupData.Text Then
             lblLocalBackupData.ForeColor = Color.Red
             btnMarkAsRestored.Enabled = True
@@ -1798,6 +1806,21 @@ Public Class frmGameManager
     End Sub
 
     Private Sub SetForm()
+        Dim oCustomDarkModeControls As New List(Of Control)
+
+        'Controls that must be manually themed for dark mode
+        With oCustomDarkModeControls
+            .Add(cmsAdvanced)
+            .Add(cmsBackupData)
+            .Add(cmsImport)
+            .Add(cmsLinks)
+            .Add(cmsMonitorOptions)
+            .Add(cmsProcessOptions)
+        End With
+
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me, oCustomDarkModeControls)
+
         'Set Form Name
         Me.Text = frmGameManager_FormName
         Me.Icon = GBM_Icon

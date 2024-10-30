@@ -451,6 +451,9 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub SetForm()
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me)
+
         'Set Form Name
         Me.Text = frmAdvancedImport_FormName
         Me.Icon = GBM_Icon
@@ -695,7 +698,8 @@ Public Class frmAdvancedImport
     End Sub
 
     Private Sub lstGames_DrawColumnHeader(sender As Object, e As DrawListViewColumnHeaderEventArgs) Handles lstGames.DrawColumnHeader
-        e.DrawDefault = True
+        'Don't overwrite the dark mode draw
+        If Not mgrDarkMode.UseDarkMode Then e.DrawDefault = True
     End Sub
 
     Private Sub frmAdvancedImport_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown

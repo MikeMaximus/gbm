@@ -16,6 +16,9 @@ Public Class frmWineConfiguration
     End Sub
 
     Private Sub SetForm()
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me)
+
         'Set Form Name
         Me.Text = mgrCommon.FormatString(frmWineConfiguration_FormName, GameName)
         Me.Icon = GBM_Icon

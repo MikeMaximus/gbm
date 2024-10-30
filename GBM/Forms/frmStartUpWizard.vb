@@ -17,6 +17,9 @@ Public Class frmStartUpWizard
     Private eCurrentStep As eSteps = eSteps.Step1
 
     Private Sub SetForm()
+        'Init Dark Mode
+        mgrDarkMode.SetDarkMode(Me)
+
         'Set Form Name
         Me.Text = frmStartUpWizard_FormName
         Me.Icon = GBM_Icon
