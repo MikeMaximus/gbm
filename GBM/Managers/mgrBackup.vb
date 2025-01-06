@@ -256,7 +256,7 @@ Public Class mgrBackup
     End Sub
 
     Private Function BuildFileTimeStamp(ByVal dDate As Date) As String
-        Return " " & dDate.Month & "-" & dDate.Day & "-" & dDate.Year & "-" & dDate.Hour & "-" & dDate.Minute & "-" & dDate.Second
+        Return " " & dDate.ToString("yyyyMMdd") & "T" & dDate.ToString("HHmmss")
     End Function
 
     Private Function HandleSubFolder(ByVal oGame As clsGame, ByVal sPath As String) As Boolean
