@@ -447,6 +447,8 @@ Public Class mgrBackup
                         Else
                             If Not mgrManifest.DoManifestDuplicateCheck(oBackup, mgrSQLite.Database.Remote) Then
                                 mgrManifest.DoManifestAdd(oBackup, mgrSQLite.Database.Remote)
+                            Else
+                                mgrManifest.DoManifestUpdateByManifestID(oBackup, mgrSQLite.Database.Remote)
                             End If
                         End If
                         iFilesImported += 1
