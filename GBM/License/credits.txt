@@ -4,10 +4,14 @@ Contributors:
 
 Michael J. Seiferling (MikeMaximus) - Design, Programming and Windows Game Configuration Maintainer.
 Sebastian Riedel (basxto) - Linux Packaging, Installation and Game Configuration Maintainer.
+Juijote - Simplified Chinese Translation
+Darren John de Lima (Darthagnon) - Offline Manual.
 
 Special Thanks:
 
 7-Zip - Igor Pavlov
+Dark-Mode-Forms - BlueMystical
 Sixpack Status Icons - JankoAtWarpSpeed.com
 Primo Icon Set - webdesignerdepot.com
 Sound Effects - Pixabay.com, UNIVERSFIELD(Pixabay)
+Thanks to everyone that has taken the time to report issues, and post suggestions and comments.
