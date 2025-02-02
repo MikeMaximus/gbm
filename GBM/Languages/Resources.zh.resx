@@ -2022,7 +2022,7 @@
     <value>[PARAM]已存在于备份文件夹中。[BR][BR]此游戏将保存存储在相对位置，如果最近重新安装了游戏，你可能需要恢复当前备份。[BR][BR]是否覆盖此文件？</value>
   </data>
   <data name="mgrPath_SpecialPathError" xml:space="preserve">
-    <value>确定所需的系统路径时出错[BR][BR]参数的环境值为空。[BR][BR]应用程序现在将退出。</value>
+    <value>确定所需的系统路径时出错。[BR][BR] 无法设置 [PARAM]。 注册表中可能缺少它，或者它的当前值不存在。[BR][BR]应用程序现在将退出。</value>
   </data>
   <data name="frmMain_ErrorGameDetails" xml:space="preserve">
     <value>获取检测到的游戏的详细信息时出错。</value>

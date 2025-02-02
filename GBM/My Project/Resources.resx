@@ -2017,7 +2017,7 @@
     <value>[PARAM] already exists in the backup folder.[BR][BR]This game stores saves in a relative location, you may need to restore the current backup if the game was recently re-installed.[BR][BR]Do you want to overwrite this file?</value>
   </data>
   <data name="mgrPath_SpecialPathError" xml:space="preserve">
-    <value>An error occurred while determining a required system path. [BR][BR]The environment value for [PARAM] is empty.[BR][BR]The application will now exit.</value>
+    <value>An error occurred while determining a required system path. [BR][BR][PARAM] could not be set.  It may be missing from the registry or it's current value does not exist.[BR][BR]The application will now exit.</value>
   </data>
   <data name="frmMain_ErrorGameDetails" xml:space="preserve">
     <value>An error occurred while obtaining the details of the detected game.</value>
