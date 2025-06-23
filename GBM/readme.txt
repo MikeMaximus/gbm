@@ -1,21 +1,13 @@
-Game Backup Monitor v1.4.1 Readme
+Game Backup Monitor v1.4.2 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-January 17, 2025
+February 2, 2025
 
-New in 1.4.1
+New in 1.4.2
 
 General:
 
-- The date/time format used in backup filenames has been improved.
-    - The new format is based on ISO 8601. 
-        - Ex: Grim Dawn 20250106T074903.7z
-    - This change only affects newly created backup files.
-- Fixed an issue with importing backup files that have been renamed.
-
-Windows:
-
-- Updated 7-Zip to 24.09.
+- Changed the error message to be more descriptive when a required system path can't be set on start-up.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

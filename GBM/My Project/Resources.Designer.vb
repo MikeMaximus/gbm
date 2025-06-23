@@ -367,7 +367,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2023-11-06T18:47:46
+        '''  Looks up a localized string similar to 2025-02-02T17:00:24
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -9004,7 +9004,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to An error occurred while determining a required system path. [BR][BR]The environment value for [PARAM] is empty.[BR][BR]The application will now exit..
+        '''  Looks up a localized string similar to An error occurred while determining a required system path. [BR][BR][PARAM] could not be set.  It may be missing from the registry or it&apos;s current value does not exist.[BR][BR]The application will now exit..
         '''</summary>
         Friend ReadOnly Property mgrPath_SpecialPathError() As String
             Get
