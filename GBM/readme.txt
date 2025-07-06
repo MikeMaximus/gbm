@@ -2,9 +2,13 @@ Game Backup Monitor v1.4.2 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-February 2, 2025
+July 6, 2025
 
 New in 1.4.2
+
+Windows:
+
+- Updated 7-Zip to 25.00.
 
 General:
 
