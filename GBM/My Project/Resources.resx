@@ -3223,4 +3223,7 @@
   <data name="frmFilter_FieldTimedInterval" xml:space="preserve">
     <value>Time Interval (Minutes) *</value>
   </data>
+  <data name="frmSettings_chkEnableOSTheme" xml:space="preserve">
+    <value>Enable OS theme (Requires app restart)</value>
+  </data>
 </root>

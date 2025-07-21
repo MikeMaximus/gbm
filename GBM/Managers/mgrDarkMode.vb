@@ -102,8 +102,9 @@ Public Class mgrDarkMode
     End Sub
 
     Public Shared Function UseDarkMode() As Boolean
-        'Initializing DarkModeCS in Mono will crash the app due to Win32 calls.
-        If Not mgrCommon.IsUnix Then
+        'Note: Initializing DarkModeCS in Mono will crash due to Win32 calls.
+        'Only use the OS theme if we are running Windows and if the option is enabled in settings.
+        If Not mgrCommon.IsUnix And mgrSettings.EnableOSTheme Then
             'Check if OS is Windows 10 or higher
             If Environment.OSVersion.Version.Major >= 10 Then
                 'Check if dark mode is enabled in Windows

@@ -98,6 +98,7 @@ Public Class frmSettings
         mgrSettings.TimeTracking = chkTimeTracking.Checked
         mgrSettings.SessionTracking = chkSessionTracking.Checked
         mgrSettings.EnableLauncher = chkEnableLauncher.Checked
+        mgrSettings.EnableOSTheme = chkEnableOSTheme.Checked
         mgrSettings.ShowResolvedPaths = chkShowResolvedPaths.Checked
         mgrSettings.SuppressBackup = chkSuppressBackup.Checked
         mgrSettings.SuppressBackupThreshold = nudSuppressBackupThreshold.Value
@@ -253,6 +254,7 @@ Public Class frmSettings
         chkAutoRestore.Checked = mgrSettings.AutoRestore
         chkAutoMark.Checked = mgrSettings.AutoMark
         chkEnableLiveBackup.Checked = mgrSettings.EnableLiveBackup
+        chkEnableOSTheme.Checked = mgrSettings.EnableOSTheme
         txtBackupFolder.Text = mgrSettings.BackupFolder
         txtTempFolder.Text = mgrSettings.TemporaryFolder
         chkTimeTracking.Checked = mgrSettings.TimeTracking
@@ -493,6 +495,7 @@ Public Class frmSettings
         lblRestoreBind.Text = frmSettings_lblRestoreBind
         grpBackupExperimental.Text = frmSettings_grpBackupExperimental
         chkEnableLiveBackup.Text = frmSettings_chkEnableLiveBackup
+        chkEnableOSTheme.Text = frmSettings_chkEnableOSTheme
 
         If mgrCommon.IsUnix Then
             'Only enable this option on Linux if GBM was installed with an official method
@@ -501,6 +504,7 @@ Public Class frmSettings
             End If
             chkDeleteToRecycleBin.Enabled = False
             pnlGlobalHotKeys.Enabled = False
+            chkEnableOSTheme.Enabled = False
         End If
 
         'Handle Panels

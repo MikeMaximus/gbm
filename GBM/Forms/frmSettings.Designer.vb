@@ -61,6 +61,7 @@ Partial Class frmSettings
         Me.lblMinutes = New System.Windows.Forms.Label()
         Me.nudSuppressBackupThreshold = New System.Windows.Forms.NumericUpDown()
         Me.grpOptionalFeeatures = New System.Windows.Forms.GroupBox()
+        Me.chkEnableOSTheme = New System.Windows.Forms.CheckBox()
         Me.chkStorePathAutoConfig = New System.Windows.Forms.CheckBox()
         Me.chkEnableLauncher = New System.Windows.Forms.CheckBox()
         Me.chkSessionTracking = New System.Windows.Forms.CheckBox()
@@ -453,7 +454,7 @@ Partial Class frmSettings
         Me.grpGameMonitoringOptions.Controls.Add(Me.lblMinutes)
         Me.grpGameMonitoringOptions.Controls.Add(Me.chkShowDetectionTips)
         Me.grpGameMonitoringOptions.Controls.Add(Me.nudSuppressBackupThreshold)
-        Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 131)
+        Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 152)
         Me.grpGameMonitoringOptions.Name = "grpGameMonitoringOptions"
         Me.grpGameMonitoringOptions.Size = New System.Drawing.Size(354, 118)
         Me.grpGameMonitoringOptions.TabIndex = 1
@@ -517,16 +518,27 @@ Partial Class frmSettings
         '
         'grpOptionalFeeatures
         '
+        Me.grpOptionalFeeatures.Controls.Add(Me.chkEnableOSTheme)
         Me.grpOptionalFeeatures.Controls.Add(Me.chkStorePathAutoConfig)
         Me.grpOptionalFeeatures.Controls.Add(Me.chkEnableLauncher)
         Me.grpOptionalFeeatures.Controls.Add(Me.chkSessionTracking)
         Me.grpOptionalFeeatures.Controls.Add(Me.chkTimeTracking)
         Me.grpOptionalFeeatures.Location = New System.Drawing.Point(6, 12)
         Me.grpOptionalFeeatures.Name = "grpOptionalFeeatures"
-        Me.grpOptionalFeeatures.Size = New System.Drawing.Size(354, 111)
+        Me.grpOptionalFeeatures.Size = New System.Drawing.Size(354, 134)
         Me.grpOptionalFeeatures.TabIndex = 0
         Me.grpOptionalFeeatures.TabStop = False
         Me.grpOptionalFeeatures.Text = "Optional Features"
+        '
+        'chkEnableOSTheme
+        '
+        Me.chkEnableOSTheme.AutoSize = True
+        Me.chkEnableOSTheme.Location = New System.Drawing.Point(6, 111)
+        Me.chkEnableOSTheme.Name = "chkEnableOSTheme"
+        Me.chkEnableOSTheme.Size = New System.Drawing.Size(213, 17)
+        Me.chkEnableOSTheme.TabIndex = 4
+        Me.chkEnableOSTheme.Text = "Enable OS theme (Requires app restart)"
+        Me.chkEnableOSTheme.UseVisualStyleBackColor = True
         '
         'chkStorePathAutoConfig
         '
@@ -968,11 +980,11 @@ Partial Class frmSettings
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(554, 386)
+        Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlBackup)
         Me.Controls.Add(Me.pnlGlobalHotKeys)
         Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.pnlInterface)
-        Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlFilesAndFolders)
         Me.Controls.Add(Me.pnlStartup)
         Me.Controls.Add(Me.btnResetMessages)
@@ -1110,4 +1122,5 @@ Partial Class frmSettings
     Friend WithEvents lblRestoreBind As Label
     Friend WithEvents grpBackupExperimental As GroupBox
     Friend WithEvents chkEnableLiveBackup As CheckBox
+    Friend WithEvents chkEnableOSTheme As CheckBox
 End Class
