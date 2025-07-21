@@ -179,7 +179,7 @@ Public Class mgrSettings
         BackupHotKey = 196724
         RestoreHotKey = 196728
         EnableLiveBackup = False
-        EnableOSTheme = False
+        EnableOSTheme = True
     End Sub
 
     Private Shared Sub SaveFromClass()
