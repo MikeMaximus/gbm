@@ -367,7 +367,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2025-07-21T13:05:27
+        '''  Looks up a localized string similar to 2025-07-21T14:31:12
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -6633,7 +6633,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enable OS theme (Requires app restart).
+        '''  Looks up a localized string similar to Enable OS color mode (Requires app restart).
         '''</summary>
         Friend ReadOnly Property frmSettings_chkEnableOSTheme() As String
             Get

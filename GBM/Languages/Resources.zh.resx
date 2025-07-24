@@ -3078,6 +3078,6 @@
     <value>时间间隔（分钟）*</value>
   </data>
   <data name="frmSettings_chkEnableOSTheme" xml:space="preserve">
-    <value>启用系统主题（需要重新启动应用）</value>
+    <value>启用系统颜色模式（需要重新启动应用程序）</value>
   </data>
 </root>

@@ -535,9 +535,9 @@ Partial Class frmSettings
         Me.chkEnableOSTheme.AutoSize = True
         Me.chkEnableOSTheme.Location = New System.Drawing.Point(6, 111)
         Me.chkEnableOSTheme.Name = "chkEnableOSTheme"
-        Me.chkEnableOSTheme.Size = New System.Drawing.Size(213, 17)
+        Me.chkEnableOSTheme.Size = New System.Drawing.Size(236, 17)
         Me.chkEnableOSTheme.TabIndex = 4
-        Me.chkEnableOSTheme.Text = "Enable OS theme (Requires app restart)"
+        Me.chkEnableOSTheme.Text = "Enable OS color mode (Requires app restart)"
         Me.chkEnableOSTheme.UseVisualStyleBackColor = True
         '
         'chkStorePathAutoConfig
