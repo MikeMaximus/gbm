@@ -1708,7 +1708,7 @@ Public Class frmMain
         Me.Visible = bVisible
         'We need to re-initialize Dark Mode here each time to work-around issues with applying a theme while the form is invisible.
         If bVisible Then
-            mgrDarkMode.SetDarkMode(Me)
+            SetColorMode()
         End If
     End Sub
 
@@ -1784,6 +1784,7 @@ Public Class frmMain
             bShutdown = True
             Me.Close()
         Else
+            SetColorMode()
             VerifyCustomPathVariables()
 
             'We only do this in .NET, for Mono it is fired from frmMain_Activated.
@@ -2354,7 +2355,7 @@ Public Class frmMain
         End Select
     End Sub
 
-    Private Sub SetForm()
+    Private Sub SetColorMode()
         Dim oCustomDarkModeControls As New List(Of Control)
 
         'Controls that must be manually themed for dark mode
@@ -2364,7 +2365,9 @@ Public Class frmMain
 
         'Init Dark Mode
         mgrDarkMode.SetDarkMode(Me, oCustomDarkModeControls)
+    End Sub
 
+    Private Sub SetForm()
         'Set Minimum Size
         Me.MinimumSize = New Size(Me.Size.Width - slcMain.SplitterDistance, Me.Size.Height - txtLog.Size.Height)
 

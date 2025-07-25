@@ -2,7 +2,7 @@ Game Backup Monitor v1.4.2 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-July 24, 2025
+July 25, 2025
 
 New in 1.4.2
 
@@ -14,6 +14,7 @@ Windows:
 	- This setting is enabled by default as this behavior matches prior versions.
 	- Changing this setting requires restarting the application.
 	- This setting is not available in Linux.
+- Fixed the system tray menu sometimes not being set to the correct color mode.
 - Updated 7-Zip to 25.00.
 - Updated SQLite to 3.50.2
 
