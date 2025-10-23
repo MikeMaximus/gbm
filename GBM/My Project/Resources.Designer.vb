@@ -142,6 +142,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backup Data.
+        '''</summary>
+        Friend ReadOnly Property App_FoldersBackup() As String
+            Get
+                Return ResourceManager.GetString("App_FoldersBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to User Data.
+        '''</summary>
+        Friend ReadOnly Property App_FoldersUser() As String
+            Get
+                Return ResourceManager.GetString("App_FoldersUser", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Error: [PARAM].
         '''</summary>
         Friend ReadOnly Property App_GenericError() As String
@@ -367,7 +385,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2025-07-21T14:31:12
+        '''  Looks up a localized string similar to 2025-10-23T13:43:40
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String

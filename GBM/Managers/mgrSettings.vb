@@ -155,8 +155,12 @@ Public Class mgrSettings
         CompressionLevel = 5
         Custom7zArguments = String.Empty
         Custom7zLocation = String.Empty
-        sBackupFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & Path.DirectorySeparatorChar & App_NameLong
-        sTemporaryFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
+        If mgrPath.IsPortable Then
+            sBackupFolder = Application.StartupPath & Path.DirectorySeparatorChar & App_FoldersBackup
+        Else
+            sBackupFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & Path.DirectorySeparatorChar & App_NameLong
+        End If
+        sTemporaryFolder = mgrPath.SettingsRoot
         SyncFields = clsGame.eOptionalSyncFields.None
         SuppressMessages = eSuppressMessages.None
         AutoSaveLog = False

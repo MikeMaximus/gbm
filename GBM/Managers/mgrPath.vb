@@ -54,6 +54,16 @@ Public Class mgrPath
         End Get
     End Property
 
+    Public Shared ReadOnly Property IsPortable As Boolean
+        Get
+            If File.Exists(Application.StartupPath & Path.DirectorySeparatorChar & "portable.ini") Then
+                Return True
+            Else
+                Return False
+            End If
+        End Get
+    End Property
+
     Public Shared Property RemoteDatabaseLocation As String
         Get
             Return sRemoteDatabaseLocation
@@ -63,8 +73,13 @@ Public Class mgrPath
         End Set
     End Property
 
+    'Important Note: Any changes in this sub-routine may need to be duplicated in the frmMain VerifyGameDataPath() sub-routine.  And yes, I know that's awful.
     Shared Sub New()
-        SettingsRoot = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
+        If IsPortable Then
+            SettingsRoot = Application.StartupPath & Path.DirectorySeparatorChar & App_FoldersUser
+        Else
+            SettingsRoot = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
+        End If
         DatabaseLocation = SettingsRoot & Path.DirectorySeparatorChar & "gbm.s3db"
         LogFileLocation = SettingsRoot & Path.DirectorySeparatorChar & "gbm_log_" & Date.Now.ToString("dd-MM-yyyy-HH-mm-ss") & ".txt"
         SetEnv()

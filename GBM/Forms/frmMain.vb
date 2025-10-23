@@ -2735,10 +2735,18 @@ Public Class frmMain
         End If
     End Function
 
+    'Important Note: This function can not use any part of the mgrPath class.  The mgrPath class will trigger a database creation and this sub-routine needs to execute first.    
     Private Sub VerifyGameDataPath()
-        'Important: This function cannot access mgrPath for settings, as that will trigger a database creation and destroy the reason for this function
-        Dim sSettingsRoot As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
-        Dim sDBLocation As String = sSettingsRoot & Path.DirectorySeparatorChar & "gbm.s3db"
+        Dim sSettingsRoot As String
+        Dim sDBLocation As String
+
+        If File.Exists(Application.StartupPath & Path.DirectorySeparatorChar & "portable.ini") Then
+            sSettingsRoot = Application.StartupPath & Path.DirectorySeparatorChar & App_FoldersUser
+        Else
+            sSettingsRoot = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
+        End If
+
+        sDBLocation = sSettingsRoot & Path.DirectorySeparatorChar & "gbm.s3db"
 
         If Not Directory.Exists(sSettingsRoot) Then
             Try

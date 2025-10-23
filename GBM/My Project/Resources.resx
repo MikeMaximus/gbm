@@ -3226,4 +3226,10 @@
   <data name="frmSettings_chkEnableOSTheme" xml:space="preserve">
     <value>Enable OS color mode (Requires app restart)</value>
   </data>
+  <data name="App_FoldersBackup" xml:space="preserve">
+    <value>Backup Data</value>
+  </data>
+  <data name="App_FoldersUser" xml:space="preserve">
+    <value>User Data</value>
+  </data>
 </root>
