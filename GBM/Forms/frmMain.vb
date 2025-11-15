@@ -1620,6 +1620,9 @@ Public Class frmMain
             Exit Sub
         End If
 
+        'Set any required environment variables
+        mgrPath.SetEnv()
+
         'Check Special Paths
         If Not mgrPath.CheckForEmptySpecialPaths() Then
             bInitFail = True
@@ -1629,6 +1632,9 @@ Public Class frmMain
         'Local Database Check
         VerifyDBVersion(mgrSQLite.Database.Local)
         LocalDatabaseCheck()
+
+        'Load Custom Variables
+        mgrPath.LoadCustomVariables()
 
         'Load Settings
         mgrSettings.LoadSettings()
@@ -1771,9 +1777,13 @@ Public Class frmMain
         SetForm()
         Try
             mgrCommon.SetTLSVersion()
-            VerifyGameDataPath()
-            If bFirstRun Then OpenStartupWizard()
-            LoadAndVerify()
+            If VerifyGameDataPath() Then
+                If bFirstRun Then OpenStartupWizard()
+                LoadAndVerify()
+            Else
+                bInitFail = True
+            End If
+
         Catch ex As Exception
             If mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message & vbCrLf & ex.StackTrace, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                 bInitFail = True
@@ -1782,7 +1792,7 @@ Public Class frmMain
 
         If bInitFail Then
             bShutdown = True
-            Me.Close()
+            Application.Exit()
         Else
             SetColorMode()
             VerifyCustomPathVariables()
@@ -2201,7 +2211,7 @@ Public Class frmMain
             'Auto save and/or clear the log if we are approaching the limit
             If txtLog.TextLength > 262144 Then
                 If mgrSettings.AutoSaveLog Then
-                    Dim sLogFile As String = mgrPath.LogFileLocation
+                    Dim sLogFile As String = mgrPath.SettingsRoot & Path.DirectorySeparatorChar & "gbm_log_" & Date.Now.ToString("yyyyMMdd") & "T" & Date.Now.ToString("HHmmss") & ".txt"
                     mgrCommon.SaveText(txtLog.Text, sLogFile)
                     txtLog.Clear()
                     txtLog.AppendText("[" & Date.Now & "] " & mgrCommon.FormatString(frmMain_LogAutoSave, sLogFile))
@@ -2735,31 +2745,39 @@ Public Class frmMain
         End If
     End Function
 
-    'Important Note: This function can not use any part of the mgrPath class.  The mgrPath class will trigger a database creation and this sub-routine needs to execute first.    
-    Private Sub VerifyGameDataPath()
+    Private Function VerifyGameDataPath() As Boolean
         Dim sSettingsRoot As String
         Dim sDBLocation As String
 
+        'Check if we should be running in portable mode
         If File.Exists(Application.StartupPath & Path.DirectorySeparatorChar & "portable.ini") Then
             sSettingsRoot = Application.StartupPath & Path.DirectorySeparatorChar & App_FoldersUser
         Else
             sSettingsRoot = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
         End If
 
+        'Set the local db path and name
         sDBLocation = sSettingsRoot & Path.DirectorySeparatorChar & "gbm.s3db"
 
+        'Attempt to create local db path
         If Not Directory.Exists(sSettingsRoot) Then
             Try
                 Directory.CreateDirectory(sSettingsRoot)
             Catch ex As Exception
                 mgrCommon.ShowMessage(frmMain_ErrorSettingsFolder, ex.Message, MsgBoxStyle.Critical)
-                bShutdown = True
-                Me.Close()
+                Return False
             End Try
         End If
 
+        'If the database doesn't exist yet go into first run mode
         If Not File.Exists(sDBLocation) Then bFirstRun = True
-    End Sub
+
+        'Set the globals and return
+        mgrPath.SettingsRoot = sSettingsRoot
+        mgrPath.DatabaseLocation = sDBLocation
+
+        Return True
+    End Function
 
     Private Sub VerifyDBVersion(ByVal iDB As mgrSQLite.Database)
         Dim oDatabase As New mgrSQLite(iDB)

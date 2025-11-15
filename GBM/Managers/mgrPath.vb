@@ -10,9 +10,9 @@ Public Class mgrPath
 
     Private Shared Property CustomVariables As Hashtable
 
-    Public Shared ReadOnly Property SettingsRoot As String
-    Public Shared ReadOnly Property DatabaseLocation As String
-    Public Shared ReadOnly Property LogFileLocation As String
+    Public Shared Property SettingsRoot As String
+    Public Shared Property DatabaseLocation As String
+
     Public Shared ReadOnly Property ReleaseType As Integer
         Get
             Select Case oReleaseType
@@ -72,20 +72,6 @@ Public Class mgrPath
             sRemoteDatabaseLocation = value & Path.DirectorySeparatorChar & "gbm.s3db"
         End Set
     End Property
-
-    'Important Note: Any changes in this sub-routine may need to be duplicated in the frmMain VerifyGameDataPath() sub-routine.  And yes, I know that's awful.
-    Shared Sub New()
-        If IsPortable Then
-            SettingsRoot = Application.StartupPath & Path.DirectorySeparatorChar & App_FoldersUser
-        Else
-            SettingsRoot = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
-        End If
-        DatabaseLocation = SettingsRoot & Path.DirectorySeparatorChar & "gbm.s3db"
-        LogFileLocation = SettingsRoot & Path.DirectorySeparatorChar & "gbm_log_" & Date.Now.ToString("dd-MM-yyyy-HH-mm-ss") & ".txt"
-        SetEnv()
-        LoadCustomVariables()
-    End Sub
-
 
     Public Shared Function ValidatePath(ByVal sCheckString As String) As String
         Dim cInvalidCharacters As Char() = {Chr(0), Chr(1), Chr(2), Chr(3), Chr(4), Chr(5), Chr(6), Chr(7), Chr(8), Chr(9), Chr(10), Chr(11), Chr(12), Chr(13), Chr(14), Chr(15),
@@ -332,7 +318,7 @@ Public Class mgrPath
         Return bNoError
     End Function
 
-    Private Shared Sub SetEnv()
+    Public Shared Sub SetEnv()
         If Not mgrCommon.IsUnix Then
             Environment.SetEnvironmentVariable("USERDOCUMENTS", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
             Environment.SetEnvironmentVariable("COMMONDOCUMENTS", Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments))
