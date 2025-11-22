@@ -1,13 +1,13 @@
 ﻿#Script Name: Game Backup Monitor - Release Package Builder
 #Author: Michael J. Seiferling
-#Revised: July 8, 2023
+#Revised: November 22, 2025
 #Warning: This script only prepares Windows packages for release, it does not build GBM.
 
 $7z_bin = "C:\Program Files\7-Zip\7z.exe"
 $nsis_bin = "C:\Program Files (x86)\NSIS\makensis.exe"
 
-$release_version = "1.3.6"
-$base_project = "C:\Users\Mike\Documents\Visual Studio 2019\Projects\gbm"
+$release_version = "1.4.3"
+$base_project = "C:\Users\indes\source\repos\gbm"
 $x86_build_folder = $base_project + "\GBM\bin\x86\Release"
 $x64_build_folder = $base_project + "\GBM\bin\x64\Release"
 $base_release_folder = "$env:USERPROFILE\Desktop\$release_version"
@@ -24,22 +24,22 @@ $x86_installer_release_folder =  $base_release_folder + "\x86_installer"
 $x64_installer_release_folder = $base_release_folder + "\x64_installer"
 
 $delete_files = "GBM.exe.config", "GBM.xml", "GBM.pdb", "NHotkey.pdb", "NHotkey.WindowsForms.pdb", "YamlDotNet.xml"
-$linux_files = "gbm.desktop", "gbm.sh", "makefile"
+$extra_files = "Toggle Portable Mode.bat", "Toggle Portable Mode.sh", "gbm.desktop", "gbm.sh", "makefile"
 
 #Copy and Prepare Releases (x86)
 
 Remove-Item -Recurse -Force $x86_7z_release_folder
-md -Force $x86_7z_release_folder
+mkdir -Force $x86_7z_release_folder
 Get-ChildItem -Path $x86_build_folder | Copy-Item -Destination $x86_7z_release_folder -Recurse -Container -Force
 Set-Location $x86_7z_release_folder
 Remove-Item $delete_files
 Remove-Item -Recurse -Force $x86_installer_release_folder
-md -Force $x86_installer_release_folder
+mkdir -Force $x86_installer_release_folder
 Get-ChildItem -Path $x86_7z_release_folder | Copy-Item -Destination $x86_installer_release_folder -Recurse -Container -Force
+Get-ChildItem -Path $base_project\* -Include $extra_files | Copy-Item -Destination $x86_7z_release_folder -Recurse -Container -Force
 
 #Prepare Linux Content (x86)
 
-Get-ChildItem -Path $base_project\* -Include $linux_files | Copy-Item -Destination $x86_7z_release_folder -Recurse -Container -Force
 Copy-Item $base_project\deb-package -Destination $x86_7z_release_folder -Recurse -Container -Force
 Set-Location $x86_7z_release_folder\deb-package\gbm\DEBIAN
 (Get-Content -path control -Raw) -replace '<MAINTAINER>','Michael J. Seiferling <mseiferling@gmail.com>' | Set-Content control -NoNewline
@@ -48,17 +48,17 @@ Set-Location $x86_7z_release_folder\deb-package\gbm\DEBIAN
 #Copy and Prepare Releases (x64)
 
 Remove-Item -Recurse -Force $x64_7z_release_folder
-md -Force $x64_7z_release_folder
+mkdir -Force $x64_7z_release_folder
 Get-ChildItem -Path $x64_build_folder | Copy-Item -Destination $x64_7z_release_folder -Recurse -Container -Force
 Set-Location $x64_7z_release_folder
 Remove-Item $delete_files
 Remove-Item -Recurse -Force $x64_installer_release_folder
-md -Force $x64_installer_release_folder
+mkdir -Force $x64_installer_release_folder
 Get-ChildItem -Path $x64_7z_release_folder | Copy-Item -Destination $x64_installer_release_folder -Recurse -Container -Force
+Get-ChildItem -Path $base_project\* -Include $extra_files | Copy-Item -Destination $x64_7z_release_folder -Recurse -Container -Force
 
 #Prepare Linux Content (x64)
 
-Get-ChildItem -Path $base_project\* -Include $linux_files | Copy-Item -Destination $x64_7z_release_folder -Recurse -Container -Force
 Copy-Item $base_project\deb-package -Destination $x64_7z_release_folder -Recurse -Container -Force
 Set-Location $x64_7z_release_folder\deb-package\gbm\DEBIAN
 (Get-Content -path control -Raw) -replace '<MAINTAINER>','Michael J. Seiferling <mseiferling@gmail.com>' | Set-Content control -NoNewline
