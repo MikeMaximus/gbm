@@ -177,7 +177,7 @@ Partial Class frmSettings
         '
         Me.grp7zGeneral.Controls.Add(Me.cboCompression)
         Me.grp7zGeneral.Controls.Add(Me.lblCompression)
-        Me.grp7zGeneral.Location = New System.Drawing.Point(6, 12)
+        Me.grp7zGeneral.Location = New System.Drawing.Point(6, 3)
         Me.grp7zGeneral.Name = "grp7zGeneral"
         Me.grp7zGeneral.Size = New System.Drawing.Size(383, 50)
         Me.grp7zGeneral.TabIndex = 0
@@ -277,15 +277,15 @@ Partial Class frmSettings
         Me.pnlBackup.Controls.Add(Me.grpBackupExperimental)
         Me.pnlBackup.Controls.Add(Me.grpBackupConfirmations)
         Me.pnlBackup.Controls.Add(Me.grpBackupHandling)
-        Me.pnlBackup.Location = New System.Drawing.Point(180, 0)
+        Me.pnlBackup.Location = New System.Drawing.Point(180, 12)
         Me.pnlBackup.Name = "pnlBackup"
-        Me.pnlBackup.Size = New System.Drawing.Size(392, 368)
+        Me.pnlBackup.Size = New System.Drawing.Size(392, 356)
         Me.pnlBackup.TabIndex = 1
         '
         'grpBackupExperimental
         '
         Me.grpBackupExperimental.Controls.Add(Me.chkEnableLiveBackup)
-        Me.grpBackupExperimental.Location = New System.Drawing.Point(6, 223)
+        Me.grpBackupExperimental.Location = New System.Drawing.Point(6, 214)
         Me.grpBackupExperimental.Name = "grpBackupExperimental"
         Me.grpBackupExperimental.Size = New System.Drawing.Size(383, 44)
         Me.grpBackupExperimental.TabIndex = 2
@@ -308,7 +308,7 @@ Partial Class frmSettings
         Me.grpBackupConfirmations.Controls.Add(Me.chkDisableDiskSpaceCheck)
         Me.grpBackupConfirmations.Controls.Add(Me.chkBackupConfirm)
         Me.grpBackupConfirmations.Controls.Add(Me.chkOverwriteWarning)
-        Me.grpBackupConfirmations.Location = New System.Drawing.Point(6, 104)
+        Me.grpBackupConfirmations.Location = New System.Drawing.Point(6, 95)
         Me.grpBackupConfirmations.Name = "grpBackupConfirmations"
         Me.grpBackupConfirmations.Size = New System.Drawing.Size(383, 113)
         Me.grpBackupConfirmations.TabIndex = 1
@@ -360,7 +360,7 @@ Partial Class frmSettings
         Me.grpBackupHandling.Controls.Add(Me.chkAutoRestore)
         Me.grpBackupHandling.Controls.Add(Me.chkRestoreNotify)
         Me.grpBackupHandling.Controls.Add(Me.chkAutoMark)
-        Me.grpBackupHandling.Location = New System.Drawing.Point(6, 12)
+        Me.grpBackupHandling.Location = New System.Drawing.Point(6, 3)
         Me.grpBackupHandling.Margin = New System.Windows.Forms.Padding(2)
         Me.grpBackupHandling.Name = "grpBackupHandling"
         Me.grpBackupHandling.Padding = New System.Windows.Forms.Padding(2)
@@ -406,9 +406,9 @@ Partial Class frmSettings
         Me.pnl7z.Controls.Add(Me.grp7zAdvanced)
         Me.pnl7z.Controls.Add(Me.grp7zInformation)
         Me.pnl7z.Controls.Add(Me.grp7zGeneral)
-        Me.pnl7z.Location = New System.Drawing.Point(180, 0)
+        Me.pnl7z.Location = New System.Drawing.Point(180, 12)
         Me.pnl7z.Name = "pnl7z"
-        Me.pnl7z.Size = New System.Drawing.Size(392, 368)
+        Me.pnl7z.Size = New System.Drawing.Size(392, 356)
         Me.pnl7z.TabIndex = 1
         '
         'grp7zAdvanced
@@ -418,7 +418,7 @@ Partial Class frmSettings
         Me.grp7zAdvanced.Controls.Add(Me.txt7zLocation)
         Me.grp7zAdvanced.Controls.Add(Me.txt7zArguments)
         Me.grp7zAdvanced.Controls.Add(Me.lblLocation)
-        Me.grp7zAdvanced.Location = New System.Drawing.Point(6, 68)
+        Me.grp7zAdvanced.Location = New System.Drawing.Point(6, 59)
         Me.grp7zAdvanced.Name = "grp7zAdvanced"
         Me.grp7zAdvanced.Size = New System.Drawing.Size(383, 73)
         Me.grp7zAdvanced.TabIndex = 1
@@ -429,7 +429,7 @@ Partial Class frmSettings
         '
         Me.grp7zInformation.Controls.Add(Me.lbl7zProduct)
         Me.grp7zInformation.Controls.Add(Me.lbl7zCopyright)
-        Me.grp7zInformation.Location = New System.Drawing.Point(6, 146)
+        Me.grp7zInformation.Location = New System.Drawing.Point(6, 137)
         Me.grp7zInformation.Name = "grp7zInformation"
         Me.grp7zInformation.Size = New System.Drawing.Size(383, 63)
         Me.grp7zInformation.TabIndex = 2
@@ -440,9 +440,9 @@ Partial Class frmSettings
         '
         Me.pnlGeneral.Controls.Add(Me.grpGameMonitoringOptions)
         Me.pnlGeneral.Controls.Add(Me.grpOptionalFeeatures)
-        Me.pnlGeneral.Location = New System.Drawing.Point(180, 0)
+        Me.pnlGeneral.Location = New System.Drawing.Point(180, 12)
         Me.pnlGeneral.Name = "pnlGeneral"
-        Me.pnlGeneral.Size = New System.Drawing.Size(392, 368)
+        Me.pnlGeneral.Size = New System.Drawing.Size(392, 356)
         Me.pnlGeneral.TabIndex = 1
         '
         'grpGameMonitoringOptions
@@ -454,7 +454,7 @@ Partial Class frmSettings
         Me.grpGameMonitoringOptions.Controls.Add(Me.lblMinutes)
         Me.grpGameMonitoringOptions.Controls.Add(Me.chkShowDetectionTips)
         Me.grpGameMonitoringOptions.Controls.Add(Me.nudSuppressBackupThreshold)
-        Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 152)
+        Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 143)
         Me.grpGameMonitoringOptions.Name = "grpGameMonitoringOptions"
         Me.grpGameMonitoringOptions.Size = New System.Drawing.Size(383, 144)
         Me.grpGameMonitoringOptions.TabIndex = 1
@@ -523,7 +523,7 @@ Partial Class frmSettings
         Me.grpOptionalFeeatures.Controls.Add(Me.chkEnableLauncher)
         Me.grpOptionalFeeatures.Controls.Add(Me.chkSessionTracking)
         Me.grpOptionalFeeatures.Controls.Add(Me.chkTimeTracking)
-        Me.grpOptionalFeeatures.Location = New System.Drawing.Point(6, 12)
+        Me.grpOptionalFeeatures.Location = New System.Drawing.Point(6, 3)
         Me.grpOptionalFeeatures.Name = "grpOptionalFeeatures"
         Me.grpOptionalFeeatures.Size = New System.Drawing.Size(383, 134)
         Me.grpOptionalFeeatures.TabIndex = 0
@@ -575,16 +575,16 @@ Partial Class frmSettings
         Me.pnlInterface.Controls.Add(Me.grpLogOptions)
         Me.pnlInterface.Controls.Add(Me.grpGameManagerOptions)
         Me.pnlInterface.Controls.Add(Me.grpMainWindowOptions)
-        Me.pnlInterface.Location = New System.Drawing.Point(180, 0)
+        Me.pnlInterface.Location = New System.Drawing.Point(180, 12)
         Me.pnlInterface.Name = "pnlInterface"
-        Me.pnlInterface.Size = New System.Drawing.Size(392, 368)
+        Me.pnlInterface.Size = New System.Drawing.Size(392, 356)
         Me.pnlInterface.TabIndex = 1
         '
         'grpLogOptions
         '
         Me.grpLogOptions.Controls.Add(Me.chkDisableSyncMessages)
         Me.grpLogOptions.Controls.Add(Me.chkAutoSaveLog)
-        Me.grpLogOptions.Location = New System.Drawing.Point(6, 231)
+        Me.grpLogOptions.Location = New System.Drawing.Point(6, 222)
         Me.grpLogOptions.Name = "grpLogOptions"
         Me.grpLogOptions.Size = New System.Drawing.Size(383, 65)
         Me.grpLogOptions.TabIndex = 3
@@ -615,7 +615,7 @@ Partial Class frmSettings
         '
         Me.grpGameManagerOptions.Controls.Add(Me.btnOptionalFields)
         Me.grpGameManagerOptions.Controls.Add(Me.chkShowResolvedPaths)
-        Me.grpGameManagerOptions.Location = New System.Drawing.Point(6, 152)
+        Me.grpGameManagerOptions.Location = New System.Drawing.Point(6, 143)
         Me.grpGameManagerOptions.Name = "grpGameManagerOptions"
         Me.grpGameManagerOptions.Size = New System.Drawing.Size(383, 73)
         Me.grpGameManagerOptions.TabIndex = 2
@@ -648,7 +648,7 @@ Partial Class frmSettings
         Me.grpMainWindowOptions.Controls.Add(Me.chkHideGameList)
         Me.grpMainWindowOptions.Controls.Add(Me.chkExitNoWarning)
         Me.grpMainWindowOptions.Controls.Add(Me.chkExitOnClose)
-        Me.grpMainWindowOptions.Location = New System.Drawing.Point(6, 12)
+        Me.grpMainWindowOptions.Location = New System.Drawing.Point(6, 3)
         Me.grpMainWindowOptions.Name = "grpMainWindowOptions"
         Me.grpMainWindowOptions.Size = New System.Drawing.Size(383, 134)
         Me.grpMainWindowOptions.TabIndex = 1
@@ -728,9 +728,9 @@ Partial Class frmSettings
         'pnlStartup
         '
         Me.pnlStartup.Controls.Add(Me.grpStartup)
-        Me.pnlStartup.Location = New System.Drawing.Point(180, 0)
+        Me.pnlStartup.Location = New System.Drawing.Point(180, 12)
         Me.pnlStartup.Name = "pnlStartup"
-        Me.pnlStartup.Size = New System.Drawing.Size(392, 368)
+        Me.pnlStartup.Size = New System.Drawing.Size(392, 356)
         Me.pnlStartup.TabIndex = 1
         '
         'grpStartup
@@ -739,7 +739,7 @@ Partial Class frmSettings
         Me.grpStartup.Controls.Add(Me.chkAutoStart)
         Me.grpStartup.Controls.Add(Me.chkStartMinimized)
         Me.grpStartup.Controls.Add(Me.chkMonitorOnStartup)
-        Me.grpStartup.Location = New System.Drawing.Point(6, 12)
+        Me.grpStartup.Location = New System.Drawing.Point(6, 3)
         Me.grpStartup.Name = "grpStartup"
         Me.grpStartup.Size = New System.Drawing.Size(383, 113)
         Me.grpStartup.TabIndex = 0
@@ -789,9 +789,9 @@ Partial Class frmSettings
         'pnlFilesAndFolders
         '
         Me.pnlFilesAndFolders.Controls.Add(Me.grpFolderOptions)
-        Me.pnlFilesAndFolders.Location = New System.Drawing.Point(180, 0)
+        Me.pnlFilesAndFolders.Location = New System.Drawing.Point(180, 12)
         Me.pnlFilesAndFolders.Name = "pnlFilesAndFolders"
-        Me.pnlFilesAndFolders.Size = New System.Drawing.Size(392, 368)
+        Me.pnlFilesAndFolders.Size = New System.Drawing.Size(392, 356)
         Me.pnlFilesAndFolders.TabIndex = 1
         '
         'grpFolderOptions
@@ -804,7 +804,7 @@ Partial Class frmSettings
         Me.grpFolderOptions.Controls.Add(Me.lblBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.txtBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.chkCreateFolder)
-        Me.grpFolderOptions.Location = New System.Drawing.Point(6, 12)
+        Me.grpFolderOptions.Location = New System.Drawing.Point(6, 3)
         Me.grpFolderOptions.Name = "grpFolderOptions"
         Me.grpFolderOptions.Size = New System.Drawing.Size(383, 113)
         Me.grpFolderOptions.TabIndex = 0
@@ -885,15 +885,15 @@ Partial Class frmSettings
         '
         Me.pnlGlobalHotKeys.Controls.Add(Me.grpHotKeyGeneral)
         Me.pnlGlobalHotKeys.Controls.Add(Me.grpHotKeyBindings)
-        Me.pnlGlobalHotKeys.Location = New System.Drawing.Point(180, 0)
+        Me.pnlGlobalHotKeys.Location = New System.Drawing.Point(180, 12)
         Me.pnlGlobalHotKeys.Name = "pnlGlobalHotKeys"
-        Me.pnlGlobalHotKeys.Size = New System.Drawing.Size(392, 368)
+        Me.pnlGlobalHotKeys.Size = New System.Drawing.Size(392, 356)
         Me.pnlGlobalHotKeys.TabIndex = 1
         '
         'grpHotKeyGeneral
         '
         Me.grpHotKeyGeneral.Controls.Add(Me.chkEnableHotKeys)
-        Me.grpHotKeyGeneral.Location = New System.Drawing.Point(6, 12)
+        Me.grpHotKeyGeneral.Location = New System.Drawing.Point(6, 3)
         Me.grpHotKeyGeneral.Name = "grpHotKeyGeneral"
         Me.grpHotKeyGeneral.Size = New System.Drawing.Size(383, 50)
         Me.grpHotKeyGeneral.TabIndex = 0
@@ -918,7 +918,7 @@ Partial Class frmSettings
         Me.grpHotKeyBindings.Controls.Add(Me.btnResetBackupBind)
         Me.grpHotKeyBindings.Controls.Add(Me.txtBackupBind)
         Me.grpHotKeyBindings.Controls.Add(Me.lblBackupBind)
-        Me.grpHotKeyBindings.Location = New System.Drawing.Point(6, 65)
+        Me.grpHotKeyBindings.Location = New System.Drawing.Point(6, 56)
         Me.grpHotKeyBindings.Name = "grpHotKeyBindings"
         Me.grpHotKeyBindings.Size = New System.Drawing.Size(383, 75)
         Me.grpHotKeyBindings.TabIndex = 1
@@ -980,13 +980,13 @@ Partial Class frmSettings
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(584, 436)
+        Me.Controls.Add(Me.pnl7z)
+        Me.Controls.Add(Me.pnlBackup)
+        Me.Controls.Add(Me.pnlFilesAndFolders)
+        Me.Controls.Add(Me.pnlGeneral)
+        Me.Controls.Add(Me.pnlGlobalHotKeys)
         Me.Controls.Add(Me.pnlStartup)
         Me.Controls.Add(Me.pnlInterface)
-        Me.Controls.Add(Me.pnlGlobalHotKeys)
-        Me.Controls.Add(Me.pnlGeneral)
-        Me.Controls.Add(Me.pnlFilesAndFolders)
-        Me.Controls.Add(Me.pnlBackup)
-        Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.btnResetMessages)
         Me.Controls.Add(Me.lstSettings)
         Me.Controls.Add(Me.btnDefaults)
