@@ -214,20 +214,18 @@ Partial Class frmGameManager
         '
         'chkCleanFolder
         '
-        Me.chkCleanFolder.AutoSize = True
         Me.chkCleanFolder.Location = New System.Drawing.Point(378, 168)
         Me.chkCleanFolder.Name = "chkCleanFolder"
-        Me.chkCleanFolder.Size = New System.Drawing.Size(136, 17)
+        Me.chkCleanFolder.Size = New System.Drawing.Size(153, 17)
         Me.chkCleanFolder.TabIndex = 22
         Me.chkCleanFolder.Text = "Delete folder on restore"
         Me.chkCleanFolder.UseVisualStyleBackColor = True
         '
         'lblLimit
         '
-        Me.lblLimit.AutoSize = True
         Me.lblLimit.Location = New System.Drawing.Point(424, 197)
         Me.lblLimit.Name = "lblLimit"
-        Me.lblLimit.Size = New System.Drawing.Size(64, 13)
+        Me.lblLimit.Size = New System.Drawing.Size(107, 13)
         Me.lblLimit.TabIndex = 25
         Me.lblLimit.Text = "Backup limit"
         '
@@ -463,7 +461,7 @@ Partial Class frmGameManager
         'btnSave
         '
         Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
-        Me.btnSave.Location = New System.Drawing.Point(627, 329)
+        Me.btnSave.Location = New System.Drawing.Point(624, 329)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(80, 50)
         Me.btnSave.TabIndex = 12
@@ -484,7 +482,7 @@ Partial Class frmGameManager
         'btnCancel
         '
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(713, 329)
+        Me.btnCancel.Location = New System.Drawing.Point(710, 329)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(80, 50)
         Me.btnCancel.TabIndex = 13
@@ -602,7 +600,7 @@ Partial Class frmGameManager
         'btnAdvanced
         '
         Me.btnAdvanced.Image = Global.GBM.My.Resources.Resources.frmGameManager_Advanced
-        Me.btnAdvanced.Location = New System.Drawing.Point(541, 329)
+        Me.btnAdvanced.Location = New System.Drawing.Point(538, 329)
         Me.btnAdvanced.Name = "btnAdvanced"
         Me.btnAdvanced.Size = New System.Drawing.Size(80, 50)
         Me.btnAdvanced.TabIndex = 11
@@ -651,7 +649,7 @@ Partial Class frmGameManager
         Me.tabGameManager.Multiline = True
         Me.tabGameManager.Name = "tabGameManager"
         Me.tabGameManager.SelectedIndex = 0
-        Me.tabGameManager.Size = New System.Drawing.Size(551, 315)
+        Me.tabGameManager.Size = New System.Drawing.Size(554, 315)
         Me.tabGameManager.TabIndex = 10
         '
         'tbConfig
@@ -660,7 +658,7 @@ Partial Class frmGameManager
         Me.tbConfig.Controls.Add(Me.grpCoreConfig)
         Me.tbConfig.Location = New System.Drawing.Point(4, 25)
         Me.tbConfig.Name = "tbConfig"
-        Me.tbConfig.Size = New System.Drawing.Size(543, 286)
+        Me.tbConfig.Size = New System.Drawing.Size(546, 286)
         Me.tbConfig.TabIndex = 0
         Me.tbConfig.Text = "Core Configuration"
         '
@@ -713,10 +711,9 @@ Partial Class frmGameManager
         '
         'lblTimeIntervalMinutes
         '
-        Me.lblTimeIntervalMinutes.AutoSize = True
         Me.lblTimeIntervalMinutes.Location = New System.Drawing.Point(424, 251)
         Me.lblTimeIntervalMinutes.Name = "lblTimeIntervalMinutes"
-        Me.lblTimeIntervalMinutes.Size = New System.Drawing.Size(44, 13)
+        Me.lblTimeIntervalMinutes.Size = New System.Drawing.Size(107, 13)
         Me.lblTimeIntervalMinutes.TabIndex = 34
         Me.lblTimeIntervalMinutes.Text = "Minutes"
         '
@@ -759,10 +756,9 @@ Partial Class frmGameManager
         '
         'lblInterval
         '
-        Me.lblInterval.AutoSize = True
         Me.lblInterval.Location = New System.Drawing.Point(424, 225)
         Me.lblInterval.Name = "lblInterval"
-        Me.lblInterval.Size = New System.Drawing.Size(99, 13)
+        Me.lblInterval.Size = New System.Drawing.Size(107, 13)
         Me.lblInterval.TabIndex = 31
         Me.lblInterval.Text = "Full backup interval"
         '
@@ -873,7 +869,7 @@ Partial Class frmGameManager
         Me.tbGameInfo.Controls.Add(Me.grpGameInfo)
         Me.tbGameInfo.Location = New System.Drawing.Point(4, 25)
         Me.tbGameInfo.Name = "tbGameInfo"
-        Me.tbGameInfo.Size = New System.Drawing.Size(543, 286)
+        Me.tbGameInfo.Size = New System.Drawing.Size(546, 286)
         Me.tbGameInfo.TabIndex = 1
         Me.tbGameInfo.Text = "Game Information"
         '
@@ -921,7 +917,7 @@ Partial Class frmGameManager
         Me.tbBackupInfo.Controls.Add(Me.grpBackupInfo)
         Me.tbBackupInfo.Location = New System.Drawing.Point(4, 25)
         Me.tbBackupInfo.Name = "tbBackupInfo"
-        Me.tbBackupInfo.Size = New System.Drawing.Size(543, 286)
+        Me.tbBackupInfo.Size = New System.Drawing.Size(546, 286)
         Me.tbBackupInfo.TabIndex = 2
         Me.tbBackupInfo.Text = "Backup Management"
         '
