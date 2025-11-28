@@ -46,9 +46,9 @@ Partial Class frmAdvancedImport
         '
         Me.btnImport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnImport.Image = Global.GBM.My.Resources.Resources.Multi_Import
-        Me.btnImport.Location = New System.Drawing.Point(646, 559)
+        Me.btnImport.Location = New System.Drawing.Point(606, 559)
         Me.btnImport.Name = "btnImport"
-        Me.btnImport.Size = New System.Drawing.Size(60, 45)
+        Me.btnImport.Size = New System.Drawing.Size(80, 50)
         Me.btnImport.TabIndex = 7
         Me.btnImport.Text = "&Import"
         Me.btnImport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -67,7 +67,7 @@ Partial Class frmAdvancedImport
         'lblStatus
         '
         Me.lblStatus.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.lblStatus.Location = New System.Drawing.Point(12, 575)
+        Me.lblStatus.Location = New System.Drawing.Point(12, 578)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(760, 14)
         Me.lblStatus.TabIndex = 0
@@ -78,9 +78,9 @@ Partial Class frmAdvancedImport
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(712, 559)
+        Me.btnCancel.Location = New System.Drawing.Point(692, 559)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
+        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
         Me.btnCancel.TabIndex = 8
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -147,7 +147,7 @@ Partial Class frmAdvancedImport
         Me.btnDetectSavedGames.Image = Global.GBM.My.Resources.Resources.Multi_Search
         Me.btnDetectSavedGames.Location = New System.Drawing.Point(12, 559)
         Me.btnDetectSavedGames.Name = "btnDetectSavedGames"
-        Me.btnDetectSavedGames.Size = New System.Drawing.Size(140, 45)
+        Me.btnDetectSavedGames.Size = New System.Drawing.Size(140, 50)
         Me.btnDetectSavedGames.TabIndex = 6
         Me.btnDetectSavedGames.Text = "&Detect Saved Games"
         Me.btnDetectSavedGames.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -186,7 +186,7 @@ Partial Class frmAdvancedImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(784, 611)
+        Me.ClientSize = New System.Drawing.Size(784, 621)
         Me.Controls.Add(Me.chkHideIgnored)
         Me.Controls.Add(Me.btnClearSelected)
         Me.Controls.Add(Me.btnDetectSavedGames)

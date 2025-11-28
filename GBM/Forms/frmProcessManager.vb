@@ -293,6 +293,7 @@ Public Class frmProcessManager
         btnProcessBrowse.Text = frmProcessManager_btnProcessBrowse
         lblProcess.Text = frmProcessManager_lblPath
         lblName.Text = frmProcessManager_lblName
+        lblArguments.Text = frmProcessManager_lblArguments
         btnDelete.Text = frmProcessManager_btnDelete
         btnDelete.Image = Multi_Delete
         btnAdd.Text = frmProcessManager_btnAdd

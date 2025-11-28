@@ -385,7 +385,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2025-10-23T13:43:40
+        '''  Looks up a localized string similar to 2025-11-28T15:20:08
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -6080,6 +6080,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmProcessManager_grpProcess() As String
             Get
                 Return ResourceManager.GetString("frmProcessManager_grpProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Arguments:.
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_lblArguments() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_lblArguments", resourceCulture)
             End Get
         End Property
         

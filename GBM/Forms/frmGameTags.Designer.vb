@@ -92,7 +92,7 @@ Partial Class frmGameTags
         Me.btnOpenTags.Image = Global.GBM.My.Resources.Resources.Multi_Edit
         Me.btnOpenTags.Location = New System.Drawing.Point(12, 230)
         Me.btnOpenTags.Name = "btnOpenTags"
-        Me.btnOpenTags.Size = New System.Drawing.Size(110, 45)
+        Me.btnOpenTags.Size = New System.Drawing.Size(120, 50)
         Me.btnOpenTags.TabIndex = 4
         Me.btnOpenTags.Text = "&Tag Manager..."
         Me.btnOpenTags.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText

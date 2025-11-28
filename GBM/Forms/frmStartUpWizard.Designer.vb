@@ -330,9 +330,9 @@ Partial Class frmStartUpWizard
         '
         Me.btnNext.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnNext.Image = Global.GBM.My.Resources.Resources.Multi_Next
-        Me.btnNext.Location = New System.Drawing.Point(362, 254)
+        Me.btnNext.Location = New System.Drawing.Point(342, 254)
         Me.btnNext.Name = "btnNext"
-        Me.btnNext.Size = New System.Drawing.Size(60, 45)
+        Me.btnNext.Size = New System.Drawing.Size(80, 50)
         Me.btnNext.TabIndex = 2
         Me.btnNext.Text = "&Next"
         Me.btnNext.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -342,9 +342,9 @@ Partial Class frmStartUpWizard
         '
         Me.btnBack.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnBack.Image = Global.GBM.My.Resources.Resources.Multi_Back
-        Me.btnBack.Location = New System.Drawing.Point(296, 254)
+        Me.btnBack.Location = New System.Drawing.Point(256, 254)
         Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(60, 45)
+        Me.btnBack.Size = New System.Drawing.Size(80, 50)
         Me.btnBack.TabIndex = 1
         Me.btnBack.Text = "&Back"
         Me.btnBack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText

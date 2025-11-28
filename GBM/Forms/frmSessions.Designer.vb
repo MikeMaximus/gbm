@@ -99,9 +99,9 @@ Partial Class frmSessions
         '
         Me.btnReset.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnReset.Image = Global.GBM.My.Resources.Resources.Multi_Reset
-        Me.btnReset.Location = New System.Drawing.Point(682, 504)
+        Me.btnReset.Location = New System.Drawing.Point(672, 504)
         Me.btnReset.Name = "btnReset"
-        Me.btnReset.Size = New System.Drawing.Size(90, 45)
+        Me.btnReset.Size = New System.Drawing.Size(100, 50)
         Me.btnReset.TabIndex = 10
         Me.btnReset.Text = "&Reset Filters"
         Me.btnReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -113,7 +113,7 @@ Partial Class frmSessions
         Me.btnDelete.Image = Global.GBM.My.Resources.Resources.Multi_Delete
         Me.btnDelete.Location = New System.Drawing.Point(12, 504)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(90, 45)
+        Me.btnDelete.Size = New System.Drawing.Size(100, 50)
         Me.btnDelete.TabIndex = 7
         Me.btnDelete.Text = "&Delete Session"
         Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -133,9 +133,9 @@ Partial Class frmSessions
         '
         Me.lblTotalHours.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblTotalHours.Location = New System.Drawing.Point(108, 520)
+        Me.lblTotalHours.Location = New System.Drawing.Point(118, 520)
         Me.lblTotalHours.Name = "lblTotalHours"
-        Me.lblTotalHours.Size = New System.Drawing.Size(472, 13)
+        Me.lblTotalHours.Size = New System.Drawing.Size(442, 13)
         Me.lblTotalHours.TabIndex = 8
         Me.lblTotalHours.Text = "Total Hours:"
         Me.lblTotalHours.TextAlign = System.Drawing.ContentAlignment.TopCenter
@@ -144,9 +144,9 @@ Partial Class frmSessions
         '
         Me.btnExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnExport.Image = Global.GBM.My.Resources.Resources.Multi_Export
-        Me.btnExport.Location = New System.Drawing.Point(586, 504)
+        Me.btnExport.Location = New System.Drawing.Point(566, 504)
         Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(90, 45)
+        Me.btnExport.Size = New System.Drawing.Size(100, 50)
         Me.btnExport.TabIndex = 9
         Me.btnExport.Text = "&Export Grid"
         Me.btnExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText

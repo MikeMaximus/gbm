@@ -393,6 +393,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmIncludeExclude.resx">
       <DependentUpon>frmIncludeExclude.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmProcessManager.resx">
       <DependentUpon>frmProcessManager.vb</DependentUpon>
@@ -429,7 +430,10 @@
     <EmbeddedResource Include="Forms\frmVariableManager.resx">
       <DependentUpon>frmVariableManager.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Languages\Resources.zh.resx" />
+    <EmbeddedResource Include="Languages\Resources.ja.resx" />
+    <EmbeddedResource Include="Languages\Resources.zh.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>

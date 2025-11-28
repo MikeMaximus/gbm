@@ -162,7 +162,7 @@ Partial Class frmLaunchConfiguration
         Me.btnOpenLaunchers.Image = Global.GBM.My.Resources.Resources.Multi_Edit
         Me.btnOpenLaunchers.Location = New System.Drawing.Point(12, 304)
         Me.btnOpenLaunchers.Name = "btnOpenLaunchers"
-        Me.btnOpenLaunchers.Size = New System.Drawing.Size(125, 45)
+        Me.btnOpenLaunchers.Size = New System.Drawing.Size(140, 50)
         Me.btnOpenLaunchers.TabIndex = 3
         Me.btnOpenLaunchers.Text = "&Launcher Manager..."
         Me.btnOpenLaunchers.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -171,9 +171,9 @@ Partial Class frmLaunchConfiguration
         'btnCancel
         '
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(417, 304)
+        Me.btnCancel.Location = New System.Drawing.Point(397, 304)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
+        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
         Me.btnCancel.TabIndex = 5
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -182,9 +182,9 @@ Partial Class frmLaunchConfiguration
         'btnSave
         '
         Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
-        Me.btnSave.Location = New System.Drawing.Point(351, 304)
+        Me.btnSave.Location = New System.Drawing.Point(311, 304)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(60, 45)
+        Me.btnSave.Size = New System.Drawing.Size(80, 50)
         Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
