@@ -3228,6 +3228,6 @@
     <value>OSカラーモードを有効にする（アプリの再起動が必要）</value>
   </data>
   <data name="frmProcessManager_lblArguments" xml:space="preserve">
-    <value>Arguments:</value>
+    <value>引数:</value>
   </data>
 </root>
