@@ -2,10 +2,11 @@ Game Backup Monitor would like to credit the following people/organizations:
 
 Contributors:
 
-Michael J. Seiferling (MikeMaximus) - Design, Programming and Windows Game Configuration Maintainer.
-Sebastian Riedel (basxto) - Linux Packaging, Installation and Game Configuration Maintainer.
+Michael J. Seiferling (MikeMaximus) - Design, Programming and Windows Game Configuration Maintainer
+Sebastian Riedel (basxto) - Linux Packaging, Installation and Game Configuration Maintainer
 Juijote - Simplified Chinese Translation
-Darren John de Lima (Darthagnon) - Offline Manual.
+k taka (nihongo-helper0119) - Japanese Translation
+Darren John de Lima (Darthagnon) - Offline Manual
 
 Special Thanks:
 
