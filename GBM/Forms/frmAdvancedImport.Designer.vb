@@ -57,7 +57,7 @@ Partial Class frmAdvancedImport
         'chkSelectAll
         '
         Me.chkSelectAll.AutoSize = True
-        Me.chkSelectAll.Location = New System.Drawing.Point(12, 11)
+        Me.chkSelectAll.Location = New System.Drawing.Point(12, 10)
         Me.chkSelectAll.Name = "chkSelectAll"
         Me.chkSelectAll.Size = New System.Drawing.Size(70, 17)
         Me.chkSelectAll.TabIndex = 0
@@ -134,7 +134,7 @@ Partial Class frmAdvancedImport
         'chkSelectedOnly
         '
         Me.chkSelectedOnly.AutoSize = True
-        Me.chkSelectedOnly.Location = New System.Drawing.Point(88, 11)
+        Me.chkSelectedOnly.Location = New System.Drawing.Point(98, 10)
         Me.chkSelectedOnly.Name = "chkSelectedOnly"
         Me.chkSelectedOnly.Size = New System.Drawing.Size(122, 17)
         Me.chkSelectedOnly.TabIndex = 1
@@ -175,7 +175,7 @@ Partial Class frmAdvancedImport
         'chkHideIgnored
         '
         Me.chkHideIgnored.AutoSize = True
-        Me.chkHideIgnored.Location = New System.Drawing.Point(216, 11)
+        Me.chkHideIgnored.Location = New System.Drawing.Point(236, 10)
         Me.chkHideIgnored.Name = "chkHideIgnored"
         Me.chkHideIgnored.Size = New System.Drawing.Size(87, 17)
         Me.chkHideIgnored.TabIndex = 2

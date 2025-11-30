@@ -1444,13 +1444,13 @@ Public Class frmMain
             mgrPath.RemoteDatabaseLocation = mgrSettings.BackupFolder
             If frm.bLanguageChanged Then SetForm()
             SetupSyncWatcher()
-                mgrStoreVariables.AutoConfigureStoreVariables()
-                LoadGameSettings()
-                HandleFeatures()
-                HandleLauncherMenu()
-                SetDetectionSpeed()
-            Else
-                mgrSettings.LoadSettings()
+            mgrStoreVariables.AutoConfigureStoreVariables()
+            LoadGameSettings()
+            HandleFeatures()
+            HandleLauncherMenu()
+            SetDetectionSpeed()
+        Else
+            mgrSettings.LoadSettings()
         End If
         ResumeScan()
         BindHotKeys()
@@ -1775,9 +1775,16 @@ Public Class frmMain
         Try
             mgrCommon.SetTLSVersion()
 
+            'Set any required environment variables
+            mgrPath.SetEnv()
+
+            'Configure all timers
+            InitTimers()
+
+            'Setup initial display
+            ResetCurrentInfo()
+
             If VerifyGameDataPath() Then
-                'Set any required environment variables
-                mgrPath.SetEnv()
                 If bFirstRun Then OpenStartupWizard()
                 LoadAndVerify()
             Else
@@ -2501,8 +2508,9 @@ Public Class frmMain
             gMonTrayFileImportOfficialLinux.Visible = False
             gMonTrayFileImportOfficialWindows.Visible = False
         End If
+    End Sub
 
-        'Init Timers
+    Private Sub InitTimers()
         tmScanTimer.Interval = 5000
         tmRestoreCheck.Interval = 60000
         tmFileWatcherQueue.AutoReset = False
@@ -2512,8 +2520,6 @@ Public Class frmMain
         tmFilterTimer.Enabled = False
         tmPlayTimer.Interval = 5000
         tmPlayTimer.AutoReset = False
-
-        ResetCurrentInfo()
     End Sub
 
     Private Sub SetDetectionSpeed()
