@@ -4,11 +4,10 @@ Imports System.Text.RegularExpressions
 Imports System.Reflection
 
 Public Class mgrPath
-    'Important Note: Any changes to SettingsRoot & DatabaseLocation need to be mirrored in frmMain.vb -> VerifyGameDataPath
     Private Shared sRemoteDatabaseLocation As String
     Private Shared ReadOnly oReleaseType As ProcessorArchitecture = AssemblyName.GetAssemblyName(Application.ExecutablePath()).ProcessorArchitecture
 
-    Private Shared Property CustomVariables As Hashtable
+    Private Shared Property CustomVariables As New Hashtable
 
     Public Shared Property SettingsRoot As String
     Public Shared Property DatabaseLocation As String

@@ -62,7 +62,7 @@ Partial Class frmFilter
         Me.cboSortField = New System.Windows.Forms.ComboBox()
         Me.chkTag = New System.Windows.Forms.CheckBox()
         Me.chkGameInfo = New System.Windows.Forms.CheckBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblResultsWarning = New System.Windows.Forms.Label()
         Me.grpTagFilter.SuspendLayout()
         Me.grpTagOptions.SuspendLayout()
         Me.grpGameFilter.SuspendLayout()
@@ -481,21 +481,21 @@ Partial Class frmFilter
         Me.chkGameInfo.Text = "Game Information"
         Me.chkGameInfo.UseVisualStyleBackColor = True
         '
-        'Label1
+        'lblResultsWarning
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(9, 573)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(249, 13)
-        Me.Label1.TabIndex = 5
-        Me.Label1.Text = "* Indicates a field that may give unexpected results."
+        Me.lblResultsWarning.AutoSize = True
+        Me.lblResultsWarning.Location = New System.Drawing.Point(9, 573)
+        Me.lblResultsWarning.Name = "lblResultsWarning"
+        Me.lblResultsWarning.Size = New System.Drawing.Size(249, 13)
+        Me.lblResultsWarning.TabIndex = 0
+        Me.lblResultsWarning.Text = "* Indicates a field that may give unexpected results."
         '
         'frmFilter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(439, 616)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lblResultsWarning)
         Me.Controls.Add(Me.grpSorting)
         Me.Controls.Add(Me.chkTag)
         Me.Controls.Add(Me.grpGameFilter)
@@ -559,7 +559,7 @@ Partial Class frmFilter
     Friend WithEvents numFilter As NumericUpDown
     Friend WithEvents cboListFilter As ComboBox
     Friend WithEvents lblSortFields As Label
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lblResultsWarning As Label
     Friend WithEvents grpSortOptions As GroupBox
     Friend WithEvents lblExcludeTags As Label
     Friend WithEvents btnExcludeRemove As Button

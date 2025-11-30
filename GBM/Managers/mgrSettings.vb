@@ -131,6 +131,7 @@ Public Class mgrSettings
     Public Shared Property RestoreHotKey As Keys
     Public Shared Property EnableLiveBackup As Boolean
     Public Shared Property EnableOSTheme As Boolean
+    Public Shared Property Language As String
 
     Shared Sub New()
         SetDefaults()
@@ -184,6 +185,7 @@ Public Class mgrSettings
         RestoreHotKey = 196728
         EnableLiveBackup = False
         EnableOSTheme = True
+        Language = String.Empty
     End Sub
 
     Private Shared Sub SaveFromClass()
@@ -197,7 +199,7 @@ Public Class mgrSettings
         sSQL &= "@SyncFields, @AutoSaveLog, @AutoRestore, @AutoMark, @SessionTracking, @SuppressMessages, @BackupOnLaunch, "
         sSQL &= "@DisableSyncMessages, @ShowResolvedPaths, @DisableDiskSpaceCheck, @TemporaryFolder, @ExitOnClose, @ExitNoWarning, @EnableLauncher, "
         sSQL &= "@MainHideGameList, @MainHideButtons, @MainHideLog, @BackupNotification, @DetectionSpeed, @TwoPassDetection, @StorePathAutoConfig, "
-        sSQL &= "@DeleteToRecycleBin, @EnableHotKeys, @BackupHotKey, @RestoreHotKey, @EnableLiveBackup, @EnableOSTheme)"
+        sSQL &= "@DeleteToRecycleBin, @EnableHotKeys, @BackupHotKey, @RestoreHotKey, @EnableLiveBackup, @EnableOSTheme, @Language)"
 
         hshParams.Add("MonitorOnStartup", MonitorOnStartup)
         hshParams.Add("StartToTray", StartToTray)
@@ -241,6 +243,7 @@ Public Class mgrSettings
         hshParams.Add("RestoreHotKey", CInt(RestoreHotKey))
         hshParams.Add("EnableLiveBackup", EnableLiveBackup)
         hshParams.Add("EnableOSTheme", EnableOSTheme)
+        hshParams.Add("Language", Language)
 
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -298,6 +301,7 @@ Public Class mgrSettings
             RestoreHotKey = CInt(dr("RestoreHotKey"))
             EnableLiveBackup = CBool(dr("EnableLiveBackup"))
             EnableOSTheme = CBool(dr("EnableOSTheme"))
+            If Not IsDBNull(dr("Language")) Then Language = CStr(dr("Language"))
         Next
 
         oDatabase.Disconnect()

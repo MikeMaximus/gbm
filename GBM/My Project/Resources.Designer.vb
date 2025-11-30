@@ -178,6 +178,51 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Language.
+        '''</summary>
+        Friend ReadOnly Property App_Language() As String
+            Get
+                Return ResourceManager.GetString("App_Language", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 简体中文 (Chinese Simplified).
+        '''</summary>
+        Friend ReadOnly Property App_Language_ChineseSimplified() As String
+            Get
+                Return ResourceManager.GetString("App_Language_ChineseSimplified", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Operating System - [PARAM].
+        '''</summary>
+        Friend ReadOnly Property App_Language_Default() As String
+            Get
+                Return ResourceManager.GetString("App_Language_Default", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to English.
+        '''</summary>
+        Friend ReadOnly Property App_Language_English() As String
+            Get
+                Return ResourceManager.GetString("App_Language_English", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 日本語 (Japanese).
+        '''</summary>
+        Friend ReadOnly Property App_Language_Japanese() As String
+            Get
+                Return ResourceManager.GetString("App_Language_Japanese", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Linux.
         '''</summary>
         Friend ReadOnly Property App_LinuxOS() As String
@@ -385,7 +430,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2025-11-28T15:20:08
+        '''  Looks up a localized string similar to 2025-11-30T01:52:42
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1826,6 +1871,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmFilter_lblNot() As String
             Get
                 Return ResourceManager.GetString("frmFilter_lblNot", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to * Indicates a field that may give unexpected results..
+        '''</summary>
+        Friend ReadOnly Property frmFilter_lblResultsWarning() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_lblResultsWarning", resourceCulture)
             End Get
         End Property
         

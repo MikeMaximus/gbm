@@ -1,8 +1,10 @@
 ﻿Imports GBM.My.Resources
 Imports System.IO
+Imports System.Globalization
 
 Public Class frmSettings
     Dim bSyncSettingsChanged As Boolean = False
+    Public bLanguageChanged As Boolean = False
     Dim eCurrentSyncFields As clsGame.eOptionalSyncFields
 
     Private Property IsDirty As Boolean = False
@@ -55,7 +57,6 @@ Public Class frmSettings
     End Sub
 
     Private Function ValidateSettings() As Boolean
-
         'Show Start with Windows warning if running as admin
         If Not mgrCommon.IsUnix And chkAutoStart.Checked And mgrCommon.IsElevated Then
             mgrCommon.ShowMessage(frmSettings_WarningAdminStart, MsgBoxStyle.Exclamation)
@@ -147,6 +148,11 @@ Public Class frmSettings
             Return False
         End If
 
+        If mgrSettings.Language <> cboLanguage.SelectedValue Then
+            mgrSettings.Language = cboLanguage.SelectedValue
+            bLanguageChanged = True
+        End If
+
         'We must trigger a sync if optional fields have changed
         If eCurrentSyncFields <> mgrSettings.SyncFields Then
             bSyncSettingsChanged = True
@@ -155,9 +161,22 @@ Public Class frmSettings
         Return True
     End Function
 
+    Private Sub SetLanguage()
+        Dim sCulture As String
+
+        If mgrSettings.Language = String.Empty Then
+            sCulture = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName
+        Else
+            sCulture = mgrSettings.Language
+        End If
+
+        Threading.Thread.CurrentThread.CurrentUICulture = New CultureInfo(sCulture)
+    End Sub
+
     Private Function SaveSettings() As Boolean
         If ValidateSettings() Then
             mgrSettings.SaveSettings()
+            If bLanguageChanged Then SetLanguage()
             If bSyncSettingsChanged Then mgrSync.HandleBackupLocationChange()
             IsDirty = False
             Return True
@@ -239,6 +258,7 @@ Public Class frmSettings
         chkHideGameList.Checked = mgrSettings.MainHideGameList
         chkHideButtons.Checked = mgrSettings.MainHideButtons
         chkShowDetectionTips.Checked = mgrSettings.ShowDetectionToolTips
+        cboLanguage.SelectedValue = mgrSettings.Language
         cboDetectSpeed.SelectedValue = mgrSettings.DetectionSpeed
         chkTwoPassDetection.Checked = mgrSettings.TwoPassDetection
         chkDisableSyncMessages.Checked = mgrSettings.DisableSyncMessages
@@ -281,6 +301,7 @@ Public Class frmSettings
     Private Sub LoadCombos()
         Dim oCompressionItems As New List(Of KeyValuePair(Of Integer, String))
         Dim oDetectSpeedItems As New List(Of KeyValuePair(Of Integer, String))
+        Dim oLanguageItems As New List(Of KeyValuePair(Of String, String))
         Dim oSettingsItems As New List(Of KeyValuePair(Of Integer, String))
 
         'cboCompression
@@ -306,6 +327,17 @@ Public Class frmSettings
         oDetectSpeedItems.Add(New KeyValuePair(Of Integer, String)(30000, frmSettings_cboDetectSpeed_VerySlow))
 
         cboDetectSpeed.DataSource = oDetectSpeedItems
+
+        'cboLanguage
+        cboLanguage.ValueMember = "Key"
+        cboLanguage.DisplayMember = "Value"
+
+        oLanguageItems.Add(New KeyValuePair(Of String, String)(String.Empty, mgrCommon.FormatString(App_Language_Default, CultureInfo.InstalledUICulture.DisplayName)))
+        oLanguageItems.Add(New KeyValuePair(Of String, String)("en", App_Language_English))
+        oLanguageItems.Add(New KeyValuePair(Of String, String)("ja", App_Language_Japanese))
+        oLanguageItems.Add(New KeyValuePair(Of String, String)("zh", App_Language_ChineseSimplified))
+
+        cboLanguage.DataSource = oLanguageItems
 
         'lstSettings
         lstSettings.ValueMember = "Key"
@@ -452,7 +484,7 @@ Public Class frmSettings
         lblBackupFolder.Text = frmSettings_lblBackupFolder
         lblTempFolder.Text = frmSettings_lblTempFolder
         grpStartup.Text = frmSettings_grpStartup
-        grpOptionalFeeatures.Text = frmSettings_grpOptionalFeatures
+        grpOptionalFeatures.Text = frmSettings_grpOptionalFeatures
         chkTimeTracking.Text = frmSettings_chkTimeTracking
         chkSessionTracking.Text = frmSettings_chkSessionTracking
         chkEnableLauncher.Text = frmSettings_chkEnableLauncher
@@ -485,6 +517,7 @@ Public Class frmSettings
         chkHideLog.Text = frmSettings_chkHideLog
         chkHideGameList.Text = frmSettings_chkHideGameList
         chkHideButtons.Text = frmSettings_chkHideButtons
+        grpLanguage.Text = App_Language
         grpGameManagerOptions.Text = frmSettings_grpGameManagerOptions
         lblDetectSpeed.Text = frmSettings_lblDetectSpeed
         chkTwoPassDetection.Text = frmSettings_chkTwoPassDetection

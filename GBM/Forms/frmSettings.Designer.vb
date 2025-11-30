@@ -60,12 +60,14 @@ Partial Class frmSettings
         Me.chkSuppressBackup = New System.Windows.Forms.CheckBox()
         Me.lblMinutes = New System.Windows.Forms.Label()
         Me.nudSuppressBackupThreshold = New System.Windows.Forms.NumericUpDown()
-        Me.grpOptionalFeeatures = New System.Windows.Forms.GroupBox()
+        Me.grpOptionalFeatures = New System.Windows.Forms.GroupBox()
         Me.chkEnableOSTheme = New System.Windows.Forms.CheckBox()
         Me.chkStorePathAutoConfig = New System.Windows.Forms.CheckBox()
         Me.chkEnableLauncher = New System.Windows.Forms.CheckBox()
         Me.chkSessionTracking = New System.Windows.Forms.CheckBox()
         Me.pnlInterface = New System.Windows.Forms.Panel()
+        Me.grpLanguage = New System.Windows.Forms.GroupBox()
+        Me.cboLanguage = New System.Windows.Forms.ComboBox()
         Me.grpLogOptions = New System.Windows.Forms.GroupBox()
         Me.chkDisableSyncMessages = New System.Windows.Forms.CheckBox()
         Me.chkAutoSaveLog = New System.Windows.Forms.CheckBox()
@@ -117,8 +119,9 @@ Partial Class frmSettings
         Me.pnlGeneral.SuspendLayout()
         Me.grpGameMonitoringOptions.SuspendLayout()
         CType(Me.nudSuppressBackupThreshold, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.grpOptionalFeeatures.SuspendLayout()
+        Me.grpOptionalFeatures.SuspendLayout()
         Me.pnlInterface.SuspendLayout()
+        Me.grpLanguage.SuspendLayout()
         Me.grpLogOptions.SuspendLayout()
         Me.grpGameManagerOptions.SuspendLayout()
         Me.grpMainWindowOptions.SuspendLayout()
@@ -439,7 +442,7 @@ Partial Class frmSettings
         'pnlGeneral
         '
         Me.pnlGeneral.Controls.Add(Me.grpGameMonitoringOptions)
-        Me.pnlGeneral.Controls.Add(Me.grpOptionalFeeatures)
+        Me.pnlGeneral.Controls.Add(Me.grpOptionalFeatures)
         Me.pnlGeneral.Location = New System.Drawing.Point(180, 12)
         Me.pnlGeneral.Name = "pnlGeneral"
         Me.pnlGeneral.Size = New System.Drawing.Size(392, 356)
@@ -516,19 +519,19 @@ Partial Class frmSettings
         Me.nudSuppressBackupThreshold.Size = New System.Drawing.Size(51, 20)
         Me.nudSuppressBackupThreshold.TabIndex = 1
         '
-        'grpOptionalFeeatures
+        'grpOptionalFeatures
         '
-        Me.grpOptionalFeeatures.Controls.Add(Me.chkEnableOSTheme)
-        Me.grpOptionalFeeatures.Controls.Add(Me.chkStorePathAutoConfig)
-        Me.grpOptionalFeeatures.Controls.Add(Me.chkEnableLauncher)
-        Me.grpOptionalFeeatures.Controls.Add(Me.chkSessionTracking)
-        Me.grpOptionalFeeatures.Controls.Add(Me.chkTimeTracking)
-        Me.grpOptionalFeeatures.Location = New System.Drawing.Point(6, 3)
-        Me.grpOptionalFeeatures.Name = "grpOptionalFeeatures"
-        Me.grpOptionalFeeatures.Size = New System.Drawing.Size(383, 134)
-        Me.grpOptionalFeeatures.TabIndex = 0
-        Me.grpOptionalFeeatures.TabStop = False
-        Me.grpOptionalFeeatures.Text = "Optional Features"
+        Me.grpOptionalFeatures.Controls.Add(Me.chkEnableOSTheme)
+        Me.grpOptionalFeatures.Controls.Add(Me.chkStorePathAutoConfig)
+        Me.grpOptionalFeatures.Controls.Add(Me.chkEnableLauncher)
+        Me.grpOptionalFeatures.Controls.Add(Me.chkSessionTracking)
+        Me.grpOptionalFeatures.Controls.Add(Me.chkTimeTracking)
+        Me.grpOptionalFeatures.Location = New System.Drawing.Point(6, 3)
+        Me.grpOptionalFeatures.Name = "grpOptionalFeatures"
+        Me.grpOptionalFeatures.Size = New System.Drawing.Size(383, 134)
+        Me.grpOptionalFeatures.TabIndex = 0
+        Me.grpOptionalFeatures.TabStop = False
+        Me.grpOptionalFeatures.Text = "Optional Features"
         '
         'chkEnableOSTheme
         '
@@ -572,6 +575,7 @@ Partial Class frmSettings
         '
         'pnlInterface
         '
+        Me.pnlInterface.Controls.Add(Me.grpLanguage)
         Me.pnlInterface.Controls.Add(Me.grpLogOptions)
         Me.pnlInterface.Controls.Add(Me.grpGameManagerOptions)
         Me.pnlInterface.Controls.Add(Me.grpMainWindowOptions)
@@ -579,6 +583,25 @@ Partial Class frmSettings
         Me.pnlInterface.Name = "pnlInterface"
         Me.pnlInterface.Size = New System.Drawing.Size(392, 356)
         Me.pnlInterface.TabIndex = 1
+        '
+        'grpLanguage
+        '
+        Me.grpLanguage.Controls.Add(Me.cboLanguage)
+        Me.grpLanguage.Location = New System.Drawing.Point(6, 293)
+        Me.grpLanguage.Name = "grpLanguage"
+        Me.grpLanguage.Size = New System.Drawing.Size(383, 48)
+        Me.grpLanguage.TabIndex = 4
+        Me.grpLanguage.TabStop = False
+        Me.grpLanguage.Text = "Language"
+        '
+        'cboLanguage
+        '
+        Me.cboLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboLanguage.FormattingEnabled = True
+        Me.cboLanguage.Location = New System.Drawing.Point(6, 19)
+        Me.cboLanguage.Name = "cboLanguage"
+        Me.cboLanguage.Size = New System.Drawing.Size(300, 21)
+        Me.cboLanguage.TabIndex = 0
         '
         'grpLogOptions
         '
@@ -980,13 +1003,13 @@ Partial Class frmSettings
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(584, 436)
+        Me.Controls.Add(Me.pnlInterface)
+        Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.pnlBackup)
         Me.Controls.Add(Me.pnlFilesAndFolders)
-        Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlGlobalHotKeys)
         Me.Controls.Add(Me.pnlStartup)
-        Me.Controls.Add(Me.pnlInterface)
         Me.Controls.Add(Me.btnResetMessages)
         Me.Controls.Add(Me.lstSettings)
         Me.Controls.Add(Me.btnDefaults)
@@ -1016,9 +1039,10 @@ Partial Class frmSettings
         Me.grpGameMonitoringOptions.ResumeLayout(False)
         Me.grpGameMonitoringOptions.PerformLayout()
         CType(Me.nudSuppressBackupThreshold, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.grpOptionalFeeatures.ResumeLayout(False)
-        Me.grpOptionalFeeatures.PerformLayout()
+        Me.grpOptionalFeatures.ResumeLayout(False)
+        Me.grpOptionalFeatures.PerformLayout()
         Me.pnlInterface.ResumeLayout(False)
+        Me.grpLanguage.ResumeLayout(False)
         Me.grpLogOptions.ResumeLayout(False)
         Me.grpLogOptions.PerformLayout()
         Me.grpGameManagerOptions.ResumeLayout(False)
@@ -1057,7 +1081,7 @@ Partial Class frmSettings
     Friend WithEvents pnlBackup As Panel
     Friend WithEvents pnl7z As Panel
     Friend WithEvents pnlGeneral As Panel
-    Friend WithEvents grpOptionalFeeatures As GroupBox
+    Friend WithEvents grpOptionalFeatures As GroupBox
     Friend WithEvents lstSettings As ListBox
     Friend WithEvents grp7zAdvanced As GroupBox
     Friend WithEvents grp7zInformation As GroupBox
@@ -1123,4 +1147,6 @@ Partial Class frmSettings
     Friend WithEvents grpBackupExperimental As GroupBox
     Friend WithEvents chkEnableLiveBackup As CheckBox
     Friend WithEvents chkEnableOSTheme As CheckBox
+    Friend WithEvents grpLanguage As GroupBox
+    Friend WithEvents cboLanguage As ComboBox
 End Class

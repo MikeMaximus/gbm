@@ -25,6 +25,8 @@ Partial Class frmStartUpWizard
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmStartUpWizard))
         Me.tabWizard = New System.Windows.Forms.TabControl()
         Me.tbPage1 = New System.Windows.Forms.TabPage()
+        Me.lblLanguage = New System.Windows.Forms.Label()
+        Me.cboLanguage = New System.Windows.Forms.ComboBox()
         Me.lblStep1Instructions2 = New System.Windows.Forms.Label()
         Me.llbManual = New System.Windows.Forms.LinkLabel()
         Me.lblStep1Title = New System.Windows.Forms.Label()
@@ -73,6 +75,8 @@ Partial Class frmStartUpWizard
         'tbPage1
         '
         Me.tbPage1.BackColor = System.Drawing.SystemColors.Control
+        Me.tbPage1.Controls.Add(Me.lblLanguage)
+        Me.tbPage1.Controls.Add(Me.cboLanguage)
         Me.tbPage1.Controls.Add(Me.lblStep1Instructions2)
         Me.tbPage1.Controls.Add(Me.llbManual)
         Me.tbPage1.Controls.Add(Me.lblStep1Title)
@@ -83,6 +87,25 @@ Partial Class frmStartUpWizard
         Me.tbPage1.Size = New System.Drawing.Size(438, 246)
         Me.tbPage1.TabIndex = 0
         Me.tbPage1.Text = "TabPage1"
+        '
+        'lblLanguage
+        '
+        Me.lblLanguage.AutoSize = True
+        Me.lblLanguage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
+        Me.lblLanguage.Location = New System.Drawing.Point(15, 161)
+        Me.lblLanguage.Name = "lblLanguage"
+        Me.lblLanguage.Size = New System.Drawing.Size(72, 16)
+        Me.lblLanguage.TabIndex = 4
+        Me.lblLanguage.Text = "Language:"
+        '
+        'cboLanguage
+        '
+        Me.cboLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboLanguage.FormattingEnabled = True
+        Me.cboLanguage.Location = New System.Drawing.Point(18, 180)
+        Me.cboLanguage.Name = "cboLanguage"
+        Me.cboLanguage.Size = New System.Drawing.Size(300, 21)
+        Me.cboLanguage.TabIndex = 0
         '
         'lblStep1Instructions2
         '
@@ -97,10 +120,10 @@ Partial Class frmStartUpWizard
         'llbManual
         '
         Me.llbManual.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.llbManual.Location = New System.Drawing.Point(15, 163)
+        Me.llbManual.Location = New System.Drawing.Point(15, 213)
         Me.llbManual.Name = "llbManual"
         Me.llbManual.Size = New System.Drawing.Size(409, 20)
-        Me.llbManual.TabIndex = 3
+        Me.llbManual.TabIndex = 1
         Me.llbManual.TabStop = True
         Me.llbManual.Text = "Game Backup Monitor Manual"
         '
@@ -157,7 +180,7 @@ Partial Class frmStartUpWizard
         Me.chkCreateFolder.Location = New System.Drawing.Point(17, 93)
         Me.chkCreateFolder.Name = "chkCreateFolder"
         Me.chkCreateFolder.Size = New System.Drawing.Size(186, 17)
-        Me.chkCreateFolder.TabIndex = 4
+        Me.chkCreateFolder.TabIndex = 2
         Me.chkCreateFolder.Text = "Create a sub-folder for each game"
         Me.chkCreateFolder.UseVisualStyleBackColor = True
         '
@@ -188,7 +211,7 @@ Partial Class frmStartUpWizard
         Me.btnFolderBrowse.Location = New System.Drawing.Point(323, 67)
         Me.btnFolderBrowse.Name = "btnFolderBrowse"
         Me.btnFolderBrowse.Size = New System.Drawing.Size(27, 20)
-        Me.btnFolderBrowse.TabIndex = 3
+        Me.btnFolderBrowse.TabIndex = 1
         Me.btnFolderBrowse.Text = "..."
         Me.btnFolderBrowse.UseVisualStyleBackColor = True
         '
@@ -199,7 +222,7 @@ Partial Class frmStartUpWizard
         Me.txtBackupPath.Location = New System.Drawing.Point(17, 67)
         Me.txtBackupPath.Name = "txtBackupPath"
         Me.txtBackupPath.Size = New System.Drawing.Size(300, 20)
-        Me.txtBackupPath.TabIndex = 2
+        Me.txtBackupPath.TabIndex = 0
         '
         'lblStep2Intro
         '
@@ -231,7 +254,7 @@ Partial Class frmStartUpWizard
         Me.btnOpenWizard.Location = New System.Drawing.Point(121, 173)
         Me.btnOpenWizard.Name = "btnOpenWizard"
         Me.btnOpenWizard.Size = New System.Drawing.Size(196, 23)
-        Me.btnOpenWizard.TabIndex = 3
+        Me.btnOpenWizard.TabIndex = 1
         Me.btnOpenWizard.Text = "Add Game Wizard"
         Me.btnOpenWizard.UseVisualStyleBackColor = True
         '
@@ -241,7 +264,7 @@ Partial Class frmStartUpWizard
         Me.btnOpenMonitorList.Location = New System.Drawing.Point(121, 202)
         Me.btnOpenMonitorList.Name = "btnOpenMonitorList"
         Me.btnOpenMonitorList.Size = New System.Drawing.Size(196, 23)
-        Me.btnOpenMonitorList.TabIndex = 4
+        Me.btnOpenMonitorList.TabIndex = 2
         Me.btnOpenMonitorList.Text = "Game Manager"
         Me.btnOpenMonitorList.UseVisualStyleBackColor = True
         '
@@ -251,7 +274,7 @@ Partial Class frmStartUpWizard
         Me.btnDownloadList.Location = New System.Drawing.Point(121, 144)
         Me.btnDownloadList.Name = "btnDownloadList"
         Me.btnDownloadList.Size = New System.Drawing.Size(196, 23)
-        Me.btnDownloadList.TabIndex = 2
+        Me.btnDownloadList.TabIndex = 0
         Me.btnDownloadList.Text = "Import from Official List"
         Me.btnDownloadList.UseVisualStyleBackColor = True
         '
@@ -271,7 +294,7 @@ Partial Class frmStartUpWizard
         Me.lblStep3Intro.Location = New System.Drawing.Point(14, 46)
         Me.lblStep3Intro.Name = "lblStep3Intro"
         Me.lblStep3Intro.Size = New System.Drawing.Size(410, 95)
-        Me.lblStep3Intro.TabIndex = 1
+        Me.lblStep3Intro.TabIndex = 0
         Me.lblStep3Intro.Text = resources.GetString("lblStep3Intro.Text")
         '
         'tbPage4
@@ -293,7 +316,7 @@ Partial Class frmStartUpWizard
         Me.lblStep4Instructions3.Location = New System.Drawing.Point(14, 130)
         Me.lblStep4Instructions3.Name = "lblStep4Instructions3"
         Me.lblStep4Instructions3.Size = New System.Drawing.Size(409, 52)
-        Me.lblStep4Instructions3.TabIndex = 18
+        Me.lblStep4Instructions3.TabIndex = 0
         Me.lblStep4Instructions3.Text = "You can change anything you've setup in this wizard and find more settings and fe" &
     "atures by exploring the menus. "
         '
@@ -303,7 +326,7 @@ Partial Class frmStartUpWizard
         Me.lblStep4Instructions2.Location = New System.Drawing.Point(14, 98)
         Me.lblStep4Instructions2.Name = "lblStep4Instructions2"
         Me.lblStep4Instructions2.Size = New System.Drawing.Size(410, 32)
-        Me.lblStep4Instructions2.TabIndex = 17
+        Me.lblStep4Instructions2.TabIndex = 0
         Me.lblStep4Instructions2.Text = "Just remember GBM can only currently monitor one game at a time."
         '
         'lblStep4Title
@@ -313,7 +336,7 @@ Partial Class frmStartUpWizard
         Me.lblStep4Title.Location = New System.Drawing.Point(14, 15)
         Me.lblStep4Title.Name = "lblStep4Title"
         Me.lblStep4Title.Size = New System.Drawing.Size(143, 20)
-        Me.lblStep4Title.TabIndex = 16
+        Me.lblStep4Title.TabIndex = 0
         Me.lblStep4Title.Text = "Setup Complete!"
         '
         'lblStep4Instructions
@@ -322,7 +345,7 @@ Partial Class frmStartUpWizard
         Me.lblStep4Instructions.Location = New System.Drawing.Point(14, 46)
         Me.lblStep4Instructions.Name = "lblStep4Instructions"
         Me.lblStep4Instructions.Size = New System.Drawing.Size(410, 42)
-        Me.lblStep4Instructions.TabIndex = 12
+        Me.lblStep4Instructions.TabIndex = 0
         Me.lblStep4Instructions.Text = "Game Backup Monitor will automatically monitor and backup your games each time th" &
     "ey are closed."
         '
@@ -403,4 +426,6 @@ Partial Class frmStartUpWizard
     Friend WithEvents lblStep1Instructions2 As System.Windows.Forms.Label
     Friend WithEvents llbManual As System.Windows.Forms.LinkLabel
     Friend WithEvents lblStep2Warning As Label
+    Friend WithEvents cboLanguage As ComboBox
+    Friend WithEvents lblLanguage As Label
 End Class

@@ -3235,4 +3235,22 @@
   <data name="frmProcessManager_lblArguments" xml:space="preserve">
     <value>Arguments:</value>
   </data>
+  <data name="frmFilter_lblResultsWarning" xml:space="preserve">
+    <value>* Indicates a field that may give unexpected results.</value>
+  </data>
+  <data name="App_Language_ChineseSimplified" xml:space="preserve">
+    <value>简体中文 (Chinese Simplified)</value>
+  </data>
+  <data name="App_Language_Default" xml:space="preserve">
+    <value>Operating System - [PARAM]</value>
+  </data>
+  <data name="App_Language_English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="App_Language_Japanese" xml:space="preserve">
+    <value>日本語 (Japanese)</value>
+  </data>
+  <data name="App_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
 </root>

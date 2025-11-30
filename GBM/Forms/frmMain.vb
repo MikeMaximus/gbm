@@ -1442,14 +1442,15 @@ Public Class frmMain
         If frm.ShowDialog() = Windows.Forms.DialogResult.OK Then
             'Set Remote Database Location
             mgrPath.RemoteDatabaseLocation = mgrSettings.BackupFolder
+            If frm.bLanguageChanged Then SetForm()
             SetupSyncWatcher()
-            mgrStoreVariables.AutoConfigureStoreVariables()
-            LoadGameSettings()
-            HandleFeatures()
-            HandleLauncherMenu()
-            SetDetectionSpeed()
-        Else
-            mgrSettings.LoadSettings()
+                mgrStoreVariables.AutoConfigureStoreVariables()
+                LoadGameSettings()
+                HandleFeatures()
+                HandleLauncherMenu()
+                SetDetectionSpeed()
+            Else
+                mgrSettings.LoadSettings()
         End If
         ResumeScan()
         BindHotKeys()
@@ -1620,9 +1621,6 @@ Public Class frmMain
             Exit Sub
         End If
 
-        'Set any required environment variables
-        mgrPath.SetEnv()
-
         'Check Special Paths
         If Not mgrPath.CheckForEmptySpecialPaths() Then
             bInitFail = True
@@ -1774,10 +1772,12 @@ Public Class frmMain
     End Sub
 
     Private Sub InitApp()
-        SetForm()
         Try
             mgrCommon.SetTLSVersion()
+
             If VerifyGameDataPath() Then
+                'Set any required environment variables
+                mgrPath.SetEnv()
                 If bFirstRun Then OpenStartupWizard()
                 LoadAndVerify()
             Else
@@ -2534,6 +2534,12 @@ Public Class frmMain
         ElseIf Not mgrSettings.MainHideLog And mgrSettings.MainHideGameList Then
             Me.Size = New Size(Me.Size.Width - slcMain.SplitterDistance, Me.Size.Height)
         End If
+
+        If mgrSettings.Language <> String.Empty Then
+            System.Threading.Thread.CurrentThread.CurrentUICulture = New Globalization.CultureInfo(mgrSettings.Language)
+        End If
+
+        SetForm()
     End Sub
 
     Private Function BuildChildProcesses() As Integer
