@@ -2,7 +2,7 @@ Game Backup Monitor v1.4.3 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-November 29, 2025
+December 1, 2025
 
 New in 1.4.3
 
@@ -15,13 +15,14 @@ General:
 	- The Settings -> User Interface panel now allows you to manually set one of the available languages. (Operating System (Default), English, Chinese Simplified, Japanese).
 - Added the ability to run GBM in a fully portable mode.
 	- In portable mode, GBM will store all user and temporary data in the same location as the app instead of using the user's OS profile folder.
-	- You MUST have write permissions to the application folder for portable mode to function.
+	- You must have write permissions to the application folder for GBM to start in portable mode.
 	- GBM does not automatically move any of your existing data when switching between normal mode and portable mode.
 	- To enable portable mode:
 		- Run the "Toggle Portable Mode" script in the application folder, then start GBM.
 			- "Toggle Portable Mode.bat" is for Windows and "Toggle Portable Mode.sh" is for Linux.
 		- You can also manually create an empty file named "portable.ini" (case-sensitive depending on the OS) in the application folder to enable portable mode.				
 			- Delete the "portable.ini" file to return to normal mode.
+	- A new indicator on the main window status bar shows which mode you are currently in.
 - The Start-Up Wizard will now allow you to choose a language.
 - The Start-Up Wizard will now suggest the application folder as a default backup location when running in portable mode.	
 - Fixed some long standing issues with GBM's initialization sequence.
