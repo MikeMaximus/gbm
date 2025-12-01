@@ -301,7 +301,6 @@ Public Class frmSettings
     Private Sub LoadCombos()
         Dim oCompressionItems As New List(Of KeyValuePair(Of Integer, String))
         Dim oDetectSpeedItems As New List(Of KeyValuePair(Of Integer, String))
-        Dim oLanguageItems As New List(Of KeyValuePair(Of String, String))
         Dim oSettingsItems As New List(Of KeyValuePair(Of Integer, String))
 
         'cboCompression
@@ -332,12 +331,7 @@ Public Class frmSettings
         cboLanguage.ValueMember = "Key"
         cboLanguage.DisplayMember = "Value"
 
-        oLanguageItems.Add(New KeyValuePair(Of String, String)(String.Empty, mgrCommon.FormatString(App_Language_Default, CultureInfo.InstalledUICulture.DisplayName)))
-        oLanguageItems.Add(New KeyValuePair(Of String, String)("en", App_Language_English))
-        oLanguageItems.Add(New KeyValuePair(Of String, String)("ja", App_Language_Japanese))
-        oLanguageItems.Add(New KeyValuePair(Of String, String)("zh", App_Language_ChineseSimplified))
-
-        cboLanguage.DataSource = oLanguageItems
+        cboLanguage.DataSource = mgrCommon.BuildLanguageMenu
 
         'lstSettings
         lstSettings.ValueMember = "Key"

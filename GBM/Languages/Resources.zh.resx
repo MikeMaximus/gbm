@@ -3101,4 +3101,13 @@
   <data name="App_Language" xml:space="preserve">
     <value>语言</value>
   </data>
+  <data name="frmMain_ErrorPortablePermissions" xml:space="preserve">
+    <value>便携模式已启用，但该用户没有应用文件夹所需的权限。 申请无法继续进行。</value>
+  </data>
+  <data name="frmMain_RunningInNormal" xml:space="preserve">
+    <value>GBM运行在普通模式。 点击查看手册中的详细信息。</value>
+  </data>
+  <data name="frmMain_RunningInPortable" xml:space="preserve">
+    <value>GBM运行在便携模式下。 点击查看手册中的详细信息。</value>
+  </data>
 </root>

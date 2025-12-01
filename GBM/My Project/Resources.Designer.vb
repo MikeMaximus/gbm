@@ -430,7 +430,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2025-11-30T01:52:42
+        '''  Looks up a localized string similar to 2025-12-01T15:14:04
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4852,6 +4852,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Portable mode is enabled, but this user doesn&apos;t have the required permissions to the application folder.  The application cannot proceed..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorPortablePermissions() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorPortablePermissions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] uses a relative path and has never been detected on this computer..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorRelativePath() As String
@@ -5663,6 +5672,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmMain_Normal() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmMain_Normal", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to No Sessions.
         '''</summary>
         Friend ReadOnly Property frmMain_NoSessions() As String
@@ -5724,6 +5743,16 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_PNGFilter() As String
             Get
                 Return ResourceManager.GetString("frmMain_PNGFilter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmMain_Portable() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmMain_Portable", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -5860,6 +5889,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_RunningAsNormal() As String
             Get
                 Return ResourceManager.GetString("frmMain_RunningAsNormal", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to GBM is running in normal mode.  Click to view details in the manual..
+        '''</summary>
+        Friend ReadOnly Property frmMain_RunningInNormal() As String
+            Get
+                Return ResourceManager.GetString("frmMain_RunningInNormal", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to GBM is running in portable mode.  Click to view details in the manual..
+        '''</summary>
+        Friend ReadOnly Property frmMain_RunningInPortable() As String
+            Get
+                Return ResourceManager.GetString("frmMain_RunningInPortable", resourceCulture)
             End Get
         End Property
         

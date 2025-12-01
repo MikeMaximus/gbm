@@ -3253,4 +3253,19 @@
   <data name="App_Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="frmMain_ErrorPortablePermissions" xml:space="preserve">
+    <value>Portable mode is enabled, but this user doesn't have the required permissions to the application folder.  The application cannot proceed.</value>
+  </data>
+  <data name="frmMain_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_Portable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmMain_Portable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmMain_RunningInNormal" xml:space="preserve">
+    <value>GBM is running in normal mode.  Click to view details in the manual.</value>
+  </data>
+  <data name="frmMain_RunningInPortable" xml:space="preserve">
+    <value>GBM is running in portable mode.  Click to view details in the manual.</value>
+  </data>
 </root>

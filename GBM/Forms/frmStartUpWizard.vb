@@ -69,18 +69,11 @@ Public Class frmStartUpWizard
     End Sub
 
     Private Sub LoadCombos()
-        Dim oLanguageItems As New List(Of KeyValuePair(Of String, String))
-
         'cboLanguage
         cboLanguage.ValueMember = "Key"
         cboLanguage.DisplayMember = "Value"
 
-        oLanguageItems.Add(New KeyValuePair(Of String, String)(String.Empty, mgrCommon.FormatString(App_Language_Default, CultureInfo.InstalledUICulture.DisplayName)))
-        oLanguageItems.Add(New KeyValuePair(Of String, String)("en", App_Language_English))
-        oLanguageItems.Add(New KeyValuePair(Of String, String)("ja", App_Language_Japanese))
-        oLanguageItems.Add(New KeyValuePair(Of String, String)("zh", App_Language_ChineseSimplified))
-
-        cboLanguage.DataSource = oLanguageItems
+        cboLanguage.DataSource = mgrCommon.BuildLanguageMenu
     End Sub
 
     Private Sub CheckSync()

@@ -65,6 +65,7 @@ Partial Class frmMain
         Me.gMonStatusStrip = New System.Windows.Forms.StatusStrip()
         Me.gMonStripCollapse = New System.Windows.Forms.ToolStripStatusLabel()
         Me.gMonStripAdminButton = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.gMonStripModeIndicator = New System.Windows.Forms.ToolStripStatusLabel()
         Me.gMonStripTxtStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.gMonStripStatusButton = New System.Windows.Forms.ToolStripStatusLabel()
         Me.gMonMainMenu = New System.Windows.Forms.MenuStrip()
@@ -382,7 +383,7 @@ Partial Class frmMain
         'gMonStatusStrip
         '
         Me.gMonStatusStrip.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gMonStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonStripCollapse, Me.gMonStripAdminButton, Me.gMonStripTxtStatus, Me.gMonStripStatusButton})
+        Me.gMonStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.gMonStripCollapse, Me.gMonStripAdminButton, Me.gMonStripModeIndicator, Me.gMonStripTxtStatus, Me.gMonStripStatusButton})
         Me.gMonStatusStrip.Location = New System.Drawing.Point(0, 439)
         Me.gMonStatusStrip.Name = "gMonStatusStrip"
         Me.gMonStatusStrip.ShowItemToolTips = True
@@ -406,11 +407,18 @@ Partial Class frmMain
         Me.gMonStripAdminButton.Name = "gMonStripAdminButton"
         Me.gMonStripAdminButton.Size = New System.Drawing.Size(16, 17)
         '
+        'gMonStripModeIndicator
+        '
+        Me.gMonStripModeIndicator.Image = Global.GBM.My.Resources.Resources.frmMain_Normal
+        Me.gMonStripModeIndicator.Margin = New System.Windows.Forms.Padding(5, 3, 0, 2)
+        Me.gMonStripModeIndicator.Name = "gMonStripModeIndicator"
+        Me.gMonStripModeIndicator.Size = New System.Drawing.Size(16, 17)
+        '
         'gMonStripTxtStatus
         '
         Me.gMonStripTxtStatus.Margin = New System.Windows.Forms.Padding(5, 0, 0, 0)
         Me.gMonStripTxtStatus.Name = "gMonStripTxtStatus"
-        Me.gMonStripTxtStatus.Size = New System.Drawing.Size(634, 22)
+        Me.gMonStripTxtStatus.Size = New System.Drawing.Size(582, 22)
         Me.gMonStripTxtStatus.Spring = True
         Me.gMonStripTxtStatus.Text = "Monitor Status"
         Me.gMonStripTxtStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1090,4 +1098,5 @@ Partial Class frmMain
     Friend WithEvents lblStatus1 As Label
     Friend WithEvents lblGameTitle As Label
     Friend WithEvents lblTimeSpent As Label
+    Friend WithEvents gMonStripModeIndicator As ToolStripStatusLabel
 End Class

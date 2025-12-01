@@ -44,6 +44,7 @@ Public Class frmMain
     Private sPathDetectionError As String = String.Empty
     Private bMenuEnabled As Boolean = True
     Private bLockdown As Boolean = True
+    Private bIsPortableMode As Boolean = False
     Private bFirstRun As Boolean = False
     Private bInitialLoad As Boolean = True
     Private bProcessIsAdmin As Boolean = False
@@ -1500,8 +1501,8 @@ Public Class frmMain
         mgrCommon.OpenInOS(App_URLWebsite, , True)
     End Sub
 
-    Private Sub OpenOnlineManual()
-        mgrCommon.OpenInOS(App_URLManual, , True)
+    Private Sub OpenOnlineManual(Optional ByVal sSection As String = "")
+        mgrCommon.OpenInOS(App_URLManual & sSection, , True)
     End Sub
 
     Private Sub OpenCheckforUpdates()
@@ -2492,6 +2493,15 @@ Public Class frmMain
             gMonStripAdminButton.Image = frmMain_User
             gMonStripAdminButton.ToolTipText = frmMain_RunningAsNormal
         End If
+
+        If bIsPortableMode Then
+            gMonStripModeIndicator.Image = frmMain_Portable
+            gMonStripModeIndicator.ToolTipText = frmMain_RunningInPortable
+        Else
+            gMonStripModeIndicator.Image = frmMain_Normal
+            gMonStripModeIndicator.ToolTipText = frmMain_RunningInNormal
+        End If
+
         btnCancelOperation.Visible = False
         pbTime.SizeMode = PictureBoxSizeMode.AutoSize
         pbTime.Image = frmMain_Clock
@@ -2760,12 +2770,20 @@ Public Class frmMain
     Private Function VerifyGameDataPath() As Boolean
         Dim sSettingsRoot As String
         Dim sDBLocation As String
+        Dim sPortableDataPath As String = Application.StartupPath & Path.DirectorySeparatorChar & App_FoldersUser
+        Dim sNormalDataPath As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
 
         'Check if we should be running in portable mode
         If File.Exists(Application.StartupPath & Path.DirectorySeparatorChar & "portable.ini") Then
-            sSettingsRoot = Application.StartupPath & Path.DirectorySeparatorChar & App_FoldersUser
+            If mgrCommon.IsDirectoryWritable(Application.StartupPath) Then
+                bIsPortableMode = True
+                sSettingsRoot = sPortableDataPath
+            Else
+                mgrCommon.ShowMessage(frmMain_ErrorPortablePermissions, MsgBoxStyle.Critical)
+                Return False
+            End If
         Else
-            sSettingsRoot = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
+            sSettingsRoot = sNormalDataPath
         End If
 
         'Set the local db path and name
@@ -2781,7 +2799,7 @@ Public Class frmMain
             End Try
         End If
 
-        'If the database doesn't exist yet go into first run mode
+        'If a database doesn't exist yet go into first run mode
         If Not File.Exists(sDBLocation) Then bFirstRun = True
 
         'Set the globals and return
@@ -3176,6 +3194,10 @@ Public Class frmMain
 
     Private Sub gMonStripAdminButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripAdminButton.Click
         RestartAsAdmin()
+    End Sub
+
+    Private Sub gMonStripModeIndicator_Click(sender As Object, e As EventArgs) Handles gMonStripModeIndicator.Click
+        OpenOnlineManual("#modes")
     End Sub
 
     Private Sub Main_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing

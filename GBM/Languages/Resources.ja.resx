@@ -3248,4 +3248,13 @@
   <data name="App_Language" xml:space="preserve">
     <value>言語</value>
   </data>
+  <data name="frmMain_ErrorPortablePermissions" xml:space="preserve">
+    <value>ポータブルモードが有効になっていますが、アプリケーションフォルダへの必要な権限がないので、続行できません。</value>
+  </data>
+  <data name="frmMain_RunningInNormal" xml:space="preserve">
+    <value>GBMは通常モードで実行中。クリックするとマニュアルの詳細が表示されます。</value>
+  </data>
+  <data name="frmMain_RunningInPortable" xml:space="preserve">
+    <value>GBMはポータブルモードで実行中。クリックするとマニュアルの詳細が表示されます。</value>
+  </data>
 </root>
