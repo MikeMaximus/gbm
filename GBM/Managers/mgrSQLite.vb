@@ -58,7 +58,7 @@ Public Class mgrSQLite
         End Property
         Public Shared ReadOnly Property Processes As String
             Get
-                Return "CREATE TABLE processes (ProcessID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Path TEXT NOT NULL, Args TEXT, Kill BOOLEAN NOT NULL);"
+                Return "CREATE TABLE processes (ProcessID TEXT NOT NULL PRIMARY KEY, Name TEXT NOT NULL, Path TEXT NOT NULL, Args TEXT, Kill BOOLEAN NOT NULL, Delay INTEGER NOT NULL);"
             End Get
         End Property
         Public Shared ReadOnly Property GameProcesses As String
@@ -1430,6 +1430,8 @@ Public Class mgrSQLite
 
                 'Add setting for language override
                 sSQL = "ALTER TABLE settings ADD COLUMN Language TEXT NOT NULL DEFAULT '';"
+                'Add start-up delay setting for processes
+                sSQL &= "ALTER TABLE processes ADD COLUMN Delay INTEGER NOT NULL DEFAULT 0;"
                 sSQL &= "PRAGMA user_version=143"
 
                 RunParamQuery(sSQL, New Hashtable)

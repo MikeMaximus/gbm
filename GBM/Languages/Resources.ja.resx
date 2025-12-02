@@ -3257,4 +3257,10 @@
   <data name="frmMain_RunningInPortable" xml:space="preserve">
     <value>GBMはポータブルモードで実行中。クリックするとマニュアルの詳細が表示されます。</value>
   </data>
+  <data name="frmProcessManager_lblDelay" xml:space="preserve">
+    <value>開始までの遅延時間</value>
+  </data>
+  <data name="frmProcessManager_lblDelaySeconds" xml:space="preserve">
+    <value>秒</value>
+  </data>
 </root>

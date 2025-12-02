@@ -2588,36 +2588,38 @@ Public Class frmMain
         Return oChildProcesses.Count
     End Function
 
-    Private Function StartChildProcess(ByRef prsChild As Process, Optional ByVal bAdmin As Boolean = False) As Boolean
+    Private Sub LaunchProcessOnSeperateThread(ByVal oProcessToStart As clsProcessToStart)
         Try
-            If bAdmin Then prsChild.StartInfo.Verb = "runas"
-            prsChild.Start()
-            Return True
+            Sleep(oProcessToStart.Delay * 1000)
+            oProcessToStart.Process.Start()
+            UpdateLog(mgrCommon.FormatString(frmMain_ProcessStarted, oProcessToStart.Name), False)
         Catch exWin32 As System.ComponentModel.Win32Exception
             'If the launch fails due to required elevation, try it again and request elevation.
             If exWin32.ErrorCode = 740 Then
-                StartChildProcess(prsChild, True)
+                oProcessToStart.Process.StartInfo.Verb = "runas"
+                oProcessToStart.Process.Start()
             Else
                 UpdateLog(mgrCommon.FormatString(frmMain_ErrorStartChildProcess, New String() {oProcess.GameInfo.CroppedName, exWin32.Message}), True, ToolTipIcon.Error)
             End If
-            Return False
         Catch exAll As Exception
             UpdateLog(mgrCommon.FormatString(frmMain_ErrorStartChildProcess, New String() {oProcess.GameInfo.CroppedName, exAll.Message}), True, ToolTipIcon.Error)
-            Return False
         End Try
-    End Function
+    End Sub
 
     Private Sub StartChildProcesses()
+        Dim oThread As System.Threading.Thread
         Dim oCurrentProcess As clsProcess
         Dim prsChild As Process
+        Dim oProcessToStart As clsProcessToStart
 
         If BuildChildProcesses() > 0 Then
             For Each de As DictionaryEntry In oChildProcesses
                 oCurrentProcess = DirectCast(de.Key, clsProcess)
                 prsChild = DirectCast(de.Value, Process)
-                If StartChildProcess(prsChild) Then
-                    UpdateLog(mgrCommon.FormatString(frmMain_ProcessStarted, oCurrentProcess.Name), False)
-                End If
+                oProcessToStart = New clsProcessToStart(oCurrentProcess.Name, oCurrentProcess.Delay, prsChild)
+                oThread = New System.Threading.Thread(AddressOf LaunchProcessOnSeperateThread)
+                oThread.IsBackground = True
+                oThread.Start(oProcessToStart)
             Next
         End If
     End Sub

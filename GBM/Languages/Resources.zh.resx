@@ -3110,4 +3110,10 @@
   <data name="frmMain_RunningInPortable" xml:space="preserve">
     <value>GBM运行在便携模式下。 点击查看手册中的详细信息。</value>
   </data>
+  <data name="frmProcessManager_lblDelay" xml:space="preserve">
+    <value>延迟开始</value>
+  </data>
+  <data name="frmProcessManager_lblDelaySeconds" xml:space="preserve">
+    <value>秒</value>
+  </data>
 </root>

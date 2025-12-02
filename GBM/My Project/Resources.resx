@@ -3268,4 +3268,10 @@
   <data name="frmMain_RunningInPortable" xml:space="preserve">
     <value>GBM is running in portable mode.  Click to view details in the manual.</value>
   </data>
+  <data name="frmProcessManager_lblDelay" xml:space="preserve">
+    <value>Delay starting for</value>
+  </data>
+  <data name="frmProcessManager_lblDelaySeconds" xml:space="preserve">
+    <value>Seconds</value>
+  </data>
 </root>

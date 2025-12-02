@@ -23,7 +23,11 @@ Partial Class frmProcessManager
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.grpProcess = New System.Windows.Forms.GroupBox()
+        Me.lblDelaySeconds = New System.Windows.Forms.Label()
+        Me.nudDelay = New System.Windows.Forms.NumericUpDown()
+        Me.lblDelay = New System.Windows.Forms.Label()
         Me.chkKillProcess = New System.Windows.Forms.CheckBox()
+        Me.txtID = New System.Windows.Forms.TextBox()
         Me.txtArguments = New System.Windows.Forms.TextBox()
         Me.lblArguments = New System.Windows.Forms.Label()
         Me.btnProcessBrowse = New System.Windows.Forms.Button()
@@ -34,15 +38,19 @@ Partial Class frmProcessManager
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.lstProcesses = New System.Windows.Forms.ListBox()
-        Me.txtID = New System.Windows.Forms.TextBox()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.grpProcess.SuspendLayout()
+        CType(Me.nudDelay, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'grpProcess
         '
+        Me.grpProcess.Controls.Add(Me.lblDelaySeconds)
+        Me.grpProcess.Controls.Add(Me.nudDelay)
+        Me.grpProcess.Controls.Add(Me.lblDelay)
         Me.grpProcess.Controls.Add(Me.chkKillProcess)
+        Me.grpProcess.Controls.Add(Me.txtID)
         Me.grpProcess.Controls.Add(Me.txtArguments)
         Me.grpProcess.Controls.Add(Me.lblArguments)
         Me.grpProcess.Controls.Add(Me.btnProcessBrowse)
@@ -52,20 +60,55 @@ Partial Class frmProcessManager
         Me.grpProcess.Controls.Add(Me.lblName)
         Me.grpProcess.Location = New System.Drawing.Point(210, 12)
         Me.grpProcess.Name = "grpProcess"
-        Me.grpProcess.Size = New System.Drawing.Size(362, 120)
+        Me.grpProcess.Size = New System.Drawing.Size(362, 147)
         Me.grpProcess.TabIndex = 3
         Me.grpProcess.TabStop = False
         Me.grpProcess.Text = "Configuration"
         '
+        'lblDelaySeconds
+        '
+        Me.lblDelaySeconds.AutoSize = True
+        Me.lblDelaySeconds.Location = New System.Drawing.Point(259, 98)
+        Me.lblDelaySeconds.Name = "lblDelaySeconds"
+        Me.lblDelaySeconds.Size = New System.Drawing.Size(49, 13)
+        Me.lblDelaySeconds.TabIndex = 0
+        Me.lblDelaySeconds.Text = "Seconds"
+        '
+        'nudDelay
+        '
+        Me.nudDelay.Location = New System.Drawing.Point(203, 96)
+        Me.nudDelay.Maximum = New Decimal(New Integer() {900, 0, 0, 0})
+        Me.nudDelay.Name = "nudDelay"
+        Me.nudDelay.Size = New System.Drawing.Size(50, 20)
+        Me.nudDelay.TabIndex = 4
+        '
+        'lblDelay
+        '
+        Me.lblDelay.Location = New System.Drawing.Point(69, 98)
+        Me.lblDelay.Name = "lblDelay"
+        Me.lblDelay.Size = New System.Drawing.Size(128, 13)
+        Me.lblDelay.TabIndex = 0
+        Me.lblDelay.Text = "Delay starting for"
+        '
         'chkKillProcess
         '
         Me.chkKillProcess.AutoSize = True
-        Me.chkKillProcess.Location = New System.Drawing.Point(72, 96)
+        Me.chkKillProcess.Location = New System.Drawing.Point(72, 122)
         Me.chkKillProcess.Name = "chkKillProcess"
         Me.chkKillProcess.Size = New System.Drawing.Size(181, 17)
         Me.chkKillProcess.TabIndex = 4
         Me.chkKillProcess.Text = "Kill process when game is closed"
         Me.chkKillProcess.UseVisualStyleBackColor = True
+        '
+        'txtID
+        '
+        Me.txtID.Enabled = False
+        Me.txtID.Location = New System.Drawing.Point(323, 120)
+        Me.txtID.Name = "txtID"
+        Me.txtID.Size = New System.Drawing.Size(33, 20)
+        Me.txtID.TabIndex = 0
+        Me.txtID.TabStop = False
+        Me.txtID.Visible = False
         '
         'txtArguments
         '
@@ -159,16 +202,6 @@ Partial Class frmProcessManager
         Me.lstProcesses.Sorted = True
         Me.lstProcesses.TabIndex = 0
         '
-        'txtID
-        '
-        Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(539, 138)
-        Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(33, 20)
-        Me.txtID.TabIndex = 0
-        Me.txtID.TabStop = False
-        Me.txtID.Visible = False
-        '
         'btnCancel
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -202,7 +235,6 @@ Partial Class frmProcessManager
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.lstProcesses)
-        Me.Controls.Add(Me.txtID)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -214,8 +246,8 @@ Partial Class frmProcessManager
         Me.Text = "Process Manager"
         Me.grpProcess.ResumeLayout(False)
         Me.grpProcess.PerformLayout()
+        CType(Me.nudDelay, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 
@@ -234,4 +266,7 @@ Partial Class frmProcessManager
     Friend WithEvents btnCancel As Button
     Friend WithEvents btnSave As Button
     Friend WithEvents chkKillProcess As CheckBox
+    Friend WithEvents lblDelaySeconds As Label
+    Friend WithEvents nudDelay As NumericUpDown
+    Friend WithEvents lblDelay As Label
 End Class

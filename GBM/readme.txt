@@ -2,7 +2,7 @@ Game Backup Monitor v1.4.3 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-December 1, 2025
+December 2, 2025
 
 New in 1.4.3
 
@@ -12,7 +12,7 @@ General:
 	- Thank you @nihongo-helper0119 for providing the Japanese translation.
 - Added the ability to manually set the user interface language.
 	- GBM will use your operating system language by default.
-	- The Settings -> User Interface panel now allows you to manually set one of the available languages. (Operating System (Default), English, Chinese Simplified, Japanese).
+	- The Settings -> User Interface panel now allows you to choose from any of the available languages. 
 - Added the ability to run GBM in a fully portable mode.
 	- In portable mode, GBM will store all user and temporary data in the same location as the app instead of using the user's OS profile folder.
 	- You must have write permissions to the application folder for GBM to start in portable mode.
@@ -23,12 +23,14 @@ General:
 		- You can also manually create an empty file named "portable.ini" (case-sensitive depending on the OS) in the application folder to enable portable mode.				
 			- Delete the "portable.ini" file to return to normal mode.
 	- A new indicator on the main window status bar shows which mode you are currently in.
-- The Start-Up Wizard will now allow you to choose a language.
-- The Start-Up Wizard will now suggest the application folder as a default backup location when running in portable mode.	
+- Changed how GBM starts linked processes.
+	- You can now set a start-up delay for each process in the Process Manager.
+	- Processes are now started on a seperate thread.
+- Updated the Start-Up Wizard.
+	- You can now choose the UI language on the first step.
+	- The application folder is suggested as a default backup location if running in portable mode.
 - Fixed some long standing issues with GBM's initialization sequence.
-- A GUI update pass was done across the entire application to better support multiple languages.
-	- All buttons are now slightly larger.
-	- Some forms have increased in size.
+- Changed the size of some controls and forms to better support multiple languages.	
 - Updated Components
 	- YamlDotNet 16.1.3 -> 16.3.0
 	- SQLite 3.50.2 -> 3.50.4 (Windows)
@@ -36,8 +38,9 @@ General:
 
 Known Issues:
 
-- GBM may not properly display the characters for a language that does not match the operating system language while running on Mono (Linux).  To solve this issue:
-	- Set your operating system language to the desired language, then restart GBM.
-	- Consult the documentation for your Window Manager and/or Linux distribution for help.
+- GBM may not properly display characters for a language that does not match the current operating system language.  To solve this issue:
+	- Install a language pack for the language you wish to use.
+	- Set your operating system language to the language you wish to use in GBM.
+	- Consult the documentation for your operating system for more help.
 		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
