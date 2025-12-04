@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="frmMain_About" xml:space="preserve">
-    <value>Game Backup Monitor[BR]Version: [PARAM] ([PARAM])[BR]Build: [PARAM][BR]Platform: [PARAM][BR]SQLite: [PARAM][BR][BR][PARAM][BR][BR]This program comes with ABSOLUTELY NO WARRANTY.[BR]This is free software, and you are welcome to redistribute it under certain conditions.[BR][BR]See gpl-3.0.html in the program folder for details.</value>
+    <value>ゲームバックアップモニター[BR]バージョン: [PARAM] ([PARAM])[BR]ビルド: [PARAM][BR]プラットフォーム: [PARAM][BR]SQLite: [PARAM][BR][BR][PARAM][BR][BR]このプログラムには一切の保証がありません。[BR]これはフリーソフトウェアであり、一定の条件下で再配布できます。[BR][BR]詳細については、プログラムフォルダ内の gpl-3.0.html を参照してください。</value>
   </data>
   <data name="frmMain_ManifestAreadyClean" xml:space="preserve">
-    <value>The local manifest is clean.</value>
+    <value>ローカルマニフェストはクリーンです。</value>
   </data>
   <data name="frmMain_ManifestRemovedEntry" xml:space="preserve">
-    <value>[PARAM] entry was removed from local manfiest.</value>
+    <value>[PARAM]エントリがローカルマニフェストから削除されました。</value>
   </data>
   <data name="frmMain_ManifestTotalRemoved" xml:space="preserve">
-    <value>[PARAM] entries were removed from the local manifest.</value>
+    <value>[PARAM]エントリがローカルマニフェストから削除されました。</value>
   </data>
   <data name="frmMain_ConfirmRebuild" xml:space="preserve">
-    <value>This will rebuild all databases and shrink them to an optimal size.[BR]This should only be used if your gbm.s3db files are becoming very large.[BR][BR]Do you wish to continue?</value>
+    <value>これにより、すべてのデータベースが再構築され、最適なサイズに縮小されます。[BR]これは、gbm.s3db ファイルが非常に大きくなっている場合にのみ使用してください。[BR][BR]続行しますか？</value>
   </data>
   <data name="App_Copyright" xml:space="preserve">
-    <value> 2014 - [PARAM] Michael J. Seiferling and Game Backup Monitor contributors</value>
+    <value> 2014 - [PARAM] Michael J. Seiferling and Game Backup Monitor 貢献者</value>
   </data>
   <data name="frmMain_Exit" xml:space="preserve">
-    <value>Are you sure you want to exit?  Your games will no longer be monitored.</value>
+    <value>本当に終了してもよろしいですか? ゲームは監視されなくなります。</value>
   </data>
   <data name="frmMain_LocalCompactComplete" xml:space="preserve">
-    <value>Local Database Vacuum Completed: [PARAM] KB</value>
+    <value>ローカルデータベースのバキュームが完了しました: [PARAM] KB</value>
   </data>
   <data name="frmMain_LocalCompactInit" xml:space="preserve">
-    <value>Local Database Vacuum Initialized: [PARAM] KB</value>
+    <value>ローカルデータベースのバキュームが初期化されました: [PARAM] KB</value>
   </data>
   <data name="App_NameLong" xml:space="preserve">
     <value>Game Backup Monitor</value>
@@ -151,445 +151,445 @@
     <value>GBM</value>
   </data>
   <data name="frmMain_RemoteCompactComplete" xml:space="preserve">
-    <value>Remote Database Vacuum Completed: [PARAM] KB</value>
+    <value>リモートデータベースのバキュームが完了しました: [PARAM] KB</value>
   </data>
   <data name="frmMain_RemoteCompactInit" xml:space="preserve">
-    <value>Remote Database Vacuum Initialized: [PARAM] KB</value>
+    <value>リモートデータベースバキューム初期化: [PARAM] KB</value>
   </data>
   <data name="frmMain_BackupInProgress" xml:space="preserve">
-    <value>Backup in Progress...</value>
+    <value>バックアップ進行中...</value>
   </data>
   <data name="frmMain_btnToggleLog_Hide" xml:space="preserve">
-    <value>Hide &amp;Log</value>
+    <value>ログを非表示(&amp;L)</value>
   </data>
   <data name="frmMain_btnToggleLog_Show" xml:space="preserve">
-    <value>Show &amp;Log</value>
+    <value>ログを表示(&amp;L)</value>
   </data>
   <data name="frmMain_ChooseIcon" xml:space="preserve">
-    <value>Choose icon for [PARAM]</value>
+    <value>[PARAM]のアイコンを選択</value>
   </data>
   <data name="frmMain_ConfirmBackup" xml:space="preserve">
-    <value>Do you wish to backup data from [PARAM]?</value>
+    <value>[PARAM]からデータをバックアップしますか？</value>
   </data>
   <data name="frmMain_ConfirmMonitorCancel" xml:space="preserve">
-    <value>Do you wish to cancel the monitoring of [PARAM]?[BR][BR]Warning: When monitoring is cancelled, session time is NOT saved.</value>
+    <value>[PARAM]の監視をキャンセルしますか？[BR][BR]警告: 監視がキャンセルされると、セッション時間は保存されません。</value>
   </data>
   <data name="frmMain_ConfirmRunAsAdmin" xml:space="preserve">
-    <value>Do you want to restart Game Backup Monitor as Administrator?</value>
+    <value>Game Backup Monitorを管理者権限で再起動しますか？</value>
   </data>
   <data name="frmMain_Error64Backup" xml:space="preserve">
-    <value>[PARAM] is a 64-bit game and GBM is 32-bit.  GBM cannot detect the required information to save your backup.</value>
+    <value>[PARAM]は64ビットゲームで、GBMは32ビットです。GBMはバックアップを保存するために必要な情報を検出できません。</value>
   </data>
   <data name="frmMain_Error7zip" xml:space="preserve">
-    <value>7-Zip was not found.  The application cannot continue.</value>
+    <value>7-Zipが見つかりません。アプリケーションを続行できません。</value>
   </data>
   <data name="frmMain_ErrorAdminBackup" xml:space="preserve">
-    <value>[PARAM] was running as Administrator and GBM is not, GBM cannot detect the required information to save your backup.</value>
+    <value>[PARAM] は管理者として実行されていましたが、GBM は管理者として実行されていません。GBM はバックアップを保存するために必要な情報を検出できません。</value>
   </data>
   <data name="frmMain_ErrorAdminDetect" xml:space="preserve">
-    <value>[PARAM] is running as Administrator and GBM is not.[BR]You cannot cancel monitoring at this time.[BR][BR]Run GBM as Administrator to prevent this issue.</value>
+    <value>[PARAM] は管理者として実行されていますが、GBM は管理者として実行されていません。[BR]現時点では監視をキャンセルできません。[BR][BR]この問題を防ぐには、GBM を管理者として実行してください。</value>
   </data>
   <data name="frmMain_ErrorAlreadyAdmin" xml:space="preserve">
-    <value>Game Backup Monitor is already running as Administrator.</value>
+    <value>Game Backup Monitorは、すでに管理者権限で実行されています。</value>
   </data>
   <data name="frmMain_ErrorAppLocationChanged" xml:space="preserve">
-    <value>GBM is running from a new location, the Windows startup entry has been updated.</value>
+    <value>GBM は新しい場所から実行されており、Windows スタートアップ エントリが更新されました。</value>
   </data>
   <data name="frmMain_ErrorBackupCancel" xml:space="preserve">
-    <value>[PARAM] backup was cancelled.</value>
+    <value>[PARAM] バックアップがキャンセルされました。</value>
   </data>
   <data name="frmMain_ErrorBackupSessionLength" xml:space="preserve">
-    <value>[PARAM] backup was cancelled due to session length.</value>
+    <value>[PARAM] セッションの長さによりバックアップがキャンセルされました。</value>
   </data>
   <data name="frmMain_ErrorBackupUnknownPath" xml:space="preserve">
-    <value>[PARAM] backup was cancelled due to unknown path.</value>
+    <value>[PARAM] パスが不明なためバックアップはキャンセルされました。</value>
   </data>
   <data name="frmMain_ErrorCustomVariable" xml:space="preserve">
-    <value>The following monitored game(s) are using a custom path variable that is not set.[BR][PARAM][BR][BR]You will encounter backup/restore errors or detection issues with these games until the variables are set.</value>
+    <value>次の監視対象ゲームは、設定されていないカスタム パス変数を使用しています。[BR][PARAM][BR][BR]変数が設定されるまで、これらのゲームでバックアップ/復元エラーまたは検出問題が発生します。</value>
   </data>
   <data name="frmMain_ErrorDBVerLocal" xml:space="preserve">
-    <value>Your local GBM data (Version [PARAM]) is too new for your version of GBM (Version [PARAM]).[BR][BR]Please upgrade GBM or restore the database file appropriate for your version.  The application cannot proceed.</value>
+    <value>ローカルGBMデータ（バージョン[PARAM]）は、ご使用のGBM（バージョン[PARAM]）のバージョンに対して新しすぎます。[BR][BR]GBMをアップグレードするか、ご使用のバージョンに適したデータベースファイルを復元してください。アプリケーションを続行できません。</value>
   </data>
   <data name="frmMain_ErrorDBVerRemote" xml:space="preserve">
-    <value>The GBM data (Version [PARAM]) in your backup folder is too new for your version of GBM (Version [PARAM])[BR][BR]All computers sharing a backup folder must use the same version of GBM.  The application cannot proceed.</value>
+    <value>バックアップフォルダ内のGBMデータ（バージョン[PARAM]）は、お使いのGBMのバージョン（バージョン[PARAM]）に対して新しすぎます。[BR][BR]バックアップフォルダを共有するすべてのコンピュータは、同じバージョンのGBMを使用する必要があります。アプリケーションを続行できません。</value>
   </data>
   <data name="frmMain_ErrorMulti64" xml:space="preserve">
-    <value>Install the 64-bit version of GBM to detect the last running game.</value>
+    <value>最後に実行されたゲームを検出するには、GBM の 64 ビット バージョンをインストールします。</value>
   </data>
   <data name="frmMain_ErrorMultiAdmin" xml:space="preserve">
-    <value>Restart GBM as Administrator to detect the last running game.</value>
+    <value>最後に実行したゲームを検出するには、GBM を管理者権限で再起動します。</value>
   </data>
   <data name="frmMain_ErrorRelativePath" xml:space="preserve">
-    <value>[PARAM] uses a relative path and has never been detected on this computer.</value>
+    <value>[PARAM]は相対パスを使用しており、このコンピューターでは未検出です。</value>
   </data>
   <data name="frmMain_ErrorRestorePath" xml:space="preserve">
-    <value>[PARAM] restore was cancelled due to a restore path issue.</value>
+    <value>[PARAM] 復元パスの問題により復元がキャンセルされました。</value>
   </data>
   <data name="frmMain_ErrorSettingsFolder" xml:space="preserve">
-    <value>An error occurred creating application settings folder.  The application cannot proceed.[BR][BR][PARAM]</value>
+    <value>アプリケーション設定フォルダの作成中にエラーが発生しました。アプリケーションを続行できません。[BR][BR][PARAM]</value>
   </data>
   <data name="frmMain_ExePath" xml:space="preserve">
-    <value>[PARAM] (Executable Path)</value>
+    <value>[PARAM] (実行可能パス)</value>
   </data>
   <data name="frmMain_GameDetected" xml:space="preserve">
-    <value>[PARAM] Detected</value>
+    <value>[PARAM] 検出</value>
   </data>
   <data name="frmMain_GameEnded" xml:space="preserve">
-    <value>[PARAM] has ended.</value>
+    <value>[PARAM]が終了しました。</value>
   </data>
   <data name="frmMain_GameListLoaded" xml:space="preserve">
-    <value>Game List ([PARAM]) Loaded.</value>
+    <value>ゲームリスト([PARAM])がロードされました。</value>
   </data>
   <data name="frmMain_gMonFileMonitor_Cancel" xml:space="preserve">
-    <value>Cancel &amp;Monitoring</value>
+    <value>監視をキャンセル(&amp;M)</value>
   </data>
   <data name="frmMain_gMonFileMonitor_Start" xml:space="preserve">
-    <value>Start &amp;Monitoring</value>
+    <value>監視を開始(&amp;M)</value>
   </data>
   <data name="frmMain_gMonFileMonitor_Stop" xml:space="preserve">
-    <value>Stop &amp;Monitoring</value>
+    <value>監視を停止(&amp;M)</value>
   </data>
   <data name="frmMain_IconFilter" xml:space="preserve">
-    <value>Icon files (*.ico)|*.ico</value>
+    <value>アイコンファイル (*.ico)|*.ico</value>
   </data>
   <data name="frmMain_LastGame" xml:space="preserve">
-    <value>Last Game: [PARAM]</value>
+    <value>最後のゲーム: [PARAM]</value>
   </data>
   <data name="frmMain_MasterListChanged" xml:space="preserve">
-    <value>The master game list has been changed by a program other than GBM.</value>
+    <value>マスターゲームリストが GBM 以外のプログラムによって変更されました。</value>
   </data>
   <data name="frmMain_MonitorCancel" xml:space="preserve">
-    <value>Monitoring of [PARAM] was cancelled.</value>
+    <value>[PARAM]の監視がキャンセルされました。</value>
   </data>
   <data name="frmMain_MonitorEnded" xml:space="preserve">
-    <value>[PARAM] monitoring ended.</value>
+    <value>[PARAM]監視が終了しました。</value>
   </data>
   <data name="frmMain_MultipleGames" xml:space="preserve">
-    <value>Multiple Games</value>
+    <value>複数のゲーム</value>
   </data>
   <data name="frmMain_MultipleGamesDetected" xml:space="preserve">
-    <value>Multiple Games Detected</value>
+    <value>複数のゲームが検出されました</value>
   </data>
   <data name="frmMain_NewSaveNotificationMulti" xml:space="preserve">
-    <value>[PARAM] New Backups Pending</value>
+    <value>[PARAM] 新しい複数のバックアップが保留中</value>
   </data>
   <data name="frmMain_NewSaveNotificationSingle" xml:space="preserve">
-    <value>[PARAM] New Backup Pending</value>
+    <value>[PARAM] 新しいバックアップが保留中</value>
   </data>
   <data name="frmMain_NoDetails" xml:space="preserve">
-    <value>Game details are unavailable.</value>
+    <value>ゲームの詳細は利用できません。</value>
   </data>
   <data name="frmMain_NoGameDetected" xml:space="preserve">
-    <value>No Game Detected</value>
+    <value>ゲームが検出されませんでした</value>
   </data>
   <data name="frmMain_NotAvailable" xml:space="preserve">
-    <value>N/A</value>
+    <value>該当なし</value>
   </data>
   <data name="frmMain_NotScanning" xml:space="preserve">
-    <value>Not Scanning</value>
+    <value>未スキャン</value>
   </data>
   <data name="frmMain_RestoreInProgress" xml:space="preserve">
-    <value>Restore in progress...</value>
+    <value>復元中です...</value>
   </data>
   <data name="frmMain_RunningAsAdmin" xml:space="preserve">
-    <value>GBM is running with Administrator privileges.</value>
+    <value>GBM は管理者権限で実行されています。</value>
   </data>
   <data name="frmMain_RunningAsNormal" xml:space="preserve">
-    <value>GBM is running with normal privileges.  Click to restart as Administrator.</value>
+    <value>GBMは通常の権限で実行されています。クリックして管理者権限で再起動してください。</value>
   </data>
   <data name="frmMain_SessionHours" xml:space="preserve">
-    <value>[PARAM] hours</value>
+    <value>[PARAM] 時間</value>
   </data>
   <data name="frmMain_SessionMinutes" xml:space="preserve">
-    <value>[PARAM] minutes</value>
+    <value>[PARAM] 分</value>
   </data>
   <data name="Multi_UnknownGame" xml:space="preserve">
-    <value>the unidentified game</value>
+    <value>未確認ゲーム</value>
   </data>
   <data name="Multi_UnknownGameEnded" xml:space="preserve">
-    <value>The unidentified game has ended.</value>
+    <value>未確認ゲームが終了しました。</value>
   </data>
   <data name="frmMain_UpdatedBy" xml:space="preserve">
-    <value>Updated by [PARAM] on [PARAM]</value>
+    <value>[PARAM] によって [PARAM] に更新されました</value>
   </data>
   <data name="frmMain_btnCancelOperation" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
   </data>
   <data name="frmMain_gMonFile" xml:space="preserve">
-    <value>&amp;File</value>
+    <value>ファイル(&amp;F)</value>
   </data>
   <data name="frmMain_gMonFileExit" xml:space="preserve">
-    <value>E&amp;xit</value>
+    <value>終了(&amp;E)</value>
   </data>
   <data name="frmMain_gMonFileSettings" xml:space="preserve">
-    <value>&amp;Settings...</value>
+    <value>設定...(&amp;S)</value>
   </data>
   <data name="frmMain_gMonHelp" xml:space="preserve">
-    <value>&amp;Help</value>
+    <value>ヘルプ(&amp;H)</value>
   </data>
   <data name="frmMain_gMonHelpAbout" xml:space="preserve">
-    <value>&amp;About Game Backup Monitor</value>
+    <value>Game Backup Monitorについて(&amp;A)</value>
   </data>
   <data name="frmMain_gMonHelpCheckForUpdates" xml:space="preserve">
-    <value>&amp;Check for Updates...</value>
+    <value>更新を確認...(&amp;C)</value>
   </data>
   <data name="frmMain_gMonHelpManual" xml:space="preserve">
-    <value>Online &amp;Manual...</value>
+    <value>オンラインマニュアル...(&amp;M)</value>
   </data>
   <data name="frmMain_gMonHelpWebSite" xml:space="preserve">
-    <value>&amp;Official Web Site...</value>
+    <value>公式ウェブサイト...(&amp;O)</value>
   </data>
   <data name="frmMain_gMonSetup" xml:space="preserve">
-    <value>&amp;Setup</value>
+    <value>セットアップ(&amp;S)</value>
   </data>
   <data name="frmMain_gMonSetupAddWizard" xml:space="preserve">
-    <value>Add Game &amp;Wizard...</value>
+    <value>ゲームウィザードを追加...(&amp;W)</value>
   </data>
   <data name="frmMain_gMonSetupCustomVariables" xml:space="preserve">
-    <value>Custom Path &amp;Variables...</value>
+    <value>カスタムパス変数...(&amp;V)</value>
   </data>
   <data name="frmMain_gMonSetupGameManager" xml:space="preserve">
-    <value>&amp;Game Manager...</value>
+    <value>ゲームマネージャー...(&amp;G)</value>
   </data>
   <data name="frmMain_gMonSetupTags" xml:space="preserve">
-    <value>&amp;Tag Manager...</value>
+    <value>タグマネージャー...(&amp;T)</value>
   </data>
   <data name="frmMain_gMonStripStatusButton" xml:space="preserve">
-    <value>Monitor Status:</value>
+    <value>監視ステータス:</value>
   </data>
   <data name="frmMain_gMonTools" xml:space="preserve">
-    <value>&amp;Tools</value>
+    <value>ツール(&amp;T)</value>
   </data>
   <data name="frmMain_gMonToolsCompact" xml:space="preserve">
-    <value>&amp;Compact Databases</value>
+    <value>データベースを圧縮(&amp;C)</value>
   </data>
   <data name="frmMain_gMonTrayShow" xml:space="preserve">
-    <value>Restore &amp;Window</value>
+    <value>ウィンドウを復元(&amp;W)</value>
   </data>
   <data name="frmMain_lblLastActionTitle" xml:space="preserve">
-    <value>Last Action:</value>
+    <value>最後のアクション:</value>
   </data>
   <data name="frmMain_gMonStripStatusButtonToolTip" xml:space="preserve">
-    <value>Click to toggle monitoring on or off.</value>
+    <value>クリックすると監視のオン/オフが切り替わります。</value>
   </data>
   <data name="App_ConfirmDirty" xml:space="preserve">
-    <value>There are unsaved changes on this form.  Do you want to save?</value>
+    <value>保存されていない変更があります。保存しますか？</value>
   </data>
   <data name="frmGameManager_BackupTimeAndName" xml:space="preserve">
     <value>[PARAM] ([PARAM])</value>
   </data>
   <data name="frmGameManager_btnAdd" xml:space="preserve">
-    <value>&amp;New</value>
+    <value>新規(&amp;N)</value>
   </data>
   <data name="frmGameManager_btnAppPathBrowse" xml:space="preserve">
     <value>...</value>
   </data>
   <data name="frmGameManager_btnCancel" xml:space="preserve">
-    <value>Ca&amp;ncel</value>
+    <value>キャンセル(&amp;N)</value>
   </data>
   <data name="frmGameManager_btnDelete" xml:space="preserve">
-    <value>&amp;Delete</value>
+    <value>削除(&amp;D)</value>
   </data>
   <data name="frmGameManager_btnExclude" xml:space="preserve">
-    <value>E&amp;xclude...</value>
+    <value>除外...(&amp;X)</value>
   </data>
   <data name="frmGameManager_btnExport" xml:space="preserve">
-    <value>&amp;Export</value>
+    <value>エクスポート(&amp;E)</value>
   </data>
   <data name="frmGameManager_btnIconBrowse" xml:space="preserve">
     <value>...</value>
   </data>
   <data name="frmGameManager_btnImport" xml:space="preserve">
-    <value>&amp;Import</value>
+    <value>インポート(&amp;I)</value>
   </data>
   <data name="frmGameManager_btnInclude" xml:space="preserve">
-    <value>Incl&amp;ude...</value>
+    <value>含める(&amp;U)...</value>
   </data>
   <data name="frmGameManager_btnProcessBrowse" xml:space="preserve">
     <value>...</value>
   </data>
   <data name="frmGameManager_btnSave" xml:space="preserve">
-    <value>&amp;Save</value>
+    <value>保存(&amp;S)</value>
   </data>
   <data name="frmGameManager_btnSavePathBrowse" xml:space="preserve">
     <value>...</value>
   </data>
   <data name="frmGameManager_cmsEnabled" xml:space="preserve">
-    <value>&amp;Allow monitoring</value>
+    <value>監視を許可(&amp;A)</value>
   </data>
   <data name="frmGameManager_chkFolderSave" xml:space="preserve">
-    <value>Save entire folder</value>
+    <value>フォルダ全体を保存</value>
   </data>
   <data name="frmGameManager_cmsMonitorOnly" xml:space="preserve">
-    <value>&amp;No backup when game ends</value>
+    <value>ゲーム終了時にバックアップなし(&amp;N)</value>
   </data>
   <data name="frmGameManager_chkTimeStamp" xml:space="preserve">
-    <value>Save multiple backups</value>
+    <value>複数のバックアップを保存</value>
   </data>
   <data name="frmGameManager_ChooseCustomIcon" xml:space="preserve">
-    <value>Choose a custom icon for the game</value>
+    <value>ゲームのカスタムアイコンを選択</value>
   </data>
   <data name="frmGameManager_ChooseExe" xml:space="preserve">
-    <value>Choose exe file that starts the application</value>
+    <value>アプリケーションを起動するexeファイルを選択</value>
   </data>
   <data name="frmGameManager_ChooseExePath" xml:space="preserve">
-    <value>Browse to the folder containing the game executable and click Open</value>
+    <value>ゲームの実行ファイルを含むフォルダを参照し、「開く」をクリックします</value>
   </data>
   <data name="mgrMonitorList_ChooseExportXML" xml:space="preserve">
-    <value>Choose a location for the export file</value>
+    <value>エクスポートファイルの場所を選択してください</value>
   </data>
   <data name="mgrMonitorList_ChooseImport" xml:space="preserve">
-    <value>Choose a valid file to import</value>
+    <value>インポートする有効なファイルを選択してください</value>
   </data>
   <data name="frmGameManager_ChooseSaveFolder" xml:space="preserve">
-    <value>Browse to the saved game folder and click Open</value>
+    <value>保存したゲームフォルダを参照して「開く」をクリックします</value>
   </data>
   <data name="frmGameManager_ConfirmBackup" xml:space="preserve">
-    <value>Are you sure you want to run a backup for [PARAM]?  This will close the form.</value>
+    <value>[PARAM]のバックアップを実行してもよろしいですか？フォームが閉じます。</value>
   </data>
   <data name="frmGameManager_ConfirmBackupDelete" xml:space="preserve">
-    <value>This will delete the selected backup file.  This cannot be undone. [BR][BR]Do you want to delete [PARAM]?</value>
+    <value>選択したバックアップファイルを削除します。この操作は元に戻せません。[BR][BR][PARAM]を削除しますか？</value>
   </data>
   <data name="frmGameManager_ConfirmGameDelete" xml:space="preserve">
-    <value>Are you sure you want to delete [PARAM]?  This cannot be undone.[BR][BR]This will not delete any backup files that already exist for this game.</value>
+    <value>[PARAM]を削除してもよろしいですか？この操作は元に戻せません。[BR][BR]このゲームに既に存在するバックアップファイルは削除されません。</value>
   </data>
   <data name="frmGameManager_ConfirmMark" xml:space="preserve">
-    <value>Do you want to mark [PARAM] as restored?  This cannot be undone.</value>
+    <value>[PARAM]を復元済みとしてマークしますか？ これは元に戻すことはできません。</value>
   </data>
   <data name="frmGameManager_ConfirmMultiBackup" xml:space="preserve">
-    <value>Are you sure you want to run a backup for [PARAM] games?  This will close the form.</value>
+    <value>[PARAM] ゲームのバックアップを実行してもよろしいですか？ フォームが閉じます。</value>
   </data>
   <data name="frmGameManager_ConfirmMultiGameDelete" xml:space="preserve">
-    <value>Are you sure you want to delete the [PARAM] selected games?  This cannot be undone.</value>
+    <value>選択したゲーム[PARAM]を削除してもよろしいですか？ 元に戻すことはできません。</value>
   </data>
   <data name="frmGameManager_ConfirmMultiMark" xml:space="preserve">
-    <value>Do you want to mark [PARAM] games as restored?  This cannot be undone.</value>
+    <value>[PARAM] ゲームを復元済みとしてマークしますか？ これは元に戻すことはできません。</value>
   </data>
   <data name="frmGameManager_ConfirmMultiRestore" xml:space="preserve">
-    <value>Are you sure you want to restore the backups for [PARAM] games?  This will close the form.</value>
+    <value>[PARAM] ゲームのバックアップを復元してもよろしいですか？フォームが閉じます。</value>
   </data>
   <data name="frmGameManager_ConfirmRestore" xml:space="preserve">
-    <value>Are you sure you want to restore the backup for [PARAM]?  This will close the form.</value>
+    <value>[PARAM]のバックアップを復元してもよろしいですか？フォームが閉じます。</value>
   </data>
   <data name="frmGameManager_ConfirmRestoreAnyway" xml:space="preserve">
-    <value>[PARAM] is already up to date.[BR][BR]Would you like to restore this backup anyway?  This will close the form.</value>
+    <value>[PARAM]はすでに最新です。[BR][BR]このバックアップを復元しますか? フォームが閉じます。</value>
   </data>
   <data name="frmGameManager_ErrorGameDupe" xml:space="preserve">
-    <value>A game with the same ID ([PARAM]) already exists.</value>
+    <value>同じID([PARAM])のゲームがすでに存在します。</value>
   </data>
   <data name="frmGameManager_ErrorNoBackupData" xml:space="preserve">
-    <value>The selected game(s) have no backup data or can't be restored with their current configuration.</value>
+    <value>選択したゲームにはバックアップデータがないか、現在の構成では復元できません。</value>
   </data>
   <data name="frmGameManager_ErrorNoFileExists" xml:space="preserve">
-    <value>The file does not exist.</value>
+    <value>ファイルが存在しません。</value>
   </data>
   <data name="frmGameManager_ErrorNoItems" xml:space="preserve">
-    <value>You must choose items to include in the backup, or choose to save the entire folder.</value>
+    <value>バックアップに含める項目を選択するか、フォルダー全体を保存するのを選択してください。</value>
   </data>
   <data name="frmGameManager_ErrorNoRestorePathExists" xml:space="preserve">
-    <value>The restore path does not exist.</value>
+    <value>復元パスが存在しません。</value>
   </data>
   <data name="frmGameManager_ErrorPathNotSet" xml:space="preserve">
-    <value>[PARAM] uses a relative path and the game path has not been set.</value>
+    <value>[PARAM]は相対パスを使用しており、ゲームパスが未設定です。</value>
   </data>
   <data name="frmGameManager_ErrorValidName" xml:space="preserve">
-    <value>You must enter a valid game name.</value>
+    <value>有効なゲーム名を入力してください。</value>
   </data>
   <data name="frmGameManager_Exclude" xml:space="preserve">
-    <value>Exclude</value>
+    <value>除外</value>
   </data>
   <data name="frmGameManager_ExcludeShortcut" xml:space="preserve">
-    <value>E&amp;xclude...</value>
+    <value>除外...(&amp;X)</value>
   </data>
   <data name="frmGameManager_Executable" xml:space="preserve">
-    <value>Executable</value>
+    <value>実行可能ファイル</value>
   </data>
   <data name="frmGameManager_FormName" xml:space="preserve">
-    <value>Game Manager</value>
+    <value>ゲームマネージャー</value>
   </data>
   <data name="frmGameManager_Icon" xml:space="preserve">
-    <value>Icon</value>
+    <value>アイコン</value>
   </data>
   <data name="frmGameManager_Include" xml:space="preserve">
-    <value>Include</value>
+    <value>含める</value>
   </data>
   <data name="frmGameManager_IncludeShortcut" xml:space="preserve">
-    <value>Incl&amp;ude...</value>
+    <value>含める...(&amp;U)</value>
   </data>
   <data name="frmGameManager_ItemsExist" xml:space="preserve">
     <value>([PARAM])</value>
   </data>
   <data name="frmGameManager_lblCompany" xml:space="preserve">
-    <value>Company:</value>
+    <value>会社:</value>
   </data>
   <data name="frmGameManager_lblRemote" xml:space="preserve">
-    <value>Backup Data:</value>
+    <value>バックアップデータ:</value>
   </data>
   <data name="frmGameManager_lblBackupFile" xml:space="preserve">
-    <value>Backup File:</value>
+    <value>バックアップファイル:</value>
   </data>
   <data name="frmGameManager_lblGamePath" xml:space="preserve">
-    <value>Game Path:</value>
+    <value>ゲームパス:</value>
   </data>
   <data name="frmGameManager_lblHours" xml:space="preserve">
-    <value>Hours:</value>
+    <value>時間:</value>
   </data>
   <data name="frmGameManager_lblIcon" xml:space="preserve">
-    <value>Icon:</value>
+    <value>アイコン:</value>
   </data>
   <data name="frmGameManager_lblLocalData" xml:space="preserve">
-    <value>Local Data:</value>
+    <value>ローカルデータ:</value>
   </data>
   <data name="frmGameManager_lblName" xml:space="preserve">
-    <value>Name:</value>
+    <value>名前:</value>
   </data>
   <data name="frmGameManager_lblProcess" xml:space="preserve">
-    <value>Process:</value>
+    <value>プロセス:</value>
   </data>
   <data name="frmGameManager_lblRestorePath" xml:space="preserve">
-    <value>Restore Path:</value>
+    <value>復元パス:</value>
   </data>
   <data name="frmGameManager_lblSavePath" xml:space="preserve">
-    <value>Save Path:</value>
+    <value>保存パス:</value>
   </data>
   <data name="frmGameManager_lblVersion" xml:space="preserve">
-    <value>Version:</value>
+    <value>バージョン:</value>
   </data>
   <data name="frmGameManager_None" xml:space="preserve">
-    <value>None</value>
+    <value>なし</value>
   </data>
   <data name="frmGameManager_OutofSync" xml:space="preserve">
-    <value>Out of Sync</value>
+    <value>同期していません</value>
   </data>
   <data name="frmGameManager_UpToDate" xml:space="preserve">
-    <value>Up to Date!</value>
+    <value>最新です！</value>
   </data>
   <data name="mgrMonitorList_XML" xml:space="preserve">
-    <value>GBM Export</value>
+    <value>GBM エクスポート</value>
   </data>
   <data name="frmGameManager_cmsFile" xml:space="preserve">
-    <value>&amp;File...</value>
+    <value>ファイル...(&amp;F)</value>
   </data>
   <data name="frmGameManager_cmsOfficial" xml:space="preserve">
-    <value>&amp;Official List...</value>
+    <value>公式リスト(&amp;O)...</value>
   </data>
   <data name="frmAddWizard_btnBack" xml:space="preserve">
-    <value>&amp;Back</value>
+    <value>戻る(&amp;B)</value>
   </data>
   <data name="frmAddWizard_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
   </data>
   <data name="frmAddWizard_btnExclude" xml:space="preserve">
-    <value>Choose items to e&amp;xclude...</value>
+    <value>除外する項目を選択...(&amp;X)</value>
   </data>
   <data name="frmAddWizard_btnInclude" xml:space="preserve">
-    <value>Choose items to in&amp;clude...</value>
+    <value>含める項目を選択...(&amp;C)</value>
   </data>
   <data name="frmAddWizard_btnNext" xml:space="preserve">
-    <value>&amp;Next</value>
+    <value>次へ(&amp;N)</value>
   </data>
   <data name="frmAddWizard_btnNext_Finish" xml:space="preserve">
-    <value>&amp;Finish</value>
+    <value>完了(&amp;F)</value>
   </data>
   <data name="frmAddWizard_btnProcessBrowse" xml:space="preserve">
     <value>...</value>
@@ -598,250 +598,250 @@
     <value>...</value>
   </data>
   <data name="frmAddWizard_chkFolderSave" xml:space="preserve">
-    <value>Save entire folder</value>
+    <value>フォルダ全体を保存</value>
   </data>
   <data name="frmAddWizard_chkTimeStamp" xml:space="preserve">
-    <value>Save multiple backups</value>
+    <value>複数のバックアップを保存</value>
   </data>
   <data name="frmAddWizard_ChooseProcess" xml:space="preserve">
-    <value>Choose exe file that starts the game</value>
+    <value>ゲームを起動するexeファイルを選択</value>
   </data>
   <data name="frmAddWizard_ChooseSavePath" xml:space="preserve">
-    <value>Choose the game save folder:</value>
+    <value>ゲームの保存フォルダを選択してください:</value>
   </data>
   <data name="frmAddWizard_ConfirmSaveTags" xml:space="preserve">
-    <value>[PARAM] has been saved.[BR][BR]Would you like to add tags for [PARAM]?</value>
+    <value>[PARAM]が保存されました。[BR][BR][PARAM]にタグを追加しますか？</value>
   </data>
   <data name="frmAddWizard_ErrorBadProcessPath" xml:space="preserve">
-    <value>The path to the executable must be a full path.</value>
+    <value>実行可能ファイルへのパスは絶対パスである必要があります。</value>
   </data>
   <data name="frmAddWizard_ErrorBadSavePath" xml:space="preserve">
-    <value>The selected path must be a full path.</value>
+    <value>選択したパスはフルパスである必要があります。</value>
   </data>
   <data name="frmAddWizard_ErrorGameDupe" xml:space="preserve">
-    <value>A game with this exact name and process already exists.</value>
+    <value>この名前とプロセスを持つゲームがすでに存在します。</value>
   </data>
   <data name="frmAddWizard_ErrorNotAProcess" xml:space="preserve">
-    <value>The file you selected is not an executable file.</value>
+    <value>選択したファイルは実行可能ファイルではありません。</value>
   </data>
   <data name="frmAddWizard_ErrorNotAShortcut" xml:space="preserve">
-    <value>This file is not a shorcut.</value>
+    <value>このファイルはショートカットファイルではありません。</value>
   </data>
   <data name="frmAddWizard_ErrorProcessNotExist" xml:space="preserve">
-    <value>The selected executable file does not exist.</value>
+    <value>選択された実行可能ファイルは存在しません。</value>
   </data>
   <data name="frmAddWizard_ErrorSavePathNotExist" xml:space="preserve">
-    <value>The folder you selected does not exist or is not a valid folder.</value>
+    <value>選択したフォルダは存在しないか、有効なフォルダではありません。</value>
   </data>
   <data name="frmAddWizard_ErrorValidName" xml:space="preserve">
-    <value>You must enter a valid game name.</value>
+    <value>有効なゲーム名を入力してください。</value>
   </data>
   <data name="frmAddWizard_ErrorValidProcess" xml:space="preserve">
-    <value>You must select the game's executable file (.exe) to continue.</value>
+    <value>続行するにはゲームの実行ファイル (.exe) を選択してください。</value>
   </data>
   <data name="frmAddWizard_ErrorValidSavePath" xml:space="preserve">
-    <value>You must select the game's save file path to continue</value>
+    <value>続行するにはゲームの保存ファイルのパスを選択してください</value>
   </data>
   <data name="frmAddWizard_ErrorValidSaveType" xml:space="preserve">
-    <value>You must choose items to include in the backup, or choose to save the entire folder.</value>
+    <value>バックアップに含める項目を選択するか、フォルダ全体を保存するかを選択してください。</value>
   </data>
   <data name="frmAddWizard_ErrorWithShortcut" xml:space="preserve">
-    <value>An error occurred working with the shortcut file.[BR][BR][PARAM]</value>
+    <value>ショートカットファイルの操作中にエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="frmAddWizard_Exclude" xml:space="preserve">
-    <value>Exclude</value>
+    <value>除外</value>
   </data>
   <data name="frmAddWizard_Executable" xml:space="preserve">
-    <value>Executable</value>
+    <value>実行可能ファイル</value>
   </data>
   <data name="frmAddWizard_FormName" xml:space="preserve">
-    <value>Add Game Wizard</value>
+    <value>ゲームウィザードを追加</value>
   </data>
   <data name="frmAddWizard_Include" xml:space="preserve">
-    <value>Include</value>
+    <value>含める</value>
   </data>
   <data name="frmAddWizard_ItemsSelectedMulti" xml:space="preserve">
-    <value>[PARAM] item(s) selected</value>
+    <value>[PARAM] 個のアイテムが選択されました</value>
   </data>
   <data name="frmAddWizard_ItemsSelectedNone" xml:space="preserve">
-    <value>0 item(s) selected</value>
+    <value>0 個のアイテムが選択されました</value>
   </data>
   <data name="frmAddWizard_lblExcludePath" xml:space="preserve">
-    <value>Save Path</value>
+    <value>パスを保存</value>
   </data>
   <data name="frmAddWizard_lblExcludePathTitle" xml:space="preserve">
-    <value>Saved Game Folder:</value>
+    <value>保存されるゲームフォルダ:</value>
   </data>
   <data name="frmAddWizard_lblIncludePath" xml:space="preserve">
-    <value>Save Path</value>
+    <value>パスを保存</value>
   </data>
   <data name="frmAddWizard_lblIncludePathTitle" xml:space="preserve">
-    <value>Saved Game Folder:</value>
+    <value>保存されるゲームフォルダ:</value>
   </data>
   <data name="frmAddWizard_lblStep1Instructions" xml:space="preserve">
-    <value>You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported.</value>
+    <value>このステップを完了するには、ここにショートカットをドラッグ アンド ドロップします。現在は Windows ショートカットのみがサポートされています。</value>
   </data>
   <data name="frmAddWizard_lblStep1Intro" xml:space="preserve">
-    <value>Enter the name of the game to monitor:</value>
+    <value>監視するゲームの名前を入力してください:</value>
   </data>
   <data name="frmAddWizard_lblStep1Title" xml:space="preserve">
-    <value>Game Name</value>
+    <value>ゲーム名</value>
   </data>
   <data name="frmAddWizard_lblStep2Instructions" xml:space="preserve">
-    <value>Some games use launchers.  Do not monitor launchers,  be sure to choose the game's actual executable file.  You may drag and drop a shortcut here to complete this step, only Windows shortcuts are currently supported.</value>
+    <value>一部のゲームはランチャーを使用します。ランチャーを監視しないゲームの実行ファイルを選択してください。この手順を完了するには、ここにショートカットをドラッグ＆ドロップしてください。現在サポートされているのはWindowsのショートカットのみです。</value>
   </data>
   <data name="frmAddWizard_lblStep2Intro" xml:space="preserve">
-    <value>Choose the game's executable file or shortcut:</value>
+    <value>ゲームの実行ファイルまたはショートカットを選択してください:</value>
   </data>
   <data name="frmAddWizard_lblStep2Title" xml:space="preserve">
-    <value>Process to Monitor</value>
+    <value>監視するプロセス</value>
   </data>
   <data name="frmAddWizard_lblStep3aInstructions" xml:space="preserve">
-    <value>Choose any file types, specific files  or folders you wish to include in the backup.  If you're unsure, go back a step and choose to save the entire folder. </value>
+    <value>バックアップに含めるファイルの種類、特定のファイル、またはフォルダを選択してください。不明な場合は、1つ前の手順に戻り、フォルダ全体を保存することを選択してください。</value>
   </data>
   <data name="frmAddWizard_lblStep3aTitle" xml:space="preserve">
-    <value>Choose Files to Backup</value>
+    <value>バックアップするファイルを選択</value>
   </data>
   <data name="frmAddWizard_lblStep3Instructions" xml:space="preserve">
-    <value>If you're unsure of exactly which files to backup,  make sure Save entire folder is checked.  You can also choose to save multiple backups and set a limit on how many to keep.</value>
+    <value>どのファイルをバックアップするか正確にわからない場合は、「フォルダ全体を保存」にチェックを入れてください。複数のバックアップを保存し、保存するファイル数に制限を設定することもできます。</value>
   </data>
   <data name="frmAddWizard_lblStep3Intro" xml:space="preserve">
-    <value>Choose the location of your game's save files:</value>
+    <value>ゲームの保存ファイルの場所を選択してください:</value>
   </data>
   <data name="frmAddWizard_lblStep3Title" xml:space="preserve">
-    <value>Game Backup Path</value>
+    <value>ゲームバックアップパス</value>
   </data>
   <data name="frmAddWizard_lblStep4Instructions" xml:space="preserve">
-    <value>Choose any file types, specific files  or folders you wish to exclude from the backup.  You may choose multiple items to exclude.  This step can be skipped.</value>
+    <value>バックアップから除外するファイルの種類、特定のファイル、またはフォルダを選択します。除外する項目は複数選択可能です。この手順はスキップできます。</value>
   </data>
   <data name="frmAddWizard_lblStep4Title" xml:space="preserve">
-    <value>Exclude Files or Folders</value>
+    <value>ファイルまたはフォルダを除外</value>
   </data>
   <data name="frmAddWizard_lblStep5Intro" xml:space="preserve">
-    <value>Verify your settings below and click Finish to save.</value>
+    <value>以下の設定を確認し、「完了」をクリックして保存します。</value>
   </data>
   <data name="frmAddWizard_lblStep5Title" xml:space="preserve">
-    <value>Summary of your Game</value>
+    <value>ゲームの概要</value>
   </data>
   <data name="frmAddWizard_None" xml:space="preserve">
-    <value>None</value>
+    <value>なし</value>
   </data>
   <data name="frmAddWizard_Summary_AbsolutePath" xml:space="preserve">
-    <value>Absolute Path</value>
+    <value>絶対パス</value>
   </data>
   <data name="frmAddWizard_Summary_Exclude" xml:space="preserve">
-    <value>Excluded Items</value>
+    <value>除外される項目</value>
   </data>
   <data name="frmAddWizard_Summary_FolderSave" xml:space="preserve">
-    <value>Folder Save</value>
+    <value>フォルダ保存</value>
   </data>
   <data name="frmAddWizard_Summary_Include" xml:space="preserve">
-    <value>Included Items</value>
+    <value>含まれる項目</value>
   </data>
   <data name="frmAddWizard_Summary_Name" xml:space="preserve">
-    <value>Name</value>
+    <value>名前</value>
   </data>
   <data name="frmAddWizard_Summary_Process" xml:space="preserve">
-    <value>Process</value>
+    <value>プロセス</value>
   </data>
   <data name="frmAddWizard_Summary_SavePath" xml:space="preserve">
-    <value>Save Path</value>
+    <value>パスを保存</value>
   </data>
   <data name="frmAddWizard_Summary_Timestamp" xml:space="preserve">
-    <value>Multiple Backups</value>
+    <value>複数のバックアップ</value>
   </data>
   <data name="frmAdvancedImport_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
   </data>
   <data name="frmAdvancedImport_btnImport" xml:space="preserve">
-    <value>&amp;Import</value>
+    <value>インポート(&amp;I)</value>
   </data>
   <data name="frmAdvancedImport_FormName" xml:space="preserve">
-    <value>Import Game Configurations</value>
+    <value>ゲーム設定をインポート</value>
   </data>
   <data name="frmAdvancedImport_Configs" xml:space="preserve">
-    <value>Configurations ([PARAM] / [PARAM])</value>
+    <value>構成 ([PARAM] / [PARAM])</value>
   </data>
   <data name="frmChooseGame_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
   </data>
   <data name="frmChooseGame_btnChoose" xml:space="preserve">
-    <value>C&amp;hoose Game</value>
+    <value>ゲームを選択(&amp;C)</value>
   </data>
   <data name="frmChooseGame_FormName" xml:space="preserve">
-    <value>Choose Game</value>
+    <value>ゲームを選択</value>
   </data>
   <data name="frmChooseGame_lblChoose" xml:space="preserve">
-    <value>Please choose the game you were playing:</value>
+    <value>プレイしていたゲームを選択してください:</value>
   </data>
   <data name="frmFileFolderSearch_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
   </data>
   <data name="frmFileFolderSearch_FormName" xml:space="preserve">
-    <value>Search</value>
+    <value>検索</value>
   </data>
   <data name="frmFileFolderSearch_SwitchDrives" xml:space="preserve">
-    <value>Do you wish to search the [PARAM] drive?</value>
+    <value>[PARAM]ドライブを検索しますか？</value>
   </data>
   <data name="frmFilter_btnIncludeAdd" xml:space="preserve">
     <value>&lt;</value>
   </data>
   <data name="frmFilter_btnOK" xml:space="preserve">
-    <value>&amp;OK</value>
+    <value>OK(&amp;O)</value>
   </data>
   <data name="frmFilter_btnIncludeRemove" xml:space="preserve">
     <value>&gt;</value>
   </data>
   <data name="frmFilter_FormName" xml:space="preserve">
-    <value>Custom Filter</value>
+    <value>カスタムフィルター</value>
   </data>
   <data name="frmFilter_lblIncludeTags" xml:space="preserve">
-    <value>Include Tags</value>
+    <value>タグを含める</value>
   </data>
   <data name="frmFilter_lblTags" xml:space="preserve">
-    <value>Available Tags</value>
+    <value>利用可能なタグ</value>
   </data>
   <data name="frmFilter_optAll" xml:space="preserve">
-    <value>All Tags</value>
+    <value>すべてのタグ</value>
   </data>
   <data name="frmFilter_optAnd" xml:space="preserve">
-    <value>All</value>
+    <value>すべて</value>
   </data>
   <data name="frmFilter_optAny" xml:space="preserve">
-    <value>Any Tag</value>
+    <value>任意のタグ</value>
   </data>
   <data name="frmFilter_chkGameInfo" xml:space="preserve">
-    <value>Game Information</value>
+    <value>ゲーム情報</value>
   </data>
   <data name="frmFilter_optOr" xml:space="preserve">
-    <value>Any</value>
+    <value>任意</value>
   </data>
   <data name="frmFilter_chkTag" xml:space="preserve">
-    <value>Tag</value>
+    <value>タグ</value>
   </data>
   <data name="frmGameTags_btnAdd" xml:space="preserve">
     <value>&gt;</value>
   </data>
   <data name="frmGameTags_btnOpenTags" xml:space="preserve">
-    <value>&amp;Tag Manager...</value>
+    <value>タグマネージャー...(&amp;T)</value>
   </data>
   <data name="frmGameTags_btnRemove" xml:space="preserve">
     <value>&lt;</value>
   </data>
   <data name="frmGameTags_FormNameMulti" xml:space="preserve">
-    <value>Edit Tags for Multiple Games</value>
+    <value>複数のゲームのタグを編集</value>
   </data>
   <data name="frmGameTags_FormNameSingle" xml:space="preserve">
-    <value>Edit Tags for [PARAM]</value>
+    <value>[PARAM]のタグを編集</value>
   </data>
   <data name="frmGameTags_lblGameTags" xml:space="preserve">
-    <value>Current Tags</value>
+    <value>現在のタグ</value>
   </data>
   <data name="frmGameTags_lblTags" xml:space="preserve">
-    <value>Available Tags</value>
+    <value>利用可能なタグ</value>
   </data>
   <data name="frmIncludeExclude_BrowseSaveFolder" xml:space="preserve">
-    <value>Choose the location of the saved game folder:</value>
+    <value>保存したゲームフォルダの場所を選択してください:</value>
   </data>
   <data name="frmIncludeExclude_btnAdd" xml:space="preserve">
     <value>&gt;</value>
@@ -850,73 +850,73 @@
     <value>...</value>
   </data>
   <data name="frmIncludeExclude_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
   </data>
   <data name="frmIncludeExclude_btnRawEdit" xml:space="preserve">
-    <value>Raw &amp;Edit</value>
+    <value>直接編集(&amp;E)</value>
   </data>
   <data name="frmIncludeExclude_btnRemove" xml:space="preserve">
     <value>&lt;</value>
   </data>
   <data name="frmIncludeExclude_btnSave" xml:space="preserve">
-    <value>&amp;Save</value>
+    <value>保存(&amp;S)</value>
   </data>
   <data name="frmIncludeExclude_CustomItem" xml:space="preserve">
-    <value>Custom Item</value>
+    <value>カスタムアイテム</value>
   </data>
   <data name="frmIncludeExclude_ErrorFileSystemRead" xml:space="preserve">
-    <value>An unexpected error occurred while reading the file system:[BR][BR][PARAM]</value>
+    <value>ファイルシステムの読み取り中に予期しないエラーが発生しました:[BR][BR][PARAM]</value>
   </data>
   <data name="frmIncludeExclude_FormName" xml:space="preserve">
-    <value>[PARAM] Builder</value>
+    <value>[PARAM] ビルダー</value>
   </data>
   <data name="frmIncludeExclude_grpOptions" xml:space="preserve">
-    <value>[PARAM] Options</value>
+    <value>[PARAM] オプション</value>
   </data>
   <data name="frmIncludeExclude_lblItems" xml:space="preserve">
-    <value>[PARAM] Items</value>
+    <value>[PARAM] アイテム</value>
   </data>
   <data name="frmIncludeExclude_lblSaveFolder" xml:space="preserve">
-    <value>Saved Game Explorer</value>
+    <value>セーブされたゲームエクスプローラー</value>
   </data>
   <data name="frmIncludeExclude_optFileTypes" xml:space="preserve">
-    <value>File Types</value>
+    <value>ファイルの種類</value>
   </data>
   <data name="frmIncludeExclude_optIndividualFiles" xml:space="preserve">
-    <value>Individual Files</value>
+    <value>個別のファイル</value>
   </data>
   <data name="frmIncludeExclude_RawEditInfo" xml:space="preserve">
-    <value>Items are colon delimited.</value>
+    <value>項目はコロンで区切られます。</value>
   </data>
   <data name="frmIncludeExclude_RawEditTitle" xml:space="preserve">
-    <value>[PARAM] Raw Edit</value>
+    <value>[PARAM] 直接編集</value>
   </data>
   <data name="frmIncludeExclude_ToolTipBrowse" xml:space="preserve">
-    <value>Click here to set the saved game folder.</value>
+    <value>保存したゲームフォルダを設定するにはここをクリックしてください。</value>
   </data>
   <data name="frmIncludeExclude_ToolTipFiles" xml:space="preserve">
-    <value>Set the saved game folder using the button above.</value>
+    <value>上のボタンを使用して保存されたゲームフォルダを設定します。</value>
   </data>
   <data name="frmIncludeExclude_ToolTipFolder" xml:space="preserve">
-    <value>The saved game folder could not be determined or does not exist.</value>
+    <value>保存されたゲームフォルダを特定できなかったか、存在しません。</value>
   </data>
   <data name="frmIncludeExclude_ToolTipTitle" xml:space="preserve">
-    <value>Saved Game Explorer</value>
+    <value>セーブされたゲームエクスプローラー</value>
   </data>
   <data name="frmFilter_grpFilterType" xml:space="preserve">
-    <value>Filter Type</value>
+    <value>フィルタータイプ</value>
   </data>
   <data name="frmFilter_grpTagOptions" xml:space="preserve">
-    <value>Include Options</value>
+    <value>オプションを含める</value>
   </data>
   <data name="frmGameManager_tbConfig" xml:space="preserve">
-    <value>Core Configuration</value>
+    <value>コア構成</value>
   </data>
   <data name="frmGameManager_tbGameInfo" xml:space="preserve">
-    <value>Game Information</value>
+    <value>ゲーム情報</value>
   </data>
   <data name="frmGameManager_tbBackupInfo" xml:space="preserve">
-    <value>Backup Management</value>
+    <value>バックアップ管理</value>
   </data>
   <data name="App_URLImport" xml:space="preserve">
     <value>http://mikemaximus.github.io/gbm-web/GBM_Official.xml</value>
@@ -931,697 +931,697 @@
     <value>https://mikemaximus.github.io/gbm-web/</value>
   </data>
   <data name="frmIncludeExclude_cmsAdd" xml:space="preserve">
-    <value>Add Custom Item</value>
+    <value>カスタムアイテムを追加</value>
   </data>
   <data name="frmIncludeExclude_cmsEdit" xml:space="preserve">
-    <value>Edit</value>
+    <value>編集</value>
   </data>
   <data name="frmIncludeExclude_cmsRemove" xml:space="preserve">
-    <value>Remove</value>
+    <value>削除</value>
   </data>
   <data name="frmSettings_BrowseFolder" xml:space="preserve">
-    <value>Choose a backup folder:</value>
+    <value>バックアップフォルダを選択してください:</value>
   </data>
   <data name="frmSettings_btnBackupFolder" xml:space="preserve">
     <value>...</value>
   </data>
   <data name="frmSettings_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
   </data>
   <data name="frmSettings_btnSave" xml:space="preserve">
-    <value>&amp;Save</value>
+    <value>保存(&amp;S)</value>
   </data>
   <data name="frmSettings_chkBackupConfirm" xml:space="preserve">
-    <value>Disable backup confirmation</value>
+    <value>バックアップの確認を無効にする</value>
   </data>
   <data name="frmSettings_chkCreateFolder" xml:space="preserve">
-    <value>Create a sub-folder for each game</value>
+    <value>ゲームごとにサブフォルダを作成する</value>
   </data>
   <data name="frmSettings_chkMonitorOnStartup" xml:space="preserve">
-    <value>Start monitoring on launch</value>
+    <value>起動時に監視を開始する</value>
   </data>
   <data name="frmSettings_chkOverwriteWarning" xml:space="preserve">
-    <value>Show overwrite warning</value>
+    <value>上書きの警告を表示する</value>
   </data>
   <data name="frmSettings_chkRestoreNotify" xml:space="preserve">
-    <value>Display notifications about new backups</value>
+    <value>新しいバックアップに関する通知を表示する</value>
   </data>
   <data name="frmSettings_chkShowDetectionTips" xml:space="preserve">
-    <value>Show detection notifications</value>
+    <value>検出通知を表示</value>
   </data>
   <data name="frmSettings_chkStartMinimized" xml:space="preserve">
-    <value>Start minimized</value>
+    <value>最小化して開始</value>
   </data>
   <data name="frmSettings_chkAutoStart" xml:space="preserve">
-    <value>Start automatically on log-in</value>
+    <value>ログイン時に自動的に起動</value>
   </data>
   <data name="frmSettings_chkSuppressBackup" xml:space="preserve">
-    <value>Ignore sessions shorter than</value>
+    <value>次の時間より短いセッションを無視</value>
   </data>
   <data name="frmSettings_chkTimeTracking" xml:space="preserve">
-    <value>Enable time tracking</value>
+    <value>時間トラッキングを有効にする</value>
   </data>
   <data name="frmSettings_ErrorBackupFolder" xml:space="preserve">
-    <value>The backup folder does not exist.  Please choose a valid backup folder.</value>
+    <value>バックアップフォルダが存在しません。有効なバックアップフォルダを選択してください。</value>
   </data>
   <data name="frmSettings_FormName" xml:space="preserve">
-    <value>Settings</value>
+    <value>設定</value>
   </data>
   <data name="frmSettings_grpStartup" xml:space="preserve">
-    <value>Startup Options</value>
+    <value>起動オプション</value>
   </data>
   <data name="frmSettings_grpFolderOptions" xml:space="preserve">
-    <value>Files and Folders</value>
+    <value>ファイルとフォルダ</value>
   </data>
   <data name="frmSettings_lblBackupFolder" xml:space="preserve">
-    <value>Backup Folder:</value>
+    <value>バックアップフォルダ:</value>
   </data>
   <data name="frmSettings_lblMinutes" xml:space="preserve">
-    <value>minutes</value>
+    <value>分</value>
   </data>
   <data name="frmStartUpWizard_BrowseFolder" xml:space="preserve">
-    <value>Choose a backup folder:</value>
+    <value>バックアップフォルダを選択してください:</value>
   </data>
   <data name="frmStartUpWizard_btnBack" xml:space="preserve">
-    <value>&amp;Back</value>
+    <value>戻る(&amp;B)</value>
   </data>
   <data name="frmStartUpWizard_btnDownloadList" xml:space="preserve">
-    <value>Import from Official List</value>
+    <value>公式リストからインポート</value>
   </data>
   <data name="frmStartUpWizard_btnFolderBrowse" xml:space="preserve">
     <value>...</value>
   </data>
   <data name="frmStartUpWizard_btnNext" xml:space="preserve">
-    <value>&amp;Next</value>
+    <value>次へ(&amp;N)</value>
   </data>
   <data name="frmStartUpWizard_btnNext_Finish" xml:space="preserve">
-    <value>&amp;Finish</value>
+    <value>完了(&amp;F)</value>
   </data>
   <data name="frmStartUpWizard_btnOpenMonitorList" xml:space="preserve">
-    <value>Game Manager</value>
+    <value>ゲームマネージャー</value>
   </data>
   <data name="frmStartUpWizard_btnOpenWizard" xml:space="preserve">
-    <value>Add Game Wizard</value>
+    <value>ゲームウィザードを追加</value>
   </data>
   <data name="frmStartUpWizard_chkCreateFolder" xml:space="preserve">
-    <value>Create a sub-folder for each game</value>
+    <value>ゲームごとにサブフォルダを作成する</value>
   </data>
   <data name="frmStartUpWizard_ConfirmOfficialImport" xml:space="preserve">
-    <value>Would you like to choose games to import from the official list?[BR][BR]This requires an active internet connection.</value>
+    <value>公式リストからインポートするゲームを選択しますか？[BR][BR]実行にはアクティブなインターネット接続が必要です。</value>
   </data>
   <data name="frmStartUpWizard_ErrorBadFolder" xml:space="preserve">
-    <value>The selected path must be a full path.</value>
+    <value>選択したパスは完全なパスである必要があります。</value>
   </data>
   <data name="frmStartUpWizard_ErrorNoFolder" xml:space="preserve">
-    <value>You must select a backup path to continue.</value>
+    <value>続行するにはバックアップパスを選択する必要があります。</value>
   </data>
   <data name="frmStartUpWizard_ErrorNoFolderExists" xml:space="preserve">
-    <value>The selected backup location does not exist and could not be created.[BR][BR][PARAM]</value>
+    <value>選択したバックアップ場所が存在しないため、作成できませんでした。[BR][BR][PARAM]</value>
   </data>
   <data name="frmStartUpWizard_ExistingData" xml:space="preserve">
-    <value>Existing GBM data was detected in the backup folder and has been imported. </value>
+    <value>バックアップフォルダに既存の GBM データが検出され、インポートされました。</value>
   </data>
   <data name="frmStartUpWizard_FormName" xml:space="preserve">
-    <value>Game Backup Monitor -  Setup</value>
+    <value>Game Backup Monitor - セットアップ</value>
   </data>
   <data name="frmStartUpWizard_lblStep1Instructions" xml:space="preserve">
-    <value>This guide will help you through some quick and easy steps to get started.</value>
+    <value>このガイドでは、開始するための簡単な手順をいくつか紹介します。</value>
   </data>
   <data name="frmStartUpWizard_lblStep1Instructions2" xml:space="preserve">
-    <value>If you'd like to learn about advanced features or have any other questions before you get started, there is a detailed online manual available.</value>
+    <value>始める前に高度な機能について知りたい場合や、その他の質問がある場合は、詳細なオンラインマニュアルをご利用いただけます。</value>
   </data>
   <data name="frmStartUpWizard_lblStep1Title" xml:space="preserve">
-    <value>Welcome to Game Backup Monitor</value>
+    <value>Game Backup Monitorへようこそ</value>
   </data>
   <data name="frmStartUpWizard_lblStep2Instructions" xml:space="preserve">
-    <value>All your backup files along with a manifest database (gbm.s3db) will be stored in this location.  Any existing GBM data in this folder will be automatically imported.</value>
+    <value>すべてのバックアップファイルとマニフェストデータベース（gbm.s3db）がこの場所に保存されます。このフォルダ内の既存のGBMデータは自動的にインポートされます。</value>
   </data>
   <data name="frmStartUpWizard_lblStep2Intro" xml:space="preserve">
-    <value>Choose where backup files will be saved:</value>
+    <value>バックアップファイルを保存する場所を選択してください:</value>
   </data>
   <data name="frmStartUpWizard_lblStep2Title" xml:space="preserve">
-    <value>Backup Location</value>
+    <value>バックアップ場所</value>
   </data>
   <data name="frmStartUpWizard_lblStep3Intro" xml:space="preserve">
-    <value>Before you can start monitoring for games, they need to be configured so GBM knows what to look for and how to handle them.  You can download pre-made configurations from the official list or add them all yourself using the tools below.  You can also skip this step for now!</value>
+    <value>ゲームの監視を開始する前に、GBMが何を監視し、どのように処理するかを判断できるよう設定する必要があります。公式リストから既成の設定をダウンロードするか、以下のツールを使用して自分で設定を追加できます。この手順は今のところスキップしても構いません。</value>
   </data>
   <data name="frmStartUpWizard_lblStep3Title" xml:space="preserve">
-    <value>Monitoring Games</value>
+    <value>ゲームの監視</value>
   </data>
   <data name="frmStartUpWizard_lblStep4Instructions" xml:space="preserve">
-    <value>Game Backup Monitor will automatically monitor and backup your games each time they are closed.</value>
+    <value>Game Backup Monitorは、ゲームが閉じられるたびに自動的にゲームを監視し、バックアップします。</value>
   </data>
   <data name="frmStartUpWizard_lblStep4Instructions2" xml:space="preserve">
-    <value>Remember that GBM can only currently monitor one game at a time.</value>
+    <value>GBM は現在、一度に 1 つのゲームのみを監視できることに注意してください。</value>
   </data>
   <data name="frmStartUpWizard_lblStep4Instructions3" xml:space="preserve">
-    <value>You can change anything you've setup in this wizard and find more settings and features by exploring the menus.</value>
+    <value>このウィザードで設定した内容を変更したり、メニューを調べてさらに多くの設定や機能を見つけることができます。</value>
   </data>
   <data name="frmStartUpWizard_lblStep4Title" xml:space="preserve">
-    <value>Setup Complete!</value>
+    <value>セットアップが完了しました！</value>
   </data>
   <data name="frmStartUpWizard_llbManual" xml:space="preserve">
-    <value>Game Backup Monitor Manual</value>
+    <value>Game Backup Monitor マニュアル</value>
   </data>
   <data name="frmTags_btnAdd" xml:space="preserve">
-    <value>&amp;New</value>
+    <value>新規(&amp;N)</value>
   </data>
   <data name="frmTags_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
   </data>
   <data name="frmTags_btnDelete" xml:space="preserve">
-    <value>&amp;Delete</value>
+    <value>削除(&amp;D)</value>
   </data>
   <data name="frmTags_btnSave" xml:space="preserve">
-    <value>&amp;Save</value>
+    <value>保存(&amp;S)</value>
   </data>
   <data name="frmTags_ConfirmDelete" xml:space="preserve">
-    <value>Are you sure you want to delete [PARAM]?  This cannot be undone.[BR][BR]All games using this tag will have it removed.</value>
+    <value>[PARAM]を削除してもよろしいですか？元に戻すことはできません。[BR][BR]このタグを使用しているすべてのゲームからタグが削除されます。</value>
   </data>
   <data name="frmTags_ErrorTagDupe" xml:space="preserve">
-    <value>A tag with this name already exists.</value>
+    <value>この名前のタグは既に存在します。</value>
   </data>
   <data name="frmTags_ErrorValidName" xml:space="preserve">
-    <value>You must enter a valid tag name.</value>
+    <value>有効なタグ名を入力する必要があります。</value>
   </data>
   <data name="frmTags_FormName" xml:space="preserve">
-    <value>Tag Manager</value>
+    <value>タグマネージャー</value>
   </data>
   <data name="frmTags_grpTag" xml:space="preserve">
-    <value>Configuration</value>
+    <value>構成</value>
   </data>
   <data name="frmTags_lblName" xml:space="preserve">
-    <value>Name:</value>
+    <value>名前:</value>
   </data>
   <data name="frmVariableManager_btnAdd" xml:space="preserve">
-    <value>&amp;New</value>
+    <value>新規(&amp;N)</value>
   </data>
   <data name="frmVariableManager_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
   </data>
   <data name="frmVariableManager_btnDelete" xml:space="preserve">
-    <value>&amp;Delete</value>
+    <value>削除(&amp;D)</value>
   </data>
   <data name="frmVariableManager_btnPathBrowse" xml:space="preserve">
     <value>...</value>
   </data>
   <data name="frmVariableManager_btnSave" xml:space="preserve">
-    <value>&amp;Save</value>
+    <value>保存(&amp;S)</value>
   </data>
   <data name="frmVariableManager_ConfirmDelete" xml:space="preserve">
-    <value>Are you sure you want to delete [PARAM]?  This cannot be undone.</value>
+    <value>[PARAM]を削除してもよろしいですか？元に戻すことはできません。</value>
   </data>
   <data name="frmVariableManager_ErrorValidName" xml:space="preserve">
-    <value>You must enter a valid variable name.</value>
+    <value>有効な変数名を入力する必要があります。</value>
   </data>
   <data name="frmVariableManager_ErrorValidPath" xml:space="preserve">
-    <value>You must enter a valid path.</value>
+    <value>有効なパスを入力する必要があります。</value>
   </data>
   <data name="frmVariableManager_ErrorVariableDupe" xml:space="preserve">
-    <value>A custom variable with this name already exists.</value>
+    <value>この名前のカスタム変数は既に存在します。</value>
   </data>
   <data name="frmVariableManager_FormName" xml:space="preserve">
-    <value>Custom Variable Manager</value>
+    <value>カスタム変数マネージャー</value>
   </data>
   <data name="frmVariableManager_grpVariable" xml:space="preserve">
-    <value>Configuration</value>
+    <value>構成</value>
   </data>
   <data name="frmVariableManager_lblName" xml:space="preserve">
-    <value>Name:</value>
+    <value>名前:</value>
   </data>
   <data name="frmVariableManager_lblPath" xml:space="preserve">
-    <value>Path:</value>
+    <value>パス:</value>
   </data>
   <data name="frmVariableManager_PathBrowse" xml:space="preserve">
-    <value>Browse to the folder the variable represents and click Open</value>
+    <value>変数が表すフォルダを参照して「開く」をクリックします</value>
   </data>
   <data name="mgPath_ConfirmManualPathNoParam" xml:space="preserve">
-    <value>Do you wish to manually set the game path? (Path will be saved)</value>
+    <value>ゲームパスを手動で設定しますか？（パスは保存されます）</value>
   </data>
   <data name="mgrBackup_ActionComplete" xml:space="preserve">
-    <value>[PARAM] backup completed.</value>
+    <value>[PARAM] バックアップが完了しました。</value>
   </data>
   <data name="mgrBackup_ActionFailed" xml:space="preserve">
-    <value>[PARAM] backup failed.</value>
+    <value>[PARAM] バックアップに失敗しました。</value>
   </data>
   <data name="mgrBackup_BackupComplete" xml:space="preserve">
-    <value>[PARAM] backup ([PARAM]) completed. </value>
+    <value>[PARAM]バックアップ([PARAM])が完了しました。</value>
   </data>
   <data name="mgrBackup_BackupInProgress" xml:space="preserve">
-    <value>Backup of [PARAM] in progress...</value>
+    <value>[PARAM]のバックアップが進行中です...</value>
   </data>
   <data name="App_Operation_Warnings" xml:space="preserve">
-    <value>[PARAM] operation completed with warnings.</value>
+    <value>[PARAM] 警告付きで操作が完了しました。</value>
   </data>
   <data name="mgrBackup_ConfirmManifestConflict" xml:space="preserve">
-    <value>The manifest shows the backup folder contains a more recent backup for [PARAM] that has not been restored on this computer.[BR][BR]Do you want to overwrite this file anyway?</value>
+    <value>マニフェストには、バックアップ フォルダに、このコンピューターで復元されていない [PARAM] のより新しいバックアップが含まれていることが示されています。[BR][BR]それでもこのファイルを上書きしますか？</value>
   </data>
   <data name="mgrBackup_ConfirmOverwrite" xml:space="preserve">
-    <value>[PARAM] already exists in the backup folder.[BR][BR]Do you want to overwrite this file?</value>
+    <value>[PARAM]はバックアップフォルダに既に存在します。[BR][BR]このファイルを上書きしますか？</value>
   </data>
   <data name="mgrBackup_ErrorFileList" xml:space="preserve">
-    <value>An error occurred creating a file list: [PARAM]</value>
+    <value>ファイルリストの作成中にエラーが発生しました: [PARAM]</value>
   </data>
   <data name="mgrBackup_ErrorFullAbort" xml:space="preserve">
-    <value>Backup aborted.  The backup file for [PARAM] may be unusable.</value>
+    <value>バックアップを中止しました。[PARAM]のバックアップファイルは使用できない可能性があります。</value>
   </data>
   <data name="mgrBackup_ErrorManifestConflict" xml:space="preserve">
-    <value>Backup aborted by user due to manifest conflict.</value>
+    <value>マニフェストの競合のため、ユーザーによってバックアップが中止されました。</value>
   </data>
   <data name="mgrBackup_ErrorManifestFailure" xml:space="preserve">
-    <value>The manifest update for [PARAM] failed.</value>
+    <value>[PARAM]のマニフェストの更新に失敗しました。</value>
   </data>
   <data name="mgrBackup_ErrorNoSavePath" xml:space="preserve">
-    <value>Backup aborted.  The saved game path for [PARAM] does not exist.</value>
+    <value>バックアップを中止しました。[PARAM]の保存済みゲームパスが存在しません。</value>
   </data>
   <data name="mgrBackup_ErrorOverwriteAbort" xml:space="preserve">
-    <value>[PARAM] backup aborted by user due to overwrite.</value>
+    <value>[PARAM] 上書きのため、ユーザーによってバックアップが中止されました。</value>
   </data>
   <data name="mgrBackup_ErrorSubFolderCreate" xml:space="preserve">
-    <value>A failure occurred while creating a backup sub-folder for [PARAM].[BR][PARAM]</value>
+    <value>[PARAM]のバックアップサブフォルダの作成中にエラーが発生しました。[BR][PARAM]</value>
   </data>
   <data name="mgrBackup_GenerateHash" xml:space="preserve">
-    <value>Generating SHA-256 hash for [PARAM] backup file.</value>
+    <value>[PARAM]バックアップファイルのSHA-256ハッシュを生成しています。</value>
   </data>
   <data name="mgrCommon_FilesFilter" xml:space="preserve">
-    <value>[PARAM] files ([PARAM])|[PARAM]</value>
+    <value>[PARAM] ファイル ([PARAM])|[PARAM]</value>
   </data>
   <data name="mgrCommon_No" xml:space="preserve">
-    <value>No</value>
+    <value>いいえ</value>
   </data>
   <data name="mgrCommon_Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>はい</value>
   </data>
   <data name="mgrMonitorList_ConfirmApplyFilter" xml:space="preserve">
-    <value>Would you like to apply a filter to your export?</value>
+    <value>エクスポートにフィルターを適用しますか？</value>
   </data>
   <data name="mgrMonitorList_ConfirmExistingData" xml:space="preserve">
-    <value>The sync settings have changed and data already exists in the backup folder.[BR][BR]Do you want to make your current game data on this PC the new master game data in this folder? (Highly Recommended)[BR][BR]Choosing No will sync your game data on this PC to the current master game data in this folder.</value>
+    <value>同期設定が変更され、バックアップフォルダにデータが既に存在します。[BR][BR]このPCの現在のゲームデータをこのフォルダの新しいマスターゲームデータにしますか？(強く推奨)[BR][BR]いいえを選択すると、このPCのゲームデータがこのフォルダの現在のマスターゲームデータと同期されます。</value>
   </data>
   <data name="mgrMonitorList_ExportComplete" xml:space="preserve">
-    <value>Export Complete.  [PARAM] item(s) have been exported.</value>
+    <value>エクスポートが完了しました。[PARAM]個のアイテムがエクスポートされました。</value>
   </data>
   <data name="frmAdvancedImport_ImportComplete" xml:space="preserve">
-    <value>Import Complete.</value>
+    <value>インポートが完了しました。</value>
   </data>
   <data name="frmAdvancedImport_ImportNothing" xml:space="preserve">
-    <value>This list does not contain any new games to import.</value>
+    <value>このリストにはインポートする新しいゲームが含まれていません。</value>
   </data>
   <data name="mgrMonitorList_SyncChanges" xml:space="preserve">
-    <value>[PARAM] change(s) synced.</value>
+    <value>[PARAM] 変更が同期されました。</value>
   </data>
   <data name="mgrMonitorList_SyncFromMaster" xml:space="preserve">
-    <value>A sync from the master game list has been triggered.</value>
+    <value>マスターゲームリストからの同期がトリガーされました。</value>
   </data>
   <data name="mgrMonitorList_SyncToMaster" xml:space="preserve">
-    <value>A sync to the master game list has been triggered.</value>
+    <value>マスターゲームリストへの同期がトリガーされました。</value>
   </data>
   <data name="mgrPath_ChoosePath" xml:space="preserve">
-    <value>Choose the game folder containing the executable.</value>
+    <value>実行ファイルを含むゲームフォルダを選択します。</value>
   </data>
   <data name="mgrPath_ConfirmAutoFailure" xml:space="preserve">
-    <value>The search failed to locate the path for [PARAM].[BR][BR]Do you wish to manually set the game path? (Path will be saved)</value>
+    <value>[PARAM]のパスが見つかりませんでした。[BR][BR]ゲームパスを手動で設定しますか？(パスは保存されます)</value>
   </data>
   <data name="mgrPath_ConfirmAutoPath" xml:space="preserve">
-    <value>[PARAM][BR][BR]Do you wish to automatically search for the game path? (Path will be saved)</value>
+    <value>[PARAM][BR][BR]ゲームパスを自動的に検索しますか？（パスは保存されます）</value>
   </data>
   <data name="mgrPath_ConfirmBackupLocation" xml:space="preserve">
-    <value>The backup location [PARAM] is not available.[BR]It may be on an external or network drive that isn't connected.[BR][BR]Do you want to select another backup location?[BR][BR]Select "No" to quit or "Cancel" to continue waiting for the location to become available.</value>
+    <value>バックアップ場所 [PARAM] は利用できません。[BR]接続されていない外部ドライブまたはネットワークドライブ上にある可能性があります。[BR][BR]別のバックアップ場所を選択しますか?[BR][BR]終了するには「いいえ」を選択するか、場所が利用可能になるまで待機し続けるには「キャンセル」を選択してください。</value>
   </data>
   <data name="mgrPath_ConfirmManualPath" xml:space="preserve">
-    <value>[PARAM][BR][BR]Do you wish to manually set the game path? (Path will be saved)</value>
+    <value>[PARAM][BR][BR]ゲームパスを手動で設定しますか？（パスは保存されます）</value>
   </data>
   <data name="mgrPath_ConfirmPathCorrect" xml:space="preserve">
-    <value>[PARAM] was located in the following folder:[BR][BR][PARAM][BR][BR]Is this correct?</value>
+    <value>[PARAM]は次のフォルダにありました:[BR][BR][PARAM][BR][BR]これで正しいですか？</value>
   </data>
   <data name="mgrRestore_ActionComplete" xml:space="preserve">
-    <value>[PARAM] backup restored.</value>
+    <value>[PARAM] バックアップが復元されました。</value>
   </data>
   <data name="mgrRestore_ActionFailed" xml:space="preserve">
-    <value>[PARAM] restore failed.</value>
+    <value>[PARAM]の復元に失敗しました。</value>
   </data>
   <data name="mgrRestore_ConfirmCreatePath" xml:space="preserve">
-    <value>The restore path [PARAM] does not exist.[BR][BR]Do you want to create the folder and continue?</value>
+    <value>復元パス [PARAM] が存在しません。[BR][BR]フォルダーを作成して続行しますか？</value>
   </data>
   <data name="mgrRestore_ConfirmFailedCheck" xml:space="preserve">
-    <value>The backup file for [PARAM] has failed the file intergity check.  It may be corrupted, not exist or been modified by another application.[BR][BR]Do you still want to restore this backup? (Not Recommended)</value>
+    <value>[PARAM]のバックアップファイルはファイル整合性チェックに失敗しました。破損しているか、存在しないか、他のアプリケーションによって変更されている可能性があります。[BR][BR]このバックアップを復元しますか？(非推奨)</value>
   </data>
   <data name="mgrRestore_ConfirmPathMismatch" xml:space="preserve">
-    <value>The restore path for [PARAM] does not match it's current save path.[BR][BR]Do you want to restore to the current save path instead? (Recommended)</value>
+    <value>[PARAM]の復元パスが現在の保存パスと一致しません。[BR][BR]代わりに現在の保存パスに復元しますか？(推奨)</value>
   </data>
   <data name="mgrRestore_ErrorCheckAbort" xml:space="preserve">
-    <value>Restored aborted by user due to a failed file integrity check.</value>
+    <value>ファイルの整合性チェックに失敗したため、ユーザーによって復元が中止されました。</value>
   </data>
   <data name="mgrRestore_ErrorCreatePath" xml:space="preserve">
-    <value>The restore path could not be created due to an unexpected error.[BR][PARAM]</value>
+    <value>予期しないエラーのため、復元パスを作成できませんでした。[BR][PARAM]</value>
   </data>
   <data name="mgrRestore_ErrorFailedCheck" xml:space="preserve">
-    <value>The backup file for [PARAM] has failed the file integrity check.</value>
+    <value>[PARAM]のバックアップファイルはファイル整合性チェックに失敗しました。</value>
   </data>
   <data name="mgrRestore_ErrorFullAbort" xml:space="preserve">
-    <value>Restore aborted.  The saved games for [PARAM] may now be invalid.</value>
+    <value>復元を中止しました。[PARAM] に保存されたゲームは無効になっている可能性があります。</value>
   </data>
   <data name="mgrRestore_ErrorNoBackup" xml:space="preserve">
-    <value>Restore aborted.  The backup file could not be found.</value>
+    <value>復元を中止しました。バックアップファイルが見つかりませんでした。</value>
   </data>
   <data name="mgrRestore_ErrorNoPath" xml:space="preserve">
-    <value>Restored aborted.  The path [PARAM] does not exist.</value>
+    <value>復元が中止されました。パス[PARAM]が存在しません。</value>
   </data>
   <data name="mgrRestore_NoVerify" xml:space="preserve">
-    <value>[PARAM] ([PARAM]) has no stored checksum,  verification has been skipped.</value>
+    <value>[PARAM] ([PARAM]) にはチェックサムが保存されていないため、検証はスキップされました。</value>
   </data>
   <data name="mgrRestore_RelativeNeedPath" xml:space="preserve">
-    <value>[PARAM] uses a relative path and has never been detected on this computer.</value>
+    <value>[PARAM]は相対パスを使用しており、このコンピューターでは未検出です。</value>
   </data>
   <data name="mgrRestore_RestoreComplete" xml:space="preserve">
-    <value>[PARAM] backup restored.</value>
+    <value>[PARAM] バックアップが復元されました。</value>
   </data>
   <data name="mgrRestore_RestoreInProgress" xml:space="preserve">
-    <value>Restore to [PARAM] in progress...</value>
+    <value>[PARAM]への復元が進行中です...</value>
   </data>
   <data name="mgrRestore_Verified" xml:space="preserve">
-    <value>[PARAM] backup ([PARAM]) has been verified.</value>
+    <value>[PARAM] バックアップ ([PARAM]) が検証されました。</value>
   </data>
   <data name="mgrSQLite_ErrorBackupFailure" xml:space="preserve">
-    <value>An error occurred creating a backup of the database file at [PARAM][BR][BR][PARAM]</value>
+    <value>[PARAM][BR][BR][PARAM]のデータベースファイルのバックアップを作成中にエラーが発生しました</value>
   </data>
   <data name="mgrSQLite_ErrorCreatingLocalDB" xml:space="preserve">
-    <value>An error has occurred attempting to create the local application database:[BR][BR][PARAM]</value>
+    <value>ローカルアプリケーションデータベースの作成中にエラーが発生しました:[BR][BR][PARAM]</value>
   </data>
   <data name="mgrSQLite_ErrorCreatingRemoteDB" xml:space="preserve">
-    <value>An error has occurred attempting to create the remote application database:[BR][BR][PARAM]</value>
+    <value>リモートアプリケーションデータベースの作成中にエラーが発生しました:[BR][BR][PARAM]</value>
   </data>
   <data name="mgrSQLite_ErrorQueryFailure" xml:space="preserve">
-    <value>An error has occurred attempting run the query.[BR][BR][PARAM][BR][BR][PARAM]</value>
+    <value>クエリの実行中にエラーが発生しました。[BR][BR][PARAM][BR][BR][PARAM]</value>
   </data>
   <data name="mgrXML_ErrorExportFailure" xml:space="preserve">
-    <value>An error occurred exporting the XML data.[BR][BR][PARAM]</value>
+    <value>XMLデータのエクスポート中にエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="mgrXML_ErrorImportFailure" xml:space="preserve">
-    <value>The XML file cannot be read, it may be an invalid format or corrupted.[BR][BR][PARAM]</value>
+    <value>XMLファイルを読み取ることができません。形式が無効であるか破損している可能性があります。[BR][BR][PARAM]</value>
   </data>
   <data name="mgrMonitorList_DefaultExportFileName" xml:space="preserve">
-    <value>Game Backup Monitor Export</value>
+    <value>Game Backup Monitor エクスポート</value>
   </data>
   <data name="frmMain_ChooseLogFile" xml:space="preserve">
-    <value>Choose a location for the log file</value>
+    <value>ログファイルの場所を選択してください</value>
   </data>
   <data name="frmMain_ConfirmLogClear" xml:space="preserve">
-    <value>Are you sure you want to clear the log?</value>
+    <value>ログをクリアしてもよろしいですか？</value>
   </data>
   <data name="frmMain_DefaultLogFileName" xml:space="preserve">
-    <value>Game Backup Monitor Log</value>
+    <value>Game Backup Monitor ログ</value>
   </data>
   <data name="frmMain_gMonLogClear" xml:space="preserve">
-    <value>&amp;Clear</value>
+    <value>クリア(&amp;C)</value>
   </data>
   <data name="frmMain_gMonLogSave" xml:space="preserve">
-    <value>&amp;Save</value>
+    <value>保存(&amp;S)</value>
   </data>
   <data name="frmMain_gMonToolsLog" xml:space="preserve">
-    <value>&amp;Log</value>
+    <value>ログ(&amp;L)</value>
   </data>
   <data name="frmMain_LogAutoSave" xml:space="preserve">
-    <value>The session log reached maximum length and has been auto-saved to [PARAM].</value>
+    <value>セッションログが最大長に達したため、[PARAM] に自動保存されました。</value>
   </data>
   <data name="frmMain_Text" xml:space="preserve">
-    <value>Text</value>
+    <value>テキスト</value>
   </data>
   <data name="mgrCommon_ErrorWritingTextFile" xml:space="preserve">
-    <value>An error has occurred writing the text file.[BR][BR][PARAM]</value>
+    <value>テキストファイルの書き込み中にエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="frmSettings_cboCompression_Fast" xml:space="preserve">
-    <value>Fast</value>
+    <value>速い</value>
   </data>
   <data name="frmSettings_cboCompression_Fastest" xml:space="preserve">
-    <value>Fastest</value>
+    <value>最速</value>
   </data>
   <data name="frmSettings_cboCompression_Maximum" xml:space="preserve">
-    <value>Maximum</value>
+    <value>最大</value>
   </data>
   <data name="frmSettings_cboCompression_None" xml:space="preserve">
-    <value>None</value>
+    <value>なし</value>
   </data>
   <data name="frmSettings_cboCompression_Normal" xml:space="preserve">
-    <value>Normal</value>
+    <value>通常</value>
   </data>
   <data name="frmSettings_cboCompression_Ultra" xml:space="preserve">
-    <value>Ultra</value>
+    <value>ウルトラ</value>
   </data>
   <data name="frmSettings_grp7zGeneral" xml:space="preserve">
-    <value>General</value>
+    <value>一般</value>
   </data>
   <data name="frmSettings_lblCompression" xml:space="preserve">
-    <value>Compression:</value>
+    <value>圧縮:</value>
   </data>
   <data name="frmMain_CommandFail" xml:space="preserve">
-    <value>The command has failed.</value>
+    <value>コマンドは失敗しました。</value>
   </data>
   <data name="frmMain_CommandSucess" xml:space="preserve">
-    <value>The command was executed successfully.</value>
+    <value>コマンドは正常に実行されました。</value>
   </data>
   <data name="frmMain_DeveloperConsole" xml:space="preserve">
-    <value>Developer Console</value>
+    <value>開発者コンソール</value>
   </data>
   <data name="frmMain_EnterCommand" xml:space="preserve">
-    <value>Enter Command</value>
+    <value>コマンドを入力</value>
   </data>
   <data name="frmMain_ErrorCommandBadParam" xml:space="preserve">
-    <value>Bad parameter ([PARAM]) for command [PARAM].</value>
+    <value>コマンド[PARAM]のパラメータ([PARAM])が不正です。</value>
   </data>
   <data name="frmMain_ErrorCommandInvalid" xml:space="preserve">
-    <value>The command [PARAM] was not recognized.</value>
+    <value>コマンド[PARAM]が認識されませんでした。</value>
   </data>
   <data name="frmMain_ErrorMissingParams" xml:space="preserve">
-    <value>The command [PARAM] requires more parameters.</value>
+    <value>コマンド[PARAM]には追加のパラメータが必要です。</value>
   </data>
   <data name="frmMain_ErrorInitFailure" xml:space="preserve">
-    <value>An unexpected error occurred while initializing GBM.[BR][BR][PARAM][BR][BR]Do you wish to continue anyway? (Not Recommended)</value>
+    <value>GBMの初期化中に予期しないエラーが発生しました。[BR][BR][PARAM][BR][BR]それでも続行しますか?(非推奨)</value>
   </data>
   <data name="App_ErrorUnixNotAvailable" xml:space="preserve">
-    <value>This function is currently not available on a Unix based operating system.</value>
+    <value>この関数は現在、Unix ベースのOSでは使用できません。</value>
   </data>
   <data name="frmMain_PNGFilter" xml:space="preserve">
-    <value>PNG files (*.png)|*.png</value>
+    <value>PNG ファイル (*.png)|*.png</value>
   </data>
   <data name="frmAdvancedImport_lblFilter" xml:space="preserve">
-    <value>Filter:</value>
+    <value>フィルター:</value>
   </data>
   <data name="frmAdvancedImport_ColumnName" xml:space="preserve">
-    <value>Name</value>
+    <value>名前</value>
   </data>
   <data name="frmAdvancedImport_ColumnProcess" xml:space="preserve">
-    <value>Monitored Process</value>
+    <value>監視対象プロセス</value>
   </data>
   <data name="frmAdvancedImport_ColumnTags" xml:space="preserve">
-    <value>Tags</value>
+    <value>タグ</value>
   </data>
   <data name="frmAdvancedImport_Filtered" xml:space="preserve">
-    <value>[Filtered]</value>
+    <value>[フィルタリング済み]</value>
   </data>
   <data name="frmAdvancedImport_chkSelectAll" xml:space="preserve">
-    <value>Select All</value>
+    <value>すべて選択</value>
   </data>
   <data name="frmMain_AtTime" xml:space="preserve">
-    <value>at [PARAM].</value>
+    <value>[PARAM]で。</value>
   </data>
   <data name="frmFileFolderSearch_btnOk" xml:space="preserve">
-    <value>&amp;OK</value>
+    <value>OK(&amp;O)</value>
   </data>
   <data name="frmFileFolderSearch_lblResults" xml:space="preserve">
-    <value>Search Results</value>
+    <value>検索結果</value>
   </data>
   <data name="frmFileFolderSearch_SearchComplete" xml:space="preserve">
-    <value>Search Complete!</value>
+    <value>検索完了！</value>
   </data>
   <data name="frmFileFolderSearch_SearchCancel" xml:space="preserve">
-    <value>Search Aborted!</value>
+    <value>検索を中止しました！</value>
   </data>
   <data name="frmSettings_btnDefaults" xml:space="preserve">
-    <value>&amp;Defaults</value>
+    <value>デフォルト(&amp;D)</value>
   </data>
   <data name="frmSettings_lblArguments" xml:space="preserve">
-    <value>Custom Arguments:</value>
+    <value>カスタム引数:</value>
   </data>
   <data name="frmSettings_lblLocation" xml:space="preserve">
-    <value>Custom Location:</value>
+    <value>カスタムの場所:</value>
   </data>
   <data name="frmSettings_7zaFileType" xml:space="preserve">
-    <value>Executable</value>
+    <value>実行可能ファイル</value>
   </data>
   <data name="frmSettings_Browse7za" xml:space="preserve">
-    <value>Locate 7-Zip Console (7za)</value>
+    <value>7-Zipコンソール（7za）を見つける</value>
   </data>
   <data name="frmSettings_WarningArguments" xml:space="preserve">
-    <value>Invalid or poorly formatted 7-Zip arguments can cause backup or restore operations to fail.[BR][BR]If problems occur, clear the custom arguments and try again.</value>
+    <value>7-Zip 引数が無効または形式が不適切であると、バックアップまたは復元操作が失敗する可能性があります。[BR][BR]問題が発生した場合は、カスタム引数をクリアして再試行してください。</value>
   </data>
   <data name="frmMain_Error7zCustom" xml:space="preserve">
-    <value>The custom 7-Zip utility could not be found at:[BR][BR][PARAM][BR][BR]Please check your settings, the default 7-Zip utility will be used.</value>
+    <value>カスタム 7-Zip ユーティリティが見つかりません:[BR][BR][PARAM][BR][BR]設定を確認してください。デフォルトの 7-Zip ユーティリティが使用されます。</value>
   </data>
   <data name="frmSettings_ConfirmDefaults" xml:space="preserve">
-    <value>Do you want to revert all settings to their defaults?</value>
+    <value>すべての設定をデフォルトに戻しますか？</value>
   </data>
   <data name="frmSettings_ErrorLocation" xml:space="preserve">
-    <value>The custom 7-Zip location [PARAM] does not exist.</value>
+    <value>カスタム 7-Zip の場所 [PARAM] が存在しません。</value>
   </data>
   <data name="frmSettings_WarningLocation" xml:space="preserve">
-    <value>You have chosen a custom utility that does not appear to be 7-Zip. [BR][BR]GBM only supports the use of 7-Zip Console (7za).</value>
+    <value>7-Zip ではないカスタムユーティリティを選択しました。[BR][BR]GBM は 7-Zip Console (7za) の使用のみをサポートしています。</value>
   </data>
   <data name="App_Invalid7zDetected" xml:space="preserve">
-    <value>7-Zip (7za.exe) is invalid and has been prevented from running.</value>
+    <value>7-Zip (7za.exe) が無効であるため、実行できません。</value>
   </data>
   <data name="frmGameManager_lblSearch" xml:space="preserve">
-    <value>Search:</value>
+    <value>検索:</value>
   </data>
   <data name="frmGameManager_ErrorNoValidBackup" xml:space="preserve">
-    <value>A backup cannot be run on the selected game(s) with their current configuration.</value>
+    <value>現在の構成では、選択したゲームのバックアップを実行できません。</value>
   </data>
   <data name="frmSettings_btnOptionalFields" xml:space="preserve">
-    <value>Choose &amp;Optional Sync Fields...</value>
+    <value>オプションの同期フィールドを選択...(&amp;O)</value>
   </data>
   <data name="frmSyncFields_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
   </data>
   <data name="frmSyncFields_btnSave" xml:space="preserve">
-    <value>&amp;Save</value>
+    <value>保存(&amp;S)</value>
   </data>
   <data name="frmSyncFields_chkCompany" xml:space="preserve">
-    <value>Company</value>
+    <value>会社</value>
   </data>
   <data name="frmSyncFields_chkGamePath" xml:space="preserve">
-    <value>Game Path (Not Recommended)</value>
+    <value>ゲームパス（非推奨）</value>
   </data>
   <data name="frmSyncFields_chkIcon" xml:space="preserve">
-    <value>Icon (Not Recommended)</value>
+    <value>アイコン（非推奨）</value>
   </data>
   <data name="frmSyncFields_chkMonitorGame" xml:space="preserve">
-    <value>Monitor this game</value>
+    <value>このゲームを監視する</value>
   </data>
   <data name="frmSyncFields_chkTimeStamp" xml:space="preserve">
-    <value>Save multiple backups</value>
+    <value>複数のバックアップを保存</value>
   </data>
   <data name="frmSyncFields_chkVersion" xml:space="preserve">
-    <value>Version</value>
+    <value>バージョン</value>
   </data>
   <data name="frmSyncFields_FormName" xml:space="preserve">
-    <value>Optional Sync Fields</value>
+    <value>オプションの同期フィールド</value>
   </data>
   <data name="frmSyncFields_grpFields" xml:space="preserve">
-    <value>Available Fields</value>
+    <value>利用可能なフィールド</value>
   </data>
   <data name="frmMain_LogAutoClear" xml:space="preserve">
-    <value>The session log reached maximum length and has been cleared.</value>
+    <value>セッションログが最大長に達したためクリアされました。</value>
   </data>
   <data name="frmSettings_chkAutoSaveLog" xml:space="preserve">
-    <value>Autosave log when max length is exceeded</value>
+    <value>最大長を超えたときにログを自動保存する</value>
   </data>
   <data name="frmSettings_grpOptionalFeatures" xml:space="preserve">
-    <value>Optional Features</value>
+    <value>オプション機能</value>
   </data>
   <data name="frmSettings_lstSettings_7z" xml:space="preserve">
     <value>7-Zip</value>
   </data>
   <data name="frmSettings_lstSettings_BackupRestore" xml:space="preserve">
-    <value>Backup and Restore</value>
+    <value>バックアップと復元</value>
   </data>
   <data name="frmSettings_lstSettings_General" xml:space="preserve">
-    <value>General</value>
+    <value>一般</value>
   </data>
   <data name="frmSettings_grp7zAdvanced" xml:space="preserve">
-    <value>Advanced</value>
+    <value>詳細</value>
   </data>
   <data name="frmSettings_grp7zInformation" xml:space="preserve">
-    <value>Version Information</value>
+    <value>バージョン情報</value>
   </data>
   <data name="App_NotAvailable" xml:space="preserve">
-    <value>N/A</value>
+    <value>該当なし</value>
   </data>
   <data name="App_URLImportLinux" xml:space="preserve">
     <value>http://mikemaximus.github.io/gbm-web/GBM_Official_Linux.xml</value>
   </data>
   <data name="frmGameManager_BrowseBackup" xml:space="preserve">
-    <value>Choose a new [PARAM] backup file</value>
+    <value>新しい[PARAM]バックアップファイルを選択</value>
   </data>
   <data name="frmGameManager_BrowseBackupType" xml:space="preserve">
     <value>7-Zip</value>
   </data>
   <data name="frmGameManager_btnChangeBackup" xml:space="preserve">
-    <value>&amp;Change Backup File</value>
+    <value>バックアップファイルの変更(&amp;C)</value>
   </data>
   <data name="frmGameManager_ConfirmBackupChange" xml:space="preserve">
-    <value>[PARAM] will be the new backup file for [PARAM].[BR][BR]Is this correct?</value>
+    <value>[PARAM] は [PARAM] の新しいバックアップ ファイルになります。[BR][BR]よろしいですか？</value>
   </data>
   <data name="frmGameManager_ConfirmBackupChangeRestore" xml:space="preserve">
-    <value>Do you want to restore [PARAM] now?</value>
+    <value>[PARAM]を今すぐ復元しますか？</value>
   </data>
   <data name="frmGameManager_ErrorBackupChangeFileName" xml:space="preserve">
-    <value>[PARAM] is already the current backup file.</value>
+    <value>[PARAM]はすでに現在のバックアップファイルです。</value>
   </data>
   <data name="frmGameManager_ErrorBackupChangePath" xml:space="preserve">
-    <value>You cannot choose a file located outside the current [PARAM] backup folder.</value>
+    <value>現在の [PARAM] バックアップフォルダ外にあるファイルを選択することはできません。</value>
   </data>
   <data name="frmGameManager_lblLimit" xml:space="preserve">
-    <value>Backup limit</value>
+    <value>バックアップ制限</value>
   </data>
   <data name="mgrBackup_BackupLimitExceeded" xml:space="preserve">
-    <value>[PARAM] was automatically removed.</value>
+    <value>[PARAM]は自動的に削除されました。</value>
   </data>
   <data name="frmGameManager_cmsDeleteAll" xml:space="preserve">
-    <value>Delete &amp;All</value>
+    <value>すべて削除(&amp;A)</value>
   </data>
   <data name="frmGameManager_cmsDeleteOne" xml:space="preserve">
-    <value>Delete &amp;Selected</value>
+    <value>選択項目を削除(&amp;S)</value>
   </data>
   <data name="frmGameManager_ConfirmBackupDeleteAll" xml:space="preserve">
-    <value>This will delete all backup files for [PARAM].  This cannot be undone. [BR][BR]Do you want to continue?</value>
+    <value>[PARAM]のすべてのバックアップファイルを削除します。この操作は元に戻せません。[BR][BR]続行しますか？</value>
   </data>
   <data name="frmAddWizard_lblLimit" xml:space="preserve">
-    <value>Backup Limit (0 = Unlimited)</value>
+    <value>バックアップ制限（0 = 無制限）</value>
   </data>
   <data name="frmGameManager_Unknown" xml:space="preserve">
-    <value>Unknown</value>
+    <value>不明</value>
   </data>
   <data name="frmGameManager_chkCleanFolder" xml:space="preserve">
-    <value>Delete folder on restore</value>
+    <value>復元時にフォルダを削除</value>
   </data>
   <data name="frmMain_AutoMark" xml:space="preserve">
-    <value>The saved game folder for [PARAM] does not exist or could not be determined, the backup has been automatically marked as restored.</value>
+    <value>[PARAM] の保存されたゲーム フォルダーが存在しないか、特定できなかったため、バックアップは自動的に復元済みとしてマークされました。</value>
   </data>
   <data name="frmMain_RestoreNotReady" xml:space="preserve">
-    <value>The backup file for [PARAM] is not ready to restore.</value>
+    <value>[PARAM]のバックアップファイルは復元する準備ができていません。</value>
   </data>
   <data name="frmSettings_chkAutoMark" xml:space="preserve">
-    <value>Automatically mark new backups as restored when appropriate</value>
+    <value>適切な場合に新しいバックアップを自動的に復元済みとしてマーク</value>
   </data>
   <data name="frmSettings_grpBackupHandling" xml:space="preserve">
-    <value>Backup Handling</value>
+    <value>バックアップ処理</value>
   </data>
   <data name="frmSettings_chkAutoRestore" xml:space="preserve">
-    <value>Automatically restore new backups</value>
+    <value>新しいバックアップを自動的に復元する</value>
   </data>
   <data name="frmMain_AutoRestoreFailure" xml:space="preserve">
-    <value>[PARAM] has multiple configurations and cannot be automatically restored.</value>
+    <value>[PARAM] には複数の構成があり、自動的に復元できません。</value>
   </data>
   <data name="frmMain_RestoreNotificationMulti" xml:space="preserve">
-    <value>[PARAM] new saved game backups are being automatically restored.</value>
+    <value>[PARAM] 新しい保存されたゲームのバックアップが自動的に復元されます。</value>
   </data>
   <data name="frmMain_RestoreNotificationSingle" xml:space="preserve">
-    <value>A new saved game backup for [PARAM] is being automatically restored.</value>
+    <value>[PARAM]の新しい保存済みゲームバックアップが自動的に復元されます。</value>
   </data>
   <data name="frmMain_NoAutoMark" xml:space="preserve">
-    <value>The saved game folder for [PARAM] does not exist or could not be determined, this backup has been skipped.</value>
+    <value>[PARAM] の保存されたゲーム フォルダーが存在しないか、特定できなかったため、このバックアップはスキップされました。</value>
   </data>
   <data name="frmMain_NoCheckSum" xml:space="preserve">
-    <value>The backup file for [PARAM] has no checksum,  it cannot be automatically restored.</value>
+    <value>[PARAM]のバックアップファイルにはチェックサムがないため、自動的に復元できません。</value>
   </data>
   <data name="mgrBackup_ConfirmDiskSpace" xml:space="preserve">
-    <value>You may not have enough disk space available to perform a backup.[BR][BR]Do you want to continue anyway?</value>
+    <value>バックアップを実行するのに十分なディスク容量がない可能性があります。[BR][BR]それでも続行しますか？</value>
   </data>
   <data name="mgrBackup_ErrorDiskSpace" xml:space="preserve">
-    <value>Backup aborted due to lack of disk space.</value>
+    <value>ディスク容量不足のためバックアップを中止しました。</value>
   </data>
   <data name="mgrCommon_AvailableDiskSpace" xml:space="preserve">
-    <value>Available Disk Space ([PARAM]): [PARAM]</value>
+    <value>使用可能なディスク容量 ([PARAM]): [PARAM]</value>
   </data>
   <data name="mgrCommon_GB" xml:space="preserve">
     <value>[PARAM] GB</value>
@@ -1636,118 +1636,118 @@
     <value>[PARAM] PB</value>
   </data>
   <data name="mgrBackup_SavedGameFolderSize" xml:space="preserve">
-    <value>[PARAM] Save Folder Size: [PARAM]</value>
+    <value>[PARAM] 保存フォルダサイズ: [PARAM]</value>
   </data>
   <data name="mgrCommon_TB" xml:space="preserve">
     <value>[PARAM] TB</value>
   </data>
   <data name="frmGameManager_lblParameter" xml:space="preserve">
-    <value>Parameter:</value>
+    <value>パラメータ:</value>
   </data>
   <data name="mgrCommon_B" xml:space="preserve">
     <value>[PARAM] B</value>
   </data>
   <data name="App_Operation_CommandFailure" xml:space="preserve">
-    <value>[PARAM] operation failed due to a malformed command.</value>
+    <value>[PARAM] コマンドの形式が不正なため、操作が失敗しました。</value>
   </data>
   <data name="App_Operation_FatalError" xml:space="preserve">
-    <value>[PARAM] operation failed due to an error.</value>
+    <value>[PARAM] エラーのため操作に失敗しました。</value>
   </data>
   <data name="frmFilter_grpSorting" xml:space="preserve">
-    <value>Sorting</value>
+    <value>並び替え</value>
   </data>
   <data name="frmFilter_optSortAsc" xml:space="preserve">
-    <value>Ascending</value>
+    <value>昇順</value>
   </data>
   <data name="frmFilter_optSortDesc" xml:space="preserve">
-    <value>Descending</value>
+    <value>降順</value>
   </data>
   <data name="frmFilter_FieldCompany" xml:space="preserve">
-    <value>Company</value>
+    <value>会社</value>
   </data>
   <data name="frmFilter_FieldHours" xml:space="preserve">
-    <value>Hours</value>
+    <value>時間</value>
   </data>
   <data name="frmFilter_FieldName" xml:space="preserve">
-    <value>Name</value>
+    <value>名前</value>
   </data>
   <data name="frmFilter_FieldProcess" xml:space="preserve">
-    <value>Process</value>
+    <value>プロセス</value>
   </data>
   <data name="frmFilter_btnAddFilter" xml:space="preserve">
-    <value>Add</value>
+    <value>追加</value>
   </data>
   <data name="frmFilter_btnRemoveFilter" xml:space="preserve">
-    <value>Remove</value>
+    <value>削除</value>
   </data>
   <data name="frmFilter_FieldParameter" xml:space="preserve">
-    <value>Parameter</value>
+    <value>パラメータ</value>
   </data>
   <data name="frmFilter_FieldVersion" xml:space="preserve">
-    <value>Version</value>
+    <value>バージョン</value>
   </data>
   <data name="frmFilter_lblCurrentFilters" xml:space="preserve">
-    <value>Current Filters</value>
+    <value>現在のフィルター</value>
   </data>
   <data name="frmFilter_lblFields" xml:space="preserve">
-    <value>Available Fields</value>
+    <value>利用可能なフィールド</value>
   </data>
   <data name="frmFilter_lblFilterData" xml:space="preserve">
-    <value>Filter</value>
+    <value>フィルター</value>
   </data>
   <data name="frmFilter_cboBoolFilterDisabled" xml:space="preserve">
-    <value>Disabled</value>
+    <value>無効</value>
   </data>
   <data name="frmFilter_cboBoolFilterEnabled" xml:space="preserve">
-    <value>Enabled</value>
+    <value>有効</value>
   </data>
   <data name="frmFilter_FieldBackupLimit" xml:space="preserve">
-    <value>Backup Limit *</value>
+    <value>バックアップ制限*</value>
   </data>
   <data name="frmFilter_FieldCleanFolder" xml:space="preserve">
-    <value>Delete Folder on Restore</value>
+    <value>復元時にフォルダを削除</value>
   </data>
   <data name="frmFilter_FieldEnabled" xml:space="preserve">
-    <value>Allow monitoring</value>
+    <value>監視を許可</value>
   </data>
   <data name="frmFilter_FieldExcludeList" xml:space="preserve">
-    <value>Exclude Items</value>
+    <value>項目を除外</value>
   </data>
   <data name="frmFilter_FieldFileType" xml:space="preserve">
-    <value>Include Items</value>
+    <value>項目を含める</value>
   </data>
   <data name="frmFilter_FieldFolderSave" xml:space="preserve">
-    <value>Save Entire Folder</value>
+    <value>フォルダ全体を保存</value>
   </data>
   <data name="frmFilter_FieldIcon" xml:space="preserve">
-    <value>Icon</value>
+    <value>アイコン</value>
   </data>
   <data name="frmFilter_FieldMonitorOnly" xml:space="preserve">
-    <value>No backup when game ends</value>
+    <value>ゲーム終了時にバックアップなし</value>
   </data>
   <data name="frmFilter_FieldPath" xml:space="preserve">
-    <value>Save Path *</value>
+    <value>保存パス*</value>
   </data>
   <data name="frmFilter_FieldProcessPath" xml:space="preserve">
-    <value>Game Path</value>
+    <value>ゲームパス</value>
   </data>
   <data name="frmFilter_FieldTimeStamp" xml:space="preserve">
-    <value>Save Multiple Backups</value>
+    <value>複数のバックアップを保存</value>
   </data>
   <data name="frmFilter_lblSortsFields" xml:space="preserve">
-    <value>Available Fields</value>
+    <value>利用可能なフィールド</value>
   </data>
   <data name="frmFilter_lblWarning" xml:space="preserve">
-    <value>* Indicates a field that may give unexpected results.</value>
+    <value>* 予期しない結果が生じる可能性があるフィールドを示します。</value>
   </data>
   <data name="frmFilter_lstFilterContains" xml:space="preserve">
-    <value>contains</value>
+    <value>含む</value>
   </data>
   <data name="frmFilter_grpSortOptions" xml:space="preserve">
-    <value>Sort Options</value>
+    <value>並べ替えオプション</value>
   </data>
   <data name="frmFilter_FieldComments" xml:space="preserve">
-    <value>Comments</value>
+    <value>コメント</value>
   </data>
   <data name="frmFilter_btnExcludeAdd" xml:space="preserve">
     <value>&gt;</value>
@@ -1756,349 +1756,350 @@
     <value>&lt;</value>
   </data>
   <data name="frmFilter_lblExcludeTags" xml:space="preserve">
-    <value>Exclude Tags</value>
+    <value>タグを除外</value>
   </data>
   <data name="frmFilter_lblNot" xml:space="preserve">
-    <value>Not</value>
+    <value>いいえ</value>
   </data>
   <data name="frmMain_gMonToolsSessions" xml:space="preserve">
-    <value>&amp;Session Viewer...</value>
+    <value>セッションビューアー...(&amp;S)</value>
   </data>
   <data name="frmSessions_ColumnEnd" xml:space="preserve">
-    <value>End</value>
+    <value>終了</value>
   </data>
   <data name="frmSessions_ColumnGameName" xml:space="preserve">
-    <value>Game</value>
+    <value>ゲーム</value>
   </data>
   <data name="frmSessions_ColumnStart" xml:space="preserve">
-    <value>Start</value>
+    <value>開始</value>
   </data>
   <data name="frmSessions_Name" xml:space="preserve">
-    <value>Session Viewer</value>
+    <value>セッションビューア</value>
   </data>
   <data name="frmMain_ErrorNoSessions" xml:space="preserve">
-    <value>There is currently no session data to display.</value>
+    <value>現在表示するセッションデータはありません。</value>
   </data>
   <data name="frmSessions_btnDelete" xml:space="preserve">
-    <value>&amp;Delete Session</value>
+    <value>セッションを削除(&amp;D)</value>
   </data>
   <data name="frmSessions_btnReset" xml:space="preserve">
-    <value>&amp;Reset Filters</value>
+    <value>フィルターをリセット(&amp;R)</value>
   </data>
   <data name="frmSessions_ColumnMonitorID" xml:space="preserve">
-    <value>MonitorID</value>
+    <value>監視ID</value>
   </data>
   <data name="frmSessions_ConfirmDelete" xml:space="preserve">
-    <value>Are you sure you want to delete the selected session(s)?  This cannot be undone.</value>
+    <value>選択したセッションを削除してもよろしいですか？ 元に戻すことはできません。</value>
   </data>
   <data name="frmSessions_lblDateRange" xml:space="preserve">
-    <value>Date Range:</value>
+    <value>日付範囲:</value>
   </data>
   <data name="frmSessions_lblFilter" xml:space="preserve">
-    <value>Game Filter:</value>
+    <value>ゲームフィルター:</value>
   </data>
   <data name="frmMain_WarningSessionsDisabled" xml:space="preserve">
-    <value>Session tracking is currently disabled.[BR][BR]Enable session tracking in Settings if you'd like to track data for individual gaming sessions.</value>
+    <value>セッショントラッキングは現在無効になっています。[BR][BR]個々のゲームセッションのデータを追跡したい場合は、設定でセッショントラッキングを有効にしてください。</value>
   </data>
   <data name="frmSettings_chkSessionTracking" xml:space="preserve">
-    <value>Enable session tracking</value>
+    <value>セッショントラッキングを有効にする</value>
   </data>
   <data name="frmSettings_WarningAdminStart" xml:space="preserve">
-    <value>Please note that GBM will not "Start with Windows" as Administrator.[BR][BR]See the Online Manual in the Help menu for details.</value>
+    <value>GBM は管理者として「Windows で起動」しないことに注意してください。[BR][BR]詳細については、[ヘルプ] メニューのオンライン マニュアルを参照してください。</value>
   </data>
   <data name="frmSessions_ColumnHours" xml:space="preserve">
-    <value>Hours</value>
+    <value>時間</value>
   </data>
   <data name="frmSessions_lblTotalHours" xml:space="preserve">
-    <value>Total Hours: [PARAM]</value>
+    <value>合計時間: [PARAM]</value>
   </data>
   <data name="frmSessions_ChooseExportLocation" xml:space="preserve">
-    <value>Choose a location for the export file</value>
+    <value>エクスポートファイルの場所を選択してください</value>
   </data>
   <data name="frmSessions_CSV" xml:space="preserve">
     <value>CSV</value>
   </data>
   <data name="frmSessions_DefaultExportFileName" xml:space="preserve">
-    <value>Game Session Export</value>
+    <value>ゲームセッションのエクスポート</value>
   </data>
   <data name="frmSessions_XML" xml:space="preserve">
     <value>XML</value>
   </data>
   <data name="mgrSessions_ErrorExportFailure" xml:space="preserve">
-    <value>An error occurred exporting the session data.[BR][BR][PARAM]</value>
+    <value>セッションデータのエクスポート中にエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="mgrSessions_ExportSuccess" xml:space="preserve">
-    <value>The data has been exported successfully.</value>
+    <value>データは正常にエクスポートされました。</value>
   </data>
   <data name="frmSessionExport_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
   </data>
   <data name="frmSessionExport_btnExport" xml:space="preserve">
-    <value>&amp;Export</value>
+    <value>エクスポート(&amp;E)</value>
   </data>
   <data name="frmSessionExport_chkCSVHeaders" xml:space="preserve">
-    <value>Export Column Headers (CSV)</value>
+    <value>列ヘッダーをエクスポート（CSV）</value>
   </data>
   <data name="frmSessionExport_FormName" xml:space="preserve">
-    <value>Session Export Options</value>
+    <value>セッションエクスポートオプション</value>
   </data>
   <data name="frmSessionExport_grpDateType" xml:space="preserve">
-    <value>Date Type</value>
+    <value>日付の種類</value>
   </data>
   <data name="frmSessionExport_grpExportType" xml:space="preserve">
-    <value>Export Type</value>
+    <value>エクスポートタイプ</value>
   </data>
   <data name="frmSessionExport_grpOptions" xml:space="preserve">
-    <value>Other Options</value>
+    <value>その他のオプション</value>
   </data>
   <data name="frmSessionExport_optCSV" xml:space="preserve">
     <value>CSV</value>
   </data>
   <data name="frmSessionExport_optCurrentLocale" xml:space="preserve">
-    <value>Current Locale</value>
+    <value>現在のロケール</value>
   </data>
   <data name="frmSessionExport_optUnix" xml:space="preserve">
-    <value>Unix Timestamp</value>
+    <value>Unixタイムスタンプ</value>
   </data>
   <data name="frmSessionExport_optXML" xml:space="preserve">
     <value>XML</value>
   </data>
   <data name="frmSessions_btnExport" xml:space="preserve">
-    <value>&amp;Export Grid</value>
+    <value>グリッドをエクスポート(&amp;E)</value>
   </data>
   <data name="frmFilter_FieldIsRegEx" xml:space="preserve">
-    <value>Regular Expression</value>
+    <value>正規表現</value>
   </data>
   <data name="frmGameManager_cmsRegEx" xml:space="preserve">
-    <value>&amp;Regular Expression</value>
+    <value>正規表現(&amp;R)</value>
   </data>
   <data name="frmGameManager_lblComments" xml:space="preserve">
-    <value>Comments:</value>
+    <value>コメント:</value>
   </data>
   <data name="AppURL_RegExr" xml:space="preserve">
     <value>https://regexr.com/?expression=[PARAM]&amp;text=test</value>
   </data>
   <data name="frmGameManager_ErrorRegExFailure" xml:space="preserve">
-    <value>The process is not a a valid regular expression.[BR][BR]Would you like help validating and testing your regular expression? [BR][BR]This will open your web browser and requires the internet.</value>
+    <value>プロセスは有効な正規表現ではありません。[BR][BR]正規表現の検証とテストをお手伝いしますか？ [BR][BR]これによりWebブラウザが開き、インターネットが必要になります。</value>
   </data>
   <data name="frmGameManager_GameIDEditInfo" xml:space="preserve">
-    <value>The unique Game ID is generated by GBM.  Changing this value is not recommended.</value>
+    <value>GBMによって生成された固有のゲームIDです。この値の変更は推奨されません。</value>
   </data>
   <data name="frmGameManager_GameIDEditTitle" xml:space="preserve">
-    <value>Modify Game ID</value>
+    <value>ゲームIDの変更</value>
   </data>
   <data name="frmFilter_FieldGameID" xml:space="preserve">
-    <value>Game ID</value>
+    <value>ゲームID</value>
   </data>
   <data name="frmSettings_btnResetMessages" xml:space="preserve">
-    <value>&amp;Reset Warnings</value>
+    <value>警告をリセット(&amp;R)</value>
   </data>
   <data name="frmSettings_ConfirmMessageReset" xml:space="preserve">
-    <value>Do you want to reset all hidden warnings and messages?</value>
+    <value>非表示の警告とメッセージをすべてリセットしますか？</value>
   </data>
   <data name="App_BackupOnLaunchFileDescription" xml:space="preserve">
-    <value>launch</value>
+    <value>起動</value>
   </data>
   <data name="frmSettings_chkBackupOnLaunch" xml:space="preserve">
-    <value>Backup GBM data files on launch</value>
+    <value>起動時にGBMデータファイルをバックアップする</value>
   </data>
   <data name="frmMain_ErrorEndChildProcess" xml:space="preserve">
-    <value>An error occurred when attempting to end a process associated with [PARAM].[BR][BR][PARAM]</value>
+    <value>[PARAM]に関連付けられたプロセスを終了しようとしたときにエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="frmMain_ErrorStartChildProcess" xml:space="preserve">
-    <value>An error occurred when attempting to start a process associated with [PARAM].[BR][BR][PARAM]</value>
+    <value>[PARAM]に関連付けられたプロセスを開始しようとしたときにエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="frmProcessManager_btnAdd" xml:space="preserve">
-    <value>&amp;New</value>
+    <value>新規(&amp;N)</value>
   </data>
   <data name="frmProcessManager_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
   </data>
   <data name="frmProcessManager_btnDelete" xml:space="preserve">
-    <value>&amp;Delete</value>
+    <value>削除(&amp;D)</value>
   </data>
   <data name="frmProcessManager_btnProcessBrowse" xml:space="preserve">
     <value>...</value>
   </data>
   <data name="frmProcessManager_btnSave" xml:space="preserve">
-    <value>&amp;Save</value>
+    <value>保存(&amp;S)</value>
   </data>
   <data name="frmProcessManager_ConfirmDelete" xml:space="preserve">
-    <value>Are you sure you want to delete [PARAM]?  This cannot be undone.</value>
+    <value>[PARAM]を削除してもよろしいですか？元に戻すことはできません。</value>
   </data>
   <data name="frmProcessManager_ErrorDupe" xml:space="preserve">
-    <value>A process with this name already exists.</value>
+    <value>この名前のプロセスは既に存在します。</value>
   </data>
   <data name="frmProcessManager_ErrorPathNotFound" xml:space="preserve">
-    <value>The process does not exist.</value>
+    <value>プロセスが存在しません。</value>
   </data>
   <data name="frmProcessManager_ErrorValidName" xml:space="preserve">
-    <value>You must enter a valid name for this process.</value>
+    <value>このプロセスには有効な名前を入力してください。</value>
   </data>
   <data name="frmProcessManager_ErrorValidPath" xml:space="preserve">
-    <value>You must choose a valid process.</value>
+    <value>有効なプロセスを選択してください。</value>
   </data>
   <data name="frmProcessManager_FormName" xml:space="preserve">
-    <value>Process Manager</value>
+    <value>プロセスマネージャー</value>
   </data>
   <data name="frmProcessManager_grpProcess" xml:space="preserve">
-    <value>Configuration</value>
+    <value>構成</value>
   </data>
   <data name="frmProcessManager_lblName" xml:space="preserve">
-    <value>Name:</value>
+    <value>名前:</value>
   </data>
   <data name="frmProcessManager_lblPath" xml:space="preserve">
-    <value>Path:</value>
+    <value>パス:</value>
   </data>
   <data name="frmMain_gMonSetupProcessManager" xml:space="preserve">
-    <value>&amp;Process Manager...</value>
+    <value>プロセス マネージャー...(&amp;P)</value>
   </data>
   <data name="frmProcessManager_ChooseProcess" xml:space="preserve">
-    <value>Choose a file that starts the process</value>
+    <value>プロセスを開始するファイルを選択してください</value>
   </data>
   <data name="frmProcessManager_Executable" xml:space="preserve">
-    <value>Executable</value>
+    <value>実行可能ファイル</value>
   </data>
   <data name="frmProcessManager_chkKillProcess" xml:space="preserve">
-    <value>Kill process when game is closed</value>
+    <value>ゲーム終了時にプロセスを強制終了する</value>
   </data>
   <data name="frmGameProcesses_btnAdd" xml:space="preserve">
     <value>&gt;</value>
   </data>
   <data name="frmGameProcesses_btnOpenProcesses" xml:space="preserve">
-    <value>&amp;Process Manager...</value>
+    <value>プロセス マネージャー...(&amp;P)</value>
   </data>
   <data name="frmGameProcesses_btnRemove" xml:space="preserve">
     <value>&lt;</value>
   </data>
   <data name="frmGameProcesses_FormNameMulti" xml:space="preserve">
-    <value>Edit Processes for Multiple Games</value>
+    <value>複数のゲームのプロセスを編集</value>
   </data>
   <data name="frmGameProcesses_FormNameSingle" xml:space="preserve">
-    <value>Edit Processes for [PARAM]</value>
+    <value>[PARAM]のプロセスを編集</value>
   </data>
   <data name="frmGameProcesses_lblGameProccesses" xml:space="preserve">
-    <value>Current Processes</value>
+    <value>現在のプロセス</value>
   </data>
   <data name="frmGameProcesses_lblProcesses" xml:space="preserve">
-    <value>Available Processes</value>
+    <value>利用可能なプロセス</value>
   </data>
   <data name="App_GenericError" xml:space="preserve">
-    <value>Error: [PARAM]</value>
+    <value>エラー: [PARAM]</value>
   </data>
   <data name="frmMain_ProcessKilled" xml:space="preserve">
-    <value>Kill signal was sent for [PARAM].</value>
+    <value>[PARAM]に対して強制終了信号が送信されました。</value>
   </data>
   <data name="frmMain_ProcessStarted" xml:space="preserve">
-    <value>[PARAM] has been started.</value>
+    <value>[PARAM]が開始されました。</value>
   </data>
   <data name="mgrMonitorList_ErrorSyncCancel" xml:space="preserve">
-    <value>The sync was aborted by the user.</value>
+    <value>ユーザーによって同期が中止されました。</value>
   </data>
   <data name="mgrMonitorList_WarningSyncProtection" xml:space="preserve">
-    <value>The database GBM is attempting to sync with appears to be empty, syncing with this database will delete all data.  Do you still want to sync with this database?  (Not Recommended)</value>
+    <value>GBMが同期しようとしているデータベースは空のようです。このデータベースと同期するとすべてのデータが削除されます。それでもこのデータベースと同期しますか？（非推奨）</value>
   </data>
   <data name="frmSettings_chkDisableSyncMessages" xml:space="preserve">
-    <value>Disable sync event messages</value>
+    <value>同期イベントメッセージを無効にする</value>
   </data>
   <data name="frmSettings_grpBackupConfirmations" xml:space="preserve">
-    <value>Backup Confirmations</value>
+    <value>バックアップの確認</value>
   </data>
   <data name="frmSettings_grpGameMonitoringOptions" xml:space="preserve">
-    <value>Game Monitoring Options</value>
+    <value>ゲーム監視オプション</value>
   </data>
   <data name="frmSettings_grpLogOptions" xml:space="preserve">
-    <value>Log Options</value>
+    <value>ログオプション</value>
   </data>
   <data name="frmSettings_lstSettings_Startup" xml:space="preserve">
-    <value>Startup</value>
+    <value>スタートアップ</value>
   </data>
   <data name="mgrBackup_ConfirmOverwriteRelative" xml:space="preserve">
-    <value>[PARAM] already exists in the backup folder.[BR][BR]This game stores saves in a relative location, you may need to restore the current backup if the game was recently re-installed.[BR][BR]Do you want to overwrite this file?</value>
+    <value>[PARAM]はバックアップフォルダに既に存在します。[BR][BR]このゲームは相対パスに保存されるため、ゲームを最近再インストールした場合は、現在のバックアップを復元する必要がある場合があります。[BR][BR]このファイルを上書きしますか？</value>
   </data>
   <data name="mgrPath_SpecialPathError" xml:space="preserve">
-    <value>An error occurred while determining a required system path. [BR][BR][PARAM] could not be set.  It may be missing from the registry or it's current value does not exist.[BR][BR]The application will now exit.</value>
+    <value>必要なシステムパスの決定中にエラーが発生しました。[BR][BR][PARAM]を設定できませんでした。レジストリに存在しないか、現在の値が存在しない可能性があります。[BR][BR]アプリケーションを終了します。</value>
   </data>
   <data name="frmMain_ErrorGameDetails" xml:space="preserve">
-    <value>An error occurred while obtaining the details of the detected game.</value>
+    <value>検出されたゲームの詳細を取得中にエラーが発生しました。</value>
   </data>
   <data name="frmMain_ErrorGameIcon" xml:space="preserve">
-    <value>An error occurred while extracting the executable icon.</value>
+    <value>実行可能アイコンの抽出中にエラーが発生しました。</value>
   </data>
   <data name="frmGameManager_ErrorRenameFilesExist" xml:space="preserve">
-    <value>The backup folder contains one or more backup files that cannot be renamed to [PARAM] because a file using that name already exists.[BR][BR]Do you want to continue and remove the existing files?</value>
+    <value>バックアップフォルダには、[PARAM] に名前を変更できない 1 つ以上のバックアップファイルが含まれています。その名前のファイルが既に存在します。[BR][BR]続行して既存のファイルを削除しますか？</value>
   </data>
   <data name="frmGameManager_ErrorRenameFolderExists" xml:space="preserve">
-    <value>The backup folder [PARAM] cannot be renamed to [PARAM] because a folder with that name already exists.[BR][BR]Do you want to continue and remove the existing folder?</value>
+    <value>バックアップフォルダ[PARAM]の名前を[PARAM]に変更できません。同じ名前のフォルダがすでに存在します。[BR][BR]続行して既存のフォルダを削除しますか？</value>
   </data>
   <data name="frmMain_WinePrefix" xml:space="preserve">
-    <value>Wine Prefix: [PARAM]</value>
+    <value>Wineプレフィックス: [PARAM]</value>
   </data>
   <data name="mgrPath_ErrorBuildingWinePath" xml:space="preserve">
-    <value>An error occurred when building a Wine path.[BR][BR][PARAM]</value>
+    <value>Wineパスの構築中にエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="mgrPath_ErrorConvertWineSavePath" xml:space="preserve">
-    <value>An error occurred when converting to a Wine save path.[BR][BR][PARAM]</value>
+    <value>Wine保存パスへの変換中にエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="mgrPath_ErrorWinePrefix" xml:space="preserve">
-    <value>An error occurred when determining a Wine prefix.[BR][BR][PARAM]</value>
+    <value>Wineプレフィックスの決定中にエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="mgrPath_ErrorUnixEnv" xml:space="preserve">
-    <value>An error occurred while building a list of environment variables.[BR][BR][PARAM]</value>
+    <value>環境変数のリストを構築中にエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="frmSettings_chkShowResolvedPaths" xml:space="preserve">
-    <value>Show resolved paths</value>
+    <value>解決されたパスを表示</value>
   </data>
   <data name="frmGameManager_7zBackup" xml:space="preserve">
     <value>7-Zip</value>
   </data>
   <data name="frmGameManager_Choose7zImport" xml:space="preserve">
-    <value>Choose compatible backup file(s)</value>
+    <value>互換性のあるバックアップファイルを選択</value>
   </data>
   <data name="frmGameManager_ConfirmBackupImport" xml:space="preserve">
-    <value>Are you sure you want to import the selected file(s) for [PARAM].  This will close the form.</value>
+    <value>[PARAM]に選択したファイルをインポートしてもよろしいですか？フォームが閉じます。</value>
   </data>
   <data name="mgrBackup_ErrorImportBackupCopy" xml:space="preserve">
-    <value>Failed to import [PARAM], the file could not be copied.</value>
+    <value>[PARAM]のインポートに失敗しました。ファイルをコピーできませんでした。
+00001 = [PARAM] no inpōto ni shippai shimashita. Fairu o</value>
   </data>
   <data name="mgrBackup_ImportedFile" xml:space="preserve">
-    <value>Forced Import</value>
+    <value>強制インポート</value>
   </data>
   <data name="mgrBackup_ImportSuccess" xml:space="preserve">
-    <value>Imported backup file [PARAM] for [PARAM].</value>
+    <value>[PARAM]のバックアップファイル[PARAM]をインポートしました。</value>
   </data>
   <data name="frmGameManager_btnAdvanced" xml:space="preserve">
-    <value>&amp;Advanced</value>
+    <value>詳細設定(&amp;A)</value>
   </data>
   <data name="frmVariableManager_ErrorVariableReserved" xml:space="preserve">
-    <value>[PARAM] is a reserved variable, you must enter a different name.</value>
+    <value>[PARAM]は予約変数なので、別の名前を入力する必要があります。</value>
   </data>
   <data name="frmGameManager_WarningImportBackupSaveMulti" xml:space="preserve">
-    <value>The "Save multiple backups" option must be enabled on this configuration to import multiple backup files.</value>
+    <value>複数のバックアップ ファイルをインポートするには、この構成で「複数のバックアップを保存」オプションを有効にする必要があります。</value>
   </data>
   <data name="frmGameManager_cmsOfficialLinux" xml:space="preserve">
-    <value>&amp;Linux...</value>
+    <value>Linux...(&amp;L)</value>
   </data>
   <data name="frmGameManager_cmsOfficialWindows" xml:space="preserve">
-    <value>&amp;Windows...</value>
+    <value>Windows...(&amp;W)</value>
   </data>
   <data name="mgrMonitorList_WarningWinConfigsInLinux" xml:space="preserve">
-    <value>Official Windows configurations can be used in Linux for games running in Wine or Proton.[BR][BR]You do not need to modify these configurations, GBM will automatically do any required path conversions when the game is detected.[BR][BR]This message will only be shown once.</value>
+    <value>Wine または Proton で実行されるゲームの場合、Linux で公式の Windows 構成を使用できます。[BR][BR]これらの設定を変更する必要はありません。ゲームが検出されると、GBM が必要なパス変換を自動的に実行します。[BR][BR]このメッセージは 1 回だけ表示されます。</value>
   </data>
   <data name="frmGameManager_ConfirmBackupImportOverwriteSingle" xml:space="preserve">
-    <value>Importing this backup file will overwrite the current backup file for [PARAM].[BR][BR]Do you want to continue?  This will close the form.</value>
+    <value>このバックアップファイルをインポートすると、[PARAM]の現在のバックアップファイルが上書きされます。[BR][BR]続行しますか? フォームが閉じます。</value>
   </data>
   <data name="frmFilter_FieldRecurseSubFolders" xml:space="preserve">
-    <value>Recurse Sub-Folders</value>
+    <value>サブフォルダを再帰的に処理</value>
   </data>
   <data name="frmIncludeExclude_chkRecurseSubFolders" xml:space="preserve">
-    <value>Recurse sub-folders</value>
+    <value>サブフォルダを再帰的に処理</value>
   </data>
   <data name="frmMain_DebugMemoryAllocation" xml:space="preserve">
-    <value>Memory Allocation: [PARAM] MB</value>
+    <value>メモリ割り当て: [PARAM] MB</value>
   </data>
   <data name="frmMain_ErrorInvalidMode" xml:space="preserve">
-    <value>Invalid mode([PARAM]) for command [PARAM].</value>
+    <value>コマンド[PARAM]のモード([PARAM])が無効です。</value>
   </data>
   <data name="App_LinuxOS" xml:space="preserve">
     <value>Linux</value>
@@ -2107,188 +2108,188 @@
     <value>Windows</value>
   </data>
   <data name="frmGameManager_cmsWineConfig" xml:space="preserve">
-    <value>&amp;Wine Configuration...</value>
+    <value>Wine 設定...(&amp;W)</value>
   </data>
   <data name="frmFilter_FieldOS" xml:space="preserve">
     <value>OS</value>
   </data>
   <data name="frmMain_WineBinaryPath" xml:space="preserve">
-    <value>Wine Binary Path: [PARAM]</value>
+    <value>Wineバイナリパス: [PARAM]</value>
   </data>
   <data name="frmMain_ErrorNoWineSavePath" xml:space="preserve">
-    <value>[PARAM] uses a Windows configuration and requires a Wine save path to perform this operation.</value>
+    <value>[PARAM]はWindows構成を使用し、この操作を実行するにはWine保存パスが必要です。</value>
   </data>
   <data name="frmWineConfiguration_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
   </data>
   <data name="frmWineConfiguration_btnSave" xml:space="preserve">
-    <value>&amp;Save</value>
+    <value>保存(&amp;S)</value>
   </data>
   <data name="frmWineConfiguration_ErrorValidationBinaryPath" xml:space="preserve">
-    <value>The Wine binary path is required.[BR][BR]Clear all fields and save to remove all Wine data for this game.</value>
+    <value>Wine バイナリパスが必要です。[BR][BR]すべてのフィールドをクリアして保存すると、このゲームのすべての Wine データを削除します。</value>
   </data>
   <data name="frmWineConfiguration_ErrorValidationPrefix" xml:space="preserve">
-    <value>The Wine Prefix is required.[BR][BR]Clear all fields and save to remove all Wine data for this game.</value>
+    <value>Wine プレフィックスが必要です。[BR][BR]すべてのフィールドをクリアして保存すると、このゲームのすべての Wine データを削除します。</value>
   </data>
   <data name="frmWineConfiguration_FormName" xml:space="preserve">
-    <value>[PARAM] - Wine Configuration</value>
+    <value>[PARAM] - Wineの設定</value>
   </data>
   <data name="frmWineConfiguration_grpWineConfig" xml:space="preserve">
-    <value>Configuration</value>
+    <value>構成</value>
   </data>
   <data name="frmWineConfiguration_lblWineBinaryPath" xml:space="preserve">
-    <value>Binary Path:</value>
+    <value>バイナリパス:</value>
   </data>
   <data name="frmWineConfiguration_lblWinePrefix" xml:space="preserve">
-    <value>Prefix:</value>
+    <value>プレフィックス:</value>
   </data>
   <data name="frmWineConfiguration_lblWineSavePath" xml:space="preserve">
-    <value>Save Path:</value>
+    <value>保存パス:</value>
   </data>
   <data name="frmWineConfiguration_WarningSingle" xml:space="preserve">
-    <value>Game Backup Monitor automatically updates the Wine configuration for a game each time it is detected.  Modifying any of these fields manually is not recommended in most cases.[BR][BR]This warning will only be displayed once.</value>
+    <value>Game Backup Monitorは、ゲームが検出されるたびにWineの設定を自動的に更新します。これらのフィールドを手動で変更することは、ほとんどの場合推奨されません。[BR][BR]この警告は一度だけ表示されます。</value>
   </data>
   <data name="App_ErrorLaunchExternal" xml:space="preserve">
-    <value>An error occurred attempting to launch the application:[BR][BR][PARAM]</value>
+    <value>アプリケーションの起動中にエラーが発生しました:[BR][BR][PARAM]</value>
   </data>
   <data name="mgrBackup_ErrorPathIsUNC" xml:space="preserve">
-    <value>The temporary or backup folder is a UNC path.  The disk space check has been skipped.</value>
+    <value>一時フォルダまたはバックアップフォルダがUNCパスです。ディスク容量チェックはスキップされました。</value>
   </data>
   <data name="frmSettings_chkDisableDiskSpaceCheck" xml:space="preserve">
-    <value>Disable disk space check prior to backup</value>
+    <value>バックアップ前のディスク容量チェックを無効にする</value>
   </data>
   <data name="frmMain_ErrorLinuxAutoStartMissing" xml:space="preserve">
-    <value>GBM is set to start automatically, but the autostart link is missing.  The autostart link has been re-created.</value>
+    <value>GBMは自動起動するように設定されていますが、自動起動リンクがありません。自動起動リンクが再作成されました。</value>
   </data>
   <data name="frmSettings_ErrorLinuxAutoStart" xml:space="preserve">
-    <value>An error occurred while configuring autostart:[BR][BR][PARAM]</value>
+    <value>自動起動の設定中にエラーが発生しました:[BR][BR][PARAM]</value>
   </data>
   <data name="mgrBackup_ErrorRegNotFound" xml:space="preserve">
-    <value>The utility reg.exe could not be located at [PARAM].  The backup cannot continue.</value>
+    <value>ユーティリティreg.exeが[PARAM]に見つかりません。バックアップを続行できません。</value>
   </data>
   <data name="mgrBackup_ErrorWineNotFound" xml:space="preserve">
-    <value>The wine binary could not be located at [PARAM]. The backup cannot continue.</value>
+    <value>[PARAM]にWineバイナリが見つかりません。バックアップを続行できません。</value>
   </data>
   <data name="mgrRestore_ErrorRegNotFound" xml:space="preserve">
-    <value>The utility reg.exe could not be located at [PARAM].  The restore cannot continue.</value>
+    <value>ユーティリティreg.exeが[PARAM]に見つかりません。復元を続行できません。</value>
   </data>
   <data name="mgrRestore_ErrorWineNotFound" xml:space="preserve">
-    <value>The wine binary could not be located at [PARAM].  The restore cannot continue.</value>
+    <value>Wineバイナリが[PARAM]に見つかりません。復元を続行できません。</value>
   </data>
   <data name="frmMain_ErrorLinuxAutoStartLinkMissing" xml:space="preserve">
-    <value>GBM is set to start automatically, but the desktop link is missing.  Automatic start has been disabled,  please re-install GBM using a package manager or the makefile.</value>
+    <value>GBMは自動起動するように設定されていますが、デスクトップリンクがありません。自動起動は無効になっています。パッケージマネージャーまたはmakefileを使用してGBMを再インストールしてください。</value>
   </data>
   <data name="mgrCommon_FolderSelection" xml:space="preserve">
-    <value>Current Folder</value>
+    <value>現在のフォルダ</value>
   </data>
   <data name="frmChooseGame_ColumnName" xml:space="preserve">
-    <value>Name</value>
+    <value>名前</value>
   </data>
   <data name="frmChooseGame_ColumnTags" xml:space="preserve">
-    <value>Tags</value>
+    <value>タグ</value>
   </data>
   <data name="frmGameManager_ErrorNoFolderExists" xml:space="preserve">
-    <value>The folder does not exist.</value>
+    <value>フォルダが存在しません。</value>
   </data>
   <data name="frmAddWizard_Summary_NoLimit" xml:space="preserve">
-    <value>Unlimited</value>
+    <value>無制限</value>
   </data>
   <data name="frmStartUpWizard_lblStep2Warning" xml:space="preserve">
-    <value>You cannot return to this step after clicking Next.  The Backup Location can be changed any time once Setup is complete.</value>
+    <value>「次へ」をクリックした後は、この手順に戻ることはできません。バックアップ場所は、セットアップ完了後いつでも変更できます。</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="BuildDate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BuildDate.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
   <data name="frmGameManager_ConfirmMultiSave" xml:space="preserve">
-    <value>Are you sure you want to save the following changes to [PARAM] selected games?[BR][BR]Allow monitoring: [PARAM][BR]No backup when game ends: [PARAM]</value>
+    <value>選択したゲームに次の変更を保存しますか？[PARAM][BR][BR]監視を許可する: [PARAM][BR]ゲーム終了時にバックアップしない: [PARAM]</value>
   </data>
   <data name="frmGameManager_WarningEmptyProcess" xml:space="preserve">
-    <value>A valid process name or regular expression is required to monitor and backup your saved games automatically.[BR][BR]You may leave the Process field blank to a create manual backup configuration for this game, these configurations will be automatically excluded from monitoring.[BR][BR]This warning will only be displayed once.</value>
+    <value>保存したゲームを自動的に監視およびバックアップするには、有効なプロセス名または正規表現が必要です。[BR][BR]このゲームの手動バックアップ構成を作成するには、プロセスフィールドを空白のままにしておくと、これらの構成は自動的に監視から除外されます。[BR][BR]この警告は一度だけ表示されます。</value>
   </data>
   <data name="App_MetadataFilename" xml:space="preserve">
     <value>_gbm_backup_metadata.xml</value>
   </data>
   <data name="mgrBackup_ErrorMetadataFailure" xml:space="preserve">
-    <value>Backup Aborted.  An error occurred while creating backup metadata for [PARAM].</value>
+    <value>バックアップが中止されました。[PARAM]のバックアップメタデータの作成中にエラーが発生しました。</value>
   </data>
   <data name="mgrMetadata_InProgress" xml:space="preserve">
-    <value>Adding metadata to backup file.</value>
+    <value>バックアップファイルにメタデータを追加しています。</value>
   </data>
   <data name="App_OperationType_Backup" xml:space="preserve">
-    <value>Backup</value>
+    <value>バックアップ</value>
   </data>
   <data name="App_OperationType_Metadata" xml:space="preserve">
-    <value>Metadata</value>
+    <value>メタデータ</value>
   </data>
   <data name="App_OperationType_Restore" xml:space="preserve">
-    <value>Restore</value>
+    <value>復元する</value>
   </data>
   <data name="App_Operation_Cancel" xml:space="preserve">
-    <value>[PARAM] operation was cancelled by user.</value>
+    <value>[PARAM] 操作はユーザーによってキャンセルされました。</value>
   </data>
   <data name="App_Operation_Completed" xml:space="preserve">
-    <value>[PARAM] operation completed.</value>
+    <value>[PARAM] 操作が完了しました。</value>
   </data>
   <data name="App_Operation_FileNotFound" xml:space="preserve">
-    <value>[PARAM] operation failed because a required file was not found.</value>
+    <value>[PARAM] 必要なファイルが見つからないため操作は失敗しました。</value>
   </data>
   <data name="App_Operation_OtherFailure" xml:space="preserve">
-    <value>[PARAM] operation encountered an unexpected error.[BR][BR][PARAM]</value>
+    <value>[PARAM] 操作中に予期しないエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="mgrMetaData_CheckingArchive" xml:space="preserve">
-    <value>Checking [PARAM] for metadata.</value>
+    <value>メタデータの[PARAM]をチェックしています。</value>
   </data>
   <data name="mgrMetaData_ExtractingFromArchive" xml:space="preserve">
-    <value>Extracting metadata from [PARAM].</value>
+    <value>[PARAM]からメタデータを抽出しています。</value>
   </data>
   <data name="mgrBackup_ErrorImportCancel" xml:space="preserve">
-    <value>The import of [PARAM] was cancelled.</value>
+    <value>[PARAM]のインポートはキャンセルされました。</value>
   </data>
   <data name="mgrBackup_WarningMetadataMismatch" xml:space="preserve">
-    <value>The configuration metadata in the backup file ([PARAM]) does not match the game you selected.[BR][BR]Do you want to continue importing this file anyway? (Not Recommended)</value>
+    <value>バックアップファイル([PARAM])内の設定メタデータが選択したゲームと一致しません。[BR][BR]このファイルのインポートを続行しますか?(非推奨)</value>
   </data>
   <data name="mgrBackup_WarningNoMetadata" xml:space="preserve">
-    <value>The backup file ([PARAM]) contains no metadata or is an invalid archive.[BR][BR]Do you want to continue importing this file? (Not Recommended)</value>
+    <value>バックアップファイル([PARAM])にメタデータが含まれていないか、無効なアーカイブです。[BR][BR]このファイルのインポートを続行しますか?(非推奨)</value>
   </data>
   <data name="frmMain_ChooseImportFiles" xml:space="preserve">
-    <value>Choose file(s) to import</value>
+    <value>インポートするファイルを選択</value>
   </data>
   <data name="frmMain_ChooseImportFolder" xml:space="preserve">
-    <value>Choose a folder to import</value>
+    <value>インポートするフォルダを選択してください</value>
   </data>
   <data name="frmMain_gMonToolsImportBackup" xml:space="preserve">
-    <value>&amp;Import Backup</value>
+    <value>バックアップをインポート(&amp;I)</value>
   </data>
   <data name="frmMain_gMonToolsImportBackupFiles" xml:space="preserve">
-    <value>&amp;Files</value>
+    <value>ファイル(&amp;F)</value>
   </data>
   <data name="frmMain_gMonToolsImportBackupFolder" xml:space="preserve">
-    <value>F&amp;older</value>
+    <value>フォルダ(&amp;O)</value>
   </data>
   <data name="frmMain_gMonTrayToolsImportBackup" xml:space="preserve">
-    <value>&amp;Import Backup</value>
+    <value>バックアップをインポート(&amp;I)</value>
   </data>
   <data name="frmMain_gMonTrayToolsImportBackupFiles" xml:space="preserve">
-    <value>&amp;Files</value>
+    <value>ファイル(&amp;F)</value>
   </data>
   <data name="frmMain_gMonTrayToolsImportBackupFolder" xml:space="preserve">
-    <value>F&amp;older</value>
+    <value>フォルダ(&amp;O)</value>
   </data>
   <data name="mgrBackup_BackupsImported" xml:space="preserve">
-    <value>[PARAM] backup file(s) imported successfully.</value>
+    <value>[PARAM] バックアップファイルが正常にインポートされました。</value>
   </data>
   <data name="mgrBackup_ErrorNoMetadata" xml:space="preserve">
-    <value>The file [PARAM] contains no metadata or is an invalid archive.  </value>
+    <value>ファイル[PARAM]にはメタデータが含まれていないか、無効なアーカイブです。</value>
   </data>
   <data name="mgrBackup_ErrorReadingMetadata" xml:space="preserve">
-    <value>An error occuring reading the metadata in the file [PARAM].</value>
+    <value>ファイル[PARAM]内のメタデータの読み取り中にエラーが発生しました。</value>
   </data>
   <data name="mgrBackup_GamesAddedDuringImport" xml:space="preserve">
-    <value>[PARAM] game configuration(s) added or updated during the import process.</value>
+    <value>[PARAM] インポートプロセス中に追加または更新されたゲーム構成。</value>
   </data>
   <data name="frmMain_ImportInProgress" xml:space="preserve">
-    <value>Import in Progress...</value>
+    <value>インポート中...</value>
   </data>
   <data name="frmConfigLinks_btnAdd" xml:space="preserve">
     <value>&gt;</value>
@@ -2297,91 +2298,91 @@
     <value>&lt;</value>
   </data>
   <data name="frmConfigLinks_FormNameMulti" xml:space="preserve">
-    <value>Edit Configuration Links for Multiple Games</value>
+    <value>複数のゲームの設定リンクを編集</value>
   </data>
   <data name="frmConfigLinks_FormNameSingle" xml:space="preserve">
-    <value>Edit Configuration Links for [PARAM]</value>
+    <value>[PARAM]の設定リンクを編集</value>
   </data>
   <data name="frmConfigLinks_lblConfigs" xml:space="preserve">
-    <value>Available Configurations</value>
+    <value>利用可能な構成</value>
   </data>
   <data name="frmConfigLinks_lblLinkedConfigs" xml:space="preserve">
-    <value>Linked Configurations</value>
+    <value>リンクされた構成</value>
   </data>
   <data name="frmMain_BackupQueue" xml:space="preserve">
-    <value>Adding [PARAM] to backup queue.</value>
+    <value>[PARAM] をバックアップキューに追加しています。</value>
   </data>
   <data name="frmGameManager_RestoreLinkWarning" xml:space="preserve">
-    <value>[PARAM] is linked to another game configuration.  A linked restore cannot be done when selecting an older backup file.[BR][BR]Do you want to continue without restoring any linked configuration(s)?</value>
+    <value>[PARAM]は別のゲーム設定にリンクされています。古いバックアップファイルを選択した場合、リンクされた復元は実行できません。[BR][BR]リンクされた設定を復元せずに続行しますか？</value>
   </data>
   <data name="frmMain_RestoreQueue" xml:space="preserve">
-    <value>Adding [PARAM] ([PARAM]) to restore queue.</value>
+    <value>[PARAM] ([PARAM]) を復元キューに追加しています。</value>
   </data>
   <data name="frmConfigLinks_lblFilter" xml:space="preserve">
-    <value>Filter:</value>
+    <value>フィルター:</value>
   </data>
   <data name="frmGameManager_cmsLinkConfiguration" xml:space="preserve">
-    <value>&amp;Link Configuration...</value>
+    <value>リンク構成(&amp;L)...</value>
   </data>
   <data name="frmGameManager_cmsLinkProcess" xml:space="preserve">
-    <value>&amp;Link Process...</value>
+    <value>リンクプロセス(&amp;L)...</value>
   </data>
   <data name="frmGameManager_TipLinkConfiguration" xml:space="preserve">
-    <value>The following screen allows you to link other game configuations to this one.  Each time this configuration triggers a backup or restore, the linked configurations will run as well.  Please see the Online Manual for more details.[BR][BR]This message will only be displayed once.</value>
+    <value>次の画面では、他のゲーム設定をこの設定にリンクできます。この設定でバックアップまたは復元が実行されるたびに、リンクされた設定も実行されます。詳細はオンラインマニュアルをご覧ください。[BR][BR]このメッセージは一度だけ表示されます。</value>
   </data>
   <data name="frmGameManager_TipLinkProcess" xml:space="preserve">
-    <value>The following screen allows you to link other software to run each time this game configuration is detected.  Use the Process Manager to setup software to link.[BR][BR]This message will only be displayed once.</value>
+    <value>次の画面では、このゲーム設定が検出されるたびに実行する他のソフトウェアをリンクできます。リンクするソフトウェアを設定するには、プロセスマネージャを使用してください。[BR][BR]このメッセージは一度だけ表示されます。</value>
   </data>
   <data name="mgrBackup_ErrorImportOSMismatch" xml:space="preserve">
-    <value>[PARAM] was created on [PARAM] and you're currently running [PARAM].  This backup file cannot be imported using this method.</value>
+    <value>[PARAM]は[PARAM]に作成されましたが、現在[PARAM]を実行しています。このバックアップファイルはこの方法ではインポートできません。</value>
   </data>
   <data name="frmStartUpWizard_ExistingFilesDetected" xml:space="preserve">
-    <value>[PARAM] possible backup files have been detected in the backup folder.  Do you want to scan and import any valid files?</value>
+    <value>[PARAM] バックアップフォルダ内にバックアップ可能なファイルが検出されました。有効なファイルをスキャンしてインポートしますか？</value>
   </data>
   <data name="frmMain_gMonFileFullBackup" xml:space="preserve">
-    <value>Run Full &amp;Backup</value>
+    <value>完全バックアップを実行(&amp;B)</value>
   </data>
   <data name="frmMain_gMonFileFullRestore" xml:space="preserve">
-    <value>Run Full &amp;Restore</value>
+    <value>完全復元を実行(&amp;R)</value>
   </data>
   <data name="frmMain_gMonTrayFullBackup" xml:space="preserve">
-    <value>Run Full &amp;Backup</value>
+    <value>完全バックアップを実行(&amp;B)</value>
   </data>
   <data name="frmMain_gMonTrayFullRestore" xml:space="preserve">
-    <value>Run Full &amp;Restore</value>
+    <value>完全復元を実行(&amp;R)</value>
   </data>
   <data name="frmMain_WarningFullBackup" xml:space="preserve">
-    <value>Are you sure you want to run a backup for every game?[BR][BR]GBM automatically determines which backups can be performed and handles any confirmations that normally require user input.  See the Online Manual for more details.</value>
+    <value>すべてのゲームでバックアップを実行してもよろしいですか？[BR][BR]GBMは実行可能なバックアップを自動的に判断し、通常はユーザー入力が必要となる確認処理を行います。詳細はオンラインマニュアルをご覧ください。</value>
   </data>
   <data name="frmMain_WarningFullRestore" xml:space="preserve">
-    <value>Are you sure you want to restore the latest backup for every game?[BR][BR]GBM automatically determines which backups can be restored and handles any confirmations that normally require user input.  See the Online Manual for more details.</value>
+    <value>すべてのゲームの最新のバックアップを復元してもよろしいですか？[BR][BR]GBMは復元可能なバックアップを自動的に判別し、通常はユーザー入力が必要となる確認処理を行います。詳細はオンラインマニュアルをご覧ください。</value>
   </data>
   <data name="mgrBackup_FullAbort" xml:space="preserve">
-    <value>Any remaining backup operations have been aborted.</value>
+    <value>残りのバックアップ操作はすべて中止されました。</value>
   </data>
   <data name="mgrRestore_FullAbort" xml:space="preserve">
-    <value>Any remaining restore operations have been aborted.</value>
+    <value>残りの復元操作はすべて中止されました。</value>
   </data>
   <data name="frmStartUpWizard_ExistingDataAndFilesDetected" xml:space="preserve">
-    <value>[PARAM] backup files have been detected in the backup folder.  Do you want to scan and verify all backup files?[BR][BR]This is likely unnecessary since the backup folder already contains a GBM database.</value>
+    <value>PARAM] バックアップフォルダにバックアップファイルが検出されました。すべてのバックアップファイルをスキャンして検証しますか？[BR][BR]バックアップフォルダには既にGBMデータベースが含まれているため、この操作は不要です。</value>
   </data>
   <data name="frmSettings_ErrorTempFolder" xml:space="preserve">
-    <value>The temporary folder does not exist.  Please choose a valid temporary folder.</value>
+    <value>一時フォルダが存在しません。有効な一時フォルダを選択してください。</value>
   </data>
   <data name="frmSettings_lblTempFolder" xml:space="preserve">
-    <value>Temp Folder:</value>
+    <value>一時フォルダ:</value>
   </data>
   <data name="mgrBackup_BackupFolder" xml:space="preserve">
-    <value>Backup Folder</value>
+    <value>バックアップフォルダ</value>
   </data>
   <data name="mgrBackup_ErrorMovingBackupFile" xml:space="preserve">
-    <value>An error occurred while moving the [PARAM] backup file from the temporary folder to the backup folder.</value>
+    <value>[PARAM]バックアップファイルを一時フォルダからバックアップフォルダへ移動中にエラーが発生しました。</value>
   </data>
   <data name="mgrBackup_TemporaryFolder" xml:space="preserve">
-    <value>Temporary Folder</value>
+    <value>一時フォルダ</value>
   </data>
   <data name="mgrBackup_BackupBatchSize" xml:space="preserve">
-    <value>Total Batch Size: [PARAM]</value>
+    <value>合計バッチサイズ: [PARAM]</value>
   </data>
   <data name="App_BackupExcludeFileName" xml:space="preserve">
     <value>gbm_exclude.txt</value>
@@ -2390,145 +2391,145 @@
     <value>gbm_include.txt</value>
   </data>
   <data name="mgrBackup_ActionImportComplete" xml:space="preserve">
-    <value>[PARAM] import completed.</value>
+    <value>[PARAM] インポートが完了しました。</value>
   </data>
   <data name="mgrBackup_ActionImportFailed" xml:space="preserve">
-    <value>[PARAM] import failed.</value>
+    <value>[PARAM]のインポートに失敗しました。</value>
   </data>
   <data name="mgrCommon_DotNet" xml:space="preserve">
-    <value>.NET Framework ([PARAM])</value>
+    <value>.NET フレームワーク ([PARAM])</value>
   </data>
   <data name="mgrCommon_Mono" xml:space="preserve">
-    <value>Mono ([PARAM])</value>
+    <value>モノラル([PARAM])</value>
   </data>
   <data name="frmSettings_chkExitNoWarning" xml:space="preserve">
-    <value>Exit without confirmation</value>
+    <value>確認なしで終了</value>
   </data>
   <data name="frmSettings_chkExitOnClose" xml:space="preserve">
-    <value>Exit when closing window</value>
+    <value>ウィンドウを閉じるときに終了する</value>
   </data>
   <data name="frmSettings_grpMainWindowOptions" xml:space="preserve">
-    <value>Main Window Options</value>
+    <value>メインウィンドウのオプション</value>
   </data>
   <data name="frmAdvancedImport_chkSelectedOnly" xml:space="preserve">
-    <value>Show Only Selected</value>
+    <value>選択したものだけを表示</value>
   </data>
   <data name="frmAdvancedImport_btnDetectSavedGames" xml:space="preserve">
-    <value>Detect Saved Games</value>
+    <value>保存されたゲームを検出</value>
   </data>
   <data name="frmSettings_chkEnableLauncher" xml:space="preserve">
-    <value>Enable game launching</value>
+    <value>ゲームの起動を有効にする</value>
   </data>
   <data name="frmLauncherManager_btnAdd" xml:space="preserve">
-    <value>&amp;New</value>
+    <value>新規(&amp;N)</value>
   </data>
   <data name="frmLauncherManager_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
   </data>
   <data name="frmLauncherManager_btnDelete" xml:space="preserve">
-    <value>&amp;Delete</value>
+    <value>削除(&amp;D)</value>
   </data>
   <data name="frmLauncherManager_btnSave" xml:space="preserve">
-    <value>&amp;Save</value>
+    <value>保存(&amp;S)</value>
   </data>
   <data name="frmLauncherManager_ConfirmDelete" xml:space="preserve">
-    <value>Are you sure you want to delete [PARAM]?  This cannot be undone.</value>
+    <value>[PARAM]を削除してもよろしいですか？元に戻すことはできません。</value>
   </data>
   <data name="frmLauncherManager_ErrorDupe" xml:space="preserve">
-    <value>A launcher with this name already exists.</value>
+    <value>この名前のランチャーは既に存在します。</value>
   </data>
   <data name="frmLauncherManager_ErrorValidCommand" xml:space="preserve">
-    <value>A valid launch command is required.</value>
+    <value>有効な起動コマンドが必要です。</value>
   </data>
   <data name="frmLauncherManager_ErrorValidName" xml:space="preserve">
-    <value>You must enter a valid name for this launcher.</value>
+    <value>このランチャーに有効な名前を入力してください。</value>
   </data>
   <data name="frmLauncherManager_FormName" xml:space="preserve">
-    <value>Launcher Manager</value>
+    <value>ランチャーマネージャー</value>
   </data>
   <data name="frmLauncherManager_grpLauncher" xml:space="preserve">
-    <value>Configuration</value>
+    <value>構成</value>
   </data>
   <data name="frmLauncherManager_lblCommand" xml:space="preserve">
-    <value>Command:</value>
+    <value>コマンド:</value>
   </data>
   <data name="frmLauncherManager_lblName" xml:space="preserve">
-    <value>Name:</value>
+    <value>名前:</value>
   </data>
   <data name="frmLaunchConfiguration_btnCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
   </data>
   <data name="frmLaunchConfiguration_btnOpenLaunchers" xml:space="preserve">
-    <value>&amp;Launcher Manager...</value>
+    <value>ランチャーマネージャー...(&amp;L)</value>
   </data>
   <data name="frmLaunchConfiguration_btnSave" xml:space="preserve">
-    <value>&amp;Save</value>
+    <value>保存(&amp;S)</value>
   </data>
   <data name="frmLaunchConfiguration_ErrorExeNotFound" xml:space="preserve">
-    <value>The executable cannot be found.</value>
+    <value>実行ファイルが見つかりません。</value>
   </data>
   <data name="frmLaunchConfiguration_ErrorNoGameID" xml:space="preserve">
-    <value>A valid Game ID is required to use [PARAM].</value>
+    <value>[PARAM]を使用するには有効なゲームIDが必要です。</value>
   </data>
   <data name="frmLaunchConfiguration_Executable" xml:space="preserve">
-    <value>Executable</value>
+    <value>実行可能ファイル</value>
   </data>
   <data name="frmLaunchConfiguration_FormName" xml:space="preserve">
-    <value>Launch Configuration for [PARAM]</value>
+    <value>[PARAM]の起動構成</value>
   </data>
   <data name="frmLaunchConfiguration_grpOtherConfig" xml:space="preserve">
-    <value>Alternate Configuration</value>
+    <value>代替構成</value>
   </data>
   <data name="frmLaunchConfiguration_grpStoreLauncher" xml:space="preserve">
-    <value>Launcher Configuration</value>
+    <value>ランチャー設定</value>
   </data>
   <data name="frmLaunchConfiguration_lblArguments" xml:space="preserve">
-    <value>Parameters:</value>
+    <value>パラメータ:</value>
   </data>
   <data name="frmLaunchConfiguration_lblExe" xml:space="preserve">
-    <value>Executable:</value>
+    <value>実行可能ファイル:</value>
   </data>
   <data name="frmLaunchConfiguration_lblGameID" xml:space="preserve">
-    <value>Game ID:</value>
+    <value>ゲームID:</value>
   </data>
   <data name="frmLaunchConfiguration_lblLauncher" xml:space="preserve">
-    <value>Launcher:</value>
+    <value>ランチャー:</value>
   </data>
   <data name="frmLaunchConfiguration_NoLauncher" xml:space="preserve">
-    <value>None</value>
+    <value>なし</value>
   </data>
   <data name="mgrLaunchGame_ErrorException" xml:space="preserve">
-    <value>An error occurred while attempting to launch a game.[BR][BR][PARAM]</value>
+    <value>ゲームの起動中にエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="mgrLaunchGame_ErrorNoProcess" xml:space="preserve">
-    <value>[PARAM] cannot be launched, it's configuration has no process.</value>
+    <value>[PARAM] を起動できません。その構成にはプロセスがありません。</value>
   </data>
   <data name="frmMain_LaunchGame" xml:space="preserve">
-    <value>Launching [PARAM] using [PARAM].</value>
+    <value>[PARAM]を使用して[PARAM]を起動しています。</value>
   </data>
   <data name="mgrCommon_ErrorRestartAsAdmin" xml:space="preserve">
-    <value>An error occurred starting GBM as Administrator.[BR][BR][PARAM]</value>
+    <value>GBMを管理者として起動中にエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="frmMain_Warning64NoPath" xml:space="preserve">
-    <value>[PARAM] is a 64-bit game and GBM is 32-bit.  The process path can not be determined, but is not required for this backup configuration.</value>
+    <value>[PARAM]は64ビットゲームで、GBMは32ビットです。プロセスパスを特定できませんが、このバックアップ構成では必要ありません。</value>
   </data>
   <data name="frmMain_WarningAdminNoPath" xml:space="preserve">
-    <value>[PARAM] is running as Administrator and GBM is not.  The process path can not be determined, but is not required for this backup configuration.</value>
+    <value>[PARAM]は管理者権限で実行中。GBMは管理者権限で実行されていません。プロセスパスを特定できませんが、このバックアップ構成では必要ありません。</value>
   </data>
   <data name="mgrLaunchGame_ErrorIsBlacklisted" xml:space="preserve">
-    <value>[PARAM] cannot be launched, it's using a recognized emulator or interpreter without a parameter.[BR][BR]Set the parameter field, or use an alternate executable and argument in the Launch Settings for this game.</value>
+    <value>[PARAM] は起動できません。パラメータなしで認識されたエミュレータまたはインタープリタを使用しています。[BR][BR]パラメータフィールドを設定するか、このゲームの起動設定で代替の実行可能ファイルと引数を使用してください。</value>
   </data>
   <data name="mgrLaunchGame_ErrorIsRegex" xml:space="preserve">
-    <value>[PARAM] cannot be launched, it's configuration is using a regular expression.[BR][BR]Set a specific executable to use in the Launch Settings for this game.</value>
+    <value>[PARAM] は起動できません。構成に正規表現が使用されています。[BR][BR]このゲームの起動設定で使用する特定の実行可能ファイルを設定してください。</value>
   </data>
   <data name="mgrLaunchGame_ErrorNoProcessPath" xml:space="preserve">
-    <value>[PARAM] cannot be launched, it's configuration has no process path.</value>
+    <value>[PARAM] を起動できません。構成にプロセスパスがありません。</value>
   </data>
   <data name="mgrLaunchGame_ErrorNoExe" xml:space="preserve">
-    <value>The game executable could not be found at:[BR][BR][PARAM]</value>
+    <value>ゲームの実行ファイルが見つかりません:[BR][BR][PARAM]</value>
   </data>
   <data name="frmLauncherManager_ConfirmAddDefaults" xml:space="preserve">
-    <value>Do you want to re-add the default launchers?[BR][BR]This will not overwrite any existing launchers of the same name.</value>
+    <value>デフォルトのランチャーを再度追加しますか？[BR][BR]これにより、同じ名前の既存のランチャーは上書きされません。</value>
   </data>
   <data name="mgrLaunchers_Epic" xml:space="preserve">
     <value>Epic Games</value>
@@ -2549,169 +2550,169 @@
     <value>uplay://launch/%ID%/0</value>
   </data>
   <data name="mgrLaunchGame_WarningLaunchElevation" xml:space="preserve">
-    <value>GBM is running as Administrator.[BR][BR]Are you sure you want to launch [PARAM] as Administrator?</value>
+    <value>GBM は管理者権限で実行されています。[BR][BR][PARAM] を管理者権限で起動してもよろしいですか?</value>
   </data>
   <data name="frmMain_gMonSetupLauncherManager" xml:space="preserve">
-    <value>&amp;Launcher Manager...</value>
+    <value>ランチャーマネージャー...(&amp;L)</value>
   </data>
   <data name="frmMain_gMonTraySetupLauncherManager" xml:space="preserve">
-    <value>&amp;Launcher Manager...</value>
+    <value>ランチャーマネージャー...(&amp;L)</value>
   </data>
   <data name="frmLauncherManager_ErrorInvalidURI" xml:space="preserve">
-    <value>The launch command must be a valid URI.</value>
+    <value>起動コマンドは有効な URI である必要があります。</value>
   </data>
   <data name="frmLaunchConfiguration_grpCommand" xml:space="preserve">
-    <value>Current Launch Command</value>
+    <value>現在の起動コマンド</value>
   </data>
   <data name="frmLaunchConfiguration_chkNoArgs" xml:space="preserve">
-    <value>Use no parameters</value>
+    <value>パラメータを使用しない</value>
   </data>
   <data name="frmLaunchConfiguration_Batch" xml:space="preserve">
-    <value>Batch</value>
+    <value>バッチ</value>
   </data>
   <data name="frmLaunchConfiguration_Link" xml:space="preserve">
-    <value>Link</value>
+    <value>リンク</value>
   </data>
   <data name="mgrCommon_FilesFilterAll" xml:space="preserve">
-    <value>All files (*.*)|*.*</value>
+    <value>すべてのファイル (*.*)|*.*</value>
   </data>
   <data name="frmLaunchConfiguration_Command" xml:space="preserve">
-    <value>Command</value>
+    <value>コマンド</value>
   </data>
   <data name="mgrLaunchGame_ErrorNoAutoWineSupport" xml:space="preserve">
-    <value>Launching Windows games in Linux with an automatically built command is not currently supported.[BR][BR]You can manually configure this game to use an external launcher or script instead.</value>
+    <value>自動的にビルドされたコマンドを使用して Linux で Windows ゲームを起動することは現在サポートされていません。[BR][BR]代わりに外部ランチャーまたはスクリプトを使用するようにこのゲームを手動で構成できます。</value>
   </data>
   <data name="frmMain_gMonTraySetup" xml:space="preserve">
-    <value>S&amp;etup</value>
+    <value>セットアップ(&amp;E)</value>
   </data>
   <data name="frmSettings_ConfirmEnableLauncherSessions" xml:space="preserve">
-    <value>The Session Tracking feature can be used to show you recently played games to launch from the system tray menu.[BR][BR]Do you want to enable Session Tracking?</value>
+    <value>セッショントラッキング機能を使用すると、最近プレイしたゲームをシステムトレイメニューから起動できるようになります。[BR][BR]セッショントラッキングを有効にしますか？</value>
   </data>
   <data name="frmMain_GameDetectedWithSessionTime" xml:space="preserve">
-    <value>[PARAM][BR][PARAM]</value>
+    <value>[パラメータ][BR][パラメータ]</value>
   </data>
   <data name="frmMain_gMonStripCollapseHideToolTip" xml:space="preserve">
-    <value>Click to hide the game list panel.</value>
+    <value>クリックするとゲームリストパネルが非表示になります。</value>
   </data>
   <data name="frmMain_gMonStripCollapseShowToolTip" xml:space="preserve">
-    <value>Click to show the game list panel.</value>
+    <value>クリックするとゲームリストパネルが表示されます。</value>
   </data>
   <data name="frmMain_btnBackup" xml:space="preserve">
-    <value>&amp;Backup</value>
+    <value>バックアップ(&amp;B)</value>
   </data>
   <data name="frmMain_btnEdit" xml:space="preserve">
-    <value>&amp;Edit</value>
+    <value>編集(&amp;E)</value>
   </data>
   <data name="frmMain_btnPlay" xml:space="preserve">
-    <value>&amp;Play</value>
+    <value>再生(&amp;P)</value>
   </data>
   <data name="frmMain_btnRestore" xml:space="preserve">
-    <value>&amp;Restore</value>
+    <value>復元(&amp;R)</value>
   </data>
   <data name="frmMain_LastBackup" xml:space="preserve">
-    <value>Last Backup: [PARAM]</value>
+    <value>最終バックアップ: [PARAM]</value>
   </data>
   <data name="frmMain_Lastplayed" xml:space="preserve">
-    <value>Last Played: [PARAM]</value>
+    <value>最後にプレイ: [PARAM]</value>
   </data>
   <data name="frmMain_NoBackups" xml:space="preserve">
-    <value>No Backups</value>
+    <value>バックアップなし</value>
   </data>
   <data name="frmMain_NoSessions" xml:space="preserve">
-    <value>No Sessions</value>
+    <value>セッションなし</value>
   </data>
   <data name="frmMain_ConfirmManualBackup" xml:space="preserve">
-    <value>Are you sure you want to run a backup for [PARAM]? </value>
+    <value>[PARAM]のバックアップを実行してもよろしいですか？</value>
   </data>
   <data name="frmMain_ConfirmRestore" xml:space="preserve">
-    <value>Are you sure you want to restore the latest backup for [PARAM]?[BR][BR][PARAM] ([PARAM])</value>
+    <value>[PARAM]の最新のバックアップを復元してもよろしいですか？[BR][BR][PARAM] ([PARAM])</value>
   </data>
   <data name="frmMain_ErrorIconCache" xml:space="preserve">
-    <value>An error has occurred while saving the icon for [PARAM]:[BR][BR][PARAM]</value>
+    <value>[PARAM]のアイコンを保存中にエラーが発生しました:[BR][BR][PARAM]</value>
   </data>
   <data name="frmMain_lblLastAction" xml:space="preserve">
-    <value>None</value>
+    <value>なし</value>
   </data>
   <data name="frmGameManager_cmsImportData" xml:space="preserve">
-    <value>&amp;Import Backup</value>
+    <value>バックアップをインポート(&amp;I)</value>
   </data>
   <data name="frmGamemanager_cmsLaunchSettings" xml:space="preserve">
-    <value>Launch &amp;Settings...</value>
+    <value>設定を起動...(&amp;S)</value>
   </data>
   <data name="frmGameManager_lblGameTags" xml:space="preserve">
-    <value>Manage Tags...</value>
+    <value>タグを管理...</value>
   </data>
   <data name="frmGameManager_ttHelp_btnBackupData" xml:space="preserve">
-    <value>Manage backup data</value>
+    <value>バックアップデータの管理</value>
   </data>
   <data name="frmGameManager_ttHelp_btnMarkAsRestored" xml:space="preserve">
-    <value>Mark backup as restored</value>
+    <value>バックアップを復元済みとしてマーク</value>
   </data>
   <data name="frmGameManager_ttHelp_btnOpenBackupFolder" xml:space="preserve">
-    <value>Open backup folder</value>
+    <value>バックアップフォルダを開く</value>
   </data>
   <data name="frmGameManager_ttHelp_lblBackupFileData" xml:space="preserve">
-    <value>Open backup file</value>
+    <value>バックアップファイルを開く</value>
   </data>
   <data name="frmGameManager_ttHelp_lblTags" xml:space="preserve">
-    <value>Manage Tags</value>
+    <value>タグの管理</value>
   </data>
   <data name="frmSettings_chkHideButtons" xml:space="preserve">
-    <value>Hide buttons</value>
+    <value>ボタンを非表示</value>
   </data>
   <data name="frmSettings_chkHideGameList" xml:space="preserve">
-    <value>Hide game list by default</value>
+    <value>デフォルトでゲームリストを非表示にする</value>
   </data>
   <data name="frmSettings_chkHideLog" xml:space="preserve">
-    <value>Hide log by default</value>
+    <value>デフォルトでログを非表示にする</value>
   </data>
   <data name="frmGameManager_lblTags" xml:space="preserve">
-    <value>Tags:</value>
+    <value>タグ:</value>
   </data>
   <data name="frmGameManager_cboFilters_All" xml:space="preserve">
-    <value>All Games</value>
+    <value>すべてのゲーム</value>
   </data>
   <data name="frmGameManager_cboFilters_Backups" xml:space="preserve">
-    <value>Games with Backups</value>
+    <value>バックアップ付きゲーム</value>
   </data>
   <data name="frmGameManager_cboFilters_Custom" xml:space="preserve">
-    <value>Custom Filter...</value>
+    <value>カスタムフィルター...</value>
   </data>
   <data name="frmGameManager_cboFilters_Pending" xml:space="preserve">
-    <value>Games with Pending Backups</value>
+    <value>バックアップが保留中のゲーム</value>
   </data>
   <data name="frmGameManager_lblFilters" xml:space="preserve">
-    <value>Filters:</value>
+    <value>フィルター:</value>
   </data>
   <data name="frmGameManager_btnBackup" xml:space="preserve">
-    <value>&amp;Backup</value>
+    <value>バックアップ(&amp;B)</value>
   </data>
   <data name="frmGameManager_btnRestore" xml:space="preserve">
-    <value>&amp;Restore</value>
+    <value>復元(&amp;R)</value>
   </data>
   <data name="frmMain_NoTags" xml:space="preserve">
-    <value>No Tags</value>
+    <value>タグなし</value>
   </data>
   <data name="frmGameManager_ttHelp_btnProcessOptions" xml:space="preserve">
-    <value>Process options</value>
+    <value>プロセスオプション</value>
   </data>
   <data name="frmGameManager_cmsUseWindowTitle" xml:space="preserve">
-    <value>Use &amp;Window Title</value>
+    <value>ウィンドウタイトルを使用(&amp;W)</value>
   </data>
   <data name="frmGameManager_lblProcess_WindowTitle" xml:space="preserve">
-    <value>Window Title:</value>
+    <value>ウィンドウタイトル:</value>
   </data>
   <data name="mgrLaunchGame_ErrorUseWindowTitle" xml:space="preserve">
-    <value>[PARAM] cannot be launched using a window title.</value>
+    <value>[PARAM]はウィンドウタイトルを使用して起動できません。</value>
   </data>
   <data name="frmSettings_chkBackupNotification" xml:space="preserve">
-    <value>Show notification when a backup is completed</value>
+    <value>バックアップが完了したら通知を表示する</value>
   </data>
   <data name="mgrBackup_NotificationMulti" xml:space="preserve">
-    <value>[PARAM] backups have been completed.</value>
+    <value>[PARAM] 複数のバックアップが完了しました。</value>
   </data>
   <data name="mgrBackup_NotificationSingle" xml:space="preserve">
-    <value>[PARAM] backup has been completed.</value>
+    <value>[PARAM] バックアップが完了しました。</value>
   </data>
   <data name="frmAdvancedImport_New" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frmAdvancedImport_New.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2783,7 +2784,7 @@
     <value>..\Resources\GBM_Icon_Stopped.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="frmGameManager_ConfirmRestoreSelected" xml:space="preserve">
-    <value>Are you sure you want to restore the selected backup for [PARAM]?  This will close the form.[BR][BR][PARAM] ([PARAM])</value>
+    <value>[PARAM]の選択したバックアップを復元してもよろしいですか？フォームが閉じます。[BR][BR][PARAM] ([PARAM])</value>
   </data>
   <data name="Multi_Backup" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Multi_Backup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2792,31 +2793,31 @@
     <value>..\Resources\Multi_Restore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="frmSettings_grpGameManagerOptions" xml:space="preserve">
-    <value>Game Manager Options</value>
+    <value>ゲームマネージャーオプション</value>
   </data>
   <data name="frmSettings_lstSettings_FilesAndFolders" xml:space="preserve">
-    <value>Files and Folders</value>
+    <value>ファイルとフォルダ</value>
   </data>
   <data name="frmSettings_lstSettings_UserInterface" xml:space="preserve">
-    <value>User Interface</value>
+    <value>ユーザーインターフェース</value>
   </data>
   <data name="frmSettings_BrowseTempFolder" xml:space="preserve">
-    <value>Choose a temporary folder:</value>
+    <value>一時フォルダを選択してください:</value>
   </data>
   <data name="frmSettings_cboDetectSpeed_Fast" xml:space="preserve">
-    <value>Fast</value>
+    <value>速い</value>
   </data>
   <data name="frmSettings_cboDetectSpeed_Moderate" xml:space="preserve">
-    <value>Moderate</value>
+    <value>中程度</value>
   </data>
   <data name="frmSettings_cboDetectSpeed_Slow" xml:space="preserve">
-    <value>Slow</value>
+    <value>遅い</value>
   </data>
   <data name="frmSettings_cboDetectSpeed_VerySlow" xml:space="preserve">
-    <value>Very Slow</value>
+    <value>非常に遅い</value>
   </data>
   <data name="frmSettings_lblDetectSpeed" xml:space="preserve">
-    <value>Detection Speed:</value>
+    <value>検出速度:</value>
   </data>
   <data name="frmGameManager_Link" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frmGameManager_Link.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2834,16 +2835,16 @@
     <value>..\Resources\frmGameManager_GameID.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="frmGameManager_ttHelp_btnGameID" xml:space="preserve">
-    <value>Modify Game ID</value>
+    <value>ゲームIDの変更</value>
   </data>
   <data name="frmGameManager_ttHelp_btnLinks" xml:space="preserve">
-    <value>Link options</value>
+    <value>リンクオプション</value>
   </data>
   <data name="frmGameManager_ttHelp_btnMonitorOptions" xml:space="preserve">
-    <value>Monitor options</value>
+    <value>監視オプション</value>
   </data>
   <data name="frmGameManager_ttHelp_cboOS" xml:space="preserve">
-    <value>Operating System</value>
+    <value>オペレーティングシステム</value>
   </data>
   <data name="Multi_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Multi_Add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2852,7 +2853,7 @@
     <value>..\Resources\Multi_Delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="frmLauncherManager_btnAddDefaults" xml:space="preserve">
-    <value>&amp;D&amp;efaults</value>
+    <value>デフォルト(&amp;E)</value>
   </data>
   <data name="Multi_Export" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Multi_Export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2891,34 +2892,34 @@
     <value>..\Resources\frmMain_Detected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="frmMain_ResumeBackupQueue" xml:space="preserve">
-    <value>Incomplete backup operations ([PARAM]) are being automatically resumed.</value>
+    <value>不完全なバックアップ操作([PARAM])が自動的に再開されます。</value>
   </data>
   <data name="frmMain_ErrorCriticalDetectionFailure" xml:space="preserve">
-    <value>An unexpected error has occurred while monitoring [PARAM], detection will be stopped.</value>
+    <value>[PARAM]の監視中に予期しないエラーが発生しました。検出は停止されます。</value>
   </data>
   <data name="frmSettings_chkTwoPassDetection" xml:space="preserve">
-    <value>Two-Pass Detection</value>
+    <value>2パス検出</value>
   </data>
   <data name="frmMain_ProcessAlreadyRunning" xml:space="preserve">
-    <value>[PARAM] (Process ID: [PARAM]) is already running.</value>
+    <value>[PARAM] (プロセスID: [PARAM]) はすでに実行されています。</value>
   </data>
   <data name="frmLauncherManager_ChooseLauncherExe" xml:space="preserve">
-    <value>Choose the executable of the launcher</value>
+    <value>ランチャーの実行ファイルを選択</value>
   </data>
   <data name="frmLauncherManager_ErrorValidParameters" xml:space="preserve">
-    <value>Launch parameters are required when the launcher is an Executable type.</value>
+    <value>ランチャーが実行可能タイプの場合、起動パラメータが必要です。</value>
   </data>
   <data name="frmLauncherManager_Executable" xml:space="preserve">
-    <value>Executable</value>
+    <value>実行可能ファイル</value>
   </data>
   <data name="frmLauncherManager_grpLauncherType" xml:space="preserve">
-    <value>Launcher Type</value>
+    <value>ランチャータイプ</value>
   </data>
   <data name="frmLauncherManager_lblParameters" xml:space="preserve">
-    <value>Parameters</value>
+    <value>パラメータ</value>
   </data>
   <data name="frmLauncherManager_optExecutable" xml:space="preserve">
-    <value>Executable</value>
+    <value>実行可能ファイル</value>
   </data>
   <data name="frmLauncherManager_optURI" xml:space="preserve">
     <value>URI</value>
@@ -2933,232 +2934,232 @@
     <value>C:\Program Files (x86)\GOG Galaxy\GalaxyClient.exe</value>
   </data>
   <data name="frmLauncherManager_lblCommandAlt" xml:space="preserve">
-    <value>Executable:</value>
+    <value>実行可能ファイル:</value>
   </data>
   <data name="mgrBackup_ErrorRegBackupFailed" xml:space="preserve">
-    <value>The backup has failed, please ensure the registry path is correct.</value>
+    <value>バックアップに失敗しました。レジストリパスが正しいことを確認してください。</value>
   </data>
   <data name="frmGameManager_chkDifferentialBackup" xml:space="preserve">
-    <value>Differential backup</value>
+    <value>差分バックアップ</value>
   </data>
   <data name="mgrBackup_ErrorDiffParentNotFound" xml:space="preserve">
-    <value>A current full backup for [PARAM] could not be found or the interval has been reached.  A new full backup will be created.</value>
+    <value>[PARAM]の現在の完全バックアップが見つからないか、指定の間隔に達しました。新しい完全バックアップが作成されます。</value>
   </data>
   <data name="mgrBackup_Label_Diff" xml:space="preserve">
-    <value>Diff</value>
+    <value>差分</value>
   </data>
   <data name="mgrBackup_Label_DiffFull" xml:space="preserve">
-    <value>Full</value>
+    <value>フル</value>
   </data>
   <data name="frmGameManager_ConfirmBackupDeleteDiffParent" xml:space="preserve">
-    <value>This is the full backup file for a set of differential backups, all the differential backup files that rely on this file will also be deleted. This cannot be undone.[BR][BR]Are you sure you want to delete [PARAM]? </value>
+    <value>これは差分バックアップセットの完全バックアップファイルです。このファイルに依存するすべての差分バックアップファイルも削除されます。この操作は元に戻せません。[BR][BR][PARAM]を削除してもよろしいですか？</value>
   </data>
   <data name="frmMain_ErrorDifferentialParentNotFound" xml:space="preserve">
-    <value>The restore for [PARAM] cannot continue.  The backup being restored is a differential backup, but the required full backup cannot be found.  </value>
+    <value>[PARAM]の復元を続行できません。復元対象のバックアップは差分バックアップですが、必要な完全バックアップが見つかりません。</value>
   </data>
   <data name="mgrBackup_ErrorImportNoDifferentialParent" xml:space="preserve">
-    <value>[PARAM] cannot be imported.  It is a differential backup and it's associated full backup could not be found.</value>
+    <value>[PARAM]をインポートできません。これは差分バックアップであり、関連する完全バックアップが見つかりません。</value>
   </data>
   <data name="frmMain_RestoreQueueDiffParent" xml:space="preserve">
-    <value>The required full backup [PARAM] ([PARAM]) was added to restore queue.</value>
+    <value>必要な完全バックアップ[PARAM]([PARAM])が復元キューに追加されました。</value>
   </data>
   <data name="mgrBackup_WarningOldMetadata" xml:space="preserve">
-    <value>The metadata is no longer fully compatible with this version, some information may not be imported. </value>
+    <value>メタデータはこのバージョンと完全に互換性がなくなったため、一部の情報がインポートされない可能性があります。</value>
   </data>
   <data name="mgrBackup_ErrorImportDifferentialWithNoMetadata" xml:space="preserve">
-    <value>[PARAM] is configured to use differential backups, but [PARAM] contains no metadata to properly identify the type of backup file.  This file cannot be imported.</value>
+    <value>[PARAM]は差分バックアップを使用するように設定されていますが、[PARAM]にはバックアップファイルの種類を正しく識別するためのメタデータが含まれていません。このファイルはインポートできません。</value>
   </data>
   <data name="mgrBackup_WarningImportNoDifferentialParent" xml:space="preserve">
-    <value>[PARAM] is a differential backup,  but it's associated full backup could not be found.  It has been pushed to the bottom of the import queue.</value>
+    <value>[PARAM]は差分バックアップですが、関連付けられた完全バックアップが見つかりません。インポートキューの一番下に移動されました。</value>
   </data>
   <data name="frmGameManager_chkTimeStamp_DiffAlt" xml:space="preserve">
-    <value>Full backup interval</value>
+    <value>完全バックアップ間隔</value>
   </data>
   <data name="frmGameManager_lblInterval" xml:space="preserve">
-    <value>Full backup interval</value>
+    <value>完全バックアップ間隔</value>
   </data>
   <data name="frmFilter_FieldDifferential" xml:space="preserve">
-    <value>Differential Backup</value>
+    <value>差分バックアップ</value>
   </data>
   <data name="frmFilter_FieldDiffInterval" xml:space="preserve">
-    <value>Full Backup Interval</value>
+    <value>フルバックアップ間隔</value>
   </data>
   <data name="frmGameManager_lblLimit_Alt" xml:space="preserve">
-    <value>Full backup limit</value>
+    <value>フルバックアップ制限</value>
   </data>
   <data name="frmGameManager_ttHelp_nudInterval" xml:space="preserve">
-    <value>0 = No Interval</value>
+    <value>0 = 間隔なし</value>
   </data>
   <data name="frmGameManager_ttHelp_nudLimit" xml:space="preserve">
-    <value>0 = Unlimited</value>
+    <value>0 = 無制限</value>
   </data>
   <data name="frmMain_BackupPathNotAvailable" xml:space="preserve">
-    <value>Backup path not available.  Timeout: [PARAM] seconds</value>
+    <value>バックアップパスが利用できません。タイムアウト: [PARAM] 秒</value>
   </data>
   <data name="frmMain_lblSearch" xml:space="preserve">
-    <value>Search:</value>
+    <value>検索:</value>
   </data>
   <data name="frmGameManager_cmsURL" xml:space="preserve">
-    <value>&amp;URL...</value>
+    <value>URL...(&amp;U)</value>
   </data>
   <data name="mgrMonitorList_CustomListURLInfo" xml:space="preserve">
-    <value>Enter the full URL of a supported file.  GBM XML and Ludusavi YAML files are supported.</value>
+    <value>サポートされているファイルの完全なURLを入力してください。GBM XMLおよびLudusavi YAMLファイルがサポートされています。</value>
   </data>
   <data name="mgrMonitorList_CustomListURLTitle" xml:space="preserve">
-    <value>Import file from URL</value>
+    <value>URLからファイルをインポート</value>
   </data>
   <data name="mgrMonitorList_CustomListURLError" xml:space="preserve">
-    <value>The value must be a valid HTTP or HTTPS location.</value>
+    <value>値は有効な HTTP または HTTPS の場所である必要があります。</value>
   </data>
   <data name="frmMain_gMonFileExport" xml:space="preserve">
-    <value>&amp;Export Games...</value>
+    <value>ゲームをエクスポート...(&amp;E)</value>
   </data>
   <data name="frmMain_gMonFileImport" xml:space="preserve">
-    <value>&amp;Import Games</value>
+    <value>ゲームをインポート(&amp;I)</value>
   </data>
   <data name="frmMain_gMonFileImportFile" xml:space="preserve">
-    <value>&amp;File...</value>
+    <value>ファイル...(&amp;F)</value>
   </data>
   <data name="frmMain_gMonFileImportOfficial" xml:space="preserve">
-    <value>&amp;Official List...</value>
+    <value>公式リスト(&amp;O)...</value>
   </data>
   <data name="frmMain_gMonFileImportOfficialLinux" xml:space="preserve">
-    <value>&amp;Linux...</value>
+    <value>Linux...(&amp;L)</value>
   </data>
   <data name="frmMain_gMonFileImportOfficialWindows" xml:space="preserve">
-    <value>&amp;Windows...</value>
+    <value>Windows...(&amp;W)</value>
   </data>
   <data name="frmMain_gMonFileImportURL" xml:space="preserve">
-    <value>&amp;URL...</value>
+    <value>URL...(&amp;U)</value>
   </data>
   <data name="mgrCommon_ErrorAccessingWebLocation" xml:space="preserve">
-    <value>An unexpected error occurred when accessing: [BR][BR][PARAM][BR][BR][PARAM]</value>
+    <value>アクセス時に予期しないエラーが発生しました: [BR][BR][PARAM][BR][BR][PARAM]</value>
   </data>
   <data name="mgrCommon_ErrorReadingTextFile" xml:space="preserve">
-    <value>An error has occurred reading the text file.[BR][BR][PARAM]</value>
+    <value>テキストファイルの読み取り中にエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="mgrCommon_ErrorUnexpectedWebResponse" xml:space="preserve">
-    <value>An unexpected response ([PARAM]) was received from:[BR][BR][PARAM]</value>
+    <value>予期しない応答 ([PARAM]) が次のソースから受信されました:[BR][BR][PARAM]</value>
   </data>
   <data name="frmGameManager_Image" xml:space="preserve">
-    <value>Image</value>
+    <value>画像</value>
   </data>
   <data name="mgrMonitorList_YAML" xml:space="preserve">
-    <value>Ludusavi Manifest</value>
+    <value>Ludusavi マニフェスト</value>
   </data>
   <data name="frmAdvancedImport_ColumnPath" xml:space="preserve">
-    <value>Path</value>
+    <value>パス</value>
   </data>
   <data name="frmAdvancedImport_ColumnInclude" xml:space="preserve">
-    <value>Files</value>
+    <value>ファイル</value>
   </data>
   <data name="App_URLImportLudusavi" xml:space="preserve">
     <value>https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml</value>
   </data>
   <data name="frmGameManager_cmsLudusavi" xml:space="preserve">
-    <value>&amp;Ludusavi Manifest...</value>
+    <value>Ludusavi マニフェスト...(&amp;L)</value>
   </data>
   <data name="frmMain_gMonFileImportLudusavi" xml:space="preserve">
-    <value>&amp;Ludusavi Manifest...</value>
+    <value>Ludusavi マニフェスト...(&amp;L)</value>
   </data>
   <data name="mgrMonitorList_WarningLudusaviImport" xml:space="preserve">
-    <value>The primary Ludusavi Manifest contains thousands of saved game configurations sourced from PCGamingWiki.[BR][BR]These configurations are untested and may not be fully compatible with GBM.[BR][BR]This message will only be shown once.</value>
+    <value>Ludusavi のプライマリ マニフェストには、PCGamingWiki から取得した何千もの保存済みゲーム設定が含まれています。[BR][BR]これらの設定はテストされていないため、GBM と完全に互換性がない可能性があります。[BR][BR]このメッセージは 1 回だけ表示されます。</value>
   </data>
   <data name="frmAdvancedImport_ColumnOs" xml:space="preserve">
     <value>OS</value>
   </data>
   <data name="mgrLudusavi_ErrorConverting" xml:space="preserve">
-    <value>An error has occurred during Ludusavi data conversion.[BR][BR][PARAM]</value>
+    <value>Ludusaviデータ変換中にエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="mgrLudusavi_ErrorReading" xml:space="preserve">
-    <value>An error has occurred while reading or deserializing Ludusavi data.[BR][BR][PARAM]</value>
+    <value>Ludusaviデータの読み取りまたは逆シリアル化中にエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="mgrMonitorList_ErrorImportFileType" xml:space="preserve">
-    <value>The file or URL does not contain a supported file extension.</value>
+    <value>ファイルまたは URL にサポートされているファイル拡張子が含まれていません。</value>
   </data>
   <data name="frmLudusaviConfig_btnCancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>キャンセル</value>
   </data>
   <data name="frmLudusaviConfig_btnOK" xml:space="preserve">
-    <value>&amp;OK</value>
+    <value>OK(&amp;O)</value>
   </data>
   <data name="frmLudusaviConfig_chkConfigurationFiles" xml:space="preserve">
-    <value>Configuration Files</value>
+    <value>設定ファイル</value>
   </data>
   <data name="frmLudusaviConfig_chkLinux" xml:space="preserve">
     <value>Linux</value>
   </data>
   <data name="frmLudusaviConfig_chkSavedGames" xml:space="preserve">
-    <value>Saved Games</value>
+    <value>保存されたゲーム</value>
   </data>
   <data name="frmLudusaviConfig_chkWindows" xml:space="preserve">
     <value>Windows</value>
   </data>
   <data name="frmLudusaviConfig_ErrorOperatingSystem" xml:space="preserve">
-    <value>At least one operating system must be selected.</value>
+    <value>少なくとも 1 つのオペレーティングシステムを選択する必要があります。</value>
   </data>
   <data name="frmLudusaviConfig_ErrorProfileType" xml:space="preserve">
-    <value>At least one profile type must be selected.</value>
+    <value>少なくとも 1 つのプロファイルタイプを選択する必要があります。</value>
   </data>
   <data name="frmLudusaviConfig_FormName" xml:space="preserve">
-    <value>Ludusavi Options</value>
+    <value>Ludusavi オプション</value>
   </data>
   <data name="frmLudusaviConfig_grpOperatingSystems" xml:space="preserve">
-    <value>Operating Systems</value>
+    <value>オペレーティングシステム</value>
   </data>
   <data name="frmLudusaviConfig_grpProfileTypes" xml:space="preserve">
-    <value>Profile Types</value>
+    <value>プロファイルの種類</value>
   </data>
   <data name="frmSettings_chkStorePathAutoConfig" xml:space="preserve">
-    <value>Enable automatic configuration of store paths</value>
+    <value>ストアパスの自動構成を有効にする</value>
   </data>
   <data name="frmLudusaviConfig_grpSearch" xml:space="preserve">
-    <value>Quick Search</value>
+    <value>クイック検索</value>
   </data>
   <data name="frmAdvancedImport_DetectingSavedGames" xml:space="preserve">
-    <value>Detecting Saved Games... Please Wait</value>
+    <value>保存されたゲームを検出しています...お待ちください</value>
   </data>
   <data name="frmAdvancedImport_Processing" xml:space="preserve">
-    <value>Processing... Please Wait</value>
+    <value>処理中...お待ちください</value>
   </data>
   <data name="frmAdvancedImport_WarningNoSavesDetected" xml:space="preserve">
-    <value>No new saved games were detected.</value>
+    <value>新しく保存されたゲームは検出されませんでした。</value>
   </data>
   <data name="frmAdvancedImport_Importing" xml:space="preserve">
-    <value>Importing Configurations... Please Wait</value>
+    <value>設定をインポートしています...お待ちください</value>
   </data>
   <data name="frmGameManager_btnCopy" xml:space="preserve">
-    <value>&amp;Copy</value>
+    <value>コピー(&amp;C)</value>
   </data>
   <data name="frmGameManager_Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frmGameManager_Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="App_ConfirmDirtyWizard" xml:space="preserve">
-    <value>The wizard isn't finished.[BR][BR]Are you sure you want to close and lose all progress?</value>
+    <value>ウィザードは完了していません。[BR][BR]終了して、すべての進行状況を失ってもよろしいですか？</value>
   </data>
   <data name="frmGameManager_ttHelp_btnOpenGameFolder" xml:space="preserve">
-    <value>Open game folder</value>
+    <value>ゲームフォルダを開く</value>
   </data>
   <data name="frmGameManager_ttHelp_btnOpenSaveFolder" xml:space="preserve">
-    <value>Open save folder</value>
+    <value>保存フォルダを開く</value>
   </data>
   <data name="App_AppendCopy" xml:space="preserve">
-    <value> (Copy)</value>
+    <value> (コピー)</value>
   </data>
   <data name="frmGameManager_ConfirmCopyMulti" xml:space="preserve">
-    <value>Are you sure you want to make copies of the [PARAM] selected games?</value>
+    <value>[PARAM]で選択したゲームのコピーを作成してもよろしいですか？</value>
   </data>
   <data name="frmAdvancedImport_chkHideIgnored" xml:space="preserve">
-    <value>Hide Ignored</value>
+    <value>非表示無視</value>
   </data>
   <data name="frmAdvancedImport_cmiIgnore" xml:space="preserve">
-    <value>Ignore</value>
+    <value>無視</value>
   </data>
   <data name="frmAdvancedImport_cmiIgnore_Reverse" xml:space="preserve">
-    <value>Unignore</value>
+    <value>無視解除</value>
   </data>
   <data name="frmAdvancedImport_cmiIgnore_Toggle" xml:space="preserve">
-    <value>Toggle Ignore</value>
+    <value>無視を切替</value>
   </data>
   <data name="frmAdvancedImport_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\frmadvancedimport_detected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -3167,111 +3168,99 @@
     <value>..\resources\frmadvancedimport_ignored.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="frmAdvancedImport_IgnoredCount" xml:space="preserve">
-    <value>[[PARAM] Ignored]</value>
+    <value>[[PARAM] 無視]</value>
   </data>
   <data name="frmMain_gMonOpenBackupFolder" xml:space="preserve">
-    <value>&amp;Open Backup Folder</value>
+    <value>バックアップフォルダを開く(&amp;O)</value>
   </data>
   <data name="frmSettings_DeleteToRecycleBin" xml:space="preserve">
-    <value>Delete files to the Recycle Bin</value>
+    <value>ファイルをごみ箱に移動する</value>
   </data>
   <data name="frmMain_ErrorOperationInProgress" xml:space="preserve">
-    <value>An operation ([PARAM]) is in progress, another operation ([PARAM]) was triggered but cannot be run at this time.</value>
+    <value>操作 ([PARAM]) が進行中です。別の操作 ([PARAM]) がトリガーされましたが、現時点では実行できません。</value>
   </data>
   <data name="frmSettings_lstSettings_GlobalHotKeys" xml:space="preserve">
-    <value>Global Hotkeys</value>
+    <value>グローバルホットキー</value>
   </data>
   <data name="frmMain_ErrorBindHotKeys" xml:space="preserve">
-    <value>An error occurred while binding global hotkeys.[BR][BR][PARAM]</value>
+    <value>グローバルホットキーのバインド中にエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="frmMain_ErrorUnBindHotKeys" xml:space="preserve">
-    <value>An error occurred while unbinding global hotkeys.[BR][BR][PARAM]</value>
+    <value>グローバルホットキーのバインド解除中にエラーが発生しました。[BR][BR][PARAM]</value>
   </data>
   <data name="frmSettings_ErrorDupeHotKeys" xml:space="preserve">
-    <value>The same key binding cannot be used for multiple functions.</value>
+    <value>同じキーバインディングを複数の機能に使用することはできません。</value>
   </data>
   <data name="frmSettings_chkEnableHotKeys" xml:space="preserve">
-    <value>Enable Global Hotkeys</value>
+    <value>グローバルホットキーを有効にする</value>
   </data>
   <data name="frmSettings_grpHotKeyBindings" xml:space="preserve">
-    <value>Key Bindings</value>
+    <value>キーバインド</value>
   </data>
   <data name="frmSettings_grpHotKeyGeneral" xml:space="preserve">
-    <value>General</value>
+    <value>一般</value>
   </data>
   <data name="frmSettings_lblBackupBind" xml:space="preserve">
-    <value>Backup:</value>
+    <value>バックアップ:</value>
   </data>
   <data name="frmSettings_lblRestoreBind" xml:space="preserve">
-    <value>Restore:</value>
+    <value>復元:</value>
   </data>
   <data name="frmSettings_chkEnableLiveBackup" xml:space="preserve">
-    <value>Enable backup and restore features for detected game</value>
+    <value>検出されたゲームのバックアップと復元機能を有効にする</value>
   </data>
   <data name="frmSettings_grpBackupExperimental" xml:space="preserve">
-    <value>Experimental</value>
+    <value>実験的</value>
   </data>
   <data name="frmGameManager_chkTimedBackup" xml:space="preserve">
-    <value>Time interval backup</value>
+    <value>バックアップする間隔</value>
   </data>
   <data name="frmGameManager_lblTimeIntervalMinutes" xml:space="preserve">
-    <value>Minutes</value>
+    <value>分</value>
   </data>
   <data name="frmFilter_FieldTimedBackup" xml:space="preserve">
-    <value>Time Interval Backup</value>
+    <value>バックアップする間隔</value>
   </data>
   <data name="frmFilter_FieldTimedInterval" xml:space="preserve">
-    <value>Time Interval (Minutes) *</value>
+    <value>時間間隔（分）*</value>
   </data>
   <data name="frmSettings_chkEnableOSTheme" xml:space="preserve">
-    <value>Enable OS color mode (Requires app restart)</value>
-  </data>
-  <data name="App_FoldersBackup" xml:space="preserve">
-    <value>Backup Data</value>
-  </data>
-  <data name="App_FoldersUser" xml:space="preserve">
-    <value>User Data</value>
+    <value>OSカラーモードを有効にする（アプリの再起動が必要）</value>
   </data>
   <data name="frmProcessManager_lblArguments" xml:space="preserve">
-    <value>Arguments:</value>
+    <value>引数:</value>
   </data>
   <data name="frmFilter_lblResultsWarning" xml:space="preserve">
-    <value>* Indicates a field that may give unexpected results.</value>
+    <value>* は予期せぬ結果をもたらす可能性のあるフィールドを示します。</value>
   </data>
   <data name="App_Language_ChineseSimplified" xml:space="preserve">
-    <value>简体中文 (Chinese Simplified)</value>
+    <value>简体中文 (簡体字中国語)</value>
   </data>
   <data name="App_Language_Default" xml:space="preserve">
-    <value>Operating System - [PARAM]</value>
+    <value>オペレーティング システム - [PARAM]</value>
   </data>
   <data name="App_Language_English" xml:space="preserve">
-    <value>English</value>
+    <value>English (英語)</value>
   </data>
   <data name="App_Language_Japanese" xml:space="preserve">
-    <value>日本語 (Japanese)</value>
+    <value>日本語</value>
   </data>
   <data name="App_Language" xml:space="preserve">
-    <value>Language</value>
+    <value>言語</value>
   </data>
   <data name="frmMain_ErrorPortablePermissions" xml:space="preserve">
-    <value>Portable mode is enabled, but this user doesn't have the required permissions to the application folder.  The application cannot proceed.</value>
-  </data>
-  <data name="frmMain_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmMain_Portable" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Portable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>ポータブルモードが有効になっていますが、アプリケーションフォルダへの必要な権限がないので、続行できません。</value>
   </data>
   <data name="frmMain_RunningInNormal" xml:space="preserve">
-    <value>GBM is running in normal mode.  Click to view details in the manual.</value>
+    <value>GBMは通常モードで実行中。クリックするとマニュアルの詳細が表示されます。</value>
   </data>
   <data name="frmMain_RunningInPortable" xml:space="preserve">
-    <value>GBM is running in portable mode.  Click to view details in the manual.</value>
+    <value>GBMはポータブルモードで実行中。クリックするとマニュアルの詳細が表示されます。</value>
   </data>
   <data name="frmProcessManager_lblDelay" xml:space="preserve">
-    <value>Delay starting for</value>
+    <value>開始までの遅延時間</value>
   </data>
   <data name="frmProcessManager_lblDelaySeconds" xml:space="preserve">
-    <value>Seconds</value>
+    <value>秒</value>
   </data>
 </root>

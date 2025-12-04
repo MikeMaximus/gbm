@@ -3080,4 +3080,40 @@
   <data name="frmSettings_chkEnableOSTheme" xml:space="preserve">
     <value>启用系统颜色模式（需要重新启动应用程序）</value>
   </data>
+  <data name="frmProcessManager_lblArguments" xml:space="preserve">
+    <value>参数：</value>
+  </data>
+  <data name="frmFilter_lblResultsWarning" xml:space="preserve">
+    <value>* 表示可能产生意想不到结果的字段。</value>
+  </data>
+  <data name="App_Language_ChineseSimplified" xml:space="preserve">
+    <value>简体中文</value>
+  </data>
+  <data name="App_Language_Default" xml:space="preserve">
+    <value>操作系统  - [PARAM]</value>
+  </data>
+  <data name="App_Language_English" xml:space="preserve">
+    <value>English (英语)</value>
+  </data>
+  <data name="App_Language_Japanese" xml:space="preserve">
+    <value>日本語 (日语)</value>
+  </data>
+  <data name="App_Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="frmMain_ErrorPortablePermissions" xml:space="preserve">
+    <value>便携模式已启用，但该用户没有应用文件夹所需的权限。 申请无法继续进行。</value>
+  </data>
+  <data name="frmMain_RunningInNormal" xml:space="preserve">
+    <value>GBM运行在普通模式。 点击查看手册中的详细信息。</value>
+  </data>
+  <data name="frmMain_RunningInPortable" xml:space="preserve">
+    <value>GBM运行在便携模式下。 点击查看手册中的详细信息。</value>
+  </data>
+  <data name="frmProcessManager_lblDelay" xml:space="preserve">
+    <value>延迟开始</value>
+  </data>
+  <data name="frmProcessManager_lblDelaySeconds" xml:space="preserve">
+    <value>秒</value>
+  </data>
 </root>

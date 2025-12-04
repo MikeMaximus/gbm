@@ -9,8 +9,8 @@ Imports DarkModeForms
 Public Class mgrCommon
 
     'These need to be updated when upgrading the packaged 7z utility
-    Private Shared sUtility64Hash As String = "3261D62D2B4B428FCA9A8867BB530043C90947C998374A7E138D06D5157FF0AF" 'v25.00 7za.exe x64
-    Private Shared sUtility32Hash As String = "968E6E4FCD0F9BFEC3211D053FD27D2D829E618120EDCB7BE447C15267F8CD84" 'v25.00 7za.exe x86
+    Private Shared sUtility64Hash As String = "574BB90D17732F3CC4145FD4BA12D8F29B9D63400881C0E6FE3110C88B0485DE" 'v25.01 7za.exe x64
+    Private Shared sUtility32Hash As String = "26817725650583D99CA3E617A618DD75C0F71BD316B5761780B7361F5F824CAD" 'v25.01 7za.exe x86
     Private Shared sBlackList As String() = {"dosbox", "scummvm", "java", "python", "python.real", "python2.7", "mono", "wine"}
 
     Public Enum eSounds As Integer
@@ -786,6 +786,29 @@ Public Class mgrCommon
         End If
     End Sub
 
+    'Check if a directory has create, write and delete permissions
+    Public Shared Function IsDirectoryWritable(ByVal sDir As String) As Boolean
+        Dim oStream As StreamWriter
+        Dim sFile As String = sDir & Path.DirectorySeparatorChar & ".foo"
+
+        Try
+            'Test create and write
+            oStream = New StreamWriter(sFile)
+            Using oStream
+                oStream.WriteLine("Hello World")
+                oStream.Flush()
+            End Using
+
+            'Test delete
+            File.Delete(sFile)
+        Catch ex As Exception
+            Return False
+        End Try
+
+        'Test passed
+        Return True
+    End Function
+
     'Opens a file, folder or URL in default application determined by the OS
     Public Shared Function OpenInOS(ByVal sItem As String, Optional ByVal sNotFoundError As String = "", Optional ByVal sIsURL As Boolean = False) As Boolean
         Dim oProcessStartInfo As ProcessStartInfo
@@ -1033,6 +1056,18 @@ Public Class mgrCommon
         End If
 
         Return sItem.Replace("&", sNewValue)
+    End Function
+
+    'Provides a shared language selection menu for multiple forms
+    Public Shared Function BuildLanguageMenu() As List(Of KeyValuePair(Of String, String))
+        Dim oLanguageItems As New List(Of KeyValuePair(Of String, String))
+
+        oLanguageItems.Add(New KeyValuePair(Of String, String)(String.Empty, FormatString(App_Language_Default, Globalization.CultureInfo.InstalledUICulture.DisplayName)))
+        oLanguageItems.Add(New KeyValuePair(Of String, String)("en", App_Language_English))
+        oLanguageItems.Add(New KeyValuePair(Of String, String)("ja", App_Language_Japanese))
+        oLanguageItems.Add(New KeyValuePair(Of String, String)("zh", App_Language_ChineseSimplified))
+
+        Return oLanguageItems
     End Function
 
     'Compare functions

@@ -8,6 +8,7 @@
         oProcess.Path = CStr(dr("Path"))
         If Not IsDBNull(dr("Args")) Then oProcess.Args = CStr(dr("Args"))
         oProcess.Kill = CBool(dr("Kill"))
+        oProcess.Delay = CInt(dr("Delay"))
 
         Return oProcess
     End Function
@@ -20,6 +21,7 @@
         hshParams.Add("Path", oProcess.Path)
         hshParams.Add("Args", oProcess.Args)
         hshParams.Add("Kill", oProcess.Kill)
+        hshParams.Add("Delay", oProcess.Delay)
 
         Return hshParams
     End Function
@@ -29,7 +31,7 @@
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "INSERT INTO processes VALUES (@ProcessID, @Name, @Path, @Args, @Kill)"
+        sSQL = "INSERT INTO processes VALUES (@ProcessID, @Name, @Path, @Args, @Kill, @Delay)"
         hshParams = SetCoreParameters(oProcess)
         oDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
@@ -39,7 +41,7 @@
         Dim sSQL As String
         Dim hshParams As Hashtable
 
-        sSQL = "UPDATE processes SET Name=@Name, Path=@Path, Args=@Args, Kill=@Kill "
+        sSQL = "UPDATE processes SET Name=@Name, Path=@Path, Args=@Args, Kill=@Kill, Delay=@Delay "
         sSQL &= "WHERE ProcessID = @ProcessID"
 
         hshParams = SetCoreParameters(oProcess)

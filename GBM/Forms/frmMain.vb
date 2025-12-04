@@ -44,6 +44,7 @@ Public Class frmMain
     Private sPathDetectionError As String = String.Empty
     Private bMenuEnabled As Boolean = True
     Private bLockdown As Boolean = True
+    Private bIsPortableMode As Boolean = False
     Private bFirstRun As Boolean = False
     Private bInitialLoad As Boolean = True
     Private bProcessIsAdmin As Boolean = False
@@ -1442,6 +1443,7 @@ Public Class frmMain
         If frm.ShowDialog() = Windows.Forms.DialogResult.OK Then
             'Set Remote Database Location
             mgrPath.RemoteDatabaseLocation = mgrSettings.BackupFolder
+            If frm.bLanguageChanged Then SetForm()
             SetupSyncWatcher()
             mgrStoreVariables.AutoConfigureStoreVariables()
             LoadGameSettings()
@@ -1499,8 +1501,8 @@ Public Class frmMain
         mgrCommon.OpenInOS(App_URLWebsite, , True)
     End Sub
 
-    Private Sub OpenOnlineManual()
-        mgrCommon.OpenInOS(App_URLManual, , True)
+    Private Sub OpenOnlineManual(Optional ByVal sSection As String = "")
+        mgrCommon.OpenInOS(App_URLManual & sSection, , True)
     End Sub
 
     Private Sub OpenCheckforUpdates()
@@ -1629,6 +1631,9 @@ Public Class frmMain
         'Local Database Check
         VerifyDBVersion(mgrSQLite.Database.Local)
         LocalDatabaseCheck()
+
+        'Load Custom Variables
+        mgrPath.LoadCustomVariables()
 
         'Load Settings
         mgrSettings.LoadSettings()
@@ -1768,12 +1773,25 @@ Public Class frmMain
     End Sub
 
     Private Sub InitApp()
-        SetForm()
         Try
             mgrCommon.SetTLSVersion()
-            VerifyGameDataPath()
-            If bFirstRun Then OpenStartupWizard()
-            LoadAndVerify()
+
+            'Set any required environment variables
+            mgrPath.SetEnv()
+
+            'Configure all timers
+            InitTimers()
+
+            'Setup initial display
+            ResetCurrentInfo()
+
+            If VerifyGameDataPath() Then
+                If bFirstRun Then OpenStartupWizard()
+                LoadAndVerify()
+            Else
+                bInitFail = True
+            End If
+
         Catch ex As Exception
             If mgrCommon.ShowMessage(frmMain_ErrorInitFailure, ex.Message & vbCrLf & ex.StackTrace, MsgBoxStyle.YesNo) = MsgBoxResult.No Then
                 bInitFail = True
@@ -1782,7 +1800,7 @@ Public Class frmMain
 
         If bInitFail Then
             bShutdown = True
-            Me.Close()
+            Application.Exit()
         Else
             SetColorMode()
             VerifyCustomPathVariables()
@@ -2201,7 +2219,7 @@ Public Class frmMain
             'Auto save and/or clear the log if we are approaching the limit
             If txtLog.TextLength > 262144 Then
                 If mgrSettings.AutoSaveLog Then
-                    Dim sLogFile As String = mgrPath.LogFileLocation
+                    Dim sLogFile As String = mgrPath.SettingsRoot & Path.DirectorySeparatorChar & "gbm_log_" & Date.Now.ToString("yyyyMMdd") & "T" & Date.Now.ToString("HHmmss") & ".txt"
                     mgrCommon.SaveText(txtLog.Text, sLogFile)
                     txtLog.Clear()
                     txtLog.AppendText("[" & Date.Now & "] " & mgrCommon.FormatString(frmMain_LogAutoSave, sLogFile))
@@ -2475,6 +2493,15 @@ Public Class frmMain
             gMonStripAdminButton.Image = frmMain_User
             gMonStripAdminButton.ToolTipText = frmMain_RunningAsNormal
         End If
+
+        If bIsPortableMode Then
+            gMonStripModeIndicator.Image = frmMain_Portable
+            gMonStripModeIndicator.ToolTipText = frmMain_RunningInPortable
+        Else
+            gMonStripModeIndicator.Image = frmMain_Normal
+            gMonStripModeIndicator.ToolTipText = frmMain_RunningInNormal
+        End If
+
         btnCancelOperation.Visible = False
         pbTime.SizeMode = PictureBoxSizeMode.AutoSize
         pbTime.Image = frmMain_Clock
@@ -2491,8 +2518,9 @@ Public Class frmMain
             gMonTrayFileImportOfficialLinux.Visible = False
             gMonTrayFileImportOfficialWindows.Visible = False
         End If
+    End Sub
 
-        'Init Timers
+    Private Sub InitTimers()
         tmScanTimer.Interval = 5000
         tmRestoreCheck.Interval = 60000
         tmFileWatcherQueue.AutoReset = False
@@ -2502,8 +2530,6 @@ Public Class frmMain
         tmFilterTimer.Enabled = False
         tmPlayTimer.Interval = 5000
         tmPlayTimer.AutoReset = False
-
-        ResetCurrentInfo()
     End Sub
 
     Private Sub SetDetectionSpeed()
@@ -2524,6 +2550,12 @@ Public Class frmMain
         ElseIf Not mgrSettings.MainHideLog And mgrSettings.MainHideGameList Then
             Me.Size = New Size(Me.Size.Width - slcMain.SplitterDistance, Me.Size.Height)
         End If
+
+        If mgrSettings.Language <> String.Empty Then
+            System.Threading.Thread.CurrentThread.CurrentUICulture = New Globalization.CultureInfo(mgrSettings.Language)
+        End If
+
+        SetForm()
     End Sub
 
     Private Function BuildChildProcesses() As Integer
@@ -2556,36 +2588,38 @@ Public Class frmMain
         Return oChildProcesses.Count
     End Function
 
-    Private Function StartChildProcess(ByRef prsChild As Process, Optional ByVal bAdmin As Boolean = False) As Boolean
+    Private Sub LaunchProcessOnSeperateThread(ByVal oProcessToStart As clsProcessToStart)
         Try
-            If bAdmin Then prsChild.StartInfo.Verb = "runas"
-            prsChild.Start()
-            Return True
+            Sleep(oProcessToStart.Delay * 1000)
+            oProcessToStart.Process.Start()
+            UpdateLog(mgrCommon.FormatString(frmMain_ProcessStarted, oProcessToStart.Name), False)
         Catch exWin32 As System.ComponentModel.Win32Exception
             'If the launch fails due to required elevation, try it again and request elevation.
             If exWin32.ErrorCode = 740 Then
-                StartChildProcess(prsChild, True)
+                oProcessToStart.Process.StartInfo.Verb = "runas"
+                oProcessToStart.Process.Start()
             Else
                 UpdateLog(mgrCommon.FormatString(frmMain_ErrorStartChildProcess, New String() {oProcess.GameInfo.CroppedName, exWin32.Message}), True, ToolTipIcon.Error)
             End If
-            Return False
         Catch exAll As Exception
             UpdateLog(mgrCommon.FormatString(frmMain_ErrorStartChildProcess, New String() {oProcess.GameInfo.CroppedName, exAll.Message}), True, ToolTipIcon.Error)
-            Return False
         End Try
-    End Function
+    End Sub
 
     Private Sub StartChildProcesses()
+        Dim oThread As System.Threading.Thread
         Dim oCurrentProcess As clsProcess
         Dim prsChild As Process
+        Dim oProcessToStart As clsProcessToStart
 
         If BuildChildProcesses() > 0 Then
             For Each de As DictionaryEntry In oChildProcesses
                 oCurrentProcess = DirectCast(de.Key, clsProcess)
                 prsChild = DirectCast(de.Value, Process)
-                If StartChildProcess(prsChild) Then
-                    UpdateLog(mgrCommon.FormatString(frmMain_ProcessStarted, oCurrentProcess.Name), False)
-                End If
+                oProcessToStart = New clsProcessToStart(oCurrentProcess.Name, oCurrentProcess.Delay, prsChild)
+                oThread = New System.Threading.Thread(AddressOf LaunchProcessOnSeperateThread)
+                oThread.IsBackground = True
+                oThread.Start(oProcessToStart)
             Next
         End If
     End Sub
@@ -2735,23 +2769,47 @@ Public Class frmMain
         End If
     End Function
 
-    Private Sub VerifyGameDataPath()
-        'Important: This function cannot access mgrPath for settings, as that will trigger a database creation and destroy the reason for this function
-        Dim sSettingsRoot As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
-        Dim sDBLocation As String = sSettingsRoot & Path.DirectorySeparatorChar & "gbm.s3db"
+    Private Function VerifyGameDataPath() As Boolean
+        Dim sSettingsRoot As String
+        Dim sDBLocation As String
+        Dim sPortableDataPath As String = Application.StartupPath & Path.DirectorySeparatorChar & App_FoldersUser
+        Dim sNormalDataPath As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & Path.DirectorySeparatorChar & "gbm"
 
+        'Check if we should be running in portable mode
+        If File.Exists(Application.StartupPath & Path.DirectorySeparatorChar & "portable.ini") Then
+            If mgrCommon.IsDirectoryWritable(Application.StartupPath) Then
+                bIsPortableMode = True
+                sSettingsRoot = sPortableDataPath
+            Else
+                mgrCommon.ShowMessage(frmMain_ErrorPortablePermissions, MsgBoxStyle.Critical)
+                Return False
+            End If
+        Else
+            sSettingsRoot = sNormalDataPath
+        End If
+
+        'Set the local db path and name
+        sDBLocation = sSettingsRoot & Path.DirectorySeparatorChar & "gbm.s3db"
+
+        'Attempt to create local db path
         If Not Directory.Exists(sSettingsRoot) Then
             Try
                 Directory.CreateDirectory(sSettingsRoot)
             Catch ex As Exception
                 mgrCommon.ShowMessage(frmMain_ErrorSettingsFolder, ex.Message, MsgBoxStyle.Critical)
-                bShutdown = True
-                Me.Close()
+                Return False
             End Try
         End If
 
+        'If a database doesn't exist yet go into first run mode
         If Not File.Exists(sDBLocation) Then bFirstRun = True
-    End Sub
+
+        'Set the globals and return
+        mgrPath.SettingsRoot = sSettingsRoot
+        mgrPath.DatabaseLocation = sDBLocation
+
+        Return True
+    End Function
 
     Private Sub VerifyDBVersion(ByVal iDB As mgrSQLite.Database)
         Dim oDatabase As New mgrSQLite(iDB)
@@ -3138,6 +3196,10 @@ Public Class frmMain
 
     Private Sub gMonStripAdminButton_ButtonClick(sender As Object, e As EventArgs) Handles gMonStripAdminButton.Click
         RestartAsAdmin()
+    End Sub
+
+    Private Sub gMonStripModeIndicator_Click(sender As Object, e As EventArgs) Handles gMonStripModeIndicator.Click
+        OpenOnlineManual("#modes")
     End Sub
 
     Private Sub Main_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing

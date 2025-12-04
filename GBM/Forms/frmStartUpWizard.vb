@@ -1,5 +1,6 @@
 ﻿Imports GBM.My.Resources
 Imports System.IO
+Imports System.Globalization
 
 Public Class frmStartUpWizard
 
@@ -33,6 +34,7 @@ Public Class frmStartUpWizard
         llbManual.Text = frmStartUpWizard_llbManual
         lblStep1Title.Text = frmStartUpWizard_lblStep1Title
         lblStep1Instructions.Text = frmStartUpWizard_lblStep1Instructions
+        lblLanguage.Text = App_Language
         chkCreateFolder.Text = frmStartUpWizard_chkCreateFolder
         lblStep2Title.Text = frmStartUpWizard_lblStep2Title
         lblStep2Instructions.Text = frmStartUpWizard_lblStep2Instructions
@@ -49,10 +51,29 @@ Public Class frmStartUpWizard
         lblStep4Title.Text = frmStartUpWizard_lblStep4Title
         lblStep4Instructions.Text = frmStartUpWizard_lblStep4Instructions
 
+        llbManual.Links.Clear()
         llbManual.Links.Add(0, 26, App_URLManual)
         txtBackupPath.Text = mgrSettings.BackupFolder
+    End Sub
 
-        StepHandler()
+    Private Sub SetLanguage()
+        Dim sCulture As String
+
+        If cboLanguage.SelectedValue = String.Empty Then
+            sCulture = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName
+        Else
+            sCulture = cboLanguage.SelectedValue
+        End If
+
+        Threading.Thread.CurrentThread.CurrentUICulture = New CultureInfo(sCulture)
+    End Sub
+
+    Private Sub LoadCombos()
+        'cboLanguage
+        cboLanguage.ValueMember = "Key"
+        cboLanguage.DisplayMember = "Value"
+
+        cboLanguage.DataSource = mgrCommon.BuildLanguageMenu
     End Sub
 
     Private Sub CheckSync()
@@ -194,6 +215,7 @@ Public Class frmStartUpWizard
             Case eSteps.Step1
                 eCurrentStep = eSteps.Step2
                 chkCreateFolder.Checked = True
+                mgrSettings.Language = cboLanguage.SelectedValue
             Case eSteps.Step2
                 If ValidateBackupPath(txtBackupPath.Text, sErrorMessage) Then
                     mgrSettings.BackupFolder = txtBackupPath.Text
@@ -243,6 +265,8 @@ Public Class frmStartUpWizard
 
     Private Sub frmStartUpWizard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetForm()
+        LoadCombos()
+        StepHandler()
     End Sub
 
     Private Sub btnFolderBrowse_Click(sender As Object, e As EventArgs) Handles btnFolderBrowse.Click
@@ -269,5 +293,10 @@ Public Class frmStartUpWizard
 
     Private Sub llbManual_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbManual.LinkClicked
         mgrCommon.OpenInOS(e.Link.LinkData.ToString, , True)
+    End Sub
+
+    Private Sub cboLanguage_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboLanguage.SelectedIndexChanged
+        SetLanguage()
+        SetForm()
     End Sub
 End Class

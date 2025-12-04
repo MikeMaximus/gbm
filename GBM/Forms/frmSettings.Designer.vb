@@ -60,12 +60,14 @@ Partial Class frmSettings
         Me.chkSuppressBackup = New System.Windows.Forms.CheckBox()
         Me.lblMinutes = New System.Windows.Forms.Label()
         Me.nudSuppressBackupThreshold = New System.Windows.Forms.NumericUpDown()
-        Me.grpOptionalFeeatures = New System.Windows.Forms.GroupBox()
+        Me.grpOptionalFeatures = New System.Windows.Forms.GroupBox()
         Me.chkEnableOSTheme = New System.Windows.Forms.CheckBox()
         Me.chkStorePathAutoConfig = New System.Windows.Forms.CheckBox()
         Me.chkEnableLauncher = New System.Windows.Forms.CheckBox()
         Me.chkSessionTracking = New System.Windows.Forms.CheckBox()
         Me.pnlInterface = New System.Windows.Forms.Panel()
+        Me.grpLanguage = New System.Windows.Forms.GroupBox()
+        Me.cboLanguage = New System.Windows.Forms.ComboBox()
         Me.grpLogOptions = New System.Windows.Forms.GroupBox()
         Me.chkDisableSyncMessages = New System.Windows.Forms.CheckBox()
         Me.chkAutoSaveLog = New System.Windows.Forms.CheckBox()
@@ -117,8 +119,9 @@ Partial Class frmSettings
         Me.pnlGeneral.SuspendLayout()
         Me.grpGameMonitoringOptions.SuspendLayout()
         CType(Me.nudSuppressBackupThreshold, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.grpOptionalFeeatures.SuspendLayout()
+        Me.grpOptionalFeatures.SuspendLayout()
         Me.pnlInterface.SuspendLayout()
+        Me.grpLanguage.SuspendLayout()
         Me.grpLogOptions.SuspendLayout()
         Me.grpGameManagerOptions.SuspendLayout()
         Me.grpMainWindowOptions.SuspendLayout()
@@ -144,7 +147,7 @@ Partial Class frmSettings
         'chkShowDetectionTips
         '
         Me.chkShowDetectionTips.AutoSize = True
-        Me.chkShowDetectionTips.Location = New System.Drawing.Point(6, 42)
+        Me.chkShowDetectionTips.Location = New System.Drawing.Point(6, 66)
         Me.chkShowDetectionTips.Name = "chkShowDetectionTips"
         Me.chkShowDetectionTips.Size = New System.Drawing.Size(159, 17)
         Me.chkShowDetectionTips.TabIndex = 2
@@ -154,9 +157,9 @@ Partial Class frmSettings
         'btnSave
         '
         Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
-        Me.btnSave.Location = New System.Drawing.Point(421, 329)
+        Me.btnSave.Location = New System.Drawing.Point(403, 374)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(60, 45)
+        Me.btnSave.Size = New System.Drawing.Size(80, 50)
         Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -165,9 +168,9 @@ Partial Class frmSettings
         'btnCancel
         '
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(487, 329)
+        Me.btnCancel.Location = New System.Drawing.Point(489, 374)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
+        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
         Me.btnCancel.TabIndex = 5
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -177,9 +180,9 @@ Partial Class frmSettings
         '
         Me.grp7zGeneral.Controls.Add(Me.cboCompression)
         Me.grp7zGeneral.Controls.Add(Me.lblCompression)
-        Me.grp7zGeneral.Location = New System.Drawing.Point(6, 12)
+        Me.grp7zGeneral.Location = New System.Drawing.Point(6, 3)
         Me.grp7zGeneral.Name = "grp7zGeneral"
-        Me.grp7zGeneral.Size = New System.Drawing.Size(354, 50)
+        Me.grp7zGeneral.Size = New System.Drawing.Size(383, 50)
         Me.grp7zGeneral.TabIndex = 0
         Me.grp7zGeneral.TabStop = False
         Me.grp7zGeneral.Text = "General"
@@ -264,9 +267,9 @@ Partial Class frmSettings
         'btnDefaults
         '
         Me.btnDefaults.Image = Global.GBM.My.Resources.Resources.Multi_Reset
-        Me.btnDefaults.Location = New System.Drawing.Point(12, 329)
+        Me.btnDefaults.Location = New System.Drawing.Point(12, 374)
         Me.btnDefaults.Name = "btnDefaults"
-        Me.btnDefaults.Size = New System.Drawing.Size(60, 45)
+        Me.btnDefaults.Size = New System.Drawing.Size(80, 50)
         Me.btnDefaults.TabIndex = 2
         Me.btnDefaults.Text = "&Defaults"
         Me.btnDefaults.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -277,17 +280,17 @@ Partial Class frmSettings
         Me.pnlBackup.Controls.Add(Me.grpBackupExperimental)
         Me.pnlBackup.Controls.Add(Me.grpBackupConfirmations)
         Me.pnlBackup.Controls.Add(Me.grpBackupHandling)
-        Me.pnlBackup.Location = New System.Drawing.Point(180, 0)
+        Me.pnlBackup.Location = New System.Drawing.Point(180, 12)
         Me.pnlBackup.Name = "pnlBackup"
-        Me.pnlBackup.Size = New System.Drawing.Size(367, 323)
+        Me.pnlBackup.Size = New System.Drawing.Size(392, 356)
         Me.pnlBackup.TabIndex = 1
         '
         'grpBackupExperimental
         '
         Me.grpBackupExperimental.Controls.Add(Me.chkEnableLiveBackup)
-        Me.grpBackupExperimental.Location = New System.Drawing.Point(6, 223)
+        Me.grpBackupExperimental.Location = New System.Drawing.Point(6, 214)
         Me.grpBackupExperimental.Name = "grpBackupExperimental"
-        Me.grpBackupExperimental.Size = New System.Drawing.Size(354, 44)
+        Me.grpBackupExperimental.Size = New System.Drawing.Size(383, 44)
         Me.grpBackupExperimental.TabIndex = 2
         Me.grpBackupExperimental.TabStop = False
         Me.grpBackupExperimental.Text = "Experimental"
@@ -308,9 +311,9 @@ Partial Class frmSettings
         Me.grpBackupConfirmations.Controls.Add(Me.chkDisableDiskSpaceCheck)
         Me.grpBackupConfirmations.Controls.Add(Me.chkBackupConfirm)
         Me.grpBackupConfirmations.Controls.Add(Me.chkOverwriteWarning)
-        Me.grpBackupConfirmations.Location = New System.Drawing.Point(6, 104)
+        Me.grpBackupConfirmations.Location = New System.Drawing.Point(6, 95)
         Me.grpBackupConfirmations.Name = "grpBackupConfirmations"
-        Me.grpBackupConfirmations.Size = New System.Drawing.Size(354, 113)
+        Me.grpBackupConfirmations.Size = New System.Drawing.Size(383, 113)
         Me.grpBackupConfirmations.TabIndex = 1
         Me.grpBackupConfirmations.TabStop = False
         Me.grpBackupConfirmations.Text = "Backup Confirmations"
@@ -360,11 +363,11 @@ Partial Class frmSettings
         Me.grpBackupHandling.Controls.Add(Me.chkAutoRestore)
         Me.grpBackupHandling.Controls.Add(Me.chkRestoreNotify)
         Me.grpBackupHandling.Controls.Add(Me.chkAutoMark)
-        Me.grpBackupHandling.Location = New System.Drawing.Point(6, 12)
+        Me.grpBackupHandling.Location = New System.Drawing.Point(6, 3)
         Me.grpBackupHandling.Margin = New System.Windows.Forms.Padding(2)
         Me.grpBackupHandling.Name = "grpBackupHandling"
         Me.grpBackupHandling.Padding = New System.Windows.Forms.Padding(2)
-        Me.grpBackupHandling.Size = New System.Drawing.Size(354, 87)
+        Me.grpBackupHandling.Size = New System.Drawing.Size(383, 87)
         Me.grpBackupHandling.TabIndex = 0
         Me.grpBackupHandling.TabStop = False
         Me.grpBackupHandling.Text = "Backup Handling"
@@ -406,9 +409,9 @@ Partial Class frmSettings
         Me.pnl7z.Controls.Add(Me.grp7zAdvanced)
         Me.pnl7z.Controls.Add(Me.grp7zInformation)
         Me.pnl7z.Controls.Add(Me.grp7zGeneral)
-        Me.pnl7z.Location = New System.Drawing.Point(180, 0)
+        Me.pnl7z.Location = New System.Drawing.Point(180, 12)
         Me.pnl7z.Name = "pnl7z"
-        Me.pnl7z.Size = New System.Drawing.Size(367, 323)
+        Me.pnl7z.Size = New System.Drawing.Size(392, 356)
         Me.pnl7z.TabIndex = 1
         '
         'grp7zAdvanced
@@ -418,9 +421,9 @@ Partial Class frmSettings
         Me.grp7zAdvanced.Controls.Add(Me.txt7zLocation)
         Me.grp7zAdvanced.Controls.Add(Me.txt7zArguments)
         Me.grp7zAdvanced.Controls.Add(Me.lblLocation)
-        Me.grp7zAdvanced.Location = New System.Drawing.Point(6, 68)
+        Me.grp7zAdvanced.Location = New System.Drawing.Point(6, 59)
         Me.grp7zAdvanced.Name = "grp7zAdvanced"
-        Me.grp7zAdvanced.Size = New System.Drawing.Size(354, 73)
+        Me.grp7zAdvanced.Size = New System.Drawing.Size(383, 73)
         Me.grp7zAdvanced.TabIndex = 1
         Me.grp7zAdvanced.TabStop = False
         Me.grp7zAdvanced.Text = "Advanced"
@@ -429,9 +432,9 @@ Partial Class frmSettings
         '
         Me.grp7zInformation.Controls.Add(Me.lbl7zProduct)
         Me.grp7zInformation.Controls.Add(Me.lbl7zCopyright)
-        Me.grp7zInformation.Location = New System.Drawing.Point(6, 146)
+        Me.grp7zInformation.Location = New System.Drawing.Point(6, 137)
         Me.grp7zInformation.Name = "grp7zInformation"
-        Me.grp7zInformation.Size = New System.Drawing.Size(354, 63)
+        Me.grp7zInformation.Size = New System.Drawing.Size(383, 63)
         Me.grp7zInformation.TabIndex = 2
         Me.grp7zInformation.TabStop = False
         Me.grp7zInformation.Text = "Utility Information"
@@ -439,10 +442,10 @@ Partial Class frmSettings
         'pnlGeneral
         '
         Me.pnlGeneral.Controls.Add(Me.grpGameMonitoringOptions)
-        Me.pnlGeneral.Controls.Add(Me.grpOptionalFeeatures)
-        Me.pnlGeneral.Location = New System.Drawing.Point(180, 0)
+        Me.pnlGeneral.Controls.Add(Me.grpOptionalFeatures)
+        Me.pnlGeneral.Location = New System.Drawing.Point(180, 12)
         Me.pnlGeneral.Name = "pnlGeneral"
-        Me.pnlGeneral.Size = New System.Drawing.Size(367, 323)
+        Me.pnlGeneral.Size = New System.Drawing.Size(392, 356)
         Me.pnlGeneral.TabIndex = 1
         '
         'grpGameMonitoringOptions
@@ -454,9 +457,9 @@ Partial Class frmSettings
         Me.grpGameMonitoringOptions.Controls.Add(Me.lblMinutes)
         Me.grpGameMonitoringOptions.Controls.Add(Me.chkShowDetectionTips)
         Me.grpGameMonitoringOptions.Controls.Add(Me.nudSuppressBackupThreshold)
-        Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 152)
+        Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 143)
         Me.grpGameMonitoringOptions.Name = "grpGameMonitoringOptions"
-        Me.grpGameMonitoringOptions.Size = New System.Drawing.Size(354, 118)
+        Me.grpGameMonitoringOptions.Size = New System.Drawing.Size(383, 144)
         Me.grpGameMonitoringOptions.TabIndex = 1
         Me.grpGameMonitoringOptions.TabStop = False
         Me.grpGameMonitoringOptions.Text = "Game Monitoring Options"
@@ -464,7 +467,7 @@ Partial Class frmSettings
         'chkTwoPassDetection
         '
         Me.chkTwoPassDetection.AutoSize = True
-        Me.chkTwoPassDetection.Location = New System.Drawing.Point(6, 92)
+        Me.chkTwoPassDetection.Location = New System.Drawing.Point(6, 116)
         Me.chkTwoPassDetection.Name = "chkTwoPassDetection"
         Me.chkTwoPassDetection.Size = New System.Drawing.Size(122, 17)
         Me.chkTwoPassDetection.TabIndex = 5
@@ -475,7 +478,7 @@ Partial Class frmSettings
         '
         Me.cboDetectSpeed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDetectSpeed.FormattingEnabled = True
-        Me.cboDetectSpeed.Location = New System.Drawing.Point(99, 65)
+        Me.cboDetectSpeed.Location = New System.Drawing.Point(99, 89)
         Me.cboDetectSpeed.Name = "cboDetectSpeed"
         Me.cboDetectSpeed.Size = New System.Drawing.Size(122, 21)
         Me.cboDetectSpeed.TabIndex = 4
@@ -483,7 +486,7 @@ Partial Class frmSettings
         'lblDetectSpeed
         '
         Me.lblDetectSpeed.AutoSize = True
-        Me.lblDetectSpeed.Location = New System.Drawing.Point(3, 68)
+        Me.lblDetectSpeed.Location = New System.Drawing.Point(3, 92)
         Me.lblDetectSpeed.Name = "lblDetectSpeed"
         Me.lblDetectSpeed.Size = New System.Drawing.Size(90, 13)
         Me.lblDetectSpeed.TabIndex = 3
@@ -502,7 +505,7 @@ Partial Class frmSettings
         'lblMinutes
         '
         Me.lblMinutes.AutoSize = True
-        Me.lblMinutes.Location = New System.Drawing.Point(226, 20)
+        Me.lblMinutes.Location = New System.Drawing.Point(81, 42)
         Me.lblMinutes.Name = "lblMinutes"
         Me.lblMinutes.Size = New System.Drawing.Size(43, 13)
         Me.lblMinutes.TabIndex = 17
@@ -510,25 +513,25 @@ Partial Class frmSettings
         '
         'nudSuppressBackupThreshold
         '
-        Me.nudSuppressBackupThreshold.Location = New System.Drawing.Point(169, 18)
+        Me.nudSuppressBackupThreshold.Location = New System.Drawing.Point(24, 40)
         Me.nudSuppressBackupThreshold.Maximum = New Decimal(New Integer() {999, 0, 0, 0})
         Me.nudSuppressBackupThreshold.Name = "nudSuppressBackupThreshold"
         Me.nudSuppressBackupThreshold.Size = New System.Drawing.Size(51, 20)
         Me.nudSuppressBackupThreshold.TabIndex = 1
         '
-        'grpOptionalFeeatures
+        'grpOptionalFeatures
         '
-        Me.grpOptionalFeeatures.Controls.Add(Me.chkEnableOSTheme)
-        Me.grpOptionalFeeatures.Controls.Add(Me.chkStorePathAutoConfig)
-        Me.grpOptionalFeeatures.Controls.Add(Me.chkEnableLauncher)
-        Me.grpOptionalFeeatures.Controls.Add(Me.chkSessionTracking)
-        Me.grpOptionalFeeatures.Controls.Add(Me.chkTimeTracking)
-        Me.grpOptionalFeeatures.Location = New System.Drawing.Point(6, 12)
-        Me.grpOptionalFeeatures.Name = "grpOptionalFeeatures"
-        Me.grpOptionalFeeatures.Size = New System.Drawing.Size(354, 134)
-        Me.grpOptionalFeeatures.TabIndex = 0
-        Me.grpOptionalFeeatures.TabStop = False
-        Me.grpOptionalFeeatures.Text = "Optional Features"
+        Me.grpOptionalFeatures.Controls.Add(Me.chkEnableOSTheme)
+        Me.grpOptionalFeatures.Controls.Add(Me.chkStorePathAutoConfig)
+        Me.grpOptionalFeatures.Controls.Add(Me.chkEnableLauncher)
+        Me.grpOptionalFeatures.Controls.Add(Me.chkSessionTracking)
+        Me.grpOptionalFeatures.Controls.Add(Me.chkTimeTracking)
+        Me.grpOptionalFeatures.Location = New System.Drawing.Point(6, 3)
+        Me.grpOptionalFeatures.Name = "grpOptionalFeatures"
+        Me.grpOptionalFeatures.Size = New System.Drawing.Size(383, 134)
+        Me.grpOptionalFeatures.TabIndex = 0
+        Me.grpOptionalFeatures.TabStop = False
+        Me.grpOptionalFeatures.Text = "Optional Features"
         '
         'chkEnableOSTheme
         '
@@ -572,21 +575,41 @@ Partial Class frmSettings
         '
         'pnlInterface
         '
+        Me.pnlInterface.Controls.Add(Me.grpLanguage)
         Me.pnlInterface.Controls.Add(Me.grpLogOptions)
         Me.pnlInterface.Controls.Add(Me.grpGameManagerOptions)
         Me.pnlInterface.Controls.Add(Me.grpMainWindowOptions)
-        Me.pnlInterface.Location = New System.Drawing.Point(180, 0)
+        Me.pnlInterface.Location = New System.Drawing.Point(180, 12)
         Me.pnlInterface.Name = "pnlInterface"
-        Me.pnlInterface.Size = New System.Drawing.Size(367, 323)
+        Me.pnlInterface.Size = New System.Drawing.Size(392, 356)
         Me.pnlInterface.TabIndex = 1
+        '
+        'grpLanguage
+        '
+        Me.grpLanguage.Controls.Add(Me.cboLanguage)
+        Me.grpLanguage.Location = New System.Drawing.Point(6, 293)
+        Me.grpLanguage.Name = "grpLanguage"
+        Me.grpLanguage.Size = New System.Drawing.Size(383, 48)
+        Me.grpLanguage.TabIndex = 4
+        Me.grpLanguage.TabStop = False
+        Me.grpLanguage.Text = "Language"
+        '
+        'cboLanguage
+        '
+        Me.cboLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboLanguage.FormattingEnabled = True
+        Me.cboLanguage.Location = New System.Drawing.Point(6, 19)
+        Me.cboLanguage.Name = "cboLanguage"
+        Me.cboLanguage.Size = New System.Drawing.Size(300, 21)
+        Me.cboLanguage.TabIndex = 0
         '
         'grpLogOptions
         '
         Me.grpLogOptions.Controls.Add(Me.chkDisableSyncMessages)
         Me.grpLogOptions.Controls.Add(Me.chkAutoSaveLog)
-        Me.grpLogOptions.Location = New System.Drawing.Point(6, 231)
+        Me.grpLogOptions.Location = New System.Drawing.Point(6, 222)
         Me.grpLogOptions.Name = "grpLogOptions"
-        Me.grpLogOptions.Size = New System.Drawing.Size(356, 65)
+        Me.grpLogOptions.Size = New System.Drawing.Size(383, 65)
         Me.grpLogOptions.TabIndex = 3
         Me.grpLogOptions.TabStop = False
         Me.grpLogOptions.Text = "Log Options"
@@ -615,9 +638,9 @@ Partial Class frmSettings
         '
         Me.grpGameManagerOptions.Controls.Add(Me.btnOptionalFields)
         Me.grpGameManagerOptions.Controls.Add(Me.chkShowResolvedPaths)
-        Me.grpGameManagerOptions.Location = New System.Drawing.Point(6, 152)
+        Me.grpGameManagerOptions.Location = New System.Drawing.Point(6, 143)
         Me.grpGameManagerOptions.Name = "grpGameManagerOptions"
-        Me.grpGameManagerOptions.Size = New System.Drawing.Size(356, 73)
+        Me.grpGameManagerOptions.Size = New System.Drawing.Size(383, 73)
         Me.grpGameManagerOptions.TabIndex = 2
         Me.grpGameManagerOptions.TabStop = False
         Me.grpGameManagerOptions.Text = "Game Manager Options"
@@ -648,9 +671,9 @@ Partial Class frmSettings
         Me.grpMainWindowOptions.Controls.Add(Me.chkHideGameList)
         Me.grpMainWindowOptions.Controls.Add(Me.chkExitNoWarning)
         Me.grpMainWindowOptions.Controls.Add(Me.chkExitOnClose)
-        Me.grpMainWindowOptions.Location = New System.Drawing.Point(6, 12)
+        Me.grpMainWindowOptions.Location = New System.Drawing.Point(6, 3)
         Me.grpMainWindowOptions.Name = "grpMainWindowOptions"
-        Me.grpMainWindowOptions.Size = New System.Drawing.Size(356, 134)
+        Me.grpMainWindowOptions.Size = New System.Drawing.Size(383, 134)
         Me.grpMainWindowOptions.TabIndex = 1
         Me.grpMainWindowOptions.TabStop = False
         Me.grpMainWindowOptions.Text = "Main Window Options"
@@ -711,15 +734,15 @@ Partial Class frmSettings
         Me.lstSettings.IntegralHeight = False
         Me.lstSettings.Location = New System.Drawing.Point(12, 12)
         Me.lstSettings.Name = "lstSettings"
-        Me.lstSettings.Size = New System.Drawing.Size(162, 311)
+        Me.lstSettings.Size = New System.Drawing.Size(162, 356)
         Me.lstSettings.TabIndex = 0
         '
         'btnResetMessages
         '
         Me.btnResetMessages.Image = Global.GBM.My.Resources.Resources.Multi_Reset
-        Me.btnResetMessages.Location = New System.Drawing.Point(78, 329)
+        Me.btnResetMessages.Location = New System.Drawing.Point(98, 374)
         Me.btnResetMessages.Name = "btnResetMessages"
-        Me.btnResetMessages.Size = New System.Drawing.Size(96, 45)
+        Me.btnResetMessages.Size = New System.Drawing.Size(100, 50)
         Me.btnResetMessages.TabIndex = 3
         Me.btnResetMessages.Text = "&Reset Warnings"
         Me.btnResetMessages.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -728,9 +751,9 @@ Partial Class frmSettings
         'pnlStartup
         '
         Me.pnlStartup.Controls.Add(Me.grpStartup)
-        Me.pnlStartup.Location = New System.Drawing.Point(180, 0)
+        Me.pnlStartup.Location = New System.Drawing.Point(180, 12)
         Me.pnlStartup.Name = "pnlStartup"
-        Me.pnlStartup.Size = New System.Drawing.Size(367, 323)
+        Me.pnlStartup.Size = New System.Drawing.Size(392, 356)
         Me.pnlStartup.TabIndex = 1
         '
         'grpStartup
@@ -739,9 +762,9 @@ Partial Class frmSettings
         Me.grpStartup.Controls.Add(Me.chkAutoStart)
         Me.grpStartup.Controls.Add(Me.chkStartMinimized)
         Me.grpStartup.Controls.Add(Me.chkMonitorOnStartup)
-        Me.grpStartup.Location = New System.Drawing.Point(6, 12)
+        Me.grpStartup.Location = New System.Drawing.Point(6, 3)
         Me.grpStartup.Name = "grpStartup"
-        Me.grpStartup.Size = New System.Drawing.Size(354, 113)
+        Me.grpStartup.Size = New System.Drawing.Size(383, 113)
         Me.grpStartup.TabIndex = 0
         Me.grpStartup.TabStop = False
         Me.grpStartup.Text = "Startup Options"
@@ -789,9 +812,9 @@ Partial Class frmSettings
         'pnlFilesAndFolders
         '
         Me.pnlFilesAndFolders.Controls.Add(Me.grpFolderOptions)
-        Me.pnlFilesAndFolders.Location = New System.Drawing.Point(180, 0)
+        Me.pnlFilesAndFolders.Location = New System.Drawing.Point(180, 12)
         Me.pnlFilesAndFolders.Name = "pnlFilesAndFolders"
-        Me.pnlFilesAndFolders.Size = New System.Drawing.Size(367, 323)
+        Me.pnlFilesAndFolders.Size = New System.Drawing.Size(392, 356)
         Me.pnlFilesAndFolders.TabIndex = 1
         '
         'grpFolderOptions
@@ -804,9 +827,9 @@ Partial Class frmSettings
         Me.grpFolderOptions.Controls.Add(Me.lblBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.txtBackupFolder)
         Me.grpFolderOptions.Controls.Add(Me.chkCreateFolder)
-        Me.grpFolderOptions.Location = New System.Drawing.Point(6, 12)
+        Me.grpFolderOptions.Location = New System.Drawing.Point(6, 3)
         Me.grpFolderOptions.Name = "grpFolderOptions"
-        Me.grpFolderOptions.Size = New System.Drawing.Size(354, 113)
+        Me.grpFolderOptions.Size = New System.Drawing.Size(383, 113)
         Me.grpFolderOptions.TabIndex = 0
         Me.grpFolderOptions.TabStop = False
         Me.grpFolderOptions.Text = "Files and Folders"
@@ -823,7 +846,7 @@ Partial Class frmSettings
         '
         'btnTempFolder
         '
-        Me.btnTempFolder.Location = New System.Drawing.Point(313, 40)
+        Me.btnTempFolder.Location = New System.Drawing.Point(333, 40)
         Me.btnTempFolder.Name = "btnTempFolder"
         Me.btnTempFolder.Size = New System.Drawing.Size(27, 20)
         Me.btnTempFolder.TabIndex = 3
@@ -841,14 +864,14 @@ Partial Class frmSettings
         '
         'txtTempFolder
         '
-        Me.txtTempFolder.Location = New System.Drawing.Point(91, 40)
+        Me.txtTempFolder.Location = New System.Drawing.Point(111, 40)
         Me.txtTempFolder.Name = "txtTempFolder"
         Me.txtTempFolder.Size = New System.Drawing.Size(216, 20)
         Me.txtTempFolder.TabIndex = 2
         '
         'btnBackupFolder
         '
-        Me.btnBackupFolder.Location = New System.Drawing.Point(313, 17)
+        Me.btnBackupFolder.Location = New System.Drawing.Point(333, 17)
         Me.btnBackupFolder.Name = "btnBackupFolder"
         Me.btnBackupFolder.Size = New System.Drawing.Size(27, 20)
         Me.btnBackupFolder.TabIndex = 1
@@ -866,7 +889,7 @@ Partial Class frmSettings
         '
         'txtBackupFolder
         '
-        Me.txtBackupFolder.Location = New System.Drawing.Point(91, 17)
+        Me.txtBackupFolder.Location = New System.Drawing.Point(111, 17)
         Me.txtBackupFolder.Name = "txtBackupFolder"
         Me.txtBackupFolder.Size = New System.Drawing.Size(216, 20)
         Me.txtBackupFolder.TabIndex = 0
@@ -885,17 +908,17 @@ Partial Class frmSettings
         '
         Me.pnlGlobalHotKeys.Controls.Add(Me.grpHotKeyGeneral)
         Me.pnlGlobalHotKeys.Controls.Add(Me.grpHotKeyBindings)
-        Me.pnlGlobalHotKeys.Location = New System.Drawing.Point(180, 0)
+        Me.pnlGlobalHotKeys.Location = New System.Drawing.Point(180, 12)
         Me.pnlGlobalHotKeys.Name = "pnlGlobalHotKeys"
-        Me.pnlGlobalHotKeys.Size = New System.Drawing.Size(367, 323)
+        Me.pnlGlobalHotKeys.Size = New System.Drawing.Size(392, 356)
         Me.pnlGlobalHotKeys.TabIndex = 1
         '
         'grpHotKeyGeneral
         '
         Me.grpHotKeyGeneral.Controls.Add(Me.chkEnableHotKeys)
-        Me.grpHotKeyGeneral.Location = New System.Drawing.Point(6, 12)
+        Me.grpHotKeyGeneral.Location = New System.Drawing.Point(6, 3)
         Me.grpHotKeyGeneral.Name = "grpHotKeyGeneral"
-        Me.grpHotKeyGeneral.Size = New System.Drawing.Size(348, 50)
+        Me.grpHotKeyGeneral.Size = New System.Drawing.Size(383, 50)
         Me.grpHotKeyGeneral.TabIndex = 0
         Me.grpHotKeyGeneral.TabStop = False
         Me.grpHotKeyGeneral.Text = "General"
@@ -918,9 +941,9 @@ Partial Class frmSettings
         Me.grpHotKeyBindings.Controls.Add(Me.btnResetBackupBind)
         Me.grpHotKeyBindings.Controls.Add(Me.txtBackupBind)
         Me.grpHotKeyBindings.Controls.Add(Me.lblBackupBind)
-        Me.grpHotKeyBindings.Location = New System.Drawing.Point(6, 65)
+        Me.grpHotKeyBindings.Location = New System.Drawing.Point(6, 56)
         Me.grpHotKeyBindings.Name = "grpHotKeyBindings"
-        Me.grpHotKeyBindings.Size = New System.Drawing.Size(348, 75)
+        Me.grpHotKeyBindings.Size = New System.Drawing.Size(383, 75)
         Me.grpHotKeyBindings.TabIndex = 1
         Me.grpHotKeyBindings.TabStop = False
         Me.grpHotKeyBindings.Text = "Key Bindings"
@@ -928,7 +951,7 @@ Partial Class frmSettings
         'btnResetRestoreBind
         '
         Me.btnResetRestoreBind.Image = Global.GBM.My.Resources.Resources.Multi_Reset
-        Me.btnResetRestoreBind.Location = New System.Drawing.Point(320, 42)
+        Me.btnResetRestoreBind.Location = New System.Drawing.Point(338, 42)
         Me.btnResetRestoreBind.Name = "btnResetRestoreBind"
         Me.btnResetRestoreBind.Size = New System.Drawing.Size(22, 22)
         Me.btnResetRestoreBind.TabIndex = 5
@@ -936,7 +959,7 @@ Partial Class frmSettings
         '
         'txtRestoreBind
         '
-        Me.txtRestoreBind.Location = New System.Drawing.Point(56, 44)
+        Me.txtRestoreBind.Location = New System.Drawing.Point(74, 44)
         Me.txtRestoreBind.Name = "txtRestoreBind"
         Me.txtRestoreBind.Size = New System.Drawing.Size(258, 20)
         Me.txtRestoreBind.TabIndex = 4
@@ -953,7 +976,7 @@ Partial Class frmSettings
         'btnResetBackupBind
         '
         Me.btnResetBackupBind.Image = Global.GBM.My.Resources.Resources.Multi_Reset
-        Me.btnResetBackupBind.Location = New System.Drawing.Point(320, 16)
+        Me.btnResetBackupBind.Location = New System.Drawing.Point(338, 16)
         Me.btnResetBackupBind.Name = "btnResetBackupBind"
         Me.btnResetBackupBind.Size = New System.Drawing.Size(22, 22)
         Me.btnResetBackupBind.TabIndex = 2
@@ -961,7 +984,7 @@ Partial Class frmSettings
         '
         'txtBackupBind
         '
-        Me.txtBackupBind.Location = New System.Drawing.Point(56, 18)
+        Me.txtBackupBind.Location = New System.Drawing.Point(74, 18)
         Me.txtBackupBind.Name = "txtBackupBind"
         Me.txtBackupBind.Size = New System.Drawing.Size(258, 20)
         Me.txtBackupBind.TabIndex = 1
@@ -979,13 +1002,13 @@ Partial Class frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(554, 386)
-        Me.Controls.Add(Me.pnlGeneral)
-        Me.Controls.Add(Me.pnlBackup)
-        Me.Controls.Add(Me.pnlGlobalHotKeys)
-        Me.Controls.Add(Me.pnl7z)
+        Me.ClientSize = New System.Drawing.Size(584, 436)
         Me.Controls.Add(Me.pnlInterface)
+        Me.Controls.Add(Me.pnlGeneral)
+        Me.Controls.Add(Me.pnl7z)
+        Me.Controls.Add(Me.pnlBackup)
         Me.Controls.Add(Me.pnlFilesAndFolders)
+        Me.Controls.Add(Me.pnlGlobalHotKeys)
         Me.Controls.Add(Me.pnlStartup)
         Me.Controls.Add(Me.btnResetMessages)
         Me.Controls.Add(Me.lstSettings)
@@ -1016,9 +1039,10 @@ Partial Class frmSettings
         Me.grpGameMonitoringOptions.ResumeLayout(False)
         Me.grpGameMonitoringOptions.PerformLayout()
         CType(Me.nudSuppressBackupThreshold, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.grpOptionalFeeatures.ResumeLayout(False)
-        Me.grpOptionalFeeatures.PerformLayout()
+        Me.grpOptionalFeatures.ResumeLayout(False)
+        Me.grpOptionalFeatures.PerformLayout()
         Me.pnlInterface.ResumeLayout(False)
+        Me.grpLanguage.ResumeLayout(False)
         Me.grpLogOptions.ResumeLayout(False)
         Me.grpLogOptions.PerformLayout()
         Me.grpGameManagerOptions.ResumeLayout(False)
@@ -1057,7 +1081,7 @@ Partial Class frmSettings
     Friend WithEvents pnlBackup As Panel
     Friend WithEvents pnl7z As Panel
     Friend WithEvents pnlGeneral As Panel
-    Friend WithEvents grpOptionalFeeatures As GroupBox
+    Friend WithEvents grpOptionalFeatures As GroupBox
     Friend WithEvents lstSettings As ListBox
     Friend WithEvents grp7zAdvanced As GroupBox
     Friend WithEvents grp7zInformation As GroupBox
@@ -1123,4 +1147,6 @@ Partial Class frmSettings
     Friend WithEvents grpBackupExperimental As GroupBox
     Friend WithEvents chkEnableLiveBackup As CheckBox
     Friend WithEvents chkEnableOSTheme As CheckBox
+    Friend WithEvents grpLanguage As GroupBox
+    Friend WithEvents cboLanguage As ComboBox
 End Class

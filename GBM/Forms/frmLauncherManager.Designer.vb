@@ -121,9 +121,9 @@ Partial Class frmLauncherManager
         '
         Me.btnDelete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnDelete.Image = Global.GBM.My.Resources.Resources.Multi_Delete
-        Me.btnDelete.Location = New System.Drawing.Point(78, 165)
+        Me.btnDelete.Location = New System.Drawing.Point(98, 165)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(60, 45)
+        Me.btnDelete.Size = New System.Drawing.Size(80, 50)
         Me.btnDelete.TabIndex = 2
         Me.btnDelete.Text = "&Delete"
         Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -135,7 +135,7 @@ Partial Class frmLauncherManager
         Me.btnAdd.Image = Global.GBM.My.Resources.Resources.Multi_Add
         Me.btnAdd.Location = New System.Drawing.Point(12, 165)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(60, 45)
+        Me.btnAdd.Size = New System.Drawing.Size(80, 50)
         Me.btnAdd.TabIndex = 1
         Me.btnAdd.Text = "&New"
         Me.btnAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -153,7 +153,7 @@ Partial Class frmLauncherManager
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(407, 178)
+        Me.txtID.Location = New System.Drawing.Point(367, 181)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(33, 20)
         Me.txtID.TabIndex = 0
@@ -163,9 +163,9 @@ Partial Class frmLauncherManager
         'btnCancel
         '
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(512, 165)
+        Me.btnCancel.Location = New System.Drawing.Point(492, 165)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
+        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
         Me.btnCancel.TabIndex = 7
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -174,9 +174,9 @@ Partial Class frmLauncherManager
         'btnSave
         '
         Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
-        Me.btnSave.Location = New System.Drawing.Point(446, 165)
+        Me.btnSave.Location = New System.Drawing.Point(406, 165)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(60, 45)
+        Me.btnSave.Size = New System.Drawing.Size(80, 50)
         Me.btnSave.TabIndex = 6
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -185,9 +185,9 @@ Partial Class frmLauncherManager
         'btnAddDefaults
         '
         Me.btnAddDefaults.Image = Global.GBM.My.Resources.Resources.Multi_Reset
-        Me.btnAddDefaults.Location = New System.Drawing.Point(144, 165)
+        Me.btnAddDefaults.Location = New System.Drawing.Point(184, 165)
         Me.btnAddDefaults.Name = "btnAddDefaults"
-        Me.btnAddDefaults.Size = New System.Drawing.Size(60, 45)
+        Me.btnAddDefaults.Size = New System.Drawing.Size(80, 50)
         Me.btnAddDefaults.TabIndex = 3
         Me.btnAddDefaults.Text = "D&efaults"
         Me.btnAddDefaults.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText

@@ -539,9 +539,9 @@ Partial Class frmAddWizard
         'btnCancel
         '
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(312, 229)
+        Me.btnCancel.Location = New System.Drawing.Point(292, 229)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
+        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
         Me.btnCancel.TabIndex = 12
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -550,9 +550,9 @@ Partial Class frmAddWizard
         'btnNext
         '
         Me.btnNext.Image = Global.GBM.My.Resources.Resources.Multi_Next
-        Me.btnNext.Location = New System.Drawing.Point(246, 229)
+        Me.btnNext.Location = New System.Drawing.Point(206, 229)
         Me.btnNext.Name = "btnNext"
-        Me.btnNext.Size = New System.Drawing.Size(60, 45)
+        Me.btnNext.Size = New System.Drawing.Size(80, 50)
         Me.btnNext.TabIndex = 11
         Me.btnNext.Text = "&Next"
         Me.btnNext.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -561,9 +561,9 @@ Partial Class frmAddWizard
         'btnBack
         '
         Me.btnBack.Image = Global.GBM.My.Resources.Resources.Multi_Back
-        Me.btnBack.Location = New System.Drawing.Point(180, 229)
+        Me.btnBack.Location = New System.Drawing.Point(120, 229)
         Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(60, 45)
+        Me.btnBack.Size = New System.Drawing.Size(80, 50)
         Me.btnBack.TabIndex = 10
         Me.btnBack.Text = "&Back"
         Me.btnBack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText

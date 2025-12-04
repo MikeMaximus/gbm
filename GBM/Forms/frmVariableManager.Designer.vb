@@ -51,9 +51,9 @@ Partial Class frmVariableManager
         Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnDelete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnDelete.Image = Global.GBM.My.Resources.Resources.Multi_Delete
-        Me.btnDelete.Location = New System.Drawing.Point(78, 165)
+        Me.btnDelete.Location = New System.Drawing.Point(98, 164)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(60, 45)
+        Me.btnDelete.Size = New System.Drawing.Size(80, 50)
         Me.btnDelete.TabIndex = 2
         Me.btnDelete.Text = "&Delete"
         Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -64,9 +64,9 @@ Partial Class frmVariableManager
         Me.btnAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAdd.Image = Global.GBM.My.Resources.Resources.Multi_Add
-        Me.btnAdd.Location = New System.Drawing.Point(12, 165)
+        Me.btnAdd.Location = New System.Drawing.Point(12, 164)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(60, 45)
+        Me.btnAdd.Size = New System.Drawing.Size(80, 50)
         Me.btnAdd.TabIndex = 1
         Me.btnAdd.Text = "&New"
         Me.btnAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -131,9 +131,9 @@ Partial Class frmVariableManager
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(512, 165)
+        Me.btnCancel.Location = New System.Drawing.Point(492, 164)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
+        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
         Me.btnCancel.TabIndex = 5
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -143,9 +143,9 @@ Partial Class frmVariableManager
         '
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
-        Me.btnSave.Location = New System.Drawing.Point(446, 164)
+        Me.btnSave.Location = New System.Drawing.Point(406, 164)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(60, 45)
+        Me.btnSave.Size = New System.Drawing.Size(80, 50)
         Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText

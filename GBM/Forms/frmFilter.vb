@@ -628,6 +628,7 @@ Public Class frmFilter
         lblFields.Text = frmFilter_lblFields
         lblFilterData.Text = frmFilter_lblFilterData
         grpSortOptions.Text = frmFilter_grpSortOptions
+        lblResultsWarning.Text = frmFilter_lblResultsWarning
 
         'Defaults
         optOr.Checked = True

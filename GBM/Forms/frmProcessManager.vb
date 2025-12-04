@@ -78,6 +78,7 @@ Public Class frmProcessManager
         txtPath.Text = oCurrentProcess.Path
         txtArguments.Text = oCurrentProcess.Args
         chkKillProcess.Checked = oCurrentProcess.Kill
+        nudDelay.Value = oCurrentProcess.Delay
 
         IsLoading = False
     End Sub
@@ -95,6 +96,8 @@ Public Class frmProcessManager
                 AddHandler DirectCast(ctl, TextBox).TextChanged, AddressOf DirtyCheck_ValueChanged
             ElseIf TypeOf ctl Is CheckBox Then
                 AddHandler DirectCast(ctl, CheckBox).CheckedChanged, AddressOf DirtyCheck_ValueChanged
+            ElseIf TypeOf ctl Is NumericUpDown Then
+                AddHandler DirectCast(ctl, NumericUpDown).ValueChanged, AddressOf DirtyCheck_ValueChanged
             End If
         Next
     End Sub
@@ -103,6 +106,10 @@ Public Class frmProcessManager
         For Each ctl As Control In oCtls
             If TypeOf ctl Is TextBox Then
                 DirectCast(ctl, TextBox).Text = String.Empty
+            ElseIf TypeOf ctl Is CheckBox Then
+                DirectCast(ctl, CheckBox).Checked = False
+            ElseIf TypeOf ctl Is NumericUpDown Then
+                DirectCast(ctl, NumericUpDown).Value = 0
             End If
         Next
         txtID.Text = String.Empty
@@ -120,7 +127,6 @@ Public Class frmProcessManager
                 btnAdd.Enabled = False
                 btnDelete.Enabled = False
                 lstProcesses.Enabled = False
-                chkKillProcess.Checked = False
             Case eModes.Edit
                 lstProcesses.Enabled = False
                 grpProcess.Enabled = True
@@ -201,6 +207,7 @@ Public Class frmProcessManager
         oProcess.Path = txtPath.Text
         oProcess.Args = txtArguments.Text
         oProcess.Kill = chkKillProcess.Checked
+        oProcess.Delay = nudDelay.Value
 
         Select Case eCurrentMode
             Case eModes.Add
@@ -293,11 +300,14 @@ Public Class frmProcessManager
         btnProcessBrowse.Text = frmProcessManager_btnProcessBrowse
         lblProcess.Text = frmProcessManager_lblPath
         lblName.Text = frmProcessManager_lblName
+        lblArguments.Text = frmProcessManager_lblArguments
         btnDelete.Text = frmProcessManager_btnDelete
         btnDelete.Image = Multi_Delete
         btnAdd.Text = frmProcessManager_btnAdd
         btnAdd.Image = Multi_Add
         chkKillProcess.Text = frmProcessManager_chkKillProcess
+        lblDelay.Text = frmProcessManager_lblDelay
+        lblDelaySeconds.Text = frmProcessManager_lblDelaySeconds
     End Sub
 
     Private Sub frmProcessManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load

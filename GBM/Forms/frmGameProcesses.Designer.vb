@@ -36,7 +36,7 @@ Partial Class frmGameProcesses
         Me.btnOpenProcesses.Image = Global.GBM.My.Resources.Resources.Multi_Edit
         Me.btnOpenProcesses.Location = New System.Drawing.Point(12, 229)
         Me.btnOpenProcesses.Name = "btnOpenProcesses"
-        Me.btnOpenProcesses.Size = New System.Drawing.Size(110, 45)
+        Me.btnOpenProcesses.Size = New System.Drawing.Size(120, 50)
         Me.btnOpenProcesses.TabIndex = 4
         Me.btnOpenProcesses.Text = "&Process Manager..."
         Me.btnOpenProcesses.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText

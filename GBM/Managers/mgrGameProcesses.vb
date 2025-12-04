@@ -84,7 +84,8 @@
         Dim hshParams As New Hashtable
         Dim oProcess As clsProcess
 
-        sSQL = "SELECT ProcessID, processes.Name, processes.Path, processes.Args, processes.Kill FROM gameprocesses NATURAL JOIN processes WHERE MonitorID = @ID"
+        sSQL = "SELECT ProcessID, processes.Name, processes.Path, processes.Args, processes.Kill, processes.Delay "
+        sSQL &= "FROM gameprocesses NATURAL JOIN processes WHERE MonitorID = @ID"
 
         hshParams.Add("ID", sMonitorID)
 
@@ -97,6 +98,7 @@
             oProcess.Path = CStr(dr("Path"))
             If Not IsDBNull(dr("Args")) Then oProcess.Args = CStr(dr("Args"))
             oProcess.Kill = CBool(dr("Kill"))
+            oProcess.Delay = CInt(dr("Delay"))
 
             hshList.Add(oProcess.ID, oProcess)
         Next
@@ -113,7 +115,8 @@
         Dim oProcess As clsProcess
         Dim iCounter As Integer
 
-        sSQL = "SELECT DISTINCT ProcessID, processes.Name, processes.Path, processes.Args, processes.Kill FROM gameprocesses NATURAL JOIN processes WHERE MonitorID IN ("
+        sSQL = "SELECT DISTINCT ProcessID, processes.Name, processes.Path, processes.Args, processes.Kill, processes.Delay "
+        sSQL &= "FROM gameprocesses NATURAL JOIN processes WHERE MonitorID IN ("
 
         For Each s As String In sMonitorIDs
             sSQL &= "@MonitorID" & iCounter & ","
@@ -133,6 +136,8 @@
             oProcess.Path = CStr(dr("Path"))
             If Not IsDBNull(dr("Args")) Then oProcess.Args = CStr(dr("Args"))
             oProcess.Kill = CBool(dr("Kill"))
+            oProcess.Delay = CInt(dr("Delay"))
+
             hshList.Add(oProcess.ID, oProcess)
         Next
 

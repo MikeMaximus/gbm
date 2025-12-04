@@ -103,9 +103,9 @@ Partial Class frmLudusaviConfig
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(212, 219)
+        Me.btnCancel.Location = New System.Drawing.Point(192, 219)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
+        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
         Me.btnCancel.TabIndex = 4
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -114,9 +114,9 @@ Partial Class frmLudusaviConfig
         'btnOK
         '
         Me.btnOK.Image = Global.GBM.My.Resources.Resources.Multi_Ok
-        Me.btnOK.Location = New System.Drawing.Point(146, 219)
+        Me.btnOK.Location = New System.Drawing.Point(106, 219)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(60, 45)
+        Me.btnOK.Size = New System.Drawing.Size(80, 50)
         Me.btnOK.TabIndex = 3
         Me.btnOK.Text = "&OK"
         Me.btnOK.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText

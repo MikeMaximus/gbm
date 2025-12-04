@@ -142,6 +142,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backup Data.
+        '''</summary>
+        Friend ReadOnly Property App_FoldersBackup() As String
+            Get
+                Return ResourceManager.GetString("App_FoldersBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to User Data.
+        '''</summary>
+        Friend ReadOnly Property App_FoldersUser() As String
+            Get
+                Return ResourceManager.GetString("App_FoldersUser", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Error: [PARAM].
         '''</summary>
         Friend ReadOnly Property App_GenericError() As String
@@ -156,6 +174,51 @@ Namespace My.Resources
         Friend ReadOnly Property App_Invalid7zDetected() As String
             Get
                 Return ResourceManager.GetString("App_Invalid7zDetected", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Language.
+        '''</summary>
+        Friend ReadOnly Property App_Language() As String
+            Get
+                Return ResourceManager.GetString("App_Language", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 简体中文 (Chinese Simplified).
+        '''</summary>
+        Friend ReadOnly Property App_Language_ChineseSimplified() As String
+            Get
+                Return ResourceManager.GetString("App_Language_ChineseSimplified", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Operating System - [PARAM].
+        '''</summary>
+        Friend ReadOnly Property App_Language_Default() As String
+            Get
+                Return ResourceManager.GetString("App_Language_Default", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to English.
+        '''</summary>
+        Friend ReadOnly Property App_Language_English() As String
+            Get
+                Return ResourceManager.GetString("App_Language_English", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 日本語 (Japanese).
+        '''</summary>
+        Friend ReadOnly Property App_Language_Japanese() As String
+            Get
+                Return ResourceManager.GetString("App_Language_Japanese", resourceCulture)
             End Get
         End Property
         
@@ -367,7 +430,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2025-07-21T14:31:12
+        '''  Looks up a localized string similar to 2025-12-02T14:18:46
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -1808,6 +1871,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmFilter_lblNot() As String
             Get
                 Return ResourceManager.GetString("frmFilter_lblNot", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to * Indicates a field that may give unexpected results..
+        '''</summary>
+        Friend ReadOnly Property frmFilter_lblResultsWarning() As String
+            Get
+                Return ResourceManager.GetString("frmFilter_lblResultsWarning", resourceCulture)
             End Get
         End Property
         
@@ -4780,6 +4852,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Portable mode is enabled, but this user doesn&apos;t have the required permissions to the application folder.  The application cannot proceed..
+        '''</summary>
+        Friend ReadOnly Property frmMain_ErrorPortablePermissions() As String
+            Get
+                Return ResourceManager.GetString("frmMain_ErrorPortablePermissions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] uses a relative path and has never been detected on this computer..
         '''</summary>
         Friend ReadOnly Property frmMain_ErrorRelativePath() As String
@@ -5591,6 +5672,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmMain_Normal() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmMain_Normal", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to No Sessions.
         '''</summary>
         Friend ReadOnly Property frmMain_NoSessions() As String
@@ -5652,6 +5743,16 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_PNGFilter() As String
             Get
                 Return ResourceManager.GetString("frmMain_PNGFilter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmMain_Portable() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmMain_Portable", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -5788,6 +5889,24 @@ Namespace My.Resources
         Friend ReadOnly Property frmMain_RunningAsNormal() As String
             Get
                 Return ResourceManager.GetString("frmMain_RunningAsNormal", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to GBM is running in normal mode.  Click to view details in the manual..
+        '''</summary>
+        Friend ReadOnly Property frmMain_RunningInNormal() As String
+            Get
+                Return ResourceManager.GetString("frmMain_RunningInNormal", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to GBM is running in portable mode.  Click to view details in the manual..
+        '''</summary>
+        Friend ReadOnly Property frmMain_RunningInPortable() As String
+            Get
+                Return ResourceManager.GetString("frmMain_RunningInPortable", resourceCulture)
             End Get
         End Property
         
@@ -6062,6 +6181,33 @@ Namespace My.Resources
         Friend ReadOnly Property frmProcessManager_grpProcess() As String
             Get
                 Return ResourceManager.GetString("frmProcessManager_grpProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Arguments:.
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_lblArguments() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_lblArguments", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Delay starting for.
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_lblDelay() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_lblDelay", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Seconds.
+        '''</summary>
+        Friend ReadOnly Property frmProcessManager_lblDelaySeconds() As String
+            Get
+                Return ResourceManager.GetString("frmProcessManager_lblDelaySeconds", resourceCulture)
             End Get
         End Property
         

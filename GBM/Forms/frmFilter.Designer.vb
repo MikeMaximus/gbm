@@ -62,7 +62,7 @@ Partial Class frmFilter
         Me.cboSortField = New System.Windows.Forms.ComboBox()
         Me.chkTag = New System.Windows.Forms.CheckBox()
         Me.chkGameInfo = New System.Windows.Forms.CheckBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblResultsWarning = New System.Windows.Forms.Label()
         Me.grpTagFilter.SuspendLayout()
         Me.grpTagOptions.SuspendLayout()
         Me.grpGameFilter.SuspendLayout()
@@ -85,9 +85,9 @@ Partial Class frmFilter
         Me.grpTagFilter.Controls.Add(Me.btnIncludeAdd)
         Me.grpTagFilter.Controls.Add(Me.lstIncludeTags)
         Me.grpTagFilter.Controls.Add(Me.lstTags)
-        Me.grpTagFilter.Location = New System.Drawing.Point(12, 252)
+        Me.grpTagFilter.Location = New System.Drawing.Point(12, 262)
         Me.grpTagFilter.Name = "grpTagFilter"
-        Me.grpTagFilter.Size = New System.Drawing.Size(410, 198)
+        Me.grpTagFilter.Size = New System.Drawing.Size(415, 198)
         Me.grpTagFilter.TabIndex = 3
         Me.grpTagFilter.TabStop = False
         '
@@ -219,9 +219,9 @@ Partial Class frmFilter
         'btnOK
         '
         Me.btnOK.Image = Global.GBM.My.Resources.Resources.Multi_Ok
-        Me.btnOK.Location = New System.Drawing.Point(362, 544)
+        Me.btnOK.Location = New System.Drawing.Point(347, 554)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(60, 45)
+        Me.btnOK.Size = New System.Drawing.Size(80, 50)
         Me.btnOK.TabIndex = 6
         Me.btnOK.Text = "&OK"
         Me.btnOK.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -245,7 +245,7 @@ Partial Class frmFilter
         Me.grpGameFilter.Controls.Add(Me.txtStringFilter)
         Me.grpGameFilter.Location = New System.Drawing.Point(12, 35)
         Me.grpGameFilter.Name = "grpGameFilter"
-        Me.grpGameFilter.Size = New System.Drawing.Size(410, 188)
+        Me.grpGameFilter.Size = New System.Drawing.Size(415, 198)
         Me.grpGameFilter.TabIndex = 1
         Me.grpGameFilter.TabStop = False
         '
@@ -324,9 +324,9 @@ Partial Class frmFilter
         'btnRemoveFilter
         '
         Me.btnRemoveFilter.Image = Global.GBM.My.Resources.Resources.Multi_Delete
-        Me.btnRemoveFilter.Location = New System.Drawing.Point(259, 131)
+        Me.btnRemoveFilter.Location = New System.Drawing.Point(258, 139)
         Me.btnRemoveFilter.Name = "btnRemoveFilter"
-        Me.btnRemoveFilter.Size = New System.Drawing.Size(60, 45)
+        Me.btnRemoveFilter.Size = New System.Drawing.Size(80, 50)
         Me.btnRemoveFilter.TabIndex = 9
         Me.btnRemoveFilter.Text = "Remove"
         Me.btnRemoveFilter.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -337,15 +337,15 @@ Partial Class frmFilter
         Me.lstFilter.FormattingEnabled = True
         Me.lstFilter.Location = New System.Drawing.Point(6, 81)
         Me.lstFilter.Name = "lstFilter"
-        Me.lstFilter.Size = New System.Drawing.Size(247, 95)
+        Me.lstFilter.Size = New System.Drawing.Size(247, 108)
         Me.lstFilter.TabIndex = 7
         '
         'btnAddFilter
         '
         Me.btnAddFilter.Image = Global.GBM.My.Resources.Resources.Multi_Add
-        Me.btnAddFilter.Location = New System.Drawing.Point(329, 23)
+        Me.btnAddFilter.Location = New System.Drawing.Point(329, 19)
         Me.btnAddFilter.Name = "btnAddFilter"
-        Me.btnAddFilter.Size = New System.Drawing.Size(60, 45)
+        Me.btnAddFilter.Size = New System.Drawing.Size(80, 50)
         Me.btnAddFilter.TabIndex = 5
         Me.btnAddFilter.Text = "Add"
         Me.btnAddFilter.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -403,9 +403,9 @@ Partial Class frmFilter
         Me.grpSorting.Controls.Add(Me.grpSortOptions)
         Me.grpSorting.Controls.Add(Me.lblSortFields)
         Me.grpSorting.Controls.Add(Me.cboSortField)
-        Me.grpSorting.Location = New System.Drawing.Point(12, 456)
+        Me.grpSorting.Location = New System.Drawing.Point(12, 466)
         Me.grpSorting.Name = "grpSorting"
-        Me.grpSorting.Size = New System.Drawing.Size(410, 82)
+        Me.grpSorting.Size = New System.Drawing.Size(415, 82)
         Me.grpSorting.TabIndex = 4
         Me.grpSorting.TabStop = False
         Me.grpSorting.Text = "Sorting"
@@ -464,7 +464,7 @@ Partial Class frmFilter
         'chkTag
         '
         Me.chkTag.AutoSize = True
-        Me.chkTag.Location = New System.Drawing.Point(12, 229)
+        Me.chkTag.Location = New System.Drawing.Point(12, 239)
         Me.chkTag.Name = "chkTag"
         Me.chkTag.Size = New System.Drawing.Size(45, 17)
         Me.chkTag.TabIndex = 2
@@ -481,21 +481,21 @@ Partial Class frmFilter
         Me.chkGameInfo.Text = "Game Information"
         Me.chkGameInfo.UseVisualStyleBackColor = True
         '
-        'Label1
+        'lblResultsWarning
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(9, 560)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(249, 13)
-        Me.Label1.TabIndex = 5
-        Me.Label1.Text = "* Indicates a field that may give unexpected results."
+        Me.lblResultsWarning.AutoSize = True
+        Me.lblResultsWarning.Location = New System.Drawing.Point(9, 573)
+        Me.lblResultsWarning.Name = "lblResultsWarning"
+        Me.lblResultsWarning.Size = New System.Drawing.Size(249, 13)
+        Me.lblResultsWarning.TabIndex = 0
+        Me.lblResultsWarning.Text = "* Indicates a field that may give unexpected results."
         '
         'frmFilter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(434, 601)
-        Me.Controls.Add(Me.Label1)
+        Me.ClientSize = New System.Drawing.Size(439, 616)
+        Me.Controls.Add(Me.lblResultsWarning)
         Me.Controls.Add(Me.grpSorting)
         Me.Controls.Add(Me.chkTag)
         Me.Controls.Add(Me.grpGameFilter)
@@ -559,7 +559,7 @@ Partial Class frmFilter
     Friend WithEvents numFilter As NumericUpDown
     Friend WithEvents cboListFilter As ComboBox
     Friend WithEvents lblSortFields As Label
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lblResultsWarning As Label
     Friend WithEvents grpSortOptions As GroupBox
     Friend WithEvents lblExcludeTags As Label
     Friend WithEvents btnExcludeRemove As Button

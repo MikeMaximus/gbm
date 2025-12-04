@@ -43,9 +43,9 @@ Partial Class frmFileFolderSearch
         'btnCancel
         '
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(412, 146)
+        Me.btnCancel.Location = New System.Drawing.Point(392, 146)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(60, 45)
+        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
         Me.btnCancel.TabIndex = 4
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -66,9 +66,9 @@ Partial Class frmFileFolderSearch
         'btnOk
         '
         Me.btnOk.Image = Global.GBM.My.Resources.Resources.Multi_Ok
-        Me.btnOk.Location = New System.Drawing.Point(346, 146)
+        Me.btnOk.Location = New System.Drawing.Point(306, 146)
         Me.btnOk.Name = "btnOk"
-        Me.btnOk.Size = New System.Drawing.Size(60, 45)
+        Me.btnOk.Size = New System.Drawing.Size(80, 50)
         Me.btnOk.TabIndex = 3
         Me.btnOk.Text = "&OK"
         Me.btnOk.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
