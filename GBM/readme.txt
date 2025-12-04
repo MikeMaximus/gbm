@@ -2,7 +2,7 @@ Game Backup Monitor v1.4.3 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-December 2, 2025
+December 4, 2025
 
 New in 1.4.3
 
@@ -23,8 +23,9 @@ General:
 		- You can also manually create an empty file named "portable.ini" (case-sensitive depending on the OS) in the application folder to enable portable mode.				
 			- Delete the "portable.ini" file to return to normal mode.
 	- A new indicator on the main window status bar shows which mode you are currently in.
+	- The installer packages aren't meant for use with portable mode and do not include the toggle scripts.	
 - Changed how GBM starts linked processes.
-	- You can now set a start-up delay for each process in the Process Manager.
+	- You can now set a start-up delay for each linkable process in the Process Manager.
 	- Processes are now started on a seperate thread.
 - Updated the Start-Up Wizard.
 	- You can now choose the UI language on the first step.
@@ -38,9 +39,12 @@ General:
 
 Known Issues:
 
-- GBM may not properly display characters for a language that does not match the current operating system language.  To solve this issue:
-	- Install a language pack for the language you wish to use.
-	- Set your operating system language to the language you wish to use in GBM.
-	- Consult the documentation for your operating system for more help.
+- GBM may not properly display characters for a language that does not match the current desktop language while running in Mono (Linux).  To resolve this issue:
+	1.  Set the LANG environment variable to the language you wish to use before running GBM.  Ex. LANG=ja_JP.utf-8
+	2.  Ensure you have a language/font package installed for the language you wish to use.
+	3.  Set your desktop language to the language you wish to use in GBM.
+	4.  Consult the documentation for your desktop/linux distribution for more help.
+- Some buttons and/or other controls still appear in English while GBM is set to another language.  To resolve this issue:
+	1.  Set your operating system/desktop language to the language you wish to use in GBM. 
 		
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html

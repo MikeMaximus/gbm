@@ -495,7 +495,7 @@ Partial Class frmGameManager
         Me.btnImport.Image = Global.GBM.My.Resources.Resources.Multi_Import
         Me.btnImport.Location = New System.Drawing.Point(270, 329)
         Me.btnImport.Name = "btnImport"
-        Me.btnImport.Size = New System.Drawing.Size(80, 50)
+        Me.btnImport.Size = New System.Drawing.Size(90, 50)
         Me.btnImport.TabIndex = 8
         Me.btnImport.Text = "&Import"
         Me.btnImport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -504,9 +504,9 @@ Partial Class frmGameManager
         'btnExport
         '
         Me.btnExport.Image = Global.GBM.My.Resources.Resources.Multi_Export
-        Me.btnExport.Location = New System.Drawing.Point(356, 329)
+        Me.btnExport.Location = New System.Drawing.Point(366, 329)
         Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(80, 50)
+        Me.btnExport.Size = New System.Drawing.Size(90, 50)
         Me.btnExport.TabIndex = 9
         Me.btnExport.Text = "&Export"
         Me.btnExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -600,9 +600,9 @@ Partial Class frmGameManager
         'btnAdvanced
         '
         Me.btnAdvanced.Image = Global.GBM.My.Resources.Resources.frmGameManager_Advanced
-        Me.btnAdvanced.Location = New System.Drawing.Point(538, 329)
+        Me.btnAdvanced.Location = New System.Drawing.Point(528, 329)
         Me.btnAdvanced.Name = "btnAdvanced"
-        Me.btnAdvanced.Size = New System.Drawing.Size(80, 50)
+        Me.btnAdvanced.Size = New System.Drawing.Size(90, 50)
         Me.btnAdvanced.TabIndex = 11
         Me.btnAdvanced.Text = "&Advanced"
         Me.btnAdvanced.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
