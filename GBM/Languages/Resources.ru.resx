@@ -3171,7 +3171,7 @@
     <value>[[PARAM] Игнорируется]</value>
   </data>
   <data name="frmMain_gMonOpenBackupFolder" xml:space="preserve">
-    <value>&amp;Открыть папку для повторного копирования</value>
+    <value>&amp;Открыть папку с резервными копиями</value>
   </data>
   <data name="frmSettings_DeleteToRecycleBin" xml:space="preserve">
     <value>Удалять файлы в корзину</value>

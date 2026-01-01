@@ -6,6 +6,7 @@ Michael J. Seiferling (MikeMaximus) - Design, Programming and Windows Game Confi
 Sebastian Riedel (basxto) - Linux Packaging, Installation and Game Configuration Maintainer
 Juijote - Simplified Chinese Translation
 k taka (nihongo-helper0119) - Japanese Translation
+oblako17 - Russian Translation
 Darren John de Lima (Darthagnon) - Offline Manual
 
 Special Thanks:
