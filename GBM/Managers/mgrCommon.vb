@@ -1066,6 +1066,7 @@ Public Class mgrCommon
         oLanguageItems.Add(New KeyValuePair(Of String, String)("en", App_Language_English))
         oLanguageItems.Add(New KeyValuePair(Of String, String)("ja", App_Language_Japanese))
         oLanguageItems.Add(New KeyValuePair(Of String, String)("zh", App_Language_ChineseSimplified))
+        oLanguageItems.Add(New KeyValuePair(Of String, String)("ru", App_Language_Russian))
 
         Return oLanguageItems
     End Function

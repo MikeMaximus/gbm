@@ -434,6 +434,7 @@
     <EmbeddedResource Include="Languages\Resources.ja.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Languages\Resources.ru.resx" />
     <EmbeddedResource Include="Languages\Resources.zh.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

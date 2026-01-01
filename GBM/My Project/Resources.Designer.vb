@@ -223,6 +223,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Russian (Русский).
+        '''</summary>
+        Friend ReadOnly Property App_Language_Russian() As String
+            Get
+                Return ResourceManager.GetString("App_Language_Russian", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Linux.
         '''</summary>
         Friend ReadOnly Property App_LinuxOS() As String
@@ -430,7 +439,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2025-12-02T14:18:46
+        '''  Looks up a localized string similar to 2025-12-04T14:45:53
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
