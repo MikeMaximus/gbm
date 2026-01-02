@@ -418,7 +418,7 @@ Partial Class frmMain
         '
         Me.gMonStripTxtStatus.Margin = New System.Windows.Forms.Padding(5, 0, 0, 0)
         Me.gMonStripTxtStatus.Name = "gMonStripTxtStatus"
-        Me.gMonStripTxtStatus.Size = New System.Drawing.Size(582, 22)
+        Me.gMonStripTxtStatus.Size = New System.Drawing.Size(613, 22)
         Me.gMonStripTxtStatus.Spring = True
         Me.gMonStripTxtStatus.Text = "Monitor Status"
         Me.gMonStripTxtStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -789,9 +789,9 @@ Partial Class frmMain
         'btnBackup
         '
         Me.btnBackup.Image = Global.GBM.My.Resources.Resources.Multi_Backup
-        Me.btnBackup.Location = New System.Drawing.Point(101, 119)
+        Me.btnBackup.Location = New System.Drawing.Point(114, 119)
         Me.btnBackup.Name = "btnBackup"
-        Me.btnBackup.Size = New System.Drawing.Size(80, 50)
+        Me.btnBackup.Size = New System.Drawing.Size(93, 60)
         Me.btnBackup.TabIndex = 25
         Me.btnBackup.Text = "&Backup"
         Me.btnBackup.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -800,9 +800,9 @@ Partial Class frmMain
         'btnRestore
         '
         Me.btnRestore.Image = Global.GBM.My.Resources.Resources.Multi_Restore
-        Me.btnRestore.Location = New System.Drawing.Point(187, 119)
+        Me.btnRestore.Location = New System.Drawing.Point(213, 119)
         Me.btnRestore.Name = "btnRestore"
-        Me.btnRestore.Size = New System.Drawing.Size(80, 50)
+        Me.btnRestore.Size = New System.Drawing.Size(93, 60)
         Me.btnRestore.TabIndex = 26
         Me.btnRestore.Text = "&Restore"
         Me.btnRestore.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -813,7 +813,7 @@ Partial Class frmMain
         Me.btnEdit.Image = Global.GBM.My.Resources.Resources.Multi_Edit
         Me.btnEdit.Location = New System.Drawing.Point(15, 119)
         Me.btnEdit.Name = "btnEdit"
-        Me.btnEdit.Size = New System.Drawing.Size(80, 50)
+        Me.btnEdit.Size = New System.Drawing.Size(93, 60)
         Me.btnEdit.TabIndex = 24
         Me.btnEdit.Text = "&Edit"
         Me.btnEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -822,9 +822,9 @@ Partial Class frmMain
         'btnPlay
         '
         Me.btnPlay.Image = Global.GBM.My.Resources.Resources.frmMain_Play
-        Me.btnPlay.Location = New System.Drawing.Point(273, 119)
+        Me.btnPlay.Location = New System.Drawing.Point(312, 119)
         Me.btnPlay.Name = "btnPlay"
-        Me.btnPlay.Size = New System.Drawing.Size(80, 50)
+        Me.btnPlay.Size = New System.Drawing.Size(93, 60)
         Me.btnPlay.TabIndex = 27
         Me.btnPlay.Text = "&Play"
         Me.btnPlay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -836,13 +836,13 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtLog.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLog.Location = New System.Drawing.Point(15, 188)
+        Me.txtLog.Location = New System.Drawing.Point(15, 198)
         Me.txtLog.MaxLength = 524288
         Me.txtLog.Multiline = True
         Me.txtLog.Name = "txtLog"
         Me.txtLog.ReadOnly = True
         Me.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtLog.Size = New System.Drawing.Size(488, 215)
+        Me.txtLog.Size = New System.Drawing.Size(488, 205)
         Me.txtLog.TabIndex = 32
         Me.txtLog.TabStop = False
         '
@@ -850,9 +850,9 @@ Partial Class frmMain
         '
         Me.btnCancelOperation.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancelOperation.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancelOperation.Location = New System.Drawing.Point(423, 119)
+        Me.btnCancelOperation.Location = New System.Drawing.Point(411, 119)
         Me.btnCancelOperation.Name = "btnCancelOperation"
-        Me.btnCancelOperation.Size = New System.Drawing.Size(80, 50)
+        Me.btnCancelOperation.Size = New System.Drawing.Size(93, 60)
         Me.btnCancelOperation.TabIndex = 31
         Me.btnCancelOperation.Text = "&Cancel"
         Me.btnCancelOperation.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -869,7 +869,7 @@ Partial Class frmMain
         'lblLastActionTitle
         '
         Me.lblLastActionTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLastActionTitle.Location = New System.Drawing.Point(12, 172)
+        Me.lblLastActionTitle.Location = New System.Drawing.Point(12, 182)
         Me.lblLastActionTitle.Name = "lblLastActionTitle"
         Me.lblLastActionTitle.Size = New System.Drawing.Size(100, 13)
         Me.lblLastActionTitle.TabIndex = 28
@@ -893,7 +893,7 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblLastAction.AutoEllipsis = True
         Me.lblLastAction.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLastAction.Location = New System.Drawing.Point(118, 172)
+        Me.lblLastAction.Location = New System.Drawing.Point(118, 182)
         Me.lblLastAction.Name = "lblLastAction"
         Me.lblLastAction.Size = New System.Drawing.Size(384, 13)
         Me.lblLastAction.TabIndex = 30

@@ -47,7 +47,7 @@ Partial Class frmSessions
         '
         'txtFilter
         '
-        Me.txtFilter.Location = New System.Drawing.Point(80, 6)
+        Me.txtFilter.Location = New System.Drawing.Point(15, 25)
         Me.txtFilter.Name = "txtFilter"
         Me.txtFilter.Size = New System.Drawing.Size(190, 20)
         Me.txtFilter.TabIndex = 1
@@ -61,18 +61,18 @@ Partial Class frmSessions
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgSessions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgSessions.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2
-        Me.dgSessions.Location = New System.Drawing.Point(12, 32)
+        Me.dgSessions.Location = New System.Drawing.Point(12, 51)
         Me.dgSessions.Name = "dgSessions"
         Me.dgSessions.ReadOnly = True
         Me.dgSessions.RowHeadersVisible = False
         Me.dgSessions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgSessions.Size = New System.Drawing.Size(760, 463)
+        Me.dgSessions.Size = New System.Drawing.Size(760, 432)
         Me.dgSessions.TabIndex = 6
         '
         'dtpStart
         '
         Me.dtpStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dtpStart.Location = New System.Drawing.Point(384, 6)
+        Me.dtpStart.Location = New System.Drawing.Point(360, 25)
         Me.dtpStart.Name = "dtpStart"
         Me.dtpStart.Size = New System.Drawing.Size(175, 20)
         Me.dtpStart.TabIndex = 3
@@ -80,7 +80,7 @@ Partial Class frmSessions
         'dtpEnd
         '
         Me.dtpEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dtpEnd.Location = New System.Drawing.Point(597, 6)
+        Me.dtpEnd.Location = New System.Drawing.Point(597, 25)
         Me.dtpEnd.Name = "dtpEnd"
         Me.dtpEnd.Size = New System.Drawing.Size(175, 20)
         Me.dtpEnd.TabIndex = 5
@@ -88,9 +88,9 @@ Partial Class frmSessions
         'lblTo
         '
         Me.lblTo.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblTo.Location = New System.Drawing.Point(565, 9)
+        Me.lblTo.Location = New System.Drawing.Point(541, 28)
         Me.lblTo.Name = "lblTo"
-        Me.lblTo.Size = New System.Drawing.Size(26, 17)
+        Me.lblTo.Size = New System.Drawing.Size(50, 17)
         Me.lblTo.TabIndex = 4
         Me.lblTo.Text = "to"
         Me.lblTo.TextAlign = System.Drawing.ContentAlignment.TopCenter
@@ -99,9 +99,9 @@ Partial Class frmSessions
         '
         Me.btnReset.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnReset.Image = Global.GBM.My.Resources.Resources.Multi_Reset
-        Me.btnReset.Location = New System.Drawing.Point(672, 504)
+        Me.btnReset.Location = New System.Drawing.Point(682, 489)
         Me.btnReset.Name = "btnReset"
-        Me.btnReset.Size = New System.Drawing.Size(100, 50)
+        Me.btnReset.Size = New System.Drawing.Size(90, 60)
         Me.btnReset.TabIndex = 10
         Me.btnReset.Text = "&Reset Filters"
         Me.btnReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -111,9 +111,9 @@ Partial Class frmSessions
         '
         Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnDelete.Image = Global.GBM.My.Resources.Resources.Multi_Delete
-        Me.btnDelete.Location = New System.Drawing.Point(12, 504)
+        Me.btnDelete.Location = New System.Drawing.Point(12, 489)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(100, 50)
+        Me.btnDelete.Size = New System.Drawing.Size(90, 60)
         Me.btnDelete.TabIndex = 7
         Me.btnDelete.Text = "&Delete Session"
         Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -123,7 +123,7 @@ Partial Class frmSessions
         '
         Me.lblDateRange.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblDateRange.AutoSize = True
-        Me.lblDateRange.Location = New System.Drawing.Point(310, 9)
+        Me.lblDateRange.Location = New System.Drawing.Point(357, 9)
         Me.lblDateRange.Name = "lblDateRange"
         Me.lblDateRange.Size = New System.Drawing.Size(68, 13)
         Me.lblDateRange.TabIndex = 2
@@ -133,9 +133,9 @@ Partial Class frmSessions
         '
         Me.lblTotalHours.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblTotalHours.Location = New System.Drawing.Point(118, 520)
+        Me.lblTotalHours.Location = New System.Drawing.Point(108, 513)
         Me.lblTotalHours.Name = "lblTotalHours"
-        Me.lblTotalHours.Size = New System.Drawing.Size(442, 13)
+        Me.lblTotalHours.Size = New System.Drawing.Size(472, 13)
         Me.lblTotalHours.TabIndex = 8
         Me.lblTotalHours.Text = "Total Hours:"
         Me.lblTotalHours.TextAlign = System.Drawing.ContentAlignment.TopCenter
@@ -144,9 +144,9 @@ Partial Class frmSessions
         '
         Me.btnExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnExport.Image = Global.GBM.My.Resources.Resources.Multi_Export
-        Me.btnExport.Location = New System.Drawing.Point(566, 504)
+        Me.btnExport.Location = New System.Drawing.Point(586, 489)
         Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(100, 50)
+        Me.btnExport.Size = New System.Drawing.Size(90, 60)
         Me.btnExport.TabIndex = 9
         Me.btnExport.Text = "&Export Grid"
         Me.btnExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText

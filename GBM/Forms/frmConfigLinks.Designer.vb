@@ -34,21 +34,21 @@ Partial Class frmConfigLinks
         '
         'lblLinkedConfigs
         '
-        Me.lblLinkedConfigs.AutoSize = True
-        Me.lblLinkedConfigs.Location = New System.Drawing.Point(318, 6)
+        Me.lblLinkedConfigs.Location = New System.Drawing.Point(272, 6)
         Me.lblLinkedConfigs.Name = "lblLinkedConfigs"
-        Me.lblLinkedConfigs.Size = New System.Drawing.Size(109, 13)
+        Me.lblLinkedConfigs.Size = New System.Drawing.Size(200, 13)
         Me.lblLinkedConfigs.TabIndex = 6
         Me.lblLinkedConfigs.Text = "Linked Configurations"
+        Me.lblLinkedConfigs.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lblConfigs
         '
-        Me.lblConfigs.AutoSize = True
-        Me.lblConfigs.Location = New System.Drawing.Point(52, 6)
+        Me.lblConfigs.Location = New System.Drawing.Point(12, 58)
         Me.lblConfigs.Name = "lblConfigs"
-        Me.lblConfigs.Size = New System.Drawing.Size(120, 13)
+        Me.lblConfigs.Size = New System.Drawing.Size(200, 13)
         Me.lblConfigs.TabIndex = 0
         Me.lblConfigs.Text = "Available Configurations"
+        Me.lblConfigs.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'btnRemove
         '
@@ -81,24 +81,24 @@ Partial Class frmConfigLinks
         'lstConfigs
         '
         Me.lstConfigs.FormattingEnabled = True
-        Me.lstConfigs.Location = New System.Drawing.Point(12, 48)
+        Me.lstConfigs.Location = New System.Drawing.Point(12, 74)
         Me.lstConfigs.Name = "lstConfigs"
         Me.lstConfigs.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstConfigs.Size = New System.Drawing.Size(200, 225)
+        Me.lstConfigs.Size = New System.Drawing.Size(200, 199)
         Me.lstConfigs.Sorted = True
         Me.lstConfigs.TabIndex = 3
         '
         'txtQuickFilter
         '
-        Me.txtQuickFilter.Location = New System.Drawing.Point(50, 22)
+        Me.txtQuickFilter.Location = New System.Drawing.Point(12, 22)
         Me.txtQuickFilter.Name = "txtQuickFilter"
-        Me.txtQuickFilter.Size = New System.Drawing.Size(162, 20)
+        Me.txtQuickFilter.Size = New System.Drawing.Size(200, 20)
         Me.txtQuickFilter.TabIndex = 2
         '
         'lblFilter
         '
         Me.lblFilter.AutoSize = True
-        Me.lblFilter.Location = New System.Drawing.Point(12, 25)
+        Me.lblFilter.Location = New System.Drawing.Point(9, 6)
         Me.lblFilter.Name = "lblFilter"
         Me.lblFilter.Size = New System.Drawing.Size(32, 13)
         Me.lblFilter.TabIndex = 1

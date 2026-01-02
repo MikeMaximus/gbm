@@ -45,8 +45,8 @@ Partial Class frmFilter
         Me.cboNumericOps = New System.Windows.Forms.ComboBox()
         Me.lblCurrentFilters = New System.Windows.Forms.Label()
         Me.lblFilterData = New System.Windows.Forms.Label()
-        Me.lblFields = New System.Windows.Forms.Label()
         Me.btnRemoveFilter = New System.Windows.Forms.Button()
+        Me.lblFields = New System.Windows.Forms.Label()
         Me.lstFilter = New System.Windows.Forms.ListBox()
         Me.btnAddFilter = New System.Windows.Forms.Button()
         Me.cboFilterField = New System.Windows.Forms.ComboBox()
@@ -85,24 +85,24 @@ Partial Class frmFilter
         Me.grpTagFilter.Controls.Add(Me.btnIncludeAdd)
         Me.grpTagFilter.Controls.Add(Me.lstIncludeTags)
         Me.grpTagFilter.Controls.Add(Me.lstTags)
-        Me.grpTagFilter.Location = New System.Drawing.Point(12, 262)
+        Me.grpTagFilter.Location = New System.Drawing.Point(12, 289)
         Me.grpTagFilter.Name = "grpTagFilter"
-        Me.grpTagFilter.Size = New System.Drawing.Size(415, 198)
+        Me.grpTagFilter.Size = New System.Drawing.Size(485, 229)
         Me.grpTagFilter.TabIndex = 3
         Me.grpTagFilter.TabStop = False
         '
         'lblExcludeTags
         '
-        Me.lblExcludeTags.AutoSize = True
-        Me.lblExcludeTags.Location = New System.Drawing.Point(313, 16)
+        Me.lblExcludeTags.Location = New System.Drawing.Point(348, 16)
         Me.lblExcludeTags.Name = "lblExcludeTags"
-        Me.lblExcludeTags.Size = New System.Drawing.Size(72, 13)
+        Me.lblExcludeTags.Size = New System.Drawing.Size(131, 13)
         Me.lblExcludeTags.TabIndex = 10
         Me.lblExcludeTags.Text = "Exclude Tags"
+        Me.lblExcludeTags.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'btnExcludeRemove
         '
-        Me.btnExcludeRemove.Location = New System.Drawing.Point(261, 91)
+        Me.btnExcludeRemove.Location = New System.Drawing.Point(314, 96)
         Me.btnExcludeRemove.Name = "btnExcludeRemove"
         Me.btnExcludeRemove.Size = New System.Drawing.Size(31, 23)
         Me.btnExcludeRemove.TabIndex = 9
@@ -111,7 +111,7 @@ Partial Class frmFilter
         '
         'btnExcludeAdd
         '
-        Me.btnExcludeAdd.Location = New System.Drawing.Point(261, 62)
+        Me.btnExcludeAdd.Location = New System.Drawing.Point(314, 67)
         Me.btnExcludeAdd.Name = "btnExcludeAdd"
         Me.btnExcludeAdd.Size = New System.Drawing.Size(31, 23)
         Me.btnExcludeAdd.TabIndex = 8
@@ -121,10 +121,10 @@ Partial Class frmFilter
         'lstExcludeTags
         '
         Me.lstExcludeTags.FormattingEnabled = True
-        Me.lstExcludeTags.Location = New System.Drawing.Point(298, 32)
+        Me.lstExcludeTags.Location = New System.Drawing.Point(351, 32)
         Me.lstExcludeTags.Name = "lstExcludeTags"
         Me.lstExcludeTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstExcludeTags.Size = New System.Drawing.Size(103, 108)
+        Me.lstExcludeTags.Size = New System.Drawing.Size(128, 108)
         Me.lstExcludeTags.Sorted = True
         Me.lstExcludeTags.TabIndex = 7
         '
@@ -134,14 +134,14 @@ Partial Class frmFilter
         Me.grpTagOptions.Controls.Add(Me.optAny)
         Me.grpTagOptions.Location = New System.Drawing.Point(6, 146)
         Me.grpTagOptions.Name = "grpTagOptions"
-        Me.grpTagOptions.Size = New System.Drawing.Size(150, 46)
+        Me.grpTagOptions.Size = New System.Drawing.Size(473, 72)
         Me.grpTagOptions.TabIndex = 6
         Me.grpTagOptions.TabStop = False
         Me.grpTagOptions.Text = "Options"
         '
         'optAll
         '
-        Me.optAll.Location = New System.Drawing.Point(77, 19)
+        Me.optAll.Location = New System.Drawing.Point(6, 42)
         Me.optAll.Name = "optAll"
         Me.optAll.Size = New System.Drawing.Size(63, 17)
         Me.optAll.TabIndex = 1
@@ -162,25 +162,25 @@ Partial Class frmFilter
         '
         'lblIncludeTags
         '
-        Me.lblIncludeTags.AutoSize = True
-        Me.lblIncludeTags.Location = New System.Drawing.Point(23, 16)
+        Me.lblIncludeTags.Location = New System.Drawing.Point(6, 16)
         Me.lblIncludeTags.Name = "lblIncludeTags"
-        Me.lblIncludeTags.Size = New System.Drawing.Size(69, 13)
+        Me.lblIncludeTags.Size = New System.Drawing.Size(128, 13)
         Me.lblIncludeTags.TabIndex = 4
         Me.lblIncludeTags.Text = "Include Tags"
+        Me.lblIncludeTags.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lblTags
         '
-        Me.lblTags.AutoSize = True
-        Me.lblTags.Location = New System.Drawing.Point(165, 16)
+        Me.lblTags.Location = New System.Drawing.Point(177, 16)
         Me.lblTags.Name = "lblTags"
-        Me.lblTags.Size = New System.Drawing.Size(77, 13)
+        Me.lblTags.Size = New System.Drawing.Size(131, 13)
         Me.lblTags.TabIndex = 0
         Me.lblTags.Text = "Available Tags"
+        Me.lblTags.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'btnIncludeRemove
         '
-        Me.btnIncludeRemove.Location = New System.Drawing.Point(115, 91)
+        Me.btnIncludeRemove.Location = New System.Drawing.Point(140, 96)
         Me.btnIncludeRemove.Name = "btnIncludeRemove"
         Me.btnIncludeRemove.Size = New System.Drawing.Size(31, 23)
         Me.btnIncludeRemove.TabIndex = 3
@@ -189,7 +189,7 @@ Partial Class frmFilter
         '
         'btnIncludeAdd
         '
-        Me.btnIncludeAdd.Location = New System.Drawing.Point(115, 62)
+        Me.btnIncludeAdd.Location = New System.Drawing.Point(140, 67)
         Me.btnIncludeAdd.Name = "btnIncludeAdd"
         Me.btnIncludeAdd.Size = New System.Drawing.Size(31, 23)
         Me.btnIncludeAdd.TabIndex = 2
@@ -202,26 +202,26 @@ Partial Class frmFilter
         Me.lstIncludeTags.Location = New System.Drawing.Point(6, 32)
         Me.lstIncludeTags.Name = "lstIncludeTags"
         Me.lstIncludeTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstIncludeTags.Size = New System.Drawing.Size(103, 108)
+        Me.lstIncludeTags.Size = New System.Drawing.Size(128, 108)
         Me.lstIncludeTags.Sorted = True
         Me.lstIncludeTags.TabIndex = 5
         '
         'lstTags
         '
         Me.lstTags.FormattingEnabled = True
-        Me.lstTags.Location = New System.Drawing.Point(152, 32)
+        Me.lstTags.Location = New System.Drawing.Point(177, 32)
         Me.lstTags.Name = "lstTags"
         Me.lstTags.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstTags.Size = New System.Drawing.Size(103, 108)
+        Me.lstTags.Size = New System.Drawing.Size(131, 108)
         Me.lstTags.Sorted = True
         Me.lstTags.TabIndex = 1
         '
         'btnOK
         '
         Me.btnOK.Image = Global.GBM.My.Resources.Resources.Multi_Ok
-        Me.btnOK.Location = New System.Drawing.Point(347, 554)
+        Me.btnOK.Location = New System.Drawing.Point(407, 614)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(80, 50)
+        Me.btnOK.Size = New System.Drawing.Size(90, 60)
         Me.btnOK.TabIndex = 6
         Me.btnOK.Text = "&OK"
         Me.btnOK.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -236,8 +236,8 @@ Partial Class frmFilter
         Me.grpGameFilter.Controls.Add(Me.cboNumericOps)
         Me.grpGameFilter.Controls.Add(Me.lblCurrentFilters)
         Me.grpGameFilter.Controls.Add(Me.lblFilterData)
-        Me.grpGameFilter.Controls.Add(Me.lblFields)
         Me.grpGameFilter.Controls.Add(Me.btnRemoveFilter)
+        Me.grpGameFilter.Controls.Add(Me.lblFields)
         Me.grpGameFilter.Controls.Add(Me.lstFilter)
         Me.grpGameFilter.Controls.Add(Me.btnAddFilter)
         Me.grpGameFilter.Controls.Add(Me.cboFilterField)
@@ -245,14 +245,14 @@ Partial Class frmFilter
         Me.grpGameFilter.Controls.Add(Me.txtStringFilter)
         Me.grpGameFilter.Location = New System.Drawing.Point(12, 35)
         Me.grpGameFilter.Name = "grpGameFilter"
-        Me.grpGameFilter.Size = New System.Drawing.Size(415, 198)
+        Me.grpGameFilter.Size = New System.Drawing.Size(485, 225)
         Me.grpGameFilter.TabIndex = 1
         Me.grpGameFilter.TabStop = False
         '
         'lblNot
         '
         Me.lblNot.AutoSize = True
-        Me.lblNot.Location = New System.Drawing.Point(161, 20)
+        Me.lblNot.Location = New System.Drawing.Point(205, 19)
         Me.lblNot.Name = "lblNot"
         Me.lblNot.Size = New System.Drawing.Size(24, 13)
         Me.lblNot.TabIndex = 11
@@ -261,7 +261,7 @@ Partial Class frmFilter
         'chkNot
         '
         Me.chkNot.AutoSize = True
-        Me.chkNot.Location = New System.Drawing.Point(166, 39)
+        Me.chkNot.Location = New System.Drawing.Point(210, 38)
         Me.chkNot.Name = "chkNot"
         Me.chkNot.Size = New System.Drawing.Size(15, 14)
         Me.chkNot.TabIndex = 10
@@ -271,15 +271,15 @@ Partial Class frmFilter
         '
         Me.cboListFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboListFilter.FormattingEnabled = True
-        Me.cboListFilter.Location = New System.Drawing.Point(187, 36)
+        Me.cboListFilter.Location = New System.Drawing.Point(232, 35)
         Me.cboListFilter.Name = "cboListFilter"
-        Me.cboListFilter.Size = New System.Drawing.Size(136, 21)
+        Me.cboListFilter.Size = New System.Drawing.Size(151, 21)
         Me.cboListFilter.TabIndex = 3
         '
         'numFilter
         '
         Me.numFilter.DecimalPlaces = 1
-        Me.numFilter.Location = New System.Drawing.Point(258, 37)
+        Me.numFilter.Location = New System.Drawing.Point(303, 36)
         Me.numFilter.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
         Me.numFilter.Name = "numFilter"
         Me.numFilter.Size = New System.Drawing.Size(65, 20)
@@ -289,63 +289,63 @@ Partial Class frmFilter
         '
         Me.cboNumericOps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboNumericOps.FormattingEnabled = True
-        Me.cboNumericOps.Location = New System.Drawing.Point(188, 36)
+        Me.cboNumericOps.Location = New System.Drawing.Point(233, 35)
         Me.cboNumericOps.Name = "cboNumericOps"
         Me.cboNumericOps.Size = New System.Drawing.Size(65, 21)
         Me.cboNumericOps.TabIndex = 3
         '
         'lblCurrentFilters
         '
-        Me.lblCurrentFilters.AutoSize = True
-        Me.lblCurrentFilters.Location = New System.Drawing.Point(94, 65)
+        Me.lblCurrentFilters.Location = New System.Drawing.Point(6, 65)
         Me.lblCurrentFilters.Name = "lblCurrentFilters"
-        Me.lblCurrentFilters.Size = New System.Drawing.Size(71, 13)
+        Me.lblCurrentFilters.Size = New System.Drawing.Size(292, 13)
         Me.lblCurrentFilters.TabIndex = 6
         Me.lblCurrentFilters.Text = "Current Filters"
+        Me.lblCurrentFilters.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lblFilterData
         '
-        Me.lblFilterData.AutoSize = True
-        Me.lblFilterData.Location = New System.Drawing.Point(239, 20)
+        Me.lblFilterData.Location = New System.Drawing.Point(233, 19)
         Me.lblFilterData.Name = "lblFilterData"
-        Me.lblFilterData.Size = New System.Drawing.Size(32, 13)
+        Me.lblFilterData.Size = New System.Drawing.Size(135, 13)
         Me.lblFilterData.TabIndex = 2
         Me.lblFilterData.Text = "Filter "
-        '
-        'lblFields
-        '
-        Me.lblFields.AutoSize = True
-        Me.lblFields.Location = New System.Drawing.Point(41, 20)
-        Me.lblFields.Name = "lblFields"
-        Me.lblFields.Size = New System.Drawing.Size(80, 13)
-        Me.lblFields.TabIndex = 0
-        Me.lblFields.Text = "Available Fields"
+        Me.lblFilterData.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'btnRemoveFilter
         '
         Me.btnRemoveFilter.Image = Global.GBM.My.Resources.Resources.Multi_Delete
-        Me.btnRemoveFilter.Location = New System.Drawing.Point(258, 139)
+        Me.btnRemoveFilter.Location = New System.Drawing.Point(303, 155)
         Me.btnRemoveFilter.Name = "btnRemoveFilter"
-        Me.btnRemoveFilter.Size = New System.Drawing.Size(80, 50)
+        Me.btnRemoveFilter.Size = New System.Drawing.Size(90, 60)
         Me.btnRemoveFilter.TabIndex = 9
         Me.btnRemoveFilter.Text = "Remove"
         Me.btnRemoveFilter.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnRemoveFilter.UseVisualStyleBackColor = True
+        '
+        'lblFields
+        '
+        Me.lblFields.Location = New System.Drawing.Point(6, 19)
+        Me.lblFields.Name = "lblFields"
+        Me.lblFields.Size = New System.Drawing.Size(196, 13)
+        Me.lblFields.TabIndex = 0
+        Me.lblFields.Text = "Available Fields"
+        Me.lblFields.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lstFilter
         '
         Me.lstFilter.FormattingEnabled = True
         Me.lstFilter.Location = New System.Drawing.Point(6, 81)
         Me.lstFilter.Name = "lstFilter"
-        Me.lstFilter.Size = New System.Drawing.Size(247, 108)
+        Me.lstFilter.Size = New System.Drawing.Size(292, 134)
         Me.lstFilter.TabIndex = 7
         '
         'btnAddFilter
         '
         Me.btnAddFilter.Image = Global.GBM.My.Resources.Resources.Multi_Add
-        Me.btnAddFilter.Location = New System.Drawing.Point(329, 19)
+        Me.btnAddFilter.Location = New System.Drawing.Point(389, 15)
         Me.btnAddFilter.Name = "btnAddFilter"
-        Me.btnAddFilter.Size = New System.Drawing.Size(80, 50)
+        Me.btnAddFilter.Size = New System.Drawing.Size(90, 60)
         Me.btnAddFilter.TabIndex = 5
         Me.btnAddFilter.Text = "Add"
         Me.btnAddFilter.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -354,19 +354,20 @@ Partial Class frmFilter
         'cboFilterField
         '
         Me.cboFilterField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboFilterField.DropDownWidth = 250
         Me.cboFilterField.FormattingEnabled = True
         Me.cboFilterField.Location = New System.Drawing.Point(6, 36)
         Me.cboFilterField.Name = "cboFilterField"
-        Me.cboFilterField.Size = New System.Drawing.Size(150, 21)
+        Me.cboFilterField.Size = New System.Drawing.Size(196, 21)
         Me.cboFilterField.TabIndex = 1
         '
         'grpFilterType
         '
         Me.grpFilterType.Controls.Add(Me.optOr)
         Me.grpFilterType.Controls.Add(Me.optAnd)
-        Me.grpFilterType.Location = New System.Drawing.Point(259, 81)
+        Me.grpFilterType.Location = New System.Drawing.Point(304, 81)
         Me.grpFilterType.Name = "grpFilterType"
-        Me.grpFilterType.Size = New System.Drawing.Size(105, 46)
+        Me.grpFilterType.Size = New System.Drawing.Size(175, 66)
         Me.grpFilterType.TabIndex = 8
         Me.grpFilterType.TabStop = False
         Me.grpFilterType.Text = "Filter Type"
@@ -384,7 +385,7 @@ Partial Class frmFilter
         '
         'optAnd
         '
-        Me.optAnd.Location = New System.Drawing.Point(56, 19)
+        Me.optAnd.Location = New System.Drawing.Point(6, 43)
         Me.optAnd.Name = "optAnd"
         Me.optAnd.Size = New System.Drawing.Size(44, 17)
         Me.optAnd.TabIndex = 1
@@ -393,7 +394,7 @@ Partial Class frmFilter
         '
         'txtStringFilter
         '
-        Me.txtStringFilter.Location = New System.Drawing.Point(187, 36)
+        Me.txtStringFilter.Location = New System.Drawing.Point(232, 35)
         Me.txtStringFilter.Name = "txtStringFilter"
         Me.txtStringFilter.Size = New System.Drawing.Size(136, 20)
         Me.txtStringFilter.TabIndex = 3
@@ -403,9 +404,9 @@ Partial Class frmFilter
         Me.grpSorting.Controls.Add(Me.grpSortOptions)
         Me.grpSorting.Controls.Add(Me.lblSortFields)
         Me.grpSorting.Controls.Add(Me.cboSortField)
-        Me.grpSorting.Location = New System.Drawing.Point(12, 466)
+        Me.grpSorting.Location = New System.Drawing.Point(12, 524)
         Me.grpSorting.Name = "grpSorting"
-        Me.grpSorting.Size = New System.Drawing.Size(415, 82)
+        Me.grpSorting.Size = New System.Drawing.Size(485, 82)
         Me.grpSorting.TabIndex = 4
         Me.grpSorting.TabStop = False
         Me.grpSorting.Text = "Sorting"
@@ -414,9 +415,9 @@ Partial Class frmFilter
         '
         Me.grpSortOptions.Controls.Add(Me.optSortAsc)
         Me.grpSortOptions.Controls.Add(Me.optSortDesc)
-        Me.grpSortOptions.Location = New System.Drawing.Point(162, 19)
+        Me.grpSortOptions.Location = New System.Drawing.Point(233, 13)
         Me.grpSortOptions.Name = "grpSortOptions"
-        Me.grpSortOptions.Size = New System.Drawing.Size(189, 43)
+        Me.grpSortOptions.Size = New System.Drawing.Size(246, 63)
         Me.grpSortOptions.TabIndex = 3
         Me.grpSortOptions.TabStop = False
         Me.grpSortOptions.Text = "Sort Options"
@@ -435,7 +436,7 @@ Partial Class frmFilter
         'optSortDesc
         '
         Me.optSortDesc.AutoSize = True
-        Me.optSortDesc.Location = New System.Drawing.Point(90, 17)
+        Me.optSortDesc.Location = New System.Drawing.Point(6, 40)
         Me.optSortDesc.Name = "optSortDesc"
         Me.optSortDesc.Size = New System.Drawing.Size(82, 17)
         Me.optSortDesc.TabIndex = 1
@@ -445,12 +446,12 @@ Partial Class frmFilter
         '
         'lblSortFields
         '
-        Me.lblSortFields.AutoSize = True
-        Me.lblSortFields.Location = New System.Drawing.Point(41, 19)
+        Me.lblSortFields.Location = New System.Drawing.Point(6, 19)
         Me.lblSortFields.Name = "lblSortFields"
-        Me.lblSortFields.Size = New System.Drawing.Size(80, 13)
+        Me.lblSortFields.Size = New System.Drawing.Size(221, 13)
         Me.lblSortFields.TabIndex = 1
         Me.lblSortFields.Text = "Available Fields"
+        Me.lblSortFields.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'cboSortField
         '
@@ -458,13 +459,13 @@ Partial Class frmFilter
         Me.cboSortField.FormattingEnabled = True
         Me.cboSortField.Location = New System.Drawing.Point(6, 35)
         Me.cboSortField.Name = "cboSortField"
-        Me.cboSortField.Size = New System.Drawing.Size(150, 21)
+        Me.cboSortField.Size = New System.Drawing.Size(221, 21)
         Me.cboSortField.TabIndex = 2
         '
         'chkTag
         '
         Me.chkTag.AutoSize = True
-        Me.chkTag.Location = New System.Drawing.Point(12, 239)
+        Me.chkTag.Location = New System.Drawing.Point(12, 266)
         Me.chkTag.Name = "chkTag"
         Me.chkTag.Size = New System.Drawing.Size(45, 17)
         Me.chkTag.TabIndex = 2
@@ -483,18 +484,18 @@ Partial Class frmFilter
         '
         'lblResultsWarning
         '
-        Me.lblResultsWarning.AutoSize = True
-        Me.lblResultsWarning.Location = New System.Drawing.Point(9, 573)
+        Me.lblResultsWarning.Location = New System.Drawing.Point(9, 619)
         Me.lblResultsWarning.Name = "lblResultsWarning"
-        Me.lblResultsWarning.Size = New System.Drawing.Size(249, 13)
+        Me.lblResultsWarning.Size = New System.Drawing.Size(374, 50)
         Me.lblResultsWarning.TabIndex = 0
         Me.lblResultsWarning.Text = "* Indicates a field that may give unexpected results."
+        Me.lblResultsWarning.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'frmFilter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(439, 616)
+        Me.ClientSize = New System.Drawing.Size(509, 686)
         Me.Controls.Add(Me.lblResultsWarning)
         Me.Controls.Add(Me.grpSorting)
         Me.Controls.Add(Me.chkTag)
@@ -512,14 +513,12 @@ Partial Class frmFilter
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Custom Filter"
         Me.grpTagFilter.ResumeLayout(False)
-        Me.grpTagFilter.PerformLayout()
         Me.grpTagOptions.ResumeLayout(False)
         Me.grpGameFilter.ResumeLayout(False)
         Me.grpGameFilter.PerformLayout()
         CType(Me.numFilter, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpFilterType.ResumeLayout(False)
         Me.grpSorting.ResumeLayout(False)
-        Me.grpSorting.PerformLayout()
         Me.grpSortOptions.ResumeLayout(False)
         Me.grpSortOptions.PerformLayout()
         Me.ResumeLayout(False)

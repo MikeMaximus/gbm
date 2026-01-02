@@ -38,18 +38,19 @@ Partial Class frmTags
         '
         Me.grpTag.Controls.Add(Me.txtName)
         Me.grpTag.Controls.Add(Me.lblName)
+        Me.grpTag.Controls.Add(Me.txtID)
         Me.grpTag.Location = New System.Drawing.Point(210, 12)
         Me.grpTag.Name = "grpTag"
-        Me.grpTag.Size = New System.Drawing.Size(362, 50)
+        Me.grpTag.Size = New System.Drawing.Size(362, 147)
         Me.grpTag.TabIndex = 3
         Me.grpTag.TabStop = False
         Me.grpTag.Text = "Configuration"
         '
         'txtName
         '
-        Me.txtName.Location = New System.Drawing.Point(50, 19)
+        Me.txtName.Location = New System.Drawing.Point(9, 38)
         Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(306, 20)
+        Me.txtName.Size = New System.Drawing.Size(347, 20)
         Me.txtName.TabIndex = 1
         '
         'lblName
@@ -66,9 +67,9 @@ Partial Class frmTags
         Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnDelete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnDelete.Image = Global.GBM.My.Resources.Resources.Multi_Delete
-        Me.btnDelete.Location = New System.Drawing.Point(98, 165)
+        Me.btnDelete.Location = New System.Drawing.Point(108, 169)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(80, 50)
+        Me.btnDelete.Size = New System.Drawing.Size(90, 60)
         Me.btnDelete.TabIndex = 2
         Me.btnDelete.Text = "&Delete"
         Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -79,9 +80,9 @@ Partial Class frmTags
         Me.btnAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAdd.Image = Global.GBM.My.Resources.Resources.Multi_Add
-        Me.btnAdd.Location = New System.Drawing.Point(12, 165)
+        Me.btnAdd.Location = New System.Drawing.Point(12, 169)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(80, 50)
+        Me.btnAdd.Size = New System.Drawing.Size(90, 60)
         Me.btnAdd.TabIndex = 1
         Me.btnAdd.Text = "&New"
         Me.btnAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -99,7 +100,7 @@ Partial Class frmTags
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(539, 68)
+        Me.txtID.Location = New System.Drawing.Point(11, 121)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(33, 20)
         Me.txtID.TabIndex = 4
@@ -110,9 +111,9 @@ Partial Class frmTags
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(492, 165)
+        Me.btnCancel.Location = New System.Drawing.Point(482, 169)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
+        Me.btnCancel.Size = New System.Drawing.Size(90, 60)
         Me.btnCancel.TabIndex = 6
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -122,9 +123,9 @@ Partial Class frmTags
         '
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
-        Me.btnSave.Location = New System.Drawing.Point(406, 165)
+        Me.btnSave.Location = New System.Drawing.Point(386, 169)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(80, 50)
+        Me.btnSave.Size = New System.Drawing.Size(90, 60)
         Me.btnSave.TabIndex = 5
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -134,12 +135,11 @@ Partial Class frmTags
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(584, 221)
+        Me.ClientSize = New System.Drawing.Size(584, 241)
         Me.Controls.Add(Me.grpTag)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.lstTags)
-        Me.Controls.Add(Me.txtID)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -152,7 +152,6 @@ Partial Class frmTags
         Me.grpTag.ResumeLayout(False)
         Me.grpTag.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents grpTag As System.Windows.Forms.GroupBox

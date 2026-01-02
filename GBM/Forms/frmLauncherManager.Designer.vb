@@ -53,16 +53,16 @@ Partial Class frmLauncherManager
         Me.grpLauncher.Controls.Add(Me.txtLaunchString)
         Me.grpLauncher.Controls.Add(Me.lblCommand)
         Me.grpLauncher.Controls.Add(Me.lblName)
-        Me.grpLauncher.Location = New System.Drawing.Point(210, 55)
+        Me.grpLauncher.Location = New System.Drawing.Point(210, 87)
         Me.grpLauncher.Name = "grpLauncher"
-        Me.grpLauncher.Size = New System.Drawing.Size(362, 104)
+        Me.grpLauncher.Size = New System.Drawing.Size(362, 150)
         Me.grpLauncher.TabIndex = 5
         Me.grpLauncher.TabStop = False
         Me.grpLauncher.Text = "Configuration"
         '
         'btnLauncherBrowse
         '
-        Me.btnLauncherBrowse.Location = New System.Drawing.Point(326, 45)
+        Me.btnLauncherBrowse.Location = New System.Drawing.Point(326, 79)
         Me.btnLauncherBrowse.Name = "btnLauncherBrowse"
         Me.btnLauncherBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnLauncherBrowse.TabIndex = 4
@@ -71,15 +71,15 @@ Partial Class frmLauncherManager
         '
         'txtLaunchParameters
         '
-        Me.txtLaunchParameters.Location = New System.Drawing.Point(72, 71)
+        Me.txtLaunchParameters.Location = New System.Drawing.Point(9, 119)
         Me.txtLaunchParameters.Name = "txtLaunchParameters"
-        Me.txtLaunchParameters.Size = New System.Drawing.Size(284, 20)
+        Me.txtLaunchParameters.Size = New System.Drawing.Size(347, 20)
         Me.txtLaunchParameters.TabIndex = 6
         '
         'lblParameters
         '
         Me.lblParameters.AutoSize = True
-        Me.lblParameters.Location = New System.Drawing.Point(6, 74)
+        Me.lblParameters.Location = New System.Drawing.Point(6, 103)
         Me.lblParameters.Name = "lblParameters"
         Me.lblParameters.Size = New System.Drawing.Size(63, 13)
         Me.lblParameters.TabIndex = 5
@@ -87,22 +87,22 @@ Partial Class frmLauncherManager
         '
         'txtName
         '
-        Me.txtName.Location = New System.Drawing.Point(72, 19)
+        Me.txtName.Location = New System.Drawing.Point(9, 41)
         Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(284, 20)
+        Me.txtName.Size = New System.Drawing.Size(347, 20)
         Me.txtName.TabIndex = 1
         '
         'txtLaunchString
         '
-        Me.txtLaunchString.Location = New System.Drawing.Point(72, 45)
+        Me.txtLaunchString.Location = New System.Drawing.Point(9, 80)
         Me.txtLaunchString.Name = "txtLaunchString"
-        Me.txtLaunchString.Size = New System.Drawing.Size(248, 20)
+        Me.txtLaunchString.Size = New System.Drawing.Size(314, 20)
         Me.txtLaunchString.TabIndex = 3
         '
         'lblCommand
         '
         Me.lblCommand.AutoSize = True
-        Me.lblCommand.Location = New System.Drawing.Point(6, 48)
+        Me.lblCommand.Location = New System.Drawing.Point(6, 64)
         Me.lblCommand.Name = "lblCommand"
         Me.lblCommand.Size = New System.Drawing.Size(57, 13)
         Me.lblCommand.TabIndex = 2
@@ -111,7 +111,7 @@ Partial Class frmLauncherManager
         'lblName
         '
         Me.lblName.AutoSize = True
-        Me.lblName.Location = New System.Drawing.Point(6, 22)
+        Me.lblName.Location = New System.Drawing.Point(6, 25)
         Me.lblName.Name = "lblName"
         Me.lblName.Size = New System.Drawing.Size(38, 13)
         Me.lblName.TabIndex = 0
@@ -121,9 +121,9 @@ Partial Class frmLauncherManager
         '
         Me.btnDelete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnDelete.Image = Global.GBM.My.Resources.Resources.Multi_Delete
-        Me.btnDelete.Location = New System.Drawing.Point(98, 165)
+        Me.btnDelete.Location = New System.Drawing.Point(108, 249)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(80, 50)
+        Me.btnDelete.Size = New System.Drawing.Size(90, 60)
         Me.btnDelete.TabIndex = 2
         Me.btnDelete.Text = "&Delete"
         Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -133,9 +133,9 @@ Partial Class frmLauncherManager
         '
         Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAdd.Image = Global.GBM.My.Resources.Resources.Multi_Add
-        Me.btnAdd.Location = New System.Drawing.Point(12, 165)
+        Me.btnAdd.Location = New System.Drawing.Point(12, 249)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(80, 50)
+        Me.btnAdd.Size = New System.Drawing.Size(90, 60)
         Me.btnAdd.TabIndex = 1
         Me.btnAdd.Text = "&New"
         Me.btnAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -146,14 +146,14 @@ Partial Class frmLauncherManager
         Me.lstLaunchers.FormattingEnabled = True
         Me.lstLaunchers.Location = New System.Drawing.Point(12, 12)
         Me.lstLaunchers.Name = "lstLaunchers"
-        Me.lstLaunchers.Size = New System.Drawing.Size(192, 147)
+        Me.lstLaunchers.Size = New System.Drawing.Size(192, 225)
         Me.lstLaunchers.Sorted = True
         Me.lstLaunchers.TabIndex = 0
         '
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(367, 181)
+        Me.txtID.Location = New System.Drawing.Point(328, 283)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(33, 20)
         Me.txtID.TabIndex = 0
@@ -163,9 +163,9 @@ Partial Class frmLauncherManager
         'btnCancel
         '
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(492, 165)
+        Me.btnCancel.Location = New System.Drawing.Point(482, 249)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
+        Me.btnCancel.Size = New System.Drawing.Size(90, 60)
         Me.btnCancel.TabIndex = 7
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -174,9 +174,9 @@ Partial Class frmLauncherManager
         'btnSave
         '
         Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
-        Me.btnSave.Location = New System.Drawing.Point(406, 165)
+        Me.btnSave.Location = New System.Drawing.Point(386, 249)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(80, 50)
+        Me.btnSave.Size = New System.Drawing.Size(90, 60)
         Me.btnSave.TabIndex = 6
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -185,9 +185,9 @@ Partial Class frmLauncherManager
         'btnAddDefaults
         '
         Me.btnAddDefaults.Image = Global.GBM.My.Resources.Resources.Multi_Reset
-        Me.btnAddDefaults.Location = New System.Drawing.Point(184, 165)
+        Me.btnAddDefaults.Location = New System.Drawing.Point(204, 249)
         Me.btnAddDefaults.Name = "btnAddDefaults"
-        Me.btnAddDefaults.Size = New System.Drawing.Size(80, 50)
+        Me.btnAddDefaults.Size = New System.Drawing.Size(90, 60)
         Me.btnAddDefaults.TabIndex = 3
         Me.btnAddDefaults.Text = "D&efaults"
         Me.btnAddDefaults.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -199,7 +199,7 @@ Partial Class frmLauncherManager
         Me.grpLauncherType.Controls.Add(Me.optURI)
         Me.grpLauncherType.Location = New System.Drawing.Point(210, 12)
         Me.grpLauncherType.Name = "grpLauncherType"
-        Me.grpLauncherType.Size = New System.Drawing.Size(362, 37)
+        Me.grpLauncherType.Size = New System.Drawing.Size(362, 69)
         Me.grpLauncherType.TabIndex = 4
         Me.grpLauncherType.TabStop = False
         Me.grpLauncherType.Text = "Launcher Type"
@@ -207,7 +207,7 @@ Partial Class frmLauncherManager
         'optExecutable
         '
         Me.optExecutable.AutoSize = True
-        Me.optExecutable.Location = New System.Drawing.Point(59, 14)
+        Me.optExecutable.Location = New System.Drawing.Point(6, 42)
         Me.optExecutable.Name = "optExecutable"
         Me.optExecutable.Size = New System.Drawing.Size(78, 17)
         Me.optExecutable.TabIndex = 1
@@ -218,7 +218,7 @@ Partial Class frmLauncherManager
         'optURI
         '
         Me.optURI.AutoSize = True
-        Me.optURI.Location = New System.Drawing.Point(9, 14)
+        Me.optURI.Location = New System.Drawing.Point(6, 19)
         Me.optURI.Name = "optURI"
         Me.optURI.Size = New System.Drawing.Size(44, 17)
         Me.optURI.TabIndex = 0
@@ -230,7 +230,7 @@ Partial Class frmLauncherManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(584, 221)
+        Me.ClientSize = New System.Drawing.Size(584, 321)
         Me.Controls.Add(Me.grpLauncherType)
         Me.Controls.Add(Me.btnAddDefaults)
         Me.Controls.Add(Me.grpLauncher)

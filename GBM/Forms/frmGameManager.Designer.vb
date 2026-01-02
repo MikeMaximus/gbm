@@ -156,9 +156,9 @@ Partial Class frmGameManager
         '
         Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAdd.Image = Global.GBM.My.Resources.Resources.Multi_Add
-        Me.btnAdd.Location = New System.Drawing.Point(12, 329)
+        Me.btnAdd.Location = New System.Drawing.Point(13, 524)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(80, 50)
+        Me.btnAdd.Size = New System.Drawing.Size(90, 60)
         Me.btnAdd.TabIndex = 5
         Me.btnAdd.Text = "New"
         Me.btnAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -168,9 +168,9 @@ Partial Class frmGameManager
         '
         Me.btnDelete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnDelete.Image = Global.GBM.My.Resources.Resources.Multi_Delete
-        Me.btnDelete.Location = New System.Drawing.Point(184, 329)
+        Me.btnDelete.Location = New System.Drawing.Point(205, 524)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(80, 50)
+        Me.btnDelete.Size = New System.Drawing.Size(90, 60)
         Me.btnDelete.TabIndex = 7
         Me.btnDelete.Text = "Delete"
         Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -180,15 +180,15 @@ Partial Class frmGameManager
         '
         Me.cboOS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboOS.FormattingEnabled = True
-        Me.cboOS.Location = New System.Drawing.Point(82, 226)
+        Me.cboOS.Location = New System.Drawing.Point(9, 360)
         Me.cboOS.Name = "cboOS"
-        Me.cboOS.Size = New System.Drawing.Size(130, 21)
+        Me.cboOS.Size = New System.Drawing.Size(203, 21)
         Me.cboOS.TabIndex = 28
         '
         'chkRecurseSubFolders
         '
         Me.chkRecurseSubFolders.AutoSize = True
-        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(114, 257)
+        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(114, 437)
         Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
         Me.chkRecurseSubFolders.Size = New System.Drawing.Size(15, 14)
         Me.chkRecurseSubFolders.TabIndex = 0
@@ -198,15 +198,15 @@ Partial Class frmGameManager
         '
         'txtParameter
         '
-        Me.txtParameter.Location = New System.Drawing.Point(78, 64)
+        Me.txtParameter.Location = New System.Drawing.Point(6, 115)
         Me.txtParameter.Name = "txtParameter"
-        Me.txtParameter.Size = New System.Drawing.Size(425, 20)
+        Me.txtParameter.Size = New System.Drawing.Size(525, 20)
         Me.txtParameter.TabIndex = 8
         '
         'lblParameter
         '
         Me.lblParameter.AutoSize = True
-        Me.lblParameter.Location = New System.Drawing.Point(6, 67)
+        Me.lblParameter.Location = New System.Drawing.Point(3, 99)
         Me.lblParameter.Name = "lblParameter"
         Me.lblParameter.Size = New System.Drawing.Size(58, 13)
         Me.lblParameter.TabIndex = 7
@@ -214,24 +214,26 @@ Partial Class frmGameManager
         '
         'chkCleanFolder
         '
-        Me.chkCleanFolder.Location = New System.Drawing.Point(378, 168)
+        Me.chkCleanFolder.AutoSize = True
+        Me.chkCleanFolder.Location = New System.Drawing.Point(218, 279)
         Me.chkCleanFolder.Name = "chkCleanFolder"
-        Me.chkCleanFolder.Size = New System.Drawing.Size(153, 17)
+        Me.chkCleanFolder.Size = New System.Drawing.Size(136, 17)
         Me.chkCleanFolder.TabIndex = 22
         Me.chkCleanFolder.Text = "Delete folder on restore"
         Me.chkCleanFolder.UseVisualStyleBackColor = True
         '
         'lblLimit
         '
-        Me.lblLimit.Location = New System.Drawing.Point(424, 197)
+        Me.lblLimit.AutoSize = True
+        Me.lblLimit.Location = New System.Drawing.Point(286, 327)
         Me.lblLimit.Name = "lblLimit"
-        Me.lblLimit.Size = New System.Drawing.Size(107, 13)
+        Me.lblLimit.Size = New System.Drawing.Size(64, 13)
         Me.lblLimit.TabIndex = 25
         Me.lblLimit.Text = "Backup limit"
         '
         'nudLimit
         '
-        Me.nudLimit.Location = New System.Drawing.Point(378, 195)
+        Me.nudLimit.Location = New System.Drawing.Point(240, 324)
         Me.nudLimit.Name = "nudLimit"
         Me.nudLimit.Size = New System.Drawing.Size(40, 20)
         Me.nudLimit.TabIndex = 24
@@ -239,9 +241,9 @@ Partial Class frmGameManager
         'btnExclude
         '
         Me.btnExclude.Image = Global.GBM.My.Resources.Resources.frmGameManager_Exclude_Items
-        Me.btnExclude.Location = New System.Drawing.Point(112, 168)
+        Me.btnExclude.Location = New System.Drawing.Point(102, 256)
         Me.btnExclude.Name = "btnExclude"
-        Me.btnExclude.Size = New System.Drawing.Size(100, 45)
+        Me.btnExclude.Size = New System.Drawing.Size(90, 60)
         Me.btnExclude.TabIndex = 20
         Me.btnExclude.Text = "E&xclude..."
         Me.btnExclude.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -250,9 +252,9 @@ Partial Class frmGameManager
         'btnInclude
         '
         Me.btnInclude.Image = Global.GBM.My.Resources.Resources.frmGameManager_Include_Items
-        Me.btnInclude.Location = New System.Drawing.Point(6, 168)
+        Me.btnInclude.Location = New System.Drawing.Point(6, 256)
         Me.btnInclude.Name = "btnInclude"
-        Me.btnInclude.Size = New System.Drawing.Size(100, 45)
+        Me.btnInclude.Size = New System.Drawing.Size(90, 60)
         Me.btnInclude.TabIndex = 19
         Me.btnInclude.Text = "Incl&ude..."
         Me.btnInclude.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -261,7 +263,7 @@ Partial Class frmGameManager
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(78, 254)
+        Me.txtID.Location = New System.Drawing.Point(78, 434)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(30, 20)
         Me.txtID.TabIndex = 0
@@ -270,7 +272,7 @@ Partial Class frmGameManager
         '
         'btnSavePathBrowse
         '
-        Me.btnSavePathBrowse.Location = New System.Drawing.Point(473, 115)
+        Me.btnSavePathBrowse.Location = New System.Drawing.Point(473, 193)
         Me.btnSavePathBrowse.Name = "btnSavePathBrowse"
         Me.btnSavePathBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnSavePathBrowse.TabIndex = 15
@@ -279,7 +281,7 @@ Partial Class frmGameManager
         '
         'btnProcessBrowse
         '
-        Me.btnProcessBrowse.Location = New System.Drawing.Point(501, 39)
+        Me.btnProcessBrowse.Location = New System.Drawing.Point(501, 73)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
         Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnProcessBrowse.TabIndex = 6
@@ -289,7 +291,7 @@ Partial Class frmGameManager
         'lblSavePath
         '
         Me.lblSavePath.AutoSize = True
-        Me.lblSavePath.Location = New System.Drawing.Point(6, 120)
+        Me.lblSavePath.Location = New System.Drawing.Point(3, 177)
         Me.lblSavePath.Name = "lblSavePath"
         Me.lblSavePath.Size = New System.Drawing.Size(60, 13)
         Me.lblSavePath.TabIndex = 13
@@ -298,7 +300,7 @@ Partial Class frmGameManager
         'lblProcess
         '
         Me.lblProcess.AutoSize = True
-        Me.lblProcess.Location = New System.Drawing.Point(6, 42)
+        Me.lblProcess.Location = New System.Drawing.Point(3, 56)
         Me.lblProcess.Name = "lblProcess"
         Me.lblProcess.Size = New System.Drawing.Size(48, 13)
         Me.lblProcess.TabIndex = 3
@@ -307,7 +309,7 @@ Partial Class frmGameManager
         'lblName
         '
         Me.lblName.AutoSize = True
-        Me.lblName.Location = New System.Drawing.Point(6, 17)
+        Me.lblName.Location = New System.Drawing.Point(3, 17)
         Me.lblName.Name = "lblName"
         Me.lblName.Size = New System.Drawing.Size(38, 13)
         Me.lblName.TabIndex = 0
@@ -315,7 +317,7 @@ Partial Class frmGameManager
         '
         'txtExclude
         '
-        Me.txtExclude.Location = New System.Drawing.Point(42, 254)
+        Me.txtExclude.Location = New System.Drawing.Point(42, 434)
         Me.txtExclude.Name = "txtExclude"
         Me.txtExclude.Size = New System.Drawing.Size(30, 20)
         Me.txtExclude.TabIndex = 0
@@ -324,7 +326,7 @@ Partial Class frmGameManager
         '
         'txtFileType
         '
-        Me.txtFileType.Location = New System.Drawing.Point(6, 254)
+        Me.txtFileType.Location = New System.Drawing.Point(6, 434)
         Me.txtFileType.Name = "txtFileType"
         Me.txtFileType.Size = New System.Drawing.Size(30, 20)
         Me.txtFileType.TabIndex = 0
@@ -334,7 +336,7 @@ Partial Class frmGameManager
         'chkTimeStamp
         '
         Me.chkTimeStamp.AutoSize = True
-        Me.chkTimeStamp.Location = New System.Drawing.Point(218, 196)
+        Me.chkTimeStamp.Location = New System.Drawing.Point(218, 302)
         Me.chkTimeStamp.Name = "chkTimeStamp"
         Me.chkTimeStamp.Size = New System.Drawing.Size(133, 17)
         Me.chkTimeStamp.TabIndex = 23
@@ -344,7 +346,7 @@ Partial Class frmGameManager
         'chkFolderSave
         '
         Me.chkFolderSave.AutoSize = True
-        Me.chkFolderSave.Location = New System.Drawing.Point(218, 168)
+        Me.chkFolderSave.Location = New System.Drawing.Point(218, 256)
         Me.chkFolderSave.Name = "chkFolderSave"
         Me.chkFolderSave.Size = New System.Drawing.Size(109, 17)
         Me.chkFolderSave.TabIndex = 21
@@ -353,28 +355,28 @@ Partial Class frmGameManager
         '
         'txtSavePath
         '
-        Me.txtSavePath.Location = New System.Drawing.Point(78, 116)
+        Me.txtSavePath.Location = New System.Drawing.Point(6, 193)
         Me.txtSavePath.Name = "txtSavePath"
-        Me.txtSavePath.Size = New System.Drawing.Size(389, 20)
+        Me.txtSavePath.Size = New System.Drawing.Size(461, 20)
         Me.txtSavePath.TabIndex = 14
         '
         'txtProcess
         '
-        Me.txtProcess.Location = New System.Drawing.Point(78, 39)
+        Me.txtProcess.Location = New System.Drawing.Point(6, 73)
         Me.txtProcess.Name = "txtProcess"
-        Me.txtProcess.Size = New System.Drawing.Size(389, 20)
+        Me.txtProcess.Size = New System.Drawing.Size(461, 20)
         Me.txtProcess.TabIndex = 4
         '
         'txtName
         '
-        Me.txtName.Location = New System.Drawing.Point(78, 13)
+        Me.txtName.Location = New System.Drawing.Point(6, 31)
         Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(425, 20)
+        Me.txtName.Size = New System.Drawing.Size(497, 20)
         Me.txtName.TabIndex = 1
         '
         'btnIconBrowse
         '
-        Me.btnIconBrowse.Location = New System.Drawing.Point(447, 114)
+        Me.btnIconBrowse.Location = New System.Drawing.Point(444, 168)
         Me.btnIconBrowse.Name = "btnIconBrowse"
         Me.btnIconBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnIconBrowse.TabIndex = 8
@@ -383,15 +385,15 @@ Partial Class frmGameManager
         '
         'txtIcon
         '
-        Me.txtIcon.Location = New System.Drawing.Point(74, 114)
+        Me.txtIcon.Location = New System.Drawing.Point(6, 168)
         Me.txtIcon.Name = "txtIcon"
-        Me.txtIcon.Size = New System.Drawing.Size(367, 20)
+        Me.txtIcon.Size = New System.Drawing.Size(432, 20)
         Me.txtIcon.TabIndex = 7
         '
         'lblVersion
         '
         Me.lblVersion.AutoSize = True
-        Me.lblVersion.Location = New System.Drawing.Point(6, 91)
+        Me.lblVersion.Location = New System.Drawing.Point(3, 114)
         Me.lblVersion.Name = "lblVersion"
         Me.lblVersion.Size = New System.Drawing.Size(45, 13)
         Me.lblVersion.TabIndex = 4
@@ -399,22 +401,22 @@ Partial Class frmGameManager
         '
         'txtVersion
         '
-        Me.txtVersion.Location = New System.Drawing.Point(74, 88)
+        Me.txtVersion.Location = New System.Drawing.Point(6, 130)
         Me.txtVersion.Name = "txtVersion"
-        Me.txtVersion.Size = New System.Drawing.Size(457, 20)
+        Me.txtVersion.Size = New System.Drawing.Size(522, 20)
         Me.txtVersion.TabIndex = 5
         '
         'txtCompany
         '
-        Me.txtCompany.Location = New System.Drawing.Point(74, 62)
+        Me.txtCompany.Location = New System.Drawing.Point(6, 91)
         Me.txtCompany.Name = "txtCompany"
-        Me.txtCompany.Size = New System.Drawing.Size(457, 20)
+        Me.txtCompany.Size = New System.Drawing.Size(522, 20)
         Me.txtCompany.TabIndex = 3
         '
         'lblCompany
         '
         Me.lblCompany.AutoSize = True
-        Me.lblCompany.Location = New System.Drawing.Point(6, 65)
+        Me.lblCompany.Location = New System.Drawing.Point(3, 75)
         Me.lblCompany.Name = "lblCompany"
         Me.lblCompany.Size = New System.Drawing.Size(54, 13)
         Me.lblCompany.TabIndex = 2
@@ -423,7 +425,7 @@ Partial Class frmGameManager
         'pbIcon
         '
         Me.pbIcon.InitialImage = Nothing
-        Me.pbIcon.Location = New System.Drawing.Point(483, 114)
+        Me.pbIcon.Location = New System.Drawing.Point(480, 156)
         Me.pbIcon.Name = "pbIcon"
         Me.pbIcon.Size = New System.Drawing.Size(48, 48)
         Me.pbIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -433,7 +435,7 @@ Partial Class frmGameManager
         'lblIcon
         '
         Me.lblIcon.AutoSize = True
-        Me.lblIcon.Location = New System.Drawing.Point(6, 118)
+        Me.lblIcon.Location = New System.Drawing.Point(3, 153)
         Me.lblIcon.Name = "lblIcon"
         Me.lblIcon.Size = New System.Drawing.Size(31, 13)
         Me.lblIcon.TabIndex = 6
@@ -443,7 +445,7 @@ Partial Class frmGameManager
         '
         Me.nudHours.DecimalPlaces = 1
         Me.nudHours.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.nudHours.Location = New System.Drawing.Point(74, 142)
+        Me.nudHours.Location = New System.Drawing.Point(6, 207)
         Me.nudHours.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudHours.Name = "nudHours"
         Me.nudHours.Size = New System.Drawing.Size(88, 20)
@@ -452,7 +454,7 @@ Partial Class frmGameManager
         'lblHours
         '
         Me.lblHours.AutoSize = True
-        Me.lblHours.Location = New System.Drawing.Point(6, 144)
+        Me.lblHours.Location = New System.Drawing.Point(3, 191)
         Me.lblHours.Name = "lblHours"
         Me.lblHours.Size = New System.Drawing.Size(38, 13)
         Me.lblHours.TabIndex = 9
@@ -461,9 +463,9 @@ Partial Class frmGameManager
         'btnSave
         '
         Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
-        Me.btnSave.Location = New System.Drawing.Point(624, 329)
+        Me.btnSave.Location = New System.Drawing.Point(604, 524)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(80, 50)
+        Me.btnSave.Size = New System.Drawing.Size(90, 60)
         Me.btnSave.TabIndex = 12
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -473,18 +475,18 @@ Partial Class frmGameManager
         '
         Me.lstGames.FormattingEnabled = True
         Me.lstGames.IntegralHeight = False
-        Me.lstGames.Location = New System.Drawing.Point(12, 69)
+        Me.lstGames.Location = New System.Drawing.Point(12, 97)
         Me.lstGames.Name = "lstGames"
         Me.lstGames.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstGames.Size = New System.Drawing.Size(228, 251)
+        Me.lstGames.Size = New System.Drawing.Size(228, 414)
         Me.lstGames.TabIndex = 4
         '
         'btnCancel
         '
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(710, 329)
+        Me.btnCancel.Location = New System.Drawing.Point(700, 524)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
+        Me.btnCancel.Size = New System.Drawing.Size(90, 60)
         Me.btnCancel.TabIndex = 13
         Me.btnCancel.Text = "Ca&ncel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -493,9 +495,9 @@ Partial Class frmGameManager
         'btnImport
         '
         Me.btnImport.Image = Global.GBM.My.Resources.Resources.Multi_Import
-        Me.btnImport.Location = New System.Drawing.Point(270, 329)
+        Me.btnImport.Location = New System.Drawing.Point(301, 524)
         Me.btnImport.Name = "btnImport"
-        Me.btnImport.Size = New System.Drawing.Size(90, 50)
+        Me.btnImport.Size = New System.Drawing.Size(90, 60)
         Me.btnImport.TabIndex = 8
         Me.btnImport.Text = "&Import"
         Me.btnImport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -504,9 +506,9 @@ Partial Class frmGameManager
         'btnExport
         '
         Me.btnExport.Image = Global.GBM.My.Resources.Resources.Multi_Export
-        Me.btnExport.Location = New System.Drawing.Point(366, 329)
+        Me.btnExport.Location = New System.Drawing.Point(397, 524)
         Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(90, 50)
+        Me.btnExport.Size = New System.Drawing.Size(90, 60)
         Me.btnExport.TabIndex = 9
         Me.btnExport.Text = "&Export"
         Me.btnExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -558,15 +560,15 @@ Partial Class frmGameManager
         '
         'txtSearch
         '
-        Me.txtSearch.Location = New System.Drawing.Point(75, 40)
+        Me.txtSearch.Location = New System.Drawing.Point(12, 71)
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(165, 20)
+        Me.txtSearch.Size = New System.Drawing.Size(228, 20)
         Me.txtSearch.TabIndex = 3
         '
         'lblSearch
         '
         Me.lblSearch.AutoSize = True
-        Me.lblSearch.Location = New System.Drawing.Point(9, 43)
+        Me.lblSearch.Location = New System.Drawing.Point(9, 55)
         Me.lblSearch.Name = "lblSearch"
         Me.lblSearch.Size = New System.Drawing.Size(44, 13)
         Me.lblSearch.TabIndex = 2
@@ -600,9 +602,9 @@ Partial Class frmGameManager
         'btnAdvanced
         '
         Me.btnAdvanced.Image = Global.GBM.My.Resources.Resources.frmGameManager_Advanced
-        Me.btnAdvanced.Location = New System.Drawing.Point(528, 329)
+        Me.btnAdvanced.Location = New System.Drawing.Point(508, 524)
         Me.btnAdvanced.Name = "btnAdvanced"
-        Me.btnAdvanced.Size = New System.Drawing.Size(90, 50)
+        Me.btnAdvanced.Size = New System.Drawing.Size(90, 60)
         Me.btnAdvanced.TabIndex = 11
         Me.btnAdvanced.Text = "&Advanced"
         Me.btnAdvanced.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -649,7 +651,7 @@ Partial Class frmGameManager
         Me.tabGameManager.Multiline = True
         Me.tabGameManager.Name = "tabGameManager"
         Me.tabGameManager.SelectedIndex = 0
-        Me.tabGameManager.Size = New System.Drawing.Size(554, 315)
+        Me.tabGameManager.Size = New System.Drawing.Size(551, 506)
         Me.tabGameManager.TabIndex = 10
         '
         'tbConfig
@@ -658,7 +660,7 @@ Partial Class frmGameManager
         Me.tbConfig.Controls.Add(Me.grpCoreConfig)
         Me.tbConfig.Location = New System.Drawing.Point(4, 25)
         Me.tbConfig.Name = "tbConfig"
-        Me.tbConfig.Size = New System.Drawing.Size(546, 286)
+        Me.tbConfig.Size = New System.Drawing.Size(543, 477)
         Me.tbConfig.TabIndex = 0
         Me.tbConfig.Text = "Core Configuration"
         '
@@ -705,21 +707,22 @@ Partial Class frmGameManager
         Me.grpCoreConfig.Controls.Add(Me.lblLimit)
         Me.grpCoreConfig.Location = New System.Drawing.Point(3, 3)
         Me.grpCoreConfig.Name = "grpCoreConfig"
-        Me.grpCoreConfig.Size = New System.Drawing.Size(537, 280)
+        Me.grpCoreConfig.Size = New System.Drawing.Size(537, 471)
         Me.grpCoreConfig.TabIndex = 0
         Me.grpCoreConfig.TabStop = False
         '
         'lblTimeIntervalMinutes
         '
-        Me.lblTimeIntervalMinutes.Location = New System.Drawing.Point(424, 251)
+        Me.lblTimeIntervalMinutes.AutoSize = True
+        Me.lblTimeIntervalMinutes.Location = New System.Drawing.Point(286, 424)
         Me.lblTimeIntervalMinutes.Name = "lblTimeIntervalMinutes"
-        Me.lblTimeIntervalMinutes.Size = New System.Drawing.Size(107, 13)
+        Me.lblTimeIntervalMinutes.Size = New System.Drawing.Size(44, 13)
         Me.lblTimeIntervalMinutes.TabIndex = 34
         Me.lblTimeIntervalMinutes.Text = "Minutes"
         '
         'nudTimedInterval
         '
-        Me.nudTimedInterval.Location = New System.Drawing.Point(378, 249)
+        Me.nudTimedInterval.Location = New System.Drawing.Point(240, 422)
         Me.nudTimedInterval.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nudTimedInterval.Name = "nudTimedInterval"
         Me.nudTimedInterval.Size = New System.Drawing.Size(40, 20)
@@ -729,7 +732,7 @@ Partial Class frmGameManager
         'chkTimedBackup
         '
         Me.chkTimedBackup.AutoSize = True
-        Me.chkTimedBackup.Location = New System.Drawing.Point(218, 250)
+        Me.chkTimedBackup.Location = New System.Drawing.Point(218, 399)
         Me.chkTimedBackup.Name = "chkTimedBackup"
         Me.chkTimedBackup.Size = New System.Drawing.Size(125, 17)
         Me.chkTimedBackup.TabIndex = 32
@@ -739,7 +742,7 @@ Partial Class frmGameManager
         'btnOpenSaveFolder
         '
         Me.btnOpenSaveFolder.Image = Global.GBM.My.Resources.Resources.frmGameManager_Folder_Open
-        Me.btnOpenSaveFolder.Location = New System.Drawing.Point(509, 115)
+        Me.btnOpenSaveFolder.Location = New System.Drawing.Point(509, 193)
         Me.btnOpenSaveFolder.Name = "btnOpenSaveFolder"
         Me.btnOpenSaveFolder.Size = New System.Drawing.Size(22, 22)
         Me.btnOpenSaveFolder.TabIndex = 16
@@ -748,7 +751,7 @@ Partial Class frmGameManager
         'btnOpenGameFolder
         '
         Me.btnOpenGameFolder.Image = Global.GBM.My.Resources.Resources.frmGameManager_Folder_Open
-        Me.btnOpenGameFolder.Location = New System.Drawing.Point(509, 88)
+        Me.btnOpenGameFolder.Location = New System.Drawing.Point(509, 153)
         Me.btnOpenGameFolder.Name = "btnOpenGameFolder"
         Me.btnOpenGameFolder.Size = New System.Drawing.Size(22, 22)
         Me.btnOpenGameFolder.TabIndex = 12
@@ -756,15 +759,16 @@ Partial Class frmGameManager
         '
         'lblInterval
         '
-        Me.lblInterval.Location = New System.Drawing.Point(424, 225)
+        Me.lblInterval.AutoSize = True
+        Me.lblInterval.Location = New System.Drawing.Point(286, 375)
         Me.lblInterval.Name = "lblInterval"
-        Me.lblInterval.Size = New System.Drawing.Size(107, 13)
+        Me.lblInterval.Size = New System.Drawing.Size(99, 13)
         Me.lblInterval.TabIndex = 31
         Me.lblInterval.Text = "Full backup interval"
         '
         'nudInterval
         '
-        Me.nudInterval.Location = New System.Drawing.Point(378, 223)
+        Me.nudInterval.Location = New System.Drawing.Point(240, 373)
         Me.nudInterval.Name = "nudInterval"
         Me.nudInterval.Size = New System.Drawing.Size(40, 20)
         Me.nudInterval.TabIndex = 30
@@ -772,7 +776,7 @@ Partial Class frmGameManager
         'chkDifferentialBackup
         '
         Me.chkDifferentialBackup.AutoSize = True
-        Me.chkDifferentialBackup.Location = New System.Drawing.Point(218, 224)
+        Me.chkDifferentialBackup.Location = New System.Drawing.Point(218, 350)
         Me.chkDifferentialBackup.Name = "chkDifferentialBackup"
         Me.chkDifferentialBackup.Size = New System.Drawing.Size(115, 17)
         Me.chkDifferentialBackup.TabIndex = 29
@@ -782,7 +786,7 @@ Partial Class frmGameManager
         'btnGameID
         '
         Me.btnGameID.Image = Global.GBM.My.Resources.Resources.frmGameManager_GameID
-        Me.btnGameID.Location = New System.Drawing.Point(509, 13)
+        Me.btnGameID.Location = New System.Drawing.Point(509, 29)
         Me.btnGameID.Name = "btnGameID"
         Me.btnGameID.Size = New System.Drawing.Size(22, 22)
         Me.btnGameID.TabIndex = 2
@@ -794,9 +798,9 @@ Partial Class frmGameManager
         Me.lblGameTags.ActiveLinkColor = System.Drawing.SystemColors.ControlText
         Me.lblGameTags.AutoEllipsis = True
         Me.lblGameTags.LinkColor = System.Drawing.SystemColors.ControlText
-        Me.lblGameTags.Location = New System.Drawing.Point(75, 145)
+        Me.lblGameTags.Location = New System.Drawing.Point(6, 234)
         Me.lblGameTags.Name = "lblGameTags"
-        Me.lblGameTags.Size = New System.Drawing.Size(426, 13)
+        Me.lblGameTags.Size = New System.Drawing.Size(525, 13)
         Me.lblGameTags.TabIndex = 18
         Me.lblGameTags.TabStop = True
         Me.lblGameTags.Text = "Manage Tags"
@@ -804,7 +808,7 @@ Partial Class frmGameManager
         'lblTags
         '
         Me.lblTags.AutoSize = True
-        Me.lblTags.Location = New System.Drawing.Point(6, 145)
+        Me.lblTags.Location = New System.Drawing.Point(3, 216)
         Me.lblTags.Name = "lblTags"
         Me.lblTags.Size = New System.Drawing.Size(34, 13)
         Me.lblTags.TabIndex = 17
@@ -813,7 +817,7 @@ Partial Class frmGameManager
         'btnProcessOptions
         '
         Me.btnProcessOptions.Image = Global.GBM.My.Resources.Resources.frmGameManager_Process
-        Me.btnProcessOptions.Location = New System.Drawing.Point(473, 38)
+        Me.btnProcessOptions.Location = New System.Drawing.Point(473, 73)
         Me.btnProcessOptions.Name = "btnProcessOptions"
         Me.btnProcessOptions.Size = New System.Drawing.Size(22, 22)
         Me.btnProcessOptions.TabIndex = 5
@@ -822,7 +826,7 @@ Partial Class frmGameManager
         '
         'btnAppPathBrowse
         '
-        Me.btnAppPathBrowse.Location = New System.Drawing.Point(473, 89)
+        Me.btnAppPathBrowse.Location = New System.Drawing.Point(473, 154)
         Me.btnAppPathBrowse.Name = "btnAppPathBrowse"
         Me.btnAppPathBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnAppPathBrowse.TabIndex = 11
@@ -832,7 +836,7 @@ Partial Class frmGameManager
         'btnLinks
         '
         Me.btnLinks.Image = Global.GBM.My.Resources.Resources.frmGameManager_Link
-        Me.btnLinks.Location = New System.Drawing.Point(44, 219)
+        Me.btnLinks.Location = New System.Drawing.Point(47, 322)
         Me.btnLinks.Name = "btnLinks"
         Me.btnLinks.Size = New System.Drawing.Size(32, 32)
         Me.btnLinks.TabIndex = 27
@@ -841,7 +845,7 @@ Partial Class frmGameManager
         'btnMonitorOptions
         '
         Me.btnMonitorOptions.Image = Global.GBM.My.Resources.Resources.Multi_Search
-        Me.btnMonitorOptions.Location = New System.Drawing.Point(6, 219)
+        Me.btnMonitorOptions.Location = New System.Drawing.Point(9, 322)
         Me.btnMonitorOptions.Name = "btnMonitorOptions"
         Me.btnMonitorOptions.Size = New System.Drawing.Size(32, 32)
         Me.btnMonitorOptions.TabIndex = 26
@@ -850,7 +854,7 @@ Partial Class frmGameManager
         'lblGamePath
         '
         Me.lblGamePath.AutoSize = True
-        Me.lblGamePath.Location = New System.Drawing.Point(6, 93)
+        Me.lblGamePath.Location = New System.Drawing.Point(3, 138)
         Me.lblGamePath.Name = "lblGamePath"
         Me.lblGamePath.Size = New System.Drawing.Size(63, 13)
         Me.lblGamePath.TabIndex = 9
@@ -858,9 +862,9 @@ Partial Class frmGameManager
         '
         'txtAppPath
         '
-        Me.txtAppPath.Location = New System.Drawing.Point(78, 90)
+        Me.txtAppPath.Location = New System.Drawing.Point(6, 154)
         Me.txtAppPath.Name = "txtAppPath"
-        Me.txtAppPath.Size = New System.Drawing.Size(389, 20)
+        Me.txtAppPath.Size = New System.Drawing.Size(461, 20)
         Me.txtAppPath.TabIndex = 10
         '
         'tbGameInfo
@@ -869,7 +873,7 @@ Partial Class frmGameManager
         Me.tbGameInfo.Controls.Add(Me.grpGameInfo)
         Me.tbGameInfo.Location = New System.Drawing.Point(4, 25)
         Me.tbGameInfo.Name = "tbGameInfo"
-        Me.tbGameInfo.Size = New System.Drawing.Size(546, 286)
+        Me.tbGameInfo.Size = New System.Drawing.Size(543, 477)
         Me.tbGameInfo.TabIndex = 1
         Me.tbGameInfo.Text = "Game Information"
         '
@@ -889,14 +893,14 @@ Partial Class frmGameManager
         Me.grpGameInfo.Controls.Add(Me.txtVersion)
         Me.grpGameInfo.Location = New System.Drawing.Point(3, 3)
         Me.grpGameInfo.Name = "grpGameInfo"
-        Me.grpGameInfo.Size = New System.Drawing.Size(537, 280)
+        Me.grpGameInfo.Size = New System.Drawing.Size(537, 471)
         Me.grpGameInfo.TabIndex = 0
         Me.grpGameInfo.TabStop = False
         '
         'lblComments
         '
         Me.lblComments.AutoSize = True
-        Me.lblComments.Location = New System.Drawing.Point(6, 16)
+        Me.lblComments.Location = New System.Drawing.Point(3, 16)
         Me.lblComments.Name = "lblComments"
         Me.lblComments.Size = New System.Drawing.Size(59, 13)
         Me.lblComments.TabIndex = 0
@@ -904,11 +908,11 @@ Partial Class frmGameManager
         '
         'txtComments
         '
-        Me.txtComments.Location = New System.Drawing.Point(74, 16)
+        Me.txtComments.Location = New System.Drawing.Point(6, 32)
         Me.txtComments.Multiline = True
         Me.txtComments.Name = "txtComments"
         Me.txtComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtComments.Size = New System.Drawing.Size(457, 40)
+        Me.txtComments.Size = New System.Drawing.Size(522, 40)
         Me.txtComments.TabIndex = 1
         '
         'tbBackupInfo
@@ -917,7 +921,7 @@ Partial Class frmGameManager
         Me.tbBackupInfo.Controls.Add(Me.grpBackupInfo)
         Me.tbBackupInfo.Location = New System.Drawing.Point(4, 25)
         Me.tbBackupInfo.Name = "tbBackupInfo"
-        Me.tbBackupInfo.Size = New System.Drawing.Size(546, 286)
+        Me.tbBackupInfo.Size = New System.Drawing.Size(543, 477)
         Me.tbBackupInfo.TabIndex = 2
         Me.tbBackupInfo.Text = "Backup Management"
         '
@@ -938,16 +942,16 @@ Partial Class frmGameManager
         Me.grpBackupInfo.Controls.Add(Me.lblRestorePathData)
         Me.grpBackupInfo.Location = New System.Drawing.Point(3, 3)
         Me.grpBackupInfo.Name = "grpBackupInfo"
-        Me.grpBackupInfo.Size = New System.Drawing.Size(537, 280)
+        Me.grpBackupInfo.Size = New System.Drawing.Size(537, 471)
         Me.grpBackupInfo.TabIndex = 0
         Me.grpBackupInfo.TabStop = False
         '
         'btnRestore
         '
         Me.btnRestore.Image = Global.GBM.My.Resources.Resources.Multi_Restore
-        Me.btnRestore.Location = New System.Drawing.Point(423, 116)
+        Me.btnRestore.Location = New System.Drawing.Point(410, 187)
         Me.btnRestore.Name = "btnRestore"
-        Me.btnRestore.Size = New System.Drawing.Size(80, 55)
+        Me.btnRestore.Size = New System.Drawing.Size(90, 60)
         Me.btnRestore.TabIndex = 12
         Me.btnRestore.Text = "&Restore"
         Me.btnRestore.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -956,9 +960,9 @@ Partial Class frmGameManager
         'btnBackup
         '
         Me.btnBackup.Image = Global.GBM.My.Resources.Resources.Multi_Backup
-        Me.btnBackup.Location = New System.Drawing.Point(337, 116)
+        Me.btnBackup.Location = New System.Drawing.Point(314, 187)
         Me.btnBackup.Name = "btnBackup"
-        Me.btnBackup.Size = New System.Drawing.Size(80, 55)
+        Me.btnBackup.Size = New System.Drawing.Size(90, 60)
         Me.btnBackup.TabIndex = 13
         Me.btnBackup.Text = "&Backup"
         Me.btnBackup.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -967,7 +971,7 @@ Partial Class frmGameManager
         'btnMarkAsRestored
         '
         Me.btnMarkAsRestored.Image = Global.GBM.My.Resources.Resources.frmGameManager_Mark
-        Me.btnMarkAsRestored.Location = New System.Drawing.Point(509, 39)
+        Me.btnMarkAsRestored.Location = New System.Drawing.Point(506, 75)
         Me.btnMarkAsRestored.Name = "btnMarkAsRestored"
         Me.btnMarkAsRestored.Size = New System.Drawing.Size(22, 22)
         Me.btnMarkAsRestored.TabIndex = 5
@@ -976,7 +980,7 @@ Partial Class frmGameManager
         'lblRemote
         '
         Me.lblRemote.AutoSize = True
-        Me.lblRemote.Location = New System.Drawing.Point(6, 18)
+        Me.lblRemote.Location = New System.Drawing.Point(3, 18)
         Me.lblRemote.Name = "lblRemote"
         Me.lblRemote.Size = New System.Drawing.Size(73, 13)
         Me.lblRemote.TabIndex = 0
@@ -985,7 +989,7 @@ Partial Class frmGameManager
         'btnBackupData
         '
         Me.btnBackupData.Image = Global.GBM.My.Resources.Resources.frmGameManager_Backup_Data
-        Me.btnBackupData.Location = New System.Drawing.Point(509, 13)
+        Me.btnBackupData.Location = New System.Drawing.Point(506, 32)
         Me.btnBackupData.Name = "btnBackupData"
         Me.btnBackupData.Size = New System.Drawing.Size(22, 22)
         Me.btnBackupData.TabIndex = 2
@@ -994,7 +998,7 @@ Partial Class frmGameManager
         'lblRestorePath
         '
         Me.lblRestorePath.AutoSize = True
-        Me.lblRestorePath.Location = New System.Drawing.Point(6, 97)
+        Me.lblRestorePath.Location = New System.Drawing.Point(3, 142)
         Me.lblRestorePath.Name = "lblRestorePath"
         Me.lblRestorePath.Size = New System.Drawing.Size(72, 13)
         Me.lblRestorePath.TabIndex = 9
@@ -1004,9 +1008,9 @@ Partial Class frmGameManager
         '
         Me.lblLocalBackupData.AutoEllipsis = True
         Me.lblLocalBackupData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblLocalBackupData.Location = New System.Drawing.Point(104, 40)
+        Me.lblLocalBackupData.Location = New System.Drawing.Point(6, 75)
         Me.lblLocalBackupData.Name = "lblLocalBackupData"
-        Me.lblLocalBackupData.Size = New System.Drawing.Size(399, 20)
+        Me.lblLocalBackupData.Size = New System.Drawing.Size(494, 20)
         Me.lblLocalBackupData.TabIndex = 4
         Me.lblLocalBackupData.Tag = "wipe"
         Me.lblLocalBackupData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1015,7 +1019,7 @@ Partial Class frmGameManager
         'btnOpenBackupFolder
         '
         Me.btnOpenBackupFolder.Image = Global.GBM.My.Resources.Resources.frmGameManager_Folder_Open
-        Me.btnOpenBackupFolder.Location = New System.Drawing.Point(509, 66)
+        Me.btnOpenBackupFolder.Location = New System.Drawing.Point(506, 117)
         Me.btnOpenBackupFolder.Name = "btnOpenBackupFolder"
         Me.btnOpenBackupFolder.Size = New System.Drawing.Size(22, 22)
         Me.btnOpenBackupFolder.TabIndex = 8
@@ -1024,7 +1028,7 @@ Partial Class frmGameManager
         'lblBackupFile
         '
         Me.lblBackupFile.AutoSize = True
-        Me.lblBackupFile.Location = New System.Drawing.Point(6, 71)
+        Me.lblBackupFile.Location = New System.Drawing.Point(3, 99)
         Me.lblBackupFile.Name = "lblBackupFile"
         Me.lblBackupFile.Size = New System.Drawing.Size(66, 13)
         Me.lblBackupFile.TabIndex = 6
@@ -1034,9 +1038,9 @@ Partial Class frmGameManager
         '
         Me.cboRemoteBackup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboRemoteBackup.FormattingEnabled = True
-        Me.cboRemoteBackup.Location = New System.Drawing.Point(104, 13)
+        Me.cboRemoteBackup.Location = New System.Drawing.Point(6, 34)
         Me.cboRemoteBackup.Name = "cboRemoteBackup"
-        Me.cboRemoteBackup.Size = New System.Drawing.Size(399, 21)
+        Me.cboRemoteBackup.Size = New System.Drawing.Size(494, 21)
         Me.cboRemoteBackup.TabIndex = 1
         Me.cboRemoteBackup.Tag = "wipe"
         '
@@ -1047,9 +1051,9 @@ Partial Class frmGameManager
         Me.lblBackupFileData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblBackupFileData.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
         Me.lblBackupFileData.LinkColor = System.Drawing.SystemColors.ControlText
-        Me.lblBackupFileData.Location = New System.Drawing.Point(104, 67)
+        Me.lblBackupFileData.Location = New System.Drawing.Point(6, 118)
         Me.lblBackupFileData.Name = "lblBackupFileData"
-        Me.lblBackupFileData.Size = New System.Drawing.Size(399, 20)
+        Me.lblBackupFileData.Size = New System.Drawing.Size(494, 20)
         Me.lblBackupFileData.TabIndex = 7
         Me.lblBackupFileData.Tag = "wipe"
         Me.lblBackupFileData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1058,7 +1062,7 @@ Partial Class frmGameManager
         'lblLocalData
         '
         Me.lblLocalData.AutoSize = True
-        Me.lblLocalData.Location = New System.Drawing.Point(6, 44)
+        Me.lblLocalData.Location = New System.Drawing.Point(3, 58)
         Me.lblLocalData.Name = "lblLocalData"
         Me.lblLocalData.Size = New System.Drawing.Size(62, 13)
         Me.lblLocalData.TabIndex = 3
@@ -1071,9 +1075,9 @@ Partial Class frmGameManager
         Me.lblRestorePathData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblRestorePathData.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
         Me.lblRestorePathData.LinkColor = System.Drawing.SystemColors.ControlText
-        Me.lblRestorePathData.Location = New System.Drawing.Point(104, 93)
+        Me.lblRestorePathData.Location = New System.Drawing.Point(6, 160)
         Me.lblRestorePathData.Name = "lblRestorePathData"
-        Me.lblRestorePathData.Size = New System.Drawing.Size(399, 20)
+        Me.lblRestorePathData.Size = New System.Drawing.Size(494, 20)
         Me.lblRestorePathData.TabIndex = 10
         Me.lblRestorePathData.Tag = "wipe"
         Me.lblRestorePathData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1082,10 +1086,11 @@ Partial Class frmGameManager
         'cboFilters
         '
         Me.cboFilters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboFilters.DropDownWidth = 250
         Me.cboFilters.FormattingEnabled = True
-        Me.cboFilters.Location = New System.Drawing.Point(75, 12)
+        Me.cboFilters.Location = New System.Drawing.Point(12, 31)
         Me.cboFilters.Name = "cboFilters"
-        Me.cboFilters.Size = New System.Drawing.Size(165, 21)
+        Me.cboFilters.Size = New System.Drawing.Size(228, 21)
         Me.cboFilters.TabIndex = 1
         '
         'lblFilters
@@ -1163,9 +1168,9 @@ Partial Class frmGameManager
         'btnCopy
         '
         Me.btnCopy.Image = Global.GBM.My.Resources.Resources.frmGameManager_Copy
-        Me.btnCopy.Location = New System.Drawing.Point(98, 329)
+        Me.btnCopy.Location = New System.Drawing.Point(109, 524)
         Me.btnCopy.Name = "btnCopy"
-        Me.btnCopy.Size = New System.Drawing.Size(80, 50)
+        Me.btnCopy.Size = New System.Drawing.Size(90, 60)
         Me.btnCopy.TabIndex = 6
         Me.btnCopy.Text = "&Copy"
         Me.btnCopy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -1175,7 +1180,7 @@ Partial Class frmGameManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(809, 386)
+        Me.ClientSize = New System.Drawing.Size(809, 596)
         Me.Controls.Add(Me.btnCopy)
         Me.Controls.Add(Me.lblFilters)
         Me.Controls.Add(Me.cboFilters)

@@ -90,7 +90,7 @@ Partial Class frmAddWizard
         Me.tabWizard.Location = New System.Drawing.Point(-6, -24)
         Me.tabWizard.Name = "tabWizard"
         Me.tabWizard.SelectedIndex = 0
-        Me.tabWizard.Size = New System.Drawing.Size(395, 247)
+        Me.tabWizard.Size = New System.Drawing.Size(496, 282)
         Me.tabWizard.TabIndex = 0
         Me.tabWizard.TabStop = False
         '
@@ -104,7 +104,7 @@ Partial Class frmAddWizard
         Me.tbPage1.Location = New System.Drawing.Point(4, 22)
         Me.tbPage1.Name = "tbPage1"
         Me.tbPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbPage1.Size = New System.Drawing.Size(387, 221)
+        Me.tbPage1.Size = New System.Drawing.Size(488, 256)
         Me.tbPage1.TabIndex = 0
         Me.tbPage1.Text = "TabPage1"
         '
@@ -124,7 +124,7 @@ Partial Class frmAddWizard
         Me.lblStep1Instructions.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStep1Instructions.Location = New System.Drawing.Point(14, 96)
         Me.lblStep1Instructions.Name = "lblStep1Instructions"
-        Me.lblStep1Instructions.Size = New System.Drawing.Size(303, 108)
+        Me.lblStep1Instructions.Size = New System.Drawing.Size(460, 157)
         Me.lblStep1Instructions.TabIndex = 6
         Me.lblStep1Instructions.Text = "You may drag and drop a shortcut here to complete this step, only Windows shortcu" &
     "ts are currently supported."
@@ -134,7 +134,7 @@ Partial Class frmAddWizard
         Me.txtName.AllowDrop = True
         Me.txtName.Location = New System.Drawing.Point(17, 67)
         Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(300, 20)
+        Me.txtName.Size = New System.Drawing.Size(457, 20)
         Me.txtName.TabIndex = 4
         '
         'lblStep1Intro
@@ -158,7 +158,7 @@ Partial Class frmAddWizard
         Me.tbPage2.Location = New System.Drawing.Point(4, 22)
         Me.tbPage2.Name = "tbPage2"
         Me.tbPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbPage2.Size = New System.Drawing.Size(387, 221)
+        Me.tbPage2.Size = New System.Drawing.Size(488, 256)
         Me.tbPage2.TabIndex = 1
         Me.tbPage2.Text = "TabPage2"
         '
@@ -178,13 +178,13 @@ Partial Class frmAddWizard
         Me.lblStep2Instructions.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStep2Instructions.Location = New System.Drawing.Point(14, 96)
         Me.lblStep2Instructions.Name = "lblStep2Instructions"
-        Me.lblStep2Instructions.Size = New System.Drawing.Size(301, 103)
+        Me.lblStep2Instructions.Size = New System.Drawing.Size(460, 157)
         Me.lblStep2Instructions.TabIndex = 10
         Me.lblStep2Instructions.Text = resources.GetString("lblStep2Instructions.Text")
         '
         'btnProcessBrowse
         '
-        Me.btnProcessBrowse.Location = New System.Drawing.Point(323, 67)
+        Me.btnProcessBrowse.Location = New System.Drawing.Point(447, 67)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
         Me.btnProcessBrowse.Size = New System.Drawing.Size(27, 20)
         Me.btnProcessBrowse.TabIndex = 8
@@ -196,7 +196,7 @@ Partial Class frmAddWizard
         Me.txtProcessPath.AllowDrop = True
         Me.txtProcessPath.Location = New System.Drawing.Point(17, 67)
         Me.txtProcessPath.Name = "txtProcessPath"
-        Me.txtProcessPath.Size = New System.Drawing.Size(300, 20)
+        Me.txtProcessPath.Size = New System.Drawing.Size(424, 20)
         Me.txtProcessPath.TabIndex = 6
         '
         'lblStep2Intro
@@ -223,14 +223,14 @@ Partial Class frmAddWizard
         Me.tbPage3.Controls.Add(Me.lblStep3Intro)
         Me.tbPage3.Location = New System.Drawing.Point(4, 22)
         Me.tbPage3.Name = "tbPage3"
-        Me.tbPage3.Size = New System.Drawing.Size(387, 221)
+        Me.tbPage3.Size = New System.Drawing.Size(488, 256)
         Me.tbPage3.TabIndex = 2
         Me.tbPage3.Text = "TabPage3"
         '
         'lblLimit
         '
         Me.lblLimit.AutoSize = True
-        Me.lblLimit.Location = New System.Drawing.Point(203, 117)
+        Me.lblLimit.Location = New System.Drawing.Point(84, 141)
         Me.lblLimit.Name = "lblLimit"
         Me.lblLimit.Size = New System.Drawing.Size(138, 13)
         Me.lblLimit.TabIndex = 15
@@ -239,7 +239,7 @@ Partial Class frmAddWizard
         '
         'nudLimit
         '
-        Me.nudLimit.Location = New System.Drawing.Point(157, 115)
+        Me.nudLimit.Location = New System.Drawing.Point(38, 139)
         Me.nudLimit.Name = "nudLimit"
         Me.nudLimit.Size = New System.Drawing.Size(40, 20)
         Me.nudLimit.TabIndex = 14
@@ -258,9 +258,9 @@ Partial Class frmAddWizard
         'lblStep3Instructions
         '
         Me.lblStep3Instructions.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStep3Instructions.Location = New System.Drawing.Point(14, 138)
+        Me.lblStep3Instructions.Location = New System.Drawing.Point(14, 167)
         Me.lblStep3Instructions.Name = "lblStep3Instructions"
-        Me.lblStep3Instructions.Size = New System.Drawing.Size(327, 71)
+        Me.lblStep3Instructions.Size = New System.Drawing.Size(460, 81)
         Me.lblStep3Instructions.TabIndex = 9
         Me.lblStep3Instructions.Text = "If you're unsure of exactly which files to backup,  make sure Save entire folder " &
     "is checked.  You can also choose to save multiple backups and set a limit on how" &
@@ -288,7 +288,7 @@ Partial Class frmAddWizard
         '
         'btnSaveBrowse
         '
-        Me.btnSaveBrowse.Location = New System.Drawing.Point(323, 67)
+        Me.btnSaveBrowse.Location = New System.Drawing.Point(447, 66)
         Me.btnSaveBrowse.Name = "btnSaveBrowse"
         Me.btnSaveBrowse.Size = New System.Drawing.Size(27, 20)
         Me.btnSaveBrowse.TabIndex = 6
@@ -299,7 +299,7 @@ Partial Class frmAddWizard
         '
         Me.txtSavePath.Location = New System.Drawing.Point(17, 67)
         Me.txtSavePath.Name = "txtSavePath"
-        Me.txtSavePath.Size = New System.Drawing.Size(300, 20)
+        Me.txtSavePath.Size = New System.Drawing.Size(424, 20)
         Me.txtSavePath.TabIndex = 4
         '
         'lblStep3Intro
@@ -325,14 +325,14 @@ Partial Class frmAddWizard
         Me.tbPage3a.Controls.Add(Me.txtFileTypes)
         Me.tbPage3a.Location = New System.Drawing.Point(4, 22)
         Me.tbPage3a.Name = "tbPage3a"
-        Me.tbPage3a.Size = New System.Drawing.Size(387, 221)
+        Me.tbPage3a.Size = New System.Drawing.Size(488, 245)
         Me.tbPage3a.TabIndex = 3
         Me.tbPage3a.Text = "TabPage4"
         '
         'chkRecurseSubFolders
         '
         Me.chkRecurseSubFolders.AutoSize = True
-        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(219, 45)
+        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(298, 23)
         Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
         Me.chkRecurseSubFolders.Size = New System.Drawing.Size(15, 14)
         Me.chkRecurseSubFolders.TabIndex = 0
@@ -346,7 +346,7 @@ Partial Class frmAddWizard
         Me.lblIncludePathTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblIncludePathTitle.Location = New System.Drawing.Point(14, 45)
         Me.lblIncludePathTitle.Name = "lblIncludePathTitle"
-        Me.lblIncludePathTitle.Size = New System.Drawing.Size(151, 16)
+        Me.lblIncludePathTitle.Size = New System.Drawing.Size(157, 16)
         Me.lblIncludePathTitle.TabIndex = 6
         Me.lblIncludePathTitle.Text = "Saved Game Folder:"
         '
@@ -356,14 +356,14 @@ Partial Class frmAddWizard
         Me.lblIncludePath.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblIncludePath.Location = New System.Drawing.Point(14, 62)
         Me.lblIncludePath.Name = "lblIncludePath"
-        Me.lblIncludePath.Size = New System.Drawing.Size(360, 15)
+        Me.lblIncludePath.Size = New System.Drawing.Size(460, 15)
         Me.lblIncludePath.TabIndex = 1
         Me.lblIncludePath.Text = "Save Path"
         '
         'lblFileTypes
         '
         Me.lblFileTypes.AutoSize = True
-        Me.lblFileTypes.Location = New System.Drawing.Point(200, 96)
+        Me.lblFileTypes.Location = New System.Drawing.Point(254, 96)
         Me.lblFileTypes.Name = "lblFileTypes"
         Me.lblFileTypes.Size = New System.Drawing.Size(89, 13)
         Me.lblFileTypes.TabIndex = 3
@@ -373,7 +373,7 @@ Partial Class frmAddWizard
         '
         Me.btnInclude.Location = New System.Drawing.Point(18, 91)
         Me.btnInclude.Name = "btnInclude"
-        Me.btnInclude.Size = New System.Drawing.Size(176, 23)
+        Me.btnInclude.Size = New System.Drawing.Size(230, 23)
         Me.btnInclude.TabIndex = 2
         Me.btnInclude.Text = "Choose items to in&clude..."
         Me.btnInclude.UseVisualStyleBackColor = True
@@ -393,14 +393,14 @@ Partial Class frmAddWizard
         Me.lblStep3aInstructions.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStep3aInstructions.Location = New System.Drawing.Point(14, 126)
         Me.lblStep3aInstructions.Name = "lblStep3aInstructions"
-        Me.lblStep3aInstructions.Size = New System.Drawing.Size(360, 78)
+        Me.lblStep3aInstructions.Size = New System.Drawing.Size(460, 125)
         Me.lblStep3aInstructions.TabIndex = 5
         Me.lblStep3aInstructions.Text = "Choose any file types, specific files  or folders you wish to include in the back" &
     "up.  If you're unsure, go back a step and choose to save the entire folder. "
         '
         'txtFileTypes
         '
-        Me.txtFileTypes.Location = New System.Drawing.Point(219, 17)
+        Me.txtFileTypes.Location = New System.Drawing.Point(319, 17)
         Me.txtFileTypes.Name = "txtFileTypes"
         Me.txtFileTypes.ReadOnly = True
         Me.txtFileTypes.Size = New System.Drawing.Size(155, 20)
@@ -420,7 +420,7 @@ Partial Class frmAddWizard
         Me.tbPage4.Controls.Add(Me.txtExcludeList)
         Me.tbPage4.Location = New System.Drawing.Point(4, 22)
         Me.tbPage4.Name = "tbPage4"
-        Me.tbPage4.Size = New System.Drawing.Size(387, 221)
+        Me.tbPage4.Size = New System.Drawing.Size(488, 256)
         Me.tbPage4.TabIndex = 4
         Me.tbPage4.Text = "TabPage5"
         '
@@ -430,7 +430,7 @@ Partial Class frmAddWizard
         Me.lblExcludePathTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblExcludePathTitle.Location = New System.Drawing.Point(14, 45)
         Me.lblExcludePathTitle.Name = "lblExcludePathTitle"
-        Me.lblExcludePathTitle.Size = New System.Drawing.Size(151, 16)
+        Me.lblExcludePathTitle.Size = New System.Drawing.Size(157, 16)
         Me.lblExcludePathTitle.TabIndex = 7
         Me.lblExcludePathTitle.Text = "Saved Game Folder:"
         '
@@ -440,14 +440,14 @@ Partial Class frmAddWizard
         Me.lblExcludePath.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblExcludePath.Location = New System.Drawing.Point(14, 62)
         Me.lblExcludePath.Name = "lblExcludePath"
-        Me.lblExcludePath.Size = New System.Drawing.Size(360, 15)
+        Me.lblExcludePath.Size = New System.Drawing.Size(460, 15)
         Me.lblExcludePath.TabIndex = 1
         Me.lblExcludePath.Text = "Save Path"
         '
         'lblExclude
         '
         Me.lblExclude.AutoSize = True
-        Me.lblExclude.Location = New System.Drawing.Point(200, 96)
+        Me.lblExclude.Location = New System.Drawing.Point(254, 96)
         Me.lblExclude.Name = "lblExclude"
         Me.lblExclude.Size = New System.Drawing.Size(89, 13)
         Me.lblExclude.TabIndex = 3
@@ -457,7 +457,7 @@ Partial Class frmAddWizard
         '
         Me.btnExclude.Location = New System.Drawing.Point(18, 91)
         Me.btnExclude.Name = "btnExclude"
-        Me.btnExclude.Size = New System.Drawing.Size(176, 23)
+        Me.btnExclude.Size = New System.Drawing.Size(230, 23)
         Me.btnExclude.TabIndex = 2
         Me.btnExclude.Text = "Choose items to e&xclude..."
         Me.btnExclude.UseVisualStyleBackColor = True
@@ -477,14 +477,14 @@ Partial Class frmAddWizard
         Me.lblStep4Instructions.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStep4Instructions.Location = New System.Drawing.Point(14, 126)
         Me.lblStep4Instructions.Name = "lblStep4Instructions"
-        Me.lblStep4Instructions.Size = New System.Drawing.Size(360, 81)
+        Me.lblStep4Instructions.Size = New System.Drawing.Size(460, 119)
         Me.lblStep4Instructions.TabIndex = 5
         Me.lblStep4Instructions.Text = "Choose any file types, specific files  or folders you wish to exclude from the ba" &
     "ckup.  You may choose multiple items to exclude.  This step can be skipped."
         '
         'txtExcludeList
         '
-        Me.txtExcludeList.Location = New System.Drawing.Point(221, 17)
+        Me.txtExcludeList.Location = New System.Drawing.Point(321, 17)
         Me.txtExcludeList.Name = "txtExcludeList"
         Me.txtExcludeList.ReadOnly = True
         Me.txtExcludeList.Size = New System.Drawing.Size(153, 20)
@@ -500,17 +500,16 @@ Partial Class frmAddWizard
         Me.tbPage5.Controls.Add(Me.lstSummary)
         Me.tbPage5.Location = New System.Drawing.Point(4, 22)
         Me.tbPage5.Name = "tbPage5"
-        Me.tbPage5.Size = New System.Drawing.Size(387, 221)
+        Me.tbPage5.Size = New System.Drawing.Size(488, 256)
         Me.tbPage5.TabIndex = 5
         Me.tbPage5.Text = "TabPage6"
         '
         'lblStep5Intro
         '
-        Me.lblStep5Intro.AutoSize = True
         Me.lblStep5Intro.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStep5Intro.Location = New System.Drawing.Point(15, 45)
+        Me.lblStep5Intro.Location = New System.Drawing.Point(14, 45)
         Me.lblStep5Intro.Name = "lblStep5Intro"
-        Me.lblStep5Intro.Size = New System.Drawing.Size(303, 16)
+        Me.lblStep5Intro.Size = New System.Drawing.Size(460, 37)
         Me.lblStep5Intro.TabIndex = 18
         Me.lblStep5Intro.Text = "Verify your settings below and click Finish to save."
         '
@@ -528,10 +527,10 @@ Partial Class frmAddWizard
         '
         Me.lstSummary.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
         Me.lstSummary.HideSelection = False
-        Me.lstSummary.Location = New System.Drawing.Point(14, 64)
+        Me.lstSummary.Location = New System.Drawing.Point(14, 90)
         Me.lstSummary.Name = "lstSummary"
         Me.lstSummary.ShowItemToolTips = True
-        Me.lstSummary.Size = New System.Drawing.Size(360, 142)
+        Me.lstSummary.Size = New System.Drawing.Size(460, 163)
         Me.lstSummary.TabIndex = 1
         Me.lstSummary.UseCompatibleStateImageBehavior = False
         Me.lstSummary.View = System.Windows.Forms.View.Details
@@ -539,9 +538,9 @@ Partial Class frmAddWizard
         'btnCancel
         '
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(292, 229)
+        Me.btnCancel.Location = New System.Drawing.Point(382, 264)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
+        Me.btnCancel.Size = New System.Drawing.Size(90, 60)
         Me.btnCancel.TabIndex = 12
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -550,9 +549,9 @@ Partial Class frmAddWizard
         'btnNext
         '
         Me.btnNext.Image = Global.GBM.My.Resources.Resources.Multi_Next
-        Me.btnNext.Location = New System.Drawing.Point(206, 229)
+        Me.btnNext.Location = New System.Drawing.Point(286, 264)
         Me.btnNext.Name = "btnNext"
-        Me.btnNext.Size = New System.Drawing.Size(80, 50)
+        Me.btnNext.Size = New System.Drawing.Size(90, 60)
         Me.btnNext.TabIndex = 11
         Me.btnNext.Text = "&Next"
         Me.btnNext.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -561,9 +560,9 @@ Partial Class frmAddWizard
         'btnBack
         '
         Me.btnBack.Image = Global.GBM.My.Resources.Resources.Multi_Back
-        Me.btnBack.Location = New System.Drawing.Point(120, 229)
+        Me.btnBack.Location = New System.Drawing.Point(190, 264)
         Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(80, 50)
+        Me.btnBack.Size = New System.Drawing.Size(90, 60)
         Me.btnBack.TabIndex = 10
         Me.btnBack.Text = "&Back"
         Me.btnBack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -573,7 +572,7 @@ Partial Class frmAddWizard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(384, 286)
+        Me.ClientSize = New System.Drawing.Size(484, 336)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnNext)
         Me.Controls.Add(Me.btnBack)

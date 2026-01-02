@@ -223,7 +223,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Russian (Русский).
+        '''  Looks up a localized string similar to Русский (Russian).
         '''</summary>
         Friend ReadOnly Property App_Language_Russian() As String
             Get
@@ -439,7 +439,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2025-12-04T14:45:53
+        '''  Looks up a localized string similar to 2026-01-02T13:30:42
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String

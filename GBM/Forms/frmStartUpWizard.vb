@@ -52,7 +52,7 @@ Public Class frmStartUpWizard
         lblStep4Instructions.Text = frmStartUpWizard_lblStep4Instructions
 
         llbManual.Links.Clear()
-        llbManual.Links.Add(0, 26, App_URLManual)
+        llbManual.Links.Add(0, llbManual.Text.Length, App_URLManual)
         txtBackupPath.Text = mgrSettings.BackupFolder
     End Sub
 

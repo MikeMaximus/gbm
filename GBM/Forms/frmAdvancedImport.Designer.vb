@@ -46,9 +46,9 @@ Partial Class frmAdvancedImport
         '
         Me.btnImport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnImport.Image = Global.GBM.My.Resources.Resources.Multi_Import
-        Me.btnImport.Location = New System.Drawing.Point(606, 559)
+        Me.btnImport.Location = New System.Drawing.Point(586, 549)
         Me.btnImport.Name = "btnImport"
-        Me.btnImport.Size = New System.Drawing.Size(80, 50)
+        Me.btnImport.Size = New System.Drawing.Size(90, 60)
         Me.btnImport.TabIndex = 7
         Me.btnImport.Text = "&Import"
         Me.btnImport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -57,7 +57,7 @@ Partial Class frmAdvancedImport
         'chkSelectAll
         '
         Me.chkSelectAll.AutoSize = True
-        Me.chkSelectAll.Location = New System.Drawing.Point(12, 10)
+        Me.chkSelectAll.Location = New System.Drawing.Point(12, 12)
         Me.chkSelectAll.Name = "chkSelectAll"
         Me.chkSelectAll.Size = New System.Drawing.Size(70, 17)
         Me.chkSelectAll.TabIndex = 0
@@ -67,7 +67,7 @@ Partial Class frmAdvancedImport
         'lblStatus
         '
         Me.lblStatus.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.lblStatus.Location = New System.Drawing.Point(12, 578)
+        Me.lblStatus.Location = New System.Drawing.Point(12, 573)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(760, 14)
         Me.lblStatus.TabIndex = 0
@@ -78,9 +78,9 @@ Partial Class frmAdvancedImport
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(692, 559)
+        Me.btnCancel.Location = New System.Drawing.Point(682, 549)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
+        Me.btnCancel.Size = New System.Drawing.Size(90, 60)
         Me.btnCancel.TabIndex = 8
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -94,9 +94,9 @@ Partial Class frmAdvancedImport
         Me.lstGames.CheckBoxes = True
         Me.lstGames.FullRowSelect = True
         Me.lstGames.HideSelection = False
-        Me.lstGames.Location = New System.Drawing.Point(12, 35)
+        Me.lstGames.Location = New System.Drawing.Point(12, 82)
         Me.lstGames.Name = "lstGames"
-        Me.lstGames.Size = New System.Drawing.Size(760, 518)
+        Me.lstGames.Size = New System.Drawing.Size(760, 461)
         Me.lstGames.TabIndex = 5
         Me.lstGames.UseCompatibleStateImageBehavior = False
         Me.lstGames.View = System.Windows.Forms.View.Details
@@ -116,25 +116,26 @@ Partial Class frmAdvancedImport
         'txtFilter
         '
         Me.txtFilter.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtFilter.Location = New System.Drawing.Point(586, 8)
+        Me.txtFilter.Location = New System.Drawing.Point(482, 56)
         Me.txtFilter.Name = "txtFilter"
-        Me.txtFilter.Size = New System.Drawing.Size(156, 20)
+        Me.txtFilter.Size = New System.Drawing.Size(260, 20)
         Me.txtFilter.TabIndex = 3
         '
         'lblFilter
         '
         Me.lblFilter.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblFilter.Location = New System.Drawing.Point(541, 11)
+        Me.lblFilter.AutoSize = True
+        Me.lblFilter.Location = New System.Drawing.Point(479, 40)
         Me.lblFilter.Name = "lblFilter"
-        Me.lblFilter.Size = New System.Drawing.Size(39, 14)
+        Me.lblFilter.Size = New System.Drawing.Size(32, 13)
         Me.lblFilter.TabIndex = 0
         Me.lblFilter.Text = "Filter:"
-        Me.lblFilter.TextAlign = System.Drawing.ContentAlignment.TopRight
+        Me.lblFilter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'chkSelectedOnly
         '
         Me.chkSelectedOnly.AutoSize = True
-        Me.chkSelectedOnly.Location = New System.Drawing.Point(98, 10)
+        Me.chkSelectedOnly.Location = New System.Drawing.Point(12, 35)
         Me.chkSelectedOnly.Name = "chkSelectedOnly"
         Me.chkSelectedOnly.Size = New System.Drawing.Size(122, 17)
         Me.chkSelectedOnly.TabIndex = 1
@@ -145,9 +146,9 @@ Partial Class frmAdvancedImport
         '
         Me.btnDetectSavedGames.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnDetectSavedGames.Image = Global.GBM.My.Resources.Resources.Multi_Search
-        Me.btnDetectSavedGames.Location = New System.Drawing.Point(12, 559)
+        Me.btnDetectSavedGames.Location = New System.Drawing.Point(12, 549)
         Me.btnDetectSavedGames.Name = "btnDetectSavedGames"
-        Me.btnDetectSavedGames.Size = New System.Drawing.Size(140, 50)
+        Me.btnDetectSavedGames.Size = New System.Drawing.Size(200, 60)
         Me.btnDetectSavedGames.TabIndex = 6
         Me.btnDetectSavedGames.Text = "&Detect Saved Games"
         Me.btnDetectSavedGames.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -160,7 +161,7 @@ Partial Class frmAdvancedImport
         '
         Me.btnClearSelected.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnClearSelected.Image = Global.GBM.My.Resources.Resources.frmMain_Cancel_Small
-        Me.btnClearSelected.Location = New System.Drawing.Point(748, 5)
+        Me.btnClearSelected.Location = New System.Drawing.Point(748, 53)
         Me.btnClearSelected.Name = "btnClearSelected"
         Me.btnClearSelected.Size = New System.Drawing.Size(24, 24)
         Me.btnClearSelected.TabIndex = 4
@@ -175,7 +176,7 @@ Partial Class frmAdvancedImport
         'chkHideIgnored
         '
         Me.chkHideIgnored.AutoSize = True
-        Me.chkHideIgnored.Location = New System.Drawing.Point(236, 10)
+        Me.chkHideIgnored.Location = New System.Drawing.Point(12, 58)
         Me.chkHideIgnored.Name = "chkHideIgnored"
         Me.chkHideIgnored.Size = New System.Drawing.Size(87, 17)
         Me.chkHideIgnored.TabIndex = 2

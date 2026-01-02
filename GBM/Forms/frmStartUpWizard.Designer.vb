@@ -68,7 +68,7 @@ Partial Class frmStartUpWizard
         Me.tabWizard.Location = New System.Drawing.Point(-6, -24)
         Me.tabWizard.Name = "tabWizard"
         Me.tabWizard.SelectedIndex = 0
-        Me.tabWizard.Size = New System.Drawing.Size(446, 272)
+        Me.tabWizard.Size = New System.Drawing.Size(495, 307)
         Me.tabWizard.TabIndex = 0
         Me.tabWizard.TabStop = False
         '
@@ -84,7 +84,7 @@ Partial Class frmStartUpWizard
         Me.tbPage1.Location = New System.Drawing.Point(4, 22)
         Me.tbPage1.Name = "tbPage1"
         Me.tbPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbPage1.Size = New System.Drawing.Size(438, 246)
+        Me.tbPage1.Size = New System.Drawing.Size(487, 281)
         Me.tbPage1.TabIndex = 0
         Me.tbPage1.Text = "TabPage1"
         '
@@ -92,7 +92,7 @@ Partial Class frmStartUpWizard
         '
         Me.lblLanguage.AutoSize = True
         Me.lblLanguage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
-        Me.lblLanguage.Location = New System.Drawing.Point(15, 161)
+        Me.lblLanguage.Location = New System.Drawing.Point(15, 183)
         Me.lblLanguage.Name = "lblLanguage"
         Me.lblLanguage.Size = New System.Drawing.Size(72, 16)
         Me.lblLanguage.TabIndex = 4
@@ -102,7 +102,7 @@ Partial Class frmStartUpWizard
         '
         Me.cboLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboLanguage.FormattingEnabled = True
-        Me.cboLanguage.Location = New System.Drawing.Point(18, 180)
+        Me.cboLanguage.Location = New System.Drawing.Point(18, 202)
         Me.cboLanguage.Name = "cboLanguage"
         Me.cboLanguage.Size = New System.Drawing.Size(300, 21)
         Me.cboLanguage.TabIndex = 0
@@ -110,9 +110,9 @@ Partial Class frmStartUpWizard
         'lblStep1Instructions2
         '
         Me.lblStep1Instructions2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStep1Instructions2.Location = New System.Drawing.Point(15, 96)
+        Me.lblStep1Instructions2.Location = New System.Drawing.Point(15, 102)
         Me.lblStep1Instructions2.Name = "lblStep1Instructions2"
-        Me.lblStep1Instructions2.Size = New System.Drawing.Size(409, 53)
+        Me.lblStep1Instructions2.Size = New System.Drawing.Size(459, 81)
         Me.lblStep1Instructions2.TabIndex = 2
         Me.lblStep1Instructions2.Text = "If you'd like to learn about advanced features or have any other questions before" &
     " you get started, there is a detailed online manual available."
@@ -120,7 +120,7 @@ Partial Class frmStartUpWizard
         'llbManual
         '
         Me.llbManual.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.llbManual.Location = New System.Drawing.Point(15, 213)
+        Me.llbManual.Location = New System.Drawing.Point(14, 236)
         Me.llbManual.Name = "llbManual"
         Me.llbManual.Size = New System.Drawing.Size(409, 20)
         Me.llbManual.TabIndex = 1
@@ -142,7 +142,7 @@ Partial Class frmStartUpWizard
         Me.lblStep1Instructions.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStep1Instructions.Location = New System.Drawing.Point(15, 46)
         Me.lblStep1Instructions.Name = "lblStep1Instructions"
-        Me.lblStep1Instructions.Size = New System.Drawing.Size(409, 36)
+        Me.lblStep1Instructions.Size = New System.Drawing.Size(459, 50)
         Me.lblStep1Instructions.TabIndex = 1
         Me.lblStep1Instructions.Text = "This guide will help you through some quick and easy steps to get started."
         '
@@ -159,16 +159,16 @@ Partial Class frmStartUpWizard
         Me.tbPage2.Location = New System.Drawing.Point(4, 22)
         Me.tbPage2.Name = "tbPage2"
         Me.tbPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbPage2.Size = New System.Drawing.Size(438, 246)
+        Me.tbPage2.Size = New System.Drawing.Size(487, 281)
         Me.tbPage2.TabIndex = 1
         Me.tbPage2.Text = "TabPage2"
         '
         'lblStep2Warning
         '
         Me.lblStep2Warning.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStep2Warning.Location = New System.Drawing.Point(15, 177)
+        Me.lblStep2Warning.Location = New System.Drawing.Point(15, 206)
         Me.lblStep2Warning.Name = "lblStep2Warning"
-        Me.lblStep2Warning.Size = New System.Drawing.Size(410, 33)
+        Me.lblStep2Warning.Size = New System.Drawing.Size(459, 61)
         Me.lblStep2Warning.TabIndex = 7
         Me.lblStep2Warning.Text = "You cannot return to this step after clicking Next.  The Backup Location can be c" &
     "hanged any time once Setup is complete."
@@ -199,7 +199,7 @@ Partial Class frmStartUpWizard
         Me.lblStep2Instructions.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStep2Instructions.Location = New System.Drawing.Point(14, 121)
         Me.lblStep2Instructions.Name = "lblStep2Instructions"
-        Me.lblStep2Instructions.Size = New System.Drawing.Size(409, 51)
+        Me.lblStep2Instructions.Size = New System.Drawing.Size(460, 80)
         Me.lblStep2Instructions.TabIndex = 6
         Me.lblStep2Instructions.Text = "All your backup files along with a manifest database (gbm.s3db) will be stored in" &
     " this location.  Any existing GBM data in this folder will be automatically impo" &
@@ -244,16 +244,16 @@ Partial Class frmStartUpWizard
         Me.tbPage3.Controls.Add(Me.lblStep3Intro)
         Me.tbPage3.Location = New System.Drawing.Point(4, 22)
         Me.tbPage3.Name = "tbPage3"
-        Me.tbPage3.Size = New System.Drawing.Size(438, 246)
+        Me.tbPage3.Size = New System.Drawing.Size(487, 281)
         Me.tbPage3.TabIndex = 2
         Me.tbPage3.Text = "TabPage3"
         '
         'btnOpenWizard
         '
         Me.btnOpenWizard.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnOpenWizard.Location = New System.Drawing.Point(121, 173)
+        Me.btnOpenWizard.Location = New System.Drawing.Point(139, 199)
         Me.btnOpenWizard.Name = "btnOpenWizard"
-        Me.btnOpenWizard.Size = New System.Drawing.Size(196, 23)
+        Me.btnOpenWizard.Size = New System.Drawing.Size(210, 23)
         Me.btnOpenWizard.TabIndex = 1
         Me.btnOpenWizard.Text = "Add Game Wizard"
         Me.btnOpenWizard.UseVisualStyleBackColor = True
@@ -261,9 +261,9 @@ Partial Class frmStartUpWizard
         'btnOpenMonitorList
         '
         Me.btnOpenMonitorList.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnOpenMonitorList.Location = New System.Drawing.Point(121, 202)
+        Me.btnOpenMonitorList.Location = New System.Drawing.Point(139, 228)
         Me.btnOpenMonitorList.Name = "btnOpenMonitorList"
-        Me.btnOpenMonitorList.Size = New System.Drawing.Size(196, 23)
+        Me.btnOpenMonitorList.Size = New System.Drawing.Size(210, 23)
         Me.btnOpenMonitorList.TabIndex = 2
         Me.btnOpenMonitorList.Text = "Game Manager"
         Me.btnOpenMonitorList.UseVisualStyleBackColor = True
@@ -271,9 +271,9 @@ Partial Class frmStartUpWizard
         'btnDownloadList
         '
         Me.btnDownloadList.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDownloadList.Location = New System.Drawing.Point(121, 144)
+        Me.btnDownloadList.Location = New System.Drawing.Point(139, 170)
         Me.btnDownloadList.Name = "btnDownloadList"
-        Me.btnDownloadList.Size = New System.Drawing.Size(196, 23)
+        Me.btnDownloadList.Size = New System.Drawing.Size(210, 23)
         Me.btnDownloadList.TabIndex = 0
         Me.btnDownloadList.Text = "Import from Official List"
         Me.btnDownloadList.UseVisualStyleBackColor = True
@@ -293,7 +293,7 @@ Partial Class frmStartUpWizard
         Me.lblStep3Intro.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStep3Intro.Location = New System.Drawing.Point(14, 46)
         Me.lblStep3Intro.Name = "lblStep3Intro"
-        Me.lblStep3Intro.Size = New System.Drawing.Size(410, 95)
+        Me.lblStep3Intro.Size = New System.Drawing.Size(460, 100)
         Me.lblStep3Intro.TabIndex = 0
         Me.lblStep3Intro.Text = resources.GetString("lblStep3Intro.Text")
         '
@@ -306,16 +306,16 @@ Partial Class frmStartUpWizard
         Me.tbPage4.Controls.Add(Me.lblStep4Instructions)
         Me.tbPage4.Location = New System.Drawing.Point(4, 22)
         Me.tbPage4.Name = "tbPage4"
-        Me.tbPage4.Size = New System.Drawing.Size(438, 246)
+        Me.tbPage4.Size = New System.Drawing.Size(487, 281)
         Me.tbPage4.TabIndex = 4
         Me.tbPage4.Text = "TabPage5"
         '
         'lblStep4Instructions3
         '
         Me.lblStep4Instructions3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStep4Instructions3.Location = New System.Drawing.Point(14, 130)
+        Me.lblStep4Instructions3.Location = New System.Drawing.Point(14, 156)
         Me.lblStep4Instructions3.Name = "lblStep4Instructions3"
-        Me.lblStep4Instructions3.Size = New System.Drawing.Size(409, 52)
+        Me.lblStep4Instructions3.Size = New System.Drawing.Size(460, 70)
         Me.lblStep4Instructions3.TabIndex = 0
         Me.lblStep4Instructions3.Text = "You can change anything you've setup in this wizard and find more settings and fe" &
     "atures by exploring the menus. "
@@ -323,9 +323,9 @@ Partial Class frmStartUpWizard
         'lblStep4Instructions2
         '
         Me.lblStep4Instructions2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStep4Instructions2.Location = New System.Drawing.Point(14, 98)
+        Me.lblStep4Instructions2.Location = New System.Drawing.Point(14, 101)
         Me.lblStep4Instructions2.Name = "lblStep4Instructions2"
-        Me.lblStep4Instructions2.Size = New System.Drawing.Size(410, 32)
+        Me.lblStep4Instructions2.Size = New System.Drawing.Size(460, 50)
         Me.lblStep4Instructions2.TabIndex = 0
         Me.lblStep4Instructions2.Text = "Just remember GBM can only currently monitor one game at a time."
         '
@@ -344,7 +344,7 @@ Partial Class frmStartUpWizard
         Me.lblStep4Instructions.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStep4Instructions.Location = New System.Drawing.Point(14, 46)
         Me.lblStep4Instructions.Name = "lblStep4Instructions"
-        Me.lblStep4Instructions.Size = New System.Drawing.Size(410, 42)
+        Me.lblStep4Instructions.Size = New System.Drawing.Size(460, 50)
         Me.lblStep4Instructions.TabIndex = 0
         Me.lblStep4Instructions.Text = "Game Backup Monitor will automatically monitor and backup your games each time th" &
     "ey are closed."
@@ -353,9 +353,9 @@ Partial Class frmStartUpWizard
         '
         Me.btnNext.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnNext.Image = Global.GBM.My.Resources.Resources.Multi_Next
-        Me.btnNext.Location = New System.Drawing.Point(342, 254)
+        Me.btnNext.Location = New System.Drawing.Point(382, 289)
         Me.btnNext.Name = "btnNext"
-        Me.btnNext.Size = New System.Drawing.Size(80, 50)
+        Me.btnNext.Size = New System.Drawing.Size(90, 60)
         Me.btnNext.TabIndex = 2
         Me.btnNext.Text = "&Next"
         Me.btnNext.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -365,9 +365,9 @@ Partial Class frmStartUpWizard
         '
         Me.btnBack.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnBack.Image = Global.GBM.My.Resources.Resources.Multi_Back
-        Me.btnBack.Location = New System.Drawing.Point(256, 254)
+        Me.btnBack.Location = New System.Drawing.Point(286, 289)
         Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(80, 50)
+        Me.btnBack.Size = New System.Drawing.Size(90, 60)
         Me.btnBack.TabIndex = 1
         Me.btnBack.Text = "&Back"
         Me.btnBack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -377,7 +377,7 @@ Partial Class frmStartUpWizard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(434, 311)
+        Me.ClientSize = New System.Drawing.Size(484, 361)
         Me.Controls.Add(Me.btnNext)
         Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.tabWizard)

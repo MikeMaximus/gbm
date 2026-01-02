@@ -71,28 +71,28 @@ Partial Class frmGameTags
         '
         'lblTags
         '
-        Me.lblTags.AutoSize = True
-        Me.lblTags.Location = New System.Drawing.Point(49, 9)
+        Me.lblTags.Location = New System.Drawing.Point(12, 9)
         Me.lblTags.Name = "lblTags"
-        Me.lblTags.Size = New System.Drawing.Size(77, 13)
+        Me.lblTags.Size = New System.Drawing.Size(150, 13)
         Me.lblTags.TabIndex = 0
         Me.lblTags.Text = "Available Tags"
+        Me.lblTags.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lblGameTags
         '
-        Me.lblGameTags.AutoSize = True
-        Me.lblGameTags.Location = New System.Drawing.Point(263, 9)
+        Me.lblGameTags.Location = New System.Drawing.Point(222, 9)
         Me.lblGameTags.Name = "lblGameTags"
-        Me.lblGameTags.Size = New System.Drawing.Size(68, 13)
+        Me.lblGameTags.Size = New System.Drawing.Size(150, 13)
         Me.lblGameTags.TabIndex = 0
         Me.lblGameTags.Text = "Current Tags"
+        Me.lblGameTags.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'btnOpenTags
         '
         Me.btnOpenTags.Image = Global.GBM.My.Resources.Resources.Multi_Edit
         Me.btnOpenTags.Location = New System.Drawing.Point(12, 230)
         Me.btnOpenTags.Name = "btnOpenTags"
-        Me.btnOpenTags.Size = New System.Drawing.Size(120, 50)
+        Me.btnOpenTags.Size = New System.Drawing.Size(150, 60)
         Me.btnOpenTags.TabIndex = 4
         Me.btnOpenTags.Text = "&Tag Manager..."
         Me.btnOpenTags.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -102,7 +102,7 @@ Partial Class frmGameTags
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(384, 286)
+        Me.ClientSize = New System.Drawing.Size(384, 301)
         Me.Controls.Add(Me.btnOpenTags)
         Me.Controls.Add(Me.lblGameTags)
         Me.Controls.Add(Me.lblTags)
@@ -120,7 +120,6 @@ Partial Class frmGameTags
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Edit Tags"
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents lstTags As System.Windows.Forms.ListBox

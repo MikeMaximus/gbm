@@ -60,7 +60,7 @@ Partial Class frmProcessManager
         Me.grpProcess.Controls.Add(Me.lblName)
         Me.grpProcess.Location = New System.Drawing.Point(210, 12)
         Me.grpProcess.Name = "grpProcess"
-        Me.grpProcess.Size = New System.Drawing.Size(362, 147)
+        Me.grpProcess.Size = New System.Drawing.Size(362, 225)
         Me.grpProcess.TabIndex = 3
         Me.grpProcess.TabStop = False
         Me.grpProcess.Text = "Configuration"
@@ -68,7 +68,7 @@ Partial Class frmProcessManager
         'lblDelaySeconds
         '
         Me.lblDelaySeconds.AutoSize = True
-        Me.lblDelaySeconds.Location = New System.Drawing.Point(259, 98)
+        Me.lblDelaySeconds.Location = New System.Drawing.Point(65, 157)
         Me.lblDelaySeconds.Name = "lblDelaySeconds"
         Me.lblDelaySeconds.Size = New System.Drawing.Size(49, 13)
         Me.lblDelaySeconds.TabIndex = 0
@@ -76,7 +76,7 @@ Partial Class frmProcessManager
         '
         'nudDelay
         '
-        Me.nudDelay.Location = New System.Drawing.Point(203, 96)
+        Me.nudDelay.Location = New System.Drawing.Point(9, 155)
         Me.nudDelay.Maximum = New Decimal(New Integer() {900, 0, 0, 0})
         Me.nudDelay.Name = "nudDelay"
         Me.nudDelay.Size = New System.Drawing.Size(50, 20)
@@ -84,16 +84,17 @@ Partial Class frmProcessManager
         '
         'lblDelay
         '
-        Me.lblDelay.Location = New System.Drawing.Point(69, 98)
+        Me.lblDelay.AutoSize = True
+        Me.lblDelay.Location = New System.Drawing.Point(6, 139)
         Me.lblDelay.Name = "lblDelay"
-        Me.lblDelay.Size = New System.Drawing.Size(128, 13)
+        Me.lblDelay.Size = New System.Drawing.Size(86, 13)
         Me.lblDelay.TabIndex = 0
         Me.lblDelay.Text = "Delay starting for"
         '
         'chkKillProcess
         '
         Me.chkKillProcess.AutoSize = True
-        Me.chkKillProcess.Location = New System.Drawing.Point(72, 122)
+        Me.chkKillProcess.Location = New System.Drawing.Point(9, 181)
         Me.chkKillProcess.Name = "chkKillProcess"
         Me.chkKillProcess.Size = New System.Drawing.Size(181, 17)
         Me.chkKillProcess.TabIndex = 4
@@ -103,7 +104,7 @@ Partial Class frmProcessManager
         'txtID
         '
         Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(323, 120)
+        Me.txtID.Location = New System.Drawing.Point(323, 181)
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(33, 20)
         Me.txtID.TabIndex = 0
@@ -112,15 +113,15 @@ Partial Class frmProcessManager
         '
         'txtArguments
         '
-        Me.txtArguments.Location = New System.Drawing.Point(72, 70)
+        Me.txtArguments.Location = New System.Drawing.Point(9, 116)
         Me.txtArguments.Name = "txtArguments"
-        Me.txtArguments.Size = New System.Drawing.Size(284, 20)
+        Me.txtArguments.Size = New System.Drawing.Size(347, 20)
         Me.txtArguments.TabIndex = 3
         '
         'lblArguments
         '
         Me.lblArguments.AutoSize = True
-        Me.lblArguments.Location = New System.Drawing.Point(6, 73)
+        Me.lblArguments.Location = New System.Drawing.Point(6, 100)
         Me.lblArguments.Name = "lblArguments"
         Me.lblArguments.Size = New System.Drawing.Size(60, 13)
         Me.lblArguments.TabIndex = 0
@@ -128,7 +129,7 @@ Partial Class frmProcessManager
         '
         'btnProcessBrowse
         '
-        Me.btnProcessBrowse.Location = New System.Drawing.Point(326, 45)
+        Me.btnProcessBrowse.Location = New System.Drawing.Point(326, 77)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
         Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 20)
         Me.btnProcessBrowse.TabIndex = 2
@@ -137,22 +138,22 @@ Partial Class frmProcessManager
         '
         'txtName
         '
-        Me.txtName.Location = New System.Drawing.Point(72, 19)
+        Me.txtName.Location = New System.Drawing.Point(9, 38)
         Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(284, 20)
+        Me.txtName.Size = New System.Drawing.Size(347, 20)
         Me.txtName.TabIndex = 0
         '
         'txtPath
         '
-        Me.txtPath.Location = New System.Drawing.Point(72, 45)
+        Me.txtPath.Location = New System.Drawing.Point(9, 77)
         Me.txtPath.Name = "txtPath"
-        Me.txtPath.Size = New System.Drawing.Size(248, 20)
+        Me.txtPath.Size = New System.Drawing.Size(311, 20)
         Me.txtPath.TabIndex = 1
         '
         'lblProcess
         '
         Me.lblProcess.AutoSize = True
-        Me.lblProcess.Location = New System.Drawing.Point(6, 48)
+        Me.lblProcess.Location = New System.Drawing.Point(6, 61)
         Me.lblProcess.Name = "lblProcess"
         Me.lblProcess.Size = New System.Drawing.Size(48, 13)
         Me.lblProcess.TabIndex = 0
@@ -172,9 +173,9 @@ Partial Class frmProcessManager
         Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnDelete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnDelete.Image = Global.GBM.My.Resources.Resources.Multi_Delete
-        Me.btnDelete.Location = New System.Drawing.Point(98, 165)
+        Me.btnDelete.Location = New System.Drawing.Point(108, 249)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(80, 50)
+        Me.btnDelete.Size = New System.Drawing.Size(90, 60)
         Me.btnDelete.TabIndex = 2
         Me.btnDelete.Text = "&Delete"
         Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -185,9 +186,9 @@ Partial Class frmProcessManager
         Me.btnAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAdd.Image = Global.GBM.My.Resources.Resources.Multi_Add
-        Me.btnAdd.Location = New System.Drawing.Point(12, 165)
+        Me.btnAdd.Location = New System.Drawing.Point(12, 249)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(80, 50)
+        Me.btnAdd.Size = New System.Drawing.Size(90, 60)
         Me.btnAdd.TabIndex = 1
         Me.btnAdd.Text = "&New"
         Me.btnAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -198,7 +199,7 @@ Partial Class frmProcessManager
         Me.lstProcesses.FormattingEnabled = True
         Me.lstProcesses.Location = New System.Drawing.Point(12, 12)
         Me.lstProcesses.Name = "lstProcesses"
-        Me.lstProcesses.Size = New System.Drawing.Size(192, 147)
+        Me.lstProcesses.Size = New System.Drawing.Size(192, 225)
         Me.lstProcesses.Sorted = True
         Me.lstProcesses.TabIndex = 0
         '
@@ -206,9 +207,9 @@ Partial Class frmProcessManager
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(492, 165)
+        Me.btnCancel.Location = New System.Drawing.Point(482, 249)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
+        Me.btnCancel.Size = New System.Drawing.Size(90, 60)
         Me.btnCancel.TabIndex = 5
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -218,9 +219,9 @@ Partial Class frmProcessManager
         '
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
-        Me.btnSave.Location = New System.Drawing.Point(406, 165)
+        Me.btnSave.Location = New System.Drawing.Point(386, 249)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(80, 50)
+        Me.btnSave.Size = New System.Drawing.Size(90, 60)
         Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -230,7 +231,7 @@ Partial Class frmProcessManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(584, 221)
+        Me.ClientSize = New System.Drawing.Size(584, 321)
         Me.Controls.Add(Me.grpProcess)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnAdd)

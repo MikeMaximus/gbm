@@ -2598,7 +2598,7 @@
     <value>Нажмите, чтобы отобразить панель списка игр.</value>
   </data>
   <data name="frmMain_btnBackup" xml:space="preserve">
-    <value>&amp;Backup</value>
+    <value>Р&amp;езервное копирование</value>
   </data>
   <data name="frmMain_btnEdit" xml:space="preserve">
     <value>&amp;Редактировать</value>

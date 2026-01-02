@@ -157,9 +157,9 @@ Partial Class frmSettings
         'btnSave
         '
         Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
-        Me.btnSave.Location = New System.Drawing.Point(403, 374)
+        Me.btnSave.Location = New System.Drawing.Point(383, 379)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(80, 50)
+        Me.btnSave.Size = New System.Drawing.Size(90, 60)
         Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -168,9 +168,9 @@ Partial Class frmSettings
         'btnCancel
         '
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(489, 374)
+        Me.btnCancel.Location = New System.Drawing.Point(479, 379)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
+        Me.btnCancel.Size = New System.Drawing.Size(90, 60)
         Me.btnCancel.TabIndex = 5
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -182,7 +182,7 @@ Partial Class frmSettings
         Me.grp7zGeneral.Controls.Add(Me.lblCompression)
         Me.grp7zGeneral.Location = New System.Drawing.Point(6, 3)
         Me.grp7zGeneral.Name = "grp7zGeneral"
-        Me.grp7zGeneral.Size = New System.Drawing.Size(383, 50)
+        Me.grp7zGeneral.Size = New System.Drawing.Size(383, 71)
         Me.grp7zGeneral.TabIndex = 0
         Me.grp7zGeneral.TabStop = False
         Me.grp7zGeneral.Text = "General"
@@ -191,15 +191,15 @@ Partial Class frmSettings
         '
         Me.cboCompression.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCompression.FormattingEnabled = True
-        Me.cboCompression.Location = New System.Drawing.Point(110, 17)
+        Me.cboCompression.Location = New System.Drawing.Point(8, 36)
         Me.cboCompression.Name = "cboCompression"
-        Me.cboCompression.Size = New System.Drawing.Size(238, 21)
+        Me.cboCompression.Size = New System.Drawing.Size(369, 21)
         Me.cboCompression.TabIndex = 0
         '
         'lblCompression
         '
         Me.lblCompression.AutoSize = True
-        Me.lblCompression.Location = New System.Drawing.Point(5, 20)
+        Me.lblCompression.Location = New System.Drawing.Point(6, 21)
         Me.lblCompression.Name = "lblCompression"
         Me.lblCompression.Size = New System.Drawing.Size(70, 13)
         Me.lblCompression.TabIndex = 0
@@ -207,7 +207,7 @@ Partial Class frmSettings
         '
         'btn7zLocation
         '
-        Me.btn7zLocation.Location = New System.Drawing.Point(313, 41)
+        Me.btn7zLocation.Location = New System.Drawing.Point(350, 82)
         Me.btn7zLocation.Name = "btn7zLocation"
         Me.btn7zLocation.Size = New System.Drawing.Size(27, 20)
         Me.btn7zLocation.TabIndex = 2
@@ -216,15 +216,15 @@ Partial Class frmSettings
         '
         'txt7zLocation
         '
-        Me.txt7zLocation.Location = New System.Drawing.Point(110, 41)
+        Me.txt7zLocation.Location = New System.Drawing.Point(6, 82)
         Me.txt7zLocation.Name = "txt7zLocation"
-        Me.txt7zLocation.Size = New System.Drawing.Size(197, 20)
+        Me.txt7zLocation.Size = New System.Drawing.Size(338, 20)
         Me.txt7zLocation.TabIndex = 1
         '
         'lblLocation
         '
         Me.lblLocation.AutoSize = True
-        Me.lblLocation.Location = New System.Drawing.Point(5, 44)
+        Me.lblLocation.Location = New System.Drawing.Point(5, 66)
         Me.lblLocation.Name = "lblLocation"
         Me.lblLocation.Size = New System.Drawing.Size(89, 13)
         Me.lblLocation.TabIndex = 4
@@ -232,9 +232,9 @@ Partial Class frmSettings
         '
         'txt7zArguments
         '
-        Me.txt7zArguments.Location = New System.Drawing.Point(110, 15)
+        Me.txt7zArguments.Location = New System.Drawing.Point(6, 36)
         Me.txt7zArguments.Name = "txt7zArguments"
-        Me.txt7zArguments.Size = New System.Drawing.Size(238, 20)
+        Me.txt7zArguments.Size = New System.Drawing.Size(369, 20)
         Me.txt7zArguments.TabIndex = 0
         '
         'lblArguments
@@ -251,7 +251,7 @@ Partial Class frmSettings
         Me.lbl7zCopyright.AutoEllipsis = True
         Me.lbl7zCopyright.Location = New System.Drawing.Point(9, 34)
         Me.lbl7zCopyright.Name = "lbl7zCopyright"
-        Me.lbl7zCopyright.Size = New System.Drawing.Size(339, 17)
+        Me.lbl7zCopyright.Size = New System.Drawing.Size(366, 17)
         Me.lbl7zCopyright.TabIndex = 8
         Me.lbl7zCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -260,16 +260,16 @@ Partial Class frmSettings
         Me.lbl7zProduct.AutoEllipsis = True
         Me.lbl7zProduct.Location = New System.Drawing.Point(9, 17)
         Me.lbl7zProduct.Name = "lbl7zProduct"
-        Me.lbl7zProduct.Size = New System.Drawing.Size(339, 17)
+        Me.lbl7zProduct.Size = New System.Drawing.Size(366, 17)
         Me.lbl7zProduct.TabIndex = 7
         Me.lbl7zProduct.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'btnDefaults
         '
         Me.btnDefaults.Image = Global.GBM.My.Resources.Resources.Multi_Reset
-        Me.btnDefaults.Location = New System.Drawing.Point(12, 374)
+        Me.btnDefaults.Location = New System.Drawing.Point(12, 379)
         Me.btnDefaults.Name = "btnDefaults"
-        Me.btnDefaults.Size = New System.Drawing.Size(80, 50)
+        Me.btnDefaults.Size = New System.Drawing.Size(100, 60)
         Me.btnDefaults.TabIndex = 2
         Me.btnDefaults.Text = "&Defaults"
         Me.btnDefaults.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -421,9 +421,9 @@ Partial Class frmSettings
         Me.grp7zAdvanced.Controls.Add(Me.txt7zLocation)
         Me.grp7zAdvanced.Controls.Add(Me.txt7zArguments)
         Me.grp7zAdvanced.Controls.Add(Me.lblLocation)
-        Me.grp7zAdvanced.Location = New System.Drawing.Point(6, 59)
+        Me.grp7zAdvanced.Location = New System.Drawing.Point(6, 80)
         Me.grp7zAdvanced.Name = "grp7zAdvanced"
-        Me.grp7zAdvanced.Size = New System.Drawing.Size(383, 73)
+        Me.grp7zAdvanced.Size = New System.Drawing.Size(383, 118)
         Me.grp7zAdvanced.TabIndex = 1
         Me.grp7zAdvanced.TabStop = False
         Me.grp7zAdvanced.Text = "Advanced"
@@ -432,7 +432,7 @@ Partial Class frmSettings
         '
         Me.grp7zInformation.Controls.Add(Me.lbl7zProduct)
         Me.grp7zInformation.Controls.Add(Me.lbl7zCopyright)
-        Me.grp7zInformation.Location = New System.Drawing.Point(6, 137)
+        Me.grp7zInformation.Location = New System.Drawing.Point(6, 209)
         Me.grp7zInformation.Name = "grp7zInformation"
         Me.grp7zInformation.Size = New System.Drawing.Size(383, 63)
         Me.grp7zInformation.TabIndex = 2
@@ -459,7 +459,7 @@ Partial Class frmSettings
         Me.grpGameMonitoringOptions.Controls.Add(Me.nudSuppressBackupThreshold)
         Me.grpGameMonitoringOptions.Location = New System.Drawing.Point(6, 143)
         Me.grpGameMonitoringOptions.Name = "grpGameMonitoringOptions"
-        Me.grpGameMonitoringOptions.Size = New System.Drawing.Size(383, 144)
+        Me.grpGameMonitoringOptions.Size = New System.Drawing.Size(383, 163)
         Me.grpGameMonitoringOptions.TabIndex = 1
         Me.grpGameMonitoringOptions.TabStop = False
         Me.grpGameMonitoringOptions.Text = "Game Monitoring Options"
@@ -467,7 +467,7 @@ Partial Class frmSettings
         'chkTwoPassDetection
         '
         Me.chkTwoPassDetection.AutoSize = True
-        Me.chkTwoPassDetection.Location = New System.Drawing.Point(6, 116)
+        Me.chkTwoPassDetection.Location = New System.Drawing.Point(6, 135)
         Me.chkTwoPassDetection.Name = "chkTwoPassDetection"
         Me.chkTwoPassDetection.Size = New System.Drawing.Size(122, 17)
         Me.chkTwoPassDetection.TabIndex = 5
@@ -478,9 +478,9 @@ Partial Class frmSettings
         '
         Me.cboDetectSpeed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDetectSpeed.FormattingEnabled = True
-        Me.cboDetectSpeed.Location = New System.Drawing.Point(99, 89)
+        Me.cboDetectSpeed.Location = New System.Drawing.Point(6, 108)
         Me.cboDetectSpeed.Name = "cboDetectSpeed"
-        Me.cboDetectSpeed.Size = New System.Drawing.Size(122, 21)
+        Me.cboDetectSpeed.Size = New System.Drawing.Size(369, 21)
         Me.cboDetectSpeed.TabIndex = 4
         '
         'lblDetectSpeed
@@ -600,7 +600,7 @@ Partial Class frmSettings
         Me.cboLanguage.FormattingEnabled = True
         Me.cboLanguage.Location = New System.Drawing.Point(6, 19)
         Me.cboLanguage.Name = "cboLanguage"
-        Me.cboLanguage.Size = New System.Drawing.Size(300, 21)
+        Me.cboLanguage.Size = New System.Drawing.Size(371, 21)
         Me.cboLanguage.TabIndex = 0
         '
         'grpLogOptions
@@ -740,9 +740,9 @@ Partial Class frmSettings
         'btnResetMessages
         '
         Me.btnResetMessages.Image = Global.GBM.My.Resources.Resources.Multi_Reset
-        Me.btnResetMessages.Location = New System.Drawing.Point(98, 374)
+        Me.btnResetMessages.Location = New System.Drawing.Point(118, 379)
         Me.btnResetMessages.Name = "btnResetMessages"
-        Me.btnResetMessages.Size = New System.Drawing.Size(100, 50)
+        Me.btnResetMessages.Size = New System.Drawing.Size(100, 60)
         Me.btnResetMessages.TabIndex = 3
         Me.btnResetMessages.Text = "&Reset Warnings"
         Me.btnResetMessages.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -829,7 +829,7 @@ Partial Class frmSettings
         Me.grpFolderOptions.Controls.Add(Me.chkCreateFolder)
         Me.grpFolderOptions.Location = New System.Drawing.Point(6, 3)
         Me.grpFolderOptions.Name = "grpFolderOptions"
-        Me.grpFolderOptions.Size = New System.Drawing.Size(383, 113)
+        Me.grpFolderOptions.Size = New System.Drawing.Size(383, 156)
         Me.grpFolderOptions.TabIndex = 0
         Me.grpFolderOptions.TabStop = False
         Me.grpFolderOptions.Text = "Files and Folders"
@@ -837,7 +837,7 @@ Partial Class frmSettings
         'chkDeleteToRecycleBin
         '
         Me.chkDeleteToRecycleBin.AutoSize = True
-        Me.chkDeleteToRecycleBin.Location = New System.Drawing.Point(6, 88)
+        Me.chkDeleteToRecycleBin.Location = New System.Drawing.Point(6, 127)
         Me.chkDeleteToRecycleBin.Name = "chkDeleteToRecycleBin"
         Me.chkDeleteToRecycleBin.Size = New System.Drawing.Size(168, 17)
         Me.chkDeleteToRecycleBin.TabIndex = 5
@@ -846,7 +846,7 @@ Partial Class frmSettings
         '
         'btnTempFolder
         '
-        Me.btnTempFolder.Location = New System.Drawing.Point(333, 40)
+        Me.btnTempFolder.Location = New System.Drawing.Point(350, 78)
         Me.btnTempFolder.Name = "btnTempFolder"
         Me.btnTempFolder.Size = New System.Drawing.Size(27, 20)
         Me.btnTempFolder.TabIndex = 3
@@ -856,7 +856,7 @@ Partial Class frmSettings
         'lblTempFolder
         '
         Me.lblTempFolder.AutoSize = True
-        Me.lblTempFolder.Location = New System.Drawing.Point(6, 43)
+        Me.lblTempFolder.Location = New System.Drawing.Point(3, 61)
         Me.lblTempFolder.Name = "lblTempFolder"
         Me.lblTempFolder.Size = New System.Drawing.Size(69, 13)
         Me.lblTempFolder.TabIndex = 0
@@ -864,14 +864,14 @@ Partial Class frmSettings
         '
         'txtTempFolder
         '
-        Me.txtTempFolder.Location = New System.Drawing.Point(111, 40)
+        Me.txtTempFolder.Location = New System.Drawing.Point(6, 79)
         Me.txtTempFolder.Name = "txtTempFolder"
-        Me.txtTempFolder.Size = New System.Drawing.Size(216, 20)
+        Me.txtTempFolder.Size = New System.Drawing.Size(338, 20)
         Me.txtTempFolder.TabIndex = 2
         '
         'btnBackupFolder
         '
-        Me.btnBackupFolder.Location = New System.Drawing.Point(333, 17)
+        Me.btnBackupFolder.Location = New System.Drawing.Point(350, 36)
         Me.btnBackupFolder.Name = "btnBackupFolder"
         Me.btnBackupFolder.Size = New System.Drawing.Size(27, 20)
         Me.btnBackupFolder.TabIndex = 1
@@ -881,7 +881,7 @@ Partial Class frmSettings
         'lblBackupFolder
         '
         Me.lblBackupFolder.AutoSize = True
-        Me.lblBackupFolder.Location = New System.Drawing.Point(6, 20)
+        Me.lblBackupFolder.Location = New System.Drawing.Point(3, 19)
         Me.lblBackupFolder.Name = "lblBackupFolder"
         Me.lblBackupFolder.Size = New System.Drawing.Size(79, 13)
         Me.lblBackupFolder.TabIndex = 0
@@ -889,15 +889,15 @@ Partial Class frmSettings
         '
         'txtBackupFolder
         '
-        Me.txtBackupFolder.Location = New System.Drawing.Point(111, 17)
+        Me.txtBackupFolder.Location = New System.Drawing.Point(6, 36)
         Me.txtBackupFolder.Name = "txtBackupFolder"
-        Me.txtBackupFolder.Size = New System.Drawing.Size(216, 20)
+        Me.txtBackupFolder.Size = New System.Drawing.Size(338, 20)
         Me.txtBackupFolder.TabIndex = 0
         '
         'chkCreateFolder
         '
         Me.chkCreateFolder.AutoSize = True
-        Me.chkCreateFolder.Location = New System.Drawing.Point(6, 66)
+        Me.chkCreateFolder.Location = New System.Drawing.Point(6, 105)
         Me.chkCreateFolder.Name = "chkCreateFolder"
         Me.chkCreateFolder.Size = New System.Drawing.Size(186, 17)
         Me.chkCreateFolder.TabIndex = 4
@@ -943,7 +943,7 @@ Partial Class frmSettings
         Me.grpHotKeyBindings.Controls.Add(Me.lblBackupBind)
         Me.grpHotKeyBindings.Location = New System.Drawing.Point(6, 56)
         Me.grpHotKeyBindings.Name = "grpHotKeyBindings"
-        Me.grpHotKeyBindings.Size = New System.Drawing.Size(383, 75)
+        Me.grpHotKeyBindings.Size = New System.Drawing.Size(383, 121)
         Me.grpHotKeyBindings.TabIndex = 1
         Me.grpHotKeyBindings.TabStop = False
         Me.grpHotKeyBindings.Text = "Key Bindings"
@@ -951,7 +951,7 @@ Partial Class frmSettings
         'btnResetRestoreBind
         '
         Me.btnResetRestoreBind.Image = Global.GBM.My.Resources.Resources.Multi_Reset
-        Me.btnResetRestoreBind.Location = New System.Drawing.Point(338, 42)
+        Me.btnResetRestoreBind.Location = New System.Drawing.Point(355, 83)
         Me.btnResetRestoreBind.Name = "btnResetRestoreBind"
         Me.btnResetRestoreBind.Size = New System.Drawing.Size(22, 22)
         Me.btnResetRestoreBind.TabIndex = 5
@@ -959,15 +959,15 @@ Partial Class frmSettings
         '
         'txtRestoreBind
         '
-        Me.txtRestoreBind.Location = New System.Drawing.Point(74, 44)
+        Me.txtRestoreBind.Location = New System.Drawing.Point(6, 85)
         Me.txtRestoreBind.Name = "txtRestoreBind"
-        Me.txtRestoreBind.Size = New System.Drawing.Size(258, 20)
+        Me.txtRestoreBind.Size = New System.Drawing.Size(343, 20)
         Me.txtRestoreBind.TabIndex = 4
         '
         'lblRestoreBind
         '
         Me.lblRestoreBind.AutoSize = True
-        Me.lblRestoreBind.Location = New System.Drawing.Point(3, 47)
+        Me.lblRestoreBind.Location = New System.Drawing.Point(3, 69)
         Me.lblRestoreBind.Name = "lblRestoreBind"
         Me.lblRestoreBind.Size = New System.Drawing.Size(47, 13)
         Me.lblRestoreBind.TabIndex = 3
@@ -976,7 +976,7 @@ Partial Class frmSettings
         'btnResetBackupBind
         '
         Me.btnResetBackupBind.Image = Global.GBM.My.Resources.Resources.Multi_Reset
-        Me.btnResetBackupBind.Location = New System.Drawing.Point(338, 16)
+        Me.btnResetBackupBind.Location = New System.Drawing.Point(355, 35)
         Me.btnResetBackupBind.Name = "btnResetBackupBind"
         Me.btnResetBackupBind.Size = New System.Drawing.Size(22, 22)
         Me.btnResetBackupBind.TabIndex = 2
@@ -984,9 +984,9 @@ Partial Class frmSettings
         '
         'txtBackupBind
         '
-        Me.txtBackupBind.Location = New System.Drawing.Point(74, 18)
+        Me.txtBackupBind.Location = New System.Drawing.Point(6, 37)
         Me.txtBackupBind.Name = "txtBackupBind"
-        Me.txtBackupBind.Size = New System.Drawing.Size(258, 20)
+        Me.txtBackupBind.Size = New System.Drawing.Size(343, 20)
         Me.txtBackupBind.TabIndex = 1
         '
         'lblBackupBind
@@ -1002,13 +1002,13 @@ Partial Class frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(584, 436)
+        Me.ClientSize = New System.Drawing.Size(584, 451)
         Me.Controls.Add(Me.pnlInterface)
+        Me.Controls.Add(Me.pnlGlobalHotKeys)
         Me.Controls.Add(Me.pnlGeneral)
+        Me.Controls.Add(Me.pnlFilesAndFolders)
         Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.pnlBackup)
-        Me.Controls.Add(Me.pnlFilesAndFolders)
-        Me.Controls.Add(Me.pnlGlobalHotKeys)
         Me.Controls.Add(Me.pnlStartup)
         Me.Controls.Add(Me.btnResetMessages)
         Me.Controls.Add(Me.lstSettings)
