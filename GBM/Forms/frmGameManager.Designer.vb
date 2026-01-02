@@ -678,7 +678,7 @@ Partial Class frmGameManager
         '
         'lblTimeIntervalMinutes
         '
-        Me.lblTimeIntervalMinutes.Location = New System.Drawing.Point(78, 184)
+        Me.lblTimeIntervalMinutes.Location = New System.Drawing.Point(78, 181)
         Me.lblTimeIntervalMinutes.Name = "lblTimeIntervalMinutes"
         Me.lblTimeIntervalMinutes.Size = New System.Drawing.Size(245, 13)
         Me.lblTimeIntervalMinutes.TabIndex = 45
@@ -686,7 +686,7 @@ Partial Class frmGameManager
         '
         'nudTimedInterval
         '
-        Me.nudTimedInterval.Location = New System.Drawing.Point(32, 182)
+        Me.nudTimedInterval.Location = New System.Drawing.Point(32, 179)
         Me.nudTimedInterval.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nudTimedInterval.Name = "nudTimedInterval"
         Me.nudTimedInterval.Size = New System.Drawing.Size(40, 20)
@@ -695,7 +695,7 @@ Partial Class frmGameManager
         '
         'chkTimedBackup
         '
-        Me.chkTimedBackup.Location = New System.Drawing.Point(10, 159)
+        Me.chkTimedBackup.Location = New System.Drawing.Point(10, 156)
         Me.chkTimedBackup.Name = "chkTimedBackup"
         Me.chkTimedBackup.Size = New System.Drawing.Size(313, 17)
         Me.chkTimedBackup.TabIndex = 29
@@ -704,7 +704,7 @@ Partial Class frmGameManager
         '
         'lblInterval
         '
-        Me.lblInterval.Location = New System.Drawing.Point(78, 135)
+        Me.lblInterval.Location = New System.Drawing.Point(78, 132)
         Me.lblInterval.Name = "lblInterval"
         Me.lblInterval.Size = New System.Drawing.Size(245, 13)
         Me.lblInterval.TabIndex = 42
@@ -712,14 +712,14 @@ Partial Class frmGameManager
         '
         'nudInterval
         '
-        Me.nudInterval.Location = New System.Drawing.Point(32, 133)
+        Me.nudInterval.Location = New System.Drawing.Point(32, 130)
         Me.nudInterval.Name = "nudInterval"
         Me.nudInterval.Size = New System.Drawing.Size(40, 20)
         Me.nudInterval.TabIndex = 28
         '
         'chkDifferentialBackup
         '
-        Me.chkDifferentialBackup.Location = New System.Drawing.Point(10, 110)
+        Me.chkDifferentialBackup.Location = New System.Drawing.Point(10, 107)
         Me.chkDifferentialBackup.Name = "chkDifferentialBackup"
         Me.chkDifferentialBackup.Size = New System.Drawing.Size(313, 17)
         Me.chkDifferentialBackup.TabIndex = 27
@@ -728,7 +728,7 @@ Partial Class frmGameManager
         '
         'chkTimeStamp
         '
-        Me.chkTimeStamp.Location = New System.Drawing.Point(10, 62)
+        Me.chkTimeStamp.Location = New System.Drawing.Point(10, 59)
         Me.chkTimeStamp.Name = "chkTimeStamp"
         Me.chkTimeStamp.Size = New System.Drawing.Size(313, 17)
         Me.chkTimeStamp.TabIndex = 25
@@ -737,7 +737,7 @@ Partial Class frmGameManager
         '
         'chkFolderSave
         '
-        Me.chkFolderSave.Location = New System.Drawing.Point(10, 16)
+        Me.chkFolderSave.Location = New System.Drawing.Point(10, 13)
         Me.chkFolderSave.Name = "chkFolderSave"
         Me.chkFolderSave.Size = New System.Drawing.Size(313, 17)
         Me.chkFolderSave.TabIndex = 23
@@ -746,14 +746,14 @@ Partial Class frmGameManager
         '
         'nudLimit
         '
-        Me.nudLimit.Location = New System.Drawing.Point(32, 84)
+        Me.nudLimit.Location = New System.Drawing.Point(32, 81)
         Me.nudLimit.Name = "nudLimit"
         Me.nudLimit.Size = New System.Drawing.Size(40, 20)
         Me.nudLimit.TabIndex = 26
         '
         'chkCleanFolder
         '
-        Me.chkCleanFolder.Location = New System.Drawing.Point(10, 39)
+        Me.chkCleanFolder.Location = New System.Drawing.Point(10, 36)
         Me.chkCleanFolder.Name = "chkCleanFolder"
         Me.chkCleanFolder.Size = New System.Drawing.Size(313, 17)
         Me.chkCleanFolder.TabIndex = 24
@@ -762,7 +762,7 @@ Partial Class frmGameManager
         '
         'lblLimit
         '
-        Me.lblLimit.Location = New System.Drawing.Point(78, 87)
+        Me.lblLimit.Location = New System.Drawing.Point(78, 84)
         Me.lblLimit.Name = "lblLimit"
         Me.lblLimit.Size = New System.Drawing.Size(245, 13)
         Me.lblLimit.TabIndex = 39

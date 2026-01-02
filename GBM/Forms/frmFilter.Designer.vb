@@ -374,10 +374,11 @@ Partial Class frmFilter
         '
         'optOr
         '
+        Me.optOr.AutoSize = True
         Me.optOr.Checked = True
         Me.optOr.Location = New System.Drawing.Point(6, 19)
         Me.optOr.Name = "optOr"
-        Me.optOr.Size = New System.Drawing.Size(44, 17)
+        Me.optOr.Size = New System.Drawing.Size(43, 17)
         Me.optOr.TabIndex = 0
         Me.optOr.TabStop = True
         Me.optOr.Text = "Any"
@@ -385,9 +386,10 @@ Partial Class frmFilter
         '
         'optAnd
         '
+        Me.optAnd.AutoSize = True
         Me.optAnd.Location = New System.Drawing.Point(6, 43)
         Me.optAnd.Name = "optAnd"
-        Me.optAnd.Size = New System.Drawing.Size(44, 17)
+        Me.optAnd.Size = New System.Drawing.Size(36, 17)
         Me.optAnd.TabIndex = 1
         Me.optAnd.Text = "All"
         Me.optAnd.UseVisualStyleBackColor = True
@@ -518,6 +520,7 @@ Partial Class frmFilter
         Me.grpGameFilter.PerformLayout()
         CType(Me.numFilter, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpFilterType.ResumeLayout(False)
+        Me.grpFilterType.PerformLayout()
         Me.grpSorting.ResumeLayout(False)
         Me.grpSortOptions.ResumeLayout(False)
         Me.grpSortOptions.PerformLayout()

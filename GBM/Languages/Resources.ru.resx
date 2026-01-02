@@ -1658,10 +1658,10 @@
     <value>Сортировка</value>
   </data>
   <data name="frmFilter_optSortAsc" xml:space="preserve">
-    <value>Возрастание</value>
+    <value>По возрастанию</value>
   </data>
   <data name="frmFilter_optSortDesc" xml:space="preserve">
-    <value>Нисходящий</value>
+    <value>По убыванию</value>
   </data>
   <data name="frmFilter_FieldCompany" xml:space="preserve">
     <value>Компания</value>

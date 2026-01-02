@@ -836,13 +836,13 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtLog.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLog.Location = New System.Drawing.Point(15, 198)
+        Me.txtLog.Location = New System.Drawing.Point(15, 211)
         Me.txtLog.MaxLength = 524288
         Me.txtLog.Multiline = True
         Me.txtLog.Name = "txtLog"
         Me.txtLog.ReadOnly = True
         Me.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtLog.Size = New System.Drawing.Size(488, 205)
+        Me.txtLog.Size = New System.Drawing.Size(488, 192)
         Me.txtLog.TabIndex = 32
         Me.txtLog.TabStop = False
         '
@@ -871,7 +871,7 @@ Partial Class frmMain
         Me.lblLastActionTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblLastActionTitle.Location = New System.Drawing.Point(12, 182)
         Me.lblLastActionTitle.Name = "lblLastActionTitle"
-        Me.lblLastActionTitle.Size = New System.Drawing.Size(100, 13)
+        Me.lblLastActionTitle.Size = New System.Drawing.Size(491, 13)
         Me.lblLastActionTitle.TabIndex = 28
         Me.lblLastActionTitle.Text = "Last Action:"
         '
@@ -893,9 +893,9 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblLastAction.AutoEllipsis = True
         Me.lblLastAction.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLastAction.Location = New System.Drawing.Point(118, 182)
+        Me.lblLastAction.Location = New System.Drawing.Point(13, 195)
         Me.lblLastAction.Name = "lblLastAction"
-        Me.lblLastAction.Size = New System.Drawing.Size(384, 13)
+        Me.lblLastAction.Size = New System.Drawing.Size(491, 13)
         Me.lblLastAction.TabIndex = 30
         Me.lblLastAction.Text = "Last Action"
         Me.lblLastAction.UseMnemonic = False
