@@ -1212,11 +1212,8 @@ Public Class frmGameManager
                 chkCleanFolder.Enabled = False
             End If
 
-            'Handle "Time Interval Backups"  mode change
+            'Handle "Time Interval Backups" mode change
             If mgrSettings.EnableLiveBackup Then
-                chkTimedBackup.Visible = True
-                nudTimedInterval.Visible = True
-                lblTimeIntervalMinutes.Visible = True
                 If chkTimedBackup.Checked Then
                     nudTimedInterval.Enabled = True
                     lblTimeIntervalMinutes.Enabled = True
@@ -1224,10 +1221,6 @@ Public Class frmGameManager
                     nudTimedInterval.Enabled = False
                     lblTimeIntervalMinutes.Enabled = False
                 End If
-            Else
-                chkTimedBackup.Visible = False
-                nudTimedInterval.Visible = False
-                lblTimeIntervalMinutes.Visible = False
             End If
         End If
     End Sub
@@ -1907,6 +1900,8 @@ Public Class frmGameManager
         btnBackupData.Image = frmGameManager_Backup_Data
         btnMarkAsRestored.Image = frmGameManager_Mark
         btnOpenBackupFolder.Image = frmGameManager_Folder_Open
+        btnMonitorOptions.Text = frmGameManager_ttHelp_btnMonitorOptions
+        btnLinks.Text = frmGameManager_ttHelp_btnLinks
 
         'Tool Tips
         ttHelp.SetToolTip(btnBackupData, frmGameManager_ttHelp_btnBackupData)
@@ -1917,8 +1912,8 @@ Public Class frmGameManager
         ttHelp.SetToolTip(btnProcessOptions, frmGameManager_ttHelp_btnProcessOptions)
         ttHelp.SetToolTip(btnOpenGameFolder, frmGameManager_ttHelp_btnOpenGameFolder)
         ttHelp.SetToolTip(btnOpenSaveFolder, frmGameManager_ttHelp_btnOpenSaveFolder)
-        ttHelp.SetToolTip(btnLinks, frmGameManager_ttHelp_btnLinks)
-        ttHelp.SetToolTip(btnMonitorOptions, frmGameManager_ttHelp_btnMonitorOptions)
+        'ttHelp.SetToolTip(btnLinks, frmGameManager_ttHelp_btnLinks)
+        'ttHelp.SetToolTip(btnMonitorOptions, frmGameManager_ttHelp_btnMonitorOptions)
         ttHelp.SetToolTip(btnGameID, frmGameManager_ttHelp_btnGameID)
         ttHelp.SetToolTip(cboOS, frmGameManager_ttHelp_cboOS)
         ttHelp.SetToolTip(nudLimit, frmGameManager_ttHelp_nudLimit)
@@ -1935,6 +1930,17 @@ Public Class frmGameManager
         If Not mgrCommon.IsUnix Then
             cboOS.Visible = False
             cmsWineConfig.Visible = False
+        End If
+
+        'Toggle the timed backup feature
+        If mgrSettings.EnableLiveBackup Then
+            chkTimedBackup.Visible = True
+            nudTimedInterval.Visible = True
+            lblTimeIntervalMinutes.Visible = True
+        Else
+            chkTimedBackup.Visible = False
+            nudTimedInterval.Visible = False
+            lblTimeIntervalMinutes.Visible = False
         End If
 
         'Init Official Import Menu
@@ -2146,7 +2152,7 @@ Public Class frmGameManager
         UpdateBuilderButtonLabel(txtExclude.Text, frmGameManager_ExcludeShortcut, btnExclude, (sExclude <> txtExclude.Text))
     End Sub
 
-    Private Sub ModeChangeEventHandler(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged, chkTimeStamp.CheckedChanged, chkDifferentialBackup.CheckedChanged, chkTimedBackup.CheckedChanged, cmsMonitorOnly.CheckedChanged
+    Private Sub ModeChangeEventHandler(sender As Object, e As EventArgs) Handles cmsMonitorOnly.CheckedChanged
         If Not IsLoading Then ModeChangeHandler()
     End Sub
 
