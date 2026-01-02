@@ -250,7 +250,7 @@ Partial Class frmGameManager
         '
         Me.btnSavePathBrowse.Location = New System.Drawing.Point(473, 193)
         Me.btnSavePathBrowse.Name = "btnSavePathBrowse"
-        Me.btnSavePathBrowse.Size = New System.Drawing.Size(30, 20)
+        Me.btnSavePathBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnSavePathBrowse.TabIndex = 15
         Me.btnSavePathBrowse.Text = "..."
         Me.btnSavePathBrowse.UseVisualStyleBackColor = True
@@ -259,7 +259,7 @@ Partial Class frmGameManager
         '
         Me.btnProcessBrowse.Location = New System.Drawing.Point(501, 73)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
-        Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 20)
+        Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnProcessBrowse.TabIndex = 6
         Me.btnProcessBrowse.Text = "..."
         Me.btnProcessBrowse.UseVisualStyleBackColor = True
@@ -334,7 +334,7 @@ Partial Class frmGameManager
         '
         Me.btnIconBrowse.Location = New System.Drawing.Point(444, 168)
         Me.btnIconBrowse.Name = "btnIconBrowse"
-        Me.btnIconBrowse.Size = New System.Drawing.Size(30, 20)
+        Me.btnIconBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnIconBrowse.TabIndex = 8
         Me.btnIconBrowse.Text = "..."
         Me.btnIconBrowse.UseVisualStyleBackColor = True
@@ -829,9 +829,9 @@ Partial Class frmGameManager
         '
         'btnAppPathBrowse
         '
-        Me.btnAppPathBrowse.Location = New System.Drawing.Point(473, 154)
+        Me.btnAppPathBrowse.Location = New System.Drawing.Point(473, 153)
         Me.btnAppPathBrowse.Name = "btnAppPathBrowse"
-        Me.btnAppPathBrowse.Size = New System.Drawing.Size(30, 20)
+        Me.btnAppPathBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnAppPathBrowse.TabIndex = 11
         Me.btnAppPathBrowse.Text = "..."
         Me.btnAppPathBrowse.UseVisualStyleBackColor = True
@@ -956,7 +956,7 @@ Partial Class frmGameManager
         'btnRestore
         '
         Me.btnRestore.Image = Global.GBM.My.Resources.Resources.Multi_Restore
-        Me.btnRestore.Location = New System.Drawing.Point(410, 180)
+        Me.btnRestore.Location = New System.Drawing.Point(410, 185)
         Me.btnRestore.Name = "btnRestore"
         Me.btnRestore.Size = New System.Drawing.Size(90, 60)
         Me.btnRestore.TabIndex = 12
@@ -967,7 +967,7 @@ Partial Class frmGameManager
         'btnBackup
         '
         Me.btnBackup.Image = Global.GBM.My.Resources.Resources.Multi_Backup
-        Me.btnBackup.Location = New System.Drawing.Point(314, 180)
+        Me.btnBackup.Location = New System.Drawing.Point(314, 185)
         Me.btnBackup.Name = "btnBackup"
         Me.btnBackup.Size = New System.Drawing.Size(90, 60)
         Me.btnBackup.TabIndex = 13
@@ -978,7 +978,7 @@ Partial Class frmGameManager
         'btnMarkAsRestored
         '
         Me.btnMarkAsRestored.Image = Global.GBM.My.Resources.Resources.frmGameManager_Mark
-        Me.btnMarkAsRestored.Location = New System.Drawing.Point(506, 75)
+        Me.btnMarkAsRestored.Location = New System.Drawing.Point(506, 72)
         Me.btnMarkAsRestored.Name = "btnMarkAsRestored"
         Me.btnMarkAsRestored.Size = New System.Drawing.Size(22, 22)
         Me.btnMarkAsRestored.TabIndex = 5
@@ -1026,7 +1026,7 @@ Partial Class frmGameManager
         'btnOpenBackupFolder
         '
         Me.btnOpenBackupFolder.Image = Global.GBM.My.Resources.Resources.frmGameManager_Folder_Open
-        Me.btnOpenBackupFolder.Location = New System.Drawing.Point(506, 117)
+        Me.btnOpenBackupFolder.Location = New System.Drawing.Point(506, 115)
         Me.btnOpenBackupFolder.Name = "btnOpenBackupFolder"
         Me.btnOpenBackupFolder.Size = New System.Drawing.Size(22, 22)
         Me.btnOpenBackupFolder.TabIndex = 8

@@ -2006,10 +2006,6 @@ Public Class frmGameManager
         SwitchApp()
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs)
-        Me.Close()
-    End Sub
-
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         AddApp()
     End Sub
@@ -2152,7 +2148,7 @@ Public Class frmGameManager
         UpdateBuilderButtonLabel(txtExclude.Text, frmGameManager_ExcludeShortcut, btnExclude, (sExclude <> txtExclude.Text))
     End Sub
 
-    Private Sub ModeChangeEventHandler(sender As Object, e As EventArgs) Handles cmsMonitorOnly.CheckedChanged
+    Private Sub ModeChangeEventHandler(sender As Object, e As EventArgs) Handles chkFolderSave.CheckedChanged, chkTimeStamp.CheckedChanged, chkDifferentialBackup.CheckedChanged, chkTimedBackup.CheckedChanged, cmsMonitorOnly.CheckedChanged
         If Not IsLoading Then ModeChangeHandler()
     End Sub
 
