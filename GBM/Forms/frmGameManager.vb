@@ -1982,7 +1982,9 @@ Public Class frmGameManager
         End If
 
         AssignDirtyHandlers(grpCoreConfig.Controls)
+        AssignDirtyHandlers(grpCoreConfigOptions.Controls)
         AssignDirtyHandlers(grpGameInfo.Controls)
+
         AddHandler cmsRegEx.CheckedChanged, AddressOf DirtyCheck_ValueChanged
         AddHandler cmsUseWindowTitle.CheckedChanged, AddressOf DirtyCheck_ValueChanged
         AddHandler cmsEnabled.CheckedChanged, AddressOf DirtyCheck_ValueChanged

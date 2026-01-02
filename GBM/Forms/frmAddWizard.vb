@@ -139,7 +139,7 @@ Public Class frmAddWizard
         lstSummary.Columns.Add("Item")
         lstSummary.Columns.Add("Value")
         lstSummary.Columns(0).Width = 95
-        lstSummary.Columns(1).Width = 360
+        lstSummary.Columns(1).Width = 340
 
         sItems = {frmAddWizard_Summary_Name, frmAddWizard_Summary_Process, frmAddWizard_Summary_AbsolutePath, frmAddWizard_Summary_SavePath, frmAddWizard_Summary_FolderSave, frmAddWizard_Summary_Timestamp, frmAddWizard_Summary_Include, frmAddWizard_Summary_Exclude}
         sValues = {sName, sProcessSummaryText, mgrCommon.BooleanYesNo(bIsAbsolute), sSavePath, mgrCommon.BooleanYesNo(bFolderBackup), ShowSummaryLimit(bTimeStamp, iLimit), StringEmptyText(sFileType), StringEmptyText(sExcludeList)}

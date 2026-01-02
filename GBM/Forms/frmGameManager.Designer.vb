@@ -79,7 +79,7 @@ Partial Class frmGameManager
         Me.tabGameManager = New System.Windows.Forms.TabControl()
         Me.tbConfig = New System.Windows.Forms.TabPage()
         Me.grpCoreConfig = New System.Windows.Forms.GroupBox()
-        Me.grpOptions = New System.Windows.Forms.GroupBox()
+        Me.grpCoreConfigOptions = New System.Windows.Forms.GroupBox()
         Me.lblTimeIntervalMinutes = New System.Windows.Forms.Label()
         Me.nudTimedInterval = New System.Windows.Forms.NumericUpDown()
         Me.chkTimedBackup = New System.Windows.Forms.CheckBox()
@@ -141,7 +141,7 @@ Partial Class frmGameManager
         Me.tabGameManager.SuspendLayout()
         Me.tbConfig.SuspendLayout()
         Me.grpCoreConfig.SuspendLayout()
-        Me.grpOptions.SuspendLayout()
+        Me.grpCoreConfigOptions.SuspendLayout()
         CType(Me.nudTimedInterval, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudInterval, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -622,7 +622,7 @@ Partial Class frmGameManager
         '
         'grpCoreConfig
         '
-        Me.grpCoreConfig.Controls.Add(Me.grpOptions)
+        Me.grpCoreConfig.Controls.Add(Me.grpCoreConfigOptions)
         Me.grpCoreConfig.Controls.Add(Me.btnOpenSaveFolder)
         Me.grpCoreConfig.Controls.Add(Me.btnOpenGameFolder)
         Me.grpCoreConfig.Controls.Add(Me.btnGameID)
@@ -657,24 +657,24 @@ Partial Class frmGameManager
         Me.grpCoreConfig.TabIndex = 0
         Me.grpCoreConfig.TabStop = False
         '
-        'grpOptions
+        'grpCoreConfigOptions
         '
-        Me.grpOptions.Controls.Add(Me.lblTimeIntervalMinutes)
-        Me.grpOptions.Controls.Add(Me.nudTimedInterval)
-        Me.grpOptions.Controls.Add(Me.chkTimedBackup)
-        Me.grpOptions.Controls.Add(Me.lblInterval)
-        Me.grpOptions.Controls.Add(Me.nudInterval)
-        Me.grpOptions.Controls.Add(Me.chkDifferentialBackup)
-        Me.grpOptions.Controls.Add(Me.chkTimeStamp)
-        Me.grpOptions.Controls.Add(Me.chkFolderSave)
-        Me.grpOptions.Controls.Add(Me.nudLimit)
-        Me.grpOptions.Controls.Add(Me.chkCleanFolder)
-        Me.grpOptions.Controls.Add(Me.lblLimit)
-        Me.grpOptions.Location = New System.Drawing.Point(198, 256)
-        Me.grpOptions.Name = "grpOptions"
-        Me.grpOptions.Size = New System.Drawing.Size(333, 209)
-        Me.grpOptions.TabIndex = 35
-        Me.grpOptions.TabStop = False
+        Me.grpCoreConfigOptions.Controls.Add(Me.lblTimeIntervalMinutes)
+        Me.grpCoreConfigOptions.Controls.Add(Me.nudTimedInterval)
+        Me.grpCoreConfigOptions.Controls.Add(Me.chkTimedBackup)
+        Me.grpCoreConfigOptions.Controls.Add(Me.lblInterval)
+        Me.grpCoreConfigOptions.Controls.Add(Me.nudInterval)
+        Me.grpCoreConfigOptions.Controls.Add(Me.chkDifferentialBackup)
+        Me.grpCoreConfigOptions.Controls.Add(Me.chkTimeStamp)
+        Me.grpCoreConfigOptions.Controls.Add(Me.chkFolderSave)
+        Me.grpCoreConfigOptions.Controls.Add(Me.nudLimit)
+        Me.grpCoreConfigOptions.Controls.Add(Me.chkCleanFolder)
+        Me.grpCoreConfigOptions.Controls.Add(Me.lblLimit)
+        Me.grpCoreConfigOptions.Location = New System.Drawing.Point(198, 256)
+        Me.grpCoreConfigOptions.Name = "grpCoreConfigOptions"
+        Me.grpCoreConfigOptions.Size = New System.Drawing.Size(333, 209)
+        Me.grpCoreConfigOptions.TabIndex = 35
+        Me.grpCoreConfigOptions.TabStop = False
         '
         'lblTimeIntervalMinutes
         '
@@ -1218,7 +1218,7 @@ Partial Class frmGameManager
         Me.tbConfig.ResumeLayout(False)
         Me.grpCoreConfig.ResumeLayout(False)
         Me.grpCoreConfig.PerformLayout()
-        Me.grpOptions.ResumeLayout(False)
+        Me.grpCoreConfigOptions.ResumeLayout(False)
         CType(Me.nudTimedInterval, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.nudInterval, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.nudLimit, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1333,7 +1333,7 @@ Partial Class frmGameManager
     Friend WithEvents btnCopy As Button
     Friend WithEvents btnOpenSaveFolder As Button
     Friend WithEvents btnOpenGameFolder As Button
-    Friend WithEvents grpOptions As GroupBox
+    Friend WithEvents grpCoreConfigOptions As GroupBox
     Friend WithEvents lblTimeIntervalMinutes As Label
     Friend WithEvents nudTimedInterval As NumericUpDown
     Friend WithEvents chkTimedBackup As CheckBox
