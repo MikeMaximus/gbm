@@ -161,6 +161,8 @@ Section "Game Installation" GameInstall
   ${CreateDirectory} "$INSTDIR\ja"
   ${SetOutPath} "$INSTDIR\ja"
   ${File} "<SOURCEDIR>\ja" "GBM.resources.dll"
+  ${SetOutPath} "$INSTDIR\ru"
+  ${File} "<SOURCEDIR>\ru" "GBM.resources.dll"
   ${CreateDirectory} "$INSTDIR\Utilities"
   ${CreateDirectory} "$INSTDIR\Utilities\x64"
   ${SetOutPath} "$INSTDIR\Utilities\x64"

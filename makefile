@@ -24,6 +24,8 @@ install: GBM.exe $(foreach size,$(ICONSIZES),gbm_$(size)x$(size).png)
 	install zh/GBM.resources.dll $(DESTDIR)/$(PREFIX)/share/gbm/zh/;
 	install -d $(DESTDIR)/$(PREFIX)/share/gbm/ja/;
 	install ja/GBM.resources.dll $(DESTDIR)/$(PREFIX)/share/gbm/ja/;
+	install -d $(DESTDIR)/$(PREFIX)/share/gbm/ru/;
+	install ru/GBM.resources.dll $(DESTDIR)/$(PREFIX)/share/gbm/ru/;
 #install icon in different sizes
 	$(foreach size,$(ICONSIZES),install -d $(DESTDIR)/$(PREFIX)/share/icons/hicolor/$(size)x$(size)/apps/;$(\n))
 	$(foreach size,$(ICONSIZES),install -m644 gbm_$(size)x$(size).png $(DESTDIR)/$(PREFIX)/share/icons/hicolor/$(size)x$(size)/apps/gbm.png;$(\n))
