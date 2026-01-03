@@ -41,6 +41,7 @@ Partial Class frmFilter
         Me.lblNot = New System.Windows.Forms.Label()
         Me.chkNot = New System.Windows.Forms.CheckBox()
         Me.cboListFilter = New System.Windows.Forms.ComboBox()
+        Me.txtStringFilter = New System.Windows.Forms.TextBox()
         Me.numFilter = New System.Windows.Forms.NumericUpDown()
         Me.cboNumericOps = New System.Windows.Forms.ComboBox()
         Me.lblCurrentFilters = New System.Windows.Forms.Label()
@@ -53,7 +54,6 @@ Partial Class frmFilter
         Me.grpFilterType = New System.Windows.Forms.GroupBox()
         Me.optOr = New System.Windows.Forms.RadioButton()
         Me.optAnd = New System.Windows.Forms.RadioButton()
-        Me.txtStringFilter = New System.Windows.Forms.TextBox()
         Me.grpSorting = New System.Windows.Forms.GroupBox()
         Me.grpSortOptions = New System.Windows.Forms.GroupBox()
         Me.optSortAsc = New System.Windows.Forms.RadioButton()
@@ -141,6 +141,7 @@ Partial Class frmFilter
         '
         'optAll
         '
+        Me.optAll.AutoSize = True
         Me.optAll.Location = New System.Drawing.Point(6, 42)
         Me.optAll.Name = "optAll"
         Me.optAll.Size = New System.Drawing.Size(63, 17)
@@ -151,6 +152,7 @@ Partial Class frmFilter
         '
         'optAny
         '
+        Me.optAny.AutoSize = True
         Me.optAny.Checked = True
         Me.optAny.Location = New System.Drawing.Point(6, 19)
         Me.optAny.Name = "optAny"
@@ -276,6 +278,13 @@ Partial Class frmFilter
         Me.cboListFilter.Size = New System.Drawing.Size(152, 21)
         Me.cboListFilter.TabIndex = 3
         '
+        'txtStringFilter
+        '
+        Me.txtStringFilter.Location = New System.Drawing.Point(231, 36)
+        Me.txtStringFilter.Name = "txtStringFilter"
+        Me.txtStringFilter.Size = New System.Drawing.Size(152, 20)
+        Me.txtStringFilter.TabIndex = 3
+        '
         'numFilter
         '
         Me.numFilter.DecimalPlaces = 1
@@ -394,13 +403,6 @@ Partial Class frmFilter
         Me.optAnd.Text = "All"
         Me.optAnd.UseVisualStyleBackColor = True
         '
-        'txtStringFilter
-        '
-        Me.txtStringFilter.Location = New System.Drawing.Point(231, 36)
-        Me.txtStringFilter.Name = "txtStringFilter"
-        Me.txtStringFilter.Size = New System.Drawing.Size(152, 20)
-        Me.txtStringFilter.TabIndex = 3
-        '
         'grpSorting
         '
         Me.grpSorting.Controls.Add(Me.grpSortOptions)
@@ -516,6 +518,7 @@ Partial Class frmFilter
         Me.Text = "Custom Filter"
         Me.grpTagFilter.ResumeLayout(False)
         Me.grpTagOptions.ResumeLayout(False)
+        Me.grpTagOptions.PerformLayout()
         Me.grpGameFilter.ResumeLayout(False)
         Me.grpGameFilter.PerformLayout()
         CType(Me.numFilter, System.ComponentModel.ISupportInitialize).EndInit()

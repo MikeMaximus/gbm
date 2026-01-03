@@ -1443,7 +1443,10 @@ Public Class frmMain
         If frm.ShowDialog() = Windows.Forms.DialogResult.OK Then
             'Set Remote Database Location
             mgrPath.RemoteDatabaseLocation = mgrSettings.BackupFolder
-            If frm.bLanguageChanged Then SetForm()
+            If frm.bLanguageChanged Then
+                SetForm()
+                ResetCurrentInfo()
+            End If
             SetupSyncWatcher()
             mgrStoreVariables.AutoConfigureStoreVariables()
             LoadGameSettings()

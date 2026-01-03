@@ -235,8 +235,12 @@ Public Class frmSettings
 
     Private Sub SetDefaults()
         If mgrCommon.ShowMessage(frmSettings_ConfirmDefaults, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            'Reset all Settings to their default
             mgrSettings.SetDefaults()
+            'Populate the form based on defaults
             LoadSettings()
+            'Reload the original settings so changes can be validated correctly when saving
+            mgrSettings.LoadSettings()
         End If
     End Sub
 

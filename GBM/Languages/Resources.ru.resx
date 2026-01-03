@@ -794,7 +794,7 @@
     <value>&gt;</value>
   </data>
   <data name="frmFilter_FormName" xml:space="preserve">
-    <value>Настроенный фильтр</value>
+    <value>Настройка фильтра</value>
   </data>
   <data name="frmFilter_lblIncludeTags" xml:space="preserve">
     <value>Исключить теги</value>
@@ -947,7 +947,7 @@
     <value>...</value>
   </data>
   <data name="frmSettings_btnCancel" xml:space="preserve">
-    <value>&amp;Отмена&#x8;</value>
+    <value>&amp;Отмена</value>
   </data>
   <data name="frmSettings_btnSave" xml:space="preserve">
     <value>&amp;Сохранить</value>
