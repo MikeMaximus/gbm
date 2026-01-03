@@ -232,6 +232,7 @@ Partial Class frmFilter
         Me.grpGameFilter.Controls.Add(Me.lblNot)
         Me.grpGameFilter.Controls.Add(Me.chkNot)
         Me.grpGameFilter.Controls.Add(Me.cboListFilter)
+        Me.grpGameFilter.Controls.Add(Me.txtStringFilter)
         Me.grpGameFilter.Controls.Add(Me.numFilter)
         Me.grpGameFilter.Controls.Add(Me.cboNumericOps)
         Me.grpGameFilter.Controls.Add(Me.lblCurrentFilters)
@@ -242,7 +243,6 @@ Partial Class frmFilter
         Me.grpGameFilter.Controls.Add(Me.btnAddFilter)
         Me.grpGameFilter.Controls.Add(Me.cboFilterField)
         Me.grpGameFilter.Controls.Add(Me.grpFilterType)
-        Me.grpGameFilter.Controls.Add(Me.txtStringFilter)
         Me.grpGameFilter.Location = New System.Drawing.Point(12, 35)
         Me.grpGameFilter.Name = "grpGameFilter"
         Me.grpGameFilter.Size = New System.Drawing.Size(485, 225)
@@ -271,15 +271,15 @@ Partial Class frmFilter
         '
         Me.cboListFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboListFilter.FormattingEnabled = True
-        Me.cboListFilter.Location = New System.Drawing.Point(232, 35)
+        Me.cboListFilter.Location = New System.Drawing.Point(231, 36)
         Me.cboListFilter.Name = "cboListFilter"
-        Me.cboListFilter.Size = New System.Drawing.Size(151, 21)
+        Me.cboListFilter.Size = New System.Drawing.Size(152, 21)
         Me.cboListFilter.TabIndex = 3
         '
         'numFilter
         '
         Me.numFilter.DecimalPlaces = 1
-        Me.numFilter.Location = New System.Drawing.Point(303, 36)
+        Me.numFilter.Location = New System.Drawing.Point(318, 36)
         Me.numFilter.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
         Me.numFilter.Name = "numFilter"
         Me.numFilter.Size = New System.Drawing.Size(65, 20)
@@ -289,9 +289,9 @@ Partial Class frmFilter
         '
         Me.cboNumericOps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboNumericOps.FormattingEnabled = True
-        Me.cboNumericOps.Location = New System.Drawing.Point(233, 35)
+        Me.cboNumericOps.Location = New System.Drawing.Point(231, 36)
         Me.cboNumericOps.Name = "cboNumericOps"
-        Me.cboNumericOps.Size = New System.Drawing.Size(65, 21)
+        Me.cboNumericOps.Size = New System.Drawing.Size(81, 21)
         Me.cboNumericOps.TabIndex = 3
         '
         'lblCurrentFilters
@@ -396,9 +396,9 @@ Partial Class frmFilter
         '
         'txtStringFilter
         '
-        Me.txtStringFilter.Location = New System.Drawing.Point(232, 35)
+        Me.txtStringFilter.Location = New System.Drawing.Point(231, 36)
         Me.txtStringFilter.Name = "txtStringFilter"
-        Me.txtStringFilter.Size = New System.Drawing.Size(136, 20)
+        Me.txtStringFilter.Size = New System.Drawing.Size(152, 20)
         Me.txtStringFilter.TabIndex = 3
         '
         'grpSorting

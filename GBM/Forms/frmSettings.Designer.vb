@@ -269,7 +269,7 @@ Partial Class frmSettings
         Me.btnDefaults.Image = Global.GBM.My.Resources.Resources.Multi_Reset
         Me.btnDefaults.Location = New System.Drawing.Point(12, 379)
         Me.btnDefaults.Name = "btnDefaults"
-        Me.btnDefaults.Size = New System.Drawing.Size(100, 60)
+        Me.btnDefaults.Size = New System.Drawing.Size(125, 60)
         Me.btnDefaults.TabIndex = 2
         Me.btnDefaults.Text = "&Defaults"
         Me.btnDefaults.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -505,7 +505,7 @@ Partial Class frmSettings
         'lblMinutes
         '
         Me.lblMinutes.AutoSize = True
-        Me.lblMinutes.Location = New System.Drawing.Point(81, 42)
+        Me.lblMinutes.Location = New System.Drawing.Point(83, 42)
         Me.lblMinutes.Name = "lblMinutes"
         Me.lblMinutes.Size = New System.Drawing.Size(43, 13)
         Me.lblMinutes.TabIndex = 17
@@ -513,7 +513,7 @@ Partial Class frmSettings
         '
         'nudSuppressBackupThreshold
         '
-        Me.nudSuppressBackupThreshold.Location = New System.Drawing.Point(24, 40)
+        Me.nudSuppressBackupThreshold.Location = New System.Drawing.Point(26, 40)
         Me.nudSuppressBackupThreshold.Maximum = New Decimal(New Integer() {999, 0, 0, 0})
         Me.nudSuppressBackupThreshold.Name = "nudSuppressBackupThreshold"
         Me.nudSuppressBackupThreshold.Size = New System.Drawing.Size(51, 20)
@@ -740,9 +740,9 @@ Partial Class frmSettings
         'btnResetMessages
         '
         Me.btnResetMessages.Image = Global.GBM.My.Resources.Resources.Multi_Reset
-        Me.btnResetMessages.Location = New System.Drawing.Point(118, 379)
+        Me.btnResetMessages.Location = New System.Drawing.Point(143, 379)
         Me.btnResetMessages.Name = "btnResetMessages"
-        Me.btnResetMessages.Size = New System.Drawing.Size(100, 60)
+        Me.btnResetMessages.Size = New System.Drawing.Size(125, 60)
         Me.btnResetMessages.TabIndex = 3
         Me.btnResetMessages.Text = "&Reset Warnings"
         Me.btnResetMessages.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -1003,9 +1003,9 @@ Partial Class frmSettings
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(584, 451)
+        Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlInterface)
         Me.Controls.Add(Me.pnlGlobalHotKeys)
-        Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlFilesAndFolders)
         Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.pnlBackup)
