@@ -62,9 +62,9 @@ Partial Class frmLauncherManager
         '
         'btnLauncherBrowse
         '
-        Me.btnLauncherBrowse.Location = New System.Drawing.Point(326, 79)
+        Me.btnLauncherBrowse.Location = New System.Drawing.Point(326, 80)
         Me.btnLauncherBrowse.Name = "btnLauncherBrowse"
-        Me.btnLauncherBrowse.Size = New System.Drawing.Size(30, 20)
+        Me.btnLauncherBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnLauncherBrowse.TabIndex = 4
         Me.btnLauncherBrowse.Text = "..."
         Me.btnLauncherBrowse.UseVisualStyleBackColor = True

@@ -101,9 +101,9 @@ Partial Class frmIncludeExclude
         '
         'btnBrowse
         '
-        Me.btnBrowse.Location = New System.Drawing.Point(262, 37)
+        Me.btnBrowse.Location = New System.Drawing.Point(262, 38)
         Me.btnBrowse.Name = "btnBrowse"
-        Me.btnBrowse.Size = New System.Drawing.Size(30, 20)
+        Me.btnBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnBrowse.TabIndex = 0
         Me.btnBrowse.Text = "..."
         Me.btnBrowse.UseVisualStyleBackColor = True

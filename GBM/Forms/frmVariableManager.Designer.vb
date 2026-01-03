@@ -26,6 +26,7 @@ Partial Class frmVariableManager
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.grpVariable = New System.Windows.Forms.GroupBox()
+        Me.txtID = New System.Windows.Forms.TextBox()
         Me.btnPathBrowse = New System.Windows.Forms.Button()
         Me.txtName = New System.Windows.Forms.TextBox()
         Me.txtPath = New System.Windows.Forms.TextBox()
@@ -33,7 +34,6 @@ Partial Class frmVariableManager
         Me.lblName = New System.Windows.Forms.Label()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
-        Me.txtID = New System.Windows.Forms.TextBox()
         Me.grpVariable.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -87,11 +87,21 @@ Partial Class frmVariableManager
         Me.grpVariable.TabStop = False
         Me.grpVariable.Text = "Configuration"
         '
+        'txtID
+        '
+        Me.txtID.Enabled = False
+        Me.txtID.Location = New System.Drawing.Point(8, 121)
+        Me.txtID.Name = "txtID"
+        Me.txtID.Size = New System.Drawing.Size(33, 20)
+        Me.txtID.TabIndex = 0
+        Me.txtID.TabStop = False
+        Me.txtID.Visible = False
+        '
         'btnPathBrowse
         '
-        Me.btnPathBrowse.Location = New System.Drawing.Point(326, 77)
+        Me.btnPathBrowse.Location = New System.Drawing.Point(326, 78)
         Me.btnPathBrowse.Name = "btnPathBrowse"
-        Me.btnPathBrowse.Size = New System.Drawing.Size(30, 20)
+        Me.btnPathBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnPathBrowse.TabIndex = 3
         Me.btnPathBrowse.Text = "..."
         Me.btnPathBrowse.UseVisualStyleBackColor = True
@@ -151,16 +161,6 @@ Partial Class frmVariableManager
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnSave.UseVisualStyleBackColor = True
-        '
-        'txtID
-        '
-        Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(8, 121)
-        Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(33, 20)
-        Me.txtID.TabIndex = 0
-        Me.txtID.TabStop = False
-        Me.txtID.Visible = False
         '
         'frmVariableManager
         '

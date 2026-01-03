@@ -207,9 +207,9 @@ Partial Class frmSettings
         '
         'btn7zLocation
         '
-        Me.btn7zLocation.Location = New System.Drawing.Point(350, 82)
+        Me.btn7zLocation.Location = New System.Drawing.Point(347, 82)
         Me.btn7zLocation.Name = "btn7zLocation"
-        Me.btn7zLocation.Size = New System.Drawing.Size(27, 20)
+        Me.btn7zLocation.Size = New System.Drawing.Size(30, 22)
         Me.btn7zLocation.TabIndex = 2
         Me.btn7zLocation.Text = "..."
         Me.btn7zLocation.UseVisualStyleBackColor = True
@@ -218,7 +218,7 @@ Partial Class frmSettings
         '
         Me.txt7zLocation.Location = New System.Drawing.Point(6, 82)
         Me.txt7zLocation.Name = "txt7zLocation"
-        Me.txt7zLocation.Size = New System.Drawing.Size(338, 20)
+        Me.txt7zLocation.Size = New System.Drawing.Size(335, 20)
         Me.txt7zLocation.TabIndex = 1
         '
         'lblLocation
@@ -846,9 +846,9 @@ Partial Class frmSettings
         '
         'btnTempFolder
         '
-        Me.btnTempFolder.Location = New System.Drawing.Point(350, 78)
+        Me.btnTempFolder.Location = New System.Drawing.Point(347, 77)
         Me.btnTempFolder.Name = "btnTempFolder"
-        Me.btnTempFolder.Size = New System.Drawing.Size(27, 20)
+        Me.btnTempFolder.Size = New System.Drawing.Size(30, 22)
         Me.btnTempFolder.TabIndex = 3
         Me.btnTempFolder.Text = "..."
         Me.btnTempFolder.UseVisualStyleBackColor = True
@@ -866,14 +866,14 @@ Partial Class frmSettings
         '
         Me.txtTempFolder.Location = New System.Drawing.Point(6, 79)
         Me.txtTempFolder.Name = "txtTempFolder"
-        Me.txtTempFolder.Size = New System.Drawing.Size(338, 20)
+        Me.txtTempFolder.Size = New System.Drawing.Size(335, 20)
         Me.txtTempFolder.TabIndex = 2
         '
         'btnBackupFolder
         '
-        Me.btnBackupFolder.Location = New System.Drawing.Point(350, 36)
+        Me.btnBackupFolder.Location = New System.Drawing.Point(347, 35)
         Me.btnBackupFolder.Name = "btnBackupFolder"
-        Me.btnBackupFolder.Size = New System.Drawing.Size(27, 20)
+        Me.btnBackupFolder.Size = New System.Drawing.Size(30, 22)
         Me.btnBackupFolder.TabIndex = 1
         Me.btnBackupFolder.Text = "..."
         Me.btnBackupFolder.UseVisualStyleBackColor = True
@@ -891,7 +891,7 @@ Partial Class frmSettings
         '
         Me.txtBackupFolder.Location = New System.Drawing.Point(6, 36)
         Me.txtBackupFolder.Name = "txtBackupFolder"
-        Me.txtBackupFolder.Size = New System.Drawing.Size(338, 20)
+        Me.txtBackupFolder.Size = New System.Drawing.Size(335, 20)
         Me.txtBackupFolder.TabIndex = 0
         '
         'chkCreateFolder
@@ -1003,11 +1003,11 @@ Partial Class frmSettings
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(584, 451)
+        Me.Controls.Add(Me.pnl7z)
+        Me.Controls.Add(Me.pnlFilesAndFolders)
         Me.Controls.Add(Me.pnlGeneral)
         Me.Controls.Add(Me.pnlInterface)
         Me.Controls.Add(Me.pnlGlobalHotKeys)
-        Me.Controls.Add(Me.pnlFilesAndFolders)
-        Me.Controls.Add(Me.pnl7z)
         Me.Controls.Add(Me.pnlBackup)
         Me.Controls.Add(Me.pnlStartup)
         Me.Controls.Add(Me.btnResetMessages)

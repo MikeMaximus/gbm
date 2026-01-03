@@ -131,7 +131,7 @@ Partial Class frmProcessManager
         '
         Me.btnProcessBrowse.Location = New System.Drawing.Point(326, 77)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
-        Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 20)
+        Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnProcessBrowse.TabIndex = 2
         Me.btnProcessBrowse.Text = "..."
         Me.btnProcessBrowse.UseVisualStyleBackColor = True

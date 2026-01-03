@@ -184,9 +184,9 @@ Partial Class frmAddWizard
         '
         'btnProcessBrowse
         '
-        Me.btnProcessBrowse.Location = New System.Drawing.Point(447, 67)
+        Me.btnProcessBrowse.Location = New System.Drawing.Point(447, 65)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
-        Me.btnProcessBrowse.Size = New System.Drawing.Size(27, 20)
+        Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnProcessBrowse.TabIndex = 8
         Me.btnProcessBrowse.Text = "..."
         Me.btnProcessBrowse.UseVisualStyleBackColor = True
@@ -288,9 +288,9 @@ Partial Class frmAddWizard
         '
         'btnSaveBrowse
         '
-        Me.btnSaveBrowse.Location = New System.Drawing.Point(447, 66)
+        Me.btnSaveBrowse.Location = New System.Drawing.Point(447, 67)
         Me.btnSaveBrowse.Name = "btnSaveBrowse"
-        Me.btnSaveBrowse.Size = New System.Drawing.Size(27, 20)
+        Me.btnSaveBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnSaveBrowse.TabIndex = 6
         Me.btnSaveBrowse.Text = "..."
         Me.btnSaveBrowse.UseVisualStyleBackColor = True
@@ -325,7 +325,7 @@ Partial Class frmAddWizard
         Me.tbPage3a.Controls.Add(Me.txtFileTypes)
         Me.tbPage3a.Location = New System.Drawing.Point(4, 22)
         Me.tbPage3a.Name = "tbPage3a"
-        Me.tbPage3a.Size = New System.Drawing.Size(488, 245)
+        Me.tbPage3a.Size = New System.Drawing.Size(488, 256)
         Me.tbPage3a.TabIndex = 3
         Me.tbPage3a.Text = "TabPage4"
         '
@@ -346,7 +346,7 @@ Partial Class frmAddWizard
         Me.lblIncludePathTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblIncludePathTitle.Location = New System.Drawing.Point(14, 45)
         Me.lblIncludePathTitle.Name = "lblIncludePathTitle"
-        Me.lblIncludePathTitle.Size = New System.Drawing.Size(157, 16)
+        Me.lblIncludePathTitle.Size = New System.Drawing.Size(151, 16)
         Me.lblIncludePathTitle.TabIndex = 6
         Me.lblIncludePathTitle.Text = "Saved Game Folder:"
         '
@@ -430,7 +430,7 @@ Partial Class frmAddWizard
         Me.lblExcludePathTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblExcludePathTitle.Location = New System.Drawing.Point(14, 45)
         Me.lblExcludePathTitle.Name = "lblExcludePathTitle"
-        Me.lblExcludePathTitle.Size = New System.Drawing.Size(157, 16)
+        Me.lblExcludePathTitle.Size = New System.Drawing.Size(151, 16)
         Me.lblExcludePathTitle.TabIndex = 7
         Me.lblExcludePathTitle.Text = "Saved Game Folder:"
         '

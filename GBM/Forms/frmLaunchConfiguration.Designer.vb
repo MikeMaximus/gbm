@@ -71,9 +71,9 @@ Partial Class frmLaunchConfiguration
         '
         'btnBrowse
         '
-        Me.btnBrowse.Location = New System.Drawing.Point(429, 41)
+        Me.btnBrowse.Location = New System.Drawing.Point(429, 42)
         Me.btnBrowse.Name = "btnBrowse"
-        Me.btnBrowse.Size = New System.Drawing.Size(30, 20)
+        Me.btnBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnBrowse.TabIndex = 1
         Me.btnBrowse.Text = "..."
         Me.btnBrowse.UseVisualStyleBackColor = True
