@@ -780,7 +780,7 @@ Partial Class frmGameManager
         'btnOpenGameFolder
         '
         Me.btnOpenGameFolder.Image = Global.GBM.My.Resources.Resources.frmGameManager_Folder_Open
-        Me.btnOpenGameFolder.Location = New System.Drawing.Point(509, 153)
+        Me.btnOpenGameFolder.Location = New System.Drawing.Point(509, 154)
         Me.btnOpenGameFolder.Name = "btnOpenGameFolder"
         Me.btnOpenGameFolder.Size = New System.Drawing.Size(22, 22)
         Me.btnOpenGameFolder.TabIndex = 12
@@ -829,7 +829,7 @@ Partial Class frmGameManager
         '
         'btnAppPathBrowse
         '
-        Me.btnAppPathBrowse.Location = New System.Drawing.Point(473, 153)
+        Me.btnAppPathBrowse.Location = New System.Drawing.Point(473, 154)
         Me.btnAppPathBrowse.Name = "btnAppPathBrowse"
         Me.btnAppPathBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnAppPathBrowse.TabIndex = 11
@@ -956,7 +956,7 @@ Partial Class frmGameManager
         'btnRestore
         '
         Me.btnRestore.Image = Global.GBM.My.Resources.Resources.Multi_Restore
-        Me.btnRestore.Location = New System.Drawing.Point(410, 185)
+        Me.btnRestore.Location = New System.Drawing.Point(410, 176)
         Me.btnRestore.Name = "btnRestore"
         Me.btnRestore.Size = New System.Drawing.Size(90, 60)
         Me.btnRestore.TabIndex = 12
@@ -967,7 +967,7 @@ Partial Class frmGameManager
         'btnBackup
         '
         Me.btnBackup.Image = Global.GBM.My.Resources.Resources.Multi_Backup
-        Me.btnBackup.Location = New System.Drawing.Point(314, 185)
+        Me.btnBackup.Location = New System.Drawing.Point(314, 176)
         Me.btnBackup.Name = "btnBackup"
         Me.btnBackup.Size = New System.Drawing.Size(90, 60)
         Me.btnBackup.TabIndex = 13
@@ -996,7 +996,7 @@ Partial Class frmGameManager
         'btnBackupData
         '
         Me.btnBackupData.Image = Global.GBM.My.Resources.Resources.frmGameManager_Backup_Data
-        Me.btnBackupData.Location = New System.Drawing.Point(506, 31)
+        Me.btnBackupData.Location = New System.Drawing.Point(506, 32)
         Me.btnBackupData.Name = "btnBackupData"
         Me.btnBackupData.Size = New System.Drawing.Size(22, 22)
         Me.btnBackupData.TabIndex = 2
@@ -1005,7 +1005,7 @@ Partial Class frmGameManager
         'lblRestorePath
         '
         Me.lblRestorePath.AutoSize = True
-        Me.lblRestorePath.Location = New System.Drawing.Point(3, 139)
+        Me.lblRestorePath.Location = New System.Drawing.Point(3, 134)
         Me.lblRestorePath.Name = "lblRestorePath"
         Me.lblRestorePath.Size = New System.Drawing.Size(72, 13)
         Me.lblRestorePath.TabIndex = 9
@@ -1016,6 +1016,7 @@ Partial Class frmGameManager
         Me.lblLocalBackupData.AutoEllipsis = True
         Me.lblLocalBackupData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblLocalBackupData.Location = New System.Drawing.Point(6, 72)
+        Me.lblLocalBackupData.Margin = New System.Windows.Forms.Padding(3)
         Me.lblLocalBackupData.Name = "lblLocalBackupData"
         Me.lblLocalBackupData.Size = New System.Drawing.Size(494, 20)
         Me.lblLocalBackupData.TabIndex = 4
@@ -1026,7 +1027,7 @@ Partial Class frmGameManager
         'btnOpenBackupFolder
         '
         Me.btnOpenBackupFolder.Image = Global.GBM.My.Resources.Resources.frmGameManager_Folder_Open
-        Me.btnOpenBackupFolder.Location = New System.Drawing.Point(506, 115)
+        Me.btnOpenBackupFolder.Location = New System.Drawing.Point(506, 111)
         Me.btnOpenBackupFolder.Name = "btnOpenBackupFolder"
         Me.btnOpenBackupFolder.Size = New System.Drawing.Size(22, 22)
         Me.btnOpenBackupFolder.TabIndex = 8
@@ -1035,7 +1036,7 @@ Partial Class frmGameManager
         'lblBackupFile
         '
         Me.lblBackupFile.AutoSize = True
-        Me.lblBackupFile.Location = New System.Drawing.Point(3, 96)
+        Me.lblBackupFile.Location = New System.Drawing.Point(3, 95)
         Me.lblBackupFile.Name = "lblBackupFile"
         Me.lblBackupFile.Size = New System.Drawing.Size(66, 13)
         Me.lblBackupFile.TabIndex = 6
@@ -1058,7 +1059,8 @@ Partial Class frmGameManager
         Me.lblBackupFileData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblBackupFileData.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
         Me.lblBackupFileData.LinkColor = System.Drawing.SystemColors.ControlText
-        Me.lblBackupFileData.Location = New System.Drawing.Point(6, 115)
+        Me.lblBackupFileData.Location = New System.Drawing.Point(6, 111)
+        Me.lblBackupFileData.Margin = New System.Windows.Forms.Padding(3)
         Me.lblBackupFileData.Name = "lblBackupFileData"
         Me.lblBackupFileData.Size = New System.Drawing.Size(494, 20)
         Me.lblBackupFileData.TabIndex = 7
@@ -1082,7 +1084,8 @@ Partial Class frmGameManager
         Me.lblRestorePathData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblRestorePathData.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
         Me.lblRestorePathData.LinkColor = System.Drawing.SystemColors.ControlText
-        Me.lblRestorePathData.Location = New System.Drawing.Point(6, 157)
+        Me.lblRestorePathData.Location = New System.Drawing.Point(6, 150)
+        Me.lblRestorePathData.Margin = New System.Windows.Forms.Padding(3)
         Me.lblRestorePathData.Name = "lblRestorePathData"
         Me.lblRestorePathData.Size = New System.Drawing.Size(494, 20)
         Me.lblRestorePathData.TabIndex = 10

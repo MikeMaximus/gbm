@@ -104,7 +104,7 @@ Partial Class frmStartUpWizard
         Me.cboLanguage.FormattingEnabled = True
         Me.cboLanguage.Location = New System.Drawing.Point(18, 202)
         Me.cboLanguage.Name = "cboLanguage"
-        Me.cboLanguage.Size = New System.Drawing.Size(300, 21)
+        Me.cboLanguage.Size = New System.Drawing.Size(456, 21)
         Me.cboLanguage.TabIndex = 0
         '
         'lblStep1Instructions2
@@ -208,7 +208,7 @@ Partial Class frmStartUpWizard
         'btnFolderBrowse
         '
         Me.btnFolderBrowse.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnFolderBrowse.Location = New System.Drawing.Point(323, 67)
+        Me.btnFolderBrowse.Location = New System.Drawing.Point(444, 67)
         Me.btnFolderBrowse.Name = "btnFolderBrowse"
         Me.btnFolderBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnFolderBrowse.TabIndex = 1
@@ -221,7 +221,7 @@ Partial Class frmStartUpWizard
         Me.txtBackupPath.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtBackupPath.Location = New System.Drawing.Point(17, 67)
         Me.txtBackupPath.Name = "txtBackupPath"
-        Me.txtBackupPath.Size = New System.Drawing.Size(300, 20)
+        Me.txtBackupPath.Size = New System.Drawing.Size(421, 20)
         Me.txtBackupPath.TabIndex = 0
         '
         'lblStep2Intro

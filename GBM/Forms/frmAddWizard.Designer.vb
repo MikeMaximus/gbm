@@ -184,7 +184,7 @@ Partial Class frmAddWizard
         '
         'btnProcessBrowse
         '
-        Me.btnProcessBrowse.Location = New System.Drawing.Point(447, 65)
+        Me.btnProcessBrowse.Location = New System.Drawing.Point(447, 67)
         Me.btnProcessBrowse.Name = "btnProcessBrowse"
         Me.btnProcessBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnProcessBrowse.TabIndex = 8

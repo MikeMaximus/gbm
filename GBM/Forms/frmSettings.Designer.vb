@@ -846,7 +846,7 @@ Partial Class frmSettings
         '
         'btnTempFolder
         '
-        Me.btnTempFolder.Location = New System.Drawing.Point(347, 77)
+        Me.btnTempFolder.Location = New System.Drawing.Point(347, 79)
         Me.btnTempFolder.Name = "btnTempFolder"
         Me.btnTempFolder.Size = New System.Drawing.Size(30, 22)
         Me.btnTempFolder.TabIndex = 3
@@ -871,7 +871,7 @@ Partial Class frmSettings
         '
         'btnBackupFolder
         '
-        Me.btnBackupFolder.Location = New System.Drawing.Point(347, 35)
+        Me.btnBackupFolder.Location = New System.Drawing.Point(347, 36)
         Me.btnBackupFolder.Name = "btnBackupFolder"
         Me.btnBackupFolder.Size = New System.Drawing.Size(30, 22)
         Me.btnBackupFolder.TabIndex = 1
