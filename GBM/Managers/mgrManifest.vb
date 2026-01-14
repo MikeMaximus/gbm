@@ -1,4 +1,19 @@
-﻿Public Class mgrManifest
+﻿Imports System.IO
+
+Public Class mgrManifest
+    Private Class SQL
+        Public Shared ReadOnly Property DeleteByMonitorID As String
+            Get
+                Return "DELETE FROM manifest WHERE MonitorID = @MonitorID"
+            End Get
+        End Property
+        Public Shared ReadOnly Property DeleteByManifestID As String
+            Get
+                Return "DELETE FROM manifest WHERE ManifestID = @ManifestID;
+                        DELETE FROM manifest WHERE DifferentialParent = @ManifestID;"
+            End Get
+        End Property
+    End Class
 
     Private Shared Function MapToObject(ByVal dr As DataRow) As clsBackup
         Dim oBackupItem As clsBackup
@@ -324,31 +339,43 @@
 
     Public Shared Sub DoManifestDeleteByMonitorID(ByVal oBackupItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database)
         Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
         Dim hshParams As New Hashtable
-
-        sSQL = "DELETE FROM manifest "
-        sSQL &= "WHERE MonitorID = @MonitorID"
 
         hshParams.Add("MonitorID", oBackupItem.MonitorID)
 
-        oDatabase.RunParamQuery(sSQL, hshParams)
+        oDatabase.RunParamQuery(SQL.DeleteByMonitorID, hshParams)
+    End Sub
+
+    Public Shared Sub DoManifestDeleteByMonitorID(ByVal sMonitorID As String, ByVal iSelectDB As mgrSQLite.Database)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim hshParams As New Hashtable
+
+        hshParams.Add("MonitorID", sMonitorID)
+
+        oDatabase.RunParamQuery(SQL.DeleteByMonitorID, hshParams)
     End Sub
 
     Public Shared Sub DoManifestDeleteByManifestID(ByVal oBackupItem As clsBackup, ByVal iSelectDB As mgrSQLite.Database)
         Dim oDatabase As New mgrSQLite(iSelectDB)
-        Dim sSQL As String
         Dim hshParams As New Hashtable
-
-        sSQL = "DELETE FROM manifest WHERE ManifestID = @ManifestID;"
-
-        If oBackupItem.IsDifferentialParent Then
-            sSQL &= "DELETE FROM manifest WHERE DifferentialParent = @ManifestID;"
-        End If
 
         hshParams.Add("ManifestID", oBackupItem.ManifestID)
 
-        oDatabase.RunParamQuery(sSQL, hshParams)
+        oDatabase.RunParamQuery(SQL.DeleteByManifestID, hshParams)
+    End Sub
+
+    Public Shared Sub DoManifestDeleteByManifestID(ByVal oBackupItems As List(Of clsBackup), ByVal iSelectDB As mgrSQLite.Database)
+        Dim oDatabase As New mgrSQLite(iSelectDB)
+        Dim hshParams As Hashtable
+        Dim oParams As New List(Of Hashtable)
+
+        For Each o As clsBackup In oBackupItems
+            hshParams = New Hashtable
+            hshParams.Add("ManifestID", o.ManifestID)
+            oParams.Add(hshParams)
+        Next
+
+        oDatabase.RunMassParamQuery(SQL.DeleteByManifestID, oParams)
     End Sub
 
     Public Shared Sub DoManifestHashWipe()
@@ -364,4 +391,33 @@
         oLocalDatabase.RunParamQuery(sSQL, hshParams)
         oRemoteDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
+
+    Public Shared Function VerifyManifestByGame(ByVal oGame As clsGame, ByVal sBackupFolder As String) As Boolean
+        Dim oCurrentBackup As clsBackup
+        Dim oCurrentBackups As List(Of clsBackup)
+        Dim oBackupsRemoved As New List(Of clsBackup)
+
+        oCurrentBackups = DoManifestGetByMonitorID(oGame.ID, mgrSQLite.Database.Remote)
+
+        'Verify manifest entries for the current game against the backup folder
+        For Each oCurrentBackup In oCurrentBackups
+            If Not File.Exists(sBackupFolder & oCurrentBackup.FileName) Then
+                oBackupsRemoved.Add(oCurrentBackup)
+            End If
+        Next
+
+        'If verification fails, delete the remote manifest entries and if required, the local manifest entry
+        If oBackupsRemoved.Count > 0 Then
+            DoManifestDeleteByManifestID(oBackupsRemoved, mgrSQLite.Database.Remote)
+
+            'If all remote manfiest entries are removed, remove the local manifest entry as well
+            If oCurrentBackups.Count = oBackupsRemoved.Count Then
+                DoManifestDeleteByMonitorID(oGame.ID, mgrSQLite.Database.Local)
+            End If
+
+            Return False
+        End If
+
+        Return True
+    End Function
 End Class

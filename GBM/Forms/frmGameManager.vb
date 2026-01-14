@@ -605,34 +605,11 @@ Public Class frmGameManager
         frm.ShowDialog()
     End Sub
 
-    Public Sub VerifyBackups(ByVal oApp As clsGame)
-        Dim oCurrentBackup As clsBackup
-        Dim oCurrentBackups As List(Of clsBackup)
-        Dim oBackupsRemoved As New List(Of clsBackup)
-
-        oCurrentBackups = mgrManifest.DoManifestGetByMonitorID(oApp.ID, mgrSQLite.Database.Remote)
-
-        Cursor.Current = Cursors.WaitCursor
-
-        For Each oCurrentBackup In oCurrentBackups
-            If Not File.Exists(BackupFolder & oCurrentBackup.FileName) Then
-                oBackupsRemoved.Add(oCurrentBackup)
-                mgrManifest.DoManifestDeleteByManifestID(oCurrentBackup, mgrSQLite.Database.Remote)
-            End If
-        Next
-
-        If oBackupsRemoved.Count > 0 Then
-            For Each oCurrentBackup In oBackupsRemoved
-                oCurrentBackups.Remove(oCurrentBackup)
-                If oCurrentBackups.Count = 0 Then
-                    mgrManifest.DoManifestDeleteByMonitorID(oCurrentBackup, mgrSQLite.Database.Local)
-                End If
-            Next
+    Public Sub VerifyBackups(ByVal oGame As clsGame)
+        If Not mgrManifest.VerifyManifestByGame(oGame, BackupFolder) Then
             LoadBackupData()
-            GetBackupInfo(oApp)
+            GetBackupInfo(oGame)
         End If
-
-        Cursor.Current = Cursors.Default
     End Sub
 
     Private Sub SetBackupRestorePath(ByVal oApp As clsGame)
