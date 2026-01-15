@@ -606,7 +606,7 @@ Public Class frmGameManager
     End Sub
 
     Public Sub VerifyBackups(ByVal oGame As clsGame)
-        If Not mgrManifest.VerifyManifestByGame(oGame, BackupFolder) Then
+        If Not mgrManifest.VerifyManifestByGame(oGame) Then
             LoadBackupData()
             GetBackupInfo(oGame)
         End If

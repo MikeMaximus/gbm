@@ -392,7 +392,7 @@ Public Class mgrManifest
         oRemoteDatabase.RunParamQuery(sSQL, hshParams)
     End Sub
 
-    Public Shared Function VerifyManifestByGame(ByVal oGame As clsGame, ByVal sBackupFolder As String) As Boolean
+    Public Shared Function VerifyManifestByGame(ByVal oGame As clsGame) As Boolean
         Dim oCurrentBackup As clsBackup
         Dim oCurrentBackups As List(Of clsBackup)
         Dim oBackupsRemoved As New List(Of clsBackup)
@@ -401,7 +401,7 @@ Public Class mgrManifest
 
         'Verify manifest entries for the current game against the backup folder
         For Each oCurrentBackup In oCurrentBackups
-            If Not File.Exists(sBackupFolder & oCurrentBackup.FileName) Then
+            If Not File.Exists(mgrSettings.BackupFolder & Path.DirectorySeparatorChar & oCurrentBackup.FileName) Then
                 oBackupsRemoved.Add(oCurrentBackup)
             End If
         Next

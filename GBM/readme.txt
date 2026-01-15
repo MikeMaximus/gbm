@@ -2,7 +2,7 @@ Game Backup Monitor v1.4.4 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-January 14, 2026
+January 15, 2026
 
 New in 1.4.4
 
@@ -18,5 +18,8 @@ General:
 	- Some settings were not being validated correctly after being set to default.
 - The details section on the main form will now refresh properly after changing languages.
 - Optimized manifest verfication.
+- GBM now compares it's manifest to the current files in the backup folder before doing a backup.
+	- This prevents possible issues from occuring if the user has manually deleted any backup files.
+	- This only applies to games that save multiple backup files.
 
 The entire version history of GBM releases is available at http://mikemaximus.github.io/gbm-web/versionhistory.html
