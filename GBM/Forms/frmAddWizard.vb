@@ -23,15 +23,15 @@ Public Class frmAddWizard
 
         'Set Form Name
         Me.Text = frmAddWizard_FormName
-        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         btnCancel.Text = frmAddWizard_btnCancel
-        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", mgrResources.ResourceType.Image)
         btnNext.Text = frmAddWizard_btnNext
-        btnNext.Image = mgrResources.GetResource("Multi_Next", GetType(Image))
+        btnNext.Image = mgrResources.GetResource("Multi_Next", mgrResources.ResourceType.Image)
         btnBack.Text = frmAddWizard_btnBack
-        btnBack.Image = mgrResources.GetResource("Multi_Back", GetType(Image))
+        btnBack.Image = mgrResources.GetResource("Multi_Back", mgrResources.ResourceType.Image)
         lblStep1Title.Text = frmAddWizard_lblStep1Title
         lblStep1Instructions.Text = frmAddWizard_lblStep1Instructions
         lblStep1Intro.Text = frmAddWizard_lblStep1Intro
@@ -87,7 +87,7 @@ Public Class frmAddWizard
                 Return mgrCommon.BooleanYesNo(bTimeStamp) & " (" & frmAddWizard_Summary_NoLimit & ")"
             End If
         Else
-                Return mgrCommon.BooleanYesNo(bTimeStamp)
+            Return mgrCommon.BooleanYesNo(bTimeStamp)
         End If
     End Function
 
@@ -187,12 +187,12 @@ Public Class frmAddWizard
                 btnBack.Enabled = True
                 btnNext.Enabled = True
                 btnNext.Text = frmAddWizard_btnNext
-                btnNext.Image = mgrResources.GetResource("Multi_Next", GetType(Image))
+                btnNext.Image = mgrResources.GetResource("Multi_Next", mgrResources.ResourceType.Image)
                 tabWizard.SelectTab(4)
             Case eSteps.Step5
                 btnBack.Enabled = True
                 btnNext.Text = frmAddWizard_btnNext_Finish
-                btnNext.Image = mgrResources.GetResource("Multi_Ok", GetType(Image))
+                btnNext.Image = mgrResources.GetResource("Multi_Ok", mgrResources.ResourceType.Image)
                 tabWizard.SelectTab(5)
         End Select
     End Sub

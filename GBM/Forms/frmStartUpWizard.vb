@@ -23,13 +23,13 @@ Public Class frmStartUpWizard
 
         'Set Form Name
         Me.Text = frmStartUpWizard_FormName
-        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         btnNext.Text = frmStartUpWizard_btnNext
-        btnNext.Image = mgrResources.GetResource("Multi_Next", GetType(Image))
+        btnNext.Image = mgrResources.GetResource("Multi_Next", mgrResources.ResourceType.Image)
         btnBack.Text = frmStartUpWizard_btnBack
-        btnBack.Image = mgrResources.GetResource("Multi_Back", GetType(Image))
+        btnBack.Image = mgrResources.GetResource("Multi_Back", mgrResources.ResourceType.Image)
         lblStep1Instructions2.Text = frmStartUpWizard_lblStep1Instructions2
         llbManual.Text = frmStartUpWizard_llbManual
         lblStep1Title.Text = frmStartUpWizard_lblStep1Title
@@ -130,13 +130,13 @@ Public Class frmStartUpWizard
                 btnBack.Enabled = False
                 btnNext.Enabled = True
                 btnNext.Text = frmStartUpWizard_btnNext
-                btnNext.Image = mgrResources.GetResource("Multi_Next", GetType(Image))
+                btnNext.Image = mgrResources.GetResource("Multi_Next", mgrResources.ResourceType.Image)
                 tabWizard.SelectTab(2)
             Case eSteps.Step4
                 btnBack.Enabled = True
                 btnNext.Enabled = True
                 btnNext.Text = frmStartUpWizard_btnNext_Finish
-                btnNext.Image = mgrResources.GetResource("Multi_Ok", GetType(Image))
+                btnNext.Image = mgrResources.GetResource("Multi_Ok", mgrResources.ResourceType.Image)
                 tabWizard.SelectTab(3)
         End Select
     End Sub

@@ -48,13 +48,13 @@ Public Class frmChooseGame
 
         'Set Form Name
         Me.Text = frmChooseGame_FormName
-        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         btnCancel.Text = frmChooseGame_btnCancel
-        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", mgrResources.ResourceType.Image)
         btnChoose.Text = frmChooseGame_btnChoose
-        btnChoose.Image = mgrResources.GetResource("Multi_Ok", GetType(Image))
+        btnChoose.Image = mgrResources.GetResource("Multi_Ok", mgrResources.ResourceType.Image)
         lblChoose.Text = frmChooseGame_lblChoose
     End Sub
 

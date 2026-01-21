@@ -270,21 +270,21 @@ Public Class frmVariableManager
 
         'Set Form Name
         Me.Text = frmVariableManager_FormName
-        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         btnCancel.Text = frmVariableManager_btnCancel
-        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", mgrResources.ResourceType.Image)
         btnSave.Text = frmVariableManager_btnSave
-        btnSave.Image = mgrResources.GetResource("Multi_Save", GetType(Image))
+        btnSave.Image = mgrResources.GetResource("Multi_Save", mgrResources.ResourceType.Image)
         grpVariable.Text = frmVariableManager_grpVariable
         btnPathBrowse.Text = frmVariableManager_btnPathBrowse
         lblPath.Text = frmVariableManager_lblPath
         lblName.Text = frmVariableManager_lblName
         btnDelete.Text = frmVariableManager_btnDelete
-        btnDelete.Image = mgrResources.GetResource("Multi_Delete", GetType(Image))
+        btnDelete.Image = mgrResources.GetResource("Multi_Delete", mgrResources.ResourceType.Image)
         btnAdd.Text = frmVariableManager_btnAdd
-        btnAdd.Image = mgrResources.GetResource("Multi_Add", GetType(Image))
+        btnAdd.Image = mgrResources.GetResource("Multi_Add", mgrResources.ResourceType.Image)
     End Sub
 
     Private Sub frmVariableManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load

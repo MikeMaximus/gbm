@@ -230,12 +230,12 @@ Public Class frmIncludeExclude
 
         'Set Form Name
         Me.Text = mgrCommon.FormatString(frmIncludeExclude_FormName, FormName)
-        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         lblSaveFolder.Text = frmIncludeExclude_lblSaveFolder
         btnRawEdit.Text = frmIncludeExclude_btnRawEdit
-        btnRawEdit.Image = mgrResources.GetResource("Multi_Edit", GetType(Image))
+        btnRawEdit.Image = mgrResources.GetResource("Multi_Edit", mgrResources.ResourceType.Image)
         lblItems.Text = mgrCommon.FormatString(frmIncludeExclude_lblItems, FormName)
         grpOptions.Text = mgrCommon.FormatString(frmIncludeExclude_grpOptions, FormName)
         optFileTypes.Text = frmIncludeExclude_optFileTypes
@@ -245,18 +245,18 @@ Public Class frmIncludeExclude
         btnAdd.Text = frmIncludeExclude_btnAdd
         btnBrowse.Text = frmIncludeExclude_btnBrowse
         btnCancel.Text = frmIncludeExclude_btnCancel
-        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", mgrResources.ResourceType.Image)
         btnSave.Text = frmIncludeExclude_btnSave
-        btnSave.Image = mgrResources.GetResource("Multi_Save", GetType(Image))
+        btnSave.Image = mgrResources.GetResource("Multi_Save", mgrResources.ResourceType.Image)
         cmsAdd.Text = frmIncludeExclude_cmsAdd
         cmsEdit.Text = frmIncludeExclude_cmsEdit
         cmsRemove.Text = frmIncludeExclude_cmsRemove
 
         'Set Icons
         oImageList = New ImageList
-        oImageList.Images.Add(mgrResources.GetResource("frmIncludeExclude_Folder", GetType(Image)))
-        oImageList.Images.Add(mgrResources.GetResource("frmIncludeExclude_File", GetType(Image)))
-        oImageList.Images.Add(mgrResources.GetResource("frmIncludeExclude_Type", GetType(Image)))
+        oImageList.Images.Add(mgrResources.GetResource("frmIncludeExclude_Folder", mgrResources.ResourceType.Image))
+        oImageList.Images.Add(mgrResources.GetResource("frmIncludeExclude_File", mgrResources.ResourceType.Image))
+        oImageList.Images.Add(mgrResources.GetResource("frmIncludeExclude_Type", mgrResources.ResourceType.Image))
         treFiles.ImageList = oImageList
         treFiles.ImageIndex = 0
         treFiles.SelectedImageIndex = 0

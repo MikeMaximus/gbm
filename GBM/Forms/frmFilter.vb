@@ -596,7 +596,7 @@ Public Class frmFilter
 
         'Set Form Name
         Me.Text = frmFilter_FormName
-        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         optOr.Text = frmFilter_optOr
@@ -612,7 +612,7 @@ Public Class frmFilter
         btnExcludeRemove.Text = frmFilter_btnExcludeRemove
         btnExcludeAdd.Text = frmFilter_btnExcludeAdd
         btnOK.Text = frmFilter_btnOK
-        btnOK.Image = mgrResources.GetResource("Multi_Ok", GetType(Image))
+        btnOK.Image = mgrResources.GetResource("Multi_Ok", mgrResources.ResourceType.Image)
         grpTagOptions.Text = frmFilter_grpTagOptions
         chkTag.Text = frmFilter_chkTag
         chkGameInfo.Text = frmFilter_chkGameInfo
@@ -621,9 +621,9 @@ Public Class frmFilter
         optSortAsc.Text = frmFilter_optSortAsc
         optSortDesc.Text = frmFilter_optSortDesc
         btnAddFilter.Text = frmFilter_btnAddFilter
-        btnAddFilter.Image = mgrResources.GetResource("Multi_Add", GetType(Image))
+        btnAddFilter.Image = mgrResources.GetResource("Multi_Add", mgrResources.ResourceType.Image)
         btnRemoveFilter.Text = frmFilter_btnRemoveFilter
-        btnRemoveFilter.Image = mgrResources.GetResource("Multi_Delete", GetType(Image))
+        btnRemoveFilter.Image = mgrResources.GetResource("Multi_Delete", mgrResources.ResourceType.Image)
         lblCurrentFilters.Text = frmFilter_lblCurrentFilters
         lblFields.Text = frmFilter_lblFields
         lblFilterData.Text = frmFilter_lblFilterData

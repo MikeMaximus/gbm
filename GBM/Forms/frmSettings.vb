@@ -458,7 +458,7 @@ Public Class frmSettings
 
         'Set Form Name
         Me.Text = frmSettings_FormName
-        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         lblMinutes.Text = frmSettings_lblMinutes
@@ -474,9 +474,9 @@ Public Class frmSettings
         chkStorePathAutoConfig.Text = frmSettings_chkStorePathAutoConfig
         chkBackupConfirm.Text = frmSettings_chkBackupConfirm
         btnCancel.Text = frmSettings_btnCancel
-        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", mgrResources.ResourceType.Image)
         btnSave.Text = frmSettings_btnSave
-        btnSave.Image = mgrResources.GetResource("Multi_Save", GetType(Image))
+        btnSave.Image = mgrResources.GetResource("Multi_Save", mgrResources.ResourceType.Image)
         grpFolderOptions.Text = frmSettings_grpFolderOptions
         btnBackupFolder.Text = frmSettings_btnBackupFolder
         lblBackupFolder.Text = frmSettings_lblBackupFolder
@@ -496,12 +496,12 @@ Public Class frmSettings
         grp7zInformation.Text = frmSettings_grp7zInformation
         lblCompression.Text = frmSettings_lblCompression
         btnDefaults.Text = frmSettings_btnDefaults
-        btnDefaults.Image = mgrResources.GetResource("Multi_Reset", GetType(Image))
+        btnDefaults.Image = mgrResources.GetResource("Multi_Reset", mgrResources.ResourceType.Image)
         lblArguments.Text = frmSettings_lblArguments
         lblLocation.Text = frmSettings_lblLocation
         btnOptionalFields.Text = frmSettings_btnOptionalFields
         btnResetMessages.Text = frmSettings_btnResetMessages
-        btnResetMessages.Image = mgrResources.GetResource("Multi_Reset", GetType(Image))
+        btnResetMessages.Image = mgrResources.GetResource("Multi_Reset", mgrResources.ResourceType.Image)
         chkBackupOnLaunch.Text = frmSettings_chkBackupOnLaunch
         grpBackupConfirmations.Text = frmSettings_grpBackupConfirmations
         grpLogOptions.Text = frmSettings_grpLogOptions

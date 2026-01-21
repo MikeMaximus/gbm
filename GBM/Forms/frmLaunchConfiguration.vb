@@ -14,7 +14,7 @@ Public Class frmLaunchConfiguration
 
         'Set Form Name
         Me.Text = mgrCommon.FormatString(frmLaunchConfiguration_FormName, Game.CroppedName)
-        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         grpStoreLauncher.Text = frmLaunchConfiguration_grpStoreLauncher
@@ -27,9 +27,9 @@ Public Class frmLaunchConfiguration
         chkNoArgs.Text = frmLaunchConfiguration_chkNoArgs
         grpCommand.Text = frmLaunchConfiguration_grpCommand
         btnSave.Text = frmLaunchConfiguration_btnSave
-        btnSave.Image = mgrResources.GetResource("Multi_Save", GetType(Image))
+        btnSave.Image = mgrResources.GetResource("Multi_Save", mgrResources.ResourceType.Image)
         btnCancel.Text = frmLaunchConfiguration_btnCancel
-        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", mgrResources.ResourceType.Image)
 
         'Init Command Update Timer
         tmUpdateTimer = New Timer()

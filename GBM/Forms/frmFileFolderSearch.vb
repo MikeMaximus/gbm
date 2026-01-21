@@ -188,14 +188,14 @@ Public Class frmFileFolderSearch
 
         'Set Form Name
         Me.Text = frmFileFolderSearch_FormName
-        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         lblResults.Text = frmFileFolderSearch_lblResults
         btnOk.Text = frmFileFolderSearch_btnOk
-        btnOk.Image = mgrResources.GetResource("Multi_Ok", GetType(Image))
+        btnOk.Image = mgrResources.GetResource("Multi_Ok", mgrResources.ResourceType.Image)
         btnCancel.Text = frmFileFolderSearch_btnCancel
-        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", mgrResources.ResourceType.Image)
     End Sub
 
     Private Sub frmFileFolderSearch_Load(sender As Object, e As EventArgs) Handles MyBase.Load

@@ -9,7 +9,7 @@ Public Class frmLudusaviConfig
 
         'Set Form Name
         Me.Text = frmLudusaviConfig_FormName
-        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         grpSearch.Text = frmLudusaviConfig_grpSearch
@@ -20,9 +20,9 @@ Public Class frmLudusaviConfig
         chkWindows.Text = frmLudusaviConfig_chkWindows
         chkLinux.Text = frmLudusaviConfig_chkLinux
         btnOK.Text = frmLudusaviConfig_btnOK
-        btnOK.Image = mgrResources.GetResource("Multi_Ok", GetType(Image))
+        btnOK.Image = mgrResources.GetResource("Multi_Ok", mgrResources.ResourceType.Image)
         btnCancel.Text = frmLudusaviConfig_btnCancel
-        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", mgrResources.ResourceType.Image)
 
         'Set Defaults
         chkSavedGames.Checked = True
