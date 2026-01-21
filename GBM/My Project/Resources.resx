@@ -3277,4 +3277,16 @@
   <data name="App_Language_Russian" xml:space="preserve">
     <value>Русский (Russian)</value>
   </data>
+  <data name="App_FoldersOverride" xml:space="preserve">
+    <value>Override</value>
+  </data>
+  <data name="frmIncludeExclude_File" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmIncludeExclude_File.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmIncludeExclude_Folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmIncludeExclude_Folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="frmIncludeExclude_Type" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frmIncludeExclude_Type.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -684,8 +684,8 @@ Public Class frmMain
             Else
                 sNotification = mgrCommon.FormatString(frmMain_NewSaveNotificationSingle, iCount)
             End If
-            gMonNotification.Image = frmMain_Notification
-            gMonTrayNotification.Image = frmMain_Notification
+            gMonNotification.Image = mgrResources.GetResource("frmMain_Notification", GetType(Image))
+            gMonTrayNotification.Image = mgrResources.GetResource("frmMain_Notification", GetType(Image))
             gMonNotification.Text = sNotification
             gMonTrayNotification.Text = sNotification
             gMonNotification.Visible = True
@@ -939,7 +939,7 @@ Public Class frmMain
         lblStatus1.Text = String.Empty
         lblStatus2.Text = String.Empty
         lblStatus3.Text = String.Empty
-        pbIcon.Image = Multi_Unknown
+        pbIcon.Image = mgrResources.GetResource("Multi_Unknown", GetType(Image))
 
         Try
             'Set Game Icon
@@ -967,7 +967,7 @@ Public Class frmMain
             lblGameTitle.Text = frmMain_MultipleGames
             pbTime.Visible = False
             lblTimeSpent.Visible = False
-            pbIcon.Image = Multi_Unknown
+            pbIcon.Image = mgrResources.GetResource("Multi_Unknown", GetType(Image))
 
             If sFileName = String.Empty Then
                 lblStatus1.Text = frmMain_NoDetails
@@ -1050,7 +1050,7 @@ Public Class frmMain
 
         Select Case eDisplayMode
             Case eDisplayModes.Initial
-                pbIcon.Image = frmMain_Searching
+                pbIcon.Image = mgrResources.GetResource("frmMain_Searching", GetType(Image))
                 lblGameTitle.Text = frmMain_NoGameDetected
                 lblStatus1.Text = String.Empty
                 lblStatus2.Text = String.Empty
@@ -1108,7 +1108,7 @@ Public Class frmMain
 
             pbTime.Visible = False
             lblTimeSpent.Visible = False
-            pbIcon.Image = frmMain_Working
+            pbIcon.Image = mgrResources.GetResource("frmMain_Working", GetType(Image))
             lblGameTitle.Text = sTitle
             lblStatus1.Text = sStatus1
             lblStatus2.Text = sStatus2
@@ -1143,7 +1143,7 @@ Public Class frmMain
         ElseIf File.Exists(sCachedIcon) Then
             pbIcon.Image = mgrCommon.SafeIconFromFile(sCachedIcon)
         Else
-            pbIcon.Image = Multi_Unknown
+            pbIcon.Image = mgrResources.GetResource("Multi_Unknown", GetType(Image))
         End If
 
         lblGameTitle.Text = oSelectedGame.Name
@@ -2394,7 +2394,7 @@ Public Class frmMain
 
         'Set Form Name
         Me.Text = App_NameLong
-        Me.Icon = GBM_Icon
+        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
 
         'Set Menu Text
         gMonFile.Text = frmMain_gMonFile
@@ -2475,39 +2475,39 @@ Public Class frmMain
         gMonStripStatusButton.Text = frmMain_gMonStripStatusButton
         gMonStripStatusButton.ToolTipText = frmMain_gMonStripStatusButtonToolTip
         gMonStripCollapse.ToolTipText = frmMain_gMonStripCollapseHideToolTip
-        gMonStripCollapse.Image = frmMain_Collapse_Left
+        gMonStripCollapse.Image = mgrResources.GetResource("frmMain_Collapse_Left", GetType(Image))
         btnRestore.Text = frmMain_btnRestore
-        btnRestore.Image = Multi_Restore
+        btnRestore.Image = mgrResources.GetResource("Multi_Restore", GetType(Image))
         btnBackup.Text = frmMain_btnBackup
-        btnBackup.Image = Multi_Backup
+        btnBackup.Image = mgrResources.GetResource("Multi_Backup", GetType(Image))
         btnEdit.Text = frmMain_btnEdit
-        btnEdit.Image = Multi_Edit
+        btnEdit.Image = mgrResources.GetResource("Multi_Edit", GetType(Image))
         btnPlay.Text = frmMain_btnPlay
-        btnPlay.Image = frmMain_Play
+        btnPlay.Image = mgrResources.GetResource("frmMain_Play", GetType(Image))
         btnCancelOperation.Text = frmMain_btnCancelOperation
-        btnCancelOperation.Image = Multi_Cancel
-        btnClearSelected.Image = frmMain_Cancel_Small
+        btnCancelOperation.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
+        btnClearSelected.Image = mgrResources.GetResource("frmMain_Cancel_Small", GetType(Image))
 
         If mgrCommon.IsElevated Then
-            gMonStripAdminButton.Image = frmMain_Admin
+            gMonStripAdminButton.Image = mgrResources.GetResource("frmMain_Admin", GetType(Image))
             gMonStripAdminButton.ToolTipText = frmMain_RunningAsAdmin
 
         Else
-            gMonStripAdminButton.Image = frmMain_User
+            gMonStripAdminButton.Image = mgrResources.GetResource("frmMain_User", GetType(Image))
             gMonStripAdminButton.ToolTipText = frmMain_RunningAsNormal
         End If
 
         If bIsPortableMode Then
-            gMonStripModeIndicator.Image = frmMain_Portable
+            gMonStripModeIndicator.Image = mgrResources.GetResource("frmMain_Portable", GetType(Image))
             gMonStripModeIndicator.ToolTipText = frmMain_RunningInPortable
         Else
-            gMonStripModeIndicator.Image = frmMain_Normal
+            gMonStripModeIndicator.Image = mgrResources.GetResource("frmMain_Normal", GetType(Image))
             gMonStripModeIndicator.ToolTipText = frmMain_RunningInNormal
         End If
 
         btnCancelOperation.Visible = False
         pbTime.SizeMode = PictureBoxSizeMode.AutoSize
-        pbTime.Image = frmMain_Clock
+        pbTime.Image = mgrResources.GetResource("frmMain_Clock", GetType(Image))
 
         'Init Official Import Menu
         If mgrCommon.IsUnix Then
@@ -2543,7 +2543,7 @@ Public Class frmMain
         If mgrSettings.MainHideGameList Then
             slcMain.Panel1Collapsed = True
             gMonStripCollapse.ToolTipText = frmMain_gMonStripCollapseShowToolTip
-            gMonStripCollapse.Image = frmMain_Expand_Right
+            gMonStripCollapse.Image = mgrResources.GetResource("frmMain_Expand_Right", GetType(Image))
         End If
 
         If mgrSettings.MainHideLog And mgrSettings.MainHideGameList Then
@@ -2654,14 +2654,14 @@ Public Class frmMain
             tmScanTimer.Stop()
             eCurrentStatus = eStatus.Stopped
             UpdateStatus(frmMain_NotScanning)
-            gMonStripStatusButton.Image = frmMain_Stopped
-            gMonTray.Icon = GBM_Icon_Stopped
+            gMonStripStatusButton.Image = mgrResources.GetResource("frmMain_Stopped", GetType(Image))
+            gMonTray.Icon = mgrResources.GetResource("GBM_Icon_Stopped", GetType(Icon))
         Else
             tmScanTimer.Start()
             eCurrentStatus = eStatus.Running
             UpdateStatus(frmMain_NoGameDetected)
-            gMonStripStatusButton.Image = frmMain_Ready
-            gMonTray.Icon = GBM_Icon_Ready
+            gMonStripStatusButton.Image = mgrResources.GetResource("frmMain_Ready", GetType(Image))
+            gMonTray.Icon = mgrResources.GetResource("GBM_Icon_Ready", GetType(Icon))
         End If
         ToggleMenuText()
     End Sub
@@ -2676,8 +2676,8 @@ Public Class frmMain
                 ToggleHotKeys(False)
             End If
             UpdateStatus(frmMain_NotScanning)
-            gMonStripStatusButton.Image = frmMain_Detected
-            gMonTray.Icon = GBM_Icon_Detected
+            gMonStripStatusButton.Image = mgrResources.GetResource("frmMain_Detected", GetType(Image))
+            gMonTray.Icon = mgrResources.GetResource("GBM_Icon_Detected", GetType(Icon))
         End If
         ToggleMenuText()
         ToggleMenuEnable(bGameDetected)
@@ -2688,8 +2688,8 @@ Public Class frmMain
             tmScanTimer.Start()
             ToggleHotKeys(True)
             eCurrentStatus = eStatus.Running
-            gMonStripStatusButton.Image = frmMain_Ready
-            gMonTray.Icon = GBM_Icon_Ready
+            gMonStripStatusButton.Image = mgrResources.GetResource("frmMain_Ready", GetType(Image))
+            gMonTray.Icon = mgrResources.GetResource("GBM_Icon_Ready", GetType(Icon))
             UpdateStatus(frmMain_NoGameDetected)
         End If
         ToggleMenuText()
@@ -2701,7 +2701,7 @@ Public Class frmMain
         eCurrentStatus = eStatus.Stopped
         UpdateStatus(frmMain_NotScanning)
         gMonStripStatusButton.Image = frmMain_Stopped
-        gMonTray.Icon = GBM_Icon_Stopped
+        gMonTray.Icon = mgrResources.GetResource("GBM_Icon_Stopped", GetType(Icon))
         ToggleMenuText()
         ToggleMenuEnable()
     End Sub
@@ -2724,7 +2724,7 @@ Public Class frmMain
 
         Do While Not (Directory.Exists(sBackupPath))
             If iTotalWait = 0 Then
-                gMonTray.Icon = GBM_Icon_Stopped
+                gMonTray.Icon = mgrResources.GetResource("GBM_Icon_Stopped", GetType(Icon))
                 gMonTray.Text = mgrCommon.FormatString(frmMain_BackupPathNotAvailable, (iTimeOut / 1000).ToString)
             End If
 
@@ -3140,10 +3140,10 @@ Public Class frmMain
         slcMain.Panel1Collapsed = Not slcMain.Panel1Collapsed
 
         If slcMain.Panel1Collapsed Then
-            gMonStripCollapse.Image = frmMain_Expand_Right
+            gMonStripCollapse.Image = mgrResources.GetResource("frmMain_Expand_Right", GetType(Image))
             gMonStripCollapse.ToolTipText = frmMain_gMonStripCollapseShowToolTip
         Else
-            gMonStripCollapse.Image = frmMain_Collapse_Left
+            gMonStripCollapse.Image = mgrResources.GetResource("frmMain_Collapse_Left", GetType(Image))
             gMonStripCollapse.ToolTipText = frmMain_gMonStripCollapseHideToolTip
         End If
     End Sub

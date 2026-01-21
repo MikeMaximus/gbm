@@ -30,7 +30,7 @@ Public Class frmSessionExport
         mgrDarkMode.SetDarkMode(Me)
 
         Me.Text = frmSessionExport_FormName
-        Me.Icon = GBM_Icon
+        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
 
         grpExportType.Text = frmSessionExport_grpExportType
         grpDateType.Text = frmSessionExport_grpDateType
@@ -44,9 +44,9 @@ Public Class frmSessionExport
         chkCSVHeaders.Text = frmSessionExport_chkCSVHeaders
 
         btnExport.Text = frmSessionExport_btnExport
-        btnExport.Image = Multi_Export
+        btnExport.Image = mgrResources.GetResource("Multi_Export", GetType(Image))
         btnCancel.Text = frmSessionExport_btnCancel
-        btnCancel.Image = Multi_Cancel
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
 
         optCSV.Checked = True
         optCurrentLocale.Checked = True

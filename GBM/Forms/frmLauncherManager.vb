@@ -313,13 +313,13 @@ Public Class frmLauncherManager
 
         'Set Form Name
         Me.Text = frmLauncherManager_FormName
-        Me.Icon = GBM_Icon
+        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
 
         'Set Form Text
         btnCancel.Text = frmLauncherManager_btnCancel
-        btnCancel.Image = Multi_Cancel
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
         btnSave.Text = frmLauncherManager_btnSave
-        btnSave.Image = Multi_Save
+        btnSave.Image = mgrResources.GetResource("Multi_Save", GetType(Image))
         grpLauncherType.Text = frmLauncherManager_grpLauncherType
         optURI.Text = frmLauncherManager_optURI
         optExecutable.Text = frmLauncherManager_optExecutable
@@ -328,11 +328,11 @@ Public Class frmLauncherManager
         lblParameters.Text = frmLauncherManager_lblParameters
         lblName.Text = frmLauncherManager_lblName
         btnDelete.Text = frmLauncherManager_btnDelete
-        btnDelete.Image = Multi_Delete
+        btnDelete.Image = mgrResources.GetResource("Multi_Delete", GetType(Image))
         btnAdd.Text = frmLauncherManager_btnAdd
-        btnAdd.Image = Multi_Add
+        btnAdd.Image = mgrResources.GetResource("Multi_Add", GetType(Image))
         btnAddDefaults.Text = frmLauncherManager_btnAddDefaults
-        btnAddDefaults.Image = Multi_Reset
+        btnAddDefaults.Image = mgrResources.GetResource("Multi_Reset", GetType(Image))
     End Sub
 
     Private Sub frmLauncherManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load

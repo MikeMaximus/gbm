@@ -289,22 +289,22 @@ Public Class frmProcessManager
 
         'Set Form Name
         Me.Text = frmProcessManager_FormName
-        Me.Icon = GBM_Icon
+        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
 
         'Set Form Text
         btnCancel.Text = frmProcessManager_btnCancel
-        btnCancel.Image = Multi_Cancel
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
         btnSave.Text = frmProcessManager_btnSave
-        btnSave.Image = Multi_Save
+        btnSave.Image = mgrResources.GetResource("Multi_Save", GetType(Image))
         grpProcess.Text = frmProcessManager_grpProcess
         btnProcessBrowse.Text = frmProcessManager_btnProcessBrowse
         lblProcess.Text = frmProcessManager_lblPath
         lblName.Text = frmProcessManager_lblName
         lblArguments.Text = frmProcessManager_lblArguments
         btnDelete.Text = frmProcessManager_btnDelete
-        btnDelete.Image = Multi_Delete
+        btnDelete.Image = mgrResources.GetResource("Multi_Delete", GetType(Image))
         btnAdd.Text = frmProcessManager_btnAdd
-        btnAdd.Image = Multi_Add
+        btnAdd.Image = mgrResources.GetResource("Multi_Add", GetType(Image))
         chkKillProcess.Text = frmProcessManager_chkKillProcess
         lblDelay.Text = frmProcessManager_lblDelay
         lblDelaySeconds.Text = frmProcessManager_lblDelaySeconds

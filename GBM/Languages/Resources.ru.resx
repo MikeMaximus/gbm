@@ -3278,4 +3278,7 @@
   <data name="App_Language_Russian" xml:space="preserve">
     <value>Русский</value>
   </data>
+  <data name="App_FoldersOverride" xml:space="preserve">
+    <value>Override</value>
+  </data>
 </root>

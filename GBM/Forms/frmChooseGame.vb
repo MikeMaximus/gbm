@@ -7,7 +7,6 @@ Public Class frmChooseGame
     Public Property Process As mgrProcessDetection
     Public Property Game As clsGame
 
-
     Private Sub FillList()
         Dim sTags As String
         Dim oListViewItem As ListViewItem
@@ -49,13 +48,13 @@ Public Class frmChooseGame
 
         'Set Form Name
         Me.Text = frmChooseGame_FormName
-        Me.Icon = GBM_Icon
+        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
 
         'Set Form Text
         btnCancel.Text = frmChooseGame_btnCancel
-        btnCancel.Image = Multi_Cancel
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
         btnChoose.Text = frmChooseGame_btnChoose
-        btnChoose.Image = Multi_Ok
+        btnChoose.Image = mgrResources.GetResource("Multi_Ok", GetType(Image))
         lblChoose.Text = frmChooseGame_lblChoose
     End Sub
 

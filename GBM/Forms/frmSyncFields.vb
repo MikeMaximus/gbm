@@ -39,13 +39,13 @@ Public Class frmSyncFields
 
         'Set Form Name
         Me.Text = frmSyncFields_FormName
-        Me.Icon = GBM_Icon
+        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
 
         'Set Form Text
         btnCancel.Text = frmSyncFields_btnCancel
-        btnCancel.Image = Multi_Cancel
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
         btnSave.Text = frmSyncFields_btnSave
-        btnSave.Image = Multi_Save
+        btnSave.Image = mgrResources.GetResource("Multi_Save", GetType(Image))
         grpFields.Text = frmSyncFields_grpFields
         chkMonitorGame.Text = frmSyncFields_chkMonitorGame
         chkIcon.Text = frmSyncFields_chkIcon

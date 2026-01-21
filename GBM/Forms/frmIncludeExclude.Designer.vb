@@ -23,9 +23,7 @@ Partial Class frmIncludeExclude
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmIncludeExclude))
         Me.treFiles = New System.Windows.Forms.TreeView()
-        Me.imgIcons = New System.Windows.Forms.ImageList(Me.components)
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.txtRootFolder = New System.Windows.Forms.TextBox()
@@ -52,21 +50,10 @@ Partial Class frmIncludeExclude
         'treFiles
         '
         Me.treFiles.CheckBoxes = True
-        Me.treFiles.ImageIndex = 0
-        Me.treFiles.ImageList = Me.imgIcons
         Me.treFiles.Location = New System.Drawing.Point(12, 64)
         Me.treFiles.Name = "treFiles"
-        Me.treFiles.SelectedImageIndex = 0
         Me.treFiles.Size = New System.Drawing.Size(280, 333)
         Me.treFiles.TabIndex = 1
-        '
-        'imgIcons
-        '
-        Me.imgIcons.ImageStream = CType(resources.GetObject("imgIcons.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.imgIcons.TransparentColor = System.Drawing.Color.Transparent
-        Me.imgIcons.Images.SetKeyName(0, "frmIncludeExclude_Folder.ico")
-        Me.imgIcons.Images.SetKeyName(1, "frmIncludeExclude_File.ico")
-        Me.imgIcons.Images.SetKeyName(2, "frmIncludeExclude_Type.ico")
         '
         'btnSave
         '
@@ -116,7 +103,6 @@ Partial Class frmIncludeExclude
         Me.lstBuilder.Location = New System.Drawing.Point(352, 39)
         Me.lstBuilder.Name = "lstBuilder"
         Me.lstBuilder.Size = New System.Drawing.Size(280, 394)
-        Me.lstBuilder.SmallImageList = Me.imgIcons
         Me.lstBuilder.TabIndex = 5
         Me.lstBuilder.UseCompatibleStateImageBehavior = False
         Me.lstBuilder.View = System.Windows.Forms.View.List
@@ -277,7 +263,6 @@ Partial Class frmIncludeExclude
 
     End Sub
     Friend WithEvents treFiles As System.Windows.Forms.TreeView
-    Friend WithEvents imgIcons As System.Windows.Forms.ImageList
     Friend WithEvents btnSave As System.Windows.Forms.Button
     Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents txtRootFolder As System.Windows.Forms.TextBox

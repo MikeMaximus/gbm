@@ -76,17 +76,17 @@ Public Class frmSessions
         mgrDarkMode.SetDarkMode(Me)
 
         Me.Text = frmSessions_Name
-        Me.Icon = GBM_Icon
+        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
 
         'Init Labels
         lblFilter.Text = frmSessions_lblFilter
         lblDateRange.Text = frmSessions_lblDateRange
         btnDelete.Text = frmSessions_btnDelete
-        btnDelete.Image = Multi_Delete
+        btnDelete.Image = mgrResources.GetResource("Multi_Delete", GetType(Image))
         btnReset.Text = frmSessions_btnReset
-        btnReset.Image = Multi_Reset
+        btnReset.Image = mgrResources.GetResource("Multi_Reset", GetType(Image))
         btnExport.Text = frmSessions_btnExport
-        btnExport.Image = Multi_Export
+        btnExport.Image = mgrResources.GetResource("Multi_Export", GetType(Image))
 
         'Init Filter Timer
         tmFilterTimer = New Timer()

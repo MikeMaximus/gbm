@@ -881,7 +881,7 @@ Public Class frmGameManager
         ElseIf IO.File.Exists(sCachedIcon) Then
             pbIcon.Image = mgrCommon.SafeIconFromFile(sCachedIcon)
         Else
-            pbIcon.Image = Multi_Unknown
+            pbIcon.Image = mgrResources.GetResource("Multi_Unknown", GetType(Image))
         End If
 
         'Stats
@@ -968,7 +968,7 @@ Public Class frmGameManager
                 cmsRegEx.Checked = False
                 cmsUseWindowTitle.Checked = False
                 chkCleanFolder.Enabled = False
-                pbIcon.Image = Multi_Unknown
+                pbIcon.Image = mgrResources.GetResource("Multi_Unknown", GetType(Image))
                 cmsEnabled.Enabled = True
                 cmsMonitorOnly.Enabled = True
                 btnSave.Enabled = True
@@ -1045,7 +1045,7 @@ Public Class frmGameManager
                 WipeControls(grpCoreConfig.Controls)
                 WipeControls(grpGameInfo.Controls)
                 WipeControls(grpBackupInfo.Controls)
-                pbIcon.Image = Multi_Unknown
+                pbIcon.Image = mgrResources.GetResource("Multi_Unknown", GetType(Image))
                 btnSave.Enabled = False
                 btnCancel.Enabled = False
                 tbConfig.Enabled = False
@@ -1074,7 +1074,7 @@ Public Class frmGameManager
                 WipeControls(grpCoreConfig.Controls)
                 WipeControls(grpGameInfo.Controls)
                 WipeControls(grpBackupInfo.Controls)
-                pbIcon.Image = Multi_Unknown
+                pbIcon.Image = mgrResources.GetResource("Multi_Unknown", GetType(Image))
                 btnSave.Enabled = True
                 btnCancel.Enabled = False
                 cmsMonitorOnly.Checked = False
@@ -1793,26 +1793,26 @@ Public Class frmGameManager
 
         'Set Form Name
         Me.Text = frmGameManager_FormName
-        Me.Icon = GBM_Icon
+        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
 
         'Set Form text        
         tbConfig.Text = frmGameManager_tbConfig
         tbGameInfo.Text = frmGameManager_tbGameInfo
         tbBackupInfo.Text = frmGameManager_tbBackupInfo
         btnExport.Text = frmGameManager_btnExport
-        btnExport.Image = Multi_Export
+        btnExport.Image = mgrResources.GetResource("Multi_Export", GetType(Image))
         btnImport.Text = frmGameManager_btnImport
-        btnImport.Image = Multi_Import
+        btnImport.Image = mgrResources.GetResource("Multi_Import", GetType(Image))
         lblFilters.Text = frmGameManager_lblFilters
         cmsEnabled.Text = frmGameManager_cmsEnabled
         btnCancel.Text = frmGameManager_btnCancel
-        btnCancel.Image = Multi_Cancel
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
         cmsMonitorOnly.Text = frmGameManager_cmsMonitorOnly
         btnRestore.Text = frmGameManager_btnRestore
         btnBackup.Text = frmGameManager_btnBackup
         cmsImportData.Text = frmGameManager_cmsImportData
         btnSave.Text = frmGameManager_btnSave
-        btnSave.Image = Multi_Save
+        btnSave.Image = mgrResources.GetResource("Multi_Save", GetType(Image))
         lblRestorePath.Text = frmGameManager_lblRestorePath
         lblBackupFile.Text = frmGameManager_lblBackupFile
         lblRemote.Text = frmGameManager_lblRemote
@@ -1822,15 +1822,15 @@ Public Class frmGameManager
         lblCompany.Text = frmGameManager_lblCompany
         lblIcon.Text = frmGameManager_lblIcon
         btnAppPathBrowse.Text = frmGameManager_btnAppPathBrowse
-        btnOpenGameFolder.Image = frmGameManager_Folder_Open
+        btnOpenGameFolder.Image = mgrResources.GetResource("frmGameManager_Folder_Open", GetType(Image))
         lblGamePath.Text = frmGameManager_lblGamePath
         lblHours.Text = frmGameManager_lblHours
         btnExclude.Text = frmGameManager_btnExclude
-        btnExclude.Image = frmGameManager_Exclude_Items
+        btnExclude.Image = mgrResources.GetResource("frmGameManager_Exclude_Items", GetType(Image))
         btnInclude.Text = frmGameManager_btnInclude
-        btnInclude.Image = frmGameManager_Include_Items
+        btnInclude.Image = mgrResources.GetResource("frmGameManager_Include_Items", GetType(Image))
         btnSavePathBrowse.Text = frmGameManager_btnSavePathBrowse
-        btnOpenSaveFolder.Image = frmGameManager_Folder_Open
+        btnOpenSaveFolder.Image = mgrResources.GetResource("frmGameManager_Folder_Open", GetType(Image))
         btnProcessBrowse.Text = frmGameManager_btnProcessBrowse
         lblSavePath.Text = frmGameManager_lblSavePath
         lblProcess.Text = frmGameManager_lblProcess
@@ -1840,9 +1840,9 @@ Public Class frmGameManager
         chkFolderSave.Text = frmGameManager_chkFolderSave
         chkCleanFolder.Text = frmGameManager_chkCleanFolder
         btnDelete.Text = frmGameManager_btnDelete
-        btnDelete.Image = Multi_Delete
+        btnDelete.Image = mgrResources.GetResource("Multi_Delete", GetType(Image))
         btnAdd.Text = frmGameManager_btnAdd
-        btnAdd.Image = Multi_Add
+        btnAdd.Image = mgrResources.GetResource("Multi_Add", GetType(Image))
         cmsOfficial.Text = frmGameManager_cmsOfficial
         cmsOfficialLinux.Text = frmGameManager_cmsOfficialLinux
         cmsOfficialWindows.Text = frmGameManager_cmsOfficialWindows
@@ -1857,26 +1857,26 @@ Public Class frmGameManager
         lblTimeIntervalMinutes.Text = frmGameManager_lblTimeIntervalMinutes
         cmsDeleteOne.Text = frmGameManager_cmsDeleteOne
         cmsDeleteAll.Text = frmGameManager_cmsDeleteAll
-        btnLinks.Image = frmGameManager_Link
-        btnMonitorOptions.Image = Multi_Search
-        btnGameID.Image = frmGameManager_GameID
+        btnLinks.Image = mgrResources.GetResource("frmGameManager_Link", GetType(Image))
+        btnMonitorOptions.Image = mgrResources.GetResource("Multi_Search", GetType(Image))
+        btnGameID.Image = mgrResources.GetResource("frmGameManager_GameID", GetType(Image))
         lblComments.Text = frmGameManager_lblComments
         cmsRegEx.Text = frmGameManager_cmsRegEx
         cmsUseWindowTitle.Text = frmGameManager_cmsUseWindowTitle
-        btnProcessOptions.Image = frmGameManager_Process
+        btnProcessOptions.Image = mgrResources.GetResource("frmGameManager_Process", GetType(Image))
         btnAdvanced.Text = frmGameManager_btnAdvanced
-        btnAdvanced.Image = frmGameManager_Advanced
+        btnAdvanced.Image = mgrResources.GetResource("frmGameManager_Advanced", GetType(Image))
         btnCopy.Text = frmGameManager_btnCopy
-        btnCopy.Image = frmGameManager_Copy
+        btnCopy.Image = mgrResources.GetResource("frmGameManager_Copy", GetType(Image))
         cmsWineConfig.Text = frmGameManager_cmsWineConfig
         cmsLinkProcess.Text = frmGameManager_cmsLinkProcess
         cmsLinkConfiguration.Text = frmGameManager_cmsLinkConfiguration
         cmsLaunchSettings.Text = frmGamemanager_cmsLaunchSettings
         lblGameTags.Text = frmGameManager_lblGameTags
         lblTags.Text = frmGameManager_lblTags
-        btnBackupData.Image = frmGameManager_Backup_Data
-        btnMarkAsRestored.Image = frmGameManager_Mark
-        btnOpenBackupFolder.Image = frmGameManager_Folder_Open
+        btnBackupData.Image = mgrResources.GetResource("frmGameManager_Backup_Data", GetType(Image))
+        btnMarkAsRestored.Image = mgrResources.GetResource("frmGameManager_Mark", GetType(Image))
+        btnOpenBackupFolder.Image = mgrResources.GetResource("frmGameManager_Folder_Open", GetType(Image))
         btnMonitorOptions.Text = frmGameManager_ttHelp_btnMonitorOptions
         btnLinks.Text = frmGameManager_ttHelp_btnLinks
 

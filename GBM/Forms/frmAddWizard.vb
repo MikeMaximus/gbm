@@ -23,15 +23,15 @@ Public Class frmAddWizard
 
         'Set Form Name
         Me.Text = frmAddWizard_FormName
-        Me.Icon = GBM_Icon
+        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
 
         'Set Form Text
         btnCancel.Text = frmAddWizard_btnCancel
-        btnCancel.Image = Multi_Cancel
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", GetType(Image))
         btnNext.Text = frmAddWizard_btnNext
-        btnNext.Image = Multi_Next
+        btnNext.Image = mgrResources.GetResource("Multi_Next", GetType(Image))
         btnBack.Text = frmAddWizard_btnBack
-        btnBack.Image = Multi_Back
+        btnBack.Image = mgrResources.GetResource("Multi_Back", GetType(Image))
         lblStep1Title.Text = frmAddWizard_lblStep1Title
         lblStep1Instructions.Text = frmAddWizard_lblStep1Instructions
         lblStep1Intro.Text = frmAddWizard_lblStep1Intro
@@ -187,12 +187,12 @@ Public Class frmAddWizard
                 btnBack.Enabled = True
                 btnNext.Enabled = True
                 btnNext.Text = frmAddWizard_btnNext
-                btnNext.Image = Multi_Next
+                btnNext.Image = mgrResources.GetResource("Multi_Next", GetType(Image))
                 tabWizard.SelectTab(4)
             Case eSteps.Step5
                 btnBack.Enabled = True
                 btnNext.Text = frmAddWizard_btnNext_Finish
-                btnNext.Image = Multi_Ok
+                btnNext.Image = mgrResources.GetResource("Multi_Ok", GetType(Image))
                 tabWizard.SelectTab(5)
         End Select
     End Sub

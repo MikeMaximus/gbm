@@ -188,7 +188,8 @@ Public Class frmConfigLinks
         Else
             Me.Text = mgrCommon.FormatString(frmConfigLinks_FormNameSingle, GameName)
         End If
-        Me.Icon = GBM_Icon
+
+        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
 
         'Set Form Text
         lblFilter.Text = frmConfigLinks_lblFilter

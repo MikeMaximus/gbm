@@ -178,11 +178,12 @@ Public Class frmGameTags
         Else
             Me.Text = mgrCommon.FormatString(frmGameTags_FormNameSingle, GameName)
         End If
-        Me.Icon = GBM_Icon
+
+        Me.Icon = mgrResources.GetResource("GBM_Icon", GetType(Icon))
 
         'Set Form Text
         btnOpenTags.Text = frmGameTags_btnOpenTags
-        btnOpenTags.Image = Multi_Edit
+        btnOpenTags.Image = mgrResources.GetResource("Multi_Edit", GetType(Image))
         lblGameTags.Text = frmGameTags_lblGameTags
         lblTags.Text = frmGameTags_lblTags
         btnRemove.Text = frmGameTags_btnRemove

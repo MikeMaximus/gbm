@@ -321,6 +321,7 @@
     <Compile Include="Managers\mgrLaunchGame.vb" />
     <Compile Include="Managers\mgrLudusavi.vb" />
     <Compile Include="Managers\mgrMetadata.vb" />
+    <Compile Include="Managers\mgrResources.vb" />
     <Compile Include="Managers\mgrStoreVariables.vb" />
     <Compile Include="Managers\mgrSync.vb" />
     <Compile Include="Managers\mgrWineData.vb" />
@@ -500,6 +501,9 @@
     <Content Include="Resources\frmGameManager_Copy.png" />
     <Content Include="Resources\frmGameManager_Exclude_Items.png" />
     <Content Include="Resources\frmGameManager_Include_Items.png" />
+    <Content Include="Resources\frmIncludeExclude_File.png" />
+    <Content Include="Resources\frmIncludeExclude_Folder.png" />
+    <Content Include="Resources\frmIncludeExclude_Type.png" />
     <Content Include="Resources\frmMain_Normal.png" />
     <Content Include="Resources\frmMain_Portable.png" />
     <Content Include="Resources\Multi_Back.png" />
@@ -546,13 +550,10 @@
     <None Include="Resources\GBM_Icon.ico" />
     <Content Include="Resources\frmMain_Admin.png" />
     <Content Include="Resources\frmMain_Clock.png" />
-    <Content Include="Resources\frmIncludeExclude_File.ico" />
-    <Content Include="Resources\frmIncludeExclude_Folder.ico" />
     <Content Include="Resources\GBM_Icon_Detected.ico" />
     <Content Include="Resources\GBM_Icon_Ready.ico" />
     <Content Include="Resources\GBM_Icon_Stopped.ico" />
     <Content Include="Resources\frmMain_Notification.png" />
-    <Content Include="Resources\frmIncludeExclude_Type.ico" />
     <Content Include="Resources\frmMain_User.png" />
     <None Include="Resources\frmMain_Stopped.png" />
     <None Include="Resources\frmMain_Detected.png" />
