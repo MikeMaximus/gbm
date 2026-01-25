@@ -1809,7 +1809,9 @@ Public Class frmGameManager
         btnCancel.Image = mgrResources.GetResource("Multi_Cancel", mgrResources.ResourceType.Image)
         cmsMonitorOnly.Text = frmGameManager_cmsMonitorOnly
         btnRestore.Text = frmGameManager_btnRestore
+        btnRestore.Image = mgrResources.GetResource("Multi_Restore", mgrResources.ResourceType.Image)
         btnBackup.Text = frmGameManager_btnBackup
+        btnBackup.Image = mgrResources.GetResource("Multi_Backup", mgrResources.ResourceType.Image)
         cmsImportData.Text = frmGameManager_cmsImportData
         btnSave.Text = frmGameManager_btnSave
         btnSave.Image = mgrResources.GetResource("Multi_Save", mgrResources.ResourceType.Image)

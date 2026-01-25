@@ -9,6 +9,8 @@ Public Class mgrResources
         End Get
     End Property
 
+    Private Shared ReadOnly sIcons() As String = {".ico"}
+    Private Shared ReadOnly sImages() As String = {".bmp", ".gif", ".jpg", ".jpeg", ".png", ".wmf"}
     Private Shared hshCache As New Hashtable
 
     Public Enum ResourceType
@@ -17,7 +19,9 @@ Public Class mgrResources
     End Enum
 
     Public Shared Function GetResource(ByVal sResourceName As String, ByVal eType As ResourceType) As Object
-        Dim sOverrideFile As String = OverrideFolder & sResourceName
+        Dim sOverrideBase As String = OverrideFolder & sResourceName
+        Dim sOverrideTypes() As String
+        Dim sOverrideFile As String = String.Empty
         Dim oResource As Object
 
         'Use an already cached resource when possible
@@ -26,19 +30,29 @@ Public Class mgrResources
             Return oResource
         End If
 
-        'Set the file type of the resource override
-        'Only the same files types as the internal resources are supported
+        'Get a list of valid file types for the current resource
         Select Case eType
             Case ResourceType.Icon
-                sOverrideFile &= ".ico"
+                sOverrideTypes = sIcons
             Case ResourceType.Image
-                sOverrideFile &= ".png"
+                sOverrideTypes = sImages
             Case Else
                 Return Nothing
         End Select
 
-        'Check for and retrieve override resource       
-        If File.Exists(sOverrideFile) Then
+        'The first valid override found is used, based on the alphabetic order of the file extension.
+        For Each sType As String In sOverrideTypes
+            If File.Exists(sOverrideBase & sType) Then
+                sOverrideFile = sOverrideBase & sType
+                Exit For
+            End If
+        Next
+
+        If sOverrideFile = String.Empty Then
+            'Use internal resource when no override exists
+            oResource = ResourceManager.GetObject(sResourceName)
+        Else
+            'Retrieve the override resource if one exists
             Try
                 Select Case eType
                     Case ResourceType.Icon
@@ -56,9 +70,6 @@ Public Class mgrResources
                 oResource = ResourceManager.GetObject(sResourceName)
                 hshCache.Add(sResourceName, oResource)
             End Try
-        Else
-            'Use internal resource when no override exists
-            oResource = ResourceManager.GetObject(sResourceName)
         End If
 
         'Note that this will always return Nothing if the internal resource name does not exist.
