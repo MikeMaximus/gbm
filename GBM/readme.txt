@@ -2,12 +2,14 @@ Game Backup Monitor v1.4.4 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-January 20, 2026
+January 26, 2026
 
 New in 1.4.4
 
 General:
 
+- Fixed a major issue with portable mode not being able to find the backup or temporary folder if the location of the app changes.
+	- If you still experience this problem after upgrading to v1.4.4, just open the "Settings" window and click "Save" without changing anything then try to move the application.
 - Added Russian language support.
 	- Thank you oblako17 for providing the Russian translation and testing.
 - The UI has been overhauled (again) for better multi-language support.
