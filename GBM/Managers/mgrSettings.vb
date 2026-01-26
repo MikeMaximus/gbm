@@ -101,7 +101,7 @@ Public Class mgrSettings
     Public Shared Property TemporaryFolder As String
         Get
             'Handle a stored relative path for portable mode
-            If Not Path.IsPathRooted(sBackupFolder) Then
+            If Not Path.IsPathRooted(sTemporaryFolder) Then
                 Return Application.StartupPath & Path.DirectorySeparatorChar & sTemporaryFolder
             Else
                 Return sTemporaryFolder
@@ -179,11 +179,11 @@ Public Class mgrSettings
         Custom7zArguments = String.Empty
         Custom7zLocation = String.Empty
         If mgrPath.IsPortable Then
-            BackupFolder = Application.StartupPath & Path.DirectorySeparatorChar & App_FoldersBackup
+            sBackupFolder = Application.StartupPath & Path.DirectorySeparatorChar & App_FoldersBackup
         Else
-            BackupFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & Path.DirectorySeparatorChar & App_NameLong
+            sBackupFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & Path.DirectorySeparatorChar & App_NameLong
         End If
-        TemporaryFolder = mgrPath.SettingsRoot
+        sTemporaryFolder = mgrPath.SettingsRoot
         SyncFields = clsGame.eOptionalSyncFields.None
         SuppressMessages = eSuppressMessages.None
         AutoSaveLog = False
