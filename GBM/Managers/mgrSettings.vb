@@ -118,17 +118,17 @@ Public Class mgrSettings
     End Property
     Public Shared ReadOnly Property MetadataLocation As String
         Get
-            Return sTemporaryFolder & Path.DirectorySeparatorChar & App_MetadataFilename
+            Return TemporaryFolder & Path.DirectorySeparatorChar & App_MetadataFilename
         End Get
     End Property
     Public Shared ReadOnly Property IncludeFileLocation As String
         Get
-            Return sTemporaryFolder & Path.DirectorySeparatorChar & App_BackupIncludeFileName
+            Return TemporaryFolder & Path.DirectorySeparatorChar & App_BackupIncludeFileName
         End Get
     End Property
     Public Shared ReadOnly Property ExcludeFileLocation As String
         Get
-            Return sTemporaryFolder & Path.DirectorySeparatorChar & App_BackupExcludeFileName
+            Return TemporaryFolder & Path.DirectorySeparatorChar & App_BackupExcludeFileName
         End Get
     End Property
     Public Shared Property SyncFields As clsGame.eOptionalSyncFields
@@ -179,11 +179,11 @@ Public Class mgrSettings
         Custom7zArguments = String.Empty
         Custom7zLocation = String.Empty
         If mgrPath.IsPortable Then
-            sBackupFolder = Application.StartupPath & Path.DirectorySeparatorChar & App_FoldersBackup
+            BackupFolder = Application.StartupPath & Path.DirectorySeparatorChar & App_FoldersBackup
         Else
-            sBackupFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & Path.DirectorySeparatorChar & App_NameLong
+            BackupFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & Path.DirectorySeparatorChar & App_NameLong
         End If
-        sTemporaryFolder = mgrPath.SettingsRoot
+        TemporaryFolder = mgrPath.SettingsRoot
         SyncFields = clsGame.eOptionalSyncFields.None
         SuppressMessages = eSuppressMessages.None
         AutoSaveLog = False
