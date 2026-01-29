@@ -3263,4 +3263,16 @@
   <data name="frmProcessManager_lblDelaySeconds" xml:space="preserve">
     <value>秒</value>
   </data>
+  <data name="App_Language_Russian" xml:space="preserve">
+    <value>Русский (ロシア語 )</value>
+  </data>
+  <data name="App_FoldersBackup" xml:space="preserve">
+    <value>Backup Data</value>
+  </data>
+  <data name="App_FoldersOverride" xml:space="preserve">
+    <value>Override</value>
+  </data>
+  <data name="App_FoldersUser" xml:space="preserve">
+    <value>User Data</value>
+  </data>
 </root>

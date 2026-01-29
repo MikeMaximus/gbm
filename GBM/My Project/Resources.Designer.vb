@@ -151,6 +151,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Override.
+        '''</summary>
+        Friend ReadOnly Property App_FoldersOverride() As String
+            Get
+                Return ResourceManager.GetString("App_FoldersOverride", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to User Data.
         '''</summary>
         Friend ReadOnly Property App_FoldersUser() As String
@@ -219,6 +228,15 @@ Namespace My.Resources
         Friend ReadOnly Property App_Language_Japanese() As String
             Get
                 Return ResourceManager.GetString("App_Language_Japanese", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Русский (Russian).
+        '''</summary>
+        Friend ReadOnly Property App_Language_Russian() As String
+            Get
+                Return ResourceManager.GetString("App_Language_Russian", resourceCulture)
             End Get
         End Property
         
@@ -430,7 +448,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2025-12-02T14:18:46
+        '''  Looks up a localized string similar to 2026-01-21T01:03:57
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -3641,6 +3659,26 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmIncludeExclude_File() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmIncludeExclude_File", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmIncludeExclude_Folder() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmIncludeExclude_Folder", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to [PARAM] Builder.
         '''</summary>
         Friend ReadOnly Property frmIncludeExclude_FormName() As String
@@ -3745,6 +3783,16 @@ Namespace My.Resources
         Friend ReadOnly Property frmIncludeExclude_ToolTipTitle() As String
             Get
                 Return ResourceManager.GetString("frmIncludeExclude_ToolTipTitle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property frmIncludeExclude_Type() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("frmIncludeExclude_Type", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         

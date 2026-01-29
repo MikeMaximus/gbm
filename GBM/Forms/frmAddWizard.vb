@@ -23,15 +23,15 @@ Public Class frmAddWizard
 
         'Set Form Name
         Me.Text = frmAddWizard_FormName
-        Me.Icon = GBM_Icon
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         btnCancel.Text = frmAddWizard_btnCancel
-        btnCancel.Image = Multi_Cancel
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", mgrResources.ResourceType.Image)
         btnNext.Text = frmAddWizard_btnNext
-        btnNext.Image = Multi_Next
+        btnNext.Image = mgrResources.GetResource("Multi_Next", mgrResources.ResourceType.Image)
         btnBack.Text = frmAddWizard_btnBack
-        btnBack.Image = Multi_Back
+        btnBack.Image = mgrResources.GetResource("Multi_Back", mgrResources.ResourceType.Image)
         lblStep1Title.Text = frmAddWizard_lblStep1Title
         lblStep1Instructions.Text = frmAddWizard_lblStep1Instructions
         lblStep1Intro.Text = frmAddWizard_lblStep1Intro
@@ -87,7 +87,7 @@ Public Class frmAddWizard
                 Return mgrCommon.BooleanYesNo(bTimeStamp) & " (" & frmAddWizard_Summary_NoLimit & ")"
             End If
         Else
-                Return mgrCommon.BooleanYesNo(bTimeStamp)
+            Return mgrCommon.BooleanYesNo(bTimeStamp)
         End If
     End Function
 
@@ -139,7 +139,7 @@ Public Class frmAddWizard
         lstSummary.Columns.Add("Item")
         lstSummary.Columns.Add("Value")
         lstSummary.Columns(0).Width = 95
-        lstSummary.Columns(1).Width = 210
+        lstSummary.Columns(1).Width = 340
 
         sItems = {frmAddWizard_Summary_Name, frmAddWizard_Summary_Process, frmAddWizard_Summary_AbsolutePath, frmAddWizard_Summary_SavePath, frmAddWizard_Summary_FolderSave, frmAddWizard_Summary_Timestamp, frmAddWizard_Summary_Include, frmAddWizard_Summary_Exclude}
         sValues = {sName, sProcessSummaryText, mgrCommon.BooleanYesNo(bIsAbsolute), sSavePath, mgrCommon.BooleanYesNo(bFolderBackup), ShowSummaryLimit(bTimeStamp, iLimit), StringEmptyText(sFileType), StringEmptyText(sExcludeList)}
@@ -187,12 +187,12 @@ Public Class frmAddWizard
                 btnBack.Enabled = True
                 btnNext.Enabled = True
                 btnNext.Text = frmAddWizard_btnNext
-                btnNext.Image = Multi_Next
+                btnNext.Image = mgrResources.GetResource("Multi_Next", mgrResources.ResourceType.Image)
                 tabWizard.SelectTab(4)
             Case eSteps.Step5
                 btnBack.Enabled = True
                 btnNext.Text = frmAddWizard_btnNext_Finish
-                btnNext.Image = Multi_Ok
+                btnNext.Image = mgrResources.GetResource("Multi_Ok", mgrResources.ResourceType.Image)
                 tabWizard.SelectTab(5)
         End Select
     End Sub

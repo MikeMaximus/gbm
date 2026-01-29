@@ -239,19 +239,19 @@ Public Class frmTags
 
         'Set Form Name
         Me.Text = frmTags_FormName
-        Me.Icon = GBM_Icon
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         grpTag.Text = frmTags_grpTag
         lblName.Text = frmTags_lblName
         btnDelete.Text = frmTags_btnDelete
-        btnDelete.Image = Multi_Delete
+        btnDelete.Image = mgrResources.GetResource("Multi_Delete", mgrResources.ResourceType.Image)
         btnAdd.Text = frmTags_btnAdd
-        btnAdd.Image = Multi_Add
+        btnAdd.Image = mgrResources.GetResource("Multi_Add", mgrResources.ResourceType.Image)
         btnCancel.Text = frmTags_btnCancel
-        btnCancel.Image = Multi_Cancel
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", mgrResources.ResourceType.Image)
         btnSave.Text = frmTags_btnSave
-        btnSave.Image = Multi_Save
+        btnSave.Image = mgrResources.GetResource("Multi_Save", mgrResources.ResourceType.Image)
     End Sub
 
     Private Sub frmTags_Load(sender As Object, e As EventArgs) Handles MyBase.Load

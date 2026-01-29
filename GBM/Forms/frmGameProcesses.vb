@@ -178,11 +178,12 @@ Public Class frmGameProcesses
         Else
             Me.Text = mgrCommon.FormatString(frmGameProcesses_FormNameSingle, GameName)
         End If
-        Me.Icon = GBM_Icon
+
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         btnOpenProcesses.Text = frmGameProcesses_btnOpenProcesses
-        btnOpenProcesses.Image = Multi_Edit
+        btnOpenProcesses.Image = mgrResources.GetResource("Multi_Edit", mgrResources.ResourceType.Image)
         lblGameProcesses.Text = frmGameProcesses_lblGameProccesses
         lblProcesses.Text = frmGameProcesses_lblProcesses
         btnRemove.Text = frmGameProcesses_btnRemove

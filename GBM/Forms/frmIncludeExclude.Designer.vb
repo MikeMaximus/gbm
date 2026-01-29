@@ -23,9 +23,7 @@ Partial Class frmIncludeExclude
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmIncludeExclude))
         Me.treFiles = New System.Windows.Forms.TreeView()
-        Me.imgIcons = New System.Windows.Forms.ImageList(Me.components)
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.txtRootFolder = New System.Windows.Forms.TextBox()
@@ -52,28 +50,17 @@ Partial Class frmIncludeExclude
         'treFiles
         '
         Me.treFiles.CheckBoxes = True
-        Me.treFiles.ImageIndex = 0
-        Me.treFiles.ImageList = Me.imgIcons
         Me.treFiles.Location = New System.Drawing.Point(12, 64)
         Me.treFiles.Name = "treFiles"
-        Me.treFiles.SelectedImageIndex = 0
         Me.treFiles.Size = New System.Drawing.Size(280, 333)
         Me.treFiles.TabIndex = 1
-        '
-        'imgIcons
-        '
-        Me.imgIcons.ImageStream = CType(resources.GetObject("imgIcons.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.imgIcons.TransparentColor = System.Drawing.Color.Transparent
-        Me.imgIcons.Images.SetKeyName(0, "frmIncludeExclude_Folder.ico")
-        Me.imgIcons.Images.SetKeyName(1, "frmIncludeExclude_File.ico")
-        Me.imgIcons.Images.SetKeyName(2, "frmIncludeExclude_Type.ico")
         '
         'btnSave
         '
         Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
-        Me.btnSave.Location = New System.Drawing.Point(465, 405)
+        Me.btnSave.Location = New System.Drawing.Point(466, 439)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(80, 50)
+        Me.btnSave.Size = New System.Drawing.Size(80, 60)
         Me.btnSave.TabIndex = 7
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -82,9 +69,9 @@ Partial Class frmIncludeExclude
         'btnCancel
         '
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(551, 405)
+        Me.btnCancel.Location = New System.Drawing.Point(552, 439)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
+        Me.btnCancel.Size = New System.Drawing.Size(80, 60)
         Me.btnCancel.TabIndex = 8
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -101,9 +88,9 @@ Partial Class frmIncludeExclude
         '
         'btnBrowse
         '
-        Me.btnBrowse.Location = New System.Drawing.Point(262, 37)
+        Me.btnBrowse.Location = New System.Drawing.Point(262, 38)
         Me.btnBrowse.Name = "btnBrowse"
-        Me.btnBrowse.Size = New System.Drawing.Size(30, 20)
+        Me.btnBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnBrowse.TabIndex = 0
         Me.btnBrowse.Text = "..."
         Me.btnBrowse.UseVisualStyleBackColor = True
@@ -115,8 +102,7 @@ Partial Class frmIncludeExclude
         Me.lstBuilder.LabelEdit = True
         Me.lstBuilder.Location = New System.Drawing.Point(352, 39)
         Me.lstBuilder.Name = "lstBuilder"
-        Me.lstBuilder.Size = New System.Drawing.Size(280, 359)
-        Me.lstBuilder.SmallImageList = Me.imgIcons
+        Me.lstBuilder.Size = New System.Drawing.Size(280, 394)
         Me.lstBuilder.TabIndex = 5
         Me.lstBuilder.UseCompatibleStateImageBehavior = False
         Me.lstBuilder.View = System.Windows.Forms.View.List
@@ -170,7 +156,7 @@ Partial Class frmIncludeExclude
         Me.grpOptions.Controls.Add(Me.optIndividualFiles)
         Me.grpOptions.Location = New System.Drawing.Point(12, 403)
         Me.grpOptions.Name = "grpOptions"
-        Me.grpOptions.Size = New System.Drawing.Size(361, 46)
+        Me.grpOptions.Size = New System.Drawing.Size(280, 96)
         Me.grpOptions.TabIndex = 2
         Me.grpOptions.TabStop = False
         Me.grpOptions.Text = "Options"
@@ -178,7 +164,7 @@ Partial Class frmIncludeExclude
         'chkRecurseSubFolders
         '
         Me.chkRecurseSubFolders.AutoSize = True
-        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(185, 20)
+        Me.chkRecurseSubFolders.Location = New System.Drawing.Point(6, 65)
         Me.chkRecurseSubFolders.Name = "chkRecurseSubFolders"
         Me.chkRecurseSubFolders.Size = New System.Drawing.Size(120, 17)
         Me.chkRecurseSubFolders.TabIndex = 2
@@ -187,6 +173,7 @@ Partial Class frmIncludeExclude
         '
         'optFileTypes
         '
+        Me.optFileTypes.AutoSize = True
         Me.optFileTypes.Location = New System.Drawing.Point(6, 19)
         Me.optFileTypes.Name = "optFileTypes"
         Me.optFileTypes.Size = New System.Drawing.Size(73, 17)
@@ -197,7 +184,8 @@ Partial Class frmIncludeExclude
         '
         'optIndividualFiles
         '
-        Me.optIndividualFiles.Location = New System.Drawing.Point(85, 19)
+        Me.optIndividualFiles.AutoSize = True
+        Me.optIndividualFiles.Location = New System.Drawing.Point(6, 42)
         Me.optIndividualFiles.Name = "optIndividualFiles"
         Me.optIndividualFiles.Size = New System.Drawing.Size(94, 17)
         Me.optIndividualFiles.TabIndex = 1
@@ -217,9 +205,9 @@ Partial Class frmIncludeExclude
         'btnRawEdit
         '
         Me.btnRawEdit.Image = Global.GBM.My.Resources.Resources.Multi_Edit
-        Me.btnRawEdit.Location = New System.Drawing.Point(379, 404)
+        Me.btnRawEdit.Location = New System.Drawing.Point(352, 439)
         Me.btnRawEdit.Name = "btnRawEdit"
-        Me.btnRawEdit.Size = New System.Drawing.Size(80, 50)
+        Me.btnRawEdit.Size = New System.Drawing.Size(108, 60)
         Me.btnRawEdit.TabIndex = 6
         Me.btnRawEdit.Text = "Raw &Edit"
         Me.btnRawEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -229,7 +217,7 @@ Partial Class frmIncludeExclude
         '
         Me.lblSaveFolder.Location = New System.Drawing.Point(12, 16)
         Me.lblSaveFolder.Name = "lblSaveFolder"
-        Me.lblSaveFolder.Size = New System.Drawing.Size(244, 13)
+        Me.lblSaveFolder.Size = New System.Drawing.Size(280, 13)
         Me.lblSaveFolder.TabIndex = 15
         Me.lblSaveFolder.Text = "Saved Game Explorer"
         Me.lblSaveFolder.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -245,7 +233,7 @@ Partial Class frmIncludeExclude
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(644, 461)
+        Me.ClientSize = New System.Drawing.Size(644, 511)
         Me.Controls.Add(Me.lblSaveFolder)
         Me.Controls.Add(Me.btnRawEdit)
         Me.Controls.Add(Me.lblItems)
@@ -275,7 +263,6 @@ Partial Class frmIncludeExclude
 
     End Sub
     Friend WithEvents treFiles As System.Windows.Forms.TreeView
-    Friend WithEvents imgIcons As System.Windows.Forms.ImageList
     Friend WithEvents btnSave As System.Windows.Forms.Button
     Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents txtRootFolder As System.Windows.Forms.TextBox

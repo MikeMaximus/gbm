@@ -235,8 +235,12 @@ Public Class frmSettings
 
     Private Sub SetDefaults()
         If mgrCommon.ShowMessage(frmSettings_ConfirmDefaults, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            'Reset all Settings to their default
             mgrSettings.SetDefaults()
+            'Populate the form based on defaults
             LoadSettings()
+            'Reload the original settings so changes can be validated correctly when saving
+            mgrSettings.LoadSettings()
         End If
     End Sub
 
@@ -454,7 +458,7 @@ Public Class frmSettings
 
         'Set Form Name
         Me.Text = frmSettings_FormName
-        Me.Icon = GBM_Icon
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         lblMinutes.Text = frmSettings_lblMinutes
@@ -470,9 +474,9 @@ Public Class frmSettings
         chkStorePathAutoConfig.Text = frmSettings_chkStorePathAutoConfig
         chkBackupConfirm.Text = frmSettings_chkBackupConfirm
         btnCancel.Text = frmSettings_btnCancel
-        btnCancel.Image = Multi_Cancel
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", mgrResources.ResourceType.Image)
         btnSave.Text = frmSettings_btnSave
-        btnSave.Image = Multi_Save
+        btnSave.Image = mgrResources.GetResource("Multi_Save", mgrResources.ResourceType.Image)
         grpFolderOptions.Text = frmSettings_grpFolderOptions
         btnBackupFolder.Text = frmSettings_btnBackupFolder
         lblBackupFolder.Text = frmSettings_lblBackupFolder
@@ -492,12 +496,12 @@ Public Class frmSettings
         grp7zInformation.Text = frmSettings_grp7zInformation
         lblCompression.Text = frmSettings_lblCompression
         btnDefaults.Text = frmSettings_btnDefaults
-        btnDefaults.Image = Multi_Reset
+        btnDefaults.Image = mgrResources.GetResource("Multi_Reset", mgrResources.ResourceType.Image)
         lblArguments.Text = frmSettings_lblArguments
         lblLocation.Text = frmSettings_lblLocation
         btnOptionalFields.Text = frmSettings_btnOptionalFields
         btnResetMessages.Text = frmSettings_btnResetMessages
-        btnResetMessages.Image = Multi_Reset
+        btnResetMessages.Image = mgrResources.GetResource("Multi_Reset", mgrResources.ResourceType.Image)
         chkBackupOnLaunch.Text = frmSettings_chkBackupOnLaunch
         grpBackupConfirmations.Text = frmSettings_grpBackupConfirmations
         grpLogOptions.Text = frmSettings_grpLogOptions

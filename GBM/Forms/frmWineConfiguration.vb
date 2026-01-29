@@ -21,7 +21,7 @@ Public Class frmWineConfiguration
 
         'Set Form Name
         Me.Text = mgrCommon.FormatString(frmWineConfiguration_FormName, GameName)
-        Me.Icon = GBM_Icon
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         grpWineConfig.Text = frmWineConfiguration_grpWineConfig
@@ -29,9 +29,9 @@ Public Class frmWineConfiguration
         lblWinePrefix.Text = frmWineConfiguration_lblWinePrefix
         lblWineSavePath.Text = frmWineConfiguration_lblWineSavePath
         btnSave.Text = frmWineConfiguration_btnSave
-        btnSave.Image = Multi_Save
+        btnSave.Image = mgrResources.GetResource("Multi_Save", mgrResources.ResourceType.Image)
         btnCancel.Text = frmWineConfiguration_btnCancel
-        btnCancel.Image = Multi_Cancel
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", mgrResources.ResourceType.Image)
     End Sub
 
     Private Sub LoadData()

@@ -26,6 +26,7 @@ Partial Class frmVariableManager
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.grpVariable = New System.Windows.Forms.GroupBox()
+        Me.txtID = New System.Windows.Forms.TextBox()
         Me.btnPathBrowse = New System.Windows.Forms.Button()
         Me.txtName = New System.Windows.Forms.TextBox()
         Me.txtPath = New System.Windows.Forms.TextBox()
@@ -33,7 +34,6 @@ Partial Class frmVariableManager
         Me.lblName = New System.Windows.Forms.Label()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
-        Me.txtID = New System.Windows.Forms.TextBox()
         Me.grpVariable.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -51,9 +51,9 @@ Partial Class frmVariableManager
         Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnDelete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnDelete.Image = Global.GBM.My.Resources.Resources.Multi_Delete
-        Me.btnDelete.Location = New System.Drawing.Point(98, 164)
+        Me.btnDelete.Location = New System.Drawing.Point(108, 169)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(80, 50)
+        Me.btnDelete.Size = New System.Drawing.Size(90, 60)
         Me.btnDelete.TabIndex = 2
         Me.btnDelete.Text = "&Delete"
         Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -64,9 +64,9 @@ Partial Class frmVariableManager
         Me.btnAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAdd.Image = Global.GBM.My.Resources.Resources.Multi_Add
-        Me.btnAdd.Location = New System.Drawing.Point(12, 164)
+        Me.btnAdd.Location = New System.Drawing.Point(12, 169)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(80, 50)
+        Me.btnAdd.Size = New System.Drawing.Size(90, 60)
         Me.btnAdd.TabIndex = 1
         Me.btnAdd.Text = "&New"
         Me.btnAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -74,6 +74,7 @@ Partial Class frmVariableManager
         '
         'grpVariable
         '
+        Me.grpVariable.Controls.Add(Me.txtID)
         Me.grpVariable.Controls.Add(Me.btnPathBrowse)
         Me.grpVariable.Controls.Add(Me.txtName)
         Me.grpVariable.Controls.Add(Me.txtPath)
@@ -81,38 +82,48 @@ Partial Class frmVariableManager
         Me.grpVariable.Controls.Add(Me.lblName)
         Me.grpVariable.Location = New System.Drawing.Point(210, 12)
         Me.grpVariable.Name = "grpVariable"
-        Me.grpVariable.Size = New System.Drawing.Size(362, 77)
+        Me.grpVariable.Size = New System.Drawing.Size(362, 147)
         Me.grpVariable.TabIndex = 3
         Me.grpVariable.TabStop = False
         Me.grpVariable.Text = "Configuration"
         '
+        'txtID
+        '
+        Me.txtID.Enabled = False
+        Me.txtID.Location = New System.Drawing.Point(8, 121)
+        Me.txtID.Name = "txtID"
+        Me.txtID.Size = New System.Drawing.Size(33, 20)
+        Me.txtID.TabIndex = 0
+        Me.txtID.TabStop = False
+        Me.txtID.Visible = False
+        '
         'btnPathBrowse
         '
-        Me.btnPathBrowse.Location = New System.Drawing.Point(326, 45)
+        Me.btnPathBrowse.Location = New System.Drawing.Point(326, 78)
         Me.btnPathBrowse.Name = "btnPathBrowse"
-        Me.btnPathBrowse.Size = New System.Drawing.Size(30, 20)
+        Me.btnPathBrowse.Size = New System.Drawing.Size(30, 22)
         Me.btnPathBrowse.TabIndex = 3
         Me.btnPathBrowse.Text = "..."
         Me.btnPathBrowse.UseVisualStyleBackColor = True
         '
         'txtName
         '
-        Me.txtName.Location = New System.Drawing.Point(50, 19)
+        Me.txtName.Location = New System.Drawing.Point(6, 38)
         Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(306, 20)
+        Me.txtName.Size = New System.Drawing.Size(350, 20)
         Me.txtName.TabIndex = 1
         '
         'txtPath
         '
-        Me.txtPath.Location = New System.Drawing.Point(50, 45)
+        Me.txtPath.Location = New System.Drawing.Point(6, 78)
         Me.txtPath.Name = "txtPath"
-        Me.txtPath.Size = New System.Drawing.Size(270, 20)
+        Me.txtPath.Size = New System.Drawing.Size(314, 20)
         Me.txtPath.TabIndex = 2
         '
         'lblPath
         '
         Me.lblPath.AutoSize = True
-        Me.lblPath.Location = New System.Drawing.Point(6, 48)
+        Me.lblPath.Location = New System.Drawing.Point(3, 61)
         Me.lblPath.Name = "lblPath"
         Me.lblPath.Size = New System.Drawing.Size(32, 13)
         Me.lblPath.TabIndex = 1
@@ -121,7 +132,7 @@ Partial Class frmVariableManager
         'lblName
         '
         Me.lblName.AutoSize = True
-        Me.lblName.Location = New System.Drawing.Point(6, 22)
+        Me.lblName.Location = New System.Drawing.Point(3, 22)
         Me.lblName.Name = "lblName"
         Me.lblName.Size = New System.Drawing.Size(38, 13)
         Me.lblName.TabIndex = 0
@@ -131,9 +142,9 @@ Partial Class frmVariableManager
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(492, 164)
+        Me.btnCancel.Location = New System.Drawing.Point(482, 169)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
+        Me.btnCancel.Size = New System.Drawing.Size(90, 60)
         Me.btnCancel.TabIndex = 5
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -143,30 +154,19 @@ Partial Class frmVariableManager
         '
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnSave.Image = Global.GBM.My.Resources.Resources.Multi_Save
-        Me.btnSave.Location = New System.Drawing.Point(406, 164)
+        Me.btnSave.Location = New System.Drawing.Point(386, 169)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(80, 50)
+        Me.btnSave.Size = New System.Drawing.Size(90, 60)
         Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "&Save"
         Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.btnSave.UseVisualStyleBackColor = True
         '
-        'txtID
-        '
-        Me.txtID.Enabled = False
-        Me.txtID.Location = New System.Drawing.Point(539, 95)
-        Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(33, 20)
-        Me.txtID.TabIndex = 0
-        Me.txtID.TabStop = False
-        Me.txtID.Visible = False
-        '
         'frmVariableManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(584, 221)
-        Me.Controls.Add(Me.txtID)
+        Me.ClientSize = New System.Drawing.Size(584, 241)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.grpVariable)
@@ -183,7 +183,6 @@ Partial Class frmVariableManager
         Me.grpVariable.ResumeLayout(False)
         Me.grpVariable.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents lstVariables As System.Windows.Forms.ListBox

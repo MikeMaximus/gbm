@@ -80,33 +80,55 @@ Public Class mgrSettings
     End Property
     Public Shared Property BackupFolder As String
         Get
-            Return sBackupFolder
+            'Handle a stored relative path for portable mode
+            If Not Path.IsPathRooted(sBackupFolder) Then
+                Return Application.StartupPath & Path.DirectorySeparatorChar & sBackupFolder
+            Else
+                Return sBackupFolder
+            End If
         End Get
         Set(value As String)
-            sBackupFolder = value.TrimEnd(New Char() {"\", "/"})
+            'We need to properly handle a relative path, so portable mode doesn't break if the application folder changes location.
+            If value.Contains(Application.StartupPath) Then
+                sBackupFolder = value.Replace(Application.StartupPath & Path.DirectorySeparatorChar, String.Empty).TrimEnd(New Char() {"\", "/"})
+            Else
+                sBackupFolder = value.TrimEnd(New Char() {"\", "/"})
+            End If
+
         End Set
     End Property
+
     Public Shared Property TemporaryFolder As String
         Get
-            Return sTemporaryFolder
+            'Handle a stored relative path for portable mode
+            If Not Path.IsPathRooted(sTemporaryFolder) Then
+                Return Application.StartupPath & Path.DirectorySeparatorChar & sTemporaryFolder
+            Else
+                Return sTemporaryFolder
+            End If
         End Get
         Set(value As String)
-            sTemporaryFolder = value.TrimEnd(New Char() {"\", "/"})
+            'We need to properly handle a relative path, so portable mode doesn't break if the application folder changes location.
+            If value.Contains(Application.StartupPath) Then
+                sTemporaryFolder = value.Replace(Application.StartupPath & Path.DirectorySeparatorChar, String.Empty).TrimEnd(New Char() {"\", "/"})
+            Else
+                sTemporaryFolder = value.TrimEnd(New Char() {"\", "/"})
+            End If
         End Set
     End Property
     Public Shared ReadOnly Property MetadataLocation As String
         Get
-            Return sTemporaryFolder & Path.DirectorySeparatorChar & App_MetadataFilename
+            Return TemporaryFolder & Path.DirectorySeparatorChar & App_MetadataFilename
         End Get
     End Property
     Public Shared ReadOnly Property IncludeFileLocation As String
         Get
-            Return sTemporaryFolder & Path.DirectorySeparatorChar & App_BackupIncludeFileName
+            Return TemporaryFolder & Path.DirectorySeparatorChar & App_BackupIncludeFileName
         End Get
     End Property
     Public Shared ReadOnly Property ExcludeFileLocation As String
         Get
-            Return sTemporaryFolder & Path.DirectorySeparatorChar & App_BackupExcludeFileName
+            Return TemporaryFolder & Path.DirectorySeparatorChar & App_BackupExcludeFileName
         End Get
     End Property
     Public Shared Property SyncFields As clsGame.eOptionalSyncFields
@@ -157,11 +179,11 @@ Public Class mgrSettings
         Custom7zArguments = String.Empty
         Custom7zLocation = String.Empty
         If mgrPath.IsPortable Then
-            sBackupFolder = Application.StartupPath & Path.DirectorySeparatorChar & App_FoldersBackup
+            BackupFolder = Application.StartupPath & Path.DirectorySeparatorChar & App_FoldersBackup
         Else
-            sBackupFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & Path.DirectorySeparatorChar & App_NameLong
+            BackupFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & Path.DirectorySeparatorChar & App_NameLong
         End If
-        sTemporaryFolder = mgrPath.SettingsRoot
+        TemporaryFolder = mgrPath.SettingsRoot
         SyncFields = clsGame.eOptionalSyncFields.None
         SuppressMessages = eSuppressMessages.None
         AutoSaveLog = False
@@ -208,7 +230,7 @@ Public Class mgrSettings
         hshParams.Add("CreateSubFolder", CreateSubFolder)
         hshParams.Add("ShowOverwriteWarning", ShowOverwriteWarning)
         hshParams.Add("RestoreOnLaunch", RestoreOnLaunch)
-        hshParams.Add("BackupFolder", BackupFolder)
+        hshParams.Add("BackupFolder", sBackupFolder) 'We need to save the true value
         hshParams.Add("StartWithWindows", StartWithWindows)
         hshParams.Add("TimeTracking", TimeTracking)
         hshParams.Add("SuppressBackup", SuppressBackup)
@@ -226,7 +248,7 @@ Public Class mgrSettings
         hshParams.Add("DisableSyncMessages", DisableSyncMessages)
         hshParams.Add("ShowResolvedPaths", ShowResolvedPaths)
         hshParams.Add("DisableDiskSpaceCheck", DisableDiskSpaceCheck)
-        hshParams.Add("TemporaryFolder", TemporaryFolder)
+        hshParams.Add("TemporaryFolder", sTemporaryFolder) 'We need to save the true value
         hshParams.Add("ExitOnClose", ExitOnClose)
         hshParams.Add("ExitNoWarning", ExitNoWarning)
         hshParams.Add("EnableLauncher", EnableLauncher)

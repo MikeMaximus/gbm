@@ -289,22 +289,22 @@ Public Class frmProcessManager
 
         'Set Form Name
         Me.Text = frmProcessManager_FormName
-        Me.Icon = GBM_Icon
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         btnCancel.Text = frmProcessManager_btnCancel
-        btnCancel.Image = Multi_Cancel
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", mgrResources.ResourceType.Image)
         btnSave.Text = frmProcessManager_btnSave
-        btnSave.Image = Multi_Save
+        btnSave.Image = mgrResources.GetResource("Multi_Save", mgrResources.ResourceType.Image)
         grpProcess.Text = frmProcessManager_grpProcess
         btnProcessBrowse.Text = frmProcessManager_btnProcessBrowse
         lblProcess.Text = frmProcessManager_lblPath
         lblName.Text = frmProcessManager_lblName
         lblArguments.Text = frmProcessManager_lblArguments
         btnDelete.Text = frmProcessManager_btnDelete
-        btnDelete.Image = Multi_Delete
+        btnDelete.Image = mgrResources.GetResource("Multi_Delete", mgrResources.ResourceType.Image)
         btnAdd.Text = frmProcessManager_btnAdd
-        btnAdd.Image = Multi_Add
+        btnAdd.Image = mgrResources.GetResource("Multi_Add", mgrResources.ResourceType.Image)
         chkKillProcess.Text = frmProcessManager_chkKillProcess
         lblDelay.Text = frmProcessManager_lblDelay
         lblDelaySeconds.Text = frmProcessManager_lblDelaySeconds

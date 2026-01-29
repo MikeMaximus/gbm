@@ -684,6 +684,10 @@ Public Class mgrBackup
                 Exit For
             End If
 
+            'Before we start, verify the manifest for any game that save multiple backups
+            'We do this in case the user has manually deleted backup files and the manifest becomes out of sync
+            If oGame.AppendTimeStamp Then mgrManifest.VerifyManifestByGame(oGame)
+
             'Init
             oBackup = New clsBackup
             sBackupFile = mgrSettings.TemporaryFolder

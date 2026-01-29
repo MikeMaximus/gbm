@@ -456,16 +456,16 @@ Public Class frmAdvancedImport
 
         'Set Form Name
         Me.Text = frmAdvancedImport_FormName
-        Me.Icon = GBM_Icon
+        Me.Icon = mgrResources.GetResource("GBM_Icon", mgrResources.ResourceType.Icon)
 
         'Set Form Text
         lblFilter.Text = frmAdvancedImport_lblFilter
         btnDetectSavedGames.Text = frmAdvancedImport_btnDetectSavedGames
-        btnDetectSavedGames.Image = Multi_Search
+        btnDetectSavedGames.Image = mgrResources.GetResource("Multi_Search", mgrResources.ResourceType.Image)
         btnCancel.Text = frmAdvancedImport_btnCancel
-        btnCancel.Image = Multi_Cancel
+        btnCancel.Image = mgrResources.GetResource("Multi_Cancel", mgrResources.ResourceType.Image)
         btnImport.Text = frmAdvancedImport_btnImport
-        btnImport.Image = Multi_Import
+        btnImport.Image = mgrResources.GetResource("Multi_Import", mgrResources.ResourceType.Image)
         chkSelectAll.Text = frmAdvancedImport_chkSelectAll
         chkSelectedOnly.Text = frmAdvancedImport_chkSelectedOnly
         chkHideIgnored.Text = frmAdvancedImport_chkHideIgnored
@@ -473,10 +473,10 @@ Public Class frmAdvancedImport
 
         'Set Icons
         oImageList = New ImageList()
-        oImageList.Images.Add(frmAdvancedImport_New)
-        oImageList.Images.Add(frmAdvancedImport_Update)
-        oImageList.Images.Add(frmAdvancedImport_Ignored)
-        oImageList.Images.Add(frmAdvancedImport_Detected)
+        oImageList.Images.Add(mgrResources.GetResource("frmAdvancedImport_New", mgrResources.ResourceType.Image))
+        oImageList.Images.Add(mgrResources.GetResource("frmAdvancedImport_Update", mgrResources.ResourceType.Image))
+        oImageList.Images.Add(mgrResources.GetResource("frmAdvancedImport_Ignored", mgrResources.ResourceType.Image))
+        oImageList.Images.Add(mgrResources.GetResource("frmAdvancedImport_Detected", mgrResources.ResourceType.Image))
         lstGames.SmallImageList = oImageList
 
         'Set ListView

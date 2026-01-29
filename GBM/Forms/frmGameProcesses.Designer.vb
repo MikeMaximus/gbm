@@ -36,7 +36,7 @@ Partial Class frmGameProcesses
         Me.btnOpenProcesses.Image = Global.GBM.My.Resources.Resources.Multi_Edit
         Me.btnOpenProcesses.Location = New System.Drawing.Point(12, 229)
         Me.btnOpenProcesses.Name = "btnOpenProcesses"
-        Me.btnOpenProcesses.Size = New System.Drawing.Size(120, 50)
+        Me.btnOpenProcesses.Size = New System.Drawing.Size(150, 60)
         Me.btnOpenProcesses.TabIndex = 4
         Me.btnOpenProcesses.Text = "&Process Manager..."
         Me.btnOpenProcesses.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -44,21 +44,21 @@ Partial Class frmGameProcesses
         '
         'lblGameProcesses
         '
-        Me.lblGameProcesses.AutoSize = True
-        Me.lblGameProcesses.Location = New System.Drawing.Point(251, 8)
+        Me.lblGameProcesses.Location = New System.Drawing.Point(222, 8)
         Me.lblGameProcesses.Name = "lblGameProcesses"
-        Me.lblGameProcesses.Size = New System.Drawing.Size(93, 13)
+        Me.lblGameProcesses.Size = New System.Drawing.Size(150, 13)
         Me.lblGameProcesses.TabIndex = 0
         Me.lblGameProcesses.Text = "Current Processes"
+        Me.lblGameProcesses.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lblProcesses
         '
-        Me.lblProcesses.AutoSize = True
-        Me.lblProcesses.Location = New System.Drawing.Point(36, 8)
+        Me.lblProcesses.Location = New System.Drawing.Point(12, 8)
         Me.lblProcesses.Name = "lblProcesses"
-        Me.lblProcesses.Size = New System.Drawing.Size(102, 13)
+        Me.lblProcesses.Size = New System.Drawing.Size(150, 13)
         Me.lblProcesses.TabIndex = 0
         Me.lblProcesses.Text = "Available Processes"
+        Me.lblProcesses.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'btnRemove
         '
@@ -102,7 +102,7 @@ Partial Class frmGameProcesses
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(384, 286)
+        Me.ClientSize = New System.Drawing.Size(384, 301)
         Me.Controls.Add(Me.btnOpenProcesses)
         Me.Controls.Add(Me.lblGameProcesses)
         Me.Controls.Add(Me.lblProcesses)
@@ -120,7 +120,6 @@ Partial Class frmGameProcesses
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Edit Processes"
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 

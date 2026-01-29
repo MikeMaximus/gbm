@@ -40,9 +40,9 @@ Partial Class frmSessionExport
         'btnExport
         '
         Me.btnExport.Image = Global.GBM.My.Resources.Resources.Multi_Export
-        Me.btnExport.Location = New System.Drawing.Point(105, 215)
+        Me.btnExport.Location = New System.Drawing.Point(86, 215)
         Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(80, 50)
+        Me.btnExport.Size = New System.Drawing.Size(90, 60)
         Me.btnExport.TabIndex = 3
         Me.btnExport.Text = "&Export"
         Me.btnExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -51,9 +51,9 @@ Partial Class frmSessionExport
         'btnCancel
         '
         Me.btnCancel.Image = Global.GBM.My.Resources.Resources.Multi_Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(192, 215)
+        Me.btnCancel.Location = New System.Drawing.Point(182, 215)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(80, 50)
+        Me.btnCancel.Size = New System.Drawing.Size(90, 60)
         Me.btnCancel.TabIndex = 4
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -149,7 +149,7 @@ Partial Class frmSessionExport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(284, 271)
+        Me.ClientSize = New System.Drawing.Size(284, 286)
         Me.Controls.Add(Me.grpOptions)
         Me.Controls.Add(Me.grpDateType)
         Me.Controls.Add(Me.grpExportType)
