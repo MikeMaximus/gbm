@@ -9,8 +9,8 @@ Imports DarkModeForms
 Public Class mgrCommon
 
     'These need to be updated when upgrading the packaged 7z utility
-    Private Shared sUtility64Hash As String = "574BB90D17732F3CC4145FD4BA12D8F29B9D63400881C0E6FE3110C88B0485DE" 'v25.01 7za.exe x64
-    Private Shared sUtility32Hash As String = "26817725650583D99CA3E617A618DD75C0F71BD316B5761780B7361F5F824CAD" 'v25.01 7za.exe x86
+    Private Shared sUtility64Hash As String = "3A30D7761967AD217B90E3E3E02AABD82B13065D7401BF436ADEFDF75CFEA72E" 'v26.00 7za.exe x64
+    Private Shared sUtility32Hash As String = "392D39CADDFFB4B078807EE05E69C94719027AC9C9445503806E47116ACF6686" 'v26.00 7za.exe x86
     Private Shared sBlackList As String() = {"dosbox", "scummvm", "java", "python", "python.real", "python2.7", "mono", "wine"}
 
     Public Enum eSounds As Integer
