@@ -393,7 +393,7 @@ Public Class mgrCommon
     Public Shared Function IsProcessNotLaunchable(ByVal oGame As clsGame) As Boolean
         Dim bFound As Boolean = False
 
-        If oGame.ProcessName = String.Empty Or oGame.ProcessPath = String.Empty Or oGame.IsRegEx Then Return True
+        If oGame.ProcessName = String.Empty Or oGame.ProcessPath = String.Empty Or oGame.IsRegEx Or oGame.UseWindowTitle Then Return True
 
         If IsUnix() And oGame.OS = clsGame.eOS.Windows Then Return True
 
