@@ -376,7 +376,7 @@
     <value>保存されていない変更があります。保存しますか？</value>
   </data>
   <data name="frmGameManager_BackupTimeAndName" xml:space="preserve">
-    <value>[PARAM] ([PARAM])</value>
+    <value>[PARAM] - [PARAM] ([PARAM])</value>
   </data>
   <data name="frmGameManager_btnAdd" xml:space="preserve">
     <value>新規(&amp;N)</value>
@@ -3274,5 +3274,47 @@
   </data>
   <data name="App_FoldersUser" xml:space="preserve">
     <value>User Data</value>
+  </data>
+  <data name="App_FriendlyDateDay" xml:space="preserve">
+    <value>[PARAM]日前</value>
+  </data>
+  <data name="App_FriendlyDateDays" xml:space="preserve">
+    <value>[PARAM]日前</value>
+  </data>
+  <data name="App_FriendlyDateHour" xml:space="preserve">
+    <value>[PARAM]時間前</value>
+  </data>
+  <data name="App_FriendlyDateHours" xml:space="preserve">
+    <value>[PARAM]時間前</value>
+  </data>
+  <data name="App_FriendlyDateMinute" xml:space="preserve">
+    <value>[PARAM]分前</value>
+  </data>
+  <data name="App_FriendlyDateMinutes" xml:space="preserve">
+    <value>[PARAM]分前</value>
+  </data>
+  <data name="App_FriendlyDateMonth" xml:space="preserve">
+    <value>[PARAM]ヶ月前</value>
+  </data>
+  <data name="App_FriendlyDateMonths" xml:space="preserve">
+    <value>[PARAM]ヶ月前</value>
+  </data>
+  <data name="App_FriendlyDateSecond" xml:space="preserve">
+    <value>[PARAM]秒前</value>
+  </data>
+  <data name="App_FriendlyDateSeconds" xml:space="preserve">
+    <value>[PARAM]秒前</value>
+  </data>
+  <data name="App_FriendlyDateWeek" xml:space="preserve">
+    <value>[PARAM]週間前</value>
+  </data>
+  <data name="App_FriendlyDateWeeks" xml:space="preserve">
+    <value>[PARAM]週間前</value>
+  </data>
+  <data name="App_FriendlyDateYear" xml:space="preserve">
+    <value>[PARAM]年前</value>
+  </data>
+  <data name="App_FriendlyDateYears" xml:space="preserve">
+    <value>[PARAM]年前</value>
   </data>
 </root>

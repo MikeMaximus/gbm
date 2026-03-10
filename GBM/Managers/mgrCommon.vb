@@ -167,6 +167,45 @@ Public Class mgrCommon
         Return True
     End Function
 
+    Public Shared Function GetFriendlyDateDiff(ByVal dDate As Date) As String
+        Dim dDiff As Long = DateDiff(DateInterval.Second, dDate, Now)
+
+        Select Case dDiff
+            Case 0
+                Return FormatString(App_FriendlyDateSeconds, dDiff)
+            Case 1
+                Return FormatString(App_FriendlyDateSecond, dDiff)
+            Case 2 To 59
+                Return FormatString(App_FriendlyDateSeconds, dDiff)
+            Case 60 To 119
+                Return FormatString(App_FriendlyDateMinute, Math.Round(dDiff / 60))
+            Case 120 To 3539
+                Return FormatString(App_FriendlyDateMinutes, Math.Round(dDiff / 60))
+            Case 3540 To 5399
+                Return FormatString(App_FriendlyDateHour, Math.Round(dDiff / 3600))
+            Case 5400 To 82799
+                Return FormatString(App_FriendlyDateHours, Math.Round(dDiff / 3600))
+            Case 82800 To 86400
+                Return FormatString(App_FriendlyDateDay, Math.Round(dDiff / 86400))
+            Case 86401 To 518399
+                Return FormatString(App_FriendlyDateDays, Math.Round(dDiff / 86400))
+            Case 518400 To 604800
+                Return FormatString(App_FriendlyDateWeek, Math.Round(dDiff / 604800))
+            Case 604801 To 1972349
+                Return FormatString(App_FriendlyDateWeeks, Math.Round(dDiff / 604800))
+            Case 1972350 To 2629800
+                Return FormatString(App_FriendlyDateMonth, Math.Round(dDiff / 2629800))
+            Case 2629801 To 28927799
+                Return FormatString(App_FriendlyDateMonths, Math.Round(dDiff / 2629800))
+            Case 28927800 To 47336400
+                Return FormatString(App_FriendlyDateYear, Math.Round(dDiff / 31557600))
+            Case > 47336400
+                Return FormatString(App_FriendlyDateYears, Math.Round(dDiff / 31557600))
+        End Select
+
+        Return String.Empty
+    End Function
+
     Public Shared Function DateToUnix(ByVal dDate As DateTime) As Int64
         Return DateDiff(DateInterval.Second, #1/1/1970#, dDate)
     End Function
