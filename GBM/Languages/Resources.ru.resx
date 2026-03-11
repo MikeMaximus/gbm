@@ -377,7 +377,7 @@
     <value>В этой форме есть несохраненные изменения.  Вы хотите сохранить?</value>
   </data>
   <data name="frmGameManager_BackupTimeAndName" xml:space="preserve">
-    <value>[PARAM] - [PARAM] ([PARAM])</value>
+    <value>[PARAM] ([PARAM]) - [PARAM]</value>
   </data>
   <data name="frmGameManager_btnAdd" xml:space="preserve">
     <value>&amp;Новый</value>

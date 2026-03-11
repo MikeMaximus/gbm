@@ -2,12 +2,14 @@ Game Backup Monitor v1.4.5 Readme
 https://mikemaximus.github.io/gbm-web/
 gamebackupmonitor@gmail.com
 
-March 3, 2026
+March 11, 2026
 
 New in 1.4.5
 
 General:
 
+- Added a friendly age display (Ex.  15 minutes ago) to the Backup Management list.
+	- The age is always rounded down to the closest time unit, from seconds to years.
 - GBM will no longer attempt to launch games using a "Window Title" type configuration when it doesn't have the proper information to do so.
 - Updated Components
 	- 7-Zip 25.01 -> 26.00

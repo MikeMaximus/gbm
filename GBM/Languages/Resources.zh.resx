@@ -376,7 +376,7 @@
     <value>有未保存的更改，你需要保存吗？</value>
   </data>
   <data name="frmGameManager_BackupTimeAndName" xml:space="preserve">
-    <value>[PARAM] - [PARAM] ([PARAM])</value>
+    <value>[PARAM] ([PARAM]) - [PARAM]</value>
   </data>
   <data name="frmGameManager_btnAdd" xml:space="preserve">
     <value>添加</value>

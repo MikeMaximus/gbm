@@ -648,7 +648,7 @@ Public Class frmGameManager
             oCurrentBackups = mgrManifest.DoManifestGetByMonitorID(oApp.ID, mgrSQLite.Database.Remote)
 
             For Each oCurrentBackup In oCurrentBackups
-                oComboItems.Add(New KeyValuePair(Of String, String)(oCurrentBackup.ManifestID, mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {oCurrentBackup.DateUpdated, mgrCommon.GetFriendlyDateDiff(oCurrentBackup.DateUpdated), oCurrentBackup.UpdatedBy})))
+                oComboItems.Add(New KeyValuePair(Of String, String)(oCurrentBackup.ManifestID, mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {oCurrentBackup.DateUpdated, oCurrentBackup.UpdatedBy, mgrCommon.GetFriendlyDateDiff(oCurrentBackup.DateUpdated)})))
             Next
 
             CurrentBackupItem = DirectCast(oRemoteBackupData(oApp.ID), clsBackup)
@@ -692,7 +692,7 @@ Public Class frmGameManager
         If oLocalBackupData.Contains(oApp.ID) Then
             bLocalData = True
             oBackupInfo = DirectCast(oLocalBackupData(oApp.ID), clsBackup)
-            lblLocalBackupData.Text = mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {oBackupInfo.DateUpdated, mgrCommon.GetFriendlyDateDiff(oBackupInfo.DateUpdated), oBackupInfo.UpdatedBy})
+            lblLocalBackupData.Text = mgrCommon.FormatString(frmGameManager_BackupTimeAndName, New String() {oBackupInfo.DateUpdated, oBackupInfo.UpdatedBy, mgrCommon.GetFriendlyDateDiff(oBackupInfo.DateUpdated)})
         Else
             lblLocalBackupData.Text = frmGameManager_Unknown
         End If
