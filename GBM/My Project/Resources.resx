@@ -2624,7 +2624,7 @@
     <value>Are you sure you want to run a backup for [PARAM]? </value>
   </data>
   <data name="frmMain_ConfirmRestore" xml:space="preserve">
-    <value>Are you sure you want to restore the latest backup for [PARAM]?[BR][BR][PARAM] ([PARAM])</value>
+    <value>Are you sure you want to restore the latest backup for [PARAM]?[BR][BR][PARAM] ([PARAM]) - [PARAM]</value>
   </data>
   <data name="frmMain_ErrorIconCache" xml:space="preserve">
     <value>An error has occurred while saving the icon for [PARAM]:[BR][BR][PARAM]</value>

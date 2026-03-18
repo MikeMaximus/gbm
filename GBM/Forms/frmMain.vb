@@ -2034,7 +2034,7 @@ Public Class frmMain
                 If bHotKeyPressed Then
                     RunRestore(hshRestoreList, , True)
                 Else
-                    If mgrCommon.ShowMessage(frmMain_ConfirmRestore, New String() {oBackup(0).CroppedName, oBackup(0).DateUpdated, oBackup(0).UpdatedBy}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    If mgrCommon.ShowMessage(frmMain_ConfirmRestore, New String() {oBackup(0).CroppedName, oBackup(0).DateUpdated, oBackup(0).UpdatedBy, mgrCommon.GetFriendlyDateDiff(oBackup(0).DateUpdated)}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                         RunRestore(hshRestoreList)
                     End If
                 End If

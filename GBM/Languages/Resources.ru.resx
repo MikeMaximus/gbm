@@ -2625,7 +2625,7 @@
     <value>Уверены, что хотите запустить резервную копию для [PARAM] игр?</value>
   </data>
   <data name="frmMain_ConfirmRestore" xml:space="preserve">
-    <value>Уверены, что хотите восстановить последнюю резервную копию для [PARAM]?[BR][BR][PARAM] ([PARAM])</value>
+    <value>Уверены, что хотите восстановить последнюю резервную копию для [PARAM]?[BR][BR][PARAM] ([PARAM]) - [PARAM]</value>
   </data>
   <data name="frmMain_ErrorIconCache" xml:space="preserve">
     <value>Ошибка при сохранении значка для [PARAM]:[BR][BR][PARAM]</value>

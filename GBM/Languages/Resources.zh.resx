@@ -2625,7 +2625,7 @@
     <value>是否确实要为[PARAM]运行备份？</value>
   </data>
   <data name="frmMain_ConfirmRestore" xml:space="preserve">
-    <value>是否确实要还原[PARAM]的最新备份？[BR][BR][PARAM]（[PARAM]）</value>
+    <value>是否确实要还原[PARAM]的最新备份？[BR][BR][PARAM]（[PARAM]） - [PARAM]</value>
   </data>
   <data name="frmMain_ErrorIconCache" xml:space="preserve">
     <value>保存[PARAM]的图标时出错：[BR][BR][PARAM]</value>

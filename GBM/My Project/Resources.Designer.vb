@@ -574,7 +574,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2026-03-10T20:25:59
+        '''  Looks up a localized string similar to 2026-03-15T14:24:05
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -4674,7 +4674,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Are you sure you want to restore the latest backup for [PARAM]?[BR][BR][PARAM] ([PARAM]).
+        '''  Looks up a localized string similar to Are you sure you want to restore the latest backup for [PARAM]?[BR][BR][PARAM] ([PARAM]) - [PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_ConfirmRestore() As String
             Get

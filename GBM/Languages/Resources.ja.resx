@@ -2625,7 +2625,7 @@
     <value>[PARAM]のバックアップを実行してもよろしいですか？</value>
   </data>
   <data name="frmMain_ConfirmRestore" xml:space="preserve">
-    <value>[PARAM]の最新のバックアップを復元してもよろしいですか？[BR][BR][PARAM] ([PARAM])</value>
+    <value>[PARAM]の最新のバックアップを復元してもよろしいですか？[BR][BR][PARAM] ([PARAM]) - [PARAM]</value>
   </data>
   <data name="frmMain_ErrorIconCache" xml:space="preserve">
     <value>[PARAM]のアイコンを保存中にエラーが発生しました:[BR][BR][PARAM]</value>

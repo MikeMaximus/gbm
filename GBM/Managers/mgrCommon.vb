@@ -177,30 +177,30 @@ Public Class mgrCommon
                 Return FormatString(App_FriendlyDateSecond, dDiff)
             Case 2 To 59
                 Return FormatString(App_FriendlyDateSeconds, dDiff)
-            Case 60 To 119
+            Case 60 To 90
                 Return FormatString(App_FriendlyDateMinute, Math.Floor(dDiff / 60))
-            Case 120 To 3599
-                Return FormatString(App_FriendlyDateMinutes, Math.Floor(dDiff / 60))
-            Case 3600 To 7199
+            Case 91 To 3600
+                Return FormatString(App_FriendlyDateMinutes, Math.Round(dDiff / 60))
+            Case 3601 To 5400
                 Return FormatString(App_FriendlyDateHour, Math.Floor(dDiff / 3600))
-            Case 7200 To 86399
-                Return FormatString(App_FriendlyDateHours, Math.Floor(dDiff / 3600))
-            Case 86400 To 172799
+            Case 5401 To 86399
+                Return FormatString(App_FriendlyDateHours, Math.Round(dDiff / 3600))
+            Case 86400 To 129600
                 Return FormatString(App_FriendlyDateDay, Math.Floor(dDiff / 86400))
-            Case 172800 To 604799
-                Return FormatString(App_FriendlyDateDays, Math.Floor(dDiff / 86400))
-            Case 604800 To 1209599
+            Case 129601 To 604799
+                Return FormatString(App_FriendlyDateDays, Math.Round(dDiff / 86400))
+            Case 604800 To 907200
                 Return FormatString(App_FriendlyDateWeek, Math.Floor(dDiff / 604800))
-            Case 1209600 To 2629799
-                Return FormatString(App_FriendlyDateWeeks, Math.Floor(dDiff / 604800))
-            Case 2629800 To 5259599
+            Case 907201 To 2629799
+                Return FormatString(App_FriendlyDateWeeks, Math.Round(dDiff / 604800))
+            Case 2629800 To 3944700
                 Return FormatString(App_FriendlyDateMonth, Math.Floor(dDiff / 2629800))
-            Case 5259600 To 31557599
-                Return FormatString(App_FriendlyDateMonths, Math.Floor(dDiff / 2629800))
-            Case 31557600 To 63115199
+            Case 3944701 To 31557599
+                Return FormatString(App_FriendlyDateMonths, Math.Round(dDiff / 2629800))
+            Case 31557600 To 47336400
                 Return FormatString(App_FriendlyDateYear, Math.Floor(dDiff / 31557600))
-            Case >= 63115200
-                Return FormatString(App_FriendlyDateYears, Math.Floor(dDiff / 31557600))
+            Case >= 47336400
+                Return FormatString(App_FriendlyDateYears, Math.Round(dDiff / 31557600))
         End Select
 
         Return String.Empty
