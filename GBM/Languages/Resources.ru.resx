@@ -2610,10 +2610,10 @@
     <value>&amp;Восстановить</value>
   </data>
   <data name="frmMain_LastBackup" xml:space="preserve">
-    <value>Последняя резервная копия: [PARAM]</value>
+    <value>Последняя резервная копия: [PARAM] - [PARAM]</value>
   </data>
   <data name="frmMain_Lastplayed" xml:space="preserve">
-    <value>Последняя сыгранная игра: [PARAM]</value>
+    <value>Последняя сыгранная игра: [PARAM] - [PARAM]</value>
   </data>
   <data name="frmMain_NoBackups" xml:space="preserve">
     <value>Нет резервных копий</value>

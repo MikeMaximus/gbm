@@ -2610,10 +2610,10 @@
     <value>还原</value>
   </data>
   <data name="frmMain_LastBackup" xml:space="preserve">
-    <value>最近备份：[PARAM]</value>
+    <value>最近备份：[PARAM] - [PARAM]</value>
   </data>
   <data name="frmMain_Lastplayed" xml:space="preserve">
-    <value>最近游玩：[PARAM]</value>
+    <value>最近游玩：[PARAM] - [PARAM]</value>
   </data>
   <data name="frmMain_NoBackups" xml:space="preserve">
     <value>没有备份</value>

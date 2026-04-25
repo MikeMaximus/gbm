@@ -2609,10 +2609,10 @@
     <value>&amp;Restore</value>
   </data>
   <data name="frmMain_LastBackup" xml:space="preserve">
-    <value>Last Backup: [PARAM]</value>
+    <value>Last Backup: [PARAM] - [PARAM]</value>
   </data>
   <data name="frmMain_Lastplayed" xml:space="preserve">
-    <value>Last Played: [PARAM]</value>
+    <value>Last Played: [PARAM] - [PARAM]</value>
   </data>
   <data name="frmMain_NoBackups" xml:space="preserve">
     <value>No Backups</value>

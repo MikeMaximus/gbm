@@ -574,7 +574,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2026-03-15T14:24:05
+        '''  Looks up a localized string similar to 2026-03-18T14:31:04
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -5612,7 +5612,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Last Backup: [PARAM].
+        '''  Looks up a localized string similar to Last Backup: [PARAM] - [PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_LastBackup() As String
             Get
@@ -5630,7 +5630,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Last Played: [PARAM].
+        '''  Looks up a localized string similar to Last Played: [PARAM] - [PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_Lastplayed() As String
             Get
