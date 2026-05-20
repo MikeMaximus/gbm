@@ -398,37 +398,40 @@ Public Class mgrLudusavi
                                     End If
 
                                     If bSupportedPlatform And bSupportedStore Then
-                                        If Not oLudusaviPath.tags Is Nothing Then
-                                            For Each t As String In oLudusaviPath.tags
-                                                If (t = TagTypes.save.ToString And Options.IncludeSaves) Or (t = TagTypes.config.ToString And Options.IncludeConfigs) Then
-                                                    oGame = New clsGame
-                                                    oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
-                                                    oGame.Name = UnEscapeYAML(oLudusaviGamePair.Key)
-
-                                                    If bForcedWinConvert Then
-                                                        oGame.Path = ConvertPath(oLudusaviPathPair.Key, clsGame.eOS.Windows, w.store)
-                                                        oGame.OS = clsGame.eOS.Windows
-                                                        oGame.FolderSave = ConvertInclude(oGame.Path, oGame.FileType, True)
-                                                    Else
-                                                        oGame.Path = ConvertPath(oLudusaviPathPair.Key, oPlatform, w.store)
-                                                        oGame.OS = oPlatform
-                                                        oGame.FolderSave = ConvertInclude(oGame.Path, oGame.FileType, False)
-                                                    End If
-
-                                                    If oGame.OS = clsGame.eOS.Windows Then
-                                                        oGame.Path = oGame.Path.Replace("/", "\")
-                                                        oGame.FileType = oGame.FileType.Replace("/", "\")
-                                                    End If
-
-                                                    HandleTags(oLudusaviPath.tags, w.store, oGame)
-                                                    If Not (t = TagTypes.config.ToString And oLudusaviPath.tags.Length = 1) Then
-                                                        HandleLaunch(oGame, oLudusaviGame.launch, w.os, iPlatformBit)
-                                                    End If
-
-                                                    oConfigurations.Add(oGame)
-                                                End If
-                                            Next
+                                        'If the data hasn't been tagged, we will just assume it's a saved game location.
+                                        If oLudusaviPath.tags Is Nothing Then
+                                            oLudusaviPath.tags = New String() {"save"}
                                         End If
+
+                                        For Each t As String In oLudusaviPath.tags
+                                            If (t = TagTypes.save.ToString And Options.IncludeSaves) Or (t = TagTypes.config.ToString And Options.IncludeConfigs) Then
+                                                oGame = New clsGame
+                                                oGame.ID = mgrHash.Generate_MD5_GUID(oLudusaviGamePair.Key & oLudusaviPathPair.Key)
+                                                oGame.Name = UnEscapeYAML(oLudusaviGamePair.Key)
+
+                                                If bForcedWinConvert Then
+                                                    oGame.Path = ConvertPath(oLudusaviPathPair.Key, clsGame.eOS.Windows, w.store)
+                                                    oGame.OS = clsGame.eOS.Windows
+                                                    oGame.FolderSave = ConvertInclude(oGame.Path, oGame.FileType, True)
+                                                Else
+                                                    oGame.Path = ConvertPath(oLudusaviPathPair.Key, oPlatform, w.store)
+                                                    oGame.OS = oPlatform
+                                                    oGame.FolderSave = ConvertInclude(oGame.Path, oGame.FileType, False)
+                                                End If
+
+                                                If oGame.OS = clsGame.eOS.Windows Then
+                                                    oGame.Path = oGame.Path.Replace("/", "\")
+                                                    oGame.FileType = oGame.FileType.Replace("/", "\")
+                                                End If
+
+                                                HandleTags(oLudusaviPath.tags, w.store, oGame)
+                                                If Not (t = TagTypes.config.ToString And oLudusaviPath.tags.Length = 1) Then
+                                                    HandleLaunch(oGame, oLudusaviGame.launch, w.os, iPlatformBit)
+                                                End If
+
+                                                oConfigurations.Add(oGame)
+                                            End If
+                                        Next
                                     End If
                                 Next
                             End If
