@@ -1119,6 +1119,7 @@ Public Class frmMain
     Private Sub DisplaySelectedGameInfo()
         Dim oBackupList As List(Of clsBackup) = mgrManifest.DoManifestGetByMonitorID(oSelectedGame.ID, mgrSQLite.Database.Remote)
         Dim oLastPlayed As Object = mgrSessions.GetLastSessionDateTime(oSelectedGame)
+        Dim dLastPlayed As Date
         Dim sCachedIcon As String = mgrCommon.GetCachedIconPath(oSelectedGame.ID)
         Dim sTags As String = mgrGameTags.PrintTagsbyID(oSelectedGame.ID)
 
@@ -1157,11 +1158,12 @@ Public Class frmMain
         If oLastPlayed Is Nothing Then
             lblStatus2.Text = frmMain_NoSessions
         Else
-            lblStatus2.Text = mgrCommon.FormatString(frmMain_Lastplayed, mgrCommon.UnixToDate(CLng(oLastPlayed)))
+            dLastPlayed = mgrCommon.UnixToDate(CLng(oLastPlayed))
+            lblStatus2.Text = mgrCommon.FormatString(frmMain_Lastplayed, New String() {dLastPlayed, mgrCommon.GetFriendlyDateDiff(dLastPlayed)})
         End If
 
         If oBackupList.Count >= 1 Then
-            lblStatus3.Text = mgrCommon.FormatString(frmMain_LastBackup, oBackupList(0).DateUpdated)
+            lblStatus3.Text = mgrCommon.FormatString(frmMain_LastBackup, New String() {oBackupList(0).DateUpdated, mgrCommon.GetFriendlyDateDiff(oBackupList(0).DateUpdated)})
         Else
             lblStatus3.Text = frmMain_NoBackups
         End If
@@ -2034,7 +2036,7 @@ Public Class frmMain
                 If bHotKeyPressed Then
                     RunRestore(hshRestoreList, , True)
                 Else
-                    If mgrCommon.ShowMessage(frmMain_ConfirmRestore, New String() {oBackup(0).CroppedName, oBackup(0).DateUpdated, oBackup(0).UpdatedBy}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    If mgrCommon.ShowMessage(frmMain_ConfirmRestore, New String() {oBackup(0).CroppedName, oBackup(0).DateUpdated, oBackup(0).UpdatedBy, mgrCommon.GetFriendlyDateDiff(oBackup(0).DateUpdated)}, MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                         RunRestore(hshRestoreList)
                     End If
                 End If

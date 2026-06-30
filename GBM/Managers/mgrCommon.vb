@@ -9,8 +9,8 @@ Imports DarkModeForms
 Public Class mgrCommon
 
     'These need to be updated when upgrading the packaged 7z utility
-    Private Shared sUtility64Hash As String = "574BB90D17732F3CC4145FD4BA12D8F29B9D63400881C0E6FE3110C88B0485DE" 'v25.01 7za.exe x64
-    Private Shared sUtility32Hash As String = "26817725650583D99CA3E617A618DD75C0F71BD316B5761780B7361F5F824CAD" 'v25.01 7za.exe x86
+    Private Shared sUtility64Hash As String = "35D4D69D7CD6CB44558F208C3B1334268013F9DAF82D2DDA848893A1C30C59C2" 'v26.02 7za.exe x64
+    Private Shared sUtility32Hash As String = "BFB34635F295DF13EA1677C0D51D08FAFD2DA21A1C0BEA252DF6342D40E511A0" 'v26.02 7za.exe x86
     Private Shared sBlackList As String() = {"dosbox", "scummvm", "java", "python", "python.real", "python2.7", "mono", "wine"}
 
     Public Enum eSounds As Integer
@@ -165,6 +165,45 @@ Public Class mgrCommon
         End Try
 
         Return True
+    End Function
+
+    Public Shared Function GetFriendlyDateDiff(ByVal dDate As Date) As String
+        Dim dDiff As Long = DateDiff(DateInterval.Second, dDate, Now)
+
+        Select Case dDiff
+            Case 0
+                Return FormatString(App_FriendlyDateSeconds, dDiff)
+            Case 1
+                Return FormatString(App_FriendlyDateSecond, dDiff)
+            Case 2 To 59
+                Return FormatString(App_FriendlyDateSeconds, dDiff)
+            Case 60 To 90
+                Return FormatString(App_FriendlyDateMinute, Math.Floor(dDiff / 60))
+            Case 91 To 3600
+                Return FormatString(App_FriendlyDateMinutes, Math.Round(dDiff / 60))
+            Case 3601 To 5400
+                Return FormatString(App_FriendlyDateHour, Math.Floor(dDiff / 3600))
+            Case 5401 To 86399
+                Return FormatString(App_FriendlyDateHours, Math.Round(dDiff / 3600))
+            Case 86400 To 129600
+                Return FormatString(App_FriendlyDateDay, Math.Floor(dDiff / 86400))
+            Case 129601 To 604799
+                Return FormatString(App_FriendlyDateDays, Math.Round(dDiff / 86400))
+            Case 604800 To 907200
+                Return FormatString(App_FriendlyDateWeek, Math.Floor(dDiff / 604800))
+            Case 907201 To 2629799
+                Return FormatString(App_FriendlyDateWeeks, Math.Round(dDiff / 604800))
+            Case 2629800 To 3944700
+                Return FormatString(App_FriendlyDateMonth, Math.Floor(dDiff / 2629800))
+            Case 3944701 To 31557599
+                Return FormatString(App_FriendlyDateMonths, Math.Round(dDiff / 2629800))
+            Case 31557600 To 47336400
+                Return FormatString(App_FriendlyDateYear, Math.Floor(dDiff / 31557600))
+            Case >= 47336400
+                Return FormatString(App_FriendlyDateYears, Math.Round(dDiff / 31557600))
+        End Select
+
+        Return String.Empty
     End Function
 
     Public Shared Function DateToUnix(ByVal dDate As DateTime) As Int64
@@ -393,7 +432,7 @@ Public Class mgrCommon
     Public Shared Function IsProcessNotLaunchable(ByVal oGame As clsGame) As Boolean
         Dim bFound As Boolean = False
 
-        If oGame.ProcessName = String.Empty Or oGame.ProcessPath = String.Empty Or oGame.IsRegEx Then Return True
+        If oGame.ProcessName = String.Empty Or oGame.ProcessPath = String.Empty Or oGame.IsRegEx Or oGame.UseWindowTitle Then Return True
 
         If IsUnix() And oGame.OS = clsGame.eOS.Windows Then Return True
 

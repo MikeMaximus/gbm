@@ -13,6 +13,8 @@ Special Thanks:
 
 7-Zip - Igor Pavlov
 Dark-Mode-Forms - BlueMystical
+NHotKey - Thomas Levesque
+YamlDotNet - Antoine Aubry
 Sixpack Status Icons - JankoAtWarpSpeed.com
 Primo Icon Set - webdesignerdepot.com
 Sound Effects - Pixabay.com, UNIVERSFIELD(Pixabay)

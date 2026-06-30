@@ -52,8 +52,25 @@ Public Class mgrLaunchGame
         End If
     End Function
 
-    Private Shared Function RunGameExecutable(ByVal sFullPath As String, ByVal sArgs As String, Optional ByVal bAdmin As Boolean = False) As Boolean
+    Private Shared Sub LaunchGameOnSeperateThread(ByVal oGameToStart As Process)
+        Try
+            oGameToStart.Start()
+        Catch exWin32 As System.ComponentModel.Win32Exception
+            'If the launch fails due to required elevation, try it again and request elevation.
+            If exWin32.ErrorCode = 740 Then
+                oGameToStart.StartInfo.Verb = "runas"
+                oGameToStart.Start()
+            Else
+                mgrCommon.ShowMessage(mgrLaunchGame_ErrorException, exWin32.Message, MsgBoxStyle.Exclamation)
+            End If
+        Catch exAll As Exception
+            mgrCommon.ShowMessage(mgrLaunchGame_ErrorException, exAll.Message, MsgBoxStyle.Exclamation)
+        End Try
+    End Sub
+
+    Private Shared Function RunGameExecutable(ByVal sFullPath As String, ByVal sArgs As String) As Boolean
         Dim prsGame As New Process
+        Dim oThread As System.Threading.Thread
 
         'Give a warning when elevated
         If mgrCommon.IsElevated Then
@@ -62,28 +79,18 @@ Public Class mgrLaunchGame
             End If
         End If
 
-        Try
-            prsGame = New Process
-            prsGame.StartInfo.Arguments = sArgs
-            prsGame.StartInfo.FileName = sFullPath
-            prsGame.StartInfo.WorkingDirectory = Path.GetDirectoryName(sFullPath)
-            prsGame.StartInfo.UseShellExecute = True
-            prsGame.StartInfo.CreateNoWindow = True
-            If bAdmin Then prsGame.StartInfo.Verb = "runas"
-            prsGame.Start()
-            Return True
-        Catch exWin32 As System.ComponentModel.Win32Exception
-            'If the launch fails due to required elevation, try it again and request elevation.
-            If exWin32.ErrorCode = 740 Then
-                RunGameExecutable(sFullPath, sArgs, True)
-            Else
-                mgrCommon.ShowMessage(mgrLaunchGame_ErrorException, exWin32.Message, MsgBoxStyle.Exclamation)
-            End If
-            Return False
-        Catch exAll As Exception
-            mgrCommon.ShowMessage(mgrLaunchGame_ErrorException, exAll.Message, MsgBoxStyle.Exclamation)
-            Return False
-        End Try
+        prsGame = New Process
+        prsGame.StartInfo.Arguments = sArgs
+        prsGame.StartInfo.FileName = sFullPath
+        prsGame.StartInfo.WorkingDirectory = Path.GetDirectoryName(sFullPath)
+        prsGame.StartInfo.UseShellExecute = True
+        prsGame.StartInfo.CreateNoWindow = True
+
+        oThread = New System.Threading.Thread(AddressOf LaunchGameOnSeperateThread)
+        oThread.IsBackground = True
+        oThread.Start(prsGame)
+
+        Return True
     End Function
 
     Private Shared Function GetLaunchParameters(ByVal oGame As clsGame, ByVal oLaunchData As clsLaunchData) As String

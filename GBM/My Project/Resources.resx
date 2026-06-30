@@ -376,7 +376,7 @@
     <value>There are unsaved changes on this form.  Do you want to save?</value>
   </data>
   <data name="frmGameManager_BackupTimeAndName" xml:space="preserve">
-    <value>[PARAM] ([PARAM])</value>
+    <value>[PARAM] ([PARAM]) - [PARAM]</value>
   </data>
   <data name="frmGameManager_btnAdd" xml:space="preserve">
     <value>&amp;New</value>
@@ -2609,10 +2609,10 @@
     <value>&amp;Restore</value>
   </data>
   <data name="frmMain_LastBackup" xml:space="preserve">
-    <value>Last Backup: [PARAM]</value>
+    <value>Last Backup: [PARAM] - [PARAM]</value>
   </data>
   <data name="frmMain_Lastplayed" xml:space="preserve">
-    <value>Last Played: [PARAM]</value>
+    <value>Last Played: [PARAM] - [PARAM]</value>
   </data>
   <data name="frmMain_NoBackups" xml:space="preserve">
     <value>No Backups</value>
@@ -2624,7 +2624,7 @@
     <value>Are you sure you want to run a backup for [PARAM]? </value>
   </data>
   <data name="frmMain_ConfirmRestore" xml:space="preserve">
-    <value>Are you sure you want to restore the latest backup for [PARAM]?[BR][BR][PARAM] ([PARAM])</value>
+    <value>Are you sure you want to restore the latest backup for [PARAM]?[BR][BR][PARAM] ([PARAM]) - [PARAM]</value>
   </data>
   <data name="frmMain_ErrorIconCache" xml:space="preserve">
     <value>An error has occurred while saving the icon for [PARAM]:[BR][BR][PARAM]</value>
@@ -3288,5 +3288,47 @@
   </data>
   <data name="frmIncludeExclude_Type" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frmIncludeExclude_Type.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="App_FriendlyDateDay" xml:space="preserve">
+    <value>[PARAM] day ago</value>
+  </data>
+  <data name="App_FriendlyDateDays" xml:space="preserve">
+    <value>[PARAM] days ago</value>
+  </data>
+  <data name="App_FriendlyDateHour" xml:space="preserve">
+    <value>[PARAM] hour ago</value>
+  </data>
+  <data name="App_FriendlyDateHours" xml:space="preserve">
+    <value>[PARAM] hours ago</value>
+  </data>
+  <data name="App_FriendlyDateMinute" xml:space="preserve">
+    <value>[PARAM] minute ago</value>
+  </data>
+  <data name="App_FriendlyDateMinutes" xml:space="preserve">
+    <value>[PARAM] minutes ago</value>
+  </data>
+  <data name="App_FriendlyDateMonth" xml:space="preserve">
+    <value>[PARAM] month ago</value>
+  </data>
+  <data name="App_FriendlyDateMonths" xml:space="preserve">
+    <value>[PARAM] months ago</value>
+  </data>
+  <data name="App_FriendlyDateSecond" xml:space="preserve">
+    <value>[PARAM] second ago</value>
+  </data>
+  <data name="App_FriendlyDateSeconds" xml:space="preserve">
+    <value>[PARAM] seconds ago</value>
+  </data>
+  <data name="App_FriendlyDateWeek" xml:space="preserve">
+    <value>[PARAM] week ago</value>
+  </data>
+  <data name="App_FriendlyDateWeeks" xml:space="preserve">
+    <value>[PARAM] weeks ago</value>
+  </data>
+  <data name="App_FriendlyDateYear" xml:space="preserve">
+    <value>[PARAM] year ago</value>
+  </data>
+  <data name="App_FriendlyDateYears" xml:space="preserve">
+    <value>[PARAM] years ago</value>
   </data>
 </root>

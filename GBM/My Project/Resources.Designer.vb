@@ -169,6 +169,132 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to [PARAM] day ago.
+        '''</summary>
+        Friend ReadOnly Property App_FriendlyDateDay() As String
+            Get
+                Return ResourceManager.GetString("App_FriendlyDateDay", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] days ago.
+        '''</summary>
+        Friend ReadOnly Property App_FriendlyDateDays() As String
+            Get
+                Return ResourceManager.GetString("App_FriendlyDateDays", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] hour ago.
+        '''</summary>
+        Friend ReadOnly Property App_FriendlyDateHour() As String
+            Get
+                Return ResourceManager.GetString("App_FriendlyDateHour", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] hours ago.
+        '''</summary>
+        Friend ReadOnly Property App_FriendlyDateHours() As String
+            Get
+                Return ResourceManager.GetString("App_FriendlyDateHours", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] minute ago.
+        '''</summary>
+        Friend ReadOnly Property App_FriendlyDateMinute() As String
+            Get
+                Return ResourceManager.GetString("App_FriendlyDateMinute", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] minutes ago.
+        '''</summary>
+        Friend ReadOnly Property App_FriendlyDateMinutes() As String
+            Get
+                Return ResourceManager.GetString("App_FriendlyDateMinutes", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] month ago.
+        '''</summary>
+        Friend ReadOnly Property App_FriendlyDateMonth() As String
+            Get
+                Return ResourceManager.GetString("App_FriendlyDateMonth", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] months ago.
+        '''</summary>
+        Friend ReadOnly Property App_FriendlyDateMonths() As String
+            Get
+                Return ResourceManager.GetString("App_FriendlyDateMonths", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] second ago.
+        '''</summary>
+        Friend ReadOnly Property App_FriendlyDateSecond() As String
+            Get
+                Return ResourceManager.GetString("App_FriendlyDateSecond", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] seconds ago.
+        '''</summary>
+        Friend ReadOnly Property App_FriendlyDateSeconds() As String
+            Get
+                Return ResourceManager.GetString("App_FriendlyDateSeconds", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] week ago.
+        '''</summary>
+        Friend ReadOnly Property App_FriendlyDateWeek() As String
+            Get
+                Return ResourceManager.GetString("App_FriendlyDateWeek", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] weeks ago.
+        '''</summary>
+        Friend ReadOnly Property App_FriendlyDateWeeks() As String
+            Get
+                Return ResourceManager.GetString("App_FriendlyDateWeeks", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] year ago.
+        '''</summary>
+        Friend ReadOnly Property App_FriendlyDateYear() As String
+            Get
+                Return ResourceManager.GetString("App_FriendlyDateYear", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to [PARAM] years ago.
+        '''</summary>
+        Friend ReadOnly Property App_FriendlyDateYears() As String
+            Get
+                Return ResourceManager.GetString("App_FriendlyDateYears", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Error: [PARAM].
         '''</summary>
         Friend ReadOnly Property App_GenericError() As String
@@ -448,7 +574,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2026-01-21T01:03:57
+        '''  Looks up a localized string similar to 2026-03-18T14:31:04
         '''.
         '''</summary>
         Friend ReadOnly Property BuildDate() As String
@@ -2031,7 +2157,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to [PARAM] ([PARAM]).
+        '''  Looks up a localized string similar to [PARAM] ([PARAM]) - [PARAM].
         '''</summary>
         Friend ReadOnly Property frmGameManager_BackupTimeAndName() As String
             Get
@@ -4548,7 +4674,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Are you sure you want to restore the latest backup for [PARAM]?[BR][BR][PARAM] ([PARAM]).
+        '''  Looks up a localized string similar to Are you sure you want to restore the latest backup for [PARAM]?[BR][BR][PARAM] ([PARAM]) - [PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_ConfirmRestore() As String
             Get
@@ -5486,7 +5612,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Last Backup: [PARAM].
+        '''  Looks up a localized string similar to Last Backup: [PARAM] - [PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_LastBackup() As String
             Get
@@ -5504,7 +5630,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Last Played: [PARAM].
+        '''  Looks up a localized string similar to Last Played: [PARAM] - [PARAM].
         '''</summary>
         Friend ReadOnly Property frmMain_Lastplayed() As String
             Get

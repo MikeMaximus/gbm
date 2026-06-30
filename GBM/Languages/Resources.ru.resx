@@ -377,7 +377,7 @@
     <value>В этой форме есть несохраненные изменения.  Вы хотите сохранить?</value>
   </data>
   <data name="frmGameManager_BackupTimeAndName" xml:space="preserve">
-    <value>[PARAM] ([PARAM])</value>
+    <value>[PARAM] ([PARAM]) - [PARAM]</value>
   </data>
   <data name="frmGameManager_btnAdd" xml:space="preserve">
     <value>&amp;Новый</value>
@@ -2610,10 +2610,10 @@
     <value>&amp;Восстановить</value>
   </data>
   <data name="frmMain_LastBackup" xml:space="preserve">
-    <value>Последняя резервная копия: [PARAM]</value>
+    <value>Последняя резервная копия: [PARAM] - [PARAM]</value>
   </data>
   <data name="frmMain_Lastplayed" xml:space="preserve">
-    <value>Последняя сыгранная игра: [PARAM]</value>
+    <value>Последняя сыгранная игра: [PARAM] - [PARAM]</value>
   </data>
   <data name="frmMain_NoBackups" xml:space="preserve">
     <value>Нет резервных копий</value>
@@ -2625,7 +2625,7 @@
     <value>Уверены, что хотите запустить резервную копию для [PARAM] игр?</value>
   </data>
   <data name="frmMain_ConfirmRestore" xml:space="preserve">
-    <value>Уверены, что хотите восстановить последнюю резервную копию для [PARAM]?[BR][BR][PARAM] ([PARAM])</value>
+    <value>Уверены, что хотите восстановить последнюю резервную копию для [PARAM]?[BR][BR][PARAM] ([PARAM]) - [PARAM]</value>
   </data>
   <data name="frmMain_ErrorIconCache" xml:space="preserve">
     <value>Ошибка при сохранении значка для [PARAM]:[BR][BR][PARAM]</value>
@@ -3280,5 +3280,47 @@
   </data>
   <data name="App_FoldersOverride" xml:space="preserve">
     <value>Override</value>
+  </data>
+  <data name="App_FriendlyDateDay" xml:space="preserve">
+    <value>[PARAM] день назад</value>
+  </data>
+  <data name="App_FriendlyDateDays" xml:space="preserve">
+    <value>[PARAM] дня назад</value>
+  </data>
+  <data name="App_FriendlyDateHour" xml:space="preserve">
+    <value>[PARAM] час назад</value>
+  </data>
+  <data name="App_FriendlyDateHours" xml:space="preserve">
+    <value>[PARAM] часа назад</value>
+  </data>
+  <data name="App_FriendlyDateMinute" xml:space="preserve">
+    <value>[PARAM] минута назад</value>
+  </data>
+  <data name="App_FriendlyDateMinutes" xml:space="preserve">
+    <value>[PARAM] минуты назад</value>
+  </data>
+  <data name="App_FriendlyDateMonth" xml:space="preserve">
+    <value>[PARAM] месяц назад</value>
+  </data>
+  <data name="App_FriendlyDateMonths" xml:space="preserve">
+    <value>[PARAM] месяца назад</value>
+  </data>
+  <data name="App_FriendlyDateSecond" xml:space="preserve">
+    <value>[PARAM] секунда назад</value>
+  </data>
+  <data name="App_FriendlyDateSeconds" xml:space="preserve">
+    <value>[PARAM] секунд назад</value>
+  </data>
+  <data name="App_FriendlyDateWeek" xml:space="preserve">
+    <value>[PARAM] неделю назад</value>
+  </data>
+  <data name="App_FriendlyDateWeeks" xml:space="preserve">
+    <value>[PARAM] недели назад</value>
+  </data>
+  <data name="App_FriendlyDateYear" xml:space="preserve">
+    <value>[PARAM] год назад</value>
+  </data>
+  <data name="App_FriendlyDateYears" xml:space="preserve">
+    <value>[PARAM] года назад</value>
   </data>
 </root>
