@@ -2197,10 +2197,6 @@
   <data name="frmStartUpWizard_lblStep2Warning" xml:space="preserve">
     <value>「次へ」をクリックした後は、この手順に戻ることはできません。バックアップ場所は、セットアップ完了後いつでも変更できます。</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="BuildDate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BuildDate.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
-  </data>
   <data name="frmGameManager_ConfirmMultiSave" xml:space="preserve">
     <value>選択したゲームに次の変更を保存しますか？[PARAM][BR][BR]監視を許可する: [PARAM][BR]ゲーム終了時にバックアップしない: [PARAM]</value>
   </data>
@@ -2714,83 +2710,8 @@
   <data name="mgrBackup_NotificationSingle" xml:space="preserve">
     <value>[PARAM] バックアップが完了しました。</value>
   </data>
-  <data name="frmAdvancedImport_New" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmAdvancedImport_New.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmAdvancedImport_Update" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmAdvancedImport_Update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmMain_Cancel_Small" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Cancel_Small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmMain_Notification" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Notification.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmMain_Play" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmMain_Ready" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Ready.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmMain_Searching" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Searching.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmMain_Stopped" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Stopped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmMain_User" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_User.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmMain_Working" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Working.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GBM_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GBM_Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Multi_Unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Multi_Unknown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmGameManager_Arrow_Submenu_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_Arrow_Submenu_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmGameManager_Backup_Data" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_Backup_Data.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmGameManager_Folder_Open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_Folder_Open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmGameManager_Mark" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_Mark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmGameManager_Process" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_Process.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmMain_Admin" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Admin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmMain_Collapse_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Collapse_Left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmMain_Expand_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Expand_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GBM_Icon_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GBM_Icon_Detected.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GBM_Icon_Ready" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GBM_Icon_Ready.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GBM_Icon_Stopped" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GBM_Icon_Stopped.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="frmGameManager_ConfirmRestoreSelected" xml:space="preserve">
     <value>[PARAM]の選択したバックアップを復元してもよろしいですか？フォームが閉じます。[BR][BR][PARAM] ([PARAM])</value>
-  </data>
-  <data name="Multi_Backup" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Multi_Backup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Multi_Restore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Multi_Restore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="frmSettings_grpGameManagerOptions" xml:space="preserve">
     <value>ゲームマネージャーオプション</value>
@@ -2819,21 +2740,6 @@
   <data name="frmSettings_lblDetectSpeed" xml:space="preserve">
     <value>検出速度:</value>
   </data>
-  <data name="frmGameManager_Link" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_Link.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Multi_Cancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Multi_Cancel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Multi_Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Multi_Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmGameManager_Advanced" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_Advanced.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmGameManager_GameID" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_GameID.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="frmGameManager_ttHelp_btnGameID" xml:space="preserve">
     <value>ゲームIDの変更</value>
   </data>
@@ -2846,50 +2752,8 @@
   <data name="frmGameManager_ttHelp_cboOS" xml:space="preserve">
     <value>オペレーティングシステム</value>
   </data>
-  <data name="Multi_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Multi_Add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Multi_Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Multi_Delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="frmLauncherManager_btnAddDefaults" xml:space="preserve">
     <value>デフォルト(&amp;E)</value>
-  </data>
-  <data name="Multi_Export" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Multi_Export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Multi_Import" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Multi_Import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Multi_Reset" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Multi_Reset.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Multi_Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Multi_Edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Multi_Ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Multi_Ok.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Multi_Search" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Multi_Search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Multi_Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Multi_Back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Multi_Next" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Multi_Next.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmGameManager_Exclude_Items" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_Exclude_Items.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmGameManager_Include_Items" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_Include_Items.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmMain_Clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Clock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmMain_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmMain_Detected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="frmMain_ResumeBackupQueue" xml:space="preserve">
     <value>不完全なバックアップ操作([PARAM])が自動的に再開されます。</value>
@@ -3131,9 +2995,6 @@
   <data name="frmGameManager_btnCopy" xml:space="preserve">
     <value>コピー(&amp;C)</value>
   </data>
-  <data name="frmGameManager_Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frmGameManager_Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="App_ConfirmDirtyWizard" xml:space="preserve">
     <value>ウィザードは完了していません。[BR][BR]終了して、すべての進行状況を失ってもよろしいですか？</value>
   </data>
@@ -3160,12 +3021,6 @@
   </data>
   <data name="frmAdvancedImport_cmiIgnore_Toggle" xml:space="preserve">
     <value>無視を切替</value>
-  </data>
-  <data name="frmAdvancedImport_Detected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\frmadvancedimport_detected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="frmAdvancedImport_Ignored" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\frmadvancedimport_ignored.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="frmAdvancedImport_IgnoredCount" xml:space="preserve">
     <value>[[PARAM] 無視]</value>

@@ -6,6 +6,10 @@ November 1, 2026
 
 New in 1.4.6
 
+General:
+
+- Removed duplicated resources from Japanese and Russian to reduced file size
+
 Windows:
 
 - Updated Components
